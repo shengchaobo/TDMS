@@ -19,7 +19,23 @@ public class DiAwardLevelService {
 	}
 	
 	/**
-	 * 新增一个学位
+
+	 * 校级及以�?
+	 * */
+	public List<DiAwardLevelBean> getListPart(){
+		return awardLevelDao.getListPart() ;
+	}
+	
+	/**
+	 * 校级、系�?
+	 * */
+	public List<DiAwardLevelBean> getListPartTwo(){
+		return awardLevelDao.getListPartTwo() ;
+	}
+	
+	/**
+
+	 * 新增一个学�?
 	 * @param degree
 	 * @return
 	 *

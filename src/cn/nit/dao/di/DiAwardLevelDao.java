@@ -16,7 +16,7 @@ public class DiAwardLevelDao {
 	private String field = "IndexID,AwardLevel" ;
 	
 	/**
-	 * 获取DiTitleLevel字典表的所有数据
+	 * 获取DiTitleLevel字典表的所有数�?
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:42
@@ -46,6 +46,60 @@ public class DiAwardLevelDao {
 	}
 	
 	/**
+
+	 * 得到校级及以上的
+	 * */
+	public List<DiAwardLevelBean> getListPart(){
+			
+			List<DiAwardLevelBean> list = null ;
+			String s1="50005";
+			String s2="50006";
+			StringBuffer sql = new StringBuffer() ;
+			sql.append("select " + field + " from " + tableName) ;
+			sql.append(" where IndexID !="+s1+" and IndexID !="+s2);
+			System.out.println(sql.toString());
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			
+			try{
+				st = conn.createStatement() ;
+				rs = st.executeQuery(sql.toString()) ;
+				list = DAOUtil.getList(rs, DiAwardLevelBean.class) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return list ;
+			}
+			return list ;
+		}
+	
+	/**
+	 * 得到校级和系级的
+	 * */
+	public List<DiAwardLevelBean> getListPartTwo(){
+			
+			List<DiAwardLevelBean> list = null ;
+			StringBuffer sql = new StringBuffer() ;
+			sql.append("select " + field + " from " + tableName) ;
+			sql.append(" where IndexID='50004' or IndexID='50005'");
+			System.out.println(sql.toString());
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			
+			try{
+				st = conn.createStatement() ;
+				rs = st.executeQuery(sql.toString()) ;
+				list = DAOUtil.getList(rs, DiAwardLevelBean.class) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return list ;
+			}
+			return list ;
+		}
+	
+	/**
+
 	 * 插入数据
 	 * @param DiIdentiType
 	 * @return

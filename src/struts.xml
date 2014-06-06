@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
@@ -42,6 +42,17 @@
      <!-- table4 -->
     <include file="cn/nit/configuration/table4/T411.xml"/>
     <include file="cn/nit/configuration/table4/T412.xml"/>
+    
+
+    <!-- table1 -->
+     <!-- t151校级以上科研机构单位（科研处） -->
+    <include file="cn/nit/configuration/table1/T151.xml"/>
+     <!-- t152校级以上科研机构单位 -->
+    <include file="cn/nit/configuration/table1/T152.xml"/>
+     <!-- t17校友会 -->
+    <include file="cn/nit/configuration/table1/T17.xml"/>
+     <!-- t181签订合作机构（教务处） -->
+    <include file="cn/nit/configuration/table1/T181.xml"/>
     
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>

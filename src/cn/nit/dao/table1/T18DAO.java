@@ -21,7 +21,7 @@ public class T18DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "FillDept,CooperInsName,CooperInsType,CooperInsLevel,SignedTime,UnitName,UnitID,UnitLevel,audit,Note,time" ;
+	private String field = "FillDept,CooperInsName,CooperInsType,CooperInsLevel,SignedTime,UnitName,UnitID,UnitLevel,audit,Note,Time" ;
 	
 	/**
 	 * 将数据表T181的实体类插入数据库
@@ -76,10 +76,8 @@ public class T18DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiAwardLevel dal") ;
-		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
-//		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-//		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiAwardLevel dal,DiAwardType dat") ;
+		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dat.IndexID=t.CooperInsLevel");		
 		int total = 0 ;
 		
 		if(fillUnitId != null && !fillUnitId.equals("")){
@@ -97,7 +95,6 @@ public class T18DAO {
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			
 			if(rs == null){
 				return total ;
 			}
@@ -121,10 +118,11 @@ public class T18DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T181POJO> list = null ;
-		sql.append("select t.SeqNumber,t.CooperInsName,t.CooperInsType,dal.AwardLevel as CooperInsLevel, t.CooperInsLevel as CooperInsLevelID" +
+		sql.append("select t.SeqNumber,t.CooperInsName,t.CooperInsType,dat.AwardType as CooperInsLevel, t.CooperInsLevel as CooperInsLevelID" +
 				",t.SignedTime,t.UnitName,t.UnitID,dal.AwardLevel as UnitLevel,t.UnitLevel as UnitLevelID, t.Note");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiAwardLevel dal");
-		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
+		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiAwardLevel dal,DiAwardType dat");
+		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dat.IndexID=t.CooperInsLevel" );
+//		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
 //		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
 //		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 //		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
@@ -150,6 +148,7 @@ public class T18DAO {
 			rs = st.executeQuery(sql.toString()) ;
 			rs.absolute((page - 1) * rows) ;
 			list = DAOUtil.getList(rs, T181POJO.class) ;
+		
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -199,6 +198,15 @@ public class T18DAO {
 	}
 	public String getTableName(){
 		return this.tableName ;
+	}
+	
+	public static void main(String arg[])
+	{
+		T18DAO dao=new T18DAO();
+//		int n=dao.totalAuditingData(null, null);
+		List<T181POJO> list=dao.auditingData(null, null, 1, 2);
+		System.out.println(list.size());
+		
 	}
 
 }

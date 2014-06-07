@@ -154,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   <div class="fitem">
 				   		<label>合作机构级别：</label> 
 				   		<input class='easyui-combobox' id="CooperInsLevel" name="t181Bean.CooperInsLevel" 
-							data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDiAwardLevel',listHeight:'auto',editable:false">
+							data-options="valueField:'indexId',textField:'awardType',url:'pages/DiAwardType/loadDiAwardType',listHeight:'auto',editable:false">
 						<span id="CooperInsLevelSpan"></span>
 					</div>
 				</td>	

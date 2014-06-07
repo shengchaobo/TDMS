@@ -16,7 +16,7 @@ public class DiAwardLevelDao {
 	private String field = "IndexID,AwardLevel" ;
 	
 	/**
-	 * 获取DiTitleLevel字典表的所有数据
+	 * 获取DiTitleLevel字典表的所有数�?
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:42
@@ -46,6 +46,7 @@ public class DiAwardLevelDao {
 	}
 	
 	/**
+
 	 * 得到校级及以上的
 	 * */
 	public List<DiAwardLevelBean> getListPart(){
@@ -98,6 +99,7 @@ public class DiAwardLevelDao {
 		}
 	
 	/**
+
 	 * 插入数据
 	 * @param DiIdentiType
 	 * @return

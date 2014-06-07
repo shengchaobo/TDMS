@@ -13,10 +13,11 @@ public class DiResearchRoomDao {
 	
 	private String tableName = "DiResearchRoom" ;
 	
-	private String field = "IndexID,ResearchRoom" ;
+	private String field = "UnitID,ParentID,ResearchName" ;
+
 	
 	/**
-	 * 获取DiResearchRoom字典表的所有数据
+	 * 获取DiResearchRoom字典表的所有数�?
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:42

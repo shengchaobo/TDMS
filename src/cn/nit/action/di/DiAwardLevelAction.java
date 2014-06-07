@@ -19,7 +19,7 @@ public class DiAwardLevelAction {
 
 	HttpServletResponse response = ServletActionContext.getResponse();
 	private DiAwardLevelService AwardLevelServices = new DiAwardLevelService() ;
-	//查出所有
+	//查出所�?
 	public void loadAwardLevel() throws Exception{
 		
 		List<DiAwardLevelBean> list = AwardLevelServices.getList() ;
@@ -73,7 +73,7 @@ public class DiAwardLevelAction {
 		}
 	
 	/**
-	 * 校级、系级
+	 * 校级、系�?
 	 * */
 	public void loadDIAwardLevelPartTwo(){
 			

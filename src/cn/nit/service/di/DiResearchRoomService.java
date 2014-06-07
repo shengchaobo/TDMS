@@ -10,7 +10,7 @@ public class DiResearchRoomService {
 	
 	private DiResearchRoomDao researchRoomDao = new DiResearchRoomDao() ;
 	/**
-	 * 加载所有的教研室
+	 * 加载所有的教研�?
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午03:04:36
@@ -36,4 +36,5 @@ public class DiResearchRoomService {
 		  List<DiResearchRoomBean> list=ser.getList();
 		  System.out.println(list.size());
 	  }
+
 }

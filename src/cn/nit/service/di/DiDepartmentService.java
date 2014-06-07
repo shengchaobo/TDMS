@@ -20,12 +20,14 @@ public class DiDepartmentService {
 	}
 	
 	/**
-	 * 获取科研室值
+
+	 * 获取科研室�?
 	 * */
 	public List<DiDepartmentBean> getListSci(){
 		return departmentDao.getListSci();
 	}
 	/**
+
 	 * 新增一个部门或单位
 	 * @param department
 	 * @return

@@ -19,7 +19,7 @@ public class DiDepartmentAction {
 
 	HttpServletResponse response = ServletActionContext.getResponse();
 	private DiDepartmentService DepartmentServices = new DiDepartmentService() ;
-	//查出所有
+	//查出所�?
 	public void loadDepartment() throws Exception{
 		
 		List<DiDepartmentBean> list = DepartmentServices.getList() ;

@@ -16,7 +16,7 @@ public class DiDepartmentDao {
 	private String field = "UnitID,UnitName,Class1,Class2,Functions,Leader,TeaID,Note" ;
 	
 	/**
-	 * 获取DiDepartment字典表的所有数据
+	 * 获取DiDepartment字典表的所有数�?
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:42
@@ -46,6 +46,7 @@ public class DiDepartmentDao {
 	}
 	
 	/**
+
 	 * 获取科研室部门名称和id
 	 * */
 		public List<DiDepartmentBean> getListSci(){
@@ -70,6 +71,7 @@ public class DiDepartmentDao {
 			}
 	
 	/**
+
 	 * 插入数据
 	 * @param DiDepartment
 	 * @return

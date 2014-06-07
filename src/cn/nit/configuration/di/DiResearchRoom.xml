@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="pages/DiResearchRoom" namespace="/pages/DiResearchRoom" extends="struts-default">
+		<!-- 初始化加载所有教研室 -->
+	    <action name="loadDiResearchRoom" class="cn.nit.action.di.DiResearchRoomAction" method="loadResearchRoom" />
+	</package>
+</struts>

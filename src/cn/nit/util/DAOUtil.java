@@ -36,7 +36,7 @@ public class DAOUtil {
 	 * @param obj       插入数据的实体类
 	 * @param tableName 要插入数据对数据库的表名
 	 * @param field     数据库对应的字段
-	 * @param conn      数据库连�?
+	 * @param conn      数据库连�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:02:27
@@ -68,7 +68,7 @@ public class DAOUtil {
 			for(int i = 0; i < length; i++){
 				String type = wrapper.getPropertyType(fields[i]).toString() ;
 
-				//判断插入数据的类型，并赋�?
+				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){
 					pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
 				}else if(type.endsWith("int")){
@@ -86,7 +86,7 @@ public class DAOUtil {
 					pst.setDouble(i+1, (Double) wrapper.getPropertyValue(fields[i])) ;
 
 				}else{
-					throw new Exception("自行添加对应类型�? + type) ;
+					throw new Exception("自行添加对应类型" + type) ;
 				}
 			}
 
@@ -107,10 +107,10 @@ public class DAOUtil {
 	}
 
 	/**
-	 * 将数据中所取出的数据转换为实际应用的类�?
+	 * 将数据中所取出的数据转换为实际应用的类�?
 	 * @param <T>
-	 * @param rs  ResultSet 结果�?
-	 * @param cla           实体�?
+	 * @param rs  ResultSet 结果�?
+	 * @param cla           实体�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:17:57
@@ -132,7 +132,7 @@ public class DAOUtil {
 				clazz = Class.forName(cla.getName()) ;
 				T t = (T)clazz.newInstance() ;
 				wrapper = new BeanWrapperImpl(t) ;
-				//获取实体类的属�?
+				//获取实体类的属�?
 				Field fields[] = clazz.getDeclaredFields() ;
 
 				for(Field field : fields){
@@ -140,7 +140,7 @@ public class DAOUtil {
 					Class clazzType = wrapper.getPropertyType(fieldName) ;
 					String type = clazzType.getName() ;
 
-					//给实体类的相关属性赋�?
+					//给实体类的相关属性赋�?
 					if(type.endsWith("String")){
 						wrapper.setPropertyValue(fieldName, rs.getString(fieldName)) ;
 					}else if(type.endsWith("int")){
@@ -201,7 +201,7 @@ public class DAOUtil {
 				for(int i = 0; i < length; i++){
 					String type = wrapper.getPropertyType(fields[i]).toString() ;
 
-					//判断插入数据的类型，并赋�?
+					//判断插入数据的类型，并赋�?
 					if(type.endsWith("String")){
 						pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
 					}else if(type.endsWith("int")){
@@ -213,7 +213,7 @@ public class DAOUtil {
 					}else if(type.endsWith("long")){
 						pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
 					}else{
-						throw new Exception("自行添加对应类型�? + type) ;
+						throw new Exception("自行添加对应类型" + type) ;
 					}
 				}
 				pst.addBatch() ;
@@ -242,7 +242,7 @@ public class DAOUtil {
 	 * @param obj       插入数据的实体类
 	 * @param tableName 要插入数据对数据库的表名
 	 * @param field     数据库对应的字段
-	 * @param conn      数据库连�?
+	 * @param conn      数据库连�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:02:27
@@ -301,7 +301,7 @@ public class DAOUtil {
 					vField = keyFields[j - fields.length] ;
 				}
 
-				//判断插入数据的类型，并赋�?
+				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){
 					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("int")){
@@ -315,7 +315,7 @@ public class DAOUtil {
 				}else if(type.endsWith("Boolean") || type.endsWith("boolean")){
 					pst.setBoolean(j + 1, (Boolean) wrapper.getPropertyValue(vField)) ;
 				}else{
-					throw new Exception("自行添加对应类型�? + type) ;
+					throw new Exception("自行添加对应类型" + type) ;
 				}
 			}
 

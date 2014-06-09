@@ -1,0 +1,11 @@
+#Mon Jun 09 20:10:25 CST 2014
+connectionInfoProperty=com.microsoft.sqlserver.jdbc.SQLServerDriver
+detect.m2m=false
+detect.o2o=false
+eclipse.preferences.version=1
+enableAnalysisProperty=true
+generate.version=false
+newCatalogProperty=TDMS
+re.settings=
+re.strategy=
+schemaProperty=TDMS

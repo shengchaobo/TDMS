@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * T655Cet46andJiangxiNcreTea entity. @author MyEclipse Persistence Tools
+ * T655Cet46andJiangxiNcreTea entity. @author Yuan
  */
 
 @Table(name = "T655_CET46AndJiangxiNCRE_Tea$", schema = "dbo", catalog = "TDMS")

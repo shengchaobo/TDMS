@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   function saveUser(){
 			   
 			    $('#treeMenuForm').form('submit',{
-				    url: 'addTree',
+				    url: 'pages/trees/addTree',
 				    onSubmit: function(){
 				    	return $(this).form('validate');
 				    },
@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    $.messager.alert('温馨提示', result.errorMsg) ;
 					    } else {
 						    $('#treeMenuDlg').dialog('close'); // close the dialog
-						    $('#trees').datagrid('reload'); // reload the user data
+						    $('#trees').datagrid('load'); // reload the user data
 					    }
 				    },
 				    onLoaddError: function(result){

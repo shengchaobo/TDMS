@@ -11,7 +11,6 @@
 package cn.nit.action.di;
 
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
 
@@ -28,6 +27,7 @@ import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.service.di.DiCourseCategoriesService;
 
 
+
 /**
  * 
  * @author Lei Xia
@@ -42,7 +42,7 @@ public class DiCourseCategoriesAction {
 	 *
 	 * @time: 2014-5-14/下午03:03:37
 	 */
-	public void loadDiCourseCategories(){
+	public void loadCourseCategories(){
 		
 		List<DiCourseCategoriesBean> list = diCourseCategoriesSer.getList() ;
 		//将数据转换为json格式

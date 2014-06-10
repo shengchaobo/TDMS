@@ -39,5 +39,10 @@ public class T411_Service {
 	public List<T411_Bean> getList(){
 		return teaInfoDao.getAllList() ;
 	}
+	
+	//根据参数加载43系列的表
+	public List<T431_Bean> getT43List(int flag){
+		return teaInfoDao.getT43List(flag) ;
+	}
 
 }

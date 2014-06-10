@@ -12,9 +12,9 @@ import cn.nit.util.DAOUtil;
 public class T410_Dao {
 	
 	private String tableName = "T410_TeaResInfo_Res$" ;
-	private String field = " ResItemNum,ResItemFund,HResItemNum,HItemFund,HhumanItemNum,HhumanItemFund," +
-			"ZResItemNum,ZItemFund,ZhumanItemNum,ZhumanItemFund,ResAwardNum,NationResAward,ProviResAward," +
-			"CityResAward,SchResAward,PaperNum,SCI,SSCI,EI,ISTP,InlandCoreJnal,CSSCI,CSCD,OtherPaper," +
+	private String field = "ResItemNum,ResItemFund,HresItemNum,HitemFund,HhumanItemNum,HhumanItemFund," +
+			"ZresItemNum,ZitemFund,ZhumanItemNum,ZhumanItemFund,ResAwardNum,NationResAward,ProviResAward," +
+			"CityResAward,SchResAward,PaperNum,sci,ssci,ei,istp,InlandCoreJnal,cssci,cscd,OtherPaper," +
 			"PublicationNum,Treatises,translation,PatentNum,InventPatent,UtilityPatent,DesignPatent,Time,Note";
 		
 	/**

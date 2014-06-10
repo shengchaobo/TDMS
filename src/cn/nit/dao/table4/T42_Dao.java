@@ -14,7 +14,7 @@ public class T42_Dao {
 	private String tableName = "T42_SchLeaderInfo_PartyOffice$" ;
 	private String tableName1 = "DiDegree" ;
 	private String tableName2 = "DiEducation" ;
-	private String field = "SeqNumber,Name,TeaId,Duty,Gender,Birthday,JoinSchTime,Education,TopDegree,"+
+	private String field = "Name,TeaId,Duty,Gender,Birthday,JoinSchTime,Education,TopDegree,"+
 	"MajTechTitle,ForCharge,Resume,Time,Note";
 	
 	/**
@@ -54,7 +54,7 @@ public class T42_Dao {
 	public List<T42_Bean> queryPageList(int pageSize, int showPage){
 				
 		String queryPageSql = "select top " + pageSize + 
-		"SeqNumber,Name,TeaId,Duty,Gender,Birthday,JoinSchTime,DiEducation.Education,Degree AS TopDegree,"+
+		"Name,TeaId,Duty,Gender,Birthday,JoinSchTime," + tableName2 + ".Education,Degree AS TopDegree,"+
 		"MajTechTitle,ForCharge,Resume,Time,Note"
 		+ " from " + tableName + 
 		" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +

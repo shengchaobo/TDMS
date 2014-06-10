@@ -12,7 +12,7 @@ import cn.nit.util.DAOUtil;
 public class T48_Dao {
 	private String tableName = "T48_TeachTeam_TeaTea$" ;
 	private String tableName1 = "DiAwardLevel" ;
-	private String field = " TeaUnit,UnitId,TeamName,TeamLevel,Leader,TeaID,GroupNum,GroupInfo,GainTime,AppvlID,Time,Note";
+	private String field = "TeaUnit,UnitId,TeamName,TeamLevel,Leader,TeaID,GroupNum,GroupInfo,GainTime,AppvlID,Time,Note";
 		
 	/**
 	 * 获取字典表的所有数据

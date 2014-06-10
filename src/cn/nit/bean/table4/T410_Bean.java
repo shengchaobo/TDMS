@@ -31,7 +31,7 @@ public class T410_Bean implements java.io.Serializable {
 	private Integer proviResAward;
 	private Integer cityResAward;
 	private Integer schResAward;
-	private Integer resPaperNum;
+	private Integer paperNum;
 	private Integer sci;
 	private Integer ssci;
 	private Integer ei;
@@ -39,7 +39,7 @@ public class T410_Bean implements java.io.Serializable {
 	private Integer inlandCoreJnal;
 	private Integer cssci;
 	private Integer cscd;
-	private Integer ohterPaper;
+	private Integer otherPaper;
 	private Integer publicationNum;
 	private Integer treatises;
 	private Integer translation;
@@ -185,15 +185,6 @@ public class T410_Bean implements java.io.Serializable {
 		this.schResAward = schResAward;
 	}
 
-	@Column(name = "ResPaperNum")
-	public Integer getResPaperNum() {
-		return this.resPaperNum;
-	}
-
-	public void setResPaperNum(Integer resPaperNum) {
-		this.resPaperNum = resPaperNum;
-	}
-
 	@Column(name = "SCI")
 	public Integer getSci() {
 		return this.sci;
@@ -255,15 +246,6 @@ public class T410_Bean implements java.io.Serializable {
 
 	public void setCscd(Integer cscd) {
 		this.cscd = cscd;
-	}
-
-	@Column(name = "OhterPaper")
-	public Integer getOhterPaper() {
-		return this.ohterPaper;
-	}
-
-	public void setOhterPaper(Integer ohterPaper) {
-		this.ohterPaper = ohterPaper;
 	}
 
 	@Column(name = "PublicationNum")
@@ -346,6 +328,22 @@ public class T410_Bean implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setPaperNum(Integer paperNum) {
+		this.paperNum = paperNum;
+	}
+
+	public Integer getPaperNum() {
+		return paperNum;
+	}
+
+	public void setOtherPaper(Integer otherPaper) {
+		this.otherPaper = otherPaper;
+	}
+
+	public Integer getOtherPaper() {
+		return otherPaper;
 	}
 
 }

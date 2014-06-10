@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.nit.bean.table4.T411_Bean;
+import cn.nit.bean.table4.T431_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 
@@ -28,7 +29,7 @@ public class T411_Dao {
 	
 	
 	/**
-	 * 获取字典表的所有数�?
+	 * 获取字典表的所有数据
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:42
@@ -58,7 +59,7 @@ public class T411_Dao {
 	}
 	
 	/**
-	 * �?页查�?
+	 * 分 页查询
 	 * 
 	 */
 	public List<T411_Bean> queryPageList(int pageSize, int showPage){
@@ -66,10 +67,9 @@ public class T411_Dao {
 		String queryPageSql = "select top " + pageSize + 
 		" TeaId,TeaName,Gender,Birthday,AdmisTime,TeaState," +
 		"BeginWorkTime,IdentiType AS IDCode,FromOffice,OfficeID,FromUnit,unitID," +
-		"FromTeaResOffice,TeaResOfficeID,DiEducation.Education,Degree AS TopDegree,GraSch,Major," +
-		"AdminLevel,DiSource.Source,TitleLevel AS MajTechTitle,TitleName AS TeaTitle,NotTeaTitle,SubjectClass," +
+		"FromTeaResOffice,TeaResOfficeID," + tableName4 + ".Education,Degree AS TopDegree,GraSch,Major," +
+		"AdminLevel," + tableName5 + ".Source,TitleLevel AS MajTechTitle,TitleName AS TeaTitle,NotTeaTitle,SubjectClass," +
 		"DoubleTea,Industry,Engineer,TeaBase,TeaFlag,Note"
-
 		+ " from " + tableName + 
 		" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
 		" left join " + tableName2+ " on " + "MajTechTitle=" + tableName2 + ".IndexID " +
@@ -78,7 +78,6 @@ public class T411_Dao {
 		" left join " + tableName5+ " on " + tableName + ".Source=" + tableName5 + ".IndexID " +
 		" left join " + tableName6+ " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
 		" where (TeaFlag is null or TeaFlag != '外聘') and (TeaID not in (select top " + pageSize * (showPage-1) + " TeaID from "+
-
 		tableName + " order by TeaID)) order by TeaID " ;
 		System.out.println(queryPageSql);
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -113,7 +112,6 @@ public class T411_Dao {
 	public boolean insert(T411_Bean teaInfoBean){
 		
 		Connection conn = DBConnection.instance.getConnection() ;
-
 		if(teaInfoBean.getIdcode().equals("40009")){
 			teaInfoBean.setTeaFlag("外聘");
 			return DAOUtil.insert(teaInfoBean, tableName, field, conn) ;
@@ -121,7 +119,6 @@ public class T411_Dao {
 			return DAOUtil.insert(teaInfoBean, tableName, field, conn) ;
 		}
 		
-
 	}
 	
 	/**
@@ -155,6 +152,57 @@ public class T411_Dao {
 		}
 		
 		return false;
+	}
+	
+	
+	/**
+	 * 据参数加载43系统列的
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T431_Bean> getT43List(int flag){
+		
+		String cond;
+		
+		if (flag == 1){
+			cond = "IDCode = '40003' or IDcode = '40004'";
+		}
+		else if(flag == 2){
+			cond = "IDCode = '40001' or IDcode = '40002'";
+		}
+		else if(flag == 3){
+			cond = "IDCode = '40005' or IDcode = '40006'";
+		}		
+		else if(flag == 4){
+			cond = "IDCode = '40007' or IDcode = '40008'";
+		}else{
+			cond = "IDCode = '40010'";
+		}
+		
+		String sql = "select " + "TeaId,TeaName AS Name,FromOffice AS FromDept,OfficeID AS UnitID," +
+		"IdentiType AS StaffType" + " from " + tableName + 
+		" left join " + tableName6 + " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
+		" where " + cond ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T431_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T431_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
 	}
 	
 	public static void main(String args[]){

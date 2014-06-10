@@ -11,7 +11,7 @@ import cn.nit.util.DAOUtil;
 
 public class T442_Dao {
 	
-	private String tableName = "T441_MajLeader_TeaTea$" ;
+	private String tableName = "T442_GraTutorInfo_Gra$" ;
 	private String tableName3 = "DiTutorType" ;
 	private String field = "TutorName,TeaId,TutorType,SubjectClass,MajorName,MajorId,ResField,FromUnit,UnitId,Time,Note";
 	
@@ -52,7 +52,7 @@ public class T442_Dao {
 	public List<T442_Bean> queryPageList(int pageSize, int showPage){
 				
 		String queryPageSql = "select top " + pageSize + 
-		" TutorName,TeaId,DiTutorType.TutorType,SubjectClass,MajorName,MajorId,ResField,FromUnit,UnitId,Time,Note"
+		" TutorName,TeaId," + tableName3 + ".TutorType,SubjectClass,MajorName,MajorId,ResField,FromUnit,UnitId,Time,Note"
 		+ " from " + tableName + 
 		" left join " + tableName3+ " on " + tableName + ".TutorType=" + tableName3 + ".IndexID " +
 		" where (SeqNumber not in (select top " + pageSize * (showPage-1) + " SeqNumber from "+

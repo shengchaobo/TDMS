@@ -12,7 +12,7 @@ import cn.nit.util.DAOUtil;
 public class T49_Dao {
 	
 	private String tableName = "T49_TeaPublishTxbook_TeaTea$" ;
-	private String field = " TeaUnit,UnitId,ComplileBookNum,WriteBookNum,SumPlanBook,InterPlanBook," +
+	private String field = "TeaUnit,UnitId,ComplileBookNum,WriteBookNum,SumPlanBook,InterPlanBook," +
 			"NationPlanBook,ProviPlanBook,CityPlanBook,SchPlanBook,SumAwardBook,InterAwardBook," +
 			"NationAwardBook,ProviAwardBook,CityAwardBook,SchAwardBook,Time,Note";
 		
@@ -52,7 +52,7 @@ public class T49_Dao {
 	 */
 	public List<T49_Bean> queryPageList(int pageSize, int showPage){
 				
-		String queryPageSql = "select top " + pageSize + 
+		String queryPageSql = "select top " + pageSize + " " +
 		field
 		+ " from " + tableName + 
 		" where (SeqNumber not in (select top " + pageSize * (showPage-1) + " SeqNumber from "+

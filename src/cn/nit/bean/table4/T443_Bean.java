@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 /**
  * T443HighLevelTalentPer entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "T443_HighLevelTalent_Per$", schema = "dbo", catalog = "TDMS")
 public class T443_Bean implements java.io.Serializable {
 

@@ -45,8 +45,15 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.dali.core.persistenceBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>com.genuitec.eclipse.persistence.jpa.jpanature</nature>
+		<nature>org.eclipse.dali.core.persistenceNature</nature>
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 		<nature>com.genuitec.eclipse.ast.deploy.core.deploymentnature</nature>
 		<nature>com.genuitec.eclipse.j2eedt.core.webnature</nature>

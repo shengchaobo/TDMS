@@ -16,8 +16,8 @@ public class T413_Dao {
 	private String tableName4 = "DiEducation" ;
 	private String tableName2 = "DiTitleLevel" ;
 	private String tableName3 = "DiTutorType" ;
-	private String field = "SeqNumber,Name,TeaId,Gender,Birthday,HireBeginTime,TeaState,HireTimeLen,UnitId,"+
-	"UnitName,Education,TopDegree,TechTitle,SubjectClass,WorkUnitType,TutorType,Region,Time,Note";
+	private String field = "Name,TeaId,Gender,Birthday,HireBeginTime,TeaState,HireTimeLen,UnitId,"+
+	"UnitName,Education,TopDegree,TechTitle,SubjectClass,WorkUnitType,TutorType,Region,Note";
 	
 	
 	/**
@@ -57,8 +57,8 @@ public class T413_Dao {
 	public List<T413_Bean> queryPageList(int pageSize, int showPage){
 				
 		String queryPageSql = "select top " + pageSize + 
-		"SeqNumber,Name,TeaId,Gender,Birthday,HireBeginTime,TeaState,HireTimeLen,UnitId,"+
-		"UnitName,DiEducation.Education,Degree AS TopDegree,TitleLevel AS TechTitle,SubjectClass,WorkUnitType,DiTutorType.TutorType,Region,Time,Note"
+		"Name,TeaId,Gender,Birthday,HireBeginTime,TeaState,HireTimeLen,UnitId,"+
+		"UnitName," + tableName4 + ".Education,Degree AS TopDegree,TitleLevel AS TechTitle,SubjectClass,WorkUnitType," + tableName3 + ".TutorType,Region,Note"
 		+ " from " + tableName + 
 		" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
 		" left join " + tableName2+ " on " + "TechTitle=" + tableName2 + ".IndexID " +

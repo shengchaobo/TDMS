@@ -12,7 +12,7 @@ import cn.nit.util.DAOUtil;
 public class T453_Dao {
 	
 	private String tableName = "T453_TeaCommunInfo_TeaInter$" ;
-	private String field = " TeaUnitName,UnitId,Name,TeaId,CommunType,BeginTime,EndTime,InOrOut,CommunUnit,CommunContent,Time,Note";
+	private String field = "TeaUnitName,UnitId,Name,TeaId,CommunType,BeginTime,EndTime,InOrOut,CommunUnit,CommunContent,Time,Note";
 	
 	/**
 	 * 获取字典表的所有数据

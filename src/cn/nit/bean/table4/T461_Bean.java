@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 /**
  * T461FameTeaAwardPer entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "T461_FameTeaAward_Per$", schema = "dbo", catalog = "TDMS")
 public class T461_Bean implements java.io.Serializable {
 

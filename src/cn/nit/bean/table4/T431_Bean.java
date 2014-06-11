@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 /**
  * A431ManagerInfo entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "A431_ManagerInfo$", schema = "dbo", catalog = "TDMS")
 public class T431_Bean implements java.io.Serializable {
 

@@ -24,7 +24,7 @@ import cn.nit.util.DAOUtil;
 import cn.nit.util.MD5Util;
 
 /**
- * 用户管理�?
+ * 用户管理�?
  * @author Lei Xia
  * @time: 2014-4-18/下午09:32:26
  */
@@ -152,14 +152,18 @@ public class UserManagerDAO {
 		user.setTeaID("") ;
 		System.out.println(user.getTeaID() == null) ;
 		user.setTeaName("测试") ;
-		user.setFromOffice("教务处") ;
+
+		user.setFromOffice("教务") ;
+
 		user.setTeaPasswd(MD5Util.encode("123456")) ;
 		user.setTeaEmail("123456@qq.com") ;
 		list.add(user) ;
 		UserinfoBean user2 = new UserinfoBean() ;
 		user2.setTeaID("12313") ;
 		user2.setTeaName("测试") ;
-		user2.setFromOffice("教务处") ;
+
+		user2.setFromOffice("教务") ;
+
 		user2.setTeaPasswd(MD5Util.encode("123456")) ;
 		user2.setTeaEmail("123456@qq.com") ;
 		list.add(user2) ;
@@ -168,7 +172,7 @@ public class UserManagerDAO {
 //		System.out.println(userDao.getList().size()) ;
 //		user.setTeaID("2014002") ;
 //		user.setTeaName("测试") ;
-//		user.setFromOffice("教务�?) ;
+//		user.setFromOffice("教务�?) ;
 //		user.setTeaPasswd(MD5Util.encode("123456")) ;
 //		user.setTeaEmail("123456@qq.com") ;
 //		userDao.insertUser(user) ;

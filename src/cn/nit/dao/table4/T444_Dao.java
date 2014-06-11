@@ -12,7 +12,7 @@ import cn.nit.util.DAOUtil;
 public class T444_Dao {
 	
 	private String tableName = "T444_HighLevelResTeam_Res$" ;
-	private String tableName2 = "DiResearchRoom" ;
+	private String tableName2 = "DiResearchTeam" ;
 	private String field = "ResField,Type,GainTime,Leader,TeaId,OtherTeamNum,OtherTeamPer,Time,Note";
 	
 	/**
@@ -52,9 +52,9 @@ public class T444_Dao {
 	public List<T444_Bean> queryPageList(int pageSize, int showPage){
 				
 		String queryPageSql = "select top " + pageSize + 
-		" ResField,ResearchName AS Type,GainTime,Leader,TeaId,OtherTeamNum,OtherTeamPer,Time,Note"
+		" ResField,ResearchTeam AS Type,GainTime,Leader,TeaId,OtherTeamNum,OtherTeamPer,Time,Note"
 		+ " from " + tableName + 
-		" left join " + tableName2+ " on " + "Type=" + tableName2 + ".UnitId " +
+		" left join " + tableName2+ " on " + "Type=" + tableName2 + ".IndexId " +
 		" where (SeqNumber not in (select top " + pageSize * (showPage-1) + " SeqNumber from "+
 		tableName + " order by SeqNumber)) order by SeqNumber" ;
 		System.out.println(queryPageSql);

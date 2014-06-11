@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 /**
  * S444HighLevelResTeam entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "S444_HighLevelResTeam", schema = "dbo", catalog = "TDMS")
 public class S444_Bean implements java.io.Serializable {
 

@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 /**
  * T42SchLeaderInfoPartyOffice entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "T42_SchLeaderInfo_PartyOffice$", schema = "dbo", catalog = "TDMS")
 public class T42_Bean implements
 		java.io.Serializable {

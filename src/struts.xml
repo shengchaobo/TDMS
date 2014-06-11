@@ -64,6 +64,11 @@
     
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
+    
+    <!-- table6 学生信息库 -->
+    
+    <!-- table6 近一届本科生分专业招生录取情况 -->
+    <include file="cn/nit/configuration/table6/T621.xml"/>
 
     <package name="default" namespace="/" extends="struts-default">
         <default-action-ref name="index" />

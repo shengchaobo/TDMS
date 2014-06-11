@@ -12,7 +12,7 @@ import cn.nit.util.DAOUtil;
 public class T452_Dao {
 	
 	private String tableName = "T452_TeaTrainInfo_TeaPer$" ;
-	private String field = " TeaUnitName,UnitId,Name,TeaId,TrainType,BeginTime,EndTime,InOrOut,TrainUnit,TrainMajor,Time,Note";
+	private String field = "TeaUnitName,UnitId,Name,TeaId,TrainType,BeginTime,EndTime,InOrOut,TrainUnit,TrainMajor,Time,Note";
 	
 	/**
 	 * 获取字典表的所有数据
@@ -87,6 +87,7 @@ public class T452_Dao {
 	 */
 	public boolean insert(T452_Bean teaTrain){
 		
+		System.out.println(teaTrain.getTeaUnitName());
 		Connection conn = DBConnection.instance.getConnection() ;
 		return DAOUtil.insert(teaTrain, tableName, field, conn) ;
 	}

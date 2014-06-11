@@ -18,6 +18,7 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table4.T411_Bean;
+import cn.nit.bean.table4.T431_Bean;
 import cn.nit.dao.table4.T411_Dao;
 import cn.nit.service.table4.T411_Service;
 
@@ -133,6 +134,131 @@ public class T411_Action {
 			}
 		}
 		out.flush() ;
+	}
+	
+	//由T411导出T431
+	public void loadT431() throws Exception{
+		
+		List<T431_Bean> list = T411_services.getT43List(1);
+		//将数据转换为json格式
+		JSON json = JSONSerializer.toJSON(list) ;
+		PrintWriter out = null ;
+		
+		try {
+			//设置输出内容的格式为json
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			//设置数据的内容的编码格式
+			String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
+			out.print(outPrint) ;
+			out.flush() ;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	//由T411导出T432
+	public void loadT432() throws Exception{
+		
+		List<T431_Bean> list = T411_services.getT43List(2);
+		//将数据转换为json格式
+		JSON json = JSONSerializer.toJSON(list) ;
+		PrintWriter out = null ;
+		
+		try {
+			//设置输出内容的格式为json
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			//设置数据的内容的编码格式
+			String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
+			out.print(outPrint) ;
+			out.flush() ;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	//由T411导出T433
+	public void loadT433() throws Exception{
+		
+		List<T431_Bean> list = T411_services.getT43List(3);
+		//将数据转换为json格式
+		JSON json = JSONSerializer.toJSON(list) ;
+		PrintWriter out = null ;
+		
+		try {
+			//设置输出内容的格式为json
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			//设置数据的内容的编码格式
+			String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
+			out.print(outPrint) ;
+			out.flush() ;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	//由T411导出T434
+	public void loadT434() throws Exception{
+		
+		List<T431_Bean> list = T411_services.getT43List(4);
+		//将数据转换为json格式
+		JSON json = JSONSerializer.toJSON(list) ;
+		PrintWriter out = null ;
+		
+		try {
+			//设置输出内容的格式为json
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			//设置数据的内容的编码格式
+			String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
+			out.print(outPrint) ;
+			out.flush() ;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	//由T411导出T436
+	public void loadT436() throws Exception{
+		
+		List<T431_Bean> list = T411_services.getT43List(6);
+		//将数据转换为json格式
+		JSON json = JSONSerializer.toJSON(list) ;
+		PrintWriter out = null ;
+		
+		try {
+			//设置输出内容的格式为json
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			//设置数据的内容的编码格式
+			String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
+			out.print(outPrint) ;
+			out.flush() ;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
 	}
 
 	public String getRows() {

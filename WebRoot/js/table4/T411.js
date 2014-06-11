@@ -95,8 +95,8 @@
 		return true;
 	 }
 
-	function editUser() {
-		var row = $('#dg').datagrid('getSelections');
+	function edit() {
+		var row = $('#commomData').datagrid('getSelections');
 		if (row.length != 1) {
 		$.messager.alert("信息提示", "没选取或者选取了多行", "info");
 			return;
@@ -117,8 +117,52 @@
 				url = 'updateUser';
 			}
 		}
+	
+/*	//删除选中的行
+    function deleteByIds() {
+	// 获取选中项
+    	var row = $('#commomData').datagrid('getSelections');
+    	if (row.length == 0) {
+    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
+		return;
+    	}
+    	$.messager.confirm('数据删除', '您确定删除选中项?', function(sure) {
+		if (sure) {
+			var ids = "";
+			ids += "(";
 
-	    function loadDic() {
+			for ( var i = 0; i < row.length; i++) {
+				if (i < (row.length - 1)) {
+					ids += ("'"+row[i].teaId +"'"+ ",");
+				} else {
+					ids += ("'"+row[i].teaId+"'" + ")");
+				}
+			}
+
+			deletes(ids);
+
+			}
+    	});
+    }
+    
+    function deletes(ids) {
+    	$.ajax( {
+    		type : "POST",
+    		url : "pages/T411/deleteByIds?ids=" + ids,
+    		async : "true",
+    		dataType : "text",
+    		success : function(result) {
+			result = eval("(" + result + ")");
+
+			if (result.state) {
+				alert(result.data);
+				$('#commomData').datagrid('reload');
+			}
+		}
+    	}).submit();
+    }*/
+
+	   function loadDic() {
 				$('#dicDlg').dialog('open').dialog('setTitle', '高级查询');
 				loadDictionary();
 		}

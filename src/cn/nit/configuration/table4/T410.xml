@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="pages/T410" namespace="/pages/T410" extends="struts-default">
+		<!-- 初始化加载科研信息（用于分页系统） -->
+	    <action name="loadResInfo" class="cn.nit.action.table4.T410_Action" method="loadResInfo" />
+   		<!-- 插入新的科研信息 -->
+	    <action name="insert"  class="cn.nit.action.table4.T410_Action" method="insert" ></action>	 
+   	    <!-- 加载所有的科研信息 -->
+	    <action name="loadT410" class="cn.nit.action.table4.T410_Action"  method="loadT411" />   
+	</package>
+</struts>

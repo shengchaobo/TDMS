@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="pages/T435" namespace="/pages/T435" extends="struts-default">
+		<!-- 初始化加载所有就业人员信息（用于分页系统） -->
+	    <action name="loadEmployInfo" class="cn.nit.action.table4.T435_Action" method="loadEmployInfo" />
+   		<!-- 插入新的就业人员信息 -->
+	    <action name="insert"  class="cn.nit.action.table4.T435_Action" method="insert" ></action>	    
+	</package>
+</struts>

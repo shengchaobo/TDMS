@@ -107,16 +107,16 @@ public class DAOUtil {
 	}
 
 	/**
-	 * 将数据中所取出的数据转换为实际应用的类�?
+	 * 将数据中所取出的数据转换为实际应用的类型
 	 * @param <T>
-	 * @param rs  ResultSet 结果�?
-	 * @param cla           实体�?
+	 * @param rs  ResultSet 结果集
+	 * @param cla           实体类
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:17:57
 	 */
 	public static <T> List<T> getList(ResultSet rs, Class<T> cla){
-
+		
 		List<T> list = null ;
 		BeanWrapper wrapper = null ;
 		try{
@@ -125,42 +125,45 @@ public class DAOUtil {
 			}else{
 				return null ;
 			}
-
+			
 			while(rs.next()){
 				Class clazz = null ;
 				//初始化实体类
 				clazz = Class.forName(cla.getName()) ;
 				T t = (T)clazz.newInstance() ;
 				wrapper = new BeanWrapperImpl(t) ;
-				//获取实体类的属�?
+				//获取实体类的属性
 				Field fields[] = clazz.getDeclaredFields() ;
-
+				
 				for(Field field : fields){
 					String fieldName = field.getName() ;
 					Class clazzType = wrapper.getPropertyType(fieldName) ;
+					//System.out.println(wrapper.getPropertyType(fieldName));
+					//System.out.println(fieldName);
 					String type = clazzType.getName() ;
-
-					//给实体类的相关属性赋�?
+					
+					//给实体类的相关属性赋值
 					if(type.endsWith("String")){
 						wrapper.setPropertyValue(fieldName, rs.getString(fieldName)) ;
-					}else if(type.endsWith("int")){
+					}else if(type.endsWith("Integer")||type.endsWith("int")){
 						wrapper.setPropertyValue(fieldName, rs.getInt(fieldName)) ;
-					}else if(type.endsWith("Date")){
-						wrapper.setPropertyValue(fieldName, new java.util.Date(rs.getDate(fieldName).getTime())) ;
-					}else if(type.endsWith("long")){
-						wrapper.setPropertyValue(fieldName, rs.getLong(fieldName)) ;
-
-					}else if(type.endsWith("boolean")){
-						wrapper.setPropertyValue(fieldName, rs.getBoolean(fieldName)) ;
-					}else if(type.endsWith("double")){
+					}else if(type.endsWith("Double")||type.endsWith("double")){
 						wrapper.setPropertyValue(fieldName, rs.getDouble(fieldName)) ;
-					}
-					else{
-
+					}else if(type.endsWith("Date")){
+						if(rs.getDate(fieldName) == null){
+							wrapper.setPropertyValue(fieldName, null) ;
+						}else{
+							wrapper.setPropertyValue(fieldName, new java.util.Date(rs.getDate(fieldName).getTime())) ;
+						}				
+					}else if(type.endsWith("long")||type.endsWith("Long")){
+						wrapper.setPropertyValue(fieldName, rs.getLong(fieldName)) ;
+					}else if(type.endsWith("Boolean")||type.endsWith("Boolean")){
+						wrapper.setPropertyValue(fieldName, rs.getBoolean(fieldName)) ;
+					}else{
 						throw new Exception("该类型不存在，请自己添加 " + type) ;
 					}
 				}
-
+				
 				list.add(t) ;
 			}
 		}catch(Exception e){
@@ -169,9 +172,10 @@ public class DAOUtil {
 		}finally{
 			DBConnection.close(rs) ;
 		}
-
+		
 		return list ;
 	}
+
 
 	public static boolean batchInsert(List list, String tableName, String field, Connection conn) throws Exception{
 		//构建SQL语句

@@ -28,6 +28,9 @@ public class T411_Action {
 	
 	private String page; //当前第几页
 	
+	private String ids; //删除的id
+	
+
 	private T411_Service T411_services = new T411_Service();
 	
 	private T411_Bean T411_bean = new T411_Bean();
@@ -135,6 +138,36 @@ public class T411_Action {
 		}
 		out.flush() ;
 	}
+	
+	
+/*	*//**  根据数据的id删除数据  *//*
+	public void deleteByIds(){
+		System.out.println("ids=" + this.getIds()) ;
+		boolean flag = T411_services.deleteByIds(ids) ;
+		PrintWriter out = null ;
+		
+		try{
+			
+			
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;			
+			if(flag){
+				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}*/
+	
 	
 	//由T411导出T431
 	public void loadT431() throws Exception{
@@ -286,5 +319,13 @@ public class T411_Action {
 
 	public void setT411_bean(T411_Bean t411Bean) {
 		T411_bean = t411Bean;
+	}
+	
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
 	}
 }

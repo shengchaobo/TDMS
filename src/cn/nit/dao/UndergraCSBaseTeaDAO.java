@@ -210,24 +210,7 @@ public class UndergraCSBaseTeaDAO {
 		UndergraCSBaseTeaBean undergraCSBaseTea = new UndergraCSBaseTeaBean() ;
 		undergraCSBaseTea.setSeqNumber(18) ;
 		undergraCSBaseTea.setTime(new java.util.Date()) ;
-//		undergraCSBaseTea.setCSName("西方经济学（上）") ;
-//		undergraCSBaseTea.setCSID("020120001") ;
-//		undergraCSBaseTea.setCSUnit("经济贸易学院") ;
-////		undergraCSBaseTea.setUnitID("3001") ;
-//		undergraCSBaseTea.setFromTeaResOffice("教务处") ;
-////		undergraCSBaseTea.setTeaResOfficeID("3001") ;
-////		undergraCSBaseTea.setCSType("理论课（含实践）") ;
-////		undergraCSBaseTea.setCSNature("学科基础课") ;
-//		undergraCSBaseTea.setState("启用") ;
-//		undergraCSBaseTea.setPubCSType("人文社科类") ;
-//		undergraCSBaseTea.setNote("无") ;
-//		undergraCSBaseTea.setTime(new Date()) ;
-//		undergraCSBaseTea.setFillTeaID("11020201") ;
-//		undergraCSBaseTea.setFillUnitID("3001") ;
-		
-//		underCSBaseTeaDao.insert(undergraCSBaseTea) ;
-		
-//		System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size()) ;
+
 		System.out.println(underCSBaseTeaDao.update(undergraCSBaseTea)) ;
 	}
 	

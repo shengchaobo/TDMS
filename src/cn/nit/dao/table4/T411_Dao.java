@@ -121,6 +121,47 @@ public class T411_Dao {
 		
 	}
 	
+	public boolean update(T411_Bean bean){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		try{
+			flag = DAOUtil.update(bean, tableName, "teaId", field, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		return flag ;
+	}
+	
+/*	public boolean deleteByIds(String ids){
+		
+		int flag = 0 ;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("delete from " + tableName) ;
+		sql.append(" where " + "teaId" + " in " + ids) ;
+		System.out.println(sql);
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			flag = st.executeUpdate(sql.toString()) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}
+		
+		if(flag == 0){
+			return false ;
+		}else{
+			return true ;
+		}
+	}*/
+	
 	/**
 	 * 判断T411表中是否存在该教职工
 	 * @param diCourseCategories

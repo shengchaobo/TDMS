@@ -40,6 +40,28 @@ public class T411_Service {
 		return teaInfoDao.getAllList() ;
 	}
 	
+	
+	/**
+	 * 更新数据
+	 * @param 
+	 * @return
+	 */
+	public boolean update(T411_Bean bean){
+		return teaInfoDao.update(bean) ;
+	}
+	
+	
+/*	*//**
+	 * 删除数据
+	 * @param 
+	 * @return
+	 *//*
+	
+	public boolean deleteByIds(String ids){
+		
+		return teaInfoDao.deleteByIds(ids) ;
+	}*/
+	
 	//根据参数加载43系列的表
 	public List<T431_Bean> getT43List(int flag){
 		return teaInfoDao.getT43List(flag) ;

@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		.fitem label {
 			display: inline-block;
-			width: 120px;
+			width: 80px;
 		}
 	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
@@ -55,175 +55,139 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:300px" url="pages/T152/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
-		<thead>
-			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width=10>序号</th>
-				<th field="resInsName" width=10>科研机构名称</th>
-				<th field="resInsID" width=10>单位号</th>
-				<th field="type" width=10>类别</th>
-				<th field="buildCondition" width=10>共建情况</th>
-				<th field="biOpen" width=10 >是否对本科生开放</th>
-				<th field="openCondition" width=10>对本科生开放情况（500字以内）</th>
-				<th field="teaUnit" width=10>所属教学单位</th>
-				<th field="unitID" width=10>教学单位号</th>
-				<th field="beginYear" width=10 fit="true" formatter="formattime">开设年份</th>
-				<th field="houseArea" width=10>专业科研用房面积（平方米）</th>
-				<th field="note" width=10>备注</th>
-			</tr>
-		</thead>
+		<table class="easyui-datagrid" toolbar="#toolbar" title="学校办学指导思想"></table>
+		<hr color="blue" width="100%" />
+		
+		<center>
+		<table id="showInfo" class="doc-table" width="100%" border="1" rule="none" url="pages/T16/auditingData" >
+		<tbody>
+		<tr>
+		    <td style="background-color: white" align="center">项目</td>
+		     <td style="background-color: white" align="center">内容</td>
+		      <td style="background-color: white" align="center">备注</td>
+		       <td style="background-color: white"></td>
+		</tr>
+		<tr >
+		   <td style="background-color: white" width="10%" >
+		      <div id="di1" style="display:inline;">
+		         <span id="ItemSpan1"></span>
+		         </div>
+		         <div id="input1"  style="display:none;" >
+		          <input id="Item1"  name="t16Bean.Item" type="text">
+		          </div>
+		   </td>
+		     <td style="background-color: white" width="50%" field="contents">
+                  <div  id="di1" style="display:inline;">
+					<span id="ContentsSpan1"></span>
+			 </div>
+			 <div id="input1"  style="display:none;" >
+			  <!--  <input id="Contents1"  name="t16Bean.Contents" type="text"  size="60" >-->
+			  <textarea  id="Contents1"  name="t16Bean.Contents" type="text"  style="width: 600px;height: 50px;max-width: 600px;max-height: 100px;"></textarea>
+			  </div>
+            </td>
+		     <td style="background-color: white" width="30%"  field="note">
+                  <div  id="di1"  style="display:inline;">
+					<span id="NoteSpan1"> </span>
+			 </div>
+			 <div id="input1"  style="display:none;" >
+			  <input id="Note1"  name="t16Bean.Note" type="textarea"  style=" size="50" >
+			  </div>
+            </td>
+            <td style="background-color: white" width="10%" align="center">
+		       <div  id="di1" style="display:inline;">
+		       <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modify1()">修改</a> 
+		       </div>
+		       <div id="input1"   style="display:none;" > 
+		        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="save()">保存</a> 
+		         
+		       </div>
+		       <div id="input1"   style="display:none;" >
+		       <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="cancel1()">取消</a>
+		       </div>
+		       
+		       </td>
+		</tr>
+	
+		<tr>
+		
+		     <td style="background-color: white" width="10%" >
+		       <div id="di2" style="display:inline;">
+		         <span id="ItemSpan2"></span>
+		        </div>
+		        <div id="input2"  style="display:none;" >
+		         <input id="Item2"  name="t16Bean.Item" type="text"   size="50" >
+		         </div>
+		   </td>
+		     <td style="background-color: white" width="50%">
+                  <div  id="di2" style="display:inline;">
+					<span id="ContentsSpan2"></span>
+			 </div>
+			   <div id="input2"  style="display:none;" >
+			  <textarea  id="Contents2"  name="t16Bean.Contents" type="text"  style="width: 400px;height: 50px;max-width: 400px;max-height: 100px;"></textarea>
+			  </div>
+            </td>
+		     <td style="background-color: white" width="30%">
+                  <div  id="di2" style="display:inline;">
+					<span id="NoteSpan2"></span>
+			 </div>
+			   <div id="input2"  style="display:none;" >
+			  <textarea id="Note2" name ="t16Bean.Note"  style="width: 200px;height: 50px;max-width: 200px;max-height: 100px;"> </textarea>
+			  </div>
+            </td>
+		       <td style="background-color: white" width="10%" align="center">
+		       <div id="di2" style="display:inline;">
+		       <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modify2()">修改</a> 
+		       </div>
+		       <div id="input2"   style="display:none;" >
+		      <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="save()">保存</a> 
+		       </div>
+		       <div id="input2"   style="display:none;" >
+		         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="cancel2()">取消</a>
+		       </div>
+		       
+		       </td>
+		</tr>
+	
+		</tbody>
 	</table>
+	</center>
 	<div id="toolbar" style="height:auto">
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-		</div>
-		 <div>
-		 	<form id="auditing" method="post">
-			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
-			</form>
+			<!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
+		 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a> -->
 		</div>
 	</div>
-	<div id="toolbar2">
+	
+	<div id="toolbar2"   style="float:right;">
 		<a href="pages/UndergraCSBaseTea/dataExport" class="easyui-linkbutton" iconCls="icon-download">数据导出</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+		<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a> -->
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
-		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
-		<thead>
-			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="SeqNumber" width=10>序号</th>
-				<th field="ResInsName" width=10>科研机构名称</th>
-				<th field="ResInsID" width=10>单位号</th>
-				<th field="Type" width=10>类别</th>
-				<th field="BuildCondition" width=10>共建情况</th>
-				<th field="BiOpen" width=10 >是否对本科生开放</th>
-				<th field="OpenCondition" width=10 >对本科生开放情况（500字以内）</th>
-				<th field="TeaUnit" width=10>所属教学单位</th>
-				<th field="UnitID" width=10>教学单位号</th>
-				<th field="BeginYear" width=10 fit="true">开设年份</th>
-				<th field="HouseArea" width=10>专业科研用房面积（平方米）</th>
-				<th field="Note" width=10>备注</th>
-			</tr>
-		</thead>
-	</table>
+	
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">校级以上科研机构批量导入</div>
-		<div class="fitem">
-			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="pages/UndergraCSBaseTea/downloadModel" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
-			</form>
-		</div>
 		<div></div>
-		<div class="ftitle">校级以上科研机构逐条导入</div>
+		<div class="ftitle">添加学校办学指导思想</div>
 		
-		<form id="resInsForm" method="post">
+		<form id="t16Form" method="post">
 		<table>
 			<tr>
-				<td>
-					<div class="fitem">
-						<label>科研机构名称：</label> 
-						<input id="seqNumber" type="hidden"name="t152Bean.SeqNumber" value="0"></input>
-						<input type="hidden" name="t152Bean.ResInsName" id="ResInsName"/>
-						<input id="ResInsID" type="text" name="t152Bean.ResInsID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentSci' ,listHeight:'auto',editable:false,
-							onSelect:function(){
-							 	$('#ResInsName').val($(this).combobox('getText')) ;
-							 }">
-					    <span id="ResInsNameSpan"></span>
-							
-					</div>
-				</td>
-				<td>
-					<div class="fitem">
-						<label>类别：</label> 
-						<input id="Type"  name="t152Bean.Type" class='easyui-combobox'
-						data-options="valueField:'indexId',textField:'researchType',url:'pages/DiResearchType/loadDiResearchType',listHeight:'auto',editable:false">
-						<span id="TypeSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="fitem">
-						<label>开设年份：</label> 
-						 <input class="easyui-datebox" id="BeginYear" name="t152Bean.BeginYear" >
-						 <span id="BeginYearSpan"></span>
-					</div>
-				</td>
-				<td>
-					<div class="fitem">
-						<label>所属教学单位：</label> 
-						<input type="hidden" name="t152Bean.TeaUnit" id="TeaUnit"/>
-						<input id="UnitID" type="text" name="t152Bean.UnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
-							onSelect:function(){
-							    $('#TeaUnit').val($(this).combobox('getText')) ;
-							 }">
-							 
-					    <span id="TeaUnitSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-			    <td>
-					<div class="fitem">
-						<label>共建情况：</label> 
-						<select class='easyui-combobox' id='BuildCondition' name='t152Bean.BuildCondition'>
-						   <option value="true">是</option>
-						   <option value="false">否</option> 
+			       <div class="fitem">
+						<label>项目名：</label> 
+						<select class='easyui-combobox' id='Item' name='t16Bean.Item'>
+						   <option value="1.校训">1.校训</option>
+						   <option value="2.定位与发展目标">2.定位与发展目标</option> 
 						</select>
-						<span id="BuildConditionSpan"></span>
+						 <span id="ItemSpan"></span>
 					</div>
-				</td>
-				<td>
-					<div class="fitem">
-						<label>是否对本科生开放：</label> 
-						<select class='easyui-combobox' id='BiOpen' name='t152Bean.BiOpen'>
-						   <option value="true">是</option>
-						   <option value="false">否</option> 
-						</select>
-						 <span id="BiOpenSpan"></span>
-					</div>
-				</td>
-			</tr>
-			
 			<tr>
-				<td>
-					<div class="fitem">
-						<label>专业科研用房面积（平方米）：</label> 
-						<input id="HouseArea" type="text" name="t152Bean.HouseArea" 
-						class="easyui-numberbox"  data-options="min:0,precision:2" required="true">
-						   <span id="HouseAreaSpan"></span>
-					</div>
+				<td style="valign:left"><label>内&nbsp;&nbsp;&nbsp;&nbsp;容：</label>
+					<textarea id="Contents" name="t16Bean.Contents" style="resize:none" cols="50" rows="10"></textarea>
+					<span id="ContentsSpan"></span>
 				</td>
-			</tr>
-			
-		    <tr>
-				<td style="valign:left">
-						<label>对本科生开放情况（500字以内）：</label> 
-						<textarea id="OpenCondition" name="t152Bean.OpenCondition" style="resize:none" cols="50" rows="10"></textarea>
-						<span id="OpenConditionSpan"></span>
-				</td>
-			
-				<td style="valign:left">
-				    <label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-					<textarea id="Note" name="t152Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：：</label>
+					<textarea id="Note" name="t16Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>
@@ -246,12 +210,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </body>
 	<script type="text/javascript">
+	var data;
+
+	$(document).ready(function() {
+
+		loadAuotCityList();
+	});
+
+	function cancel1(){
+		$('div#di1').css("display","inline");
+		$('div#input1').css("display","none");
+		loadAuotCityList();
+	}
+
+	function cancel2(){
+		$('div#di2').css("display","inline");
+		$('div#input2').css("display","none");
+		loadAuotCityList();
+	}
+
+	function loadAuotCityList() {
+		$.ajax( {
+			type : "POST", //post请求
+			url : "pages/T16/auditingData", //请求action的URL
+			dataType : "json",//返回类型
+			success : function(result) { //回调函数	    		 
+				// var data = eval('('+result+')');
+			    data = result;
+			    var data1=result;
+				if (data==null)
+					{
+					alert("还未录入数据！请添加！") ;
+					}
+				else{
+					$('#ItemSpan1').html(data1.item1);
+				$('#ContentsSpan1').html(data1.contents1);
+				$('#NoteSpan1').html(data1.note1);
+				$('#ItemSpan2').html(data1.item2);
+				$('#ContentsSpan2').html(data1.contents2);
+				$('#NoteSpan2').html(data1.note2);
+
+				}
+			}
+		});
+	}
 	
 	var url ;
+
+	function modify1(){
+		$('div#di1').css("display","none");
+		$('div#input1').css("display","inline");
+		 document.getElementById("Item1").value=data.item1 ;
+		 document.getElementById("Contents1").value=data.contents1 ;
+		 document.getElementById("Note1").value=data.note1 ;
+		
+		}
+
+	function modify2(){
+		alert(345);
+		$('div#di2').css("display","none");
+		$('div#input2').css("display","inline");
+		 document.getElementById("Item2").value=data.item2 ;
+		 document.getElementById("Contents2").value=data.contents2 ;
+		 document.getElementById("Note2").value=data.note2 ;
+		
+		}
 	
 	function singleSearch(){
    	 $('#auditing').form('submit',{
-   		 url: 'pages/UndergraCSBaseTea/singleSearch',
+   		 url: 'pages/T16/singleSearch',
    		 type: "post",
 	     dataType: "json",
    		 success: function(result){
@@ -270,7 +297,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url: 'pages/UndergraCSBaseTea/uploadFile',
+	    		 url: 'pages/T181/uploadFile',
 	    		 type: "post",
 		         dataType: "json",
 	    		 onSubmit: function(){
@@ -309,17 +336,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newCourse(){
-	    	url = 'pages/T152/insert' ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加校级科研机构库（科研处）');
-		    $('#resInsForm').form('reset');
+	    	url = 'pages/T16/insert' ;
+		    $('#dlg').dialog('open').dialog('setTitle','添加校训及目标');
+		    $('#t16Form').form('reset');
 	    }
 
 	    function singleImport(){
 		    //录入数据的表单提交
 
-	    	 $('#resInsForm').form('submit',{
-				    url: 'pages/T152/insert' ,
-				    data: $('#resInsForm').serialize(),
+	    	 $('#t16Form').form('submit',{
+				    url: 'pages/T16/insert' ,
+				    data: $('#t16Form').serialize(),
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
@@ -340,75 +367,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var resInsName = $('#ResInsName').val();
-			var type = $('#Type').combobox('getText') ;
-			var beginYear= $('#BeginYear').datebox('getValue') ;
-			var teaUnit = $('#TeaUnit').val();
-			var buildCondition = $('#BuildCondition').combobox('getText');
-			var biOpen = $('#BiOpen').combobox('getText');
-			var houseArea=$('#HouseArea').val();
-			var openCondition = $('#OpenCondition').val() ;
+			var item = $('#Item').val() ;
+			var contents = $('#Contents').val() ;
 			var note = $('#Note').val() ;
+			
 			//根据数据库定义的字段的长度，对其进行判断
-			if(resInsName == null || resInsName.length == 0){
-				$('#ResInsNameSpan').html("<font style=\"color:red\">科研机构名称不能为空</font>") ;
+			if(Item == null || Item.length==0 || Item.length > 100){
+				$('#ItemSpan').focus();
+				$('#ItemSpan').select();
+				$('#ItemSpan').html("<font style=\"color:red\">校训不能为空或长度不超过100</font>") ;
 				return false ;
 			}else{
-				$('#ResInsNameSpan').html("") ;
+				$('#ItemSpan').html("") ;
 			}
 
-			if(type == null || type.length == 0){
-				$('#TypeSpan').html("<font style=\"color:red\">类别不能为空</font>") ;
+			if(contents == null || contents.length==0 || contents.length > 1000){
+				$('#ContentsSpan').focus();
+				$('#ContentsSpan').select();
+				$('#ContentsSpan').html("<font style=\"color:red\">校训不能为空或长度不超过500</font>") ;
 				return false ;
 			}else{
-				$('#TypeSpan').html("") ;
-			}
-
-			if(beginYear == null || beginYear.length == 0){
-                $('#BeginYearSpan').html("<font style=\"color:red\">开设年份不能为空</font>") ;
-                return false;
-     		}else {
-			    $('BeginYearSpan').html("") ;
-			}
-
-			if(teaUnit == null || teaUnit.length == 0){
-                $('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空</font>") ;
-                return false;
-			}else {
-			    $('TeaUnitSpan').html("") ;
-			}
-
-			if(buildCondition == null || buildCondition.length == 0){
-                $('#BuildConditionSpan').html("<font style=\"color:red\">共建情况不能为空</font>") ;
-                return false;
-			}else {
-			    $('BuildConditionSpan').html("") ;
-			}
-
-			if(biOpen == null || biOpen.length == 0){
-                $('#BiOpenSpan').html("<font style=\"color:red\">开放情况不能为空</font>") ;
-                return false;
-			}else {
-			    $('BiOpenSpan').html("") ;
-			}
-
-		if(houseArea == null || houseArea.length == 0){
-				$('#HouseAreaSpan').html("<font style=\"color:red\">面积不能为空</font>");
-			    return false;
-			}else{
-				$('#HouseAreaSpan').html("");
+				$('#ContentsSpan').html("") ;
 			}
 			
-			if(openCondition == null || openCondition.length==0 || openCondition.length > 500){
-				$('#OpenConditionSpan').focus();
-				$('#OpenConditionSpan').select();
-				$('#OpenConditionSpan').html("<font style=\"color:red\">对本科生开放情况不能为空或长度不超过100</font>") ;
-				return false ;
-			}else{
-				$('#OpenConditionSpan').html("") ;
-			}
-			
-			if(note.length > 1000){
+			if(note !=null && note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
 			}else{
@@ -417,29 +399,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return true ;
 		}
 
+		function tdclick(){
+		    var clickfunction = this;
+		    //0,获取当前的td节点
+		    var td = $(this);
+		    //1,取出当前td中的文本内容保存起来
+		    var text = $(this).text();
+		    //2，清空td里边内同
+		    td.html("");
+		    //3,建立一个文本框，也就是建一个input节点
+		    var input = $("<input>");
+		    //4,设置文本框中值是保存起来的文本内容
+		    input.attr("value",text);
+		    //4.5让文本框可以相应键盘按下的事件
+		    input.keyup(function(event){
+		        //记牌器当前用户按下的键值
+		        var myEvent = event || window.event;//获取不同浏览器中的event对象
+		        var kcode = myEvent.keyCode;
+		        //判断是否是回车键按下
+		        if(kcode == 13){
+		            var inputnode = $(this);
+		            //获取当前文本框的内容
+		            var inputext = inputnode.val();
+		            //清空td里边的内容,然后将内容填充到里边
+		            var tdNode = inputnode.parent();
+		            tdNode.html(inputext);
+		            //让td重新拥有点击事件
+		            tdNode.click(tdclick);
+		        }
+		    });
+		    //5，把文本框加入到td里边去
+		    td.append(input);
+		    //5.5让文本框里边的文章被高亮选中
+		    //需要将jquery的对象转换成dom对象
+		    var inputdom = input.get(0);
+		    inputdom.select();
+		   
+		    //6,需要清楚td上的点击事件
+		    td.unbind("click");
+		}
+
 	    function editCourse(){
-	    	var row = $('#unverfiedData').datagrid('getSelections');
-	    	
-	    	if(row.length != 1){
-	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
-	    		return ;
-	    	}
-	    	
-	    	url = 'pages/SchResIns/edit' ;
-	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
-	    	$('#seqNumber').val(row[0].seqNumber) ;
-	    	$('#ResInsID').combobox('select',row[0].resInsID);
-	    	$('#Type').combobox('select',row[0].typeID);
-	    	$('#BeginYear').datebox('setValue',formattime(row[0].beginYear)) ;
-	    	$('#UnitID').combobox('select',row[0].unitID) ;
-	    	var flag1 = "" + row[0].biOpen ;
-	    	var flag2 = "" + row[0].buildCondition ;
-	    	$('#BuildCondition').combobox('select', flag2) ;
-	    	$('#BiOpen').combobox('select',flag1) ;
-	    	$('#HouseArea').val(row[0].houseArea) ;
-	    	$('#OpenCondition').val(row[0].openCondition) ;
-			$('#Note').val(row[0].note) ;
+	    	tdclick() ;
 	    }
 	    
 	    function deleteByIds(){
@@ -473,7 +474,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function deleteCourses(ids){
 	    	$.ajax({ 
 	    		type: "POST", 
-	    		url: "pages/T152/deleteByIds?ids=" + ids, 
+	    		url: "pages/T181/deleteByIds?ids=" + ids, 
 	    		async:"true",
 	    		dataType: "text",
 	    		success: function(result){

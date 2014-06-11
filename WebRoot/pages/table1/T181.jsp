@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		.fitem label {
 			display: inline-block;
-			width: 80px;
+			width: 120px;
 		}
 	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T181/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:350px" url="pages/T181/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
@@ -133,6 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>合作机构名称：</label> 
 						<input id="seqNumber" name="t181Bean.SeqNumber", type="hidden" value="0"></input>
+						<!--  <input id="FillDept" name="t181Bean.FillDept", type="hidden" value="0"></input>-->
 						<input id="CooperInsName" type="text" name="t181Bean.CooperInsName"
 							class="easyui-validatebox" required="true"><span id="CooperInsNameSpan"></span>
 					</div>
@@ -154,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   <div class="fitem">
 				   		<label>合作机构级别：</label> 
 				   		<input class='easyui-combobox' id="CooperInsLevel" name="t181Bean.CooperInsLevel" 
-							data-options="valueField:'indexId',textField:'awardType',url:'pages/DiAwardType/loadDiAwardType',listHeight:'auto',editable:false">
+							data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDiAwardLevel',listHeight:'auto',editable:false">
 						<span id="CooperInsLevelSpan"></span>
 					</div>
 				</td>	
@@ -277,7 +278,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newCourse(){
-	    	url = 'pages/T181/insert' ;
+	    	url = url ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加校级科研机构库（科研处）');
 		    $('#t181Form').form('reset');
 	    }
@@ -286,7 +287,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    //录入数据的表单提交
 
 	    	 $('#t181Form').form('submit',{
-				    url: 'pages/T181/insert' ,
+				    url: url ,
 				    data: $('#t181Form').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -319,7 +320,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(cooperInsName == null || cooperInsName.length==0 || cooperInsName.length > 100){
 				$('#CooperInsName').focus();
 				$('#CooperInsName').select();
-				$('#CooperInsNameSpan').html("<font style=\"color:red\">课程名称不能为空或长度不超过100</font>") ;
+				$('#CooperInsNameSpan').html("<font style=\"color:red\">合作机构名称不能为空或长度不超过100</font>") ;
 				return false ;
 			}else{
 				$('#CooperInsNameSpan').html("") ;
@@ -340,7 +341,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			
 			if(signedTime == null || signedTime.length == 0){
-				$('#SignedTimeSpan').html("<font style=\"color:red\">合作机构级别不能为空</font>") ;
+				$('#SignedTimeSpan').html("<font style=\"color:red\">签订时间不能为空</font>") ;
 				return false ;
 			}else{
 				$('#SignedTimeSpan').html("") ;
@@ -348,14 +349,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			
 			if(unitName == null || unitName.length == 0){
-				$('#UnitNameSpan').html("<font style=\"color:red\">课程类别不能为空</font>") ;
+				$('#UnitNameSpan').html("<font style=\"color:red\">我方单位不能为空</font>") ;
 				return false ;
 			}else{
 				$('#UnitNameSpan').html("") ;
 			}
 			
 			if(unitLevel == null || unitLevel.length == 0){
-				$('#UnitLevelSpan').html("<font style=\"color:red\">课程性质不能为空</font>") ;
+				$('#UnitLevelSpan').html("<font style=\"color:red\">我方单位级别 不能为空</font>") ;
 				return false ;
 			}else{
 				$('#UnitLevelSpan').html("") ;
@@ -378,15 +379,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/T181/edit' ;
-	    	 
+	//    	 alert(row[0].seqNumber);
+	   // 	 alert(row[0].fillDept);
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#CooperInsName').val(row[0].cooperInsName);
 	    	$('#CooperInsType').combobox('select',row[0].cooperInsType);
-	    	$('#CooperInsLevel').combobox('select',row[0].cooperInsLevel) ;
+	    	$('#CooperInsLevel').combobox('select',row[0].cooperInsLevelID) ;
 	    	$('#SignedTime').datebox('setValue',formattime(row[0].signedTime)) ;
 	    	$('#UnitID').combobox('select',row[0].unitID);
-	    	$('#UnitLevel').combobox('select',unitLevel) ;
+	    	$('#UnitLevel').combobox('select',row[0].unitLevelID) ;
 			$('#Note').val(row[0].note) ;
 	    }
 	    

@@ -1,29 +1,23 @@
 package cn.nit.excel.imports.table1;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import cn.nit.bean.di.DiCourseCategoriesBean;
-import cn.nit.bean.di.DiCourseCharBean;
-import cn.nit.bean.di.DiDepartmentBean;
-import cn.nit.bean.di.DiResearchRoomBean;
-import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table1.T17Bean;
-import cn.nit.service.UndergraCSBaseTeaService;
-import cn.nit.service.di.DiCourseCategoriesService;
-import cn.nit.service.di.DiCourseCharService;
-import cn.nit.service.di.DiDepartmentService;
-import cn.nit.service.di.DiResearchRoomService;
-import cn.nit.service.table1.T17Service;
-import cn.nit.util.TimeUtil;
-
 import jxl.Cell;
 
-public class T17Excel {
+import cn.nit.bean.di.DiDepartmentBean;
+import cn.nit.bean.di.DiResearchTypeBean;
+import cn.nit.bean.table1.T151Bean;
+import cn.nit.service.di.DiDepartmentService;
+import cn.nit.service.di.DiResearchTypeService;
+import cn.nit.service.table1.T151Service;
+import cn.nit.util.TimeUtil;
+
+
+public class T151Excel {
 	
 	/**
 	 * 批量导入
@@ -38,27 +32,55 @@ public class T17Excel {
 		}
 		
 		int count = 1 ;
-		T17Bean t17Bean = null ;
+		T151Bean t151Bean = null ;
 		boolean flag = false ;
-		List<T17Bean> list = new LinkedList<T17Bean>() ;
+		List<T151Bean> list = new LinkedList<T151Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
-//		DiDepartmentService diDepartSer = new DiDepartmentService() ;
-//		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
-//		DiCourseCategoriesService diCSCateSer = new DiCourseCategoriesService() ;
-//		List<DiCourseCategoriesBean> diCSCateBeanList = diCSCateSer.getList() ;
-//		DiCourseCharService diCSCharSer = new DiCourseCharService() ;
-//		List<DiCourseCharBean> diCSCharBeanList = diCSCharSer.getList() ;
-//		DiResearchRoomService diResearchRoomSer = new DiResearchRoomService() ;
-//		List<DiResearchRoomBean> diResearchRoomBeanList = diResearchRoomSer.getList() ;
+		DiDepartmentService diDepartSer = new DiDepartmentService() ;
+		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
+		DiResearchTypeService diResearchSer=new DiResearchTypeService();
+		List<DiResearchTypeBean> diResearchBeanList=diResearchSer.getList();
 		
 		for(Cell[] cell : cellList){
-			 int n=cellList.indexOf(cell);
-			 if(n==0){continue;}
-			 else
+			int n=cellList.indexOf(cell);
+			if(n==0){continue;}
+			else
 			 {
+			 try{
 				 
-			
-			try{
+				 String csUnit = cell[3].getContents() ;
+					String unitId = cell[4].getContents() ;
+					
+					if(csUnit == null || csUnit.equals("")){
+						return "第" + count + "行，开课单位不能为空" ;
+					}
+					
+					if(unitId == null || unitId.equals("")){
+						return "第" + count + "行，单位编号不能为空" ;
+					}
+					
+					if(unitId.length() > 50){
+						return "第" + count + "行，单位编号字数不超过50个数字或字母" ;
+					}
+					
+					for(DiDepartmentBean diDepartBean : diDepartBeanList){
+						if(diDepartBean.getUnitId().equals(unitId)){
+							if(diDepartBean.getUnitName().equals(csUnit)){
+								flag = true ;
+								break ;
+							}else{
+								return "第" + count + "行，开课单位与单位编号不对应" ;
+							}
+						}//if
+					}//for
+					
+					if(!flag){
+						return "第" + count + "行，没有与之相匹配的单位编号" ;
+					}else{
+						flag = false ;
+					}
+				 
+				 
 				String ClubName = cell[1].getContents() ;
 				if(ClubName == null || ClubName.equals("")){
 					return "第" + count + "行，校友会名称不能为空" ;
@@ -90,14 +112,14 @@ public class T17Excel {
 				count++ ;
 				
 				Date BuildYear=TimeUtil.changeDateY(BuildYearStr);
-				t17Bean = new T17Bean();
-				t17Bean.setClubName(ClubName);
-				t17Bean.setBuildYear(BuildYear);
-				t17Bean.setPlace(Place);
-				t17Bean.setNote(note);
-				t17Bean.setTime(new Date()) ;
-				list.add(t17Bean);
-				
+//				t17Bean = new T17Bean();
+//				t17Bean.setClubName(ClubName);
+//				t17Bean.setBuildYear(BuildYear);
+//				t17Bean.setPlace(Place);
+//				t17Bean.setNote(note);
+//				t17Bean.setTime(new Date()) ;
+//				list.add(t17Bean);
+//				
 			}
 			catch(Exception e){
 				e.printStackTrace() ;
@@ -107,8 +129,8 @@ public class T17Excel {
 		}
 		
 		flag = false ;
-		T17Service t17Ser = new T17Service() ;
-		flag = t17Ser.batchInsert(list) ;
+		T151Service t151Ser = new T151Service() ;
+		flag = t151Ser.batchInsert(list) ;
 		
 		if(flag){
 			return "数据导入成功" ;
@@ -120,20 +142,6 @@ public class T17Excel {
 	
 	public static void main(String arg[])
 	{
-//		List<Integer> list=new ArrayList<Integer>();
-//		list.add(1);
-//		list.add(2);
-//		list.add(3);
-//		list.add(4);
-//		for(Integer i:list)
-//		{
-//			int n=list.indexOf(i);
-//			if(n==0)
-//			{
-//				continue;
-//			}else
-//			{System.out.println(i);}
-//		}
+
     }
 }
-

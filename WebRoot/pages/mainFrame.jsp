@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   // alert(123) ;
 			    var flag = $('#tabs').tabs('exists',node.text) ;
 			    
-			    alert(node.id) ;
+			  //  alert(node.id) ;
 			 
 			    if(flag){
 			    	$('#tabs').tabs('select',node.text);
@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   function saveUser(){
 			   
 			    $('#treeMenuForm').form('submit',{
-				    url: 'addTree',
+				    url: 'pages/trees/addTree',
 				    onSubmit: function(){
 				    	return $(this).form('validate');
 				    },

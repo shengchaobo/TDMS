@@ -55,23 +55,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:300px" url="pages/T152/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T183/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber" width=10>序号</th>
-				<th field="resInsName" width=10>科研机构名称</th>
-				<th field="resInsID" width=10>单位号</th>
-				<th field="type" width=10>类别</th>
-				<th field="buildCondition" width=10>共建情况</th>
-				<th field="biOpen" width=10 >是否对本科生开放</th>
-				<th field="openCondition" width=10>对本科生开放情况（500字以内）</th>
-				<th field="teaUnit" width=10>所属教学单位</th>
-				<th field="unitID" width=10>教学单位号</th>
-				<th field="beginYear" width=10 fit="true" formatter="formattime">开设年份</th>
-				<th field="houseArea" width=10>专业科研用房面积（平方米）</th>
+				<th field="cooperInsName" width=10>合作机构名称</th>
+				<th field="cooperInsType" width=10>合作机构类型</th>
+				<th field="cooperInsLevel" width=10>合作机构级别</th>
+				<th field="signedTime" width=10 fit="true" formatter="formattime">签订协议时间</th>
+				<th field="unitName" width=10>我方单位</th>
+				<th field="unitID" width=10>单位号</th>
+				<th field="unitLevel" width=10>我方单位级别</th>
 				<th field="note" width=10>备注</th>
 			</tr>
 		</thead>
@@ -101,129 +98,100 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="SeqNumber" width=10>序号</th>
-				<th field="ResInsName" width=10>科研机构名称</th>
-				<th field="ResInsID" width=10>单位号</th>
-				<th field="Type" width=10>类别</th>
-				<th field="BuildCondition" width=10>共建情况</th>
-				<th field="BiOpen" width=10 >是否对本科生开放</th>
-				<th field="OpenCondition" width=10 >对本科生开放情况（500字以内）</th>
-				<th field="TeaUnit" width=10>所属教学单位</th>
-				<th field="UnitID" width=10>教学单位号</th>
-				<th field="BeginYear" width=10 fit="true">开设年份</th>
-				<th field="HouseArea" width=10>专业科研用房面积（平方米）</th>
-				<th field="Note" width=10>备注</th>
+				<th field="id" width=10>序号</th>
+				<th field="CooperInsName" width=10>合作机构名称</th>
+				<th field="CooperInsType" width=10>合作机构类型</th>
+				<th field="CooperInsLevel" width=10>合作机构级别</th>
+				<th field="SignedTime" width=10>签订协议时间</th>
+				<th field="UnitName" width=10>我方单位</th>
+				<th field="UnitID" width=10>单位号</th>
+				<th field="UnitLevel" width=10>我方单位级别</th>
+				<th field="note" width=10>备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">校级以上科研机构批量导入</div>
+		<div class="ftitle">签订合作协议机构导入</div>
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="pages/UndergraCSBaseTea/downloadModel" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href="pages/SchResIns/downloadModel" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
 		<div></div>
-		<div class="ftitle">校级以上科研机构逐条导入</div>
+		<div class="ftitle">签订合作协议机构逐条导入</div>
 		
-		<form id="resInsForm" method="post">
+		<form id="t183Form" method="post">
 		<table>
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>科研机构名称：</label> 
-						<input id="seqNumber" type="hidden"name="t152Bean.SeqNumber" value="0"></input>
-						<input type="hidden" name="t152Bean.ResInsName" id="ResInsName"/>
-						<input id="ResInsID" type="text" name="t152Bean.ResInsID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentSci' ,listHeight:'auto',editable:false,
-							onSelect:function(){
-							 	$('#ResInsName').val($(this).combobox('getText')) ;
+						<label>合作机构名称：</label> 
+						<input id="seqNumber" name="t181Bean.SeqNumber", type="hidden" value="0"></input>
+						<input id="CooperInsName" type="text" name="t181Bean.CooperInsName"
+							class="easyui-validatebox" required="true"><span id="CooperInsNameSpan"></span>
+					</div>
+				</td>
+				<td>
+					<div class="fitem">
+						<label>合作机构类型：</label> 
+						<select class='easyui-combobox' id="CooperInsType" name="t181Bean.CooperInsType" >
+							<option value="学术机构">学术机构</option>
+							<option value="行业机构和企业">行业机构和企业</option>
+							<option value="地方政府">地方政府</option>
+						</select>	
+						<span id="CooperInsTypeSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				   <div class="fitem">
+				   		<label>合作机构级别：</label> 
+				   		<input class='easyui-combobox' id="CooperInsLevel" name="t181Bean.CooperInsLevel" 
+							data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDiAwardLevel',listHeight:'auto',editable:false">
+						<span id="CooperInsLevelSpan"></span>
+					</div>
+				</td>	
+				<td>
+					<div class="fitem">
+						<label>签订时间：</label> 
+						<input class="easyui-datebox" id="SignedTime" name="t181Bean.SignedTime" >
+					   <span id="SignedTimeSpan"></span>
+					</div>
+				</td>
+		  </tr>
+		  <tr>
+				<td>
+				    <div class="fitem">
+				   		<label>我方单位：</label> 
+						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
+						<input type="hidden" name="t181Bean.UnitName" id="UnitName"/>
+						<input id="UnitID" type="text" name="t181Bean.UnitID" 
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							 onSelect:function(){
+							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
 							 }">
-					    <span id="ResInsNameSpan"></span>
-							
+						<span id="UnitNameSpan"></span>
 					</div>
-				</td>
-				<td>
+			  </td>
+			  <td>
 					<div class="fitem">
-						<label>类别：</label> 
-						<input id="Type"  name="t152Bean.Type" class='easyui-combobox'
-						data-options="valueField:'indexId',textField:'researchType',url:'pages/DiResearchType/loadDiResearchType',listHeight:'auto',editable:false">
-						<span id="TypeSpan"></span>
+						<label>我方单位级别：</label> 
+						<input class='easyui-combobox' id="UnitLevel" name="t181Bean.UnitLevel" 
+							data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDIAwardLevelPartTwo',listHeight:'auto',editable:false">
+							<span id="UnitLevelSpan"></span>
 					</div>
-				</td>
+			</td>
 			</tr>
 			<tr>
-				<td>
-					<div class="fitem">
-						<label>开设年份：</label> 
-						 <input class="easyui-datebox" id="BeginYear" name="t152Bean.BeginYear" >
-						 <span id="BeginYearSpan"></span>
-					</div>
-				</td>
-				<td>
-					<div class="fitem">
-						<label>所属教学单位：</label> 
-						<input type="hidden" name="t152Bean.TeaUnit" id="TeaUnit"/>
-						<input id="UnitID" type="text" name="t152Bean.UnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
-							onSelect:function(){
-							    $('#TeaUnit').val($(this).combobox('getText')) ;
-							 }">
-							 
-					    <span id="TeaUnitSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-			    <td>
-					<div class="fitem">
-						<label>共建情况：</label> 
-						<select class='easyui-combobox' id='BuildCondition' name='t152Bean.BuildCondition'>
-						   <option value="true">是</option>
-						   <option value="false">否</option> 
-						</select>
-						<span id="BuildConditionSpan"></span>
-					</div>
-				</td>
-				<td>
-					<div class="fitem">
-						<label>是否对本科生开放：</label> 
-						<select class='easyui-combobox' id='BiOpen' name='t152Bean.BiOpen'>
-						   <option value="true">是</option>
-						   <option value="false">否</option> 
-						</select>
-						 <span id="BiOpenSpan"></span>
-					</div>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<div class="fitem">
-						<label>专业科研用房面积（平方米）：</label> 
-						<input id="HouseArea" type="text" name="t152Bean.HouseArea" 
-						class="easyui-numberbox"  data-options="min:0,precision:2" required="true">
-						   <span id="HouseAreaSpan"></span>
-					</div>
-				</td>
-			</tr>
-			
-		    <tr>
-				<td style="valign:left">
-						<label>对本科生开放情况（500字以内）：</label> 
-						<textarea id="OpenCondition" name="t152Bean.OpenCondition" style="resize:none" cols="50" rows="10"></textarea>
-						<span id="OpenConditionSpan"></span>
-				</td>
-			
-				<td style="valign:left">
-				    <label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-					<textarea id="Note" name="t152Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+					<textarea id="Note" name="t181Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>
@@ -247,11 +215,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 	<script type="text/javascript">
 	
-	var url ;
+	var url="pages/T183/insert" ;
 	
 	function singleSearch(){
    	 $('#auditing').form('submit',{
-   		 url: 'pages/UndergraCSBaseTea/singleSearch',
+   		 url: 'pages/T183/singleSearch',
    		 type: "post",
 	     dataType: "json",
    		 success: function(result){
@@ -270,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url: 'pages/UndergraCSBaseTea/uploadFile',
+	    		 url: 'pages/T183/uploadFile',
 	    		 type: "post",
 		         dataType: "json",
 	    		 onSubmit: function(){
@@ -309,17 +277,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newCourse(){
-	    	url = 'pages/T152/insert' ;
+	    	url = url ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加校级科研机构库（科研处）');
-		    $('#resInsForm').form('reset');
+		    $('#t183Form').form('reset');
 	    }
 
 	    function singleImport(){
 		    //录入数据的表单提交
 
-	    	 $('#resInsForm').form('submit',{
-				    url: 'pages/T152/insert' ,
-				    data: $('#resInsForm').serialize(),
+	    	 $('#t183Form').form('submit',{
+				    url: url,
+				    data: $('#t183Form').serialize(),
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
@@ -340,75 +308,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var resInsName = $('#ResInsName').val();
-			var type = $('#Type').combobox('getText') ;
-			var beginYear= $('#BeginYear').datebox('getValue') ;
-			var teaUnit = $('#TeaUnit').val();
-			var buildCondition = $('#BuildCondition').combobox('getText');
-			var biOpen = $('#BiOpen').combobox('getText');
-			var houseArea=$('#HouseArea').val();
-			var openCondition = $('#OpenCondition').val() ;
+			var cooperInsName = $('#CooperInsName').val() ;
+			var cooperInsType = $('#CooperInsType').combobox('getText') ;
+			var cooperInsLevel = $('#CooperInsLevel').combobox('getText') ;
+			var signedTime=$('#SignedTime').combobox('getText');
+			var unitName = $('#UnitName').val() ;
+			var unitLevel = $('#UnitLevel').combobox('getText') ;
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(resInsName == null || resInsName.length == 0){
-				$('#ResInsNameSpan').html("<font style=\"color:red\">科研机构名称不能为空</font>") ;
+			if(cooperInsName == null || cooperInsName.length==0 || cooperInsName.length > 100){
+				$('#CooperInsName').focus();
+				$('#CooperInsName').select();
+				$('#CooperInsNameSpan').html("<font style=\"color:red\">合作机构名称不能为空或长度不超过100</font>") ;
 				return false ;
 			}else{
-				$('#ResInsNameSpan').html("") ;
-			}
-
-			if(type == null || type.length == 0){
-				$('#TypeSpan').html("<font style=\"color:red\">类别不能为空</font>") ;
-				return false ;
-			}else{
-				$('#TypeSpan').html("") ;
-			}
-
-			if(beginYear == null || beginYear.length == 0){
-                $('#BeginYearSpan').html("<font style=\"color:red\">开设年份不能为空</font>") ;
-                return false;
-     		}else {
-			    $('BeginYearSpan').html("") ;
-			}
-
-			if(teaUnit == null || teaUnit.length == 0){
-                $('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空</font>") ;
-                return false;
-			}else {
-			    $('TeaUnitSpan').html("") ;
-			}
-
-			if(buildCondition == null || buildCondition.length == 0){
-                $('#BuildConditionSpan').html("<font style=\"color:red\">共建情况不能为空</font>") ;
-                return false;
-			}else {
-			    $('BuildConditionSpan').html("") ;
-			}
-
-			if(biOpen == null || biOpen.length == 0){
-                $('#BiOpenSpan').html("<font style=\"color:red\">开放情况不能为空</font>") ;
-                return false;
-			}else {
-			    $('BiOpenSpan').html("") ;
-			}
-
-		if(houseArea == null || houseArea.length == 0){
-				$('#HouseAreaSpan').html("<font style=\"color:red\">面积不能为空</font>");
-			    return false;
-			}else{
-				$('#HouseAreaSpan').html("");
+				$('#CooperInsNameSpan').html("") ;
 			}
 			
-			if(openCondition == null || openCondition.length==0 || openCondition.length > 500){
-				$('#OpenConditionSpan').focus();
-				$('#OpenConditionSpan').select();
-				$('#OpenConditionSpan').html("<font style=\"color:red\">对本科生开放情况不能为空或长度不超过100</font>") ;
+			if(cooperInsType == null || cooperInsType.length == 0){
+				$('#CooperInsTypeSpan').html("<font style=\"color:red\">合作机构类型不能为空</font>") ;
 				return false ;
 			}else{
-				$('#OpenConditionSpan').html("") ;
+				$('#CooperInsTypeSpan').html("") ;
 			}
 			
-			if(note.length > 1000){
+			if(cooperInsLevel == null || cooperInsLevel.length == 0){
+				$('#CooperInsLevelSpan').html("<font style=\"color:red\">合作机构级别不能为空</font>") ;
+				return false ;
+			}else{
+				$('#CooperInsLevelSpan').html("") ;
+			}
+			
+			if(signedTime == null || signedTime.length == 0){
+				$('#SignedTimeSpan').html("<font style=\"color:red\">签订时间不能为空</font>") ;
+				return false ;
+			}else{
+				$('#SignedTimeSpan').html("") ;
+			}
+
+			
+			if(unitName == null || unitName.length == 0){
+				$('#UnitNameSpan').html("<font style=\"color:red\">我方单位不能为空</font>") ;
+				return false ;
+			}else{
+				$('#UnitNameSpan').html("") ;
+			}
+			
+			if(unitLevel == null || unitLevel.length == 0){
+				$('#UnitLevelSpan').html("<font style=\"color:red\">我方单位级别 不能为空</font>") ;
+				return false ;
+			}else{
+				$('#UnitLevelSpan').html("") ;
+			}
+			if(note !=null && note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
 			}else{
@@ -425,20 +377,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		return ;
 	    	}
 	    	
-	    	url = 'pages/SchResIns/edit' ;
-	    	
+	    	url = 'pages/T183/edit' ;
+	    	 
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
-	    	$('#ResInsID').combobox('select',row[0].resInsID);
-	    	$('#Type').combobox('select',row[0].typeID);
-	    	$('#BeginYear').datebox('setValue',formattime(row[0].beginYear)) ;
-	    	$('#UnitID').combobox('select',row[0].unitID) ;
-	    	var flag1 = "" + row[0].biOpen ;
-	    	var flag2 = "" + row[0].buildCondition ;
-	    	$('#BuildCondition').combobox('select', flag2) ;
-	    	$('#BiOpen').combobox('select',flag1) ;
-	    	$('#HouseArea').val(row[0].houseArea) ;
-	    	$('#OpenCondition').val(row[0].openCondition) ;
+	    	$('#CooperInsName').val(row[0].cooperInsName);
+	    	$('#CooperInsType').combobox('select',row[0].cooperInsType);
+	    	$('#CooperInsLevel').combobox('select',row[0].cooperInsLevelID) ;
+	    	$('#SignedTime').datebox('setValue',formattime(row[0].signedTime)) ;
+	    	$('#UnitID').combobox('select',row[0].unitID);
+	    	$('#UnitLevel').combobox('select',row[0].unitLevelID) ;
 			$('#Note').val(row[0].note) ;
 	    }
 	    
@@ -473,7 +421,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function deleteCourses(ids){
 	    	$.ajax({ 
 	    		type: "POST", 
-	    		url: "pages/T152/deleteByIds?ids=" + ids, 
+	    		url: "pages/T183/deleteByIds?ids=" + ids, 
 	    		async:"true",
 	    		dataType: "text",
 	    		success: function(result){

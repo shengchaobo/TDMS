@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		.fitem label {
 			display: inline-block;
-			width: 80px;
+			width: 120px;
 		}
 	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/SchResIns/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:300px" url="pages/SchResIns/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
@@ -153,7 +153,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>类别：</label> 
 						<input id="Type"  name="t151Bean.Type" class='easyui-combobox'
-						data-options="valueField:'indexId',textField:'researchType',url:'pages/DiResearchType/loadDiResearchType',listHeight:'auto',editable:false">
+						data-options="valueField:'indexId',textField:'researchType',url:'pages/DiResearchType/loadDiResearchType',listHeight:'auto',editable:false,
+						onSelect:function(){
+							 	alert($(this).combobox('getValue')) ;
+							 }">
 						<span id="TypeSpan"></span>
 					</div>
 				</td>
@@ -318,7 +321,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    //录入数据的表单提交
 
 	    	 $('#resInsForm').form('submit',{
-				    url: 'pages/SchResIns/insert' ,
+				    url: url ,
 				    data: $('#resInsForm').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -340,6 +343,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
+		
 			var resInsName = $('#ResInsName').val();
 			var type = $('#Type').combobox('getText') ;
 			var beginYear= $('#BeginYear').datebox('getValue') ;
@@ -417,6 +421,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return true ;
 		}
 
+		
 	    function editCourse(){
 	    	var row = $('#unverfiedData').datagrid('getSelections');
 	    	
@@ -424,13 +429,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
 	    		return ;
 	    	}
-	    	
 	    	url = 'pages/SchResIns/edit' ;
-	    	 
+	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#ResInsID').combobox('select',row[0].resInsID);
-	    	$('#Type').combobox('select',row[0].type);
+	    	$('#Type').combobox('select',row[0].typeID);
 	    	$('#BeginYear').datebox('setValue',formattime(row[0].beginYear)) ;
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
 	    	var flag = "" + row[0].biOpen ;

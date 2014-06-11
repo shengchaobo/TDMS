@@ -80,8 +80,6 @@ public class T151DAO {
 		sql.append("select count(*)") ;
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiResearchType drt") ;
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
-//		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-//		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		int total = 0 ;
 		
 		if(fillUnitId != null && !fillUnitId.equals("")){
@@ -126,10 +124,7 @@ public class T151DAO {
 		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type,t.Type as TypeID , t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note");
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
-//		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
-//		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-//		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
-		//
+
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillUnitID=" + fillUnitId) ;
 		}
@@ -143,7 +138,6 @@ public class T151DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-//		System.out.println(sql.toString());
 		
 		try{
 			st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY) ;

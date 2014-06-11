@@ -40,10 +40,10 @@ import cn.nit.util.TimeUtil;
 			/**
 			 * 科研处
 			 * */
-			public String auditingData(String conditions, String fillUnitId, int page, int rows){
+			public String auditingData(String conditions, String fillDept, int page, int rows){
 					
-			    int total = t181Dao.totalAuditingData(conditions, fillUnitId) ;
-				List<T181POJO> list = t181Dao.auditingData(conditions, fillUnitId, page, rows) ;
+			    int total = t181Dao.totalAuditingData(conditions, fillDept) ;
+				List<T181POJO> list = t181Dao.auditingData(conditions, fillDept, page, rows) ;
 				Pagition pages = new Pagition(total, list) ;
 //				System.out.println("total:"+total);
 //				System.out.println("list:"+list.size());
@@ -112,8 +112,8 @@ import cn.nit.util.TimeUtil;
 
 			public static void main(String arg[])
 			{
-				T151Service ser=new T151Service();
-				String string=ser.auditingData(null, null, 1, 2);			
+				T181Service ser=new T181Service();
+				String string=ser.auditingData(null, "1012", 1, 1);			
 				System.out.println(string);
 			}
 

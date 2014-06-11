@@ -11,7 +11,7 @@ import cn.nit.util.DAOUtil;
 
 public class DiAwardTypeDao {
 
-	private String tableName = "DiTitleLevel" ;
+	private String tableName = "DiAwardType" ;
 	
 	private String field = "IndexID,AwardType" ;
 	

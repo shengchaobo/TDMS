@@ -38,12 +38,16 @@ public class UndergraCSBaseTeaExcel {
 		boolean flag = false ;
 		List<UndergraCSBaseTeaBean> list = new LinkedList<UndergraCSBaseTeaBean>() ;
 		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
+		
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
+		
 		DiCourseCategoriesService diCSCateSer = new DiCourseCategoriesService() ;
 		List<DiCourseCategoriesBean> diCSCateBeanList = diCSCateSer.getList() ;
+		
 		DiCourseCharService diCSCharSer = new DiCourseCharService() ;
 		List<DiCourseCharBean> diCSCharBeanList = diCSCharSer.getList() ;
+		
 		DiResearchRoomService diResearchRoomSer = new DiResearchRoomService() ;
 		List<DiResearchRoomBean> diResearchRoomBeanList = diResearchRoomSer.getList() ;
 		

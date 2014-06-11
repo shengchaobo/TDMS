@@ -1,47 +1,46 @@
 package cn.nit.service.table1;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-import cn.nit.bean.table1.T17Bean;
-import cn.nit.bean.table5.UndergraCSBaseTeaBean;
+import cn.nit.bean.table1.T11Bean;
 import cn.nit.dao.di.DIResourceDAO;
-import cn.nit.dao.table1.T17DAO;
-import cn.nit.pojo.table1.T17POJO;
+import cn.nit.dao.table1.T11DAO;
+
+import cn.nit.pojo.table1.T11POJO;
 import cn.nit.util.Pagition;
 import cn.nit.util.TimeUtil;
 
-/**表1-7操作类*/
-public class T17Service {
-	
-	/**  表T1-7的数据库操作类  */
-	private T17DAO t17Dao = new T17DAO() ;
+public class T11Service {
+
+	/**  表T1-1的数据库操作类  */
+	private T11DAO t11Dao = new T11DAO() ;
 	
 	/**
-	 * 表T1-5的service的插入操作
+	 * 表T1-1的service的插入操作
 	 * @param undergraCSBaseTea
 	 * @return
 	 *
 	 * @time: 2014-5-14/上午10:52:05
 	 */
-	public boolean insert(T17Bean t17Bean){
+	public boolean insert(T11Bean t11Bean){
 		
-		return t17Dao.insert(t17Bean) ;
+		return t11Dao.insert(t11Bean) ;
 	}
 	
-	
-	public String auditingData(String conditions, String fillUnitId, int page, int rows){
+	/**
+	 * 科研处
+	 * */
+	public String auditingData(String year){
 			
-	    int total = t17Dao.totalAuditingData(conditions, fillUnitId) ;
-		List<T17POJO> list = t17Dao.auditingData(conditions, fillUnitId, page, rows) ;
-		Pagition pages = new Pagition(total, list) ;
+		List<T11POJO> list = t11Dao.auditingData(year) ;
+		T11POJO t11Pojo=list.get(0);
+//		System.out.println(t11Pojo.);
 //		System.out.println("total:"+total);
 //		System.out.println("list:"+list.size());
-		JSON json = JSONSerializer.toJSON(pages) ;
+		JSON json = JSONSerializer.toJSON(t11Pojo) ;
 			
 //		System.out.println(json.toString()) ;
 			
@@ -53,28 +52,23 @@ public class T17Service {
 	 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
 	 * @return
 	 */
-	public boolean update(T17Bean t17Bean){
+	public boolean update(T11Bean t11Bean){
 //	    this.setAudit(t151Bean) ;
-		return t17Dao.update(t17Bean) ;
+		return t11Dao.update(t11Bean) ;
 	}
 	
-//	private void setAudit(T17Bean t17Bean){
+//	private void setAudit(T11Bean t11Bean){
 //		
-//		String audit = DIResourceDAO.getAudit(t17Dao.getTableName()) ;
+//		String audit = DIResourceDAO.getAudit(t11Dao.getTableName()) ;
 //		
 //		String audits[] = audit.split(",") ;
-//		t17Bean.setAudit(audits[0]) ;
+//		t11Bean.setAudit(audits[0]) ;
 //	}
-	
-	public boolean batchInsert(List<T17Bean> list){
-			
-			return t17Dao.batchInsert(list) ;
-		}
 	
 	/**按id删除数据*/
 	public boolean deleteCoursesByIds(String ids){
 		
-		return t17Dao.deleteCoursesByIds(ids) ;
+		return t11Dao.deleteCoursesByIds(ids) ;
 	}
 	
 	/**
@@ -108,15 +102,13 @@ public class T17Service {
 		
 		return sql.toString() ;
 	}
+   
 	
-	public static void main(String arh[]) throws ParseException
+	public static void main(String arg[])
 	{
-		T17Service ser=new T17Service();
-		String info=ser.auditingData(null, null, 1, 4);
+		T11Service ser=new T11Service();
+		String info=ser.auditingData("2014") ;
 		System.out.println(info);
-	
-		
 	}
-
-
+	
 }

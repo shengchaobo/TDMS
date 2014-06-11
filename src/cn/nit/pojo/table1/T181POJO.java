@@ -8,13 +8,13 @@ import java.util.Date;
      
 		private int SeqNumber;
 		/**填表部门*/
-		private String FillDept;
-		/**合作机构名称*/
 		private String CooperInsName;
 		/**合作机构类型*/
 		private String CooperInsType;//
 		/**合作机构级别*/
 		private String CooperInsLevel;//
+		private String CooperInsLevelID;
+		
 		/**签订协议时间*/
 		private Date SignedTime;//
 		/**我方单位*/
@@ -23,20 +23,37 @@ import java.util.Date;
 		private String UnitID;//
 		/**我方单位级别*/
 		private String UnitLevel;//
+		private String UnitLevelID;
 		/**备注*/
 		private String Note;
+		public Date getTime() {
+			return Time;
+		}
+		public void setTime(Date time) {
+			Time = time;
+		}
+		private Date Time;
+		
+		
+		public String getCooperInsLevelID() {
+			return CooperInsLevelID;
+		}
+		public void setCooperInsLevelID(String cooperInsLevelID) {
+			CooperInsLevelID = cooperInsLevelID;
+		}
+		public String getUnitLevelID() {
+			return UnitLevelID;
+		}
+		public void setUnitLevelID(String unitLevelID) {
+			UnitLevelID = unitLevelID;
+		}
+	
 		
 		public int getSeqNumber() {
 			return SeqNumber;
 		}
 		public void setSeqNumber(int seqNumber) {
 			SeqNumber = seqNumber;
-		}
-		public String getFillDept() {
-			return FillDept;
-		}
-		public void setFillDept(String fillDept) {
-			FillDept = fillDept;
 		}
 		public String getCooperInsName() {
 			return CooperInsName;

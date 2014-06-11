@@ -1,10 +1,5 @@
 package cn.nit.action.table1;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 
@@ -15,22 +10,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table5.UndergraCSBaseTeaBean;
-import cn.nit.service.table1.T151Service;
-import cn.nit.util.ExcelUtil;
+import cn.nit.bean.table1.T181Bean;
+import cn.nit.service.table1.T181Service;
 
-/**
- * 
- * @author lenovo
- */
-public class T151Action {
 
-	/**  表151的Service类  */
-	private T151Service t151Ser = new T151Service() ;
+public class T182Action {
 	
-	/**  表151的Bean实体类  */
-	private T151Bean t151Bean = new T151Bean() ;
+	/**  表181的Service类  */
+	private T181Service t181Ser = new T181Service() ;
+	
+	/**  表181的Bean实体类  */
+	private T181Bean t181Bean = new T181Bean() ;
 	
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
@@ -53,14 +43,17 @@ public class T151Action {
 	/**  逐条插入数据  */
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t151Bean.setTime(new Date()) ;
+		t181Bean.setTime(new Date()) ;
+		t181Bean.setFillDept("1013");//教务处
+//		System.out.println(t181Bean.getCooperInsLevel());
+//		System.out.println(t181Bean.getUnitLevel());
+//		System.out.println(t181Bean.getUnitID());
 //		System.out.println(t151Bean.getResInsID());
 //		System.out.println(t151Bean.getResInsName());
 		//这还没确定,设置填报者的职工号与部门号
 //		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
 //		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
-		
-		boolean flag = t151Ser.insert(t151Bean) ;
+		boolean flag = t181Ser.insert(t181Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -97,7 +90,7 @@ public class T151Action {
 		}
 		
 		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t151Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String pages = t181Ser.auditingData(conditions, "1013", Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -117,7 +110,7 @@ public class T151Action {
 	/**  生成查询条件  （查询数据） */
 	public void auditingConditions(){
 		
-		String sqlConditions = t151Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
+		String sqlConditions = t181Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
 		getSession().setAttribute("auditingConditions", sqlConditions) ;
 		PrintWriter out = null ;
 		
@@ -138,8 +131,9 @@ public class T151Action {
 	/**  编辑数据  */
 	public void edit(){
 
-		t151Bean.setTime(new Date()) ;
-		boolean flag = t151Ser.update(t151Bean) ;
+		t181Bean.setFillDept("1013");
+		t181Bean.setTime(new Date());
+		boolean flag = t181Ser.update(t181Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -163,7 +157,7 @@ public class T151Action {
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
-		boolean flag = t151Ser.deleteCoursesByIds(ids) ;
+		boolean flag = t181Ser.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -222,12 +216,12 @@ public class T151Action {
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T151Bean getT151Bean() {
-		return t151Bean;
+	public T181Bean getT181Bean() {
+		return t181Bean;
 	}
 
-	public void setT151Bean(T151Bean t151Bean) {
-		this.t151Bean = t151Bean;
+	public void setT181Bean(T181Bean t181Bean) {
+		this.t181Bean = t181Bean;
 	}
 
 	public void setSeqNum(int seqNum){
@@ -258,4 +252,5 @@ public class T151Action {
 		String match = "[\\d]+" ;
 		System.out.println("23gfhf4".matches(match)) ;
 	}
+
 }

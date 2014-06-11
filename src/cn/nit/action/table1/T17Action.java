@@ -21,6 +21,8 @@ public class T17Action {
 	/**  表17的Bean实体类  */
 	private T17Bean t17Bean = new T17Bean() ;
 	
+	private Date BuildYear;
+	
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
 	
@@ -43,6 +45,9 @@ public class T17Action {
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t17Bean.setTime(new Date()) ;
+//		String cuYear=(this.BuildYear).toString();
+//		String year=cuYear.substring(cuYear.length()-4, cuYear.length()) ;
+//		t17Bean.setBuildYear(year);
 		//这还没确定,设置填报者的职工号与部门号
 //		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
 //		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
@@ -82,7 +87,7 @@ public class T17Action {
 		
 		String conditions = (String) getSession().getAttribute("auditingConditions") ;
 		String pages = t17Ser.auditingData(null, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
-		System.out.println(pages);
+//		System.out.println(pages);
 		PrintWriter out = null ;
 		try{
 			getResponse().setContentType("text/html; charset=UTF-8") ;
@@ -120,8 +125,16 @@ public class T17Action {
 	}
 	
 	/**  编辑数据  */
-	public void edit(){
+	public void editSch(){
 
+		System.out.println("编辑数据！");
+		t17Bean.setTime(new Date());
+//		System.out.println(t17Bean.getTime());
+//		System.out.println(t17Bean.getSeqNumber());
+//		System.out.println(t17Bean.getClubName());
+//		System.out.println(t17Bean.getNote());
+//		System.out.println(t17Bean.getPlace());
+//		System.out.println(t17Bean.getBuildYear());
 		boolean flag = t17Ser.update(t17Bean) ;
 		PrintWriter out = null ;
 		
@@ -236,13 +249,20 @@ public class T17Action {
 	public void setRows(String rows){
 		this.rows = rows ;
 	}
-	 public static void main(String arg[])
+	 public Date getBuildYear() {
+		return BuildYear;
+	}
+
+	public void setBuildYear(Date BuildYear) {
+		this.BuildYear = BuildYear;
+	}
+
+	public static void main(String arg[])
 	 {
-//		 T17Action act=new T17Action();
-//		 act.setPage("1");
-//		 act.setRows("4");
-//		 
-//		 act.auditingData();
+//         Date da=new Date();
+//         String str=da.toString();
+//         String str1=str.substring(str.length()-4, str.length());
+//         System.out.println(str1);
 	 }
 
 }

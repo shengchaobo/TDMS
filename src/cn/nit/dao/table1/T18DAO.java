@@ -3,6 +3,7 @@ package cn.nit.dao.table1;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -76,12 +77,14 @@ public class T18DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiAwardLevel dal,DiAwardType dat") ;
-		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dat.IndexID=t.CooperInsLevel");		
+//		sql.append(" from "+ tableName);
+		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiAwardLevel dal") ;
+		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel ");		
 		int total = 0 ;
-		
+
+//		System.out.println(sql.toString());
 		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
+			sql.append(" and FillDept=" + fillUnitId) ;
 		}
 		
 		if(conditions != null && !conditions.equals("")){
@@ -95,12 +98,14 @@ public class T18DAO {
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
+//			System.out.println(rs);
 			if(rs == null){
 				return total ;
 			}
 			
 			while(rs.next()){
 				total = rs.getInt(1) ;
+//			   System.out.println("total:"+total);
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -114,21 +119,22 @@ public class T18DAO {
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
 	 */
-	public List<T181POJO> auditingData(String conditions, String fillUnitId, int page, int rows){
+	public List<T181POJO> auditingData(String conditions, String fillDept, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T181POJO> list = null ;
-		sql.append("select t.SeqNumber,t.CooperInsName,t.CooperInsType,dat.AwardType as CooperInsLevel, t.CooperInsLevel as CooperInsLevelID" +
-				",t.SignedTime,t.UnitName,t.UnitID,dal.AwardLevel as UnitLevel,t.UnitLevel as UnitLevelID, t.Note");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiAwardLevel dal,DiAwardType dat");
-		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dat.IndexID=t.CooperInsLevel" );
+		List<T181POJO> list =null ;
+		sql.append("select t.SeqNumber,t.CooperInsName,t.CooperInsType,dal.AwardLevel as CooperInsLevel, t.CooperInsLevel as CooperInsLevelID" +
+				",t.SignedTime,t.UnitName,t.UnitID,dal.AwardLevel as UnitLevel,t.UnitLevel as UnitLevelID, t.Note,t.Time");
+		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiAwardLevel dal");
+		sql.append(" where   dpt.UnitID=t.UnitID and dal.IndexID=t.CooperInsLevel" );
 //		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
 //		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
 //		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 //		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		//
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		System.out.println(sql.toString());
+		if(fillDept != null && !fillDept.equals("")){
+			sql.append(" and FillDept=" + fillDept) ;
 		}
 		
 		if(conditions != null){
@@ -204,8 +210,10 @@ public class T18DAO {
 	{
 		T18DAO dao=new T18DAO();
 //		int n=dao.totalAuditingData(null, null);
-		List<T181POJO> list=dao.auditingData(null, null, 1, 2);
+		List<T181POJO> list=dao.auditingData(null, "1012", 1, 1);
+//		int n=dao.totalAuditingData(null, "1012");
 		System.out.println(list.size());
+//		System.out.println(n);
 		
 	}
 

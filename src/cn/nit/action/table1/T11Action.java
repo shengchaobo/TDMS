@@ -15,52 +15,46 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table5.UndergraCSBaseTeaBean;
-import cn.nit.service.table1.T151Service;
+import cn.nit.bean.table1.T11Bean;
+
+import cn.nit.service.table1.T11Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 /**
  * 
  * @author lenovo
  */
-public class T151Action {
+public class T11Action {
 
-	/**  表151的Service类  */
-	private T151Service t151Ser = new T151Service() ;
+	/**  表11的Service类  */
+	private T11Service t11Ser = new T11Service() ;
 	
-	/**  表151的Bean实体类  */
-	private T151Bean t151Bean = new T151Bean() ;
+	/**  表11的Bean实体类  */
+	private T11Bean t11Bean = new T11Bean() ;
+	/** 接收年份*/
+	private String Year ;
 	
-	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
 	
-	/**  待审核数据查询的起始时间  */
-	private Date startTime ;
-	
-	/**  待审核数据查询的结束时间  */
-	private Date endTime ;
-	
-	/**  数据的SeqNumber编号  */
-	private String ids ;
-	
-	/**  当前查询的是第几页  */
-	private String page ;
-	
-	/**每页显示的条数  */
-	private String rows ;
-	
+	public String getYear() {
+		return Year;
+	}
+
+	public void setYear(String year) {
+		this.Year = year;
+	}
+
 	/**  逐条插入数据  */
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t151Bean.setTime(new Date()) ;
+		t11Bean.setTime(new Date()) ;
 //		System.out.println(t151Bean.getResInsID());
 //		System.out.println(t151Bean.getResInsName());
 		//这还没确定,设置填报者的职工号与部门号
 //		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
 //		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
 		
-		boolean flag = t151Ser.insert(t151Bean) ;
+		boolean flag = t11Ser.insert(t11Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -86,18 +80,11 @@ public class T151Action {
 	/**  为界面加载数据  */
 	public void auditingData(){
 		
-//		System.out.println("輸出輸出輸出");
+		Date date=new Date();
+		String cuYear=date.toString();
+		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
 		
-		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
-			return ;
-		}
-		
-		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
-			return ;
-		}
-		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t151Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String pages = t11Ser.auditingData(year) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -114,38 +101,21 @@ public class T151Action {
 		}
 	}
 	
-	/**  生成查询条件  （查询数据） */
-	public void auditingConditions(){
-		
-		String sqlConditions = t151Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
-	
+
 	/**  编辑数据  */
 	public void edit(){
-
-		t151Bean.setTime(new Date()) ;
-		boolean flag = t151Ser.update(t151Bean) ;
+		
+		t11Bean.setTime(new Date()) ;
+		Date ti=TimeUtil.changeDateY(this.Year);
+		t11Bean.setSch_BeginTime(ti);
+//		System.out.println(t11Bean.getTime());
+		boolean flag = t11Ser.update(t11Bean) ;
 		PrintWriter out = null ;
 		
 		try{
 			out = getResponse().getWriter() ;
 			if(flag){
-				out.print("{\"state\":true,data:\"删除成功!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
 				out.print("{\"state\":true,data:\"删除失败!!!\"}") ;
 			}
@@ -160,31 +130,31 @@ public class T151Action {
 		}
 	}
 	
-	/**  根据数据的id删除数据  */
-	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
-		boolean flag = t151Ser.deleteCoursesByIds(ids) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			
-			if(flag){
-				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
-			}else{
-				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
-			}
-			
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+//	/**  根据数据的id删除数据  */
+//	public void deleteCoursesByIds(){
+//		System.out.println("ids=" + ids) ;
+//		boolean flag = t151Ser.deleteCoursesByIds(ids) ;
+//		PrintWriter out = null ;
+//		
+//		try{
+//			out = getResponse().getWriter() ;
+//			
+//			if(flag){
+//				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
+//			}else{
+//				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
+//			}
+//			
+//			out.flush() ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
 	
 //	public InputStream getInputStream(){
 //
@@ -222,36 +192,12 @@ public class T151Action {
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T151Bean getT151Bean() {
-		return t151Bean;
+	public T11Bean getT11Bean() {
+		return t11Bean;
 	}
 
-	public void setT151Bean(T151Bean t151Bean) {
-		this.t151Bean = t151Bean;
-	}
-
-	public void setSeqNum(int seqNum){
-		this.seqNum = seqNum ;
-	}
-	
-	public void setStartTime(Date startTime){
-		this.startTime = startTime ;
-	}
-	
-	public void setEndTime(Date endTime){
-		this.endTime = endTime ;
-	}
-
-	public void setIds(String ids) {
-		this.ids = ids;
-	}
-
-	public void setPage(String page){
-		this.page = page ;
-	}
-	
-	public void setRows(String rows){
-		this.rows = rows ;
+	public void setT11Bean(T11Bean t11Bean) {
+		this.t11Bean = t11Bean;
 	}
 	
 	public static void main(String args[]){

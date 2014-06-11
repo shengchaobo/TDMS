@@ -36,7 +36,7 @@ public class DAOUtil {
 	 * @param obj       插入数据的实体类
 	 * @param tableName 要插入数据对数据库的表名
 	 * @param field     数据库对应的字段
-	 * @param conn      数据库连�?
+	 * @param conn      数据库连�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:02:27
@@ -64,29 +64,30 @@ public class DAOUtil {
 		PreparedStatement pst = null ;
 		try{
 			pst = conn.prepareStatement(sql.toString()) ;
+//			System.out.println(sql.toString());
 
 			for(int i = 0; i < length; i++){
 				String type = wrapper.getPropertyType(fields[i]).toString() ;
-
-				//判断插入数据的类型，并赋�?
+				System.out.println(fields[i]);
+				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){
 					pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
-				}else if(type.endsWith("int")){
+				}else if(type.endsWith("int")||type.endsWith("Integer")){
 					pst.setInt(i + 1, (Integer) wrapper.getPropertyValue(fields[i])) ;
 				}else if(type.endsWith("Date")){
 					java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(fields[i]) ;
 					Date sqlDate = new Date(utilDate.getTime()) ;
 					pst.setDate(i + 1, sqlDate ) ;
-				}else if(type.endsWith("long")){
+				}else if(type.endsWith("long")||type.endsWith("Long")){
 					pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
 
-				}else if(type.endsWith("boolean")){
+				}else if(type.endsWith("boolean")||type.endsWith("Boolean")){
 					pst.setBoolean(i+1, (Boolean) wrapper.getPropertyValue(fields[i])) ;
-				}else if(type.endsWith("double")){
+				}else if(type.endsWith("double")||type.endsWith("Double")){
 					pst.setDouble(i+1, (Double) wrapper.getPropertyValue(fields[i])) ;
 
 				}else{
-					throw new Exception("自行添加对应类型�? + type) ;
+					throw new Exception("自行添加对应类型：" + type) ;
 				}
 			}
 
@@ -107,10 +108,10 @@ public class DAOUtil {
 	}
 
 	/**
-	 * 将数据中所取出的数据转换为实际应用的类�?
+	 * 将数据中所取出的数据转换为实际应用的类�?
 	 * @param <T>
-	 * @param rs  ResultSet 结果�?
-	 * @param cla           实体�?
+	 * @param rs  ResultSet 结果�?
+	 * @param cla           实体�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:17:57
@@ -132,7 +133,7 @@ public class DAOUtil {
 				clazz = Class.forName(cla.getName()) ;
 				T t = (T)clazz.newInstance() ;
 				wrapper = new BeanWrapperImpl(t) ;
-				//获取实体类的属�?
+				//获取实体类的属�?
 				Field fields[] = clazz.getDeclaredFields() ;
 
 				for(Field field : fields){
@@ -140,7 +141,7 @@ public class DAOUtil {
 					Class clazzType = wrapper.getPropertyType(fieldName) ;
 					String type = clazzType.getName() ;
 
-					//给实体类的相关属性赋�?
+					//给实体类的相关属性赋�?
 					if(type.endsWith("String")){
 						wrapper.setPropertyValue(fieldName, rs.getString(fieldName)) ;
 					}else if(type.endsWith("int")){
@@ -201,7 +202,7 @@ public class DAOUtil {
 				for(int i = 0; i < length; i++){
 					String type = wrapper.getPropertyType(fields[i]).toString() ;
 
-					//判断插入数据的类型，并赋�?
+					//判断插入数据的类型，并赋�?
 					if(type.endsWith("String")){
 						pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
 					}else if(type.endsWith("int")){
@@ -213,7 +214,7 @@ public class DAOUtil {
 					}else if(type.endsWith("long")){
 						pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
 					}else{
-						throw new Exception("自行添加对应类型�? + type) ;
+						throw new Exception("自行添加对应类型：" + type) ;
 					}
 				}
 				pst.addBatch() ;
@@ -242,7 +243,7 @@ public class DAOUtil {
 	 * @param obj       插入数据的实体类
 	 * @param tableName 要插入数据对数据库的表名
 	 * @param field     数据库对应的字段
-	 * @param conn      数据库连�?
+	 * @param conn      数据库连�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:02:27
@@ -280,7 +281,7 @@ public class DAOUtil {
 		}
 		
 		length = length + keyFields.length ;
-		System.out.println(sql.toString()) ;
+//		System.out.println(sql.toString()) ;
 		BeanWrapper wrapper = new BeanWrapperImpl(obj) ;
 		//判断数据插入的条数，0代表数据插入失败
 		int flag = 0 ;
@@ -300,22 +301,24 @@ public class DAOUtil {
 					type = wrapper.getPropertyType(keyFields[j - fields.length]).toString() ;
 					vField = keyFields[j - fields.length] ;
 				}
-
-				//判断插入数据的类型，并赋�?
+//				System.out.println(vField) ;
+				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){
 					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;
-				}else if(type.endsWith("int")){
+				}else if(type.endsWith("int") || type.endsWith("Integer")){
 					pst.setInt(j + 1, (Integer) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("Date")){
 					java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(vField) ;
 					Date sqlDate = new Date(utilDate.getTime()) ;
 					pst.setDate(j + 1, sqlDate ) ;
-				}else if(type.endsWith("long")){
+				}else if(type.endsWith("long") || type.endsWith("Long")){
 					pst.setLong(j + 1, (Long) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("Boolean") || type.endsWith("boolean")){
 					pst.setBoolean(j + 1, (Boolean) wrapper.getPropertyValue(vField)) ;
+				}else if(type.endsWith("double") || type.endsWith("Double")){
+					pst.setDouble(j + 1, (Double) wrapper.getPropertyValue(vField)) ;
 				}else{
-					throw new Exception("自行添加对应类型�? + type) ;
+					throw new Exception("自行添加对应类型：" + type) ;
 				}
 			}
 

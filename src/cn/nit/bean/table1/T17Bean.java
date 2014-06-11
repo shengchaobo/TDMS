@@ -24,17 +24,18 @@ public class T17Bean {
 	public void setClubName(String ClubName) {
 		this.ClubName = ClubName;
 	}
-	public Date getBuildYear() {
-		return BuildYear;
-	}
-	public void setBuildYear(Date buildYear) {
-		BuildYear = buildYear;
-	}
+	
 	public String getPlace() {
 		return Place;
 	}
 	public void setPlace(String Place) {
 		this.Place = Place;
+	}
+	public Date getBuildYear() {
+		return BuildYear;
+	}
+	public void setBuildYear(Date BuildYear) {
+		this.BuildYear = BuildYear;
 	}
 	public Date getTime() {
 		return Time;

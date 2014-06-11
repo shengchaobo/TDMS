@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="校友会（党员办）" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T17/auditingData"
+	<table id="unverfiedData" title="校友会（党员办）" class="easyui-datagrid" style="width:100%px;height:430px" url="pages/T17/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber" width=10>序号</th>
 				<th field="clubName" width=10>校友会名称</th>
-				<th field="buildYear" width=10 formatter='formattime'>建设时间</th>
+				<th field="buildYear" width=10  formatter="formattime">建设时间</th>
 				<th field="place" width=10>地点</th>
 				<th field="note" width=10>备注</th>
 			</tr>
@@ -187,7 +187,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url: 'pages/UndergraCSBaseTea/uploadFile',
+	    		 url: 'pages/T17/uploadFile',
 	    		 type: "post",
 		         dataType: "json",
 	    		 onSubmit: function(){
@@ -226,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newCourse(){
-	    	url = 'pages/T17/insert' ;
+	    	url = url ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加校友会（党院办）');
 		    $('#t17form').form('reset');
 	    }
@@ -235,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    //录入数据的表单提交
 
 	    	 $('#t17form').form('submit',{
-				    url: 'pages/T17/insert' ,
+				    url: url,
 				    data: $('#t17form').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -289,6 +289,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	    function editCourse(){
 	    	var row = $('#unverfiedData').datagrid('getSelections');
+	     //alert(row.length);
 	    	
 	    	if(row.length != 1){
 	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
@@ -296,11 +297,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/T17/edit' ;
-	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改校友会信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#ClubName').val(row[0].clubName);
-	    	$('#BuildYear').val('select',row[0].buildYear);
+	    	$('#BuildYear').datebox('setValue',formattime(row[0].buildYear)) ;
 	    	$('#Place').combobox('select',row[0].place) ;
 			$('#Note').val(row[0].note) ;
 	    }

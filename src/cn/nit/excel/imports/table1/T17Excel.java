@@ -1,5 +1,7 @@
 package cn.nit.excel.imports.table1;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +18,8 @@ import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiResearchRoomService;
+import cn.nit.service.table1.T17Service;
+import cn.nit.util.TimeUtil;
 
 import jxl.Cell;
 
@@ -37,193 +41,99 @@ public class T17Excel {
 		T17Bean t17Bean = null ;
 		boolean flag = false ;
 		List<T17Bean> list = new LinkedList<T17Bean>() ;
-		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
-		DiDepartmentService diDepartSer = new DiDepartmentService() ;
-		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
-		DiCourseCategoriesService diCSCateSer = new DiCourseCategoriesService() ;
-		List<DiCourseCategoriesBean> diCSCateBeanList = diCSCateSer.getList() ;
-		DiCourseCharService diCSCharSer = new DiCourseCharService() ;
-		List<DiCourseCharBean> diCSCharBeanList = diCSCharSer.getList() ;
-		DiResearchRoomService diResearchRoomSer = new DiResearchRoomService() ;
-		List<DiResearchRoomBean> diResearchRoomBeanList = diResearchRoomSer.getList() ;
+//		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
+//		DiDepartmentService diDepartSer = new DiDepartmentService() ;
+//		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
+//		DiCourseCategoriesService diCSCateSer = new DiCourseCategoriesService() ;
+//		List<DiCourseCategoriesBean> diCSCateBeanList = diCSCateSer.getList() ;
+//		DiCourseCharService diCSCharSer = new DiCourseCharService() ;
+//		List<DiCourseCharBean> diCSCharBeanList = diCSCharSer.getList() ;
+//		DiResearchRoomService diResearchRoomSer = new DiResearchRoomService() ;
+//		List<DiResearchRoomBean> diResearchRoomBeanList = diResearchRoomSer.getList() ;
 		
 		for(Cell[] cell : cellList){
+			 int n=cellList.indexOf(cell);
+			 if(n==0){continue;}
+			 else
+			 {
+				 
+			
 			try{
-				String csName = cell[1].getContents() ;
-				
-				if(csName == null || csName.equals("")){
-					return "第" + count + "行，课程名称不能为空" ;
+				String ClubName = cell[1].getContents() ;
+				if(ClubName == null || ClubName.equals("")){
+					return "第" + count + "行，校友会名称不能为空" ;
 				}
 				
-				if(csName.length() > 100){
-					return "第" + count + "行，课程名称字数不超过50个汉字" ;
+				if(ClubName.length() > 100){
+					return "第" + count + "行，课程名称字数不超过100个字" ;
 				}
 				
-				String csId = cell[2].getContents() ;
+				String BuildYearStr = cell[2].getContents() ;
 				
-				if((csId == null) || csId.equals("")){
-					return "第" + count + "行，课程编号不能为空" ;
+				if((BuildYearStr == null) || BuildYearStr.equals("")){
+					return "第" + count + "行，设立时间不能为空" ;
 				}
 				
-				if(csId.length() > 50){
-					return "第" + count + "行，课程编号字数不超过50个数字或字母" ;
+				String Place = cell[3].getContents() ;
+				if(Place == null || Place.equals("")){
+					return "第" + count + "行，地点不能为空" ;
 				}
-				
-				String csUnit = cell[3].getContents() ;
-				String unitId = cell[4].getContents() ;
-				
-				if(csUnit == null || csUnit.equals("")){
-					return "第" + count + "行，开课单位不能为空" ;
-				}
-				
-				if(unitId == null || unitId.equals("")){
-					return "第" + count + "行，单位编号不能为空" ;
-				}
-				
-				if(unitId.length() > 50){
-					return "第" + count + "行，单位编号字数不超过50个数字或字母" ;
-				}
-				
-				for(DiDepartmentBean diDepartBean : diDepartBeanList){
-					if(diDepartBean.getUnitId().equals(unitId)){
-						if(diDepartBean.getUnitName().equals(csUnit)){
-							flag = true ;
-							break ;
-						}else{
-							return "第" + count + "行，开课单位与单位编号不对应" ;
-						}
-					}//if
-				}//for
-				
-				if(!flag){
-					return "第" + count + "行，没有与之相匹配的单位编号" ;
-				}else{
-					flag = false ;
-				}
-				
-				String fromTeaResOffice = cell[5].getContents() ;
-				String teaResOfficeID = cell[6].getContents() ;
-				
-				if(fromTeaResOffice == null || fromTeaResOffice.equals("")){
-					return "第" + count + "行，所属教研室不能为空" ;
-				}
-				
-				if(teaResOfficeID == null || teaResOfficeID.equals("")){
-					return "第" + count + "行，所属教研室编号不能为空" ; 
-				}
-				
-				if(teaResOfficeID.length() > 50){
-					return "第" + count + "行，教研室编号字数不超过50个数字或字母" ;
-				}
-				
-				for(DiResearchRoomBean diResearchRoomBean : diResearchRoomBeanList){
-					if(diResearchRoomBean.getUnitId().equals(teaResOfficeID)){
-						if(diResearchRoomBean.getResearchName().equals(fromTeaResOffice)){
-							flag = true ;
-							break ;
-						}else{
-							return "第" + count + "行，教研室编号与教研室名称不一致" ;
-						}
-					}//if
-				}//for
-				
-				if(!flag){
-					return "第" + count + "行，教研室编号不存在" ; 
-				}else{
-					flag = false ;
-				}
-				
-				String csType = cell[7].getContents() ;
-				
-				if(csType == null || csType.equals("")){
-					return "第" + count + "行，课程类别不能为空" ;
-				}
-				
-				for(DiCourseCategoriesBean diCSCateBean : diCSCateBeanList){
-					if(diCSCateBean.getCourseCategories().equals(csType)){
-						csType = diCSCateBean.getIndexId() ;
-						flag = true  ;
-						break ;
-					}//if
-				}//for
-				
-				if(!flag){
-					return "第" + count + "行，课程类别不存在" ;
-				}else{
-					flag = false ;
-				}
-				
-				String csNature = cell[8].getContents() ;
-				
-				if(csNature == null || csNature.equals("")){
-					return "第" + count + "行，课程性质不能为空" ;
-				}
-				
-				for(DiCourseCharBean diCSCharBean : diCSCharBeanList){
-					if(diCSCharBean.getCourseChar().equals(csNature)){
-						csNature = diCSCharBean.getIndexId() ;
-						flag = true  ;
-						break ;
-					}//if
-				}//for
-				
-				if(!flag){
-					return "第" + count + "行，课程性质不存在" ;
-				}else{
-					flag = false ;
-				}
-				
-				String state = cell[9].getContents() ;
-				
-				if(state == null || state.equals("")){
-					return "第" + count + "行，状态不能为空" ;
-				}
-				
-				String pubCSType = cell[10].getContents() ;
-				
-				if(pubCSType == null || pubCSType.equals("")){
-					return "第" + count + "行，公选课类别不能为空" ;
-				}
-				
-				String note = cell[11].getContents() ;
+//				if(!Place.equals("境外")||!Place.equals("境内")){
+//					return "第" + count + "行，地点只能为“境内”或“境外”" ;
+//				}
+				String note = cell[4].getContents() ;
 				
 				if(note.length() > 1000){
 					return "第" + count + "行，备注不能超过500个汉字" ;
 				}
 				
-//				count++ ;
-//				undergraCSBaseTeaBean = new UndergraCSBaseTeaBean() ;
-//				undergraCSBaseTeaBean.setCSID(csId) ;
-//				undergraCSBaseTeaBean.setCSName(csName) ;
-//				undergraCSBaseTeaBean.setUnitID(unitId) ;
-//				undergraCSBaseTeaBean.setCSUnit(csUnit) ;
-//				undergraCSBaseTeaBean.setFromTeaResOffice(fromTeaResOffice) ;
-//				undergraCSBaseTeaBean.setTeaResOfficeID(teaResOfficeID) ;
-//				undergraCSBaseTeaBean.setCSType(csType) ;
-//				undergraCSBaseTeaBean.setCSNature(csNature) ;
-//				undergraCSBaseTeaBean.setState(state) ;
-//				undergraCSBaseTeaBean.setPubCSType(pubCSType) ;
-//				undergraCSBaseTeaBean.setNote(note) ;
-//				undergraCSBaseTeaBean.setFillTeaID(userinfo.getTeaID()) ;
-//				list.add(undergraCSBaseTeaBean) ;
+				count++ ;
 				
-			}catch(Exception e){
+				Date BuildYear=TimeUtil.changeDateY(BuildYearStr);
+				t17Bean = new T17Bean();
+				t17Bean.setClubName(ClubName);
+				t17Bean.setBuildYear(BuildYear);
+				t17Bean.setPlace(Place);
+				t17Bean.setNote(note);
+				t17Bean.setTime(new Date()) ;
+				list.add(t17Bean);
+				
+			}
+			catch(Exception e){
 				e.printStackTrace() ;
 				return "上传文件不合法！！！" ;
 			}
+	     }
 		}
 		
 		flag = false ;
-		UndergraCSBaseTeaService undergraCSBaseTeaSer = new UndergraCSBaseTeaService() ;
-//		flag = undergraCSBaseTeaSer.batchInsert(list) ;
+		T17Service t17Ser = new T17Service() ;
+		flag = t17Ser.batchInsert(list) ;
 		
 		if(flag){
-			return null ;
+			return "数据导入成功" ;
 		}else{
 			return "数据存储失败，请联系管理员" ;
 		}
+		
 	}
 	
+	public static void main(String arg[])
+	{
+//		List<Integer> list=new ArrayList<Integer>();
+//		list.add(1);
+//		list.add(2);
+//		list.add(3);
+//		list.add(4);
+//		for(Integer i:list)
+//		{
+//			int n=list.indexOf(i);
+//			if(n==0)
+//			{
+//				continue;
+//			}else
+//			{System.out.println(i);}
+//		}
+    }
 }
-
 

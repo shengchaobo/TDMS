@@ -11,6 +11,7 @@ public class T152POJO {
 	private String ResInsID;//单位号
 	/**类别*/
 	private String Type;//类别
+	private String TypeID;
 	/**共建情况:是*/
 	private boolean BuildCondition;//共建情况:是
 	/**是否开放*/
@@ -54,6 +55,12 @@ public class T152POJO {
 //	}
 	public String getType() {
 		return Type;
+	}
+	public String getTypeID() {
+		return TypeID;
+	}
+	public void setTypeID(String typeID) {
+		TypeID = typeID;
 	}
 	public void setType(String type) {
 		Type = type;

@@ -2,13 +2,13 @@
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
-
+	
 <struts>
 
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
     <constant name="struts.locale" value="zh_CN" /> 
-<constant name="struts.i18n.encoding" value="UTF-8" /> 
+	<constant name="struts.i18n.encoding" value="UTF-8" /> 
 	<!-- 用户登录 -->
     <include file="cn/nit/configuration/login.xml" />
     <!-- 功能菜单管理 -->
@@ -45,6 +45,8 @@
     
 
     <!-- table1 -->
+      <!-- t11學校基本信息 -->
+    <include file="cn/nit/configuration/table1/T11.xml"/>
      <!-- t151校级以上科研机构单位（科研处） -->
     <include file="cn/nit/configuration/table1/T151.xml"/>
      <!-- t152校级以上科研机构单位 -->
@@ -53,6 +55,12 @@
     <include file="cn/nit/configuration/table1/T17.xml"/>
      <!-- t181签订合作机构（教务处） -->
     <include file="cn/nit/configuration/table1/T181.xml"/>
+    <!-- t182签订合作机构（科研处处） -->
+    <include file="cn/nit/configuration/table1/T182.xml"/>
+     <!-- t183签订合作机构（招就处） -->
+    <include file="cn/nit/configuration/table1/T183.xml"/>
+     <!-- t16办学指导思想（党院办） -->
+    <include file="cn/nit/configuration/table1/T16.xml"/>
     
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>

@@ -45,9 +45,9 @@ public class T181Action {
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t181Bean.setTime(new Date()) ;
 		t181Bean.setFillDept("1012");//教务处
-		System.out.println(t181Bean.getCooperInsLevel());
-		System.out.println(t181Bean.getUnitLevel());
-		System.out.println(t181Bean.getUnitID());
+//		System.out.println(t181Bean.getCooperInsLevel());
+//		System.out.println(t181Bean.getUnitLevel());
+//		System.out.println(t181Bean.getUnitID());
 //		System.out.println(t151Bean.getResInsID());
 //		System.out.println(t151Bean.getResInsName());
 		//这还没确定,设置填报者的职工号与部门号
@@ -79,7 +79,7 @@ public class T181Action {
 	/**  为界面加载数据  */
 	public void auditingData(){
 		
-		System.out.println("輸出輸出輸出");
+//		System.out.println("輸出輸出輸出");
 		
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 			return ;
@@ -90,7 +90,7 @@ public class T181Action {
 		}
 		
 		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t181Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String pages = t181Ser.auditingData(conditions, "1012", Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -131,6 +131,9 @@ public class T181Action {
 	/**  编辑数据  */
 	public void edit(){
 
+//		System.out.println("插入数据");
+		t181Bean.setTime(new Date());
+		t181Bean.setFillDept("1012");
 		boolean flag = t181Ser.update(t181Bean) ;
 		PrintWriter out = null ;
 		

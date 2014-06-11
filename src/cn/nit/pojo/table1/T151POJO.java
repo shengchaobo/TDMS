@@ -11,6 +11,8 @@ public class T151POJO {
 	private String ResInsID;//单位号
 	/**类别*/
 	private String Type;//类别
+	
+	private String TypeID ;
 	/**共建情况:是*/
 	private boolean BuildCondition;//共建情况:是
 	/**是否开放*/
@@ -57,6 +59,12 @@ public class T151POJO {
 	}
 	public void setType(String type) {
 		Type = type;
+	}
+	public String getTypeID() {
+		return TypeID;
+	}
+	public void setTypeID(String typeID) {
+		TypeID = typeID;
 	}
 	public boolean isBuildCondition() {
 		return BuildCondition;

@@ -16,7 +16,7 @@ public class DiAwardLevelDao {
 	private String field = "IndexID,AwardLevel" ;
 	
 	/**
-	 * 获取DiTitleLevel字典表的所有数�?
+	 * 获取DiTitleLevel字典表的所有数�?
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:42
@@ -57,7 +57,6 @@ public class DiAwardLevelDao {
 			StringBuffer sql = new StringBuffer() ;
 			sql.append("select " + field + " from " + tableName) ;
 			sql.append(" where IndexID !="+s1+" and IndexID !="+s2);
-			System.out.println(sql.toString());
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;
@@ -82,7 +81,6 @@ public class DiAwardLevelDao {
 			StringBuffer sql = new StringBuffer() ;
 			sql.append("select " + field + " from " + tableName) ;
 			sql.append(" where IndexID='50004' or IndexID='50005'");
-			System.out.println(sql.toString());
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;

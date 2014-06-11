@@ -1,11 +1,14 @@
 package cn.nit.service.table1;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import cn.nit.bean.table1.T17Bean;
+import cn.nit.bean.table5.UndergraCSBaseTeaBean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T17DAO;
 import cn.nit.pojo.table1.T17POJO;
@@ -63,6 +66,11 @@ public class T17Service {
 //		t17Bean.setAudit(audits[0]) ;
 //	}
 	
+	public boolean batchInsert(List<T17Bean> list){
+			
+			return t17Dao.batchInsert(list) ;
+		}
+	
 	/**按id删除数据*/
 	public boolean deleteCoursesByIds(String ids){
 		
@@ -101,11 +109,12 @@ public class T17Service {
 		return sql.toString() ;
 	}
 	
-	public static void main(String arh[])
+	public static void main(String arh[]) throws ParseException
 	{
 		T17Service ser=new T17Service();
 		String info=ser.auditingData(null, null, 1, 4);
 		System.out.println(info);
+	
 		
 	}
 

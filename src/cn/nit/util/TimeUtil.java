@@ -46,6 +46,26 @@ public class TimeUtil {
 	 * @param dateString
 	 * @return
 	 */
+	public static Date changeDateY(String dateString){
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy") ;
+		Date date = null ;
+		try {
+			date = sf.parse(dateString) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return date ;
+		}
+		
+		return date ;
+	}
+	
+	
+	
+	/**
+	 * 将{@link java.lang.String}类型转换为{@link java.util.Date}类型
+	 * @param dateString
+	 * @return
+	 */
 	public static Date changeDate3(String dateString){
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy\\MM\\dd") ;
 		Date date = null ;
@@ -57,5 +77,13 @@ public class TimeUtil {
 		}
 		
 		return date ;
+	}
+	
+	public static void main(String arg[])
+	{
+		String year="2014";
+		TimeUtil til=new TimeUtil();
+		
+		System.out.println(changeDateY(year));
 	}
 }

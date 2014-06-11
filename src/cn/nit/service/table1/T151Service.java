@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.T17Bean;
 import cn.nit.bean.table5.UndergraCSBaseTeaBean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T151DAO;
@@ -53,7 +54,7 @@ import cn.nit.util.TimeUtil;
 		
 		/**
 		 * 更新数据
-		 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
+		 * @param t151Bean {@link cn.nit.bean.table1.T151Bean}实体类
 		 * @return
 		 */
 		public boolean update(T151Bean t151Bean){
@@ -75,6 +76,10 @@ import cn.nit.util.TimeUtil;
 			return t151Dao.deleteCoursesByIds(ids) ;
 		}
 		
+		public boolean batchInsert(List<T151Bean> list){
+			
+			return t151Dao.batchInsert(list) ;
+		}
 		/**
 		 * 生成查条件
 		 * @param seqNum

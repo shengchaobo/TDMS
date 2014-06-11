@@ -59,6 +59,7 @@ public class T151Action {
 		//这还没确定,设置填报者的职工号与部门号
 //		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
 //		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
+		
 		boolean flag = t151Ser.insert(t151Bean) ;
 		PrintWriter out = null ;
 		
@@ -85,7 +86,7 @@ public class T151Action {
 	/**  为界面加载数据  */
 	public void auditingData(){
 		
-		System.out.println("輸出輸出輸出");
+//		System.out.println("輸出輸出輸出");
 		
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 			return ;
@@ -137,6 +138,7 @@ public class T151Action {
 	/**  编辑数据  */
 	public void edit(){
 
+		t151Bean.setTime(new Date()) ;
 		boolean flag = t151Ser.update(t151Bean) ;
 		PrintWriter out = null ;
 		

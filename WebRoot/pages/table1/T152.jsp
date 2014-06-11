@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		.fitem label {
 			display: inline-block;
-			width: 80px;
+			width: 120px;
 		}
 	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T152/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:300px" url="pages/T152/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
@@ -429,14 +429,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
-	    	$('#ResInsID').combobox('select',row[0].ResInsID);
-	    	$('#Type').combobox('select',row[0].Type);
-	    	$('#BeginYear').val(row[0].BeginYear) ;
+	    	$('#ResInsID').combobox('select',row[0].resInsID);
+	    	$('#Type').combobox('select',row[0].typeID);
+	    	$('#BeginYear').datebox('setValue',formattime(row[0].beginYear)) ;
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
-	    	$('#BuildCondition').combobox('select', row[0].BuildCondition) ;
-	    	$('#BiOpen').combobox('select', row[0].BiOpen) ;
-	    	$('#HouseArea').val(row[0].HouseArea) ;
-	    	$('#OpenCondition').val(row[0].OpenCondition) ;
+	    	var flag1 = "" + row[0].biOpen ;
+	    	var flag2 = "" + row[0].buildCondition ;
+	    	$('#BuildCondition').combobox('select', flag2) ;
+	    	$('#BiOpen').combobox('select',flag1) ;
+	    	$('#HouseArea').val(row[0].houseArea) ;
+	    	$('#OpenCondition').val(row[0].openCondition) ;
 			$('#Note').val(row[0].note) ;
 	    }
 	    

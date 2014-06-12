@@ -1,10 +1,16 @@
 package cn.nit.dao.table7;
 
 import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
+
 
 import cn.nit.bean.table7.T711_Bean;
 import cn.nit.dbconnection.DBConnection;
+import cn.nit.pojo.table7.T711POJO;
 import cn.nit.util.DAOUtil;
 
 public class T711_DAO {
@@ -35,7 +41,128 @@ public class T711_DAO {
 		return flag;
     	
     }
+    
+    
   
 
+    
+    
+    /**
+	 * 查询待审核数据在数据库中共有多少条
+	 * @param conditions 查询条件
+	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
+	 * @return
+	 */
+    
+    public int totalAuditingData(String conditions,String fillUnitId){
+    	
+    	
+        StringBuffer sql=new StringBuffer();
+    	sql.append("select count(*)");
+    	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
+    	sql.append(" where audit!='0' and adl.IndexID=t.AwardLevel") ; 	
+    	int total=0;
+    	
+    	if(fillUnitId!=null && !fillUnitId.equals("")){
+    		sql.append("and FillUnit=" + fillUnitId);	
+    	}
+    	
+    	if(conditions!=null && !conditions.equals("")){
+    		sql.append(conditions);
+    	}
+    	
+    	
+    	Connection conn=DBConnection.instance.getConnection();
+    	    	
+    	Statement st=null;
+    	ResultSet rs=null;
+    	        
+    	        
+    	try {
+			st=conn.createStatement();
+			rs=st.executeQuery(sql.toString());
+			
+			if(rs == null){
+				return total;
+				
+			}
+			while(rs.next()){
+				total=rs.getInt(1);
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+    	   	
+    	return total;
+    	  
+    }
+    
+    /**
+	 * @param conditions 查询条件
+	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
+	 * @return
+	 */
+  
+    public List<T711POJO> auditingData(String conditions,String fillUnitId,int page,int rows){
+		
+    	
+    	StringBuffer sql=new StringBuffer();
+    	
+    	List<T711POJO> list=null;
+    	
+    	sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note");
+    	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
+    	sql.append(" where audit!='0' and adl.IndexID=t.AwardLevel") ;
+    	
+    	
+    	System.out.println(123);
+    	if(fillUnitId != null && !fillUnitId.equals("")){
+			sql.append(" and FillUnitID=" + fillUnitId) ;
+		}
+		
+		if(conditions != null){
+			sql.append(conditions) ;
+		}
+		
+		sql.append(" order by SeqNumber desc") ;
+		
+		Connection conn=DBConnection.instance.getConnection();
+		
+		Statement st=null;
+	    ResultSet rs=null;
+	    
+	    try {
+			st=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			st.setMaxRows(page * rows);
+			rs=st.executeQuery(sql.toString());
+			rs.absolute((page - 1) * rows);
+			list=DAOUtil.getList(rs, T711POJO.class);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+    	
+    	
+    	
+    	
+    	
+    	return list;
+    	
+    	
+    }
+    
+    public static void main(String args[]){
+    	T711_DAO t=new T711_DAO();
+
+    	
+    	System.out.println(t.auditingData(null, null, 0, 0));
+    	
+    }
 
 }

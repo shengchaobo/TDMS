@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="DocAndGraSta" namespace="/pages/DocAndGraSta" extends="struts-default">
+		<!-- 添加博士硕士点 -->
+	    <action name="insert" class="cn.bjtu.action.Table3_DocAndGraStaAction" method="insert" />
+	</package>
+</struts>
+

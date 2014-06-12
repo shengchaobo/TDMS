@@ -6,21 +6,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'T711_TeaManagerAwardInfo_TeaTea.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+<head>
+<base href="<%=basePath%>">
 
-     <link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
+<title>My JSP 'table.jsp' starting page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="This is my page">
+	<!--
+		<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
 	
@@ -54,27 +53,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/TeaManagerAwardInfoTeaTea/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="teaUnit" width="10%">教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="name" width="10%">姓名</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="awardName" width="10%">奖励名称</th>
-				<th field="awardLevel" width="10%">级别</th>
-				<th field="awardRank" width="10%">等级</th>
-				<th field="awardTime" width="10%" formatter="formattime">获奖时间</th>
-				<th field="awardFromUnit" width="10%">授予单位</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="aoinTeaNum" width="20%">合作教师人数</th>
-				<th field="otherJoinTeaInfo" width="20%">其他合作教师</th>	
+				<th field="id" width="5%">序号</th>
+				<th field="DiscipName" width="10%">重点学科名称</th>
+				<th field="DiscipID" width="10%">学科代码</th>
+				<th field="UnitName" width="5%">所属教学单位</th>
+				<th field="unitId" width="5%">单位号</th>
+				<th field="DiscipType" width="5%">学科门类</th>
+				<th field="NationLevelOne" width="5%">国家一级</th>
+				<th field="NationLevelTwo" width="5%">国家二级</th>
+				<th field="NationLevelKey" width="5%">国家重点（培育）</th>
+				<th field="ProvinceLevelOne" width="10%">省部一级</th>
+				<th field="ProvinceLevelTwo" width="10%">省部二级</th>
+				<th field="CityLevel" width="10%">市级</th>
+				<th field="SchLevel" width="10%">校级</th>
 				<th field="note" width="20%">备注</th>
-				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -101,155 +99,189 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="10%">序号</th>
-				<th field="teaUnit" width="10%">教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="name" width="10%">姓名</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="awardName" width="10%">奖励名称</th>
-				<th field="awardLevel" width="10%">级别</th>
-				<th field="awardRank" width="10%">等级</th>
-				<th field="awardTime" width="10%" formatter="formattime">获奖时间</th>
-				<th field="awardFromUnit" width="10%">授予单位</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="aoinTeaNum" width="20%">合作教师人数</th>
-				<th field="otherJoinTeaInfo" width="20%">其他合作教师</th>	
+				<th field="id" width="5%">序号</th>
+				<th field="DiscipName" width="10%">重点学科名称</th>
+				<th field="DiscipID" width="10%">学科代码</th>
+				<th field="UnitName" width="5%">所属教学单位</th>
+				<th field="unitId" width="5%">单位号</th>
+				<th field="DiscipType" width="5%">学科门类</th>
+				<th field="NationLevelOne" width="5%">国家一级</th>
+				<th field="NationLevelTwo" width="5%">国家二级</th>
+				<th field="NationLevelKey" width="5%">国家重点（培育）</th>
+				<th field="ProvinceLevelOne" width="10%">省部一级</th>
+				<th field="ProvinceLevelTwo" width="10%">省部二级</th>
+				<th field="CityLevel" width="10%">市级</th>
+				<th field="SchLevel" width="10%">校级</th>
 				<th field="note" width="20%">备注</th>
-				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">本科课程库批量导入</div>
+		<div class="ftitle">重点学科库批量导入</div>
 		<div class="fitem">
 			<form method="post">
 				<label>批量上传：</label> 
 				<input type="file" name="fileToUpload" id="fileToUpload" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="table5/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href="table3/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
 		<div></div>
-		<div class="ftitle">本科课程库逐条导入</div>
+		<div class="ftitle">重点学科库逐条导入</div>
 		
-		<form id="courseForm" method="post">
+		<form id="discipForm" method="post">
 		<table>
-		
-		<tr>
-			<td>
-					<div class="fitem">
-						<label>教学单位：</label> 
-						<input id="TeaUnit" type="hidden" name="teaManagerAwardInfoTeaTea.TeaUnit">
-						<input id="UnitID" name="teaManagerAwardInfoTeaTea.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
-							 onSelect:function(){
-							 	document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
-							 }">
-							<span id="TeaUnitSpan"></span>
-					</div>
-				<td>
-					<div class="fitem">
-						<label>姓名：</label> 
-						<input id="Name" type="text" name="teaManagerAwardInfoTeaTea.Name"
-							><span id="NameSpan"></span>
-					</div>
-				</td>
-				</tr>
-			<tr>
-			<td>
-					<div class="fitem">
-						<label>教工号：</label> 
-						<input id="TeaID" type="text" name="teaManagerAwardInfoTeaTea.TeaID"
-							><span id="TeaIDSpan"></span>
-					</div>
-					</td>
-				<td>
-					<div class="fitem">
-						<label>奖励名称：</label> 
-						<input id="AwardName" type="text" name="teaManagerAwardInfoTeaTea.AwardName"
-							><span id="AwardNameSpan"></span>
-					</div>
-				</td>
-				</tr>
-				<tr>
-				<td>
-					<div class="fitem">
-						<label>级别：</label> 
-						<input class='easyui-combobox' id="AwardLevel" name="teaManagerAwardInfoTeaTea.AwardLevel"
-							data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDiAwardLevel',listHeight:'auto',editable:false">
-						<span id="AwardLevelSpan"></span>
-					</div>
-				</td>
-			
-				<td>
-					<div class="fitem">
-						<label>等级：</label> 
-						<select class='easyui-combobox' id="AwardRank" name="teaManagerAwardInfoTeaTea.AwardRank" >
-							<option value="一等奖">一等奖</option>
-							<option value="二等奖">二等奖</option>
-							<option value="三等奖">三等奖</option>
-							<option value="优秀奖">优秀奖</option>
-						</select>	
-						<span id="AwardRankSpan"></span>
-					</div>
-				</td>
-				</tr>
-				<tr>
-				<td>
-					<div class="fitem">
-						<label>获奖时间：</label> 
-						<input  id="AwardTime"  class="easyui-datebox" style="width:80px"  name="teaManagerAwardInfoTeaTea.AwardTime">
-						
-							<span id="AwardTimeSpan"></span>
-					</div>
-				</td>
-			
-				<td>
-					<div class="fitem">
-						<label>授予单位：</label> 
-						<input id="AwardFromUnit" type="text" name="teaManagerAwardInfoTeaTea.AwardFromUnit"
-							><span id="AwardFromUnitSpan"></span>
-					</div>
-				</td>
-				</tr>
-				<tr>
-				<td>
-					<div class="fitem">
-						<label>批文号：</label> 
-						<input id="AppvlID" type="text" name="teaManagerAwardInfoTeaTea.AppvlID"
-							><span id="AppvlIDSpan"></span>
-					</div>
-				</td>
-			
-				<td>
-					<div class="fitem">
-						<label>合作教师人数：</label> 
-						<input id="JoinTeaNum" type="text" name="teaManagerAwardInfoTeaTea.JoinTeaNum"
-							><span id="JoinTeaNumSpan"></span>
-					</div>
-				</td>
-				</tr>
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>其他合作教师：</label> 
-						<input id="OtherJoinTeaInfo" type="text" name="teaManagerAwardInfoTeaTea.OtherJoinTeaInfo"
-							><span id="OtherJoinTeaInfoSpan"></span>
+						<label>重点学科名称：</label> 
+						<input id="DiscipName" type="text" name="discipBean.DiscipName"
+							class="easyui-validatebox" required="true"><span id="DiscipNameSpan"></span>
+					</div>
+				</td>
+				<td>
+					<div class="fitem">
+						<label>学科代码：</label> 
+						<input id="DiscipID" type="text" name="discipBean.DiscipID"
+							class="easyui-validatebox" required="true"><span id="DiscipIDSpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
-			<input name="teaManagerAwardInfoTeaTea.time" class="easyui-datebox" style="width:80px"/>
+				<td>
+					<div class="fitem">
+						<label>所属教学单位：</label> 
+						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
+						<input type="hidden" name="discipBean.UnitName" id="UnitName"/>
+						<input id="UnitID" type="text" name="discipBean.UnitID" 
+							 class='easyui-combobox' data-options="valueField:'unitID',textField:'unitName',url:'pages/diDepartment/loadDIDepartment',listHeight:'auto',editable:false,
+							 onSelect:function(){
+							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
+							 }">
+						<span id="UnitNameSpan"></span>
+					</div>
+				</td>
+				<td>
+					<div class="fitem">
+						<label>学科门类：</label> 
+						<select class='easyui-combobox' id="DiscipType" name="discipBean.DiscipType">
+							<option value="01哲学">01哲学</option>
+							<option value="02经济学">02经济学</option>
+							<option value="03法学">03法学</option>
+							<option value="04教育学">04教育学</option>
+							<option value="05文学">05文学</option>
+							<option value="06历史学">06历史学</option>
+							<option value="07理学">07理学</option>
+							<option value="08工学">08工学</option>
+							<option value="09农学">09农学</option>
+							<option value="10医学">10医学</option>
+							<option value="11军事学">11军事学</option>
+							<option value="12管理学">12管理学</option>
+							<option value="13艺术学">13艺术学</option>
+						</select>
+						<span id="DiscipTypeSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+			<td>
+					<div class="fitem">
+						<label>国家一级：</label> 
+						<select class='easyui-combobox' id="NationLevelOne" name="discipBean.NationLevelOne">
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>
+						<span id="NationLevelOneSpan"></span>
+					</div>
+				</td>
+			<td>
+					<div class="fitem">
+						<label>国家二级：</label> 
+						<select class='easyui-combobox' id="NationLevelTwo" name="discipBean.NationLevelTwo">
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>
+						<span id="NationLevelTwoSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+			<td>
+					<div class="fitem">
+						<label>国家重点（培育）：</label> 
+						<select class='easyui-combobox' id="NationLevelKey" name="discipBean.NationLevelKey">
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>
+						<span id="NationLevelKeySpan"></span>
+					</div>
+				</td>
+			<td>
+					<div class="fitem">
+						<label>省部一级：</label> 
+						<select class='easyui-combobox' id="ProvinceLevelOne" name="discipBean.ProvinceLevelOne">
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>
+						<span id="ProvinceLevelOneSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+			<td>
+					<div class="fitem">
+						<label>省部二级：</label> 
+						<select class='easyui-combobox' id="ProvinceLevelTwo" name="discipBean.ProvinceLevelTwo">
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>
+						<span id="ProvinceLevelTwo"></span>
+					</div>
+				</td>
+			<td>
+					<div class="fitem">
+						<label>市级：</label> 
+						<select class='easyui-combobox' id="CityLevel" name="discipBean.CityLevel">
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>
+						<span id="CityLevelSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>校级：</label> 
+						<select class='easyui-combobox' id="SchLevel" name="discipBean.SchLevel">
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>
+						<span id="SchLevelSpan"></span>
+					</div>
+				</td>
+				<td>
+					<div class="fitem">
+						<label>状&nbsp;&nbsp;&nbsp;&nbsp;态：</label> 
+						<select class='easyui-combobox' id="State" name="discipBean.State" >
+							<option value="启用">启用</option>
+							<option value="停用">停用</option>
+						</select>	
+							<span id="StateSpan"></span>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-					<textarea id="Note" name="teaManagerAwardInfoTeaTea.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="discipBean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
-				</tr>
-			
+			</tr>
 		</table>
 		</form>
 	</div>
@@ -293,15 +325,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    function newCourse(){
-		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
-		    $('#courseForm').form('reset');
+		    $('#dlg').dialog('open').dialog('setTitle','添加重点学科库');
+		    $('#discipForm').form('reset');
 	    }
 
 	    function singleImport(){
+	    
 		    //录入数据的表单提交
-	    	 $('#courseForm').form('submit',{
-				    url: 'pages/TeaManagerAwardInfoTeaTea/insert',
-				    data: $('#courseForm').serialize(),
+	    	 $('#discipForm').form('submit',{
+				    url: 'pages/DiscipRes/insert',
+				    data: $('#discipForm').serialize(),
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
@@ -322,78 +355,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var teaUnit = $('#UnitID').combobox('getText');
-			var name = $('#Name').val();
-			var teaID = $('#TeaID').val();
-			var awardName = $('#AwardName').val();
-			var awardLevel = $('#AwardLevel').combobox('getText');
-			var awardRank = $('#AwardRank').combobox('getText');
-			var awardTime = $('#AwardTime').datebox('getText');
-			var awardFromUnit = $('#AwardFromUnit').val();
-			var appvlID = $('#AppvlID').val();
-			var joinTeaNum = $('#JoinTeaNum').val();
-			var otherjoinTeaInfo = $('#OtherJoinTeaInfo').val();
-			var note = $('#Note').val();
+			var DiscipName = $('#DiscipName').val() ;
+			var DiscipID = $('#DiscipID').val() ;
+			var UnitName = $('#UnitID').combobox('getText') ;
+			var DiscipType = $('#DiscipType').combobox('getText') ;
+			var NationLevelOne = $('#NationLevelOne').combobox('getText') ;
+			var NationLevelTwo = $('#NationLevelTwo').combobox('getText') ;
+			var NationLevelKey = $('#NationLevelKey').combobox('getText') ;
+			var ProvinceLevelOne = $('#ProvinceLevelOne').combobox('getText') ;
+			var ProvinceLevelTwo = $('#ProvinceLevelTwo').combobox('getText') ;
+			var CityLevel = $('#CityLevel').combobox('getText') ;
+			var SchLevel = $('#SchLevel').combobox('getText') ;
+			var state = $('#State').combobox('getText') ;
+			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(teaUnit == null || teaUnit.length==0 || teaUnit.length > 100){
-				$('#TeaUnit').focus();
-				$('#TeaUnit').select();
-				$('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空或长度不超过100</font>") ;
-				return false;
-			}
-			if(name == null || name.length==0 || name.length > 10){
-				$('#Name').focus();
-				$('#Name').select();
-				$('#NameSpan').html("<font style=\"color:red\">名字不能为空或长度不超过10</font>") ;
-				return false;
-			}
-			if(teaID == null || teaID.length == 0 || teaID.length > 50){
-				$('#TeaID').focus();
-				$('#TeaID').select();
-				$('#TeaIDSpan').html("<font style=\"color:red\">教工号不能为空或长度不超过50</font>") ;
-				return false;
-			}
-			if(awardName == null || awardName.length==0 || awardName.length > 200){
-				$('#awardName').focus();
-				$('#awardName').select();
-				$('#AwardNameSpan').html("<font style=\"color:red\">奖励名称不能为空或长度不超过200</font>") ;
+			if(DiscipName == null || DiscipName.length==0 || DiscipName.length > 100){
+				$('#DiscipName').focus();
+				$('#DiscipName').select();
+				$('#DiscipNameSpan').html("<font style=\"color:red\">学科名称不能为空或长度不超过100</font>") ;
 				return false ;
+			}else{
+				$('#DiscipNameSpan').html("") ;
 			}
-			if(awardRank == null || awardRank.length == 0 ){
-				alert(awardRank) ;
-				$('#AwardRankSpan').html("<font style=\"color:red\">等级不能为空</font>") ;
+			
+			if(DiscipID == null || DiscipID.length == 0 || DiscipID.length > 50){
+				$('#DiscipID').focus();
+				$('#DiscipID').select();
+				$('#DiscipIDSpan').html("<font style=\"color:red\">学科编号不能为空或长度不超过50</font>") ;
 				return false ;
+			}else{
+				$('#DiscipIDSpan').html("") ;
 			}
-			if(awardLevel == null || awardLevel.length == 0){
-				
-				$('#AwardLevelSpan').html("<font style=\"color:red\">级别不能为空</font>") ;
+			
+			if(UnitName == null || UnitName.length == 0){
+				$('#UnitNameSpan').html("<font style=\"color:red\">开课单位不能为空</font>") ;
 				return false ;
+			}else{
+				$('#UnitNameSpan').html("") ;
 			}
-			if(awardTime == null || awardTime.length == 0){
-				$('#AwardTimeSpan').html("<font style=\"color:red\">获奖时间不能为空</font>") ;
+			
+			if(DiscipType == null || DiscipType.length == 0){
+				$('#DiscipTypeSpan').html("<font style=\"color:red\">学科门类不能为空</font>") ;
 				return false ;
+			}else{
+				$('#DiscipTypeSpan').html("") ;
 			}
-			if(awardFromUnit == null || awardFromUnit.length == 0){
-				$('#AwardFromUnitSpan').html("<font style=\"color:red\">授予单位不能为空</font>") ;
-				return false ;
-			}
-			if(appvlID == null || appvlID.length == 0){
-				$('#AppvlIDSpan').html("<font style=\"color:red\">批文号不能为空</font>") ;
-				return false ;
-			}
-			if(joinTeaNum == null){
-				$('#JoinTeaNumSpan').html("<font style=\"color:red\">合作教师人数不能为空</font>") ;
-				return false ;
-			}
-			if(otherjoinTeaInfo == null){
-				$('#OtherJoinTeaInfoSpan').html("<font style=\"color:red\">其他合作教师不能为空</font>") ;
-				return false ;
-			}
+			
 			if(note !=null && note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
+			}else{
+				$('#NoteSpan').html("") ;
 			}
-			alert($('#AwardFromUnit').val()) ;
 			return true ;
 		}
 
@@ -455,8 +468,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    	
 	    function loadData(){
-	    	
+	 
 	    	//flag判断
+	    	
 	    	var flag = false ;
 	    	var checkboxes = document.getElementsByName("checkboxex");
 	    	var tables = "<div class=\"ftitle\">自定义查询条件</div><form method=\"post\" action=\"table5/dictorySearch\" id=\"dicsDataForm\"><table width=\"100%\" border=\"1\">" ;
@@ -515,7 +529,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  function submitDicForm(){
 		  $.ajax({ 
 	    		type: "POST", 
-	    		url: "table5/dictorySearch",
+	    		url: "table3/dictorySearch",
 	    		data: $('#dicsDataForm').serialize(), 
 	    		async:"false",
 	    		dataType: "text",

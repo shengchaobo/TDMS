@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import sun.security.krb5.internal.UDPClient;
+
 import cn.nit.bean.table5.UndergraCSBaseTeaBean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.UndergraCSBaseTeaPOJO;
@@ -92,6 +94,8 @@ public class UndergraCSBaseTeaDAO {
 		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		int total = 0 ;
 		
+		
+		
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillUnitID=" + fillUnitId) ;
 		}
@@ -135,6 +139,9 @@ public class UndergraCSBaseTeaDAO {
 		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		//
+		
+		
+		
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillUnitID=" + fillUnitId) ;
 		}
@@ -229,6 +236,8 @@ public class UndergraCSBaseTeaDAO {
 		
 //		System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size()) ;
 		System.out.println(underCSBaseTeaDao.update(undergraCSBaseTea)) ;
+		
+		
 	}
 	
 	public String getTableName(){

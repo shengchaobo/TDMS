@@ -69,6 +69,22 @@
     
     <!-- table6 近一届本科生分专业招生录取情况 -->
     <include file="cn/nit/configuration/table6/T621.xml"/>
+    
+    <!-- table7 -->
+    <include file="cn/nit/configuration/table7/T711.xml"/>
+    <include file="cn/nit/configuration/table7/T712.xml"/>
+    <include file="cn/nit/configuration/table7/T721.xml"/>
+    <include file="cn/nit/configuration/table7/T722.xml"/>
+    <include file="cn/nit/configuration/table7/T731.xml"/>
+    <include file="cn/nit/configuration/table7/T732.xml"/>
+    <include file="cn/nit/configuration/table7/T733.xml"/>
+    <include file="cn/nit/configuration/table7/T734.xml"/>
+    <include file="cn/nit/configuration/table7/T735.xml"/>
+    <include file="cn/nit/configuration/table7/T741.xml"/>
+    <include file="cn/nit/configuration/table7/T742.xml"/>
+    <include file="cn/nit/configuration/table7/T743.xml"/>
+    <include file="cn/nit/configuration/table7/T744.xml"/>
+    <include file="cn/nit/configuration/table7/T745.xml"/>
 
     <package name="default" namespace="/" extends="struts-default">
         <default-action-ref name="index" />

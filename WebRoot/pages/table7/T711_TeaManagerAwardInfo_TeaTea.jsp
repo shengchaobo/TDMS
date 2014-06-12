@@ -54,26 +54,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/TeaManagerAwardInfoTeaTea/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
-				<th field="TeaUnit" width="10%">教学单位</th>
-				<th field="UnitID" width="7%">单位号</th>
-				<th field="Name" width="5%">姓名</th>
-				<th field="TeaID" width="7%">教工号</th>
-				<th field="AwardName" width="10%">奖励名称</th>
-				<th field="AwardLevel" width="5%">级别</th>
-				<th field="AwardRank" width="5%">等级</th>
-				<th field="AwardTime" width="10%">获奖时间</th>
-				<th field="AwardFromUnit" width="10%">授予单位</th>
-				<th field="AppvlID" width="8%">批文号</th>
-				<th field="JoinTeaNum" width="15%">合作教师人数</th>
-				<th field="OtherJoinTeaInfo" width="15%">其他合作教师</th>	
+				<th field="seqNumber" width="10%">序号</th>
+				<th field="teaUnit" width="10%">教学单位</th>
+				<th field="unitID" width="10%">单位号</th>
+				<th field="name" width="10%">姓名</th>
+				<th field="teaID" width="10%">教工号</th>
+				<th field="awardName" width="10%">奖励名称</th>
+				<th field="awardLevel" width="10%">级别</th>
+				<th field="awardRank" width="10%">等级</th>
+				<th field="awardTime" width="10%" formatter="formattime">获奖时间</th>
+				<th field="awardFromUnit" width="10%">授予单位</th>
+				<th field="appvlID" width="10%">批文号</th>
+				<th field="aoinTeaNum" width="20%">合作教师人数</th>
+				<th field="otherJoinTeaInfo" width="20%">其他合作教师</th>	
 				<th field="note" width="20%">备注</th>
+				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -100,20 +101,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
-				<th field="TeaUnit" width="10%">教学单位</th>
-				<th field="UnitID" width="7%">单位号</th>
-				<th field="Name" width="5%">姓名</th>
-				<th field="TeaID" width="7%">教工号</th>
-				<th field="AwardName" width="10%">奖励名称</th>
-				<th field="AwardLevel" width="5%">级别</th>
-				<th field="AwardRank" width="5%">等级</th>
-				<th field="AwardTime" width="10%">获奖时间</th>
-				<th field="AwardFromUnit" width="10%">授予单位</th>
-				<th field="AppvlID" width="8%">批文号</th>
-				<th field="JoinTeaNum" width="15%">合作教师人数</th>
-				<th field="OtherJoinTeaInfo" width="15%">其他合作教师</th>	
+				<th field="id" width="10%">序号</th>
+				<th field="teaUnit" width="10%">教学单位</th>
+				<th field="unitID" width="10%">单位号</th>
+				<th field="name" width="10%">姓名</th>
+				<th field="teaID" width="10%">教工号</th>
+				<th field="awardName" width="10%">奖励名称</th>
+				<th field="awardLevel" width="10%">级别</th>
+				<th field="awardRank" width="10%">等级</th>
+				<th field="awardTime" width="10%" formatter="formattime">获奖时间</th>
+				<th field="awardFromUnit" width="10%">授予单位</th>
+				<th field="appvlID" width="10%">批文号</th>
+				<th field="aoinTeaNum" width="20%">合作教师人数</th>
+				<th field="otherJoinTeaInfo" width="20%">其他合作教师</th>	
 				<th field="note" width="20%">备注</th>
+				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>

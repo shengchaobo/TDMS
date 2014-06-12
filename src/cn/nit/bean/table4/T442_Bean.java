@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 /**
  * T442GraTutorInfoGra entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
 @Table(name = "T442_GraTutorInfo_Gra$", schema = "dbo", catalog = "TDMS")
 public class T442_Bean implements java.io.Serializable {
 

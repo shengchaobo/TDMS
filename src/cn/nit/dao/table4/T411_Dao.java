@@ -126,7 +126,43 @@ public class T411_Dao {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			flag = DAOUtil.update(bean, tableName, "teaId", field, conn) ;
+			
+			String temp = field.replaceAll("TeaId,", "");
+			String temp0 = temp; 
+			if(bean.getIdcode().trim().equals("")){
+				String a = "idcode,";
+				temp0 = temp.replaceAll(a,"");
+			}
+			
+			String temp1 = temp0;
+			
+			if(bean.getEducation().trim().equals("")){
+				String a = "Education,";
+			    temp1 = temp0.replaceAll(a , "");
+			}
+			
+			String temp2 = temp1;
+			
+			if(bean.getTopDegree().trim().equals("")){
+				temp2 = temp1.replaceAll("TopDegree," , "");
+			}
+			
+			String temp3 = temp2;
+			if(bean.getMajTechTitle().trim().equals("")){
+				temp3 = temp2.replaceAll("MajTechTitle," , "");
+			}
+			
+			String temp4 = temp3;
+			if(bean.getSource().trim().equals("")){
+				temp4 = temp3.replaceAll("Source,", "");
+			}	
+			
+			String temp5 = temp4;
+			if(bean.getTeaTitle().trim().equals("")){
+				temp5 = temp4.replaceFirst("TeaTitle,", "");
+			}
+			System.out.println(temp5);
+			flag = DAOUtil.update(bean, tableName, "teaId", temp5, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -249,6 +285,11 @@ public class T411_Dao {
 	public static void main(String args[]){
 		T411_Dao testDao =  new T411_Dao() ;
 		System.out.println(testDao.hasPerson("2014000001")) ;
+		
+		String a = testDao.field;
+		String b = "Education,";
+		String c = a.replaceAll(b,"");
+		System.out.println(c);
 	}
 
 }

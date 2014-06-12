@@ -8,7 +8,7 @@ import javax.persistence.Table;
 /**
  * T451TeaTeachDepOrgPer entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
 @Table(name = "T451_TeaTeachDepOrg_Per$", schema = "dbo", catalog = "TDMS")
 public class T451_Bean implements java.io.Serializable {
 

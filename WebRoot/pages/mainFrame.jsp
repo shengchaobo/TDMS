@@ -170,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<font face="楷体" style="font-size:20pt;color:#0033CC">教 学 基 本 状 态 数 据 管 理</font>
 	    	</div>
 	    	<div class="right">
-				<h5 style="align:'right';valign:'bottom'"><a >退出</a> | <a >帮助</a>&nbsp;&nbsp;&nbsp;　  </h5>
+				<h5 style="align:'right';valign:'bottom'"><a href="./login.jsp">退出系统</a>&nbsp;&nbsp;&nbsp;　  </h5>
 			</div>
 	    	</div>
 	    	<div style="height:30px;background:url(images/main01.jpg);width:1364px;" data-options="region:'south',split:false">

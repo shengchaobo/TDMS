@@ -1,7 +1,9 @@
 package cn.nit.action.table4;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.Date;
@@ -21,6 +23,7 @@ import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table4.T431_Bean;
 import cn.nit.dao.table4.T411_Dao;
 import cn.nit.service.table4.T411_Service;
+import cn.nit.util.ExcelUtil;
 
 public class T411_Action {
 	
@@ -29,6 +32,8 @@ public class T411_Action {
 	private String page; //当前第几页
 	
 	private String ids; //删除的id
+	
+	private String searchID; //用于查询的教工号
 	
 
 	private T411_Service T411_services = new T411_Service();
@@ -138,6 +143,69 @@ public class T411_Action {
 		}
 		out.flush() ;
 	}
+	
+/*	
+	*//**  生成查询条件   *//*
+	public void auditingConditions(){
+		
+		String sqlConditions = undergraCSBaseTeaSer.gernateAuditingConditions(seqNum, startTime, endTime) ;
+		getSession().setAttribute("auditingConditions", sqlConditions) ;
+		PrintWriter out = null ;
+		
+		try{
+			out = getResponse().getWriter() ;
+			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}*/
+	
+	/**  编辑数据  */
+	public void edit(){
+
+		boolean flag = T411_services.update(T411_bean) ;
+		PrintWriter out = null ;
+	
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+
 	
 	
 /*	*//**  根据数据的id删除数据  *//*
@@ -327,5 +395,13 @@ public class T411_Action {
 
 	public void setIds(String ids) {
 		this.ids = ids;
+	}
+
+	public void setSearchID(String searchID) {
+		this.searchID = searchID;
+	}
+
+	public String getSearchID() {
+		return searchID;
 	}
 }

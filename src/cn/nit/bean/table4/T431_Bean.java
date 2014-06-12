@@ -18,11 +18,9 @@ public class T431_Bean implements java.io.Serializable {
 	// Fields
 	private String name;
 	private String teaId;
-	private String managerType;
 	private String fromDept;
 	private String unitId;
 	private String staffType;
-	private String note;
 
 	@Column(name = "Name")
 	public String getName() {
@@ -40,15 +38,6 @@ public class T431_Bean implements java.io.Serializable {
 
 	public void setTeaId(String teaId) {
 		this.teaId = teaId;
-	}
-
-	@Column(name = "ManagerType")
-	public String getManagerType() {
-		return this.managerType;
-	}
-
-	public void setManagerType(String managerType) {
-		this.managerType = managerType;
 	}
 
 	@Column(name = "FromDept")
@@ -76,15 +65,6 @@ public class T431_Bean implements java.io.Serializable {
 
 	public void setStaffType(String staffType) {
 		this.staffType = staffType;
-	}
-
-	@Column(name = "Note")
-	public String getNote() {
-		return this.note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
 	}
 
 }

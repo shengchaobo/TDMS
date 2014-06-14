@@ -222,10 +222,7 @@ public class DAOUtil {
 					}else if(type.endsWith("long")){
 						pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
 					}else{
-
-
 						throw new Exception("自行添加对应类型" + type) ;
-
 					}
 				}
 				pst.addBatch() ;
@@ -281,7 +278,6 @@ public class DAOUtil {
 		
 		sql.append(" where ") ;
 		String keyFields[] = key.split(",") ;
-		
 		for(int i = 0; i < keyFields.length; i++){
 				
 			if(i == (keyFields.length - 1)){
@@ -292,7 +288,7 @@ public class DAOUtil {
 		}
 		
 		length = length + keyFields.length ;
-		System.out.println(sql.toString()) ;
+		//System.out.println(sql.toString()) ;
 		BeanWrapper wrapper = new BeanWrapperImpl(obj) ;
 		//判断数据插入的条数，0代表数据插入失败
 		int flag = 0 ;
@@ -306,31 +302,31 @@ public class DAOUtil {
 				String vField = null ;
 				
 				if(j < fields.length){
-					System.out.println(wrapper.getPropertyType(fields[j])) ;
+					//System.out.println(wrapper.getPropertyType(fields[j])) ;
 					type = wrapper.getPropertyType(fields[j]).toString() ;
 					vField = fields[j] ;
 				}else{
-					System.out.println(wrapper.getPropertyType(keyFields[j - fields.length])) ;
+					//System.out.println(wrapper.getPropertyType(keyFields[j - fields.length])) ;
 					type = wrapper.getPropertyType(keyFields[j - fields.length]).toString() ;
 					vField = keyFields[j - fields.length] ;
 				}
 
 				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){
-					System.out.println((String) wrapper.getPropertyValue(vField));
-					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;
+					//System.out.println((String) wrapper.getPropertyValue(vField));
+					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;					
 				}else if(type.endsWith("int") || type.endsWith("Integer")){
 					pst.setInt(j + 1, (Integer) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("Date")){
 					
 					java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(vField) ;
 					Date sqlDate = new Date(utilDate.getTime()) ;
-					System.out.println(sqlDate);
+					//System.out.println(sqlDate);
 					pst.setDate(j + 1, sqlDate ) ;
 				}else if(type.endsWith("long") || type.endsWith("Long")){
 					pst.setLong(j + 1, (Long) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("Boolean") || type.endsWith("boolean")){
-					System.out.println((Boolean) wrapper.getPropertyValue(vField));
+					//System.out.println((Boolean) wrapper.getPropertyValue(vField));
 					pst.setBoolean(j + 1, (Boolean) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("double") || type.endsWith("Double")){
 					pst.setDouble(j + 1, (Double) wrapper.getPropertyValue(vField)) ;
@@ -340,8 +336,9 @@ public class DAOUtil {
 
 				}
 			}
-			//System.out.println(sql.toString()) ;
-			flag = pst.executeUpdate() ;
+			System.out.println(sql.toString()) ;
+			//flag = pst.executeUpdate() ;
+			//System.out.println(flag);
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;

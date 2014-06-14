@@ -12,18 +12,19 @@ public class T411_Service {
 	
 	//根据第几页获取，每页几行获取数据
 	
-	public List<T411_Bean> getPageTeaInfoList(String rows, String page){
+	public List<T411_Bean> getPageTeaInfoList(String conditions, String fillunitID, String rows, String page){
 		
 		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
 		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
 		
-		List<T411_Bean> teaInfo = teaInfoDao.queryPageList(pagesize, currentpage);
+		//这里的fillunitID用于教学单位这一角色，不同学院同属于一个角色，用到相同的报表，但操作的内容不同
+		List<T411_Bean> teaInfo = teaInfoDao.queryPageList(conditions, fillunitID, pagesize, currentpage);
 		
 		return teaInfo;		
 	}
 	
-	public int getTotal(){
-		return teaInfoDao.getAllList().size();
+	public int getTotal(String Conditions, String fillunitID){
+		return teaInfoDao.totalQueryPageList(Conditions, fillunitID);
 	}
 	
 	public Boolean insert(T411_Bean bean){

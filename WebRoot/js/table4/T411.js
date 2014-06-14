@@ -3,6 +3,14 @@
 
 	//弹出添加的界面
 	function newTeacher() {
+		
+		//update隐藏的量在提交之后要恢复
+		$("input#teaId").attr("readonly",false);
+		$("input#teaId").css({"color":"black"});
+    	$('#title1').show();
+    	$('#item1').show();
+    	$('hr').show();
+    	
 		url = 'pages/T411/insert' ;
 		$('#dlg').dialog('open').dialog('setTitle', '添加新的教职工');
 		$('#addForm').form('reset');
@@ -33,13 +41,7 @@
     
 	//单条导入
 	function singleImport() {
-		
-		//update隐藏的量在提交之后要恢复
-		$("input#teaId").attr("disabled",false);
-    	$('#title1').show();
-    	$('#item1').show();
-    	$('hr').show();
-    	
+		    			
 		// 录入数据的表单提交
 		$('#addForm').form('submit', {
 			    url : url,
@@ -122,7 +124,8 @@
     	$('hr').hide();
     	$('#dlg').dialog('open').dialog('setTitle','修改该名教职工的信息');
     	$('#teaId').val(row[0].teaId) ;
-    	$("input#teaId").attr("disabled",true);
+    	$("input#teaId").attr("readonly",true);
+    	$("input#teaId").css({"color":"#888"});
     	$('#teaName').val(row[0].teaName) ;
     	$('#gender').combobox('select', row[0].gender) ;
     	$('#birthday').datebox("setValue", formattime(row[0].birthday)) ;
@@ -151,23 +154,19 @@
 	}
 	
 	function singleSearch(){
-	   	 $('#searchFome').form('submit',{
-	   		 url: 'pages/T411/singleSearch',
-	   		 type: "post",
-		     dataType: "json",
+	   	 $('#searchForm').form('submit',{
+	   		url: 'pages/T411/singleSearch',
+	   		data : $('#searchForm').serialize(),
+	   		type: "post",
+		    dataType: "json",
+		    onSubmit : function() {
+			    return true;
+			},
 	   		 success: function(result){
-	   		 	var result = eval('('+result+')');
-	   		 	if (!result.state){
-	   		 		$.messager.show({
-	   		 			title: 'Error',
-	   		 			msg: result.errorMsg
-	   			 });
-	   		 	} else {
-			    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-	   		 	}
+				$('#commomData').datagrid('reload');
 	   		 }
-	   		 });
-	   }
+	   	});	 	   	 
+	  }
 	
 /*	//删除选中的行
     function deleteByIds() {

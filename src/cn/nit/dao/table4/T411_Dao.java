@@ -58,12 +58,77 @@ public class T411_Dao {
 		return list ;
 	}
 	
+	
+	/**
+	 * 获得分页查询的总数
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public int totalQueryPageList(String conditions, String fillunitID){
+		
+		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
+		int total = 0;
+		if(conditions != null && !conditions.equals("")){
+			Cond = Cond + conditions;
+		}
+		
+		if(fillunitID != null && !fillunitID.equals("")){
+			Cond = Cond + " and FillUnitID=" + fillunitID;
+		}
+		
+		
+		String queryPageSql = "select count(*) " 
+		+ " from " + tableName + 
+		" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
+		" left join " + tableName2+ " on " + "MajTechTitle=" + tableName2 + ".IndexID " +
+		" left join " + tableName3+ " on " + "TeaTitle=" + tableName3 + ".IndexID " +
+		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
+		" left join " + tableName5+ " on " + tableName + ".Source=" + tableName5 + ".IndexID " +
+		" left join " + tableName6+ " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
+		" where " + Cond ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			if(rs == null){
+				return total ;
+			}
+			
+			while(rs.next()){
+				total = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}
+		
+		return total ;
+	}
+	
 	/**
 	 * 分 页查询
 	 * 
 	 */
-	public List<T411_Bean> queryPageList(int pageSize, int showPage){
-				
+	public List<T411_Bean> queryPageList(String conditions, String fillunitID, int pageSize, int showPage){
+		//这里的fillunitID用于教学单位这一角色，不同学院同属于一个角色，用到相同的报表，但操作的内容不同
+		
+		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
+		
+		if(conditions != null && !conditions.equals("")){
+			Cond = Cond + conditions;
+		}
+		
+		if(fillunitID != null && !fillunitID.equals("")){
+			Cond = Cond + " and FillUnitID=" + fillunitID;
+		}
+		
+		
 		String queryPageSql = "select top " + pageSize + 
 		" TeaId,TeaName,Gender,Birthday,AdmisTime,TeaState," +
 		"BeginWorkTime,IdentiType AS IDCode,FromOffice,OfficeID,FromUnit,unitID," +
@@ -77,8 +142,8 @@ public class T411_Dao {
 		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
 		" left join " + tableName5+ " on " + tableName + ".Source=" + tableName5 + ".IndexID " +
 		" left join " + tableName6+ " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
-		" where (TeaFlag is null or TeaFlag != '外聘') and (TeaID not in (select top " + pageSize * (showPage-1) + " TeaID from "+
-		tableName + " order by TeaID)) order by TeaID " ;
+		" where " + Cond + " and (TeaID not in (select top " + pageSize * (showPage-1) + " TeaID from "+
+		tableName + " where " + Cond +  " order by TeaID)) order by TeaID " ;
 		System.out.println(queryPageSql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -161,7 +226,8 @@ public class T411_Dao {
 			if(bean.getTeaTitle().trim().equals("")){
 				temp5 = temp4.replaceFirst("TeaTitle,", "");
 			}
-			System.out.println(temp5);
+			//System.out.println(temp5);
+			//System.out.println(bean.getTeaId());
 			flag = DAOUtil.update(bean, tableName, "teaId", temp5, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;

@@ -9,8 +9,10 @@ import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
@@ -49,9 +51,14 @@ public class T411_Action {
 	public void loadTeaInfo() throws Exception{
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;	
-		List<T411_Bean> list = T411_services.getPageTeaInfoList(this.getRows(),this.getPage()) ;
-		String TeaInfoJson = this.toBeJson(list,T411_services.getTotal());
-		//private JSONObject jsonObj;
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		
+		String cond = (String)session.getAttribute("Conditions");
+		
+		//System.out.println(cond);
+		
+		List<T411_Bean> list = T411_services.getPageTeaInfoList(cond,null,this.getRows(),this.getPage()) ;
+		String TeaInfoJson = this.toBeJson(list,T411_services.getTotal(cond,null));
 		
 		PrintWriter out = null ;
 
@@ -76,7 +83,7 @@ public class T411_Action {
 		}
 	}
 
-    //将分页系统的总数以及当前页的list转化一个json传页面显示
+	//将分页系统的总数以及当前页的list转化一个json传页面显示
 	private String toBeJson(List<T411_Bean> list, int total) throws Exception{
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -144,16 +151,26 @@ public class T411_Action {
 		out.flush() ;
 	}
 	
-/*	
-	*//**  生成查询条件   *//*
-	public void auditingConditions(){
+	//生成查询条件，本质是生成查询条件
+	public void singleSearch(){
 		
-		String sqlConditions = undergraCSBaseTeaSer.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		String conditions = null;
+		
+		if(this.getSearchID() == null || this.getSearchID().equals("")){
+			conditions = null;
+		}else{
+			conditions = " and TeaId LIKE '" + this.getSearchID() + "%'";
+		}
+		
+		session.setAttribute("Conditions", conditions) ;
+		
 		PrintWriter out = null ;
 		
 		try{
-			out = getResponse().getWriter() ;
+			out = response.getWriter() ;
 			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
 			out.flush() ;
 		}catch(Exception e){
@@ -164,7 +181,7 @@ public class T411_Action {
 				out.close() ;
 			}
 		}
-	}*/
+	}
 	
 	/**  编辑数据  */
 	public void edit(){

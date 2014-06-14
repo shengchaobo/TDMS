@@ -143,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		 <form method="post"  id="searchForm"   style="float: right;">
 		 <div>
-		 	教工号 : <input id="searchID" class="easyui-box" style="width:80px" />
+		 	教工号 : <input id="searchID"  name=" searchID"  class="easyui-box" style="width:80px" />
 			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="singleSearch()">查询</a>
 		</div>
 		</form>

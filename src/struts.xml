@@ -42,6 +42,21 @@
      <!-- table4 -->
     <include file="cn/nit/configuration/table4/T411.xml"/>
     <include file="cn/nit/configuration/table4/T412.xml"/>
+    <include file="cn/nit/configuration/table4/T413.xml"/>
+    <include file="cn/nit/configuration/table4/T42.xml"/>
+    <include file="cn/nit/configuration/table4/T435.xml"/>
+    <include file="cn/nit/configuration/table4/T441.xml"/>
+    <include file="cn/nit/configuration/table4/T442.xml"/>
+    <include file="cn/nit/configuration/table4/T443.xml"/>
+    <include file="cn/nit/configuration/table4/T444.xml"/>
+    <include file="cn/nit/configuration/table4/T451.xml"/>
+	<include file="cn/nit/configuration/table4/T452.xml"/>
+	<include file="cn/nit/configuration/table4/T453.xml"/>
+	<include file="cn/nit/configuration/table4/T461.xml"/>
+	<include file="cn/nit/configuration/table4/T47.xml"/>
+	<include file="cn/nit/configuration/table4/T48.xml"/>
+	<include file="cn/nit/configuration/table4/T49.xml"/>
+	<include file="cn/nit/configuration/table4/T410.xml"/>
     
 
     <!-- table1 -->

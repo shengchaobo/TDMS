@@ -1,12 +1,24 @@
+	//全局变量，用来暂存当前的url值
+   var url;
+
 	//弹出添加的界面
 	function newTeacher() {
+		
+		//update隐藏的量在提交之后要恢复
+		$("input#teaId").attr("readonly",false);
+		$("input#teaId").css({"color":"black"});
+    	$('#title1').show();
+    	$('#item1').show();
+    	$('hr').show();
+    	
+		url = 'pages/T411/insert' ;
 		$('#dlg').dialog('open').dialog('setTitle', '添加新的教职工');
-				$('#addForm').form('reset');
+		$('#addForm').form('reset');
 	}
 	
     //模板导入
-    var url;
 	function batchImport() {
+		
 		$('#fm').form('submit', {
 					url : url,
 					onSubmit : function() {
@@ -29,9 +41,10 @@
     
 	//单条导入
 	function singleImport() {
+		    			
 		// 录入数据的表单提交
 		$('#addForm').form('submit', {
-			url : 'pages/T411/insert',
+			    url : url,
 				data : $('#addForm').serialize(),
 				type : "post",
 				dataType : "json",
@@ -95,30 +108,111 @@
 		return true;
 	 }
 
-	function editUser() {
-		var row = $('#dg').datagrid('getSelections');
-		if (row.length != 1) {
-		$.messager.alert("信息提示", "没选取或者选取了多行", "info");
-			return;
-		}
-		alert(row[0].birthday);
-		var date = formattime(row[0].birthday);
-		// 为文本框赋值
-		$('#id').val(row[0].id);
-		$('#username').val(row[0].username);
-		$('#password').val(row[0].password);
-		$('#email').val(row[0].email);
-		$('#sex').val(row[0].sex);
-		$('#birthday').val(date);
+	function edit() {
+		
+    	var row = $('#commomData').datagrid('getSelections');
+    	
+    	if(row.length != 1){
+    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+    		return ;
+    	}
+    	
+    	url = 'pages/T411/edit' ;
+    
+    	$('#title1').hide();
+    	$('#item1').hide();
+    	$('hr').hide();
+    	$('#dlg').dialog('open').dialog('setTitle','修改该名教职工的信息');
+    	$('#teaId').val(row[0].teaId) ;
+    	$("input#teaId").attr("readonly",true);
+    	$("input#teaId").css({"color":"#888"});
+    	$('#teaName').val(row[0].teaName) ;
+    	$('#gender').combobox('select', row[0].gender) ;
+    	$('#birthday').datebox("setValue", formattime(row[0].birthday)) ;
+    	$('#admisTime').datebox("setValue", formattime(row[0].admisTime)) ;
+    	$('#teaState').combobox('select', row[0].teaState) ;
+    	$('#beginWorkTime').datebox("setValue", formattime(row[0].beginWorkTime)); 
+    	$('#idcode').combobox('setText', row[0].idcode) ;
+    	$('#officeID').combobox('select', row[0].officeID) ;
+    	$('#teaResOfficeID').combobox('select', row[0].teaResOfficeID) ;
+    	$('#unitId').combobox('select', row[0].unitId) ;
+		$('#education').combobox('setText', row[0].education) ;
+		$('#topDegree').combobox('setText', row[0].topDegree) ;
+		$('#graSch').val(row[0].graSch) ;
+		$('#major').val(row[0].major) ;
+		$('#source').combobox('setText', row[0].source) ;
+		$('#adminLevel').val(row[0].adminLevel) ;
+		$('#majTechTitle').combobox('setText', row[0].majTechTitle) ;
+		$('#teaTitle').combobox('setText', row[0].teaTitle) ;
+		$('#notTeaTitle').val(row[0].notTeaTitle) ;		
+		$('#subjectClass').combobox('select', row[0].subjectClass) ;
+		$('#doubleTea').combobox('select', row[0].doubleTea) ;
+		$('#industry').combobox('select', row[0].industry) ;
+		$('#engineer').combobox('select', row[0].engineer) ;
+		$('#teaBase').combobox('select', row[0].teaBase) ;
+		$('#note').val(row[0].note) ;
+	}
+	
+	function singleSearch(){
+	   	 $('#searchForm').form('submit',{
+	   		url: 'pages/T411/singleSearch',
+	   		data : $('#searchForm').serialize(),
+	   		type: "post",
+		    dataType: "json",
+		    onSubmit : function() {
+			    return true;
+			},
+	   		 success: function(result){
+				$('#commomData').datagrid('reload');
+	   		 }
+	   	});	 	   	 
+	  }
+	
+/*	//删除选中的行
+    function deleteByIds() {
+	// 获取选中项
+    	var row = $('#commomData').datagrid('getSelections');
+    	if (row.length == 0) {
+    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
+		return;
+    	}
+    	$.messager.confirm('数据删除', '您确定删除选中项?', function(sure) {
+		if (sure) {
+			var ids = "";
+			ids += "(";
 
-		if (row) {
-			$('#dlg').dialog('open').dialog('setTitle', '本科课程库');
-				$('#fm').form('load', row);
-				url = 'updateUser';
+			for ( var i = 0; i < row.length; i++) {
+				if (i < (row.length - 1)) {
+					ids += ("'"+row[i].teaId +"'"+ ",");
+				} else {
+					ids += ("'"+row[i].teaId+"'" + ")");
+				}
+			}
+
+			deletes(ids);
+
+			}
+    	});
+    }
+    
+    function deletes(ids) {
+    	$.ajax( {
+    		type : "POST",
+    		url : "pages/T411/deleteByIds?ids=" + ids,
+    		async : "true",
+    		dataType : "text",
+    		success : function(result) {
+			result = eval("(" + result + ")");
+
+			if (result.state) {
+				alert(result.data);
+				$('#commomData').datagrid('reload');
 			}
 		}
+    	}).submit();
+    }*/
 
-	    function loadDic() {
+	   function loadDic() {
 				$('#dicDlg').dialog('open').dialog('setTitle', '高级查询');
 				loadDictionary();
 		}

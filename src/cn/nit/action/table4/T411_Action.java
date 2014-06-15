@@ -1,14 +1,18 @@
 package cn.nit.action.table4;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
@@ -21,6 +25,7 @@ import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table4.T431_Bean;
 import cn.nit.dao.table4.T411_Dao;
 import cn.nit.service.table4.T411_Service;
+import cn.nit.util.ExcelUtil;
 
 public class T411_Action {
 	
@@ -28,6 +33,11 @@ public class T411_Action {
 	
 	private String page; //当前第几页
 	
+	private String ids; //删除的id
+	
+	private String searchID; //用于查询的教工号
+	
+
 	private T411_Service T411_services = new T411_Service();
 	
 	private T411_Bean T411_bean = new T411_Bean();
@@ -41,9 +51,14 @@ public class T411_Action {
 	public void loadTeaInfo() throws Exception{
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;	
-		List<T411_Bean> list = T411_services.getPageTeaInfoList(this.getRows(),this.getPage()) ;
-		String TeaInfoJson = this.toBeJson(list,T411_services.getTotal());
-		//private JSONObject jsonObj;
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		
+		String cond = (String)session.getAttribute("Conditions");
+		
+		//System.out.println(cond);
+		
+		List<T411_Bean> list = T411_services.getPageTeaInfoList(cond,null,this.getRows(),this.getPage()) ;
+		String TeaInfoJson = this.toBeJson(list,T411_services.getTotal(cond,null));
 		
 		PrintWriter out = null ;
 
@@ -68,7 +83,7 @@ public class T411_Action {
 		}
 	}
 
-    //将分页系统的总数以及当前页的list转化一个json传页面显示
+	//将分页系统的总数以及当前页的list转化一个json传页面显示
 	private String toBeJson(List<T411_Bean> list, int total) throws Exception{
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -135,6 +150,109 @@ public class T411_Action {
 		}
 		out.flush() ;
 	}
+	
+	//生成查询条件，本质是生成查询条件
+	public void singleSearch(){
+		
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		String conditions = null;
+		
+		if(this.getSearchID() == null || this.getSearchID().equals("")){
+			conditions = null;
+		}else{
+			conditions = " and TeaId LIKE '" + this.getSearchID() + "%'";
+		}
+		
+		session.setAttribute("Conditions", conditions) ;
+		
+		PrintWriter out = null ;
+		
+		try{
+			out = response.getWriter() ;
+			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  编辑数据  */
+	public void edit(){
+
+		boolean flag = T411_services.update(T411_bean) ;
+		PrintWriter out = null ;
+	
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+
+	
+	
+/*	*//**  根据数据的id删除数据  *//*
+	public void deleteByIds(){
+		System.out.println("ids=" + this.getIds()) ;
+		boolean flag = T411_services.deleteByIds(ids) ;
+		PrintWriter out = null ;
+		
+		try{
+			
+			
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;			
+			if(flag){
+				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}*/
+	
 	
 	//由T411导出T431
 	public void loadT431() throws Exception{
@@ -286,5 +404,21 @@ public class T411_Action {
 
 	public void setT411_bean(T411_Bean t411Bean) {
 		T411_bean = t411Bean;
+	}
+	
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
+	public void setSearchID(String searchID) {
+		this.searchID = searchID;
+	}
+
+	public String getSearchID() {
+		return searchID;
 	}
 }

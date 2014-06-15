@@ -76,6 +76,7 @@ import cn.nit.util.TimeUtil;
 			return t151Dao.deleteCoursesByIds(ids) ;
 		}
 		
+		/**批量导入*/
 		public boolean batchInsert(List<T151Bean> list){
 			
 			return t151Dao.batchInsert(list) ;

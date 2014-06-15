@@ -10,17 +10,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table1.T152Bean;
-import cn.nit.service.table1.T152Service;
+import cn.nit.bean.table1.T19Bean;
+import cn.nit.service.table1.T19Service;
 
 
-public class T152Action {
+public class T19Action {
 	
-	/**  表152的Service类  */
-	private T152Service t152Ser = new T152Service() ;
+	/**  表19的Service类  */
+	private T19Service t19Ser = new T19Service() ;
 	
-	/**  表151的Bean实体类  */
-	private T152Bean t152Bean = new T152Bean() ;
+	/**  表19的Bean实体类  */
+	private T19Bean t19Bean = new T19Bean() ;
 	
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
@@ -43,15 +43,20 @@ public class T152Action {
 	/**  逐条插入数据  */
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t152Bean.setTime(new Date()) ;
-		System.out.println(t152Bean.getTime());
+		t19Bean.setTime(new Date()) ;
+//		System.out.println("RewardFromUnit:"+t19Bean.getRewardFromUnit());
+//		System.out.println("RewardName:"+t19Bean.getRewardName());
+//		System.out.println("UnitName:"+t19Bean.getUnitName());
+//		System.out.println("RewardTime:"+t19Bean.getRewardTime());
+//		System.out.println("RewardLevel:"+t19Bean.getRewardLevel());
+//		System.out.println("UnitID:"+t19Bean.getUnitID());
+//		System.out.println(t151Bean.getResInsID());
+//		System.out.println(t151Bean.getResInsName());
 		//这还没确定,设置填报者的职工号与部门号
-		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
-		t152Bean.setResInsLevel(userinfo.getTeaID()) ;
-//		System.out.println(t152Bean.getResInsLevel());
-//		System.out.println(t152Bean.getTeaUnit());
-//		System.out.println(t152Bean.getUnitID());
-		boolean flag = t152Ser.insert(t152Bean) ;
+//		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
+//		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
+		
+		boolean flag = t19Ser.insert(t19Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -77,6 +82,8 @@ public class T152Action {
 	/**  为界面加载数据  */
 	public void auditingData(){
 		
+//		System.out.println("輸出輸出輸出");
+		
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 			return ;
 		}
@@ -86,7 +93,7 @@ public class T152Action {
 		}
 		
 		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t152Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String pages = t19Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -103,10 +110,10 @@ public class T152Action {
 		}
 	}
 	
-	/**  生成查询条件   */
+	/**  生成查询条件  （查询数据） */
 	public void auditingConditions(){
 		
-		String sqlConditions = t152Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
+		String sqlConditions = t19Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
 		getSession().setAttribute("auditingConditions", sqlConditions) ;
 		PrintWriter out = null ;
 		
@@ -127,7 +134,9 @@ public class T152Action {
 	/**  编辑数据  */
 	public void edit(){
 
-		boolean flag = t152Ser.update(t152Bean) ;
+		t19Bean.setTime(new Date()) ;
+		System.out.println("UnitName:"+t19Bean.getUnitName());
+		boolean flag = t19Ser.update(t19Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -151,7 +160,7 @@ public class T152Action {
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
-		boolean flag = t152Ser.deleteCoursesByIds(ids) ;
+		boolean flag = t19Ser.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -173,7 +182,7 @@ public class T152Action {
 			}
 		}
 	}
-//	
+	
 //	public InputStream getInputStream(){
 //
 //		InputStream inputStream = null ;
@@ -188,11 +197,11 @@ public class T152Action {
 //		return inputStream ;
 //	}
 //
-//	public String execute() throws Exception{
-//
-//		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
-//		return "success" ;
-//	}
+	public String execute() throws Exception{
+
+		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
+		return "success" ;
+	}
 	
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
@@ -210,12 +219,12 @@ public class T152Action {
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T152Bean getT152Bean() {
-		return t152Bean;
+	public T19Bean getT19Bean() {
+		return t19Bean;
 	}
 
-	public void setT152Bean(T152Bean t152Bean) {
-		this.t152Bean = t152Bean;
+	public void setT19Bean(T19Bean t19Bean) {
+		this.t19Bean = t19Bean;
 	}
 
 	public void setSeqNum(int seqNum){
@@ -240,11 +249,6 @@ public class T152Action {
 	
 	public void setRows(String rows){
 		this.rows = rows ;
-	}
-	
-	public static void main(String args[]){
-		String match = "[\\d]+" ;
-		System.out.println("23gfhf4".matches(match)) ;
 	}
 
 }

@@ -5,41 +5,37 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table1.T152Bean;
-import cn.nit.dbconnection.DBConnection;
 
-import cn.nit.pojo.table1.T152POJO;
+import cn.nit.bean.table1.T19Bean;
+import cn.nit.dbconnection.DBConnection;
+import cn.nit.pojo.table1.T19POJO;
 import cn.nit.util.DAOUtil;
 
-/**
- * 表152的数据库操作类
- * @author lenovo
- */
-public class T152DAO {
+public class T19DAO {
 	
 	/**  数据库表名  */
-	private String tableName = "T152_TeaResIns_TeaRes$" ;
+	private String tableName = "T19_SchHonor_PartyOffice$" ;
 	
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "ResInsName,ResInsID,ResInsLevel,Type,BuildCondition,BiOpen,OpenCondition,TeaUnit,UnitID,BeginYear,HouseArea,Time,Note,audit,position" ;
+	private String field = "RewardName,RewardLevel,RewardFromUnit,UnitName,UnitID,RewardTime,Time,Note" ;
 	
 	/**
-	 * 将数据表151的实体类插入数据库
+	 * 将数据表19的实体类插入数据库
 	 * @param schResIns
 	 * @return
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T152Bean t152Bean){
+	public boolean insert(T19Bean t19Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			flag = DAOUtil.insert(t152Bean, tableName, field, conn) ;
+			flag = DAOUtil.insert(t19Bean, tableName, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -50,11 +46,11 @@ public class T152DAO {
 	}
 	
 	/**
-	 * 讲数据批量插入152表中
+	 * 讲数据批量插入19表中
 	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T152Bean> list){
+	public boolean batchInsert(List<T19Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -79,12 +75,9 @@ public class T152DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiResearchType drt") ;
-		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
-//		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-//		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiAwardLevel drl") ;
+		sql.append(" where dpt.UnitID=t.UnitID and drl.IndexID=t.RewardLevel");
 		int total = 0 ;
-//		System.out.println(sql.toString());
 		
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillUnitID=" + fillUnitId) ;
@@ -121,13 +114,13 @@ public class T152DAO {
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
 	 */
-	public List<T152POJO> auditingData(String conditions, String fillUnitId, int page, int rows){
+	public List<T19POJO> auditingData(String conditions, String fillUnitId, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T152POJO> list = null ;
-		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type,t.Type as TypeID , t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
-		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
+		List<T19POJO> list = null ;
+		sql.append("select t.SeqNumber, t.RewardName,drl.AwardLevel as RewardLevel,t.RewardLevel as RewardLevelID,t.RewardFromUnit,t.UnitName,t.UnitID,t.RewardTime,t.Time,t.Note");
+		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiAwardLevel drl");
+		sql.append(" where dpt.UnitID=t.UnitID and drl.IndexID=t.RewardLevel");
 
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillUnitID=" + fillUnitId) ;
@@ -142,14 +135,13 @@ public class T152DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-//		System.out.println(sql.toString());
 		
 		try{
 			st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY) ;
 			st.setMaxRows(page * rows) ;
 			rs = st.executeQuery(sql.toString()) ;
 			rs.absolute((page - 1) * rows) ;
-			list = DAOUtil.getList(rs, T152POJO.class) ;
+			list = DAOUtil.getList(rs, T19POJO.class) ;
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -159,12 +151,12 @@ public class T152DAO {
 		return list ;
 	}
 	
-	public boolean update(T152Bean t152Bean){
+	public boolean update(T19Bean t19Bean){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			flag = DAOUtil.update(t152Bean, tableName, key, field, conn) ;
+			flag = DAOUtil.update(t19Bean, tableName, key, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -201,15 +193,12 @@ public class T152DAO {
 		return this.tableName ;
 	}
 	
-	public static void main(String args[])
-	{
-		T152DAO dao=new T152DAO();
-		int n=dao.totalAuditingData(null, null);
-		System.out.println(n);
-//		List<T152POJO> list=dao.auditingData(null, null, 1, 1);
-//		System.out.println(list.size());
-////	
+	public static void main(String arg[]){
+		T19DAO dao=new T19DAO();
+//		int n=dao.totalAuditingData(null, null);
+		List<T19POJO> list=dao.auditingData(null, null, 1, 1);
+		System.out.println(list.size());
 	}
 	
-	
+
 }

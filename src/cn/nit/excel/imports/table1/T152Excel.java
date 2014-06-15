@@ -6,21 +6,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import jxl.Cell;
 
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchTypeBean;
-import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.other.UserRoleBean;
+import cn.nit.bean.table1.T152Bean;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiResearchTypeService;
-import cn.nit.service.table1.T151Service;
+import cn.nit.service.table1.T152Service;
 import cn.nit.util.DateUtil;
 import cn.nit.util.TimeUtil;
 
 
-public class T151Excel {
+public class T152Excel {
 	
 	/**
 	 * 批量导入
@@ -39,15 +41,17 @@ public class T151Excel {
 		boolean flag = false ;
 		boolean biOpen=false;
 		boolean buildCondi=false;
-		List<T151Bean> list = new LinkedList<T151Bean>() ;
-//		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
+		List<T152Bean> list = new LinkedList<T152Bean>() ;
+		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		DiResearchTypeService diResearchSer=new DiResearchTypeService();
 		List<DiResearchTypeBean> diResearchBeanList=diResearchSer.getList();
 		
+	
+		
 		for(Cell[] cell : cellList){
-			T151Bean t151Bean = new  T151Bean();
+			T152Bean t152Bean = new  T152Bean();
 			int n=cellList.indexOf(cell);
 			if(n==0){continue;}
 			else{
@@ -55,7 +59,7 @@ public class T151Excel {
 				
 			  try{
 				 
-				 String ResInsName = cell[1].getContents() ;
+				    String ResInsName = cell[1].getContents() ;
 					String ResInsID = cell[2].getContents() ;
 					
 					if(ResInsName == null || ResInsName.equals("")){
@@ -107,7 +111,6 @@ public class T151Excel {
 					}
 					
 					String BuildCon=cell[4].getContents();
-//					System.out.println("BuildCon:"+BuildCon);
 					
 					if(BuildCon == null || BuildCon.equals("")){
 						return "第" + count + "行，共建情况不能为空" ;
@@ -115,7 +118,6 @@ public class T151Excel {
 					
 					if(!BuildCon.equals("是") && !BuildCon.equals("否")){
 			        	return "第" + count + "行，只能填“是”或者“否”" ;
-//			        	System.out.println("flag:"+flag);
 			        }
 					else if(BuildCon.equals("是") || BuildCon.equals("否")){
 						flag=true;
@@ -128,7 +130,6 @@ public class T151Excel {
 					}
 
 					String BiOpen=cell[5].getContents();
-//					System.out.println("BiOpen:"+BiOpen);
 					
 					if(BiOpen == null || BiOpen.equals("")){
 						return "第" + count + "行，共建情况不能为空" ;
@@ -160,6 +161,7 @@ public class T151Excel {
 					String TeaUnit=cell[7].getContents();
 					String UnitID=cell[8].getContents();
 					
+					
 					if(TeaUnit == null || TeaUnit.equals("")){
 						return "第" + count + "行，所属教学单位不能为空" ;
 					}
@@ -190,7 +192,6 @@ public class T151Excel {
 					}
 					
 					String BeginYearStr=cell[9].getContents();
-//					System.out.println(BeginYearStr);
 					
 					if(BeginYearStr == null || BeginYearStr.equals("")){
 						return "第" + count + "行，年份不能为空" ;
@@ -214,38 +215,33 @@ public class T151Excel {
 						return "第" + count + "行，用房面积只能为保留两位的整型数" ;
 					}
 					String  note=cell[11].getContents();
+					
+					if(note.length()>500){
+						return "第" + count + "行，备注字数不能超过500" ;
+					}
 				 
 				
 				
 				count++ ;
 				
+				String resInsLevel=userinfo.getTeaID() ;
 				Date BeginYear=TimeUtil.changeDateY(BeginYearStr);
-//				System.out.println(BeginYear);
+
 				double houseArea=DateUtil.doubleTwo(HouseArea);
-				t151Bean.setBeginYear(TimeUtil.changeDateY(BeginYearStr));
-//				System.out.println("BeginYear:"+t151Bean.getBeginYear());
-				t151Bean.setBiOpen(biOpen);
-				t151Bean.setBuildCondition(buildCondi);
-				t151Bean.setHouseArea(houseArea);
-				t151Bean.setNote(note);
-				t151Bean.setOpenCondition(OpenCondition);
-				t151Bean.setResInsID(ResInsID);
-				t151Bean.setResInsName(ResInsName);
-				t151Bean.setTeaUnit(TeaUnit);
-				t151Bean.setTime(new Date());
-				t151Bean.setType(Type);
-				t151Bean.setUnitID(UnitID);
-				list.add(t151Bean);
-				
-//				Date BuildYear=TimeUtil.changeDateY(BuildYearStr);
-//				t17Bean = new T17Bean();
-//				t17Bean.setClubName(ClubName);
-//				t17Bean.setBuildYear(BuildYear);
-//				t17Bean.setPlace(Place);
-//				t17Bean.setNote(note);
-//				t17Bean.setTime(new Date()) ;
-//				list.add(t17Bean);
-//				
+				t152Bean.setBeginYear(TimeUtil.changeDateY(BeginYearStr));
+				t152Bean.setResInsLevel(resInsLevel);
+				t152Bean.setBiOpen(biOpen);
+				t152Bean.setBuildCondition(buildCondi);
+				t152Bean.setHouseArea(houseArea);
+				t152Bean.setNote(note);
+				t152Bean.setOpenCondition(OpenCondition);
+				t152Bean.setResInsID(ResInsID);
+				t152Bean.setResInsName(ResInsName);
+				t152Bean.setTeaUnit(TeaUnit);
+				t152Bean.setTime(new Date());
+				t152Bean.setType(Type);
+				t152Bean.setUnitID(UnitID);
+				list.add(t152Bean);			
 			}
 			catch(Exception e){
 				e.printStackTrace() ;
@@ -255,8 +251,8 @@ public class T151Excel {
 		}
 		
 		flag = false ;
-		T151Service t151Ser = new T151Service() ;
-		flag = t151Ser.batchInsert(list) ;
+		T152Service t152Ser = new T152Service() ;
+		flag = t152Ser.batchInsert(list) ;
 		
 		if(flag){
 			return "数据导入成功" ;

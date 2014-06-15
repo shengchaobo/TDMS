@@ -3,16 +3,17 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
-	<package name="schResIns" namespace="/pages/SchResIns" extends="struts-default">
+	<package name="t19" namespace="/pages/T19" extends="struts-default">
 		<!-- 添加获奖 -->
-	    <action name="insert" class="cn.nit.action.table1.T151Action" method="insert" />
-	    <action name="auditingData" class="cn.nit.action.table1.T151Action" method="auditingData" />
+	    <action name="insert" class="cn.nit.action.table1.T19Action" method="insert" />
+	    <!-- 显示数据 -->
+	    <action name="auditingData" class="cn.nit.action.table1.T19Action" method="auditingData" />
 	     <!-- 编辑数据 -->
-	    <action name="edit" class="cn.nit.action.table1.T151Action" method="edit" />
+	    <action name="edit" class="cn.nit.action.table1.T19Action" method="edit" />
 	     <!-- 删除数据 -->
-	    <action name="deleteByIds" class="cn.nit.action.table1.T151Action" method="deleteCoursesByIds" />
+	    <action name="deleteByIds" class="cn.nit.action.table1.T19Action" method="deleteCoursesByIds" />
 	     <!-- 数据查询 -->
-	    <action name="singleSearch" class="cn.nit.action.table1.T151Action" method="auditingConditions"/>
+	    <action name="singleSearch" class="cn.nit.action.table1.T19Action" method="auditingConditions"/>
 	    
 	     <!-- 文件批量上传 -->
 	    <action name="uploadFile" class="cn.nit.action.UploadAction" method="uploadFile">

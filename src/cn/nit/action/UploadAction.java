@@ -13,6 +13,7 @@ import jxl.Cell;
 
 import org.apache.struts2.ServletActionContext;
 
+//import cn.nit.bean.other.UserRoleBean;
 import cn.nit.util.ExcelUtil;
 
 public class UploadAction {
@@ -22,6 +23,7 @@ public class UploadAction {
 	private String className ;
 	
 	private String methodName ;
+	
 	
 	public void uploadFile(){
 		

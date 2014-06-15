@@ -36,7 +36,7 @@ public class DAOUtil {
 	 * @param obj       插入数据的实体类
 	 * @param tableName 要插入数据对数据库的表名
 	 * @param field     数据库对应的字段
-	 * @param conn      数据库连�?
+	 * @param conn      数据库连�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:02:27
@@ -70,7 +70,7 @@ public class DAOUtil {
 				String type = wrapper.getPropertyType(fields[i]).toString() ;
 
 
-				//判断插入数据的类型，并赋�?
+				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){
 					pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
 				}else if(type.endsWith("int")||type.endsWith("Integer")){
@@ -110,16 +110,17 @@ public class DAOUtil {
 	}
 
 	/**
-	 * 将数据中所取出的数据转换为实际应用的类�?
+
+	 * 将数据中所取出的数据转换为实际应用的类�?
 	 * @param <T>
-	 * @param rs  ResultSet 结果�?
-	 * @param cla           实体�?
+	 * @param rs  ResultSet 结果�?
+	 * @param cla           实体�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:17:57
 	 */
 	public static <T> List<T> getList(ResultSet rs, Class<T> cla){
-
+		
 		List<T> list = null ;
 		BeanWrapper wrapper = null ;
 		try{
@@ -128,7 +129,7 @@ public class DAOUtil {
 			}else{
 				return null ;
 			}
-
+			
 			while(rs.next()){
 				Class clazz = null ;
 				//初始化实体类
@@ -137,33 +138,36 @@ public class DAOUtil {
 				wrapper = new BeanWrapperImpl(t) ;
 				//获取实体类的属�?
 				Field fields[] = clazz.getDeclaredFields() ;
-
+				
 				for(Field field : fields){
 					String fieldName = field.getName() ;
 					Class clazzType = wrapper.getPropertyType(fieldName) ;
+					//System.out.println(wrapper.getPropertyType(fieldName));
+					//System.out.println(fieldName);
 					String type = clazzType.getName() ;
 
-					//给实体类的相关属性赋�?
+					//给实体类的相关属性赋�?
 					if(type.endsWith("String")){
 						wrapper.setPropertyValue(fieldName, rs.getString(fieldName)) ;
-					}else if(type.endsWith("int")){
+					}else if(type.endsWith("Integer")||type.endsWith("int")){
 						wrapper.setPropertyValue(fieldName, rs.getInt(fieldName)) ;
-					}else if(type.endsWith("Date")){
-						wrapper.setPropertyValue(fieldName, new java.util.Date(rs.getDate(fieldName).getTime())) ;
-					}else if(type.endsWith("long")){
-						wrapper.setPropertyValue(fieldName, rs.getLong(fieldName)) ;
-
-					}else if(type.endsWith("boolean")){
-						wrapper.setPropertyValue(fieldName, rs.getBoolean(fieldName)) ;
-					}else if(type.endsWith("double")){
+					}else if(type.endsWith("Double")||type.endsWith("double")){
 						wrapper.setPropertyValue(fieldName, rs.getDouble(fieldName)) ;
-					}
-					else{
-
+					}else if(type.endsWith("Date")){
+						if(rs.getDate(fieldName) == null){
+							wrapper.setPropertyValue(fieldName, null) ;
+						}else{
+							wrapper.setPropertyValue(fieldName, new java.util.Date(rs.getDate(fieldName).getTime())) ;
+						}				
+					}else if(type.endsWith("long")||type.endsWith("Long")){
+						wrapper.setPropertyValue(fieldName, rs.getLong(fieldName)) ;
+					}else if(type.endsWith("Boolean")||type.endsWith("boolean")){
+						wrapper.setPropertyValue(fieldName, rs.getBoolean(fieldName)) ;
+					}else{
 						throw new Exception("该类型不存在，请自己添加 " + type) ;
 					}
 				}
-
+				
 				list.add(t) ;
 			}
 		}catch(Exception e){
@@ -172,9 +176,10 @@ public class DAOUtil {
 		}finally{
 			DBConnection.close(rs) ;
 		}
-
+		
 		return list ;
 	}
+
 
 	public static boolean batchInsert(List list, String tableName, String field, Connection conn) throws Exception{
 		//构建SQL语句
@@ -204,7 +209,7 @@ public class DAOUtil {
 				for(int i = 0; i < length; i++){
 					String type = wrapper.getPropertyType(fields[i]).toString() ;
 
-					//判断插入数据的类型，并赋�?
+					//判断插入数据的类型，并赋�?
 					if(type.endsWith("String")){
 						pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
 					}else if(type.endsWith("int")){
@@ -215,6 +220,7 @@ public class DAOUtil {
 						pst.setDate(i + 1, sqlDate ) ;
 					}else if(type.endsWith("long")){
 						pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
+
 					}else if(type.endsWith("boolean")){
 						pst.setBoolean(i+1, (Boolean)wrapper.getPropertyValue(fields[i])) ;
 					}else if(type.endsWith("double")){
@@ -222,7 +228,6 @@ public class DAOUtil {
 					}
 					else{
 						throw new Exception("自行添加对应类型" + type) ;
-
 					}
 				}
 				pst.addBatch() ;
@@ -251,7 +256,7 @@ public class DAOUtil {
 	 * @param obj       插入数据的实体类
 	 * @param tableName 要插入数据对数据库的表名
 	 * @param field     数据库对应的字段
-	 * @param conn      数据库连�?
+	 * @param conn      数据库连�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:02:27
@@ -278,7 +283,6 @@ public class DAOUtil {
 		
 		sql.append(" where ") ;
 		String keyFields[] = key.split(",") ;
-		
 		for(int i = 0; i < keyFields.length; i++){
 				
 			if(i == (keyFields.length - 1)){
@@ -289,7 +293,7 @@ public class DAOUtil {
 		}
 		
 		length = length + keyFields.length ;
-//		System.out.println(sql.toString()) ;
+		//System.out.println(sql.toString()) ;
 		BeanWrapper wrapper = new BeanWrapperImpl(obj) ;
 		//判断数据插入的条数，0代表数据插入失败
 		int flag = 0 ;
@@ -303,26 +307,31 @@ public class DAOUtil {
 				String vField = null ;
 				
 				if(j < fields.length){
+					//System.out.println(wrapper.getPropertyType(fields[j])) ;
 					type = wrapper.getPropertyType(fields[j]).toString() ;
 					vField = fields[j] ;
 				}else{
+					//System.out.println(wrapper.getPropertyType(keyFields[j - fields.length])) ;
 					type = wrapper.getPropertyType(keyFields[j - fields.length]).toString() ;
 					vField = keyFields[j - fields.length] ;
 				}
 
-
-				//判断插入数据的类型，并赋�?
+				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){
-					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;
+					//System.out.println((String) wrapper.getPropertyValue(vField));
+					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;					
 				}else if(type.endsWith("int") || type.endsWith("Integer")){
 					pst.setInt(j + 1, (Integer) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("Date")){
+					
 					java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(vField) ;
 					Date sqlDate = new Date(utilDate.getTime()) ;
+					//System.out.println(sqlDate);
 					pst.setDate(j + 1, sqlDate ) ;
 				}else if(type.endsWith("long") || type.endsWith("Long")){
 					pst.setLong(j + 1, (Long) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("Boolean") || type.endsWith("boolean")){
+					//System.out.println((Boolean) wrapper.getPropertyValue(vField));
 					pst.setBoolean(j + 1, (Boolean) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("double") || type.endsWith("Double")){
 					pst.setDouble(j + 1, (Double) wrapper.getPropertyValue(vField)) ;
@@ -332,8 +341,9 @@ public class DAOUtil {
 
 				}
 			}
-
-			flag = pst.executeUpdate() ;
+			System.out.println(sql.toString()) ;
+			//flag = pst.executeUpdate() ;
+			//System.out.println(flag);
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;

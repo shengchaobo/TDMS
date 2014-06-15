@@ -12,7 +12,7 @@ $(function() {
 		toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 		//url : 'pages/T411/loadTeaInfo',//url调用Action方法，可变内容在具体页面定义
 		loadMsg : '数据装载中......',
-		singleSelect : true,//为true时只能选择单行
+		singleSelect : false,//为true时只能选择单行
 		fitColumns : false,//允许表格自动缩放，以适应父容器
 		//sortName : 'xh',//当数据表格初始化时以哪一列来排序
 		//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
@@ -34,7 +34,7 @@ $(function() {
 		striped : true,//设置为true将交替显示行背景。
 		collapsible : true,//显示可折叠按钮
 		toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
-		singleSelect : true,//为true时只能选择单行
+		singleSelect : false,//为true时只能选择单行
 		fitColumns : false,//允许表格自动缩放，以适应父容器
 		//sortName : 'xh',//当数据表格初始化时以哪一列来排序
 		//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
@@ -58,7 +58,7 @@ $(function() {
 		toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 		//url : 'pages/table4/loadTeaInfo',//url调用Action方法
 		loadMsg : '数据装载中......',
-		singleSelect : true,//为true时只能选择单行
+		singleSelect : false,//为true时只能选择单行
 		fitColumns : false,//允许表格自动缩放，以适应父容器
 		//sortName : 'xh',//当数据表格初始化时以哪一列来排序
 		//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
@@ -83,7 +83,7 @@ $(function() {
 		toolbar : "#toolbar2",//在添加 增添、删除、修改操作的按钮要用到这个
 		//url : 'pages/table4/loadTeaInfo',//url调用Action方法
 		loadMsg : '数据装载中......',
-		singleSelect : true,//为true时只能选择单行
+		singleSelect : false,//为true时只能选择单行
 		fitColumns : false,//允许表格自动缩放，以适应父容器
 		//sortName : 'xh',//当数据表格初始化时以哪一列来排序
 		//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。

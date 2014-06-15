@@ -108,5 +108,4 @@ public class T413_Dao {
 		System.out.println(testDao.getAllList().size()) ;
 	}
 
-
 }

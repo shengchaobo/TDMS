@@ -121,7 +121,7 @@ public class T151DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T151POJO> list = null ;
-		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type,t.Type as TypeID , t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note");
+		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type,t.Type , t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note");
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
 
@@ -160,6 +160,8 @@ public class T151DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
 			flag = DAOUtil.update(schResIns, tableName, key, field, conn) ;
+			
+
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -203,6 +205,7 @@ public class T151DAO {
 //		System.out.println(n);
 		List<T151POJO> list=dao.auditingData(null, null, 1, 2);
 		System.out.println(list.size());
+	
 //	
 	}
 	

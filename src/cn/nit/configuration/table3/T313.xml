@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="discip" namespace="/pages/DiscipRes" extends="struts-default">
+		<!-- 添加重点学科 -->
+	    <action name="insert" class="cn.bjtu.action.Table3_DiscipAction" method="insert" />
+	</package>
+</struts>

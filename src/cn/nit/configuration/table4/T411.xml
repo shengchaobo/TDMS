@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-    "http://struts.apache.org/dtds/struts-2.3.dtd">
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
 	<package name="pages/T411" namespace="/pages/T411" extends="struts-default">
 		<!-- 初始化加载所有教职工信息（用于分页系统） -->
@@ -9,7 +9,20 @@
    		<!-- 插入新的教职工信息 -->
 	    <action name="insert"  class="cn.nit.action.table4.T411_Action" method="insert" ></action>
 	    <!-- 加载所有的教职工 -->
-	    <action name="loadT411" class="cn.nit.action.table4.T411_Action"  method="loadT411" />
+	    <action name="loadT411" class="cn.nit.action.table4.T411_Action"  method="loadT411" />    
+	    <!-- 删除相应教职工 
+	    <action name="deleteByIds" class="cn.nit.action.table4.T411_Action"  method="deleteByIds" />
+	    -->
+	    <!-- 更新相应教职工 -->
+	    <action name="edit" class="cn.nit.action.table4.T411_Action"  method="edit" />
+	    <!-- 模糊查询相应教职工 -->
+	    <action name="singleSearch" class="cn.nit.action.table4.T411_Action"  method="singleSearch" />
 	    
+	    <!-- 从T411人事表中提取431到436系列表 -->
+	    <action name="loadT431" class="cn.nit.action.table4.T411_Action"  method="loadT431" />
+	    <action name="loadT432" class="cn.nit.action.table4.T411_Action"  method="loadT432" />
+	    <action name="loadT433" class="cn.nit.action.table4.T411_Action"  method="loadT433" />
+	    <action name="loadT434" class="cn.nit.action.table4.T411_Action"  method="loadT434" />
+	    <action name="loadT436" class="cn.nit.action.table4.T411_Action"  method="loadT436" />
 	</package>
 </struts>

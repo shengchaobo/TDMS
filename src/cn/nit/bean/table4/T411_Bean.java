@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 /**
  * T411TeaBasicInfoPer entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "T411_TeaBasicInfo_Per$", schema = "dbo", catalog = "TDMS")
 public class T411_Bean implements java.io.Serializable {
 

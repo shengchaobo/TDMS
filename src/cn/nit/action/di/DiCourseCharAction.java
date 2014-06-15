@@ -39,7 +39,7 @@ public class DiCourseCharAction {
 	 *
 	 * @time: 2014-5-14/下午03:03:37
 	 */
-	public void loadDiCourseChar(){
+	public void loadCourseChar(){
 		
 		List<DiCourseCharBean> list = diCourseCharSer.getList() ;
 		//将数据转换为json格式

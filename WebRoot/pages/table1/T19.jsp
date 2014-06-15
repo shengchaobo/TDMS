@@ -73,13 +73,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+		 	<form id="auditing" method="post">
+		 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+			日期 起始:  <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+			结束:  <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+				</form>
 		</div>
 	</div>
 	<div id="toolbar2">
@@ -108,12 +110,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		buttons="#dlg-buttons">
 		<div class="ftitle">学校荣誉记录批量导入</div>
 		<div class="fitem">
-			<form method="post">
+			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<input type="file" name="fileToUpload" id="fileToUpload" class="easyui-validatebox"
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="table5/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href="pages/SchResIns/downloadModel" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
@@ -200,9 +202,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	    var url;
+
+	    function singleSearch(){
+	      	 $('#auditing').form('submit',{
+	      		 url: 'pages/T19/singleSearch',
+	      		 type: "post",
+	   	     dataType: "json",
+	      		 success: function(result){
+	      		 	var result = eval('('+result+')');
+	      		 	if (!result.state){
+	      		 		$.messager.show({
+	      		 			title: 'Error',
+	      		 			msg: result.errorMsg
+	      			 });
+	      		 	} else {
+	   		    	$('#unverfiedData').datagrid('load'); // reload the auditing data
+	      		 	}
+	      		 }
+	      		 });
+	      }
+	    
 	    function batchImport(){
-	    	 $('#fm').form('submit',{
-	    		 url: pages/T19/uploadFile,
+	    	 $('#batchForm').form('submit',{
+	    		 url:'pages/T19/uploadFile',
 	    		 onSubmit: function(){
 	    		 	return $(this).form('validate');
 	    		 },
@@ -308,6 +330,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return true ;
 		}
 
+
+		   function deleteByIds(){
+		    	//获取选中项
+				var row = $('#unverfiedData').datagrid('getSelections');
+		    	
+				if(row.length == 0){
+		    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
+		    		return ;
+		    	}
+		    	
+				 $.messager.confirm('数据删除', '您确定删除选中项?', function(sure){
+					 if (sure){
+					 	var ids = "";
+					 	ids += "(" ;
+					 	
+					 	for(var i=0; i<row.length; i++){
+					 		if(i < (row.length - 1)){
+					 			ids += (row[i].seqNumber + ",") ;
+					 		}else{
+					 			ids += (row[i].seqNumber + ")") ;
+					 		}
+					 	}
+					 	
+					 	deleteCourses(ids) ;
+					 	
+					 }
+				});
+		    }
+
+		   function deleteCourses(ids){
+		    	$.ajax({ 
+		    		type: "POST", 
+		    		url: "pages/T19/deleteByIds?ids=" + ids, 
+		    		async:"true",
+		    		dataType: "text",
+		    		success: function(result){
+		    			result = eval("(" + result + ")");
+
+						if(result.state){
+							alert(result.data) ;
+							 $('#unverfiedData').datagrid('reload') ;
+						}
+		    		}
+		    	}).submit();
+		    }
+
+		
+		
 		 function editCourse(){
 		    	var row = $('#unverfiedData').datagrid('getSelections');
 		    	

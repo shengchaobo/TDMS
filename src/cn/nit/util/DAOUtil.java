@@ -36,7 +36,7 @@ public class DAOUtil {
 	 * @param obj       插入数据的实体类
 	 * @param tableName 要插入数据对数据库的表名
 	 * @param field     数据库对应的字段
-	 * @param conn      数据库连�?
+	 * @param conn      数据库连�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:02:27
@@ -56,8 +56,6 @@ public class DAOUtil {
 				sql.append("?,") ;
 			}
 		}
-
-		System.out.println(sql.toString()) ;
 		BeanWrapper wrapper = new BeanWrapperImpl(obj) ;
 		//判断数据插入的条数，0代表数据插入失败
 		int flag = 0 ;
@@ -70,7 +68,7 @@ public class DAOUtil {
 				String type = wrapper.getPropertyType(fields[i]).toString() ;
 
 
-				//判断插入数据的类型，并赋�?
+				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){
 					pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
 				}else if(type.endsWith("int")||type.endsWith("Integer")){
@@ -111,10 +109,10 @@ public class DAOUtil {
 
 	/**
 
-	 * 将数据中所取出的数据转换为实际应用的类�?
+	 * 将数据中所取出的数据转换为实际应用的类�?
 	 * @param <T>
-	 * @param rs  ResultSet 结果�?
-	 * @param cla           实体�?
+	 * @param rs  ResultSet 结果�?
+	 * @param cla           实体�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:17:57
@@ -146,7 +144,7 @@ public class DAOUtil {
 					//System.out.println(fieldName);
 					String type = clazzType.getName() ;
 
-					//给实体类的相关属性赋�?
+					//给实体类的相关属性赋�?
 					if(type.endsWith("String")){
 						wrapper.setPropertyValue(fieldName, rs.getString(fieldName)) ;
 					}else if(type.endsWith("Integer")||type.endsWith("int")){
@@ -209,7 +207,7 @@ public class DAOUtil {
 				for(int i = 0; i < length; i++){
 					String type = wrapper.getPropertyType(fields[i]).toString() ;
 
-					//判断插入数据的类型，并赋�?
+					//判断插入数据的类型，并赋�?
 					if(type.endsWith("String")){
 						pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
 					}else if(type.endsWith("int")){
@@ -256,7 +254,7 @@ public class DAOUtil {
 	 * @param obj       插入数据的实体类
 	 * @param tableName 要插入数据对数据库的表名
 	 * @param field     数据库对应的字段
-	 * @param conn      数据库连�?
+	 * @param conn      数据库连�?
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:02:27
@@ -316,7 +314,7 @@ public class DAOUtil {
 					vField = keyFields[j - fields.length] ;
 				}
 
-				//判断插入数据的类型，并赋�?
+				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){
 					//System.out.println((String) wrapper.getPropertyValue(vField));
 					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;					

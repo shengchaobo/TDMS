@@ -43,11 +43,9 @@ import cn.nit.util.TimeUtil;
 		    int total = t151Dao.totalAuditingData(conditions, fillUnitId) ;
 			List<T151POJO> list = t151Dao.auditingData(conditions, fillUnitId, page, rows) ;
 			Pagition pages = new Pagition(total, list) ;
-//			System.out.println("total:"+total);
-//			System.out.println("list:"+list.size());
 			JSON json = JSONSerializer.toJSON(pages) ;
 				
-//			System.out.println(json.toString()) ;
+
 				
 			return json.toString() ;
 			}

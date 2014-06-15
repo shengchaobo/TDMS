@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-    "http://struts.apache.org/dtds/struts-2.3.dtd">
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
 	<package name="pages/DiContestScope" namespace="/pages/DiContestScope" extends="struts-default">
 		<!-- 初始化加载所有竞赛范围 -->

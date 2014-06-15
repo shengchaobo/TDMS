@@ -41,12 +41,7 @@ public class T711_DAO {
 		return flag;
     	
     }
-    
-    
-  
-
-    
-    
+ 
     /**
 	 * 查询待审核数据在数据库中共有多少条
 	 * @param conditions 查询条件
@@ -119,7 +114,7 @@ public class T711_DAO {
     	sql.append(" where audit!='0' and adl.IndexID=t.AwardLevel") ;
     	
     	
-    	System.out.println(123);
+    	//System.out.println(123);
     	if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillUnitID=" + fillUnitId) ;
 		}
@@ -147,19 +142,66 @@ public class T711_DAO {
 			e.printStackTrace();
 			return null;
 		}
-    	
-    	
-    	
-    	
-    	
+
     	return list;
     	
     	
     }
     
-    public static void main(String args[]){
-    	T711_DAO t=new T711_DAO();
+    public boolean update(T711_Bean t711_Bean){
+    	boolean flag=false;
+    	
+    	Connection conn =DBConnection.instance.getConnection();
+    	try {
+			flag=DAOUtil.update(t711_Bean, tableName, key, field, conn);
+			
+			System.out.println(flag);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return flag;
+		}finally{
+			DBConnection.close(conn);
+		}
+    	  	
+    	return flag;
+    	
+    }
+public boolean deleteCoursesByIds(String ids){
+		
+		int flag = 0 ;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("delete from " + tableName) ;
+		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			flag = st.executeUpdate(sql.toString()) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}
+		
+		if(flag == 0){
+			return false ;
+		}else{
+			return true ;
+		}
+	}
+    
+    public String getTableName() {
+	return tableName;
+}
 
+ public void setTableName(String tableName) {
+	this.tableName = tableName;
+}
+
+	public static void main(String args[]){
+    	T711_DAO t=new T711_DAO();
+ 
     	
     	System.out.println(t.auditingData(null, null, 0, 0));
     	

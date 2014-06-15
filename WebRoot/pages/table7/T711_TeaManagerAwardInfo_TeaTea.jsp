@@ -82,13 +82,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
 		 	序号: <input class="easyui-box" style="width:80px"/>
 			日期 起始: <input class="easyui-datebox" style="width:80px"/>
 			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
 		</div>
 	</div>
 	<div id="toolbar2">
@@ -136,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div></div>
 		<div class="ftitle">本科课程库逐条导入</div>
 		
-		<form id="courseForm" method="post">
+		<form id="t711Form" method="post">
 		<table>
 		
 		<tr>
@@ -271,6 +271,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	    var url;
+	    
+	function singleSearch(){
+   	 $('#auditing').form('submit',{
+   		 url: 'pages/TeaManagerAwardInfoTeaTea/singleSearch',
+   		 type: "post",
+	     dataType: "json",
+   		 success: function(result){
+   		 	var result = eval('('+result+')');
+   		 	if (!result.state){
+   		 		$.messager.show({
+   		 			title: 'Error',
+   		 			msg: result.errorMsg
+   			 });
+   		 	} else {
+   		 		alert(13113) ;
+		    	$('#unverfiedData').datagrid('load'); // reload the auditing data
+   		 	}
+   		 }
+   		 });
+   }
 	    function batchImport(){
 	    	 $('#fm').form('submit',{
 	    		 url: url,
@@ -293,15 +313,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    function newCourse(){
+	     url = 'pages/TeaManagerAwardInfoTeaTea/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
-		    $('#courseForm').form('reset');
+		    $('#t711Form').form('reset');
 	    }
 
 	    function singleImport(){
 		    //录入数据的表单提交
-	    	 $('#courseForm').form('submit',{
-				    url: 'pages/TeaManagerAwardInfoTeaTea/insert',
-				    data: $('#courseForm').serialize(),
+	    	 $('#t711Form').form('submit',{
+				    url: url ,
+				    data: $('#t711Form').serialize(),
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
@@ -396,7 +417,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			alert($('#AwardFromUnit').val()) ;
 			return true ;
 		}
+		function editCourse(){
+	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+	    	if(row.length != 1){
+	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+	    	url = 'pages/TeaManagerAwardInfoTeaTea/edit' ;
+	    	
+	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Name').val(row[0].name) ;
+	    	$('#TeaID').val(row[0].teaID) ;
+	    	$('#UnitID').combobox('select',row[0].unitID) ;
+	    	$('#AwardName').val(row[0].awardName) ;
+	    	$('#AwardLevel').combobox('select', row[0].awardLevel) ;
+			$('#AwardRank').combobox('select', row[0].awardRank) ;
+		
+			$('#AwardFromUnit').val(row[0].awardFromUnit) ;
+			$('#AppvlID').val(row[0].appvlID) ;
+			$('#JoinTeaNum').val(row[0].joinTeaNum) ;
+			$('#OtherJoinTeaInfo').val(row[0].otherJoinTeaInfo) ;
+			$('#AwardTime').datebox('setValue',formattime(row[0].awardTime)) ;
+			$('#Note').val(row[0].note) ;
+	    }
 
+
+ function deleteByIds(){
+	    	//获取选中项
+			var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+			if(row.length == 0){
+	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+			 $.messager.confirm('数据删除', '您确定删除选中项?', function(sure){
+				 if (sure){
+				 	var ids = "";
+				 	ids += "(" ;
+				 	
+				 	for(var i=0; i<row.length; i++){
+				 		if(i < (row.length - 1)){
+				 			ids += (row[i].seqNumber + ",") ;
+				 		}else{
+				 			ids += (row[i].seqNumber + ")") ;
+				 		}
+				 	}
+				 	
+				 	deleteCourses(ids) ;
+				 	
+				 }
+			});
+	    }
+	        function deleteCourses(ids){
+	    	$.ajax({ 
+	    		type: "POST", 
+	    		url: "pages/TeaManagerAwardInfoTeaTea/deleteByIds?ids=" + ids, 
+	    		async:"true",
+	    		dataType: "text",
+	    		success: function(result){
+	    			result = eval("(" + result + ")");
+
+					if(result.state){
+						alert(result.data) ;
+						 $('#unverfiedData').datagrid('reload') ;
+					}
+	    		}
+	    	}).submit();
+	    }
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');
 	    	if(row.length != 1){

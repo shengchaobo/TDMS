@@ -125,11 +125,25 @@ public class TimeUtil {
 		return flag;
 	}
 	
+	/**判断字符串格式是否为2013*/
+	public static boolean judgeFormat3(String dataString){
+		boolean flag=false;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy") ;
+		Date date=null;
+		try{
+			date = sf.parse(dataString);
+			flag=true;
+		}catch(ParseException e){
+			flag=false;
+		}
+		return flag;
+	}
+	
 	public static void main(String arg[])
 	{
-		String year="2013/12/01";
+		String year="2013";
 		TimeUtil til=new TimeUtil();
-		boolean flag=til.judgeFormat2(year);
+		boolean flag=til.judgeFormat3(year);
 		if(flag){
 			System.out.println("格式正确！");
 		}else{

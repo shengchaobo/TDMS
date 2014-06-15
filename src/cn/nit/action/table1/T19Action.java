@@ -42,16 +42,9 @@ public class T19Action {
 	
 	/**  逐条插入数据  */
 	public void insert(){
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t19Bean.setTime(new Date()) ;
-//		System.out.println("RewardFromUnit:"+t19Bean.getRewardFromUnit());
-//		System.out.println("RewardName:"+t19Bean.getRewardName());
-//		System.out.println("UnitName:"+t19Bean.getUnitName());
-//		System.out.println("RewardTime:"+t19Bean.getRewardTime());
-//		System.out.println("RewardLevel:"+t19Bean.getRewardLevel());
-//		System.out.println("UnitID:"+t19Bean.getUnitID());
-//		System.out.println(t151Bean.getResInsID());
-//		System.out.println(t151Bean.getResInsName());
+
 		//这还没确定,设置填报者的职工号与部门号
 //		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
 //		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
@@ -133,9 +126,10 @@ public class T19Action {
 	
 	/**  编辑数据  */
 	public void edit(){
-
+        
+//		System.out.println("编辑！");
 		t19Bean.setTime(new Date()) ;
-		System.out.println("UnitName:"+t19Bean.getUnitName());
+//		System.out.println("UnitName:"+t19Bean.getUnitName());
 		boolean flag = t19Ser.update(t19Bean) ;
 		PrintWriter out = null ;
 		

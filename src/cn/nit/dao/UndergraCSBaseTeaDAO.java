@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import sun.security.krb5.internal.UDPClient;
+
 import cn.nit.bean.table5.UndergraCSBaseTeaBean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.UndergraCSBaseTeaPOJO;
@@ -92,6 +94,8 @@ public class UndergraCSBaseTeaDAO {
 		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		int total = 0 ;
 		
+		
+		
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillUnitID=" + fillUnitId) ;
 		}
@@ -135,6 +139,9 @@ public class UndergraCSBaseTeaDAO {
 		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		//
+		
+		
+		
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillUnitID=" + fillUnitId) ;
 		}
@@ -210,25 +217,10 @@ public class UndergraCSBaseTeaDAO {
 		UndergraCSBaseTeaBean undergraCSBaseTea = new UndergraCSBaseTeaBean() ;
 		undergraCSBaseTea.setSeqNumber(18) ;
 		undergraCSBaseTea.setTime(new java.util.Date()) ;
-//		undergraCSBaseTea.setCSName("西方经济学（上）") ;
-//		undergraCSBaseTea.setCSID("020120001") ;
-//		undergraCSBaseTea.setCSUnit("经济贸易学院") ;
-////		undergraCSBaseTea.setUnitID("3001") ;
-//		undergraCSBaseTea.setFromTeaResOffice("教务处") ;
-////		undergraCSBaseTea.setTeaResOfficeID("3001") ;
-////		undergraCSBaseTea.setCSType("理论课（含实践）") ;
-////		undergraCSBaseTea.setCSNature("学科基础课") ;
-//		undergraCSBaseTea.setState("启用") ;
-//		undergraCSBaseTea.setPubCSType("人文社科类") ;
-//		undergraCSBaseTea.setNote("无") ;
-//		undergraCSBaseTea.setTime(new Date()) ;
-//		undergraCSBaseTea.setFillTeaID("11020201") ;
-//		undergraCSBaseTea.setFillUnitID("3001") ;
-		
-//		underCSBaseTeaDao.insert(undergraCSBaseTea) ;
-		
-//		System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size()) ;
+
 		System.out.println(underCSBaseTeaDao.update(undergraCSBaseTea)) ;
+		
+		
 	}
 	
 	public String getTableName(){

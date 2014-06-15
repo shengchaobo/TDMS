@@ -21,7 +21,6 @@ public class T461_Bean implements java.io.Serializable {
 	// Fields
 	private String name;
 	private String teaId;
-	private String type;
 	private String fromTeaUnit;
 	private String awardFromUnit;
 	private String unitId;
@@ -41,15 +40,6 @@ public class T461_Bean implements java.io.Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	@Column(name = "Type")
-	public String getType() {
-		return this.type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	@Column(name = "FromTeaUnit")

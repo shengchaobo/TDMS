@@ -183,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>课程类别：</label> 
 						<input class='easyui-combobox' id="CSType" name="undergraCSBaseTea.CSType" 
-							data-options="valueField:'indexID',textField:'courseCategories',url:'pages/diCourseCategories/loadDICourseCategories',listHeight:'auto',editable:false">
+							data-options="valueField:'indexId',textField:'courseCategories',url:'pages/DiCourseCategories/loadDiCourseCategories',listHeight:'auto',editable:false">
 						<span id="CSTypeSpan"></span>
 					</div>
 				</td>
@@ -191,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>课程性质：</label> 
 						<input class='easyui-combobox' id="CSNature" name="undergraCSBaseTea.CSNature"
-							data-options="valueField:'indexID',textField:'courseChar',url:'pages/diCourseChar/loadDICourseChar',listHeight:'auto',editable:false">
+							data-options="valueField:'indexId',textField:'courseChar',url:'pages/DiCourseChar/loadDiCourseChar',listHeight:'auto',editable:false">
 						<span id="CSNatureSpan"></span>
 					</div>
 				</td>
@@ -434,6 +434,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#CSName').val(row[0].CSName) ;
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
 	    	$('#TeaResOfficeID').combobox('select', row[0].teaResOfficeID) ;
+	    	alert(row[0].CSTypeID);
+	    	alert(row[0].CSType);
+	    	alert(row[0].CSNatureID);
+	    	alert(row[0].CSNature);
 	    	$('#CSType').combobox('select', row[0].CSTypeID) ;
 			$('#CSNature').combobox('select', row[0].CSNatureID) ;
 			$('#State').combobox('select', row[0].state) ;

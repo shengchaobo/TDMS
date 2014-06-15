@@ -35,7 +35,6 @@ public class T413_Bean implements java.io.Serializable {
 	private String workUnitType;
 	private String tutorType;
 	private String region;
-	private Date time;
 	private String note;
 
 	@Column(name = "Name")
@@ -177,16 +176,6 @@ public class T413_Bean implements java.io.Serializable {
 
 	public void setRegion(String region) {
 		this.region = region;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
-	public Date getTime() {
-		return this.time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
 	}
 
 	@Column(name = "Note")

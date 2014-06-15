@@ -11,7 +11,7 @@ import javax.persistence.TemporalType;
 /**
  * T49TeaPublishTxbookTeaTea entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "T49_TeaPublishTxbook_TeaTea$", schema = "dbo", catalog = "TDMS")
 public class T49_Bean implements
 		java.io.Serializable {
@@ -19,9 +19,7 @@ public class T49_Bean implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	// Fields
-	private Integer seqNumber;
 	private String teaUnit;
 	private String unitId;
 	private Integer complileBookNum;
@@ -40,59 +38,6 @@ public class T49_Bean implements
 	private Integer schAwardBook;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T49_Bean() {
-	}
-
-	/** minimal constructor */
-	public T49_Bean(Integer seqNumber) {
-		this.seqNumber = seqNumber;
-	}
-
-	/** full constructor */
-	public T49_Bean(Integer seqNumber,
-			String teaUnit,
-			Integer complileBookNum, Integer writeBookNum,
-			Integer sumPlanBook, Integer interPlanBook,
-			Integer nationPlanBook, Integer proviPlanBook,
-			Integer cityPlanBook, Integer schPlanBook,
-			Integer sumAwardBook, Integer interAwardBook,
-			Integer nationAwardBook, Integer proviAwardBook,
-			Integer cityAwardBook, Integer schAwardBook, Date time,
-			String note) {
-		this.seqNumber = seqNumber;
-		this.teaUnit = teaUnit;
-		this.complileBookNum = complileBookNum;
-		this.writeBookNum = writeBookNum;
-		this.sumPlanBook = sumPlanBook;
-		this.interPlanBook = interPlanBook;
-		this.nationPlanBook = nationPlanBook;
-		this.proviPlanBook = proviPlanBook;
-		this.cityPlanBook = cityPlanBook;
-		this.schPlanBook = schPlanBook;
-		this.sumAwardBook = sumAwardBook;
-		this.interAwardBook = interAwardBook;
-		this.nationAwardBook = nationAwardBook;
-		this.proviAwardBook = proviAwardBook;
-		this.cityAwardBook = cityAwardBook;
-		this.schAwardBook = schAwardBook;
-		this.time = time;
-		this.note = note;
-	}
-
-	// Property accessors
-	@Id
-	@Column(name = "SeqNumber", unique = true, nullable = false)
-	public Integer getSeqNumber() {
-		return this.seqNumber;
-	}
-
-	public void setSeqNumber(Integer seqNumber) {
-		this.seqNumber = seqNumber;
-	}
 
 	@Column(name = "TeaUnit")
 	public String getTeaUnit() {

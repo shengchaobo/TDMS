@@ -62,6 +62,12 @@
      <!-- t16办学指导思想（党院办） -->
     <include file="cn/nit/configuration/table1/T16.xml"/>
     
+    <!--table3-->
+       <!-- t312博士点硕士点 -->
+    <include file="cn/nit/configuration/table3/T312.xml"/>
+         <!-- t311博士后流动站 -->
+    <include file="cn/nit/configuration/table3/T311.xml"/>
+    
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
     

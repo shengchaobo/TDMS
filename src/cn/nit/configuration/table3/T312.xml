@@ -5,7 +5,9 @@
 <struts>
 	<package name="DocAndGraSta" namespace="/pages/DocAndGraSta" extends="struts-default">
 		<!-- 添加博士硕士点 -->
-	    <action name="insert" class="cn.bjtu.action.Table3_DocAndGraStaAction" method="insert" />
+	    <action name="insert" class="cn.nit.action.table3.T312_Action" method="insert" />
+	    
+	     <action name="auditingData" class="cn.nit.action.table3.T312_Action" method="auditingData" />
 	</package>
 </struts>
 

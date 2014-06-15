@@ -13,7 +13,7 @@ import javax.persistence.Table;
 /**
  * DiAwardType entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "DiAwardType", schema = "dbo", catalog = "TDMS")
 public class DiAwardTypeBean implements java.io.Serializable {
 

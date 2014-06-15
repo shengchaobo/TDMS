@@ -152,7 +152,7 @@ public class T18DAO {
 			st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY) ;
 			st.setMaxRows(page * rows) ;
 			rs = st.executeQuery(sql.toString()) ;
-			rs.absolute((page - 1) * rows) ;
+			rs.absolute((page - 1) * rows) ;//将光标移动到此 ResultSet 对象的给定行编号
 			list = DAOUtil.getList(rs, T181POJO.class) ;
 		
 			

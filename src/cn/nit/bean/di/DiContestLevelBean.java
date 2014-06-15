@@ -13,8 +13,6 @@ import javax.persistence.Table;
 /**
  * DiContestLevel entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "DiContestLevel", schema = "dbo", catalog = "TDMS")
 public class DiContestLevelBean implements java.io.Serializable {
 
 	// Fields

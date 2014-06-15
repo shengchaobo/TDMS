@@ -54,20 +54,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table3/verifingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/PostDocSta/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="SeqNumber" width="5%">序号</th>
-				<th field="PostDocStaName" width="10%">博士后流动站名称</th>
-				<th field="SetTime" width="10%">设置时间</th>
-				<th field="ResearcherNum" width="5%">研究员人数</th>
+				<th field="seqNumber" width="5%">序号</th>
+				<th field="postDocStaName" width="10%">博士后流动站名称</th>
+				<th field="setTime" width="10%">设置时间</th>
+				<th field="researcherNum" width="5%">研究员人数</th>
 				<th field="unitName" width="5%">所属单位</th>
-				<th field="UnitID" width="5%">单位号</th>
-				<th field="Time" width="5%">日期</th>
-				<th field="NOte" width="5%">备注</th>
+				<th field="unitID" width="5%">单位号</th>
+				<th field="time" width="5%">日期</th>
+				<th field="nOte" width="5%">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -155,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
 						<input type="hidden" name="postDocStaBean.UnitName" id="UnitName"/>
 						<input id="UnitID" type="text" name="postDocStaBean.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitID',textField:'unitName',url:'pages/diDepartment/loadDIDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
 							 }">

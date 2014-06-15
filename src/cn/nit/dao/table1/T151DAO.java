@@ -121,7 +121,7 @@ public class T151DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T151POJO> list = null ;
-		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type,t.Type as TypeID , t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note");
+		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type,t.Type , t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note");
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
 

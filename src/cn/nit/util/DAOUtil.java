@@ -213,16 +213,23 @@ public class DAOUtil {
 					//判断插入数据的类型，并赋�?
 					if(type.endsWith("String")){
 						pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
-					}else if(type.endsWith("int")){
+					}else if(type.endsWith("int")||type.endsWith("Integer")){
 						pst.setInt(i + 1, (Integer) wrapper.getPropertyValue(fields[i])) ;
 					}else if(type.endsWith("Date")){
 						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(fields[i]) ;
 						Date sqlDate = new Date(utilDate.getTime()) ;
 						pst.setDate(i + 1, sqlDate ) ;
-					}else if(type.endsWith("long")){
+					}else if(type.endsWith("long")||type.endsWith("Long")){
 						pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
+
+					}else if(type.endsWith("boolean")||type.endsWith("Boolean")){
+						pst.setBoolean(i+1, (Boolean) wrapper.getPropertyValue(fields[i])) ;
+					}else if(type.endsWith("double")||type.endsWith("Double")){
+						pst.setDouble(i+1, (Double) wrapper.getPropertyValue(fields[i])) ;
+
 					}else{
 						throw new Exception("自行添加对应类型" + type) ;
+
 					}
 				}
 				pst.addBatch() ;

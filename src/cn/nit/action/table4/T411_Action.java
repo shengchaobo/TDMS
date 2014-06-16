@@ -222,6 +222,12 @@ public class T411_Action {
 
 		return inputStream ;
 	}
+	
+	public String execute() throws Exception{
+
+		response.setContentType("application/octet-stream;charset=UTF-8") ;
+		return "success" ;
+	}
 
 	
 	

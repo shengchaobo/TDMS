@@ -13,11 +13,14 @@ import jxl.Cell;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.dao.table4.T411_Dao;
 import cn.nit.util.ExcelUtil;
 
 public class UploadAction {
 
 	private File uploadFile ;
+	
+	private String uploadFileFileName;
 	
 	private String className ;
 	
@@ -34,6 +37,9 @@ public class UploadAction {
 				out.print("{success:false,errorMsg:'系统错误，请联系管理员'}") ;
 				return ;
 			}
+			
+			System.out.println(this.getUploadFile());
+			System.out.println(this.getUploadFileFileName());
 			
 			List<Cell[]> list = ExcelUtil.readExcel(uploadFile, 0) ;
 			Class clazz = Class.forName(className) ;
@@ -56,6 +62,14 @@ public class UploadAction {
 		}
 	}
 	
+	public File getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(File uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
 	}
@@ -66,11 +80,7 @@ public class UploadAction {
 	
 	private HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
-	}
-	
-	public void setUploadFile(File uploadFile){
-		this.uploadFile = uploadFile ;
-	}
+	}	
 	
 	public void setClassName(String className){
 		this.className = className ;
@@ -78,5 +88,13 @@ public class UploadAction {
 	
 	public void setMethodName(String methodName){
 		this.methodName = methodName ;
+	}
+
+	public void setUploadFileFileName(String uploadFileFileName) {
+		this.uploadFileFileName = uploadFileFileName;
+	}
+
+	public String getUploadFileFileName() {
+		return uploadFileFileName;
 	}
 }

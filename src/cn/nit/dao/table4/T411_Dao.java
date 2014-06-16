@@ -168,6 +168,30 @@ public class T411_Dao {
 	
 	
 	/**
+	 * 模板导入
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */
+	public boolean batchInsert(List<T411_Bean> list){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		
+		try{
+			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}
+		
+		return flag ;
+		
+	}
+	
+	
+	/**
 	 * 插入数据
 	 * @param diCourseCategories
 	 * @return

@@ -59,6 +59,42 @@ public class TimeUtil {
 		return date ;
 	}
 	
+	/**
+	 * 将{@link java.lang.String}类型转换为{@link java.util.Date}类型
+	 * @param dateString
+	 * @return
+	 */
+	public static Date changeDateYM(String dateString){
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM") ;
+		Date date = null ;
+		try {
+			date = sf.parse(dateString) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return date ;
+		}
+		
+		return date ;
+	}
+	
+	/**
+	 * 将{@link java.lang.String}类型转换为{@link java.util.Date}类型
+	 * @param dateString
+	 * @return
+	 */
+	public static Date changeDateYMD(String dateString){
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd") ;
+		Date date = null ;
+		try {
+			date = sf.parse(dateString) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return date ;
+		}
+		
+		return date ;
+	}
+	
 	
 	
 	/**
@@ -81,9 +117,12 @@ public class TimeUtil {
 	
 	public static void main(String arg[])
 	{
-		String year="2014";
 		TimeUtil til=new TimeUtil();
 		
-		System.out.println(changeDateY(year));
+		String test = "1973/02/02";
+		
+		System.out.println(changeDateY(test));
+		System.out.println(changeDateYM(test));
+		System.out.println(changeDateYMD(test));
 	}
 }

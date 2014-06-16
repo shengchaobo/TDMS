@@ -111,7 +111,7 @@ public class T151Excel {
 				
 				count++ ;
 				
-				Date BuildYear=TimeUtil.changeDateY(BuildYearStr);
+				Date BuildYear = TimeUtil.changeDateY(BuildYearStr);
 //				t17Bean = new T17Bean();
 //				t17Bean.setClubName(ClubName);
 //				t17Bean.setBuildYear(BuildYear);

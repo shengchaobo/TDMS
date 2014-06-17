@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="pages/T48" namespace="/pages/T48" extends="struts-default">
+		<!-- 初始化加载所有教学团队（用于分页系统） -->
+	    <action name="loadTeamInfo" class="cn.nit.action.table4.T48_Action" method="loadTeamInfo" />
+   		<!-- 插入新的教学团队信息 -->
+	    <action name="insert"  class="cn.nit.action.table4.T48_Action" method="insert" ></action>	    
+	</package>
+</struts>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="MainTrainBasicInfoTea" namespace="/pages/MainTrainBasicInfoTea" extends="struts-default">
+		<!-- 大类培养基本情况 -->
+	    <action name="insert" class="cn.bjtu.action.Table3_MainTrainBasicInfoAction" method="insert" />
+	</package>
+</struts>
+

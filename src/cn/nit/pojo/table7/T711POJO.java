@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class T711POJO {
 	
-	 private int SeqNumber ;
+	   private int SeqNumber ;
 		
 		private String TeaUnit ;
 		

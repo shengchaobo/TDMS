@@ -40,7 +40,7 @@ public class T711_Action {
 	
 	
 	public void insert(){
-		System.out.println(teaManagerAwardInfoTeaTea.getUnitID()) ;
+		//System.out.println(teaManagerAwardInfoTeaTea.getUnitID()) ;
 		teaManagerAwardInfoTeaTea.setTime(new Date());
 		
 		boolean flag= T711_Sr.insert(teaManagerAwardInfoTeaTea);

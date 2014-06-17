@@ -1,4 +1,4 @@
-package cn.nit.util;
+﻿package cn.nit.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,6 +48,42 @@ public class TimeUtil {
 	 */
 	public static Date changeDateY(String dateString){
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy") ;
+		Date date = null ;
+		try {
+			date = sf.parse(dateString) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return date ;
+		}
+		
+		return date ;
+	}
+	
+	/**
+	 * 将{@link java.lang.String}类型转换为{@link java.util.Date}类型
+	 * @param dateString
+	 * @return
+	 */
+	public static Date changeDateYM(String dateString){
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM") ;
+		Date date = null ;
+		try {
+			date = sf.parse(dateString) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return date ;
+		}
+		
+		return date ;
+	}
+	
+	/**
+	 * 将{@link java.lang.String}类型转换为{@link java.util.Date}类型
+	 * @param dateString
+	 * @return
+	 */
+	public static Date changeDateYMD(String dateString){
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd") ;
 		Date date = null ;
 		try {
 			date = sf.parse(dateString) ;
@@ -150,6 +186,11 @@ public class TimeUtil {
 			System.out.println("格式错误！");
 		}
 		
+		String test = "1973/02/02";
 		
+		System.out.println(changeDateY(test));
+		System.out.println(changeDateYM(test));
+		System.out.println(changeDateYMD(test));
+
 	}
 }

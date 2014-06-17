@@ -27,6 +27,13 @@ public class T411_Service {
 		return teaInfoDao.totalQueryPageList(Conditions, fillunitID);
 	}
 	
+	//模板导入
+	public Boolean batchInsert(List<T411_Bean> list){
+		return teaInfoDao.batchInsert(list);
+	}
+	
+	
+	//单条导入
 	public Boolean insert(T411_Bean bean){
 		return teaInfoDao.insert(bean);
 	}

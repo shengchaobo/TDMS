@@ -15,19 +15,26 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.bean.di.DiDepartmentBean;
 
+
 import cn.nit.bean.table3.T321_Bean;
-import cn.nit.dao.table3.T321_DAO;
+
 import cn.nit.service.table3.T321_Service;
 
 
 
 public class T321_Action {
 	
-	private T321_DAO mainTrainBasicInfoDao=new T321_DAO();
+//	private T321_DAO mainTrainBasicInfoDao=new T321_DAO();
 	
-private T321_Service mainTrainBasicInfoSer = new T321_Service() ;
+	
+	private T321_Service mainTrainBasicInfoSer = new T321_Service() ;
+
+
+	
 	int num=0;
+	
 	private T321_Bean mainTrainBasicInfoBean = new T321_Bean() ;
+	
 	private DiDepartmentService diDepartmentSer = new DiDepartmentService() ;
 	
 	public List<Integer> getNumofMainTrain(){

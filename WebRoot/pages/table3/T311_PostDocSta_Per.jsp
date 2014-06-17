@@ -60,28 +60,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="seqNumber" width="5%">序号</th>
-				<th field="postDocStaName" width="10%">博士后流动站名称</th>
-				<th field="setTime" width="10%">设置时间</th>
-				<th field="researcherNum" width="5%">研究员人数</th>
-				<th field="unitName" width="5%">所属单位</th>
-				<th field="unitID" width="5%">单位号</th>
-				<th field="time" width="5%">日期</th>
-				<th field="nOte" width="5%">备注</th>
+				<th field="seqNumber" width=10>序号</th>
+				<th field="postDocStaName" width=10>博士后流动站名称</th>
+				<th field="setTime" width=10 formatter="formattime">设置时间</th>
+				<th field="researcherNum" width=10>研究员人数</th>
+				<th field="unitName" width=10>所属单位</th>
+				<th field="unitID" width=10>单位号</th>
+				<th field="time" width=10 formatter="formattime">日期</th>
+				<th field="note" width=10>备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newPostDocSta()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editPostDocSta()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
+
+		
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+		 	<form id="auditing" method="post">
+			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
@@ -98,10 +102,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="PostDocStaName" width="10%">博士后流动站名称</th>
 				<th field="SetTime" width="10%">设置时间</th>
 				<th field="ResearcherNum" width="5%">研究员人数</th>
-				<th field="unitName" width="5%">所属单位</th>
+				<th field="UnitName" width="5%">所属单位</th>
 				<th field="UnitID" width="5%">单位号</th>
 				<th field="Time" width="5%">日期</th>
-				<th field="NOte" width="5%">备注</th>
+				<th field="Note" width="5%">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -128,6 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>博士后流动站名称：</label> 
+						<input id="seqNumber" name="postDocStaBean.SeqNumber" type="hidden" > </input>
 						<input id="PostDocStaName" type="text" name="postDocStaBean.PostDocStaName"
 							class="easyui-validatebox" required="true"><span id="PostDocStaNameSpan"></span>
 					</div>
@@ -165,19 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 			</tr>
 
-			<tr>
-				<td>
-					<div class="fitem">
-						<label>状&nbsp;&nbsp;&nbsp;&nbsp;态：</label> 
-						<select class='easyui-combobox' id="State" name="postDocStaBean.State" >
-							<option value="启用">启用</option>
-							<option value="停用">停用</option>
-						</select>	
-							<span id="StateSpan"></span>
-					</div>
-				</td>
-		
-			</tr>
+
 			<tr>
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="postDocStaBean.Note" style="resize:none" cols="50" rows="10"></textarea>
@@ -218,6 +211,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	    var url;
+
+
+		function singleSearch(){
+		   	 $('#auditing').form('submit',{
+		   		 url: 'pages/PostDocSta/singleSearch',
+		   		 type: "post",
+			     dataType: "json",
+		   		 success: function(result){
+		   		 	var result = eval('('+result+')');
+		   		 	if (!result.state){
+		   		 		$.messager.show({
+		   		 			title: 'Error',
+		   		 			msg: result.errorMsg
+		   			 });
+		   		 	} else {
+				    	$('#unverfiedData').datagrid('load'); // reload the auditing data
+		   		 	}
+		   		 }
+		   		 });
+		   }
+
+	    
 	    function fillSelect(){ 
             var obj=document.getElementById( "SetTime"); 
             debugger;
@@ -279,11 +294,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var postDocStaName = $('#PostDocStaName').val() ;
+			var PostDocStaName = $('#PostDocStaName').val() ;
 			var SetTime = $('#SetTime').datebox('getValue') ;
 			var ResearcherNum = $('#ResearcherNum').val() ;
 			var UnitName = $('#UnitID').combobox('getText') ;
-			var note = $('#Note').val() ;
+			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(PostDocStaName == null || PostDocStaName.length==0 || PostDocStaName.length > 100){
 				$('#PostDocStaName').focus();
@@ -318,7 +333,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 
 			
-			if(note !=null && note.length > 1000){
+			if(Note !=null && Note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
 			}else{
@@ -349,6 +364,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    $('#fm').form('load',row);
 			    url = 'updateUser';
 		    }
+	    }
+
+	    function deleteByIds(){
+	    	//获取选中项
+			var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+			if(row.length == 0){
+	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+			 $.messager.confirm('数据删除', '您确定删除选中项?', function(sure){
+				 if (sure){
+				 	var ids = "";
+				 	ids += "(" ;
+				 	
+				 	for(var i=0; i<row.length; i++){
+				 		if(i < (row.length - 1)){
+				 			ids += (row[i].seqNumber + ",") ;
+				 		}else{
+				 			ids += (row[i].seqNumber + ")") ;
+				 		}
+				 	}
+				 	
+				 	deletePostDocSta(ids) ;
+				 	
+				 }
+			});
+	    }
+
+	    function deletePostDocSta(ids){
+	    	$.ajax({ 
+	    		type: "POST", 
+	    		url: "pages/PostDocSta/deleteCoursesByIds?ids=" + ids, 
+	    		async:"true",
+	    		dataType: "text",
+	    		success: function(result){
+	    			result = eval("(" + result + ")");
+
+					if(result.state){
+						alert(result.data) ;
+						 $('#unverfiedData').datagrid('reload') ;
+					}
+	    		}
+	    	}).submit();
+	    }
+
+	    function editPostDocSta(){
+	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+	    	if(row.length != 1){
+	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+	    	url = 'pages/PostDocSta/edit' ;
+	    	
+	    	$('#dlg').dialog('open').dialog('setTitle','添加博士后流动站');
+	    	$('#seqNumber').val(row[0].seqNumber) ;
+	        $('#PostDocStaName').val(row[0].postDocStaName);
+	        alert(row[0].postDocStaName);
+	    	$('#SetTime').datebox('setValue',formattime(row[0].setTime)) ;
+	    	alert(row[0].setTime);
+	    	$('#ResearcherNum').val(row[0].researcherNum) ;
+	    	alert(row[0].researcherNum);
+	    	$('#UnitID').combobox('select',row[0].unitID) ;
+	    	alert(row[0].unitID);
+			$('#Note').val(row[0].note);
+			alert(row[0].note);
 	    }
 	    
 	    

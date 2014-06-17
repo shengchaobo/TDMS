@@ -3,8 +3,18 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
-	<package name="discip" namespace="/pages/DiscipRes" extends="struts-default">
-		<!-- 添加重点学科 -->
-	    <action name="insert" class="cn.bjtu.action.Table3_DiscipAction" method="insert" />
+	<package name="DiscipRes" namespace="/pages/DiscipRes" extends="struts-default">
+	<!-- 插入 -->
+		<action name="insert" class="cn.nit.action.table3.T313_Action" method="insert" />
+	    <!-- 显示 -->
+	     <action name="auditingData" class="cn.nit.action.table3.T313_Action" method="auditingData" />
+	     	     <!-- 编辑数据 -->
+	    <action name="edit" class="cn.nit.action.table3.T313_Action" method="edit" />
+	    
+	     <!-- 删除数据 -->
+	    <action name="deleteCoursesByIds" class="cn.nit.action.table3.T313_Action" method="deleteCoursesByIds" />
+	    
+	    	     <!-- 数据查询 -->
+	    <action name="singleSearch" class="cn.nit.action.table3.T313_Action" method="auditingConditions"/>
 	</package>
 </struts>

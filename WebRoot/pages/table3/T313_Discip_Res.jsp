@@ -53,34 +53,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/DiscipRes/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
-				<th field="DiscipName" width="10%">重点学科名称</th>
-				<th field="DiscipID" width="10%">学科代码</th>
-				<th field="UnitName" width="5%">所属教学单位</th>
-				<th field="unitId" width="5%">单位号</th>
-				<th field="DiscipType" width="5%">学科门类</th>
-				<th field="NationLevelOne" width="5%">国家一级</th>
-				<th field="NationLevelTwo" width="5%">国家二级</th>
-				<th field="NationLevelKey" width="5%">国家重点（培育）</th>
-				<th field="ProvinceLevelOne" width="10%">省部一级</th>
-				<th field="ProvinceLevelTwo" width="10%">省部二级</th>
-				<th field="CityLevel" width="10%">市级</th>
-				<th field="SchLevel" width="10%">校级</th>
-				<th field="note" width="20%">备注</th>
+				<th field="seqNumber" width=10>序号</th>
+				<th field="discipName" width=15>重点学科名称</th>
+				<th field="discipID" width=10>学科代码</th>
+				<th field="unitName" width=15>所属教学单位</th>
+				<th field="unitId" width=10>单位号</th>
+				<th field="discipType" width=10>学科门类</th>
+				<th field="nationLevelOne" width=10>国家一级</th>
+				<th field="nationLevelTwo" width=10>国家二级</th>
+				<th field="nationLevelKey" width=20>国家重点（培育）</th>
+				<th field="provinceLevelOne" width=10">省部一级</th>
+				<th field="provinceLevelTwo" width=10>省部二级</th>
+				<th field="cityLevel" width=10>市级</th>
+				<th field="schLevel" width=10>校级</th>
+				<th field="note" width=10>备注</th>
+				<th field="time" width=10 formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDiscip()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
 		 	序号: <input class="easyui-box" style="width:80px"/>
@@ -99,20 +100,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
-				<th field="DiscipName" width="10%">重点学科名称</th>
-				<th field="DiscipID" width="10%">学科代码</th>
-				<th field="UnitName" width="5%">所属教学单位</th>
-				<th field="unitId" width="5%">单位号</th>
-				<th field="DiscipType" width="5%">学科门类</th>
-				<th field="NationLevelOne" width="5%">国家一级</th>
-				<th field="NationLevelTwo" width="5%">国家二级</th>
-				<th field="NationLevelKey" width="5%">国家重点（培育）</th>
-				<th field="ProvinceLevelOne" width="10%">省部一级</th>
-				<th field="ProvinceLevelTwo" width="10%">省部二级</th>
-				<th field="CityLevel" width="10%">市级</th>
-				<th field="SchLevel" width="10%">校级</th>
-				<th field="note" width="20%">备注</th>
+				<th field="seqNumber" width=10>序号</th>
+				<th field="discipName" width=15>重点学科名称</th>
+				<th field="discipID" width=10>学科代码</th>
+				<th field="unitName" width=15>所属教学单位</th>
+				<th field="unitId" width=10>单位号</th>
+				<th field="discipType" width=10>学科门类</th>
+				<th field="nationLevelOne" width=10>国家一级</th>
+				<th field="nationLevelTwo" width=10>国家二级</th>
+				<th field="nationLevelKey" width=20>国家重点（培育）</th>
+				<th field="provinceLevelOne" width=10">省部一级</th>
+				<th field="provinceLevelTwo" width=10>省部二级</th>
+				<th field="cityLevel" width=10>市级</th>
+				<th field="schLevel" width=10>校级</th>
+				<th field="note" width=10>备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -139,6 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>重点学科名称：</label> 
+						<input id="SeqNumber" name="discipBean.SeqNumber" type="hidden" > </input>
 						<input id="DiscipName" type="text" name="discipBean.DiscipName"
 							class="easyui-validatebox" required="true"><span id="DiscipNameSpan"></span>
 					</div>
@@ -154,11 +156,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>所属教学单位：</label> 
+						<label>所属单位：</label> 
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
 						<input type="hidden" name="discipBean.UnitName" id="UnitName"/>
 						<input id="UnitID" type="text" name="discipBean.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitID',textField:'unitName',url:'pages/diDepartment/loadDIDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
 							 }">
@@ -192,8 +194,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>国家一级：</label> 
 						<select class='easyui-combobox' id="NationLevelOne" name="discipBean.NationLevelOne">
-							<option value="true">是</option>
 							<option value="false">否</option>
+							<option value="true">是</option>
 						</select>
 						<span id="NationLevelOneSpan"></span>
 					</div>
@@ -202,81 +204,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>国家二级：</label> 
 						<select class='easyui-combobox' id="NationLevelTwo" name="discipBean.NationLevelTwo">
-							<option value="true">是</option>
 							<option value="false">否</option>
+							<option value="true">是</option>
 						</select>
 						<span id="NationLevelTwoSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
-			<td>
+				</tr>
+				<tr>
+							<td>
 					<div class="fitem">
-						<label>国家重点（培育）：</label> 
+						<label>国家重点：</label> 
 						<select class='easyui-combobox' id="NationLevelKey" name="discipBean.NationLevelKey">
-							<option value="true">是</option>
 							<option value="false">否</option>
+							<option value="true">是</option>
 						</select>
 						<span id="NationLevelKeySpan"></span>
 					</div>
 				</td>
+			</tr>
+			<tr>
+
 			<td>
 					<div class="fitem">
 						<label>省部一级：</label> 
 						<select class='easyui-combobox' id="ProvinceLevelOne" name="discipBean.ProvinceLevelOne">
-							<option value="true">是</option>
 							<option value="false">否</option>
+							<option value="true">是</option>
 						</select>
 						<span id="ProvinceLevelOneSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
-			<td>
+							<td>
 					<div class="fitem">
 						<label>省部二级：</label> 
 						<select class='easyui-combobox' id="ProvinceLevelTwo" name="discipBean.ProvinceLevelTwo">
-							<option value="true">是</option>
 							<option value="false">否</option>
+							<option value="true">是</option>
 						</select>
-						<span id="ProvinceLevelTwo"></span>
+						<span id="ProvinceLevelTwoSpan"></span>
 					</div>
 				</td>
+			</tr>
+			<tr>
+
 			<td>
 					<div class="fitem">
 						<label>市级：</label> 
 						<select class='easyui-combobox' id="CityLevel" name="discipBean.CityLevel">
-							<option value="true">是</option>
 							<option value="false">否</option>
+							<option value="true">是</option>
 						</select>
 						<span id="CityLevelSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
-				<td>
+								<td>
 					<div class="fitem">
 						<label>校级：</label> 
 						<select class='easyui-combobox' id="SchLevel" name="discipBean.SchLevel">
-							<option value="true">是</option>
 							<option value="false">否</option>
+							<option value="true">是</option>
 						</select>
 						<span id="SchLevelSpan"></span>
 					</div>
 				</td>
-				<td>
-					<div class="fitem">
-						<label>状&nbsp;&nbsp;&nbsp;&nbsp;态：</label> 
-						<select class='easyui-combobox' id="State" name="discipBean.State" >
-							<option value="启用">启用</option>
-							<option value="停用">停用</option>
-						</select>	
-							<span id="StateSpan"></span>
-					</div>
-				</td>
 			</tr>
+
 			
 			<tr>
+
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="discipBean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
@@ -329,8 +325,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $('#discipForm').form('reset');
 	    }
 
+
 	    function singleImport(){
-	    
+	
 		    //录入数据的表单提交
 	    	 $('#discipForm').form('submit',{
 				    url: 'pages/DiscipRes/insert',
@@ -339,6 +336,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            dataType: "json",
 				    onSubmit: function(){
 				    	return validate();
+				    
 				    },
 				    //结果返回
 				    success: function(result){
@@ -351,7 +349,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    }
 				    }
 			    });
+		
 		}
+		
 
 		function validate(){
 			//获取文本框的值
@@ -366,8 +366,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var ProvinceLevelTwo = $('#ProvinceLevelTwo').combobox('getText') ;
 			var CityLevel = $('#CityLevel').combobox('getText') ;
 			var SchLevel = $('#SchLevel').combobox('getText') ;
-			var state = $('#State').combobox('getText') ;
-			var note = $('#Note').val() ;
+			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(DiscipName == null || DiscipName.length==0 || DiscipName.length > 100){
 				$('#DiscipName').focus();
@@ -401,7 +400,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$('#DiscipTypeSpan').html("") ;
 			}
 			
-			if(note !=null && note.length > 1000){
+			if(Note !=null && Note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
 			}else{
@@ -409,6 +408,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			return true ;
 		}
+
+		function singleSearch(){
+		   	 $('#auditing').form('submit',{
+		   		 url: 'pages/DocAndGraSta/singleSearch',
+		   		 type: "post",
+			     dataType: "json",
+		   		 success: function(result){
+		   		 	var result = eval('('+result+')');
+		   		 	if (!result.state){
+		   		 		$.messager.show({
+		   		 			title: 'Error',
+		   		 			msg: result.errorMsg
+		   			 });
+		   		 	} else {
+				    	$('#unverfiedData').datagrid('load'); // reload the auditing data
+		   		 	}
+		   		 }
+		   		 });
+		   }
+
+	    function editDiscip(){
+	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+	    	if(row.length != 1){
+	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+	    	url = 'pages/DiscipRes/edit' ;
+	    	
+	    	$('#dlg').dialog('open').dialog('setTitle','添加重点学科');
+	    	$('#SeqNumber').val(row[0].seqNumber) ;
+	        $('#DiscipName').val(row[0].discipName);
+	        $('#DiscipID').val(row[0].discipID);
+	        $('#UnitID').combobox('select',row[0].unitID) ;
+	        $('#DiscipType').combobox('select',row[0].discipType);
+	        $('#NationLevelOne').combobox('select',row[0].nationLevelOne);
+	        $('#NationLevelTwo').combobox('select',row[0].nationLevelTwo);
+	        $('#NationLevelKey').combobox('select',row[0].nationLevelKey);
+	        $('#ProvinceLevelOne').combobox('select',row[0].provinceLevelOne);
+	        $('#ProvinceLevelTwo').combobox('select',row[0].provinceLevelTwo);
+	        $('#CityLevel').combobox('select',row[0].cityLevel);
+	        $('#SchLevel').combobox('select',row[0].schLevel);
+
+			$('#Note').val(row[0].note);
+		
+	    }
 
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');
@@ -432,6 +478,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    $('#fm').form('load',row);
 			    url = 'updateUser';
 		    }
+	    }
+
+	    function deleteByIds(){
+	    	//获取选中项
+			var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+			if(row.length == 0){
+	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+			 $.messager.confirm('数据删除', '您确定删除选中项?', function(sure){
+				 if (sure){
+				 	var ids = "";
+				 	ids += "(" ;
+				 	
+				 	for(var i=0; i<row.length; i++){
+				 		if(i < (row.length - 1)){
+				 			ids += (row[i].seqNumber + ",") ;
+				 		}else{
+				 			ids += (row[i].seqNumber + ")") ;
+				 		}
+				 	}
+				 	
+				 	deleteDiscip(ids) ;
+				 	
+				 }
+			});
+	    }
+
+	    function deleteDiscip(ids){
+	    	$.ajax({ 
+	    		type: "POST", 
+	    		url: "pages/DiscipRes/deleteCoursesByIds?ids=" + ids, 
+	    		async:"true",
+	    		dataType: "text",
+	    		success: function(result){
+	    			result = eval("(" + result + ")");
+
+					if(result.state){
+						alert(result.data) ;
+						 $('#unverfiedData').datagrid('reload') ;
+					}
+	    		}
+	    	}).submit();
 	    }
 	    
 	    

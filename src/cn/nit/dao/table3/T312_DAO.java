@@ -9,6 +9,7 @@ import java.util.List;
 
 
 import cn.nit.bean.table3.T312_Bean;
+
 import cn.nit.dbconnection.DBConnection;
 
 import cn.nit.pojo.table3.T312POJO;
@@ -47,6 +48,27 @@ public class T312_DAO {
 		}finally{
 			DBConnection.close(conn) ;
 		}
+		return flag ;
+	}
+	
+	
+	/**
+	 * 讲数据批量插入T511表中
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table5.T312_Bean}>}
+	 * @return true表示插入成功，false表示插入失败
+	 */
+	public boolean batchInsert(List<T312_Bean> list){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		
+		try{
+			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}
+		
 		return flag ;
 	}
 	
@@ -98,7 +120,9 @@ public class T312_DAO {
 		return total ;
 	}
 	
-public List<T312POJO> auditingData(String conditions, String fillDept, int page, int rows){
+	
+	
+	public List<T312POJO> auditingData(String conditions, String fillDept, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T312POJO> list =null ;
@@ -143,6 +167,55 @@ public List<T312POJO> auditingData(String conditions, String fillDept, int page,
 		return list ;
 	}
 	
+	
+	public boolean update(T312_Bean docAndGraStaBean){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		try{
+			flag = DAOUtil.update(docAndGraStaBean, tableName, key, field, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		return flag ;
+	}
+	
+	public boolean deleteCoursesByIds(String ids){
+		System.out.println("hahah");
+		int flag = 0 ;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("delete from " + tableName) ;
+		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			flag = st.executeUpdate(sql.toString()) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}
+		
+		if(flag == 0){
+			return false ;
+		}else{
+			return true ;
+		}
+	}
+	
+	
+	public String getTableName(){
+		return this.tableName ;
+	}
+	
+
+
+
 	
 	public static void main(String args[]){
 		

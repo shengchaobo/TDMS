@@ -139,6 +139,20 @@ public class T151Action {
 	/**  编辑数据  */
 	public void edit(){
 
+//		 System.out.println("你好你好！");
+////		 System.out.println(t151Bean.getHouseArea());
+//		 System.out.println(t151Bean.getNote());
+//		 System.out.println(t151Bean.getOpenCondition());
+//		 System.out.println(t151Bean.getHouseArea());
+//		 System.out.println(t151Bean.getResInsID());
+//		 System.out.println(t151Bean.getResInsName());
+//		 System.out.println(t151Bean.getSeqNumber());
+//		 System.out.println(t151Bean.getTeaUnit());
+//		 System.out.println(t151Bean.getType());
+//		 System.out.println(t151Bean.getUnitID());
+//		 System.out.println(t151Bean.getBeginYear());
+////		 System.out.println(t151Bean.getTime());
+		 
 		t151Bean.setTime(new Date()) ;
 		boolean flag = t151Ser.update(t151Bean) ;
 		PrintWriter out = null ;

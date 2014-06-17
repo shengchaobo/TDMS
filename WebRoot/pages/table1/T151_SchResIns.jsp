@@ -153,10 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>类别：</label> 
 						<input id="Type"  name="t151Bean.Type" class='easyui-combobox'
-						data-options="valueField:'indexId',textField:'researchType',url:'pages/DiResearchType/loadDiResearchType',listHeight:'auto',editable:false,
-						onSelect:function(){
-							 	alert($(this).combobox('getValue')) ;
-							 }">
+						data-options="valueField:'indexId',textField:'researchType',url:'pages/DiResearchType/loadDiResearchType',listHeight:'auto',editable:false">
 						<span id="TypeSpan"></span>
 					</div>
 				</td>
@@ -445,9 +442,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#Type').combobox('select',row[0].typeID);
 	    	$('#BeginYear').datebox('setValue',formattime(row[0].beginYear)) ;
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
-	    	var flag = "" + row[0].biOpen ;
-	    	$('#BuildCondition').combobox('select', row[0].buildCondition) ;
-	    	$('#BiOpen').combobox('select',flag) ;
+	    	var flag1 = "" + row[0].biOpen ;
+	    	var flag2 = "" + row[0].buildCondition ;
+	    	$('#BuildCondition').combobox('select', flag2) ;
+	    	$('#BiOpen').combobox('select',flag1) ;
 	    	$('#HouseArea').val(row[0].houseArea) ;
 	    	$('#OpenCondition').val(row[0].openCondition) ;
 			$('#Note').val(row[0].note) ;

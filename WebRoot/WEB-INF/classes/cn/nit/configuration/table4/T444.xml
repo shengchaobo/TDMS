@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="pages/T444" namespace="/pages/T444" extends="struts-default">
+		<!-- 初始化加载所有高层次团队信息（用于分页系统） -->
+	    <action name="loadTeamInfo" class="cn.nit.action.table4.T444_Action" method="loadTeamInfo" />
+   		<!-- 插入新的高层次团队信息 -->
+	    <action name="insert"  class="cn.nit.action.table4.T444_Action" method="insert" ></action>	    
+	</package>
+</struts>

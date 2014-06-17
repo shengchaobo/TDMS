@@ -65,11 +65,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="unitName" width=15>所属教学单位</th>
 				<th field="unitID" width=10>单位号</th>
 				<th field="discipType" width=10>学科门类</th>
-				<th field="nationLevelOne" width=10>国家一级</th>
-				<th field="nationLevelTwo" width=10>国家二级</th>
-				<th field="nationLevelKey" width=20>国家重点（培育）</th>
-				<th field="provinceLevelOne" width=10">省部一级</th>
-				<th field="provinceLevelTwo" width=10>省部二级</th>
+				<th field="nationLevelOne" width=10 formatter="booleanstr">国家一级</th>
+				<th field="nationLevelTwo" width=10 formatter="booleanstr">国家二级</th>
+				<th field="nationLevelKey" width=20 formatter="booleanstr">国家重点（培育）</th>
+				<th field="provinceLevelOne" width=10" formatter="booleanstr">省部一级</th>
+				<th field="provinceLevelTwo" width=10 formatter="booleanstr">省部二级</th>
 				<th field="cityLevel" width=10>市级</th>
 				<th field="schLevel" width=10>校级</th>
 				<th field="note" width=10>备注</th>
@@ -650,6 +650,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    //alert(time) ;
 			        return time;  
 			    }  
+			</script>
+			
+			<script type="text/javascript"> 
+		    function booleanstr(val) { 	 
+		    	if(val == null){
+					return null ;
+				}
+				var bo1=""+val;//吧boolean型转换成str类型再判断
+				var boo;
+				if( bo1 == "false") {
+					boo="否" ;
+				}else if (bo1 == "true"){
+
+					boo="是" ;
+				}
+				return boo;
+	        }  
 			</script>
 
 </html>

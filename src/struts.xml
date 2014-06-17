@@ -78,12 +78,21 @@
     <include file="cn/nit/configuration/table1/T16.xml"/>
     
     <!--table3-->
-       <!-- t312博士点硕士点 -->
+    <!-- t312博士点硕士点 -->
     <include file="cn/nit/configuration/table3/T312.xml"/>
-         <!-- t311博士后流动站 -->
+    <!-- t311博士后流动站 -->
     <include file="cn/nit/configuration/table3/T311.xml"/>
     <!-- t313 重点学科表 -->
     <include file="cn/nit/configuration/table3/T313.xml"/>
+    <!-- t321 大类培养情况表表 -->
+    <include file="cn/nit/configuration/table3/T321.xml"/>
+    
+    
+    
+    
+    
+    
+    
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
     

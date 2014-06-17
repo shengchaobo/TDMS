@@ -5,7 +5,17 @@
 <struts>
 	<package name="MainTrainBasicInfoTea" namespace="/pages/MainTrainBasicInfoTea" extends="struts-default">
 		<!-- 大类培养基本情况 -->
-	    <action name="insert" class="cn.bjtu.action.Table3_MainTrainBasicInfoAction" method="insert" />
+	    <action name="insert" class="cn.nit.action.table3.T321_Action" method="insert" />
+	     <!-- 显示 -->
+	     <action name="auditingData" class="cn.nit.action.table3.T321_Action" method="auditingData" />
+	     	     <!-- 编辑数据 -->
+	    <action name="edit" class="cn.nit.action.table3.T321_Action" method="edit" />
+	    
+	     <!-- 删除数据 -->
+	    <action name="deleteCoursesByIds" class="cn.nit.action.table3.T321_Action" method="deleteCoursesByIds" />
+	    
+	    	     <!-- 数据查询 -->
+	    <action name="singleSearch" class="cn.nit.action.table3.T321_Action" method="auditingConditions"/>
 	</package>
 </struts>
 

@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="discipName" width=15>重点学科名称</th>
 				<th field="discipID" width=10>学科代码</th>
 				<th field="unitName" width=15>所属教学单位</th>
-				<th field="unitId" width=10>单位号</th>
+				<th field="unitID" width=10>单位号</th>
 				<th field="discipType" width=10>学科门类</th>
 				<th field="nationLevelOne" width=10>国家一级</th>
 				<th field="nationLevelTwo" width=10>国家二级</th>

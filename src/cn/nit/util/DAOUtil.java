@@ -226,7 +226,6 @@ public class DAOUtil {
 
 					}else{
 						throw new Exception("自行添加对应类型" + type) ;
-
 					}
 				}
 				pst.addBatch() ;

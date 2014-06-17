@@ -5,9 +5,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +29,7 @@ import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table4.T431_Bean;
 import cn.nit.dao.table4.T411_Dao;
+import cn.nit.excel.imports.table4.T411_Excel;
 import cn.nit.service.table4.T411_Service;
 import cn.nit.util.ExcelUtil;
 
@@ -37,10 +43,14 @@ public class T411_Action {
 	
 	private String searchID; //用于查询的教工号
 	
+	private String excelName; //excel导出名字
+	
 
 	private T411_Service T411_services = new T411_Service();
 	
 	private T411_Bean T411_bean = new T411_Bean();
+	
+	private T411_Dao T411_dao = new T411_Dao();
 	
 
 
@@ -214,7 +224,34 @@ public class T411_Action {
 		InputStream inputStream = null ;
 
 		try {
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+			
+			List<T411_Bean> list = T411_dao.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("姓名");columns.add("教工号");columns.add("性别");columns.add("出生年月");
+			columns.add("入校时间");columns.add("任职状态");columns.add("参加本科教学工作时间");columns.add("身份代码");
+			columns.add("所属部门");columns.add("所属部门单位号");columns.add("所属教学单位");columns.add("所属教学单位号");
+			columns.add("所属教研室");columns.add("所属教研室单位号");columns.add("学历");columns.add("最高学位");
+			columns.add("毕业学校");columns.add("专业");columns.add("学缘");columns.add("行政职务");
+			columns.add("专业技术职称");columns.add("教学系列职称");columns.add("非教学系列职称");columns.add("学科类别");
+			columns.add("是否双师型教师");columns.add("是否具有行业背景");columns.add("是否具有工程背景");columns.add("是否列入师资库");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("teaName", 1);maplist.put("teaId", 2);maplist.put("gender", 3);maplist.put("birthday", 4);
+			maplist.put("admisTime", 5);maplist.put("teaState", 6);maplist.put("beginWorkTime", 7);maplist.put("idcode", 8);
+			maplist.put("fromOffice", 9);maplist.put("officeID", 10);maplist.put("fromUnit", 11);maplist.put("unitId", 12);
+			maplist.put("fromTeaResOffice", 13);maplist.put("teaResOfficeID", 14);maplist.put("education", 15);maplist.put("topDegree", 16);
+			maplist.put("graSch", 17);maplist.put("major", 18);maplist.put("source", 19);maplist.put("adminLevel", 20);
+			maplist.put("majTechTitle", 21);maplist.put("teaTitle", 22);maplist.put("notTeaTitle", 23);maplist.put("subjectClass", 24);
+			maplist.put("doubleTea", 25);maplist.put("industry", 26);maplist.put("engineer", 27);maplist.put("teaBase", 28);
+			
+			
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -426,5 +463,19 @@ public class T411_Action {
 
 	public String getSearchID() {
 		return searchID;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
+	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
 	}
 }

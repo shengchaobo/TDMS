@@ -1,11 +1,25 @@
 package cn.nit.excel.imports.table4;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import jxl.Cell;
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDegreeBean;
@@ -450,5 +464,55 @@ public class T411_Excel {
 			return "数据存储失败，请联系管理员" ;
 		}
 	}
+	
+	/**
+	 * 批量导出
+	 * @param cellList {@link java.util.List<{@link jxl.Cell}>}
+	 * @param request  {@link javax.servlet.http.HttpServletRequest}
+	 * @return
+	 */
+	public ByteArrayOutputStream batchExport(List<T411_Bean> list, String sheetName, HttpServletRequest request){
+		
+        WritableWorkbook wwb;
+        ByteArrayOutputStream fos = null;
+        try {    
+            fos = new ByteArrayOutputStream();
+            wwb = Workbook.createWorkbook(fos);
+            WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 
+            //    设置单元格的文字格式
+            WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+            WritableCellFormat wcf = new WritableCellFormat(wf);
+            wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+            wcf.setAlignment(Alignment.CENTRE);
+            ws.setRowView(1, 500);
+
+            for (int i = 0; i < 10; i++){
+                ws.addCell(new Label(1, i, "123", wcf));
+                ws.addCell(new Label(2, i, "334", wcf));
+                ws.addCell(new Label(3, i, "567", wcf));
+                ws.addCell(new Label(4, i, "123", wcf));
+                ws.addCell(new Label(5, i, "567", wcf));
+                ws.addCell(new Label(6, i, "789", wcf));
+                ws.addCell(new Label(7, i, "324", wcf));
+                
+                if(i == 0){
+                	ws.addCell(new Label(0, i, "序号", wcf)) ;
+                    wcf = new WritableCellFormat();
+                }else{
+                	ws.addCell(new Label(0, i, "" + i, wcf)) ;
+                }
+                
+            }
+
+            wwb.write();
+            wwb.close();
+
+        } catch (IOException e){
+        } catch (RowsExceededException e){
+        } catch (WriteException e){}
+        
+        return fos ;
+    }	
 }

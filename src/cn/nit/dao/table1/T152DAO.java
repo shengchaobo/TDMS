@@ -50,7 +50,7 @@ public class T152DAO {
 	}
 	
 	/**
-	 * 讲数据批量插入151表中
+	 * 讲数据批量插入152表中
 	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */

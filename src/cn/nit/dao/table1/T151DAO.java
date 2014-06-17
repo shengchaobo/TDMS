@@ -160,6 +160,8 @@ public class T151DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
 			flag = DAOUtil.update(schResIns, tableName, key, field, conn) ;
+			
+
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -203,6 +205,7 @@ public class T151DAO {
 //		System.out.println(n);
 		List<T151POJO> list=dao.auditingData(null, null, 1, 2);
 		System.out.println(list.size());
+	
 //	
 	}
 	

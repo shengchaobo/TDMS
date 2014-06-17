@@ -218,17 +218,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 		    <tr>
-				<td style="valign:left">
+				<td >
+				    <div class="fitem">
 						<label>对本科生开放情况（500字以内）：</label> 
+						<br/>
 						<textarea id="OpenCondition" name="t151Bean.OpenCondition" style="resize:none" cols="50" rows="10"></textarea>
 						<span id="OpenConditionSpan"></span>
+						</div>
 				</td>
+			</tr>
+			<tr>
 			
-				<td style="valign:left">
-				    <label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-					<textarea id="Note" name="t151Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
-					<span id="NoteSpan"></span>
-				</td>
+				<td >
+				   <div class="fitem">
+					    <label>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+			            <br/>
+						<textarea id="Note" name="t151Bean.Note" style="resize:none" cols="50" rows="3"></textarea>
+						<span id="NoteSpan"></span>
+						</div>
+					</td>
 			</tr>
 		</table>
 		</form>

@@ -127,7 +127,57 @@ public class T711_Action {
 		
 		
 	}
+	/**  编辑数据  */
+	public void edit(){
+		teaManagerAwardInfoTeaTea.setTime(new Date());
+		boolean flag=T711_Sr.update(teaManagerAwardInfoTeaTea);
+		
+		PrintWriter out=null;
+		
+		try {
+			out=getResponse().getWriter();
+			if(flag){
+				out.print("{\"state\":true,data:\"编辑成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":true,data:\"编辑失败!!!\"}") ;
+			}
+			out.flush() ;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
 	
+	/**  根据数据的id删除数据  */
+	public void deleteCoursesByIds(){
+		System.out.println("ids=" + ids) ;
+		boolean flag = T711_Sr.deleteCoursesByIds(ids) ;
+		PrintWriter out = null ;
+		
+		try{
+			out = getResponse().getWriter() ;
+			
+			if(flag){
+				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
 	
 	
 	

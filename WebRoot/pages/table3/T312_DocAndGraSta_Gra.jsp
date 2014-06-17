@@ -53,18 +53,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/DocAndGraSta/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
-				<th field="StaName" width="10%">名称</th>
-				<th field="StaID" width="10%">代码</th>
-				<th field="UnitName" width="5%">所属单位</th>
-				<th field="UnitId" width="5%">单位号</th>
-				<th field="StaType" width="5%">类型</th>
+				<th field="seqNumber" width="5%">序号</th>
+				<th field="staName" width="10%">名称</th>
+				<th field="staID" width="10%">代码</th>
+				<th field="unitName" width="5%">所属单位</th>
+				<th field="unitID" width="5%">单位号</th>
+				<th field="staType" width="5%">类型</th>
 				<th field="note" width="20%">备注</th>
 			</tr>
 		</thead>
@@ -91,14 +91,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		fitColumns="true" singleSelect="false">
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
+		<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="SeqNumber" width="5%">序号</th>
 				<th field="StaName" width="10%">名称</th>
 				<th field="StaID" width="10%">代码</th>
 				<th field="UnitName" width="5%">所属单位</th>
-				<th field="UnitId" width="5%">单位号</th>
+				<th field="UnitID" width="5%">单位号</th>
 				<th field="StaType" width="5%">类型</th>
-				<th field="note" width="20%">备注</th>
+				<th field="Note" width="20%">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
 						<input type="hidden" name="docAndGraStaBean.UnitName" id="UnitName"/>
 						<input id="UnitID" type="text" name="docAndGraStaBean.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitID',textField:'unitName',url:'pages/diDepartment/loadDIDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
 							 }">
@@ -162,18 +162,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 			</tr>
-			<tr>
-			<td>
-					<div class="fitem">
-						<label>状&nbsp;&nbsp;&nbsp;&nbsp;态：</label> 
-						<select class='easyui-combobox' id="State" name="docAndGraStaBean.State" >
-							<option value="启用">启用</option>
-							<option value="停用">停用</option>
-						</select>	
-							<span id="StateSpan"></span>
-					</div>
-				</td>
-		</tr>
 			<tr>
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="docAndGraStaBean.Note" style="resize:none" cols="50" rows="10"></textarea>
@@ -256,8 +244,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var StaID = $('#StaID').val() ;
 			var UnitName = $('#UnitID').combobox('getText') ;
 			var StaType = $('#StaType').combobox('getText') ;
-			var state = $('#State').combobox('getText') ;
-			var note = $('#Note').val() ;
+			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(StaName == null || StaName.length==0 || StaName.length > 100){
 				$('#StaName').focus();
@@ -290,17 +277,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}else{
 				$('#StaTypeSpan').html("") ;
 			}
-			
-		
-			if(state == null || state.length == 0){
-				$('#StateSpan').html("<font style=\"color:red\">状态不能为空</font>") ;
-				return false ;
-			}else{
-				$('#StateSpan').html("") ;
-			}
-			
+				
 	
-			if(note !=null && note.length > 1000){
+			if(Note !=null && Note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
 			}else{

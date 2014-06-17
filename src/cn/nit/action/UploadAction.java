@@ -1,4 +1,4 @@
-package cn.nit.action;
+﻿package cn.nit.action;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -13,7 +13,7 @@ import jxl.Cell;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.dao.table4.T411_Dao;
+//import cn.nit.bean.other.UserRoleBean;
 import cn.nit.util.ExcelUtil;
 
 public class UploadAction {
@@ -25,6 +25,7 @@ public class UploadAction {
 	private String className ;
 	
 	private String methodName ;
+	
 	
 	public void uploadFile(){
 		

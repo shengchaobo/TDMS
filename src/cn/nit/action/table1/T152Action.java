@@ -102,28 +102,28 @@ public class T152Action {
 			}
 		}
 	}
-//	
-//	/**  生成查询条件   */
-//	public void auditingConditions(){
-//		
-//		String sqlConditions = undergraCSBaseTeaSer.gernateAuditingConditions(seqNum, startTime, endTime) ;
-//		getSession().setAttribute("auditingConditions", sqlConditions) ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			out = getResponse().getWriter() ;
-//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-//			out.flush() ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
-//	
+	
+	/**  生成查询条件   */
+	public void auditingConditions(){
+		
+		String sqlConditions = t152Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
+		getSession().setAttribute("auditingConditions", sqlConditions) ;
+		PrintWriter out = null ;
+		
+		try{
+			out = getResponse().getWriter() ;
+			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
 	/**  编辑数据  */
 	public void edit(){
 

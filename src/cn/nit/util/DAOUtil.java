@@ -1,4 +1,4 @@
-/* 
+﻿/* 
  * @Title: DAOUtil.java
  * @Package cn.bjtu.util
  * @Description 
@@ -56,8 +56,6 @@ public class DAOUtil {
 				sql.append("?,") ;
 			}
 		}
-
-		System.out.println(sql.toString()) ;
 		BeanWrapper wrapper = new BeanWrapperImpl(obj) ;
 		//判断数据插入的条数，0代表数据插入失败
 		int flag = 0 ;
@@ -115,7 +113,6 @@ public class DAOUtil {
 	 * @param <T>
 	 * @param rs  ResultSet 结果�?
 	 * @param cla           实体�?
-
 	 * @return
 	 *
 	 * @time: 2014-4-18/下午10:17:57

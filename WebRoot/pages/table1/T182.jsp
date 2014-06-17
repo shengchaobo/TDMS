@@ -216,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	var url ;
-	
+	//查询
 	function singleSearch(){
    	 $('#auditing').form('submit',{
    		 url: 'pages/T182/singleSearch',

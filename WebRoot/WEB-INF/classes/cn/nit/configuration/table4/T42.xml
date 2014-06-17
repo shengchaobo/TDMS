@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="pages/T42" namespace="/pages/T42" extends="struts-default">
+		<!-- 初始化加载所有领导信息（用于分页系统） -->
+	    <action name="loadLeaderInfo" class="cn.nit.action.table4.T42_Action" method="loadLeaderInfo" />
+   		<!-- 插入新的领导信息 -->
+	    <action name="insert"  class="cn.nit.action.table4.T42_Action" method="insert" ></action>	    
+	</package>
+</struts>

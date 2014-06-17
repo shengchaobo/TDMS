@@ -1,5 +1,7 @@
 package cn.nit.action.table3;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 
@@ -9,8 +11,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T312_Bean;
 import cn.nit.service.table3.T312_Service;
+import cn.nit.util.ExcelUtil;
 
 
 
@@ -45,7 +49,7 @@ public class T312_Action {
 		docAndGraStaBean.setTime(new Date()) ;
 		//这还没确定,设置填报者的职工号与部门号
 		//UserInfo userinfo = (UserInfo)getSession().getAttribute("userinfo") ;
-		//undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
+		//docAndGraStaBean.setFillTeaID(userinfo.getTeaID()) ;
 		boolean flag = docAndGraStaSer.insert(docAndGraStaBean) ;
 		PrintWriter out = null ;
 		
@@ -69,7 +73,8 @@ public class T312_Action {
 		out.flush() ;
 	}
 	
-public void auditingData(){
+	/**  为界面加载数据  */
+	public void auditingData(){
 		
 //		System.out.println("輸出輸出輸出");
 		
@@ -100,6 +105,98 @@ public void auditingData(){
 			}
 		}
 	}
+	
+	/**  生成查询条件   */
+	public void auditingConditions(){
+		
+		String sqlConditions = docAndGraStaSer.gernateAuditingConditions(seqNum, startTime, endTime) ;
+		getSession().setAttribute("auditingConditions", sqlConditions) ;
+		PrintWriter out = null ;
+		
+		try{
+			out = getResponse().getWriter() ;
+			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  编辑数据  */
+	public void edit(){
+
+		boolean flag = docAndGraStaSer.update(docAndGraStaBean) ;
+		PrintWriter out = null ;
+		
+		try{
+			out = getResponse().getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"删除成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":true,data:\"删除失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  根据数据的id删除数据  */
+	public void deleteCoursesByIds(){
+		System.out.println("ids=" + ids) ;
+		boolean flag = docAndGraStaSer.deleteCoursesByIds(ids) ;
+		PrintWriter out = null ;
+		System.out.println("1111111");
+		try{
+			out = getResponse().getWriter() ;
+			
+			if(flag){
+				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+
+	public String execute() throws Exception{
+
+		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
+		return "success" ;
+	}
+	
 
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
@@ -113,6 +210,10 @@ public void auditingData(){
 		return ServletActionContext.getResponse() ;
 	}
 	
+	public UserRoleBean getUserinfo(){
+		return (UserRoleBean)getSession().getAttribute("userinfo") ;
+	}
+	
 	public T312_Bean getDocAndGraStaBean() {
 		return docAndGraStaBean;
 	}
@@ -120,6 +221,24 @@ public void auditingData(){
 	public void setDocAndGraStaBean(T312_Bean docAndGraStaBean) {
 		this.docAndGraStaBean = docAndGraStaBean;
 	}
+	
+	
+	public void setSeqNum(int seqNum){
+		this.seqNum = seqNum ;
+	}
+	
+	public void setStartTime(Date startTime){
+		this.startTime = startTime ;
+	}
+	
+	public void setEndTime(Date endTime){
+		this.endTime = endTime ;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
 
 	public String getPage() {
 		return page;

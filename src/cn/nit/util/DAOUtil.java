@@ -1,4 +1,4 @@
-﻿/* 
+/* 
  * @Title: DAOUtil.java
  * @Package cn.bjtu.util
  * @Description 
@@ -226,7 +226,6 @@ public class DAOUtil {
 
 					}else{
 						throw new Exception("自行添加对应类型" + type) ;
-
 					}
 				}
 				pst.addBatch() ;
@@ -340,7 +339,7 @@ public class DAOUtil {
 
 				}
 			}
-			System.out.println(sql.toString()) ;
+//			System.out.println(sql.toString()) ;
 			flag = pst.executeUpdate() ;
 			//System.out.println(flag);
 		}catch(Exception e){

@@ -6,9 +6,10 @@ import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
 
-
+import sun.security.krb5.internal.UDPClient;
 
 import cn.nit.bean.table3.T311_Bean;
+
 import cn.nit.dbconnection.DBConnection;
 
 import cn.nit.pojo.table3.T311POJO;
@@ -47,6 +48,27 @@ public class T311_DAO {
 		}finally{
 			DBConnection.close(conn) ;
 		}
+		return flag ;
+	}
+	
+	
+	/**
+	 * 讲数据批量插入T311表中
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table5.T311_Bean}>}
+	 * @return true表示插入成功，false表示插入失败
+	 */
+	public boolean batchInsert(List<T311_Bean> list){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		
+		try{
+			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}
+		
 		return flag ;
 	}
 	
@@ -185,9 +207,22 @@ public class T311_DAO {
 	}
 	
 	
+
+	
 	public static void main(String args[]){
 		
+		T311_DAO t311Dao = new T311_DAO() ;
+		T311_Bean t311Bean = new T311_Bean() ;
+		t311Bean.setSeqNumber(18) ;
+		t311Bean.setTime(new java.util.Date()) ;
 
+		System.out.println(t311Dao.update(t311Bean)) ;
+		
+		
+	}
+	
+	public String getTableName(){
+		return this.tableName ;
 	}
 
 

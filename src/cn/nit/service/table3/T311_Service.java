@@ -8,9 +8,11 @@ import net.sf.json.JSONSerializer;
 
 
 import cn.nit.bean.table3.T311_Bean;
+import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table3.T311_DAO;
 
 import cn.nit.pojo.table3.T311POJO;
+
 import cn.nit.util.Pagition;
 import cn.nit.util.TimeUtil;
 
@@ -34,6 +36,11 @@ public class T311_Service {
 	public boolean insert(T311_Bean postDocStaBean){
 		
 		return postDocStaDao.insert(postDocStaBean) ;
+	}
+	
+	public boolean batchInsert(List<T311_Bean> list){
+		
+		return postDocStaDao.batchInsert(list) ;
 	}
 	
 	public String auditingData(String conditions, String fillDept, int page, int rows){
@@ -88,6 +95,13 @@ public class T311_Service {
 	public boolean deleteCoursesByIds(String ids){
 		
 		return postDocStaDao.deleteCoursesByIds(ids) ;
+	}
+	
+
+	
+	public static void main(String args[]){
+		T311_Service unser = new T311_Service() ;
+		unser.auditingData(null, null, 1, 10) ;
 	}
 
 

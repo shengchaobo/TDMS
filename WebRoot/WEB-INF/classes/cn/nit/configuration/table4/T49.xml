@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="pages/T49" namespace="/pages/T49" extends="struts-default">
+		<!-- 初始化加载各学院出版教材信息（用于分页系统） -->
+	    <action name="loadTextInfo" class="cn.nit.action.table4.T49_Action" method="loadTextInfo" />
+   		<!-- 插入新的学院出版教材信息 -->
+	    <action name="insert"  class="cn.nit.action.table4.T49_Action" method="insert" ></action>	    
+	</package>
+</struts>

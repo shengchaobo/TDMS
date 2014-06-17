@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
+    
+	<persistence-unit name="TDMSPU" transaction-type="RESOURCE_LOCAL">
+		<provider>
+			oracle.toplink.essentials.PersistenceProvider
+		</provider>
+		<class>cn.nit.bean.table6.T611UnderGraStuNuminfoTea</class>
+		<class>cn.nit.bean.table6.T612MasterNumInfoGra</class>
+		<class>cn.nit.bean.table6.T613ForeignStuNumInfoIntra</class>
+		<class>cn.nit.bean.table6.T614ContinueEduStuNumInfoTaef</class>
+		<class>cn.nit.bean.table6.T615GenUndergraMajStuNumTea</class>
+		<class>cn.nit.bean.table6.T617JuniorInSchStuInfoTea</class>
+		<class>cn.nit.bean.table6.T621UndergraAdmiInfoAdmission</class>
+		<class>cn.nit.bean.table6.T622LibAndSciAdmiNumAdmission</class>
+		<class>cn.nit.bean.table6.T623ArtStuAmdiNumAdmission</class>
+		<class>cn.nit.bean.table6.T624JuniorAdmisInfoAdmission</class>
+		<class>cn.nit.bean.table6.T631UndergarGraduateInfoTea</class>
+		<class>cn.nit.bean.table6.T632GraStuEmployInfoAdmission</class>
+		<class>cn.nit.bean.table6.T641ScholarLoanSubsidyStu</class>
+		<class>cn.nit.bean.table6.T651StuCompetiAwardInfoTeaYlc</class>
+		<class>cn.nit.bean.table6.T652StuPublishPaperTeaYlc</class>
+		<class>cn.nit.bean.table6.T653StuPublishWordTeaYlc</class>
+		<class>cn.nit.bean.table6.T654StuAwardPatentTeaYlc</class>
+		<class>cn.nit.bean.table6.T655Cet46andJiangxiNcreTea</class>
+		<class>cn.nit.bean.table6.T657HabitusQualifiedSport</class>
+		<class>cn.nit.bean.table6.T658InInterConferenceTeaInter</class>
+		<class>cn.nit.bean.table6.T659StuExchangeInfoTeaInter</class>
+		<class>cn.nit.bean.table6.T66StuClubYlc</class>
+		<class>cn.nit.bean.table6.T671MinorInfoTea</class>
+		<class>cn.nit.bean.table6.T672DualDegreeInfoTea</class>
+		<properties>
+			<property name="toplink.jdbc.driver"
+				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+			<property name="toplink.jdbc.url"
+				value="jdbc:sqlserver://202.112.147.251:1433; DatabaseName=TDMS" />
+			<property name="toplink.jdbc.user" value="scb" />
+			<property name="toplink.jdbc.password" value="123" />
+		</properties>
+	</persistence-unit>
+
+</persistence>

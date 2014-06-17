@@ -339,8 +339,8 @@ public class DAOUtil {
 
 				}
 			}
-			System.out.println(sql.toString()) ;
-			//flag = pst.executeUpdate() ;
+//			System.out.println(sql.toString()) ;
+			flag = pst.executeUpdate() ;
 			//System.out.println(flag);
 		}catch(Exception e){
 			e.printStackTrace() ;

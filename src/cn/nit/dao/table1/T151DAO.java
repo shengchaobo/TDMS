@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.T152Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T151POJO;
 import cn.nit.util.DAOUtil;
@@ -154,22 +155,21 @@ public class T151DAO {
 		return list ;
 	}
 	
-	public boolean update(T151Bean schResIns){
-		
-		boolean flag = false ;
-		Connection conn = DBConnection.instance.getConnection() ;
-		try{
-			flag = DAOUtil.update(schResIns, tableName, key, field, conn) ;
+	public boolean update(T151Bean t151Bean){
 			
-
-		}catch(Exception e){
-			e.printStackTrace() ;
+			boolean flag = false ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			try{
+				System.out.println("hello！");
+				flag = DAOUtil.update(t151Bean, tableName, key, field, conn) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return flag ;
+			}finally{
+				DBConnection.close(conn) ;
+			}
 			return flag ;
-		}finally{
-			DBConnection.close(conn) ;
 		}
-		return flag ;
-	}
 	
 	public boolean deleteCoursesByIds(String ids){
 		

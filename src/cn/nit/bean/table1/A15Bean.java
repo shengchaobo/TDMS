@@ -18,6 +18,7 @@ public class A15Bean {
     private int SchResNum;
     private double SchResRatio;
     
+    /**校级科研机构总计！*/
     private int SumResNum;
 
     private Date Time; 

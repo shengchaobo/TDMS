@@ -74,8 +74,16 @@
     <include file="cn/nit/configuration/table1/T182.xml"/>
      <!-- t183签订合作机构（招就处） -->
     <include file="cn/nit/configuration/table1/T183.xml"/>
+      <!-- t19学校荣誉表 -->
+    <include file="cn/nit/configuration/table1/T19.xml"/>
      <!-- t16办学指导思想（党院办） -->
     <include file="cn/nit/configuration/table1/T16.xml"/>
+       <!-- S18协议统计表 -->
+    <include file="cn/nit/configuration/table1/S18.xml"/>
+      <!-- S17校友会统计表 -->
+    <include file="cn/nit/configuration/table1/S17.xml"/>
+      <!-- A15科研单位统计表 -->
+    <include file="cn/nit/configuration/table1/A15.xml"/>
     
     <!--table3-->
     <!-- t312博士点硕士点 -->
@@ -116,15 +124,5 @@
     <include file="cn/nit/configuration/table7/T743.xml"/>
     <include file="cn/nit/configuration/table7/T744.xml"/>
     <include file="cn/nit/configuration/table7/T745.xml"/>
-
-    <package name="default" namespace="/" extends="struts-default">
-        <default-action-ref name="index" />
-        <action name="index">
-            <result type="redirectAction">
-                <param name="actionName">HelloWorld</param>
-                <param name="namespace">/example1</param>
-            </result>
-        </action>
-    </package>
 
 </struts>

@@ -1,0 +1,15 @@
+#忽略控制管理软件svn的目录
+.svn/
+
+#忽略自己eclipse中的个人设置
+.myeclipse/
+
+#忽略class文件
+
+*.class
+WebRoot/WEB-INF/classes/
+
+
+.classpath
+
+.mymetadata

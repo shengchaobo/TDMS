@@ -66,6 +66,7 @@ public class T17Service {
 //		t17Bean.setAudit(audits[0]) ;
 //	}
 	
+	/**导入数据*/
 	public boolean batchInsert(List<T17Bean> list){
 			
 			return t17Dao.batchInsert(list) ;

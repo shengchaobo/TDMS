@@ -65,8 +65,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="resInsName" width=10>科研机构名称</th>
 				<th field="resInsID" width=10>单位号</th>
 				<th field="type" width=10>类别</th>
-				<th field="buildCondition" width=10>共建情况</th>
-				<th field="biOpen" width=10 >是否对本科生开放</th>
+				<th field="buildCondition" width=10 formatter="booleanstr">共建情况</th>
+				<th field="biOpen" width=10 formatter="booleanstr" >是否对本科生开放</th>
 				<th field="openCondition" width=10>对本科生开放情况（500字以内）</th>
 				<th field="teaUnit" width=10>所属教学单位</th>
 				<th field="unitID" width=10>教学单位号</th>
@@ -215,16 +215,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 		    <tr>
-				<td style="valign:left">
+				<td >
+					<div class="fitem">
 						<label>对本科生开放情况（500字以内）：</label> 
+						<br/>
 						<textarea id="OpenCondition" name="t152Bean.OpenCondition" style="resize:none" cols="50" rows="10"></textarea>
 						<span id="OpenConditionSpan"></span>
+						</div>
 				</td>
 			
-				<td style="valign:left">
+				
+			</tr>
+			<tr>
+			
+			   <td>
+			        <div class="fitem">
 				    <label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				    <br/>
 					<textarea id="Note" name="t152Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
+					</div>
 				</td>
 			</tr>
 		</table>
@@ -615,6 +625,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    //alert(time) ;
 			        return time;  
 			    }  
+			</script>
+			
+			<script type="text/javascript"> 
+		    function booleanstr(val) { 	 
+		    	if(val == null){
+					return null ;
+				}
+				var bo1=""+val;//吧boolean型转换成str类型再判断
+				var boo;
+				if( bo1 == "false") {
+					boo="否" ;
+				}else if (bo1 == "true"){
+
+					boo="是" ;
+				}
+				return boo;
+	        }  
 			</script>
 
 </html>

@@ -1,15 +1,18 @@
 package cn.nit.service.table1;
 
+import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
+import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T152Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T152DAO;
 import cn.nit.pojo.table1.T152POJO;
 import cn.nit.util.Pagition;
+import cn.nit.util.TimeUtil;
 
 public class T152Service {
 	/**
@@ -50,6 +53,39 @@ public class T152Service {
 				}
 			
 			/**
+			 * 生成查条件
+			 * @param seqNum
+			 * @param startDate
+			 * @param endDate
+			 * @return
+			 */
+			public String gernateAuditingConditions(int seqNum, Date startTime, Date endTime){
+				
+				if(seqNum == 0 && startTime == null && endTime == null){
+					return null ;
+				}
+				
+				StringBuffer sql = new StringBuffer() ;
+				
+				if(seqNum != 0){
+					sql.append(" and SeqNumber=" + seqNum) ;
+				}
+				
+				if(startTime != null){
+					sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(startTime) + "')as datetime)") ;
+				}
+				
+				if(endTime != null){
+					sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(endTime) + "')as datetime)") ;
+				}
+				
+				return sql.toString() ;
+			}
+
+			
+			/**
 			 * 更新数据
 			 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
 			 * @return
@@ -63,6 +99,12 @@ public class T152Service {
 			public boolean deleteCoursesByIds(String ids){
 				
 				return t152Dao.deleteCoursesByIds(ids) ;
+			}
+			
+			/**批量导入*/
+			public boolean batchInsert(List<T152Bean> list){
+				
+				return t152Dao.batchInsert(list) ;
 			}
 
 			

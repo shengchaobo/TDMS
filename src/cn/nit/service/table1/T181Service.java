@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
+import cn.nit.bean.table1.T17Bean;
 import cn.nit.bean.table1.T181Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T18DAO;
@@ -77,6 +78,12 @@ import cn.nit.util.TimeUtil;
 				
 				return t181Dao.deleteCoursesByIds(ids) ;
 			}
+			
+			/**导入数据*/
+			public boolean batchInsert(List<T181Bean> list){
+					
+					return t181Dao.batchInsert(list) ;
+				}
 			
 			/**
 			 * 生成查条件

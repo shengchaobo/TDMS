@@ -106,6 +106,7 @@ public class T11Action {
 	public void edit(){
 		
 		t11Bean.setTime(new Date()) ;
+		System.out.println(this.Year);
 		Date ti=TimeUtil.changeDateY(this.Year);
 		t11Bean.setSch_BeginTime(ti);
 //		System.out.println(t11Bean.getTime());

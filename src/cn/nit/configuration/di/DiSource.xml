@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
 	<package name="pages/DiSource" namespace="/pages/DiSource" extends="struts-default">
-		<!-- 初始化加载所有学缘 -->
+		<!-- 初始化加载所有学�?-->
 	    <action name="loadDiSource" class="cn.nit.action.di.DiSourceAction" method="loadSource" />
 	</package>
 </struts>

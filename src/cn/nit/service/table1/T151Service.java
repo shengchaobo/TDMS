@@ -43,11 +43,9 @@ import cn.nit.util.TimeUtil;
 		    int total = t151Dao.totalAuditingData(conditions, fillUnitId) ;
 			List<T151POJO> list = t151Dao.auditingData(conditions, fillUnitId, page, rows) ;
 			Pagition pages = new Pagition(total, list) ;
-//			System.out.println("total:"+total);
-//			System.out.println("list:"+list.size());
 			JSON json = JSONSerializer.toJSON(pages) ;
 				
-//			System.out.println(json.toString()) ;
+
 				
 			return json.toString() ;
 			}
@@ -76,6 +74,7 @@ import cn.nit.util.TimeUtil;
 			return t151Dao.deleteCoursesByIds(ids) ;
 		}
 		
+		/**批量导入*/
 		public boolean batchInsert(List<T151Bean> list){
 			
 			return t151Dao.batchInsert(list) ;
@@ -115,8 +114,25 @@ import cn.nit.util.TimeUtil;
 		public static void main(String arg[])
 		{
 			T151Service ser=new T151Service();
-			String string=ser.auditingData(null, null, 1, 2);			
-			System.out.println(string);
+//			String string=ser.auditingData(null, null, 1, 2);			
+//			System.out.println(string);
+			T151Bean t151Bean=new T151Bean();
+			t151Bean.setBeginYear(new Date());
+			t151Bean.setBiOpen(false);
+			t151Bean.setBuildCondition(true);
+			t151Bean.setHouseArea(20.32);
+			t151Bean.setNote("维尼夫妇");
+			t151Bean.setOpenCondition("宋茜最好看");
+			t151Bean.setResInsID("200101");
+			t151Bean.setResInsName("江西省水文水资源与水环境重点实验室");
+			t151Bean.setSeqNumber(5);
+			t151Bean.setTeaUnit("党委办公室（院长办公室）");
+			t151Bean.setTime(new Date());
+			t151Bean.setType("33001");
+			t151Bean.setUnitID("1001");
+			boolean flag=ser.update(t151Bean);
+			System.out.println(flag);
+			
 		}
 
 		

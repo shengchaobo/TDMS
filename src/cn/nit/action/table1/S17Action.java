@@ -57,21 +57,21 @@ public class S17Action {
 		return "success" ;
 	}
 	
-
-
-	public InputStream getInputStream(){
-
-		InputStream inputStream = null ;
-
-		try {
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null ;
-		}
-
-		return inputStream ;
-	}
+//
+//
+//	public InputStream getInputStream(){
+//
+//		InputStream inputStream = null ;
+//
+//		try {
+//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null ;
+//		}
+//
+//		return inputStream ;
+//	}
 
 
 	

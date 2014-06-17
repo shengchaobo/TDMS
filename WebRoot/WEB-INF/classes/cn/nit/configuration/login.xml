@@ -4,11 +4,9 @@
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 
 <struts>
-
     <package name="/" namespace="/" extends="struts-default">
         <action name="login" class="cn.nit.action.LoginUserAction" method="login">
         	<param name="redirect">pages/mainFrame.jsp</param>
         </action>
     </package>
-
 </struts>

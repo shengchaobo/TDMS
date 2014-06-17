@@ -115,14 +115,4 @@
     <include file="cn/nit/configuration/table7/T744.xml"/>
     <include file="cn/nit/configuration/table7/T745.xml"/>
 
-    <package name="default" namespace="/" extends="struts-default">
-        <default-action-ref name="index" />
-        <action name="index">
-            <result type="redirectAction">
-                <param name="actionName">HelloWorld</param>
-                <param name="namespace">/example1</param>
-            </result>
-        </action>
-    </package>
-
 </struts>

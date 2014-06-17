@@ -6,7 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +22,10 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table5.UndergraCSBaseTeaBean;
+import cn.nit.dao.table1.T151DAO;
+import cn.nit.excel.imports.table1.T151Excel;
 import cn.nit.service.table1.T151Service;
 import cn.nit.util.ExcelUtil;
 
@@ -25,12 +34,20 @@ import cn.nit.util.ExcelUtil;
  * @author lenovo
  */
 public class T151Action {
+	
+	/**  表T1-5的数据库操作类  */
+	private T151DAO t151Dao = new T151DAO() ;
+	
+	private T151Excel t151Excel=new T151Excel();
 
 	/**  表151的Service类  */
 	private T151Service t151Ser = new T151Service() ;
 	
 	/**  表151的Bean实体类  */
 	private T151Bean t151Bean = new T151Bean() ;
+	
+	/**excel导出名字*/
+	private String excelName; //
 	
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
@@ -99,7 +116,7 @@ public class T151Action {
 		String conditions = (String) getSession().getAttribute("auditingConditions") ;
 		String pages = t151Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
-		System.out.println("pages："+pages);
+//		System.out.println("pages："+pages);
 		
 		try{
 			getResponse().setContentType("text/html; charset=UTF-8") ;
@@ -201,20 +218,45 @@ public class T151Action {
 		}
 	}
 	
-//	public InputStream getInputStream(){
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			
+			List<T151Bean> list = t151Dao.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("科研机构名称");columns.add("单位号");columns.add("类别");columns.add("共建情况");
+			columns.add("是否对本科生开放");columns.add("对本科生开放情况（500字以内）");columns.add("所属教学单位");columns.add("教学单位号");
+			columns.add("开设年份");columns.add("专业科研用房面积（平方米）");columns.add("备注");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("ResInsName", 1);maplist.put("ResInsID", 2);maplist.put("Type", 3);maplist.put("BuildCondition", 4);
+			maplist.put("BiOpen", 5);maplist.put("OpenCondition", 6);maplist.put("TeaUnit", 7);maplist.put("UnitID", 8);
+			maplist.put("BeginYear", 9);maplist.put("HouseArea", 10);maplist.put("Note", 11);
+			
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t151Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+	
+//	public String execute() throws Exception{
 //
-//		InputStream inputStream = null ;
-//
-//		try {
-//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
+//		response.setContentType("application/octet-stream;charset=UTF-8") ;
+//		return "success" ;
 //	}
-//
+
 	public String execute() throws Exception{
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
@@ -267,6 +309,20 @@ public class T151Action {
 	
 	public void setRows(String rows){
 		this.rows = rows ;
+	}
+	
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
+	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
 	}
 	
 	public static void main(String args[]){

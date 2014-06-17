@@ -63,19 +63,19 @@ public class A15Action {
 	
 
 
-	public InputStream getInputStream(){
-
-		InputStream inputStream = null ;
-
-		try {
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null ;
-		}
-
-		return inputStream ;
-	}
+//	public InputStream getInputStream(){
+//
+//		InputStream inputStream = null ;
+//
+//		try {
+//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null ;
+//		}
+//
+//		return inputStream ;
+//	}
 
 
 	

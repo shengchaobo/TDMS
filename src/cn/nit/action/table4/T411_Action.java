@@ -55,6 +55,7 @@ public class T411_Action {
 
 
 	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	
 	//查询出所有教师信息
@@ -219,14 +220,17 @@ public class T411_Action {
 	}
 	
 	
-	public InputStream getInputStream(){
+	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
-
+		
 		try {
+/*			response.reset();
+			response.addHeader("Content-Disposition", "attachment;fileName="
+                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T411_Bean> list = T411_dao.totalList();
-			
+						
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
@@ -261,8 +265,8 @@ public class T411_Action {
 	}
 	
 	public String execute() throws Exception{
-
-		response.setContentType("application/octet-stream;charset=UTF-8") ;
+		request.setCharacterEncoding("UTF-8") ;
+		System.out.println("excelName=============" + excelName) ;
 		return "success" ;
 	}
 
@@ -470,12 +474,6 @@ public class T411_Action {
 	}
 
 	public String getExcelName() {
-		try {
-			this.excelName = URLEncoder.encode(excelName, "UTF-8");
-			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
 		return excelName;
 	}
 }

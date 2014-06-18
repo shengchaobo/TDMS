@@ -75,6 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="joinTeaNum" width="15%">合作教师人数</th>
 				<th field="otherJoinTeaInfo" width="15%">其他合作教师</th>	
 				<th field="note" width="20%">备注</th>
+				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -119,6 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="joinTeaNum" width="15%">合作教师人数</th>
 				<th field="otherJoinTeaInfo" width="15%">其他合作教师</th>	
 				<th field="note" width="20%">备注</th>
+				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>

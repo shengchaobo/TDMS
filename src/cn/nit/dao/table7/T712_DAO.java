@@ -22,7 +22,7 @@ public class T712_DAO {
 	
 	private String key="SeqNumber";
 	
-	private String field="TeaUnit,UnitID,Name,TeaID,PaperName,PaperType,FirstSubject,JonalName,JonalID,JonalTime,PaperWordNum,ConfirmLevel,JoinTeaNum,OtherJoinTeaInfo,Time,Note";
+	private String field="TeaUnit,UnitID,Name,TeaID,PaperName,PaperType,FirstSubject,JonalName,JonalID,JonalTime,PaperWordNum,ConfirmLevel,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillTeaID,FillUnitID,audit";
 
 	
 

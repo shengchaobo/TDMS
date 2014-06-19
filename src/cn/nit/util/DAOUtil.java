@@ -1,4 +1,4 @@
-﻿/* 
+/* 
  * @Title: DAOUtil.java
  * @Package cn.bjtu.util
  * @Description 

@@ -133,12 +133,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					 $(function () {
 				            $.messager.alert("操作提示", "还未有统计数据，请先录取数据再查看！");
 				        });
-				}else{
-					$('#SumSchFriNumSpan').html(data.sumSchFriNum);
-					$('#InlandNumSpan').html(data.inlandNum);
-					$('#OutlandNumSpan').html(data.outlandNum);
 				}
-				
+				$('#SumSchFriNumSpan').html(data.sumSchFriNum);
+				$('#InlandNumSpan').html(data.inlandNum);
+				$('#OutlandNumSpan').html(data.outlandNum);
 			}
 		});
 	

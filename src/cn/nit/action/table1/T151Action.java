@@ -116,7 +116,7 @@ public class T151Action {
 		String conditions = (String) getSession().getAttribute("auditingConditions") ;
 		String pages = t151Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
-//		System.out.println("pages："+pages);
+		System.out.println("pages："+pages);
 		
 		try{
 			getResponse().setContentType("text/html; charset=UTF-8") ;

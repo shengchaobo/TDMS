@@ -6,7 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +20,9 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T11Bean;
+import cn.nit.bean.table1.T151Bean;
+import cn.nit.dao.table1.T11DAO;
+import cn.nit.excel.imports.table1.T11Excel;
 
 import cn.nit.service.table1.T11Service;
 import cn.nit.util.ExcelUtil;
@@ -30,8 +37,15 @@ public class T11Action {
 	/**  表11的Service类  */
 	private T11Service t11Ser = new T11Service() ;
 	
+	/**  表11的dao类  */
+	private T11DAO t11Dao = new T11DAO() ;
+	
 	/**  表11的Bean实体类  */
 	private T11Bean t11Bean = new T11Bean() ;
+	
+	/**  表11的Excel实体类  */
+	private T11Excel t11Excel = new T11Excel() ;
+	
 	/** 接收年份*/
 	private String Year ;
 	
@@ -130,47 +144,48 @@ public class T11Action {
 			}
 		}
 	}
-	
-//	/**  根据数据的id删除数据  */
-//	public void deleteCoursesByIds(){
-//		System.out.println("ids=" + ids) ;
-//		boolean flag = t151Ser.deleteCoursesByIds(ids) ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			out = getResponse().getWriter() ;
+
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			
+			List<T11Bean> list=new ArrayList<T11Bean>(); 
+            Date time=new Date();
+            String time1=time.toString();
+            String year=time1.substring(time1.length()-4, time1.length());
+            list=t11Dao.forExcel(year);
+            inputStream = new ByteArrayInputStream(t11Excel.writeExcel(list).toByteArray());
+			
+//			List<T151Bean> list = t151Dao.totalList();
 //			
-//			if(flag){
-//				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
-//			}else{
-//				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
-//			}
+//			String sheetName = this.getExcelName();
 //			
-//			out.flush() ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
+//			List<String> columns = new ArrayList<String>();
+//			columns.add("序号");
+//			columns.add("科研机构名称");columns.add("单位号");columns.add("类别");columns.add("共建情况");
+//			columns.add("是否对本科生开放");columns.add("对本科生开放情况（500字以内）");columns.add("所属教学单位");columns.add("教学单位号");
+//			columns.add("开设年份");columns.add("专业科研用房面积（平方米）");columns.add("备注");
+//
+//			
+//			Map<String,Integer> maplist = new HashMap<String,Integer>();
+//			maplist.put("SeqNum", 0);
+//			maplist.put("ResInsName", 1);maplist.put("ResInsID", 2);maplist.put("Type", 3);maplist.put("BuildCondition", 4);
+//			maplist.put("BiOpen", 5);maplist.put("OpenCondition", 6);maplist.put("TeaUnit", 7);maplist.put("UnitID", 8);
+//			maplist.put("BeginYear", 9);maplist.put("HouseArea", 10);maplist.put("Note", 11);
+//			
+//			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+//			inputStream = new ByteArrayInputStream(t151Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
 	
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
-//
+
 	public String execute() throws Exception{
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;

@@ -150,6 +150,41 @@ public class T11DAO {
 		return list ;
 	}
 	
+	/**
+	 * @param conditions 查询条件
+	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
+	 * @return
+	 */
+	public List<T11Bean> forExcel(String year){
+		
+		StringBuffer sql = new StringBuffer() ;
+		List<T11Bean> list=null;
+        
+		sql.append("select * from "+ tableName);
+		sql.append(" where Time like '"+year+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+//		System.out.println(sql.toString());
+		
+		try{
+			st = conn.createStatement() ;
+//			ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY
+//			st.setMaxRows(1) ;
+			rs = st.executeQuery(sql.toString()) ;
+//			rs.absolute((page - 1) * rows) ;
+			list = DAOUtil.getList(rs, T11Bean.class) ;
+			
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}
+		return list ;
+	}
+	
+	
 	public boolean update(T11Bean t11Bean){
 		
 		boolean flag = false ;
@@ -220,7 +255,7 @@ public class T11DAO {
     public static void main(String arg[])
     {
     	T11DAO dao=new T11DAO();
-    	List<T11POJO> list=dao.auditingData("2014");
+    	List<T11Beam> list=dao.auditingData("2014");
     	System.out.println(list.size());
     }
 }

@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="resInsName" width=10>科研机构名称</th>
 				<th field="resInsID" width=10>单位号</th>
 				<th field="type" width=10>类别</th>
-				<th field="buildCondition" width=10 formatter="booleanstr">共建情况</th>
+				<th field="buildCondition" width=10>共建情况</th>
 				<th field="biOpen" width=10 formatter="booleanstr" >是否对本科生开放</th>
 				<th field="openCondition" width=10>对本科生开放情况（500字以内）</th>
 				<th field="teaUnit" width=10>所属教学单位</th>

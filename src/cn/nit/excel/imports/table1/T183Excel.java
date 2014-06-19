@@ -61,7 +61,7 @@ public class T183Excel {
 				    	return "第" + count + "行，合作机构名称不能为空" ;
 				    }
 				    if(CooperInsName.length()>100){
-				    	return "第" + count + "行，合作机构名称不能超过100字" ;
+				    	return "第" + count + "行，合作机构名称不能为空" ;
 				    }
 				    
 				    

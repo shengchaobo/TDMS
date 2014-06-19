@@ -225,13 +225,19 @@ public void auditingData(){
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T311_Bean getT181Bean() {
-		return postDocStaBean;
+
+
+	public T311_Service getPostDocStaSer() {
+		return postDocStaSer;
 	}
 
-	public void setT181Bean(T311_Bean postDocStaBean) {
-		this.postDocStaBean = postDocStaBean;
+
+
+	public void setPostDocStaSer(T311_Service postDocStaSer) {
+		this.postDocStaSer = postDocStaSer;
 	}
+
+
 
 	public void setSeqNum(int seqNum){
 		this.seqNum = seqNum ;

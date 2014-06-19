@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="DocAndGraSta" namespace="/pages/DocAndGraSta" extends="struts-default">
+		<!-- 添加博士硕士点 -->
+	    <action name="insert" class="cn.nit.action.table3.T312_Action" method="insert" />
+	    
+	     <action name="auditingData" class="cn.nit.action.table3.T312_Action" method="auditingData" />
+	     	     <!-- 编辑数据 -->
+	    <action name="edit" class="cn.nit.action.table3.T312_Action" method="edit" />
+	    
+	     <!-- 删除数据 -->
+	    <action name="deleteCoursesByIds" class="cn.nit.action.table3.T312_Action" method="deleteCoursesByIds" />
+	    
+	    	     <!-- 数据查询 -->
+	    <action name="singleSearch" class="cn.nit.action.table3.T312_Action" method="auditingConditions"/>
+	    
+	     
+	</package>
+</struts>
+

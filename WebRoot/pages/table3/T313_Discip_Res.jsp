@@ -63,15 +63,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="discipName" width=15>重点学科名称</th>
 				<th field="discipID" width=10>学科代码</th>
 				<th field="unitName" width=15>所属教学单位</th>
-				<th field="unitId" width=10>单位号</th>
+				<th field="unitID" width=10>单位号</th>
 				<th field="discipType" width=10>学科门类</th>
-				<th field="nationLevelOne" width=10>国家一级</th>
-				<th field="nationLevelTwo" width=10>国家二级</th>
-				<th field="nationLevelKey" width=20>国家重点（培育）</th>
-				<th field="provinceLevelOne" width=10">省部一级</th>
-				<th field="provinceLevelTwo" width=10>省部二级</th>
-				<th field="cityLevel" width=10>市级</th>
-				<th field="schLevel" width=10>校级</th>
+				<th field="nationLevelOne" width=10 formatter="booleanstr">国家一级</th>
+				<th field="nationLevelTwo" width=10 formatter="booleanstr">国家二级</th>
+				<th field="nationLevelKey" width=20 formatter="booleanstr">国家重点（培育）</th>
+				<th field="provinceLevelOne" width=10" formatter="booleanstr">省部一级</th>
+				<th field="provinceLevelTwo" width=10 formatter="booleanstr">省部二级</th>
+				<th field="cityLevel" width=10 formatter="booleanstr">市级</th>
+				<th field="schLevel" width=10 formatter="booleanstr">校级</th>
 				<th field="note" width=10>备注</th>
 				<th field="time" width=10 formatter="formattime">时间</th>
 			</tr>
@@ -84,10 +84,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+		 	<form id="auditing" method="post">
+			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
@@ -411,7 +413,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function singleSearch(){
 		   	 $('#auditing').form('submit',{
-		   		 url: 'pages/DocAndGraSta/singleSearch',
+		   		 url: 'pages/DiscipRes/singleSearch',
 		   		 type: "post",
 			     dataType: "json",
 		   		 success: function(result){
@@ -650,6 +652,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    //alert(time) ;
 			        return time;  
 			    }  
+			</script>
+			
+			<script type="text/javascript"> 
+		    function booleanstr(val) { 	 
+		    	if(val == null){
+					return null ;
+				}
+				var bo1=""+val;//吧boolean型转换成str类型再判断
+				var boo;
+				if( bo1 == "false") {
+					boo="否" ;
+				}else if (bo1 == "true"){
+
+					boo="是" ;
+				}
+				return boo;
+	        }  
 			</script>
 
 </html>

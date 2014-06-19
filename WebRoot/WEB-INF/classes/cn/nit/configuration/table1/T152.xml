@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="t152" namespace="/pages/T152" extends="struts-default">
+		<!-- 添加获奖 -->
+	    <action name="insert" class="cn.nit.action.table1.T152Action" method="insert" />
+	    <action name="auditingData" class="cn.nit.action.table1.T152Action" method="auditingData" />
+	    <action name="edit" class="cn.nit.action.table1.T152Action" method="edit" />
+	    <!-- 删除数据 -->
+	    <action name="deleteByIds" class="cn.nit.action.table1.T152Action" method="deleteCoursesByIds" />
+	</package>
+</struts>

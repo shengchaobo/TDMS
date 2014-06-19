@@ -6,20 +6,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
-<base href="<%=basePath%>">
-
-<title>My JSP 'table.jsp' starting page</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'T311.jsp' starting page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
 	<!--
-		<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
+
+<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
 	
@@ -53,45 +54,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/DiscipRes/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  style="width:100%px;height:250px" url="pages/JuniorMajInfo/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
 				<th field="seqNumber" width=10>序号</th>
-				<th field="discipName" width=15>重点学科名称</th>
-				<th field="discipID" width=10>学科代码</th>
-				<th field="unitName" width=15>所属教学单位</th>
+				<th field="teaUnit" width=10>教学单位</th>
 				<th field="unitID" width=10>单位号</th>
-				<th field="discipType" width=10>学科门类</th>
-				<th field="nationLevelOne" width=10 formatter="booleanstr">国家一级</th>
-				<th field="nationLevelTwo" width=10 formatter="booleanstr">国家二级</th>
-				<th field="nationLevelKey" width=20 formatter="booleanstr">国家重点（培育）</th>
-				<th field="provinceLevelOne" width=10" formatter="booleanstr">省部一级</th>
-				<th field="provinceLevelTwo" width=10 formatter="booleanstr">省部二级</th>
-				<th field="cityLevel" width=10>市级</th>
-				<th field="schLevel" width=10>校级</th>
+				<th field="majorName" width=10>专业名称</th>
+				<th field="majorID" width=10>专业代码</th>
+				<th field="majorFieldName" width=10>专业方向名称</th>
+				<th field="appvlSetTime" width=10 formatter="formattime">批准设置时间</th>
+				<th field="firstAdmisTime" width=10 formatter="formattime">首次招生时间</th>
+				<th field="majorYearLimit" width=10>修业年限</th>
+				<th field="isSepcialMajor" width=10 formatter="booleanstr">特色专业</th>
+				<th field="isKeyMajor" width=10 formatter="booleanstr">重点专业</th>
+				<th field="majorLeader" width=10>专业带头人姓名</th>
+				<th field="LIsFullTime" width=10 formatter="booleanstr">专业带头人是否专职</th>
+				<th field="majorChargeMan" width=10>专业负责人姓名</th>
+				<th field="CI sFullTime" width=10 formatter="booleanstr">专业负责人是否专职</th>
+				<th field="time" width=10 formatter="formattime">日期</th>
 				<th field="note" width=10>备注</th>
-				<th field="time" width=10 formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDiscip()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newJuniorMajInfo()">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editJuniorMajInfo()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
+
+		
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+		 	<form id="auditing" method="post">
+			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newCourse()">数据导出</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newJuniorMajInfo()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
@@ -99,188 +106,195 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		fitColumns="true" singleSelect="false">
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width=10>序号</th>
-				<th field="discipName" width=15>重点学科名称</th>
-				<th field="discipID" width=10>学科代码</th>
-				<th field="unitName" width=15>所属教学单位</th>
-				<th field="unitId" width=10>单位号</th>
-				<th field="discipType" width=10>学科门类</th>
-				<th field="nationLevelOne" width=10>国家一级</th>
-				<th field="nationLevelTwo" width=10>国家二级</th>
-				<th field="nationLevelKey" width=20>国家重点（培育）</th>
-				<th field="provinceLevelOne" width=10">省部一级</th>
-				<th field="provinceLevelTwo" width=10>省部二级</th>
-				<th field="cityLevel" width=10>市级</th>
-				<th field="schLevel" width=10>校级</th>
-				<th field="note" width=10>备注</th>
+				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
+				<th field="SeqNumber" width=10>序号</th>
+				<th field="TeaUnit" width=10>教学单位</th>
+				<th field="UnitID" width=10>单位号</th>
+				<th field="MajorName" width=10>专业名称</th>
+				<th field="MajorID" width=10>专业代码</th>
+				<th field="MajorFieldName" width=10>专业方向名称</th>
+				<th field="AppvlSetTime" width=10 formatter="formattime">批准设置时间</th>
+				<th field="FirstAdmisTime" width=10 formatter="formattime">首次招生时间</th>
+				<th field="MajorYearLimit" width=10>修业年限</th>
+				<th field="IsSepcialMajor" width=10>特色专业</th>
+				<th field="IsKeyMajor" width=10>重点专业</th>
+				<th field="MajorLeader" width=10>专业带头人姓名</th>
+				<th field="LIsFullTime" width=10>专业带头人是否专职</th>
+				<th field="MajorChargeMan" width=10>专业负责人姓名</th>
+				<th field="CIsFullTime" width=10>专业负责人是否专职</th>
+				<th field="Time" width=10 formatter="formattime">日期</th>
+				<th field="Note" width=10>备注</th>
 			</tr>
 		</thead>
 	</table>
-	<div id="dlg" class="easyui-dialog"
+<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">重点学科库批量导入</div>
+		<div class="ftitle">专科专业批量导入</div>
 		<div class="fitem">
 			<form method="post">
 				<label>批量上传：</label> 
 				<input type="file" name="fileToUpload" id="fileToUpload" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="table3/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href="table5/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
 		<div></div>
-		<div class="ftitle">重点学科库逐条导入</div>
+		<div class="ftitle">专科专业逐条导入</div>
 		
-		<form id="discipForm" method="post">
+		<form id="juniorMajInfoForm" method="post">
 		<table>
 			<tr>
-				<td>
+			<td>
 					<div class="fitem">
-						<label>重点学科名称：</label> 
-						<input id="SeqNumber" name="discipBean.SeqNumber" type="hidden" > </input>
-						<input id="DiscipName" type="text" name="discipBean.DiscipName"
-							class="easyui-validatebox" required="true"><span id="DiscipNameSpan"></span>
-					</div>
-				</td>
-				<td>
-					<div class="fitem">
-						<label>学科代码：</label> 
-						<input id="DiscipID" type="text" name="discipBean.DiscipID"
-							class="easyui-validatebox" required="true"><span id="DiscipIDSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="fitem">
-						<label>所属单位：</label> 
-						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
-						<input type="hidden" name="discipBean.UnitName" id="UnitName"/>
-						<input id="UnitID" type="text" name="discipBean.UnitID" 
+						<label>教学单位：</label> 
+						<input id="seqNumber" name="t33_Bean.SeqNumber" type="hidden" > </input>
+						<input type="hidden" name="t33_Bean.TeaUnit" id="TeaUnit"/>
+						<input id="UnitID" type="text" name="t33_Bean.UnitID" 
 							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							 onSelect:function(){
-							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
+							 	document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">
-						<span id="UnitNameSpan"></span>
+						<span id="TeaUnitSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
-						<label>学科门类：</label> 
-						<select class='easyui-combobox' id="DiscipType" name="discipBean.DiscipType">
-							<option value="01哲学">01哲学</option>
-							<option value="02经济学">02经济学</option>
-							<option value="03法学">03法学</option>
-							<option value="04教育学">04教育学</option>
-							<option value="05文学">05文学</option>
-							<option value="06历史学">06历史学</option>
-							<option value="07理学">07理学</option>
-							<option value="08工学">08工学</option>
-							<option value="09农学">09农学</option>
-							<option value="10医学">10医学</option>
-							<option value="11军事学">11军事学</option>
-							<option value="12管理学">12管理学</option>
-							<option value="13艺术学">13艺术学</option>
-						</select>
-						<span id="DiscipTypeSpan"></span>
+						<label>专业名称：</label> 
+						<input type="hidden" name="t33_Bean.MajorName" id="MajorName"/>
+						<input id="MajorID" type="text" name="t33_Bean.MajorID" 
+							 class='easyui-combobox' data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorOne/loadDiMajorOne',listHeight:'auto',editable:false,
+							 onSelect:function(){
+							 	document.getElementById('MajorName').value=$(this).combobox('getText') ;
+							 }">
+						<span id="MajorNameSpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
 			<td>
 					<div class="fitem">
-						<label>国家一级：</label> 
-						<select class='easyui-combobox' id="NationLevelOne" name="discipBean.NationLevelOne">
+						<label>专业方向名称：</label> 
+						<input id="MajorFieldName" type="text" name="t33_Bean.MajorFieldName"
+							class="easyui-validatebox" ><span id="MajorFieldNameSpan"></span>
+					</div>
+				</td>
+				<td>
+					<div class="fitem">
+						<label>批准设置时间：</label> 
+						<input id="AppvlSetTime" name="t33_Bean.AppvlSetTime"
+							class="easyui-datebox" editable="false" style="width:80px">
+							<span id="AppvlSetTimeSpan"></span>
+					</div>
+				</td>
+				
+			</tr>
+			
+		<tr>
+			<td>
+					<div class="fitem">
+						<label>首次招生时间：</label> 
+						<input id="FirstAdmisTime" name="t33_Bean.FirstAdmisTime"
+							class="easyui-datebox" editable="false" style="width:80px">
+							<span id="FirstAdmisTimeSpan"></span>
+					</div>
+				</td>
+				<td>
+					<div class="fitem">
+						<label>修业年限：</label> 
+						<input id="MajorYearLimit" type="text" name="t33_Bean.MajorYearLimit"
+							class="easyui-validatebox" ><span id="MajorYearLimitSpan"></span>
+					</div>
+				</td>
+				
+			</tr>
+			<tr>
+			<td>
+					<div class="fitem">
+						<label>是否特色专业：</label> 
+						<select class='easyui-combobox' id="IsSepcialMajor" name="t33_Bean.IsSepcialMajor">
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
-						<span id="NationLevelOneSpan"></span>
+						<span id="IsSepcialMajorSpan"></span>
 					</div>
 				</td>
 			<td>
 					<div class="fitem">
-						<label>国家二级：</label> 
-						<select class='easyui-combobox' id="NationLevelTwo" name="discipBean.NationLevelTwo">
+						<label>是否重点专业：</label> 
+						<select class='easyui-combobox' id="IsKeyMajor" name="t33_Bean.IsKeyMajor">
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
-						<span id="NationLevelTwoSpan"></span>
+						<span id="IsKeyMajorSpan"></span>
 					</div>
 				</td>
 				</tr>
-				<tr>
-							<td>
-					<div class="fitem">
-						<label>国家重点：</label> 
-						<select class='easyui-combobox' id="NationLevelKey" name="discipBean.NationLevelKey">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="NationLevelKeySpan"></span>
-					</div>
-				</td>
-			</tr>
 			<tr>
+				<td>
+					<div class="fitem">
+						<label>专业带头人姓名：</label> 
+						<input id="MajorLeader" type="text" name="t33_Bean.MajorLeader"
+							class="easyui-validatebox" ><span id="MajorLeaderSpan"></span>
+					</div>
+				</td>	
+				<td>
+					<div class="fitem">
+						<label>专业带头人是否专职：</label> 
+						<select class='easyui-combobox' id="LIsFullTime" name="t33_Bean.LIsFullTime">
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>
+						<span id="LIsFullTimeSpan"></span>
+					</div>
+				</td>			
+				</tr>
 
-			<td>
-					<div class="fitem">
-						<label>省部一级：</label> 
-						<select class='easyui-combobox' id="ProvinceLevelOne" name="discipBean.ProvinceLevelOne">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="ProvinceLevelOneSpan"></span>
-					</div>
-				</td>
-							<td>
-					<div class="fitem">
-						<label>省部二级：</label> 
-						<select class='easyui-combobox' id="ProvinceLevelTwo" name="discipBean.ProvinceLevelTwo">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="ProvinceLevelTwoSpan"></span>
-					</div>
-				</td>
-			</tr>
 			<tr>
-
-			<td>
+				<td>
 					<div class="fitem">
-						<label>市级：</label> 
-						<select class='easyui-combobox' id="CityLevel" name="discipBean.CityLevel">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="CityLevelSpan"></span>
+						<label>专业负责人姓名：</label> 
+						<input id="MajorChargeMan" type="text" name="t33_Bean.MajorChargeMan"
+							class="easyui-validatebox" ><span id="MajorChargeManSpan"></span>
 					</div>
-				</td>
-								<td>
+				</td>	
+				<td>
 					<div class="fitem">
-						<label>校级：</label> 
-						<select class='easyui-combobox' id="SchLevel" name="discipBean.SchLevel">
-							<option value="false">否</option>
+						<label>专业负责人是否专职：</label> 
+						<select class='easyui-combobox' id="CIsFullTime" name="t33_Bean.CIsFullTime">
 							<option value="true">是</option>
+							<option value="false">否</option>
 						</select>
-						<span id="SchLevelSpan"></span>
+						<span id="CIsFullTimeSpan"></span>
 					</div>
-				</td>
-			</tr>
+				</td>			
+				</tr>
 
-			
+
 			<tr>
-
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-					<textarea id="Note" name="discipBean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="t33_Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>
 		</table>
 		</form>
 	</div>
+	
+		
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
 		<div class="ftitle">高级检索</div>
@@ -299,6 +313,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	    var url;
+
+
+		function singleSearch(){
+		   	 $('#auditing').form('submit',{
+		   		 url: 'pages/JuniorMajInfo/singleSearch',
+		   		 type: "post",
+			     dataType: "json",
+		   		 success: function(result){
+		   		 	var result = eval('('+result+')');
+		   		 	if (!result.state){
+		   		 		$.messager.show({
+		   		 			title: 'Error',
+		   		 			msg: result.errorMsg
+		   			 });
+		   		 	} else {
+				    	$('#unverfiedData').datagrid('load'); // reload the auditing data
+		   		 	}
+		   		 }
+		   		 });
+		   }
+
+	    
+	    function fillSelect(){ 
+            var obj=document.getElementById( "SetTime"); 
+            debugger;
+             for(var i=1952;i <=2014;i++){ 
+            var op=new Option(i,i); 
+           obj.add(op); 
+               } 
+              } 
+              
+              
 	    function batchImport(){
 	    	 $('#fm').form('submit',{
 	    		 url: url,
@@ -320,23 +366,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 });
 	    }
 	    
-	    function newCourse(){
-		    $('#dlg').dialog('open').dialog('setTitle','添加重点学科库');
-		    $('#discipForm').form('reset');
+	    function newJuniorMajInfo(){
+		    $('#dlg').dialog('open').dialog('setTitle','添加专科专业');
+		    $('#juniorMajInfoForm').form('reset');
 	    }
 
-
 	    function singleImport(){
-	
 		    //录入数据的表单提交
-	    	 $('#discipForm').form('submit',{
-				    url: 'pages/DiscipRes/insert',
-				    data: $('#discipForm').serialize(),
+	    	 $('#juniorMajInfoForm').form('submit',{
+				    url: 'pages/JuniorMajInfo/insert',
+				    data: $('#juniorMajInfoForm').serialize(),
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
 				    	return validate();
-				    
 				    },
 				    //结果返回
 				    success: function(result){
@@ -349,56 +392,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    }
 				    }
 			    });
-		
 		}
-		
 
 		function validate(){
 			//获取文本框的值
-			var DiscipName = $('#DiscipName').val() ;
-			var DiscipID = $('#DiscipID').val() ;
-			var UnitName = $('#UnitID').combobox('getText') ;
-			var DiscipType = $('#DiscipType').combobox('getText') ;
-			var NationLevelOne = $('#NationLevelOne').combobox('getText') ;
-			var NationLevelTwo = $('#NationLevelTwo').combobox('getText') ;
-			var NationLevelKey = $('#NationLevelKey').combobox('getText') ;
-			var ProvinceLevelOne = $('#ProvinceLevelOne').combobox('getText') ;
-			var ProvinceLevelTwo = $('#ProvinceLevelTwo').combobox('getText') ;
-			var CityLevel = $('#CityLevel').combobox('getText') ;
-			var SchLevel = $('#SchLevel').combobox('getText') ;
+			var TeaUnit =$('#UnitID').combobox('getText')  ;
+			var MajorName = $('#MajorID').combobox('getText') ;
 			var Note = $('#Note').val() ;
-			//根据数据库定义的字段的长度，对其进行判断
-			if(DiscipName == null || DiscipName.length==0 || DiscipName.length > 100){
-				$('#DiscipName').focus();
-				$('#DiscipName').select();
-				$('#DiscipNameSpan').html("<font style=\"color:red\">学科名称不能为空或长度不超过100</font>") ;
+	
+			
+			if(TeaUnit == null || TeaUnit.length == 0){
+				$('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空</font>") ;
 				return false ;
 			}else{
-				$('#DiscipNameSpan').html("") ;
+				$('#TeaUnitSpan').html("") ;
 			}
 			
-			if(DiscipID == null || DiscipID.length == 0 || DiscipID.length > 50){
-				$('#DiscipID').focus();
-				$('#DiscipID').select();
-				$('#DiscipIDSpan').html("<font style=\"color:red\">学科编号不能为空或长度不超过50</font>") ;
+			if(MajorName == null || MajorName.length == 0){
+				$('#MajorNameSpan').html("<font style=\"color:red\">教学单位不能为空</font>") ;
 				return false ;
 			}else{
-				$('#DiscipIDSpan').html("") ;
+				$('#MajorNameSpan').html("") ;
 			}
+	
 			
-			if(UnitName == null || UnitName.length == 0){
-				$('#UnitNameSpan').html("<font style=\"color:red\">开课单位不能为空</font>") ;
-				return false ;
-			}else{
-				$('#UnitNameSpan').html("") ;
-			}
-			
-			if(DiscipType == null || DiscipType.length == 0){
-				$('#DiscipTypeSpan').html("<font style=\"color:red\">学科门类不能为空</font>") ;
-				return false ;
-			}else{
-				$('#DiscipTypeSpan').html("") ;
-			}
+
 			
 			if(Note !=null && Note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
@@ -408,53 +426,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			return true ;
 		}
-
-		function singleSearch(){
-		   	 $('#auditing').form('submit',{
-		   		 url: 'pages/DocAndGraSta/singleSearch',
-		   		 type: "post",
-			     dataType: "json",
-		   		 success: function(result){
-		   		 	var result = eval('('+result+')');
-		   		 	if (!result.state){
-		   		 		$.messager.show({
-		   		 			title: 'Error',
-		   		 			msg: result.errorMsg
-		   			 });
-		   		 	} else {
-				    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-		   		 	}
-		   		 }
-		   		 });
-		   }
-
-	    function editDiscip(){
-	    	var row = $('#unverfiedData').datagrid('getSelections');
-	    	
-	    	if(row.length != 1){
-	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
-	    		return ;
-	    	}
-	    	
-	    	url = 'pages/DiscipRes/edit' ;
-	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加重点学科');
-	    	$('#SeqNumber').val(row[0].seqNumber) ;
-	        $('#DiscipName').val(row[0].discipName);
-	        $('#DiscipID').val(row[0].discipID);
-	        $('#UnitID').combobox('select',row[0].unitID) ;
-	        $('#DiscipType').combobox('select',row[0].discipType);
-	        $('#NationLevelOne').combobox('select',row[0].nationLevelOne);
-	        $('#NationLevelTwo').combobox('select',row[0].nationLevelTwo);
-	        $('#NationLevelKey').combobox('select',row[0].nationLevelKey);
-	        $('#ProvinceLevelOne').combobox('select',row[0].provinceLevelOne);
-	        $('#ProvinceLevelTwo').combobox('select',row[0].provinceLevelTwo);
-	        $('#CityLevel').combobox('select',row[0].cityLevel);
-	        $('#SchLevel').combobox('select',row[0].schLevel);
-
-			$('#Note').val(row[0].note);
-		
-	    }
 
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');
@@ -502,16 +473,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 		}
 				 	}
 				 	
-				 	deleteDiscip(ids) ;
+				 	deletePostDocSta(ids) ;
 				 	
 				 }
 			});
 	    }
 
-	    function deleteDiscip(ids){
+	    function deletePostDocSta(ids){
 	    	$.ajax({ 
 	    		type: "POST", 
-	    		url: "pages/DiscipRes/deleteCoursesByIds?ids=" + ids, 
+	    		url: "pages/JuniorMajInfo/deleteCoursesByIds?ids=" + ids, 
 	    		async:"true",
 	    		dataType: "text",
 	    		success: function(result){
@@ -523,6 +494,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 	    		}
 	    	}).submit();
+	    }
+
+	    function editJuniorMajInfo(){
+	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+	    	if(row.length != 1){
+	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+	    	url = 'pages/JuniorMajInfo/edit' ;
+	    	
+	    	$('#dlg').dialog('open').dialog('setTitle','添加专科专业');
+	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#UnitID').combobox('select',row[0].unitID) ;
+	    	$('#MajorID').combobox('select',row[0].majorID) ;
+	    	$('#MajorFieldName').val(row[0].majorFieldName) ;	
+	    	$('#AppvlSetTime').datebox('setValue',formattime(row[0].appvlSetTime)) ;
+	    	$('#FirstAdmisTime').datebox('setValue',formattime(row[0].firstAdmisTime)) ;	 	    	    	
+	        $('#MajorYearLimit').val(row[0].majorYearLimit);
+	    	$('#IsSepcialMajor').combobox('select',row[0].isSepcialMajor) ;
+	    	$('#IsKeyMajor').combobox('select',row[0].isKeyMajor) ;	   
+			$('#MajorLeader').val(row[0].majorLeader);
+	    	$('#LIsFullTime').combobox('select',row[0].LIsFullTime) ;					     
+			$('#MajorChargeMan').val(row[0].majorChargeMan);
+	    	$('#CIsFullTime').combobox('select',row[0].CIsFullTime) ;		
+			$('#Note').val(row[0].note);
+	
 	    }
 	    
 	    
@@ -559,9 +558,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    	
 	    function loadData(){
-	 
-	    	//flag判断
 	    	
+	    	//flag判断
 	    	var flag = false ;
 	    	var checkboxes = document.getElementsByName("checkboxex");
 	    	var tables = "<div class=\"ftitle\">自定义查询条件</div><form method=\"post\" action=\"table5/dictorySearch\" id=\"dicsDataForm\"><table width=\"100%\" border=\"1\">" ;
@@ -652,6 +650,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    }  
 			</script>
 			
+						
 			<script type="text/javascript"> 
 		    function booleanstr(val) { 	 
 		    	if(val == null){
@@ -670,3 +669,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</script>
 
 </html>
+

@@ -1,30 +1,35 @@
 package cn.nit.dao.table3;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
 
+import sun.security.krb5.internal.UDPClient;
 
 
-import cn.nit.bean.table3.T321_Bean;
+
+import cn.nit.bean.table3.T33_Bean;
 import cn.nit.dbconnection.DBConnection;
 
-import cn.nit.pojo.table3.T321POJO;
+
+import cn.nit.pojo.table3.T33POJO;
 import cn.nit.util.DAOUtil;
 
-public class T321_DAO {
+public class T33_DAO {
 	
+	//"SeqNumber,PostDocStaName,SetTime,ResearcherNum,UnitName,UnitID,Time,Note"
+
 	/**  数据库表名  */
-	private String tableName = "T321_MainTrainBasicInfo_Tea$" ;
+	private String tableName = "T33_JuniorMajInfo_Tea$" ;
 	
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "MainClassName,MainClassID,ByPassTime,MajorNameInSch,MajorID,UnitName,UnitID,Time,Note" ;
+	private String field = "TeaUnit,UnitID,MajorName,MajorID,MajorFieldName,AppvlSetTime,FirstAdmisTime," +
+			"MajorYearLimit,IsSepcialMajor,IsKeyMajor,MajorLeader,LIsFullTime,MajorChargeMan,CIsFullTime,Time,Note" ;
 	
 	/**
 	 * 将数据表311的实体类插入数据库
@@ -33,37 +38,13 @@ public class T321_DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	
-	
-//	public int getNumofMainTrain(String UnitID){
-//		
-//		int num=0;
-//		Connection conn = DBConnection.instance.getConnection() ;
-//		try{
-//			DatabaseMetaData metadata=conn.getMetaData();
-//			ResultSet rs=metadata.getColumns(null,null,null,null);
-//			while(rs.next()){
-//				if("(rs.getArray(8))"== UnitID){
-//					num++;
-//				}
-//				
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//		}finally{
-//			DBConnection.close(conn) ;
-//		}
-//		return num;
-//		
-//	}
-
-	public boolean insert(T321_Bean t321_Bean){
+	public boolean insert(T33_Bean postDocStaBean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			flag = DAOUtil.insert(t321_Bean, tableName, field, conn) ;
+			flag = DAOUtil.insert(postDocStaBean, tableName, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -73,12 +54,13 @@ public class T321_DAO {
 		return flag ;
 	}
 	
+	
 	/**
 	 * 讲数据批量插入T311表中
 	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table5.T311_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T321_Bean> list){
+	public boolean batchInsert(List<T33_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -104,8 +86,8 @@ public class T321_DAO {
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
 //		sql.append(" from "+ tableName);
-		sql.append(" from " + tableName + " as t,DiDepartment dpt ") ;
-		sql.append(" where dpt.UnitID=t.UnitID ");		
+		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorOne dmo ") ;
+		sql.append(" where dpt.UnitID=t.UnitID and dmo.MajorNum=t.MajorID");		
 		int total = 0 ;
 
 //		System.out.println(sql.toString());
@@ -141,15 +123,14 @@ public class T321_DAO {
 	}
 	
 	
-	public List<T321POJO> auditingData(String conditions, String fillDept, int page, int rows){
+	public List<T33POJO> auditingData(String conditions, String fillDept, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T321POJO> list =null ;
-		sql.append("select t.SeqNumber,t.DiscipName,t.DiscipID,t.UnitName," +
-				"t.UnitID,t.DiscipType,t.NationLevelOne,t.NationLevelTwo,t.NationLevelKey,t.ProvinceLevelOne,"+
-				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
-		sql.append(" where   dpt.UnitID=t.UnitID" );
+		List<T33POJO> list =null ;
+		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,dmo.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorFieldName,t.AppvlSetTime,t.FirstAdmisTime," +
+			"t.MajorYearLimit,t.IsSepcialMajor,t.IsKeyMajor,t.MajorLeader,t.LIsFullTime,t.MajorChargeMan,t.CIsFullTime,t.Time,t.Note");
+		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiMajorOne dmo ");
+		sql.append(" where dpt.UnitID=t.UnitID and dmo.MajorNum=t.MajorID" );
 //		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
 //		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
 //		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
@@ -164,7 +145,7 @@ public class T321_DAO {
 			sql.append(conditions) ;
 		}
 		
-		sql.append(" order by SeqNumber desc") ;
+		sql.append(" order by UnitID asc") ;
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -176,7 +157,7 @@ public class T321_DAO {
 			st.setMaxRows(page * rows) ;
 			rs = st.executeQuery(sql.toString()) ;
 			rs.absolute((page - 1) * rows) ;//将光标移动到此 ResultSet 对象的给定行编号
-			list = DAOUtil.getList(rs, T321POJO.class) ;
+			list = DAOUtil.getList(rs, T33POJO.class) ;
 		
 			
 		}catch(Exception e){
@@ -189,12 +170,12 @@ public class T321_DAO {
 	
 	
 	
-	public boolean update(T321_Bean t321_Bean){
+	public boolean update(T33_Bean t33_Bean){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			flag = DAOUtil.update(t321_Bean, tableName, key, field, conn) ;
+			flag = DAOUtil.update(t33_Bean, tableName, key, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -229,14 +210,23 @@ public class T321_DAO {
 	}
 	
 	
-	public String getTableName(){
-		return this.tableName ;
-	}
 
 	
 	public static void main(String args[]){
 		
-
+//		T311_DAO t311Dao = new T311_DAO() ;
+//		T311_Bean t33_Bean = new T311_Bean() ;
+//		t33_Bean.setSeqNumber(18) ;
+//		t33_Bean.setTime(new java.util.Date()) ;
+//
+//		System.out.println(t311Dao.update(t33_Bean)) ;
+		
+		
 	}
+	
+	public String getTableName(){
+		return this.tableName ;
+	}
+
 
 }

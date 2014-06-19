@@ -12,17 +12,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table3.T322_Bean;
+import cn.nit.bean.table3.T33_Bean;
 
 
-import cn.nit.service.table3.T322_Service;
+import cn.nit.service.table3.T33_Service;
 import cn.nit.util.ExcelUtil;
 
-public class T322_Action {
+public class T33_Action {
 	
-private T322_Service t322_Service = new T322_Service() ;
+private T33_Service t33_Service = new T33_Service() ;
 	
-	private T322_Bean t322_Bean = new T322_Bean() ;
+	private T33_Bean t33_Bean = new T33_Bean() ;
 	
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
@@ -44,11 +44,11 @@ private T322_Service t322_Service = new T322_Service() ;
 	
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t322_Bean.setTime(new Date()) ;
+		t33_Bean.setTime(new Date()) ;
 		//这还没确定,设置填报者的职工号与部门号
 		//UserInfo userinfo = (UserInfo)getSession().getAttribute("userinfo") ;
 		//undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
-		boolean flag = t322_Service.insert(t322_Bean) ;
+		boolean flag = t33_Service.insert(t33_Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -73,18 +73,44 @@ private T322_Service t322_Service = new T322_Service() ;
 
 
 	
-	public T311_Bean gett322_Bean() {
-		return t322_Bean;
+
+	
+	public T33_Service getT33_Service() {
+		return t33_Service;
 	}
 
-	public void sett322_Bean(T311_Bean t322_Bean) {
-		this.t322_Bean = t322_Bean;
+
+
+
+
+	public void setT33_Service(T33_Service t33Service) {
+		t33_Service = t33Service;
 	}
-	
+
+
+
+
+
+	public T33_Bean getT33_Bean() {
+		return t33_Bean;
+	}
+
+
+
+
+
+	public void setT33_Bean(T33_Bean t33Bean) {
+		t33_Bean = t33Bean;
+	}
+
+
+
+
+
 	/**  为界面加载数据  */
 public void auditingData(){
 		
-//		System.out.println("輸出輸出輸出");
+ 	System.out.println("愁死我得了");
 		
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 			return ;
@@ -95,7 +121,7 @@ public void auditingData(){
 		}
 		
 		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t322_Service.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String pages = t33_Service.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -115,7 +141,7 @@ public void auditingData(){
 	/**  生成查询条件  （查询数据） */
 	public void auditingConditions(){
 		
-		String sqlConditions = t322_Service.gernateAuditingConditions(seqNum, startTime, endTime) ;
+		String sqlConditions = t33_Service.gernateAuditingConditions(seqNum, startTime, endTime) ;
 		getSession().setAttribute("auditingConditions", sqlConditions) ;
 		PrintWriter out = null ;
 		
@@ -137,9 +163,9 @@ public void auditingData(){
 	public void edit(){
 
 //		System.out.println("插入数据");
-		t322_Bean.setTime(new Date());
+		t33_Bean.setTime(new Date());
 
-		boolean flag = t322_Service.update(t322_Bean) ;
+		boolean flag = t33_Service.update(t33_Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -163,7 +189,7 @@ public void auditingData(){
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
-		boolean flag = t322_Service.deleteCoursesByIds(ids) ;
+		boolean flag = t33_Service.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -222,18 +248,25 @@ public void auditingData(){
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T311_Bean getT181Bean() {
-		return t322_Bean;
-	}
 
-	public void setT181Bean(T311_Bean t322_Bean) {
-		this.t322_Bean = t322_Bean;
-	}
 
-	public void setSeqNum(int seqNum){
-		this.seqNum = seqNum ;
-	}
 	
+	public int getSeqNum() {
+		return seqNum;
+	}
+
+
+
+
+
+	public void setSeqNum(int seqNum) {
+		this.seqNum = seqNum;
+	}
+
+
+
+
+
 	public void setStartTime(Date startTime){
 		this.startTime = startTime ;
 	}
@@ -250,6 +283,46 @@ public void auditingData(){
 		this.page = page ;
 	}
 	
+	public Date getStartTime() {
+		return startTime;
+	}
+
+
+
+
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+
+
+
+
+	public String getIds() {
+		return ids;
+	}
+
+
+
+
+
+	public String getPage() {
+		return page;
+	}
+
+
+
+
+
+	public String getRows() {
+		return rows;
+	}
+
+
+
+
+
 	public void setRows(String rows){
 		this.rows = rows ;
 	}

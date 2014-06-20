@@ -97,7 +97,7 @@ public class UndergraCSBaseTeaService {
 		}
 		
 		if(endTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+			sql.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 					+ TimeUtil.changeFormat4(endTime) + "')as datetime)") ;
 		}
 		

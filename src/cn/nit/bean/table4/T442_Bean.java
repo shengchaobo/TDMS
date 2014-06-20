@@ -14,11 +14,11 @@ import javax.persistence.TemporalType;
 /**
  * T442GraTutorInfoGra entity. @author MyEclipse Persistence Tools
  */
-@Entity
 @Table(name = "T442_GraTutorInfo_Gra$", schema = "dbo", catalog = "TDMS")
 public class T442_Bean implements java.io.Serializable {
 
 	// Fields
+	private int SeqNumber;
 	private String tutorName;
 	private String teaId;
 	private String tutorType;
@@ -125,6 +125,14 @@ public class T442_Bean implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

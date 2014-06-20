@@ -1,4 +1,4 @@
-/* 
+﻿/* 
  * @Title: DAOUtil.java
  * @Package cn.bjtu.util
  * @Description 
@@ -319,6 +319,7 @@ public class DAOUtil {
 					//System.out.println((String) wrapper.getPropertyValue(vField));
 					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;					
 				}else if(type.endsWith("int") || type.endsWith("Integer")){
+					//System.out.println((Integer) wrapper.getPropertyValue(vField));
 					pst.setInt(j + 1, (Integer) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("Date")){
 					
@@ -339,7 +340,7 @@ public class DAOUtil {
 
 				}
 			}
-//			System.out.println(sql.toString()) ;
+			//System.out.println(sql.toString()) ;
 			flag = pst.executeUpdate() ;
 			//System.out.println(flag);
 		}catch(Exception e){

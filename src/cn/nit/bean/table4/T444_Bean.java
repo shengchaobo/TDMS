@@ -14,11 +14,11 @@ import javax.persistence.TemporalType;
 /**
  * T444HighLevelResTeamRes entity. @author MyEclipse Persistence Tools
  */
-@Entity
 @Table(name = "T444_HighLevelResTeam_Res$", schema = "dbo", catalog = "TDMS")
 public class T444_Bean implements java.io.Serializable {
 
 	// Fields
+	private int SeqNumber;
 	private String resField;
 	private String type;
 	private Date gainTime;
@@ -108,6 +108,14 @@ public class T444_Bean implements java.io.Serializable {
 
 	public String getTeaId() {
 		return teaId;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

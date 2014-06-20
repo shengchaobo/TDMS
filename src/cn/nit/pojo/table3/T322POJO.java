@@ -3,7 +3,8 @@ package cn.nit.pojo.table3;
 import java.util.Date;
 
 public class T322POJO {
-private int SeqNumber;
+	
+    private int SeqNumber;
 	
 	private String MajorName ;
 	
@@ -474,7 +475,5 @@ private int SeqNumber;
 	public void setNote(String Note){
 		this.Note=Note;
 	}
-
-
 
 }

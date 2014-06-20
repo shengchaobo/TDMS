@@ -12,15 +12,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
+
 import cn.nit.bean.table3.T322_Bean;
 
-
-import cn.nit.service.table3.T322_Service;
 import cn.nit.util.ExcelUtil;
 
 public class T322_Action {
+	private T322_Service t322_Service = new T322_Service() ;
 	
-private T322_Service t322_Service = new T322_Service() ;
 	
 	private T322_Bean t322_Bean = new T322_Bean() ;
 	
@@ -73,11 +72,11 @@ private T322_Service t322_Service = new T322_Service() ;
 
 
 	
-	public T311_Bean gett322_Bean() {
+	public T322_Bean gett322_Bean() {
 		return t322_Bean;
 	}
 
-	public void sett322_Bean(T311_Bean t322_Bean) {
+	public void sett322_Bean(T322_Bean t322_Bean) {
 		this.t322_Bean = t322_Bean;
 	}
 	
@@ -222,13 +221,35 @@ public void auditingData(){
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T311_Bean getT181Bean() {
+
+
+
+
+
+
+	public T322_Service getT322_Service() {
+		return t322_Service;
+	}
+
+
+
+	public void setT322_Service(T322_Service t322Service) {
+		t322_Service = t322Service;
+	}
+
+
+
+	public T322_Bean getT322_Bean() {
 		return t322_Bean;
 	}
 
-	public void setT181Bean(T311_Bean t322_Bean) {
-		this.t322_Bean = t322_Bean;
+
+
+	public void setT322_Bean(T322_Bean t322Bean) {
+		t322_Bean = t322Bean;
 	}
+
+
 
 	public void setSeqNum(int seqNum){
 		this.seqNum = seqNum ;

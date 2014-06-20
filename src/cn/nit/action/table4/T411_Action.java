@@ -45,6 +45,8 @@ public class T411_Action {
 	
 	private String excelName; //excel导出名字
 	
+	private String queryword; //查询字段
+	
 
 	private T411_Service T411_services = new T411_Service();
 	
@@ -53,8 +55,8 @@ public class T411_Action {
 	private T411_Dao T411_dao = new T411_Dao();
 	
 
-
 	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	
 	//查询出所有教师信息
@@ -63,9 +65,12 @@ public class T411_Action {
 		HttpServletResponse response = ServletActionContext.getResponse() ;	
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		
-		String cond = (String)session.getAttribute("Conditions");
-		
-		//System.out.println(cond);
+		//String cond = (String)session.getAttribute("Conditions");
+		String cond = null;
+		if(this.getSearchID()!= null){
+			cond = " and TeaId LIKE '" + this.getSearchID() + "%'";
+			System.out.println(cond);
+		}
 		
 		List<T411_Bean> list = T411_services.getPageTeaInfoList(cond,null,this.getRows(),this.getPage()) ;
 		String TeaInfoJson = this.toBeJson(list,T411_services.getTotal(cond,null));
@@ -161,38 +166,6 @@ public class T411_Action {
 		out.flush() ;
 	}
 	
-	//生成查询条件，本质是生成查询条件
-	public void singleSearch(){
-		
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		HttpServletResponse response = ServletActionContext.getResponse();
-		
-		String conditions = null;
-		
-		if(this.getSearchID() == null || this.getSearchID().equals("")){
-			conditions = null;
-		}else{
-			conditions = " and TeaId LIKE '" + this.getSearchID() + "%'";
-		}
-		
-		session.setAttribute("Conditions", conditions) ;
-		
-		PrintWriter out = null ;
-		
-		try{
-			out = response.getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
-	
 	/**  编辑数据  */
 	public void edit(){
 
@@ -219,14 +192,17 @@ public class T411_Action {
 	}
 	
 	
-	public InputStream getInputStream(){
+	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
-
+		
 		try {
+/*			response.reset();
+			response.addHeader("Content-Disposition", "attachment;fileName="
+                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T411_Bean> list = T411_dao.totalList();
-			
+						
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
@@ -261,46 +237,18 @@ public class T411_Action {
 	}
 	
 	public String execute() throws Exception{
-
-		response.setContentType("application/octet-stream;charset=UTF-8") ;
+		request.setCharacterEncoding("UTF-8") ;
+		System.out.println("excelName=============" + excelName) ;
 		return "success" ;
 	}
-
-	
-	
-/*	*//**  根据数据的id删除数据  *//*
-	public void deleteByIds(){
-		System.out.println("ids=" + this.getIds()) ;
-		boolean flag = T411_services.deleteByIds(ids) ;
-		PrintWriter out = null ;
-		
-		try{
-			
-			
-			response.setContentType("application/json; charset=UTF-8") ;
-			out = response.getWriter() ;			
-			if(flag){
-				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
-			}else{
-				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
-			}
-			
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}*/
 	
 	
 	//由T411导出T431
 	public void loadT431() throws Exception{
 		
-		List<T431_Bean> list = T411_services.getT43List(1);
+		//System.out.println(this.getQueryword());
+		
+		List<T431_Bean> list = T411_services.getT43List(1,this.getQueryword());
 		//将数据转换为json格式
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
@@ -325,7 +273,7 @@ public class T411_Action {
 	//由T411导出T432
 	public void loadT432() throws Exception{
 		
-		List<T431_Bean> list = T411_services.getT43List(2);
+		List<T431_Bean> list = T411_services.getT43List(2,this.getQueryword());
 		//将数据转换为json格式
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
@@ -350,7 +298,7 @@ public class T411_Action {
 	//由T411导出T433
 	public void loadT433() throws Exception{
 		
-		List<T431_Bean> list = T411_services.getT43List(3);
+		List<T431_Bean> list = T411_services.getT43List(3,this.getQueryword());
 		//将数据转换为json格式
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
@@ -375,7 +323,7 @@ public class T411_Action {
 	//由T411导出T434
 	public void loadT434() throws Exception{
 		
-		List<T431_Bean> list = T411_services.getT43List(4);
+		List<T431_Bean> list = T411_services.getT43List(4,this.queryword);
 		//将数据转换为json格式
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
@@ -400,7 +348,7 @@ public class T411_Action {
 	//由T411导出T436
 	public void loadT436() throws Exception{
 		
-		List<T431_Bean> list = T411_services.getT43List(6);
+		List<T431_Bean> list = T411_services.getT43List(6,this.getQueryword());
 		//将数据转换为json格式
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
@@ -470,12 +418,14 @@ public class T411_Action {
 	}
 
 	public String getExcelName() {
-		try {
-			this.excelName = URLEncoder.encode(excelName, "UTF-8");
-			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
 		return excelName;
+	}
+
+	public void setQueryword(String queryword) {
+		this.queryword = queryword;
+	}
+
+	public String getQueryword() {
+		return queryword;
 	}
 }

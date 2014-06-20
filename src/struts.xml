@@ -92,9 +92,14 @@
     <include file="cn/nit/configuration/table3/T311.xml"/>
     <!-- t313 重点学科表 -->
     <include file="cn/nit/configuration/table3/T313.xml"/>
-    <!-- t321 大类培养情况表表 -->
+
+    <!-- t321 大类培养基本情况 -->
     <include file="cn/nit/configuration/table3/T321.xml"/>
-    
+    <!-- t322 专业基本情况 -->
+    <include file="cn/nit/configuration/table3/T322.xml"/> 
+    <!-- t33 专业基本情况 -->
+    <include file="cn/nit/configuration/table3/T33.xml"/>        
+
     
     
     

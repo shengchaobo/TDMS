@@ -53,36 +53,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table3/verifingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/MainTrainBasicInfoTea/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="SeqNumber" width="5%">序号</th>
-				<th field="MainClassName" width="10%">大类名称</th>
-				<th field="MainClassID" width="10%">大类代码</th>
-				<th field="ByPassTime" width="10%">分流时间</th>
-				<th field="MajorNameInSch" width="5%">包含校内专业名称</th>
-				<th field="MajorID" width="5%">校内专业代码</th>
-				<th field="UnitName" width="5%">所属单位</th>
-				<th field="UnitID" width="5%">单位号</th>
-				<th field="Time" width="5%">时间</th>
-				<th field="Note" width="5%">备注</th>
+				<th field="seqNumber" width=10>序号</th>
+				<th field="mainClassName" width=10>大类名称</th>
+				<th field="mainClassID" width=10>大类代码</th>
+				<th field="byPassTime" width=10>分流时间</th>
+				<th field="majorNameInSch" width=10">包含校内专业名称</th>
+				<th field="majorID" width=10>校内专业代码</th>
+				<th field="unitName" width=10>所属单位</th>
+				<th field="unitID" width=10>单位号</th>
+				<th field="time" width=10 formatter="formattime">时间</th>
+				<th field="note" width=10>备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMainTrainBasicInfo()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+		 	<form id="auditing" method="post">
+			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
@@ -95,16 +97,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="SeqNumber" width="5%">序号</th>
-				<th field="MainClassName" width="10%">大类名称</th>
-				<th field="MainClassID" width="10%">大类代码</th>
-				<th field="ByPassTime" width="10%">分流时间</th>
-				<th field="MajorNameInSch" width="5%">包含校内专业名称</th>
-				<th field="MajorID" width="5%">校内专业代码</th>
-				<th field="UnitName" width="5%">所属单位</th>
-				<th field="UnitID" width="5%">单位号</th>
-				<th field="Time" width="5%">时间</th>
-				<th field="Note" width="5%">备注</th>
+				<th field="SeqNumber" width=10>序号</th>
+				<th field="MainClassName" width=10>大类名称</th>
+				<th field="MainClassID" width=10>大类代码</th>
+				<th field="ByPassTime" width=10>分流时间</th>
+				<th field="MajorNameInSch" width=10">包含校内专业名称</th>
+				<th field="MajorID" width=10>校内专业代码</th>
+				<th field="UnitName" width=10>所属单位</th>
+				<th field="UnitID" width=10>单位号</th>
+				<th field="Time" width=10>时间</th>
+				<th field="Note" width=10>备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -131,14 +133,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>大类名称：</label> 
-						<input id="MainClassName" type="text" name="mainTrainBasicInfoBean.MainClassName"
+						<input id="MainClassName" type="text" name="t321_Bean.MainClassName"
 							class="easyui-validatebox" required="true"><span id="MainClassNameSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
 						<label>大类代码：</label> 
-						<input id="MainClassID" type="text" name="mainTrainBasicInfoBean.MainClassID"
+						<input id="MainClassID" type="text" name="t321_Bean.MainClassID"
 							class="easyui-validatebox" required="true"><span id="MainClassIDSpan"></span>
 					</div>
 				</td>
@@ -147,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>分流时间：</label> 
-						<select class='easyui-combobox' id="ByPassTime" name="mainTrainBasicInfoBean.ByPassTime">
+						<select class='easyui-combobox' id="ByPassTime" name="t321_Bean.ByPassTime">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -166,10 +168,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>包含校内专业名称：</label> 
-					
-						<input type="hidden" name="mainTrainBasicInfoBean.MajorNameInSch" id="MajorNameInSch"/>
-						<input id="MajorID" type="text" name="mainTrainBasicInfoBean.MajorID" 
-							 class='easyui-combobox' data-options="valueField:'MajorID',textField:'MajorNameInSch',url:'pages/diMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
+					<input id="SeqNumber" name="t321_Bean.SeqNumber" type="hidden" > </input>
+						<input type="hidden" name="t321_Bean.MajorNameInSch" id="MajorNameInSch"/>
+						<input id="MajorID" type="text" name="t321_Bean.MajorID" 
+							 class='easyui-combobox' data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('MajorNameInSch').value=$(this).combobox('getText') ;
 							 }">
@@ -182,9 +184,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>所属单位：</label> 
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
-						<input type="hidden" name="mainTrainBasicInfoBean.UnitName" id="UnitName"/>
-						<input id="UnitID" type="text" name="mainTrainBasicInfoBean.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitID',textField:'unitName',url:'pages/diDepartment/loadDIDepartment',listHeight:'auto',editable:false,
+						<input type="hidden" name="t321_Bean.UnitName" id="UnitName"/>
+						<input id="UnitID" type="text" name="t321_Bean.UnitID" 
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
 							 }">
@@ -192,21 +194,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 
-				<td>
-					<div class="fitem">
-						<label>状&nbsp;&nbsp;&nbsp;&nbsp;态：</label> 
-						<select class='easyui-combobox' id="State" name="mainTrainBasicInfoBean.State" >
-							<option value="启用">启用</option>
-							<option value="停用">停用</option>
-						</select>	
-							<span id="StateSpan"></span>
-					</div>
-				</td>
+
 			</tr>
 			
 			<tr>
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-					<textarea id="Note" name="mainTrainBasicInfoBean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="t321_Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>
@@ -288,8 +281,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var UnitName = $('#UnitID').combobox('getText') ;
 			var ByPassTime = $('#ByPassTime').combobox('getText') ;
 			var MajorNameInSch = $('#MajorID').combobox('getText');
-			var state = $('#State').combobox('getText') ;
-			var note = $('#Note').val() ;
+		
+			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(MainClassName == null || MainClassName.length==0 || MainClassName.length > 100){
 				$('#MainClassName').focus();
@@ -325,6 +318,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}else{
 				$('#UnitNameSpan').html("") ;
 			}
+
+
 			
 			if(ByPassTime == null || ByPassTime.length == 0){
 				$('#ByPassTimeSpan').html("<font style=\"color:red\">分流时间不能为空</font>") ;
@@ -333,7 +328,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$('#ByPassTimeSpan').html("") ;
 			}
 			
-			if(note !=null && note.length > 1000){
+			if(Note !=null && Note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
 			}else{
@@ -341,6 +336,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			return true ;
 		}
+
+		function singleSearch(){
+		   	 $('#auditing').form('submit',{
+		   		 url: 'pages/MainTrainBasicInfoTea/singleSearch',
+		   		 type: "post",
+			     dataType: "json",
+		   		 success: function(result){
+		   		 	var result = eval('('+result+')');
+		   		 	if (!result.state){
+		   		 		$.messager.show({
+		   		 			title: 'Error',
+		   		 			msg: result.errorMsg
+		   			 });
+		   		 	} else {
+				    	$('#unverfiedData').datagrid('load'); // reload the auditing data
+		   		 	}
+		   		 }
+		   		 });
+		   }
+	    function editMainTrainBasicInfo(){
+	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+	    	if(row.length != 1){
+	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+	    	url = 'pages/MainTrainBasicInfoTea/edit' ;
+	    	
+	    	$('#dlg').dialog('open').dialog('setTitle','添加重点学科');
+	    	$('#SeqNumber').val(row[0].seqNumber) ;
+	        $('#MainClassName').val(row[0].mainClassName);
+	        $('#MainClassID').val(row[0].mainClassID);
+	        $('#ByPassTime').combobox('select',row[0].byPassTime) ;
+	        $('#MajorID').combobox('select',row[0].majorID);
+	        $('#UnitID').combobox('select',row[0].unitID);
+
+			$('#Note').val(row[0].note);
+		
+	    }
+
+
+		   
 
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');
@@ -364,6 +402,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    $('#fm').form('load',row);
 			    url = 'updateUser';
 		    }
+	    }
+
+
+	    function deleteByIds(){
+	    	//获取选中项
+			var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+			if(row.length == 0){
+	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+			 $.messager.confirm('数据删除', '您确定删除选中项?', function(sure){
+				 if (sure){
+				 	var ids = "";
+				 	ids += "(" ;
+				 	
+				 	for(var i=0; i<row.length; i++){
+				 		if(i < (row.length - 1)){
+				 			ids += (row[i].seqNumber + ",") ;
+				 		}else{
+				 			ids += (row[i].seqNumber + ")") ;
+				 		}
+				 	}
+				 	
+				 	deleteDiscip(ids) ;
+				 	
+				 }
+			});
+	    }
+
+	    function deleteDiscip(ids){
+	    	$.ajax({ 
+	    		type: "POST", 
+	    		url: "pages/MainTrainBasicInfoTea/deleteCoursesByIds?ids=" + ids, 
+	    		async:"true",
+	    		dataType: "text",
+	    		success: function(result){
+	    			result = eval("(" + result + ")");
+
+					if(result.state){
+						alert(result.data) ;
+						 $('#unverfiedData').datagrid('reload') ;
+					}
+	    		}
+	    	}).submit();
 	    }
 	    
 	    

@@ -20,7 +20,7 @@ public class T435_Bean implements
 		java.io.Serializable {
 
 	// Fields
-
+	private int SeqNumber;
 	private String name;
 	private String teaId;
 	private String fromDept;
@@ -88,6 +88,14 @@ public class T435_Bean implements
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

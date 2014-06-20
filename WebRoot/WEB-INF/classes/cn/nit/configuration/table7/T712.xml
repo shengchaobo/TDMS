@@ -7,13 +7,5 @@
 	<package name="teaManagerPaperInfoTeaTea" namespace="/pages/TeaManagerPaperInfoTeaTea" extends="struts-default">
 		<!-- 添加课程库 -->
 	    <action name="insert" class="cn.nit.action.table7.T712_Action" method="insert" />
-	     <!-- 加载待审核数据 -->
-	    <action name="auditingData" class="cn.nit.action.table7.T712_Action" method="auditingData" />
-	     <!-- 数据编辑 -->
-	    <action name="edit" class="cn.nit.action.table7.T712_Action" method="edit" />
-	     <!-- 删除数据 -->
-	    <action name="deleteByIds" class="cn.nit.action.table7.T712_Action" method="deleteByIds" />
-	     <!-- 数据查询 -->
-	    <action name="singleSearch" class="cn.nit.action.table7.T712_Action" method="auditingConditions"/>
 	</package>
 </struts>

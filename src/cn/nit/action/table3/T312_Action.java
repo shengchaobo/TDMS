@@ -223,6 +223,14 @@ public class T312_Action {
 	}
 	
 	
+	public T312_Service getDocAndGraStaSer() {
+		return docAndGraStaSer;
+	}
+
+	public void setDocAndGraStaSer(T312_Service docAndGraStaSer) {
+		this.docAndGraStaSer = docAndGraStaSer;
+	}
+
 	public void setSeqNum(int seqNum){
 		this.seqNum = seqNum ;
 	}

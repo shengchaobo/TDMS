@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 public class T443_Bean implements java.io.Serializable {
 
 	// Fields
+	private int SeqNumber;
 	private String name;
 	private String teaId;
 	private String type;
@@ -88,6 +89,14 @@ public class T443_Bean implements java.io.Serializable {
 
 	public String getTeaId() {
 		return teaId;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

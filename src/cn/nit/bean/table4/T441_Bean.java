@@ -14,11 +14,11 @@ import javax.persistence.TemporalType;
 /**
  * T441MajLeaderTeaTea entity. @author MyEclipse Persistence Tools
  */
-@Entity
 @Table(name = "T441_MajLeader_TeaTea$", schema = "dbo", catalog = "TDMS")
 public class T441_Bean implements java.io.Serializable {
 
 	// Fields
+	private int seqNumber;
 	private String fromTeaUnit;
 	private String teaUnitID;
 	private String majorName;
@@ -96,6 +96,14 @@ public class T441_Bean implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return seqNumber;
 	}
 
 }

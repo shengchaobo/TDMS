@@ -8,11 +8,11 @@ import javax.persistence.Table;
 /**
  * T451TeaTeachDepOrgPer entity. @author MyEclipse Persistence Tools
  */
-@Entity
 @Table(name = "T451_TeaTeachDepOrg_Per$", schema = "dbo", catalog = "TDMS")
 public class T451_Bean implements java.io.Serializable {
 
 	// Fields
+	private int SeqNumber;
 	private String orgName;
 	private String unitId;
 	private String orgType;
@@ -82,6 +82,14 @@ public class T451_Bean implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

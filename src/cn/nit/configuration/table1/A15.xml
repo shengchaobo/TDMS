@@ -3,16 +3,16 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
-	<package name="T11" namespace="/pages/T11" extends="struts-default">
-		<!-- 添加获奖 -->
-	    <action name="insert" class="cn.nit.action.table1.T11Action" method="insert" />
-	    <action name="auditingData" class="cn.nit.action.table1.T11Action" method="auditingData" />
+	<package name="A15" namespace="/pages/A15" extends="struts-default">
+		    <!-- 显示数据 -->
+	    <action name="auditingData" class="cn.nit.action.table1.A15Action" method="auditingData" />
+	
 	     <!-- 编辑数据 -->
-	    <action name="edit" class="cn.nit.action.table1.T11Action" method="edit" />
+	    <action name="edit" class="cn.nit.action.table1.A15Action" method="edit" />
 	     <!-- 删除数据 -->
-	    <action name="deleteByIds" class="cn.nit.action.table1.T11Action" method="deleteCoursesByIds" />
+	    <action name="deleteByIds" class="cn.nit.action.table1.A15Action" method="deleteCoursesByIds" />
 	     <!-- 数据查询 -->
-	    <action name="singleSearch" class="cn.nit.action.table1.T11Action" method="auditingConditions"/>
+	    <action name="singleSearch" class="cn.nit.action.table1.A15Action" method="auditingConditions"/>
 	    
 	     <!-- 模板下载 -->
 	    <action name="downloadModel" class="cn.nit.action.DownloadModelAction" method="execute">
@@ -31,5 +31,6 @@
 				<param name="bufferSize">4096</param>
 	    	</result>
 	    </action>
+	    
 	</package>
 </struts>

@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.List;
 
 import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.T152Bean;
+import cn.nit.bean.table4.T411_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T151POJO;
 import cn.nit.util.DAOUtil;
@@ -154,22 +156,70 @@ public class T151DAO {
 		return list ;
 	}
 	
-	public boolean update(T151Bean schResIns){
-		
-		boolean flag = false ;
-		Connection conn = DBConnection.instance.getConnection() ;
-		try{
-			flag = DAOUtil.update(schResIns, tableName, key, field, conn) ;
-			
 
+	/**
+	 * 获得的总数（用于导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T151Bean> totalList(){
+		
+//		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
+//				
+//		String queryPageSql = "select TeaId,TeaName,Gender,Birthday,AdmisTime,TeaState," +
+//		"BeginWorkTime,IdentiType AS IDCode,FromOffice,OfficeID,FromUnit,unitID," +
+//		"FromTeaResOffice,TeaResOfficeID," + tableName4 + ".Education,Degree AS TopDegree,GraSch,Major," +
+//		"AdminLevel," + tableName5 + ".Source,TitleLevel AS MajTechTitle,TitleName AS TeaTitle,NotTeaTitle,SubjectClass," +
+//		"DoubleTea,Industry,Engineer,TeaBase,TeaFlag,Note"
+//		+ " from " + tableName + 
+//		" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
+//		" left join " + tableName2+ " on " + "MajTechTitle=" + tableName2 + ".IndexID " +
+//		" left join " + tableName3+ " on " + "TeaTitle=" + tableName3 + ".IndexID " +
+//		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
+//		" left join " + tableName5+ " on " + tableName + ".Source=" + tableName5 + ".IndexID " +
+//		" left join " + tableName6+ " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
+//		" where " + Cond ;
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note," +
+				"t.audit,t.position");
+		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
+		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T151Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T151Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
-			return flag ;
-		}finally{
-			DBConnection.close(conn) ;
+			return null;
 		}
-		return flag ;
+		
+		return list ;
 	}
+	
+	public boolean update(T151Bean t151Bean){
+			
+			boolean flag = false ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			try{
+				System.out.println("hello！");
+				flag = DAOUtil.update(t151Bean, tableName, key, field, conn) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return flag ;
+			}finally{
+				DBConnection.close(conn) ;
+			}
+			return flag ;
+		}
 	
 	public boolean deleteCoursesByIds(String ids){
 		
@@ -203,10 +253,11 @@ public class T151DAO {
 		T151DAO dao=new T151DAO();
 //		int n=dao.totalAuditingData(null, null);
 //		System.out.println(n);
-		List<T151POJO> list=dao.auditingData(null, null, 1, 2);
-		System.out.println(list.size());
-	
-//	
+		List<T151Bean> list=dao.totalList();
+//		System.out.println(list.size());
+//		T151Bean a=list.get(0);
+//		System.out.println(a.getType());
+////	
 	}
 	
 	

@@ -29,7 +29,7 @@ public class T711_Bean {
 	
 	private String OtherJoinTeaInfo ;
 	
-	private Date time ;
+	private Date Time ;
 	
 	private String Note ;
 	private String FillTeaID ;
@@ -38,11 +38,12 @@ public class T711_Bean {
 	
 	/**  审核单位ID号  */
 	private String audit ;
-	
-	
-	
-	
 
+	
+	
+	
+	
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}
@@ -112,8 +113,7 @@ public class T711_Bean {
 	}
 
 	public void setAwardTime(Date awardTime) {
-		AwardTime=awardTime;
-		
+		AwardTime = awardTime;
 	}
 
 	public String getAwardFromUnit() {
@@ -145,15 +145,15 @@ public class T711_Bean {
 	}
 
 	public void setOtherJoinTeaInfo(String otherJoinTeaInfo) {
-		this.OtherJoinTeaInfo = otherJoinTeaInfo;
+		OtherJoinTeaInfo = otherJoinTeaInfo;
 	}
 
 	public Date getTime() {
-		return time;
+		return Time;
 	}
 
 	public void setTime(Date time) {
-		this.time = time;
+		Time = time;
 	}
 
 	public String getNote() {
@@ -187,9 +187,9 @@ public class T711_Bean {
 	public void setAudit(String audit) {
 		this.audit = audit;
 	}
-
 	
-
+	
+	
 	
 
 	

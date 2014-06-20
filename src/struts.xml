@@ -78,12 +78,33 @@
     <include file="cn/nit/configuration/table1/T19.xml"/>
      <!-- t16办学指导思想（党院办） -->
     <include file="cn/nit/configuration/table1/T16.xml"/>
+       <!-- S18协议统计表 -->
+    <include file="cn/nit/configuration/table1/S18.xml"/>
+      <!-- S17校友会统计表 -->
+    <include file="cn/nit/configuration/table1/S17.xml"/>
+      <!-- A15科研单位统计表 -->
+    <include file="cn/nit/configuration/table1/A15.xml"/>
     
     <!--table3-->
-       <!-- t312博士点硕士点 -->
+    <!-- t312博士点硕士点 -->
     <include file="cn/nit/configuration/table3/T312.xml"/>
-         <!-- t311博士后流动站 -->
+    <!-- t311博士后流动站 -->
     <include file="cn/nit/configuration/table3/T311.xml"/>
+    <!-- t313 重点学科表 -->
+    <include file="cn/nit/configuration/table3/T313.xml"/>
+
+    <!-- t321 大类培养基本情况 -->
+    <include file="cn/nit/configuration/table3/T321.xml"/>
+    <!-- t322 专业基本情况 -->
+    <include file="cn/nit/configuration/table3/T322.xml"/> 
+    <!-- t33 专业基本情况 -->
+    <include file="cn/nit/configuration/table3/T33.xml"/>        
+
+    
+    
+    
+    
+    
     
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>

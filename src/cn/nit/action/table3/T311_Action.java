@@ -1,5 +1,7 @@
 package cn.nit.action.table3;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 
@@ -13,6 +15,7 @@ import cn.nit.bean.other.UserRoleBean;
 
 import cn.nit.bean.table3.T311_Bean;
 import cn.nit.service.table3.T311_Service;
+import cn.nit.util.ExcelUtil;
 
 
 
@@ -186,20 +189,20 @@ public void auditingData(){
 		}
 	}
 	
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
-//
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+
 	public String execute() throws Exception{
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
@@ -222,13 +225,19 @@ public void auditingData(){
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T311_Bean getT181Bean() {
-		return postDocStaBean;
+
+
+	public T311_Service getPostDocStaSer() {
+		return postDocStaSer;
 	}
 
-	public void setT181Bean(T311_Bean postDocStaBean) {
-		this.postDocStaBean = postDocStaBean;
+
+
+	public void setPostDocStaSer(T311_Service postDocStaSer) {
+		this.postDocStaSer = postDocStaSer;
 	}
+
+
 
 	public void setSeqNum(int seqNum){
 		this.seqNum = seqNum ;

@@ -97,7 +97,7 @@ public class T711_Service {
 		return teaManagerAwardInfoTeaTeaDAO.deleteCoursesByIds(ids) ;
 	}
 	
-private void setAudit(T711_Bean t){
+     private void setAudit(T711_Bean t){
 		
 		String audit = DIResourceDAO.getAudit(teaManagerAwardInfoTeaTeaDAO.getTableName()) ;
 		

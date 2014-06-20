@@ -80,8 +80,10 @@
 						1.学校地址
 					</td>
 					<td style="background-color: white">
-					    <input id="SchAddress"  name="t11Bean.SchAddress" type="text"  style="display:none;"  size="50">
+					    <div id="input" style="display:none;" >
+					    <input id="SchAddress"  name="t11Bean.SchAddress" type="text"   size="50">
 					    <input id="seqNumber" type="hidden" name="t11Bean.SeqNumber" ></input>
+					    </div>
 						<div id="di">
 							<span id="SchAddressSpan" ></span>
 						</div>
@@ -97,7 +99,9 @@
 						<div  id="di">
 							<span id="SchTelSpan"></span>
 						</div>
-						<input id="SchTel"  name="t11Bean.SchTel" type="text"   style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						<input id="SchTel"  name="t11Bean.SchTel" type="text" size="50">
+						</div>
 					     <span id="SchTelSpan1"></span>
 					</td>
 				</tr>
@@ -110,7 +114,9 @@
 						<div  id="di">
 							<span id="SchFaxSpan"></span>
 						</div>
-						 <input  id="SchFax"  name="t11Bean.SchFax" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input  id="SchFax"  name="t11Bean.SchFax" type="text"  size="50">
+						 </div>
 						 <span id="SchFaxSpa1"></span>
 					</td>
 				</tr>
@@ -126,7 +132,9 @@
 						<div  id="di">
 							<span id="SchFillerNameSpan"></span>
 						</div>
-						 <input id="SchFillerName"  name="t11Bean.SchFillerName" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchFillerName"  name="t11Bean.SchFillerName" type="text"  size="50">
+						 </div>
 						 <span id="SchFillerNameSpan1"></span>
 					</td>
 				</tr>
@@ -138,7 +146,9 @@
 						<div  id="di">
 							<span id="SchFillerTelSpan"></span>
 						</div>
-						 <input  id="SchFillerTel"  name="t11Bean.SchFillerTel" type="text"   style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input  id="SchFillerTel"  name="t11Bean.SchFillerTel" type="text"  size="50">
+						 </div>
 						 <span id="SchFillerTelSpan1"></span>
 					</td>
 				</tr>
@@ -150,12 +160,14 @@
 						<div  id="di">
 							<span id="SchFillerEmailSpan"></span>
 						</div>
-						 <input  id="SchFillerEmail"  name="t11Bean.SchFillerEmail" type="text"    style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input  id="SchFillerEmail"  name="t11Bean.SchFillerEmail" type="text"   size="50">
+						 </div>
 						 <span id="SchFillerEmailSpan1"></span>
 					</td>
 				</tr>
 				<tr>
-					<td rowspan=11 style="width: 80px; background-color: white">
+					<td rowspan=11 style="width: 80px; background-color: white" align="center">
 						学校概况
 					</td>
 					<td colspan=2 style="width: 200px; background-color: white"
@@ -166,7 +178,9 @@
 						<div  id="di">
 							<span id="SchNameSpan"></span>
 						</div>
-						 <input id="SchName"  name="t11Bean.SchName" type="text"   style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchName"  name="t11Bean.SchName" type="text"   size="50">
+						 </div>
 						 <span id="SchNameSpan1"></span>
 					</td>
 				</tr>
@@ -179,7 +193,9 @@
 						<div  id="di">
 							<span id="SchIDSpan"></span>
 						</div>
-						 <input id="SchID"  name="t11Bean.SchID" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchID"  name="t11Bean.SchID" type="text"  size="50">
+						 </div>
 						 <span id="SchIDSpan1"></span>
 					</td>
 				</tr>
@@ -192,7 +208,9 @@
 						<div  id="di">
 							<span id="SchEnNameSpan"></span>
 						</div>
-						 <input id="SchEnName"  name="t11Bean.SchEnName"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchEnName"  name="t11Bean.SchEnName"  size="50">
+						 </div>
 						 <span id="SchEnNameSpan1"></span>
 					</td>
 				</tr>
@@ -205,7 +223,9 @@
 						<div  id="di">
 							<span id="SchTypeSpan"></span>
 						</div>
-						 <input id="SchType"  name="t11Bean.SchType" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchType"  name="t11Bean.SchType" type="text"  size="50">
+						 </div>
 						 <span id="SchTypeSpan1"></span>
 					</td>
 				</tr>
@@ -218,7 +238,9 @@
 						<div  id="di">
 							<span id="SchQualitySpan"></span>
 						</div>
-						 <input id="SchQuality"  name="t11Bean.SchQuality" type="text"   style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchQuality"  name="t11Bean.SchQuality" type="text"  size="50">
+						 </div>
 						 <span id="SchQualitySpan1"></span>
 					</td>
 				</tr>
@@ -231,7 +253,9 @@
 						<div  id="di">
 							<span id="SchBuilderSpan"></span>
 						</div>
-						 <input id="SchBuilder"  name="t11Bean.SchBuilder" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchBuilder"  name="t11Bean.SchBuilder" type="text"   size="50">
+						 </div>
 						 <span id="SchBuilderSpan1"></span>
 					</td>
 				</tr>
@@ -244,7 +268,9 @@
 						<div  id="di">
 							<span id="MajDeptSpan"></span>
 						</div>
-						 <input id="MajDept"  name="t11Bean.MajDept" type="text"   style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="MajDept"  name="t11Bean.MajDept" type="text"   size="50">
+						 </div>
 						 <span id="MajDeptSpan1"></span>
 					</td>
 				</tr>
@@ -257,7 +283,9 @@
 						<div  id="di">
 							<span id="SchUrlSpan"></span>
 						</div>
-						 <input id="SchUrl"  name="t11Bean.SchUrl" type="text" value="1" style="display:none;"  size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchUrl"  name="t11Bean.SchUrl" type="text" value="1"  size="50">
+						 </div>
 						 <span id="SchUrlSpan1"></span>
 					</td>
 				</tr>
@@ -270,7 +298,9 @@
 						<div  id="di">
 							<span id="AdmissonBatchSpan"></span>
 						</div>
-						 <input id="AdmissonBatch"  name="t11Bean.AdmissonBatch" type="text"   edit="true" style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="AdmissonBatch"  name="t11Bean.AdmissonBatch" type="text"   edit="true" size="50">
+						 </div>
 						 <span id="AdmissonBatchSpan1"></span>
 					</td>
 				</tr>
@@ -283,7 +313,9 @@
 						<div  id="di">
 							<span id="Sch_BeginTimeSpan"></span>
 						</div>
-						 <input id="Sch_BeginTime"  name="Year" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="Sch_BeginTime"  name="Year" type="text"   size="50">
+						 <div id="input" style="display:none;" >
 						 <span id="Sch_BeginTimeSpan1"></span>
 					</td>
 				</tr>
@@ -296,7 +328,9 @@
 						<div  id="di">
 							<span id="MediaUrlSpan"></span>
 						</div>
-						 <input id="MediaUrl"  name="t11Bean.MediaUrl" type="text" style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="MediaUrl"  name="t11Bean.MediaUrl" type="text" size="50">
+						 </div>
 						 <span id="MediaUrlSpan1"></span>
 					</td>
 				</tr>
@@ -315,7 +349,9 @@
 						<div  id="di">
 							<span id="YaohuSchAddSpan"></span>
 						</div>
-						 <input id="YaohuSchAdd"  name="t11Bean.YaohuSchAdd" type="text"  style="display:none;" size="50" >
+						<div id="input" style="display:none;" >
+						 <input id="YaohuSchAdd"  name="t11Bean.YaohuSchAdd" type="text"  size="50" >
+						 </div>
 						 <span id="YaohuSchAddSpan1"></span>
 					</td>
 				</tr>
@@ -327,7 +363,9 @@
 						<div  id="di">
 							<span id="PengHuSchAddSpan"></span>
 						</div>
-						 <input id="PengHuSchAdd"  name="t11Bean.PengHuSchAdd" type="text" style="display:none"  size="50" >
+						<div id="input" style="display:none;" >
+						 <input id="PengHuSchAdd"  name="t11Bean.PengHuSchAdd" type="text"   size="50" >
+						 </div>
 						 <span id="PengHuSchAddSpan1"></span>
 					</td>
 				</tr>
@@ -339,26 +377,42 @@
 				<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a> -->
 				<a href="javascript:void(0)" class="easyui-linkbutton"
 					iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a>
-			
-				<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a> -->
+				<a href="pages/T11/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">数据导入</a>
 			</div>
 		</div>
-
 		
 	
+		<div id="dlg" class="easyui-dialog"
+		style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true"
+		buttons="#dlg-buttons">
+		<div class="ftitle">学校基本信息导入</div>
+		<div class="fitem">
+			<form id="batchForm" method="post" enctype="multipart/form-data">
+				<label>批量上传：</label> 
+				<input  id="input" type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
+					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+			</form>
+		</div>
+	</div>
+
+		
+	<!-- 
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
 		<div class="ftitle">高级检索</div>
 		<div id="dicTables"  class="fitem">
 		</div>
 		<div id="dices"  class="fitem"></div>
 	</div>
-	 
-	<div id="dlg-buttons" style="display:none">
+	  -->
+	<div id="dlg-buttons1" style="display:none">
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-ok" onclick="save()">保存</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="cancel()">取消</a>
 	</div>
+	
 	</body>
 
 	<script type="text/javascript">
@@ -373,11 +427,11 @@
 
 	function cancel(){
 		 $('div#di').show();
-		  //   
-		       //$('input').attr('style').attr('display','inline-block');
-		        $("input").css("display","none");   
-		        $('div#dlg-buttons').css("display","none");
-		        loadAuotCityList();
+		
+		// $("input#input").css("display","block");
+		 $("div#input").css("display","none");   
+		 $('div#dlg-buttons1').css("display","none");
+		 loadAuotCityList();
 		}
 	function loadAuotCityList() {
 
@@ -435,8 +489,8 @@
 	}
 
 	function newCourse() {
-		$('#dlg').dialog('open').dialog('setTitle', '添加学校荣誉库');
-		$('#rewardForm').form('reset');
+		$('#dlg').dialog('open').dialog('setTitle', '学校基本信息导入');
+	
 	}
 
 	function singleImport() {
@@ -464,8 +518,10 @@
 
 	function validate() {
 
-//		 re = new RegExp("^[0-9]+$");//判断是否为数字
-//		 alert( $('#SchTel').val()) ;
+        //var reg1="(\d{4}-\d{8})";
+     //   var reg1="^(\(\d{4}-))?\d{8}$";
+       // var reg1="(d{4}\-d{8})";
+        var reg1="(\d{4}\)-\d{8} " ;
 		//获取文本框的值
 		var schAddress = $('#SchAddress').val();
 		var schTel = $('#SchTel').val();
@@ -488,31 +544,30 @@
 		var pengHuSchAdd = $('#PengHuSchAdd').val();
 		//根据数据库定义的字段的长度，对其进行判断
 		if (schAddress == null || schAddress.length == 0
-				|| rewardName.length > 150) {
+				||schAddress.length > 150) {
 			$('#SchAddress').focus();
 			$('#SchAddress').select();
 			$('#SchAddressSpan1').html(
 					"<font style=\"color:red\">學校地址不能为空且不能超過150個字符</font>");
 			return false;
 		} else {
-			return true;
 			$('#SchAddressSpan1').html("");
 		}
-
-//		if (schTel == null || schTel.length == 0 || schTel.length > 50) {
-//			$('#SchTel').focus();
-//			$('#SchTel').select();
-	//		$('#SchTelSpan1').html(
-	//				"<font style=\"color:red\">學校號碼不能为空且不能超過50個字符</font>");
-	//		return false;
-	//	}else if (!re.test(schTel)){
-	//		$('#SchTelSpan1').html(
-	//		"<font style=\"color:red\">學校號碼只能為數字</font>");
-	//	}	
-	//	else {
-	//		$('#SchTelSpan1').html("");
-	//	}
-	//	return true;
+		if (schTel == null || schTel.length == 0 || schTel.length<12) {
+			$('#SchTel').focus();
+			$('#SchTel').select();
+		$('#SchTelSpan1').html(
+					"<font style=\"color:red\">學校號碼不能为空且不能少于12個字符</font>");
+			return false;
+		}
+	    if (!reg1.test(schTel)){
+			$('#SchTelSpan1').html(
+			"<font style=\"color:red\">學校號碼格式只能为：0791-88126683</font>");
+		}	
+		else {
+			$('#SchTelSpan1').html("");
+		}
+		return true;
 	}
 
 	function editCourse(){
@@ -520,8 +575,10 @@
        $('div#di').hide();
   //   
        //$('input').attr('style').attr('display','inline-block');
-        $("input").css("display","inline");   
-        $('div#dlg-buttons').css("display","block");
+       // $("input#input").css("display","block");
+       // $("input").css("display","inline");   
+        $('div#input').css("display","inline");
+        $('div#dlg-buttons1').css("display","block");
         document.getElementById("SchAddress").value=data.schAddress ;
         document.getElementById("SchTel").value=data.schTel ;
         document.getElementById("SchFax").value=data.schFax ;
@@ -549,6 +606,7 @@
      {
             // validate();       
     		 url = 'pages/T11/edit' ;
+    		 if(validate()){
     			 $.ajax({
 						type : "POST",
 						url : url,
@@ -558,10 +616,13 @@
 						success : function(result) {
 	    			 //json格式转化
 					    var result = eval('('+result+')');
-					    $.messager.alert('温馨提示', result.data) ;
- 			           cancel();
+					    $.messager.alert('提示', result.data) ;
+			           cancel();
 						}
 					}).submit();
+    		 }
+    		 //else{  $.messager.alert('提示', "请核对好数据！") ;}
+    			
       }
 
 	function loadDic() {
@@ -625,8 +686,9 @@
 			    var seconds=parseInt(val.seconds);  
 			    seconds=seconds>9?seconds:('0'+seconds);  
 			    var time=year+'-'+month+'-'+date ;  
+			    var time1=year;
 			    //alert(time) ;
-			        return time;  
+			        return time1;  
 			    }  
 			</script>
 

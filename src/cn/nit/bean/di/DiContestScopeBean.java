@@ -8,8 +8,7 @@ import javax.persistence.Table;
 /**
  * DiContestScope entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "DiContestScope", schema = "dbo", catalog = "TDMS")
+
 public class DiContestScopeBean implements java.io.Serializable {
 
 	// Fields

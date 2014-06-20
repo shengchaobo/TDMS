@@ -59,27 +59,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="5%">序号</th>
-				<th field="staName" width="10%">名称</th>
-				<th field="staID" width="10%">代码</th>
-				<th field="unitName" width="5%">所属单位</th>
-				<th field="unitID" width="5%">单位号</th>
-				<th field="staType" width="5%">类型</th>
-				<th field="note" width="20%">备注</th>
+				<th field="seqNumber" width=10>序号</th>
+				<th field="staName" width=10>名称</th>
+				<th field="staID" width=10">代码</th>
+				<th field="unitName" width=10>所属单位</th>
+				<th field="unitID" width=10>单位号</th>
+				<th field="staType" width=10>类型</th>
+				<th field="note" width=10>备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDocAndGra()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+		 	<form id="auditing" method="post">
+			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
@@ -125,6 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>名称：</label> 
+						<input id="seqNumber" name="postDocStaBean.SeqNumber" type="hidden" > </input>
 						<input id="StaName" type="text" name="docAndGraStaBean.StaName"
 							class="easyui-validatebox" required="true"><span id="StaNameSpan"></span>
 					</div>
@@ -189,6 +192,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	    var url;
+
+		function singleSearch(){
+		   	 $('#auditing').form('submit',{
+		   		 url: 'pages/DocAndGraSta/singleSearch',
+		   		 type: "post",
+			     dataType: "json",
+		   		 success: function(result){
+		   		 	var result = eval('('+result+')');
+		   		 	if (!result.state){
+		   		 		$.messager.show({
+		   		 			title: 'Error',
+		   		 			msg: result.errorMsg
+		   			 });
+		   		 	} else {
+				    	$('#unverfiedData').datagrid('load'); // reload the auditing data
+		   		 	}
+		   		 }
+		   		 });
+		   }
+	    
 	    function batchImport(){
 	    	 $('#fm').form('submit',{
 	    		 url: url,
@@ -288,6 +311,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return true ;
 		}
 
+
+
+	    function editDocAndGra(){
+	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+	    	if(row.length != 1){
+	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+	    	url = 'pages/DocAndGraSta/edit' ;
+	    	
+	    	$('#dlg').dialog('open').dialog('setTitle','添加博士点硕士点库');
+	    	$('#seqNumber').val(row[0].seqNumber) ;
+	        $('#StaName').val(row[0].staName);
+	        $('#StaID').val(row[0].staID);
+	        $('#StaType').combobox('select',row[0].staType);
+	    	$('#UnitID').combobox('select',row[0].unitID) ;
+	    	alert(row[0].unitID);
+			$('#Note').val(row[0].note);
+			alert(row[0].note);
+	    }
+
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');
 	    	if(row.length != 1){
@@ -311,6 +357,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    url = 'updateUser';
 		    }
 	    }
+
+	    function deleteByIds(){
+	    	//获取选中项
+			var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+			if(row.length == 0){
+	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+			 $.messager.confirm('数据删除', '您确定删除选中项?', function(sure){
+				 if (sure){
+				 	var ids = "";
+				 	ids += "(" ;
+				 	
+				 	for(var i=0; i<row.length; i++){
+				 		if(i < (row.length - 1)){
+				 			ids += (row[i].seqNumber + ",") ;
+				 		}else{
+				 			ids += (row[i].seqNumber + ")") ;
+				 		}
+				 	}
+				 	
+				 	deleteDocAndGra(ids) ;
+				 	
+				 }
+			});
+	    }
+
+	    function deleteDocAndGra(ids){
+	    	$.ajax({ 
+	    		type: "POST", 
+	    		url: "pages/DocAndGraSta/deleteCoursesByIds?ids=" + ids, 
+	    		async:"true",
+	    		dataType: "text",
+	    		success: function(result){
+	    			result = eval("(" + result + ")");
+
+					if(result.state){
+						alert(result.data) ;
+						 $('#unverfiedData').datagrid('reload') ;
+					}
+	    		}
+	    	}).submit();
+	    }
+
+
+
+	  
 	    
 	    
 	    function loadDic(){

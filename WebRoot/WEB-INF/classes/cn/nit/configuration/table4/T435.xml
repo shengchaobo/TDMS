@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="pages/T435" namespace="/pages/T435" extends="struts-default">
+		<!-- 初始化加载所有就业人员信息（用于分页系统） -->
+	    <action name="loadEmployInfo" class="cn.nit.action.table4.T435_Action" method="loadEmployInfo" />
+   		<!-- 插入新的就业人员信息 -->
+	    <action name="insert"  class="cn.nit.action.table4.T435_Action" method="insert" ></action>	  
+	    
+   	    <!-- 删除相应教职工 -->
+	    <action name="deleteByIds" class="cn.nit.action.table4.T435_Action"  method="deleteByIds" />
+
+	    <!-- 更新相应教职工 -->
+	    <action name="edit" class="cn.nit.action.table4.T435_Action"  method="edit" />
+	    	    
+   	    <!-- 数据导出 -->
+	    <action name="dataExport" class="cn.nit.action.table4.T435_Action" method="execute">
+	    	<result name="success" type="stream">
+	    		<!-- 指定下载文件的类型，下面表示无限制 -->
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<!-- 流对象名字 -->
+				<param name="inputName">inputStream</param>
+				<!-- 文件名转码 -->
+				<param name="contentDisposition">attachment;fileName="${excelName}"</param>
+				<!-- 下载文件缓冲大小 -->
+				<param name="bufferSize">4096</param>
+	    	</result>
+	    </action>	      
+	</package>
+</struts>

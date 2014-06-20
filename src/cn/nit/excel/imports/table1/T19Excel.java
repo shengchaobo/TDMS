@@ -26,7 +26,7 @@ public class T19Excel {
 	 */
 	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
 		
-//		System.out.println("你好！");
+		System.out.println("你好！");
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
 		}

@@ -85,23 +85,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
+		 <form id="auditing" method="post">
+		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newCourse()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="10%">序号</th>
+				<th field="seqNumber" width="10%">序号</th>
 				<th field="teaUnit" width="10%">教学单位</th>
 				<th field="unitID" width="10%">单位号</th>
 				<th field="name" width="10%">姓名</th>
@@ -143,6 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>教学单位：</label> 
+						<input id="seqNumber" name="teaManagerAwardInfoTeaTea.SeqNumber" type="hidden" value="0">
 						<input id="TeaUnit" type="hidden" name="teaManagerAwardInfoTeaTea.TeaUnit">
 						<input id="UnitID" name="teaManagerAwardInfoTeaTea.UnitID" 
 							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
@@ -243,7 +246,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-			<input name="teaManagerAwardInfoTeaTea.time" class="easyui-datebox" style="width:80px"/>
+			
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="teaManagerAwardInfoTeaTea.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
@@ -285,7 +288,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		 			msg: result.errorMsg
    			 });
    		 	} else {
-   		 		alert(13113) ;
 		    	$('#unverfiedData').datagrid('load'); // reload the auditing data
    		 	}
    		 }
@@ -316,6 +318,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     url = 'pages/TeaManagerAwardInfoTeaTea/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 		    $('#t711Form').form('reset');
+		   
 	    }
 
 	    function singleImport(){
@@ -335,7 +338,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverifiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload'); 
 					    }
 				    }
 			    });
@@ -429,11 +432,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	//alert(row[0].seqNumber);
 	    	$('#Name').val(row[0].name) ;
 	    	$('#TeaID').val(row[0].teaID) ;
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
 	    	$('#AwardName').val(row[0].awardName) ;
-	    	$('#AwardLevel').combobox('select', row[0].awardLevel) ;
+	    	$('#AwardLevel').combobox('select', row[0].awardLevelID) ;
 			$('#AwardRank').combobox('select', row[0].awardRank) ;
 		
 			$('#AwardFromUnit').val(row[0].awardFromUnit) ;

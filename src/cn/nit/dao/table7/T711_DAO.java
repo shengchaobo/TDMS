@@ -20,7 +20,7 @@ public class T711_DAO {
 	
 	private String key="SeqNumber";
 	
-	private String field="TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note";
+	private String field="TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillTeaID,FillUnitID,audit";
 
 
     public boolean insert(T711_Bean teaManagerAwardInfo)
@@ -55,7 +55,7 @@ public class T711_DAO {
         StringBuffer sql=new StringBuffer();
     	sql.append("select count(*)");
     	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
-    	sql.append(" where audit!='0' and adl.IndexID=t.AwardLevel") ; 	
+    	sql.append(" where adl.IndexID=t.AwardLevel") ; 	
     	int total=0;
     	
     	if(fillUnitId!=null && !fillUnitId.equals("")){
@@ -111,7 +111,7 @@ public class T711_DAO {
     	
     	sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note");
     	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
-    	sql.append(" where audit!='0' and adl.IndexID=t.AwardLevel") ;
+    	sql.append(" where adl.IndexID=t.AwardLevel") ;
     	
     	
     	//System.out.println(123);
@@ -167,7 +167,7 @@ public class T711_DAO {
     	return flag;
     	
     }
-public boolean deleteCoursesByIds(String ids){
+    public boolean deleteCoursesByIds(String ids){
 		
 		int flag = 0 ;
 		StringBuffer sql = new StringBuffer() ;
@@ -191,7 +191,7 @@ public boolean deleteCoursesByIds(String ids){
 		}
 	}
     
-    public String getTableName() {
+ public String getTableName() {
 	return tableName;
 }
 

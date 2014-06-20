@@ -215,10 +215,6 @@ public class T152Excel {
 						return "第" + count + "行，用房面积只能为保留两位的整型数" ;
 					}
 					String  note=cell[11].getContents();
-					
-					if(note.length()>500){
-						return "第" + count + "行，备注字数不能超过500" ;
-					}
 				 
 				
 				

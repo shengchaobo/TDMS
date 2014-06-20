@@ -20,7 +20,7 @@ public class T453_Bean implements
 		java.io.Serializable {
 
 	// Fields
-
+	private int SeqNumber;
 	private String teaUnitName;
 	private String unitId;
 	private String name;
@@ -140,6 +140,14 @@ public class T453_Bean implements
 
 	public String getTeaId() {
 		return teaId;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

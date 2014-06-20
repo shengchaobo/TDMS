@@ -40,6 +40,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
 	<script type="text/javascript" src="js/table4/T411.js"></script>
+	<script type="text/javascript">
+		function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var  queryValue = $('#searchID').val();
+         var queryParams = $('#commomData').datagrid('options').queryParams;  
+         queryParams.searchID = queryValue;  
+         $("#commomData").datagrid('reload'); 
+    }		
+	</script>
 </head>
 
 <body>
@@ -145,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
 		 	教工号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
-			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="singleSearch()">查询</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
 		</form>
 	</div>
 	

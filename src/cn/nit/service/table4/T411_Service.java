@@ -18,8 +18,7 @@ public class T411_Service {
 		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
 		
 		//这里的fillunitID用于教学单位这一角色，不同学院同属于一个角色，用到相同的报表，但操作的内容不同
-		List<T411_Bean> teaInfo = teaInfoDao.queryPageList(conditions, fillunitID, pagesize, currentpage);
-		
+		List<T411_Bean> teaInfo = teaInfoDao.queryPageList(conditions, fillunitID, pagesize, currentpage);		
 		return teaInfo;		
 	}
 	
@@ -71,8 +70,8 @@ public class T411_Service {
 	}*/
 	
 	//根据参数加载43系列的表
-	public List<T431_Bean> getT43List(int flag){
-		return teaInfoDao.getT43List(flag) ;
+	public List<T431_Bean> getT43List(int flag,String queryWord){
+		return teaInfoDao.getT43List(flag,queryWord) ;
 	}
 
 }

@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 public class T412_Bean implements java.io.Serializable {
 
 	// Fields
+	private int seqNumber;
 	private String fromTeaUnit;
 	private String teaUnitID;
 	private String majorName;
@@ -27,6 +28,7 @@ public class T412_Bean implements java.io.Serializable {
 	private String teaId;
 	private Date time;
 	private String note;
+	private String fillUnitID;
 
 
 	@Column(name = "FromTeaUnit")
@@ -98,6 +100,22 @@ public class T412_Bean implements java.io.Serializable {
 
 	public String getMajorID() {
 		return majorID;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return seqNumber;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
+
+	public String getFillUnitID() {
+		return fillUnitID;
 	}
 
 }

@@ -20,6 +20,7 @@ public class T42_Bean implements
 		java.io.Serializable {
 
 	// Fields
+	private int seqNumber;
 	private String name;
 	private String teaId;
 	private String duty;
@@ -150,6 +151,14 @@ public class T42_Bean implements
 
 	public void setTopDegree(String topDegree) {
 		this.topDegree = topDegree;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return seqNumber;
 	}
 
 }

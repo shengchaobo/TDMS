@@ -14,8 +14,8 @@ import cn.nit.util.DAOUtil;
 public class T412_Dao {
 	
 	private String tableName = "T412_AllMajTeaInfo_TeaPer$" ;
-	private String field = "FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName," +
-			"Time,Note";
+	private String field = "FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName,Time,Note,FillUnitID";
+	private String keyfield = "SeqNumber";
 	
 	
 	/**
@@ -26,7 +26,7 @@ public class T412_Dao {
 	 */
 	public List<T412_Bean> getAllList(){
 		
-		String sql = "select " + field + " from " + tableName ;
+		String sql = "select " + keyfield+ "," +field + " from " + tableName ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -54,7 +54,7 @@ public class T412_Dao {
 	 */
 	public List<T412_Bean> queryPageList(int pageSize, int showPage){
 				
-		String queryPageSql = "select top " + pageSize + 
+		String queryPageSql = "select top " + pageSize + keyfield+ "," +
 		"FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName,Time,Note"
 		+ " from " + tableName + 
 		" where (SeqNumber not in (select top " + pageSize * (showPage-1) + " SeqNumber from "+

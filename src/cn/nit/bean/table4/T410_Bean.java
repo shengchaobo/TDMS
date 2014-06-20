@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 public class T410_Bean implements java.io.Serializable {
 
 	// Fields
+	private int SeqNumber;
 	private Integer resItemNum;
 	private Double resItemFund;
 	private Integer hresItemNum;
@@ -344,6 +345,14 @@ public class T410_Bean implements java.io.Serializable {
 
 	public Integer getOtherPaper() {
 		return otherPaper;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

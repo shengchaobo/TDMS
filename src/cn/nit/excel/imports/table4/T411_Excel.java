@@ -268,7 +268,7 @@ public class T411_Excel {
 				String degree = cell[16].getContents() ;
 				
 				if(degree == null || degree.equals("")){
-					return "第" + count + "行，教师最高学历不能为空" ;
+					return "第" + count + "行，教师最高学位不能为空" ;
 				}
 				String degreeID = null;
 				for(DiDegreeBean digreeBean : diDegreeList){
@@ -280,7 +280,7 @@ public class T411_Excel {
 				}//for
 				
 				if(!flag){
-					return "第" + count + "行，最高学历不存在" ;
+					return "第" + count + "行，最高学位不存在" ;
 				}else{
 					flag = false ;
 				}

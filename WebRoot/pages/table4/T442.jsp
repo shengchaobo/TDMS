@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -46,6 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th  data-options="field:'seqNumber'" >编号</th>
 				<th data-options="field:'tutorName'">导师名称</th>
 				<th data-options="field:'teaId'">导师教工号</th>
 		     </tr>
@@ -81,22 +83,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newMajorTea()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
-		 <div style="float: right;">
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
-		</div>
+		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
+		 	编号: <input  id="seqNum"   name="seqNum"  class="easyui-box" style="width:80px"/>
+			起始日期: <input id ="startTime"  name ="startTime"   class="easyui-datebox" style="width:80px"/>
+			结束日期: <input id="endTime"  name="endTime" class="easyui-datebox" style="width:80px"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid()">查询</a>
+		</form>
 	</div>
 	
 	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th  data-options="field:'seqNumber'" >编号</th>
 				<th data-options="field:'tutorName'">
 						导师名称
 				</th>

@@ -3,6 +3,7 @@ package cn.nit.action.table4;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +84,9 @@ public class T412_Action {
 		
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		//插入时间
+		T412_bean.setTime(new Date());
 				
 		boolean flag = T412_services.insert(T412_bean);
 		PrintWriter out = null ;

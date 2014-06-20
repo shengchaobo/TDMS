@@ -254,16 +254,7 @@ public class T151Excel {
 				t151Bean.setType(Type);
 				t151Bean.setUnitID(UnitID);
 				list.add(t151Bean);
-				
-//				Date BuildYear=TimeUtil.changeDateY(BuildYearStr);
-//				t17Bean = new T17Bean();
-//				t17Bean.setClubName(ClubName);
-//				t17Bean.setBuildYear(BuildYear);
-//				t17Bean.setPlace(Place);
-//				t17Bean.setNote(note);
-//				t17Bean.setTime(new Date()) ;
-//				list.add(t17Bean);
-//				
+							
 			}
 			catch(Exception e){
 				e.printStackTrace() ;

@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import cn.nit.bean.table1.T11Bean;
+import cn.nit.bean.table1.T152Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T11DAO;
 
@@ -101,6 +102,12 @@ public class T11Service {
 		}
 		
 		return sql.toString() ;
+	}
+	
+	/**批量导入*/
+	public boolean batchInsert(List<T11Bean> list){
+		
+		return t11Dao.batchInsert(list) ;
 	}
    
 	

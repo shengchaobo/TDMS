@@ -111,8 +111,8 @@ public class T12DAO {
     public static void main(String arg[])
     {
     	T11DAO dao=new T11DAO();
-    	List<T12POJO> list=dao.auditingData("2014");
-    	System.out.println(list.size());
+//    	List<T12POJO> list=dao.auditingData("2014");
+//    	System.out.println(list.size());
     }
 
 }

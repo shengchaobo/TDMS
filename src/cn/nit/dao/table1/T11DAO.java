@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.nit.bean.table1.T11Bean;
+import cn.nit.bean.table1.T152Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T11POJO;
 import cn.nit.pojo.table1.T151POJO;
@@ -61,6 +62,7 @@ public class T11DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		
 		try{
+			this.delete();
 			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -69,53 +71,8 @@ public class T11DAO {
 		
 		return flag ;
 	}
+
 	
-//	/**
-//	 * 查询待审核数据在数据库中共有多少条
-//	 * @param conditions 查询条件
-//	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
-//	 * @return
-//	 */
-//	public int totalAuditingData(String conditions, String fillUnitId){
-//		
-//		StringBuffer sql = new StringBuffer() ;
-//		sql.append("select count(*)") ;
-//		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiResearchType drt") ;
-//		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
-////		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-////		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
-//		int total = 0 ;
-//		
-//		if(fillUnitId != null && !fillUnitId.equals("")){
-//			sql.append(" and FillUnitID=" + fillUnitId) ;
-//		}
-//		
-//		if(conditions != null && !conditions.equals("")){
-//			sql.append(conditions) ;
-//		}
-//		
-//		Connection conn = DBConnection.instance.getConnection() ;
-//		Statement st = null ;
-//		ResultSet rs = null ;
-//		
-//		try{
-//			st = conn.createStatement() ;
-//			rs = st.executeQuery(sql.toString()) ;
-//			
-//			if(rs == null){
-//				return total ;
-//			}
-//			
-//			while(rs.next()){
-//				total = rs.getInt(1) ;
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			return 0 ;
-//		}
-//		return total ;
-//	}
-//	
 	/**
 	 * @param conditions 查询条件
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
@@ -255,7 +212,7 @@ public class T11DAO {
     public static void main(String arg[])
     {
     	T11DAO dao=new T11DAO();
-    	List<T11Beam> list=dao.auditingData("2014");
-    	System.out.println(list.size());
+//    	List<T11Bean> list=dao.auditingData("2014");
+//    	System.out.println(list.size());
     }
 }

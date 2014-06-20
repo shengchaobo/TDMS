@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,6 +16,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,6 +48,9 @@ import cn.nit.dbconnection.DBConnection;
 import cn.nit.service.table1.T11Service;
 import cn.nit.util.DateUtil;
 import cn.nit.util.TimeUtil;
+import java.util.regex.Matcher;  
+
+  
 
 public class T11Excel {
 	
@@ -59,7 +65,12 @@ public class T11Excel {
 		 String path="/cn/nit/excel/downloads/T11.xls";
 		 
 		 String realpath = this.getClass().getResource("/" + path).getPath();
-		 URLDecoder.decode(realpath	, "UTF-8") ;
+		 try {
+			 realpath = URLDecoder.decode(realpath	, "UTF-8") ;
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//String realpath="E:\\Workspaces\\MyEclipse 8.5\\TDMS\\src\\cn\\nit\\excel\\downloads\\T11.xls";//选择模板文件
 		try
 		{
@@ -117,21 +128,24 @@ public class T11Excel {
 			return "数据不标准，请重新提交" ;
 		}
 		
-		int count = 1 ;
+		int count ;
 		
-		boolean flag = false ;
-		boolean biOpen=false;
-		boolean buildCondi=false;
+//		boolean flag = false ;
+//		boolean biOpen=false;
+//		boolean buildCondi=false;
 		List<T11Bean> list = new LinkedList<T11Bean>() ;
+		T11Bean t11Bean = new  T11Bean();
+		t11Bean.setTime(new Date());
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		
 		for(Cell[] cell : cellList){
-			T11Bean t151Bean = new  T11Bean();
+			
 			int n=cellList.indexOf(cell);
 			if(n==0){continue;}
 			else{
 			  try{
-				  
+				  count=n;
+//				  System.out.println("行数："+n);
 				  switch(n){
 				  case 1: String SchAddress = cell[3].getContents() ;
 					 
@@ -141,47 +155,219 @@ public class T11Excel {
 					 if(SchAddress.length()>300){
 						 return "第" + count + "行，学校地址不能超过150个字！" ;
 					 }
-					 t151Bean.setSchAddress(SchAddress);
+					 t11Bean.setSchAddress(SchAddress);
 					 break;
+					 
 				  case 2:String SchTel = cell[3].getContents();
 				          
 				          if(SchTel==null||SchTel.equals("")){
 				        	  return "第" + count + "行，学校电话号码不能为空" ;
 				          }
+				          if(SchTel.length()<12){
+								 return "第" + count + "行，学校电话号码不得少于12个字！" ;
+							 }
+				          if(!checkPhoneNr(SchTel)){
+				        	  return "第" + count + "行，学校号码格式有误，有效格式：0791-82085793" ;
+				          }
+				          t11Bean.setSchTel(SchTel);
+				          break;
 				          
-				  }
+				  case 3:String SchFax = cell[3].getContents();
+				         
+						  if(SchFax==null||SchFax.equals("")){
+				        	  return "第" + count + "行，学校传真号码不能为空" ;
+				          }
+				          if(SchFax.length()<12){
+								 return "第" + count + "行，学校传真号码不得少于12个字！" ;
+							 }
+				          if(!checkPhoneNr(SchFax)){
+				        	  return "第" + count + "行，学校传真号码格式有误，有效格式：0791-82085793" ;
+				          }
+				          t11Bean.setSchFax(SchFax);
+				          break;
+				          
+				  case 4: String SchFillerName =cell[3].getContents();
+				  
+							  if(SchFillerName.equals("")||SchFillerName==null){
+									 return "第" + count + "行，学校填报人名称不能为空" ;
+								 }
+							  if(SchFillerName.length()>50){
+									 return "第" + count + "行，学校填报人名称不能超过25个字！" ;
+								 }
+								 t11Bean.setSchFillerName(SchFillerName);
+								 break;
+								 
+				  case 5: String SchFillerTel = cell[3].getContents();
+			         
+						  if(SchFillerTel==null||SchFillerTel.equals("")){
+				        	  return "第" + count + "行，填报人号码不能为空" ;
+				          }
+				          if(SchFillerTel.length()<12){
+								 return "第" + count + "行，填报人号码不得少于12个字！" ;
+							 }
+				          if(!checkPhoneNr(SchFillerTel)){
+				        	  return "第" + count + "行，填报人格式有误，有效格式：0791-82085793" ;
+				          }
+				          t11Bean.setSchFillerTel(SchFillerTel);
+				          break;
+				          
+				  case 6: String SchFillerEmail = cell[3].getContents();
+						  if(SchFillerEmail.equals("")||SchFillerEmail==null){
+								 return "第" + count + "行，填报人邮箱名称不能为空" ;
+							 }
+						  if(SchFillerEmail.length()>100){
+								 return "第" + count + "行，填报人邮箱不能超过100个字符！" ;
+							 }
+							 t11Bean.setSchFillerEmail(SchFillerEmail);
+							 break;
+							 
+				  case 7: String SchName=cell[3].getContents();
+				  
+						  if(SchName.equals("")||SchName==null){
+								 return "第" + count + "行，学校名称不能为空" ;
+							 }
+						  if(SchName.length()>200){
+								 return "第" + count + "行，学校名称不能超过100个字符！" ;
+							 }
+							 t11Bean.setSchName(SchName);
+							 break;
+				  
+				  case 8: String SchID=cell[3].getContents();
+				  
+						  if(SchID.equals("")||SchID==null){
+								 return "第" + count + "行，学校代码不能为空" ;
+							 }
+						  if(SchID.length()>50){
+								 return "第" + count + "行，学校代码不能超过50个字符！" ;
+							 }
+							 t11Bean.setSchID(SchID);
+							 break;
+				  
+				  case 9: String SchEnName=cell[3].getContents();
+				  
+						  if(SchEnName.equals("")||SchEnName==null){
+								 return "第" + count + "行，学校英文名称不能为空" ;
+							 }
+						  if(SchEnName.length()>200){
+								 return "第" + count + "行，学校英文名称不能超过100个字符！" ;
+							 }
+							 t11Bean.setSchEnName(SchEnName);
+							 break;
+				  
+				  case 10: String SchType=cell[3].getContents();
+				  
+						  if(SchType.equals("")||SchType==null){
+								 return "第" + count + "行，学校办学类型不能为空" ;
+							 }
+						  if(SchType.length()>100){
+								 return "第" + count + "行，学校办学类型不能超过50个字符！" ;
+							 }
+							 t11Bean.setSchType(SchType);
+							 break;
+							 
+				  case 11: String SchQuality=cell[3].getContents();
+				  
+							  if(SchQuality.equals("")||SchQuality==null){
+									 return "第" + count + "行，学校性质不能为空" ;
+								 }
+							  if(SchQuality.length()>100){
+									 return "第" + count + "行，学校性质不能超过50个字符！" ;
+								 }
+								 t11Bean.setSchQuality(SchQuality);
+								 break;
+				  
+				  case 12: String SchBuilder=cell[3].getContents();
+				  
+							  if(SchBuilder.equals("")||SchBuilder==null){
+									 return "第" + count + "举办者不能为空" ;
+								 }
+							  if(SchBuilder.length()>200){
+									 return "第" + count + "行，举办者不能超过100个字符！" ;
+								 }
+								 t11Bean.setSchBuilder(SchBuilder);
+								 break;
+								 
+				  case 13: String MajDept=cell[3].getContents();
+				  
+							  if(MajDept.equals("")||MajDept==null){
+									 return "第" + count + "助管部门不能为空" ;
+								 }
+							  if(MajDept.length()>200){
+									 return "第" + count + "行，主管部门不能超过100个字符！" ;
+								 }
+								 t11Bean.setMajDept(MajDept);
+								 break;
+				  
+				  case 14: String SchUrl=cell[3].getContents();
+				  
+							  if(SchUrl.equals("")||SchUrl==null){
+									 return "第" + count + "学校网址不能为空" ;
+								 }
+							  if(SchUrl.length()>100){
+									 return "第" + count + "行，学校网址不能超过100个字符！" ;
+								 }
+								 t11Bean.setSchUrl(SchUrl);
+								 break;
+							  
+				  case 15: String AdmissonBatch=cell[3].getContents();
+				  
+							  if(AdmissonBatch.equals("")||AdmissonBatch==null){
+									 return "第" + count + "办学批次不能为空" ;
+								 }
+							  if(AdmissonBatch.length()>300){
+									 return "第" + count + "行，办学批次不能超过150个字符！" ;
+								 }
+								 t11Bean.setAdmissonBatch(AdmissonBatch);
+								 break;
+				   
+				  case 16: String Sch_BeginTime=cell[3].getContents();
+				  
+							  if(Sch_BeginTime.equals("")||Sch_BeginTime==null){
+									 return "第" + count + "开办本科教育年份不能为空" ;
+								 }
+							  if(!TimeUtil.judgeFormat3(Sch_BeginTime)){
+									 return "第" + count + "行，开办本科教育年份格式为：2014" ;
+								 }
+							    Date Year=TimeUtil.changeDateY(Sch_BeginTime);
+								 t11Bean.setSch_BeginTime(Year);
+								 break;
+								 
+				  case 17: String MediaUrl=cell[3].getContents();
+				  
+							  if(MediaUrl.equals("")||MediaUrl==null){
+									 return "第" + count + "多媒体反映不能为空" ;
+								 }
+							  if(MediaUrl.length()>100){
+									 return "第" + count + "行，多媒体反映不能超过100个字符！" ;
+								 }
+								 t11Bean.setMediaUrl(MediaUrl);
+								 break;
+								 
+				  case 18: String YaohuSchAdd=cell[3].getContents();
+				  
+							  if(YaohuSchAdd.equals("")||YaohuSchAdd==null){
+									 return "第" + count + "瑶湖校区地址不能为空" ;
+								 }
+							  if(YaohuSchAdd.length()>300){
+									 return "第" + count + "行，瑶湖校区地址不能超过150个字符！" ;
+								 }
+								 t11Bean.setYaohuSchAdd(YaohuSchAdd);
+								 break;
+								 
+				  case 19: String PengHuSchAdd=cell[3].getContents();
 				 
+							  if(PengHuSchAdd.equals("")||PengHuSchAdd==null){
+									 return "第" + count + "彭桥校区地址不能为空" ;
+								 }
+							  if(PengHuSchAdd.length()>300){
+									 return "第" + count + "行，彭桥校区地址不能超过150个字符！" ;
+								 }
+								 t11Bean.setPengHuSchAdd(PengHuSchAdd);
+								 break;
+		         default: return "超出行数！" ;
+				  }
 				
-				
-				count++ ;
-				
-//				Date BeginYear=TimeUtil.changeDateY(BeginYearStr);
-////				System.out.println(BeginYear);
-//				double houseArea=DateUtil.doubleTwo(HouseArea);
-//				t151Bean.setBeginYear(TimeUtil.changeDateY(BeginYearStr));
-////				System.out.println("BeginYear:"+t151Bean.getBeginYear());
-//				t151Bean.setBiOpen(biOpen);
-//				t151Bean.setBuildCondition(buildCondi);
-//				t151Bean.setHouseArea(houseArea);
-//				t151Bean.setNote(note);
-//				t151Bean.setOpenCondition(OpenCondition);
-//				t151Bean.setResInsID(ResInsID);
-//				t151Bean.setResInsName(ResInsName);
-//				t151Bean.setTeaUnit(TeaUnit);
-//				t151Bean.setTime(new Date());
-//				t151Bean.setType(Type);
-//				t151Bean.setUnitID(UnitID);
-//				list.add(t151Bean);
-				
-//				Date BuildYear=TimeUtil.changeDateY(BuildYearStr);
-//				t17Bean = new T17Bean();
-//				t17Bean.setClubName(ClubName);
-//				t17Bean.setBuildYear(BuildYear);
-//				t17Bean.setPlace(Place);
-//				t17Bean.setNote(note);
-//				t17Bean.setTime(new Date()) ;
-//				list.add(t17Bean);
-//				
+//				count++ ;
 			}
 			catch(Exception e){
 				e.printStackTrace() ;
@@ -189,10 +375,30 @@ public class T11Excel {
 			}
 	     }
 		}
+//		System.out.println(t11Bean.getAdmissonBatch());
+//		System.out.println(t11Bean.getMajDept());
+//		System.out.println(t11Bean.getMediaUrl());
+//		System.out.println(t11Bean.getPengHuSchAdd());
+//		System.out.println(t11Bean.getSchAddress());
+//		System.out.println(t11Bean.getSchBuilder());
+//		System.out.println(t11Bean.getSchEnName());
+//		System.out.println(t11Bean.getSchFax());
+//		System.out.println(t11Bean.getSchFillerEmail());
+//		System.out.println(t11Bean.getSchFillerName());
+//		System.out.println(t11Bean.getSchFillerTel());
+//		System.out.println(t11Bean.getSchID());
+//		System.out.println(t11Bean.getSchName());
+//		System.out.println(t11Bean.getSchQuality());
+//		System.out.println(t11Bean.getSchTel());
+//		System.out.println(t11Bean.getSchType());
+//		System.out.println(t11Bean.getSchUrl());
+//		System.out.println(t11Bean.getYaohuSchAdd());
+//		System.out.println(t11Bean.getSch_BeginTime());
+		list.add(t11Bean);
 		
-		flag = false ;
+		boolean flag=false;
 		T11Service t11Ser = new T11Service() ;
-//		flag = t11Ser.batchInsert(list) ;
+		flag = t11Ser.batchInsert(list) ;
 		
 		if(flag){
 			return "数据导入成功" ;
@@ -220,15 +426,28 @@ public class T11Excel {
     	listStr.add(t11Bean.getPengHuSchAdd());
     	return listStr;
     }
+
+    public boolean checkPhoneNr(String phoneNr)  
+    {  
+    	boolean tem=false;
+        String regex="\\d{4}\\-\\d{8}";  
+        Pattern reg = Pattern.compile(regex);  
+        Matcher matcher=reg.matcher(phoneNr);  
+          
+        tem=matcher.matches();
+        return tem;  
+    }  
     
     public static void main(String arg[]){
-//    	 Date time=new Date();
-//         String time1=time.toString();
-//         String year=time1.substring(time1.length()-4, time1.length());
-//    	String str="1990-05-18";
-//    	String year=str.substring(0, 4);
-//         System.out.println(year);
          T11Excel t11Excel=new T11Excel();
+         String str="2012222";
+         System.out.println("nihao");
+         boolean flag=t11Excel.checkPhoneNr(str);
+         if(flag){
+        	 System.out.println("格式 正确");
+         }else{
+        	 System.out.println("格式错误");
+         }
 //         t11Excel.write();
      }
 

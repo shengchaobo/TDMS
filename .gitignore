@@ -7,7 +7,12 @@
 #ºöÂÔclassÎÄ¼ş
 
 *.class
-
+WEB-INF/classes/cn/nit/dao/
+WEB-INF/classes/cn/nit/service/
+WEB-INF/classes/cn/nit/action/
+WEB-INF/classes/cn/nit/util/
+WEB-INF/classes/cn/nit/pojo/
+WEB-INF/classes/cn/nit/bean/
 
 
 .classpath

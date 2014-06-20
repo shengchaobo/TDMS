@@ -107,12 +107,5 @@ public class T12DAO {
 	public String getTableName(){
 		return this.tableName ;
 	}
-	
-    public static void main(String arg[])
-    {
-    	T11DAO dao=new T11DAO();
-    	List<T12POJO> list=dao.auditingData("2014");
-    	System.out.println(list.size());
-    }
 
 }

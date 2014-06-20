@@ -182,7 +182,7 @@ public class T312_Action {
 		InputStream inputStream = null ;
 
 		try {
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+		//	inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

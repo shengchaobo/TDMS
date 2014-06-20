@@ -95,17 +95,9 @@
 
     <!-- t321 大类培养基本情况 -->
     <include file="cn/nit/configuration/table3/T321.xml"/>
-    <!-- t322 专业基本情况 -->
-    <include file="cn/nit/configuration/table3/T322.xml"/> 
     <!-- t33 专业基本情况 -->
     <include file="cn/nit/configuration/table3/T33.xml"/>        
-
-    
-    
-    
-    
-    
-    
+   
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
     

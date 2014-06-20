@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -59,7 +60,12 @@ public class T11Excel {
 		 String path="/cn/nit/excel/downloads/T11.xls";
 		 
 		 String realpath = this.getClass().getResource("/" + path).getPath();
-		 URLDecoder.decode(realpath	, "UTF-8") ;
+		 try {
+			 realpath = URLDecoder.decode(realpath	, "UTF-8") ;
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//String realpath="E:\\Workspaces\\MyEclipse 8.5\\TDMS\\src\\cn\\nit\\excel\\downloads\\T11.xls";//选择模板文件
 		try
 		{

@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -46,6 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th  data-options="field:'seqNumber'" >编号</th>
 				<th data-options="field:'name'">姓名</th>
 				<th data-options="field:'teaId'">教工号</th>
 		     </tr>
@@ -69,22 +71,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newMajorTea()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
-		 <div style="float: right;">
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
-		</div>
+		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
+		 	编号: <input  id="seqNum"   name="seqNum"  class="easyui-box" style="width:80px"/>
+			起始日期: <input id ="startTime"  name ="startTime"   class="easyui-datebox" style="width:80px"/>
+			结束日期: <input id="endTime"  name="endTime" class="easyui-datebox" style="width:80px"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid()">查询</a>
+		</form>
 	</div>
 	
 	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th  data-options="field:'seqNumber'" >编号</th>
 				<th data-options="field:'name'">姓名</th>
 				<th data-options="field:'teaId'">教工号</th>
 		     </tr>
@@ -107,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="">数据导出</a>
+		<a href='pages/T443/dataExport?excelName=<%=URLEncoder.encode("表4-4-3高层次人才.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
@@ -115,13 +118,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle">高层次人才模板导入</h3>
-		<div class="fitem">
-		  <form method="post">
-				<input type="file" name="fileToUpload" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
+		<h3 class="ftitle" id="title1">高层次人才模板导入</h3>
+		<div class="fitem" id="item1">
+		  <form method="post"  id="batchForm" enctype="multipart/form-data">
+				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href="table5/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T443/downloadModel?saveFile=<%=URLEncoder.encode("表4-4-3高层次人才.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>	
 		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
@@ -129,17 +131,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   <form id="addForm" method="post">
 		<table>
 			<tr>
-				<td style="valign:left" colspan="3">
-					<div class="fitem">
-						<label>请选择导入时间：</label> 
-						<input class="easyui-datebox"  id="time" type="text" 
-						name="T443_bean.time"  required="true"  editable="false" />
-						<span id="timeSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
 				<td colspan="3">
+				<input type="hidden" name="T443_bean.seqNumber" id="seqNumber"/>
 				<div class="fitem">
 				<label>教工号：</label> 
 				<input type="hidden" name="T443_bean.teaId" id="teaId"/>

@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="">数据导出</a>
+		<a href='pages/T442/dataExport?excelName=<%=URLEncoder.encode("表4-4-2研究生导师情况.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
@@ -146,31 +146,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle">研究生导师模板导入</h3>
-		<div class="fitem">
-		  <form method="post">
-				<input type="file" name="fileToUpload" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
+  		<h3 class="ftitle" id="title1">研究生导师模板导入</h3>
+		<div class="fitem" id="item1">
+		  <form method="post"  id="batchForm" enctype="multipart/form-data">
+				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href="table5/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T442/downloadModel?saveFile=<%=URLEncoder.encode("表4-4-2研究生导师情况.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>	
-		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+	   <hr style="width: 100%; height: 5px; color: blue;"></hr>	
 	   <h3 class="ftitle">研究生导师逐条导入</h3>
 	   <form id="addForm" method="post">
 		<table>
 			<tr>
-				<td style="valign:left" colspan="3">
-					<div class="fitem">
-						<label>请选择导入时间：</label> 
-						<input class="easyui-datebox"  id="time" type="text" 
-						name="T442_bean.time"  required="true"  editable="false" />
-						<span id="timeSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
 				<td colspan="3">
+				<input type="hidden" name="T442_bean.seqNumber" id="seqNumber"/>
 				<div class="fitem">
 				<label>导师教工号：</label> 
 				<input type="hidden" name="T442_bean.teaId" id="teaId"/>
@@ -242,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  				<td colspan="3">
  				<div class="fitem">
 				<label>研究方向：</label> 
-				<input id="resField" type="text" name="T443_bean.resField"
+				<input id="resField" type="text" name="T442_bean.resField"
 				class="easyui-validatebox" ><span id="resFieldSpan"></span>
 				</div>
 				</td>

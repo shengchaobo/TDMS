@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 public class T461_Bean implements java.io.Serializable {
 
 	// Fields
-	private int SeqNubmer;
+	private int SeqNumber;
 	private String name;
 	private String teaId;
 	private String fromTeaUnit;
@@ -149,12 +149,12 @@ public class T461_Bean implements java.io.Serializable {
 		this.awardLevel = awardLevel;
 	}
 
-	public void setSeqNubmer(int seqNubmer) {
-		SeqNubmer = seqNubmer;
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
 	}
 
-	public int getSeqNubmer() {
-		return SeqNubmer;
+	public int getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

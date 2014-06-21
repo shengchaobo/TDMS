@@ -14,6 +14,8 @@ WEB-INF/classes/cn/nit/util/
 WEB-INF/classes/cn/nit/pojo/
 WEB-INF/classes/cn/nit/bean/
 WEB-INF/classes/cn/nit/configuration/
+WEB-INF/classes/
+
 
 .classpath
 

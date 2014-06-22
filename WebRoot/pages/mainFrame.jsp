@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 $('#trees').tree('expandAll');
 			}
 			
-			 function expandTo(){
+			function expandTo(){
 			  var node = $('#trees').tree('find',113);
 			  $('#trees').tree('expandTo', node.target).tree('select', node.target);
 			  }
@@ -52,33 +52,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  function getSelected(){
 			  	 var node = $('#trees').tree('getSelected');
 			  	 var tabs = $('#tabs') ;
-			  	 
 			  	 if (node){
 			  	 	var s = node.text;
 			  	 	if (node.attributes){
 			  	 		s += ","+node.attributes.p1+","+node.attributes.p2;
 			  	 	}
 			  	 	alert(s);
-			  	 }
-			  	 
-			  	// addPanel() ;
+			  	 }			  	 
 			  }
 			//向右边添加标签页
 		    function addPanel(node){
-			   // alert(123) ;
 			    var flag = $('#tabs').tabs('exists',node.text) ;
-			    
-			  //  alert(node.id) ;
-			 
 			    if(flag){
 			    	$('#tabs').tabs('select',node.text);
 			    	return ;
-			    }
-			    
+			    }			    
 			    $('#tabs').tabs('add',{
 			    title: node.text,
-			   // href: node.attributes.url + "?refId=" + node.id,
-			   content: '<iframe frameborder=0 width=\'100%\' height=\'100%\' src=\"' + node.attributes.url + '\"?refId=\" + node.id + \" ></iframe>',
+			   	content: '<iframe frameborder=0 width=\'100%\' height=\'100%\' src=\"' + node.attributes.url + '\"?refId=\" + node.id + \" ></iframe>',
 			    closable: true
 			    });
 		    }
@@ -125,21 +116,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    }
 		    }
 		   
-		   function saveUser(){
-			   
+		   function saveUser(){			   
 			    $('#treeMenuForm').form('submit',{
 				    url: 'pages/trees/addTree',
 				    onSubmit: function(){
 				    	return $(this).form('validate');
 				    },
-				    success: function(result){
-					    var result = eval('('+result+')');
-					    
+				    success: function(result){	
+					    var result = eval('('+result+')');			    
 					    if (result.errorMsg){
 						    $.messager.alert('温馨提示', result.errorMsg) ;
 					    } else {
 						    $('#treeMenuDlg').dialog('close'); // close the dialog
-						    $('#trees').datagrid('load'); // reload the user data
+						    reloadTree();// reload the user data
 					    }
 				    },
 				    onLoaddError: function(result){
@@ -151,89 +140,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    });
 		    }
 		   
-		   function reladTree(){
-			   var node = $('#trees').tree("getSelected") ;
-			   if(node){
-				   $('#trees').tree("reload", node.attributes.url + "?refId=" + node.id) ;
-			   }else{
-				   
-			   }
+		   function reloadTree(){
+   			    $('#trees').tree({   
+			         url: 'pages/trees/loadTree?refId=0'
+			    });
 		   }
 		   
+		   //刷新功能
+		   function reFresh(){
+                var node = $('#trees').tree('getSelected');
+                if (node) {
+                    $('#trees').tree('reload', node.target);
+                }
+                else {
+                    $('#trees').tree('reload');
+                }
+		   }
+		   
+           function remvoeTreeMenu(){
+                var node = $('#trees').tree('getSelected');
+                $.messager.confirm('数据删除', '您确定删除选中节点?', function(sure) {
+				if (sure) {              			
+               	       deletes(node);
+				}
+   				});
+            }
+            
+   		function deletes(node) {
+   			$.ajax( {
+   			type : "POST",
+   			url : "pages/trees/removeTree?refId=" + node.id,      
+   			async : "true",
+   			dataType : "text",
+   			success : function(result) {
+				reloadTree();
+			}
+   		}).submit();
+   }
     </script>
     </head>
     <body style="margin-left:auto;margin-right:auto;align-text:center">
-    	<div class="easyui-layout" data-options="fit:true">
-	    	<div style="height:46px;background:url(images/main19.jpg);width:1364px;" data-options="region:'north',scroll:false">
+    <div class="easyui-layout" data-options="fit:true">
+	    <div style="height:46px;background:url(images/main19.jpg);width:1364px;" data-options="region:'north',scroll:false">
 	    	<div class="left">
-	    	<img src="images/main14.jpg" width="230" height="40px" border="0" />
+	    	<img src="" border="0" />
 	    	<font face="楷体" style="font-size:20pt;color:#0033CC">教 学 基 本 状 态 数 据 管 理</font>
 	    	</div>
 	    	<div class="right">
-				<h5 style="align:'right';valign:'bottom'"><a href="./login.jsp">退出系统</a>&nbsp;&nbsp;&nbsp;　  </h5>
+				<h5 style="align:'right';valign:'bottom'"><a href="./login.jsp">退出系统</a>&nbsp;&nbsp;&nbsp;</h5>
 			</div>
-	    	</div>
-	    	<div style="height:30px;background:url(images/main01.jpg);width:1364px;" data-options="region:'south',split:false">
+	   </div>
+	   <div style="height:30px;background:url(images/main01.jpg);width:1364px;" data-options="region:'south',split:false">
 	    	<div align="center" valign="bottom">
 				<span style="font-family:宋体;text-align:center">Copyright &copy;南昌工程学院版权 所有</span><br>
 			    <span style="font-family:宋体;align:center;valign:bottom">北京交通大学技术支持</span>
 		    </div>
-	    	</div>
-	    	<!-- 
-			<div style="width:100px;" title="East" data-options="region:'east',split:true">534</div>
-			 -->
+	    </div>
 		    <div id="tree-tools">
-		    	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" title="收起" onclick="collapseAll()"></a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" title="展开" onclick="expandAll()"></a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-new'" title="获取选中的节点" onclick="addTreeMenu()"></a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'" title="添加" onclick="addPanel()"></a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'" title="刷新" onclick="addPanel()"></a>
+		    	<a href="javascript:void(0)"   class="easyui-linkbutton"  data-options="plain:true,iconCls:'icon-back'" title="全部收起" onclick="collapseAll()" style="position: relative;top: -5px;"></a><!--
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-sum'" title="展开" onclick="expandAll()" style="position: relative;top: -5px;"></a>
+				--><a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" title="添加一个节点" onclick="addTreeMenu()" style="position: relative;top: -5px;"></a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" title="删除一个节点" onclick="remvoeTreeMenu()" style="position: relative;top: -5px;"></a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'" title="刷新" onclick="reFresh()" style="position: relative;top: -5px;"></a>
 		    </div>
-	    	<div title="菜单栏" data-options="region:'west',split:true,tools:'#tree-tools',lines:true,border:true"  style="width:200px;">
-	    		<ul id="trees" class="easyui-tree" data-options="tools:'#tree-tools',lines:true,border:true">
-	    		</ul>
+	    	<div id="menu" title="菜单栏"  data-options="region:'west',tools:'#tree-tools',split:true"   style="width:240px;"  >
+	    		<ul id="trees" class="easyui-tree"  data-options="lines:true,border:true" ></ul>
 	    	</div>
-		    <div id="tabs" class="easyui-tabs" data-options="region:'center',split:false,fit:false" >
+			<div id="tabs" class="easyui-tabs" data-options="region:'center',split:false,fit:false" >
 		    	<div title="首页" >
-		    	<div>
-				    <div id="system" class="easyui-panel" title="系统公告" style="width:'auto';height:'auto';padding:10px;">
-						<table>
-							<tr>
-								<td>
-									<li>关于该系统的使用方法介绍</li>
-								</td>
-								<td>
-									<li>校领导</li>
-								</td>
-								<td>
-									<li>关于2014年数据采集截止时间</li>
-								</td>
-							</tr>
-						</table>
-					</div>
-					
-					<div id="dataHelp" class="easyui-panel" title="校园新闻" style="width:'auto';height:'auto';padding:10px;">
-						<p style="font-size:14px">jQuery EasyUI framework helps you build your web pages easily.</p>
-						<ul>
-						<table>
-							<tr>
-							<td>
-							<li>easyui is a collection of user-interface plugin based on jQuery.</li>
-							</td>
-							<td>
-							<li>easyui provides essential functionality for building modem, interactive, javascript applications.</li>
-							</td>
-							<td>
-							<li>using easyui you don't need to write many javascript code, you usually defines user-interface by writing some HTML markup.</li>
-							</td>
-							</tr>
-							</table>
-							<li>complete framework for HTML5 web page.</li>
-							<li>easyui save your time and scales while developing your products.</li>
-							<li>easyui is very easy but powerful.</li>
-						</ul>
-					</div>
-					</div>
+		    	   <iframe frameborder=0 width='100%' height='100%' src="./pages/index.jsp"></iframe>
 				</div>
 		    </div>
     	</div>

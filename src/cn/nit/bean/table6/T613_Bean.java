@@ -16,89 +16,57 @@ import javax.persistence.TemporalType;
 public class T613_Bean implements java.io.Serializable {
 
 	// Fields
-
+	private int seqNumber;
 	private Integer coTrainStuLastYearNum;
 	private Integer coTrainStuThisYearNum;
 	private Integer foreignStuLastYearNum;
 	private Integer foreignStuThisYearNum;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T613_Bean() {
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-
-	/** full constructor */
-	public T613_Bean(Integer coTrainStuLastYearNum, Integer coTrainStuThisYearNum,
-			Integer foreignStuLastYearNum, Integer foreignStuThisYearNum,
-			Date time, String note) {
-
-		this.coTrainStuLastYearNum = coTrainStuLastYearNum;
-		this.coTrainStuThisYearNum = coTrainStuThisYearNum;
-		this.foreignStuLastYearNum = foreignStuLastYearNum;
-		this.foreignStuThisYearNum = foreignStuThisYearNum;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-	@Column(name = "CoTrainStuLastYearNum")
 	public Integer getCoTrainStuLastYearNum() {
-		return this.coTrainStuLastYearNum;
+		return coTrainStuLastYearNum;
 	}
-
 	public void setCoTrainStuLastYearNum(Integer coTrainStuLastYearNum) {
 		this.coTrainStuLastYearNum = coTrainStuLastYearNum;
 	}
-
-	@Column(name = "CoTrainStuThisYearNum")
 	public Integer getCoTrainStuThisYearNum() {
-		return this.coTrainStuThisYearNum;
+		return coTrainStuThisYearNum;
 	}
-
 	public void setCoTrainStuThisYearNum(Integer coTrainStuThisYearNum) {
 		this.coTrainStuThisYearNum = coTrainStuThisYearNum;
 	}
-
-	@Column(name = "ForeignStuLastYearNum")
 	public Integer getForeignStuLastYearNum() {
-		return this.foreignStuLastYearNum;
+		return foreignStuLastYearNum;
 	}
-
 	public void setForeignStuLastYearNum(Integer foreignStuLastYearNum) {
 		this.foreignStuLastYearNum = foreignStuLastYearNum;
 	}
-
-	@Column(name = "ForeignStuThisYearNum")
 	public Integer getForeignStuThisYearNum() {
-		return this.foreignStuThisYearNum;
+		return foreignStuThisYearNum;
 	}
-
 	public void setForeignStuThisYearNum(Integer foreignStuThisYearNum) {
 		this.foreignStuThisYearNum = foreignStuThisYearNum;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	
 
 }

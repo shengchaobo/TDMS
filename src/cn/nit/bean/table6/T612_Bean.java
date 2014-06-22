@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 public class T612_Bean implements java.io.Serializable {
 
 	// Fields
+	private int seqNumber;
 	private Integer masterLastYearNum;
 	private Integer masterThisYearNum;
 	private Integer fullTimeMasterLastYearNum;
@@ -30,167 +31,98 @@ public class T612_Bean implements java.io.Serializable {
 	private Integer partTimeDoctorThisYearNum;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T612_Bean() {
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-	/** full constructor */
-	public T612_Bean(Integer masterLastYearNum,
-			Integer masterThisYearNum, Integer fullTimeMasterLastYearNum,
-			Integer fullTimeMasterThisYearNum,
-			Integer partTimeMasterLastYearNum,
-			Integer partTimeMasterThisYearNum, Integer doctorLastYearNum,
-			Integer doctorThisYearNum, Integer fullTimeDoctorLastYearNum,
-			Integer fullTimeDoctorThisYearNum,
-			Integer partTimeDoctorLastYearNum,
-			Integer partTimeDoctorThisYearNum, Date time, String note) {
-
-		this.masterLastYearNum = masterLastYearNum;
-		this.masterThisYearNum = masterThisYearNum;
-		this.fullTimeMasterLastYearNum = fullTimeMasterLastYearNum;
-		this.fullTimeMasterThisYearNum = fullTimeMasterThisYearNum;
-		this.partTimeMasterLastYearNum = partTimeMasterLastYearNum;
-		this.partTimeMasterThisYearNum = partTimeMasterThisYearNum;
-		this.doctorLastYearNum = doctorLastYearNum;
-		this.doctorThisYearNum = doctorThisYearNum;
-		this.fullTimeDoctorLastYearNum = fullTimeDoctorLastYearNum;
-		this.fullTimeDoctorThisYearNum = fullTimeDoctorThisYearNum;
-		this.partTimeDoctorLastYearNum = partTimeDoctorLastYearNum;
-		this.partTimeDoctorThisYearNum = partTimeDoctorThisYearNum;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-	@Column(name = "MasterLastYearNum")
 	public Integer getMasterLastYearNum() {
-		return this.masterLastYearNum;
+		return masterLastYearNum;
 	}
-
 	public void setMasterLastYearNum(Integer masterLastYearNum) {
 		this.masterLastYearNum = masterLastYearNum;
 	}
-
-	@Column(name = "MasterThisYearNum")
 	public Integer getMasterThisYearNum() {
-		return this.masterThisYearNum;
+		return masterThisYearNum;
 	}
-
 	public void setMasterThisYearNum(Integer masterThisYearNum) {
 		this.masterThisYearNum = masterThisYearNum;
 	}
-
-	@Column(name = "FullTimeMasterLastYearNum")
 	public Integer getFullTimeMasterLastYearNum() {
-		return this.fullTimeMasterLastYearNum;
+		return fullTimeMasterLastYearNum;
 	}
-
 	public void setFullTimeMasterLastYearNum(Integer fullTimeMasterLastYearNum) {
 		this.fullTimeMasterLastYearNum = fullTimeMasterLastYearNum;
 	}
-
-	@Column(name = "FullTimeMasterThisYearNum")
 	public Integer getFullTimeMasterThisYearNum() {
-		return this.fullTimeMasterThisYearNum;
+		return fullTimeMasterThisYearNum;
 	}
-
 	public void setFullTimeMasterThisYearNum(Integer fullTimeMasterThisYearNum) {
 		this.fullTimeMasterThisYearNum = fullTimeMasterThisYearNum;
 	}
-
-	@Column(name = "PartTimeMasterLastYearNum")
 	public Integer getPartTimeMasterLastYearNum() {
-		return this.partTimeMasterLastYearNum;
+		return partTimeMasterLastYearNum;
 	}
-
 	public void setPartTimeMasterLastYearNum(Integer partTimeMasterLastYearNum) {
 		this.partTimeMasterLastYearNum = partTimeMasterLastYearNum;
 	}
-
-	@Column(name = "PartTimeMasterThisYearNum")
 	public Integer getPartTimeMasterThisYearNum() {
-		return this.partTimeMasterThisYearNum;
+		return partTimeMasterThisYearNum;
 	}
-
 	public void setPartTimeMasterThisYearNum(Integer partTimeMasterThisYearNum) {
 		this.partTimeMasterThisYearNum = partTimeMasterThisYearNum;
 	}
-
-	@Column(name = "DoctorLastYearNum")
 	public Integer getDoctorLastYearNum() {
-		return this.doctorLastYearNum;
+		return doctorLastYearNum;
 	}
-
 	public void setDoctorLastYearNum(Integer doctorLastYearNum) {
 		this.doctorLastYearNum = doctorLastYearNum;
 	}
-
-	@Column(name = "DoctorThisYearNum")
 	public Integer getDoctorThisYearNum() {
-		return this.doctorThisYearNum;
+		return doctorThisYearNum;
 	}
-
 	public void setDoctorThisYearNum(Integer doctorThisYearNum) {
 		this.doctorThisYearNum = doctorThisYearNum;
 	}
-
-	@Column(name = "FullTimeDoctorLastYearNum")
 	public Integer getFullTimeDoctorLastYearNum() {
-		return this.fullTimeDoctorLastYearNum;
+		return fullTimeDoctorLastYearNum;
 	}
-
 	public void setFullTimeDoctorLastYearNum(Integer fullTimeDoctorLastYearNum) {
 		this.fullTimeDoctorLastYearNum = fullTimeDoctorLastYearNum;
 	}
-
-	@Column(name = "FullTimeDoctorThisYearNum")
 	public Integer getFullTimeDoctorThisYearNum() {
-		return this.fullTimeDoctorThisYearNum;
+		return fullTimeDoctorThisYearNum;
 	}
-
 	public void setFullTimeDoctorThisYearNum(Integer fullTimeDoctorThisYearNum) {
 		this.fullTimeDoctorThisYearNum = fullTimeDoctorThisYearNum;
 	}
-
-	@Column(name = "PartTimeDoctorLastYearNum")
 	public Integer getPartTimeDoctorLastYearNum() {
-		return this.partTimeDoctorLastYearNum;
+		return partTimeDoctorLastYearNum;
 	}
-
 	public void setPartTimeDoctorLastYearNum(Integer partTimeDoctorLastYearNum) {
 		this.partTimeDoctorLastYearNum = partTimeDoctorLastYearNum;
 	}
-
-	@Column(name = "PartTimeDoctorThisYearNum")
 	public Integer getPartTimeDoctorThisYearNum() {
-		return this.partTimeDoctorThisYearNum;
+		return partTimeDoctorThisYearNum;
 	}
-
 	public void setPartTimeDoctorThisYearNum(Integer partTimeDoctorThisYearNum) {
 		this.partTimeDoctorThisYearNum = partTimeDoctorThisYearNum;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	
 
 }

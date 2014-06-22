@@ -9,6 +9,7 @@ import javax.persistence.Table;
  * DiContestScope entity. @author MyEclipse Persistence Tools
  */
 
+@SuppressWarnings("serial")
 public class DiContestScopeBean implements java.io.Serializable {
 
 	// Fields

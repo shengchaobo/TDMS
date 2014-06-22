@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 public class T659_Bean implements java.io.Serializable {
 
 	// Fields
-
+	private int seqNumber;
 	private String unitId;
 	private String teaUnit;
 	private Integer exchangeStuSum;
@@ -29,113 +29,75 @@ public class T659_Bean implements java.io.Serializable {
 	private Integer fromOverseasToSch;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T659_Bean() {
-	}
-
-
-	/** full constructor */
-	public T659_Bean(String teaUnit, String unitId, Integer exchangeStuSum,
-			Integer fromSchToOverseas, Integer fromSchToDomestic,
-			Integer fromDomesticToSch, Integer fromOverseasToSch, Date time,
-			String note) {
+	private String fillUnitID;
 	
-		this.unitId = unitId;
-		this.teaUnit = teaUnit;
-		this.exchangeStuSum = exchangeStuSum;
-		this.fromSchToOverseas = fromSchToOverseas;
-		this.fromSchToDomestic = fromSchToDomestic;
-		this.fromDomesticToSch = fromDomesticToSch;
-		this.fromOverseasToSch = fromOverseasToSch;
-		this.time = time;
-		this.note = note;
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-	// Property accessors
-
-	@JoinColumn(name = "UnitID")
-	public String getUnitID() {
-		return this.unitId;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	public void setUnitID(String unitId) {
+	public String getUnitId() {
+		return unitId;
+	}
+	public void setUnitId(String unitId) {
 		this.unitId = unitId;
 	}
-
-	@Column(name = "TeaUnit")
 	public String getTeaUnit() {
-		return this.teaUnit;
+		return teaUnit;
 	}
-
 	public void setTeaUnit(String teaUnit) {
 		this.teaUnit = teaUnit;
 	}
-
-	@Column(name = "ExchangeStuSum")
 	public Integer getExchangeStuSum() {
-		return this.exchangeStuSum;
+		return exchangeStuSum;
 	}
-
 	public void setExchangeStuSum(Integer exchangeStuSum) {
 		this.exchangeStuSum = exchangeStuSum;
 	}
-
-	@Column(name = "FromSchToOverseas")
 	public Integer getFromSchToOverseas() {
-		return this.fromSchToOverseas;
+		return fromSchToOverseas;
 	}
-
 	public void setFromSchToOverseas(Integer fromSchToOverseas) {
 		this.fromSchToOverseas = fromSchToOverseas;
 	}
-
-	@Column(name = "FromSchToDomestic")
 	public Integer getFromSchToDomestic() {
-		return this.fromSchToDomestic;
+		return fromSchToDomestic;
 	}
-
 	public void setFromSchToDomestic(Integer fromSchToDomestic) {
 		this.fromSchToDomestic = fromSchToDomestic;
 	}
-
-	@Column(name = "FromDomesticToSch")
 	public Integer getFromDomesticToSch() {
-		return this.fromDomesticToSch;
+		return fromDomesticToSch;
 	}
-
 	public void setFromDomesticToSch(Integer fromDomesticToSch) {
 		this.fromDomesticToSch = fromDomesticToSch;
 	}
-
-	@Column(name = "FromOverseasToSch")
 	public Integer getFromOverseasToSch() {
-		return this.fromOverseasToSch;
+		return fromOverseasToSch;
 	}
-
 	public void setFromOverseasToSch(Integer fromOverseasToSch) {
 		this.fromOverseasToSch = fromOverseasToSch;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
+	public String getFillUnitID() {
+		return fillUnitID;
+	}
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
+
+	
 
 }

@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 public class T654_Bean implements java.io.Serializable {
 
 	// Fields
-
+	private int seqNumber;
 	private String unitId;
 	private String teaUnit;
 	private String jonalName;
@@ -31,143 +31,92 @@ public class T654_Bean implements java.io.Serializable {
 	private Integer guideTeaNum;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T654_Bean() {
+	private String fillUnitID;
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-	/** full constructor */
-	public T654_Bean(
-			String teaUnit, String unitId,  String jonalName,
-			String jonalId, String patentType, Date appvlTime,
-			String awardStuName, Integer awardStuNum, String guideTeaName,
-			Integer guideTeaNum, Date time, String note) {
-		this.unitId = unitId;
-		this.teaUnit = teaUnit;
-		this.jonalName = jonalName;
-		this.jonalId = jonalId;
-		this.patentType = patentType;
-		this.appvlTime = appvlTime;
-		this.awardStuName = awardStuName;
-		this.awardStuNum = awardStuNum;
-		this.guideTeaName = guideTeaName;
-		this.guideTeaNum = guideTeaNum;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-	@JoinColumn(name = "UnitID")
-	public String getUnitID() {
-		return this.unitId;
+	public String getUnitId() {
+		return unitId;
 	}
-
-	public void setUnitID(String unitId) {
+	public void setUnitId(String unitId) {
 		this.unitId = unitId;
 	}
-
-	@Column(name = "TeaUnit")
 	public String getTeaUnit() {
-		return this.teaUnit;
+		return teaUnit;
 	}
-
 	public void setTeaUnit(String teaUnit) {
 		this.teaUnit = teaUnit;
 	}
-
-	@Column(name = "JonalName")
 	public String getJonalName() {
-		return this.jonalName;
+		return jonalName;
 	}
-
 	public void setJonalName(String jonalName) {
 		this.jonalName = jonalName;
 	}
-
-	@Column(name = "JonalID")
 	public String getJonalId() {
-		return this.jonalId;
+		return jonalId;
 	}
-
 	public void setJonalId(String jonalId) {
 		this.jonalId = jonalId;
 	}
-
-	@Column(name = "PatentType")
 	public String getPatentType() {
-		return this.patentType;
+		return patentType;
 	}
-
 	public void setPatentType(String patentType) {
 		this.patentType = patentType;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "AppvlTime", length = 10)
 	public Date getAppvlTime() {
-		return this.appvlTime;
+		return appvlTime;
 	}
-
 	public void setAppvlTime(Date appvlTime) {
 		this.appvlTime = appvlTime;
 	}
-
-	@Column(name = "AwardStuName")
 	public String getAwardStuName() {
-		return this.awardStuName;
+		return awardStuName;
 	}
-
 	public void setAwardStuName(String awardStuName) {
 		this.awardStuName = awardStuName;
 	}
-
-	@Column(name = "AwardStuNum")
 	public Integer getAwardStuNum() {
-		return this.awardStuNum;
+		return awardStuNum;
 	}
-
 	public void setAwardStuNum(Integer awardStuNum) {
 		this.awardStuNum = awardStuNum;
 	}
-
-	@Column(name = "GuideTeaName")
 	public String getGuideTeaName() {
-		return this.guideTeaName;
+		return guideTeaName;
 	}
-
 	public void setGuideTeaName(String guideTeaName) {
 		this.guideTeaName = guideTeaName;
 	}
-
-	@Column(name = "GuideTeaNum")
 	public Integer getGuideTeaNum() {
-		return this.guideTeaNum;
+		return guideTeaNum;
 	}
-
 	public void setGuideTeaNum(Integer guideTeaNum) {
 		this.guideTeaNum = guideTeaNum;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
+	public String getFillUnitID() {
+		return fillUnitID;
+	}
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
 
+	
 }

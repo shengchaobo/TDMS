@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 public class T611_Bean implements java.io.Serializable {
 
 	// Fields
-
+	private int seqNumber;
 	private String stuInfoBaseUrl;
 	private Integer lastYearSumNum;
 	private Integer thisYearSumNum;
@@ -25,113 +25,67 @@ public class T611_Bean implements java.io.Serializable {
 	private Integer juniorThisYearNum;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T611_Bean() {
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-
-	/** full constructor */
-	public T611_Bean(String stuInfoBaseUrl,
-			Integer lastYearSumNum, Integer thisYearSumNum,
-			Integer undergraLastYearNum, Integer undergraThisYearNum,
-			Integer juniorLastYearNum, Integer juniorThisYearNum, Date time,
-			String note) {
-		this.stuInfoBaseUrl = stuInfoBaseUrl;
-		this.lastYearSumNum = lastYearSumNum;
-		this.thisYearSumNum = thisYearSumNum;
-		this.undergraLastYearNum = undergraLastYearNum;
-		this.undergraThisYearNum = undergraThisYearNum;
-		this.juniorLastYearNum = juniorLastYearNum;
-		this.juniorThisYearNum = juniorThisYearNum;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-	@Column(name = "StuInfoBaseUrl")
 	public String getStuInfoBaseUrl() {
-		return this.stuInfoBaseUrl;
+		return stuInfoBaseUrl;
 	}
-
 	public void setStuInfoBaseUrl(String stuInfoBaseUrl) {
 		this.stuInfoBaseUrl = stuInfoBaseUrl;
 	}
-
-	@Column(name = "LastYearSumNum")
 	public Integer getLastYearSumNum() {
-		return this.lastYearSumNum;
+		return lastYearSumNum;
 	}
-
 	public void setLastYearSumNum(Integer lastYearSumNum) {
 		this.lastYearSumNum = lastYearSumNum;
 	}
-
-	@Column(name = "ThisYearSumNum")
 	public Integer getThisYearSumNum() {
-		return this.thisYearSumNum;
+		return thisYearSumNum;
 	}
-
 	public void setThisYearSumNum(Integer thisYearSumNum) {
 		this.thisYearSumNum = thisYearSumNum;
 	}
-
-	@Column(name = "UndergraLastYearNum")
 	public Integer getUndergraLastYearNum() {
-		return this.undergraLastYearNum;
+		return undergraLastYearNum;
 	}
-
 	public void setUndergraLastYearNum(Integer undergraLastYearNum) {
 		this.undergraLastYearNum = undergraLastYearNum;
 	}
-
-	@Column(name = "UndergraThisYearNum")
 	public Integer getUndergraThisYearNum() {
-		return this.undergraThisYearNum;
+		return undergraThisYearNum;
 	}
-
 	public void setUndergraThisYearNum(Integer undergraThisYearNum) {
 		this.undergraThisYearNum = undergraThisYearNum;
 	}
-
-	@Column(name = "JuniorLastYearNum")
 	public Integer getJuniorLastYearNum() {
-		return this.juniorLastYearNum;
+		return juniorLastYearNum;
 	}
-
 	public void setJuniorLastYearNum(Integer juniorLastYearNum) {
 		this.juniorLastYearNum = juniorLastYearNum;
 	}
-
-	@Column(name = "JuniorThisYearNum")
 	public Integer getJuniorThisYearNum() {
-		return this.juniorThisYearNum;
+		return juniorThisYearNum;
 	}
-
 	public void setJuniorThisYearNum(Integer juniorThisYearNum) {
 		this.juniorThisYearNum = juniorThisYearNum;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
+
 
 }

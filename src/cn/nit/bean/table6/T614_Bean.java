@@ -17,7 +17,7 @@ public class T614_Bean implements java.io.Serializable {
 
 	// Fields
 
-
+	private int seqNumber;
 	private Integer preppyLastYearNum;
 	private Integer preppyThisYearNum;
 	private Integer advStuLastYearNum;
@@ -34,188 +34,109 @@ public class T614_Bean implements java.io.Serializable {
 	private Integer selfStudyThisYearNum;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T614_Bean() {
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-
-	/** full constructor */
-	public T614_Bean(
-			Integer preppyLastYearNum, Integer preppyThisYearNum,
-			Integer advStuLastYearNum, Integer advStuThisYearNum,
-			Integer adultLastYearNum, Integer adultThisYearNum,
-			Integer nightUniLastYearNum, Integer nightUniThisYearNum,
-			Integer correspdCoLastYearNum, Integer correspdThisYearNum,
-			Integer netStuLastYearNum, Integer netStuThisYearNum,
-			Integer selfStudyLastYearNum, Integer selfStudyThisYearNum,
-			Date time, String note) {
-
-		this.preppyLastYearNum = preppyLastYearNum;
-		this.preppyThisYearNum = preppyThisYearNum;
-		this.advStuLastYearNum = advStuLastYearNum;
-		this.advStuThisYearNum = advStuThisYearNum;
-		this.adultLastYearNum = adultLastYearNum;
-		this.adultThisYearNum = adultThisYearNum;
-		this.nightUniLastYearNum = nightUniLastYearNum;
-		this.nightUniThisYearNum = nightUniThisYearNum;
-		this.correspdCoLastYearNum = correspdCoLastYearNum;
-		this.correspdThisYearNum = correspdThisYearNum;
-		this.netStuLastYearNum = netStuLastYearNum;
-		this.netStuThisYearNum = netStuThisYearNum;
-		this.selfStudyLastYearNum = selfStudyLastYearNum;
-		this.selfStudyThisYearNum = selfStudyThisYearNum;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-	@Column(name = "PreppyLastYearNum")
 	public Integer getPreppyLastYearNum() {
-		return this.preppyLastYearNum;
+		return preppyLastYearNum;
 	}
-
 	public void setPreppyLastYearNum(Integer preppyLastYearNum) {
 		this.preppyLastYearNum = preppyLastYearNum;
 	}
-
-	@Column(name = "PreppyThisYearNum")
 	public Integer getPreppyThisYearNum() {
-		return this.preppyThisYearNum;
+		return preppyThisYearNum;
 	}
-
 	public void setPreppyThisYearNum(Integer preppyThisYearNum) {
 		this.preppyThisYearNum = preppyThisYearNum;
 	}
-
-	@Column(name = "AdvStuLastYearNum")
 	public Integer getAdvStuLastYearNum() {
-		return this.advStuLastYearNum;
+		return advStuLastYearNum;
 	}
-
 	public void setAdvStuLastYearNum(Integer advStuLastYearNum) {
 		this.advStuLastYearNum = advStuLastYearNum;
 	}
-
-	@Column(name = "AdvStuThisYearNum")
 	public Integer getAdvStuThisYearNum() {
-		return this.advStuThisYearNum;
+		return advStuThisYearNum;
 	}
-
 	public void setAdvStuThisYearNum(Integer advStuThisYearNum) {
 		this.advStuThisYearNum = advStuThisYearNum;
 	}
-
-	@Column(name = "AdultLastYearNum")
 	public Integer getAdultLastYearNum() {
-		return this.adultLastYearNum;
+		return adultLastYearNum;
 	}
-
 	public void setAdultLastYearNum(Integer adultLastYearNum) {
 		this.adultLastYearNum = adultLastYearNum;
 	}
-
-	@Column(name = "AdultThisYearNum")
 	public Integer getAdultThisYearNum() {
-		return this.adultThisYearNum;
+		return adultThisYearNum;
 	}
-
 	public void setAdultThisYearNum(Integer adultThisYearNum) {
 		this.adultThisYearNum = adultThisYearNum;
 	}
-
-	@Column(name = "NightUniLastYearNum")
 	public Integer getNightUniLastYearNum() {
-		return this.nightUniLastYearNum;
+		return nightUniLastYearNum;
 	}
-
 	public void setNightUniLastYearNum(Integer nightUniLastYearNum) {
 		this.nightUniLastYearNum = nightUniLastYearNum;
 	}
-
-	@Column(name = "NightUniThisYearNum")
 	public Integer getNightUniThisYearNum() {
-		return this.nightUniThisYearNum;
+		return nightUniThisYearNum;
 	}
-
 	public void setNightUniThisYearNum(Integer nightUniThisYearNum) {
 		this.nightUniThisYearNum = nightUniThisYearNum;
 	}
-
-	@Column(name = "CorrespdCoLastYearNum")
 	public Integer getCorrespdCoLastYearNum() {
-		return this.correspdCoLastYearNum;
+		return correspdCoLastYearNum;
 	}
-
 	public void setCorrespdCoLastYearNum(Integer correspdCoLastYearNum) {
 		this.correspdCoLastYearNum = correspdCoLastYearNum;
 	}
-
-	@Column(name = "CorrespdThisYearNum")
 	public Integer getCorrespdThisYearNum() {
-		return this.correspdThisYearNum;
+		return correspdThisYearNum;
 	}
-
 	public void setCorrespdThisYearNum(Integer correspdThisYearNum) {
 		this.correspdThisYearNum = correspdThisYearNum;
 	}
-
-	@Column(name = "NetStuLastYearNum")
 	public Integer getNetStuLastYearNum() {
-		return this.netStuLastYearNum;
+		return netStuLastYearNum;
 	}
-
 	public void setNetStuLastYearNum(Integer netStuLastYearNum) {
 		this.netStuLastYearNum = netStuLastYearNum;
 	}
-
-	@Column(name = "NetStuThisYearNum")
 	public Integer getNetStuThisYearNum() {
-		return this.netStuThisYearNum;
+		return netStuThisYearNum;
 	}
-
 	public void setNetStuThisYearNum(Integer netStuThisYearNum) {
 		this.netStuThisYearNum = netStuThisYearNum;
 	}
-
-	@Column(name = "SelfStudyLastYearNum")
 	public Integer getSelfStudyLastYearNum() {
-		return this.selfStudyLastYearNum;
+		return selfStudyLastYearNum;
 	}
-
 	public void setSelfStudyLastYearNum(Integer selfStudyLastYearNum) {
 		this.selfStudyLastYearNum = selfStudyLastYearNum;
 	}
-
-	@Column(name = "SelfStudyThisYearNum")
 	public Integer getSelfStudyThisYearNum() {
-		return this.selfStudyThisYearNum;
+		return selfStudyThisYearNum;
 	}
-
 	public void setSelfStudyThisYearNum(Integer selfStudyThisYearNum) {
 		this.selfStudyThisYearNum = selfStudyThisYearNum;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
+
 
 }

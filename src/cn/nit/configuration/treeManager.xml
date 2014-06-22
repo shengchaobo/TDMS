@@ -8,5 +8,7 @@
 	    <action name="loadTree" class="cn.nit.action.TreeManagerAction" method="loadTree" />
 	    <!-- 添加树 -->
 	    <action name="addTree" class="cn.nit.action.TreeManagerAction" method="addTree" />
+  	    <!-- 删除树结点-->
+	    <action name="removeTree" class="cn.nit.action.TreeManagerAction" method="removeTree" />
 	</package>
 </struts>

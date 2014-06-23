@@ -24,6 +24,7 @@ public class T12DAO {
 	private String field = "UnitID,UnitName,UnitType,Functions,Leader,TeaID,Time,Note" ;
 	
 	
+	
 	/**
 	 * 查询待审核数据在数据库中共有多少条
 	 * @param conditions 查询条件
@@ -33,15 +34,13 @@ public class T12DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select count(*)") ;
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiResearchType drt") ;
-		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
-//		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-//		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+		sql.append("select t.SeqNumber,t.UnitID,t.UnitName,t.UnitType,t.Functions,t.Leader,t.TeaID,t.Time,t.Note") ;
+		sql.append(" from " + tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea") ;
+		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
 		int total = 0 ;
 		
 		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
+			sql.append(" and t.UnitID=" + fillUnitId) ;
 		}
 		
 		if(conditions != null && !conditions.equals("")){
@@ -75,44 +74,136 @@ public class T12DAO {
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
 	 */
-	public List<T12POJO> auditingData(String year){
+	public List<T12POJO> auditingData(String conditions, String fillUnitId, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T12POJO> list=null;
-        
-		sql.append("select * from "+ tableName);
-		sql.append(" where Time like '"+year+"%'");
+		List<T12POJO> list = null ;
+		
+		sql.append("select t.SeqNumber,t.UnitID,t.UnitName,t.UnitType,t.Functions,t.Leader,t.TeaID,t.Time,t.Note") ;
+		sql.append(" from " + tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea") ;
+		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
+
+		if(fillUnitId != null && !fillUnitId.equals("")){
+			sql.append(" and t.UnitID=" + fillUnitId) ;
+		}
+		
+		if(conditions != null){
+			sql.append(conditions) ;
+		}
+		
+//		sql.append(" order by SeqNumber desc") ;
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-//		System.out.println(sql.toString());
 		
 		try{
-			st = conn.createStatement() ;
-//			ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY
-//			st.setMaxRows(1) ;
+			st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY) ;
+			st.setMaxRows(page * rows) ;
 			rs = st.executeQuery(sql.toString()) ;
-//			rs.absolute((page - 1) * rows) ;
+			rs.absolute((page - 1) * rows) ;
 			list = DAOUtil.getList(rs, T12POJO.class) ;
-			
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
 		}
+		
 		return list ;
 	}
 	
+	
+	
+//	/**
+//	 * 查询待审核数据在数据库中共有多少条
+//	 * @param conditions 查询条件
+//	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
+//	 * @return
+//	 */
+//	public int totalAuditingData(String conditions, String fillUnitId){
+//		
+//		StringBuffer sql = new StringBuffer() ;
+//		sql.append("select count(*)") ;
+//		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiResearchType drt") ;
+//		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
+////		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
+////		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+//		int total = 0 ;
+//		
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
+//		
+//		if(conditions != null && !conditions.equals("")){
+//			sql.append(conditions) ;
+//		}
+//		
+//		Connection conn = DBConnection.instance.getConnection() ;
+//		Statement st = null ;
+//		ResultSet rs = null ;
+//		
+//		try{
+//			st = conn.createStatement() ;
+//			rs = st.executeQuery(sql.toString()) ;
+//			
+//			if(rs == null){
+//				return total ;
+//			}
+//			
+//			while(rs.next()){
+//				total = rs.getInt(1) ;
+//			}
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return 0 ;
+//		}
+//		return total ;
+//	}
+//	
+//	/**
+//	 * @param conditions 查询条件
+//	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
+//	 * @return
+//	 */
+//	public List<T12POJO> auditingData(){
+//		
+//		StringBuffer sql = new StringBuffer() ;
+//		List<T12POJO> list=null;
+//        
+//		sql.append("select * from "+ tableName);
+//		sql.append(" where UnitID='1001'");
+////		sql.append(" where Time like '"+year+"%'");
+//		
+//		Connection conn = DBConnection.instance.getConnection() ;
+//		Statement st = null ;
+//		ResultSet rs = null ;
+////		System.out.println(sql.toString());
+//		
+//		try{
+//			st = conn.createStatement() ;
+////			ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY
+////			st.setMaxRows(1) ;
+//			rs = st.executeQuery(sql.toString()) ;
+////			rs.absolute((page - 1) * rows) ;
+//			list = DAOUtil.getList(rs, T12POJO.class) ;
+//			
+//			
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return null ;
+//		}
+//		return list ;
+//	}
+//	
 	public String getTableName(){
 		return this.tableName ;
 	}
 	
     public static void main(String arg[])
     {
-    	T11DAO dao=new T11DAO();
-//    	List<T12POJO> list=dao.auditingData("2014");
-//    	System.out.println(list.size());
+    	T12DAO dao=new T12DAO();
+    	List<T12POJO> list=dao.auditingData(null, "1001", 1, 1);
+    	System.out.println(list.size());
     }
 
 }

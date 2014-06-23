@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T17Bean;
 import cn.nit.dbconnection.DBConnection;
 
@@ -82,12 +83,12 @@ public class T17DAO {
 //		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		int total = 0 ;
 		
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
-		}
-		
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
+//		
 		if(conditions != null && !conditions.equals("")){
-			sql.append(conditions) ;
+			sql.append(" where "+conditions) ;
 		}
 		
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -126,12 +127,12 @@ public class T17DAO {
 //		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 //		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		//
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
-		}
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
 		
 		if(conditions != null){
-			sql.append(conditions) ;
+			sql.append(" where "+conditions) ;
 		}
 		
 		sql.append(" order by SeqNumber desc") ;
@@ -155,6 +156,35 @@ public class T17DAO {
 		
 		return list ;
 	}
+	
+	/**
+	 * 获得的总数（用于导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T17Bean> totalList(){
+		
+		StringBuffer sql=new StringBuffer();
+		sql.append("select SeqNumber,ClubName,BuildYear,Place,Time,Note from "+ tableName);
+
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T17Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T17Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
 	
 	public boolean update(T17Bean t17Bean){
 		
@@ -203,7 +233,7 @@ public class T17DAO {
 		T17DAO dao=new T17DAO();
 //		int n=dao.totalAuditingData(null, null);
 //		System.out.println(n);
-		List<T17POJO> list=dao.auditingData(null, null, 1, 2);
+		List<T17Bean> list=dao.totalList();
 		System.out.println(list.size());
 	}
 

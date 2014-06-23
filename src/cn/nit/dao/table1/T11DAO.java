@@ -108,9 +108,7 @@ public class T11DAO {
 	}
 	
 	/**
-	 * @param conditions 查询条件
-	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
-	 * @return
+	 *Excel數據導出
 	 */
 	public List<T11Bean> forExcel(String year){
 		

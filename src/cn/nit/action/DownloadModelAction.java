@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import org.apache.struts2.ServletActionContext;
@@ -17,6 +18,13 @@ public class DownloadModelAction {
 	public InputStream getInputStream(){
 
 		String path = this.getClass().getResource("/" + fileName).getPath();
+		 try {
+			path=URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		InputStream inputStream = null ;
 
 		try {

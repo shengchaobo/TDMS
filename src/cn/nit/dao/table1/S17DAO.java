@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nit.bean.table1.S17Bean;
+import cn.nit.bean.table1.T11Bean;
 import cn.nit.bean.table1.T17Bean;
 import cn.nit.dbconnection.DBConnection;
 
@@ -84,6 +85,38 @@ public class S17DAO {
 			e.printStackTrace();
 		}
 		return flag;
+	}
+	
+	/**
+	excel数据导出
+	 */
+	public List<S17Bean> forExcel(String year){
+		
+		StringBuffer sql = new StringBuffer() ;
+		List<S17Bean> list=null;
+        
+		sql.append("select * from "+ tableName);
+		sql.append(" where Time like '"+year+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+//		System.out.println(sql.toString());
+		
+		try{
+			st = conn.createStatement() ;
+//			ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY
+//			st.setMaxRows(1) ;
+			rs = st.executeQuery(sql.toString()) ;
+//			rs.absolute((page - 1) * rows) ;
+			list = DAOUtil.getList(rs, S17Bean.class) ;
+			
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}
+		return list ;
 	}
 	
 	/**

@@ -132,7 +132,7 @@ public class T11Action {
 			if(flag){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
-				out.print("{\"state\":true,data:\"删除失败!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
 		}catch(Exception e){
@@ -158,25 +158,7 @@ public class T11Action {
             list=t11Dao.forExcel(year);
             inputStream = new ByteArrayInputStream(t11Excel.writeExcel(list).toByteArray());
 			
-//			List<T151Bean> list = t151Dao.totalList();
-//			
-//			String sheetName = this.getExcelName();
-//			
-//			List<String> columns = new ArrayList<String>();
-//			columns.add("序号");
-//			columns.add("科研机构名称");columns.add("单位号");columns.add("类别");columns.add("共建情况");
-//			columns.add("是否对本科生开放");columns.add("对本科生开放情况（500字以内）");columns.add("所属教学单位");columns.add("教学单位号");
-//			columns.add("开设年份");columns.add("专业科研用房面积（平方米）");columns.add("备注");
-//
-//			
-//			Map<String,Integer> maplist = new HashMap<String,Integer>();
-//			maplist.put("SeqNum", 0);
-//			maplist.put("ResInsName", 1);maplist.put("ResInsID", 2);maplist.put("Type", 3);maplist.put("BuildCondition", 4);
-//			maplist.put("BiOpen", 5);maplist.put("OpenCondition", 6);maplist.put("TeaUnit", 7);maplist.put("UnitID", 8);
-//			maplist.put("BeginYear", 9);maplist.put("HouseArea", 10);maplist.put("Note", 11);
-//			
-//			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-//			inputStream = new ByteArrayInputStream(t151Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

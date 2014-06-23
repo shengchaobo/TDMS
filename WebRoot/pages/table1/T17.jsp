@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -74,13 +75,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			<a href="pages/T17/dataExport?excelName=表T-1-7校友会（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>
 		 <div>
 		 	<form id="auditing" method="post">
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
 	</div>
@@ -100,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="pages/SchResIns/downloadModel" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T17/downloadModel?saveFile=<%=URLEncoder.encode("表T17校友会（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
 		<div></div>
@@ -165,6 +167,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	var url ;
+
+	 function reloadgrid ()  { 
+	        //查询参数直接添加在queryParams中 
+	         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+	         queryParams.seqNum = $('#seqNum').val(); 
+	         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+	    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+	         $("#unverfiedData").datagrid('reload'); 
+	    }
 	
 	function singleSearch(){
    	 $('#auditing').form('submit',{
@@ -206,12 +217,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 	}
 	    		 }
 	    		 });
+	    	 loadDictionary();
 	    }
 	    
 	    function check(){
 	    	var fileName = $('#uploadFile').val() ;
 	    	
 	    	if(fileName == null || fileName == ""){
+		    	$.messager.alert("操作提示","请选择一个Excel文件！");
 	    		return false ;
 	    	}
 	    	
@@ -221,6 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	if(suffixName == ".xls"){
 	    		return true ;
 	    	}else{
+	    		$.messager.alert("操作提示","文件格式错误，请选择后缀为“.xls”的文件！");
 	    		return false ;
 	    	}
 	    } 

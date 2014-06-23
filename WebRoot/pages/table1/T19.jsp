@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -74,13 +75,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			<a href="pages/T19/dataExport?excelName=表1-9学校获得荣誉（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>
 		 <div>
 		 	<form id="auditing" method="post">
 		 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 			日期 起始:  <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 			结束:  <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 				</form>
 		</div>
 	</div>
@@ -115,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="pages/SchResIns/downloadModel" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T19/downloadModel?saveFile=<%=URLEncoder.encode("表1-9学校获得荣誉（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
@@ -203,34 +205,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	    var url;
 
-	    function singleSearch(){
-	      	 $('#auditing').form('submit',{
-	      		 url: 'pages/T19/singleSearch',
-	      		 type: "post",
-	   	     dataType: "json",
-	      		 success: function(result){
-	      		 	var result = eval('('+result+')');
-	      		 	if (!result.state){
-	      		 		$.messager.show({
-	      		 			title: 'Error',
-	      		 			msg: result.errorMsg
-	      			 });
-	      		 	} else {
-	   		    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-	      		 	}
-	      		 }
-	      		 });
-	      }
+	    function reloadgrid ()  { 
+	        //查询参数直接添加在queryParams中 
+	         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+	         queryParams.seqNum = $('#seqNum').val(); 
+	         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+	    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+	         $("#unverfiedData").datagrid('reload'); 
+	    }
+
+//	    function singleSearch(){
+	//      	 $('#auditing').form('submit',{
+	   //   		 url: 'pages/T19/singleSearch',
+	   //   		 type: "post",
+	   //	     dataType: "json",
+	   //   		 success: function(result){
+	   ////   		 	var result = eval('('+result+')');
+	   //   		 	if (!result.state){
+	    //  		 		$.messager.show({
+	  //    		 			title: 'Error',
+	   //   		 			msg: result.errorMsg
+	   //   			 });
+	    //  		 	} else {
+	   	//	    	$('#unverfiedData').datagrid('load'); // reload the auditing data
+	      //		 	}
+	     // 		 }
+	    //  		 });
+	   //   }
 	    
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url:'pages/T19/uploadFile',
+	    		 url: 'pages/T19/uploadFile',
+	    		 type: "post",
+		         dataType: "json",
 	    		 onSubmit: function(){
-	    		 	return $(this).form('validate');
+	    			 return check() ;
 	    		 },
 	    		 success: function(result){
 	    		 	var result = eval('('+result+')');
-	    		 	if (result.errorMsg){
+	    		 	if (!result.success){
 	    		 		$.messager.show({
 	    		 			title: 'Error',
 	    		 			msg: result.errorMsg
@@ -242,6 +255,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 }
 	    		 });
 	    }
+	    
+	    function check(){
+	    	var fileName = $('#uploadFile').val() ;
+	    	
+	    	if(fileName == null || fileName == ""){
+		    	$.messager.alert("操作提示","请选择一个Excel文件！");
+	    		return false ;
+	    	}
+	    	
+	    	var pos = fileName.lastIndexOf(".") ;
+	    	var suffixName = fileName.substring(pos, fileName.length) ;
+	    	
+	    	if(suffixName == ".xls"){
+	    		return true ;
+	    	}else{
+	    		$.messager.alert("操作提示","文件格式错误，请选择后缀为“.xls”的文件！");
+	    		return false ;
+	    	}
+	    } 
 
 	   
 	    function newCourse(){

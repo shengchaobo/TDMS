@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -88,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
 	</div>
@@ -127,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="pages/SchResIns/downloadModel" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/SchResIns/downloadModel?saveFile=<%=URLEncoder.encode("表1-5-1校级以上科研机构（科研处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
 		<div></div>
@@ -257,29 +258,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	var url ;
-	
-	function singleSearch(){
-   	 $('#auditing').form('submit',{
-   		 url: 'pages/SchResIns/singleSearch',
-   		 type: "post",
-	     dataType: "json",
-   		 success: function(result){
-   		 	var result = eval('('+result+')');
-   		 	if (!result.state){
-   		 		$.messager.show({
-   		 			title: 'Error',
-   		 			msg: result.errorMsg
-   			 });
-   		 	} else {
-		    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-   		 	}
-   		 }
-   		 });
-   }
+
+	function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+         queryParams.seqNum = $('#seqNum').val(); 
+         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+         $("#unverfiedData").datagrid('reload'); 
+    }
+
+	//function singleSearch(){
+	//	alert(123);
+   ////	 $('#auditing').form('submit',{
+   	//	 url: 'pages/SchResIns/auditingData',
+   	//	 type: "post",
+	 //    dataType: "json",
+   	//	 success: function(result){
+   	//	 	var result = eval('('+result+')');
+   	//	 	if (!result.state){
+   		// 		$.messager.show({
+   		// 			title: 'Error',
+   		 //			msg: result.errorMsg
+   		//	 });
+   		 //	} else {
+		 //   	$('#unverfiedData').datagrid('load'); // reload the auditing data
+   		 //	}
+   		// }
+   		// });
+ //  }
 	
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url: 'pages/UndergraCSBaseTea/uploadFile',
+	    		 url: 'pages/SchResIns/uploadFile',
 	    		 type: "post",
 		         dataType: "json",
 	    		 onSubmit: function(){
@@ -304,6 +315,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	var fileName = $('#uploadFile').val() ;
 	    	
 	    	if(fileName == null || fileName == ""){
+	    		 $.messager.alert("操作提示", "请先选择要导入的文件！");
 	    		return false ;
 	    	}
 	    	
@@ -313,6 +325,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	if(suffixName == ".xls"){
 	    		return true ;
 	    	}else{
+	    		 $.messager.alert("操作提示", "请选择正确的Excel文件（后缀为.xls）");
 	    		return false ;
 	    	}
 	    } 

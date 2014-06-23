@@ -57,7 +57,7 @@ public class T16Service {
 	 * @return
 	 */
 	public boolean update(T16Bean t16Bean){
-//	    this.setAudit(t151Bean) ;
+//	    this.setAudit(t16Bean) ;
 		return t16Dao.update(t16Bean) ;
 	}
 	

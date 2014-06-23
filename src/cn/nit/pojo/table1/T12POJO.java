@@ -15,6 +15,7 @@ public class T12POJO {
 	private String TeaID;
 	private Date Time;
 	private String Note;
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}

@@ -18,8 +18,6 @@ public class T151Bean {
 	private double HouseArea;//面积
 	private Date Time;
 	private String Note;
-	private String audit;
-	private int position;
 	
 	public int getSeqNumber() {
 		return SeqNumber;
@@ -105,16 +103,5 @@ public class T151Bean {
 	public void setNote(String note) {
 		Note = note;
 	}
-	public String getAudit() {
-		return audit;
-	}
-	public void setAudit(String audit) {
-		this.audit = audit;
-	}
-	public int getPosition() {
-		return position;
-	}
-	public void setPosition(int position) {
-		this.position = position;
-	}
+
 }

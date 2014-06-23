@@ -235,7 +235,7 @@ public class T621_Action {
 		InputStream inputStream = null;
 
 		try {
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(null,null,null,null).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -1,4 +1,4 @@
-package cn.nit.dao.table1;
+﻿package cn.nit.dao.table1;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -198,12 +198,11 @@ public class T12DAO {
 	public String getTableName(){
 		return this.tableName ;
 	}
-	
+
     public static void main(String arg[])
     {
     	T12DAO dao=new T12DAO();
     	List<T12POJO> list=dao.auditingData(null, "1001", 1, 1);
     	System.out.println(list.size());
     }
-
 }

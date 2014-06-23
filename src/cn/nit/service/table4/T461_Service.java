@@ -11,32 +11,48 @@ public class T461_Service {
 	
 	//根据第几页获取，每页几行获取数据
 	
-	public List<T461_Bean> getPagehonorList(String rows, String page, String param){
+	public List<T461_Bean> getPagehonorList(String conditions, String fillunitID, String rows, String page, String param){
 		
 		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
 		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
 		
-		List<T461_Bean> honor = honorDao.queryPageList(pagesize, currentpage, param);
+		List<T461_Bean> honor = honorDao.queryPageList(conditions, fillunitID, pagesize, currentpage, param);
 		
 		return honor;		
 	}
 	
-	public int getTotal(String param){
-		return honorDao.getAllList(param).size();
+	public int getTotal(String cond, String fillUnitID, String param){
+		return honorDao.totalQueryPageList(cond, fillUnitID, param);
 	}
 	
 	public Boolean insert(T461_Bean bean){
 		return honorDao.insert(bean);
 	}
 	
+	//模板导入
+	public Boolean batchInsert(List<T461_Bean> list){
+		return honorDao.batchInsert(list);
+	}
+	
 	/**
-	 * 加载所有的人
+	 * 更新数据
+	 * @param 
 	 * @return
-	 *
-	 * @time: 2014-5-14/下午03:04:36
 	 */
-	public List<T461_Bean> getList(String param){
-		return honorDao.getAllList(param) ;
+	public boolean update(T461_Bean bean){
+		return honorDao.update(bean) ;
+	}
+	
+	
+	/**
+	 * 删除数据
+	 * @param 
+	 * @return
+	 */
+	
+	public boolean deleteByIds(String ids){
+		
+		return honorDao.deleteByIds(ids) ;
 	}
 
 }

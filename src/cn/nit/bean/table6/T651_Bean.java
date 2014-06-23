@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 public class T651_Bean implements java.io.Serializable {
 
 	// Fields
+	private int seqNumber;
 	private String competiType;
 	private String awardLevel;
 	private String unitId;
@@ -34,174 +35,111 @@ public class T651_Bean implements java.io.Serializable {
 	private Integer guideTeaNum;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T651_Bean() {
+	private String fillUnitID;
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-
-	/** full constructor */
-	public T651_Bean(
-			String teaUnit, String unitId, String competiType, String competiName,
-			String awardItem, String awardLevel, String awardGrade, String awardFromUnit,
-			Date awardTime, String awardStuName, Integer awardStuNum,
-			String guideTeaName, Integer guideTeaNum, Date time, String note) {
-		this.competiType = competiType;
-		this.awardLevel = awardLevel;
-		this.unitId = unitId;
-		this.teaUnit = teaUnit;
-		this.competiName = competiName;
-		this.awardItem = awardItem;
-		this.awardGrade = awardGrade;
-		this.awardFromUnit = awardFromUnit;
-		this.awardTime = awardTime;
-		this.awardStuName = awardStuName;
-		this.awardStuNum = awardStuNum;
-		this.guideTeaName = guideTeaName;
-		this.guideTeaNum = guideTeaNum;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-	@JoinColumn(name = "CompetiType")
 	public String getCompetiType() {
-		return this.competiType;
+		return competiType;
 	}
-
 	public void setCompetiType(String competiType) {
 		this.competiType = competiType;
 	}
-
-	@JoinColumn(name = "AwardLevel")
 	public String getAwardLevel() {
-		return this.awardLevel;
+		return awardLevel;
 	}
-
 	public void setAwardLevel(String awardLevel) {
 		this.awardLevel = awardLevel;
 	}
-
-	@JoinColumn(name = "UnitID")
-	public String getUnitID() {
-		return this.unitId;
+	public String getUnitId() {
+		return unitId;
 	}
-
-	public void setUnitID(String unitId) {
+	public void setUnitId(String unitId) {
 		this.unitId = unitId;
 	}
-
-	@Column(name = "TeaUnit")
 	public String getTeaUnit() {
-		return this.teaUnit;
+		return teaUnit;
 	}
-
 	public void setTeaUnit(String teaUnit) {
 		this.teaUnit = teaUnit;
 	}
-
-	@Column(name = "CompetiName")
 	public String getCompetiName() {
-		return this.competiName;
+		return competiName;
 	}
-
 	public void setCompetiName(String competiName) {
 		this.competiName = competiName;
 	}
-
-	@Column(name = "AwardItem")
 	public String getAwardItem() {
-		return this.awardItem;
+		return awardItem;
 	}
-
 	public void setAwardItem(String awardItem) {
 		this.awardItem = awardItem;
 	}
-
-	@Column(name = "AwardGrade")
 	public String getAwardGrade() {
-		return this.awardGrade;
+		return awardGrade;
 	}
-
 	public void setAwardGrade(String awardGrade) {
 		this.awardGrade = awardGrade;
 	}
-
-	@Column(name = "AwardFromUnit")
 	public String getAwardFromUnit() {
-		return this.awardFromUnit;
+		return awardFromUnit;
 	}
-
 	public void setAwardFromUnit(String awardFromUnit) {
 		this.awardFromUnit = awardFromUnit;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "AwardTime", length = 10)
 	public Date getAwardTime() {
-		return this.awardTime;
+		return awardTime;
 	}
-
 	public void setAwardTime(Date awardTime) {
 		this.awardTime = awardTime;
 	}
-
-	@Column(name = "AwardStuName")
 	public String getAwardStuName() {
-		return this.awardStuName;
+		return awardStuName;
 	}
-
 	public void setAwardStuName(String awardStuName) {
 		this.awardStuName = awardStuName;
 	}
-
-	@Column(name = "AwardStuNum")
 	public Integer getAwardStuNum() {
-		return this.awardStuNum;
+		return awardStuNum;
 	}
-
 	public void setAwardStuNum(Integer awardStuNum) {
 		this.awardStuNum = awardStuNum;
 	}
-
-	@Column(name = "GuideTeaName")
 	public String getGuideTeaName() {
-		return this.guideTeaName;
+		return guideTeaName;
 	}
-
 	public void setGuideTeaName(String guideTeaName) {
 		this.guideTeaName = guideTeaName;
 	}
-
-	@Column(name = "GuideTeaNum")
 	public Integer getGuideTeaNum() {
-		return this.guideTeaNum;
+		return guideTeaNum;
 	}
-
 	public void setGuideTeaNum(Integer guideTeaNum) {
 		this.guideTeaNum = guideTeaNum;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
+	
+	public String getFillUnitID() {
+		return fillUnitID;
+	}
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
 
+	
 }

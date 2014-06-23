@@ -70,7 +70,6 @@ public class T435_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T42_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;

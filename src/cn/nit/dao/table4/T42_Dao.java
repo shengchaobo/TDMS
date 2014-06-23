@@ -18,6 +18,7 @@ public class T42_Dao {
 	private String field = "Name,TeaId,Duty,Gender,Birthday,JoinSchTime,Education,TopDegree,"+
 	"MajTechTitle,ForCharge,Resume,Time,Note";
 	private String keyfield = "SeqNumber";
+	
 	/**
 	 * 获取字典表的所有数据
 	 * @return
@@ -79,7 +80,6 @@ public class T42_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T42_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
@@ -167,7 +167,7 @@ public class T42_Dao {
 		String tempfield = "Name,TeaId,Duty,Gender,Birthday,JoinSchTime,Education,TopDegree,"+
 		"MajTechTitle,ForCharge,Resume,Time";
 		try{
-			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -191,7 +191,13 @@ public class T42_Dao {
 		return DAOUtil.insert(schLeader, tableName, field, conn) ;
 	}
 	
-	
+	/**
+	 * 删除数据
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
 	public boolean deleteByIds(String ids) {
 
 		int flag = 0;
@@ -217,7 +223,13 @@ public class T42_Dao {
 		}
 	}
 	
-	
+	/**
+	 * 更新数据
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
 	public boolean update(T42_Bean bean){
 		
 		boolean flag = false ;

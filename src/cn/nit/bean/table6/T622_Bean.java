@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 public class T622_Bean implements java.io.Serializable {
 
 	// Fields
-
+	private int seqNumber;
 	private String province;
 	private String batch;
 	private Integer libEnrollNum;
@@ -26,121 +26,73 @@ public class T622_Bean implements java.io.Serializable {
 	private Integer sciAvgScore;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T622_Bean() {
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-	/** full constructor */
-	public T622_Bean(String province,
-			String batch, Integer libEnrollNum, Integer sciEnrollNum,
-			Integer libLowestScore, Integer sciLowestScore,
-			Integer libAvgScore, Integer sciAvgScore, Date time, String note) {
-		this.province = province;
-		this.batch = batch;
-		this.libEnrollNum = libEnrollNum;
-		this.sciEnrollNum = sciEnrollNum;
-		this.libLowestScore = libLowestScore;
-		this.sciLowestScore = sciLowestScore;
-		this.libAvgScore = libAvgScore;
-		this.sciAvgScore = sciAvgScore;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-	@Column(name = "Province")
 	public String getProvince() {
-		return this.province;
+		return province;
 	}
-
 	public void setProvince(String province) {
 		this.province = province;
 	}
-
-	@Column(name = "Batch")
 	public String getBatch() {
-		return this.batch;
+		return batch;
 	}
-
 	public void setBatch(String batch) {
 		this.batch = batch;
 	}
-
-	@Column(name = "LibEnrollNum")
 	public Integer getLibEnrollNum() {
-		return this.libEnrollNum;
+		return libEnrollNum;
 	}
-
 	public void setLibEnrollNum(Integer libEnrollNum) {
 		this.libEnrollNum = libEnrollNum;
 	}
-
-	@Column(name = "SciEnrollNum")
 	public Integer getSciEnrollNum() {
-		return this.sciEnrollNum;
+		return sciEnrollNum;
 	}
-
 	public void setSciEnrollNum(Integer sciEnrollNum) {
 		this.sciEnrollNum = sciEnrollNum;
 	}
-
-	@Column(name = "LibLowestScore")
 	public Integer getLibLowestScore() {
-		return this.libLowestScore;
+		return libLowestScore;
 	}
-
 	public void setLibLowestScore(Integer libLowestScore) {
 		this.libLowestScore = libLowestScore;
 	}
-
-	@Column(name = "SciLowestScore")
 	public Integer getSciLowestScore() {
-		return this.sciLowestScore;
+		return sciLowestScore;
 	}
-
 	public void setSciLowestScore(Integer sciLowestScore) {
 		this.sciLowestScore = sciLowestScore;
 	}
-
-	@Column(name = "LibAvgScore")
 	public Integer getLibAvgScore() {
-		return this.libAvgScore;
+		return libAvgScore;
 	}
-
 	public void setLibAvgScore(Integer libAvgScore) {
 		this.libAvgScore = libAvgScore;
 	}
-
-	@Column(name = "SciAvgScore")
 	public Integer getSciAvgScore() {
-		return this.sciAvgScore;
+		return sciAvgScore;
 	}
-
 	public void setSciAvgScore(Integer sciAvgScore) {
 		this.sciAvgScore = sciAvgScore;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
 
+	
 }

@@ -134,6 +134,32 @@ public class TreeManagerDAO extends Dao{
 		}
 	}
 	
+	public boolean removeTrees(int nodeid){
+		
+		String sql =  "select TreeId from " + tableName + " where ParentId = " + nodeid;
+		String removesql =  "delete from " + tableName + " where TreeId = " + nodeid;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try {
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;			
+			while(rs.next()){
+				removeTrees(rs.getInt("TreeId"));
+			}			
+			st.execute(removesql) ;
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false ;
+		}finally{
+			DBConnection.close(st) ;
+			DBConnection.close(conn) ;
+		}
+	}
+	
 	public String getFields(){
 		return this.key + "," + field ;
 	}

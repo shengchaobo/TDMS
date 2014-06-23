@@ -36,6 +36,7 @@
 	    	<param name="methodName">batchInsert</param>
 	    </action>
 	    
+
 	    <!-- 模板下载 -->
 	    <action name="downloadModel" class="cn.nit.action.DownloadModelAction" method="execute">
 	    <!-- 模板路径 -->

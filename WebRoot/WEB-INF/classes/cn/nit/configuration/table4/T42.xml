@@ -32,8 +32,6 @@
 				<param name="bufferSize">4096</param>
 	    	</result>
 	    </action>
-   		<!-- 插入新的教职工信息 -->
-	    <action name="insert"  class="cn.nit.action.table4.T42_Action" method="insert" ></action>
 
 	    <!-- 删除相应教职工 -->
 	    <action name="deleteByIds" class="cn.nit.action.table4.T42_Action"  method="deleteByIds" />

@@ -119,6 +119,7 @@ public class ExcelUtil {
                         	}
                         	                        	
         					String type = wrapper.getPropertyType(column).toString() ;
+        					//System.out.println(type +"test" + column);
 
         					//判断插入数据的类型，并赋�?
         					if(type.endsWith("String")){

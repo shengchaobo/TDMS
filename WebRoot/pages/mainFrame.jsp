@@ -26,17 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript">
-    
-   
-    /**
-    	$(document).ready(function() { 
-
-		    $("#tab-tools").load("http://localhost:8080/gui/tree.jsp"); 
-		
-		}); 
-		*/
-		
-		function collapseAll(){
+    		
+			function collapseAll(){
 				$('#trees').tree('collapseAll');
 			}        
 			
@@ -73,18 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    closable: true
 			    });
 		    }
-		   	
-		   	/**
-		   	$('#trees').tree({
-				onclick: function(node){
-					if($('.easyui-tabs').tabs('exists',title)){
-                        $('.easyui-tabs').tabs('select',title) ;
-                        return ;
-                    }
-				alert(node.text);  // alert node text property when clicked
-				}
-		});
-		   */
+		    
 		   //自动从后台加载树控件
 		   $(function(){
 			    $('#trees').tree({   
@@ -159,6 +139,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   
            function remvoeTreeMenu(){
                 var node = $('#trees').tree('getSelected');
+                if(node == null){
+                 	alert("请先选中一个节点！");
+                 	return ;
+                }
                 $.messager.confirm('数据删除', '您确定删除选中节点?', function(sure) {
 				if (sure) {              			
                	       deletes(node);
@@ -167,21 +151,71 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
             
    		function deletes(node) {
-   			$.ajax( {
-   			type : "POST",
-   			url : "pages/trees/removeTree?refId=" + node.id,      
-   			async : "true",
-   			dataType : "text",
-   			success : function(result) {
-				reloadTree();
-			}
-   		}).submit();
-   }
+   				$.ajax( {
+   				type : "POST",
+   				url : "pages/trees/removeTree?refId=" + node.id,      
+   				async : "true",
+   				dataType : "text",
+   				success : function(result) {
+					reloadTree();
+				}
+   			}).submit();
+   		}
+   		
+   		 //绑定tabs的右键菜单
+	  $(document).ready(function () {
+    	$("#tabs").tabs({
+       	 	onContextMenu : function (e, title) {
+            	e.preventDefault();
+            	$('#tabsMenu').menu('show', {
+             	   left : e.pageX,
+              	   top : e.pageY
+          	  }).data("tabTitle", title);
+      	  }
+    	});
+    	
+   		 //实例化menu的onClick事件
+   		 $("#tabsMenu").menu({
+       	 onClick : function (item) {
+           	 CloseTab(this, item.name);
+        	}
+    	});
+  	 });
+  	 
+
+    
+       //几个关闭事件的实现
+    function CloseTab(menu, type) {
+        var curTabTitle = $(menu).data("tabTitle");
+        var tabs = $("#tabs");
+        
+        if (type === "close") {
+            tabs.tabs("close", curTabTitle);
+            return;
+        }
+        
+        var allTabs = tabs.tabs("tabs");
+        var closeTabsTitle = [];
+        
+        $.each(allTabs, function () {
+            var opt = $(this).panel("options");
+            if (opt.closable && opt.title != curTabTitle && type === "Other") {
+                closeTabsTitle.push(opt.title);
+            } else if (opt.closable && type === "All") {
+                closeTabsTitle.push(opt.title);
+            }
+        });
+        
+        for (var i = 0; i < closeTabsTitle.length; i++) {
+            tabs.tabs("close", closeTabsTitle[i]);
+        }
+    }
+   
     </script>
     </head>
     <body style="margin-left:auto;margin-right:auto;align-text:center">
     <div class="easyui-layout" data-options="fit:true">
-	    <div style="height:46px;background:url(images/main19.jpg);width:1364px;" data-options="region:'north',scroll:false">
+	    <div style="height:46px;background:url(images/main19.jpg);width:1364px;" data-options="region:'north',split:true">
 	    	<div class="left">
 	    	<img src="" border="0" />
 	    	<font face="楷体" style="font-size:20pt;color:#0033CC">教 学 基 本 状 态 数 据 管 理</font>
@@ -190,7 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h5 style="align:'right';valign:'bottom'"><a href="./login.jsp">退出系统</a>&nbsp;&nbsp;&nbsp;</h5>
 			</div>
 	   </div>
-	   <div style="height:30px;background:url(images/main01.jpg);width:1364px;" data-options="region:'south',split:false">
+	   <div style="height:30px;background:url(images/main01.jpg);width:1364px;" data-options="region:'south',split:true">
 	    	<div align="center" valign="bottom">
 				<span style="font-family:宋体;text-align:center">Copyright &copy;南昌工程学院版权 所有</span><br>
 			    <span style="font-family:宋体;align:center;valign:bottom">北京交通大学技术支持</span>
@@ -206,12 +240,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<div id="menu" title="菜单栏"  data-options="region:'west',tools:'#tree-tools',split:true"   style="width:240px;"  >
 	    		<ul id="trees" class="easyui-tree"  data-options="lines:true,border:true" ></ul>
 	    	</div>
-			<div id="tabs" class="easyui-tabs" data-options="region:'center',split:false,fit:false" >
+			<div id="tabs" class="easyui-tabs" data-options="region:'center',split:true" >
 		    	<div title="首页" >
 		    	   <iframe frameborder=0 width='100%' height='100%' src="./pages/index.jsp"></iframe>
 				</div>
 		    </div>
-    	</div>
+
+			<div id="tabsMenu" class="easyui-menu" style="width: 120px;">
+				<div name="close">
+					关闭
+				</div>
+				<div name="Other">
+					关闭其他
+				</div>
+				<div name="All">
+					关闭所有
+				</div>
+			</div>
+		</div>
      <div id="treeMenuDlg" class="easyui-dialog" style="width:400px;height:250px;padding:10px 20px" closed="true" buttons="#dlg-buttons">
 			<div class="ftitle">菜单管理</div>
 				<form id="treeMenuForm" method="post" novalidate>

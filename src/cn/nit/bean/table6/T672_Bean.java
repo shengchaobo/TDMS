@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 public class T672_Bean implements java.io.Serializable {
 
 	// Fields
-
+	private int seqNumber;
 	private String dualDegreeUnitId;
 	private String majorId;
 	private String dualDegreeID;
@@ -35,180 +35,104 @@ public class T672_Bean implements java.io.Serializable {
 	private Date graduateTime;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T672_Bean() {
+	
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-
-	/** full constructor */
-	public T672_Bean(			 
-			String stuName, String stuId,
-			String fromTeaUnit, String unitId, String fromMaj, String majorId, String fromClass,
-			String dualDegreeFromTeaUnit,String dualDegreeUnitId, String dualDegreeMaj,String dualDegreeID, Date beginTime,
-			Date graduateTime, Date time, String note) {
-		this.dualDegreeUnitId = dualDegreeUnitId;
-		this.majorId = majorId;
-		this.dualDegreeID = dualDegreeID;
-		this.unitId = unitId;
-		this.stuName = stuName;
-		this.stuId = stuId;
-		this.fromTeaUnit = fromTeaUnit;
-		this.fromMaj = fromMaj;
-		this.fromClass = fromClass;
-		this.dualDegreeFromTeaUnit = dualDegreeFromTeaUnit;
-		this.dualDegreeMaj = dualDegreeMaj;
-		this.beginTime = beginTime;
-		this.graduateTime = graduateTime;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-
-	@JoinColumn(name = "DualDegreeUnitID")
-	public String getDualDegreeUnitID() {
-		return this.dualDegreeUnitId;
+	public String getDualDegreeUnitId() {
+		return dualDegreeUnitId;
 	}
-
-	public void setDualDegreeUnitID(
-			String dualDegreeUnitId) {
+	public void setDualDegreeUnitId(String dualDegreeUnitId) {
 		this.dualDegreeUnitId = dualDegreeUnitId;
 	}
-
-
-	@JoinColumn(name = "MajID")
-	public String getMajID() {
-		return this.majorId;
+	public String getMajorId() {
+		return majorId;
 	}
-
-	public void setMajID(String majorId) {
+	public void setMajorId(String majorId) {
 		this.majorId = majorId;
 	}
-
-
-	@JoinColumn(name = "DualDegreeID")
 	public String getDualDegreeID() {
-		return this.dualDegreeID;
+		return dualDegreeID;
 	}
-
 	public void setDualDegreeID(String dualDegreeID) {
 		this.dualDegreeID = dualDegreeID;
 	}
-
-	
-	@JoinColumn(name = "UnitID")
-	public String getUnitID() {
-		return this.unitId;
+	public String getUnitId() {
+		return unitId;
 	}
-
-	public void setUnitID(String unitId) {
+	public void setUnitId(String unitId) {
 		this.unitId = unitId;
 	}
-
-	@Column(name = "StuName")
 	public String getStuName() {
-		return this.stuName;
+		return stuName;
 	}
-
 	public void setStuName(String stuName) {
 		this.stuName = stuName;
 	}
-
-	@Column(name = "StuID")
 	public String getStuId() {
-		return this.stuId;
+		return stuId;
 	}
-
 	public void setStuId(String stuId) {
 		this.stuId = stuId;
 	}
-
-	@Column(name = "FromTeaUnit")
 	public String getFromTeaUnit() {
-		return this.fromTeaUnit;
+		return fromTeaUnit;
 	}
-
 	public void setFromTeaUnit(String fromTeaUnit) {
 		this.fromTeaUnit = fromTeaUnit;
 	}
-
-	@Column(name = "FromMaj")
 	public String getFromMaj() {
-		return this.fromMaj;
+		return fromMaj;
 	}
-
 	public void setFromMaj(String fromMaj) {
 		this.fromMaj = fromMaj;
 	}
-
-	@Column(name = "FromClass")
 	public String getFromClass() {
-		return this.fromClass;
+		return fromClass;
 	}
-
 	public void setFromClass(String fromClass) {
 		this.fromClass = fromClass;
 	}
-
-	@Column(name = "DualDegreeFromTeaUnit")
 	public String getDualDegreeFromTeaUnit() {
-		return this.dualDegreeFromTeaUnit;
+		return dualDegreeFromTeaUnit;
 	}
-
 	public void setDualDegreeFromTeaUnit(String dualDegreeFromTeaUnit) {
 		this.dualDegreeFromTeaUnit = dualDegreeFromTeaUnit;
 	}
-
-	@Column(name = "DualDegreeMaj")
 	public String getDualDegreeMaj() {
-		return this.dualDegreeMaj;
+		return dualDegreeMaj;
 	}
-
 	public void setDualDegreeMaj(String dualDegreeMaj) {
 		this.dualDegreeMaj = dualDegreeMaj;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "BeginTime", length = 10)
 	public Date getBeginTime() {
-		return this.beginTime;
+		return beginTime;
 	}
-
 	public void setBeginTime(Date beginTime) {
 		this.beginTime = beginTime;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "GraduateTime", length = 10)
 	public Date getGraduateTime() {
-		return this.graduateTime;
+		return graduateTime;
 	}
-
 	public void setGraduateTime(Date graduateTime) {
 		this.graduateTime = graduateTime;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
 
+	
 }

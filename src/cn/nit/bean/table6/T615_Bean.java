@@ -18,7 +18,7 @@ public class T615_Bean implements java.io.Serializable {
 
 	// Fields
 
-
+	private int seqNumber;
 	private String majorName;
 	private String majorId;
 	private String fromUnitId;
@@ -36,196 +36,115 @@ public class T615_Bean implements java.io.Serializable {
 	private Integer changeOutNum;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T615_Bean() {
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-
-	/** full constructor */
-	public T615_Bean(String majorName, String majorId,
-			String fromUnitId, String unitId, Integer schLen, Integer schStuSumNum,
-			Integer freshmanNum, Integer sophomoreNum, Integer juniorNum,
-			Integer seniorNum, Integer otherGradeNum, Integer minorNum,
-			Integer dualDegreeNum, Integer changeInNum, Integer changeOutNum,
-			Date time, String note) {
-
-		this.majorName = majorName;
-		this.majorId = majorId;
-		this.fromUnitId = fromUnitId;
-		this.unitId = unitId;
-		this.schLen = schLen;
-		this.schStuSumNum = schStuSumNum;
-		this.freshmanNum = freshmanNum;
-		this.sophomoreNum = sophomoreNum;
-		this.juniorNum = juniorNum;
-		this.seniorNum = seniorNum;
-		this.otherGradeNum = otherGradeNum;
-		this.minorNum = minorNum;
-		this.dualDegreeNum = dualDegreeNum;
-		this.changeInNum = changeInNum;
-		this.changeOutNum = changeOutNum;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-	@JoinColumn(name = "MajorID")
-	public String getMajorID() {
-		return this.majorId;
-	}
-
-	public void setMajorID(String majorId) {
-		this.majorId = majorId;
-	}
-
-
-	@JoinColumn(name = "UnitID")
-	public String getUnitID() {
-		return this.unitId;
-	}
-
-	public void setUnitID(String unitId) {
-		this.unitId = unitId;
-	}
-
-	@Column(name = "MajorName")
 	public String getMajorName() {
-		return this.majorName;
+		return majorName;
 	}
-
 	public void setMajorName(String majorName) {
 		this.majorName = majorName;
 	}
-
-	@Column(name = "FromUnitID")
-	public String getFromUnitId() {
-		return this.fromUnitId;
+	public String getMajorId() {
+		return majorId;
 	}
-
+	public void setMajorId(String majorId) {
+		this.majorId = majorId;
+	}
+	public String getFromUnitId() {
+		return fromUnitId;
+	}
 	public void setFromUnitId(String fromUnitId) {
 		this.fromUnitId = fromUnitId;
 	}
-
-	@Column(name = "SchLen")
-	public Integer getSchLen() {
-		return this.schLen;
+	public String getUnitId() {
+		return unitId;
 	}
-
+	public void setUnitId(String unitId) {
+		this.unitId = unitId;
+	}
+	public Integer getSchLen() {
+		return schLen;
+	}
 	public void setSchLen(Integer schLen) {
 		this.schLen = schLen;
 	}
-
-	@Column(name = "SchStuSumNum")
 	public Integer getSchStuSumNum() {
-		return this.schStuSumNum;
+		return schStuSumNum;
 	}
-
 	public void setSchStuSumNum(Integer schStuSumNum) {
 		this.schStuSumNum = schStuSumNum;
 	}
-
-	@Column(name = "FreshmanNum")
 	public Integer getFreshmanNum() {
-		return this.freshmanNum;
+		return freshmanNum;
 	}
-
 	public void setFreshmanNum(Integer freshmanNum) {
 		this.freshmanNum = freshmanNum;
 	}
-
-	@Column(name = "SophomoreNum")
 	public Integer getSophomoreNum() {
-		return this.sophomoreNum;
+		return sophomoreNum;
 	}
-
 	public void setSophomoreNum(Integer sophomoreNum) {
 		this.sophomoreNum = sophomoreNum;
 	}
-
-	@Column(name = "JuniorNum")
 	public Integer getJuniorNum() {
-		return this.juniorNum;
+		return juniorNum;
 	}
-
 	public void setJuniorNum(Integer juniorNum) {
 		this.juniorNum = juniorNum;
 	}
-
-	@Column(name = "SeniorNum")
 	public Integer getSeniorNum() {
-		return this.seniorNum;
+		return seniorNum;
 	}
-
 	public void setSeniorNum(Integer seniorNum) {
 		this.seniorNum = seniorNum;
 	}
-
-	@Column(name = "OtherGradeNum")
 	public Integer getOtherGradeNum() {
-		return this.otherGradeNum;
+		return otherGradeNum;
 	}
-
 	public void setOtherGradeNum(Integer otherGradeNum) {
 		this.otherGradeNum = otherGradeNum;
 	}
-
-	@Column(name = "MinorNum")
 	public Integer getMinorNum() {
-		return this.minorNum;
+		return minorNum;
 	}
-
 	public void setMinorNum(Integer minorNum) {
 		this.minorNum = minorNum;
 	}
-
-	@Column(name = "DualDegreeNum")
 	public Integer getDualDegreeNum() {
-		return this.dualDegreeNum;
+		return dualDegreeNum;
 	}
-
 	public void setDualDegreeNum(Integer dualDegreeNum) {
 		this.dualDegreeNum = dualDegreeNum;
 	}
-
-	@Column(name = "ChangeInNum")
 	public Integer getChangeInNum() {
-		return this.changeInNum;
+		return changeInNum;
 	}
-
 	public void setChangeInNum(Integer changeInNum) {
 		this.changeInNum = changeInNum;
 	}
-
-	@Column(name = "ChangeOutNum")
 	public Integer getChangeOutNum() {
-		return this.changeOutNum;
+		return changeOutNum;
 	}
-
 	public void setChangeOutNum(Integer changeOutNum) {
 		this.changeOutNum = changeOutNum;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
 
+	
 }

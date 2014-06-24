@@ -21,7 +21,7 @@ public class T12DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "UnitID,UnitName,UnitType,Functions,Leader,TeaID,Time,Note" ;
+	private String field = "UnitID,UnitName,Functions,Leader,TeaID,Time,Note" ;
 	
 	
 	
@@ -34,7 +34,7 @@ public class T12DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select t.SeqNumber,t.UnitID,t.UnitName,t.UnitType,t.Functions,t.Leader,t.TeaID,t.Time,t.Note") ;
+		sql.append("select t.SeqNumber,t.UnitID,t.UnitName,t.Functions,t.Leader,t.TeaID,t.Time,t.Note") ;
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea") ;
 		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
 		int total = 0 ;
@@ -79,7 +79,7 @@ public class T12DAO {
 		StringBuffer sql = new StringBuffer() ;
 		List<T12POJO> list = null ;
 		
-		sql.append("select t.SeqNumber,t.UnitID,t.UnitName,t.UnitType,t.Functions,t.Leader,t.TeaID,t.Time,t.Note") ;
+		sql.append("select t.SeqNumber,t.UnitID,t.UnitName,t.Functions,t.Leader,t.TeaID,t.Time,t.Note") ;
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea") ;
 		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
 

@@ -12,18 +12,18 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table1.T12Bean;
-import cn.nit.service.table1.T12Service;
+import cn.nit.bean.table1.T13Bean;
+import cn.nit.service.table1.T13Service;
 import cn.nit.util.TimeUtil;
 
-public class T12Action {
+public class T13Action {
 	
 	
-	/**  表12的Service类  */
-	private T12Service t12Ser = new T12Service() ;
+	/**  表13的Service类  */
+	private T13Service t13Ser = new T13Service() ;
 	
-	/**  表12的Bean实体类  */
-	private T12Bean t12Bean = new T12Bean() ;
+	/**  表13的Bean实体类  */
+	private T13Bean t13Bean = new T13Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -50,7 +50,7 @@ public class T12Action {
 	/**  为界面加载数据  */
 	public void auditingData(){
 			
-			System.out.println("輸出輸出輸出");
+//			System.out.println("輸出輸出輸出");
 			
 			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 				return ;
@@ -82,7 +82,7 @@ public class T12Action {
 				cond = conditions.toString();
 			}
 
-			String pages = t12Ser.auditingData(cond, "1001", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t13Ser.auditingData(cond, "1013", Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -145,12 +145,12 @@ public class T12Action {
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T12Bean getT12Bean() {
-		return t12Bean;
+	public T13Bean getT13Bean() {
+		return t13Bean;
 	}
 
-	public void setT12Bean(T12Bean t12Bean) {
-		this.t12Bean = t12Bean;
+	public void setT12Bean(T13Bean t13Bean) {
+		this.t13Bean = t13Bean;
 	}
 	
 	

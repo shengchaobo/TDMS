@@ -56,16 +56,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="表1-2学校行政单位（党院办）" class="easyui-datagrid" style="width:100%px;height:430px" url="pages/T12/auditingData"
+	<table id="unverfiedData" title="表1-3学校科研单位（科研处）" class="easyui-datagrid" style="width:100%px;height:430px" url="pages/T13/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber" width=10>序号</th>
-				<th field="unitName" width=10>行政单位名称</th>
+				<th field="unitName" width=10>教学单位名称</th>
 				<th field="unitID" width=10 >单位号</th>
-				<th field="function" width=10>单位职能</th>
 				<th field="leader" width=10>单位负责人</th>
 				<th field="teaID" width=10>教工号</th>
 				<th field="note" width=10>备注</th>
@@ -77,13 +76,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">数据导入</a>
 			<a href="pages/T17/dataExport?excelName=表T-1-7校友会（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 			<a href='pages/T11/downloadModel?saveFile=<%=URLEncoder.encode("表1-1学校基本信息（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
-			<form id="auditing" method="post" style="float: right;height: 24px;">
+
+		 	<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
+       <!-- 
+		 <div >
+		 	<form id="auditing" method="post">
+			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+			</form>
+		</div>
+		 -->
 	</div>
 	<!-- 
 	<div id="toolbar2">
@@ -165,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	var url ;
-
+	
 	function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 
          var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
@@ -174,25 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
          $("#unverfiedData").datagrid('reload'); 
     }
-	
-	//function singleSearch(){
-   	// $('#auditing').form('submit',{
-   	//	 url: 'pages/T17/singleSearch',
-   	//	 type: "post",
-	//     dataType: "json",
-   	//	 success: function(result){
-   	//	 	var result = eval('('+result+')');
-   	//	 	if (!result.state){
-   	//	 		$.messager.show({
-   	//	 			title: 'Error',
-   	//	 			msg: result.errorMsg
-   	//		 });
-   	//	 	} else {
-	//	    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-   	//	 	}
-   	//	 }
-   	//	 });
-  // }
+
 	
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{

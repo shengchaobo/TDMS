@@ -76,15 +76,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 			<a href="pages/T19/dataExport?excelName=表1-9学校获得荣誉（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		</div>
-		 <div>
-		 	<form id="auditing" method="post">
+			<form id="auditing" method="post" style="float: right;height: 24px;">
 		 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 			日期 起始:  <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 			结束:  <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
-				</form>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+			</form>
 		</div>
+		
 	</div>
 	<div id="toolbar2">
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newCourse()">数据导出</a>
@@ -214,25 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         $("#unverfiedData").datagrid('reload'); 
 	    }
 
-//	    function singleSearch(){
-	//      	 $('#auditing').form('submit',{
-	   //   		 url: 'pages/T19/singleSearch',
-	   //   		 type: "post",
-	   //	     dataType: "json",
-	   //   		 success: function(result){
-	   ////   		 	var result = eval('('+result+')');
-	   //   		 	if (!result.state){
-	    //  		 		$.messager.show({
-	  //    		 			title: 'Error',
-	   //   		 			msg: result.errorMsg
-	   //   			 });
-	    //  		 	} else {
-	   	//	    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-	      //		 	}
-	     // 		 }
-	    //  		 });
-	   //   }
-	    
+
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
 	    		 url: 'pages/T19/uploadFile',
@@ -316,26 +297,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(rewardName == null || rewardName.length==0 || rewardName.length> 100){
 				$('#RewardName').focus();
 				$('#RewardName').select();
-				$('#RewardNameSpan').html("<font style=\"color:red\">荣誉名称不能为空或长度不超过100</font>") ;
+				alert("荣誉名称不能为空或长度不超过100");
+				//$('#RewardNameSpan').html("<font style=\"color:red\">荣誉名称不能为空或长度不超过100</font>") ;
 				return false ;
-			}else{
-				$('#RewardNameSpan').html("") ;
 			}
 			
 			if(rewardFromUnit == null || rewardFromUnit.length == 0 || rewardFromUnit.length > 50){
 				$('#RewardFromUnit').focus();
 				$('#RewardFromUnit').select();
-				$('#RewardFromUnitSpan').html("<font style=\"color:red\">授予单位不能为空或长度不超过50</font>") ;
+				alert("授予单位不能为空或长度不超过50");
+				//$('#RewardFromUnitSpan').html("<font style=\"color:red\">授予单位不能为空或长度不超过50</font>") ;
 				return false ;
-			}else{
-				$('#RewardFromUnitSpan').html("") ;
 			}
 			
 			if(rewardLevel == null || rewardLevel.length == 0){
-				$('#RewardLevelSpan').html("<font style=\"color:red\">级别不能为空</font>") ;
+				$('#RewardLevel').focus();
+				$('#RewardLevel').select();
+				alert("级别不能为空");
+				//$('#RewardLevelSpan').html("<font style=\"color:red\">级别不能为空</font>") ;
 				return false ;
-			}else{
-				$('#RewardLevelSpan').html("") ;
 			}
 			/**
 			if(rewardTime == null || rewardTime.length == 0){
@@ -347,17 +327,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			*/
 			
 			if(unitID == null || unitID.length == 0){
+				$('#UnitID').focus();
+				$('#UnitID').select();
+				alert("获奖单位不能为空");
 				$('#UnitIDSpan').html("<font style=\"color:red\">获奖单位不能为空</font>") ;
 				return false ;
-			}else{
-				$('#UnitIDSpan').html("") ;
 			}
 			
 			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+				$('#Note').focus();
+				$('#Note').select();
+				alert("备注中文字数不超过500");
+				//$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
-			}else{
-				$('#NoteSpan').html("") ;
 			}
 			return true ;
 		}

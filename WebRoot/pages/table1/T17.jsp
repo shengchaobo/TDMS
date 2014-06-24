@@ -76,15 +76,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 			<a href="pages/T17/dataExport?excelName=表T-1-7校友会（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		</div>
-		 <div>
-		 	<form id="auditing" method="post">
+			<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
+		
 	</div>
 	<!-- 
 	<div id="toolbar2">
@@ -278,25 +277,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(clubName == null || clubName.length==0 || clubName.length> 200){
 				$('#ClubName').focus();
 				$('#ClubName').select();
-				$('#ClubNameSpan').html("<font style=\"color:red\">校友会名称不能为空或长度不超过100</font>") ;
+				alert("校友会名称不能为空或长度不超过100");
+				//$('#ClubNameSpan').html("<font style=\"color:red\">校友会名称不能为空或长度不超过100</font>") ;
 				return false ;
-			}else{
-				$('#ClubNameSpan').html("") ;
 			}
 			
 			if(place == null || place.length == 0){
 				$('#Place').focus();
 				$('#Place').select();
-				$('#PlaceSpan').html("<font style=\"color:red\">地点不能为空</font>") ;
+				alert("地点不能为空");
+				//$('#PlaceSpan').html("<font style=\"color:red\">地点不能为空</font>") ;
 				return false ;
-			}else{
-				$('#PlaceSpan').html("") ;
 			}
+			
 			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+				$('#Note').focus();
+				$('#Note').select();
+				alert("备注中文字数不超过500");
+				//$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
-			}else{
-				$('#NoteSpan').html("") ;
 			}
 			return true ;
 		}

@@ -59,6 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:300px" url="pages/SchResIns/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
+
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -83,15 +84,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 			<a href="pages/SchResIns/dataExport?excelName=表1-5-1校级以上科研机构（科研处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		</div>
-		 <div>
-		 	<form id="auditing" method="post">
+		 	<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
+		 
 	</div>
 	<div id="toolbar2">
 		<a href="pages/UndergraCSBaseTea/dataExport" class="easyui-linkbutton" iconCls="icon-download">数据导出</a>
@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="ftitle">校级以上科研机构逐条导入</div>
 		
 		<form id="resInsForm" method="post">
-		<table>
+		<table id="formTable">
 			<tr>
 				<td>
 					<div class="fitem">
@@ -338,7 +338,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	    function singleImport(){
 		    //录入数据的表单提交
-
+		    
 	    	 $('#resInsForm').form('submit',{
 				    url: url ,
 				    data: $('#resInsForm').serialize(),
@@ -346,6 +346,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            dataType: "json",
 				    onSubmit: function(){
 				    	return validate();
+				    //	$('#dlg').dialog('reload');
 				    },
 				    //结果返回
 				    success: function(result){
@@ -354,7 +355,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
 			    });
@@ -374,68 +375,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(resInsName == null || resInsName.length == 0){
-				$('#ResInsNameSpan').html("<font style=\"color:red\">科研机构名称不能为空</font>") ;
-				return false ;
-			}else{
-				$('#ResInsNameSpan').html("") ;
+				$('#ResInsName').focus();
+				$('#ResInsName').select();
+			//	$('#ResInsNameSpan').html("<font style=\"color:red\">科研机构名称不能为空</font>") ;
+				alert("科研机构名称不能为空");
+				return false ;	
 			}
 
 			if(type == null || type.length == 0){
-				$('#TypeSpan').html("<font style=\"color:red\">类别不能为空</font>") ;
+				$('#Type').focus();
+				$('#Type').select();
+				//$('#TypeSpan').html("<font style=\"color:red\">类别不能为空</font>") ;
+				alert("类别不能为空");
 				return false ;
-			}else{
-				$('#TypeSpan').html("") ;
 			}
 
 			if(beginYear == null || beginYear.length == 0){
-                $('#BeginYearSpan').html("<font style=\"color:red\">开设年份不能为空</font>") ;
+				$('#BeginYear').focus();
+				$('#BeginYear').select();
+                //$('#BeginYearSpan').html("<font style=\"color:red\">开设年份不能为空</font>") ;
+                alert("开设年份不能为空");
                 return false;
-     		}else {
-			    $('BeginYearSpan').html("") ;
-			}
+     		}
 
 			if(teaUnit == null || teaUnit.length == 0){
-                $('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空</font>") ;
+				$('#TeaUnit').focus();
+				$('#TeaUnit').select();
+               // $('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空</font>") ;
+               alert("教学单位不能为空");
                 return false;
-			}else {
-			    $('TeaUnitSpan').html("") ;
 			}
 
 			if(buildCondition == null || buildCondition.length == 0){
-                $('#BuildConditionSpan').html("<font style=\"color:red\">共建情况不能为空</font>") ;
+				$('#BuildCondition').focus();
+				$('#BuildCondition').select();
+                //$('#BuildConditionSpan').html("<font style=\"color:red\">共建情况不能为空</font>") ;
+                alert("共建情况不能为空");
                 return false;
-			}else {
-			    $('BuildConditionSpan').html("") ;
 			}
 
 			if(biOpen == null || biOpen.length == 0){
-                $('#BiOpenSpan').html("<font style=\"color:red\">开放情况不能为空</font>") ;
+				$('#BiOpen').focus();
+				$('#BiOpen').select();
+                //$('#BiOpenSpan').html("<font style=\"color:red\">开放情况不能为空</font>") ;
+                alert("开放情况不能为空");
                 return false;
-			}else {
-			    $('BiOpenSpan').html("") ;
 			}
 
 		if(houseArea == null || houseArea.length == 0){
-				$('#HouseAreaSpan').html("<font style=\"color:red\">面积不能为空</font>");
+			$('#HouseArea').focus();
+			$('#HouseArea').select();
+				//$('#HouseAreaSpan').html("<font style=\"color:red\">面积不能为空</font>");
+				alert("面积不能为空");
 			    return false;
-			}else{
-				$('#HouseAreaSpan').html("");
 			}
 			
 			if(openCondition == null || openCondition.length==0 || openCondition.length > 500){
 				$('#OpenConditionSpan').focus();
 				$('#OpenConditionSpan').select();
-				$('#OpenConditionSpan').html("<font style=\"color:red\">对本科生开放情况不能为空或长度不超过100</font>") ;
+				alert("对本科生开放情况不能为空或长度不超过100");
+				//$('#OpenConditionSpan').html("<font style=\"color:red\">对本科生开放情况不能为空或长度不超过100</font>") ;
 				return false ;
-			}else{
-				$('#OpenConditionSpan').html("") ;
 			}
 			
 			if(note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+				$('#OpenConditionSpan').focus();
+				$('#OpenConditionSpan').select();
+				alert("备注中文字数不超过500");
+				//$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
-			}else{
-				$('#NoteSpan').html("") ;
 			}
 			return true ;
 		}

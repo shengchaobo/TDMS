@@ -104,7 +104,7 @@
 								<td colspan="2" align="center">
 										<input type="button"  id="loginBtn"
 											style="background: url(images/login_5.gif) no-repeat"
-											value="登    陆" onclick="validate()">
+											value="登        陆" onclick="validate()">
 										<input type="button"  id="forgetPsd"
 											style="background: url(images/login_5.gif) no-repeat"
 											value="忘记密码">

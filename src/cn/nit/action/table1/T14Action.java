@@ -12,18 +12,18 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table1.T12Bean;
-import cn.nit.service.table1.T12Service;
+import cn.nit.bean.table1.T14Bean;
+import cn.nit.service.table1.T14Service;
 import cn.nit.util.TimeUtil;
 
-public class T12Action {
+public class T14Action {
 	
+
+	/**  表14的Service类  */
+	private T14Service t14Ser = new T14Service() ;
 	
-	/**  表12的Service类  */
-	private T12Service t12Ser = new T12Service() ;
-	
-	/**  表12的Bean实体类  */
-	private T12Bean t12Bean = new T12Bean() ;
+	/**  表14的Bean实体类  */
+	private T14Bean t14Bean = new T14Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -82,7 +82,7 @@ public class T12Action {
 				cond = conditions.toString();
 			}
 
-			String pages = t12Ser.auditingData(cond, "1001", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t14Ser.auditingData(cond, "30", Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -145,12 +145,12 @@ public class T12Action {
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T12Bean getT12Bean() {
-		return t12Bean;
+	public T14Bean getT14Bean() {
+		return t14Bean;
 	}
 
-	public void setT12Bean(T12Bean t12Bean) {
-		this.t12Bean = t12Bean;
+	public void setT14Bean(T14Bean t14Bean) {
+		this.t14Bean = t14Bean;
 	}
 	
 	

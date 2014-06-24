@@ -2,7 +2,7 @@
    var url;
 
    //弹出添加的界面
-	function newMajorTea() {
+	function newObject() {
 		
 		//update隐藏的量在提交之后要恢复
     	$('#title1').show();
@@ -28,7 +28,7 @@
 		   		return false ;
 		 }
 	  	 $('#batchForm').form('submit',{
-	  		 url: 'pages/T412/uploadFile',
+	  		 url: 'pages/T441/uploadFile',
 	  		 type: "post",
 		     dataType: "json",
 	  		 onSubmit: function(){
@@ -106,25 +106,23 @@
     	$('#dlg').dialog('open').dialog('setTitle','修改专任教师的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
     	$('#teaUnitID').combobox('select', row[0].teaUnitID) ;
-    	$('#teaId').combobox('select', row[0].teaId) ;
+    	$('#teaName').combobox('select', row[0].teaName) ;
     	$('#majorID').combobox('select', row[0].majorID) ;
 		$('#note').val(row[0].note) ;
 	}
 
-	function singleSearch(){
-	   	 $('#searchForm').form('submit',{
-	   		url: 'pages/T412/singleSearch',
-	   		data : $('#searchForm').serialize(),
-	   		type: "post",
-		    dataType: "json",
-		    onSubmit : function() {
-			    return true;
-			},
-	   		 success: function(result){
-				$('#unverfiedData').datagrid('reload');
-	   		 }
-	   	});	 	   	 
-	  }
+	//查询
+	function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var  seqNum = $('#seqNum').val();
+         var startTime = $('#startTime').datetimebox('getValue');
+         var endTime = $('#endTime').datetimebox('getValue');
+         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+         queryParams.seqNum = seqNum;  
+         queryParams.startTime = startTime;  
+         queryParams.endTime = endTime;  
+         $("#unverfiedData").datagrid('reload'); 
+    }	
 	
 	//删除选中的行
     function deleteByIds() {

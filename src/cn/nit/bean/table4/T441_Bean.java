@@ -27,6 +27,7 @@ public class T441_Bean implements java.io.Serializable {
 	private String teaId;
 	private Date time;
 	private String note;
+	private String fillUnitID;
 
 	public String getTeaUnitID() {
 		return teaUnitID;
@@ -104,6 +105,14 @@ public class T441_Bean implements java.io.Serializable {
 
 	public int getSeqNumber() {
 		return seqNumber;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
+
+	public String getFillUnitID() {
+		return fillUnitID;
 	}
 
 }

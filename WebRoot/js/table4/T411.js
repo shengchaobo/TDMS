@@ -164,3 +164,11 @@
 		$('#teaBase').combobox('select', row[0].teaBase) ;
 		$('#note').val(row[0].note) ;
 	}
+	
+	function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var  queryValue = $('#searchID').val();
+         var queryParams = $('#commomData').datagrid('options').queryParams;  
+         queryParams.searchID = queryValue;  
+         $("#commomData").datagrid('reload'); 
+    }	

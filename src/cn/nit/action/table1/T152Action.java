@@ -1,7 +1,15 @@
 package cn.nit.action.table1;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +18,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
+import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T152Bean;
+import cn.nit.dao.table1.T152DAO;
+import cn.nit.excel.imports.table1.T152Excel;
 import cn.nit.service.table1.T152Service;
+import cn.nit.util.TimeUtil;
 
 
 public class T152Action {
@@ -19,11 +31,24 @@ public class T152Action {
 	/**  表152的Service类  */
 	private T152Service t152Ser = new T152Service() ;
 	
-	/**  表151的Bean实体类  */
+	/**  表152的Bean实体类  */
 	private T152Bean t152Bean = new T152Bean() ;
 	
+	/**  表152的数据库操作实体类  */
+	private T152DAO t152Dao=new T152DAO();
+	
+	/**  表152的Excel实体类  */
+	private T152Excel t152Excel=new T152Excel();
+	
+	/**excel导出名字*/
+	private String excelName; //
+	
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -47,7 +72,7 @@ public class T152Action {
 		System.out.println(t152Bean.getTime());
 		//这还没确定,设置填报者的职工号与部门号
 		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
-		t152Bean.setResInsLevel(userinfo.getTeaID()) ;
+		t152Bean.setFillUnitID(userinfo.getTeaID());
 //		System.out.println(t152Bean.getResInsLevel());
 //		System.out.println(t152Bean.getTeaUnit());
 //		System.out.println(t152Bean.getUnitID());
@@ -73,56 +98,108 @@ public class T152Action {
 		}
 		out.flush() ;
 	}
-
+	
 	/**  为界面加载数据  */
 	public void auditingData(){
-		
-		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
-			return ;
-		}
-		
-		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
-			return ;
-		}
-		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t152Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
-		PrintWriter out = null ;
-		
-		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print(pages) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return ;
-		}finally{
-			if(out != null){
-				out.close() ;
+			
+//			System.out.println("輸出輸出輸出");
+			
+			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
+				return ;
+			}
+			
+			if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
+				return ;
+			}
+			
+			String cond = null;
+			StringBuffer conditions = new StringBuffer();
+			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+				cond = null;	
+			}else{			
+				if(this.getSeqNum()!=null){
+					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+				}
+				
+				if(this.getStartTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+				}
+				
+				if(this.getEndTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+				}
+				cond = conditions.toString();
+			}
+
+			String pages = t152Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			PrintWriter out = null ;
+			
+			try{
+				getResponse().setContentType("text/html; charset=UTF-8") ;
+				out = getResponse().getWriter() ;
+				out.print(pages) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return ;
+			}finally{
+				if(out != null){
+					out.close() ;
+				}
 			}
 		}
-	}
-	
-	/**  生成查询条件   */
-	public void auditingConditions(){
-		
-		String sqlConditions = t152Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+//
+//	/**  为界面加载数据  */
+//	public void auditingData(){
+//		
+//		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
+//			return ;
+//		}
+//		
+//		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
+//			return ;
+//		}
+//		
+//		String conditions = (String) getSession().getAttribute("auditingConditions") ;
+//		String pages = t152Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+//		PrintWriter out = null ;
+//		
+//		try{
+//			getResponse().setContentType("text/html; charset=UTF-8") ;
+//			out = getResponse().getWriter() ;
+//			out.print(pages) ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
+//	
+//	/**  生成查询条件   */
+//	public void auditingConditions(){
+//		
+//		String sqlConditions = t152Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
+//		getSession().setAttribute("auditingConditions", sqlConditions) ;
+//		PrintWriter out = null ;
+//		
+//		try{
+//			out = getResponse().getWriter() ;
+//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
+//			out.flush() ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
 	
 	/**  编辑数据  */
 	public void edit(){
@@ -173,26 +250,46 @@ public class T152Action {
 			}
 		}
 	}
-//	
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
-//
-//	public String execute() throws Exception{
-//
-//		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
-//		return "success" ;
-//	}
+ 
+	
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			
+			List<T152Bean> list = t152Dao.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("科研机构名称");columns.add("单位号");columns.add("类别");columns.add("共建情况");
+			columns.add("是否对本科生开放");columns.add("对本科生开放情况（500字以内）");columns.add("所属教学单位");columns.add("教学单位号");
+			columns.add("开设年份");columns.add("专业科研用房面积（平方米）");columns.add("备注");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("ResInsName", 1);maplist.put("ResInsID", 2);maplist.put("Type", 3);maplist.put("BuildCondition", 4);
+			maplist.put("BiOpen", 5);maplist.put("OpenCondition", 6);maplist.put("TeaUnit", 7);maplist.put("UnitID", 8);
+			maplist.put("BeginYear", 9);maplist.put("HouseArea", 10);maplist.put("Note", 11);
+			
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t152Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+	
+	public String execute() throws Exception{
+
+		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
+		return "success" ;
+	}
 	
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
@@ -218,28 +315,65 @@ public class T152Action {
 		this.t152Bean = t152Bean;
 	}
 
-	public void setSeqNum(int seqNum){
-		this.seqNum = seqNum ;
-	}
 	
-	public void setStartTime(Date startTime){
-		this.startTime = startTime ;
-	}
 	
-	public void setEndTime(Date endTime){
-		this.endTime = endTime ;
+	
+	public Integer getSeqNum() {
+		return seqNum;
+	}
+
+	public void setSeqNum(Integer seqNum) {
+		this.seqNum = seqNum;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getIds() {
+		return ids;
 	}
 
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
 
-	public void setPage(String page){
-		this.page = page ;
+	public String getPage() {
+		return page;
 	}
-	
-	public void setRows(String rows){
-		this.rows = rows ;
+
+	public void setPage(String page) {
+		this.page = page;
+	}
+
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
+	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
 	}
 	
 	public static void main(String args[]){

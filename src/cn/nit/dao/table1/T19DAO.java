@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.List;
 
 
+import cn.nit.bean.table1.T181Bean;
 import cn.nit.bean.table1.T19Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T19POJO;
@@ -79,9 +80,9 @@ public class T19DAO {
 		sql.append(" where dpt.UnitID=t.UnitID and drl.IndexID=t.RewardLevel");
 		int total = 0 ;
 		
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
-		}
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
 		
 		if(conditions != null && !conditions.equals("")){
 			sql.append(conditions) ;
@@ -122,9 +123,9 @@ public class T19DAO {
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiAwardLevel drl");
 		sql.append(" where dpt.UnitID=t.UnitID and drl.IndexID=t.RewardLevel");
 
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
-		}
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
 		
 		if(conditions != null){
 			sql.append(conditions) ;
@@ -146,6 +147,32 @@ public class T19DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}
+		
+		return list ;
+	}
+	
+	/**用于数据导出*/
+	public List<T19Bean> totalList(){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.RewardName,dal.AwardLevel as RewardLevel,t.RewardLevel as RewardLevelID,t.RewardFromUnit,t.UnitName,t.UnitID," +
+				"t.RewardTime,t.Time,t.Note");
+		sql.append("  from " + tableName + " as t, DiDepartment dpt,DiAwardLevel dal");
+		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.RewardLevel");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T19Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T19Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
 		}
 		
 		return list ;
@@ -196,7 +223,7 @@ public class T19DAO {
 	public static void main(String arg[]){
 		T19DAO dao=new T19DAO();
 //		int n=dao.totalAuditingData(null, null);
-		List<T19POJO> list=dao.auditingData(null, null, 1, 1);
+		List<T19Bean> list=dao.totalList();
 		System.out.println(list.size());
 	}
 	

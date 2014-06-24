@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T16Bean;
 import cn.nit.dbconnection.DBConnection;
 
@@ -53,6 +54,52 @@ public class T16DAO {
 		return flag ;
 	}
 	
+	/**
+	 * 數據導出
+	 */
+	public List<T16POJO> forExcel(String year){
+		
+		StringBuffer sql = new StringBuffer() ;
+		List<T16POJO> list = new ArrayList<T16POJO>() ;
+		sql.append("select * from "+tableName) ;
+		sql.append(" where Time like '"+year+"%'") ;
+		T16POJO t16Pojo =new T16POJO();
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString()) ;
+			while(rs.next())
+			{	
+				String item=rs.getString("Item");
+				int seqNumber=rs.getInt("SeqNumber") ;
+				String contents=rs.getString("Contents") ;
+				String note=rs.getString("Note") ;
+				if(item.equals("1.校训"))
+				{
+					t16Pojo.setContents1(contents) ;
+					t16Pojo.setItem1(item);
+					t16Pojo.setNote1(note);
+					t16Pojo.setSeqNumber1(seqNumber);
+				}else
+				{
+					t16Pojo.setContents2(contents) ;
+					t16Pojo.setItem2(item);
+					t16Pojo.setNote2(note);
+					t16Pojo.setSeqNumber2(seqNumber);
+				}
+			}
+               list.add(t16Pojo) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}
+		
+		return list ;
+	}
 	/**
 	 * 讲数据批量插入16表中
 	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
@@ -229,9 +276,11 @@ public class T16DAO {
 	
 	public static void main(String arg[])
 	{
-		T16DAO dao=new T16DAO();
-		List<T16POJO> list=dao.auditingData1("2014");
-		System.out.println(list.size());
+//		T16DAO dao=new T16DAO();
+//		List<T16POJO> list=dao.forExcel();
+//		T16POJO t16=list.get(0);
+//		System.out.println(t16.getNote1());
+//		System.out.println(t16.getNote2());
 	}
 
 }

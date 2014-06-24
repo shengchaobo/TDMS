@@ -7,7 +7,7 @@ public class T152Bean {
 	private int SeqNumber;
 	private String ResInsName;//科研机构名称
 	private String ResInsID;//单位号
-	private String ResInsLevel;//科研单位级别
+	private String FillUnitID;//科研单位级别
 	private String Type;//类别
 	private boolean BuildCondition;//共建情况:是
 	private boolean BiOpen;//是否开放
@@ -18,8 +18,6 @@ public class T152Bean {
 	private double HouseArea;//面积
 	private Date Time;
 	private String Note;
-	private String audit;
-	private int position;
 	
 	public int getSeqNumber() {
 		return SeqNumber;
@@ -39,18 +37,13 @@ public class T152Bean {
 	public void setResInsID(String resInsID) {
 		ResInsID = resInsID;
 	}
-public String getResInsLevel() {
-		return ResInsLevel;
+
+	public String getFillUnitID() {
+		return FillUnitID;
 	}
-	public void setResInsLevel(String resInsLevel) {
-		ResInsLevel = resInsLevel;
+	public void setFillUnitID(String fillUnitID) {
+		FillUnitID = fillUnitID;
 	}
-	//	public String getResInsLevel() {
-//		return ResInsLevel;
-//	}
-//	public void setResInsLevel(String resInsLevel) {
-//		ResInsLevel = resInsLevel;
-//	}
 	public String getType() {
 		return Type;
 	}
@@ -110,17 +103,5 @@ public String getResInsLevel() {
 	}
 	public void setNote(String note) {
 		Note = note;
-	}
-	public String getAudit() {
-		return audit;
-	}
-	public void setAudit(String audit) {
-		this.audit = audit;
-	}
-	public int getPosition() {
-		return position;
-	}
-	public void setPosition(int position) {
-		this.position = position;
 	}
 }

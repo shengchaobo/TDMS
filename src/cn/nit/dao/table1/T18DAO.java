@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T181Bean;
 import cn.nit.dbconnection.DBConnection;
 
@@ -164,6 +165,34 @@ public class T18DAO {
 		return list ;
 	}
 	
+	/**用于数据导出*/
+	public List<T181Bean> totalList(){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,FillDept,t.CooperInsName,t.CooperInsType,dal.AwardLevel as CooperInsLevel,t.CooperInsLevel as CooperInsLevelID" +
+				",t.SignedTime,t.UnitName,t.UnitID,dal.AwardLevel as UnitLevel,t.UnitLevel as UnitLevelID,t.Time,t.Note,t.audit" );
+		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiAwardLevel dal");
+		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.CooperInsLevel");
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T181Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T181Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
 	public boolean update(T181Bean t181Bean){
 		
 		boolean flag = false ;
@@ -210,7 +239,7 @@ public class T18DAO {
 	{
 		T18DAO dao=new T18DAO();
 //		int n=dao.totalAuditingData(null, null);
-		List<T181POJO> list=dao.auditingData(null, "1012", 1, 1);
+		List<T181Bean> list=dao.totalList();
 //		int n=dao.totalAuditingData(null, "1012");
 		System.out.println(list.size());
 //		System.out.println(n);

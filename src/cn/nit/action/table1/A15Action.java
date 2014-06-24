@@ -3,7 +3,9 @@ package cn.nit.action.table1;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +15,9 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.A15Bean;
+import cn.nit.bean.table1.S18Bean;
+import cn.nit.dao.table1.A15DAO;
+import cn.nit.excel.imports.table1.A15Excel;
 import cn.nit.service.table1.A15Service;
 import cn.nit.util.ExcelUtil;
 
@@ -24,6 +29,13 @@ public class A15Action {
 	
 	/**  表A15的Bean实体类  */
 	private A15Bean a15Bean = new A15Bean() ;
+	
+
+	/**  表A15的DAO类  */
+	private A15DAO a15Dao = new A15DAO() ;
+	
+	/**  表A15的Excel类  */
+	private A15Excel a15Excel = new A15Excel() ;
 
 	/**  为界面加载数据  */
 	public void auditingData(){
@@ -55,28 +67,34 @@ public class A15Action {
 		}
 	}
 	
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			
+			List<A15Bean> list=new ArrayList<A15Bean>(); 
+            Date time=new Date();
+            String time1=time.toString();
+            String year=time1.substring(time1.length()-4, time1.length());
+            list=a15Dao.forExcel(year);
+            inputStream = new ByteArrayInputStream(a15Excel.writeExcel(list).toByteArray());
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+	
+
 	public String execute() throws Exception{
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
 		return "success" ;
 	}
-	
-
-
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
-
 
 	
 	public HttpServletRequest getRequest(){

@@ -420,9 +420,9 @@ public class T11Excel {
     	listStr.add(t11Bean.getSchID());listStr.add(t11Bean.getSchEnName());listStr.add(t11Bean.getSchType());
     	listStr.add(t11Bean.getSchQuality());listStr.add(t11Bean.getSchBuilder());listStr.add(t11Bean.getMajDept());
     	listStr.add(t11Bean.getSchUrl());listStr.add(t11Bean.getAdmissonBatch());
-    	String beginYear=t11Bean.getSchFillerTel();
-    	String year=beginYear.substring(0, 4);
-    	listStr.add(year);listStr.add(t11Bean.getMediaUrl());listStr.add(t11Bean.getYaohuSchAdd());
+    	String beginYear=TimeUtil.changeFormat5(t11Bean.getSch_BeginTime());
+//    	String year=beginYear.substring(0, 4);
+    	listStr.add(beginYear);listStr.add(t11Bean.getMediaUrl());listStr.add(t11Bean.getYaohuSchAdd());
     	listStr.add(t11Bean.getPengHuSchAdd());
     	return listStr;
     }

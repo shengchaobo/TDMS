@@ -1,7 +1,13 @@
 package cn.nit.action.table1;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +17,11 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T181Bean;
+import cn.nit.dao.table1.T18DAO;
+import cn.nit.excel.imports.table1.T181Excel;
+import cn.nit.excel.imports.table1.T182Excel;
 import cn.nit.service.table1.T181Service;
+import cn.nit.util.TimeUtil;
 
 
 public class T182Action {
@@ -22,8 +32,17 @@ public class T182Action {
 	/**  表181的Bean实体类  */
 	private T181Bean t181Bean = new T181Bean() ;
 	
+	/**  表182的Dao类  */
+	private T18DAO t182Dao = new T18DAO() ;
+	
+	/**  表182的Excel实体类  */
+	private T182Excel t182Excel = new T182Excel() ;
+	
+	/**excel导出名字*/
+	private String excelName; //
+	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -75,58 +94,110 @@ public class T182Action {
 		}
 		out.flush() ;
 	}
-
+	
 	/**  为界面加载数据  */
 	public void auditingData(){
-		
-//		System.out.println("輸出輸出輸出");
-		
-		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
-			return ;
-		}
-		
-		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
-			return ;
-		}
-		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t181Ser.auditingData(conditions, "1013", Integer.parseInt(page), Integer.parseInt(rows)) ;
-		PrintWriter out = null ;
-		
-		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print(pages) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return ;
-		}finally{
-			if(out != null){
-				out.close() ;
+			
+//			System.out.println("輸出輸出輸出");
+			
+			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
+				return ;
+			}
+			
+			if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
+				return ;
+			}
+			
+			String cond = null;
+			StringBuffer conditions = new StringBuffer();
+			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+				cond = null;	
+			}else{			
+				if(this.getSeqNum()!=null){
+					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+				}
+				
+				if(this.getStartTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+				}
+				
+				if(this.getEndTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+				}
+				cond = conditions.toString();
+			}
+
+			String pages = t181Ser.auditingData(cond, "1013", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			PrintWriter out = null ;
+			
+			try{
+				getResponse().setContentType("text/html; charset=UTF-8") ;
+				out = getResponse().getWriter() ;
+				out.print(pages) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return ;
+			}finally{
+				if(out != null){
+					out.close() ;
+				}
 			}
 		}
-	}
-	
-	/**  生成查询条件  （查询数据） */
-	public void auditingConditions(){
-		
-		String sqlConditions = t181Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+
+//	/**  为界面加载数据  */
+//	public void auditingData(){
+//		
+////		System.out.println("輸出輸出輸出");
+//		
+//		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
+//			return ;
+//		}
+//		
+//		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
+//			return ;
+//		}
+//		
+//		String conditions = (String) getSession().getAttribute("auditingConditions") ;
+//		String pages = t181Ser.auditingData(conditions, "1013", Integer.parseInt(page), Integer.parseInt(rows)) ;
+//		PrintWriter out = null ;
+//		
+//		try{
+//			getResponse().setContentType("text/html; charset=UTF-8") ;
+//			out = getResponse().getWriter() ;
+//			out.print(pages) ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
+//	
+//	/**  生成查询条件  （查询数据） */
+//	public void auditingConditions(){
+//		
+//		String sqlConditions = t181Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
+//		getSession().setAttribute("auditingConditions", sqlConditions) ;
+//		PrintWriter out = null ;
+//		
+//		try{
+//			out = getResponse().getWriter() ;
+//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
+//			out.flush() ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
 	
 	/**  编辑数据  */
 	public void edit(){
@@ -180,20 +251,48 @@ public class T182Action {
 		}
 	}
 	
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
-//
+	/**数据导出*/
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			
+			List<T181Bean> list = t182Dao.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("合作机构名称");columns.add("合作机构类型");columns.add("合作机构级别");columns.add("签订协议时间");
+			columns.add("我方单位");columns.add("单位号");columns.add("我方单位级别");columns.add("备注");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("CooperInsName", 1);maplist.put("CooperInsType", 2);maplist.put("CooperInsLevel", 3);maplist.put("SignedTime", 4);
+			maplist.put("UnitName", 5);maplist.put("UnitID", 6);maplist.put("UnitLevel", 7);
+			maplist.put("Note", 8);
+			
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t182Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+	
+
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+	
 	public String execute() throws Exception{
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
@@ -224,30 +323,56 @@ public class T182Action {
 		this.t181Bean = t181Bean;
 	}
 
-	public void setSeqNum(int seqNum){
-		this.seqNum = seqNum ;
-	}
 	
-	public void setStartTime(Date startTime){
-		this.startTime = startTime ;
-	}
 	
-	public void setEndTime(Date endTime){
-		this.endTime = endTime ;
+	public Integer getSeqNum() {
+		return seqNum;
+	}
+
+	public void setSeqNum(Integer seqNum) {
+		this.seqNum = seqNum;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getIds() {
+		return ids;
 	}
 
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
 
-	public void setPage(String page){
-		this.page = page ;
+	public String getPage() {
+		return page;
 	}
-	
-	public void setRows(String rows){
-		this.rows = rows ;
+
+	public void setPage(String page) {
+		this.page = page;
 	}
-	
+
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
 	public static void main(String args[]){
 		String match = "[\\d]+" ;
 		System.out.println("23gfhf4".matches(match)) ;

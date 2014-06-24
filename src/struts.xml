@@ -90,6 +90,8 @@
     <include file="cn/nit/configuration/table1/T13.xml"/>
         <!-- T14学校教学单位 -->
     <include file="cn/nit/configuration/table1/T14.xml"/>
+      <!-- T19 -->
+    <include file="cn/nit/configuration/table1/T19.xml"/>
     
     <!--table3-->
     <!-- t312博士点硕士点 -->
@@ -101,8 +103,9 @@
 
     <!-- t321 大类培养基本情况 -->
     <include file="cn/nit/configuration/table3/T321.xml"/>
-    <!-- t322 专业基本情况 -->
+    <!-- t322 专业基本情况 
     <include file="cn/nit/configuration/table3/T322.xml"/> 
+    -->
     <!-- t33 专业基本情况 -->
     <include file="cn/nit/configuration/table3/T33.xml"/>
     <!-- table5本科课程库 -->

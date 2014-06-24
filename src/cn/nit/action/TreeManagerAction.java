@@ -38,7 +38,7 @@ public class TreeManagerAction {
 		}else{
 			try {
 				
-				System.out.println(jsonTree) ;
+//				System.out.println(jsonTree) ;
 				response.setContentType("text/html;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(jsonTree) ;
@@ -61,7 +61,7 @@ public class TreeManagerAction {
 		PrintWriter out = null ;
 
 		try {			
-			System.out.println(this.getRefId()) ;
+//			System.out.println(this.getRefId()) ;
 			out = response.getWriter() ;
 			response.setContentType("text/html;charset=UTF-8") ;
 			boolean flag = treeSer.removeTrees(this.getRefId());
@@ -89,7 +89,7 @@ public class TreeManagerAction {
 
 		try {
 			
-			System.out.println(this.tree) ;
+//			System.out.println(this.tree) ;
 			out = response.getWriter() ;
 			response.setContentType("text/html;;charset=UTF-8") ;
 			
@@ -121,7 +121,7 @@ public class TreeManagerAction {
 		}else{
 			try {
 				
-				System.out.println(jsonTree) ;
+//				System.out.println(jsonTree) ;
 				response.setContentType("text/html;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(jsonTree) ;

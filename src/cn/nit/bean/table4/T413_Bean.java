@@ -36,6 +36,7 @@ public class T413_Bean implements java.io.Serializable {
 	private String tutorType;
 	private String region;
 	private String note;
+	private String fillUnitID;
 
 	@Column(name = "Name")
 	public String getName() {
@@ -185,6 +186,14 @@ public class T413_Bean implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
+
+	public String getFillUnitID() {
+		return fillUnitID;
 	}
 
 }

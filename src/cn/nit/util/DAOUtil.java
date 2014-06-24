@@ -73,9 +73,13 @@ public class DAOUtil {
 				}else if(type.endsWith("int")||type.endsWith("Integer")){
 					pst.setInt(i + 1, (Integer) wrapper.getPropertyValue(fields[i])) ;
 				}else if(type.endsWith("Date")){
-					java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(fields[i]) ;
-					Date sqlDate = new Date(utilDate.getTime()) ;
-					pst.setDate(i + 1, sqlDate ) ;
+					if(wrapper.getPropertyValue(fields[i])==null){
+						pst.setDate(i + 1, null ) ;
+					}else{
+						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(fields[i]) ;
+						Date sqlDate = new Date(utilDate.getTime()) ;
+						pst.setDate(i + 1, sqlDate ) ;
+					}
 				}else if(type.endsWith("long")||type.endsWith("Long")){
 					pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
 
@@ -211,9 +215,13 @@ public class DAOUtil {
 					}else if(type.endsWith("int")||type.endsWith("Integer")){
 						pst.setInt(i + 1, (Integer) wrapper.getPropertyValue(fields[i])) ;
 					}else if(type.endsWith("Date")){
-						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(fields[i]) ;
-						Date sqlDate = new Date(utilDate.getTime()) ;
-						pst.setDate(i + 1, sqlDate ) ;
+						if(wrapper.getPropertyValue(fields[i])==null){
+							pst.setDate(i + 1, null ) ;
+						}else{
+							java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(fields[i]) ;
+							Date sqlDate = new Date(utilDate.getTime()) ;
+							pst.setDate(i + 1, sqlDate ) ;
+						}
 					}else if(type.endsWith("long")||type.endsWith("Long")){
 						pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
 

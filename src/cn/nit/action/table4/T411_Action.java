@@ -39,7 +39,7 @@ public class T411_Action {
 	
 	private String page; //当前第几页
 	
-	private String ids; //删除的id
+	//private String ids; //删除的id
 	
 	private String searchID; //用于查询的教工号
 	
@@ -397,13 +397,13 @@ public class T411_Action {
 		T411_bean = t411Bean;
 	}
 	
-	public String getIds() {
+/*	public String getIds() {
 		return ids;
 	}
 
 	public void setIds(String ids) {
 		this.ids = ids;
-	}
+	}*/
 
 	public void setSearchID(String searchID) {
 		this.searchID = searchID;

@@ -28,7 +28,7 @@ public class A15DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "NationResNum,NationResRatio, ProviResNum,ProviResRatio,CityResNum,CityResRatio,SchResNum,SchResRatio,SumResNum" +
+	private String field = "NationResNum,NationResRatio,ProviResNum,ProviResRatio,CityResNum,CityResRatio,SchResNum,SchResRatio,SumResNum" +
 			",Time,Note" ;
 	
 	
@@ -161,6 +161,12 @@ public class A15DAO {
 				e.printStackTrace();
 			}
 			return flag;
+		}
+		
+		public static void main(String arg[]){
+			A15DAO dao=new A15DAO();
+			 List<S15Bean> list=dao.getOriData("2014");
+			 System.out.println(list.size());
 		}
 
 

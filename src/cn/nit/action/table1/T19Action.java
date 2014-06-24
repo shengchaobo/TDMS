@@ -136,6 +136,7 @@ public class T19Action {
 			}
 
 			String pages = t19Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+//			System.out.println("pages:"+pages);
 			PrintWriter out = null ;
 			
 			try{
@@ -216,9 +217,9 @@ public class T19Action {
 		try{
 			out = getResponse().getWriter() ;
 			if(flag){
-				out.print("{\"state\":true,data:\"删除成功!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
-				out.print("{\"state\":true,data:\"删除失败!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
 		}catch(Exception e){

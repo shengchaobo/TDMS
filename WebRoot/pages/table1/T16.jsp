@@ -128,7 +128,7 @@
 		        </div>
 		        <div id="input2"  style="display:none;" >
 		          <input id="seqNumber2" name="t16Bean.SeqNumber" type="hidden"/>
-		         <input id="Item2"  name="t16Bean.Item" type="text"   size="50" >
+		         <input id="Item2"  name="t16Bean.Item" type="text">
 		         </div>
 		   </td>
 		     <td style="background-color: white" width="50%">
@@ -166,7 +166,7 @@
 		</table>
 		<div id="toolbar" style="height:auto">
 		<div>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="pages/T16/dataExport?excelName=表1-6办学指导思想（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 			<!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 		 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a> -->
@@ -289,11 +289,21 @@
 		 document.getElementById("Contents2").value=data.contents2 ;
 		 document.getElementById("Note2").value=data.note2 ;
 		}
+
+
+	 //结果返回
+ //   success: function(result){
+    //json格式转化
+//	    var result = eval('('+result+')');
+	//    $.messager.alert('温馨提示', result.data) ;
+//	    if (result.state){ 
+	//	    $('#dlg').dialog('close'); 
+	//	    $('#unverfiedData').datagrid('reload');  
+	//    }
+  //  }
 	
 	 function save1()
      {
-	    // alert(123);
-            // validate();       
     		 url = 'pages/T16/edit' ;
     			 $.ajax({
 						type : "POST",
@@ -305,61 +315,45 @@
 	    			 //json格式转化
 					    var result = eval('('+result+')');
 					    $.messager.alert('提示', result.data) ;
-			           cancel();
-						}
+					    if(result.state){
+					    	cancel11();
+						   	loadAuotCityList();
+					    }
+					}
 					}).submit();
-    		 //else{  $.messager.alert('提示', "请核对好数据！") ;}
+    	
       }
 
+	    function cancel11(){
+	    	$('div#di1').css("display","inline");
+			$('div#input1').css("display","none");
+	    }
+	 
 	 function save2()
      {
-	     //alert(123);
-            // validate();       
-    		 url = 'pages/T16/edit' ;
-    			 $.ajax({
-						type : "POST",
-						url : url,
-						data: $('#schGuiForm2').serialize() ,
-						async : "true",
-						dataType : "text",
-						success : function(result) {
-	    			 //json格式转化
-					    var result = eval('('+result+')');
-					    $.messager.alert('提示', result.data) ;
-			           cancel();
-						}
-					}).submit();
-    		 //else{  $.messager.alert('提示', "请核对好数据！") ;}
+		 url = 'pages/T16/edit' ;
+		 $.ajax({
+				type : "POST",
+				url : url,
+				data: $('#schGuiForm2').serialize() ,
+				async : "true",
+				dataType : "text",
+				success : function(result) {
+			 //json格式转化
+			    var result = eval('('+result+')');
+			    $.messager.alert('提示', result.data) ;
+			    if(result.state){
+			    	cancel22();
+				   	loadAuotCityList();
+			    }
+			}
+			}).submit();
       }
 
-	 function validate(){
-
-		 
-	 }
-
-	 function save2()
-     {
-            // validate();       
-    		 url = 'pages/T16/edit' ;
-    		 if(validate()){
-    			 $.ajax({
-						type : "POST",
-						url : url,
-						data: $('#schGuiForm1').serialize() ,
-						async : "true",
-						dataType : "text",
-						success : function(result) {
-	    			 //json格式转化
-					    var result = eval('('+result+')');
-					    $.messager.alert('提示', result.data) ;
-			           cancel();
-						}
-					}).submit();
-    		 }
-    		 //else{  $.messager.alert('提示', "请核对好数据！") ;}
-    			
-      }
-	
+	 function cancel22(){
+	    	$('div#di2').css("display","inline");
+			$('div#input2').css("display","none");
+	    } 
 	function singleSearch(){
    	 $('#auditing').form('submit',{
    		 url: 'pages/T16/singleSearch',
@@ -419,7 +413,7 @@
 	    	}
 	    } 
 	    
-	    function newCourse(){
+	    function newObject(){
 	    	url = 'pages/T16/insert' ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加校训及目标');
 		    $('#t16Form').form('reset');

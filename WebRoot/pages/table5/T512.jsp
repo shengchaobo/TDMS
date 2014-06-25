@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'SeqNumber',align:'center'" rowspan="2">
-				序号
+				编号
 				</th>
 				<th data-options="field:'Term',align:'center'" rowspan="2">
 			          学期
@@ -174,7 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 			<a href="pages/SchResIns/dataExport?excelName=表1-5-1校级以上科研机构（科研处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		 	<form id="auditing" method="post" style="float: right;height: 24px;">
-			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
@@ -223,109 +223,276 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div></div>
 		<div class="ftitle">校级以上科研机构逐条导入</div>
 		
-		<form id="resInsForm" method="post">
-		<table id="formTable">
+		 <form id="addForm" method="post">
+		<table>
+			<tr><td><div class="fitem">
+				<label>姓名：</label> 
+				<input id="teaName" type="text" name="T411_bean.teaName"
+				class="easyui-validatebox" ><span id="teaNameSpan"></span>
+				</div>
+			</td>
+			<td class="empty"></td>
+				<td><div class="fitem">
+				<label>教工号：</label> 
+				<input id="teaId" type="text" name="T411_bean.teaId"
+				class="easyui-validatebox" ><span id="teaIdSpan"></span>
+				</div></td>
+			</tr>
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>科研机构名称：</label> 
-						<input id="seqNumber" type="hidden" name="t151Bean.SeqNumber" value="0"></input>
-						<input type="hidden" name="t151Bean.ResInsName" id="ResInsName"/>
-						<input id="ResInsID" type="text" name="t151Bean.ResInsID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentSci' ,listHeight:'auto',editable:false,
-							onSelect:function(){
-							 	$('#ResInsName').val($(this).combobox('getText')) ;
-							 }">
-					    <span id="ResInsNameSpan"></span>
-							
+						<label>性别：</label> 
+						<select class='easyui-combobox'  id="gender" name="T411_bean.gender"  panelHeight="auto" editable="false" >
+							<option value="男">男</option>
+							<option value="女">女</option>
+						</select>	
+							<span id="genderSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
-						<label>类别：</label> 
-						<input id="Type"  name="t151Bean.Type" class='easyui-combobox'
-						data-options="valueField:'indexId',textField:'researchType',url:'pages/DiResearchType/loadDiResearchType',listHeight:'auto',editable:false">
-						<span id="TypeSpan"></span>
+						<label>出生日期：</label> 
+						<input class="easyui-datebox"  id="birthday" type="text" 
+						name="T411_bean.birthday"  editable="false" />
+						<span id="birthdaySpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>开设年份：</label> 
-						 <input class="easyui-datebox" id="BeginYear" name="t151Bean.BeginYear" >
-						 <span id="BeginYearSpan"></span>
+						<label>任职状态：</label> 
+						<select class='easyui-combobox'  id="teaState" name="T411_bean.teaState"  panelHeight="auto" editable="false" >
+							<option value="在职">在职</option>
+							<option value="当年离职">当年离职</option>
+						</select>	
+							<span id="teaStateSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
+				<td>
+					<div class="fitem">
+						<label>入校时间：</label> 
+						<input class="easyui-datebox"  id="admisTime" type="text" 
+						name="T411_bean.admisTime"  editable="false" />
+						<span id="admisTimeSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>身份代码：</label> 
+						<input id="idcode" type="text" name="T411_bean.idcode"  panelHeight="auto"
+							 class='easyui-combobox' data-options="valueField:'indexId',textField:'identiType',url:'pages/DiIdentiType/loadDiIdentiType',listHeight:'auto',editable:false"/>
+						<span id="idcodeSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				<td>
+					<div class="fitem">
+						<label>参加本科教学工作时间：</label> 
+						<input class="easyui-datebox"  id="beginWorkTime" type="text" 
+						name="T411_bean.beginWorkTime"  editable="false" />
+						<span id="beginWorkTimeSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>所属部门：</label> 
+						<input type="hidden" name="T411_bean.fromOffice" id="fromOffice"/>
+						<input id="officeID" type="text" name="T411_bean.officeID" class='easyui-combobox'
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							onSelect:function(){
+							    document.getElementById('fromOffice').value=$(this).combobox('getText') ;
+							 }">
+						 <span id="officeIDSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>所属教学单位：</label> 
-						<input type="hidden" name="t151Bean.TeaUnit" id="TeaUnit"/>
-						<input id="UnitID" type="text" name="t151Bean.UnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
+						<input type="hidden" name="T411_bean.fromUnit" id="fromUnit"/>
+						<input id="unitId" type="text" name="T411_bean.unitId" class='easyui-combobox'
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							onSelect:function(){
-							    $('#TeaUnit').val($(this).combobox('getText')) ;
+							 	 document.getElementById('fromUnit').value=$(this).combobox('getText') ;
 							 }">
-							 
-					    <span id="TeaUnitSpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
-			    <td>
-					<div class="fitem">
-						<label>共建情况：</label> 
-						<select class='easyui-combobox' id='BuildCondition' name='t151Bean.BuildCondition'>
-						   <option value="true">是</option>
-						   <option value="false">否</option> 
-						</select>
-						<span id="BuildConditionSpan"></span>
+			  <td>
+				<div class="fitem">
+					<label>所属教研室：</label> 
+						<input type="hidden" name="T411_bean.fromTeaResOffice" id="fromTeaResOffice"/>
+						<input id="teaResOfficeID" type="text" name="T411_bean.teaResOfficeID" class='easyui-combobox'
+							data-options="valueField:'unitId',textField:'researchName',url:'pages/DiResearchRoom/loadDiResearchRoom',listHeight:'auto',editable:false,
+							onSelect:function(){
+							 	$('#fromTeaResOffice').val($(this).combobox('getText')) ;
+							 }">
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
-						<label>是否对本科生开放：</label> 
-						<select class='easyui-combobox' id='BiOpen' name='t151Bean.BiOpen'>
-						   <option value="true">是</option>
-						   <option value="false">否</option> 
-						</select>
-						 <span id="BiOpenSpan"></span>
+						<label>学历：</label> 
+						<input class='easyui-combobox' id="education" name="T411_bean.education" 
+							data-options="valueField:'indexId',textField:'education',url:'pages/DiEducation/loadDiEducation',listHeight:'auto',editable:false" panelHeight="auto">
+						<span id="educationSpan"></span>
 					</div>
 				</td>
 			</tr>
-			
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>专业科研用房面积（平方米）：</label> 
-						<input id="HouseArea" type="text" name="t151Bean.HouseArea" 
-						class="easyui-numberbox"  data-options="min:0,precision:2" required="true">
-						   <span id="HouseAreaSpan"></span>
+						<label>最高学位：</label> 
+						<input class='easyui-combobox' id="topDegree" name="T411_bean.topDegree" 
+							data-options="valueField:'indexId',textField:'degree',url:'pages/DiDegree/loadDiDegree',listHeight:'auto',editable:false" panelHeight="auto">
+						<span id="topDegreeSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				<td>
+					<div class="fitem">
+					<label>毕业学校：</label> 
+					<input id="graSch" type="text" name="T411_bean.graSch"
+					class="easyui-validatebox"><span id="graSchSpan"></span>
+					</div>
+				</td>
+		  </tr>
+		  <tr>
+				<td>
+					<div class="fitem">
+						<label>专业：</label> 
+						<input class="easyui-validatebox"  id="major" name="T411_bean.major" 
+						/><span id="majorSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				<td>
+					<div class="fitem">
+						<label>学缘：</label> 
+						<input class='easyui-combobox' id="source" name="T411_bean.source" 
+							data-options="valueField:'indexId',textField:'source',url:'pages/DiSource/loadDiSource',listHeight:'auto',editable:false" panelHeight="auto">
+						<span id="sourceSpan"></span>
 					</div>
 				</td>
 			</tr>
-			
-		    <tr>
-				<td >
-				    <div class="fitem">
-						<label>对本科生开放情况（500字以内）：</label> 
-						<br/>
-						<textarea id="OpenCondition" name="t151Bean.OpenCondition" style="resize:none" cols="50" rows="10"></textarea>
-						<span id="OpenConditionSpan"></span>
-						</div>
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>专业技术职称：</label> 
+						<input class='easyui-combobox'  id="majTechTitle" name="T411_bean.majTechTitle" 
+							data-options="valueField:'indexId',textField:'titleLevel',url:'pages/DiTitleLevel/loadDiTitleLevel',listHeight:'auto',editable:false" panelHeight="auto">
+						<span id="majTechTitleSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				<td>
+					<div class="fitem">
+					<label>行政职务：</label> 
+					<input id="adminLevel" type="text" name="T411_bean.adminLevel"
+					class="easyui-validatebox"><span id="adminLevelSpan"></span>
+					</div>
+				</td>
+		  </tr>
+		  <tr>
+				<td>
+					<div class="fitem">
+						<label>教学系列职称：</label> 
+						<input class='easyui-combobox'  id="teaTitle" name="T411_bean.teaTitle" 
+							data-options="valueField:'indexId',textField:'titleName',url:'pages/DiTitleName/loadDiTitleName',listHeight:'auto',editable:false" panelHeight="auto">
+						<span id="teaTitleSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				<td>
+					<div class="fitem">
+					<label>非教学系列职称：</label> 
+					<input id="notTeaTitle" type="text" name="T411_bean.notTeaTitle"
+					class="easyui-validatebox"><span id="notTeaTitleSpan"></span>
+					</div>
+				</td>
+		 </tr>
+ 		  <tr>
+ 				<td>
+					<div class="fitem">
+					<label>学科类别：</label> 
+					<select class='easyui-combobox'  id="subjectClass" name="T411_bean.subjectClass"  panelHeight="auto" editable="false" >
+							<option value="01哲学">01哲学</option>
+							<option value="02经济学">02经济学</option>
+							<option value="03法学">03法学</option>
+							<option value="04教育学">04教育学</option>
+							<option value="05文学">05文学</option>
+							<option value="06历史学">06历史学</option>
+							<option value="07理学">07理学</option>
+							<option value="08工学">08工学</option>
+							<option value="09农学">09农学</option>
+							<option value="10医学">10医学</option>
+							<option value="11军事学">11军事学</option>
+							<option value="12管理学">12管理学</option>
+							<option value="13艺术学">13艺术学</option>
+						</select>	<span id="subjectClassSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				<td>
+					<div class="fitem">
+						<label>是否双师型教师：</label> 
+						<select class='easyui-combobox'  id="gender" name="T411_bean.doubleTea"  panelHeight="auto" editable="false" >
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>	
+							<span id="doubleTeaSpan"></span>
+					</div>
+				</td>
+		 </tr>
+  		  <tr>
+				<td>
+					<div class="fitem">
+						<label>是否具有行业背景：</label> 
+						<select class='easyui-combobox'  id="gender" name="T411_bean.industry" panelHeight="auto" editable="false" >
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>	
+							<span id="industryTeaSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				<td>
+					<div class="fitem">
+						<label>是否具有工程背景：</label> 
+						<select class='easyui-combobox'  id="gender" name="T411_bean.engineer"  panelHeight="auto" editable="false" >
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>	
+							<span id="engineerSpan"></span>
+					</div>
+				</td>
+		 </tr>
+			<tr>
+				<td colspan="3">
+					<div class="fitem">
+						<label>是否具列入师资库：</label> 
+						<select class='easyui-combobox'  id="gender" name="T411_bean.teaBase"  panelHeight="auto" editable="false" >
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>	
+							<span id="teaBaseSpan"></span>
+					</div>
 				</td>
 			</tr>
 			<tr>
-			
-				<td >
-				   <div class="fitem">
-					    <label>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-			            <br/>
-						<textarea id="Note" name="t151Bean.Note" style="resize:none" cols="50" rows="3"></textarea>
-						<span id="NoteSpan"></span>
-						</div>
-					</td>
-			</tr>
+				<td style="valign:left" colspan="3"><label>备注：</label>
+					<textarea id="note" name="T411_bean.note" style="resize:none" cols="50" rows="10"></textarea>
+					<span id="noteSpan"></span>
+				</td>
+			</tr>			
 		</table>
 		</form>
 	</div>

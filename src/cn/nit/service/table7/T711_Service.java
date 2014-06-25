@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import cn.nit.bean.table7.T711_Bean;
-import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table7.T711_DAO;
 import cn.nit.pojo.table7.T711POJO;
 import cn.nit.util.Pagition;
@@ -98,13 +97,7 @@ public class T711_Service {
 		return teaManagerAwardInfoTeaTeaDAO.deleteCoursesByIds(ids) ;
 	}
 	
-     private void setAudit(T711_Bean t){
-		
-		String audit = DIResourceDAO.getAudit(teaManagerAwardInfoTeaTeaDAO.getTableName()) ;
-		
-		String audits[] = audit.split(",") ;
-		t.setAudit(audits[0]) ;
-	}
+  
 	
 	
 	public static void main(String args[]){

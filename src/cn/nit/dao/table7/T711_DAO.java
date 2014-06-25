@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 
+import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table7.T711_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table7.T711POJO;
@@ -147,6 +148,36 @@ public class T711_DAO {
     	
     	
     }
+    
+    /**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T711_Bean> totalList(){
+		
+		String sql = "select " + key+ "," +field + " from " + tableName;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T711_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T711_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
     
     public boolean update(T711_Bean t711_Bean){
     	boolean flag=false;

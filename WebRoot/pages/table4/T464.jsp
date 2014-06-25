@@ -209,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>获奖类别：</label> 
 						<input class='easyui-combobox' id="awardType" name="T461_bean.awardType" 
-							data-options="valueField:'indexId',textField:'awardType',url:'pages/DiAwardType/loadDiAwardType?type=1',listHeight:'auto',editable:false" panelHeight="auto">
+							data-options="valueField:'indexId',textField:'awardType',url:'pages/DiAwardType/loadDiAwardType?type=4',listHeight:'auto',editable:false" panelHeight="auto">
 						<span id="awardTypeSpan"></span>
 					</div>
 				</td>

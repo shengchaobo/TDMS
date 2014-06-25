@@ -95,7 +95,7 @@ public class T461_Action {
 		if(this.getParam() != "6"){
 			fillUnitID = null;
 		}else{
-			fillUnitID = "待定";
+			fillUnitID = null;
 		}
 		
 		List<T461_Bean> list = T461_services.getPagehonorList(cond, fillUnitID, this.getRows(), this.getPage(), this.getParam()) ;

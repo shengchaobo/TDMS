@@ -10,6 +10,7 @@ import sun.security.krb5.internal.UDPClient;
 
 
 
+
 import cn.nit.bean.table3.T33_Bean;
 import cn.nit.dbconnection.DBConnection;
 
@@ -168,6 +169,34 @@ public class T33_DAO {
 		return list ;
 	}
 	
+	
+	/**用于数据导出*/
+	public List<T33_Bean> totalList(){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,dmo.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorFieldName,t.AppvlSetTime,t.FirstAdmisTime," +
+		"t.MajorYearLimit,t.IsSepcialMajor,t.IsKeyMajor,t.MajorLeader,t.LIsFullTime,t.MajorChargeMan,t.CIsFullTime,t.Time,t.Note");
+	sql.append(" from "+tableName + " as t,DiDepartment dpt,DiMajorOne dmo ");
+	sql.append(" where dpt.UnitID=t.UnitID and dmo.MajorNum=t.MajorID" );
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T33_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T33_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
 	
 	
 	public boolean update(T33_Bean t33_Bean){

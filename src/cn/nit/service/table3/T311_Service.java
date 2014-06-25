@@ -49,7 +49,8 @@ public class T311_Service {
 		List<T311POJO> list = postDocStaDao.auditingData(conditions, fillDept, page, rows) ;
 		Pagition pages = new Pagition(total, list) ;
 //		System.out.println("total:"+total);
-//		System.out.println("list:"+list.size());
+		System.out.println(list.get(0));
+		System.out.println("hahahahha");
 		JSON json = JSONSerializer.toJSON(pages) ;
 			
 //		System.out.println(json.toString()) ;
@@ -57,30 +58,6 @@ public class T311_Service {
 		return json.toString() ;
 		}
 	
-	public String gernateAuditingConditions(int seqNum, Date startTime, Date endTime){
-		
-		if(seqNum == 0 && startTime == null && endTime == null){
-			return null ;
-		}
-		
-		StringBuffer sql = new StringBuffer() ;
-		
-		if(seqNum != 0){
-			sql.append(" and SeqNumber=" + seqNum) ;
-		}
-		
-		if(startTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(startTime) + "')as datetime)") ;
-		}
-		
-		if(endTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(endTime) + "')as datetime)") ;
-		}
-		
-		return sql.toString() ;
-	}
 	
 	/**
 	 * 更新数据

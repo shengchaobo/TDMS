@@ -18,7 +18,7 @@ public class T461_Dao {
 	private String field = "Name,TeaId,FromTeaUnit,UnitId,AwardType,AwardLevel,AwardFromUnit," +
 			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note";
 	private String keyfield = "SeqNumber";
-	
+	private String tailfield = "fillUnitID";
 	
 	/**
 	 * 获取字典表的所有数据
@@ -51,7 +51,7 @@ public class T461_Dao {
 		
 		String sql = "select " +
 			"SeqNumber,Name,TeaId,FromTeaUnit,UnitId,DiAwardType.AwardType,DiAwardLevel.AwardLevel,AwardFromUnit," +
-			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note"
+			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID"
 			+ " from " + tableName + 
 			" left join " + tableName1+ " on " + tableName + ".AwardLevel=" + tableName1 + ".IndexID " +
 			" left join " + tableName2+ " on " + tableName + ".AwardType=" + tableName2 + ".IndexID " + 
@@ -170,7 +170,7 @@ public class T461_Dao {
 			cond = "(T461_FameTeaAward_Per$.AwardType = '51006')";
 		}
 		else if(param.equals("6")){
-			cond = "(T461_FameTeaAward_Per$.AwardType = '51007'_";
+			cond = "(T461_FameTeaAward_Per$.AwardType = '51007')";
 		}
 		
 		if(conditions != null && !conditions.equals("")){
@@ -183,7 +183,7 @@ public class T461_Dao {
 				
 		String queryPageSql = "select top " + pageSize + " " + keyfield + "," +
 		"Name,TeaId,FromTeaUnit,UnitId,DiAwardType.AwardType,DiAwardLevel.AwardLevel,AwardFromUnit," +
-		"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note"
+		"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID"
 		+ " from " + tableName + 
 		" left join " + tableName1+ " on " + tableName + ".AwardLevel=" + tableName1 + ".IndexID " +
 		" left join " + tableName2+ " on " + tableName + ".AwardType=" + tableName2 + ".IndexID " +
@@ -238,7 +238,7 @@ public class T461_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;
 		
 		String tempfield = "Name,TeaId,FromTeaUnit,UnitId,AwardType,AwardLevel,AwardFromUnit," +
-		"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note";
+		"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID";
 		
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;

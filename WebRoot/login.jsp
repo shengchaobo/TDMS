@@ -101,15 +101,16 @@
 								<td height="40" colspan="2" align="center"></td>
 							</tr>
 							<tr>
-								<td colspan="2" align="center">
-										<input type="button"  id="loginBtn"
+								<td align="center" colspan="2" >
+									<input type="button"  id="loginBtn"
 											style="background: url(images/login_5.gif) no-repeat"
-											value="登        陆" onclick="validate()">
+											value="登    陆" onclick="validate()"  >
+								
 										<input type="button"  id="forgetPsd"
 											style="background: url(images/login_5.gif) no-repeat"
-											value="忘记密码">
-									</td>
-								</tr>
+											value="忘记密码" >								
+								</td>
+							</tr>
 							<tr>
 								<td height="5" colspan="2"></td>
 							</tr>

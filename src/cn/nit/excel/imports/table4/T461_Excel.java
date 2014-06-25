@@ -166,6 +166,14 @@ public class T461_Excel {
 				T461_bean.setNote(note);
 				//插入时间
 				T461_bean.setTime(new Date());
+				String fillUnitID = null;
+				//char b = fillUnitID.charAt(0);
+				//if( b == '3'){
+				//	T461_bean.setFillUnitID(fillUnitID);
+				//}else{
+					T461_bean.setFillUnitID(fillUnitID);
+			//	}
+				
 				list.add(T461_bean);
 								
 			}catch(Exception e){

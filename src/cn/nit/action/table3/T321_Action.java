@@ -5,7 +5,9 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,14 +15,22 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.dao.table1.T18DAO;
+import cn.nit.dao.table3.T321_DAO;
 
+import cn.nit.excel.imports.table3.T321Excel;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.bean.di.DiDepartmentBean;
 
 
 import cn.nit.bean.other.UserRoleBean;
 
+
+
 import cn.nit.bean.table3.T321_Bean;
+
+
+
 
 
 import cn.nit.service.table3.T321_Service;
@@ -30,7 +40,7 @@ import cn.nit.util.ExcelUtil;
 
 public class T321_Action {
 	
-//	private T321_DAO mainTrainBasicInfoDao=new T321_DAO();
+
 	
 	
 	private T321_Service t321_Service = new T321_Service() ;
@@ -39,7 +49,23 @@ public class T321_Action {
 	
 	private T321_Bean t321_Bean = new T321_Bean() ;
 	
-//	private DiDepartmentService diDepartmentSer = new DiDepartmentService() ;
+	/**  表181的Dao类  */
+	private T321_DAO t321_DAO = new T321_DAO() ;
+	
+	/**  表181的Excel实体类  */
+	private T321Excel t321Excel = new T321Excel() ;
+	
+	/**excel导出名字*/
+	private String excelName; //
+	
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+	
 	
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
@@ -229,12 +255,32 @@ public void auditingData(){
 		}
 	}
 	
+	/**数据导出*/
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
 
 		try {
-			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+			
+			List<T321_Bean> list = t321_DAO.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("大类名称");columns.add("大类代码");columns.add("分流时间");
+			columns.add("包含校内专业名称");columns.add("校内专业代码");columns.add("所属单位");
+			columns.add("单位号");columns.add("备注");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("MainClassName", 1);maplist.put("MainClassID", 2);maplist.put("ByPassTime", 3);maplist.put("MajorNameInSch", 4);
+			maplist.put("MajorID", 5);maplist.put("UnitName", 6);maplist.put("UnitID", 7);maplist.put("Note", 8);
+			
+			
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t321Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -242,6 +288,20 @@ public void auditingData(){
 
 		return inputStream ;
 	}
+	
+
+//	
+//	columns.add("序号");
+//	columns.add("大类名称");columns.add("大类代码");columns.add("分流时间");
+//	columns.add("包含校内专业名称");columns.add("校内专业代码");columns.add("所属单位");
+//	columns.add("单位号");columns.add("备注");
+//
+//	
+//	Map<String,Integer> maplist = new HashMap<String,Integer>();
+//	maplist.put("SeqNum", 0);
+//	maplist.put("MainClassName", 1);maplist.put("MainClassID", 2);maplist.put("ByPassTime", 3);maplist.put("MajorNameInSch", 4);
+//	maplist.put("MajorID", 5);maplist.put("UnitName", 6);maplist.put("UnitID", 7);maplist.put("Note", 8);
+//	
 
 	public String execute() throws Exception{
 

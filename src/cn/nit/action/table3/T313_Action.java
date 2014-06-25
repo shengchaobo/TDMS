@@ -3,7 +3,11 @@ package cn.nit.action.table3;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +16,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-
+import cn.nit.dao.table3.T313_DAO;
+import cn.nit.excel.imports.table3.T313Excel;
 import cn.nit.bean.table3.T313_Bean;
 import cn.nit.service.table3.T313_Service;
 import cn.nit.util.ExcelUtil;
@@ -24,6 +29,22 @@ public class T313_Action {
 private T313_Service discipSer = new T313_Service() ;
 	
 	private T313_Bean discipBean = new T313_Bean() ;
+	
+	private T313_DAO t313_DAO=new T313_DAO();
+	
+
+	private T313Excel t313Excel = new T313Excel() ;
+	
+	/**excel导出名字*/
+	private String excelName; //
+	
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
 	
 	
 	/**  待审核数据的查询的序列号  */
@@ -189,12 +210,35 @@ public void auditingData(){
 		}
 	}
 	
+	
+	/**数据导出*/
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
 
 		try {
-		//	inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+			
+			List<T313_Bean> list = t313_DAO.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("重点学科名称");columns.add("学科代码");columns.add("所属教学单位");
+			columns.add("单位号");columns.add("学科门类");columns.add("国家一级");columns.add("国家二级");columns.add("国家重点");
+			columns.add("省部一级");columns.add("省部二级");columns.add("市级");columns.add("校级");columns.add("备注");
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("DiscipName", 1);maplist.put("DiscipID", 2);maplist.put("UnitName", 3);maplist.put("UnitID", 4);
+			maplist.put("DiscipType", 5);maplist.put("NationLevelOne", 6);maplist.put("NationLevelTwo", 7);maplist.put("NationLevelKey", 8);
+			maplist.put("ProvinceLevelOne", 9);maplist.put("ProvinceLevelTwo", 10);maplist.put("CityLevel", 11);maplist.put("SchLevel", 12);
+			maplist.put("Note", 13);
+			
+			
+			
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t313Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -202,6 +246,9 @@ public void auditingData(){
 
 		return inputStream ;
 	}
+	
+	
+
 
 	public String execute() throws Exception{
 
@@ -250,7 +297,6 @@ public void auditingData(){
 	public void setRows(String rows){
 		this.rows = rows ;
 	}
-	
 	
 	public T313_Bean getDiscipBean() {
 		return discipBean;

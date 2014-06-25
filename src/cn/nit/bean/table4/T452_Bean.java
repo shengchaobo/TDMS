@@ -30,8 +30,9 @@ public class T452_Bean implements java.io.Serializable {
 	private String inOrOut;
 	private String trainUnit;
 	private String trainMajor;
-	private String time;
+	private Date time;
 	private String note;
+	private String fillUnitID;
 
 	@Column(name = "TeaUnitName")
 	public String getTeaUnitName() {
@@ -107,15 +108,6 @@ public class T452_Bean implements java.io.Serializable {
 		this.trainMajor = trainMajor;
 	}
 
-	@Column(name = "Time")
-	public String getTime() {
-		return this.time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
-
 	@Column(name = "Note")
 	public String getNote() {
 		return this.note;
@@ -147,6 +139,22 @@ public class T452_Bean implements java.io.Serializable {
 
 	public int getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
+
+	public String getFillUnitID() {
+		return fillUnitID;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	public Date getTime() {
+		return time;
 	}
 
 }

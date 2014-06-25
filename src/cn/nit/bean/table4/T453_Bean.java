@@ -31,8 +31,9 @@ public class T453_Bean implements
 	private String inOrOut;
 	private String communUnit;
 	private String communContent;
-	private String time;
+	private Date time;
 	private String note;
+	private String fillUnitID;
 
 	@Column(name = "TeaUnitName")
 	public String getTeaUnitName() {
@@ -108,15 +109,6 @@ public class T453_Bean implements
 		this.communContent = communContent;
 	}
 
-	@Column(name = "Time")
-	public String getTime() {
-		return this.time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
-
 	@Column(name = "Note")
 	public String getNote() {
 		return this.note;
@@ -148,6 +140,22 @@ public class T453_Bean implements
 
 	public int getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	public Date getTime() {
+		return time;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
+
+	public String getFillUnitID() {
+		return fillUnitID;
 	}
 
 }

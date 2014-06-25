@@ -8,7 +8,7 @@
 	    <action name="loadTrainInfo" class="cn.nit.action.table4.T452_Action" method="loadTrainInfo" />
    		<!-- 插入新的教学进修信息 -->
 	    <action name="insert"  class="cn.nit.action.table4.T452_Action" method="insert" ></action>	
-	    	    <action name="uploadFile" class="cn.nit.action.UploadAction" method="uploadFile">
+   	    <action name="uploadFile" class="cn.nit.action.UploadAction" method="uploadFile">
 	    	<!-- 上传文件对应的处理类 -->
 	    	<param name="className">cn.nit.excel.imports.table4.T452_Excel</param>
 	    	<!-- 处理类对应的方法名 -->

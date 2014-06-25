@@ -90,64 +90,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="pages/UndergraCSBaseTea/dataExport" class="easyui-linkbutton" iconCls="icon-download">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
-	
+	-->
 	<div id="dlg" class="easyui-dialog"
-		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
+		style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">校友会记录批量导入</div>
+		<div class="ftitle">表1-2学校行政单位（党院办）批量导入</div>
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+				
+				<!-- 
 				<a href='pages/T17/downloadModel?saveFile=<%=URLEncoder.encode("表T17校友会（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+			     -->
 			</form>
 		</div>
 		<div></div>
-		<div class="ftitle">校友会逐条导入</div>
-		
-		<form id="t17form" method="post">
-		<table>
-			<tr>
-			   <td>
-					<div class="fitem">
-						<label>校友会名称：</label> 
-						<input id="seqNumber" type="hidden"name="t17Bean.SeqNumber" value="0"></input>
-						<input id="ClubName" name="t17Bean.ClubName" class="easyui-validatebox" required="true">
-						<span id="ClubNameSpan"></span>
-					</div>
-				</td>
-			    <td>
-					<div class="fitem">
-						<label>建设时间：</label> 
-						 <input id="BuildYear" name="t17Bean.BuildYear"  class="easyui-datebox" >
-						 <span id="BuildYearSpan"></span>
-					</div>
-				</td>
-			</tr>
-		 
-			<tr>
-				<td>
-					<div class="fitem">
-						<label>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点：</label> 
-						<select class='easyui-combobox' id='Place' name='t17Bean.Place'>
-						   <option value="境内" >境内</option>
-						   <option value="境外">境外</option> 
-						</select>
-						<span id="PlaceSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-					<textarea id="Note" name="t17Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
-					<span id="NoteSpan"></span>
-				</td>
-			</tr>
-		</table>
-		</form>
 	</div>
+	<!-- 
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
 		<div class="ftitle">高级检索</div>
 		<div id="dicTables"  class="fitem">
@@ -196,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url: 'pages/T17/uploadFile',
+	    		 url: 'pages/T12/uploadFile',
 	    		 type: "post",
 		         dataType: "json",
 	    		 onSubmit: function(){
@@ -238,9 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newCourse(){
-	    	url = url ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加校友会（党院办）');
-		    $('#t17form').form('reset');
+		    $('#dlg').dialog('open').dialog('setTitle','表1-2学校行政单位（党院办）');
 	    }
 
 	    function singleImport(){

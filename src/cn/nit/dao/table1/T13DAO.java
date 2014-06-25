@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import cn.nit.bean.table1.T13Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T13POJO;
 import cn.nit.util.DAOUtil;
@@ -107,6 +108,26 @@ public class T13DAO {
 		}
 		
 		return list ;
+	}
+	
+	/**
+	 * 讲数据批量插入13表中
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @return true表示插入成功，false表示插入失败
+	 */
+	public boolean batchInsert(List<T13Bean> list){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		
+		try{
+			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}
+		
+		return flag ;
 	}
 	
 	public String getTableName(){

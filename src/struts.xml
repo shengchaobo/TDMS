@@ -93,6 +93,7 @@
       <!-- T19 -->
     <include file="cn/nit/configuration/table1/T19.xml"/>
     
+    
     <!--table3-->
     <!-- t312博士点硕士点 -->
     <include file="cn/nit/configuration/table3/T312.xml"/>
@@ -100,14 +101,19 @@
     <include file="cn/nit/configuration/table3/T311.xml"/>
     <!-- t313 重点学科表 -->
     <include file="cn/nit/configuration/table3/T313.xml"/>
-
     <!-- t321 大类培养基本情况 -->
     <include file="cn/nit/configuration/table3/T321.xml"/>
-    <!-- t322 专业基本情况 
+    <!-- t322 专业基本情况 -->
     <include file="cn/nit/configuration/table3/T322.xml"/> 
-    -->
     <!-- t33 专业基本情况 -->
-    <include file="cn/nit/configuration/table3/T33.xml"/>
+    <include file="cn/nit/configuration/table3/T33.xml"/>        
+    <!-- S31学科建设 -->
+    <include file="cn/nit/configuration/table3/S31.xml"/>   
+    <include file="cn/nit/configuration/table3/A321.xml"/>       
+    <include file="cn/nit/configuration/table3/S322.xml"/>
+    
+    
+    
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
     

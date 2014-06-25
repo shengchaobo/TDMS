@@ -13,7 +13,7 @@ import javax.persistence.Table;
 /**
  * DiEvaluType entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "DiEvaluType", schema = "dbo", catalog = "TDMS")
 public class DiEvaluTypeBean implements java.io.Serializable {
 

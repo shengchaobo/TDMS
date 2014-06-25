@@ -92,7 +92,7 @@ public class S15Excel {
     	//总计
     	String totalNum=""+s15Bean.getSumResNum();
     	listStr.add(totalNum);
-    	String totalArea=""+s15Bean.getTeaUnitResArea();
+    	String totalArea=""+s15Bean.getSumResArea();
     	listStr.add(totalArea);
     	//国家实验室
     	String nationRes=""+s15Bean.getNationResNum();

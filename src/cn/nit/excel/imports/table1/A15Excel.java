@@ -62,11 +62,11 @@ public class A15Excel {
 		            int count_02=0;
 		            List<String> listStr=this.changeTo(list);
 				     
-		            for(int j=1;j<6;j++){
+		            for(int j=2;j<7;j++){
 //		            	   Label label = (Label)wws.getWritableCell(j,3);
 //		            	   label.setString(listStr.get(count_02));
 		            	Label label1=new Label(1,j,listStr.get(count_02),normalFormat);
-		            	Label label2=new Label(2,j,listStr.get(count_02++),normalFormat);
+		            	Label label2=new Label(2,j,listStr.get(count_02+1),normalFormat);
 		            	wws.addCell(label1); 
 		            	wws.addCell(label2);
 		            	count_02=count_02+2;
@@ -104,7 +104,7 @@ public class A15Excel {
 		 	listStr.add(SchResRatio);
 		 	String  SumResNum=""+a15.getSumResNum();
 		 	listStr.add(SumResNum);
-		   
+		 	listStr.add("/");
 		   	return listStr;
 		   }
 

@@ -1,10 +1,10 @@
-package cn.nit.bean.table7;
+package cn.nit.pojo.table7;
 
 import java.util.Date;
 
-public class T743_Bean {
+public class T743POJO {
 	
-	private int SeqNumber;
+    private int SeqNumber;
 	
 	private String CSName;
 	
@@ -16,7 +16,11 @@ public class T743_Bean {
 	
 	private String CSType;
 	
+	private String CSTypeID;
+	
 	private String CSNature;
+	
+	private String CSNatureID;
 	
 	private String CSLeader;
 	
@@ -31,13 +35,6 @@ public class T743_Bean {
 	private Date Time;
 	
 	private String Note;
-	
-	private String FillTeaID ;
-	
-	private String FillUnitID ;
-		
-	/**  审核单位ID号  */
-	private String audit ;
 
 	public int getSeqNumber() {
 		return SeqNumber;
@@ -83,6 +80,15 @@ public class T743_Bean {
 		return CSType;
 	}
 
+	
+	public String getCSTypeID() {
+		return CSTypeID;
+	}
+
+	public void setCSTypeID(String cSTypeID) {
+		CSTypeID = cSTypeID;
+	}
+
 	public void setCSType(String cSType) {
 		CSType = cSType;
 	}
@@ -93,6 +99,14 @@ public class T743_Bean {
 
 	public void setCSNature(String cSNature) {
 		CSNature = cSNature;
+	}
+    
+	public String getCSNatureID() {
+		return CSNatureID;
+	}
+
+	public void setCSNatureID(String cSNatureID) {
+		CSNatureID = cSNatureID;
 	}
 
 	public String getCSLeader() {
@@ -150,34 +164,6 @@ public class T743_Bean {
 	public void setNote(String note) {
 		Note = note;
 	}
-
-	public String getFillTeaID() {
-		return FillTeaID;
-	}
-
-	public void setFillTeaID(String fillTeaID) {
-		FillTeaID = fillTeaID;
-	}
-
-	public String getFillUnitID() {
-		return FillUnitID;
-	}
-
-	public void setFillUnitID(String fillUnitID) {
-		FillUnitID = fillUnitID;
-	}
-
-	public String getAudit() {
-		return audit;
-	}
-
-	public void setAudit(String audit) {
-		this.audit = audit;
-	}
-	
-	
-	
-	
 	
 	
 

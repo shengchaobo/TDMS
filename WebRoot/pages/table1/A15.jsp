@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -177,13 +177,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        });
 				}else {
 					$('#NationLevelSpan').html(data.nationResNum);
-					$('#NaHouseAreaSpan').html(data.nationResRatio);
+					$('#NaHouseAreaSpan').html(douToStr(data.nationResRatio));
 					$('#ProvinLevelSpan').html(data.proviResNum);
-					$('#PrHouseAreaSpan').html(data.proviResRatio);
+					$('#PrHouseAreaSpan').html(douToStr(data.proviResRatio));
 					$('#CityLevelSpan').html(data.cityResNum);
-					$('#CiHouseAreaSpan').html(data.cityResRatio);
+					$('#CiHouseAreaSpan').html(douToStr(data.cityResRatio));
 					$('#SchoolLevelSpan').html(data.schResNum);
-					$('#ScHouseAreaSpan').html(data.schResRatio);
+					$('#ScHouseAreaSpan').html(douToStr(data.schResRatio));
 					$('#TotalSpan').html(data.sumResNum);
 				}
 				
@@ -356,6 +356,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		}
 	    	}).submit();
 	    }
+	   </script>
+	   
+	   
+	   <script type="text/javascript">
+	     function douToStr(val){
+		     var str;
+		     if(val ==  null){
+			     str=null;
+		     }else{
+		    	 var bol=""+val;//把double型转换成sre类型
+			     str = bol+"%";
+		     }
+		     return str;
+	     }
 	   </script>
 
 	<script type="text/javascript"> 

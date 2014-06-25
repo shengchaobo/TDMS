@@ -62,7 +62,6 @@ public class DAOUtil {
 		PreparedStatement pst = null ;
 		try{
 			pst = conn.prepareStatement(sql.toString()) ;
-//			System.out.println(sql.toString());
 
 			for(int i = 0; i < length; i++){
 				String type = wrapper.getPropertyType(fields[i]).toString() ;
@@ -91,7 +90,6 @@ public class DAOUtil {
 
 				}else{
 					throw new Exception("自行添加对应类型" + type) ;
-
 				}
 			}
 

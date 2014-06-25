@@ -258,7 +258,7 @@
 				<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a> 
 				<a href="javascript:void(0)" class="easyui-linkbutton"
 					iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a>-->
-				<a href="pages/S15/dataExport?excelName=表1-5-1校级以上科研机构（科研处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
+				<a href="pages/S15/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
 				<!-- 
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">数据导入</a>
 			<a href='pages/T11/downloadModel?saveFile=<%=URLEncoder.encode("表1-1学校基本信息（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a> -->

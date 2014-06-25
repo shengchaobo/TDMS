@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="lectureTea" width="10%">授课教师</th>
 				<th field="lectureTeaID" width="15%">授课教教工号</th>
 				<th field="lectureCS" width="10%">听课课程</th>
-				<th field="cSID" width="10%">课程编号</th>
+				<th field="CSID" width="10%">课程编号</th>
 				<th field="setCSUnit" width="10%">开课单位</th>
 				<th field="unitID" width="10%">单位号</th>
 				<th field="lectureClass" width="10%">上课班级</th>
@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
 	</div>
@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="lectureTea" width="10%">授课教师</th>
 				<th field="lectureTeaID" width="15%">授课教教工号</th>
 				<th field="lectureCS" width="10%">听课课程</th>
-				<th field="cSID" width="10%">课程编号</th>
+				<th field="CSID" width="10%">课程编号</th>
 				<th field="setCSUnit" width="10%">开课单位</th>
 				<th field="unitID" width="10%">单位号</th>
 				<th field="lectureClass" width="10%">上课班级</th>
@@ -267,24 +267,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	    var url;
-	     function singleSearch(){
-   	     $('#auditing').form('submit',{
-   		 url: 'pages/SchLeadInClassInfoTea/singleSearch',
-   		 type: "post",
-	     dataType: "json",
-   		 success: function(result){
-   		 	var result = eval('('+result+')');
-   		 	if (!result.state){
-   		 		$.messager.show({
-   		 			title: 'Error',
-   		 			msg: result.errorMsg
-   			 });
-   		 	} else {
-		    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-   		 	}
-   		 }
-   		 });
-   }
+	    function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+         queryParams.seqNum = $('#seqNum').val(); 
+         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+         $("#unverfiedData").datagrid('reload'); 
+    }
 	    function batchImport(){
 	    	 $('#fm').form('submit',{
 	    		 url: url,
@@ -403,6 +393,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	url = 'pages/SchLeadInClassInfoTea/edit' ;
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	alert(row[0].lectureCS);
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#AttendClassTerm').val(row[0].attendClassTerm) ;
 	    	$('#LeaderName').combobox('select', row[0].leaderIDD) ;
@@ -410,7 +401,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#LectureTea').combobox('select', row[0].lectureTea) ;
 	    	$('#LectureCS').val(row[0].lectureCS) ;
 	    	$('#CSID').val(row[0].cSID) ;
-	    	alert(row[0].cSID);
+	    	
 	    	$('#UnitID').combobox('select', row[0].unitID) ;
 			$('#LectureClass').val(row[0].lectureClass);
 			$('#Evaluate').combobox('select', row[0].evaluate) ;

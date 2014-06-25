@@ -54,21 +54,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/EachUnitTeachResActInfo/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
-				<th field="UnitName" width="10%">单位名称</th>
-				<th field="UnitID" width="7%">单位号</th>
-				<th field="MeetingDate" width="10%">会议日期</th>
-				<th field="MeetingMemberInfo" width="15%">参会人员情况</th>
-				<th field="MeetingNum" width="10%">参会人数</th>
-				<th field="MeetingTheme" width="22%">会议主要议题或内容</th>
-				<th field="MeetingResult" width="25%">会议形成的主要决议或共识</th>	
+				<th field="seqNumber" width="10%">序号</th>
+				<th field="unitName" width="10%">单位名称</th>
+				<th field="unitID" width="10%">单位号</th>
+				<th field="meetingDate" width="10%" formatter="formattime">会议日期</th>
+				<th field="meetingMemberInfo" width="15%">参会人员情况</th>
+				<th field="meetingNum" width="10%">参会人数</th>
+				<th field="meetingTheme" width="22%">会议主要议题或内容</th>
+				<th field="meetingResult" width="25%">会议形成的主要决议或共识</th>	
 				<th field="note" width="20%">备注</th>
+				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -76,34 +77,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+		  <form id="auditing" method="post">
+		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newCourse()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
-				<th field="UnitName" width="10%">单位名称</th>
-				<th field="UnitID" width="7%">单位号</th>
-				<th field="MeetingDate" width="10%">会议日期</th>
-				<th field="MeetingMemberInfo" width="15%">参会人员情况</th>
-				<th field="MeetingNum" width="10%">参会人数</th>
-				<th field="MeetingTheme" width="22%">会议主要议题或内容</th>
-				<th field="MeetingResult" width="25%">会议形成的主要决议或共识</th>	
+				<th field="seqNumber" width="10%">序号</th>
+				<th field="unitName" width="10%">单位名称</th>
+				<th field="unitID" width="10%">单位号</th>
+				<th field="meetingDate" width="10%" formatter="formattime">会议日期</th>
+				<th field="meetingMemberInfo" width="15%">参会人员情况</th>
+				<th field="meetingNum" width="10%">参会人数</th>
+				<th field="meetingTheme" width="22%">会议主要议题或内容</th>
+				<th field="meetingResult" width="25%">会议形成的主要决议或共识</th>	
 				<th field="note" width="20%">备注</th>
+				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -131,6 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>单位名称：</label> 
+						<input id="seqNumber" name="eachUnitTeachResActInfo.SeqNumber" type="hidden" value="0">
 						<input id="UnitName" type="hidden" name="eachUnitTeachResActInfo.UnitName">
 						<input id="UnitID" type="text" name="eachUnitTeachResActInfo.UnitID" 
 							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
@@ -181,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				
 			<tr>
-			<input name="eachUnitTeachResActInfo.time" class="easyui-datebox" style="width:80px"/>
+			
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="eachUnitTeachResActInfo.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
@@ -208,7 +213,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 	<script type="text/javascript">
 	
-	    var url;
+	    var url;	    
+	   function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+         queryParams.seqNum = $('#seqNum').val(); 
+         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+         $("#unverfiedData").datagrid('reload'); 
+    }
 	    function batchImport(){
 	    	 $('#fm').form('submit',{
 	    		 url: url,
@@ -231,6 +244,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    function newCourse(){
+	        url="pages/EachUnitTeachResActInfo/insert";
 		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 		    $('#courseForm').form('reset');
 	    }
@@ -238,7 +252,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function singleImport(){
 		    //录入数据的表单提交
 	    	 $('#courseForm').form('submit',{
-				    url: 'pages/EachUnitTeachResActInfo/insert',
+				    url: url,
 				    data: $('#courseForm').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -252,7 +266,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverifiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload'); 
 					    }
 				    }
 			    });
@@ -310,6 +324,74 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			alert($('#UnitName').val()) ;
 			return true ;
 		}
+		
+		function editCourse(){
+	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+	    	if(row.length != 1){
+	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+	    	url = 'pages/EachUnitTeachResActInfo/edit' ;
+	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#UnitID').combobox('select', row[0].unitIDD) ;
+	    	$('#MeetingMemberInfo').val(row[0].meetingMemberInfo);
+	    	
+	    	$('#MeetingDate').datebox('setValue',formattime(row[0].meetingDate)) ;
+	    	$('#MeetingNum').val(row[0].meetingNum) ;
+	    	$('#MeetingTheme').val(row[0].meetingTheme) ;
+			$('#MeetingResult').val(row[0].meetingResult);
+			$('#Note').val(row[0].note) ;
+	    }
+
+
+         function deleteByIds(){
+	    	//获取选中项
+			var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+			if(row.length == 0){
+	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+			 $.messager.confirm('数据删除', '您确定删除选中项?', function(sure){
+				 if (sure){
+				 	var ids = "";
+				 	ids += "(" ;
+				 	
+				 	for(var i=0; i<row.length; i++){
+				 		if(i < (row.length - 1)){
+				 			ids += (row[i].seqNumber + ",") ;
+				 		}else{
+				 			ids += (row[i].seqNumber + ")") ;
+				 		}
+				 	}
+				 	
+				 	deleteCourses(ids) ;
+				 	
+				 }
+			});
+	    }
+
+       function deleteCourses(ids){
+	    	$.ajax({ 
+	    		type: "POST", 
+	    		url: "pages/EachUnitTeachResActInfo/deleteByIds?ids=" + ids, 
+	    		async:"true",
+	    		dataType: "text",
+	    		success: function(result){
+	    			result = eval("(" + result + ")");
+
+					if(result.state){
+						alert(result.data) ;
+						 $('#unverfiedData').datagrid('reload') ;
+					}
+	    		}
+	    	}).submit();
+	    }
+		
 
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');

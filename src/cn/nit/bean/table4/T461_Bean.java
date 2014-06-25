@@ -33,6 +33,7 @@ public class T461_Bean implements java.io.Serializable {
 	private String otherTeaInfo;
 	private Date time;
 	private String note;
+	private String fillUnitID;
 
 	@Column(name = "Name")
 	public String getName() {
@@ -155,6 +156,14 @@ public class T461_Bean implements java.io.Serializable {
 
 	public int getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
+
+	public String getFillUnitID() {
+		return fillUnitID;
 	}
 
 }

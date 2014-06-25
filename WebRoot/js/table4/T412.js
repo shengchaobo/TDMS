@@ -28,7 +28,7 @@
 		   		return false ;
 		 }
 	  	 $('#batchForm').form('submit',{
-	  		 url: 'pages/T441/uploadFile',
+	  		 url: 'pages/T412/uploadFile',
 	  		 type: "post",
 		     dataType: "json",
 	  		 onSubmit: function(){

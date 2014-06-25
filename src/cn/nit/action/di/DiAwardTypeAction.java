@@ -16,13 +16,15 @@ import cn.nit.service.di.DiAwardTypeService;
 
 
 public class DiAwardTypeAction {
-
+	
 	HttpServletResponse response = ServletActionContext.getResponse();
 	private DiAwardTypeService AwardTypeServices = new DiAwardTypeService() ;
+	private String type;
+	
 	//查出所有
 	public void loadAwardType() throws Exception{
 		
-		List<DiAwardTypeBean> list = AwardTypeServices.getList() ;
+		List<DiAwardTypeBean> list = AwardTypeServices.getList(this.getType()) ;
 		//将数据转换为json格式
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
@@ -42,6 +44,14 @@ public class DiAwardTypeAction {
 				out.close() ;
 			}
 		}
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 }

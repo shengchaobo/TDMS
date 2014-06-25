@@ -19,15 +19,23 @@ public class DiAwardTypeService {
 	}
 	
 	/**
+	 * 根据type选择
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午03:04:36
+	 */
+	public List<DiAwardTypeBean> getList(String type){
+		return awardTypeDao.getList(type) ;
+	}
+	
+	/**
 	 * 新增一个学位
 	 * @param degree
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午03:05:00
 	 */
-	public boolean insert(DiAwardTypeBean degree){
-		return awardTypeDao.insert(degree) ;
+	public boolean insert(DiAwardTypeBean award){
+		return awardTypeDao.insert(award) ;
 	}
-
-
 }

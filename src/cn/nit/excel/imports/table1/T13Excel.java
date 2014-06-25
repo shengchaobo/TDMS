@@ -8,19 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import jxl.Cell;
 import cn.nit.bean.di.DiDepartmentBean;
-import cn.nit.bean.di.DiResearchTypeBean;
-import cn.nit.bean.table1.T12Bean;
+import cn.nit.bean.table1.T13Bean;
 import cn.nit.bean.table4.T411_Bean;
-
 import cn.nit.service.di.DiDepartmentService;
-import cn.nit.service.di.DiResearchTypeService;
-import cn.nit.service.table1.T12Service;
+import cn.nit.service.table1.T13Service;
 import cn.nit.service.table4.T411_Service;
 
-import cn.nit.util.DateUtil;
-import cn.nit.util.TimeUtil;
-
-public class T12Excel {
+public class T13Excel {
 	
 	/**
 	 * 批量导入
@@ -38,7 +32,7 @@ public class T12Excel {
 		
 		boolean flag = false ;
         Date time=new Date();
-		List<T12Bean> list = new LinkedList<T12Bean>() ;
+		List<T13Bean> list = new LinkedList<T13Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -46,7 +40,7 @@ public class T12Excel {
 		List<T411_Bean> t411List=t411_Ser.getList();
 		
 		for(Cell[] cell : cellList){
-			T12Bean t12Bean = new  T12Bean();
+			T13Bean t13Bean = new  T13Bean();
 			int n=cellList.indexOf(cell);
 			if(n==0||n==1){continue;}
 			else{
@@ -58,7 +52,7 @@ public class T12Excel {
 				 String UnitID=cell[2].getContents();
 				 
 				 if(UnitName == null || UnitName.equals("")){
-					 return "第" + count + "行，行政单位名称不能为空！";
+					 return "第" + count + "行，科研单位名称不能为空！";
 				 }
 				 if(UnitID == null || UnitID.equals("")){
 					 return "第" + count + "行，单位号不能为空！";
@@ -73,7 +67,7 @@ public class T12Excel {
 							 flag = true;
 							 break;
 						 }else{
-							 return "第" + count + "行， 行政单位名称与单位编号不对应！" ; 
+							 return "第" + count + "行，科研单位名称与单位编号不对应！" ; 
 						 }
 					 }
 				 }
@@ -84,17 +78,9 @@ public class T12Excel {
 						flag = false ;
 					}
 				 
-					String Function = cell[3].getContents() ;
 					
-					if(Function == null || Function.equals("")){
-						return "第" + count + "行，单位职能不能为空！" ;
-					}
-					if(Function.length()>300){
-						return "第" + count + "行，单位职能字数不能超过150个字！" ;
-					}
-					
-					String Leader=cell[4].getContents();
-					String TeaID=cell[5].getContents();
+					String Leader=cell[3].getContents();
+					String TeaID=cell[4].getContents();
 					
 					if(Leader == null || Leader.equals("")){
 						return "第" + count + "行，单位负责人名称不能为空！" ;
@@ -116,31 +102,30 @@ public class T12Excel {
 								break;
 							}
 						}else{
-							return "第" + count + "行，教工号不正确！" ;
+							return "第" + count + "行，教工号与负责人不对应！" ;
 						}
 					}
 					if(!flag){
-						return "第" + count + "行，没有与负责人相匹配的教工号" ;
+						return "第" + count + "行，没有与之对应的教工号！" ;
 					}else{
 						flag=false;
 					}
 	
-					String  Note=cell[6].getContents();
+					String  Note=cell[5].getContents();
 					if(Note.length()>1000){
 						return "第" + count + "行，备注的长度不能超过500个字符！" ;
 					}
 					
 				count++ ;
 				
-				t12Bean.setUnitName(UnitName);
-				t12Bean.setUnitID(UnitID);
-				t12Bean.setFunctions(Function);
-				t12Bean.setLeader(Leader);
-				t12Bean.setTeaID(TeaID);
-				t12Bean.setNote(Note);
-				t12Bean.setTime(time);
+				t13Bean.setUnitName(UnitName);
+				t13Bean.setUnitID(UnitID);
+				t13Bean.setLeader(Leader);
+				t13Bean.setTeadID(TeaID);
+				t13Bean.setNote(Note);
+				t13Bean.setTime(time);
 				
-				list.add(t12Bean);
+				list.add(t13Bean);
 							
 			}
 			catch(Exception e){
@@ -151,8 +136,8 @@ public class T12Excel {
 		}
 		
 		flag = false ;
-		T12Service t12Ser = new T12Service() ;
-		flag = t12Ser.batchInsert(list) ;
+		T13Service t13Ser = new T13Service() ;
+		flag = t13Ser.batchInsert(list) ;
 		
 		if(flag){
 			return "数据导入成功" ;
@@ -161,5 +146,6 @@ public class T12Excel {
 		}
 		
 	}
+
 
 }

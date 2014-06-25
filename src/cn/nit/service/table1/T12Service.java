@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import cn.nit.bean.table1.T12Bean;
+import cn.nit.bean.table1.T151Bean;
 import cn.nit.dao.table1.T12DAO;
 import cn.nit.pojo.table1.T12POJO;
 import cn.nit.pojo.table1.T151POJO;
@@ -31,7 +32,7 @@ public class T12Service {
 //	}
 	
 	/**
-	 * 科研处
+	 * 科研处(显示数据)
 	 * */
 	public String auditingData(String conditions, String fillUnitId, int page, int rows){
 			
@@ -41,6 +42,14 @@ public class T12Service {
 		JSON json = JSONSerializer.toJSON(pages) ;	
 		return json.toString() ;
 		}
+	
+	/**批量导入*/
+	public boolean batchInsert(List<T12Bean> list){
+		
+		return t12Dao.batchInsert(list) ;
+	}
+	
+	
 	
 	public static void main(String arg[]){
 		T12Service ser=new T12Service();

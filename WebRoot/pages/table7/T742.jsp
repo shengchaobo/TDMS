@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'T734_TeachAccident_Tea.jsp' starting page</title>
+    <title>My JSP 'T742_TeachLevelAssess_AC.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -53,23 +53,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/TeachLevelAssessAC/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
-				<th field="teaName" width="5%">教师</th>
+				<th field="seqNumber" width="10%">序号</th>
+				<th field="teaName" width="10%">教师姓名</th>
 				<th field="teaID" width="10%">教工号</th>
-				<th field="fromDept" width="10%">所属部门</th>
-				<th field="unitId" width="5%">单位号</th>
-				<th field="AccidentSite" width="15%">事故发生地点</th>
-				<th field="Cause" width="5%">事由</th>
-				<th field="HandingTime" width="10%">处理时间</th>
-				<th field="AccidentLevel" width="13%">教学事故等级</th>
-				<th field="HandingID" width="10%">处理文号</th>
+				<th field="teaUnit" width="15%">所属教学单位</th>
+				<th field="unitID" width="5%">单位号</th>
+				<th field="assessCS" width="10%">参评课程</th>
+				<th field="CSID" width="10%">课程编号</th>
+				<th field="CSType" width="10%">课程类别</th>
+				<th field="assessYear" width="10%">评估年份</th>
+				<th field="assessResult" width="10%">评估结果</th>
+				<th field="appvlID" width="8%">批文号</th>
 				<th field="note" width="20%">备注</th>
+				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -77,36 +79,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+		 	 <form id="auditing" method="post">
+		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newCourse()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
-				<th field="teaName" width="5%">教师</th>
+				<th field="seqNumber" width="10%">序号</th>
+				<th field="teaName" width="10%">教师姓名</th>
 				<th field="teaID" width="10%">教工号</th>
-				<th field="fromDept" width="10%">所属部门</th>
-				<th field="unitId" width="5%">单位号</th>
-				<th field="AccidentSite" width="15%">事故发生地点</th>
-				<th field="Cause" width="5%">事由</th>
-				<th field="HandingTime" width="10%">处理时间</th>
-				<th field="AccidentLevel" width="13%">教学事故等级</th>
-				<th field="HandingID" width="10%">处理文号</th>
+				<th field="teaUnit" width="15%">所属教学单位</th>
+				<th field="unitID" width="5%">单位号</th>
+				<th field="assessCS" width="10%">参评课程</th>
+				<th field="CSID" width="10%">课程编号</th>
+				<th field="CSType" width="10%">课程类别</th>
+				<th field="assessYear" width="10%">评估年份</th>
+				<th field="assessResult" width="10%">评估结果</th>
+				<th field="appvlID" width="8%">批文号</th>
 				<th field="note" width="20%">备注</th>
+				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -134,8 +140,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>教工号：</label> 
-						<input id="TeaID" type="hidden" name="teachAccidentTea.TeaID" >
-					    <input id="TeaName" type="text" name="teachAccidentTea.TeaName"
+						<input id="seqNumber" name="teachLevelAssessAC.SeqNumber" type="hidden" value="0">
+						<input id="TeaID" type="hidden" name="teachLevelAssessAC.TeaID" >
+					    <input id="TeaName" type="text" name="teachLevelAssessAC.TeaName"
 					     class='easyui-combobox' data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							 onSelect:function(){
 							   document.getElementById('TeaID').value=$(this).combobox('getText') ;
@@ -146,32 +153,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 				<td>
 					<div class="fitem">
-						<label>所属部门：</label> 
-						<input id="FromDept" type="hidden" name="teachAccidentTea.FromDept" >
-					    <input id="UnitID" type="text" name="teachAccidentTea.UnitID"
+						<label>所属教学单位：</label> 
+						<input id="TeaUnit" type="hidden" name="teachLevelAssessAC.TeaUnit" >
+					    <input id="UnitID" type="text" name="teachLevelAssessAC.UnitID"
 					     class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							 onSelect:function(){
-							   document.getElementById('FromDept').value=$(this).combobox('getText') ;
+							   document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">
 							
-							<span id="FromDeptSpan"></span>
+							<span id="TeaUnitSpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>事故发生地点：</label> 
-						<input id="AccidentSite" type="text" name="teachAccidentTea.AccidentSite"
-							><span id="AccidentSiteSpan"></span>
+						<label>参评课程：</label> 
+						<input id="AssessCS" type="text" name="teachLevelAssessAC.AssessCS"
+							><span id="AssessCSSpan"></span>
 					</div>
 					
 				</td>
 				<td>
 					<div class="fitem">
-						<label>事由：</label> 
-						<input id="Cause" type="text" name="teachAccidentTea.Cause"
-							><span id="CauseSpan"></span>
+						<label>课程编号：</label> 
+						<input id="CSID" type="text" name="teachLevelAssessAC.CSID"
+							><span id="CSIDSpan"></span>
 					</div>
 					
 				</td>
@@ -179,34 +186,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>处理时间：</label> 
-						<input id="HandingTime" class="easyui-datebox" style="width:80px" name="teachAccidentTea.HandingTime"
-							><span id="HandingTimeSpan"></span>
+						<label>课程类别：</label> 
+						<input class='easyui-combobox' id="CSType" name="teachLevelAssessAC.CSType" 
+							data-options="valueField:'indexId',textField:'courseCategories',url:'pages/DiCourseCategories/loadDiCourseCategories',listHeight:'auto',editable:false">
+						<span id="CSTypeSpan"></span>
 					</div>
 				</td>
 				
 				<td>
 					<div class="fitem">
-						<label>教学事故等级：</label> 
-						<input id="AccidentLevel" type="text" name="teachAccidentTea.AccidentLevel"
-							><span id="AccidentLevelSpan"></span>
+						<label>评估年份：</label> 
+						<input id="AssessYear" type="text" name="teachLevelAssessAC.AssessYear"
+							><span id="AssessYearSpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
 			<td>
 					<div class="fitem">
-						<label>处理文号：</label> 
-						<input id="HandingID" type="text" name="teachAccidentTea.HandingID"
-							><span id="HandingIDSpan"></span>
+						<label>评估结果：</label> 
+						<select class='easyui-combobox' id="AssessResult" name="teachLevelAssessAC.AssessResult" >
+							<option value="校级优秀">校级优秀</option>
+							<option value="校级良好">校级良好</option>
+							<option value="系级优秀">系级优秀</option>
+							<option value="系级良好">系级良好</option>
+							<option value="合格">合格</option>
+							<option value="不合格">不合格</option>
+				
+						</select>	
+						<span id="AssessResultSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>批文号：</label> 
+						<input id="AppvlID" type="text" name="teachLevelAssessAC.AppvlID"
+							><span id="AppvlIDSpan"></span>
 					</div>
 				</td>
 			</tr>
 			
 			<tr>
-			<input name="teachAccidentTea.time" class="easyui-datebox" style="width:80px"/>
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-					<textarea id="Note" name="teachAccidentTea.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="teachLevelAssessAC.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>
@@ -232,6 +256,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	    var url;
+	    
+	     function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+         queryParams.seqNum = $('#seqNum').val(); 
+         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+         $("#unverfiedData").datagrid('reload'); 
+    }
 	    function batchImport(){
 	    	 $('#fm').form('submit',{
 	    		 url: url,
@@ -254,6 +287,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    function newCourse(){
+	        url="pages/TeachLevelAssessAC/insert";
 		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 		    $('#courseForm').form('reset');
 	    }
@@ -261,12 +295,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function singleImport(){
 		    //录入数据的表单提交
 	    	 $('#courseForm').form('submit',{
-				    url: 'pages/TeachAccidentTea/insert',
+				    url: url,
 				    data: $('#courseForm').serialize(),
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
+				   
 				    	return validate();
+				    	
 				    },
 				    //结果返回
 				    success: function(result){
@@ -275,7 +311,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverifiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload'); 
 					    }
 				    }
 			    });
@@ -283,13 +319,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var teaID = $('#TeaName').combobox('getText') ;
-			var fromDept = $('#UnitID').combobox('getText') ;
-			var accidentSite = $('#AccidentSite').val() ;
-			var cause = $('#Cause').val() ;
-			var handingTime = $('#HandingTime').datebox('getText');
-			var accidentLevel = $('#AccidentLevel').val() ;
-			var handingID = $('#HandingID').val() ;
+			var teaID = $('#TeaName').combobox('getText');
+			
+			var teaUnit = $('#UnitID').combobox('getText');
+			
+			var assessCS = $('#AssessCS').val() ;
+			
+			var cSID = $('#CSID').val() ;
+		
+			var cSType = $('#CSType').combobox('getText') ;
+			
+			var assessYear = $('#AssessYear').val() ;
+		
+			var assessResult = $('#AssessResult').combobox('getText') ;
+			
+			var appvlID = $('#AppvlID').val() ;
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(teaID == null || teaID.length==0){
@@ -297,40 +341,113 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$('#TeaIDSpan').html("<font style=\"color:red\">不能为空</font>") ;
 				return false ;
 			}
-			if(fromDept == null || fromDept.length == 0){
-				$('#FromDept').focus();
-				$('#FromDept').select();
-				$('#FromDeptSpan').html("<font style=\"color:red\">不能为空</font>") ;
+			if(teaUnit == null || teaUnit.length == 0){
+				$('#TeaUnit').focus();
+				$('#TeaUnit').select();
+				$('#TeaUnitSpan').html("<font style=\"color:red\">不能为空</font>") ;
 				return false ;
 			}
-			if(accidentSite == null || accidentSite.length == 0){
+			if(assessCS == null || assessCS.length == 0){
 
-				$('#AccidentSiteSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				$('#AssessCSSpan').html("<font style=\"color:red\">不能为空</font>") ;
 				return false ;
 			}
-			if(cause == null || cause.length == 0){
-				$('#CauseSpan').html("<font style=\"color:red\">不能为空</font>") ;
+			if(cSID == null || cSID.length == 0){
+				$('#CSIDSpan').html("<font style=\"color:red\">不能为空</font>") ;
 				return false ;
 			}
-			if(handingTime == null || handingTime.length == 0){
-				$('#HandingTimeSpan').html("<font style=\"color:red\">不能为空</font>") ;
+			if(cSType == null || cSType.length == 0){
+				$('#CSTypeSpan').html("<font style=\"color:red\">不能为空</font>") ;
 				return false ;
 			}
-			if(accidentLevel == null || accidentLevel.length == 0){
-				$('#AccidentLevelSpan').html("<font style=\"color:red\">不能为空</font>") ;
+			if(assessYear == null || assessYear.length == 0){
+				$('#AssessYearSpan').html("<font style=\"color:red\">不能为空</font>") ;
 				return false ;
 			}
-			if(handingID == null || handingID.length == 0){
-				$('#HandingIDSpan').html("<font style=\"color:red\">不能为空</font>") ;
+			if(assessResult == null || assessResult.length == 0){
+				$('#AssessResultSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				return false ;
+			}
+			if(appvlID == null || appvlID.length == 0){
+				$('#AppvlIDSpan').html("<font style=\"color:red\">不能为空</font>") ;
 				return false ;
 			}
 			if(note !=null && note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
 			}
-			alert($('#FromDept').val()) ;
-			return true ;
+			alert($('#TeaUnit').val()) ;
+			return true ; 
 		}
+		
+		function editCourse(){
+	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+	    	if(row.length != 1){
+	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+	    	url = 'pages/TeachLevelAssessAC/edit' ;
+	    	
+	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#TeaName').combobox('select', row[0].teaName) ;
+	    	$('#UnitID').combobox('select', row[0].unitID) ;
+	    	$('#AssessCS').val(row[0].assessCS) ;
+	    	$('#CSID').val(row[0].CSID) ;
+	    	$('#CSType').combobox('select', row[0].CSTypeID) ;
+			$('#AssessYear').val(row[0].assessYear);
+			$('#AppvlID').val(row[0].appvlID) ;
+			$('#AssessResult').combobox('select', row[0].assessResult) ;
+			$('#Note').val(row[0].note) ;
+	    }
+
+
+         function deleteByIds(){
+	    	//获取选中项
+			var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+			if(row.length == 0){
+	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+			 $.messager.confirm('数据删除', '您确定删除选中项?', function(sure){
+				 if (sure){
+				 	var ids = "";
+				 	ids += "(" ;
+				 	
+				 	for(var i=0; i<row.length; i++){
+				 		if(i < (row.length - 1)){
+				 			ids += (row[i].seqNumber + ",") ;
+				 		}else{
+				 			ids += (row[i].seqNumber + ")") ;
+				 		}
+				 	}
+				 	
+				 	deleteCourses(ids) ;
+				 	
+				 }
+			});
+	    }
+
+       function deleteCourses(ids){
+	    	$.ajax({ 
+	    		type: "POST", 
+	    		url: "pages/TeachLevelAssessAC/deleteByIds?ids=" + ids, 
+	    		async:"true",
+	    		dataType: "text",
+	    		success: function(result){
+	    			result = eval("(" + result + ")");
+
+					if(result.state){
+						alert(result.data) ;
+						 $('#unverfiedData').datagrid('reload') ;
+					}
+	    		}
+	    	}).submit();
+	    }
 
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');
@@ -483,4 +600,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</script>
 
 </html>
+
 

@@ -85,6 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newJuniorMajInfo()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editJuniorMajInfo()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			<a href="pages/JuniorMajInfo/dataExport?excelName=表3-3专科专业基本情况（教务处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
 		</div>
 
 		

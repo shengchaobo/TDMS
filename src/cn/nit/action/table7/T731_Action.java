@@ -11,6 +11,7 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table7.T731_Bean;
 import cn.nit.service.table7.T731_Service;
+import cn.nit.util.TimeUtil;
 
 public class T731_Action {
 	
@@ -19,7 +20,7 @@ public class T731_Action {
 	T731_Bean schleadInClass=new T731_Bean();
 	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -78,51 +79,46 @@ public class T731_Action {
 			return ;
 		}
 		
-		String conditions=(String) getSession().getAttribute("auditingConditions");
-		String pages=t731_Sr.auditingData(conditions, null,  Integer.parseInt(page), Integer.parseInt(rows));
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
 		
-		PrintWriter out=null;
-		
-		
-		try {
-			getResponse().setContentType("text/html;charset=UTF-8");
-			out=getResponse().getWriter();
-			out.print(pages);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}finally{
-			if(out!=null){
-				out.close();
-				
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
 			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
 		}
-		
-	}
-/**  生成查询条件   */
-	
-	public void auditingConditions(){
-		
-		String sqlconditions=t731_Sr.generateauditingConditions(seqNum, startTime, endTime);
-		getSession().setAttribute("auditingConditions", sqlconditions);
-        PrintWriter out = null ;
+
+		String pages = t731_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		PrintWriter out = null ;
 		
 		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
+			out.print(pages) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+			return ;
 		}finally{
 			if(out != null){
 				out.close() ;
 			}
 		}
 		
-		
 	}
+
 	/**  编辑数据  */
 	public void edit(){
 		schleadInClass.setTime(new Date());
@@ -195,27 +191,69 @@ public class T731_Action {
 	public void setSchleadInClass(T731_Bean schleadInClass) {
 		this.schleadInClass = schleadInClass;
 	}
-	
-	
-	
-	public void setSeqNum(int seqNum) {
+
+
+	public Integer getSeqNum() {
+		return seqNum;
+	}
+
+
+	public void setSeqNum(Integer seqNum) {
 		this.seqNum = seqNum;
 	}
+
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
+
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
+
+
+	public String getIds() {
+		return ids;
+	}
+
+
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
+
+
+	public String getPage() {
+		return page;
+	}
+
+
 	public void setPage(String page) {
 		this.page = page;
 	}
+
+
+	public String getRows() {
+		return rows;
+	}
+
+
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
+	
+	
+	
 	
 	
 	

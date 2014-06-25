@@ -49,8 +49,9 @@ public class T312_Service {
 //	System.out.println("total:"+total);
 //	System.out.println("list:"+list.size());
 		JSON json = JSONSerializer.toJSON(pages) ;
-		
-//	System.out.println(json.toString()) ;
+//		JSON json1 = JSONSerializer.toJSON(list) ;
+//		System.out.println("小苹果") ;
+//	System.out.println(json1.toString()) ;
 		return json.toString() ;
 	}
 	

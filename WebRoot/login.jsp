@@ -110,7 +110,7 @@
               <tr>
                   <td width = "90" height="30" align="right">
                   <input type="button"  id="loginBtn"
-                      style="width:85px;background: url(images/login_5.gif) no-repeat"
+                      style="width:80px;background: url(images/login_5.gif) no-repeat"
                       value="登    陆  " onclick="validate()"  >
                   </td>
 

@@ -1,7 +1,14 @@
 package cn.nit.action.table7;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,8 +16,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table7.T711_Bean;
+import cn.nit.dao.table7.T711_DAO;
 import cn.nit.service.table7.T711_Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 public class T711_Action {
@@ -19,6 +29,8 @@ public class T711_Action {
 	private T711_Service t711_Sr=new T711_Service();
 	
 	private T711_Bean teaManagerAwardInfoTeaTea=new T711_Bean();
+	
+	private T711_DAO t711_DAO=new T711_DAO();
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
 	
@@ -36,6 +48,12 @@ public class T711_Action {
 	
 	/**每页显示的条数  */
 	private String rows ;
+	
+	/**  下载的excelName  */
+	private String excelName ;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	
 	public void insert(){
@@ -121,29 +139,6 @@ public class T711_Action {
 		
 	}
 
-//	/**  生成查询条件   */
-//	
-//	public void auditingConditions(){
-//		
-//		String sqlconditions=t711_Sr.generateauditingConditions(seqNum, startTime, endTime);
-//		getSession().setAttribute("auditingConditions", sqlconditions);
-//        PrintWriter out = null ;
-//		
-//		try{
-//			out = getResponse().getWriter() ;
-//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-//			out.flush() ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//		
-//		
-//	}
 	/**  编辑数据  */
 	public void edit(){
 		teaManagerAwardInfoTeaTea.setTime(new Date());
@@ -196,10 +191,45 @@ public class T711_Action {
 		}
 	}
 	
+	public InputStream getInputStream() throws UnsupportedEncodingException{
+
+		InputStream inputStream = null ;
+		
+		try {
+/*			response.reset();
+			response.addHeader("Content-Disposition", "attachment;fileName="
+                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
+			
+			List<T711_Bean> list = t711_DAO.totalList();
+						
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("教学单位");columns.add("单位号");columns.add("姓名");columns.add("教工号");columns.add("奖励名称");columns.add("级别");
+			columns.add("获奖时间");columns.add("授予单位");columns.add("批文号");columns.add("合作教师人数");columns.add("其他合作教师");
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("fromTeaUnit", 1);maplist.put("teaUnitID", 2);maplist.put("majorName", 3);maplist.put("majorID", 4);
+			maplist.put("teaName", 5);maplist.put("teaId", 6);
+						
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
 	
 	
-	
-	
+	public String execute() throws Exception{
+		request.setCharacterEncoding("UTF-8") ;
+		System.out.println("excelName=============" + excelName) ;
+		return "success" ;
+	}
+
 
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
@@ -310,6 +340,21 @@ public class T711_Action {
 
 
 
+
+	public String getExcelName() {
+		return excelName;
+	}
+
+
+
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
+
+
+	
 
 	
 	

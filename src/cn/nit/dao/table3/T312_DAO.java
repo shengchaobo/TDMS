@@ -8,6 +8,7 @@ import java.util.List;
 
 
 
+import cn.nit.bean.table3.T311_Bean;
 import cn.nit.bean.table3.T312_Bean;
 
 import cn.nit.dbconnection.DBConnection;
@@ -206,6 +207,36 @@ public class T312_DAO {
 		}else{
 			return true ;
 		}
+	}
+	
+	
+	
+	/**用于数据导出*/
+	public List<T312_Bean> totalList(){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.StaName,t.StaID,t.UnitName,t.UnitID, t.StaType," +
+		"t.Time,t.Note");
+        sql.append(" from "+tableName + " as t,DiDepartment dpt");
+        sql.append(" where   dpt.UnitID=t.UnitID " );
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T312_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T312_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
 	}
 	
 	

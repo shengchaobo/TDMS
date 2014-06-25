@@ -8,6 +8,7 @@ import java.util.List;
 
 
 
+
 import cn.nit.bean.table3.T311_Bean;
 import cn.nit.bean.table3.T313_Bean;
 import cn.nit.dbconnection.DBConnection;
@@ -157,6 +158,34 @@ public class T313_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}
+		
+		return list ;
+	}
+	
+	/**用于数据导出*/
+	public List<T313_Bean> totalList(){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.DiscipName,t.DiscipID,t.UnitName," +
+				"t.UnitID,t.DiscipType,t.NationLevelOne,t.NationLevelTwo,t.NationLevelKey,t.ProvinceLevelOne,"+
+				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time");
+		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
+		sql.append(" where   dpt.UnitID=t.UnitID" );
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T313_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T313_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
 		}
 		
 		return list ;

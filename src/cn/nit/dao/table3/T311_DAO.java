@@ -8,6 +8,7 @@ import java.util.List;
 
 import sun.security.krb5.internal.UDPClient;
 
+import cn.nit.bean.table1.T181Bean;
 import cn.nit.bean.table3.T311_Bean;
 
 import cn.nit.dbconnection.DBConnection;
@@ -204,6 +205,34 @@ public class T311_DAO {
 		}else{
 			return true ;
 		}
+	}
+	
+	/**用于数据导出*/
+	public List<T311_Bean> totalList(){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.PostDocStaName,t.SetTime,t.ResearcherNum, t.UnitName," +
+		"t.UnitID,t.Note,t.Time");
+        sql.append(" from "+tableName + " as t,DiDepartment dpt ");
+        sql.append(" where   dpt.UnitID=t.UnitID" );
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T311_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T311_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
 	}
 	
 	

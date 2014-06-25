@@ -50,6 +50,10 @@ public class T151Action {
 	/**excel导出名字*/
 	private String excelName; //
 	
+	/**导出数据说要的年份*/
+	private String Year;//
+	
+
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
 	
@@ -234,9 +238,9 @@ public class T151Action {
 		try{
 			out = getResponse().getWriter() ;
 			if(flag){
-				out.print("{\"state\":true,data:\"删除成功!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
-				out.print("{\"state\":true,data:\"删除失败!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
 		}catch(Exception e){
@@ -277,7 +281,8 @@ public class T151Action {
 	
 	/**数据导出*/
 	public InputStream getInputStream(){
-
+		
+//        System.out.println("年份："+this.Year);
 		InputStream inputStream = null ;
 
 		try {
@@ -305,7 +310,7 @@ public class T151Action {
 			e.printStackTrace();
 			return null ;
 		}
-
+        System.out.println(inputStream);
 		return inputStream ;
 	}
 	
@@ -379,6 +384,14 @@ public class T151Action {
 
 	public void setPage(String page) {
 		this.page = page;
+	}
+	
+	public String getYear() {
+		return Year;
+	}
+
+	public void setYear(String year) {
+		this.Year = year;
 	}
 
 	public String getRows() {

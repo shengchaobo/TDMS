@@ -13,7 +13,7 @@ import javax.persistence.Table;
 /**
  * DiDegree entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "DiDegree", schema = "dbo", catalog = "TDMS")
 public class DiDegreeBean implements java.io.Serializable {
 

@@ -9,6 +9,7 @@ import java.util.List;
 
 
 
+import cn.nit.bean.table3.T311_Bean;
 import cn.nit.bean.table3.T321_Bean;
 import cn.nit.dbconnection.DBConnection;
 
@@ -186,6 +187,36 @@ public class T321_DAO {
 		
 		return list ;
 	}
+	
+	/**用于数据导出*/
+	public List<T321_Bean> totalList(){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.MainClassName,t.MainClassID,t.ByPassTime," +
+				"t.MajorNameInSch,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.UnitName,t.UnitID,"+
+				"t.Note,t.Time");
+		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ");
+		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID" );
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T321_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T321_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
 	
 	
 	

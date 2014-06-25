@@ -13,7 +13,7 @@ import javax.persistence.Table;
 /**
  * DiTutorType entity. @author MyEclipse Persistence Tools
  */
-@Entity
+
 @Table(name = "DiTutorType", schema = "dbo", catalog = "TDMS")
 public class DiTutorTypeBean implements java.io.Serializable {
 

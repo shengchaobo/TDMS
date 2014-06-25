@@ -3,7 +3,11 @@ package cn.nit.action.table3;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +17,8 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T312_Bean;
+import cn.nit.dao.table3.T312_DAO;
+import cn.nit.excel.imports.table3.T312Excel;
 import cn.nit.service.table3.T312_Service;
 import cn.nit.util.ExcelUtil;
 
@@ -25,6 +31,23 @@ public class T312_Action {
 	private T312_Service docAndGraStaSer = new T312_Service() ;
 	
 	private T312_Bean docAndGraStaBean = new T312_Bean() ;
+	
+	/**  表181的Dao类  */
+	private T312_DAO t312_DAO = new T312_DAO();
+	
+	/**  表181的Excel实体类  */
+	private T312Excel t312Excel = new T312Excel() ;
+	
+	/**excel导出名字*/
+	private String excelName; //
+	
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
 	
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
@@ -177,12 +200,30 @@ public class T312_Action {
 		}
 	}
 	
+	/**数据导出*/
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
 
 		try {
-		//	inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+			
+			List<T312_Bean> list = t312_DAO.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("名称");columns.add("代码");columns.add("所属单位");columns.add("单位号");
+			columns.add("类型");columns.add("备注");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("StaName", 1);maplist.put("StaID", 2);maplist.put("UnitName", 3);maplist.put("UnitID", 4);
+			maplist.put("StaType", 5);maplist.put("Note", 6);
+			
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t312Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -190,6 +231,7 @@ public class T312_Action {
 
 		return inputStream ;
 	}
+	
 
 	public String execute() throws Exception{
 

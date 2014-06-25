@@ -3,11 +3,7 @@ package cn.nit.action.table3;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,36 +12,16 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.dao.table3.T313_DAO;
-import cn.nit.excel.imports.table3.T313Excel;
-import cn.nit.bean.table3.T313_Bean;
-import cn.nit.service.table3.T313_Service;
+
+import cn.nit.bean.table3.T322_Bean;
+
 import cn.nit.util.ExcelUtil;
 
-
-
-public class T313_Action {
+public class T322_Action {
+	private T322_Service t322_Service = new T322_Service() ;
 	
-private T313_Service discipSer = new T313_Service() ;
 	
-	private T313_Bean discipBean = new T313_Bean() ;
-	
-	private T313_DAO t313_DAO=new T313_DAO();
-	
-
-	private T313Excel t313Excel = new T313Excel() ;
-	
-	/**excel导出名字*/
-	private String excelName; //
-	
-	public String getExcelName() {
-		return excelName;
-	}
-
-	public void setExcelName(String excelName) {
-		this.excelName = excelName;
-	}
-	
+	private T322_Bean t322_Bean = new T322_Bean() ;
 	
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
@@ -67,11 +43,11 @@ private T313_Service discipSer = new T313_Service() ;
 	
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		discipBean.setTime(new Date()) ;
+		t322_Bean.setTime(new Date()) ;
 		//这还没确定,设置填报者的职工号与部门号
 		//UserInfo userinfo = (UserInfo)getSession().getAttribute("userinfo") ;
-		//discipBean.setFillTeaID(userinfo.getTeaID()) ;
-		boolean flag = discipSer.insert(discipBean) ;
+		//undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
+		boolean flag = t322_Service.insert(t322_Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -94,6 +70,15 @@ private T313_Service discipSer = new T313_Service() ;
 		out.flush() ;
 	}
 
+
+	
+	public T322_Bean gett322_Bean() {
+		return t322_Bean;
+	}
+
+	public void sett322_Bean(T322_Bean t322_Bean) {
+		this.t322_Bean = t322_Bean;
+	}
 	
 	/**  为界面加载数据  */
 public void auditingData(){
@@ -109,7 +94,7 @@ public void auditingData(){
 		}
 		
 		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = discipSer.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String pages = t322_Service.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -126,20 +111,10 @@ public void auditingData(){
 		}
 	}
 	
-	public T313_Service getDiscipSer() {
-		return discipSer;
-	}
-
-
-	public void setDiscipSer(T313_Service discipSer) {
-		this.discipSer = discipSer;
-	}
-
-
 	/**  生成查询条件  （查询数据） */
 	public void auditingConditions(){
 		
-		String sqlConditions = discipSer.gernateAuditingConditions(seqNum, startTime, endTime) ;
+		String sqlConditions = t322_Service.gernateAuditingConditions(seqNum, startTime, endTime) ;
 		getSession().setAttribute("auditingConditions", sqlConditions) ;
 		PrintWriter out = null ;
 		
@@ -161,9 +136,9 @@ public void auditingData(){
 	public void edit(){
 
 //		System.out.println("插入数据");
-		discipBean.setTime(new Date());
+		t322_Bean.setTime(new Date());
 
-		boolean flag = discipSer.update(discipBean) ;
+		boolean flag = t322_Service.update(t322_Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -187,7 +162,7 @@ public void auditingData(){
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
-		boolean flag = discipSer.deleteCoursesByIds(ids) ;
+		boolean flag = t322_Service.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -210,35 +185,12 @@ public void auditingData(){
 		}
 	}
 	
-	
-	/**数据导出*/
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
 
 		try {
-			
-			List<T313_Bean> list = t313_DAO.totalList();
-			
-			String sheetName = this.getExcelName();
-			
-			List<String> columns = new ArrayList<String>();
-			columns.add("序号");
-			columns.add("重点学科名称");columns.add("学科代码");columns.add("所属教学单位");
-			columns.add("单位号");columns.add("学科门类");columns.add("国家一级");columns.add("国家二级");columns.add("国家重点");
-			columns.add("省部一级");columns.add("省部二级");columns.add("市级");columns.add("校级");columns.add("备注");
-			
-			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("SeqNum", 0);
-			maplist.put("DiscipName", 1);maplist.put("DiscipID", 2);maplist.put("UnitName", 3);maplist.put("UnitID", 4);
-			maplist.put("DiscipType", 5);maplist.put("NationLevelOne", 6);maplist.put("NationLevelTwo", 7);maplist.put("NationLevelKey", 8);
-			maplist.put("ProvinceLevelOne", 9);maplist.put("ProvinceLevelTwo", 10);maplist.put("CityLevel", 11);maplist.put("SchLevel", 12);
-			maplist.put("Note", 13);
-			
-			
-			
-			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t313Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -246,9 +198,6 @@ public void auditingData(){
 
 		return inputStream ;
 	}
-	
-	
-
 
 	public String execute() throws Exception{
 
@@ -270,6 +219,34 @@ public void auditingData(){
 	
 	public UserRoleBean getUserinfo(){
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
+	}
+
+
+
+
+
+
+
+	public T322_Service getT322_Service() {
+		return t322_Service;
+	}
+
+
+
+	public void setT322_Service(T322_Service t322Service) {
+		t322_Service = t322Service;
+	}
+
+
+
+	public T322_Bean getT322_Bean() {
+		return t322_Bean;
+	}
+
+
+
+	public void setT322_Bean(T322_Bean t322Bean) {
+		t322_Bean = t322Bean;
 	}
 
 
@@ -298,16 +275,6 @@ public void auditingData(){
 		this.rows = rows ;
 	}
 	
-	public T313_Bean getDiscipBean() {
-		return discipBean;
-	}
-
-
-	public void setDiscipBean(T313_Bean discipBean) {
-		this.discipBean = discipBean;
-	}
-
-
 	public static void main(String args[]){
 		String match = "[\\d]+" ;
 		System.out.println("23gfhf4".matches(match)) ;

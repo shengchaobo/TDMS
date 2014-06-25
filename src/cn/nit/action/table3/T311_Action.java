@@ -3,7 +3,11 @@ package cn.nit.action.table3;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,9 +17,13 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
 
+
 import cn.nit.bean.table3.T311_Bean;
+import cn.nit.dao.table3.T311_DAO;
+import cn.nit.excel.imports.table3.T311Excel;
 import cn.nit.service.table3.T311_Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 
 
@@ -27,8 +35,25 @@ private T311_Service postDocStaSer = new T311_Service() ;
 	
 	private T311_Bean postDocStaBean = new T311_Bean() ;
 	
+
+	private T311_DAO t311_DAO = new T311_DAO();
+	
+
+	private T311Excel t311Excel = new T311Excel() ;
+	
+	/**excel导出名字*/
+	private String excelName; //
+	
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -97,8 +122,29 @@ public void auditingData(){
 			return ;
 		}
 		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = postDocStaSer.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
+		
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
+		}
+
+		String pages = postDocStaSer.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -114,28 +160,7 @@ public void auditingData(){
 			}
 		}
 	}
-	
-	/**  生成查询条件  （查询数据） */
-	public void auditingConditions(){
 		
-		String sqlConditions = postDocStaSer.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
-	
 	/**  编辑数据  */
 	public void edit(){
 
@@ -189,12 +214,30 @@ public void auditingData(){
 		}
 	}
 	
+	/**数据导出*/
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
 
 		try {
-			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+			
+			List<T311_Bean> list = t311_DAO.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("博士后流动站名称");columns.add("设置时间");columns.add("研究员人数");
+			columns.add("所属单位");columns.add("备注");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("PostDocStaName", 1);maplist.put("SetTime", 2);maplist.put("ResearcherNum", 3);maplist.put("UnitName", 4);
+			maplist.put("UnitID", 5);maplist.put("Note", 6);
+			
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t311Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -202,6 +245,9 @@ public void auditingData(){
 
 		return inputStream ;
 	}
+	
+
+
 
 	public String execute() throws Exception{
 
@@ -237,32 +283,79 @@ public void auditingData(){
 		this.postDocStaSer = postDocStaSer;
 	}
 
+	
+	public Integer getSeqNum() {
+		return seqNum;
+	}
 
 
-	public void setSeqNum(int seqNum){
-		this.seqNum = seqNum ;
+
+	public void setSeqNum(Integer seqNum) {
+		this.seqNum = seqNum;
 	}
-	
-	public void setStartTime(Date startTime){
-		this.startTime = startTime ;
+
+
+
+	public Date getStartTime() {
+		return startTime;
 	}
-	
-	public void setEndTime(Date endTime){
-		this.endTime = endTime ;
+
+
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
 	}
+
+
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+
+
+	public String getIds() {
+		return ids;
+	}
+
+
 
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
 
-	public void setPage(String page){
-		this.page = page ;
+
+
+	public String getPage() {
+		return page;
 	}
-	
-	public void setRows(String rows){
-		this.rows = rows ;
+
+
+
+	public void setPage(String page) {
+		this.page = page;
 	}
-	
+
+
+
+	public String getRows() {
+		return rows;
+	}
+
+
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
+
+
 	public static void main(String args[]){
 		String match = "[\\d]+" ;
 		System.out.println("23gfhf4".matches(match)) ;

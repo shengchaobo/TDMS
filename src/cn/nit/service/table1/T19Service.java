@@ -39,12 +39,8 @@ public class T19Service {
 	    int total = t19Dao.totalAuditingData(conditions, fillUnitId) ;
 		List<T19POJO> list = t19Dao.auditingData(conditions, fillUnitId, page, rows) ;
 		Pagition pages = new Pagition(total, list) ;
-//		System.out.println("total:"+total);
-//		System.out.println("list:"+list.size());
-		JSON json = JSONSerializer.toJSON(pages) ;
-			
-//		System.out.println(json.toString()) ;
-			
+
+		JSON json = JSONSerializer.toJSON(pages) ;	
 		return json.toString() ;
 		}
 	
@@ -110,7 +106,7 @@ public class T19Service {
 	}
      public static void  main(String arg[]){
     	 T19Service ser=new T19Service();
-    	 String info=ser.auditingData(null, null, 1, 1);
+    	 String info=ser.auditingData(null, null, 1, 8);
     	 System.out.println(info);
      }
 

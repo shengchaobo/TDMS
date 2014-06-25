@@ -28,6 +28,7 @@ import cn.nit.dao.table1.T151DAO;
 import cn.nit.excel.imports.table1.T151Excel;
 import cn.nit.service.table1.T151Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 /**
  * 
@@ -50,7 +51,7 @@ public class T151Action {
 	private String excelName; //
 	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -99,59 +100,115 @@ public class T151Action {
 		}
 		out.flush() ;
 	}
-
+	
 	/**  为界面加载数据  */
 	public void auditingData(){
-		
-//		System.out.println("輸出輸出輸出");
-		
-		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
-			return ;
+			
+//			System.out.println("輸出輸出輸出");
+			
+			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
+				return ;
+			}
+			
+			if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
+				return ;
+			}
+			
+			String cond = null;
+			StringBuffer conditions = new StringBuffer();
+			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+				cond = null;	
+			}else{			
+				if(this.getSeqNum()!=null){
+					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+				}
+				
+				if(this.getStartTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+				}
+				
+				if(this.getEndTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+				}
+				cond = conditions.toString();
+			}
+
+//			System.out.println(this.page);
+//			System.out.println(this.rows);
+//			System.out.println(this.getSeqNum());
+			String pages = t151Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+//			System.out.println("pages:"+pages);
+			PrintWriter out = null ;
+			
+			try{
+				getResponse().setContentType("text/html; charset=UTF-8") ;
+				out = getResponse().getWriter() ;
+				out.print(pages) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return ;
+			}finally{
+				if(out != null){
+					out.close() ;
+				}
+			}
 		}
-		
-		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
-			return ;
-		}
-		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t151Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
-		PrintWriter out = null ;
+
+//	/**  为界面加载数据  */
+//	public void auditingData(){
+//		
+////		System.out.println("輸出輸出輸出");
+//		
+//		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
+//			return ;
+//		}
+//		
+//		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
+//			return ;
+//		}
+//		
+//		String conditions = (String) getSession().getAttribute("auditingConditions") ;
+//		String pages = t151Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+//		PrintWriter out = null ;
 //		System.out.println("pages："+pages);
-		
-		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print(pages) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+//		
+//		try{
+//			getResponse().setContentType("text/html; charset=UTF-8") ;
+//			out = getResponse().getWriter() ;
+//			out.print(pages) ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
 	
-	/**  生成查询条件  （查询数据） */
-	public void auditingConditions(){
-		
-		String sqlConditions = t151Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+//	/**  生成查询条件  （查询数据） */
+//	public void auditingConditions(){
+//		
+//		String sqlConditions = t151Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
+//		getSession().setAttribute("auditingConditions", sqlConditions) ;
+//		PrintWriter out = null ;
+//		
+//		try{
+//			out = getResponse().getWriter() ;
+//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
+//			out.flush() ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
 	
 	/**  编辑数据  */
 	public void edit(){
@@ -218,6 +275,7 @@ public class T151Action {
 		}
 	}
 	
+	/**数据导出*/
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
@@ -251,11 +309,6 @@ public class T151Action {
 		return inputStream ;
 	}
 	
-//	public String execute() throws Exception{
-//
-//		response.setContentType("application/octet-stream;charset=UTF-8") ;
-//		return "success" ;
-//	}
 
 	public String execute() throws Exception{
 
@@ -287,30 +340,55 @@ public class T151Action {
 		this.t151Bean = t151Bean;
 	}
 
-	public void setSeqNum(int seqNum){
-		this.seqNum = seqNum ;
-	}
 	
-	public void setStartTime(Date startTime){
-		this.startTime = startTime ;
+	public Integer getSeqNum() {
+		return seqNum;
 	}
-	
-	public void setEndTime(Date endTime){
-		this.endTime = endTime ;
+
+	public void setSeqNum(Integer seqNum) {
+		this.seqNum = seqNum;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getIds() {
+		return ids;
 	}
 
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
 
-	public void setPage(String page){
-		this.page = page ;
+	public String getPage() {
+		return page;
 	}
-	
-	public void setRows(String rows){
-		this.rows = rows ;
+
+	public void setPage(String page) {
+		this.page = page;
 	}
-	
+
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
 	public void setExcelName(String excelName) {
 		this.excelName = excelName;
 	}

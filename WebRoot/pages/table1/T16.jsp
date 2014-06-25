@@ -1,78 +1,88 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
-<base href="<%=basePath%>">
+	<head>
+		<base href="<%=basePath%>">
 
-<title>My JSP 'table.jsp' starting page</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
-	<!--
+		<title>学校基本情况</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="This is my page">
+		<!--
 		<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
+		<link rel="stylesheet" type="text/css"
+			href="jquery-easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css"
+			href="jquery-easyui/themes/icon.css">
+		<link rel="stylesheet" type="text/css"
+			href="jquery-easyui/themes/main.css">
+		<link rel="stylesheet" type="text/css"
+			href="jquery-easyui/demo/demo.css">
+
+		<style type="text/css">
+#fm {
+	margin: 0;
+	padding: 10px 30px;
+}
+
+.ftitle {
+	font-size: 14px;
+	font-weight: bold;
+	padding: 5px 0;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.fitem {
+	margin-bottom: 5px;
+}
+
+.fitem label {
+	display: inline-block;
+	width: 80px;
+}
+</style>
+		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript"
+			src="jquery-easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript"
+			src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	</head>
+	<body style="overflow-y: scroll">
+		<table class="easyui-datagrid" toolbar="#toolbar" title="学校基本情况"></table>
 		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
-	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
-	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
-	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-	
-</head>
-<body style="overflow-y:scroll">
-		<table class="easyui-datagrid" toolbar="#toolbar" title="学校办学指导思想"></table>
 		<hr color="blue" width="100%" />
-		
-		<center>
-		<table id="showInfo" class="doc-table" width="100%" border="1" rule="none" url="pages/T16/auditingData" >
-		<tbody>
-		<tr>
+		<table id="showInfo" class="doc-table"
+			url="pages/T16/auditingData">
+			<tbody>
+<tr>
 		    <td style="background-color: white" align="center">项目</td>
 		     <td style="background-color: white" align="center">内容</td>
 		      <td style="background-color: white" align="center">备注</td>
 		       <td style="background-color: white"></td>
 		</tr>
+		
+			<form id="schGuiForm1" method="post">
 		<tr >
 		   <td style="background-color: white" width="10%" >
 		      <div id="di1" style="display:inline;">
 		         <span id="ItemSpan1"></span>
 		         </div>
 		         <div id="input1"  style="display:none;" >
+		         <input id="seqNumber1" name="t16Bean.SeqNumber" type="hidden"/>
 		          <input id="Item1"  name="t16Bean.Item" type="text">
 		          </div>
 		   </td>
@@ -90,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<span id="NoteSpan1"> </span>
 			 </div>
 			 <div id="input1"  style="display:none;" >
-			  <input id="Note1"  name="t16Bean.Note" type="textarea"  style=" size="50" >
+			  <textarea id="Note1" name ="t16Bean.Note"  style="width: 200px;height: 50px;max-width: 200px;max-height: 100px;"> </textarea>
 			  </div>
             </td>
             <td style="background-color: white" width="10%" align="center">
@@ -98,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modify1()">修改</a> 
 		       </div>
 		       <div id="input1"   style="display:none;" > 
-		        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="save()">保存</a> 
+		        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="save1()">保存</a> 
 		         
 		       </div>
 		       <div id="input1"   style="display:none;" >
@@ -107,7 +117,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       
 		       </td>
 		</tr>
+			</form>
 	
+	<form id="schGuiForm2" method="post">
 		<tr>
 		
 		     <td style="background-color: white" width="10%" >
@@ -115,6 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		         <span id="ItemSpan2"></span>
 		        </div>
 		        <div id="input2"  style="display:none;" >
+		          <input id="seqNumber2" name="t16Bean.SeqNumber" type="hidden"/>
 		         <input id="Item2"  name="t16Bean.Item" type="text"   size="50" >
 		         </div>
 		   </td>
@@ -139,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modify2()">修改</a> 
 		       </div>
 		       <div id="input2"   style="display:none;" >
-		      <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="save()">保存</a> 
+		      <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="save2()">保存</a> 
 		       </div>
 		       <div id="input2"   style="display:none;" >
 		         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="cancel2()">取消</a>
@@ -147,24 +160,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       
 		       </td>
 		</tr>
+		</form>
 	
-		</tbody>
-	</table>
-	</center>
-	<div id="toolbar" style="height:auto">
+			</tbody>
+		</table>
+		<div id="toolbar" style="height:auto">
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
+			<a href="pages/T16/dataExport?excelName=表1-6办学指导思想（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 			<!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 		 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a> -->
 		</div>
 	</div>
+		
 	
-	<div id="toolbar2"   style="float:right;">
-		<a href="pages/UndergraCSBaseTea/dataExport" class="easyui-linkbutton" iconCls="icon-download">数据导出</a>
-		<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a> -->
-	</div>
-	
-	<div id="dlg" class="easyui-dialog"
+		<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
 		<div></div>
@@ -208,7 +218,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
-</body>
+	
+	</body>
+
+
 	<script type="text/javascript">
 	var data;
 
@@ -243,9 +256,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					alert("还未录入数据！请添加！") ;
 					}
 				else{
+					$('#seqNumber1').val(data.seqNumber1);
 					$('#ItemSpan1').html(data1.item1);
 				$('#ContentsSpan1').html(data1.contents1);
 				$('#NoteSpan1').html(data1.note1);
+				$('#seqNumber2').val(data.seqNumber2);
 				$('#ItemSpan2').html(data1.item2);
 				$('#ContentsSpan2').html(data1.contents2);
 				$('#NoteSpan2').html(data1.note2);
@@ -267,14 +282,83 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 	function modify2(){
-		alert(345);
+		//alert(345);
 		$('div#di2').css("display","none");
 		$('div#input2').css("display","inline");
 		 document.getElementById("Item2").value=data.item2 ;
 		 document.getElementById("Contents2").value=data.contents2 ;
 		 document.getElementById("Note2").value=data.note2 ;
-		
 		}
+	
+	 function save1()
+     {
+	    // alert(123);
+            // validate();       
+    		 url = 'pages/T16/edit' ;
+    			 $.ajax({
+						type : "POST",
+						url : url,
+						data: $('#schGuiForm1').serialize() ,
+						async : "true",
+						dataType : "text",
+						success : function(result) {
+	    			 //json格式转化
+					    var result = eval('('+result+')');
+					    $.messager.alert('提示', result.data) ;
+			           cancel();
+						}
+					}).submit();
+    		 //else{  $.messager.alert('提示', "请核对好数据！") ;}
+      }
+
+	 function save2()
+     {
+	     //alert(123);
+            // validate();       
+    		 url = 'pages/T16/edit' ;
+    			 $.ajax({
+						type : "POST",
+						url : url,
+						data: $('#schGuiForm2').serialize() ,
+						async : "true",
+						dataType : "text",
+						success : function(result) {
+	    			 //json格式转化
+					    var result = eval('('+result+')');
+					    $.messager.alert('提示', result.data) ;
+			           cancel();
+						}
+					}).submit();
+    		 //else{  $.messager.alert('提示', "请核对好数据！") ;}
+      }
+
+	 function validate(){
+
+		 
+	 }
+
+	 function save2()
+     {
+            // validate();       
+    		 url = 'pages/T16/edit' ;
+    		 if(validate()){
+    			 $.ajax({
+						type : "POST",
+						url : url,
+						data: $('#schGuiForm1').serialize() ,
+						async : "true",
+						dataType : "text",
+						success : function(result) {
+	    			 //json格式转化
+					    var result = eval('('+result+')');
+					    $.messager.alert('提示', result.data) ;
+			           cancel();
+						}
+					}).submit();
+    		 }
+    		 //else{  $.messager.alert('提示', "请核对好数据！") ;}
+    			
+      }
 	
 	function singleSearch(){
    	 $('#auditing').form('submit',{
@@ -399,49 +483,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return true ;
 		}
 
-		function tdclick(){
-		    var clickfunction = this;
-		    //0,获取当前的td节点
-		    var td = $(this);
-		    //1,取出当前td中的文本内容保存起来
-		    var text = $(this).text();
-		    //2，清空td里边内同
-		    td.html("");
-		    //3,建立一个文本框，也就是建一个input节点
-		    var input = $("<input>");
-		    //4,设置文本框中值是保存起来的文本内容
-		    input.attr("value",text);
-		    //4.5让文本框可以相应键盘按下的事件
-		    input.keyup(function(event){
-		        //记牌器当前用户按下的键值
-		        var myEvent = event || window.event;//获取不同浏览器中的event对象
-		        var kcode = myEvent.keyCode;
-		        //判断是否是回车键按下
-		        if(kcode == 13){
-		            var inputnode = $(this);
-		            //获取当前文本框的内容
-		            var inputext = inputnode.val();
-		            //清空td里边的内容,然后将内容填充到里边
-		            var tdNode = inputnode.parent();
-		            tdNode.html(inputext);
-		            //让td重新拥有点击事件
-		            tdNode.click(tdclick);
-		        }
-		    });
-		    //5，把文本框加入到td里边去
-		    td.append(input);
-		    //5.5让文本框里边的文章被高亮选中
-		    //需要将jquery的对象转换成dom对象
-		    var inputdom = input.get(0);
-		    inputdom.select();
-		   
-		    //6,需要清楚td上的点击事件
-		    td.unbind("click");
-		}
-
-	    function editCourse(){
-	    	tdclick() ;
-	    }
+		
 	    
 	    function deleteByIds(){
 	    	//获取选中项
@@ -617,5 +659,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+
 
 </html>

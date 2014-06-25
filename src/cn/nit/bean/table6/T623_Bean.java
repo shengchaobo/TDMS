@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 public class T623_Bean implements java.io.Serializable {
 
 	// Fields
+	private int seqNumber;
 	private String province;
 	private String artType;
 	private String batch;
@@ -30,163 +31,97 @@ public class T623_Bean implements java.io.Serializable {
 	private Integer sumAvgScore;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T623_Bean() {
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-	/** full constructor */
-	public T623_Bean(String province,
-			String artType, String batch, Integer libEnrollNum,
-			Integer sciEnrollNum, Integer sumEnrollNum, Integer libLowestScore,
-			Integer sciLowestScore, Integer sumLowestScore,
-			Integer libAvgScore, Integer sciAvgScore, Integer sumAvgScore,
-			Date time, String note) {
-		this.province = province;
-		this.artType = artType;
-		this.batch = batch;
-		this.libEnrollNum = libEnrollNum;
-		this.sciEnrollNum = sciEnrollNum;
-		this.sumEnrollNum = sumEnrollNum;
-		this.libLowestScore = libLowestScore;
-		this.sciLowestScore = sciLowestScore;
-		this.sumLowestScore = sumLowestScore;
-		this.libAvgScore = libAvgScore;
-		this.sciAvgScore = sciAvgScore;
-		this.sumAvgScore = sumAvgScore;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-	@Column(name = "Province")
 	public String getProvince() {
-		return this.province;
+		return province;
 	}
-
 	public void setProvince(String province) {
 		this.province = province;
 	}
-
-	@Column(name = "ArtType")
 	public String getArtType() {
-		return this.artType;
+		return artType;
 	}
-
 	public void setArtType(String artType) {
 		this.artType = artType;
 	}
-
-	@Column(name = "Batch")
 	public String getBatch() {
-		return this.batch;
+		return batch;
 	}
-
 	public void setBatch(String batch) {
 		this.batch = batch;
 	}
-
-	@Column(name = "LibEnrollNum")
 	public Integer getLibEnrollNum() {
-		return this.libEnrollNum;
+		return libEnrollNum;
 	}
-
 	public void setLibEnrollNum(Integer libEnrollNum) {
 		this.libEnrollNum = libEnrollNum;
 	}
-
-	@Column(name = "SciEnrollNum")
 	public Integer getSciEnrollNum() {
-		return this.sciEnrollNum;
+		return sciEnrollNum;
 	}
-
 	public void setSciEnrollNum(Integer sciEnrollNum) {
 		this.sciEnrollNum = sciEnrollNum;
 	}
-
-	@Column(name = "SumEnrollNum")
 	public Integer getSumEnrollNum() {
-		return this.sumEnrollNum;
+		return sumEnrollNum;
 	}
-
 	public void setSumEnrollNum(Integer sumEnrollNum) {
 		this.sumEnrollNum = sumEnrollNum;
 	}
-
-	@Column(name = "LibLowestScore")
 	public Integer getLibLowestScore() {
-		return this.libLowestScore;
+		return libLowestScore;
 	}
-
 	public void setLibLowestScore(Integer libLowestScore) {
 		this.libLowestScore = libLowestScore;
 	}
-
-	@Column(name = "SciLowestScore")
 	public Integer getSciLowestScore() {
-		return this.sciLowestScore;
+		return sciLowestScore;
 	}
-
 	public void setSciLowestScore(Integer sciLowestScore) {
 		this.sciLowestScore = sciLowestScore;
 	}
-
-	@Column(name = "SumLowestScore")
 	public Integer getSumLowestScore() {
-		return this.sumLowestScore;
+		return sumLowestScore;
 	}
-
 	public void setSumLowestScore(Integer sumLowestScore) {
 		this.sumLowestScore = sumLowestScore;
 	}
-
-	@Column(name = "LibAvgScore")
 	public Integer getLibAvgScore() {
-		return this.libAvgScore;
+		return libAvgScore;
 	}
-
 	public void setLibAvgScore(Integer libAvgScore) {
 		this.libAvgScore = libAvgScore;
 	}
-
-	@Column(name = "SciAvgScore")
 	public Integer getSciAvgScore() {
-		return this.sciAvgScore;
+		return sciAvgScore;
 	}
-
 	public void setSciAvgScore(Integer sciAvgScore) {
 		this.sciAvgScore = sciAvgScore;
 	}
-
-	@Column(name = "SumAvgScore")
 	public Integer getSumAvgScore() {
-		return this.sumAvgScore;
+		return sumAvgScore;
 	}
-
 	public void setSumAvgScore(Integer sumAvgScore) {
 		this.sumAvgScore = sumAvgScore;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
+
 
 }

@@ -74,8 +74,6 @@
     <include file="cn/nit/configuration/table1/T182.xml"/>
      <!-- t183签订合作机构（招就处） -->
     <include file="cn/nit/configuration/table1/T183.xml"/>
-      <!-- t19学校荣誉表 -->
-    <include file="cn/nit/configuration/table1/T19.xml"/>
      <!-- t16办学指导思想（党院办） -->
     <include file="cn/nit/configuration/table1/T16.xml"/>
        <!-- S18协议统计表 -->
@@ -84,6 +82,16 @@
     <include file="cn/nit/configuration/table1/S17.xml"/>
       <!-- A15科研单位统计表 -->
     <include file="cn/nit/configuration/table1/A15.xml"/>
+       <!-- S15科研单位统计表 -->
+    <include file="cn/nit/configuration/table1/S15.xml"/>
+           <!-- T12 -->
+    <include file="cn/nit/configuration/table1/T12.xml"/>
+           <!-- T13学校科研单位 -->
+    <include file="cn/nit/configuration/table1/T13.xml"/>
+        <!-- T14学校教学单位 -->
+    <include file="cn/nit/configuration/table1/T14.xml"/>
+      <!-- T19 -->
+    <include file="cn/nit/configuration/table1/T19.xml"/>
     
     <!--table3-->
     <!-- t312博士点硕士点 -->
@@ -92,22 +100,46 @@
     <include file="cn/nit/configuration/table3/T311.xml"/>
     <!-- t313 重点学科表 -->
     <include file="cn/nit/configuration/table3/T313.xml"/>
-    <!-- t321 大类培养情况表表 -->
+
+    <!-- t321 大类培养基本情况 -->
     <include file="cn/nit/configuration/table3/T321.xml"/>
-    
-    
-    
-    
-    
-    
-    
+    <!-- t322 专业基本情况 
+    <include file="cn/nit/configuration/table3/T322.xml"/> 
+    -->
+    <!-- t33 专业基本情况 -->
+    <include file="cn/nit/configuration/table3/T33.xml"/>
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
     
     <!-- table6 学生信息库 -->
     
     <!-- table6 近一届本科生分专业招生录取情况 -->
+    <include file="cn/nit/configuration/table6/T611.xml"/>
+    <include file="cn/nit/configuration/table6/T612.xml"/>
+    <include file="cn/nit/configuration/table6/T613.xml"/>
+    <include file="cn/nit/configuration/table6/T614.xml"/>
+    <include file="cn/nit/configuration/table6/T615.xml"/>
+    <include file="cn/nit/configuration/table6/T616.xml"/>
+    <include file="cn/nit/configuration/table6/T617.xml"/>
     <include file="cn/nit/configuration/table6/T621.xml"/>
+    <include file="cn/nit/configuration/table6/T622.xml"/>
+    <include file="cn/nit/configuration/table6/T623.xml"/>
+    <include file="cn/nit/configuration/table6/T624.xml"/>
+    <include file="cn/nit/configuration/table6/T631.xml"/>
+    <include file="cn/nit/configuration/table6/T632.xml"/>
+    <include file="cn/nit/configuration/table6/T641.xml"/>
+    <include file="cn/nit/configuration/table6/T651.xml"/>
+    <include file="cn/nit/configuration/table6/T652.xml"/>
+    <include file="cn/nit/configuration/table6/T653.xml"/>
+    <include file="cn/nit/configuration/table6/T654.xml"/>
+    <include file="cn/nit/configuration/table6/T655.xml"/>
+    <include file="cn/nit/configuration/table6/T656.xml"/>
+    <include file="cn/nit/configuration/table6/T657.xml"/>
+    <include file="cn/nit/configuration/table6/T658.xml"/>
+    <include file="cn/nit/configuration/table6/T659.xml"/>
+    <include file="cn/nit/configuration/table6/T66.xml"/>
+    <include file="cn/nit/configuration/table6/T671.xml"/>
+    <include file="cn/nit/configuration/table6/T672.xml"/>
     
     <!-- table7 -->
     <include file="cn/nit/configuration/table7/T711.xml"/>
@@ -124,5 +156,15 @@
     <include file="cn/nit/configuration/table7/T743.xml"/>
     <include file="cn/nit/configuration/table7/T744.xml"/>
     <include file="cn/nit/configuration/table7/T745.xml"/>
+
+    <package name="default" namespace="/" extends="struts-default">
+        <default-action-ref name="index" />
+        <action name="index">
+            <result type="redirectAction">
+                <param name="actionName">HelloWorld</param>
+                <param name="namespace">/example1</param>
+            </result>
+        </action>
+    </package>
 
 </struts>

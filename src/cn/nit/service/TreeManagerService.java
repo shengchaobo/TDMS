@@ -34,6 +34,17 @@ public class TreeManagerService {
 		return treeDAO.getTrees(parentId) ;
 	}
 	
+	/**
+	 * 删除
+	 * @param parentId
+	 * @return
+	 */
+	public boolean removeTrees(int nodeid){
+		
+		return treeDAO.removeTrees(nodeid) ;
+	}
+	
+	
 	public String loadTrees(int parentId){
 		
 		List<Trees> trees = treeDAO.getTrees(parentId) ;

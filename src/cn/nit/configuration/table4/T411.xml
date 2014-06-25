@@ -41,8 +41,6 @@
 	    -->
 	    <!-- 更新相应教职工 -->
 	    <action name="edit" class="cn.nit.action.table4.T411_Action"  method="edit" />
-	    <!-- 模糊查询相应教职工 -->
-	    <action name="singleSearch" class="cn.nit.action.table4.T411_Action"  method="singleSearch" />
 	    
    	    <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table4.T411_Action" method="execute">

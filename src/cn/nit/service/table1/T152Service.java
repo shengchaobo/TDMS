@@ -113,7 +113,7 @@ public class T152Service {
 				String audit = DIResourceDAO.getAudit(t152Dao.getTableName()) ;
 				
 				String audits[] = audit.split(",") ;
-				t152Bean.setAudit(audits[0]) ;
+//				t152Bean.setAudit(audits[0]) ;
 			}
 	
 			public static void main(String arg[])

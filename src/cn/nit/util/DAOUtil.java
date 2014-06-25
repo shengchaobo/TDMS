@@ -1,4 +1,4 @@
-/* 
+﻿/* 
  * @Title: DAOUtil.java
  * @Package cn.bjtu.util
  * @Description 
@@ -62,7 +62,6 @@ public class DAOUtil {
 		PreparedStatement pst = null ;
 		try{
 			pst = conn.prepareStatement(sql.toString()) ;
-//			System.out.println(sql.toString());
 
 			for(int i = 0; i < length; i++){
 				String type = wrapper.getPropertyType(fields[i]).toString() ;
@@ -74,9 +73,13 @@ public class DAOUtil {
 				}else if(type.endsWith("int")||type.endsWith("Integer")){
 					pst.setInt(i + 1, (Integer) wrapper.getPropertyValue(fields[i])) ;
 				}else if(type.endsWith("Date")){
-					java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(fields[i]) ;
-					Date sqlDate = new Date(utilDate.getTime()) ;
-					pst.setDate(i + 1, sqlDate ) ;
+					if(wrapper.getPropertyValue(fields[i])==null){
+						pst.setDate(i + 1, null ) ;
+					}else{
+						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(fields[i]) ;
+						Date sqlDate = new Date(utilDate.getTime()) ;
+						pst.setDate(i + 1, sqlDate ) ;
+					}
 				}else if(type.endsWith("long")||type.endsWith("Long")){
 					pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
 
@@ -87,7 +90,6 @@ public class DAOUtil {
 
 				}else{
 					throw new Exception("自行添加对应类型" + type) ;
-
 				}
 			}
 
@@ -213,9 +215,13 @@ public class DAOUtil {
 					}else if(type.endsWith("int")||type.endsWith("Integer")){
 						pst.setInt(i + 1, (Integer) wrapper.getPropertyValue(fields[i])) ;
 					}else if(type.endsWith("Date")){
-						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(fields[i]) ;
-						Date sqlDate = new Date(utilDate.getTime()) ;
-						pst.setDate(i + 1, sqlDate ) ;
+						if(wrapper.getPropertyValue(fields[i])==null){
+							pst.setDate(i + 1, null ) ;
+						}else{
+							java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(fields[i]) ;
+							Date sqlDate = new Date(utilDate.getTime()) ;
+							pst.setDate(i + 1, sqlDate ) ;
+						}
 					}else if(type.endsWith("long")||type.endsWith("Long")){
 						pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
 
@@ -319,6 +325,7 @@ public class DAOUtil {
 					//System.out.println((String) wrapper.getPropertyValue(vField));
 					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;					
 				}else if(type.endsWith("int") || type.endsWith("Integer")){
+					//System.out.println((Integer) wrapper.getPropertyValue(vField));
 					pst.setInt(j + 1, (Integer) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("Date")){
 					
@@ -339,7 +346,7 @@ public class DAOUtil {
 
 				}
 			}
-//			System.out.println(sql.toString()) ;
+			//System.out.println(sql.toString()) ;
 			flag = pst.executeUpdate() ;
 			//System.out.println(flag);
 		}catch(Exception e){

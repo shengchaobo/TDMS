@@ -92,8 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
-			 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">导出</a> 
-			 <a href="pages/T17/dataExport" class="easyui-linkbutton" iconCls="icon-download">数据导出</a>
+			 <a href="pages/S17/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
 			<!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a> -->
 		</div> 
@@ -133,12 +132,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					 $(function () {
 				            $.messager.alert("操作提示", "还未有统计数据，请先录取数据再查看！");
 				        });
-				}else{
-					$('#SumSchFriNumSpan').html(data.sumSchFriNum);
-					$('#InlandNumSpan').html(data.inlandNum);
-					$('#OutlandNumSpan').html(data.outlandNum);
 				}
-				
+				$('#SumSchFriNumSpan').html(data.sumSchFriNum);
+				$('#InlandNumSpan').html(data.inlandNum);
+				$('#OutlandNumSpan').html(data.outlandNum);
 			}
 		});
 	

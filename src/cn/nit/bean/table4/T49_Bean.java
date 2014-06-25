@@ -20,6 +20,7 @@ public class T49_Bean implements
 	 * 
 	 */
 	// Fields
+	private int seqNumber;
 	private String teaUnit;
 	private String unitId;
 	private Integer complileBookNum;
@@ -199,6 +200,14 @@ public class T49_Bean implements
 
 	public String getUnitId() {
 		return unitId;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return seqNumber;
 	}
 
 }

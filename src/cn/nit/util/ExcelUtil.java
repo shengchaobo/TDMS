@@ -68,7 +68,7 @@ public class ExcelUtil {
 	 * @return
 	 * @throws Exception 
 	 */
-	public static ByteArrayOutputStream exportExcel(List<T411_Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
+	public static ByteArrayOutputStream exportExcel(List list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
 		
         WritableWorkbook wwb;
         ByteArrayOutputStream fos = null;
@@ -119,6 +119,7 @@ public class ExcelUtil {
                         	}
                         	                        	
         					String type = wrapper.getPropertyType(column).toString() ;
+        					//System.out.println(type +"test" + column);
 
         					//判断插入数据的类型，并赋�?
         					if(type.endsWith("String")){

@@ -104,8 +104,8 @@ public class T321_DAO {
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
 //		sql.append(" from "+ tableName);
-		sql.append(" from " + tableName + " as t,DiDepartment dpt ") ;
-		sql.append(" where dpt.UnitID=t.UnitID ");		
+		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ") ;
+		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID");		
 		int total = 0 ;
 
 //		System.out.println(sql.toString());
@@ -145,11 +145,11 @@ public class T321_DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T321POJO> list =null ;
-		sql.append("select t.SeqNumber,t.DiscipName,t.DiscipID,t.UnitName," +
-				"t.UnitID,t.DiscipType,t.NationLevelOne,t.NationLevelTwo,t.NationLevelKey,t.ProvinceLevelOne,"+
-				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
-		sql.append(" where   dpt.UnitID=t.UnitID" );
+		sql.append("select t.SeqNumber,t.MainClassName,t.MainClassID,t.ByPassTime," +
+				"t.MajorNameInSch,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.UnitName,t.UnitID,"+
+				"t.Note,t.Time");
+		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ");
+		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID" );
 //		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
 //		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
 //		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
@@ -164,7 +164,7 @@ public class T321_DAO {
 			sql.append(conditions) ;
 		}
 		
-		sql.append(" order by SeqNumber desc") ;
+		sql.append(" order by cast(MainClassID as int)") ;
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

@@ -25,7 +25,7 @@ public class T151DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "ResInsName,ResInsID,Type,BuildCondition,BiOpen,OpenCondition,TeaUnit,UnitID,BeginYear,HouseArea,Time,Note,audit,position" ;
+	private String field = "ResInsName,ResInsID,Type,BuildCondition,BiOpen,OpenCondition,TeaUnit,UnitID,BeginYear,HouseArea,Time,Note" ;
 	
 	/**
 	 * 将数据表151的实体类插入数据库
@@ -84,14 +84,14 @@ public class T151DAO {
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
 		int total = 0 ;
 		
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
-		}
-		
-		if(conditions != null && !conditions.equals("")){
-			sql.append(conditions) ;
-		}
-		
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
+//		
+//		if(conditions != null && !conditions.equals("")){
+//			sql.append(conditions) ;
+//		}
+//		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -127,10 +127,10 @@ public class T151DAO {
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
 
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
-		}
-		
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
+//		
 		if(conditions != null){
 			sql.append(conditions) ;
 		}
@@ -164,25 +164,9 @@ public class T151DAO {
 	 * @time: 2014-5-14/下午02:34:42
 	 */
 	public List<T151Bean> totalList(){
-		
-//		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
-//				
-//		String queryPageSql = "select TeaId,TeaName,Gender,Birthday,AdmisTime,TeaState," +
-//		"BeginWorkTime,IdentiType AS IDCode,FromOffice,OfficeID,FromUnit,unitID," +
-//		"FromTeaResOffice,TeaResOfficeID," + tableName4 + ".Education,Degree AS TopDegree,GraSch,Major," +
-//		"AdminLevel," + tableName5 + ".Source,TitleLevel AS MajTechTitle,TitleName AS TeaTitle,NotTeaTitle,SubjectClass," +
-//		"DoubleTea,Industry,Engineer,TeaBase,TeaFlag,Note"
-//		+ " from " + tableName + 
-//		" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
-//		" left join " + tableName2+ " on " + "MajTechTitle=" + tableName2 + ".IndexID " +
-//		" left join " + tableName3+ " on " + "TeaTitle=" + tableName3 + ".IndexID " +
-//		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
-//		" left join " + tableName5+ " on " + tableName + ".Source=" + tableName5 + ".IndexID " +
-//		" left join " + tableName6+ " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
-//		" where " + Cond ;
+
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note," +
-				"t.audit,t.position");
+		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
 
@@ -205,6 +189,7 @@ public class T151DAO {
 		return list ;
 	}
 	
+	//更新！
 	public boolean update(T151Bean t151Bean){
 			
 			boolean flag = false ;

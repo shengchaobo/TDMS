@@ -8,8 +8,7 @@ import javax.persistence.Table;
 /**
  * DiCourseAttri entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "DiCourseAttri", schema = "dbo", catalog = "TDMS")
+
 public class DiCourseAttriBean implements java.io.Serializable {
 
 	// Fields

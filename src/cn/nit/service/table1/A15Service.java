@@ -2,6 +2,7 @@ package cn.nit.service.table1;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,11 +22,55 @@ public class A15Service {
 	/**统计表A15数据库操作类*/
 	private A15DAO a15Dao=new A15DAO();
 	
+	
+	//输出数据
+	public String autidingdata(String year)
+	{
+		List<A15POJO> list=new ArrayList<A15POJO>();
+		A15POJO a15Pojo=new A15POJO();
+		String str=null;
+		boolean flag=false;
+		if(a15Dao.delete(year))
+		{
+			//得到最终统计信息
+			A15Bean a15Bean=this.getStatic(year);
+			
+//			System.out.println("sum:"+a15Bean.getSumResNum());
+//			System.out.println("cityNum:"+a15Bean.getCityResNum());
+//			System.out.println("cityRatio:"+a15Bean.getCityResRatio());
+//			System.out.println("NationNum:"+a15Bean.getNationResNum());
+//			System.out.println("NationRatio:"+a15Bean.getNationResRatio());
+//			System.out.println("ProNum:"+a15Bean.getProviResNum());
+//			System.out.println("ProRatio:"+a15Bean.getProviResRatio());
+//			System.out.println("SchNum:"+a15Bean.getSchResNum());
+//			System.out.println("SchRatio:"+a15Bean.getSchResRatio());
+			
+			if(a15Bean.getSumResNum()==0){
+				flag=false;
+			}else{flag=true;}
+			System.out.println(flag);
+			if(flag){
+//				System.out.println("hello!");
+				//插入数据库
+				if(a15Dao.insert(a15Bean))
+				{
+					list=a15Dao.auditingData(year);
+					a15Pojo=list.get(0);
+				}
+				JSON json=JSONSerializer.toJSON(a15Pojo) ;
+				str=json.toString();
+			}
+		}
+	    return str;
+	}
+	
+	
 	/**统计数据*/
 	public  A15Bean getStatic(String year)
 	{
 		A15Bean a15Bean=new A15Bean();
 		List<S15Bean> list=a15Dao.getOriData(year);
+//		System.out.println(list.size());
 		
 		/**国家级个数*/
 		int num1=0;
@@ -64,12 +109,27 @@ public class A15Service {
 		    }
 		}	
 		totalNum=num1+num2+num3+num4;
+//		System.out.println(num1);
+//		System.out.println(num2);
+//		System.out.println(num3);
+//		System.out.println(num4);
+//		System.out.println(totalNum);
 		if(totalNum!=0){
 //			double n1=(double)(num1/totalNum);
-			ratio1=this.m2((double)(num1/totalNum));
-			ratio2=this.m2((double)(num2/totalNum));
-			ratio3=this.m2((double)(num3/totalNum));
-			ratio4=this.m2((double)(num4/totalNum));
+			
+			ratio1=this.m2(((double)num1/(double)totalNum));
+//			ratio1=ratio1*100;
+//			System.out.println(ratio1);
+			ratio2=this.m2(((double)num2/(double)totalNum));
+//			ratio2=ratio2*100;
+//			System.out.println((num2/totalNum));
+//			System.out.println(ratio2);
+			ratio3=this.m2(((double)num3/(double)totalNum));
+//			ratio3=ratio3*100;
+//			System.out.println(ratio3);
+			ratio4=this.m2(((double)num4/(double)totalNum));
+//			ratio4=ratio4*100;
+//			System.out.println(ratio4);
 			a15Bean.setCityResNum(num3);
 			a15Bean.setCityResRatio(ratio3);
 			a15Bean.setNationResNum(num1);
@@ -78,6 +138,7 @@ public class A15Service {
 			a15Bean.setProviResRatio(ratio2);
 			a15Bean.setSchResNum(num4);
 			a15Bean.setSchResRatio(ratio4);
+			a15Bean.setSumResNum(totalNum);
 			a15Bean.setTime(new Date());
 		}
 		return a15Bean;
@@ -90,49 +151,21 @@ public class A15Service {
 	}
 	
 	
-	public String autidingdata(String year)
-	{
-		List<A15POJO> list=null;
-		A15POJO a15Pojo=null;
-		String str=null;
-		boolean flag=false;
-		if(a15Dao.delete(year))
-		{
-			//得到最终统计信息
-			A15Bean a15Bean=this.getStatic(year);
-//			System.out.println(a15Bean.g);
-			if(a15Bean.getSumResNum()==0){
-				flag=false;
-			}else{flag=true;}
-//			System.out.println(flag);
-			if(flag){
-//				System.out.println("hello!");
-				//插入数据库
-				if(a15Dao.insert(a15Bean))
-				{
-					list=a15Dao.auditingData(year);
-					a15Pojo=list.get(0);
-				}
-				JSON json=JSONSerializer.toJSON(a15Pojo) ;
-				str=json.toString();
-			}
-		}
-	    return str;
-	}
-	
 	public double m2(double n){
 		 BigDecimal bg = new BigDecimal(n);
-	     double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+	     double f1 = bg.setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
 //	     System.out.println(f1);
 	     return f1;
 	}
 	
 	public static void main(String arg[]){
-		double s1=20.33666;
+		double s1=0.0;
 		A15Service ser=new A15Service();
-//		System.out.println(ser.m2(s1));
-		String str=ser.autidingdata("2014");
-		System.out.println(str);
+//		A15Bean a15Bean=ser.getStatic("2014");
+//		System.out.println(a15Bean.getSumResNum());
+//		A15Bean a15Bean=ser.getStatic("2014");
+		String info=ser.autidingdata("2014");
+		System.out.println(info);
 		
 	}
 

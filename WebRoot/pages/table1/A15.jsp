@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -61,7 +61,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table class="easyui-datagrid" toolbar="#toolbar" title="学校基本情况"></table>
 	<hr color="blue" width="100%" />
 	<table class="doc-table" url="pages/A15/auditingData" id="showInfo">
-	
 	<tbody >
 	 
 	        <tr>
@@ -137,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="toolbar" style="height:auto">
 		<div>
 			<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a> -->
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
+		<a href="pages/A15/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
 			<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a> -->
 		</div> 
 	</div>
@@ -178,13 +177,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        });
 				}else {
 					$('#NationLevelSpan').html(data.nationResNum);
-					$('#NaHouseAreaSpan').html(data.nationResRatio);
+					$('#NaHouseAreaSpan').html(douToStr(data.nationResRatio));
 					$('#ProvinLevelSpan').html(data.proviResNum);
-					$('#PrHouseAreaSpan').html(data.proviResRatio);
+					$('#PrHouseAreaSpan').html(douToStr(data.proviResRatio));
 					$('#CityLevelSpan').html(data.cityResNum);
-					$('#CiHouseAreaSpan').html(data.cityResRatio);
+					$('#CiHouseAreaSpan').html(douToStr(data.cityResRatio));
 					$('#SchoolLevelSpan').html(data.schResNum);
-					$('#ScHouseAreaSpan').html(data.schResRatio);
+					$('#ScHouseAreaSpan').html(douToStr(data.schResRatio));
 					$('#TotalSpan').html(data.sumResNum);
 				}
 				
@@ -357,6 +356,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		}
 	    	}).submit();
 	    }
+	   </script>
+	   
+	   
+	   <script type="text/javascript">
+	     function douToStr(val){
+		     var str;
+		     if(val ==  null){
+			     str=null;
+		     }else{
+		    	 var bol=""+val;//把double型转换成sre类型
+			     str = bol+"%";
+		     }
+		     return str;
+	     }
 	   </script>
 
 	<script type="text/javascript"> 

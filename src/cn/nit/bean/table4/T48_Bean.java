@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 public class T48_Bean implements java.io.Serializable {
 
 	// Fields
+	private String SeqNumber;
 	private String teaUnit;
 	private String unitId;
 	private String teamName;
@@ -137,6 +138,14 @@ public class T48_Bean implements java.io.Serializable {
 
 	public String getTeamLevel() {
 		return teamLevel;
+	}
+
+	public void setSeqNumber(String seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public String getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

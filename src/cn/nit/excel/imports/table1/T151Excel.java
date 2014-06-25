@@ -15,6 +15,8 @@ import org.springframework.beans.BeanWrapperImpl;
 import jxl.Cell;
 import jxl.Workbook;
 import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
 import jxl.format.Colour;
 import jxl.format.UnderlineStyle;
 import jxl.format.VerticalAlignment;
@@ -254,16 +256,7 @@ public class T151Excel {
 				t151Bean.setType(Type);
 				t151Bean.setUnitID(UnitID);
 				list.add(t151Bean);
-				
-//				Date BuildYear=TimeUtil.changeDateY(BuildYearStr);
-//				t17Bean = new T17Bean();
-//				t17Bean.setClubName(ClubName);
-//				t17Bean.setBuildYear(BuildYear);
-//				t17Bean.setPlace(Place);
-//				t17Bean.setNote(note);
-//				t17Bean.setTime(new Date()) ;
-//				list.add(t17Bean);
-//				
+							
 			}
 			catch(Exception e){
 				e.printStackTrace() ;
@@ -300,13 +293,21 @@ public class T151Excel {
             wwb = Workbook.createWorkbook(fos);
             WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 
-            //    设置单元格的文字格式
+            //    设置单元格表头的文字格式
             WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
                     UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
             WritableCellFormat wcf = new WritableCellFormat(wf);
             wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
             wcf.setAlignment(Alignment.CENTRE);
-            ws.setRowView(1, 500);
+            wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+				     jxl.format.Colour.BLACK);
+           ws.setRowView(1, 500);
+              //设置格式
+			 WritableCellFormat normalFormat = new WritableCellFormat();
+			 normalFormat.setBorder(Border.ALL, BorderLineStyle.THIN,
+					     jxl.format.Colour.BLACK);
+ 
+           
 
             //判断一下表头数组是否有数据  
             if (columns != null && columns.size() > 0) {  
@@ -323,7 +324,7 @@ public class T151Excel {
                      * 其中i为列、0为行、columns[i]为数据、wcf为样式 
                      * 合起来就是说将columns[i]添加到第一行(行、列下标都是从0开始)第i列、样式为什么"色"内容居中 
                      */  
-                    ws.addCell(new Label(i, 0, columns.get(i), wcf));  //i列0行，值
+                    ws.addCell(new Label(i, 0, columns.get(i), wcf));  
                 }  
   
                 //判断表中是否有数据  
@@ -337,7 +338,7 @@ public class T151Excel {
                         for(String column:maplist.keySet()){
                         	
                         	if(column.equals("SeqNum")){
-                        		ws.addCell(new Label(0,i,""+i)); 
+                        		ws.addCell(new Label(0,i,""+i,normalFormat)); 
                         		continue;
                         	}
                         	                        	
@@ -345,27 +346,29 @@ public class T151Excel {
 
         					//判断插入数据的类型，并赋�?
         					if(type.endsWith("String")){
-        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column)));
+        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column),normalFormat));
         					}else if(type.endsWith("int")||type.endsWith("Integer")){
-        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString()));
+        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString(),normalFormat));
         					}else if(type.endsWith("Date")){
         						if((java.util.Date)wrapper.getPropertyValue(column) == null){
-        							ws.addCell(new Label(maplist.get(column).intValue(),i,null));
+        							ws.addCell(new Label(maplist.get(column).intValue(),i,null,normalFormat));
         						}else{
             						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(column) ;
             						Date sqlDate = new Date(utilDate.getTime()) ;
-            						ws.addCell(new Label(maplist.get(column).intValue(),i,sqlDate.toString()));
+            						TimeUtil til=new TimeUtil();
+            						String date=til.changeFormat5(sqlDate);
+            						ws.addCell(new Label(maplist.get(column).intValue(),i,date,normalFormat));
         						}
         					}else if(type.endsWith("long")||type.endsWith("Long")){
-        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString()));
+        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString(),normalFormat));
         					}else if(type.endsWith("boolean")||type.endsWith("Boolean")){
         						if((Boolean)wrapper.getPropertyValue(column)){
-        							ws.addCell(new Label(maplist.get(column).intValue(),i,"是"));
+        							ws.addCell(new Label(maplist.get(column).intValue(),i,"是",normalFormat));
         						}else{
-        							ws.addCell(new Label(maplist.get(column).intValue(),i,"否"));
+        							ws.addCell(new Label(maplist.get(column).intValue(),i,"否",normalFormat));
         						}
         					}else if(type.endsWith("double")||type.endsWith("Double")){
-        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString()));
+        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString(),normalFormat));
         					}else{
         						throw new Exception("自行添加对应类型" + type) ;
         					}                       	                         	

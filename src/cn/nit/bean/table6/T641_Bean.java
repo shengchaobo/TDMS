@@ -16,74 +16,50 @@ import javax.persistence.TemporalType;
 public class T641_Bean implements java.io.Serializable {
 
 	// Fields
+	private int seqNumber;
 	private String item;
 	private Double aidFund;
 	private Integer aidStuNum;
 	private Date time;
 	private String note;
-
-	// Constructors
-
-	/** default constructor */
-	public T641_Bean() {
+	
+	public int getSeqNumber() {
+		return seqNumber;
 	}
-
-	/** full constructor */
-	public T641_Bean(String item,
-			Double aidFund, Integer aidStuNum, Date time, String note) {
-		this.item = item;
-		this.aidFund = aidFund;
-		this.aidStuNum = aidStuNum;
-		this.time = time;
-		this.note = note;
+	public void setSeqNumber(int seqNumber) {
+		this.seqNumber = seqNumber;
 	}
-
-	// Property accessors
-
-	@Column(name = "Item", nullable = false)
 	public String getItem() {
-		return this.item;
+		return item;
 	}
-
 	public void setItem(String item) {
 		this.item = item;
 	}
-
-	@Column(name = "AidFund", precision = 18)
 	public Double getAidFund() {
-		return this.aidFund;
+		return aidFund;
 	}
-
 	public void setAidFund(Double aidFund) {
 		this.aidFund = aidFund;
 	}
-
-	@Column(name = "AidStuNum")
 	public Integer getAidStuNum() {
-		return this.aidStuNum;
+		return aidStuNum;
 	}
-
 	public void setAidStuNum(Integer aidStuNum) {
 		this.aidStuNum = aidStuNum;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+
 
 }

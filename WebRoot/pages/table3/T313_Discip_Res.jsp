@@ -70,8 +70,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="nationLevelKey" width=20 formatter="booleanstr">国家重点（培育）</th>
 				<th field="provinceLevelOne" width=10" formatter="booleanstr">省部一级</th>
 				<th field="provinceLevelTwo" width=10 formatter="booleanstr">省部二级</th>
-				<th field="cityLevel" width=10>市级</th>
-				<th field="schLevel" width=10>校级</th>
+				<th field="cityLevel" width=10 formatter="booleanstr">市级</th>
+				<th field="schLevel" width=10 formatter="booleanstr">校级</th>
 				<th field="note" width=10>备注</th>
 				<th field="time" width=10 formatter="formattime">时间</th>
 			</tr>
@@ -84,10 +84,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+		 	<form id="auditing" method="post">
+			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
@@ -411,7 +413,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function singleSearch(){
 		   	 $('#auditing').form('submit',{
-		   		 url: 'pages/DocAndGraSta/singleSearch',
+		   		 url: 'pages/DiscipRes/singleSearch',
 		   		 type: "post",
 			     dataType: "json",
 		   		 success: function(result){

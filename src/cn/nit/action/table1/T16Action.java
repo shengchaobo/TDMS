@@ -1,7 +1,13 @@
 package cn.nit.action.table1;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +16,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
+import cn.nit.bean.table1.T11Bean;
+import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T16Bean;
+import cn.nit.dao.table1.T16DAO;
+import cn.nit.excel.imports.table1.T16Excel;
+import cn.nit.pojo.table1.T16POJO;
 import cn.nit.service.table1.T16Service;
 
 
@@ -22,6 +33,23 @@ public class T16Action {
 	/**  表16的Bean实体类  */
 	private T16Bean t16Bean = new T16Bean() ;
 	
+	/**  表16的DAO类  */
+	private T16DAO t16Dao = new T16DAO() ;
+	
+	/**  表16的Excel类  */
+	private T16Excel t16Excel = new T16Excel() ;
+	
+	/**excel导出名字*/
+	private String excelName; //
+	
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
 //	
@@ -103,19 +131,25 @@ public class T16Action {
 		}
 	}
 	
-	
 	/**  编辑数据  */
 	public void edit(){
-
+		 
+//		System.out.println(t16Bean.getSeqNumber());
+//		System.out.println(t16Bean.getContents());
+//		System.out.println(t16Bean.getItem());
+//		System.out.println(t16Bean.getNote());
+		
+		
+		t16Bean.setTime(new Date()) ;
 		boolean flag = t16Ser.update(t16Bean) ;
 		PrintWriter out = null ;
 		
 		try{
 			out = getResponse().getWriter() ;
 			if(flag){
-				out.print("{\"state\":true,data:\"删除成功!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
-				out.print("{\"state\":true,data:\"删除失败!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
 		}catch(Exception e){
@@ -128,20 +162,27 @@ public class T16Action {
 		}
 	}
 	
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
-//
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			
+			List<T16POJO> list=new ArrayList<T16POJO>(); 
+            Date time=new Date();
+            String time1=time.toString();
+            String year=time1.substring(time1.length()-4, time1.length());
+            list=t16Dao.forExcel(year);
+            inputStream = new ByteArrayInputStream(t16Excel.writeExcel(list).toByteArray());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+		return inputStream ;
+	}
+	
+
 	public String execute() throws Exception{
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;

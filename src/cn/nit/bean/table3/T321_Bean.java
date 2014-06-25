@@ -11,7 +11,7 @@ public class T321_Bean {
 	private String MajorNameInSch;
 	private String MajorID;
 	private String UnitName;
-	private String UintID;
+	private String UnitID;
 	private Date Time;
 	private String Note;
 	
@@ -71,12 +71,12 @@ public class T321_Bean {
 		this.MajorID = MajorID;
 	}
 	
-	public String getUintID() {
-		return UintID;
+	public String getUnitID() {
+		return UnitID;
 	}
 
-	public void setUintID(String UintID) {
-		this.UintID = UintID;
+	public void setUnitID(String UnitID) {
+		this.UnitID = UnitID;
 	}
 	
 	public Date getTime(){

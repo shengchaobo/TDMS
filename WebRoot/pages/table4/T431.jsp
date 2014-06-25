@@ -38,6 +38,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
+	<script type="text/javascript">
+	function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var  queryValue = $('#searchID').val();
+         var queryParams = $('#showData').datagrid('options').queryParams;  
+         queryParams.queryword = queryValue;  
+         $("#showData").datagrid('reload'); 
+    }		
+	</script>
 </head>
 
 <body>
@@ -64,12 +73,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 		</table>
 	<div id="toolbar" style="height:auto">
-		 <div style="float: right;">
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
-		</div>
+		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
+		 	教工号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
+			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid()">查询</a>
+		</form>
 	</div>
 </body>
 </html>

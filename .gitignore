@@ -7,8 +7,23 @@
 #ºöÂÔclassÎÄ¼þ
 
 *.class
+WebRoot/WEB-INF/classes/cn/nit/dao/
+WebRoot/WEB-INF/classes/cn/nit/service/
+WebRoot/WEB-INF/classes/cn/nit/action/
+WebRoot/WEB-INF/classes/cn/nit/util/
+WebRoot/WEB-INF/classes/cn/nit/pojo/
+WebRoot/WEB-INF/classes/cn/nit/bean/
+WebRoot/WEB-INF/classes/cn/nit/configuration/di/*.xml
+WebRoot/WEB-INF/classes/cn/nit/configuration/*.xml
+WebRoot/WEB-INF/classes/cn/nit/configuration/table1/*.xml
+WebRoot/WEB-INF/classes/cn/nit/configuration/table3/*.xml
+WebRoot/WEB-INF/classes/cn/nit/configuration/table4/*.xml
+WebRoot/WEB-INF/classes/cn/nit/configuration/table6/*.xml
+WebRoot/WEB-INF/classes/cn/nit/configuration/table7/*.xml
+WebRoot/WEB-INF/classes/cn/nit/excel/downloads/*.xls
+WebRoot/WEB-INF/classes/cn/nit/excel/downloads/table6/*.xls
 WebRoot/WEB-INF/classes/
-
+WebRoot/WEB-INF/classes/META-INF/persistence.xml
 
 .classpath
 

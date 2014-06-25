@@ -1,7 +1,13 @@
 package cn.nit.action.table1;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +16,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
+import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T17Bean;
+import cn.nit.dao.table1.T17DAO;
+import cn.nit.excel.imports.table1.T17Excel;
 import cn.nit.service.table1.T17Service;
+import cn.nit.util.TimeUtil;
 
 public class T17Action {
 	
@@ -21,10 +31,27 @@ public class T17Action {
 	/**  表17的Bean实体类  */
 	private T17Bean t17Bean = new T17Bean() ;
 	
+	/**  表17的数据库操作类  */
+	private T17DAO t17Dao = new T17DAO() ;
+	
+	/**  表17的Excel实体类  */
+	private T17Excel t17Excel = new T17Excel() ;
+	
+	/**excel导出名字*/
+	private String excelName; //
+	
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
 	private Date BuildYear;
 	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -73,56 +100,109 @@ public class T17Action {
 		}
 		out.flush() ;
 	}
-
+	
 	/**  为界面加载数据  */
 	public void auditingData(){
-		
-		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
-			return ;
-		}
-		
-		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
-			return ;
-		}
-		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t17Ser.auditingData(null, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
-//		System.out.println(pages);
-		PrintWriter out = null ;
-		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print(pages) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return ;
-		}finally{
-			if(out != null){
-				out.close() ;
+			
+//			System.out.println("輸出輸出輸出");
+			
+			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
+				return ;
+			}
+			
+			if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
+				return ;
+			}
+			
+			String cond = null;
+			StringBuffer conditions = new StringBuffer();
+			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+				cond = null;	
+			}else{			
+				if(this.getSeqNum()!=null){
+					conditions.append(" SeqNumber=" + this.getSeqNum()) ;
+				}
+				
+				if(this.getStartTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+				}
+				
+				if(this.getEndTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+				}
+				cond = conditions.toString();
+			}
+
+			String pages = t17Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			PrintWriter out = null ;
+			
+			try{
+				getResponse().setContentType("text/html; charset=UTF-8") ;
+				out = getResponse().getWriter() ;
+				out.print(pages) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return ;
+			}finally{
+				if(out != null){
+					out.close() ;
+				}
 			}
 		}
-	}
-	
-	/**  生成查询条件 （查询数据）  */
-	public void auditingConditions(){
-		
-		String sqlConditions = t17Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+//
+
+//	/**  为界面加载数据  */
+//	public void auditingData(){
+//		
+//		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
+//			return ;
+//		}
+//		
+//		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
+//			return ;
+//		}
+//		
+//		String conditions = (String) getSession().getAttribute("auditingConditions") ;
+//		String pages = t17Ser.auditingData(null, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+////		System.out.println(pages);
+//		PrintWriter out = null ;
+//		try{
+//			getResponse().setContentType("text/html; charset=UTF-8") ;
+//			out = getResponse().getWriter() ;
+//			out.print(pages) ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
+//	
+//	/**  生成查询条件 （查询数据）  */
+//	public void auditingConditions(){
+//		
+//		String sqlConditions = t17Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
+//		getSession().setAttribute("auditingConditions", sqlConditions) ;
+//		PrintWriter out = null ;
+//		
+//		try{
+//			out = getResponse().getWriter() ;
+//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
+//			out.flush() ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
 	
 	/**  编辑数据  */
 	public void editSch(){
@@ -182,25 +262,42 @@ public class T17Action {
 		}
 	}
 	
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
-//
-//	public String execute() throws Exception{
-//
-//		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
-//		return "success" ;
-//	}
+	/**数据导出*/
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			
+			List<T17Bean> list = t17Dao.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("校友会名称");columns.add("设立时间");columns.add("地点");columns.add("备注");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("ClubName", 1);maplist.put("BuildYear", 2);maplist.put("Place", 3);maplist.put("Time", 4);
+			maplist.put("Note", 5);
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t17Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+	
+
+	public String execute() throws Exception{
+
+		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
+		return "success" ;
+	}
 	
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
@@ -226,30 +323,56 @@ public class T17Action {
 		this.t17Bean = t17Bean;
 	}
 
-	public void setSeqNum(int seqNum){
-		this.seqNum = seqNum ;
-	}
 	
-	public void setStartTime(Date startTime){
-		this.startTime = startTime ;
+	 public Integer getSeqNum() {
+		return seqNum;
 	}
-	
-	public void setEndTime(Date endTime){
-		this.endTime = endTime ;
+
+	public void setSeqNum(Integer seqNum) {
+		this.seqNum = seqNum;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getIds() {
+		return ids;
 	}
 
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
 
-	public void setPage(String page){
-		this.page = page ;
+	public String getPage() {
+		return page;
 	}
-	
-	public void setRows(String rows){
-		this.rows = rows ;
+
+	public void setPage(String page) {
+		this.page = page;
 	}
-	 public Date getBuildYear() {
+
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
+	public Date getBuildYear() {
 		return BuildYear;
 	}
 

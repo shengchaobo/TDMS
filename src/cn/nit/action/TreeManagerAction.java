@@ -38,7 +38,7 @@ public class TreeManagerAction {
 		}else{
 			try {
 				
-				System.out.println(jsonTree) ;
+//				System.out.println(jsonTree) ;
 				response.setContentType("text/html;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(jsonTree) ;
@@ -55,6 +55,32 @@ public class TreeManagerAction {
 	}
 
 	/**  添加树菜单  */
+	public void removeTree(){
+
+		HttpServletResponse response = ServletActionContext.getResponse() ;
+		PrintWriter out = null ;
+
+		try {			
+//			System.out.println(this.getRefId()) ;
+			out = response.getWriter() ;
+			response.setContentType("text/html;charset=UTF-8") ;
+			boolean flag = treeSer.removeTrees(this.getRefId());
+			if(flag){				
+				out.print("{success:true,successMsg:'删除成功！'}") ;
+			} else{
+				out.print("{success:false,errorMsg:'删除失败！'}") ;
+			}
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  添加树菜单  */
 	public void addTree(){
 
 		HttpServletResponse response = ServletActionContext.getResponse() ;
@@ -63,12 +89,11 @@ public class TreeManagerAction {
 
 		try {
 			
-			System.out.println(this.tree) ;
+//			System.out.println(this.tree) ;
 			out = response.getWriter() ;
-			response.setContentType("application/json;charset=UTF-8") ;
+			response.setContentType("text/html;;charset=UTF-8") ;
 			
-			if(treeSer.addTree(tree)){
-				
+			if(treeSer.addTree(tree)){				
 				out.print("{success:true,successMsg:'添加成功！'}") ;
 			} else{
 				out.print("{success:false,errorMsg:'添加失败！'}") ;
@@ -96,7 +121,7 @@ public class TreeManagerAction {
 		}else{
 			try {
 				
-				System.out.println(jsonTree) ;
+//				System.out.println(jsonTree) ;
 				response.setContentType("text/html;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(jsonTree) ;

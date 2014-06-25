@@ -12,32 +12,36 @@ public class T413_Service {
 	
 	//根据第几页获取，每页几行获取数据
 	
-	public List<T413_Bean> getPageTeaInfoList(String rows, String page){
+	public List<T413_Bean> getPageTeaInfoList(String conditions, String fillunitID, String rows, String page){
 		
 		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
 		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
 		
-		List<T413_Bean> teaInfo = teaInfoDao.queryPageList(pagesize, currentpage);
+		List<T413_Bean> teaInfo = teaInfoDao.queryPageList(conditions, fillunitID, pagesize, currentpage);		
 		
 		return teaInfo;		
 	}
 	
-	public int getTotal(){
-		return teaInfoDao.getAllList().size();
+	public int getTotal(String Conditions, String fillunitID){
+		return teaInfoDao.totalQueryPageList(Conditions, fillunitID);
 	}
 	
 	public Boolean insert(T413_Bean bean){
 		return teaInfoDao.insert(bean);
 	}
 	
+	//模板导入
+	public Boolean batchInsert(List<T413_Bean> list){
+		return teaInfoDao.batchInsert(list);
+	}
+	
 	/**
-	 * 加载所有的人
+	 * 更新数据
+	 * @param 
 	 * @return
-	 *
-	 * @time: 2014-5-14/下午03:04:36
 	 */
-	public List<T413_Bean> getList(){
-		return teaInfoDao.getAllList() ;
+	public boolean update(T413_Bean bean){
+		return teaInfoDao.update(bean) ;
 	}
 
 }

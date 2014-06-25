@@ -11,6 +11,8 @@ import java.util.Date;
  */
 public class TimeUtil {
 
+	
+
 	/**
 	 * 将{@link java.util.Date}日期格式转换为yyyy/MM/dd
 	 * @param date
@@ -38,6 +40,16 @@ public class TimeUtil {
 	 */
 	public static String changeFormat4(Date date){
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd") ;
+		return sf.format(date) ;
+	}
+	
+	/**
+	 * 将{@link java.util.Date}日期格式转换为yyyy
+	 * @param date
+	 * @return
+	 */
+	public static String changeFormat5(Date date){
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy") ;
 		return sf.format(date) ;
 	}
 	
@@ -179,18 +191,21 @@ public class TimeUtil {
 	{
 		String year="2013";
 		TimeUtil til=new TimeUtil();
-		boolean flag=til.judgeFormat3(year);
-		if(flag){
-			System.out.println("格式正确！");
-		}else{
-			System.out.println("格式错误！");
-		}
+//		boolean flag=til.judgeFormat3(year);
+//		if(flag){
+//			System.out.println("格式正确！");
+//		}else{
+//			System.out.println("格式错误！");
+//		}
+//		
+//		String test = "1973/02/02";
+//		
+//		System.out.println(changeDateY(test));
+//		System.out.println(changeDateYM(test));
+//		System.out.println(changeDateYMD(test));
+	
+		System.out.println(til.changeDateY(year));
 		
-		String test = "1973/02/02";
-		
-		System.out.println(changeDateY(test));
-		System.out.println(changeDateYM(test));
-		System.out.println(changeDateYMD(test));
 
 	}
 }

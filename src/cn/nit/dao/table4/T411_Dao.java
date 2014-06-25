@@ -370,23 +370,27 @@ public class T411_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T431_Bean> getT43List(int flag){
+	public List<T431_Bean> getT43List(int flag, String queryWord){
 		
 		String cond;
 		
 		if (flag == 1){
-			cond = "IDCode = '40003' or IDcode = '40004'";
+			cond = "(IDCode = '40003' or IDcode = '40004')";
 		}
 		else if(flag == 2){
-			cond = "IDCode = '40001' or IDcode = '40002'";
+			cond = "(IDCode = '40001' or IDcode = '40002')";
 		}
 		else if(flag == 3){
-			cond = "IDCode = '40005' or IDcode = '40006'";
+			cond = "(IDCode = '40005' or IDcode = '40006')";
 		}		
 		else if(flag == 4){
-			cond = "IDCode = '40007' or IDcode = '40008'";
+			cond = "(IDCode = '40007' or IDcode = '40008')";
 		}else{
-			cond = "IDCode = '40010'";
+			cond = "(IDCode = '40010')";
+		}
+		
+		if(queryWord != null){
+			cond = cond + "and TeaId LIKE '" + queryWord + "%'";
 		}
 		
 		String sql = "select " + "TeaId,TeaName AS Name,FromOffice AS FromDept,OfficeID AS UnitID," +

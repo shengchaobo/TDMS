@@ -8,6 +8,7 @@ import java.util.List;
 
 import cn.nit.bean.table1.A15Bean;
 import cn.nit.bean.table1.S15Bean;
+import cn.nit.bean.table1.S18Bean;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T17Bean;
 import cn.nit.dbconnection.DBConnection;
@@ -27,7 +28,7 @@ public class A15DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "NationResNum,NationResRatio, ProviResNum,ProviResRatio,CityResNum,CityResRatio,SchResNum,SchResRatio,SumResNum" +
+	private String field = "NationResNum,NationResRatio,ProviResNum,ProviResRatio,CityResNum,CityResRatio,SchResNum,SchResRatio,SumResNum" +
 			",Time,Note" ;
 	
 	
@@ -84,6 +85,35 @@ public class A15DAO {
 				}
 				return list ;
 			}
+		
+		/**
+		excel数据导出
+		 */
+		public List<A15Bean> forExcel(String year){
+			
+			StringBuffer sql = new StringBuffer() ;
+			List<A15Bean> list=null;
+	        
+			sql.append("select * from "+ tableName);
+			sql.append(" where Time like '"+year+"%'");
+			
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			
+			try{
+				st = conn.createStatement() ;
+
+				rs = st.executeQuery(sql.toString()) ;
+				list = DAOUtil.getList(rs, A15Bean.class) ;
+				
+				
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return null ;
+			}
+			return list ;
+		}
 		      
 		/**得到统计信息*/
 		public List<S15Bean> getOriData(String year)
@@ -131,6 +161,12 @@ public class A15DAO {
 				e.printStackTrace();
 			}
 			return flag;
+		}
+		
+		public static void main(String arg[]){
+			A15DAO dao=new A15DAO();
+			 List<S15Bean> list=dao.getOriData("2014");
+			 System.out.println(list.size());
 		}
 
 

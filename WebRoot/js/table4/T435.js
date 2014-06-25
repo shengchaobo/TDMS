@@ -1,37 +1,18 @@
+		//全局变量，用来暂存当前的url值
+	   var url;
+
 	//弹出添加的界面
-	function newMajorTea() {
-		$('#dlg').dialog('open').dialog('setTitle', '添加新的就业人员信息');
-				$('#addForm').form('reset');
+	function newObject() {	    	
+			url = 'pages/T435/insert' 
+			$('#dlg').dialog('open').dialog('setTitle', '添加新的就业人员信息');
+			$('#addForm').form('reset');
 	}
 	
-    //模板导入
-    var url;
-	function batchImport() {
-		$('#fm').form('submit', {
-					url : url,
-					onSubmit : function() {
-						return $(this).form('validate');
-					},
-					success : function(result) {
-						var result = eval('(' + result + ')');
-						if (result.errorMsg) {
-							$.messager.show( {
-								title : 'Error',
-								msg : result.errorMsg
-							});
-						} else {
-							$('#dlg').dialog('close'); // close the dialog
-					$('#dg').datagrid('reload'); // reload the user data
-				}
-			}
-		});
-	}
-    
 	//单条导入
 	function singleImport() {
 		// 录入数据的表单提交
 		$('#addForm').form('submit', {
-			url : 'pages/T435/insert',
+			url : url,
 				data : $('#addForm').serialize(),
 				type : "post",
 				dataType : "json",
@@ -55,16 +36,9 @@
 	function validate() {
 		// 获取文本框的值
 		var teaId = $('#teaId').val();
-		var time = $('#time').datetimebox('getValue');
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字	
-		
-		if (time == null || time.length == 0) {
-			alert("导入时间不能为空");
-			return false;
-		}
-		
-		
+			
 		if (teaId == null || teaId.length == 0) {
 				alert("教师ID不能为空");
 				return false;
@@ -75,165 +49,83 @@
 			alert("教师ID长度不超过50");
 			return false;
 		}
-			
-
-
+		
 		if (note != null && note.length > 1000) {
 			alert("备注中文字数不超过500");
-/*			$('#noteSpan').html(
-				"<font style=\"color:red\">备注中文字数不超过500</font>");*/
-				return false;
+			return false;
 		}
 		return true;
 	 }
 
-	function editUser() {
-		var row = $('#dg').datagrid('getSelections');
-		if (row.length != 1) {
-		$.messager.alert("信息提示", "没选取或者选取了多行", "info");
+	function edit() {
+		
+	   	var row = $('#unverfiedData').datagrid('getSelections');
+	   	
+	   	if(row.length != 1){
+	   		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	   		return ;
+	   	}
+	   	
+	   	url = 'pages/T435/edit' ;
+	   	   	
+	   	$('#dlg').dialog('open').dialog('setTitle','修改校领导的信息');
+	   	$('#seqNumber').val(row[0].seqNumber) ;
+	  	$('#name').combobox('select', row[0].name) ;
+		$('#unitID').combobox('select', row[0].unitId) ;
+		$('#staffType').combobox('select', row[0].staffType) ;
+		$('#note').val(row[0].note) ;
+		}
+
+		//查询
+		function reloadgrid ()  { 
+	        //查询参数直接添加在queryParams中 
+	         var  seqNum = $('#seqNum').val();
+	         var startTime = $('#startTime').datetimebox('getValue');
+	         var endTime = $('#endTime').datetimebox('getValue');
+	         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+	         queryParams.seqNum = seqNum;  
+	         queryParams.startTime = startTime;  
+	         queryParams.endTime = endTime;  
+	         $("#unverfiedData").datagrid('reload'); 
+	    }	
+		
+		//删除选中的行
+	   function deleteByIds() {
+		// 获取选中项
+	   	var row = $('#unverfiedData').datagrid('getSelections');
+	   	if (row.length == 0) {
+	   		$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
 			return;
-		}
-		alert(row[0].birthday);
-		var date = formattime(row[0].birthday);
-		// 为文本框赋值
-		$('#id').val(row[0].id);
-		$('#username').val(row[0].username);
-		$('#password').val(row[0].password);
-		$('#email').val(row[0].email);
-		$('#sex').val(row[0].sex);
-		$('#birthday').val(date);
-
-		if (row) {
-			$('#dlg').dialog('open').dialog('setTitle', '本科课程库');
-				$('#fm').form('load', row);
-				url = 'updateUser';
-			}
-		}
-
-	    function loadDic() {
-				$('#dicDlg').dialog('open').dialog('setTitle', '高级查询');
-				loadDictionary();
-		}
-		function loadDictionary() {
-				$.ajax(
-				{
-					type : "POST",
-					url : "table5/loadDic",
-									async : "false",
-									dataType : "text",
-									success : function(data) {
-										data = eval("(" + data + ")");
-										alert(data[0].id);
-										var str = "<table width=\"100%\" border=\"1\"><tr>";
-										$(data)
-												.each(
-														function(index) {
-															var val = data[index];
-															if (index % 4 == 0
-																	&& index != 0) {
-																str += "</tr><tr>";
-															}
-															str += "<td><input type=\"checkbox\" id=\""
-																	+ val.id
-																	+ "\"name="
-																	+ "\"checkboxex\""
-																	+ "value=\""
-																	+ val.data
-																	+ "\">"
-																	+ val.data
-																	+ "</input></td>";
-														});
-										// alert(str);
-										str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>";
-										document.getElementById("dicTables").innerHTML = str;
-										$.parser.parse('#dicTables');
-									}
-								}).submit();
-			}
-
-			function loadData() {
-
-				// flag判断
-				var flag = false;
-				var checkboxes = document.getElementsByName("checkboxex");
-				var tables = "<div class=\"ftitle\">自定义查询条件</div><form method=\"post\" action=\"table5/dictorySearch\" id=\"dicsDataForm\"><table width=\"100%\" border=\"1\">";
-				tables += "<tr><td>查询名称</td><td>运算符</td><td>查询内容</td><td>逻辑关系</td></tr>";
-				for (i = 0; i < checkboxes.length; i++) {
-					if (checkboxes[i].checked) {
-						flag = true;
-						tables += ("<tr><td style=\"width:50%px\">"
-								+ hideId(checkboxes[i].id, i)
-								+ checkboxes[i].value + "</td><td>"
-								+ selectOperateData(i) + "</td><td>"
-								+ selectDataHtml(checkboxes[i].id, i)
-								+ "</td><td>" + selectLogicData(i) + "</td></tr>");
+	   	}
+	   	$.messager.confirm('数据删除', '您确定删除选中项?', function(sure) {
+			if (sure) {
+				var ids = "";
+				ids += "(";
+				for ( var i = 0; i < row.length; i++) {
+					if (i < (row.length - 1)) {
+						ids += (row[i].seqNumber + ",");
+					} else {
+						ids += (row[i].seqNumber + ")");
 					}
 				}
-				if (flag) {
-					tables += "<tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-search\" onclick=\"submitDicForm()\">查询</a></td></tr>";
+				deletes(ids);
 				}
-				tables += "</table></form>";
-				alert(tables);
-				document.getElementById("dices").innerHTML = tables;
-				$.parser.parse('#dices');
-
+	   	});
+	   }
+	   
+	   function deletes(ids) {
+	   	$.ajax( {
+	   		type : "POST",
+	   		url : "pages/T435/deleteByIds?ids=" + ids,
+	   		async : "true",
+	   		dataType : "text",
+	   		success : function(result) {
+				result = eval("(" + result + ")");
+				if (result.state) {
+					$('#unverfiedData').datagrid('reload');
+				}
 			}
+	   	}).submit();
+	   }
 
-			function hideId(val, index) {
-				var hiddenId = "<input type='hidden' name='dictorySearch["
-						+ index + "].id' value='" + val + "'/>";
-
-				return hiddenId;
-			}
-
-			// 自动加载要查询的数据
-			function selectDataHtml(val, index) {
-
-				var selectsHtml = "<select class=\"easyui-combogrid\" style=\"width:50%px\" name=\"dictorySearch["
-						+ index
-						+ "].dicData\" data-options=\"panelWidth: 500, multiple: true,required:true,"
-						+ " idField: 'dicData',textField: 'dicData',"
-						+ "url: 'table5/loadDictionary?dicId="
-						+ val
-						+ "',"
-						+ "method: 'post',"
-						+ "columns: [[{field:'ck',checkbox:true},{field:'itemid',title:'数据',width:80},{field:'dicData',title:'数据',width:80}]],"
-						+ "fitColumns: true \"> </select>";
-
-				return selectsHtml;
-			}
-
-			// 生成运算关系combo
-			function selectOperateData(index) {
-
-				var operateHtml = "<select style=\"width:15%px\" name=\"dictorySearch["
-						+ index
-						+ "].operator\"> <option value=\"equals\">等于</option><option value=\"between\">之间</option><option value=\"side\">两边</option></select>";
-
-				return operateHtml;
-			}
-
-			// 生成逻辑关系combo
-			function selectLogicData(index) {
-
-				var logicHtml = "<select style=\"width:15%px\" name=\"dictorySearch["
-						+ index
-						+ "].logic\"> <option value=\"and\">并且</option><option value=\"or\">或者</option></select>";
-
-				return logicHtml;
-			}
-
-			function submitDicForm() {
-				$.ajax( {
-					type : "POST",
-					url : "table5/dictorySearch",
-					data : $('#dicsDataForm').serialize(),
-					async : "false",
-					dataType : "text",
-					success : function(data) {
-						alert(123);
-					}
-				}).submit();
-			}
-
-			
+		

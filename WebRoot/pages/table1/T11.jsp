@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -80,8 +81,10 @@
 						1.学校地址
 					</td>
 					<td style="background-color: white">
-					    <input id="SchAddress"  name="t11Bean.SchAddress" type="text"  style="display:none;"  size="50">
+					    <div id="input" style="display:none;" >
+					    <input id="SchAddress"  name="t11Bean.SchAddress" type="text"   size="50">
 					    <input id="seqNumber" type="hidden" name="t11Bean.SeqNumber" ></input>
+					    </div>
 						<div id="di">
 							<span id="SchAddressSpan" ></span>
 						</div>
@@ -97,7 +100,9 @@
 						<div  id="di">
 							<span id="SchTelSpan"></span>
 						</div>
-						<input id="SchTel"  name="t11Bean.SchTel" type="text"   style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						<input id="SchTel"  name="t11Bean.SchTel" type="text" size="50">
+						</div>
 					     <span id="SchTelSpan1"></span>
 					</td>
 				</tr>
@@ -110,8 +115,10 @@
 						<div  id="di">
 							<span id="SchFaxSpan"></span>
 						</div>
-						 <input  id="SchFax"  name="t11Bean.SchFax" type="text"  style="display:none;" size="50">
-						 <span id="SchFaxSpa1"></span>
+						<div id="input" style="display:none;" >
+						 <input  id="SchFax"  name="t11Bean.SchFax" type="text"  size="50">
+						 </div>
+						 <span id="SchFaxSpan1"></span>
 					</td>
 				</tr>
 				<tr>
@@ -126,7 +133,9 @@
 						<div  id="di">
 							<span id="SchFillerNameSpan"></span>
 						</div>
-						 <input id="SchFillerName"  name="t11Bean.SchFillerName" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchFillerName"  name="t11Bean.SchFillerName" type="text"  size="50">
+						 </div>
 						 <span id="SchFillerNameSpan1"></span>
 					</td>
 				</tr>
@@ -138,7 +147,9 @@
 						<div  id="di">
 							<span id="SchFillerTelSpan"></span>
 						</div>
-						 <input  id="SchFillerTel"  name="t11Bean.SchFillerTel" type="text"   style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input  id="SchFillerTel"  name="t11Bean.SchFillerTel" type="text"  size="50">
+						 </div>
 						 <span id="SchFillerTelSpan1"></span>
 					</td>
 				</tr>
@@ -150,12 +161,14 @@
 						<div  id="di">
 							<span id="SchFillerEmailSpan"></span>
 						</div>
-						 <input  id="SchFillerEmail"  name="t11Bean.SchFillerEmail" type="text"    style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input  id="SchFillerEmail"  name="t11Bean.SchFillerEmail" type="text"   size="50">
+						 </div>
 						 <span id="SchFillerEmailSpan1"></span>
 					</td>
 				</tr>
 				<tr>
-					<td rowspan=11 style="width: 80px; background-color: white">
+					<td rowspan=11 style="width: 80px; background-color: white" align="center">
 						学校概况
 					</td>
 					<td colspan=2 style="width: 200px; background-color: white"
@@ -166,7 +179,9 @@
 						<div  id="di">
 							<span id="SchNameSpan"></span>
 						</div>
-						 <input id="SchName"  name="t11Bean.SchName" type="text"   style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchName"  name="t11Bean.SchName" type="text"   size="50">
+						 </div>
 						 <span id="SchNameSpan1"></span>
 					</td>
 				</tr>
@@ -179,7 +194,9 @@
 						<div  id="di">
 							<span id="SchIDSpan"></span>
 						</div>
-						 <input id="SchID"  name="t11Bean.SchID" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchID"  name="t11Bean.SchID" type="text"  size="50">
+						 </div>
 						 <span id="SchIDSpan1"></span>
 					</td>
 				</tr>
@@ -192,7 +209,9 @@
 						<div  id="di">
 							<span id="SchEnNameSpan"></span>
 						</div>
-						 <input id="SchEnName"  name="t11Bean.SchEnName"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchEnName"  name="t11Bean.SchEnName"  size="50">
+						 </div>
 						 <span id="SchEnNameSpan1"></span>
 					</td>
 				</tr>
@@ -205,7 +224,9 @@
 						<div  id="di">
 							<span id="SchTypeSpan"></span>
 						</div>
-						 <input id="SchType"  name="t11Bean.SchType" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchType"  name="t11Bean.SchType" type="text"  size="50">
+						 </div>
 						 <span id="SchTypeSpan1"></span>
 					</td>
 				</tr>
@@ -218,7 +239,9 @@
 						<div  id="di">
 							<span id="SchQualitySpan"></span>
 						</div>
-						 <input id="SchQuality"  name="t11Bean.SchQuality" type="text"   style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchQuality"  name="t11Bean.SchQuality" type="text"  size="50">
+						 </div>
 						 <span id="SchQualitySpan1"></span>
 					</td>
 				</tr>
@@ -231,7 +254,9 @@
 						<div  id="di">
 							<span id="SchBuilderSpan"></span>
 						</div>
-						 <input id="SchBuilder"  name="t11Bean.SchBuilder" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchBuilder"  name="t11Bean.SchBuilder" type="text"   size="50">
+						 </div>
 						 <span id="SchBuilderSpan1"></span>
 					</td>
 				</tr>
@@ -244,7 +269,9 @@
 						<div  id="di">
 							<span id="MajDeptSpan"></span>
 						</div>
-						 <input id="MajDept"  name="t11Bean.MajDept" type="text"   style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="MajDept"  name="t11Bean.MajDept" type="text"   size="50">
+						 </div>
 						 <span id="MajDeptSpan1"></span>
 					</td>
 				</tr>
@@ -257,7 +284,9 @@
 						<div  id="di">
 							<span id="SchUrlSpan"></span>
 						</div>
-						 <input id="SchUrl"  name="t11Bean.SchUrl" type="text" value="1" style="display:none;"  size="50">
+						<div id="input" style="display:none;" >
+						 <input id="SchUrl"  name="t11Bean.SchUrl" type="text" value="1"  size="50">
+						 </div>
 						 <span id="SchUrlSpan1"></span>
 					</td>
 				</tr>
@@ -270,7 +299,9 @@
 						<div  id="di">
 							<span id="AdmissonBatchSpan"></span>
 						</div>
-						 <input id="AdmissonBatch"  name="t11Bean.AdmissonBatch" type="text"   edit="true" style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="AdmissonBatch"  name="t11Bean.AdmissonBatch" type="text"   edit="true" size="50">
+						 </div>
 						 <span id="AdmissonBatchSpan1"></span>
 					</td>
 				</tr>
@@ -283,7 +314,9 @@
 						<div  id="di">
 							<span id="Sch_BeginTimeSpan"></span>
 						</div>
-						 <input id="Sch_BeginTime"  name="Year" type="text"  style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="Sch_BeginTime"  name="Year" type="text"   size="50">
+						 <div id="input" style="display:none;" >
 						 <span id="Sch_BeginTimeSpan1"></span>
 					</td>
 				</tr>
@@ -296,7 +329,9 @@
 						<div  id="di">
 							<span id="MediaUrlSpan"></span>
 						</div>
-						 <input id="MediaUrl"  name="t11Bean.MediaUrl" type="text" style="display:none;" size="50">
+						<div id="input" style="display:none;" >
+						 <input id="MediaUrl"  name="t11Bean.MediaUrl" type="text" size="50">
+						 </div>
 						 <span id="MediaUrlSpan1"></span>
 					</td>
 				</tr>
@@ -315,7 +350,9 @@
 						<div  id="di">
 							<span id="YaohuSchAddSpan"></span>
 						</div>
-						 <input id="YaohuSchAdd"  name="t11Bean.YaohuSchAdd" type="text"  style="display:none;" size="50" >
+						<div id="input" style="display:none;" >
+						 <input id="YaohuSchAdd"  name="t11Bean.YaohuSchAdd" type="text"  size="50" >
+						 </div>
 						 <span id="YaohuSchAddSpan1"></span>
 					</td>
 				</tr>
@@ -327,7 +364,9 @@
 						<div  id="di">
 							<span id="PengHuSchAddSpan"></span>
 						</div>
-						 <input id="PengHuSchAdd"  name="t11Bean.PengHuSchAdd" type="text" style="display:none"  size="50" >
+						<div id="input" style="display:none;" >
+						 <input id="PengHuSchAdd"  name="t11Bean.PengHuSchAdd" type="text"   size="50" >
+						 </div>
 						 <span id="PengHuSchAddSpan1"></span>
 					</td>
 				</tr>
@@ -339,26 +378,43 @@
 				<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a> -->
 				<a href="javascript:void(0)" class="easyui-linkbutton"
 					iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a>
-			
-				<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a> -->
+				<a href="pages/T11/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">数据导入</a>
+			<a href='pages/T11/downloadModel?saveFile=<%=URLEncoder.encode("表1-1学校基本信息（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</div>
 		</div>
-
 		
 	
+		<div id="dlg" class="easyui-dialog"
+		style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true"
+		buttons="#dlg-buttons">
+		<div class="ftitle">学校基本信息导入</div>
+		<div class="fitem">
+			<form id="batchForm" method="post" enctype="multipart/form-data">
+				<label>批量上传：</label> 
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
+					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+			</form>
+		</div>
+	</div>
+
+		
+	<!-- 
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
 		<div class="ftitle">高级检索</div>
 		<div id="dicTables"  class="fitem">
 		</div>
 		<div id="dices"  class="fitem"></div>
 	</div>
-	 
-	<div id="dlg-buttons" style="display:none">
+	  -->
+	<div id="dlg-buttons1" style="display:none">
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-ok" onclick="save()">保存</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="cancel()">取消</a>
 	</div>
+	
 	</body>
 
 	<script type="text/javascript">
@@ -373,11 +429,11 @@
 
 	function cancel(){
 		 $('div#di').show();
-		  //   
-		       //$('input').attr('style').attr('display','inline-block');
-		        $("input").css("display","none");   
-		        $('div#dlg-buttons').css("display","none");
-		        loadAuotCityList();
+		
+		// $("input#input").css("display","block");
+		 $("div#input").css("display","none");   
+		 $('div#dlg-buttons1').css("display","none");
+		 loadAuotCityList();
 		}
 	function loadAuotCityList() {
 
@@ -413,31 +469,55 @@
 		});
 	}
 
-	function batchImport() {
-		$('#fm').form('submit', {
-			url : url,
-			onSubmit : function() {
-				return $(this).form('validate');
-			},
-			success : function(result) {
-				var result = eval('(' + result + ')');
-				if (result.errorMsg) {
-					$.messager.show( {
-						title : 'Error',
-						msg : result.errorMsg
-					});
-				} else {
-					$('#dlg').dialog('close'); // close the dialog
-			$('#dg').datagrid('reload'); // reload the user data
-		}
-	}
-		});
-	}
+	  function batchImport(){
+	    	 $('#batchForm').form('submit',{
+	    		 url: 'pages/T11/uploadFile',
+	    		 type: "post",
+		         dataType: "json",
+	    		 onSubmit: function(){
+	    		   alert(123);
+	    			 return check() ;
+	    		 },
+	    		 success: function(result){
+	    		 	var result = eval('('+result+')');
+	    		 	if (!result.success){
+	    		 		$.messager.show({
+	    		 			title: 'Error',
+	    		 			msg: result.errorMsg
+	    			 });
+	    		 	} else {
+			    		 $('#dlg').dialog('close'); // close the dialog
+			    		 $('#dg').datagrid('reload'); // reload the user data
+	    		 	}
+	    		 }
+	    		 });
+	    	 loadAuotCityList();
+	    }
+	    
+	    function check(){
+	    	var fileName = $("#uploadFile").val() ;
+	    	alert(fileName);
+	    	
+	    	if(fileName == null || fileName == ""){
+	    		return false ;
+	    	}
+	    	
+	    	var pos = fileName.lastIndexOf(".") ;
+	    	var suffixName = fileName.substring(pos, fileName.length) ;
+	    	
+	    	if(suffixName == ".xls"){
+	    		return true ;
+	    	}else{
+	    		 $.messager.alert("操作提示", "导入Excel格式不正确！");
+	    		return false ;
+	    	}
+	    } 
 
-	function newCourse() {
-		$('#dlg').dialog('open').dialog('setTitle', '添加学校荣誉库');
-		$('#rewardForm').form('reset');
-	}
+	 function newCourse(){
+	    	//url = 'pages/T11/uploadFile' ;
+		    $('#dlg').dialog('open').dialog('setTitle','导入学校基本信息');
+		   // $('#resInsForm').form('reset');
+	    }
 
 	function singleImport() {
 		//录入数据的表单提交
@@ -463,9 +543,9 @@
 	}
 
 	function validate() {
-
-//		 re = new RegExp("^[0-9]+$");//判断是否为数字
-//		 alert( $('#SchTel').val()) ;
+		
+        var reg1=/\d{4}-\d{8}/ ;
+        var reg2=/\d{4}/;
 		//获取文本框的值
 		var schAddress = $('#SchAddress').val();
 		var schTel = $('#SchTel').val();
@@ -488,31 +568,260 @@
 		var pengHuSchAdd = $('#PengHuSchAdd').val();
 		//根据数据库定义的字段的长度，对其进行判断
 		if (schAddress == null || schAddress.length == 0
-				|| rewardName.length > 150) {
+				||schAddress.length > 150) {
 			$('#SchAddress').focus();
 			$('#SchAddress').select();
 			$('#SchAddressSpan1').html(
 					"<font style=\"color:red\">學校地址不能为空且不能超過150個字符</font>");
 			return false;
 		} else {
-			return true;
 			$('#SchAddressSpan1').html("");
 		}
+		
+		if (schTel == null || schTel.length == 0 || schTel.length<12) {
+			$('#SchTel').focus();
+			$('#SchTel').select();
+		$('#SchTelSpan1').html(
+					"<font style=\"color:red\">學校號碼不能为空且不能少于12個字符</font>");
+			return false;
+		}
+		else {
+			$('#SchTelSpan1').html("");
+		//	alert(222);
+		}
 
-//		if (schTel == null || schTel.length == 0 || schTel.length > 50) {
-//			$('#SchTel').focus();
-//			$('#SchTel').select();
-	//		$('#SchTelSpan1').html(
-	//				"<font style=\"color:red\">學校號碼不能为空且不能超過50個字符</font>");
-	//		return false;
-	//	}else if (!re.test(schTel)){
-	//		$('#SchTelSpan1').html(
-	//		"<font style=\"color:red\">學校號碼只能為數字</font>");
-	//	}	
-	//	else {
-	//		$('#SchTelSpan1').html("");
-	//	}
-	//	return true;
+	    if (!reg1.test(schTel)){
+		    $('#SchTel').focus();
+			$('#SchTel').select();
+			$('#SchTelSpan1').html(
+			"<font style=\"color:red\">學校號碼格式只能为：0791-88126683</font>");
+			return false;
+		}	
+		else {
+			$('#SchTelSpan1').html("");
+		}
+
+	    if (schFax == null || schFax.length == 0 || schFax.length<12) {
+			$('#SchFax').focus();
+			$('#SchFax').select();
+		    $('#SchFaxSpan1').html(
+					"<font style=\"color:red\">學校號碼不能为空且不能少于12個字符</font>");
+			return false;
+		}
+		else {
+			$('#SchFaxSpan1').html("");
+		//	alert(222);
+		}
+
+	    if (!reg1.test(schFax)){
+		    $('#SchFax').focus();
+			$('#SchFax').select();
+			$('#SchFaxSpan1').html(
+			         "<font style=\"color:red\">學校號碼格式只能为：0791-88126683</font>");
+			return false;
+		}	
+		else {
+			$('#SchFaxSpan1').html("");
+		}
+
+	    if (schFillerName  == null || schFillerName .length == 0
+				||schFillerName .length > 50) {
+			$('#SchFillerName ').focus();
+			$('#SchFillerName').select();
+			$('#SchFillerNameSpan1').html(
+					"<font style=\"color:red\">填报人姓名不能为空且不能超过25个字符！</font>");
+			return false;
+		} else {
+			$('#SchFillerNameSpan1').html("");
+		}
+
+	    if (schFillerTel  == null || schFillerTel .length == 0 || schFillerTel .length<12) {
+			$('#SchFillerTel ').focus();
+			$('#SchFillerTel').select();
+		$('#SchFillerTelSpan1').html(
+					"<font style=\"color:red\">填报人联系电话不能为空且不能少于12個字符</font>");
+			return false;
+		}
+		else {
+			$('#SchFillerTelSpan1').html("");
+		//	alert(222);
+		}
+
+	    if (!reg1.test(schFillerTel)){
+		    $('#SchFillerTel').focus();
+			$('#SchFillerTel').select();
+			$('#SchFillerTelSpan1').html(
+			"<font style=\"color:red\">电话號碼格式只能为：0791-88126683</font>");
+			return false;
+		}	
+		else {
+			$('#SchFillerTelSpan1').html("");
+		}
+
+	    if (schFillerEmail   == null || schFillerEmail.length == 0
+				||schFillerEmail.length > 100) {
+			$('#SchFillerEmail').focus();
+			$('#SchFillerEmail').select();
+			$('#SchFillerEmailSpan1').html(
+					"<font style=\"color:red\">电子邮箱不能为空且不能超过100个字符！</font>");
+			return false;
+		} else {
+			$('#SchFillerEmailSpan1').html("");
+		}
+
+	    if (schName== null || schName.length == 0
+				||schName.length > 100) {
+			$('#SchName').focus();
+			$('#SchName').select();
+			$('#SchNameSpan1').html(
+					"<font style=\"color:red\">学校不能为空且不能超过100个字符！</font>");
+			return false;
+		} else {
+			$('#SchNameSpan1').html("");
+		}
+
+	    if (schID == null || schID.length == 0
+				||schID .length > 100) {
+			$('#SchID').focus();
+			$('#SchID').select();
+			$('#SchIDSpan1').html(
+					"<font style=\"color:red\">学校不能为空且不能超过100个字符！</font>");
+			return false;
+		} else {
+			$('#SchIDSpan1').html("");
+		}
+
+	    if (schEnName  == null || schEnName.length == 0
+				||schEnName.length > 200) {
+			$('#SchEnName ').focus();
+			$('#SchEnName').select();
+			$('#SchEnNameSpan1').html(
+					"<font style=\"color:red\">学校英文名称不能为空且不能超过200个字符！</font>");
+			return false;
+		} else {
+			$('#SchEnNameSpan1').html("");
+		}
+
+	    if (schType   == null || schType.length == 0
+				||schType.length > 50) {
+			$('#SchType  ').focus();
+			$('#SchType').select();
+			$('#SchTypeSpan1').html(
+					"<font style=\"color:red\">办学不能为空且不能超过50个字符！</font>");
+			return false;
+		} else {
+			$('#SchTypeSpan1').html("");
+		}
+
+	    if (schQuality  == null || schQuality.length == 0
+				||schQuality.length > 50) {
+			$('#SchQuality').focus();
+			$('#SchQuality').select();
+			$('#SchQualitySpan1').html(
+					"<font style=\"color:red\">办学性质不能为空且不能超过50个字符！</font>");
+			return false;
+		} else {
+			$('#SchQualitySpan1').html("");
+		}
+
+	    if (schBuilder   == null || schBuilder.length == 0
+				||schBuilder.length > 100) {
+			$('#SchBuilder ').focus();
+			$('#SchBuilder').select();
+			$('#SchBuilderSpan1').html(
+					"<font style=\"color:red\">举办者不能为空且不能超过100个字符！</font>");
+			return false;
+		} else {
+			$('#SchBuilderSpan1').html("");
+		}
+
+	    if (majDept == null ||majDept.length == 0
+				||majDept.length > 100) {
+			$('#MajDept').focus();
+			$('#MajDept').select();
+			$('#MajDeptSpan1').html(
+					"<font style=\"color:red\">主管部门不能为空且不能超过100个字符！</font>");
+			return false;
+		} else {
+			$('#MajDeptSpan1').html("");
+		}
+
+	    if (schUrl  == null ||schUrl.length == 0
+				||schUrl.length > 100) {
+			$('#SchUrl ').focus();
+			$('#SchUrl').select();
+			$('#SchUrlSpan1').html(
+					"<font style=\"color:red\">学校网址不能为空且不能超过100个字符！</font>");
+			return false;
+		} else {
+			$('#SchUrlSpan1').html("");
+		}
+
+	    if (admissionBatch == null ||admissionBatch.length == 0
+				||admissionBatch.length > 300) {
+			$('#AdmissionBatch').focus();
+			$('#AdmissionBatch').select();
+			$('#AdmissionBatchSpan1').html(
+					"<font style=\"color:red\">招生批次不能为空且不能超过150个字符！</font>");
+			return false;
+		} else {
+			$('#AdmissionBatchSpan1').html("");
+		}
+
+	    if (sch_BeginTime  == null ||sch_BeginTime.length == 0) {
+			$('#Sch_BeginTime').focus();
+			$('#Sch_BeginTime').select();
+			$('#Sch_BeginTimeSpan1').html(
+					"<font style=\"color:red\">年份不能为空！</font>");
+			return false;
+		} else {
+			$('#Sch_BeginTimeSpan1').html("");
+		}
+
+        if(!reg2.test(sch_BeginTime)){
+        	$('#Sch_BeginTime').focus();
+			$('#Sch_BeginTime').select();
+			$('#Sch_BeginTimeSpan1').html(
+					"<font style=\"color:red\">年份格式为：2014</font>");
+			return false;
+		} else {
+			$('#Sch_BeginTimeSpan1').html("");
+        }
+		
+
+	    if (mediaUrl == null ||mediaUrl.length == 0
+				||mediaUrl.length > 100) {
+			$('#MediaUrl').focus();
+			$('#MediaUrl').select();
+			$('#MediaUrlSpan1').html(
+					"<font style=\"color:red\">多媒体反映不能为空且不能超过100个字符</font>");
+			return false;
+		} else {
+			$('#MediaUrlSpan1').html("");
+		}
+
+	    if (yaohuSchAdd == null ||yaohuSchAdd.length == 0
+				||yaohuSchAdd.length > 300) {
+			$('#YaohuSchAdd').focus();
+			$('#YaohuSchAdd').select();
+			$('#YaohuSchAddSpan1').html(
+					"<font style=\"color:red\">校区名称不能为空且不能超过150个字符</font>");
+			return false;
+		} else {
+			$('#YaohuSchAddSpan1').html("");
+		}
+
+	    if (pengHuSchAdd == null ||pengHuSchAdd.length == 0
+				||pengHuSchAdd.length > 300) {
+			$('#PengHuSchAdd').focus();
+			$('#PengHuSchAdd').select();
+			$('#PengHuSchAddSpan1').html(
+					"<font style=\"color:red\">校区名称不能为空且不能超过150个字符</font>");
+			return false;
+		} else {
+			$('#PengHuSchAddSpan1').html("");
+		}
+		return true;
 	}
 
 	function editCourse(){
@@ -520,8 +829,10 @@
        $('div#di').hide();
   //   
        //$('input').attr('style').attr('display','inline-block');
-        $("input").css("display","inline");   
-        $('div#dlg-buttons').css("display","block");
+       // $("input#input").css("display","block");
+       // $("input").css("display","inline");   
+        $('div#input').css("display","inline");
+        $('div#dlg-buttons1').css("display","block");
         document.getElementById("SchAddress").value=data.schAddress ;
         document.getElementById("SchTel").value=data.schTel ;
         document.getElementById("SchFax").value=data.schFax ;
@@ -549,6 +860,7 @@
      {
             // validate();       
     		 url = 'pages/T11/edit' ;
+    		 if(validate()){
     			 $.ajax({
 						type : "POST",
 						url : url,
@@ -558,10 +870,13 @@
 						success : function(result) {
 	    			 //json格式转化
 					    var result = eval('('+result+')');
-					    $.messager.alert('温馨提示', result.data) ;
- 			           cancel();
+					    $.messager.alert('提示', result.data) ;
+			           cancel();
 						}
 					}).submit();
+    		 }
+    		 //else{  $.messager.alert('提示', "请核对好数据！") ;}
+    			
       }
 
 	function loadDic() {
@@ -625,8 +940,9 @@
 			    var seconds=parseInt(val.seconds);  
 			    seconds=seconds>9?seconds:('0'+seconds);  
 			    var time=year+'-'+month+'-'+date ;  
+			    var time1=year;
 			    //alert(time) ;
-			        return time;  
+			        return time1;  
 			    }  
 			</script>
 

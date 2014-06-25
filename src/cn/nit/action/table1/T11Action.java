@@ -6,7 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +20,9 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T11Bean;
+import cn.nit.bean.table1.T151Bean;
+import cn.nit.dao.table1.T11DAO;
+import cn.nit.excel.imports.table1.T11Excel;
 
 import cn.nit.service.table1.T11Service;
 import cn.nit.util.ExcelUtil;
@@ -30,8 +37,15 @@ public class T11Action {
 	/**  表11的Service类  */
 	private T11Service t11Ser = new T11Service() ;
 	
+	/**  表11的dao类  */
+	private T11DAO t11Dao = new T11DAO() ;
+	
 	/**  表11的Bean实体类  */
 	private T11Bean t11Bean = new T11Bean() ;
+	
+	/**  表11的Excel实体类  */
+	private T11Excel t11Excel = new T11Excel() ;
+	
 	/** 接收年份*/
 	private String Year ;
 	
@@ -118,7 +132,7 @@ public class T11Action {
 			if(flag){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
-				out.print("{\"state\":true,data:\"删除失败!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
 		}catch(Exception e){
@@ -130,47 +144,30 @@ public class T11Action {
 			}
 		}
 	}
+
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+
+		try {
+			
+			List<T11Bean> list=new ArrayList<T11Bean>(); 
+            Date time=new Date();
+            String time1=time.toString();
+            String year=time1.substring(time1.length()-4, time1.length());
+            list=t11Dao.forExcel(year);
+            inputStream = new ByteArrayInputStream(t11Excel.writeExcel(list).toByteArray());
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
 	
-//	/**  根据数据的id删除数据  */
-//	public void deleteCoursesByIds(){
-//		System.out.println("ids=" + ids) ;
-//		boolean flag = t151Ser.deleteCoursesByIds(ids) ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			out = getResponse().getWriter() ;
-//			
-//			if(flag){
-//				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
-//			}else{
-//				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
-//			}
-//			
-//			out.flush() ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
-	
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
-//
+
 	public String execute() throws Exception{
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;

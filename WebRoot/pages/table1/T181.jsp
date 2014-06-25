@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -78,13 +79,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-		</div>
-		 <div>
-		 	<form id="auditing" method="post">
+			<a href="pages/T181/dataExport?excelName=表1-8-1签订合作协议机构（教务处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+			<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
 	</div>
@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="pages/SchResIns/downloadModel" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T181/downloadModel?saveFile=<%=URLEncoder.encode("表1-8-1签订合作协议机构（教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
 		<div></div>
@@ -217,6 +217,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	var url ;
+
+	 function reloadgrid ()  { 
+	        //查询参数直接添加在queryParams中 
+	         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+	         queryParams.seqNum = $('#seqNum').val(); 
+	         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+	    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+	         $("#unverfiedData").datagrid('reload'); 
+	    }
 	
 	function singleSearch(){
    	 $('#auditing').form('submit',{
@@ -264,6 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	var fileName = $('#uploadFile').val() ;
 	    	
 	    	if(fileName == null || fileName == ""){
+		    	$.messager.alert("操作提示","请选择一个Excel文件！");
 	    		return false ;
 	    	}
 	    	
@@ -273,6 +283,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	if(suffixName == ".xls"){
 	    		return true ;
 	    	}else{
+	    		$.messager.alert("操作提示","文件格式错误，请选择后缀为“.xls”的文件！");
 	    		return false ;
 	    	}
 	    } 
@@ -320,52 +331,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(cooperInsName == null || cooperInsName.length==0 || cooperInsName.length > 100){
 				$('#CooperInsName').focus();
 				$('#CooperInsName').select();
-				$('#CooperInsNameSpan').html("<font style=\"color:red\">合作机构名称不能为空或长度不超过100</font>") ;
+				alert("合作机构名称不能为空或长度不超过100");
+				//$('#CooperInsNameSpan').html("<font style=\"color:red\">合作机构名称不能为空或长度不超过100</font>") ;
 				return false ;
-			}else{
-				$('#CooperInsNameSpan').html("") ;
 			}
 			
 			if(cooperInsType == null || cooperInsType.length == 0){
-				$('#CooperInsTypeSpan').html("<font style=\"color:red\">合作机构类型不能为空</font>") ;
+				$('#CooperInsType').focus();
+				$('#CooperInsType').select();
+				alert("合作机构类型不能为空");
+				//$('#CooperInsTypeSpan').html("<font style=\"color:red\">合作机构类型不能为空</font>") ;
 				return false ;
-			}else{
-				$('#CooperInsTypeSpan').html("") ;
 			}
 			
 			if(cooperInsLevel == null || cooperInsLevel.length == 0){
-				$('#CooperInsLevelSpan').html("<font style=\"color:red\">合作机构级别不能为空</font>") ;
+				$('#CooperInsLevel').focus();
+				$('#CooperInsLevel').select();
+				alert("合作机构级别不能为空");
+				//$('#CooperInsLevelSpan').html("<font style=\"color:red\">合作机构级别不能为空</font>") ;
 				return false ;
-			}else{
-				$('#CooperInsLevelSpan').html("") ;
 			}
 			
 			if(signedTime == null || signedTime.length == 0){
-				$('#SignedTimeSpan').html("<font style=\"color:red\">签订时间不能为空</font>") ;
+				$('#SignedTime').focus();
+				$('#SignedTime').select();
+				alert("签订时间不能为空");
+				//$('#SignedTimeSpan').html("<font style=\"color:red\">签订时间不能为空</font>") ;
 				return false ;
-			}else{
-				$('#SignedTimeSpan').html("") ;
 			}
-
 			
 			if(unitName == null || unitName.length == 0){
-				$('#UnitNameSpan').html("<font style=\"color:red\">我方单位不能为空</font>") ;
+				$('#UnitName').focus();
+				$('#UnitName').select();
+				alert("我方单位不能为空");
+				//$('#UnitNameSpan').html("<font style=\"color:red\">我方单位不能为空</font>") ;
 				return false ;
-			}else{
-				$('#UnitNameSpan').html("") ;
 			}
 			
 			if(unitLevel == null || unitLevel.length == 0){
-				$('#UnitLevelSpan').html("<font style=\"color:red\">我方单位级别 不能为空</font>") ;
+				$('#UnitLevel').focus();
+				$('#UnitLevel').select();
+				alert("我方单位级别 不能为空");
+				//$('#UnitLevelSpan').html("<font style=\"color:red\">我方单位级别 不能为空</font>") ;
 				return false ;
-			}else{
-				$('#UnitLevelSpan').html("") ;
 			}
+			
 			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+				$('#Note').focus();
+				$('#Note').select();
+				alert("备注中文字数不超过500");
+				//$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
-			}else{
-				$('#NoteSpan').html("") ;
 			}
 			return true ;
 		}

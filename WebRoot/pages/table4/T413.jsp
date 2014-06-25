@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -46,8 +47,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th  data-options="field:'name'" >姓名</th>
 				<th  data-options="field:'teaId'" >教工号</th>
+				<th  data-options="field:'name'" >姓名</th>		
 		     </tr>
 		</thead>
 		<thead>
@@ -58,13 +59,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'birthday'" formatter="formattime">
 						出生年月
 					</th>
-					<th data-options="field:'HireBeginTime'" formatter="formattime">
+					<th data-options="field:'hireBeginTime'" formatter="formattime">
 						聘任时间
 					</th>
 					<th data-options="field:'teaState'">
 						任职状态
 					</th>
-					<th data-options="field:'HireTimeLen'">
+					<th data-options="field:'hireTimeLen'">
 						聘期（个月）
 					</th>
 					<th data-options="field:'unitName'">
@@ -88,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'workUnitType'">
 						工作单位类型
 					</th>
-					<th data-options="field:'TutorType'">
+					<th data-options="field:'tutorType'">
 						导师类别
 					</th>
 					<th data-options="field:'region'">
@@ -103,27 +104,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newTeacher()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
+			<a href='pages/T413/dataExport?excelName=<%=URLEncoder.encode("表4-1-3外聘教师基本信息.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>
-		 <div style="float: right;">
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
-		</div>
+		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
+		 	教工号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
+			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
+		</form>
 	</div>
 	
    <div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle">外聘教师基本信息模板导入</h3>
-		<div class="fitem">
-		  <form method="post">
-				<input type="file" name="fileToUpload" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
+		<h3 class="ftitle"  id="title1">外聘教师基本信息模板导入</h3>
+		<div class="fitem"  id="item1">
+		  <form method="post"  id="batchForm" enctype="multipart/form-data">
+				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href="" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T413/downloadModel?saveFile=<%=URLEncoder.encode("表4-1-3外聘教师基本信息.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>	
 		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
@@ -238,7 +236,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>学科类别：</label> 
-					<select class='easyui-combobox'  id="subjectClass" name="T411_bean.subjectClass"  panelHeight="auto" editable="false" >
+					<select class='easyui-combobox'  id="subjectClass" name="T413_bean.subjectClass"  panelHeight="auto" editable="false" >
 							<option value="01哲学">01哲学</option>
 							<option value="02经济学">02经济学</option>
 							<option value="03法学">03法学</option>

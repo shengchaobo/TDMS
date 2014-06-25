@@ -1,11 +1,11 @@
-package cn.nit.bean.table7;
+package cn.nit.pojo.table7;
 
 import java.util.Date;
 
-public class T741_Bean {
+public class T741POJO {
 
 	
-	private int SeqNumber;
+    private int SeqNumber;
 	
 	private String TeaName;
 	
@@ -21,6 +21,8 @@ public class T741_Bean {
 	
 	private String CSType;
 	
+	private String CSTypeID;
+	
 	private String AssessYear;
 	
 	private String AccessResult;
@@ -30,14 +32,6 @@ public class T741_Bean {
 	private Date Time;
 	
 	private String Note;
-	
-	private String FillTeaID ;
-		
-	private String FillUnitID ;
-		
-	/**  审核单位ID号  */
-	private String audit ;
-
 
 	public int getSeqNumber() {
 		return SeqNumber;
@@ -103,6 +97,16 @@ public class T741_Bean {
 		CSType = cSType;
 	}
 
+	
+	
+	public String getCSTypeID() {
+		return CSTypeID;
+	}
+
+	public void setCSTypeID(String cSTypeID) {
+		CSTypeID = cSTypeID;
+	}
+
 	public String getAssessYear() {
 		return AssessYear;
 	}
@@ -141,30 +145,6 @@ public class T741_Bean {
 
 	public void setNote(String note) {
 		Note = note;
-	}
-
-	public String getFillTeaID() {
-		return FillTeaID;
-	}
-
-	public void setFillTeaID(String fillTeaID) {
-		FillTeaID = fillTeaID;
-	}
-
-	public String getFillUnitID() {
-		return FillUnitID;
-	}
-
-	public void setFillUnitID(String fillUnitID) {
-		FillUnitID = fillUnitID;
-	}
-
-	public String getAudit() {
-		return audit;
-	}
-
-	public void setAudit(String audit) {
-		this.audit = audit;
 	}
 	
 	

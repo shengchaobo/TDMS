@@ -7,5 +7,11 @@
 	<package name="teachWorkAssessAC" namespace="/pages/TeachWorkAssessAC" extends="struts-default">
 		<!-- 添加课程库 -->
 	    <action name="insert" class="cn.nit.action.table7.T745_Action" method="insert" />
+	      <!-- 加载待审核数据 -->
+	    <action name="auditingData" class="cn.nit.action.table7.T745_Action" method="auditingData" />
+	     <!-- 数据编辑 -->
+	    <action name="edit" class="cn.nit.action.table7.T745_Action" method="edit" />
+	     <!-- 删除数据 -->
+	    <action name="deleteByIds" class="cn.nit.action.table7.T745_Action" method="deleteByIds" />
 	</package>
 </struts>

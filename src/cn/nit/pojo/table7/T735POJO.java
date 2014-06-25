@@ -1,31 +1,25 @@
-package cn.nit.bean.table7;
+package cn.nit.pojo.table7;
 
 import java.util.Date;
 
-public class T745_Bean {
+public class T735POJO {
+
 	
-	private int SeqNumber;
+    private int SeqNumber;
 	
 	private String TeaUnit;
 	
 	private String UnitID;
 	
-	private String AssessYear;
+	private String UnitIDD;
 	
 	private String AssessResult;
 	
-	private String AppvlID;
+	private String AssessYear;
 	
 	private Date Time;
 	
 	private String Note;
-    
-	private String FillTeaID ;
-	
-	private String FillUnitID ;
-		
-	/**  审核单位ID号  */
-	private String audit ;
 
 	public int getSeqNumber() {
 		return SeqNumber;
@@ -51,12 +45,13 @@ public class T745_Bean {
 		UnitID = unitID;
 	}
 
-	public String getAssessYear() {
-		return AssessYear;
+
+	public String getUnitIDD() {
+		return UnitIDD;
 	}
 
-	public void setAssessYear(String assessYear) {
-		AssessYear = assessYear;
+	public void setUnitIDD(String unitIDD) {
+		UnitIDD = unitIDD;
 	}
 
 	public String getAssessResult() {
@@ -67,12 +62,12 @@ public class T745_Bean {
 		AssessResult = assessResult;
 	}
 
-	public String getAppvlID() {
-		return AppvlID;
+	public String getAssessYear() {
+		return AssessYear;
 	}
 
-	public void setAppvlID(String appvlID) {
-		AppvlID = appvlID;
+	public void setAssessYear(String assessYear) {
+		AssessYear = assessYear;
 	}
 
 	public Date getTime() {
@@ -90,34 +85,7 @@ public class T745_Bean {
 	public void setNote(String note) {
 		Note = note;
 	}
-
-	public String getFillTeaID() {
-		return FillTeaID;
-	}
-
-	public void setFillTeaID(String fillTeaID) {
-		FillTeaID = fillTeaID;
-	}
-
-	public String getFillUnitID() {
-		return FillUnitID;
-	}
-
-	public void setFillUnitID(String fillUnitID) {
-		FillUnitID = fillUnitID;
-	}
-
-	public String getAudit() {
-		return audit;
-	}
-
-	public void setAudit(String audit) {
-		this.audit = audit;
-	}
 	
 	
-	
-	
-	
-
+	 
 }

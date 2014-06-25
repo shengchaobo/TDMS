@@ -2,17 +2,12 @@ package cn.nit.dao.table7;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 import java.util.List;
 
 
 import cn.nit.bean.table7.T712_Bean;
 import cn.nit.dbconnection.DBConnection;
-
-
-import cn.nit.pojo.table7.T711POJO;
 import cn.nit.pojo.table7.T712POJO;
 import cn.nit.util.DAOUtil;
 

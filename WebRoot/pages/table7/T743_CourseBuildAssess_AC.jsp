@@ -53,25 +53,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/CourseBuildAssessAC/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
+				<th field="seqNumber" width="10%">序号</th>
 				<th field="CSName" width="10%">课程名称</th>
 				<th field="CSID" width="10%">课程编号</th>
-				<th field="SetCSUnit" width="10%">开课单位</th>
-				<th field="UnitID" width="5%">单位号</th>
+				<th field="setCSUnit" width="10%">开课单位</th>
+				<th field="unitID" width="10%">单位号</th>
 				<th field="CSType" width="10%">课程类别</th>
 				<th field="CSNature" width="10%">课程性质</th>
 				<th field="CSLeader" width="10%">课程负责人</th>
-				<th field="TeaID" width="5%">教工号</th>
-				<th field="AssessYear" width="10%">评估年份</th>
-				<th field="AssessResult" width="10%">评估结果</th>
-				<th field="AppvlID" width="8%">批文号</th>
+				<th field="teaID" width="10%">教工号</th>
+				<th field="assessYear" width="10%">评估年份</th>
+				<th field="assessResult" width="10%">评估结果</th>
+				<th field="appvlID" width="10%">批文号</th>
 				<th field="note" width="20%">备注</th>
+				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -79,38 +80,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+		 <form id="auditing" method="post">
+		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newCourse()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width="5%">序号</th>
+				<th field="seqNumber" width="10%">序号</th>
 				<th field="CSName" width="10%">课程名称</th>
 				<th field="CSID" width="10%">课程编号</th>
-				<th field="SetCSUnit" width="10%">开课单位</th>
-				<th field="UnitID" width="5%">单位号</th>
+				<th field="setCSUnit" width="10%">开课单位</th>
+				<th field="unitID" width="10%">单位号</th>
 				<th field="CSType" width="10%">课程类别</th>
 				<th field="CSNature" width="10%">课程性质</th>
 				<th field="CSLeader" width="10%">课程负责人</th>
-				<th field="TeaID" width="5%">教工号</th>
-				<th field="AssessYear" width="10%">评估年份</th>
-				<th field="AssessResult" width="10%">评估结果</th>
-				<th field="AppvlID" width="8%">批文号</th>
+				<th field="teaID" width="10%">教工号</th>
+				<th field="assessYear" width="10%">评估年份</th>
+				<th field="assessResult" width="10%">评估结果</th>
+				<th field="appvlID" width="10%">批文号</th>
 				<th field="note" width="20%">备注</th>
+				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -137,6 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>课程名称：</label> 
+						<input id="seqNumber" name="courseBuildAssessAC.SeqNumber" type="hidden" value="0">
 						<input id="CSName" type="text" name="courseBuildAssessAC.CSName"
 							><span id="CSNameSpan"></span>
 					</div>
@@ -236,7 +241,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 			<tr>
-			<input name="courseBuildAssessAC.time" class="easyui-datebox" style="width:80px"/>
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="courseBuildAssessAC.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
@@ -264,6 +268,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	    var url;
+	     function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+         queryParams.seqNum = $('#seqNum').val(); 
+         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+         $("#unverfiedData").datagrid('reload'); 
+    }
 	    function batchImport(){
 	    	 $('#fm').form('submit',{
 	    		 url: url,
@@ -286,13 +298,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    function newCourse(){
+	    
+	        url="pages/CourseBuildAssessAC/insert";
 		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 		    $('#courseForm').form('reset');
 	    }
-function singleImport(){
+   function singleImport(){
 		    //录入数据的表单提交
 	    	 $('#courseForm').form('submit',{
-				    url: 'pages/CourseBuildAssessAC/insert',
+				    url: url,
 				    data: $('#courseForm').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -308,7 +322,7 @@ function singleImport(){
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverifiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload'); 
 					    }
 				    }
 			    });
@@ -379,6 +393,77 @@ function singleImport(){
 			alert($('#CSNature').val()) ;
 			return true ; 
 		}
+		
+			function editCourse(){
+	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+	    	if(row.length != 1){
+	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+	    	url = 'pages/CourseBuildAssessAC/edit' ;
+	    	
+	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#CSName').val(row[0].CSName) ;
+	    	$('#CSID').val(row[0].CSID) ;
+	    	$('#UnitID').combobox('select', row[0].unitID) ;
+	    	$('#CSType').combobox('select', row[0].CSTypeID) ;
+	    	$('#CSNature').combobox('select', row[0].CSNatureID) ;
+	    	
+			$('#CSLeader').combobox('select', row[0].CSLeader) ;
+			$('#AssessYear').val(row[0].assessYear) ;
+			$('#AppvlID').val(row[0].appvlID) ;
+			$('#AssessResult').combobox('select', row[0].assessResult) ;
+			$('#Note').val(row[0].note) ;
+	    }
+
+
+         function deleteByIds(){
+	    	//获取选中项
+			var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+			if(row.length == 0){
+	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+			 $.messager.confirm('数据删除', '您确定删除选中项?', function(sure){
+				 if (sure){
+				 	var ids = "";
+				 	ids += "(" ;
+				 	
+				 	for(var i=0; i<row.length; i++){
+				 		if(i < (row.length - 1)){
+				 			ids += (row[i].seqNumber + ",") ;
+				 		}else{
+				 			ids += (row[i].seqNumber + ")") ;
+				 		}
+				 	}
+				 	
+				 	deleteCourses(ids) ;
+				 	
+				 }
+			});
+	    }
+
+       function deleteCourses(ids){
+	    	$.ajax({ 
+	    		type: "POST", 
+	    		url: "pages/CourseBuildAssessAC/deleteByIds?ids=" + ids, 
+	    		async:"true",
+	    		dataType: "text",
+	    		success: function(result){
+	    			result = eval("(" + result + ")");
+
+					if(result.state){
+						alert(result.data) ;
+						 $('#unverfiedData').datagrid('reload') ;
+					}
+	    		}
+	    	}).submit();
+	    }
 
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');

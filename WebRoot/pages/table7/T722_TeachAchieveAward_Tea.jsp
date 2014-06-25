@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
 	</div>
@@ -257,24 +257,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	    var url;
-	     function singleSearch(){
-   	     $('#auditing').form('submit',{
-   		 url: 'pages/TeachAchieveAwardTea/singleSearch',
-   		 type: "post",
-	     dataType: "json",
-   		 success: function(result){
-   		 	var result = eval('('+result+')');
-   		 	if (!result.state){
-   		 		$.messager.show({
-   		 			title: 'Error',
-   		 			msg: result.errorMsg
-   			 });
-   		 	} else {
-		    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-   		 	}
-   		 }
-   		 });
-   }
+	    function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+         queryParams.seqNum = $('#seqNum').val(); 
+         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+         $("#unverfiedData").datagrid('reload'); 
+    }
 	    function batchImport(){
 	    	 $('#fm').form('submit',{
 	    		 url: url,

@@ -13,7 +13,5 @@
 	    <action name="edit" class="cn.nit.action.table7.T712_Action" method="edit" />
 	     <!-- 删除数据 -->
 	    <action name="deleteByIds" class="cn.nit.action.table7.T712_Action" method="deleteByIds" />
-	     <!-- 数据查询 -->
-	    <action name="singleSearch" class="cn.nit.action.table7.T712_Action" method="auditingConditions"/>
 	</package>
 </struts>

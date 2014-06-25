@@ -61,9 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table class="easyui-datagrid" toolbar="#toolbar" title="学校基本情况"></table>
 	<hr color="blue" width="100%" />
 	<table class="doc-table" url="pages/A15/auditingData" id="showInfo">
-	<!-- 
-	<s:iterator value="#request.schBasInfoPartyOffice" id="schInfo">
-	 -->
+	
 	<tbody >
 	 
 	        <tr>

@@ -1,6 +1,5 @@
 package cn.nit.action.table7;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
@@ -11,17 +10,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table7.T711_Bean;
-import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.table7.T711_Service;
+import cn.nit.util.TimeUtil;
 
 public class T711_Action {
 
 	
-	private T711_Service T711_Sr=new T711_Service();
+	private T711_Service t711_Sr=new T711_Service();
 	
 	private T711_Bean teaManagerAwardInfoTeaTea=new T711_Bean();
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -43,7 +42,7 @@ public class T711_Action {
 		//System.out.println(teaManagerAwardInfoTeaTea.getUnitID()) ;
 		teaManagerAwardInfoTeaTea.setTime(new Date());
 		
-		boolean flag= T711_Sr.insert(teaManagerAwardInfoTeaTea);
+		boolean flag= t711_Sr.insert(teaManagerAwardInfoTeaTea);
         PrintWriter out = null ;
 		
 		try{
@@ -73,6 +72,7 @@ public class T711_Action {
 	
 	public void auditingData(){
 		
+
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 			return ;
 		}
@@ -81,56 +81,73 @@ public class T711_Action {
 			return ;
 		}
 		
-		String conditions=(String) getSession().getAttribute("auditingConditions");
-		String pages=T711_Sr.auditingData(conditions, null,  Integer.parseInt(page), Integer.parseInt(rows));
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
 		
-		PrintWriter out=null;
-		
-		
-		try {
-			getResponse().setContentType("text/html;charset=UTF-8");
-			out=getResponse().getWriter();
-			out.print(pages);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}finally{
-			if(out!=null){
-				out.close();
-				
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
 			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
 		}
-		
-	}
 
-	/**  生成查询条件   */
-	
-	public void auditingConditions(){
-		
-		String sqlconditions=T711_Sr.generateauditingConditions(seqNum, startTime, endTime);
-		getSession().setAttribute("auditingConditions", sqlconditions);
-        PrintWriter out = null ;
+		String pages = t711_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		PrintWriter out = null ;
 		
 		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
+			out.print(pages) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+			return ;
 		}finally{
 			if(out != null){
 				out.close() ;
 			}
 		}
 		
-		
 	}
+
+//	/**  生成查询条件   */
+//	
+//	public void auditingConditions(){
+//		
+//		String sqlconditions=t711_Sr.generateauditingConditions(seqNum, startTime, endTime);
+//		getSession().setAttribute("auditingConditions", sqlconditions);
+//        PrintWriter out = null ;
+//		
+//		try{
+//			out = getResponse().getWriter() ;
+//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
+//			out.flush() ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//		
+//		
+//	}
 	/**  编辑数据  */
 	public void edit(){
 		teaManagerAwardInfoTeaTea.setTime(new Date());
-		boolean flag=T711_Sr.update(teaManagerAwardInfoTeaTea);
+		boolean flag=t711_Sr.update(teaManagerAwardInfoTeaTea);
 		
 		PrintWriter out=null;
 		
@@ -156,7 +173,7 @@ public class T711_Action {
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
-		boolean flag = T711_Sr.deleteCoursesByIds(ids) ;
+		boolean flag = t711_Sr.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -209,9 +226,25 @@ public class T711_Action {
 
 
 
-	public void setSeqNum(int seqNum) {
+
+	public Integer getSeqNum() {
+		return seqNum;
+	}
+
+
+
+
+	public void setSeqNum(Integer seqNum) {
 		this.seqNum = seqNum;
 	}
+
+
+
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
 
 
 
@@ -220,24 +253,64 @@ public class T711_Action {
 	}
 
 
+
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+
+
+
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
+
+
+
+
+	public String getIds() {
+		return ids;
+	}
+
+
+
 
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
 
 
+
+
+	public String getPage() {
+		return page;
+	}
+
+
+
+
 	public void setPage(String page) {
 		this.page = page;
 	}
+
+
+
+
 	public String getRows() {
 		return rows;
 	}
+
+
+
+
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
+
+
+
+
 	
 	
 	

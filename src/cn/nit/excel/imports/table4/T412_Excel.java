@@ -152,6 +152,8 @@ public class T412_Excel {
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				
+				count++ ;
+				
 				String fillUnitID = null; //从user的session中获得，现在没有
 				T412_bean = new T412_Bean() ;
 				T412_bean.setFromTeaUnit(unit);

@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width=10>序号</th>
+				<th field="seqNumber" width=10>编号</th>
 				<th field="unitName" width=10>行政单位名称</th>
 				<th field="unitID" width=10 >单位号</th>
 				<th field="leader" width=10>单位负责人</th>
@@ -73,11 +73,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">数据导入</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">数据导入</a>
 			<a href="pages/T17/dataExport?excelName=表T-1-7校友会（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+			<!--  
 			<a href='pages/T11/downloadModel?saveFile=<%=URLEncoder.encode("表1-1学校基本信息（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+			-->
 				<form id="auditing" method="post" style="float: right;height: 24px;">
-			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
@@ -197,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    } 
 	    
-	    function newCourse(){
+	    function newObject(){
 	    	url = url ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加校友会（党院办）');
 		    $('#t17form').form('reset');

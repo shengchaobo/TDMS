@@ -102,9 +102,10 @@ public class ExcelUtil {
                      */  
                     ws.addCell(new Label(i, 0, columns.get(i), wcf));  
                 }  
+            }
   
                 //判断表中是否有数据  
-                if (list != null && list.size() > 0) {  
+            if (list != null && list.size() > 0) {  
                     //循环写入表中数据  
                 	BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
                 	int i=1;  
@@ -147,12 +148,11 @@ public class ExcelUtil {
         					}else{
         						throw new Exception("自行添加对应类型" + type) ;
         					}                       	                         	
-                        }
-                        i++;
                     }
-                }else{
-                	System.out.println("后台传入的数据为空");
+                    i++;
                 }
+            }else{
+            	System.out.println("后台传入的数据为空");
             }
 
             wwb.write();

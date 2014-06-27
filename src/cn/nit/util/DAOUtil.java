@@ -71,7 +71,11 @@ public class DAOUtil {
 				if(type.endsWith("String")){
 					pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
 				}else if(type.endsWith("int")||type.endsWith("Integer")){
-					pst.setInt(i + 1, (Integer) wrapper.getPropertyValue(fields[i])) ;
+					if(wrapper.getPropertyValue(fields[i]) == null){
+						pst.setInt(i + 1, 0) ;
+					}else{
+						pst.setInt(i + 1, (Integer) wrapper.getPropertyValue(fields[i])) ;
+					}					
 				}else if(type.endsWith("Date")){
 					if(wrapper.getPropertyValue(fields[i])==null){
 						pst.setDate(i + 1, null ) ;
@@ -213,7 +217,11 @@ public class DAOUtil {
 					if(type.endsWith("String")){
 						pst.setString(i + 1, (String) wrapper.getPropertyValue(fields[i])) ;
 					}else if(type.endsWith("int")||type.endsWith("Integer")){
-						pst.setInt(i + 1, (Integer) wrapper.getPropertyValue(fields[i])) ;
+						if(wrapper.getPropertyValue(fields[i]) == null){
+							pst.setInt(i + 1, 0) ;
+						}else{
+							pst.setInt(i + 1, (Integer) wrapper.getPropertyValue(fields[i])) ;
+						}	
 					}else if(type.endsWith("Date")){
 						if(wrapper.getPropertyValue(fields[i])==null){
 							pst.setDate(i + 1, null ) ;
@@ -326,13 +334,21 @@ public class DAOUtil {
 					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;					
 				}else if(type.endsWith("int") || type.endsWith("Integer")){
 					//System.out.println((Integer) wrapper.getPropertyValue(vField));
-					pst.setInt(j + 1, (Integer) wrapper.getPropertyValue(vField)) ;
+					if(wrapper.getPropertyValue(vField) == null){
+						pst.setInt(j + 1, 0) ;
+					}else{
+						pst.setInt(j + 1, (Integer) wrapper.getPropertyValue(vField)) ;
+					}	
 				}else if(type.endsWith("Date")){
 					
-					java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(vField) ;
-					Date sqlDate = new Date(utilDate.getTime()) ;
+					if(wrapper.getPropertyValue(vField)==null){
+						pst.setDate(j + 1, null ) ;
+					}else{
+						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(vField) ;
+						Date sqlDate = new Date(utilDate.getTime()) ;
+						pst.setDate(j + 1, sqlDate ) ;
+					}
 					//System.out.println(sqlDate);
-					pst.setDate(j + 1, sqlDate ) ;
 				}else if(type.endsWith("long") || type.endsWith("Long")){
 					pst.setLong(j + 1, (Long) wrapper.getPropertyValue(vField)) ;
 				}else if(type.endsWith("Boolean") || type.endsWith("boolean")){

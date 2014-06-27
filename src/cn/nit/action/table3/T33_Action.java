@@ -258,7 +258,7 @@ public void auditingData(){
 			maplist.put("MajorChargeMan", 13);maplist.put("CIsFullTime", 14);maplist.put("Note",15);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t33Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

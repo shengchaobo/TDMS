@@ -53,7 +53,6 @@ public class DownloadModelAction {
 	}
 
 	public String getSaveFile() {
-
 		try {
 			this.saveFile = URLEncoder.encode(saveFile, "UTF-8");
 			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决

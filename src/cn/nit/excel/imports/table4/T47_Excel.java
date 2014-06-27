@@ -16,13 +16,15 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiAwardTypeBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table4.T461_Bean;
+import cn.nit.bean.table4.T47_Bean;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiAwardTypeService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table4.T461_Service;
+import cn.nit.service.table4.T47_Service;
 import cn.nit.util.TimeUtil;
 
-public class T461_Excel {
+public class T47_Excel {
 
 	/**
 	 * 批量导入
@@ -37,18 +39,15 @@ public class T461_Excel {
 		}
 		
 		int count = 1 ;
-		T461_Bean T461_bean = null ;
+		T47_Bean T47_bean = null ;
 		boolean flag = false ;
-		List<T461_Bean> list = new LinkedList<T461_Bean>() ;
+		List<T47_Bean> list = new LinkedList<T47_Bean>() ;
 		
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		
 		DiAwardLevelService diAwardLevel = new DiAwardLevelService();
-		List<DiAwardLevelBean> diAwardLevelList = diAwardLevel.getList();
-		
-		DiAwardTypeService diAwardType = new DiAwardTypeService();
-		List<DiAwardTypeBean> diAwardTypeList = diAwardType.getList();		
+		List<DiAwardLevelBean> diAwardLevelList = diAwardLevel.getList();	
 				
 		for(Cell[] cell : cellList){
 			try{
@@ -57,26 +56,15 @@ public class T461_Excel {
 					continue;
 				}
 				
-				String name = cell[1].getContents() ;
-				String teaId = cell[2].getContents() ;
-				
-				if(name == null || name.equals("")){
-					return "第" + count + "行，名称不能为空" ;
-				}
-				
-				if((teaId == null) || teaId.equals("")){
-					return "第" + count + "行，教工号不能为空" ;
-				}
-				
-				String unit = cell[3].getContents() ;
-				String unitId = cell[4].getContents() ;
+				String unit = cell[1].getContents() ;
+				String unitId = cell[2].getContents() ;
 				
 				if(unit == null || unit.equals("")){
-					return "第" + count + "行，所属单位不能为空" ;
+					return "第" + count + "行，教学单位不能为空" ;
 				}
 				
 				if(unitId == null || unitId.equals("")){
-					return "第" + count + "行，所属单位号不能为空" ;
+					return "第" + count + "行，单位号不能为空" ;
 				}			
 				
 				for(DiDepartmentBean diDepartBean : diDepartBeanList){
@@ -96,27 +84,13 @@ public class T461_Excel {
 					flag = false ;
 				}
 				
-				String awardType = cell[5].getContents() ;
+				String awardName = cell[3].getContents() ;
 				
-				if(awardType == null || awardType.equals("")){
-					return "第" + count + "行，获奖类型不能为空" ;
+				if(awardName == null || awardName.equals("")){
+					return "第" + count + "行，获奖名称不能为空" ;
 				}
-				String awardTypeID = null;
-				for(DiAwardTypeBean awardTypeBean : diAwardTypeList){
-					if(awardTypeBean.getAwardType().equals(awardType)){
-						awardTypeID = awardTypeBean.getIndexId() ;
-						flag = true  ;
-						break ;
-					}//if
-				}//for
-				
-				if(!flag){
-					return "第" + count + "行，获奖类型不存在" ;
-				}else{
-					flag = false ;
-				}
-				
-				String awardLevel = cell[6].getContents() ;
+
+				String awardLevel = cell[4].getContents() ;
 				
 				if(awardLevel == null || awardLevel.equals("")){
 					return "第" + count + "行，获奖级别不能为空" ;
@@ -137,44 +111,34 @@ public class T461_Excel {
 				}
 				
 				
-				String awardFromUnit = cell[7].getContents();
+				String awardFromUnit = cell[5].getContents();
 				
-				String gainAwardTime = cell[8].getContents() ;
+				String gainAwardTime = cell[6].getContents() ;
 				if((gainAwardTime == null) || gainAwardTime.equals("")){
 					return "第" + count + "行，获奖日期不能为空" ;
 				}
 												
-				String appvlId = cell[9].getContents() ;
-				String otherTeaNum = cell[10].getContents() ;
-				String otherTeaInfo = cell[11].getContents() ;
-				String note = cell[12].getContents() ;
+				String appvlId = cell[7].getContents() ;
+				String note = cell[8].getContents() ;
 								
 				count++ ;
 								
-				T461_bean = new T461_Bean() ;
-				T461_bean.setName(name);
-				T461_bean.setTeaId(teaId);
-				T461_bean.setFromTeaUnit(unit);
-				T461_bean.setUnitId(unitId);
-				T461_bean.setAwardType(awardTypeID);
-				T461_bean.setAwardLevel(awardLevelID);
-				T461_bean.setAwardFromUnit(awardFromUnit);
-				T461_bean.setGainAwardTime(TimeUtil.changeDateY(gainAwardTime));
-				T461_bean.setAppvlId(appvlId);
-				T461_bean.setOtherTeaNum(Integer.parseInt(otherTeaNum));
-				T461_bean.setOtherTeaInfo(otherTeaInfo);
-				T461_bean.setNote(note);
+				T47_bean = new T47_Bean() ;
+				T47_bean.setTeaUnit(unit);
+				T47_bean.setUnitId(unitId);
+				T47_bean.setAwardName(awardName);
+				T47_bean.setAwardLevel(awardLevelID);
+				T47_bean.setAwardFromUnit(awardFromUnit);
+				T47_bean.setGainAwardTime(TimeUtil.changeDateY(gainAwardTime));
+				T47_bean.setAppvlId(appvlId);
+				T47_bean.setNote(note);
 				//插入时间
-				T461_bean.setTime(new Date());
+				T47_bean.setTime(new Date());
 				String fillUnitID = null;
-				//char b = fillUnitID.charAt(0);
-				//if( b == '3'){
-				//	T461_bean.setFillUnitID(fillUnitID);
-				//}else{
-					T461_bean.setFillUnitID(fillUnitID);
-			//	}
-				
-				list.add(T461_bean);
+
+				T47_bean.setFillUnitID(fillUnitID);
+
+				list.add(T47_bean);
 								
 			}catch(Exception e){
 				e.printStackTrace() ;
@@ -183,8 +147,8 @@ public class T461_Excel {
 		}
 		
 		flag = false ;
-		T461_Service T461_services = new T461_Service() ;
-		flag = T461_services.batchInsert(list) ;
+		T47_Service T47_services = new T47_Service() ;
+		flag = T47_services.batchInsert(list) ;
 		
 		if(flag){
 			return null ;

@@ -9,10 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import jxl.Cell;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchTypeBean;
-import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.T12Bean;
+import cn.nit.bean.table4.T411_Bean;
+
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiResearchTypeService;
-import cn.nit.service.table1.T151Service;
+import cn.nit.service.table1.T12Service;
+import cn.nit.service.table4.T411_Service;
+
 import cn.nit.util.DateUtil;
 import cn.nit.util.TimeUtil;
 
@@ -33,205 +37,110 @@ public class T12Excel {
 		int count = 1 ;
 		
 		boolean flag = false ;
-		boolean biOpen=false;
-		boolean buildCondi=false;
-		List<T151Bean> list = new LinkedList<T151Bean>() ;
+        Date time=new Date();
+		List<T12Bean> list = new LinkedList<T12Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
-		DiResearchTypeService diResearchSer=new DiResearchTypeService();
-		List<DiResearchTypeBean> diResearchBeanList=diResearchSer.getList();
+		T411_Service t411_Ser=new T411_Service();
+		List<T411_Bean> t411List=t411_Ser.getList();
 		
 		for(Cell[] cell : cellList){
-			T151Bean t151Bean = new  T151Bean();
+			T12Bean t12Bean = new  T12Bean();
 			int n=cellList.indexOf(cell);
-			if(n==0){continue;}
+			if(n==0||n==1){continue;}
 			else{
 				
 				
 			  try{
 				 
-				 String ResInsName = cell[1].getContents() ;
-					String ResInsID = cell[2].getContents() ;
-					
-					if(ResInsName == null || ResInsName.equals("")){
-						return "第" + count + "行，科研机构不能为空" ;
-					}
-					
-					if(ResInsID == null || ResInsID.equals("")){
-						return "第" + count + "行，科研机构单位编号不能为空" ;
-					}
-					
-					if(ResInsID.length() > 50){
-						return "第" + count + "行，单位编号字数不超过50个数字或字母" ;
-					}
-					
-					for(DiDepartmentBean diDepartBean : diDepartBeanList){
-						if(diDepartBean.getUnitId().equals(ResInsID)){
-							if(diDepartBean.getUnitName().equals(ResInsName)){
-								flag = true ;
-								break ;
-							}else{
-								return "第" + count + "行，科研机构与单位编号不对应" ;
-							}
-						}//if
-					}//for
+				 String UnitName=cell[1].getContents();
+				 String UnitID=cell[2].getContents();
+				 
+				 if(UnitName == null || UnitName.equals("")){
+					 return "第" + count + "行，行政单位名称不能为空！";
+				 }
+				 if(UnitID == null || UnitID.equals("")){
+					 return "第" + count + "行，单位号不能为空！";
+				 }
+				 if(UnitID.length()>50){
+					 return "第" + count + "行，单位编号字数不超过50个数字或字母" ;
+				 }
+				 
+				 for(DiDepartmentBean diDepartBean:diDepartBeanList){
+					 if(diDepartBean.getUnitId().equals(UnitID)){
+						 if(diDepartBean.getUnitName().equals(UnitName)){
+							 flag = true;
+							 break;
+						 }else{
+							 return "第" + count + "行， 行政单位名称与单位编号不对应！" ; 
+						 }
+					 }
+				 }
 					
 					if(!flag){
-						return "第" + count + "行，没有与之相匹配的单位编号" ;
+						return "第" + count + "行，没有与之相匹配的单位编号！" ;
 					}else{
 						flag = false ;
 					}
 				 
-					String Type = cell[3].getContents() ;
+					String Function = cell[3].getContents() ;
 					
-					if(Type == null || Type.equals("")){
-						return "第" + count + "行，科研机构类别不能为空" ;
+					if(Function == null || Function.equals("")){
+						return "第" + count + "行，单位职能不能为空！" ;
+					}
+					if(Function.length()>300){
+						return "第" + count + "行，单位职能字数不能超过150个字！" ;
 					}
 					
-					for(DiResearchTypeBean diResearchBean : diResearchBeanList){
-						if(diResearchBean.getResearchType().equals(Type)){
-							Type = diResearchBean.getIndexId() ;
-							flag = true  ;
-							break ;
-						}//if
-					}//for
-					if(!flag){
-						return "第" + count + "行，科研机构类别不存在" ;
-					}else{
-						flag = false ;
+					String Leader=cell[4].getContents();
+					String TeaID=cell[5].getContents();
+					
+					if(Leader == null || Leader.equals("")){
+						return "第" + count + "行，单位负责人名称不能为空！" ;
 					}
-					
-					String BuildCon=cell[4].getContents();
-//					System.out.println("BuildCon:"+BuildCon);
-					
-					if(BuildCon == null || BuildCon.equals("")){
-						return "第" + count + "行，共建情况不能为空" ;
+					if(Leader.length()>50){
+						return "第" + count + "行，单位负责人名称不能超过25个字！ ";
 					}
-					
-					if(!BuildCon.equals("是") && !BuildCon.equals("否")){
-			        	return "第" + count + "行，只能填“是”或者“否”" ;
-//			        	System.out.println("flag:"+flag);
+					if(TeaID == null || TeaID.equals("")){
+						return "第" + count + "行，教工号不能为空！" ;
 			        }
-					else if(BuildCon.equals("是") || BuildCon.equals("否")){
-						flag=true;
+					if(TeaID.length()>50){
+						return "第" + count + "行，教工号长度不能超过50个字符！" ;
 					}
-					if(flag){
-								
-						if(BuildCon.equals("是")){	buildCondi=true;}
-					    else if (BuildCon.equals("否")){buildCondi=false;}
+					
+					for(T411_Bean t411Bean: t411List){
+						if(t411Bean.getTeaId().equals(TeaID)){
+							if(t411Bean.getTeaName().equals(Leader)){
+								flag=true;
+								break;
+							}
+						}else{
+							return "第" + count + "行，教工号不正确！" ;
+						}
+					}
+					if(!flag){
+						return "第" + count + "行，没有与负责人相匹配的教工号" ;
+					}else{
 						flag=false;
 					}
-
-					String BiOpen=cell[5].getContents();
-//					System.out.println("BiOpen:"+BiOpen);
-					
-					if(BiOpen == null || BiOpen.equals("")){
-						return "第" + count + "行，共建情况不能为空" ;
-			        }
-					
-					if(!BiOpen.equals("是") && !BiOpen.equals("否")){
-			        	return "第" + count + "行，只能填“是”或者“否”" ;
-			        }else if(BiOpen.equals("是") || BiOpen.equals("否")){
-			        	flag=true;
-			        }
-					
-					if(flag)
-			        {
-			        	if(BiOpen.equals("是")){	biOpen=true;}
-			        	else if (BiOpen.equals("否")){biOpen=false;}
-			        	flag=false;
-			        }
-					
-					String OpenCondition=cell[6].getContents();
-					
-					if(OpenCondition ==null || OpenCondition.equals("")){
-						return "第" + count + "行，对本科生开放情况不能为空" ;
+	
+					String  Note=cell[6].getContents();
+					if(Note.length()>1000){
+						return "第" + count + "行，备注的长度不能超过500个字符！" ;
 					}
 					
-					if(OpenCondition.length()>1000){
-						return "第" + count + "行，对本科生开放情况字数不能超过500！" ;
-					}
-					
-					String TeaUnit=cell[7].getContents();
-					String UnitID=cell[8].getContents();
-					
-					if(TeaUnit == null || TeaUnit.equals("")){
-						return "第" + count + "行，所属教学单位不能为空" ;
-					}
-					
-					if(UnitID == null || UnitID.equals("")){
-						return "第" + count + "行，所属教学单位编号不能为空" ;
-					}
-					
-					if(UnitID.length() > 50){
-						return "第" + count + "行，所属教学单位编号字数不超过50个数字或字母" ;
-					}
-					
-					for(DiDepartmentBean diDepartBean : diDepartBeanList){
-						if(diDepartBean.getUnitId().equals(UnitID)){
-							if(diDepartBean.getUnitName().equals(TeaUnit)){
-								flag = true ;
-								break ;
-							}else{
-								return "第" + count + "行，所属教学单位与单位编号不对应" ;
-							}
-						}//if
-					}//for
-					
-					if(!flag){
-						return "第" + count + "行，没有与之相匹配的单位编号" ;
-					}else{
-						flag = false ;
-					}
-					
-					String BeginYearStr=cell[9].getContents();
-//					System.out.println(BeginYearStr);
-					
-					if(BeginYearStr == null || BeginYearStr.equals("")){
-						return "第" + count + "行，年份不能为空" ;
-					}
-					
-					if(!DateUtil.isNumeric(BeginYearStr))
-					{
-						return "第" + count + "行，年份只能为数字" ;
-					} 
-					if (BeginYearStr.length() >5){
-						return "第" + count + "行，年份只能为4位" ;
-					}
-					
-					String HouseArea=cell[10].getContents();
-					
-					if(HouseArea == null|| HouseArea.equals("")){
-						return "第" + count + "行，用房面积不能为空" ;
-					}
-					
-					if(!DateUtil.isDouble(HouseArea)){
-						return "第" + count + "行，用房面积只能为保留两位的整型数" ;
-					}
-					String  note=cell[11].getContents();
-				 
-				
-				
 				count++ ;
 				
-				Date BeginYear=TimeUtil.changeDateY(BeginYearStr);
-//				System.out.println(BeginYear);
-				double houseArea=DateUtil.doubleTwo(HouseArea);
-				t151Bean.setBeginYear(TimeUtil.changeDateY(BeginYearStr));
-//				System.out.println("BeginYear:"+t151Bean.getBeginYear());
-				t151Bean.setBiOpen(biOpen);
-				t151Bean.setBuildCondition(buildCondi);
-				t151Bean.setHouseArea(houseArea);
-				t151Bean.setNote(note);
-				t151Bean.setOpenCondition(OpenCondition);
-				t151Bean.setResInsID(ResInsID);
-				t151Bean.setResInsName(ResInsName);
-				t151Bean.setTeaUnit(TeaUnit);
-				t151Bean.setTime(new Date());
-				t151Bean.setType(Type);
-				t151Bean.setUnitID(UnitID);
-				list.add(t151Bean);
+				t12Bean.setUnitName(UnitName);
+				t12Bean.setUnitID(UnitID);
+				t12Bean.setFunctions(Function);
+				t12Bean.setLeader(Leader);
+				t12Bean.setTeaID(TeaID);
+				t12Bean.setNote(Note);
+				t12Bean.setTime(time);
+				
+				list.add(t12Bean);
 							
 			}
 			catch(Exception e){
@@ -242,8 +151,8 @@ public class T12Excel {
 		}
 		
 		flag = false ;
-		T151Service t151Ser = new T151Service() ;
-		flag = t151Ser.batchInsert(list) ;
+		T12Service t12Ser = new T12Service() ;
+		flag = t12Ser.batchInsert(list) ;
 		
 		if(flag){
 			return "数据导入成功" ;

@@ -113,6 +113,26 @@ public class T12DAO {
 	}
 	
 	
+	/**
+	 * 讲数据批量插入12表中
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @return true表示插入成功，false表示插入失败
+	 */
+	public boolean batchInsert(List<T12Bean> list){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		
+		try{
+			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}
+		
+		return flag ;
+	}
+	
 	
 //	/**
 //	 * 查询待审核数据在数据库中共有多少条

@@ -168,7 +168,9 @@ public class T151DAO {
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
+//		sql.append(" where t.Time like '"+Year+"%' ");
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
+//		System.out.println(sql.toString());
 
 		
 		
@@ -239,7 +241,7 @@ public class T151DAO {
 //		int n=dao.totalAuditingData(null, null);
 //		System.out.println(n);
 		List<T151Bean> list=dao.totalList();
-//		System.out.println(list.size());
+		System.out.println(list.size());
 //		T151Bean a=list.get(0);
 //		System.out.println(a.getType());
 ////	

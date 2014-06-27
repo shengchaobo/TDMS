@@ -118,7 +118,7 @@ public class T461_Excel {
 				
 				String awardLevel = cell[6].getContents() ;
 				
-				if(awardType == null || awardType.equals("")){
+				if(awardLevel == null || awardLevel.equals("")){
 					return "第" + count + "行，获奖级别不能为空" ;
 				}
 				String awardLevelID = null;

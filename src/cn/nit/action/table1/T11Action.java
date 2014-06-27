@@ -132,7 +132,7 @@ public class T11Action {
 			if(flag){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
-				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
+				out.print("{\"state\":false,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
 		}catch(Exception e){

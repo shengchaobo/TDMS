@@ -83,5 +83,4 @@ public class UserinfoBean {
 		this.UserNote = UserNote;
 	}
 
-
 }

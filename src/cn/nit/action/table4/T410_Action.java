@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import jxl.Workbook;
 import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
 import jxl.format.Colour;
 import jxl.format.UnderlineStyle;
 import jxl.format.VerticalAlignment;
@@ -72,6 +75,8 @@ public class T410_Action {
 	
 	/**  下载的excelName  */
 	private String excelName ;
+	
+	private String selectYear;
 
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
@@ -258,9 +263,7 @@ public class T410_Action {
 		boolean flag = T410_services.deleteByIds(ids) ;
 		PrintWriter out = null ;
 		
-		try{
-			
-			
+		try{			
 			response.setContentType("application/json; charset=UTF-8") ;
 			out = response.getWriter() ;			
 			if(flag){
@@ -281,142 +284,156 @@ public class T410_Action {
 	}
 	
 	public InputStream getInputStream() throws Exception{
-
-		List<T410_Bean> list = T410_dao.totalList();
 		
-		String sheetName = this.getExcelName();
-			
-		List<String> columns = new ArrayList<String>();
-		columns.add("序号");
-		columns.add("教学单位");columns.add("单位号");columns.add("教师编著教材数");columns.add("教师编写教材数");
-		columns.add("小计");columns.add("国际级");columns.add("国家级");columns.add("省部级");
-		columns.add("市级");columns.add("校级");
-		columns.add("小计");columns.add("国际级");columns.add("国家级");columns.add("省部级");
-		columns.add("市级");columns.add("校级");
-			
-		Map<String,Integer> maplist = new HashMap<String,Integer>();
-		maplist.put("SeqNum", 0);
-		maplist.put("teaUnit", 1);maplist.put("unitId", 2);maplist.put("complileBookNum", 3);maplist.put("writeBookNum", 4);
-		maplist.put("sumPlanBook", 5);maplist.put("interPlanBook", 6);maplist.put("nationPlanBook", 7);maplist.put("proviPlanBook", 8);
-		maplist.put("cityPlanBook", 9);maplist.put("schPlanBook", 10);
-		maplist.put("sumAwardBook", 11);maplist.put("interAwardBook", 12);maplist.put("nationAwardBook", 13);maplist.put("proviAwardBook", 14);
-		maplist.put("cityAwardBook", 15);maplist.put("schAwardBook", 16);
-			
-	    WritableWorkbook wwb;
+		System.out.println(this.getSelectYear());
+
+		T410_Bean bean = T410_dao.totalList(this.getSelectYear());
+		
 	    ByteArrayOutputStream fos = null;
-	    try {    
-	           fos = new ByteArrayOutputStream();
-	           wwb = Workbook.createWorkbook(fos);
-	           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+	
+		if(bean==null){
+			PrintWriter out = null ;
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			out.print("后台传入的数据为空!!!") ;
+			System.out.println("后台传入的数据为空");
+		}else{
+			String sheetName = this.getExcelName();
+						
+		    WritableWorkbook wwb;
+		    try {    
+		           fos = new ByteArrayOutputStream();
+		           wwb = Workbook.createWorkbook(fos);
+		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+		
+		            //    设置单元格的文字格式
+		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		           WritableCellFormat wcf = new WritableCellFormat(wf);
+		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		           wcf.setAlignment(Alignment.CENTRE);
+		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+		        		     jxl.format.Colour.BLACK);
+		           ws.setRowView(1, 500);
+		           
+		            //    设置内容单无格的文字格式
+		           WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		            WritableCellFormat wcf1 = new WritableCellFormat(wf1);        
+		            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+		            wcf1.setAlignment(Alignment.CENTRE);
+		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+			        		     jxl.format.Colour.BLACK);
+		           
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.mergeCells(0, 0, 3, 0);
+		             
+		           ws.addCell(new Label(0, 2, "", wcf)); 
+		           ws.addCell(new Label(0, 5, "项目数（项）", wcf)); 
+		           ws.addCell(new Label(0, 6, "经费（万元）", wcf)); 
+		           ws.addCell(new Label(1, 2, "1.教师科研项目", wcf)); 
+		           ws.addCell(new Label(1, 3, "总计", wcf)); 
+		           ws.addCell(new Label(2, 3, "横向", wcf)); 
+		           ws.addCell(new Label(4, 3, "纵向", wcf)); 
+		           ws.addCell(new Label(2, 4, "横向总数", wcf)); 
+		           ws.addCell(new Label(3, 4, "其中：人文社会科学", wcf)); 
+		           ws.addCell(new Label(4, 4, "纵向总数", wcf)); 
+		           ws.addCell(new Label(5, 4, "其中：人文社会科学", wcf));
+		           ws.mergeCells(0, 2, 0, 4);
+		           ws.mergeCells(1, 2, 5, 2);
+		           ws.mergeCells(1, 3, 1, 4);
+		           ws.mergeCells(2, 3, 3, 3);
+		           ws.mergeCells(4, 3, 5, 3);
+		           ws.addCell(new Label(1, 5, bean.getResItemNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 5, bean.getHresItemNum().toString(), wcf1));
+		           ws.addCell(new Label(3, 5, bean.getHhumanItemNum().toString(), wcf1));
+		           ws.addCell(new Label(4, 5, bean.getZresItemNum().toString(), wcf1));
+		           ws.addCell(new Label(5, 5, bean.getZhumanItemNum().toString(), wcf1));
+		           ws.addCell(new Label(1, 6, bean.getResItemFund().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 6, bean.getHitemFund().toString(), wcf1));
+		           ws.addCell(new Label(3, 6, bean.getHhumanItemFund().toString(), wcf1));
+		           ws.addCell(new Label(4, 6, bean.getZitemFund().toString(), wcf1));
+		           ws.addCell(new Label(5, 6, bean.getZhumanItemFund().toString(), wcf1));
+		           
+		           	           
+		           ws.addCell(new Label(1, 8, "2.近一届科研成果奖数（项）", wcf)); 
+		           ws.addCell(new Label(1, 9, "总数", wcf)); 
+		           ws.addCell(new Label(2, 9, "其中", wcf)); 
+		           ws.addCell(new Label(2, 10, "国家级", wcf)); 
+		           ws.addCell(new Label(3, 10, "省部级", wcf)); 
+		           ws.addCell(new Label(4, 10, "市厅级", wcf)); 
+		           ws.addCell(new Label(5, 10, "校级", wcf)); 	           
+		           ws.mergeCells(1, 8, 5, 8);
+		           ws.mergeCells(1, 9, 1, 10);
+		           ws.mergeCells(2, 9, 5, 9);	           
+		           ws.addCell(new Label(1, 11, bean.getResAwardNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 11, bean.getNationResAward().toString(), wcf1));
+		           ws.addCell(new Label(3, 11, bean.getProviResAward().toString(), wcf1));
+		           ws.addCell(new Label(4, 11, bean.getCityResAward().toString(), wcf1));
+		           ws.addCell(new Label(5, 11, bean.getSchResAward().toString(), wcf1));
+		           
+		           
+		           ws.addCell(new Label(1, 13, "3.发表论文数（篇）", wcf)); 
+		           ws.addCell(new Label(1, 14, "总数", wcf)); 
+		           ws.addCell(new Label(2, 14, "其中", wcf)); 
+		           ws.addCell(new Label(2, 15, "SCI", wcf)); 
+		           ws.addCell(new Label(3, 15, "SSCI", wcf)); 
+		           ws.addCell(new Label(4, 15, "EI", wcf)); 
+		           ws.addCell(new Label(5, 15, "ISTP", wcf)); 
+		           ws.addCell(new Label(6, 15, "国内核心期刊", wcf)); 
+		           ws.addCell(new Label(7, 15, "CSSCI", wcf)); 
+		           ws.addCell(new Label(8, 15, "CSCD", wcf)); 
+		           ws.addCell(new Label(9, 15, "其他", wcf)); 
+		           ws.mergeCells(1, 13, 9, 13);
+		           ws.mergeCells(1, 14, 1, 15);
+		           ws.mergeCells(2, 14, 9, 14);
+		           ws.addCell(new Label(1, 16, bean.getPaperNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 16, bean.getSci().toString(), wcf1));
+		           ws.addCell(new Label(3, 16, bean.getSsci().toString(), wcf1));
+		           ws.addCell(new Label(4, 16, bean.getEi().toString(), wcf1));
+		           ws.addCell(new Label(5, 16, bean.getIstp().toString(), wcf1));
+		           ws.addCell(new Label(6, 16, bean.getInlandCoreJnal().toString(), wcf1)); 
+		           ws.addCell(new Label(7, 16, bean.getCssci().toString(), wcf1));
+		           ws.addCell(new Label(8, 16, bean.getCscd().toString(), wcf1));
+		           ws.addCell(new Label(9, 16, bean.getOtherPaper().toString(), wcf1));
 
-	            //    设置单元格的文字格式
-	           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
-	                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
-	           WritableCellFormat wcf = new WritableCellFormat(wf);
-	           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
-	           wcf.setAlignment(Alignment.CENTRE);
-	           ws.setRowView(1, 500);
+		           
+		           
+		           ws.addCell(new Label(1, 18, "4.出版专译著（册）", wcf)); 
+		           ws.addCell(new Label(1, 19, "总数", wcf)); 
+		           ws.addCell(new Label(2, 19, "专著", wcf)); 
+		           ws.addCell(new Label(3, 19, "译著", wcf)); 
+		           ws.mergeCells(1, 18, 3, 18);	           
+		           ws.addCell(new Label(1, 20, bean.getPublicationNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 20, bean.getTreatises().toString(), wcf1));
+		           ws.addCell(new Label(3, 20, bean.getTranslation().toString(), wcf1));
+		           
+		           ws.addCell(new Label(1, 22, "5.获准专利（项）", wcf)); 
+		           ws.addCell(new Label(1, 23, "总数", wcf)); 
+		           ws.addCell(new Label(2, 23, "发明专利", wcf)); 
+		           ws.addCell(new Label(3, 23, "实用新型专利", wcf)); 
+		           ws.addCell(new Label(4, 23, "外观设计专利", wcf)); 
+		           ws.mergeCells(1, 22, 6, 22);
+		           ws.mergeCells(4, 23, 6, 23);
+		           ws.mergeCells(4, 24, 6, 24);
+		           ws.addCell(new Label(1, 24, bean.getPatentNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 24, bean.getInventPatent().toString(), wcf1));
+		           ws.addCell(new Label(3, 24, bean.getUtilityPatent().toString(), wcf1));
+		           ws.addCell(new Label(4, 24, bean.getDesignPatent().toString(), wcf1));
+		           
+		          wwb.write();
+		          wwb.close();
 
-	            //判断一下表头数组是否有数据  
-	           if (columns != null && columns.size() > 0) {  
-	  
-	                //循环写入表头  
-	               for (int i = 0; i < columns.size(); i++) {  
-	  
-	                    /* 
-	                     * 添加单元格(Cell)内容addCell() 
-	                     * 添加Label对象Label() 
-	                     * 数据的类型有很多种、在这里你需要什么类型就导入什么类型 
-	                     * 如：jxl.write.DateTime 、jxl.write.Number、jxl.write.Label 
-	                     * Label(i, 0, columns[i], wcf) 
-	                     * 其中i为列、0为行、columns[i]为数据、wcf为样式 
-	                     * 合起来就是说将columns[i]添加到第一行(行、列下标都是从0开始)第i列、样式为什么"色"内容居中 
-	                     */  
-	            	   if(i<5){
-	            		   ws.addCell(new Label(i, 0, columns.get(i), wcf)); 
-	            		   ws.mergeCells(i, 0, i, 1);
-	            	   }
-	                    	                    
-	                   if(i>=5){
-	                	   if(i==5){
-	                		   ws.addCell(new Label(i, 0, "其中规划教材", wcf));
-	                		   ws.mergeCells(5, 0, 10, 0);
-	                	   }
-	                	   
-	                	   ws.addCell(new Label(i, 1, columns.get(i), wcf)); 	
-	                	   
-	                	   if(i==11){
-	                		   ws.addCell(new Label(i, 0, "其中获奖教材", wcf));
-	                		   ws.mergeCells(11, 0, 16, 0);
-	                	   }
-	                   }
-	                   	                   
-	                }
-	               	
-	           }
-	  
-	                //判断表中是否有数据  
-	            if (list != null && list.size() > 0) {  
-	                    //循环写入表中数据  
-	                	BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
-	                	int i=2;  
-	                	for(Object obj : list){  
-	                		wrapper.setWrappedInstance(obj) ;  
-	                        //循环输出map中的子集：既列值                         
-	                        for(String column:maplist.keySet()){
-	                        	
-	                        	if(column.equals("SeqNum")){
-	                        		ws.addCell(new Label(0,i,""+(i-1))); 
-	                        		continue;
-	                        	}
-	                        	                        	
-	        					String type = wrapper.getPropertyType(column).toString() ;
-	        					//System.out.println(type +"test" + column);
-
-	        					//判断插入数据的类型，并赋�?
-	        					if(type.endsWith("String")){
-	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column)));
-	        					}else if(type.endsWith("int")||type.endsWith("Integer")){
-	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString()));
-	        					}else if(type.endsWith("Date")){
-	        						if((java.util.Date)wrapper.getPropertyValue(column) == null){
-	        							ws.addCell(new Label(maplist.get(column).intValue(),i,null));
-	        						}else{
-	            						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(column) ;
-	            						Date sqlDate = new Date(utilDate.getTime()) ;
-	            						ws.addCell(new Label(maplist.get(column).intValue(),i,sqlDate.toString()));
-	        						}
-	        					}else if(type.endsWith("long")||type.endsWith("Long")){
-	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString()));
-	        					}else if(type.endsWith("boolean")||type.endsWith("Boolean")){
-	        						if((Boolean)wrapper.getPropertyValue(column)){
-	        							ws.addCell(new Label(maplist.get(column).intValue(),i,"是"));
-	        						}else{
-	        							ws.addCell(new Label(maplist.get(column).intValue(),i,"否"));
-	        						}
-	        					}else if(type.endsWith("double")||type.endsWith("Double")){
-	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString()));
-	        					}else{
-	        						throw new Exception("自行添加对应类型" + type) ;
-	        					}                       	                         	
-	                        }
-	                        i++;
-	                    }
-	                }else{
-	                	System.out.println("后台传入的数据为空");
-	                }
-
-	            wwb.write();
-	            wwb.close();
-
-	        } catch (IOException e){
-	        } catch (RowsExceededException e){
-	        } catch (WriteException e){}
+		        } catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
+		        
+		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	
 	public String execute() throws Exception{
-		request.setCharacterEncoding("UTF-8") ;
+		response.setContentType("text/html;charset=utf-8"); 
 		System.out.println("excelName=============" + excelName) ;
 		return "success" ;
 	}
@@ -485,6 +502,20 @@ public class T410_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLDecoder.decode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
 	}
 }

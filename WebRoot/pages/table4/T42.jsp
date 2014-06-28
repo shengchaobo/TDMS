@@ -166,9 +166,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem" id="item1">
 		  <form method="post"  id="batchForm" enctype="multipart/form-data">
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
+				<input class="easyui-datebox"  id="birthday" type="text"  name="T42_bean.birthday"  editable="false" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T42/downloadModel?saveFile=<%=URLEncoder.encode("表4-2校领导基本信息.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
-			</form>
+		  </form>
 		</div>	
 		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
 	   <h3 class="ftitle">校领导信息逐条导入</h3>

@@ -143,6 +143,8 @@ public class T453_Excel {
 				String communContent = cell[10].getContents() ;
 				String note = cell[11].getContents() ;
 				
+				count++ ;
+				
 				String fillUnitID = null; //从user的session中获得，现在没有
 				T453_bean = new T453_Bean() ;
 				T453_bean.setTeaUnitName(unit);

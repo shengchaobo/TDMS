@@ -141,6 +141,8 @@ public class T452_Excel {
 				String trainMajor = cell[10].getContents() ;
 				String note = cell[11].getContents() ;
 				
+				count++ ;
+				
 				String fillUnitID = null; //从user的session中获得，现在没有
 				T452_bean = new T452_Bean() ;
 				T452_bean.setTeaUnitName(unit);

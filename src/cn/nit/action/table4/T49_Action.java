@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import jxl.Workbook;
 import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
 import jxl.format.Colour;
 import jxl.format.UnderlineStyle;
 import jxl.format.VerticalAlignment;
@@ -271,6 +273,17 @@ public class T49_Action {
 	           WritableCellFormat wcf = new WritableCellFormat(wf);
 	           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
 	           wcf.setAlignment(Alignment.CENTRE);
+	           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+	        		     jxl.format.Colour.BLACK);
+	           
+	            //    设置内容单无格的文字格式
+	           WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+	                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+	            WritableCellFormat wcf1 = new WritableCellFormat(wf1);          
+	           wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+	           wcf1.setAlignment(Alignment.CENTRE);
+	           wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+		        		     jxl.format.Colour.BLACK);
 	           ws.setRowView(1, 500);
 
 	            //判断一下表头数组是否有数据  
@@ -322,7 +335,7 @@ public class T49_Action {
 	                        for(String column:maplist.keySet()){
 	                        	
 	                        	if(column.equals("SeqNum")){
-	                        		ws.addCell(new Label(0,i,""+(i-1))); 
+	                        		ws.addCell(new Label(0,i,""+i,wcf1)); 
 	                        		continue;
 	                        	}
 	                        	                        	
@@ -331,30 +344,30 @@ public class T49_Action {
 
 	        					//判断插入数据的类型，并赋�?
 	        					if(type.endsWith("String")){
-	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column)));
+	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column),wcf1));
 	        					}else if(type.endsWith("int")||type.endsWith("Integer")){
-	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString()));
+	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString(),wcf1));
 	        					}else if(type.endsWith("Date")){
 	        						if((java.util.Date)wrapper.getPropertyValue(column) == null){
-	        							ws.addCell(new Label(maplist.get(column).intValue(),i,null));
+	        							ws.addCell(new Label(maplist.get(column).intValue(),i,null,wcf1));
 	        						}else{
 	            						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(column) ;
 	            						Date sqlDate = new Date(utilDate.getTime()) ;
-	            						ws.addCell(new Label(maplist.get(column).intValue(),i,sqlDate.toString()));
+	            						ws.addCell(new Label(maplist.get(column).intValue(),i,sqlDate.toString(),wcf1));
 	        						}
 	        					}else if(type.endsWith("long")||type.endsWith("Long")){
-	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString()));
+	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString(),wcf1));
 	        					}else if(type.endsWith("boolean")||type.endsWith("Boolean")){
 	        						if((Boolean)wrapper.getPropertyValue(column)){
-	        							ws.addCell(new Label(maplist.get(column).intValue(),i,"是"));
+	        							ws.addCell(new Label(maplist.get(column).intValue(),i,"是",wcf1));
 	        						}else{
-	        							ws.addCell(new Label(maplist.get(column).intValue(),i,"否"));
+	        							ws.addCell(new Label(maplist.get(column).intValue(),i,"否",wcf1));
 	        						}
 	        					}else if(type.endsWith("double")||type.endsWith("Double")){
-	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString()));
+	        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString(),wcf1));
 	        					}else{
 	        						throw new Exception("自行添加对应类型" + type) ;
-	        					}                       	                         	
+	        					}    	
 	                        }
 	                        i++;
 	                    }

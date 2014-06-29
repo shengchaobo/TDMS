@@ -34,7 +34,7 @@ public class T48_Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear){
 		
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
@@ -149,7 +149,7 @@ public class T48_Excel {
 				T48_bean.setAppvlId(appvlId);
 				T48_bean.setNote(note);
 				//插入时间
-				T48_bean.setTime(new Date());
+				T48_bean.setTime(TimeUtil.changeDateY(selectYear));
 				String fillUnitID = null;
 
 				T48_bean.setFillUnitID(fillUnitID);

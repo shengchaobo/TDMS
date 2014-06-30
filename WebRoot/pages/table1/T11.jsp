@@ -68,7 +68,8 @@
 		
 		<form id="schBasForm" method="post">
 		<table id="showInfo" class="doc-table"
-			url="pages/T11/auditingData">
+			url="pages/T11/auditingData"  >
+			<!--  style="width:1000px" align=center valign=middle -->
 			<tbody>
 
 				<tr>

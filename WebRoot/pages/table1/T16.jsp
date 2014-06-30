@@ -92,7 +92,7 @@
 			 </div>
 			 <div id="input1"  style="display:none;" >
 			  <!--  <input id="Contents1"  name="t16Bean.Contents" type="text"  size="60" >-->
-			  <textarea  id="Contents1"  name="t16Bean.Contents" type="text"  style="width: 600px;height: 50px;max-width: 600px;max-height: 100px;"></textarea>
+			  <textarea  id="Contents1"  name="t16Bean.Contents" type="text"  style="width: 400px;height: 50px;max-width: 400px;max-height: 100px;"></textarea>
 			  </div>
             </td>
 		     <td style="background-color: white" width="30%"  field="note">

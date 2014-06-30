@@ -57,29 +57,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:350px" url="pages/T181/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true"
+		toolbar="#toolbar" pagination="true" rownumbers="true" collapsible="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width=10>编号</th>
-				<th field="cooperInsName" width=10>合作机构名称</th>
-				<th field="cooperInsType" width=10>合作机构类型</th>
-				<th field="cooperInsLevel" width=10>合作机构级别</th>
-				<th field="signedTime" width=10 fit="true" formatter="formattime">签订协议时间</th>
+				  <th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber"  width=10>编号</th>
+				<th field="cooperInsName"  width=10>合作机构名称</th>
+				<th field="cooperInsType"  width=10>合作机构类型</th>
+				<th field="cooperInsLevel"  width=10>合作机构级别</th>
+				<th field="signedTime"  width=10 fit="true" formatter="formattime">签订协议时间</th>
 				<th field="unitName" width=10>我方单位</th>
-				<th field="unitID" width=10>单位号</th>
-				<th field="unitLevel" width=10>我方单位级别</th>
-				<th field="note" width=10>备注</th>
+				<th field="unitID"  width=10>单位号</th>
+				<th field="unitLevel"  width=10>我方单位级别</th>
+				<th field="note"  width=10>备注</th>
 			</tr>
 		</thead>
 	</table>
+	<p></p>
 	<div id="toolbar" style="height:auto">
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href="pages/T181/dataExport?excelName=表1-8-1签订合作协议机构（教务处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 			<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
@@ -88,17 +88,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2">
-		<a href="pages/UndergraCSBaseTea/dataExport" class="easyui-linkbutton" iconCls="icon-download">数据导出</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
-	</div>
+	
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
-		toolbar="#toolbar2" pagination="true" rownumbers="true"
+		toolbar="#toolbar2" pagination="true" rownumbers="true" collapsible="true"
 		fitColumns="true" singleSelect="false">
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width=10>序号</th>
+			<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber" width=10>编号</th>
 				<th field="CooperInsName" width=10>合作机构名称</th>
 				<th field="CooperInsType" width=10>合作机构类型</th>
 				<th field="CooperInsLevel" width=10>合作机构级别</th>
@@ -110,6 +107,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	</table>
+	<div id="toolbar2">
+		<a href="pages/T181/dataExport?excelName=表1-8-1签订合作协议机构（教务处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+	</div>
+	
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">

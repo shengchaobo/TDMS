@@ -69,7 +69,10 @@ public class T19Excel {
 			
 			T19Bean t19Bean = new  T19Bean();
 			int n=cellList.indexOf(cell);
-			if(n==0||n==1){continue;}
+			if(count<4){
+				count++;
+				continue;
+			}
 			else{
 				
 				

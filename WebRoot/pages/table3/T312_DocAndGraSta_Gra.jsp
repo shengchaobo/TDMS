@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -81,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
 	</div>
@@ -110,12 +111,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		buttons="#dlg-buttons">
 		<div class="ftitle">博士点硕士点批量导入</div>
 		<div class="fitem">
-			<form method="post">
+			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<input type="file" name="fileToUpload" id="fileToUpload" class="easyui-validatebox"
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="table3/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/DocAndGraSta/downloadModel?saveFile=<%=URLEncoder.encode("表3-1-2博士点 、硕士点（研究生院）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
@@ -194,44 +195,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	    var url;
 
-		function singleSearch(){
-		   	 $('#auditing').form('submit',{
-		   		 url: 'pages/DocAndGraSta/singleSearch',
-		   		 type: "post",
-			     dataType: "json",
-		   		 success: function(result){
-		   		 	var result = eval('('+result+')');
-		   		 	if (!result.state){
-		   		 		$.messager.show({
-		   		 			title: 'Error',
-		   		 			msg: result.errorMsg
-		   			 });
-		   		 	} else {
-				    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-		   		 	}
-		   		 }
-		   		 });
-		   }
+		function reloadgrid ()  { 
+	        //查询参数直接添加在queryParams中 
+	         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+	         queryParams.seqNum = $('#seqNum').val(); 
+	         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+        	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+	         $("#unverfiedData").datagrid('reload'); 
+	    }
+
+
 	    
 	    function batchImport(){
-	    	 $('#fm').form('submit',{
-	    		 url: url,
+	    	 $('#batchForm').form('submit',{
+	    		 url: 'pages/DocAndGraSta/uploadFile',
+	    		 type: "post",
+		         dataType: "json",
 	    		 onSubmit: function(){
-	    		 	return $(this).form('validate');
+	    			 return check() ;
 	    		 },
 	    		 success: function(result){
 	    		 	var result = eval('('+result+')');
-	    		 	if (result.errorMsg){
+	    		 	if (!result.success){
 	    		 		$.messager.show({
 	    		 			title: 'Error',
 	    		 			msg: result.errorMsg
 	    			 });
 	    		 	} else {
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#dg').datagrid('reload'); // reload the user data
+			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
 	    		 	}
 	    		 }
 	    		 });
+	    }
+	    
+	    function check(){
+	    	var fileName = $('#uploadFile').val() ;
+	    	
+	    	if(fileName == null || fileName == ""){
+	    		 $.messager.alert("操作提示", "请先选择要导入的文件！");
+	    		return false ;
+	    	}
+	    	
+	    	var pos = fileName.lastIndexOf(".") ;
+	    	var suffixName = fileName.substring(pos, fileName.length) ;
+	    	
+	    	if(suffixName == ".xls"){
+	    		return true ;
+	    	}else{
+	    		 $.messager.alert("操作提示", "请选择正确的Excel文件（后缀为.xls）");
+	    		return false ;
+	    	}
 	    }
 	    
 	    function newCourse(){

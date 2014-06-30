@@ -23,6 +23,7 @@ import cn.nit.excel.imports.table3.T33Excel;
 
 import cn.nit.service.table3.T33_Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 public class T33_Action {
 	
@@ -46,7 +47,7 @@ private T33_Service t33_Service = new T33_Service() ;
 	}
 	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -96,33 +97,7 @@ private T33_Service t33_Service = new T33_Service() ;
 	
 
 	
-	public T33_Service getT33_Service() {
-		return t33_Service;
-	}
 
-
-
-
-
-	public void setT33_Service(T33_Service t33Service) {
-		t33_Service = t33Service;
-	}
-
-
-
-
-
-	public T33_Bean getT33_Bean() {
-		return t33_Bean;
-	}
-
-
-
-
-
-	public void setT33_Bean(T33_Bean t33Bean) {
-		t33_Bean = t33Bean;
-	}
 
 
 
@@ -141,8 +116,28 @@ public void auditingData(){
 			return ;
 		}
 		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t33_Service.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
+		
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
+		}
+		String pages = t33_Service.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -159,26 +154,7 @@ public void auditingData(){
 		}
 	}
 	
-	/**  生成查询条件  （查询数据） */
-	public void auditingConditions(){
-		
-		String sqlConditions = t33_Service.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+
 	
 	/**  编辑数据  */
 	public void edit(){
@@ -258,7 +234,7 @@ public void auditingData(){
 			maplist.put("MajorChargeMan", 13);maplist.put("CIsFullTime", 14);maplist.put("Note",15);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t33Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -291,85 +267,88 @@ public void auditingData(){
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-
-
 	
-	public int getSeqNum() {
+	
+	public T33_Service getT33_Service() {
+		return t33_Service;
+	}
+
+	public void setT33_Service(T33_Service t33Service) {
+		t33_Service = t33Service;
+	}
+
+	public T33_Bean getT33_Bean() {
+		return t33_Bean;
+	}
+
+	public void setT33_Bean(T33_Bean t33Bean) {
+		t33_Bean = t33Bean;
+	}
+
+	public T33_DAO getT33_DAO() {
+		return t33_DAO;
+	}
+
+	public void setT33_DAO(T33_DAO t33DAO) {
+		t33_DAO = t33DAO;
+	}
+
+	public T33Excel getT33Excel() {
+		return t33Excel;
+	}
+
+	public void setT33Excel(T33Excel t33Excel) {
+		this.t33Excel = t33Excel;
+	}
+
+	public Integer getSeqNum() {
 		return seqNum;
 	}
 
-
-
-
-
-	public void setSeqNum(int seqNum) {
+	public void setSeqNum(Integer seqNum) {
 		this.seqNum = seqNum;
 	}
 
-
-
-
-
-	public void setStartTime(Date startTime){
-		this.startTime = startTime ;
+	public Date getStartTime() {
+		return startTime;
 	}
-	
-	public void setEndTime(Date endTime){
-		this.endTime = endTime ;
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getIds() {
+		return ids;
 	}
 
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
 
-	public void setPage(String page){
-		this.page = page ;
-	}
-	
-	public Date getStartTime() {
-		return startTime;
-	}
-
-
-
-
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-
-
-
-
-	public String getIds() {
-		return ids;
-	}
-
-
-
-
-
 	public String getPage() {
 		return page;
 	}
 
-
-
-
+	public void setPage(String page) {
+		this.page = page;
+	}
 
 	public String getRows() {
 		return rows;
 	}
 
-
-
-
-
-	public void setRows(String rows){
-		this.rows = rows ;
+	public void setRows(String rows) {
+		this.rows = rows;
 	}
-	
+
 	public static void main(String args[]){
 		String match = "[\\d]+" ;
 		System.out.println("23gfhf4".matches(match)) ;

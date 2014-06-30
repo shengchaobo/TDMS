@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -89,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="singleSearch()">查询</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
 	</div>
@@ -125,12 +126,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		buttons="#dlg-buttons">
 		<div class="ftitle">重点学科库批量导入</div>
 		<div class="fitem">
-			<form method="post">
+			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<input type="file" name="fileToUpload" id="fileToUpload" class="easyui-validatebox"
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="table3/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/DiscipRes/downloadModel?saveFile=<%=URLEncoder.encode("表3-1-3重点学科（科研处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
@@ -302,26 +303,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	    var url;
+
+		function reloadgrid ()  { 
+	        //查询参数直接添加在queryParams中 
+	         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+	         queryParams.seqNum = $('#seqNum').val(); 
+	         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+        	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+	         $("#unverfiedData").datagrid('reload'); 
+	    }
+
+	    
 	    function batchImport(){
-	    	 $('#fm').form('submit',{
-	    		 url: url,
+	    	 $('#batchForm').form('submit',{
+	    		 url: 'pages/DiscipRes/uploadFile',
+	    		 type: "post",
+		         dataType: "json",
 	    		 onSubmit: function(){
-	    		 	return $(this).form('validate');
+	    			 return check() ;
 	    		 },
 	    		 success: function(result){
 	    		 	var result = eval('('+result+')');
-	    		 	if (result.errorMsg){
+	    		 	if (!result.success){
 	    		 		$.messager.show({
 	    		 			title: 'Error',
 	    		 			msg: result.errorMsg
 	    			 });
 	    		 	} else {
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#dg').datagrid('reload'); // reload the user data
+			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
 	    		 	}
 	    		 }
 	    		 });
 	    }
+	    
+	    function check(){
+	    	var fileName = $('#uploadFile').val() ;
+	    	
+	    	if(fileName == null || fileName == ""){
+	    		 $.messager.alert("操作提示", "请先选择要导入的文件！");
+	    		return false ;
+	    	}
+	    	
+	    	var pos = fileName.lastIndexOf(".") ;
+	    	var suffixName = fileName.substring(pos, fileName.length) ;
+	    	
+	    	if(suffixName == ".xls"){
+	    		return true ;
+	    	}else{
+	    		 $.messager.alert("操作提示", "请选择正确的Excel文件（后缀为.xls）");
+	    		return false ;
+	    	}
+	    } 
 	    
 	    function newCourse(){
 		    $('#dlg').dialog('open').dialog('setTitle','添加重点学科库');
@@ -459,29 +492,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	    }
 
-	    function editUser(){
-	    	var row = $('#dg').datagrid('getSelections');
-	    	if(row.length != 1){
-	    		 $.messager.alert("信息提示","没选取或者选取了多行","info");  ;
-	    		return ;
-	    	}
-	    	alert(row[0].birthday) ;
-	    	var date = formattime(row[0].birthday) ;
-	    	//为文本框赋值
-	    	$('#id').val(row[0].id) ;
-	    	$('#username').val(row[0].username) ;
-	    	$('#password').val(row[0].password) ;
-	    	$('#email').val(row[0].email) ;
-	    	$('#sex').val(row[0].sex) ;
-	    	$('#birthday').val(date) ;
-	    	
-	    	
-		    if (row){
-			    $('#dlg').dialog('open').dialog('setTitle','本科课程库');
-			    $('#fm').form('load',row);
-			    url = 'updateUser';
-		    }
-	    }
+
 
 	    function deleteByIds(){
 	    	//获取选中项
@@ -535,55 +546,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    
 	    }
 	    
-	    function loadDictionary(){
-	    	
-	    	$.ajax({ 
-	    		type: "POST", 
-	    		url: "table5/loadDic", 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			data = eval("(" + data + ")");
-	    			alert(data[0].id) ;
-	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
-	    			$(data).each(function(index) {
-	    				var val = data[index];
-	    				if(index%4 == 0 && index != 0){
-	    					str += "</tr><tr>" ;
-	    				}
-	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
-	    			}); 
-	    			//alert(str);
-	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
-	    			document.getElementById("dicTables").innerHTML = str;
-	    			$.parser.parse('#dicTables');
-	    		}
-	    	}).submit();
-	    }
-	    	
-	    function loadData(){
-	 
-	    	//flag判断
-	    	
-	    	var flag = false ;
-	    	var checkboxes = document.getElementsByName("checkboxex");
-	    	var tables = "<div class=\"ftitle\">自定义查询条件</div><form method=\"post\" action=\"table5/dictorySearch\" id=\"dicsDataForm\"><table width=\"100%\" border=\"1\">" ;
-	    	tables += "<tr><td>查询名称</td><td>运算符</td><td>查询内容</td><td>逻辑关系</td></tr>" ;
-	    	for(i=0; i<checkboxes.length; i++){
-	    		if(checkboxes[i].checked){
-	    			flag = true ;
-	    			tables += ("<tr><td style=\"width:50%px\">" + hideId(checkboxes[i].id,i)  + checkboxes[i].value + "</td><td>" + selectOperateData(i) + "</td><td>" + selectDataHtml(checkboxes[i].id,i) +"</td><td>" + selectLogicData(i) + "</td></tr>") ;
-	    		}
-	    	}
-	    	if(flag){
-	    		tables += "<tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-search\" onclick=\"submitDicForm()\">查询</a></td></tr>" ;
-	    	}
-	    	tables += "</table></form>" ;
-	    	alert(tables) ;
-	    	document.getElementById("dices").innerHTML = tables ;
-	    	$.parser.parse('#dices');
-	    	
-	    }
+
+
 	    
 	    function hideId(val,index){
 	    	var hiddenId = "<input type='hidden' name='dictorySearch[" + index + "].id' value='" + val + "'/>" ;

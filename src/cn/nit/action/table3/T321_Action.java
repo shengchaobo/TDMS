@@ -35,6 +35,7 @@ import cn.nit.bean.table3.T321_Bean;
 
 import cn.nit.service.table3.T321_Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 
 
@@ -68,7 +69,7 @@ public class T321_Action {
 	
 	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -140,8 +141,28 @@ public void auditingData(){
 			return ;
 		}
 		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t321_Service.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
+		
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
+		}
+		String pages = t321_Service.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -160,6 +181,78 @@ public void auditingData(){
 	
 
 
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public T321_DAO getT321_DAO() {
+		return t321_DAO;
+	}
+
+	public void setT321_DAO(T321_DAO t321DAO) {
+		t321_DAO = t321DAO;
+	}
+
+	public T321Excel getT321Excel() {
+		return t321Excel;
+	}
+
+	public void setT321Excel(T321Excel t321Excel) {
+		this.t321Excel = t321Excel;
+	}
+
+	public Integer getSeqNum() {
+		return seqNum;
+	}
+
+	public void setSeqNum(Integer seqNum) {
+		this.seqNum = seqNum;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
+	}
+
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
 
 	public T321_Service getT321_Service() {
 		return t321_Service;
@@ -181,26 +274,6 @@ public void auditingData(){
 	}
 
 
-	/**  生成查询条件  （查询数据） */
-	public void auditingConditions(){
-		
-		String sqlConditions = t321_Service.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
 	
 	/**  编辑数据  */
 	public void edit(){
@@ -280,7 +353,7 @@ public void auditingData(){
 			
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t321Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -289,19 +362,7 @@ public void auditingData(){
 		return inputStream ;
 	}
 	
-
-//	
-//	columns.add("序号");
-//	columns.add("大类名称");columns.add("大类代码");columns.add("分流时间");
-//	columns.add("包含校内专业名称");columns.add("校内专业代码");columns.add("所属单位");
-//	columns.add("单位号");columns.add("备注");
-//
-//	
-//	Map<String,Integer> maplist = new HashMap<String,Integer>();
-//	maplist.put("SeqNum", 0);
-//	maplist.put("MainClassName", 1);maplist.put("MainClassID", 2);maplist.put("ByPassTime", 3);maplist.put("MajorNameInSch", 4);
-//	maplist.put("MajorID", 5);maplist.put("UnitName", 6);maplist.put("UnitID", 7);maplist.put("Note", 8);
-//	
+	
 
 	public String execute() throws Exception{
 
@@ -327,29 +388,7 @@ public void auditingData(){
 
 
 
-	public void setSeqNum(int seqNum){
-		this.seqNum = seqNum ;
-	}
-	
-	public void setStartTime(Date startTime){
-		this.startTime = startTime ;
-	}
-	
-	public void setEndTime(Date endTime){
-		this.endTime = endTime ;
-	}
 
-	public void setIds(String ids) {
-		this.ids = ids;
-	}
-
-	public void setPage(String page){
-		this.page = page ;
-	}
-	
-	public void setRows(String rows){
-		this.rows = rows ;
-	}
 	
 
 

@@ -51,7 +51,8 @@ public class T152Excel {
 	 * @return
 	 */
 	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
-		
+		System.out.println("大小");
+		System.out.println(cellList.size());
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
 		}

@@ -47,87 +47,66 @@ public class T311Excel {
 	 * @return
 	 */
 	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
-		
+		System.out.println("大小");
+		System.out.println(cellList.size());
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
 		}
 		
 		int count = 1 ;
-		
+		 Date time=new Date();
 		boolean flag = false ;
-		boolean biOpen=false;
-		boolean buildCondi=false;
-		List<T181Bean> list = new LinkedList<T181Bean>() ;
+		List<T311_Bean> list = new LinkedList<T311_Bean>() ;
 		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
-	    DiAwardLevelService diAwardLevelSer=new DiAwardLevelService();
-	    List<DiAwardLevelBean> diAwardLevelList = diAwardLevelSer.getList();
 		
 	
 		
 		for(Cell[] cell : cellList){
 			
-			T181Bean t181Bean = new  T181Bean();
-			int n=cellList.indexOf(cell);
-			if(n==0){continue;}
-			else{
+			T311_Bean t311_Bean = new  T311_Bean();
 				
 				
 			  try{
-				 
-				    String CooperInsName = cell[1].getContents() ;
-				    
-				    if(CooperInsName == null || CooperInsName.equals("")){
-				    	return "第" + count + "行，合作机构名称不能为空" ;
-				    }
-				    if(CooperInsName.length()>100){
-				    	return "第" + count + "行，合作机构名称不能为空" ;
+				  
+				    if(count<3){
+				    	count++;
+				    	continue;
 				    }
 				    
-				    
-					String CooperInsType = cell[2].getContents() ;
-					
-					if(CooperInsType == null || CooperInsType.equals("")){
-						return "第" + count + "行，合作机构类型不能为空" ;
-					}
-					
-					if(!CooperInsType.equals("学术机构")&&!CooperInsType.equals("行业机构和企业")&&!CooperInsType.equals("地方政府")){
-						return "第" + count + "行，合作机构类型只能为“学术机构”或者“行业机构和企业”或者“地方政府”" ;
-					}
-					
-					String CooperInsLevel = cell[3].getContents();
-					
-					if(CooperInsLevel == null || CooperInsLevel.equals("")){
-						return "第" + count + "行，合作机构级别不能为空" ;
-					}
-					
-					for(DiAwardLevelBean diAwardLevelBean:diAwardLevelList)	{
-						if(diAwardLevelBean.getAwardLevel().equals(CooperInsLevel)){
-							CooperInsLevel = diAwardLevelBean.getIndexId() ;
-							flag = true;
-							break ;
-						}
-					}
-					if(!flag){
-						return "第" + count + "行，合作机构级别不存在" ;
-					}else{
-						flag=false;
-					}
-					
+				    if(count!= 3){
+				    	continue;
+				    }
 				 
-					String SignedTime = cell[4].getContents() ;
+				    String PostDocStaName = cell[1].getContents();
+				    
+				    if(PostDocStaName == null || PostDocStaName.equals("")){
+				    	return "第" + count + "行，博士后流动站名称不能为空" ;
+				    }
+				    if(PostDocStaName.length()>100){
+				    	return "第" + count + "行，博士后流动站名称长度不能超过100" ;
+				    }
+				    
+					String setTime = cell[2].getContents() ;
 					
-					if(SignedTime == null || SignedTime.equals("")){
-						return "第" + count + "行，签订协议时间不能为空" ;
+					if(setTime == null || setTime.equals("")){
+						return "第" + count + "行，设置时间不能为空" ;
 					}
 					
-					if(!TimeUtil.judgeFormat1(SignedTime)&&!TimeUtil.judgeFormat2(SignedTime)){
-						return "第" + count + "行，签订协议时间格式有误（格式如：2013/03或者2013/03/01）" ;
+				    if(!TimeUtil.judgeFormat3(setTime)){
+						return "第" + count + "行，设置时间格式有误（格式如：2013）" ;
+					}
+				    
+				    
+					String ResearcherNum = cell[3].getContents() ;
+					
+					if(ResearcherNum == null || ResearcherNum.equals("")){
+						return "第" + count + "行，研究员人数不能为空" ;
 					}
 					
-					String UnitName = cell[5].getContents();
-					String UnitID=cell[6].getContents();
+					String UnitName = cell[4].getContents();
+					String UnitID=cell[5].getContents();
 					
 					if(UnitName == null || UnitName.equals("")){
 						return "第" + count + "行，我方不能为空";
@@ -151,61 +130,31 @@ public class T311Excel {
 						}//if
 					}//for
 					
-					if(!flag){
-						return "第" + count + "行，没有与之相匹配的单位编号" ;
-					}else{
-						flag = false ;	}
-						
-					
-					String UnitLevel=cell[7].getContents();
-					
-					if(UnitLevel == null || UnitLevel.equals("")){
-						return "第" + count + "行，我方单位级别不能为空" ;
-					}
-					 for(DiAwardLevelBean diAwardLevelBean:diAwardLevelList){
-						 if(diAwardLevelBean.getAwardLevel().equals(UnitLevel)){
-							 	UnitLevel = diAwardLevelBean.getIndexId() ;
-								flag = true;
-								break ;
-							}
-					 }
-					 if(!flag){
-							return "第" + count + "行，我方单位级别不存在" ;
-						}else{
-							flag=false;
-						}
-					
-					String note=cell[8].getContents();
-					
-					if(note.length()>500){
-						return "第" + count + "行，备注字数不能超过500" ;
+					String  Note=cell[7].getContents();
+					if(Note.length()>1000){
+						return "第" + count + "行，备注的长度不能超过500个字符！" ;
 					}
 					
 				
 				count++ ;
 				
-				String FillDept=userinfo.getTeaID();
-				Date signedTime=TimeUtil.changeDate4(SignedTime);
-				
-				t181Bean.setCooperInsLevel(CooperInsLevel);
-				t181Bean.setCooperInsName(CooperInsName);
-				t181Bean.setCooperInsType(CooperInsType);
-				t181Bean.setFillDept(FillDept);
-				t181Bean.setNote(note);
-				t181Bean.setSignedTime(signedTime);
-				t181Bean.setTime(new Date());
-				t181Bean.setUnitID(UnitID);
-				t181Bean.setUnitLevel(UnitLevel);
-				t181Bean.setUnitName(UnitName);
-				
-				list.add(t181Bean);			
+				t311_Bean.setPostDocStaName(PostDocStaName);
+				System.out.println(TimeUtil.changeDateY(setTime));
+				t311_Bean.setSetTime(TimeUtil.changeDateY(setTime));
+				t311_Bean.setResearcherNum(ResearcherNum);
+				t311_Bean.setUnitName(UnitName);
+				t311_Bean.setUnitID(UnitID);
+				t311_Bean.setNote(Note);
+				t311_Bean.setTime(time);
+				list.add(t311_Bean);
+				System.out.println("数字");
+				System.out.println(count);
 			}
 			catch(Exception e){
 				e.printStackTrace() ;
 				return "上传文件不合法！！！" ;
 			}
 	     }
-		}
 		
 		flag = false ;
 		T311_Service t311_Ser = new T311_Service() ;

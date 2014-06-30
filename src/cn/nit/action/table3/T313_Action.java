@@ -21,6 +21,7 @@ import cn.nit.excel.imports.table3.T313Excel;
 import cn.nit.bean.table3.T313_Bean;
 import cn.nit.service.table3.T313_Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 
 
@@ -48,7 +49,7 @@ private T313_Service discipSer = new T313_Service() ;
 	
 	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -108,8 +109,28 @@ public void auditingData(){
 			return ;
 		}
 		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = discipSer.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
+		
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
+		}
+		String pages = discipSer.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -136,26 +157,7 @@ public void auditingData(){
 	}
 
 
-	/**  生成查询条件  （查询数据） */
-	public void auditingConditions(){
-		
-		String sqlConditions = discipSer.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+
 	
 	/**  编辑数据  */
 	public void edit(){
@@ -238,7 +240,7 @@ public void auditingData(){
 			
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t313Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -274,39 +276,80 @@ public void auditingData(){
 
 
 
-	public void setSeqNum(int seqNum){
-		this.seqNum = seqNum ;
+
+
+
+	public T313_Bean getDiscipBean() {
+		return discipBean;
 	}
-	
-	public void setStartTime(Date startTime){
-		this.startTime = startTime ;
+
+	public void setDiscipBean(T313_Bean discipBean) {
+		this.discipBean = discipBean;
 	}
-	
-	public void setEndTime(Date endTime){
-		this.endTime = endTime ;
+
+	public T313_DAO getT313_DAO() {
+		return t313_DAO;
+	}
+
+	public void setT313_DAO(T313_DAO t313DAO) {
+		t313_DAO = t313DAO;
+	}
+
+	public T313Excel getT313Excel() {
+		return t313Excel;
+	}
+
+	public void setT313Excel(T313Excel t313Excel) {
+		this.t313Excel = t313Excel;
+	}
+
+	public Integer getSeqNum() {
+		return seqNum;
+	}
+
+	public void setSeqNum(Integer seqNum) {
+		this.seqNum = seqNum;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getIds() {
+		return ids;
 	}
 
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
 
-	public void setPage(String page){
-		this.page = page ;
-	}
-	
-	public void setRows(String rows){
-		this.rows = rows ;
-	}
-	
-	public T313_Bean getDiscipBean() {
-		return discipBean;
+	public String getPage() {
+		return page;
 	}
 
-
-	public void setDiscipBean(T313_Bean discipBean) {
-		this.discipBean = discipBean;
+	public void setPage(String page) {
+		this.page = page;
 	}
 
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
 
 	public static void main(String args[]){
 		String match = "[\\d]+" ;

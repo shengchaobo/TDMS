@@ -127,23 +127,6 @@ public class TimeUtil {
 		return date ;
 	}
 	
-	/**
-	 * 将{@link java.lang.String}类型转换为{@link java.util.Date}类型
-	 * @param dateString
-	 * @return
-	 */
-	public static Date changeDate4(String dateString){
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM") ;
-		Date date = null ;
-		try {
-			date = sf.parse(dateString) ;
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return date ;
-		}
-		
-		return date ;
-	}
 	
 	/**判断字符串格式是否为2013/02*/
 	public static boolean judgeFormat1(String dataString){

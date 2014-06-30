@@ -76,6 +76,9 @@ private T311_Service postDocStaSer = new T311_Service() ;
 		//这还没确定,设置填报者的职工号与部门号
 		//UserInfo userinfo = (UserInfo)getSession().getAttribute("userinfo") ;
 		//undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
+		System.out.println("多个哦");
+		System.out.println(postDocStaBean.getUnitName());
+		System.out.println(postDocStaBean.getUnitID());
 		boolean flag = postDocStaSer.insert(postDocStaBean) ;
 		PrintWriter out = null ;
 		
@@ -110,7 +113,7 @@ private T311_Service postDocStaSer = new T311_Service() ;
 	}
 	
 	/**  为界面加载数据  */
-public void auditingData(){
+	public void auditingData(){
 		
 //		System.out.println("輸出輸出輸出");
 		
@@ -143,12 +146,14 @@ public void auditingData(){
 			}
 			cond = conditions.toString();
 		}
-
 		String pages = postDocStaSer.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+	
+		System.out.println(pages);
 		PrintWriter out = null ;
 		
+		
 		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
+			getResponse().setContentType("application/json; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			out.print(pages) ;
 		}catch(Exception e){
@@ -237,7 +242,7 @@ public void auditingData(){
 			maplist.put("UnitID", 5);maplist.put("Note", 6);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t311Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -273,88 +278,79 @@ public void auditingData(){
 
 
 
+
+
 	public T311_Service getPostDocStaSer() {
 		return postDocStaSer;
 	}
-
-
 
 	public void setPostDocStaSer(T311_Service postDocStaSer) {
 		this.postDocStaSer = postDocStaSer;
 	}
 
-	
+	public T311_DAO getT311_DAO() {
+		return t311_DAO;
+	}
+
+	public void setT311_DAO(T311_DAO t311DAO) {
+		t311_DAO = t311DAO;
+	}
+
+	public T311Excel getT311Excel() {
+		return t311Excel;
+	}
+
+	public void setT311Excel(T311Excel t311Excel) {
+		this.t311Excel = t311Excel;
+	}
+
 	public Integer getSeqNum() {
 		return seqNum;
 	}
-
-
 
 	public void setSeqNum(Integer seqNum) {
 		this.seqNum = seqNum;
 	}
 
-
-
 	public Date getStartTime() {
 		return startTime;
 	}
-
-
 
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-
-
 	public Date getEndTime() {
 		return endTime;
 	}
-
-
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
-
-
 	public String getIds() {
 		return ids;
 	}
-
-
 
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
 
-
-
 	public String getPage() {
 		return page;
 	}
-
-
 
 	public void setPage(String page) {
 		this.page = page;
 	}
 
-
-
 	public String getRows() {
 		return rows;
 	}
 
-
-
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
-
-
 
 	public static void main(String args[]){
 		String match = "[\\d]+" ;

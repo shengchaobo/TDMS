@@ -21,6 +21,7 @@ import cn.nit.dao.table3.T312_DAO;
 import cn.nit.excel.imports.table3.T312Excel;
 import cn.nit.service.table3.T312_Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 
 
@@ -50,7 +51,7 @@ public class T312_Action {
 	}
 	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -109,8 +110,29 @@ public class T312_Action {
 			return ;
 		}
 		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = docAndGraStaSer.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
+		
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
+		}
+		String pages = docAndGraStaSer.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+	
 
 		PrintWriter out = null ;
 		
@@ -129,26 +151,7 @@ public class T312_Action {
 		}
 	}
 	
-	/**  生成查询条件   */
-	public void auditingConditions(){
-		
-		String sqlConditions = docAndGraStaSer.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+
 	
 	/**  编辑数据  */
 	public void edit(){
@@ -223,7 +226,7 @@ public class T312_Action {
 			maplist.put("StaType", 5);maplist.put("Note", 6);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t312Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -232,6 +235,38 @@ public class T312_Action {
 		return inputStream ;
 	}
 	
+
+	public T312_DAO getT312_DAO() {
+		return t312_DAO;
+	}
+
+	public void setT312_DAO(T312_DAO t312DAO) {
+		t312_DAO = t312DAO;
+	}
+
+	public T312Excel getT312Excel() {
+		return t312Excel;
+	}
+
+	public void setT312Excel(T312Excel t312Excel) {
+		this.t312Excel = t312Excel;
+	}
+
+	public Integer getSeqNum() {
+		return seqNum;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public String getIds() {
+		return ids;
+	}
 
 	public String execute() throws Exception{
 
@@ -273,7 +308,7 @@ public class T312_Action {
 		this.docAndGraStaSer = docAndGraStaSer;
 	}
 
-	public void setSeqNum(int seqNum){
+	public void setSeqNum(Integer seqNum){
 		this.seqNum = seqNum ;
 	}
 	

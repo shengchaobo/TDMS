@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -34,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
@@ -46,6 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>			
 				  <th data-options="field:'ck',checkbox:true" rowspan="2">选取</th>
+				  <th  data-options="field:'seqNumber'" >编号</th>
 		     </tr>
 		</thead>
 		<thead>
@@ -171,22 +173,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newMajorTea()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
-		 <div style="float: right;">
-		 	序号: <input class="easyui-box" style="width:80px"/>
-			日期 起始: <input class="easyui-datebox" style="width:80px"/>
-			结束: <input class="easyui-datebox" style="width:80px"/>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
-		</div>
+		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
+		 	编号: <input  id="seqNum"   name="seqNum"  class="easyui-box" style="width:80px"/>
+			起始日期: <input id ="startTime"  name ="startTime"   class="easyui-datebox" style="width:80px"/>
+			结束日期: <input id="endTime"  name="endTime" class="easyui-datebox" style="width:80px"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid()">查询</a>
+		</form>
 	</div>
 	
 	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>			
 				  <th data-options="field:'ck',checkbox:true" rowspan="2">选取</th>
+				  <th  data-options="field:'seqNumber'" >编号</th>
 		     </tr>
 		</thead>
 		<thead>
@@ -310,9 +313,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</thead>
 	</table>
-	<div id="toolbar2" style="float: right;">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="">数据导出</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+	<div id="toolbar2" >
+	  <form  id="exportForm"  method="post" style="float: right;">
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
+	  </form> 
 	</div>
 	
 	<!--添加弹出框-->
@@ -321,7 +326,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		buttons="#dlg-buttons">
 	   <h3 class="ftitle">教师科研情况导入</h3>
 	   <form id="addForm" method="post">
-		<table>
+		<table><!--
 			<tr>
 				<td style="valign:left" colspan="3">
 					<div class="fitem">
@@ -332,8 +337,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 			</tr>			
-			<tr>
+			--><tr>
 				<td>
+					<input type="hidden" name="T410_bean.seqNumber" id="seqNumber"/>
  					<div class="fitem">
 					<label>横向项目总数：</label> 
 					<input id="hresItemNum" type="text" name="T410_bean.hresItemNum"
@@ -554,6 +560,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</table>
 		</form>
 	</div>
+		
 	<!-- 跟dlg组合-->
 	<div id="dlg-buttons"  >
 		<a href="javascript:void(0)" class="easyui-linkbutton"
@@ -562,4 +569,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
 </body>
+	<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
 </html>

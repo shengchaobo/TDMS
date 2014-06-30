@@ -32,6 +32,7 @@ public class T48_Bean implements java.io.Serializable {
 	private String appvlId;
 	private Date time;
 	private String note;
+	private String fillUnitID;
 	
 	@Column(name = "TeaUnit")
 	public String getTeaUnit() {
@@ -146,6 +147,14 @@ public class T48_Bean implements java.io.Serializable {
 
 	public String getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
+
+	public String getFillUnitID() {
+		return fillUnitID;
 	}
 
 }

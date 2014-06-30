@@ -30,7 +30,10 @@ public class T711_Service {
 		
 	}
 	
-	
+	public boolean batchInsert(List<T711_Bean> list){
+		return teaManagerAwardInfoTeaTeaDAO.batchInsert(list);
+		
+	}
 	
 	
 	

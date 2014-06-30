@@ -189,7 +189,7 @@ public class T181Excel {
 				count++ ;
 				
 				String FillDept=userinfo.getTeaID();
-				Date signedTime=TimeUtil.changeDate4(SignedTime);
+				Date signedTime=TimeUtil.changeDateY(SignedTime);
 				
 				t181Bean.setCooperInsLevel(CooperInsLevel);
 				t181Bean.setCooperInsName(CooperInsName);

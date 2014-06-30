@@ -73,5 +73,7 @@ public class T411_Service {
 	public List<T431_Bean> getT43List(int flag,String queryWord){
 		return teaInfoDao.getT43List(flag,queryWord) ;
 	}
+	
+	
 
 }

@@ -74,8 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">数据导入</a>
-			<a href="pages/T17/dataExport?excelName=表T-1-7校友会（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+			<a href="pages/T12/dataExport?excelName=表1-2学校行政单位（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 			<!-- 
 			<a href='pages/T11/downloadModel?saveFile=<%=URLEncoder.encode("表1-1学校基本信息（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			 -->
@@ -111,6 +110,120 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div></div>
 	</div>
+	
+	<div id="dlgEdit" class="easyui-dialog"
+		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
+		buttons="#dlg-buttons">
+		<div></div>
+		<div class="ftitle">表1-2学校行政单位（党院办）</div>
+		
+		<form id="resInsForm" method="post">
+		<table id="formTable">
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>行政单位名称：</label> 
+						<input id="seqNumber" type="hidden" name="t12Bean.SeqNumber" value="0"></input>
+						<input type="hidden" name="t12Bean.UnitName" id="UnitName"/>
+						<input id="UnitID" type="text" name="t12Bean.UnitID" class='easyui-combobox' 
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentSci' ,listHeight:'auto',editable:false,
+							onSelect:function(){
+							 	$('#ResInsName').val($(this).combobox('getText')) ;
+							 }">
+					    <span id="ResInsNameSpan"></span>
+							
+					</div>
+				</td>
+				<td>
+					<div class="fitem">
+						<label>类别：</label> 
+						<input id="Type"  name="t151Bean.Type" class='easyui-combobox'
+						data-options="valueField:'indexId',textField:'researchType',url:'pages/DiResearchType/loadDiResearchType',listHeight:'auto',editable:false">
+						<span id="TypeSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>开设年份：</label> 
+						 <input class="easyui-datebox" id="BeginYear" name="t151Bean.BeginYear" >
+						 <span id="BeginYearSpan"></span>
+					</div>
+				</td>
+				<td>
+					<div class="fitem">
+						<label>所属教学单位：</label> 
+						<input type="hidden" name="t151Bean.TeaUnit" id="TeaUnit"/>
+						<input id="UnitID" type="text" name="t151Bean.UnitID" class='easyui-combobox' 
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
+							onSelect:function(){
+							    $('#TeaUnit').val($(this).combobox('getText')) ;
+							 }">
+							 
+					    <span id="TeaUnitSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+			    <td>
+					<div class="fitem">
+						<label>共建情况：</label> 
+						<select class='easyui-combobox' id='BuildCondition' name='t151Bean.BuildCondition'>
+						   <option value="true">是</option>
+						   <option value="false">否</option> 
+						</select>
+						<span id="BuildConditionSpan"></span>
+					</div>
+				</td>
+				<td>
+					<div class="fitem">
+						<label>是否对本科生开放：</label> 
+						<select class='easyui-combobox' id='BiOpen' name='t151Bean.BiOpen'>
+						   <option value="true">是</option>
+						   <option value="false">否</option> 
+						</select>
+						 <span id="BiOpenSpan"></span>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>专业科研用房面积（平方米）：</label> 
+						<input id="HouseArea" type="text" name="t151Bean.HouseArea" 
+						class="easyui-numberbox"  data-options="min:0,precision:2" required="true">
+						   <span id="HouseAreaSpan"></span>
+					</div>
+				</td>
+			</tr>
+			
+		    <tr>
+				<td >
+				    <div class="fitem">
+						<label>对本科生开放情况（500字以内）：</label> 
+						<br/>
+						<textarea id="OpenCondition" name="t151Bean.OpenCondition" style="resize:none" cols="50" rows="10"></textarea>
+						<span id="OpenConditionSpan"></span>
+						</div>
+				</td>
+			</tr>
+			<tr>
+			
+				<td >
+				   <div class="fitem">
+					    <label>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+			            <br/>
+						<textarea id="Note" name="t151Bean.Note" style="resize:none" cols="50" rows="3"></textarea>
+						<span id="NoteSpan"></span>
+						</div>
+					</td>
+			</tr>
+		</table>
+		</form>
+	</div>
+	
 	<!-- 
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
 		<div class="ftitle">高级检索</div>
@@ -139,24 +252,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          $("#unverfiedData").datagrid('reload'); 
     }
 	
-	//function singleSearch(){
-   	// $('#auditing').form('submit',{
-   	//	 url: 'pages/T17/singleSearch',
-   	//	 type: "post",
-	//     dataType: "json",
-   	//	 success: function(result){
-   	//	 	var result = eval('('+result+')');
-   	//	 	if (!result.state){
-   	//	 		$.messager.show({
-   	//	 			title: 'Error',
-   	//	 			msg: result.errorMsg
-   	//		 });
-   	//	 	} else {
-	//	    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-   	//	 	}
-   	//	 }
-   	//	 });
-  // }
+	 function edit(){
+	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+	    	if(row.length != 1){
+	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
+	    		return ;
+	    	}
+	    	url = 'pages/SchResIns/edit' ;
+	    	
+	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#ResInsID').combobox('select',row[0].resInsID);
+	    	$('#Type').combobox('select',row[0].typeID);
+	    	$('#BeginYear').datebox('setValue',formattime(row[0].beginYear)) ;
+	    	$('#UnitID').combobox('select',row[0].unitID) ;
+	    	var flag1 = "" + row[0].biOpen ;
+	    	var flag2 = "" + row[0].buildCondition ;
+	    	$('#BuildCondition').combobox('select', flag2) ;
+	    	$('#BiOpen').combobox('select',flag1) ;
+	    	$('#HouseArea').val(row[0].houseArea) ;
+	    	$('#OpenCondition').val(row[0].openCondition) ;
+			$('#Note').val(row[0].note) ;
+	    }
+	    
+	    function deleteByIds(){
+	    	//获取选中项
+			var row = $('#unverfiedData').datagrid('getSelections');
+	    	
+			if(row.length == 0){
+	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
+	    		return ;
+	    	}
+	    	
+			 $.messager.confirm('数据删除', '您确定删除选中项?', function(sure){
+				 if (sure){
+				 	var ids = "";
+				 	ids += "(" ;
+				 	
+				 	for(var i=0; i<row.length; i++){
+				 		if(i < (row.length - 1)){
+				 			ids += (row[i].seqNumber + ",") ;
+				 		}else{
+				 			ids += (row[i].seqNumber + ")") ;
+				 		}
+				 	}
+				 	
+				 	deleteCourses(ids) ;
+				 	
+				 }
+			});
+	    }
+	    
 	
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{

@@ -26,6 +26,8 @@ public class UploadAction {
 	
 	private String methodName ;
 	
+	private String selectYear;
+	
 	
 	public void uploadFile(){
 		
@@ -41,11 +43,12 @@ public class UploadAction {
 			
 			System.out.println(this.getUploadFile());
 			System.out.println(this.getUploadFileFileName());
+			System.out.println(this.getSelectYear());
 			
 			List<Cell[]> list = ExcelUtil.readExcel(uploadFile, 0) ;
-			Class clazz = Class.forName(className) ;
-			Method method = clazz.getDeclaredMethod(methodName, List.class, HttpServletRequest.class) ;
-			String errorMsg = (String)method.invoke(clazz.newInstance(), list, getRequest()) ;
+			Class<?> clazz = Class.forName(className) ;
+			Method method = clazz.getDeclaredMethod(methodName, List.class, HttpServletRequest.class, String.class) ;
+			String errorMsg = (String)method.invoke(clazz.newInstance(), list, getRequest(),this.getSelectYear()) ;
 			
 			if(errorMsg == null || errorMsg.equals("")){
 				out.print("{success:true,errorMsg:'数据存储成功'}") ;
@@ -97,5 +100,13 @@ public class UploadAction {
 
 	public String getUploadFileFileName() {
 		return uploadFileFileName;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
 	}
 }

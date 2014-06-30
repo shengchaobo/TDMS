@@ -17,6 +17,7 @@ import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
 import cn.nit.service.di.DiTutorTypeService;
 import cn.nit.service.table4.T442_Service;
+import cn.nit.util.TimeUtil;
 
 public class T442_Excel {
 
@@ -26,7 +27,7 @@ public class T442_Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear){
 		
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
@@ -160,7 +161,7 @@ public class T442_Excel {
 				T442_bean.setFromUnit(unit);
 				T442_bean.setUnitId(unitId);
 				//插入时间
-				T442_bean.setTime(new Date());
+				T442_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T442_bean);
 								
 			}catch(Exception e){

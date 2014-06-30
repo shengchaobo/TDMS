@@ -25,19 +25,21 @@ public class T410_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T410_Bean> totalList(){
+	public T410_Bean totalList(String year){
 		
 		String sql = "select " + " " + keyfield + "," +
-		field + " from " + tableName ;
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		System.out.println(sql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T410_Bean> list = null ;
-		
+		T410_Bean bean = null;
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
 			list = DAOUtil.getList(rs,T410_Bean.class) ;
+			bean = list.get(0);
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
@@ -47,7 +49,7 @@ public class T410_Dao {
 			DBConnection.close(st);			
 		}
 		
-		return list ;
+		return bean ;
 	}
 	
 	
@@ -219,7 +221,7 @@ public class T410_Dao {
 	
 	public static void main(String args[]){
 		T410_Dao testDao =  new T410_Dao() ;
-		System.out.println(testDao.totalList().size()) ;
+		//System.out.println(testDao.totalList().size()) ;
 	}
 
 }

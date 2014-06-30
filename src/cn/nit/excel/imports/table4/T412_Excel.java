@@ -60,7 +60,7 @@ public class T412_Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear){
 		
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
@@ -83,7 +83,6 @@ public class T412_Excel {
 					count++;
 					continue;
 				}
-				
 				
 				String unit = cell[1].getContents() ;
 				String unitId = cell[2].getContents() ;
@@ -164,7 +163,8 @@ public class T412_Excel {
 				T412_bean.setTeaId(teaId);
 				T412_bean.setFillUnitID(fillUnitID);
 				//插入时间
-				T412_bean.setTime(new Date());
+				//T412_bean.setTime(new Date());
+				T412_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T412_bean);
 								
 			}catch(Exception e){

@@ -1,9 +1,15 @@
 package cn.nit.action.table1;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +19,8 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T12Bean;
+import cn.nit.dao.table1.T12DAO;
+import cn.nit.excel.imports.table1.T12Excel;
 import cn.nit.service.table1.T12Service;
 import cn.nit.util.TimeUtil;
 
@@ -24,6 +32,12 @@ public class T12Action {
 	
 	/**  表12的Bean实体类  */
 	private T12Bean t12Bean = new T12Bean() ;
+	
+	/**  表12的DAO实体类  */
+	private T12DAO t12Dao=new T12DAO();
+	
+	/**  表12的Excel实体类  */
+	private T12Excel t12Excel=new T12Excel();
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -123,6 +137,41 @@ public class T12Action {
 //		}
 //	}
 	
+	/**数据导出*/
+	public InputStream getInputStream(){
+		
+//        System.out.println("年份："+this.Year);
+		InputStream inputStream = null ;
+
+		try {
+			
+			List<T12Bean> list = t12Dao.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("行政单位名称");columns.add("单位号");columns.add("单位职能");
+			columns.add("单位负责人");columns.add("备注");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("UnitName", 1);maplist.put("UnitID", 2);maplist.put("Function", 3);
+			maplist.put("Leader", 4);
+			maplist.put("Note", 5);
+			
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t12Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+        System.out.println(inputStream);
+		return inputStream ;
+	}
+	
+
 	public String execute() throws Exception{
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;

@@ -30,7 +30,7 @@ public class T461_Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear){
 		
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
@@ -165,7 +165,7 @@ public class T461_Excel {
 				T461_bean.setOtherTeaInfo(otherTeaInfo);
 				T461_bean.setNote(note);
 				//插入时间
-				T461_bean.setTime(new Date());
+				T461_bean.setTime(TimeUtil.changeDateY(selectYear));
 				String fillUnitID = null;
 				//char b = fillUnitID.charAt(0);
 				//if( b == '3'){

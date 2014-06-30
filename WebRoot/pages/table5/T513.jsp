@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'table.jsp' starting page</title>
+<title>T513_ClassTeachQuaInfo_AS</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -55,32 +55,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
 	<script type="text/javascript" src="js/table5/T512.js"></script>
-	<script type="text/javascript">
-		function reloadgrid ()  { 
-	        //查询参数直接添加在queryParams中 
-	         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
-	         queryParams.seqNum = $('#seqNum').val(); 
-	         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
-	    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
-	         $("#unverfiedData").datagrid('reload'); 
-    }
-	</script>
-	<script type="text/javascript">
-	$('#unverfiedData').datagrid({
-		url: getUrl(),
-		method: 'post',
-		fitColumns: true,
-		//pagination: isPage,
-		rownumbers: true,
-		singleSelect: true,
-		nowrap: false,
-		//pageList: [15, 30, 45, 60]  :分页属性
-		});
-	</script>
-	
+
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:300px" url="pages/SchResIns/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:300px" url=""
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		

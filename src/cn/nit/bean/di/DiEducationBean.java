@@ -13,8 +13,7 @@ import javax.persistence.Table;
 /**
  * DiEducation entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "DiEducation", schema = "dbo", catalog = "TDMS")
+
 public class DiEducationBean implements java.io.Serializable {
 
 	// Fields

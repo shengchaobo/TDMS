@@ -8,8 +8,7 @@ import javax.persistence.Table;
 /**
  * DiPaperType entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "DiPaperType", schema = "dbo", catalog = "TDMS")
+
 public class DiPaperTypeBean implements java.io.Serializable {
 
 	// Fields

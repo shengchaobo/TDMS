@@ -13,8 +13,7 @@ import javax.persistence.Table;
 /**
  * DiMajorOne entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "DiMajorOne", schema = "dbo", catalog = "TDMS")
+
 public class DiMajorOneBean implements java.io.Serializable {
 
 	// Fields

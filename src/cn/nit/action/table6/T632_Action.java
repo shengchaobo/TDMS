@@ -10,8 +10,11 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +25,9 @@ import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table6.T621_Bean;
+import cn.nit.bean.table6.T631_Bean;
 import cn.nit.bean.table6.T632_Bean;
+import cn.nit.dao.table6.T632_Dao;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.service.table6.T632_Service;
 import cn.nit.util.DAOUtil;
@@ -40,6 +45,8 @@ public class T632_Action {
 
 	/** 表632的Bean实体类 */
 	T632_Bean T632_bean = new T632_Bean();
+	
+	T632_Dao T632_dao = new T632_Dao();
 
 	/** 待审核数据的查询的序列号 */
 	private int seqNum;
@@ -50,6 +57,7 @@ public class T632_Action {
 	/** 待审核数据查询的结束时间 */
 	private Date endTime;
 	
+	private String excelName; //excel导出名字
 	
 	//待查询的专业名称
 	private String searchItem;
@@ -73,6 +81,13 @@ public class T632_Action {
 	public void insert() {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		
+		T632_bean.setSumGoOnHighStudyNum(T632_bean.getRecommendGraNum()+T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch()+T632_bean.getAbroadNum());//统计生成-应届升学总人数
+		T632_bean.setExamGraEnrollNum(T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch());//统计生成-考研录取总人数
+		T632_bean.setGoOnHighStudy(T632_bean.getSumGoOnHighStudyNum());//引用生成--升学
+		
+		T632_bean.setSumEmployNum(T632_bean.getGovermentNum()+T632_bean.getPubInstiNum()+T632_bean.getEnterpriseNum()+T632_bean.getForceNum()
+				+T632_bean.getFlexibleEmploy()+T632_bean.getNationItemEmploy()+T632_bean.getOtherEmploy()+T632_bean.getGoOnHighStudy());//统计生成-应届就业总人数
 		
 		boolean flag = T632_service.insert(T632_bean);
 		PrintWriter out = null;
@@ -152,33 +167,15 @@ public class T632_Action {
 	}
 
 
-
-
-	/** 生成查询条件 */
-	public void auditingConditions() {
-
-		// String sqlConditions =
-		// UndergraAdmiInfoSer.gernateAuditingConditions(seqNum, startTime,
-		// endTime) ;
-		// getSession().setAttribute("auditingConditions", sqlConditions) ;
-		// PrintWriter out = null ;
-		//		
-		// try{
-		// out = getResponse().getWriter() ;
-		// out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-		// out.flush() ;
-		// }catch(Exception e){
-		// e.printStackTrace() ;
-		// out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		// }finally{
-		// if(out != null){
-		// out.close() ;
-		// }
-		// }
-	}
-
 	/** 编辑数据 */
 	public void edit() {
+		
+		T632_bean.setSumGoOnHighStudyNum(T632_bean.getRecommendGraNum()+T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch()+T632_bean.getAbroadNum());//统计生成-应届升学总人数
+		T632_bean.setExamGraEnrollNum(T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch());//统计生成-考研录取总人数
+		T632_bean.setGoOnHighStudy(T632_bean.getSumGoOnHighStudyNum());//引用生成--升学
+		
+		T632_bean.setSumEmployNum(T632_bean.getGovermentNum()+T632_bean.getPubInstiNum()+T632_bean.getEnterpriseNum()+T632_bean.getForceNum()
+				+T632_bean.getFlexibleEmploy()+T632_bean.getNationItemEmploy()+T632_bean.getOtherEmploy()+T632_bean.getGoOnHighStudy());//统计生成-应届就业总人数
 
 		boolean flag = T632_service.update(T632_bean);
 		PrintWriter out = null;
@@ -229,17 +226,86 @@ public class T632_Action {
 
 	public InputStream getInputStream() {
 
-		InputStream inputStream = null;
-
+		InputStream inputStream = null ;
+		
 		try {
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel()
-					.toByteArray());
+/*			response.reset();
+			response.addHeader("Content-Disposition", "attachment;fileName="
+                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
+			
+			List<T632_Bean> list = T632_dao.getAllList("1=1", null);
+						
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			
+		
+			
+			columns.add("序号");
+			columns.add("教学单位");
+			columns.add("单位号");
+			columns.add("专业名称");
+			columns.add("专业代码");
+			columns.add("应届就业总人数");
+			columns.add("政府机构就业人数");
+			columns.add("事业单位就业人数");
+			columns.add("企业就业人数");
+			columns.add("部队人数");
+			columns.add("灵活就业人数");
+			columns.add("升学人数");
+			columns.add("参加国家地方项目就业人数");
+			columns.add("其他人数");
+			
+			columns.add("应届升学总人数");
+			columns.add("免试推荐研究生人数");
+			columns.add("考研报名人数");
+			columns.add("考研录取总人数");
+			columns.add("考取本校人数");
+			columns.add("考取外校人数");
+			columns.add("出国（境）留学人数");
+			
+			columns.add("时间");
+			columns.add("备注");
+			
+
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+		
+
+			
+			maplist.put("seqNumber", 0);
+			maplist.put("teaUnit", 1);
+			maplist.put("unitId", 2);
+			maplist.put("majorName", 3);
+			maplist.put("majorId", 4);
+			
+			maplist.put("sumEmployNum", 5);
+			maplist.put("govermentNum", 6);
+			maplist.put("pubInstiNum", 7);
+			maplist.put("enterpriseNum", 8);
+			maplist.put("forceNum", 9);
+			maplist.put("flexibleEmploy", 10);
+			maplist.put("goOnHighStudy", 11);
+			maplist.put("nationItemEmploy", 12);
+			maplist.put("otherEmploy", 13);
+			
+			maplist.put("sumGoOnHighStudyNum", 14);
+			maplist.put("recommendGraNum", 15);
+			maplist.put("examGraApplyNum", 16);
+			maplist.put("examGraEnrollNum", 17);
+			maplist.put("examGraInSch", 18);
+			maplist.put("examGraOutSch", 19);
+			maplist.put("abroadNum", 20);
+						
+			maplist.put("time", 21);
+			maplist.put("note", 22);
+				
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return null ;
 		}
 
-		return inputStream;
+		return inputStream ;
 	}
 
 	public String execute() throws Exception {
@@ -352,6 +418,14 @@ public class T632_Action {
 
 	public void setSearchItem(String searchItem) {
 		this.searchItem = searchItem;
+	}
+
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
 	}
 
 	public static void main(String args[]) {

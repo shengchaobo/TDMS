@@ -13,8 +13,7 @@ import javax.persistence.Table;
 /**
  * DiSource entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "DiSource", schema = "dbo", catalog = "TDMS")
+
 public class DiSourceBean implements java.io.Serializable {
 
 	// Fields

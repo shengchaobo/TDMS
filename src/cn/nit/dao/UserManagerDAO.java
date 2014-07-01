@@ -24,7 +24,7 @@ import cn.nit.util.DAOUtil;
 import cn.nit.util.MD5Util;
 
 /**
- * 用户管理�?
+ * 用户管理�?
  * @author Lei Xia
  * @time: 2014-4-18/下午09:32:26
  */
@@ -172,7 +172,7 @@ public class UserManagerDAO {
 //		System.out.println(userDao.getList().size()) ;
 //		user.setTeaID("2014002") ;
 //		user.setTeaName("测试") ;
-//		user.setFromOffice("教务�?) ;
+//		user.setFromOffice("教务�?) ;
 //		user.setTeaPasswd(MD5Util.encode("123456")) ;
 //		user.setTeaEmail("123456@qq.com") ;
 //		userDao.insertUser(user) ;

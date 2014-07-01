@@ -20,8 +20,8 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.other.UserRoleBean;
 
+import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table6.T624_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.service.table6.T624_Service;

@@ -32,6 +32,28 @@
 		<class>cn.nit.bean.table6.T66StuClubYlc</class>
 		<class>cn.nit.bean.table6.T671MinorInfoTea</class>
 		<class>cn.nit.bean.table6.T672DualDegreeInfoTea</class>
+		<class>cn.nit.bean.table2.S22TeaAdminArea</class>
+		<class>cn.nit.bean.table2.S25PractisePlace</class>
+		<class>cn.nit.bean.table2.T2101QuaEduInfoYlc</class>
+		<class>cn.nit.bean.table2.T2102JobEduCouserAdmission</class>
+		<class>cn.nit.bean.table2.T2103ProfTrainProf</class>
+		<class>cn.nit.bean.table2.T21OccupyAndCoverAreaLog</class>
+		<class>cn.nit.bean.table2.T22FloorAreaLog</class>
+		<class>cn.nit.bean.table2.T23ClassroomTea</class>
+		<class>cn.nit.bean.table2.T241BookNumLib</class>
+		<class>cn.nit.bean.table2.T242CurYearAddBookLib</class>
+		<class>cn.nit.bean.table2.T251PractisePlaceInfoEqu</class>
+		<class>cn.nit.bean.table2.T252PractisePlaceInfoTea</class>
+		<class>cn.nit.bean.table2.T26OutSchPractiseBaseTea</class>
+		<class>cn.nit.bean.table2.T27SchNetworkNic</class>
+		<class>cn.nit.bean.table2.T281FixedAssetLog</class>
+		<class>cn.nit.bean.table2.T282FixedAssetEqu</class>
+		<class>cn.nit.bean.table2.T283FixedAssetLib</class>
+		<class>cn.nit.bean.table2.T284FixedAssetFile</class>
+		<class>cn.nit.bean.table2.T291TeaExpInfoFinance</class>
+		<class>cn.nit.bean.table2.T292UndergraTeaExpInfoFinance</class>
+		<class>cn.nit.bean.table2.T293UndergraTeaIncomeFinance</class>
+		<class>cn.nit.bean.table2.T294SocialDonaInfoFinance</class>
 		<properties>
 			<property name="toplink.jdbc.driver"
 				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />

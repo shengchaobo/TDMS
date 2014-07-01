@@ -182,19 +182,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-		
-		
-		
-
-		
-		
-		
-		
-		
-		
-		
-		
-	
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
 		<div class="ftitle">高级检索</div>
 		<div id="dicTables"  class="fitem">
@@ -432,6 +419,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -445,7 +435,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    seconds=seconds>9?seconds:('0'+seconds);  
 			    var time=year+'-'+month+'-'+date ;  
 			    //alert(time) ;
-			        return time;  
+			     return time;  
 			    }  
 			</script>
 

@@ -15,9 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+
+
 import cn.nit.bean.other.UserRoleBean;
-
-
 import cn.nit.bean.table3.T311_Bean;
 import cn.nit.dao.table3.T311_DAO;
 import cn.nit.excel.imports.table3.T311Excel;
@@ -110,7 +110,7 @@ private T311_Service postDocStaSer = new T311_Service() ;
 	}
 	
 	/**  为界面加载数据  */
-public void auditingData(){
+	public void auditingData(){
 		
 //		System.out.println("輸出輸出輸出");
 		

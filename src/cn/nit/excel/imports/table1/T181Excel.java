@@ -71,7 +71,10 @@ public class T181Excel {
 			
 			T181Bean t181Bean = new  T181Bean();
 			int n=cellList.indexOf(cell);
-			if(n==0){continue;}
+			if(count<4){
+				count++;
+				continue;
+			}
 			else{
 				
 				

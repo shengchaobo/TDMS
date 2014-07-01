@@ -23,6 +23,10 @@ public class T12DAO {
 	/**  数据库表中除了自增长字段的所有字段  */
 	private String field = "UnitID,UnitName,Functions,Leader,TeaID,Time,Note" ;
 	
+//	/**  表411数据库表名  */
+//	private String tableName1 = "T411_TeaBasicInfo_Per$" ;
+//	
+//	private String field1="";
 	
 	
 	/**
@@ -133,6 +137,42 @@ public class T12DAO {
 		return flag ;
 	}
 	
+	/**
+	 * 获得的总数（用于导出）T12
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T12Bean> totalList(){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.UnitName,t.UnitID,t.Functions, t.Leader,t.TeaID,t.Time,t.Note" );
+		sql.append(" from "+tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea");
+//		sql.append(" where t.Time like '"+Year+"%' ");
+		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
+		sql.append(" and t.UnitID like '10%'");
+//		System.out.println(sql.toString());
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T12Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T12Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
+	
 	
 //	/**
 //	 * 查询待审核数据在数据库中共有多少条
@@ -222,7 +262,7 @@ public class T12DAO {
     public static void main(String arg[])
     {
     	T12DAO dao=new T12DAO();
-    	List<T12POJO> list=dao.auditingData(null, "1001", 1, 1);
+    	List<T12Bean> list=dao.totalList();
     	System.out.println(list.size());
     }
 }

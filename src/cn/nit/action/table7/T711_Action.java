@@ -202,12 +202,12 @@ public class T711_Action {
 			columns.add("序号");
 			columns.add("教学单位");columns.add("单位号");columns.add("姓名");columns.add("教工号");columns.add("奖励名称");columns.add("级别");
 			columns.add("等级");columns.add("获奖时间");columns.add("授予单位");columns.add("批文号");columns.add("合作教师人数");columns.add("其他合作教师");
-			
+			columns.add("备注");
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("Name", 3);maplist.put("TeaID", 4);maplist.put("AwardName", 5);maplist.put("AwardLevel", 6);
 			maplist.put("AwardRank", 7);maplist.put("AwardTime", 8);maplist.put("AwardFromUnit", 9);maplist.put("AppvlID", 10);maplist.put("JoinTeaNum", 11);maplist.put("OtherJoinTeaInfo", 12);
-						
+			maplist.put("Note", 13);		
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();

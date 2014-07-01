@@ -44,7 +44,7 @@
 	    	}
 	    } 
 	    
-	    function newCourse(){
+	    function newObject(){
 	    	url = 'pages/SchResIns/insert' ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加校级科研机构库（科研处）');
 		    $('#resInsForm').form('reset');
@@ -163,7 +163,7 @@
 		}
 
 		
-	    function editCourse(){
+	    function edit(){
 	    	var row = $('#unverfiedData').datagrid('getSelections');
 	    	
 	    	if(row.length != 1){

@@ -128,7 +128,7 @@ public class T11Excel {
 			return "数据不标准，请重新提交" ;
 		}
 		
-		int count ;
+		int count =1;
 		
 //		boolean flag = false ;
 //		boolean biOpen=false;
@@ -141,7 +141,10 @@ public class T11Excel {
 		for(Cell[] cell : cellList){
 			
 			int n=cellList.indexOf(cell);
-			if(n==0){continue;}
+			if(count<4){
+				count++;
+				continue;
+			}
 			else{
 			  try{
 				  count=n;

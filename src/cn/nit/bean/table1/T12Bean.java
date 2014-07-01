@@ -7,8 +7,8 @@ public class T12Bean {
 	private int SeqNumber;
 	private String UnitID;
 	private String UnitName;
-	private String UnitType;
-	/**单位职能*/
+//	private String UnitType;
+//	/**单位职能*/
 	private String Functions;
 	/**单位负责人*/
 	private String Leader;
@@ -33,12 +33,12 @@ public class T12Bean {
 	public void setUnitName(String unitName) {
 		UnitName = unitName;
 	}
-	public String getUnitType() {
-		return UnitType;
-	}
-	public void setUnitType(String unitType) {
-		UnitType = unitType;
-	}
+//	public String getUnitType() {
+//		return UnitType;
+//	}
+//	public void setUnitType(String unitType) {
+//		UnitType = unitType;
+//	}
 	public String getFunctions() {
 		return Functions;
 	}

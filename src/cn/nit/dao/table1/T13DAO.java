@@ -111,6 +111,41 @@ public class T13DAO {
 	}
 	
 	/**
+	 * 获得的总数（用于导出）T13
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T13Bean> totalList(){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.UnitName,t.UnitID, t.Leader,t.TeaID,t.Time,t.Note" );
+		sql.append(" from "+tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea");
+//		sql.append(" where t.Time like '"+Year+"%' ");
+		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
+		sql.append(" and t.UnitID like '20%'");
+//		System.out.println(sql.toString());
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T13Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T13Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
+	/**
 	 * 讲数据批量插入13表中
 	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
 	 * @return true表示插入成功，false表示插入失败

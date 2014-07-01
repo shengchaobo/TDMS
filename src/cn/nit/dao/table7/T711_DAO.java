@@ -208,7 +208,7 @@ public class T711_DAO {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		
-		String tempfield = "TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,FillUnitID";
+		String tempfield = "TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillUnitID";
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 		}catch(Exception e){

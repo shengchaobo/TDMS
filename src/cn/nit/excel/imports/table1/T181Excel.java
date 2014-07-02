@@ -47,7 +47,7 @@ public class T181Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request,String selectYear){
 		
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
@@ -197,7 +197,7 @@ public class T181Excel {
 				t181Bean.setFillDept(FillDept);
 				t181Bean.setNote(note);
 				t181Bean.setSignedTime(signedTime);
-				t181Bean.setTime(new Date());
+				t181Bean.setTime(TimeUtil.changeDateY(selectYear));
 				t181Bean.setUnitID(UnitID);
 				t181Bean.setUnitLevel(UnitLevel);
 				t181Bean.setUnitName(UnitName);

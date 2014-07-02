@@ -102,27 +102,13 @@
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
-			<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a> -->
-				<a href="pages/S18/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
-			<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a> -->
+		
+		<form  id="exportForm"  method="post" style="float: right;">
+				<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
+	  	</form>	
 		</div> 
 	</div>
-	<!--
-	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
-		<div class="ftitle">高级检索</div>
-		<div id="dicTables"  class="fitem">
-		</div>
-		<div id="dices"  class="fitem"></div>
-	</div>
-	 
-	   
-	<div id="dlg-buttons">
-		<a href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="icon-ok" onclick="singleImport()">保存</a> 
-		<a href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
-	</div>
-	-->
 </body>
 
 	<script type="text/javascript">
@@ -131,6 +117,22 @@
        //alert(2224);
 		loadAuotCityList();
 	});
+
+	function exports() {
+    	var temp = encodeURI('S-1-8签订合作协议机构的协议个数.xls');
+	    $('#exportForm').form('submit', {
+	    url : "pages/S18/dataExport" ,
+	    onSubmit : function() {
+	    return $(this).form('validate');//对数据进行格式化
+	    },
+	    success : function(data) {
+	    $.messager.show({
+	    	title : '提示',
+	    	msg : data
+	    });
+	    }
+	    }); 
+    }
 
 	function loadAuotCityList() {
     //  alert(3334);
@@ -289,46 +291,9 @@
 			    url = 'updateUser';
 		    }
 	    }
-	    
-	    
-	    function loadDic(){
-		    $('#dicDlg').dialog('open').dialog('setTitle','高级查询');
-		    loadDictionary() ;
-		    
-	    }
-	    
-	    function loadDictionary(){
-	    	
-	    	$.ajax({ 
-	    		type: "POST", 
-	    		url: "table5/loadDic", 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			data = eval("(" + data + ")");
-	    			alert(data[0].id) ;
-	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
-	    			$(data).each(function(index) {
-	    				var val = data[index];
-	    				if(index%4 == 0 && index != 0){
-	    					str += "</tr><tr>" ;
-	    				}
-	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
-	    			}); 
-	    			//alert(str);
-	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
-	    			document.getElementById("dicTables").innerHTML = str;
-	    			$.parser.parse('#dicTables');
-	    		}
-	    	}).submit();
-	    }
 	   </script>
 
 	<script type="text/javascript"> 
-
-	  //  alert(111);
-		
-//	alert(222);
 			//日期格式转换 
 			function formattime(val) {  
 			    var year=parseInt(val.year)+1900;  
@@ -347,5 +312,15 @@
 			        return time;  
 			    }  
     </script>
+    <script type="text/javascript">
+			var currentYear = new Date().getFullYear();
+			var select = document.getElementById("cbYearContrast");
+			for (var i = 0; i <= 10; i++) {
+		    var theOption = document.createElement("option");
+		    	theOption.innerHTML = currentYear-i + "年";
+		    	theOption.value = currentYear-i;
+		    	select.appendChild(theOption);
+			}
+       </script>
 
 </html>

@@ -12,7 +12,7 @@
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>S-5-1-1本科课程库信息统计</title>
+		<title>S-5-2课程建设情况统计</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="expires" content="0">
@@ -61,22 +61,22 @@
 		<script type="text/javascript"
 			src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 				<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript" src="js/table5/S511.js"></script>
+	<script type="text/javascript" src="js/table5/S52.js"></script>
 	</head>
 	
 	<body style="overflow-y: scroll">
-		<table class="easyui-datagrid" toolbar="#toolbar" title="S-5-1-1本科课程库信息统计"></table>
+		<table class="easyui-datagrid" toolbar="#toolbar" title="S-5-2课程建设情况统计"></table>
 		
 		<hr color="blue" width="100%" />
 		<table id="showInfo" class="doc-table"  url="">
 			<tbody>
 
 				<tr>
-					<td rowspan="2" style="width: 200px; background-color: white " align="center">项目</td>
-					<td colspan="2" align="center">理论课（实践课）</td>
-					<td colspan="2" align="center">理论课（不含实践）</td>
-					<td colspan="2" align="center">集中性实践环节</td>
-					<td colspan="2" align="center">实验课</td>
+					<td  style="width: 200px; background-color: white " align="center">序号</td>
+					<td  align="center">类型</td>
+					<td  align="center">合计</td>
+					<td  align="center">国际级</td>
+					<td  align="center">实验课</td>
 				</tr>
 				<tr>
 					<td align="center">门数（们）</td>

@@ -48,7 +48,7 @@ public class A15Service {
 			if(a15Bean.getSumResNum()==0){
 				flag=false;
 			}else{flag=true;}
-			System.out.println(flag);
+//			System.out.println(flag);
 			if(flag){
 //				System.out.println("hello!");
 				//插入数据库
@@ -59,6 +59,7 @@ public class A15Service {
 				}
 				JSON json=JSONSerializer.toJSON(a15Pojo) ;
 				str=json.toString();
+//				System.out.println(str);
 			}
 		}
 	    return str;
@@ -150,7 +151,7 @@ public class A15Service {
 		return a15Dao.insert(a15Bean) ;
 	}
 	
-	
+	//保留两位小数
 	public double m2(double n){
 		 BigDecimal bg = new BigDecimal(n);
 	     double f1 = bg.setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();

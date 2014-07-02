@@ -50,7 +50,7 @@ public class T152Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear){
 		
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
@@ -257,7 +257,7 @@ public class T152Excel {
 				t152Bean.setResInsID(ResInsID);
 				t152Bean.setResInsName(ResInsName);
 				t152Bean.setTeaUnit(TeaUnit);
-				t152Bean.setTime(new Date());
+				t152Bean.setTime(TimeUtil.changeDateY(selectYear));
 				t152Bean.setType(Type);
 				t152Bean.setUnitID(UnitID);
 				list.add(t152Bean);			

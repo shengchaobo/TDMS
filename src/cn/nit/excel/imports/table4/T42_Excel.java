@@ -9,6 +9,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.SystemUtils;
 import org.springframework.beans.BeanWrapperImpl;
 
 import jxl.Cell;
@@ -56,7 +57,7 @@ public class T42_Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear){
 		
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
@@ -180,7 +181,7 @@ public class T42_Excel {
 				T42_bean.setResume(resume);
 				T42_bean.setForCharge(forCharge);
 				//插入时间
-				T42_bean.setTime(new Date());
+				T42_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T42_bean);
 								
 			}catch(Exception e){

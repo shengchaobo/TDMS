@@ -3,10 +3,7 @@ package cn.nit.dao.table7;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
-
 
 import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table7.T711_Bean;
@@ -162,7 +159,7 @@ public class T711_DAO {
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T711_Bean> list = null ;
-		
+		System.out.println(sql);
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
@@ -198,6 +195,30 @@ public class T711_DAO {
     	return flag;
     	
     }
+    
+    /**
+	 * 模板导入
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */
+	public boolean batchInsert(List<T711_Bean> list){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		
+		String tempfield = "TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillUnitID";
+		try{
+			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}
+		
+		return flag ;
+		
+	}
     public boolean deleteCoursesByIds(String ids){
 		
 		int flag = 0 ;
@@ -234,7 +255,7 @@ public class T711_DAO {
     	T711_DAO t=new T711_DAO();
  
     	
-    	System.out.println(t.auditingData(null, null, 0, 0));
+    	System.out.println(t.totalList().size());
     	
     }
 

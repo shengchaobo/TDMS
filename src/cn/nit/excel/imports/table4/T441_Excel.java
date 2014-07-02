@@ -62,7 +62,7 @@ public class T441_Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear){
 		
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
@@ -154,6 +154,8 @@ public class T441_Excel {
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				
+				count++ ;
+				
 				String fillUnitID = null; //从user的session中获得，现在没有
 				T441_bean = new T441_Bean() ;
 				T441_bean.setFromTeaUnit(unit);
@@ -164,7 +166,7 @@ public class T441_Excel {
 				T441_bean.setTeaId(teaId);
 				T441_bean.setFillUnitID(fillUnitID);
 				//插入时间
-				T441_bean.setTime(new Date());
+				T441_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T441_bean);
 								
 			}catch(Exception e){

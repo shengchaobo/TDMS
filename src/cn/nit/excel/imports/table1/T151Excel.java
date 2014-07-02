@@ -69,7 +69,10 @@ public class T151Excel {
 		for(Cell[] cell : cellList){
 			T151Bean t151Bean = new  T151Bean();
 			int n=cellList.indexOf(cell);
-			if(n==0){continue;}
+			if(count<4){
+				count++;
+				continue;
+			}
 			else{
 				
 				

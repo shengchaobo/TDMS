@@ -43,13 +43,16 @@ public class T322_Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+	private String selectYear;
+	
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t322_Bean.setTime(new Date()) ;
 		//这还没确定,设置填报者的职工号与部门号
 		//UserInfo userinfo = (UserInfo)getSession().getAttribute("userinfo") ;
 		//undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
-		boolean flag = t322_Service.insert(t322_Bean) ;
+		//boolean flag = t322_Service.insert(t322_Bean) ;
+		boolean flag = false;
 		PrintWriter out = null ;
 		
 		try{
@@ -85,7 +88,7 @@ public class T322_Action {
 	/**  为界面加载数据  */
 public void auditingData(){
 		
-//		System.out.println("輸出輸出輸出");
+/*//		System.out.println("輸出輸出輸出");
 		
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 			return ;
@@ -130,10 +133,10 @@ public void auditingData(){
 			if(out != null){
 				out.close() ;
 			}
-		}
+		}*/
 	}
 	
-	/**  生成查询条件  （查询数据） */
+/*	*//**  生成查询条件  （查询数据） *//*
 	public void auditingConditions(){
 		
 		String sqlConditions = t322_Service.gernateAuditingConditions(seqNum, startTime, endTime) ;
@@ -152,12 +155,12 @@ public void auditingData(){
 				out.close() ;
 			}
 		}
-	}
+	}*/
 	
 	/**  编辑数据  */
 	public void edit(){
 
-//		System.out.println("插入数据");
+/*//		System.out.println("插入数据");
 		t322_Bean.setTime(new Date());
 
 		boolean flag = t322_Service.update(t322_Bean) ;
@@ -178,12 +181,12 @@ public void auditingData(){
 			if(out != null){
 				out.close() ;
 			}
-		}
+		}*/
 	}
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
+/*		System.out.println("ids=" + ids) ;
 		boolean flag = t322_Service.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
 		
@@ -204,7 +207,7 @@ public void auditingData(){
 			if(out != null){
 				out.close() ;
 			}
-		}
+		}*/
 	}
 	
 	public InputStream getInputStream(){
@@ -212,7 +215,7 @@ public void auditingData(){
 		InputStream inputStream = null ;
 
 		try {
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel().toByteArray()) ;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -341,6 +344,18 @@ public void auditingData(){
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+
+
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
 	}
 
 

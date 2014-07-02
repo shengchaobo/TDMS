@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.List;
 
 
+import cn.nit.bean.table7.T711_Bean;
 import cn.nit.bean.table7.T712_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table7.T712POJO;
@@ -139,6 +140,37 @@ public class T712_DAO {
 	
 	}
 	
+	/**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T712_Bean> totalList(){
+		
+		String sql = "select " + key+ "," +field + " from " + tableName;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T712_Bean> list = null ;
+		System.out.println(sql);
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T712_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+    
+	
 	public boolean update(T712_Bean t){
 		
 		boolean flag=false;
@@ -158,7 +190,29 @@ public class T712_DAO {
 		return flag;
 	}
 	
-	
+	/**
+	 * 模板导入
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */
+	public boolean batchInsert(List<T712_Bean> list){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		
+		String tempfield = "TeaUnit,UnitID,Name,TeaID,PaperName,PaperType,FirstSubject,JonalName,JonalID,JonalTime,PaperWordNum,ConfirmLevel,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillUnitID";
+		try{
+			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}
+		
+		return flag ;
+		
+	}
 	
 	public boolean deleteByIds(String ids){
 		

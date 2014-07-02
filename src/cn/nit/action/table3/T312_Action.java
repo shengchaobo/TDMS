@@ -68,6 +68,8 @@ public class T312_Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+	private String selectYear;
+	
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		docAndGraStaBean.setTime(new Date()) ;
@@ -210,23 +212,26 @@ public class T312_Action {
 
 		try {
 			
-			List<T312_Bean> list = t312_DAO.totalList();
+			List<T312_Bean> list = t312_DAO.totalList(this.getSelectYear());
 			
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("名称");columns.add("代码");columns.add("所属单位");columns.add("单位号");
-			columns.add("类型");columns.add("备注");
+			columns.add("类型");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("StaName", 1);maplist.put("StaID", 2);maplist.put("UnitName", 3);maplist.put("UnitID", 4);
-			maplist.put("StaType", 5);maplist.put("Note", 6);
+			maplist.put("StaType", 5);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -339,6 +344,14 @@ public class T312_Action {
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
 	}
 	
 

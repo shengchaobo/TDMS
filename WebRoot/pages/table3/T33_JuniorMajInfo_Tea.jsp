@@ -55,29 +55,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  style="width:100%px;height:250px" url="pages/JuniorMajInfo/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
-		<thead>
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  style="height: auto;" url="pages/JuniorMajInfo/auditingData"
+		toolbar="#toolbar" pagination="true" 
+		 singleSelect="false" >
+		<thead data-options="frozen:true">
 			<tr>
-				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="seqNumber" width=10>序号</th>
-				<th field="teaUnit" width=10>教学单位</th>
-				<th field="unitID" width=10>单位号</th>
-				<th field="majorName" width=10>专业名称</th>
-				<th field="majorID" width=10>专业代码</th>
-				<th field="majorFieldName" width=10>专业方向名称</th>
-				<th field="appvlSetTime" width=10 formatter="formattime">批准设置时间</th>
-				<th field="firstAdmisTime" width=10 formatter="formattime">首次招生时间</th>
-				<th field="majorYearLimit" width=10>修业年限</th>
-				<th field="isSepcialMajor" width=10 formatter="booleanstr">特色专业</th>
-				<th field="isKeyMajor" width=10 formatter="booleanstr">重点专业</th>
-				<th field="majorLeader" width=10>专业带头人姓名</th>
-				<th field="LIsFullTime" width=10 formatter="booleanstr">专业带头人是否专职</th>
-				<th field="majorChargeMan" width=10>专业负责人姓名</th>
-				<th field="CI sFullTime" width=10 formatter="booleanstr">专业负责人是否专职</th>
-				<th field="time" width=10 formatter="formattime">日期</th>
-				<th field="note" width=10>备注</th>
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber" >序号</th>
+				</tr>
+				</thead>
+				<thead>
+				<tr>
+				<th field="teaUnit" >教学单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="majorName" >专业名称</th>
+				<th field="majorID" >专业代码</th>
+				<th field="majorFieldName" >专业方向名称</th>
+				<th field="appvlSetTime"  formatter="formattime">批准设置时间</th>
+				<th field="firstAdmisTime"  formatter="formattime">首次招生时间</th>
+				<th field="majorYearLimit" >修业年限</th>
+				<th field="isSepcialMajor"  formatter="booleanstr">特色专业</th>
+				<th field="isKeyMajor"  formatter="booleanstr">重点专业</th>
+				<th field="majorLeader" >专业带头人姓名</th>
+				<th field="LIsFullTime"  formatter="booleanstr">专业带头人是否专职</th>
+				<th field="majorChargeMan" >专业负责人姓名</th>
+				<th field="CI sFullTime"  formatter="booleanstr">专业负责人是否专职</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -100,32 +103,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newJuniorMajInfo()">数据导出</a>
+	 <form  id="exportForm"  method="post" style="float: right;">
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+		</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
-		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
-		<thead>
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" url="table5/verifiedData"
+		toolbar="#toolbar2" pagination="true" 
+		 singleSelect="false">
+		<thead data-options="frozen:true">
 			<tr>
-				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="SeqNumber" width=10>序号</th>
-				<th field="TeaUnit" width=10>教学单位</th>
-				<th field="UnitID" width=10>单位号</th>
-				<th field="MajorName" width=10>专业名称</th>
-				<th field="MajorID" width=10>专业代码</th>
-				<th field="MajorFieldName" width=10>专业方向名称</th>
-				<th field="AppvlSetTime" width=10 formatter="formattime">批准设置时间</th>
-				<th field="FirstAdmisTime" width=10 formatter="formattime">首次招生时间</th>
-				<th field="MajorYearLimit" width=10>修业年限</th>
-				<th field="IsSepcialMajor" width=10>特色专业</th>
-				<th field="IsKeyMajor" width=10>重点专业</th>
-				<th field="MajorLeader" width=10>专业带头人姓名</th>
-				<th field="LIsFullTime" width=10>专业带头人是否专职</th>
-				<th field="MajorChargeMan" width=10>专业负责人姓名</th>
-				<th field="CIsFullTime" width=10>专业负责人是否专职</th>
-				<th field="Time" width=10 formatter="formattime">日期</th>
-				<th field="Note" width=10>备注</th>
+				<th data-options="field:'ck',checkbox:true" >选取</th>
+				<th field="SeqNumber" >序号</th>
+				</tr>
+				</thead>
+				<thead>
+				<tr>
+				<th field="TeaUnit" >教学单位</th>
+				<th field="UnitID" >单位号</th>
+				<th field="MajorName" >专业名称</th>
+				<th field="MajorID" >专业代码</th>
+				<th field="MajorFieldName" >专业方向名称</th>
+				<th field="AppvlSetTime"  formatter="formattime">批准设置时间</th>
+				<th field="FirstAdmisTime"  formatter="formattime">首次招生时间</th>
+				<th field="MajorYearLimit" >修业年限</th>
+				<th field="IsSepcialMajor" >特色专业</th>
+				<th field="IsKeyMajor" >重点专业</th>
+				<th field="MajorLeader" >专业带头人姓名</th>
+				<th field="LIsFullTime" >专业带头人是否专职</th>
+				<th field="MajorChargeMan" >专业负责人姓名</th>
+				<th field="CIsFullTime" >专业负责人是否专职</th>
+				<th field="Note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -136,6 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -536,6 +546,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#Note').val(row[0].note);
 	
 	    }
+
+	    function exports() {
+	    	var temp = encodeURI('表3-3专科专业基本情况（教务处）.xls');
+		    $('#exportForm').form('submit', {
+		    url : "pages/JuniorMajInfo/dataExport?excelName="+temp ,
+		    onSubmit : function() {
+		    return $(this).form('validate');//对数据进行格式化
+		    },
+		    success : function(data) {
+		    $.messager.show({
+		    	title : '提示',
+		    	msg : data
+		    });
+		    }
+		    }); 
+	    }
+	    
 	    
 	    
 	    function loadDic(){
@@ -680,6 +707,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return boo;
 	        }  
 			</script>
+			
+					<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
+			
 
 </html>
 

@@ -68,7 +68,8 @@
 		
 		<form id="schBasForm" method="post">
 		<table id="showInfo" class="doc-table"
-			url="pages/T11/auditingData">
+			url="pages/T11/auditingData"  >
+			<!--  style="width:1000px" align=center valign=middle -->
 			<tbody>
 
 				<tr>
@@ -377,10 +378,12 @@
 			<div>
 				<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a> -->
 				<a href="javascript:void(0)" class="easyui-linkbutton"
-					iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a>
+					iconCls="icon-edit" plain="true" onclick="edit()">编辑</a>
 				<a href="pages/T11/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">数据导入</a>
+				<!-- 
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">数据导入</a>
 			<a href='pages/T11/downloadModel?saveFile=<%=URLEncoder.encode("表1-1学校基本信息（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+			 -->
 			</div>
 		</div>
 		
@@ -513,7 +516,7 @@
 	    	}
 	    } 
 
-	 function newCourse(){
+	 function newObject(){
 	    	//url = 'pages/T11/uploadFile' ;
 		    $('#dlg').dialog('open').dialog('setTitle','导入学校基本信息');
 		   // $('#resInsForm').form('reset');
@@ -824,7 +827,7 @@
 		return true;
 	}
 
-	function editCourse(){
+	function edit(){
 
        $('div#di').hide();
   //   

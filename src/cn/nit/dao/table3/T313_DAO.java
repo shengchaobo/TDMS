@@ -164,14 +164,14 @@ public class T313_DAO {
 	}
 	
 	/**用于数据导出*/
-	public List<T313_Bean> totalList(){
+	public List<T313_Bean> totalList(String year){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.DiscipName,t.DiscipID,t.UnitName," +
 				"t.UnitID,t.DiscipType,t.NationLevelOne,t.NationLevelTwo,t.NationLevelKey,t.ProvinceLevelOne,"+
 				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time");
 		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
-		sql.append(" where   dpt.UnitID=t.UnitID" );
+		sql.append(" where   dpt.UnitID=t.UnitID and convert(varchar(4),Time,120)=" + year );
 		
 		
 		Connection conn = DBConnection.instance.getConnection() ;

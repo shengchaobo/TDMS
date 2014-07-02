@@ -54,22 +54,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/MainTrainBasicInfoTea/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
-		<thead>
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="height: auto;" url="pages/MainTrainBasicInfoTea/auditingData"
+		toolbar="#toolbar" pagination="true" 
+		 singleSelect="false" >
+		<thead data-options="frozen:true">
 			<tr>
-				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="seqNumber" width=10>序号</th>
-				<th field="mainClassName" width=10>大类名称</th>
-				<th field="mainClassID" width=10>大类代码</th>
-				<th field="byPassTime" width=10>分流时间</th>
-				<th field="majorNameInSch" width=10">包含校内专业名称</th>
-				<th field="majorID" width=10>校内专业代码</th>
-				<th field="unitName" width=10>所属单位</th>
-				<th field="unitID" width=10>单位号</th>
-				<th field="time" width=10 formatter="formattime">时间</th>
-				<th field="note" width=10>备注</th>
+				<th data-options="field:'ck',checkbox:true" >选取</th>
+				<th field="seqNumber" >序号</th>
+				<th field="mainClassName" >大类名称</th>
+				</tr>
+				</thead>
+				<thead>
+				<tr>
+				<th field="mainClassID" >大类代码</th>
+				<th field="byPassTime" >分流时间</th>
+				<th field="majorNameInSch" ">包含校内专业名称</th>
+				<th field="majorID" >校内专业代码</th>
+				<th field="unitName" >所属单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -90,25 +93,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newCourse()">数据导出</a>
+	 <form  id="exportForm"  method="post" style="float: right;">
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+		</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table3/verifiedData"
-		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
-		<thead>
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" url="table3/verifiedData"
+		toolbar="#toolbar2" pagination="true" 
+		 singleSelect="false">
+		<thead data-options="frozen:true">
 			<tr>
-				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="SeqNumber" width=10>序号</th>
-				<th field="MainClassName" width=10>大类名称</th>
-				<th field="MainClassID" width=10>大类代码</th>
-				<th field="ByPassTime" width=10>分流时间</th>
-				<th field="MajorNameInSch" width=10">包含校内专业名称</th>
-				<th field="MajorID" width=10>校内专业代码</th>
-				<th field="UnitName" width=10>所属单位</th>
-				<th field="UnitID" width=10>单位号</th>
-				<th field="Time" width=10>时间</th>
-				<th field="Note" width=10>备注</th>
+				<th data-options="field:'ck',checkbox:true" >选取</th>
+				<th field="SeqNumber" >序号</th>
+				<th field="MainClassName" >大类名称</th>
+				</tr>
+				</thead>
+				<thead>
+				<tr>
+				<th field="MainClassID" >大类代码</th>
+				<th field="ByPassTime" >分流时间</th>
+				<th field="MajorNameInSch" ">包含校内专业名称</th>
+				<th field="MajorID" >校内专业代码</th>
+				<th field="UnitName" >所属单位</th>
+				<th field="UnitID" >单位号</th>
+				<th field="Note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -117,9 +126,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		buttons="#dlg-buttons">
 		<div class="ftitle">大类培养基本情况批量导入</div>
 		<div class="fitem">
-			<form method="post">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -468,6 +477,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		}
 	    	}).submit();
 	    }
+
+	    function exports() {
+	    	var temp = encodeURI('表3-2-1大类培养基本情况表（教务处）.xls');
+		    $('#exportForm').form('submit', {
+		    url : "pages/MainTrainBasicInfoTea/dataExport?excelName="+temp ,
+		    onSubmit : function() {
+		    return $(this).form('validate');//对数据进行格式化
+		    },
+		    success : function(data) {
+		    $.messager.show({
+		    	title : '提示',
+		    	msg : data
+		    });
+		    }
+		    }); 
+	    }
 	    
 	    
 	    function loadDic(){
@@ -595,5 +620,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+			
+		<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
 
 </html>

@@ -73,7 +73,10 @@ public class T17Excel {
 		
 		for(Cell[] cell : cellList){
 			 int n=cellList.indexOf(cell);
-			 if(n==0||n==1){continue;}
+			 if(count<4){
+					count++;
+					continue;
+				}
 			 else
 			 {
 				 

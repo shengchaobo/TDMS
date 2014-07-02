@@ -66,6 +66,8 @@ private T313_Service discipSer = new T313_Service() ;
 	/**每页显示的条数  */
 	private String rows ;
 	
+	private String selectYear;
+	
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		discipBean.setTime(new Date()) ;
@@ -220,7 +222,7 @@ public void auditingData(){
 
 		try {
 			
-			List<T313_Bean> list = t313_DAO.totalList();
+			List<T313_Bean> list = t313_DAO.totalList(this.getSelectYear());
 			
 			String sheetName = this.getExcelName();
 			
@@ -228,14 +230,14 @@ public void auditingData(){
 			columns.add("序号");
 			columns.add("重点学科名称");columns.add("学科代码");columns.add("所属教学单位");
 			columns.add("单位号");columns.add("学科门类");columns.add("国家一级");columns.add("国家二级");columns.add("国家重点");
-			columns.add("省部一级");columns.add("省部二级");columns.add("市级");columns.add("校级");columns.add("备注");
+			columns.add("省部一级");columns.add("省部二级");columns.add("市级");columns.add("校级");
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("DiscipName", 1);maplist.put("DiscipID", 2);maplist.put("UnitName", 3);maplist.put("UnitID", 4);
 			maplist.put("DiscipType", 5);maplist.put("NationLevelOne", 6);maplist.put("NationLevelTwo", 7);maplist.put("NationLevelKey", 8);
 			maplist.put("ProvinceLevelOne", 9);maplist.put("ProvinceLevelTwo", 10);maplist.put("CityLevel", 11);maplist.put("SchLevel", 12);
-			maplist.put("Note", 13);
+			
 			
 			
 			
@@ -354,6 +356,14 @@ public void auditingData(){
 	public static void main(String args[]){
 		String match = "[\\d]+" ;
 		System.out.println("23gfhf4".matches(match)) ;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
 	}
 
 }

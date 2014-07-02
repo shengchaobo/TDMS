@@ -26,6 +26,10 @@ public class UploadAction {
 	
 	private String methodName ;
 	
+	private String selectYear;
+	
+	private int[] mergedCells;
+	
 	
 	public void uploadFile(){
 		
@@ -34,18 +38,22 @@ public class UploadAction {
 			getResponse().setContentType("text/html;charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			
-			if(className == null || className.equals("") || methodName == null || methodName.equals("")){
+ 			if(className == null || className.equals("") || methodName == null || methodName.equals("")){
 				out.print("{success:false,errorMsg:'系统错误，请联系管理员'}") ;
 				return ;
 			}
 			
 			System.out.println(this.getUploadFile());
 			System.out.println(this.getUploadFileFileName());
+			System.out.println(this.getSelectYear());
 			
 			List<Cell[]> list = ExcelUtil.readExcel(uploadFile, 0) ;
-			Class clazz = Class.forName(className) ;
-			Method method = clazz.getDeclaredMethod(methodName, List.class, HttpServletRequest.class) ;
-			String errorMsg = (String)method.invoke(clazz.newInstance(), list, getRequest()) ;
+			Class<?> clazz = Class.forName(className) ;
+			mergedCells=ExcelUtil.readMergedCells(uploadFile, 0,list.size()) ;
+
+		
+			Method method = clazz.getDeclaredMethod(methodName, List.class, HttpServletRequest.class, String.class,int[].class) ;
+			String errorMsg = (String)method.invoke(clazz.newInstance(), list, getRequest(),this.getSelectYear(),mergedCells) ;
 			
 			if(errorMsg == null || errorMsg.equals("")){
 				out.print("{success:true,errorMsg:'数据存储成功'}") ;
@@ -63,13 +71,26 @@ public class UploadAction {
 		}
 	}
 	
+	public int[] getMergedCells() {
+		return mergedCells;
+	}
+
+	public void setMergedCells(int[] mergedCells) {
+		this.mergedCells = mergedCells;
+	}
+
 	public File getUploadFile() {
 		return uploadFile;
 	}
+	
 
 	public void setUploadFile(File uploadFile) {
 		this.uploadFile = uploadFile;
 	}
+	
+	
+
+
 
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
@@ -97,5 +118,13 @@ public class UploadAction {
 
 	public String getUploadFileFileName() {
 		return uploadFileFileName;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
 	}
 }

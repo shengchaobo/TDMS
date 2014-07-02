@@ -74,7 +74,10 @@ public class T152Excel {
 		for(Cell[] cell : cellList){
 			T152Bean t152Bean = new  T152Bean();
 			int n=cellList.indexOf(cell);
-			if(n==0||n==1){continue;}
+			if(count<4){
+				count++;
+				continue;
+			}
 			else{
 				
 				

@@ -70,6 +70,10 @@ private T311_Service postDocStaSer = new T311_Service() ;
 	/**每页显示的条数  */
 	private String rows ;
 	
+	private String selectYear;
+	
+
+
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		postDocStaBean.setTime(new Date()) ;
@@ -226,20 +230,20 @@ private T311_Service postDocStaSer = new T311_Service() ;
 
 		try {
 			
-			List<T311_Bean> list = t311_DAO.totalList();
+			List<T311_Bean> list = t311_DAO.totalList(this.getSelectYear());
 			
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("博士后流动站名称");columns.add("设置时间");columns.add("研究员人数");
-			columns.add("所属单位");columns.add("备注");
+			columns.add("所属单位");columns.add("单位号");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("PostDocStaName", 1);maplist.put("SetTime", 2);maplist.put("ResearcherNum", 3);maplist.put("UnitName", 4);
-			maplist.put("UnitID", 5);maplist.put("Note", 6);
+			maplist.put("UnitID", 5);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
@@ -350,6 +354,14 @@ private T311_Service postDocStaSer = new T311_Service() ;
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+	
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
 	}
 
 	public static void main(String args[]){

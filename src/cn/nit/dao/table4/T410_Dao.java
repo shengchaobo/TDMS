@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import cn.nit.bean.table4.T410_Bean;
+import cn.nit.bean.table4.T49_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 
@@ -16,25 +17,29 @@ public class T410_Dao {
 			"ZresItemNum,ZitemFund,ZhumanItemNum,ZhumanItemFund,ResAwardNum,NationResAward,ProviResAward," +
 			"CityResAward,SchResAward,PaperNum,sci,ssci,ei,istp,InlandCoreJnal,cssci,cscd,OtherPaper," +
 			"PublicationNum,Treatises,translation,PatentNum,InventPatent,UtilityPatent,DesignPatent,Time,Note";
-		
+	private String keyfield = "SeqNumber";
+	
 	/**
 	 * 获取字典表的所有数据
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T410_Bean> getAllList(){
+	public T410_Bean totalList(String year){
 		
-		String sql = "select " + field + " from " + tableName ;
+		String sql = "select " + " " + keyfield + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		System.out.println(sql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T410_Bean> list = null ;
-		
+		T410_Bean bean = null;
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
 			list = DAOUtil.getList(rs,T410_Bean.class) ;
+			bean = list.get(0);
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
@@ -44,20 +49,79 @@ public class T410_Dao {
 			DBConnection.close(st);			
 		}
 		
-		return list ;
+		return bean ;
+	}
+	
+	
+	/**
+	 * 分 页查询总数
+	 * 
+	 */
+	public int totalQueryPageList(String conditions, String fillunitID){
+		
+		String Cond = "1=1";
+		
+		int total = 0;
+		if(conditions != null && !conditions.equals("")){
+			Cond = Cond + conditions;
+		}
+		
+		if(fillunitID != null && !fillunitID.equals("")){
+			Cond = Cond + " and FillUnitID=" + fillunitID;
+		}
+				
+		String queryPageSql = "select count(*) " 
+		+ " from " + tableName + 
+		" where " + Cond ;
+		System.out.println(queryPageSql);
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			if(rs == null){
+				return total ;
+			}
+			
+			while(rs.next()){
+				total = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return total ;
 	}
 	
 	/**
 	 * 分 页查询
 	 * 
 	 */
-	public List<T410_Bean> queryPageList(int pageSize, int showPage){
-				
-		String queryPageSql = "select top " + pageSize + 
+	public List<T410_Bean> queryPageList(String conditions, String fillunitID, int pageSize, int showPage){
+
+		
+		String Cond = "1=1";
+		
+		if(conditions != null && !conditions.equals("")){
+			Cond = Cond + conditions;
+		}
+		
+		if(fillunitID != null && !fillunitID.equals("")){
+			Cond = Cond + " and FillUnitID=" + fillunitID;
+		}
+		
+		String queryPageSql = "select top " + pageSize + " " + keyfield + "," +
 		field
 		+ " from " + tableName + 
-		" where (SeqNumber not in (select top " + pageSize * (showPage-1) + " SeqNumber from "+
-		tableName + " order by SeqNumber)) order by SeqNumber" ;
+		" where " + Cond + " and (SeqNumber not in (select top " + pageSize * (showPage-1) + " SeqNumber from "+
+		tableName  + " where " + Cond +  "  order by SeqNumber)) order by SeqNumber" ;
 		System.out.println(queryPageSql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -95,9 +159,69 @@ public class T410_Dao {
 	}
 	
 	
+	/**
+	 * 删除数据
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean deleteByIds(String ids) {
+
+		int flag = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append("delete from " + tableName);
+		sql.append(" where " + keyfield + " in " + ids);
+		System.out.println(sql.toString());
+		Connection conn = DBConnection.instance.getConnection();
+		Statement st = null;
+
+		try {
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 更新数据
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean update(T410_Bean bean){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		try{
+			String updatefield = "ResItemNum,ResItemFund,HresItemNum,HitemFund,HhumanItemNum,HhumanItemFund," +
+			"ZresItemNum,ZitemFund,ZhumanItemNum,ZhumanItemFund,ResAwardNum,NationResAward,ProviResAward," +
+			"CityResAward,SchResAward,PaperNum,sci,ssci,ei,istp,InlandCoreJnal,cssci,cscd,OtherPaper," +
+			"PublicationNum,Treatises,translation,PatentNum,InventPatent,UtilityPatent,DesignPatent,Note";
+			
+			flag = DAOUtil.update(bean, tableName, keyfield, updatefield, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		return flag ;
+	}
+	
 	public static void main(String args[]){
 		T410_Dao testDao =  new T410_Dao() ;
-		System.out.println(testDao.getAllList()) ;
+		//System.out.println(testDao.totalList().size()) ;
 	}
 
 }

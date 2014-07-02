@@ -53,69 +53,81 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+	<script type="text/javascript" src="js/commom.js"></script>
 	
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:300px" url="pages/T152/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+					<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width=10>序号</th>
-				<th field="resInsName" width=10>科研机构名称</th>
-				<th field="resInsID" width=10>单位号</th>
-				<th field="type" width=10>类别</th>
-				<th field="buildCondition" width=10 formatter="booleanstr" >共建情况</th>
-				<th field="biOpen" width=10 formatter="booleanstr" >是否对本科生开放</th>
-				<th field="openCondition" width=10>对本科生开放情况（500字以内）</th>
-				<th field="teaUnit" width=10>所属教学单位</th>
-				<th field="unitID" width=10>教学单位号</th>
-				<th field="beginYear" width=10 fit="true" formatter="formattime">开设年份</th>
-				<th field="houseArea" width=10>专业科研用房面积（平方米）</th>
-				<th field="note" width=10>备注</th>
+				<th field="resInsName" >科研机构名称</th>
+				<th field="resInsID" >单位号</th>
+				<th field="type" >类别</th>
+				<th field="buildCondition"  formatter="booleanstr" >共建情况</th>
+				<th field="biOpen"  formatter="booleanstr" >是否对本科生开放</th>
+				<th field="openCondition" >对本科生开放情况（500字以内）</th>
+				<th field="teaUnit" >所属教学单位</th>
+				<th field="unitID" >教学单位号</th>
+				<th field="beginYear" fit="true" formatter="formattime">开设年份</th>
+				<th field="houseArea" >专业科研用房面积（平方米）</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href='pages/SchResIns/dataExport?excelName=<%=URLEncoder.encode("表1-5-1校级以上科研机构（科研处）.xls","UTF-8")%>' class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 			<form id="auditing" method="post" style="float: right;height: 24px;">
-			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2">
-		<a href="pages/UndergraCSBaseTea/dataExport" class="easyui-linkbutton" iconCls="icon-download">数据导出</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
-	</div>
+	
+	
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false">
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="SeqNumber" width=10>序号</th>
-				<th field="ResInsName" width=10>科研机构名称</th>
-				<th field="ResInsID" width=10>单位号</th>
-				<th field="Type" width=10>类别</th>
-				<th field="BuildCondition" width=10>共建情况</th>
-				<th field="BiOpen" width=10 >是否对本科生开放</th>
-				<th field="OpenCondition" width=10 >对本科生开放情况（500字以内）</th>
-				<th field="TeaUnit" width=10>所属教学单位</th>
+				<th field="ResInsName" >科研机构名称</th>
+				<th field="ResInsID" >单位号</th>
+				<th field="Type" >类别</th>
+				<th field="BuildCondition" >共建情况</th>
+				<th field="BiOpen"  >是否对本科生开放</th>
+				<th field="OpenCondition"  >对本科生开放情况（500字以内）</th>
+				<th field="TeaUnit" >所属教学单位</th>
 				<th field="UnitID" width=10>教学单位号</th>
-				<th field="BeginYear" width=10 fit="true">开设年份</th>
-				<th field="HouseArea" width=10>专业科研用房面积（平方米）</th>
-				<th field="Note" width=10>备注</th>
+				<th field="BeginYear"  fit="true">开设年份</th>
+				<th field="HouseArea" >专业科研用房面积（平方米）</th>
+				<th field="Note" >备注</th>
 			</tr>
 		</thead>
 	</table>
+	<div id="toolbar2" style="float: left;">
+		<a href="pages/T152/dataExport?excelName=表1-5-2教学单位科研机构（教学单位-科研处）.xls"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+	</div>
+	
+	
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
@@ -126,6 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+
 				<a href='pages/T152/downloadModel?saveFile=<%=URLEncoder.encode("表1-5-2教学单位科研机构（教学单位-科研处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
@@ -242,6 +255,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
+	
 		<div class="ftitle">高级检索</div>
 		<div id="dicTables"  class="fitem">
 		</div>
@@ -331,7 +345,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    } 
 	    
-	    function newCourse(){
+	    function newObject(){
 	    	url = 'pages/T152/insert' ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加校级科研机构库（科研处）');
 		    $('#resInsForm').form('reset');
@@ -449,7 +463,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 		//编辑数据
-	    function editCourse(){
+	    function edit(){
 	    	var row = $('#unverfiedData').datagrid('getSelections');
 	    	
 	    	if(row.length != 1){

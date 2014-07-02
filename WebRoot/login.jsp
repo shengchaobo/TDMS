@@ -100,21 +100,27 @@
 							<tr>
 								<td height="40" colspan="2" align="center"></td>
 							</tr>
-							<tr>
-								<td align="center" colspan="2" >
-									<input type="button"  id="loginBtn"
-											style="background: url(images/login_5.gif) no-repeat"
-											value="登    陆" onclick="validate()"  >
-								
-										<input type="button"  id="forgetPsd"
-											style="background: url(images/login_5.gif) no-repeat"
-											value="忘记密码" >								
-								</td>
-							</tr>
+
 							<tr>
 								<td height="5" colspan="2"></td>
 							</tr>
 						</table>
+						<table width="190" height="34" border="0" 
+              cellpadding="2" cellspacing="0">
+              <tr>
+                  <td width = "92" height="30" align="right">
+                  <input type="button"  id="loginBtn"
+                      style="width:80px;background: url(images/login_5.gif) no-repeat"
+                      value="登   陆 " onclick="validate()"  >
+                  </td>
+
+                  <td height="30" align="left">
+                  <input type="reset"  id="forgetPsd"
+                      style="background: url(images/login_5.gif) no-repeat"
+                      value="重   置 " >
+                  </td>
+              </tr>
+            </table>
 					</form>
 				</td>
 				<td width="133" background="images/login_3.gif">

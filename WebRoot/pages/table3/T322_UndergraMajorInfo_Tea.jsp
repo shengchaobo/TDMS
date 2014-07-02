@@ -55,59 +55,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="overflow-x:scroll;height:250px" url="pages/UndergraMajorInfoTea/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
-		<thead>
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="height: auto;" url="pages/UndergraMajorInfoTea/auditingData"
+		toolbar="#toolbar" pagination="true" 
+	singleSelect="false" >
+		<thead data-options="frozen:true">
 			<tr>
-				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="seqNumber" width=10>序号</th>
-				<th field="MajorName" width=10 formatter="formattime">专业名称</th>
-				<th field="MajorID" width=10>专业代码</th>
-				<th field="MajorVersion" width=10>代码版本</th>
-				<th field="MajorField" width=10>专业方向名称</th>
-				<th field="MajorFieldID" width=10>专业方向号</th>
-				<th field="MajorSetTime" width=10 formatter="formattime">专业设置时间</th>
-				<th field="MajorAppvlID" width=10 >批文号</th>
-				<th field="MajorDurition" width=10>学制</th>
-				<th field="MajorDegreeType" width=10>学位授予门类</th>
-				<th field="MajorAdmisTime" width=10>开始招生时间</th>
-				<th field="MajorState" width=10>招生状态</th>
-				<th field="StopAdmisTime" width=10>停止招生时间</th>
-				<th field="IsNewMajor" width=10 formatter="formattime">是否新办专业</th>
-				<th field="AppvlYear" width=10>批准建设年度</th>
-				<th field="BuildAppvlID" width=10>建设批文号</th>
-				<th field="MajorLevel" width=10>级别</th>
-				<th field="Type" width=10>类型</th>
-				<th field="Field" width=10>领域方向</th>
-				<th field="Leader" width=10 formatter="formattime">建设负责人</th>
-				<th field="TeaID" width=10>教工号</th>
-				<th field="CheckTime" width=10>验收时间</th>
-				<th field="CheckAppvlID" width=10>验收批文号</th>
-				<th field="SchExp" width=10>学校经费（万元）</th>
-				<th field="EduMinistryExp" width=10>教育部经费（万元）</th>
-				<th field="FirstAppvlTime" width=10 formatter="formattime">首次通过认证时间</th>
-				<th field="AppvlTime" width=10>认证时间</th>
-				<th field="AppvlID" width=10>批文号</th>
-				<th field="AppvlResult" width=10>认证结果</th>
-				<th field="FromTime" width=10>有效期（起）</th>
-				<th field="EndTime" width=10>有效期（止）</th>
-				<th field="AppvlAuth" width=10 formatter="formattime">认证机构</th>
-				<th field="TotalCSHour" width=10>总学时数</th>
-				<th field="RequireCShour" width=10>必修课学时数</th>
-				<th field="OptionCSHour" width=10>选修课学时数</th>
-				<th field="InClassCSHour" width=10>课内教学学时数</th>
-				<th field="ExpCSHour" width=10>实验教学学时数</th>
-				<th field="PraCSHour" width=10>集中性实践教学环节学时数</th>
-				<th field="TotalCredit" width=10>总学分数</th>
-				<th field="RequireCredit" width=10 formatter="formattime">必修课学分数</th>
-				<th field="OptionCredit" width=10>选修课学分数</th>
-				<th field="InClassCredit" width=10>课内教学学分数</th>
-				<th field="ExpCredit" width=10>实验教学学分数</th>
-				<th field="PraCredit" width=10>集中实践教学环节学分数</th>
-				<th field="OutClassCredit" width=10>课外科技活动学分数</th>
-				<th field="time" width=10 formatter="formattime">日期</th>
-				<th field="note" width=10>备注</th>
+				<th data-options="field:'ck',checkbox:true" >选取</th>
+				<th field="seqNumber" >序号</th>
+			</tr>
+		</thead>
+		<thead>
+			<tr>	
+				<th field="MajorName"  formatter="formattime">专业名称</th>
+				<th field="MajorID" >专业代码</th>
+				<th field="MajorVersion" >代码版本</th>
+				<th field="MajorField" >专业方向名称</th>
+				<th field="MajorFieldID" >专业方向号</th>
+				<th field="MajorSetTime"  formatter="formattime">专业设置时间</th>
+				<th field="MajorAppvlID"  >批文号</th>
+				<th field="MajorDurition" >学制</th>
+				<th field="MajorDegreeType" >学位授予门类</th>
+				<th field="MajorAdmisTime" >开始招生时间</th>
+				<th field="MajorState" >招生状态</th>
+				<th field="StopAdmisTime" >停止招生时间</th>
+				<th field="IsNewMajor"  formatter="formattime">是否新办专业</th>
+				<th field="AppvlYear" >批准建设年度</th>
+				<th field="BuildAppvlID" >建设批文号</th>
+				<th field="MajorLevel" >级别</th>
+				<th field="Type" >类型</th>
+				<th field="Field" >领域方向</th>
+				<th field="Leader"  formatter="formattime">建设负责人</th>
+				<th field="TeaID" >教工号</th>
+				<th field="CheckTime" >验收时间</th>
+				<th field="CheckAppvlID" >验收批文号</th>
+				<th field="SchExp" >学校经费（万元）</th>
+				<th field="EduMinistryExp" >教育部经费（万元）</th>
+				<th field="FirstAppvlTime"  formatter="formattime">首次通过认证时间</th>
+				<th field="AppvlTime" >认证时间</th>
+				<th field="AppvlID" >批文号</th>
+				<th field="AppvlResult" >认证结果</th>
+				<th field="FromTime" >有效期（起）</th>
+				<th field="EndTime" >有效期（止）</th>
+				<th field="AppvlAuth"  formatter="formattime">认证机构</th>
+				<th field="TotalCSHour" >总学时数</th>
+				<th field="RequireCShour" >必修课学时数</th>
+				<th field="OptionCSHour" >选修课学时数</th>
+				<th field="InClassCSHour" >课内教学学时数</th>
+				<th field="ExpCSHour" >实验教学学时数</th>
+				<th field="PraCSHour" >集中性实践教学环节学时数</th>
+				<th field="TotalCredit" >总学分数</th>
+				<th field="RequireCredit"  formatter="formattime">必修课学分数</th>
+				<th field="OptionCredit" >选修课学分数</th>
+				<th field="InClassCredit" >课内教学学分数</th>
+				<th field="ExpCredit" >实验教学学分数</th>
+				<th field="PraCredit" >集中实践教学环节学分数</th>
+				<th field="OutClassCredit" >课外科技活动学分数</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -130,72 +133,79 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newPostDocSta()">数据导出</a>
+	 <form  id="exportForm"  method="post" style="float: right;">
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+		</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
-		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style=style="height: auto;" url="table5/verifiedData"
+		toolbar="#toolbar2" pagination="true"
+	 singleSelect="false">
+		<thead data-options="frozen:true">
+			<tr>
+				<th data-options="field:'ck',checkbox:true" >选取</th>
+				<th field="seqNumber">序号</th>
+							</tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="seqNumber" width=10>序号</th>
-				<th field="MajorName" width=10 formatter="formattime">专业名称</th>
-				<th field="MajorID" width=10>专业代码</th>
-				<th field="MajorVersion" width=10>代码版本</th>
-				<th field="MajorField" width=10>专业方向名称</th>
-				<th field="MajorFieldID" width=10>专业方向号</th>
-				<th field="MajorSetTime" width=10 formatter="formattime">专业设置时间</th>
-				<th field="MajorAppvlID" width=10 >批文号</th>
-				<th field="MajorDurition" width=10>学制</th>
-				<th field="MajorDegreeType" width=10>学位授予门类</th>
-				<th field="MajorAdmisTime" width=10>开始招生时间</th>
-				<th field="MajorState" width=10>招生状态</th>
-				<th field="StopAdmisTime" width=10>停止招生时间</th>
-				<th field="IsNewMajor" width=10 >是否新办专业</th>
-				<th field="AppvlYear" width=10>批准建设年度</th>
-				<th field="BuildAppvlID" width=10>建设批文号</th>
-				<th field="MajorLevel" width=10>级别</th>
-				<th field="Type" width=10>类型</th>
-				<th field="Field" width=10>领域方向</th>
-				<th field="Leader" width=10 formatter="formattime">建设负责人</th>
-				<th field="TeaID" width=10>教工号</th>
-				<th field="CheckTime" width=10>验收时间</th>
-				<th field="CheckAppvlID" width=10>验收批文号</th>
-				<th field="SchExp" width=10>学校经费（万元）</th>
-				<th field="EduMinistryExp" width=10>教育部经费（万元）</th>
-				<th field="FirstAppvlTime" width=10 formatter="formattime">首次通过认证时间</th>
-				<th field="AppvlTime" width=10>认证时间</th>
-				<th field="AppvlID" width=10>批文号</th>
-				<th field="AppvlResult" width=10>认证结果</th>
-				<th field="FromTime" width=10>有效期（起）</th>
-				<th field="EndTime" width=10>有效期（止）</th>
-				<th field="AppvlAuth" width=10 formatter="formattime">认证机构</th>
-				<th field="TotalCSHour" width=10>总学时数</th>
-				<th field="RequireCShour" width=10>必修课学时数</th>
-				<th field="OptionCSHour" width=10>选修课学时数</th>
-				<th field="InClassCSHour" width=10>课内教学学时数</th>
-				<th field="ExpCSHour" width=10>实验教学学时数</th>
-				<th field="PraCSHour" width=10>集中性实践教学环节学时数</th>
-				<th field="TotalCredit" width=10>总学分数</th>
-				<th field="RequireCredit" width=10 >必修课学分数</th>
-				<th field="OptionCredit" width=10>选修课学分数</th>
-				<th field="InClassCredit" width=10>课内教学学分数</th>
-				<th field="ExpCredit" width=10>实验教学学分数</th>
-				<th field="PraCredit" width=10>集中实践教学环节学分数</th>
-				<th field="OutClassCredit" width=10>课外科技活动学分数</th>
-				<th field="time" width=10 formatter="formattime">日期</th>
-				<th field="note" width=10>备注</th>
+				<th field="MajorName" formatter="formattime">专业名称</th>
+				<th field="MajorID">专业代码</th>
+				<th field="MajorVersion">代码版本</th>
+				<th field="MajorField">专业方向名称</th>
+				<th field="MajorFieldID">专业方向号</th>
+				<th field="MajorSetTime" formatter="formattime">专业设置时间</th>
+				<th field="MajorAppvlID" >批文号</th>
+				<th field="MajorDurition">学制</th>
+				<th field="MajorDegreeType">学位授予门类</th>
+				<th field="MajorAdmisTime">开始招生时间</th>
+				<th field="MajorState">招生状态</th>
+				<th field="StopAdmisTime">停止招生时间</th>
+				<th field="IsNewMajor" >是否新办专业</th>
+				<th field="AppvlYear">批准建设年度</th>
+				<th field="BuildAppvlID">建设批文号</th>
+				<th field="MajorLevel">级别</th>
+				<th field="Type">类型</th>
+				<th field="Field">领域方向</th>
+				<th field="Leader" formatter="formattime">建设负责人</th>
+				<th field="TeaID">教工号</th>
+				<th field="CheckTime">验收时间</th>
+				<th field="CheckAppvlID">验收批文号</th>
+				<th field="SchExp">学校经费（万元）</th>
+				<th field="EduMinistryExp">教育部经费（万元）</th>
+				<th field="FirstAppvlTime" formatter="formattime">首次通过认证时间</th>
+				<th field="AppvlTime">认证时间</th>
+				<th field="AppvlID">批文号</th>
+				<th field="AppvlResult">认证结果</th>
+				<th field="FromTime">有效期（起）</th>
+				<th field="EndTime">有效期（止）</th>
+				<th field="AppvlAuth" formatter="formattime">认证机构</th>
+				<th field="TotalCSHour">总学时数</th>
+				<th field="RequireCShour">必修课学时数</th>
+				<th field="OptionCSHour">选修课学时数</th>
+				<th field="InClassCSHour">课内教学学时数</th>
+				<th field="ExpCSHour">实验教学学时数</th>
+				<th field="PraCSHour">集中性实践教学环节学时数</th>
+				<th field="TotalCredit">总学分数</th>
+				<th field="RequireCredit" >必修课学分数</th>
+				<th field="OptionCredit">选修课学分数</th>
+				<th field="InClassCredit">课内教学学分数</th>
+				<th field="ExpCredit">实验教学学分数</th>
+				<th field="PraCredit">集中实践教学环节学分数</th>
+				<th field="OutClassCredit">课外科技活动学分数</th>
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
-<div id="dlg" class="easyui-dialog"
+	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
 		<div class="ftitle">专业批量导入</div>
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -586,19 +596,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-		
-		
-		
-  
-		
-		
-		
-		
-		
-		
-		
-		
-	
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
 		<div class="ftitle">高级检索</div>
 		<div id="dicTables"  class="fitem">
@@ -640,7 +637,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url: 'pages/UndergraMajorInfoTea/uploadFile',
+	    		 url: 'pages/MainTrainBasicInfoTea/uploadFile',
 	    		 type: "post",
 		         dataType: "json",
 	    		 onSubmit: function(){
@@ -730,6 +727,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			return true ;
 		}
+
+
+	    function exports() {
+	    	var temp = encodeURI('表3-2-2本科专业基本情况（教学单位-教务处）.xls');
+		    $('#exportForm').form('submit', {
+		    url : "pages/UndergraMajorInfoTea/dataExport?excelName="+temp ,
+		    onSubmit : function() {
+		    return $(this).form('validate');//对数据进行格式化
+		    },
+		    success : function(data) {
+		    $.messager.show({
+		    	title : '提示',
+		    	msg : data
+		    });
+		    }
+		    }); 
+	    }
 
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');
@@ -949,6 +963,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+			
+					<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
+			
 
 </html>
 

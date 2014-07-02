@@ -7,6 +7,26 @@
 		<!-- 初始化加载各学院出版教材信息（用于分页系统） -->
 	    <action name="loadTextInfo" class="cn.nit.action.table4.T49_Action" method="loadTextInfo" />
    		<!-- 插入新的学院出版教材信息 -->
-	    <action name="insert"  class="cn.nit.action.table4.T49_Action" method="insert" ></action>	    
+	    <action name="insert"  class="cn.nit.action.table4.T49_Action" method="insert" ></action>
+	    
+   	    <!-- 删除相应教职工 -->
+	    <action name="deleteByIds" class="cn.nit.action.table4.T49_Action"  method="deleteByIds" />
+
+	    <!-- 更新相应教职工 -->
+	    <action name="edit" class="cn.nit.action.table4.T49_Action"  method="edit" />
+	    	    
+   	    <!-- 数据导出 -->
+	    <action name="dataExport" class="cn.nit.action.table4.T49_Action" method="execute">
+	    	<result name="success" type="stream">
+	    		<!-- 指定下载文件的类型，下面表示无限制 -->
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<!-- 流对象名字 -->
+				<param name="inputName">inputStream</param>
+				<!-- 文件名转码 -->
+				<param name="contentDisposition">attachment;fileName="${excelName}"</param>
+				<!-- 下载文件缓冲大小 -->
+				<param name="bufferSize">4096</param>
+	    	</result>
+	    </action>	           	    
 	</package>
 </struts>

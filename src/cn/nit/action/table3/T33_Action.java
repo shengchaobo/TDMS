@@ -64,6 +64,8 @@ private T33_Service t33_Service = new T33_Service() ;
 	/**每页显示的条数  */
 	private String rows ;
 	
+	private String selectYear;
+	
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t33_Bean.setTime(new Date()) ;
@@ -215,7 +217,7 @@ public void auditingData(){
 
 		try {
 			
-			List<T33_Bean> list = t33_DAO.totalList();
+			List<T33_Bean> list = t33_DAO.totalList(this.getSelectYear());
 			
 			String sheetName = this.getExcelName();
 			
@@ -347,6 +349,16 @@ public void auditingData(){
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+	
+	
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
 	}
 
 	public static void main(String args[]){

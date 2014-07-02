@@ -110,6 +110,39 @@ public class T14DAO {
 		return list ;
 	}
 	
+	/**
+	 * 获得的总数（用于导出）T13
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T14Bean> totalList(){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.UnitName,t.UnitID, t.Leader,t.TeaID,t.Time,t.Note" );
+		sql.append(" from "+tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea");
+//		sql.append(" where t.Time like '"+Year+"%' ");
+		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
+		sql.append(" and t.UnitID like '30%'");
+//		System.out.println(sql.toString());
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T14Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T14Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		return list ;
+	}
 
 	/**
 	 * 讲数据批量插入4表中

@@ -68,7 +68,10 @@ public class T182Excel {
 			
 			T181Bean t181Bean = new  T181Bean();
 			int n=cellList.indexOf(cell);
-			if(n==0){continue;}
+			if(count<4){
+				count++;
+				continue;
+			}
 			else{
 				
 				
@@ -183,7 +186,7 @@ public class T182Excel {
 				count++ ;
 				
 				String FillDept=userinfo.getTeaID();
-				Date signedTime=TimeUtil.changeDate4(SignedTime);
+				Date signedTime=TimeUtil.changeDateY(SignedTime);
 				
 				t181Bean.setCooperInsLevel(CooperInsLevel);
 				t181Bean.setCooperInsName(CooperInsName);

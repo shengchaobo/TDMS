@@ -39,6 +39,7 @@ public class T49_Bean implements
 	private Integer schAwardBook;
 	private Date time;
 	private String note;
+	private String fillUnitID;
 
 	@Column(name = "TeaUnit")
 	public String getTeaUnit() {
@@ -208,6 +209,14 @@ public class T49_Bean implements
 
 	public int getSeqNumber() {
 		return seqNumber;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
+
+	public String getFillUnitID() {
+		return fillUnitID;
 	}
 
 }

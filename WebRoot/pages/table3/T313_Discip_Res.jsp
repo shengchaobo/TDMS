@@ -54,27 +54,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/DiscipRes/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
-		<thead>
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="height: auto;" url="pages/DiscipRes/auditingData"
+		toolbar="#toolbar" pagination="true" 
+		 singleSelect="false" >
+		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width=10>序号</th>
-				<th field="discipName" width=15>重点学科名称</th>
-				<th field="discipID" width=10>学科代码</th>
-				<th field="unitName" width=15>所属教学单位</th>
-				<th field="unitID" width=10>单位号</th>
-				<th field="discipType" width=10>学科门类</th>
-				<th field="nationLevelOne" width=10 formatter="booleanstr">国家一级</th>
-				<th field="nationLevelTwo" width=10 formatter="booleanstr">国家二级</th>
-				<th field="nationLevelKey" width=20 formatter="booleanstr">国家重点（培育）</th>
-				<th field="provinceLevelOne" width=10" formatter="booleanstr">省部一级</th>
-				<th field="provinceLevelTwo" width=10 formatter="booleanstr">省部二级</th>
-				<th field="cityLevel" width=10 formatter="booleanstr">市级</th>
-				<th field="schLevel" width=10 formatter="booleanstr">校级</th>
-				<th field="note" width=10>备注</th>
-				<th field="time" width=10 formatter="formattime">时间</th>
+				<th field="seqNumber" >序号</th>
+				<th field="discipName" >重点学科名称</th>
+				</tr>
+				</thead>
+				<thead>
+				<tr>
+				<th field="discipID" >学科代码</th>
+				<th field="unitName" >所属教学单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="discipType" >学科门类</th>
+				<th field="nationLevelOne"  formatter="booleanstr">国家一级</th>
+				<th field="nationLevelTwo"  formatter="booleanstr">国家二级</th>
+				<th field="nationLevelKey" formatter="booleanstr">国家重点（培育）</th>
+				<th field="provinceLevelOne" " formatter="booleanstr">省部一级</th>
+				<th field="provinceLevelTwo"  formatter="booleanstr">省部二级</th>
+				<th field="cityLevel"  formatter="booleanstr">市级</th>
+				<th field="schLevel"  formatter="booleanstr">校级</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -95,29 +98,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newCourse()">数据导出</a>
+	 <form  id="exportForm"  method="post" style="float: right;">
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+		</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
-		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
-		<thead>
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" url="table5/verifiedData"
+		toolbar="#toolbar2" pagination="true"
+		 singleSelect="false">
+		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width=10>序号</th>
-				<th field="discipName" width=15>重点学科名称</th>
-				<th field="discipID" width=10>学科代码</th>
-				<th field="unitName" width=15>所属教学单位</th>
-				<th field="unitId" width=10>单位号</th>
-				<th field="discipType" width=10>学科门类</th>
-				<th field="nationLevelOne" width=10>国家一级</th>
-				<th field="nationLevelTwo" width=10>国家二级</th>
-				<th field="nationLevelKey" width=20>国家重点（培育）</th>
-				<th field="provinceLevelOne" width=10">省部一级</th>
-				<th field="provinceLevelTwo" width=10>省部二级</th>
-				<th field="cityLevel" width=10>市级</th>
-				<th field="schLevel" width=10>校级</th>
-				<th field="note" width=10>备注</th>
+				<th field="seqNumber" >序号</th>
+				<th field="discipName" >重点学科名称</th>
+			</tr>
+				</thead>
+				<thead>
+				<tr>
+				<th field="discipID" >学科代码</th>
+				<th field="unitName" >所属教学单位</th>
+				<th field="unitId" >单位号</th>
+				<th field="discipType" >学科门类</th>
+				<th field="nationLevelOne" >国家一级</th>
+				<th field="nationLevelTwo" >国家二级</th>
+				<th field="nationLevelKey" >国家重点（培育）</th>
+				<th field="provinceLevelOne" ">省部一级</th>
+				<th field="provinceLevelTwo" >省部二级</th>
+				<th field="cityLevel" >市级</th>
+				<th field="schLevel" >校级</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -128,6 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -522,6 +533,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 	    }
 
+
+	    function exports() {
+	    	var temp = encodeURI('表3-1-3重点学科（科研处）.xls');
+		    $('#exportForm').form('submit', {
+		    url : "pages/DiscipRes/dataExport?excelName="+temp ,
+		    onSubmit : function() {
+		    return $(this).form('validate');//对数据进行格式化
+		    },
+		    success : function(data) {
+		    $.messager.show({
+		    	title : '提示',
+		    	msg : data
+		    });
+		    }
+		    }); 
+	    }
+
 	    function deleteDiscip(ids){
 	    	$.ajax({ 
 	    		type: "POST", 
@@ -635,5 +663,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return boo;
 	        }  
 			</script>
+			
+		<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
 
 </html>

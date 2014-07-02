@@ -1,25 +1,53 @@
 package cn.nit.action.table4;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.BeanWrapperImpl;
 
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table4.T410_Bean;
+import cn.nit.bean.table4.T49_Bean;
 import cn.nit.dao.table4.T410_Dao;
+import cn.nit.dao.table4.T49_Dao;
 import cn.nit.service.table4.T410_Service;
+import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 public class T410_Action {
 	
@@ -31,17 +59,57 @@ public class T410_Action {
 	
 	private T410_Bean T410_bean = new T410_Bean();
 	
-
+	private T410_Dao T410_dao = new T410_Dao();
+	
+	/**  待审核数据的要删除的序列集  */
+	private String ids; //删除的id
+	
+	/**  待审核数据的查询的序列号  */
+	private Integer seqNum ;
+	
+	/**  待审核数据查询的起始时间  */
+	private Date startTime ;
+	
+	/**  待审核数据查询的结束时间  */
+	private Date endTime ;
+	
+	/**  下载的excelName  */
+	private String excelName ;
+	
+	private String selectYear;
 
 	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	
 	//查询出所有教师信息
 	public void loadResInfo() throws Exception{
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;	
-		List<T410_Bean> list = T410_services.getPageResList(this.getRows(),this.getPage()) ;
-		String TeaInfoJson = this.toBeJson(list,T410_services.getTotal());
+		
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
+		
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
+		}
+		List<T410_Bean> list = T410_services.getPageResList(cond, null, this.getRows(), this.getPage()) ;
+		String TeaInfoJson = this.toBeJson(list,T410_services.getTotal(cond, null));
 		//private JSONObject jsonObj;
 		
 		PrintWriter out = null ;
@@ -81,7 +149,8 @@ public class T410_Action {
         System.out.println(json) ;
 		return json;
 	}
-
+	
+/*
 	//查出所有
 	public void loadT410() throws Exception{
 		
@@ -105,18 +174,21 @@ public class T410_Action {
 				out.close() ;
 			}
 		}
-	}
+	}*/
 	
 	//插入一个新的教职工
 	public void insert(){
 		
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
+		//插入时间
+		T410_bean.setTime(new Date());
+		
 		T410_bean.setResItemNum(T410_bean.getHresItemNum()+T410_bean.getZresItemNum());
-		System.out.println(T410_bean.getHhumanItemFund());
+/*		System.out.println(T410_bean.getHhumanItemFund());
 		System.out.println(T410_bean.getZitemFund());
 		System.out.println(T410_bean.getHitemFund());
-		System.out.println(T410_bean.getSci());
+		System.out.println(T410_bean.getSci());*/
 		//T410_bean.setResItemFund(0.0);
 		//T410_bean.setIstp(1);
 		T410_bean.setResAwardNum(T410_bean.getNationResAward()+T410_bean.getProviResAward()+T410_bean.getCityResAward()+T410_bean.getSchResAward());
@@ -147,6 +219,224 @@ public class T410_Action {
 		}
 		out.flush() ;
 	}
+	
+	/**  编辑数据  */
+	public void edit(){
+		
+		T410_bean.setResItemNum(T410_bean.getHresItemNum()+T410_bean.getZresItemNum());
+		/*		System.out.println(T410_bean.getHhumanItemFund());
+				System.out.println(T410_bean.getZitemFund());
+				System.out.println(T410_bean.getHitemFund());
+				System.out.println(T410_bean.getSci());*/
+				//T410_bean.setResItemFund(0.0);
+				//T410_bean.setIstp(1);
+		T410_bean.setResAwardNum(T410_bean.getNationResAward()+T410_bean.getProviResAward()+T410_bean.getCityResAward()+T410_bean.getSchResAward());
+		T410_bean.setResItemFund(T410_bean.getHitemFund()+T410_bean.getZitemFund());
+		T410_bean.setPaperNum(T410_bean.getSci()+T410_bean.getSsci()+T410_bean.getEi()+T410_bean.getCscd()+T410_bean.getIstp()+T410_bean.getOtherPaper()+T410_bean.getCssci()+T410_bean.getInlandCoreJnal());
+		T410_bean.setPublicationNum(T410_bean.getTranslation()+T410_bean.getTreatises());
+		T410_bean.setPatentNum(T410_bean.getDesignPatent()+T410_bean.getUtilityPatent()+T410_bean.getInventPatent());
+		boolean flag = T410_services.update(T410_bean) ;
+		PrintWriter out = null ;
+	
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+
+	/**  根据数据的id删除数据  */
+	public void deleteByIds(){
+		System.out.println("ids=" + this.getIds()) ;
+		boolean flag = T410_services.deleteByIds(ids) ;
+		PrintWriter out = null ;
+		
+		try{			
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;			
+			if(flag){
+				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	public InputStream getInputStream() throws Exception{
+		
+		System.out.println(this.getSelectYear());
+
+		T410_Bean bean = T410_dao.totalList(this.getSelectYear());
+		
+	    ByteArrayOutputStream fos = null;
+	
+		if(bean==null){
+			PrintWriter out = null ;
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			out.print("后台传入的数据为空!!!") ;
+			System.out.println("后台传入的数据为空");
+		}else{
+			String sheetName = this.getExcelName();
+						
+		    WritableWorkbook wwb;
+		    try {    
+		           fos = new ByteArrayOutputStream();
+		           wwb = Workbook.createWorkbook(fos);
+		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+		
+		            //    设置单元格的文字格式
+		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		           WritableCellFormat wcf = new WritableCellFormat(wf);
+		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		           wcf.setAlignment(Alignment.CENTRE);
+		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+		        		     jxl.format.Colour.BLACK);
+		           ws.setRowView(1, 500);
+		           
+		            //    设置内容单无格的文字格式
+		           WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		            WritableCellFormat wcf1 = new WritableCellFormat(wf1);        
+		            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+		            wcf1.setAlignment(Alignment.CENTRE);
+		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+			        		     jxl.format.Colour.BLACK);
+		           
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.mergeCells(0, 0, 3, 0);
+		             
+		           ws.addCell(new Label(0, 2, "", wcf)); 
+		           ws.addCell(new Label(0, 5, "项目数（项）", wcf)); 
+		           ws.addCell(new Label(0, 6, "经费（万元）", wcf)); 
+		           ws.addCell(new Label(1, 2, "1.教师科研项目", wcf)); 
+		           ws.addCell(new Label(1, 3, "总计", wcf)); 
+		           ws.addCell(new Label(2, 3, "横向", wcf)); 
+		           ws.addCell(new Label(4, 3, "纵向", wcf)); 
+		           ws.addCell(new Label(2, 4, "横向总数", wcf)); 
+		           ws.addCell(new Label(3, 4, "其中：人文社会科学", wcf)); 
+		           ws.addCell(new Label(4, 4, "纵向总数", wcf)); 
+		           ws.addCell(new Label(5, 4, "其中：人文社会科学", wcf));
+		           ws.mergeCells(0, 2, 0, 4);
+		           ws.mergeCells(1, 2, 5, 2);
+		           ws.mergeCells(1, 3, 1, 4);
+		           ws.mergeCells(2, 3, 3, 3);
+		           ws.mergeCells(4, 3, 5, 3);
+		           ws.addCell(new Label(1, 5, bean.getResItemNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 5, bean.getHresItemNum().toString(), wcf1));
+		           ws.addCell(new Label(3, 5, bean.getHhumanItemNum().toString(), wcf1));
+		           ws.addCell(new Label(4, 5, bean.getZresItemNum().toString(), wcf1));
+		           ws.addCell(new Label(5, 5, bean.getZhumanItemNum().toString(), wcf1));
+		           ws.addCell(new Label(1, 6, bean.getResItemFund().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 6, bean.getHitemFund().toString(), wcf1));
+		           ws.addCell(new Label(3, 6, bean.getHhumanItemFund().toString(), wcf1));
+		           ws.addCell(new Label(4, 6, bean.getZitemFund().toString(), wcf1));
+		           ws.addCell(new Label(5, 6, bean.getZhumanItemFund().toString(), wcf1));
+		           
+		           	           
+		           ws.addCell(new Label(1, 8, "2.近一届科研成果奖数（项）", wcf)); 
+		           ws.addCell(new Label(1, 9, "总数", wcf)); 
+		           ws.addCell(new Label(2, 9, "其中", wcf)); 
+		           ws.addCell(new Label(2, 10, "国家级", wcf)); 
+		           ws.addCell(new Label(3, 10, "省部级", wcf)); 
+		           ws.addCell(new Label(4, 10, "市厅级", wcf)); 
+		           ws.addCell(new Label(5, 10, "校级", wcf)); 	           
+		           ws.mergeCells(1, 8, 5, 8);
+		           ws.mergeCells(1, 9, 1, 10);
+		           ws.mergeCells(2, 9, 5, 9);	           
+		           ws.addCell(new Label(1, 11, bean.getResAwardNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 11, bean.getNationResAward().toString(), wcf1));
+		           ws.addCell(new Label(3, 11, bean.getProviResAward().toString(), wcf1));
+		           ws.addCell(new Label(4, 11, bean.getCityResAward().toString(), wcf1));
+		           ws.addCell(new Label(5, 11, bean.getSchResAward().toString(), wcf1));
+		           
+		           
+		           ws.addCell(new Label(1, 13, "3.发表论文数（篇）", wcf)); 
+		           ws.addCell(new Label(1, 14, "总数", wcf)); 
+		           ws.addCell(new Label(2, 14, "其中", wcf)); 
+		           ws.addCell(new Label(2, 15, "SCI", wcf)); 
+		           ws.addCell(new Label(3, 15, "SSCI", wcf)); 
+		           ws.addCell(new Label(4, 15, "EI", wcf)); 
+		           ws.addCell(new Label(5, 15, "ISTP", wcf)); 
+		           ws.addCell(new Label(6, 15, "国内核心期刊", wcf)); 
+		           ws.addCell(new Label(7, 15, "CSSCI", wcf)); 
+		           ws.addCell(new Label(8, 15, "CSCD", wcf)); 
+		           ws.addCell(new Label(9, 15, "其他", wcf)); 
+		           ws.mergeCells(1, 13, 9, 13);
+		           ws.mergeCells(1, 14, 1, 15);
+		           ws.mergeCells(2, 14, 9, 14);
+		           ws.addCell(new Label(1, 16, bean.getPaperNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 16, bean.getSci().toString(), wcf1));
+		           ws.addCell(new Label(3, 16, bean.getSsci().toString(), wcf1));
+		           ws.addCell(new Label(4, 16, bean.getEi().toString(), wcf1));
+		           ws.addCell(new Label(5, 16, bean.getIstp().toString(), wcf1));
+		           ws.addCell(new Label(6, 16, bean.getInlandCoreJnal().toString(), wcf1)); 
+		           ws.addCell(new Label(7, 16, bean.getCssci().toString(), wcf1));
+		           ws.addCell(new Label(8, 16, bean.getCscd().toString(), wcf1));
+		           ws.addCell(new Label(9, 16, bean.getOtherPaper().toString(), wcf1));
+
+		           
+		           
+		           ws.addCell(new Label(1, 18, "4.出版专译著（册）", wcf)); 
+		           ws.addCell(new Label(1, 19, "总数", wcf)); 
+		           ws.addCell(new Label(2, 19, "专著", wcf)); 
+		           ws.addCell(new Label(3, 19, "译著", wcf)); 
+		           ws.mergeCells(1, 18, 3, 18);	           
+		           ws.addCell(new Label(1, 20, bean.getPublicationNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 20, bean.getTreatises().toString(), wcf1));
+		           ws.addCell(new Label(3, 20, bean.getTranslation().toString(), wcf1));
+		           
+		           ws.addCell(new Label(1, 22, "5.获准专利（项）", wcf)); 
+		           ws.addCell(new Label(1, 23, "总数", wcf)); 
+		           ws.addCell(new Label(2, 23, "发明专利", wcf)); 
+		           ws.addCell(new Label(3, 23, "实用新型专利", wcf)); 
+		           ws.addCell(new Label(4, 23, "外观设计专利", wcf)); 
+		           ws.mergeCells(1, 22, 6, 22);
+		           ws.mergeCells(4, 23, 6, 23);
+		           ws.mergeCells(4, 24, 6, 24);
+		           ws.addCell(new Label(1, 24, bean.getPatentNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 24, bean.getInventPatent().toString(), wcf1));
+		           ws.addCell(new Label(3, 24, bean.getUtilityPatent().toString(), wcf1));
+		           ws.addCell(new Label(4, 24, bean.getDesignPatent().toString(), wcf1));
+		           
+		          wwb.write();
+		          wwb.close();
+
+		        } catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
+		        
+		}
+		return new ByteArrayInputStream(fos.toByteArray());
+	}
+	
+	public String execute() throws Exception{
+		response.setContentType("text/html;charset=utf-8"); 
+		System.out.println("excelName=============" + excelName) ;
+		return "success" ;
+	}
 
 	public String getRows() {
 		return rows;
@@ -173,5 +463,59 @@ public class T410_Action {
 
 	public void setT410_bean(T410_Bean T410Bean) {
 		T410_bean = T410Bean;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
+	public String getIds() {
+		return ids;
+	}
+
+	public void setSeqNum(Integer seqNum) {
+		this.seqNum = seqNum;
+	}
+
+	public Integer getSeqNum() {
+		return seqNum;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
+	public String getExcelName() {
+		try {
+			this.excelName = URLDecoder.decode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
 	}
 }

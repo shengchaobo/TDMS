@@ -86,6 +86,8 @@ public class T321_Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+	private String selectYear;
+	
 //	public List<Integer> getNumofMainTrain(){
 //		List<Integer> list1=new ArrayList<Integer> ();
 //		List<DiDepartmentBean> list = diDepartmentSer.getList() ;
@@ -335,7 +337,7 @@ public void auditingData(){
 
 		try {
 			
-			List<T321_Bean> list = t321_DAO.totalList();
+			List<T321_Bean> list = t321_DAO.totalList(this.getSelectYear());
 			
 			String sheetName = this.getExcelName();
 			
@@ -343,17 +345,17 @@ public void auditingData(){
 			columns.add("序号");
 			columns.add("大类名称");columns.add("大类代码");columns.add("分流时间");
 			columns.add("包含校内专业名称");columns.add("校内专业代码");columns.add("所属单位");
-			columns.add("单位号");columns.add("备注");
+			columns.add("单位号");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("MainClassName", 1);maplist.put("MainClassID", 2);maplist.put("ByPassTime", 3);maplist.put("MajorNameInSch", 4);
-			maplist.put("MajorID", 5);maplist.put("UnitName", 6);maplist.put("UnitID", 7);maplist.put("Note", 8);
+			maplist.put("MajorID", 5);maplist.put("UnitName", 6);maplist.put("UnitID", 7);
 			
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t321Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -392,6 +394,14 @@ public void auditingData(){
 	
 
 
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
 
 	public static void main(String args[]){
 		String match = "[\\d]+" ;

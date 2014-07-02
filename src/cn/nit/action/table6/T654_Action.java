@@ -151,7 +151,7 @@ public class T654_Action {
 		
 		String cond = "1=1";
 		if(this.getSearchItem()!= null){
-			cond += " and MajorName LIKE '" + this.getSearchItem() + "%'";
+			cond += " and teaUnit LIKE '" + this.getSearchItem() + "%'";
 			System.out.println(cond);
 		}
 		List<T654_Bean> list = T654_service.getPageInfoList(cond,null,this.getRows(), this.getPage());

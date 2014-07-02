@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>学习成果—学生发表作品情况</title>
+<title>学习成果—英语四六级、计算机等级考试</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -56,33 +56,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript" src="js/table6/T654.js"></script>
+	<script type="text/javascript" src="js/table6/T655.js"></script>
 </head>
 
 
 <body>
-	<table id="commomData" title="学习成果—学生获准专利情况" class="easyui-datagrid" url="pages/T654/loadData" style="height: auto;">
-
+	<table id="commomData" title="学习成果—英语四六级、计算机等级考试" class="easyui-datagrid" url="pages/T655/loadData" style="height: auto;">
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">序号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
-				</tr>
+			</tr>
 		</thead>	
 		<thead>
 			<tr>
-				<th field="jonalName">专利名称</th>
-				<th field="jonalId">专利号</th>
-				<th field="patentType">类别</th>
-				<th field="appvlTime" formatter="formattime">获批时间</th>				
-				<th field="awardStuName">学生姓名学号</th>
-				<th field="awardStuNum">参与学生人数</th>
-				<th field="guideTeaName">指导教师</th>
-				<th field="guideTeaNum">指导教师人数</th>
+				<th field="CET4PassRate">1.英语四级考试累计通过率（%）</th>
+				<th field="CET6PassRate">2.英语六级考试累计通过率（%）</th>
+				<th field="jiangxiNCREPassRate">3.江西省高校计算机等级考试累计通过率（%）</th>
+				<th field="nationNCREPassRate">4.全国高校计算机等级考试累计通过率（%）</th>				
 				<th field="note">备注</th>
-				<th field="fillUnitID">填写单位</th>	
 				<th field="time" formatter="formattime">时间</th>
 			</tr>
 		</thead>
@@ -107,50 +101,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="seqNumber">序号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
-				<th field="jonalName">专利名称</th>
-				<th field="jonalId">专利号</th>
-				<th field="patentType">类别</th>
-				<th field="appvlTime" formatter="formattime">获批时间</th>				
-				<th field="awardStuName">学生姓名学号</th>
-				<th field="awardStuNum">参与学生人数</th>
-				<th field="guideTeaName">指导教师</th>
-				<th field="guideTeaNum">指导教师人数</th>
+			</tr>
+		</thead>	
+		<thead>
+			<tr>
+				<th field="CET4PassRate">1.英语四级考试累计通过率（%）</th>
+				<th field="CET6PassRate">2.英语六级考试累计通过率（%）</th>
+				<th field="jiangxiNCREPassRate">3.江西省高校计算机等级考试累计通过率（%）</th>
+				<th field="nationNCREPassRate">4.全国高校计算机等级考试累计通过率（%）</th>				
 				<th field="note">备注</th>
-				<th field="fillUnitID">填写单位</th>	
 				<th field="time" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T654/dataExport?excelName=<%=URLEncoder.encode("表6-5-4学习成果—学生获准专利（教学单位-团委）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href='pages/T655/dataExport?excelName=<%=URLEncoder.encode("表6-5-5学习成果—英语四六级、计算机等级考试.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">学生获准专利情况批量导入</div>
+		<div class="ftitle" id="title1">英语四六级、计算机等级考试通过率批量导入</div>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href='pages/T654/downloadModel?saveFile=<%=URLEncoder.encode("表6-5-4学习成果—学生获准专利（教学单位-团委）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T655/downloadModel?saveFile=<%=URLEncoder.encode("表6-5-5学习成果—英语四六级、计算机等级考试.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
 	
 		<div></div>
-		<div class="ftitle">学生获准专利情况逐条导入</div>
+		<div class="ftitle">英语四六级、计算机等级考试通过率逐条导入</div>
 		<form id="addItemForm" method="post">
 		<table>
 			<tr>
 				<td>
 					<div class="fitem">
 						<label>教学单位：</label> 
-						<input id="seqNumber" type="hidden" name="T654_bean.seqNumber">	
-						<input id="teaUnit" type="hidden" name="T654_bean.teaUnit">										
-						<input id="unitId" type="text" name="T654_bean.unitId" class='easyui-combobox'
+						<input id="seqNumber" type="hidden" name="T655_bean.seqNumber">	
+						<input id="teaUnit" type="hidden" name="T655_bean.teaUnit">										
+						<input id="unitId" type="text" name="T655_bean.unitId" class='easyui-combobox'
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('teaUnit').value=$(this).combobox('getText') ;
@@ -159,23 +152,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 				<td>
 					<div class="fitem">
-						<label>专利名称：</label> 
-						<input id="jonalName" name="T654_bean.jonalName" class='easyui-validatebox'>
-						<span id="jonalNameSpan"></span>
+						<label>英语四级考试累计通过率（%）：</label> 
+						<input id="CET4PassRate" name="T655_bean.CET4PassRate" class='easyui-validatebox'>
+						<span id="CET4PassRateSpan"></span>
 					</div>
 				</td>
 			</tr>
+
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>专利号：</label> 
-						<input id="jonalId" name="T654_bean.jonalId" class='easyui-validatebox'><span id="jonalIdSpan" ></span>
+						<label>英语六级考试累计通过率（%）：</label> 
+						<input id="CET6PassRate" name="T655_bean.CET6PassRate" class='easyui-validatebox'><span id="CET6PassRateSpan" ></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
-						<label>类别：</label> 
-						<input id="patentType" name="T654_bean.patentType" class='easyui-validatebox'><span id="patentTypeSpan"></span>
+						<label>江西省高校计算机等级考试累计通过率（%）：</label> 
+						<input id="jiangxiNCREPassRate" name="T655_bean.jiangxiNCREPassRate" class='easyui-validatebox'><span id="jiangxiNCREPassRateSpan"></span>
 					</div>
 				</td>
 			</tr>
@@ -183,68 +177,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>			
 					<div class="fitem">
-						<label>获批时间：</label> 
-						<input id="appvlTime" name="T654_bean.appvlTime" 
-							 class='easyui-datebox'  type="text" editable="false"><span id="appvlTimeSpan"></span>
+						<label>全国高校计算机等级考试累计通过率（%）：</label> 
+						<input id="nationNCREPassRate" name="T655_bean.nationNCREPassRate" 
+							 class='easyui-validatebox'><span id="nationNCREPassRateSpan"></span>
 					</div>
 				</td>
-				
-				<td>			
-					<div class="fitem">
-						<label>学生姓名学号：</label> 
-						<input id="awardStuName" name="T654_bean.awardStuName" class='easyui-validatebox'><span id="awardStuNameSpan"></span>
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>			
-					<div class="fitem">
-						<label>参与学生人数：</label> 
-						<input id="awardStuNum" name="T654_bean.awardStuNum" 
-							 class='easyui-validatebox'><span id="awardStuNumSpan"></span>
-					</div>
-				</td>
-				
-				<td>			
-					<div class="fitem">
-						<label>指导教师：</label> 
-						<input id="guideTeaName" name="T654_bean.guideTeaName" class='easyui-validatebox'><span id="guideTeaNameSpan"></span>
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>			
-					<div class="fitem">
-						<label>指导教师人数：</label> 
-						<input id="guideTeaNum" name="T654_bean.guideTeaNum" 
-							 class='easyui-validatebox'><span id="guideTeaNumSpan"></span>
-					</div>
-				</td>
-				<td>			
-					<div class="fitem">
-						<label>填写单位：</label> 
-						<input id="fillUnitID" name="T654_bean.fillUnitID" 
-							 class='easyui-validatebox'><span id="fillUnitIDSpan"></span>
-					</div>
-				</td>
-	
-			</tr>
-			
-			<tr>
 				<td>
 					<div class="fitem">
-						<label>填写时间：</label> 
+						<label>时间：</label> 
 						<input class="easyui-datebox"  id="time" type="text" 
-						name="T654_bean.time"  editable="false" />
+						name="T655_bean.time"  editable="false" />
 						<span id="timeSpan"></span>
 					</div>
 				</td>
+				
 			</tr>
 			<tr>
 				<td style="valign:left"><label>备注：</label>
-					<textarea id="note" name="T654_bean.note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="note" name="T655_bean.note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="noteSpan"></span>
 				</td>
 			</tr>

@@ -22,10 +22,10 @@ public class T655_Bean implements java.io.Serializable {
 	private int seqNumber;
 	private String unitId;
 	private String teaUnit;
-	private Double cet4passRate;
-	private Double cet6passRate;
-	private Double jiangxiNcrepassRate;
-	private Double nationNcrepassRate;
+	private double CET4PassRate;
+	private double CET6PassRate;
+	private double jiangxiNCREPassRate;
+	private double nationNCREPassRate;
 	private Date time;
 	private String note;
 	
@@ -47,29 +47,39 @@ public class T655_Bean implements java.io.Serializable {
 	public void setTeaUnit(String teaUnit) {
 		this.teaUnit = teaUnit;
 	}
-	public Double getCet4passRate() {
-		return cet4passRate;
+	public double getCET4PassRate() {
+		return CET4PassRate;
 	}
-	public void setCet4passRate(Double cet4passRate) {
-		this.cet4passRate = cet4passRate;
+	public void setCET4PassRate(double cET4PassRate) {
+		CET4PassRate = cET4PassRate;
 	}
-	public Double getCet6passRate() {
-		return cet6passRate;
+	public void setCET6PassRate(double cET6PassRate) {
+		CET6PassRate = cET6PassRate;
 	}
-	public void setCet6passRate(Double cet6passRate) {
-		this.cet6passRate = cet6passRate;
+	public void setJiangxiNCREPassRate(double jiangxiNCREPassRate) {
+		this.jiangxiNCREPassRate = jiangxiNCREPassRate;
 	}
-	public Double getJiangxiNcrepassRate() {
-		return jiangxiNcrepassRate;
+	public void setNationNCREPassRate(double nationNCREPassRate) {
+		this.nationNCREPassRate = nationNCREPassRate;
 	}
-	public void setJiangxiNcrepassRate(Double jiangxiNcrepassRate) {
-		this.jiangxiNcrepassRate = jiangxiNcrepassRate;
+	
+	public Double getCET6PassRate() {
+		return CET6PassRate;
 	}
-	public Double getNationNcrepassRate() {
-		return nationNcrepassRate;
+	public void setCET6PassRate(Double cET6PassRate) {
+		CET6PassRate = cET6PassRate;
 	}
-	public void setNationNcrepassRate(Double nationNcrepassRate) {
-		this.nationNcrepassRate = nationNcrepassRate;
+	public Double getJiangxiNCREPassRate() {
+		return jiangxiNCREPassRate;
+	}
+	public void setJiangxiNCREPassRate(Double jiangxiNCREPassRate) {
+		this.jiangxiNCREPassRate = jiangxiNCREPassRate;
+	}
+	public Double getNationNCREPassRate() {
+		return nationNCREPassRate;
+	}
+	public void setNationNCREPassRate(Double nationNCREPassRate) {
+		this.nationNCREPassRate = nationNCREPassRate;
 	}
 	public Date getTime() {
 		return time;

@@ -1,7 +1,7 @@
 var url;
 //弹出添加的界面
 function newItem() {
-	url = 'pages/T631/insert' ; 
+	url = 'pages/T632/insert' ; 
 	$('#title1').show();
 	$('#item1').show();
 	$('#dlg').dialog('open').dialog('setTitle', '分专业应届本科毕业生就业情况（招就处）');
@@ -9,6 +9,22 @@ function newItem() {
 }
 // 单条录入时的表单提交
 function singleImport() {
+    $('#examGraEnrollNum').val(parseInt($('#examGraInSch').val())+ parseInt($('#examGraOutSch').val())); //考研录取总人数
+    $('#sumGoOnHighStudyNum').val(parseInt($('#recommendGraNum').val())+parseInt($('#examGraInSch').val())
+    		+parseInt($('#examGraOutSch').val())+parseInt($('#abroadNum').val()));//应届升学总人数
+    $('#goOnHighStudy').val(parseInt($('#sumGoOnHighStudyNum').val()));//升学总人数
+    $('#sumEmployNum').val(parseInt($('#govermentNum').val())+ parseInt($('#pubInstiNum').val())+
+    		parseInt($('#enterpriseNum').val())+ parseInt($('#forceNum').val())+ parseInt($('#flexibleEmploy').val())+ parseInt($('#goOnHighStudy').val())
+    		+parseInt($('#nationItemEmploy').val())+ parseInt($('#otherEmploy').val()))//应届就业总人数
+    		
+
+	
+//		var sumEmployNum = $('#sumEmployNum').val();
+//		var goOnHighStudy = $('#goOnHighStudy').val();
+//		var sumGoOnHighStudyNum = $('#sumGoOnHighStudyNum').val();
+//		var examGraEnrollNum = $('#examGraEnrollNum').val();
+//		
+//		alert(sumEmployNum+" "+ goOnHighStudy + " "+sumGoOnHighStudyNum+" "+examGraEnrollNum);
 	
 	$('#addItemForm').form('submit', {
 		url : url,
@@ -38,11 +54,28 @@ function validate() {
 	var  num = /^\d+$/;  //用于判断字符串是否全是数字
 	var unitId = $('#unitId').combobox('getText');
 	var majorId = $('#majorId').combobox('getText');
-	var thisYearGraduNum = $('#thisYearGraduNum').val();
-	var thisYearNotGraduNum = $('#thisYearNotGraduNum').val();
-	var awardDegreeNum = $('#awardDegreeNum').val();
+//	var sumEmployNum = $('#sumEmployNum').val();
+	var govermentNum = $('#govermentNum').val();	
+	var pubInstiNum = $('#pubInstiNum').val();
+	var enterpriseNum = $('#enterpriseNum').val();
+	var forceNum = $('#forceNum').val();
+	var flexibleEmploy = $('#flexibleEmploy').val();
+//	var goOnHighStudy = $('#goOnHighStudy').val();
+	var nationItemEmploy = $('#nationItemEmploy').val();
+	var otherEmploy = $('#otherEmploy').val();
+	
+//	var sumGoOnHighStudyNum = $('#sumGoOnHighStudyNum').val();
+	var recommendGraNum = $('#recommendGraNum').val();
+	var examGraApplyNum = $('#examGraApplyNum').val();
+//	var examGraEnrollNum = $('#examGraEnrollNum').val();
+	var examGraInSch = $('#examGraInSch').val();
+	var examGraOutSch = $('#examGraOutSch').val();
+	var abroadNum = $('#abroadNum').val();
+	
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
+
+
 
 	// 根据数据库定义的字段的长度，对其进行判断
 
@@ -56,20 +89,20 @@ function validate() {
 		return false;
 	}
 	
-	if (thisYearGraduNum == "" || thisYearNotGraduNum == "" || awardDegreeNum == "") {
+	if (govermentNum == "" || pubInstiNum == "" || enterpriseNum == "" ||
+			forceNum == "" || flexibleEmploy == "" || nationItemEmploy == "" || otherEmploy == "" || 
+			recommendGraNum == "" || examGraApplyNum == "" || examGraInSch == "" || examGraOutSch == "" || abroadNum == "") {
 		alert("请填写数字，若无请填写0");
 		return false;
 	}
 	
-	if (!thisYearGraduNum.match(num) || !thisYearNotGraduNum.match(num) || !awardDegreeNum.match(num)) {
+	if (!govermentNum.match(num) || !pubInstiNum.match(num) || !enterpriseNum.match(num)
+			|| !forceNum.match(num) || !flexibleEmploy.match(num)|| !nationItemEmploy.match(num) || !otherEmploy.match(num)
+			|| !recommendGraNum.match(num) || !examGraApplyNum.match(num)|| !examGraInSch.match(num) || !examGraOutSch.match(num)|| !abroadNum.match(num)) {
 	alert("请填写数字，若无请填写0");
 	return false;
 }
 	
-	if(awardDegreeNum > thisYearGraduNum){
-		alert("授予学位数应当小于等于应届毕业生数");
-		return false;
-	}
 
 	if (time == null || time.length == 0) {
 		$('#time').focus();
@@ -115,7 +148,7 @@ function deleteByIds() {
 function deletes(ids) {
 	$.ajax( {
 		type : "POST",
-		url : "pages/T631/deleteByIds?ids=" + ids,
+		url : "pages/T632/deleteByIds?ids=" + ids,
 		async : "true",
 		dataType : "text",
 		success : function(result) {
@@ -137,7 +170,7 @@ function editItem() {
 		return;
 	}
 
-	url = 'pages/T631/edit';
+	url = 'pages/T632/edit';
 	
 	$('#title1').hide();
 	$('#item1').hide();
@@ -148,10 +181,22 @@ function editItem() {
 	$('#unitId').combobox('select', row[0].unitId);
 	$('#majorId').combobox('select', row[0].majorId);
 
-	
-	$('#thisYearGraduNum').val(row[0].thisYearGraduNum);
-	$('#thisYearNotGraduNum').val(row[0].thisYearNotGraduNum);
-	$('#awardDegreeNum').val(row[0].awardDegreeNum);
+	$('#sumEmployNum').val(row[0].sumEmployNum);
+	$('#govermentNum').val(row[0].govermentNum);
+	$('#pubInstiNum').val(row[0].pubInstiNum);
+	$('#enterpriseNum').val(row[0].enterpriseNum);
+	$('#forceNum').val(row[0].forceNum);
+	$('#flexibleEmploy').val(row[0].flexibleEmploy);
+	$('#goOnHighStudy').val(row[0].goOnHighStudy);
+	$('#nationItemEmploy').val(row[0].nationItemEmploy);
+	$('#otherEmploy').val(row[0].otherEmploy);
+	$('#sumGoOnHighStudyNum').val(row[0].sumGoOnHighStudyNum);
+	$('#recommendGraNum').val(row[0].recommendGraNum);
+	$('#examGraApplyNum').val(row[0].examGraApplyNum);
+	$('#examGraEnrollNum').val(row[0].examGraEnrollNum);
+	$('#examGraInSch').val(row[0].examGraInSch);
+	$('#examGraOutSch').val(row[0].examGraOutSch);
+	$('#abroadNum').val(row[0].abroadNum);
 	
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);

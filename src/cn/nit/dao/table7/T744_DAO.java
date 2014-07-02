@@ -5,11 +5,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-
-import cn.nit.bean.table7.T743_Bean;
 import cn.nit.bean.table7.T744_Bean;
 import cn.nit.dbconnection.DBConnection;
-import cn.nit.pojo.table7.T743POJO;
 import cn.nit.pojo.table7.T744POJO;
 import cn.nit.util.DAOUtil;
 
@@ -130,6 +127,36 @@ public class T744_DAO {
 		}		
 		return list;	
 	}
+	
+	/**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T744_Bean> totalList(){
+		
+		String sql = "select " + key+ "," +field + " from " + tableName;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T744_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T744_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
 	 public boolean update(T744_Bean t744_B){
 		boolean flag=false;
 		
@@ -148,6 +175,30 @@ public class T744_DAO {
 		return flag;
 	}
 	
+	 /**
+		 * 模板导入
+		 * @param diCourseCategories
+		 * @return
+		 *
+		 * @time: 2014-5-14/下午02:34:23
+		 */
+		public boolean batchInsert(List<T744_Bean> list){
+			
+			boolean flag = false ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			
+			String tempfield = "TeaUnit,UnitID,MajorName,MajorID,DegreeType,LeaderName,TeaID,SetYear,AssessYear,AssessResult,AppvlID,Time,Note,FillUnitID";
+			try{
+				flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return flag ;
+			}
+			
+			return flag ;
+			
+		}
+	 
 	public boolean deleteByIds(String ids){
 		int  flag=0;
 		StringBuffer sql=new StringBuffer();

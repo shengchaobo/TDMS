@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="UserManager" namespace="/pages/UserManager" extends="struts-default">
+		<!-- 初始化加载课程性质 -->
+	    <action name="userManager" class="cn.nit.action.di.DIUserManagerAction" method="loadUsers" />
+	    <action name="insert" class="cn.nit.action.di.DIUserManagerAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DIUserManagerAction" method="edit" />
+	    <action name="resetPassword" class="cn.nit.action.di.DIUserManagerAction" method="resetPassword" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DIUserManagerAction" method="deleteByIds" />
+	    <action name="loadUsers" class="cn.nit.action.di.DIUserManagerAction" method="loadUsers" />
+	</package>
+</struts>

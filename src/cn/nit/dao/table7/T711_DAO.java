@@ -5,7 +5,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.List;
 
-import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table7.T711_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table7.T711POJO;
@@ -208,7 +207,7 @@ public class T711_DAO {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		
-		String tempfield = "TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,FillUnitID";
+		String tempfield = "TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillUnitID";
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 		}catch(Exception e){

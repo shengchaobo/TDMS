@@ -13,7 +13,7 @@ import javax.persistence.Table;
 /**
  * DiTitleLevel entity. @author MyEclipse Persistence Tools
  */
-@Table(name = "DiTitleLevel", schema = "dbo", catalog = "TDMS")
+
 public class DiTitleLevelBean implements java.io.Serializable {
 
 	// Fields

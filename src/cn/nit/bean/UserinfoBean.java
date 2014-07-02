@@ -16,6 +16,9 @@ package cn.nit.bean;
  *
  */
 public class UserinfoBean {
+	
+	/**  自增长序号  */
+	private int SeqNumber ;
 
 	/**  教职工Id号  */
 	private String TeaID ;
@@ -26,7 +29,7 @@ public class UserinfoBean {
 	/**  教师登录密码  */
 	private String TeaPasswd ;
 	
-	/**  教师部门ID号  */
+	/**  教师部门名称  */
 	private String FromOffice ;
 	
 	/**  教师电子邮箱  */
@@ -35,6 +38,17 @@ public class UserinfoBean {
 	/**  备注  */
 	private String UserNote ;
 	
+	/**  部门编号  */
+	private String UnitID ;
+	
+	public int getSeqNumber() {
+		return SeqNumber;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
 	public String getTeaID() {
 		return TeaID;
 	}
@@ -82,5 +96,14 @@ public class UserinfoBean {
 	public void setUserNote(String UserNote) {
 		this.UserNote = UserNote;
 	}
+
+	public String getUnitID() {
+		return UnitID;
+	}
+
+	public void setUnitID(String unitID) {
+		UnitID = unitID;
+	}
+
 
 }

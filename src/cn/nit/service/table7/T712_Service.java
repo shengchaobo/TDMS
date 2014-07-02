@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
+
 import cn.nit.bean.table7.T712_Bean;
 
 import cn.nit.dao.table7.T712_DAO;
@@ -15,11 +16,11 @@ import cn.nit.util.TimeUtil;
 
 public class T712_Service {
 	
-	T712_DAO  t712_Sr=new T712_DAO();
+	T712_DAO  t712_dao=new T712_DAO();
 	
 	public boolean insert(T712_Bean teaManagerPaperInfoTeaTea){
 		
-		return t712_Sr.insert(teaManagerPaperInfoTeaTea);
+		return t712_dao.insert(teaManagerPaperInfoTeaTea);
 	}
 
 	/**
@@ -31,9 +32,9 @@ public class T712_Service {
 	 * @return
 	 */
 	public String auditingData(String conditions,String fillUnitId,int page,int rows){
-		int total=t712_Sr.totalAuditingData(conditions, fillUnitId);
+		int total=t712_dao.totalAuditingData(conditions, fillUnitId);
 		
-		List<T712POJO> list=t712_Sr.auditingData(conditions, fillUnitId, page, rows);
+		List<T712POJO> list=t712_dao.auditingData(conditions, fillUnitId, page, rows);
 		
 		Pagition pages=new Pagition(total, list);
 		JSON json=JSONSerializer.toJSON(pages);
@@ -77,11 +78,15 @@ public class T712_Service {
 	
 	public boolean deleteByIds(String ids){
 	    
-		return  t712_Sr.deleteByIds(ids);
+		return  t712_dao.deleteByIds(ids);
 	}
 	
 	public boolean update(T712_Bean t){
-		return t712_Sr.update(t);
+		return t712_dao.update(t);
+		
+	}
+	public boolean batchInsert(List<T712_Bean> list){
+		return t712_dao.batchInsert(list);
 		
 	}
 

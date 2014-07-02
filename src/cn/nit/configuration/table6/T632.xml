@@ -25,7 +25,7 @@
 				<!-- 流对象名字 -->
 				<param name="inputName">inputStream</param>
 				<!-- 文件名转码 -->
-				<param name="contentDisposition">attachment;fileName="6字头.xls"</param>
+				<param name="contentDisposition">attachment;fileName="${saveFile}"</param>
 				<!-- 下载文件缓冲大小 -->
 				<param name="bufferSize">4096</param>
 	    	</result>
@@ -44,7 +44,7 @@
 				<!-- 流对象名字 -->
 				<param name="inputName">inputStream</param>
 				<!-- 文件名转码 -->
-				<param name="contentDisposition">attachment;fileName="表632_分专业应届本科毕业生就业情况（招就处）.xls"</param>
+				<param name="contentDisposition">attachment;fileName="${saveFile}"</param>
 				<!-- 下载文件缓冲大小 -->
 				<param name="bufferSize">4096</param>
 	    	</result>

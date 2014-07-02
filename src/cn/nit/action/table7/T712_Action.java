@@ -1,8 +1,14 @@
 package cn.nit.action.table7;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,8 +18,10 @@ import org.apache.struts2.ServletActionContext;
 
 
 import cn.nit.bean.table7.T712_Bean;
+import cn.nit.dao.table7.T712_DAO;
 
 import cn.nit.service.table7.T712_Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 public class T712_Action {
@@ -22,6 +30,8 @@ public class T712_Action {
 	private T712_Service T712_Sr=new T712_Service();
 	
 	private T712_Bean teaManagerPaperInfoTeaTea=new T712_Bean();
+	
+	private T712_DAO t712_Dao=new T712_DAO();
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
 	
@@ -39,6 +49,12 @@ public class T712_Action {
 	
 	/**每页显示的条数  */
 	private String rows ;
+	
+	/**  下载的excelName  */
+	private String excelName ;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	public void insert(){
 		
@@ -126,29 +142,7 @@ public class T712_Action {
 		}
 		
 	}
-///**  生成查询条件   */
-//	
-//	public void auditingConditions(){
-//		
-//		String sqlconditions=T712_Sr.generateauditingConditions(seqNum, startTime, endTime);
-//		getSession().setAttribute("auditingConditions", sqlconditions);
-//        PrintWriter out = null ;
-//		
-//		try{
-//			out = getResponse().getWriter() ;
-//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-//			out.flush() ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//		
-//		
-//	}
+
 	/**  编辑数据  */
 	public void edit(){
 		teaManagerPaperInfoTeaTea.setTime(new Date());
@@ -200,6 +194,45 @@ public class T712_Action {
 			}
 		}
 	}
+	
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+		
+		try {
+			
+			List<T712_Bean> list = t712_Dao.totalList();
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("教学单位");columns.add("单位号");columns.add("姓名");columns.add("教工号");columns.add("论文名称");columns.add("归口类型");
+			columns.add("所属一级学科");columns.add("刊物/会议名称");columns.add("刊号");columns.add("刊期/日期");columns.add("论文字数");columns.add("认定等级");columns.add("合作教师人数");columns.add("其他合作教师");
+			columns.add("备注");
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("Name", 3);maplist.put("TeaID", 4);maplist.put("PaperName", 5);maplist.put("PaperType", 6);
+			maplist.put("FirstSubject", 7);maplist.put("JonalName", 8);maplist.put("JonalID", 9);maplist.put("JonalTime", 10);maplist.put("PaperWordNum", 11);maplist.put("ConfirmLevel", 12);
+			maplist.put("JoinTeaNum", 13);maplist.put("OtherJoinTeaInfo", 14);maplist.put("Note", 15);
+			
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+	
+	
+	public String execute() throws Exception{
+		request.setCharacterEncoding("UTF-8") ;
+		System.out.println("excelName=============" + excelName) ;
+		return "success" ;
+	}
+
+
 	
 
    public HttpServletRequest getRequest(){
@@ -276,5 +309,14 @@ public class T712_Action {
 		this.rows = rows;
 	}
 
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
+	
 	
 }

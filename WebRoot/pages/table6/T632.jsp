@@ -62,7 +62,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 	<table id="commomData" title="分专业应届本科毕业生就业情况（招就处）" class="easyui-datagrid" url="pages/T632/loadData" style="height: auto;">
-		<thead>
+
+		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">序号</th>
@@ -70,9 +71,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="unitId">单位号</th>
 				<th field="majorName">专业名称</th>
 				<th field="majorId">专业代码</th>
-				<th field="thisYearGraduNum">应届毕业生数</th>
-				<th field="thisYearNotGraduNum">应届生中未按时毕业数</th>
-				<th field="awardDegreeNum">授予学位数</th>
+			</tr>
+			</thead>	
+			<thead>
+				<tr>
+				<th field="sumEmployNum">应届就业总人数</th>
+				<th field="govermentNum">政府机构就业人数</th>				
+				<th field="pubInstiNum">事业单位就业人数</th>
+				<th field="enterpriseNum">企业就业人数</th>
+				<th field="forceNum">部队人数</th>
+				<th field="flexibleEmploy">灵活就业人数</th>
+				<th field="goOnHighStudy">升学人数</th>
+				<th field="nationItemEmploy">参加国家地方项目就业人数</th>
+				<th field="otherEmploy">其他人数</th>
+				
+				<th field="sumGoOnHighStudyNum">应届升学总人数</th>
+				<th field="recommendGraNum">免试推荐研究生人数</th>
+				<th field="examGraApplyNum">考研报名人数</th>
+				<th field="examGraEnrollNum">考研录取总人数</th>
+				<th field="examGraInSch">考取本校人数</th>
+				<th field="examGraOutSch">考取外校人数</th>
+				<th field="abroadNum">出国（境）留学人数</th>
+								
 				<th field="time" formatter="formattime">时间</th>
 				<th field="note">备注</th>
 			</tr>
@@ -88,6 +108,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 	专业名称: <input id="searchItem" class="easyui-box" style="width:80px"/>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 		</div>
+	</div>
+	
+		<!--审核通过数据-->
+	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+		<thead data-options="frozen:true">
+			<tr>
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">序号</th>
+				<th field="teaUnit">教学单位</th>
+				<th field="unitId">单位号</th>
+				<th field="majorName">专业名称</th>
+				<th field="majorId">专业代码</th>
+			</tr>
+			</thead>	
+			<thead>
+				<tr>
+				<th field="sumEmployNum">应届就业总人数</th>
+				<th field="govermentNum">政府机构就业人数</th>				
+				<th field="pubInstiNum">事业单位就业人数</th>
+				<th field="enterpriseNum">企业就业人数</th>
+				<th field="forceNum">部队人数</th>
+				<th field="flexibleEmploy">灵活就业人数</th>
+				<th field="goOnHighStudy">升学人数</th>
+				<th field="nationItemEmploy">参加国家地方项目就业人数</th>
+				<th field="otherEmploy">其他人数</th>
+				
+				<th field="sumGoOnHighStudyNum">应届升学总人数</th>
+				<th field="recommendGraNum">免试推荐研究生人数</th>
+				<th field="examGraApplyNum">考研报名人数</th>
+				<th field="examGraEnrollNum">考研录取总人数</th>
+				<th field="examGraInSch">考取本校人数</th>
+				<th field="examGraOutSch">考取外校人数</th>
+				<th field="abroadNum">出国（境）留学人数</th>
+								
+				<th field="time" formatter="formattime">时间</th>
+				<th field="note">备注</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="toolbar2" style="float: right;">
+		<a href='pages/T632/dataExport?excelName=<%=URLEncoder.encode("表6-3-2分专业应届本科毕业生就业情况（招就处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog"
@@ -136,26 +198,140 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>应届毕业生数：</label> 
-						<input id="thisYearGraduNum" name="T632_bean.thisYearGraduNum" 
-							 class='easyui-validatebox'><span id="thisYearGraduNumSpan"></span>
+						<label>应届就业总人数：</label> 
+						<input id="sumEmployNum" name="T632_bean.sumEmployNum" class='easyui-validatebox' disabled="true"><span id="sumEmployNumSpan" ></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
-						<label>应届生中未按时毕业数：</label> 
-						<input id="thisYearNotGraduNum" name="T632_bean.thisYearNotGraduNum" 
-							 class='easyui-validatebox'><span id="thisYearNotGraduNumSpan"></span>
+						<label>政府机构就业人数：</label> 
+						<input id="govermentNum" name="T632_bean.govermentNum" class='easyui-validatebox'><span id="govermentNumSpan"></span>
+					</div>
+				</td>
+			</tr>
+	
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>事业单位就业人数：</label> 
+						<input id="pubInstiNum" name="T632_bean.pubInstiNum" 
+							 class='easyui-validatebox'><span id="pubInstiNumSpan"></span>
+					</div>
+				</td>
+				<td>			
+					<div class="fitem">
+						<label>企业就业人数：</label> 
+						<input id="enterpriseNum" name="T632_bean.enterpriseNum" 
+							 class='easyui-validatebox'><span id="enterpriseNumSpan"></span>
+					</div>
+				</td>
+
+			</tr>
+			
+			<tr>
+				<td>			
+					<div class="fitem">
+						<label>部队人数：</label> 
+						<input id="forceNum" name="T632_bean.forceNum" 
+							 class='easyui-validatebox'><span id="forceNumSpan"></span>
+					</div>
+				</td>
+				
+				<td>			
+					<div class="fitem">
+						<label>灵活就业人数：</label> 
+						<input id="flexibleEmploy" name="T632_bean.flexibleEmploy" class='easyui-validatebox'><span id="flexibleEmploySpan"></span>
+						
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>			
+					<div class="fitem">
+						<label>升学人数：</label> 
+						<input id="goOnHighStudy" name="T632_bean.goOnHighStudy" class='easyui-validatebox' disabled="true">
+						<span id="goOnHighStudySpan"></span> <%--与应届升学总人数相同 --%>
+						
+					</div>
+				</td>
+				<td>			
+					<div class="fitem">
+						<label>参加国家地方项目就业人数：</label> 
+						<input id="nationItemEmploy" name="T632_bean.nationItemEmploy" 
+							 class='easyui-validatebox'><span id="nationItemEmploySpan"></span>
+					</div>
+				</td>
+			</tr>	
+			<tr>
+				<td>			
+					<div class="fitem">
+						<label>其他人数：</label> 
+						<input id="otherEmploy" name="T632_bean.otherEmploy" 
+							 class='easyui-validatebox'><span id="otherEmploySpan"></span>
+					</div>
+				</td>
+			</tr>
+		
+		
+			<tr>
+				<td>			
+					<div class="fitem">
+						<label>应届升学总人数：</label> 
+						<input id="sumGoOnHighStudyNum" name="T632_bean.sumGoOnHighStudyNum" class='easyui-validatebox' disabled="true">
+						<span id="sumGoOnHighStudyNumSpan"></span> 
+					</div>
+				</td>
+				<td>			
+					<div class="fitem">
+						<label>免试推荐研究生人数：</label> 
+						<input id="recommendGraNum" name="T632_bean.recommendGraNum" 
+							 class='easyui-validatebox'><span id="sumGoOnHighStudyNumSpan"></span>
+					</div>
+				</td>
+
+			</tr>
+			
+			<tr>
+				<td>			
+					<div class="fitem">
+						<label>考研报名人数：</label> 
+						<input id="examGraApplyNum" name="T632_bean.examGraApplyNum" 
+							 class='easyui-validatebox'><span id="examGraApplyNumSpan"></span>
+					</div>
+				</td>
+				<td>			
+					<div class="fitem">
+						<label>考研录取总人数：</label> 
+						<input id="examGraEnrollNum" name="T632_bean.examGraEnrollNum" class='easyui-validatebox' disabled="true">
+						<span id="examGraEnrollNumSpan"></span>
+					</div>
+				</td>
+				</tr>
+
+			<tr>
+				<td>			
+					<div class="fitem">
+						<label>考取本校人数：</label> 
+						<input id="examGraInSch" name="T632_bean.examGraInSch" 
+							 class='easyui-validatebox'><span id="examGraInSchSpan"></span>
+					</div>
+				</td>
+				<td>			
+					<div class="fitem">
+						<label>考取外校人数：</label> 
+						<input id="examGraOutSch" name="T632_bean.examGraOutSch" 
+							 class='easyui-validatebox'><span id="examGraOutSchSpan"></span>
 					</div>
 				</td>
 			</tr>
 
 			<tr>
+			
 				<td>			
 					<div class="fitem">
-						<label>授予学位数：</label> 
-						<input id="awardDegreeNum" name="T632_bean.awardDegreeNum" 
-							 class='easyui-validatebox'><span id="awardDegreeNumSpan"></span>
+						<label>出国（境）留学人数：</label> 
+						<input id="abroadNum" name="T632_bean.abroadNum" 
+							 class='easyui-validatebox'><span id="abroadNumSpan"></span>
 					</div>
 				</td>
 				<td>
@@ -166,6 +342,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="timeSpan"></span>
 					</div>
 				</td>
+			</tr>
+				
+			<tr>
+		
 			</tr>
 			<tr>
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>

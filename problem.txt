@@ -46,13 +46,40 @@
 来完成这次合并提交。
 
 
+4.第一次点击表3-2-2 后台报错：
 
-
-
-5.第一次点击“表1-9、表3-1-1、表3-1-2、表3-1-3、表3-2-1、表3-2-2、表3-3、表5-1-1、数据检索”后台报错：
 内容如下：
-2014-06-20 16:08:59[ERROR]There is no Action mapped for namespace / and action name verifiedData. - [unknown location]
-	at com.opensymphony.xwork2.DefaultActionProxy.prepare(DefaultActionProxy.java:178)
+
+2014-6-25 20:41:40 org.apache.catalina.core.StandardWrapperValve invoke
+严重: Servlet.service() for servlet default threw exception
+java.lang.Error: Unresolved compilation problems: 
+	T322_Service cannot be resolved to a type
+	T322_Service cannot be resolved to a type
+	T322_Service cannot be resolved to a type
+	T322_Service cannot be resolved to a type
+	T322_Service cannot be resolved to a type
+	T322_Service cannot be resolved to a type
+	T322_Service cannot be resolved to a type
+	The method exportExcel(List, String, Map<String,Integer>, List<String>) in the type ExcelUtil is not applicable for the arguments ()
+	T322_Service cannot be resolved to a type
+	T322_Service cannot be resolved to a type
+	T322_Service cannot be resolved to a type
+	T322_Service cannot be resolved to a type
+
+	at cn.nit.action.table3.T322_Action.<init>(T322_Action.java:21)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at java.lang.Class.newInstance0(Class.java:355)
+	at java.lang.Class.newInstance(Class.java:308)
+	at com.opensymphony.xwork2.ObjectFactory.buildBean(ObjectFactory.java:119)
+	at com.opensymphony.xwork2.ObjectFactory.buildBean(ObjectFactory.java:150)
+	at com.opensymphony.xwork2.ObjectFactory.buildBean(ObjectFactory.java:139)
+	at com.opensymphony.xwork2.ObjectFactory.buildAction(ObjectFactory.java:109)
+	at com.opensymphony.xwork2.DefaultActionInvocation.createAction(DefaultActionInvocation.java:288)
+	at com.opensymphony.xwork2.DefaultActionInvocation.init(DefaultActionInvocation.java:388)
+	at com.opensymphony.xwork2.DefaultActionProxy.prepare(DefaultActionProxy.java:187)
 	at org.apache.struts2.impl.StrutsActionProxy.prepare(StrutsActionProxy.java:61)
 	at org.apache.struts2.impl.StrutsActionProxyFactory.createActionProxy(StrutsActionProxyFactory.java:39)
 	at com.opensymphony.xwork2.DefaultActionProxyFactory.createActionProxy(DefaultActionProxyFactory.java:47)
@@ -62,6 +89,9 @@
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
 	at cn.nit.util.EncodingFilter.doFilter(EncodingFilter.java:60)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at cn.nit.util.LoginFilter.doFilter(LoginFilter.java:37)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)

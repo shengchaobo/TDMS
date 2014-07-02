@@ -1,8 +1,14 @@
 package cn.nit.action.table7;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +17,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table7.T733_Bean;
+import cn.nit.dao.table7.T733_DAO;
 import cn.nit.service.table7.T733_Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 public class T733_Action {
@@ -19,6 +27,8 @@ public class T733_Action {
 	T733_Service t733_Sr=new T733_Service();
 	
 	T733_Bean eachUnitTeachResActInfo=new T733_Bean();
+	
+	private T733_DAO t733_Dao=new T733_DAO();
 	
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
@@ -37,6 +47,12 @@ public class T733_Action {
 	
 	/**每页显示的条数  */
 	private String rows ;
+	
+	/**  下载的excelName  */
+	private String excelName ;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	public void insert(){
 		eachUnitTeachResActInfo.setTime(new Date());
@@ -172,6 +188,43 @@ public class T733_Action {
 			}
 		}
 	}
+	
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+		
+		try {
+			
+			List<T733_Bean> list = t733_Dao.totalList();
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("单位名称");columns.add("单位号");columns.add("会议日期");columns.add("参会人员情况");columns.add("参会人数");columns.add("会议主要议题或内容");
+			columns.add("会议形成的主要决议或共识");columns.add("备注");
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("UnitName", 1);maplist.put("UnitID", 2);maplist.put("MeetingDate", 3);maplist.put("MeetingMemberInfo", 4);maplist.put("MeetingNum", 5);maplist.put("MeetingTheme", 6);
+			maplist.put("MeetingResult", 7);maplist.put("Note", 8);
+			
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+	
+	
+	public String execute() throws Exception{
+		request.setCharacterEncoding("UTF-8") ;
+		System.out.println("excelName=============" + excelName) ;
+		return "success" ;
+	}
+
+
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest();
 	}
@@ -249,6 +302,16 @@ public class T733_Action {
 	}
 
 
+	public String getExcelName() {
+		return excelName;
+	}
+
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
+    
 	
 
 }

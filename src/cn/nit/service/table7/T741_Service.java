@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
+
 import cn.nit.bean.table7.T741_Bean;
 import cn.nit.dao.table7.T741_DAO;
 import cn.nit.pojo.table7.T741POJO;
@@ -25,7 +26,10 @@ public class T741_Service {
 	public boolean update(T741_Bean t741){
 		return t741_DAO.update(t741);				
 	}
-	
+	public boolean batchInsert(List<T741_Bean> list){
+		return t741_DAO.batchInsert(list);
+		
+	}
 	/**
 	 * 获取正在审核的数据
 	 * @param conditions  查询条件

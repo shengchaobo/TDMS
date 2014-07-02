@@ -83,12 +83,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newItem()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editItem()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			
 		</div>
 		 <div style="float: right;">
 		 	专业名称: <input id="searchItem" class="easyui-box" style="width:80px"/>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 		</div>
 	</div>
+	
+	<!--审核通过数据-->
+	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+		<thead>
+			<tr>
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">序号</th>
+				<th field="teaUnit">教学单位</th>
+				<th field="unitId">单位号</th>
+				<th field="majorName">专业名称</th>
+				<th field="majorId">专业代码</th>
+				<th field="thisYearGraduNum">应届毕业生数</th>
+				<th field="thisYearNotGraduNum">应届生中未按时毕业数</th>
+				<th field="awardDegreeNum">授予学位数</th>
+				<th field="time" formatter="formattime">时间</th>
+				<th field="note">备注</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="toolbar2" style="float: right;">
+		<a href='pages/T631/dataExport?excelName=<%=URLEncoder.encode("表6-3-1分专业应届本科毕业生毕业情况（教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+	</div>
+	
 	
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"

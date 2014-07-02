@@ -14,7 +14,6 @@ import javax.persistence.Table;
  * DiResearchTeam entity. @author MyEclipse Persistence Tools
  */
 
-@Table(name = "DiResearchTeam", schema = "dbo", catalog = "TDMS")
 public class DiResearchTeamBean implements java.io.Serializable {
 
 	// Fields

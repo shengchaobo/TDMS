@@ -1,6 +1,6 @@
 package cn.nit.excel.imports.table7;
 
-import java.util.Date;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
-import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.table7.T711_Bean;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
-import cn.nit.service.di.DiMajorTwoService;
 import cn.nit.service.table7.T711_Service;
 import cn.nit.util.TimeUtil;
 
@@ -27,7 +25,7 @@ public class T711_Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request,String selectYear){
 	
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
@@ -55,12 +53,7 @@ public class T711_Excel {
 					count++;
 					continue;
 				}
-				
-				if(count!=4){
-					count++;
-					continue;
-				}
-				
+			
 				String unit = cell[1].getContents() ;
 				String unitId = cell[2].getContents() ;
 				
@@ -162,7 +155,7 @@ public class T711_Excel {
 				T711_Bean.setJoinTeaNum(Integer.parseInt(joinTn));
 				T711_Bean.setOtherJoinTeaInfo(otherJTI);
 				T711_Bean.setFillUnitID(fillUnitID);
-				T711_Bean.setTime(new Date());
+				T711_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T711_Bean.setNote(note);
 				list.add(T711_Bean);
 				

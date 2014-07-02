@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -53,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/TeachLevelAssessAC/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T742/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
@@ -63,13 +64,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="teaName" width="10%">教师姓名</th>
 				<th field="teaID" width="10%">教工号</th>
 				<th field="teaUnit" width="15%">所属教学单位</th>
-				<th field="unitID" width="5%">单位号</th>
+				<th field="unitID" width="10%">单位号</th>
 				<th field="assessCS" width="10%">参评课程</th>
 				<th field="CSID" width="10%">课程编号</th>
 				<th field="CSType" width="10%">课程类别</th>
 				<th field="assessYear" width="10%">评估年份</th>
 				<th field="assessResult" width="10%">评估结果</th>
-				<th field="appvlID" width="8%">批文号</th>
+				<th field="appvlID" width="10%">批文号</th>
 				<th field="note" width="20%">备注</th>
 				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
@@ -91,8 +92,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newCourse()">数据导出</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+	<a href="pages/T742/dataExport?excelName=<%=URLEncoder.encode("表7-4-2教师教学水平评估.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
@@ -104,13 +105,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="teaName" width="10%">教师姓名</th>
 				<th field="teaID" width="10%">教工号</th>
 				<th field="teaUnit" width="15%">所属教学单位</th>
-				<th field="unitID" width="5%">单位号</th>
+				<th field="unitID" width="10%">单位号</th>
 				<th field="assessCS" width="10%">参评课程</th>
 				<th field="CSID" width="10%">课程编号</th>
 				<th field="CSType" width="10%">课程类别</th>
 				<th field="assessYear" width="10%">评估年份</th>
 				<th field="assessResult" width="10%">评估结果</th>
-				<th field="appvlID" width="8%">批文号</th>
+				<th field="appvlID" width="10%">批文号</th>
 				<th field="note" width="20%">备注</th>
 				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
@@ -119,14 +120,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">本科课程库批量导入</div>
+		<div class="ftitle">教师教学水平评估情况批量导入</div>
 		<div class="fitem">
-			<form method="post">
-				<label>批量上传：</label> 
-				<input type="file" name="fileToUpload" id="fileToUpload" class="easyui-validatebox"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="table5/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+			<form method="post" id="batchForm" enctype="multipart/form-data">
+			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
+				<a href="pages/T742/downloadModel?saveFile=<%=URLEncoder.encode("表7-4-2教师教学水平评估.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
@@ -196,8 +196,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>评估年份：</label> 
-						<input id="AssessYear" type="text" name="teachLevelAssessAC.AssessYear"
-							><span id="AssessYearSpan"></span>
+					<select class="easyui-combobox"  id="AssessYear" name="teachLevelAssessAC.AssessYear"></select>
+							<span id="AssessYearSpan"></span>
 					</div>
 				</td>
 			</tr>
@@ -255,6 +255,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 	<script type="text/javascript">
 	
+	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	var select = document.getElementById("AssessYear");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	
 	    var url;
 	    
 	     function reloadgrid ()  { 
@@ -265,29 +281,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
          $("#unverfiedData").datagrid('reload'); 
     }
-	    function batchImport(){
-	    	 $('#fm').form('submit',{
-	    		 url: url,
-	    		 onSubmit: function(){
-	    		 	return $(this).form('validate');
-	    		 },
-	    		 success: function(result){
-	    		 	var result = eval('('+result+')');
-	    		 	if (result.errorMsg){
-	    		 		$.messager.show({
-	    		 			title: 'Error',
-	    		 			msg: result.errorMsg
-	    			 });
-	    		 	} else {
+	     //模板导入
+	 function batchImport(){
+		  var fileName = $('#fileToUpload').val() ; 	
+		  if(fileName == null || fileName == ""){
+			  $.messager.alert('Excel批量用户导入', '请选择将要上传的文件!');      
+		   		return false ;
+		  }	
+		 
+		  var pos = fileName.lastIndexOf(".") ;
+		  var suffixName = fileName.substring(pos, fileName.length) ; 	
+		  if(suffixName != ".xls"){
+			   $.messager.alert('Excel批量用户导入','文件类型不正确，请选择.xls文件!');   
+		   		return false ;
+		 }
+	  	 $('#batchForm').form('submit',{
+	  	 
+	  		 url: 'pages/T742/uploadFile',
+	  		 type: "post",
+		     dataType: "json",
+	  		 onSubmit: function(){
+	  			 return true;
+	  		 },
+	  		 
+	  		 success: function(result){
+	  		 	var result = eval('('+result+')');
+	  		 	if (!result.success){
+	  		 		$.messager.show({
+	  		 			title: 'Error',
+	  		 			msg: result.errorMsg
+	  			 }); 
+	  		 	} else {
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#dg').datagrid('reload'); // reload the user data
-	    		 	}
-	    		 }
-	    		 });
-	    }
-	    
+			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
+	  		 	}
+	  		 }
+	  		 });
+	   }
 	    function newCourse(){
-	        url="pages/TeachLevelAssessAC/insert";
+	        url="pages/T742/insert";
 		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 		    $('#courseForm').form('reset');
 	    }
@@ -329,7 +361,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 			var cSType = $('#CSType').combobox('getText') ;
 			
-			var assessYear = $('#AssessYear').val() ;
+			var assessYear = $('#AssessYear').combobox('getText') ;
 		
 			var assessResult = $('#AssessResult').combobox('getText') ;
 			
@@ -388,7 +420,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		return ;
 	    	}
 	    	
-	    	url = 'pages/TeachLevelAssessAC/edit' ;
+	    	url = 'pages/T742/edit' ;
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
@@ -397,7 +429,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#AssessCS').val(row[0].assessCS) ;
 	    	$('#CSID').val(row[0].CSID) ;
 	    	$('#CSType').combobox('select', row[0].CSTypeID) ;
-			$('#AssessYear').val(row[0].assessYear);
+			$('#AssessYear').combobox('select', row[0].assessYear) ;
 			$('#AppvlID').val(row[0].appvlID) ;
 			$('#AssessResult').combobox('select', row[0].assessResult) ;
 			$('#Note').val(row[0].note) ;
@@ -435,7 +467,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        function deleteCourses(ids){
 	    	$.ajax({ 
 	    		type: "POST", 
-	    		url: "pages/TeachLevelAssessAC/deleteByIds?ids=" + ids, 
+	    		url: "pages/T742/deleteByIds?ids=" + ids, 
 	    		async:"true",
 	    		dataType: "text",
 	    		success: function(result){
@@ -472,110 +504,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    url = 'updateUser';
 		    }
 	    }
-	    
-	    
-	    function loadDic(){
-		    $('#dicDlg').dialog('open').dialog('setTitle','高级查询');
-		    loadDictionary() ;
-		    
-	    }
-	    
-	    function loadDictionary(){
-	    	
-	    	$.ajax({ 
-	    		type: "POST", 
-	    		url: "table5/loadDic", 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			data = eval("(" + data + ")");
-	    			alert(data[0].id) ;
-	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
-	    			$(data).each(function(index) {
-	    				var val = data[index];
-	    				if(index%4 == 0 && index != 0){
-	    					str += "</tr><tr>" ;
-	    				}
-	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
-	    			}); 
-	    			//alert(str);
-	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
-	    			document.getElementById("dicTables").innerHTML = str;
-	    			$.parser.parse('#dicTables');
-	    		}
-	    	}).submit();
-	    }
-	    	
-	    function loadData(){
-	    	
-	    	//flag判断
-	    	var flag = false ;
-	    	var checkboxes = document.getElementsByName("checkboxex");
-	    	var tables = "<div class=\"ftitle\">自定义查询条件</div><form method=\"post\" action=\"table5/dictorySearch\" id=\"dicsDataForm\"><table width=\"100%\" border=\"1\">" ;
-	    	tables += "<tr><td>查询名称</td><td>运算符</td><td>查询内容</td><td>逻辑关系</td></tr>" ;
-	    	for(i=0; i<checkboxes.length; i++){
-	    		if(checkboxes[i].checked){
-	    			flag = true ;
-	    			tables += ("<tr><td style=\"width:50%px\">" + hideId(checkboxes[i].id,i)  + checkboxes[i].value + "</td><td>" + selectOperateData(i) + "</td><td>" + selectDataHtml(checkboxes[i].id,i) +"</td><td>" + selectLogicData(i) + "</td></tr>") ;
-	    		}
-	    	}
-	    	if(flag){
-	    		tables += "<tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-search\" onclick=\"submitDicForm()\">查询</a></td></tr>" ;
-	    	}
-	    	tables += "</table></form>" ;
-	    	alert(tables) ;
-	    	document.getElementById("dices").innerHTML = tables ;
-	    	$.parser.parse('#dices');
-	    	
-	    }
-	    
-	    function hideId(val,index){
-	    	var hiddenId = "<input type='hidden' name='dictorySearch[" + index + "].id' value='" + val + "'/>" ;
-	    	
-	    	return hiddenId ;
-	    }
-	    
-	    //自动加载要查询的数据
-	    function selectDataHtml(val,index){
-	    	
-	    	var selectsHtml = "<select class=\"easyui-combogrid\" style=\"width:50%px\" name=\"dictorySearch[" + index + "].dicData\" data-options=\"panelWidth: 500, multiple: true,required:true,"
-	    	 + " idField: 'dicData',textField: 'dicData',"
-	    	 + "url: 'table5/loadDictionary?dicId=" + val + "',"
-	    	 + "method: 'post',"
-	    	 + "columns: [[{field:'ck',checkbox:true},{field:'itemid',title:'数据',width:80},{field:'dicData',title:'数据',width:80}]],"
-	    	 + "fitColumns: true \"> </select>" ;
-	    	 
-	    	 return selectsHtml ;
-	    }
-	    
-	    //生成运算关系combo
-	    function selectOperateData(index){
-	    	
-	    	var operateHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].operator\"> <option value=\"equals\">等于</option><option value=\"between\">之间</option><option value=\"side\">两边</option></select>" ;
-	    	
-	    	return operateHtml ;
-	    }
-	    
-	  //生成逻辑关系combo
-	    function selectLogicData(index){
-	    	
-	    	var logicHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].logic\"> <option value=\"and\">并且</option><option value=\"or\">或者</option></select>" ;
-	    	
-	    	return logicHtml ;
-	    }
-	  
-	  function submitDicForm(){
-		  $.ajax({ 
-	    		type: "POST", 
-	    		url: "table5/dictorySearch",
-	    		data: $('#dicsDataForm').serialize(), 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			alert(123) ;
-	    		}
-	    	}).submit();
-	  }
 	    
 	    </script>
 

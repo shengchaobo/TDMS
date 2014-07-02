@@ -57,6 +57,7 @@ public class T735_Bean {
 		AssessResult = assessResult;
 	}
 
+
 	public String getAssessYear() {
 		return AssessYear;
 	}

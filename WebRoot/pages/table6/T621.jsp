@@ -87,6 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newItem()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editItem()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			
 		</div>
 		 <div style="float: right;">
 		 	专业名称: <input id="searchItem" class="easyui-box" style="width:80px"/>
@@ -94,6 +95,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	
+	<!--审核通过数据-->
+	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+		     </tr>
+		</thead>
+			<thead>
+			<tr>
+				<th field="seqNumber">序号</th>
+				<th field="fromTeaUnit">所属教学单位</th>
+				<th field="unitId">单位号</th>
+				<th field="majorName">专业名称</th>
+				<th field="majorId">专业代码</th>
+				<th field="amisPlanNum">招生计划数</th>
+				<th field="actulEnrollNum">实际录取数</th>
+				<th field="actulRegisterNum">实际报到数</th>
+				<th field="autoEnrollNum">自主招生数</th>
+				<th field="specialtyEnrollNum">招收特长生数</th>
+				<th field="inProviEnrollNum">招收本省学生数</th>
+				<th field="newMajEnrollNum">新办专业招生数</th>
+				<th field="time" formatter="formattime">时间</th>
+				<th field="note">备注</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="toolbar2" style="float: right;">
+		<a href='pages/T621/dataExport?excelName=<%=URLEncoder.encode("表6-2-1近一届本科生分专业招生录取情况（招就处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+	</div>
+	
+	
+	<!--添加弹出框-->
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
@@ -204,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备注：</label>
 					<textarea id="note" name="UndergraAdmiInfo.note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="noteSpan"></span>
 				</td>

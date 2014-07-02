@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-
-import cn.nit.bean.table7.T711_Bean;
 import cn.nit.bean.table7.T712_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table7.T712POJO;

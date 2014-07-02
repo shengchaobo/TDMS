@@ -108,16 +108,16 @@
 						<table width="190" height="34" border="0" 
               cellpadding="2" cellspacing="0">
               <tr>
-                  <td width = "90" height="30" align="left">
+                  <td width = "90" height="30" align="right">
                   <input type="button"  id="loginBtn"
-                      style="width:80px;background: url(images/login_5.gif) no-repeat"
-                      value="登    陆  " onclick="validate()"  >
+                      style="width:80px;background: url(images/login.jpg) no-repeat"
+                       onclick="validate()"  >
                   </td>
 
-                  <td height="30" align="left">
+                  <td height="30" align="right">
                   <input type="reset"  id="forgetPsd"
-                      style="background: url(images/login_5.gif) no-repeat"
-                      value="重   置    " >
+                      style="width:80px;background: url(images/reset.jpg) no-repeat"
+                      value = "">
                   </td>
               </tr>
             </table>

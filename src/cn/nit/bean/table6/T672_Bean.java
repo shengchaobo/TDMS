@@ -21,8 +21,9 @@ public class T672_Bean implements java.io.Serializable {
 	// Fields
 	private int seqNumber;
 	private String dualDegreeUnitId;
-	private String majorId;
-	private String dualDegreeID;
+	private String majId;
+
+	private String dualDegreeId;
 	private String unitId;
 	private String stuName;
 	private String stuId;
@@ -49,17 +50,17 @@ public class T672_Bean implements java.io.Serializable {
 	public void setDualDegreeUnitId(String dualDegreeUnitId) {
 		this.dualDegreeUnitId = dualDegreeUnitId;
 	}
-	public String getMajorId() {
-		return majorId;
+	public String getMajId() {
+		return majId;
 	}
-	public void setMajorId(String majorId) {
-		this.majorId = majorId;
+	public void setMajId(String majId) {
+		this.majId = majId;
 	}
-	public String getDualDegreeID() {
-		return dualDegreeID;
+	public String getDualDegreeId() {
+		return dualDegreeId;
 	}
-	public void setDualDegreeID(String dualDegreeID) {
-		this.dualDegreeID = dualDegreeID;
+	public void setDualDegreeId(String dualDegreeId) {
+		this.dualDegreeId = dualDegreeId;
 	}
 	public String getUnitId() {
 		return unitId;

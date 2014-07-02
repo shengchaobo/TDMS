@@ -10,8 +10,11 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +27,9 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table6.T621_Bean;
+import cn.nit.bean.table6.T631_Bean;
+import cn.nit.dao.table6.T621_Dao;
+import cn.nit.dao.table6.T631_Dao;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.service.table6.T621_Service;
 import cn.nit.util.DAOUtil;
@@ -36,11 +42,13 @@ import cn.nit.util.ExcelUtil;
  */
 public class T621_Action {
 
-	/** 表621的Service类 */
+	/** �?21的Service�?*/
 	private T621_Service UndergraAdmiInfoSer = new T621_Service();
 
-	/** 表621的Bean实体类 */
+	/** �?21的Bean实体�?*/
 	T621_Bean UndergraAdmiInfo = new T621_Bean();
+	
+	private T621_Dao T621_dao = new T621_Dao();
 
 	/** 待审核数据的查询的序列号 */
 	private int seqNum;
@@ -53,17 +61,20 @@ public class T621_Action {
 	
 	//待查询的专业名称
 	private String searchItem;
+	
+	//excel导出名字
+	private String excelName; 
 
 	/** 数据的SeqNumber编号 */
 	private String ids;
 
-	/** 当前查询的是第几页 */
+	/** 当前查询的是第几�?*/
 	private String page;
 
-	/** 每页显示的条数 */
+	/** 每页显示的条�?*/
 	private String rows;
 	
-	/**所属教学单位*/
+	/**所属教学单�?/
 	private String fromTeaUnit;
 	
 	/**专业名称*/
@@ -97,7 +108,7 @@ public class T621_Action {
 		out.flush();
 	}
 
-	/** 为界面加载数据 
+	/** 为界面加载数�?
 	 * 
 	 * 2014-6-20 修改
 	 * */
@@ -139,7 +150,7 @@ public class T621_Action {
 		}
 	}
 
-	// 将分页系统的总数以及当前页的list转化一个json传页面显示
+	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
 	private String toBeJson(List<T621_Bean> list, int total) throws Exception {
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -152,32 +163,6 @@ public class T621_Action {
 		String json = testjson.toString();
 		System.out.println(json);
 		return json;
-	}
-
-
-
-
-	/** 生成查询条件 */
-	public void auditingConditions() {
-
-		// String sqlConditions =
-		// UndergraAdmiInfoSer.gernateAuditingConditions(seqNum, startTime,
-		// endTime) ;
-		// getSession().setAttribute("auditingConditions", sqlConditions) ;
-		// PrintWriter out = null ;
-		//		
-		// try{
-		// out = getResponse().getWriter() ;
-		// out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-		// out.flush() ;
-		// }catch(Exception e){
-		// e.printStackTrace() ;
-		// out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		// }finally{
-		// if(out != null){
-		// out.close() ;
-		// }
-		// }
 	}
 
 	/** 编辑数据 */
@@ -196,7 +181,7 @@ public class T621_Action {
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}");
+			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
 		} finally {
 			if (out != null) {
 				out.close();
@@ -222,7 +207,7 @@ public class T621_Action {
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}");
+			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
 		} finally {
 			if (out != null) {
 				out.close();
@@ -232,21 +217,65 @@ public class T621_Action {
 
 	public InputStream getInputStream() {
 
-		InputStream inputStream = null;
-
+		InputStream inputStream = null ;
+		
 		try {
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(null,null,null,null).toByteArray());
+/*			response.reset();
+			response.addHeader("Content-Disposition", "attachment;fileName="
+                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
+			
+			List<T621_Bean> list = T621_dao.getAllList("1=1", null);
+						
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			
+			columns.add("序号");
+			columns.add("所属教学单�?);
+			columns.add("单位�?);
+			columns.add("专业名称");
+			columns.add("专业代码");
+			columns.add("招生计划�?);
+			columns.add("实际录取�?);
+			columns.add("实际报到�?);
+			columns.add("自主招生�?);
+			columns.add("招收特长生数");
+			columns.add("招收本省学生�?);
+			columns.add("新办专业招生�?);
+			columns.add("时间");
+			columns.add("备注");
+			
+
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			
+			maplist.put("seqNumber", 0);
+			maplist.put("fromTeaUnit", 1);
+			maplist.put("unitId", 2);
+			maplist.put("majorName", 3);
+			maplist.put("majorId", 4);
+			maplist.put("amisPlanNum", 5);
+			maplist.put("actulEnrollNum", 6);
+			maplist.put("actulRegisterNum", 7);
+			maplist.put("autoEnrollNum", 8);
+			maplist.put("specialtyEnrollNum", 9);
+			maplist.put("inProviEnrollNum", 10);
+			maplist.put("newMajEnrollNum", 11);
+			maplist.put("time", 12);
+			maplist.put("note", 13);
+				
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return null ;
 		}
 
-		return inputStream;
+		return inputStream ;
 	}
 
 	public String execute() throws Exception {
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8");
+		System.out.println("excelName=============" + excelName) ;
 		return "success";
 	}
 
@@ -353,6 +382,14 @@ public class T621_Action {
 
 	public void setSearchItem(String searchItem) {
 		this.searchItem = searchItem;
+	}
+
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
 	}
 
 	public static void main(String args[]) {

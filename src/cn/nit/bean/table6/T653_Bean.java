@@ -30,8 +30,8 @@ public class T653_Bean implements java.io.Serializable {
 	private String awardStuName;
 	private Integer awardStuNum;
 	private String guideTeaName;
-	private String guideTeaNum;
-	private Date isAward;
+	private Integer guideTeaNum;
+	private Boolean isAward;
 	private String awardName;
 	private String awardFromUnit;
 	private Date time;
@@ -101,20 +101,20 @@ public class T653_Bean implements java.io.Serializable {
 	public String getGuideTeaName() {
 		return guideTeaName;
 	}
+	public Integer getGuideTeaNum() {
+		return guideTeaNum;
+	}
+	public void setGuideTeaNum(Integer guideTeaNum) {
+		this.guideTeaNum = guideTeaNum;
+	}
 	public void setGuideTeaName(String guideTeaName) {
 		this.guideTeaName = guideTeaName;
 	}
-	public String getGuideTeaNum() {
-		return guideTeaNum;
-	}
-	public void setGuideTeaNum(String guideTeaNum) {
-		this.guideTeaNum = guideTeaNum;
-	}
-	public Date getIsAward() {
+	public Boolean getIsAward() {
 		return isAward;
 	}
-	public void setIsAward(Date isAward) {
-		this.isAward = isAward;
+	public void setIsAward(boolean b) {
+		this.isAward = b;
 	}
 	public String getAwardName() {
 		return awardName;

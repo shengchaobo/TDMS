@@ -10,8 +10,11 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +25,10 @@ import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.other.UserRoleBean;
 
+import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T624_Bean;
+import cn.nit.dao.table6.T624_Dao;
+import cn.nit.dao.table6.T631_Dao;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.service.table6.T624_Service;
 import cn.nit.util.DAOUtil;
@@ -35,11 +41,14 @@ import cn.nit.util.ExcelUtil;
  */
 public class T624_Action {
 
-	/** 表624的Service类 */
+	/** �?24的Service�?*/
 	private T624_Service T624_service = new T624_Service();
 
-	/** 表624的Bean实体类 */
+	/** �?24的Bean实体�?*/
 	T624_Bean T624_bean = new T624_Bean();
+
+	
+	private T624_Dao T624_dao = new T624_Dao();
 
 	/** 待审核数据的查询的序列号 */
 	private int seqNum;
@@ -50,19 +59,29 @@ public class T624_Action {
 	/** 待审核数据查询的结束时间 */
 	private Date endTime;
 	
+	public String getExcelName() {
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
+	private String excelName; //excel导出名字
+	
 	//待查询的专业名称
 	private String searchItem;
 
 	/** 数据的SeqNumber编号 */
 	private String ids;
 
-	/** 当前查询的是第几页 */
+	/** 当前查询的是第几�?*/
 	private String page;
 
-	/** 每页显示的条数 */
+	/** 每页显示的条�?*/
 	private String rows;
 	
-	/**所属教学单位*/
+	/**所属教学单�?/
 	private String fromTeaUnit;
 	
 	/**专业名称*/
@@ -96,7 +115,7 @@ public class T624_Action {
 		out.flush();
 	}
 
-	/** 为界面加载数据 */
+	/** 为界面加载数�?*/
 	public void loadData() throws Exception {
 		
 		
@@ -140,7 +159,7 @@ public class T624_Action {
 
 	}
 
-	// 将分页系统的总数以及当前页的list转化一个json传页面显示
+	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
 	private String toBeJson(List<T624_Bean> list, int total) throws Exception {
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -153,32 +172,6 @@ public class T624_Action {
 		String json = testjson.toString();
 		System.out.println(json);
 		return json;
-	}
-
-
-
-
-	/** 生成查询条件 */
-	public void auditingConditions() {
-
-		// String sqlConditions =
-		// UndergraAdmiInfoSer.gernateAuditingConditions(seqNum, startTime,
-		// endTime) ;
-		// getSession().setAttribute("auditingConditions", sqlConditions) ;
-		// PrintWriter out = null ;
-		//		
-		// try{
-		// out = getResponse().getWriter() ;
-		// out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-		// out.flush() ;
-		// }catch(Exception e){
-		// e.printStackTrace() ;
-		// out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		// }finally{
-		// if(out != null){
-		// out.close() ;
-		// }
-		// }
 	}
 
 	/** 编辑数据 */
@@ -197,7 +190,7 @@ public class T624_Action {
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}");
+			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
 		} finally {
 			if (out != null) {
 				out.close();
@@ -223,7 +216,7 @@ public class T624_Action {
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}");
+			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
 		} finally {
 			if (out != null) {
 				out.close();
@@ -233,18 +226,63 @@ public class T624_Action {
 
 	public InputStream getInputStream() {
 
-		InputStream inputStream = null;
-
+		InputStream inputStream = null ;
+		
 		try {
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(null,null,null,null)
-					.toByteArray());
+/*			response.reset();
+			response.addHeader("Content-Disposition", "attachment;fileName="
+                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
+			
+			List<T624_Bean> list = T624_dao.getAllList("1=1", null);
+						
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			
+			columns.add("序号");
+			columns.add("所属教学单�?);
+			columns.add("单位�?);
+			columns.add("专业名称");
+			columns.add("专业代码");
+			columns.add("专业方向名称");
+			columns.add("当年是否招生（含方向�?);
+			columns.add("当年计划招生数（人）");
+			columns.add("实际录取数（人）");
+			columns.add("实际报到数（人）");
+			columns.add("普通高中起点（人）");
+			columns.add("中职起点（人�?);
+			columns.add("其他（人�?);
+			columns.add("时间");
+			columns.add("备注");
+			
+
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+					
+			maplist.put("seqNumber", 0);
+			maplist.put("teaUnit", 1);
+			maplist.put("unitId", 2);
+			maplist.put("majorName", 3);
+			maplist.put("majorId", 4);
+			maplist.put("majorFieldName", 5);
+			maplist.put("isCurrentYearAdmis", 6);
+			maplist.put("planAdmisNum", 7);
+			maplist.put("actualAdmisNum", 8);
+			maplist.put("actualRegisterNum", 9);
+			maplist.put("genHignSchNum", 10);
+			maplist.put("secondVocationNum", 11);
+			maplist.put("otherNum", 12);
+			maplist.put("time", 13);
+			maplist.put("note", 14);
+				
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return null ;
 		}
 
-		return inputStream;
+		return inputStream ;
 	}
+
 
 	public String execute() throws Exception {
 

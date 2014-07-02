@@ -86,9 +86,10 @@ public class T632_Bean implements java.io.Serializable {
 		return sumEmployNum;
 	}
 	//统计生成-应届就业总人数
+	/*sumEmployNum = this.getGovermentNum()+this.getPubInstiNum()+this.getEnterpriseNum()+this.getForceNum()
+	+this.getFlexibleEmploy()+this.getNationItemEmploy()+this.getOtherEmploy()+this.getGoOnHighStudy();*/
 	public void setSumEmployNum(Integer sumEmployNum) {
-		sumEmployNum = this.getGovermentNum()+this.getPubInstiNum()+this.getEnterpriseNum()+this.getForceNum()
-		+this.getFlexibleEmploy()+this.getNationItemEmploy()+this.getOtherEmploy()+this.getGoOnHighStudy();
+		
 		this.sumEmployNum = sumEmployNum;
 	}
 	public Integer getGovermentNum() {
@@ -126,8 +127,9 @@ public class T632_Bean implements java.io.Serializable {
 	}
 	
 	////引用生成--升学
+	/*goOnHighStudy = this.getSumGoOnHighStudyNum();*/
 	public void setGoOnHighStudy(Integer goOnHighStudy) {
-		goOnHighStudy = this.getSumGoOnHighStudyNum();
+		
 		this.goOnHighStudy = goOnHighStudy;
 	}
 	public Integer getNationItemEmploy() {
@@ -146,9 +148,10 @@ public class T632_Bean implements java.io.Serializable {
 		return sumGoOnHighStudyNum;
 	}
 	////统计生成-应届升学总人数
+	/*
+		sumGoOnHighStudyNum = this.getRecommendGraNum()+this.getExamGraInSch()+this.getExamGraOutSch()+this.getAbroadNum();*/
 	public void setSumGoOnHighStudyNum(Integer sumGoOnHighStudyNum) {
 		
-		sumGoOnHighStudyNum = this.getRecommendGraNum()+this.getExamGraInSch()+this.getExamGraOutSch()+this.getAbroadNum();
 		this.sumGoOnHighStudyNum = sumGoOnHighStudyNum;
 	}
 	public Integer getRecommendGraNum() {
@@ -167,8 +170,9 @@ public class T632_Bean implements java.io.Serializable {
 		return examGraEnrollNum;
 	}
 	//统计生成-考研录取总人数
+	/*examGraEnrollNum = this.getExamGraInSch()+this.getExamGraOutSch();*/
 	public void setExamGraEnrollNum(Integer examGraEnrollNum) {
-		examGraEnrollNum = this.getExamGraInSch()+this.getExamGraOutSch();
+		
 		this.examGraEnrollNum = examGraEnrollNum;
 	}
 	public Integer getExamGraInSch() {

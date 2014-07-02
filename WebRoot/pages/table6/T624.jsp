@@ -95,6 +95,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	
+	<!--审核通过数据-->
+	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+		<thead>
+			<tr>
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">序号</th>
+				<th field="teaUnit">教学单位</th>
+				<th field="unitId">单位号</th>
+				<th field="majorName">专业名称</th>
+				<th field="majorId">专业代码</th>
+				<th field="majorFieldName">专业方向名称</th>
+				<th data-options="field:'isCurrentYearAdmis'" formatter="formatBoolean">当年是否招生（含方向）</th>
+				<th field="planAdmisNum">当年计划招生数</th>
+				<th field="actualAdmisNum">实际录取数</th>
+				<th field="actualRegisterNum">实际报到数</th>
+				<th field="genHignSchNum">普通高中起点</th>
+				<th field="secondVocationNum">中职起点</th>
+				<th field="otherNum">其他</th>
+				<th field="time" formatter="formattime">时间</th>
+				<th field="note">备注</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="toolbar2" style="float: right;">
+		<a href='pages/T624/dataExport?excelName=<%=URLEncoder.encode("表6-2-4专科招生信息补充表（招就处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+	</div>
+	
+	
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">

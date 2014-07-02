@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
+
 import cn.nit.bean.table7.T722_Bean;
 import cn.nit.dao.table7.T722_DAO;
 import cn.nit.pojo.table7.T722POJO;
@@ -25,6 +26,10 @@ public class T722_Service {
 	}
 	public boolean update(T722_Bean t722){
 		return teachAchieveAwardTeaDAO.update(t722);				
+	}
+	public boolean batchInsert(List<T722_Bean> list){
+		return teachAchieveAwardTeaDAO.batchInsert(list);
+		
 	}
 	
 	/**

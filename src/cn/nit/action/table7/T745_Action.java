@@ -1,8 +1,14 @@
 package cn.nit.action.table7;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +18,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table7.T745_Bean;
+import cn.nit.dao.table7.T745_DAO;
 import cn.nit.service.table7.T745_Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 public class T745_Action {
@@ -21,6 +29,7 @@ public class T745_Action {
 	
 	T745_Bean teachWorkAssessAC=new T745_Bean();
 	
+	private T745_DAO t745_Dao=new T745_DAO();
 
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
@@ -40,7 +49,11 @@ public class T745_Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+	/**  下载的excelName  */
+	private String excelName ;
 	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	public void insert(){
 		
@@ -179,7 +192,42 @@ public class T745_Action {
 		}
 	}
 	
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+		
+		try {
+			
+			List<T745_Bean> list = t745_Dao.totalList();
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("教学单位");columns.add("单位号");columns.add("评估年份");columns.add("评估结果");columns.add("批文号");
+			columns.add("备注");
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("AssessYear", 3);maplist.put("AssessResult", 4);
+			maplist.put("AppvlID", 5);maplist.put("Note", 6);
+			
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
 	
+	
+	public String execute() throws Exception{
+		request.setCharacterEncoding("UTF-8") ;
+		System.out.println("excelName=============" + excelName) ;
+		return "success" ;
+	}
+
+
 	
 	
 	public HttpServletRequest getRequest(){
@@ -264,6 +312,12 @@ public class T745_Action {
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+	public String getExcelName() {
+		return excelName;
+	}
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
 	}
 	
 	

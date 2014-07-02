@@ -29,9 +29,9 @@ public class TreeManagerService {
 	 * @param parentId
 	 * @return
 	 */
-	public List<Trees> getTrees(int parentId){
+	public List<Trees> getTrees(int parentId, String roleId){
 		
-		return treeDAO.getTrees(parentId) ;
+		return treeDAO.getTrees(parentId, roleId) ;
 	}
 	
 	/**
@@ -45,9 +45,9 @@ public class TreeManagerService {
 	}
 	
 	
-	public String loadTrees(int parentId){
+	public String loadTrees(int parentId, String roleId){
 		
-		List<Trees> trees = treeDAO.getTrees(parentId) ;
+		List<Trees> trees = treeDAO.getTrees(parentId, roleId) ;
 		
 		if(trees == null || trees.isEmpty()){
 			return null ;

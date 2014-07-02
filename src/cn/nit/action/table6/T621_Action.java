@@ -42,10 +42,10 @@ import cn.nit.util.ExcelUtil;
  */
 public class T621_Action {
 
-	/** �?21的Service�?*/
+	/** �?21的Service�?*/
 	private T621_Service UndergraAdmiInfoSer = new T621_Service();
 
-	/** �?21的Bean实体�?*/
+	/** �?21的Bean实体�?*/
 	T621_Bean UndergraAdmiInfo = new T621_Bean();
 	
 	private T621_Dao T621_dao = new T621_Dao();
@@ -68,13 +68,13 @@ public class T621_Action {
 	/** 数据的SeqNumber编号 */
 	private String ids;
 
-	/** 当前查询的是第几�?*/
+	/** 当前查询的是第几*/
 	private String page;
 
-	/** 每页显示的条�?*/
+	/** 每页显示的条*/
 	private String rows;
 	
-	/**所属教学单�?/
+	/**所属教学单*/
 	private String fromTeaUnit;
 	
 	/**专业名称*/
@@ -108,7 +108,7 @@ public class T621_Action {
 		out.flush();
 	}
 
-	/** 为界面加载数�?
+	/** 为界面加载数�?
 	 * 
 	 * 2014-6-20 修改
 	 * */
@@ -150,7 +150,7 @@ public class T621_Action {
 		}
 	}
 
-	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
+	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
 	private String toBeJson(List<T621_Bean> list, int total) throws Exception {
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -181,7 +181,7 @@ public class T621_Action {
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
+			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
 		} finally {
 			if (out != null) {
 				out.close();
@@ -207,7 +207,7 @@ public class T621_Action {
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
+			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
 		} finally {
 			if (out != null) {
 				out.close();
@@ -231,17 +231,17 @@ public class T621_Action {
 			List<String> columns = new ArrayList<String>();
 			
 			columns.add("序号");
-			columns.add("所属教学单�?);
-			columns.add("单位�?);
+			columns.add("所属教学单");
+			columns.add("单位");
 			columns.add("专业名称");
 			columns.add("专业代码");
-			columns.add("招生计划�?);
-			columns.add("实际录取�?);
-			columns.add("实际报到�?);
-			columns.add("自主招生�?);
+			columns.add("招生计划");
+			columns.add("实际录取");
+			columns.add("实际报到");
+			columns.add("自主招生");
 			columns.add("招收特长生数");
-			columns.add("招收本省学生�?);
-			columns.add("新办专业招生�?);
+			columns.add("招收本省学生");
+			columns.add("新办专业招生");
 			columns.add("时间");
 			columns.add("备注");
 			

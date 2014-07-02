@@ -41,10 +41,10 @@ import cn.nit.util.ExcelUtil;
  */
 public class T624_Action {
 
-	/** �?24的Service�?*/
+	/** �?24的Service�?*/
 	private T624_Service T624_service = new T624_Service();
 
-	/** �?24的Bean实体�?*/
+	/** �?24的Bean实体�?*/
 	T624_Bean T624_bean = new T624_Bean();
 
 	
@@ -75,13 +75,13 @@ public class T624_Action {
 	/** 数据的SeqNumber编号 */
 	private String ids;
 
-	/** 当前查询的是第几�?*/
+	/** 当前查询的是第几*/
 	private String page;
 
-	/** 每页显示的条�?*/
+	/** 每页显示的条*/
 	private String rows;
 	
-	/**所属教学单�?/
+	/**所属教学单*/
 	private String fromTeaUnit;
 	
 	/**专业名称*/
@@ -115,7 +115,7 @@ public class T624_Action {
 		out.flush();
 	}
 
-	/** 为界面加载数�?*/
+	/** 为界面加载数�?*/
 	public void loadData() throws Exception {
 		
 		
@@ -159,7 +159,7 @@ public class T624_Action {
 
 	}
 
-	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
+	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
 	private String toBeJson(List<T624_Bean> list, int total) throws Exception {
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -190,7 +190,7 @@ public class T624_Action {
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
+			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
 		} finally {
 			if (out != null) {
 				out.close();
@@ -216,7 +216,7 @@ public class T624_Action {
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
+			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
 		} finally {
 			if (out != null) {
 				out.close();
@@ -240,18 +240,18 @@ public class T624_Action {
 			List<String> columns = new ArrayList<String>();
 			
 			columns.add("序号");
-			columns.add("所属教学单�?);
-			columns.add("单位�?);
+			columns.add("所属教学单");
+			columns.add("单位");
 			columns.add("专业名称");
 			columns.add("专业代码");
 			columns.add("专业方向名称");
-			columns.add("当年是否招生（含方向�?);
+			columns.add("当年是否招生（含方向）");
 			columns.add("当年计划招生数（人）");
 			columns.add("实际录取数（人）");
 			columns.add("实际报到数（人）");
 			columns.add("普通高中起点（人）");
-			columns.add("中职起点（人�?);
-			columns.add("其他（人�?);
+			columns.add("中职起点（人）");
+			columns.add("其他（人）");
 			columns.add("时间");
 			columns.add("备注");
 			

@@ -40,10 +40,10 @@ import cn.nit.util.ExcelUtil;
  */
 public class T632_Action {
 
-	/** �?32的Service�?*/
+	/** �?32的Service�?*/
 	private T632_Service T632_service = new T632_Service();
 
-	/** �?32的Bean实体�?*/
+	/** �?32的Bean实体�?*/
 	T632_Bean T632_bean = new T632_Bean();
 	
 	T632_Dao T632_dao = new T632_Dao();
@@ -65,13 +65,13 @@ public class T632_Action {
 	/** 数据的SeqNumber编号 */
 	private String ids;
 
-	/** 当前查询的是第几�?*/
+	/** 当前查询的是第几*/
 	private String page;
 
-	/** 每页显示的条�?*/
+	/** 每页显示的条*/
 	private String rows;
 	
-	/**所属教学单�?/
+	/**所属教学单*/
 	private String fromTeaUnit;
 	
 	/**专业名称*/
@@ -82,12 +82,12 @@ public class T632_Action {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		
-		T632_bean.setSumGoOnHighStudyNum(T632_bean.getRecommendGraNum()+T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch()+T632_bean.getAbroadNum());//统计生成-应届升学总人�?
-		T632_bean.setExamGraEnrollNum(T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch());//统计生成-考研录取总人�?
+		T632_bean.setSumGoOnHighStudyNum(T632_bean.getRecommendGraNum()+T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch()+T632_bean.getAbroadNum());//统计生成-应届升学总人�?
+		T632_bean.setExamGraEnrollNum(T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch());//统计生成-考研录取总人�?
 		T632_bean.setGoOnHighStudy(T632_bean.getSumGoOnHighStudyNum());//引用生成--升学
 		
 		T632_bean.setSumEmployNum(T632_bean.getGovermentNum()+T632_bean.getPubInstiNum()+T632_bean.getEnterpriseNum()+T632_bean.getForceNum()
-				+T632_bean.getFlexibleEmploy()+T632_bean.getNationItemEmploy()+T632_bean.getOtherEmploy()+T632_bean.getGoOnHighStudy());//统计生成-应届就业总人�?
+				+T632_bean.getFlexibleEmploy()+T632_bean.getNationItemEmploy()+T632_bean.getOtherEmploy()+T632_bean.getGoOnHighStudy());//统计生成-应届就业总人�?
 		
 		boolean flag = T632_service.insert(T632_bean);
 		PrintWriter out = null;
@@ -112,7 +112,7 @@ public class T632_Action {
 		out.flush();
 	}
 
-	/** 为界面加载数�?*/
+	/** 为界面加载数�?*/
 	public void loadData() throws Exception {
 
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -151,7 +151,7 @@ public class T632_Action {
 		}
 	}
 
-	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
+	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
 	private String toBeJson(List<T632_Bean> list, int total) throws Exception {
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -170,12 +170,12 @@ public class T632_Action {
 	/** 编辑数据 */
 	public void edit() {
 		
-		T632_bean.setSumGoOnHighStudyNum(T632_bean.getRecommendGraNum()+T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch()+T632_bean.getAbroadNum());//统计生成-应届升学总人�?
-		T632_bean.setExamGraEnrollNum(T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch());//统计生成-考研录取总人�?
+		T632_bean.setSumGoOnHighStudyNum(T632_bean.getRecommendGraNum()+T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch()+T632_bean.getAbroadNum());//统计生成-应届升学总人�?
+		T632_bean.setExamGraEnrollNum(T632_bean.getExamGraInSch()+T632_bean.getExamGraOutSch());//统计生成-考研录取总人�?
 		T632_bean.setGoOnHighStudy(T632_bean.getSumGoOnHighStudyNum());//引用生成--升学
 		
 		T632_bean.setSumEmployNum(T632_bean.getGovermentNum()+T632_bean.getPubInstiNum()+T632_bean.getEnterpriseNum()+T632_bean.getForceNum()
-				+T632_bean.getFlexibleEmploy()+T632_bean.getNationItemEmploy()+T632_bean.getOtherEmploy()+T632_bean.getGoOnHighStudy());//统计生成-应届就业总人�?
+				+T632_bean.getFlexibleEmploy()+T632_bean.getNationItemEmploy()+T632_bean.getOtherEmploy()+T632_bean.getGoOnHighStudy());//统计生成-应届就业总人�?
 
 		boolean flag = T632_service.update(T632_bean);
 		PrintWriter out = null;
@@ -190,7 +190,7 @@ public class T632_Action {
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
+			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
 		} finally {
 			if (out != null) {
 				out.close();
@@ -216,7 +216,7 @@ public class T632_Action {
 			out.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
+			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
 		} finally {
 			if (out != null) {
 				out.close();
@@ -243,10 +243,10 @@ public class T632_Action {
 			
 			columns.add("序号");
 			columns.add("教学单位");
-			columns.add("单位�?);
+			columns.add("单位");
 			columns.add("专业名称");
 			columns.add("专业代码");
-			columns.add("应届就业总人�?);
+			columns.add("应届就业总人");
 			columns.add("政府机构就业人数");
 			columns.add("事业单位就业人数");
 			columns.add("企业就业人数");
@@ -256,13 +256,13 @@ public class T632_Action {
 			columns.add("参加国家地方项目就业人数");
 			columns.add("其他人数");
 			
-			columns.add("应届升学总人�?);
-			columns.add("免试推荐研究生人�?);
+			columns.add("应届升学总人");
+			columns.add("免试推荐研究生人");
 			columns.add("考研报名人数");
-			columns.add("考研录取总人�?);
+			columns.add("考研录取总人");
 			columns.add("考取本校人数");
 			columns.add("考取外校人数");
-			columns.add("出国（境）留学人�?);
+			columns.add("出国（境）留学人");
 			
 			columns.add("时间");
 			columns.add("备注");

@@ -113,8 +113,8 @@ public class T653_Bean implements java.io.Serializable {
 	public Boolean getIsAward() {
 		return isAward;
 	}
-	public void setIsAward(boolean b) {
-		this.isAward = b;
+	public void setIsAward(Boolean isAward) {
+		this.isAward = isAward;
 	}
 	public String getAwardName() {
 		return awardName;

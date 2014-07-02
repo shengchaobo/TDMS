@@ -19,8 +19,8 @@ public class T654_Bean implements java.io.Serializable {
 
 	// Fields
 	private int seqNumber;
-	private String unitId;
 	private String teaUnit;
+	private String unitId;	
 	private String jonalName;
 	private String jonalId;
 	private String patentType;

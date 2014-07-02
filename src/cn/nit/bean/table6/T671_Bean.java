@@ -20,9 +20,10 @@ public class T671_Bean implements java.io.Serializable {
 
 	// Fields
 	private int seqNumber;
-	private String minorUnitID;
-	private String majorId;
+	private String minorUnitId;
+	private String majId;
 	private String minorId;
+
 	private String unitId;
 	private String stuName;
 	private String stuId;
@@ -42,17 +43,17 @@ public class T671_Bean implements java.io.Serializable {
 	public void setSeqNumber(int seqNumber) {
 		this.seqNumber = seqNumber;
 	}
-	public String getMinorUnitID() {
-		return minorUnitID;
+	public String getMinorUnitId() {
+		return minorUnitId;
 	}
-	public void setMinorUnitID(String minorUnitID) {
-		this.minorUnitID = minorUnitID;
+	public void setMinorUnitId(String minorUnitId) {
+		this.minorUnitId = minorUnitId;
 	}
-	public String getMajorId() {
-		return majorId;
+	public String getMajId() {
+		return majId;
 	}
-	public void setMajorId(String majorId) {
-		this.majorId = majorId;
+	public void setMajId(String majId) {
+		this.majId = majId;
 	}
 	public String getMinorId() {
 		return minorId;

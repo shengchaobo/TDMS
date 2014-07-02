@@ -335,7 +335,7 @@ public class T631_Dao {
 		
 		return list ;
 	}
-
+	
 	public static void main(String args[]) {
 
 		T631_Dao UndergarGraduateInfoDao = new T631_Dao();
@@ -365,9 +365,6 @@ public class T631_Dao {
 
 		System.out.println("success!!");
 	}
-
-
-
 
 
 }

@@ -164,3 +164,39 @@ function reloadgrid ()  {
      queryParams.searchItem = queryValue;  
      $("#commomData").datagrid('reload'); 
 }	
+
+
+//模板导入
+function batchImport(){
+	  var fileName = $('#uploadFile').val() ; 	
+	  if(fileName == null || fileName == ""){
+		  $.messager.alert('Excel批量用户导入', '请选择将要上传的文件!');      
+	   		return false ;
+	  }	
+	  var pos = fileName.lastIndexOf(".") ;
+	  var suffixName = fileName.substring(pos, fileName.length) ; 	
+	  if(suffixName != ".xls"){
+		   $.messager.alert('Excel批量用户导入','文件类型不正确，请选择.xls文件!');   
+	   		return false ;
+	 }
+	 $('#batchForm').form('submit',{
+		 url: 'pages/T631/uploadFile',
+		 type: "post",
+	     dataType: "json",
+		 onSubmit: function(){
+			 return true;
+		 },
+		 success: function(result){
+		 	var result = eval('('+result+')');
+		 	if (!result.success){
+		 		$.messager.show({
+		 			title: 'Error',
+		 			msg: result.errorMsg
+			 });
+		 	} else {
+		    		 $('#dlg').dialog('close'); // close the dialog
+		    		 $('#commomData').datagrid('reload'); // reload the user data
+		 	}
+		 }
+		 });
+ }

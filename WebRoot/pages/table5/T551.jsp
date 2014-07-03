@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body style="height: 100%'" >
-	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T551/loadMajorTea"  style="height: auto"  >
+	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T551/auditingData"  style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>

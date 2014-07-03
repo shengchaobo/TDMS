@@ -203,10 +203,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 				
 			</tr>
-			<tr>
+			<tr rowspan="2">
 				<td>
 					<div class="fitem">
-						<label>考试违纪、作弊及受处分（人次）:</label>
+						<label>违纪人数:</label>
 						<input id="CheatNum" name="T551bean.CheatNum" type="text" class="easyui_validatebox">
 						<span id="CheatNumSpan"></span>
 					</div>

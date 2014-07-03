@@ -91,7 +91,7 @@
 			alert("名称不能为空且不能超过50个字");
 			return false;
 		}
-		if(type == null || type.length == 0 || type。length >50){
+		if(type == null || type.length == 0 || type.length >50){
 			alert("类型不能为空且不能超过25个字");
 			return false;
 		}

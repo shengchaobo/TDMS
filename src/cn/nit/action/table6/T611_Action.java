@@ -1,396 +1,234 @@
 package cn.nit.action.table6;
 
+
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.other.UserRoleBean;
+
 import cn.nit.bean.table6.T611_Bean;
-import cn.nit.bean.table6.T621_Bean;
-import cn.nit.bean.table6.T631_Bean;
-import cn.nit.bean.table6.T632_Bean;
-import cn.nit.dao.table6.T611_Dao;
-import cn.nit.dao.table6.T632_Dao;
-import cn.nit.dbconnection.DBConnection;
 import cn.nit.service.table6.T611_Service;
-import cn.nit.service.table6.T632_Service;
-import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.JsonUtil;
+import cn.nit.util.TimeUtil;
+import cn.nit.util.ToBeanUtil;
 
-/**
- * 待完成！！！！！！！
- * 
- * @author Yuan
- */
+
 public class T611_Action {
-
-	/** 表632的Service类 */
-	private T611_Service T611_service = new T611_Service();
-
-	/** 表632的Bean实体类 */
-	T611_Bean T611_bean = new T611_Bean();
 	
-	T611_Dao T611_dao = new T611_Dao();
-
-	/** 待审核数据的查询的序列号 */
-	private int seqNum;
-
-	/** 待审核数据查询的起始时间 */
-	private Date startTime;
-
-	/** 待审核数据查询的结束时间 */
-	private Date endTime;
+	private T611_Service T611_services = new T611_Service();
 	
-	private String excelName; //excel导出名字
+	private T611_Bean T611_bean = new T611_Bean();	
 	
-	//待查询的专业名称
-	private String searchItem;
-
-	/** 数据的SeqNumber编号 */
-	private String ids;
-
-	/** 当前查询的是第几页 */
-	private String page;
-
-	/** 每页显示的条数 */
-	private String rows;
+	/**  哪一年数据  */
+	private String selectYear; //删除的id
 	
-	/**所属教学单位*/
-	private String fromTeaUnit;
+	/**  导出的excelName名 */
+	private String excelName ;
 	
-	/**专业名称*/
-	private String majorName;
-
-	/** 逐条插入数据 */
-	public void insert() {
-		System.out
-				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	/**  前台获数据 */
+	private String data ;
+	
+	//save的字段
+	private String fields;
+	
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
+	//查询出所有
+	public void loadInfo() throws Exception{
 		
-		boolean flag = T611_service.insert(T611_bean);
-		PrintWriter out = null;
-
-		try {
-			getResponse().setContentType("text/html; charset=UTF-8");
-			// getResponse().setHeader("Content-type", "text/html");
-			out = getResponse().getWriter();
-			if (flag) {
-				out.print("{\"state\":true,data:\"录入成功!!!\"}");
-			} else {
-				out.print("{\"state\":false,data:\"录入失败!!!\"}");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			out.print("{\"state\":false,data:\"录入失败!!!\"}");
-		} finally {
-			if (out != null) {
-				out.close();
-			}
-		}
-		out.flush();
-	}
-
-	/** 为界面加载数据 */
-	public void loadData() throws Exception {
-
-		HttpServletResponse response = ServletActionContext.getResponse();
+		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
+		T611_Bean bean = T611_services.getYearInfo(this.getSelectYear()) ;
 		
-		// private JSONObject jsonObj;
+		//private JSONObject jsonObj;
+		bean.setTime(null);
+		String json = JsonUtil.beanToJson(bean);
 		
-		String cond = "1=1";
-		if(this.getSearchItem()!= null){
-			cond += " and MajorName LIKE '" + this.getSearchItem() + "%'";
-			System.out.println(cond);
-		}
-		List<T611_Bean> list = T611_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
-		String TeaInfoJson = this.toBeJson(list, T611_service.getTotal(cond,null));
+		PrintWriter out = null ;
 
-		PrintWriter out = null;
-
-		if (TeaInfoJson == null) {
-			return;
-		} else {
-			try {
-
-				System.out.println(TeaInfoJson);
-				response.setContentType("application/json;charset=UTF-8");
-				out = response.getWriter();
-				out.print(TeaInfoJson);
+		if(bean == null){
+			response.setContentType("text/html;charset=UTF-8") ;
+			out = response.getWriter() ;
+			out.println( "<script language='javascript'>window.alert('无该年数据');</script>" ); 
+		}else{
+			try {				
+				System.out.println(json) ;
+				response.setContentType("application/json;charset=UTF-8") ;
+				out = response.getWriter() ;
+				out.print(json) ;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} finally {
-				if (out != null) {
-					out.flush();
-					out.close();
+			}finally{
+				if(out != null){
+					out.flush() ;
+					out.close() ;
 				}
 			}
 		}
 	}
 
-	// 将分页系统的总数以及当前页的list转化一个json传页面显示
-	private String toBeJson(List<T611_Bean> list, int total) throws Exception {
-		// TODO Auto-generated method stub
+
+	
+	//保存
+	public void save(){
+		
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
-		HttpServletRequest request = ServletActionContext.getRequest();
-
-		JSONObject testjson = new JSONObject();
-		testjson.accumulate("total", total);
-		testjson.accumulate("rows", list);
-
-		String json = testjson.toString();
-		System.out.println(json);
-		return json;
-	}
-
-
-	/** 编辑数据 */
-	public void edit() {
-		boolean flag = T611_service.update(T611_bean);
-		PrintWriter out = null;
-
-		try {
-			out = getResponse().getWriter();
-			if (flag) {
-				out.print("{\"state\":true,data:\"编辑成功!!!\"}");
-			} else {
-				out.print("{\"state\":true,data:\"编辑失败!!!\"}");
-			}
-			out.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}");
-		} finally {
-			if (out != null) {
-				out.close();
-			}
-		}
-	}
-
-	/** 根据数据的id删除数据 */
-	public void deleteByIds() {
-		System.out.println("ids=" +this.getIds());
-		boolean flag = T611_service.deleteItemsByIds(ids);
-		PrintWriter out = null;
-
-		try {
-			out = getResponse().getWriter();
-
-			if (flag) {
-				out.print("{\"state\":true,data:\"数据删除成功!!!\"}");
-			} else {
-				out.print("{\"state\":false,data:\"数据删除失败!!!\"}");
-			}
-
-			out.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}");
-		} finally {
-			if (out != null) {
-				out.close();
-			}
-		}
-	}
-
-	public InputStream getInputStream() {
-
-		InputStream inputStream = null ;
 		
-		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T611_Bean> list = T611_dao.getAllList("1=1", null);
-						
+		String tempData = this.getData();
+		//System.out.println(tempData);
+		
+		
+		T611_Bean bean  = ToBeanUtil.toBean(tempData, T611_Bean.class);
+										
+		boolean flag = T611_services.save(bean,this.getSelectYear(),this.getFields());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"mesg\":\"success\"}") ;
+			}else{
+				out.print("{\"mesg\":\"fail\"}") ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"保存失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+		out.flush() ;
+	}
+		
+	public InputStream getInputStream() throws Exception{
+
+		System.out.println(this.getSelectYear());
+		T611_Bean bean = T611_services.getYearInfo(this.getSelectYear());
+		
+	    ByteArrayOutputStream fos = null;
+		
+		if(bean==null){
+			PrintWriter out = null ;
+			response.setContentType("text/html;charset=utf-8") ;
+			out = response.getWriter() ;
+			out.print("后台传入的数据为空") ;
+			System.out.println("后台传入的数据为空");
+			return null;
+		}else{
 			String sheetName = this.getExcelName();
-			
-			List<String> columns = new ArrayList<String>();
-			
+						
+		    WritableWorkbook wwb;
+		    try {    
+		           fos = new ByteArrayOutputStream();
+		           wwb = Workbook.createWorkbook(fos);
+		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 		
-			
-//			columns.add("序号");
-//			columns.add("教学单位");
-//			columns.add("单位号");
-//			columns.add("专业名称");
-//			columns.add("专业代码");
-//			columns.add("应届就业总人数");
-//			columns.add("政府机构就业人数");
-//			columns.add("事业单位就业人数");
-//			columns.add("企业就业人数");
-//			columns.add("部队人数");
-//			columns.add("灵活就业人数");
-//			columns.add("升学人数");
-//			columns.add("参加国家地方项目就业人数");
-//			columns.add("其他人数");
-//			
-//			columns.add("应届升学总人数");
-//			columns.add("免试推荐研究生人数");
-//			columns.add("考研报名人数");
-//			columns.add("考研录取总人数");
-//			columns.add("考取本校人数");
-//			columns.add("考取外校人数");
-//			columns.add("出国（境）留学人数");
-//			
-//			columns.add("时间");
-//			columns.add("备注");
-			
+		            //    设置单元格的文字格式
+		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		           WritableCellFormat wcf = new WritableCellFormat(wf);
+		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		           wcf.setAlignment(Alignment.CENTRE);
+		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+		        		     jxl.format.Colour.BLACK);
+		           ws.setRowView(1, 500);
+		           
+		            //    设置内容单无格的文字格式
+		           WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		            WritableCellFormat wcf1 = new WritableCellFormat(wf1);        
+		            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+		            wcf1.setAlignment(Alignment.CENTRE);
+		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+			        		     jxl.format.Colour.BLACK);
+		           
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.mergeCells(0, 0, 1, 0);
+		           
+		           ws.addCell(new Label(0, 2, "项目", wcf)); 
+		           ws.addCell(new Label(2, 2, "内容", wcf)); 
+		           ws.addCell(new Label(0, 3, "1.占地面积(平方米)", wcf)); 
+		           ws.addCell(new Label(0, 10, "2.总建筑面积(平方米)", wcf)); 
+		           ws.addCell(new Label(1, 3, "总占地面积", wcf)); 
+		           ws.addCell(new Label(1, 4, "学校产权", wcf));  
+		           ws.addCell(new Label(1, 5, "  其中：绿化用地", wcf)); 
+		           ws.addCell(new Label(1, 6, "非学校产权", wcf)); 
+		           ws.addCell(new Label(1, 7, "  其中：绿化用地", wcf)); 
+		           ws.addCell(new Label(1, 8, "  其中：独立使用", wcf)); 
+		           ws.addCell(new Label(1, 9, "       共同使用", wcf)); 
+		           ws.addCell(new Label(1, 10, "总建筑面积", wcf)); 
+		           ws.addCell(new Label(1, 11, "学校产权", wcf)); 
+		           ws.addCell(new Label(1, 12, "非学校产权", wcf)); 
+		           ws.addCell(new Label(1, 13, "  其中：独立使用", wcf)); 
+		           ws.addCell(new Label(1, 14, "        共同使用", wcf)); 
 
-			Map<String,Integer> maplist = new HashMap<String,Integer>();
-		
+		           ws.mergeCells(0, 2, 1, 2);
+		           ws.mergeCells(0, 3, 0, 9);
+		           ws.mergeCells(0, 10, 0, 14);
+//		           		           
+//		           ws.addCell(new Label(2, 3, bean.getSumArea().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 4, bean.getSchProArea().toString(), wcf1));  
+//		           ws.addCell(new Label(2, 5, bean.getGreenArea().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 6, bean.getNotSchProArea().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 7, bean.getGreenAreaNotInSch().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 8, bean.getOnlyUseArea().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 9, bean.getCoUseArea().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 10, bean.getSumCoverArea().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 11, bean.getSchProCovArea().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 12, bean.getNotSchProCovArea().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 13, bean.getOnlyUseCovArea().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 14, bean.getCoUseCovArea().toString(), wcf1)); 
+		             
 
-//			
-//			maplist.put("seqNumber", 0);
-//			maplist.put("teaUnit", 1);
-//			maplist.put("unitId", 2);
-//			maplist.put("majorName", 3);
-//			maplist.put("majorId", 4);
-//			
-//			maplist.put("sumEmployNum", 5);
-//			maplist.put("govermentNum", 6);
-//			maplist.put("pubInstiNum", 7);
-//			maplist.put("enterpriseNum", 8);
-//			maplist.put("forceNum", 9);
-//			maplist.put("flexibleEmploy", 10);
-//			maplist.put("goOnHighStudy", 11);
-//			maplist.put("nationItemEmploy", 12);
-//			maplist.put("otherEmploy", 13);
-//			
-//			maplist.put("sumGoOnHighStudyNum", 14);
-//			maplist.put("recommendGraNum", 15);
-//			maplist.put("examGraApplyNum", 16);
-//			maplist.put("examGraEnrollNum", 17);
-//			maplist.put("examGraInSch", 18);
-//			maplist.put("examGraOutSch", 19);
-//			maplist.put("abroadNum", 20);
-//						
-//			maplist.put("time", 21);
-//			maplist.put("note", 22);
-				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null ;
+		          wwb.write();
+		          wwb.close();
+
+		        } catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
+		        
 		}
-
-		return inputStream ;
+		return new ByteArrayInputStream(fos.toByteArray());
 	}
-
-	public String execute() throws Exception {
-
-		getResponse().setContentType("application/octet-stream;charset=UTF-8");
-		return "success";
+	
+	public String execute() throws Exception{
+		response.setContentType("text/html;charset=utf-8"); 
+		System.out.println("excelName=============" + this.getExcelName()) ;
+		return "success" ;
 	}
-
-	public HttpServletRequest getRequest() {
-		return ServletActionContext.getRequest();
-	}
-
-	public HttpSession getSession() {
-		return getRequest().getSession();
-	}
-
-	public HttpServletResponse getResponse() {
-		return ServletActionContext.getResponse();
-	}
-
-	public UserRoleBean getUserinfo() {
-		return (UserRoleBean) getSession().getAttribute("userinfo");
-	}
-
-
-
-	public int getSeqNum() {
-		return seqNum;
-	}
-
-	public void setSeqNum(int seqNum) {
-		this.seqNum = seqNum;
-	}
-
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public String getIds() {
-		return ids;
-	}
-
-	public void setIds(String ids) {
-		this.ids = ids;
-	}
-
-	public String getPage() {
-		return page;
-	}
-
-	public void setPage(String page) {
-		this.page = page;
-	}
-
-	public String getRows() {
-		return rows;
-	}
-
-	public void setRows(String rows) {
-		this.rows = rows;
-	}
-
-	public String getFromTeaUnit() {
-		return fromTeaUnit;
-	}
-
-	public void setFromTeaUnit(String fromTeaUnit) {
-		this.fromTeaUnit = fromTeaUnit;
-	}
-
-	public String getMajorName() {
-		return majorName;
-	}
-
-	public void setMajorName(String majorName) {
-		this.majorName = majorName;
-	}
-
-	public T611_Service getT611_service() {
-		return T611_service;
-	}
-
-	public void setT611_service(T611_Service t631Service) {
-		T611_service = t631Service;
-	}
+	
 
 	public T611_Bean getT611_bean() {
 		return T611_bean;
@@ -399,15 +237,7 @@ public class T611_Action {
 	public void setT611_bean(T611_Bean T611Bean) {
 		T611_bean = T611Bean;
 	}
-
-	public String getSearchItem() {
-		return searchItem;
-	}
-
-	public void setSearchItem(String searchItem) {
-		this.searchItem = searchItem;
-	}
-
+	
 	public String getExcelName() {
 		return excelName;
 	}
@@ -416,12 +246,35 @@ public class T611_Action {
 		this.excelName = excelName;
 	}
 
-	public static void main(String args[]) {
-		String match = "[\\d]+";
-		System.out.println("23gfhf4".matches(match));
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
 	}
 
 
 
+	public void setData(String data) {
+		this.data = data;
+	}
 
+
+
+	public String getData() {
+		return data;
+	}
+
+
+
+	public void setFields(String fields) {
+		this.fields = fields;
+	}
+
+
+
+	public String getFields() {
+		return fields;
+	}
 }

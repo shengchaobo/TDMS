@@ -61,23 +61,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 	<table id="commomData" title="近一届文、理科本科生录取标准及人数" class="easyui-datagrid" url="pages/T622/loadData" style="height: auto;">
-		<thead>
+		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">序号</th>
-				<th field="fromTeaUnit">所属教学单位</th>
-				<th field="unitId">单位号</th>
-				<th field="majorName">专业名称</th>
-				<th field="majorId">专业代码</th>
-				<th field="amisPlanNum">招生计划数</th>
-				<th field="actulEnrollNum">实际录取数</th>
-				<th field="actulRegisterNum">实际报到数</th>
-				<th field="autoEnrollNum">自主招生数</th>
-				<th field="specialtyEnrollNum">招收特长生数</th>
-				<th field="inProviEnrollNum">招收本省学生数</th>
-				<th field="newMajEnrollNum">新办专业招生数</th>
-				<th field="time" formatter="formattime">时间</th>
-				<th field="note">备注</th>
+				<th field="province">省份</th>
+				<th field="batch">批次</th>
+			</tr>
+		</thead>	
+		<thead>
+			<tr>
+				<th field="libEnrollNum">文科录取数</th>
+				<th field="sciEnrollNum">理科录取数</th>			
+				<th field="libLowestScore">文科批次最低控制线（分）</th>		
+				<th field="sciLowestScore">理科批次最低控制线（分）</th>		
+				<th field="libAvgScore">文科当年录取平均分数（分）</th>
+				<th field="sciAvgScore">理科当年录取平均分数（分）</th>
+				<th field="note">说明</th>
+				<th field="time" formatter="formattime">填写时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -90,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 		 <div style="float: right;">
-		 	专业名称: <input id="searchItem" class="easyui-box" style="width:80px"/>
+		 	省份: <input id="searchItem" class="easyui-box" style="width:80px"/>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 		</div>
 	</div>
@@ -98,26 +99,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--审核通过数据-->
 	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
 		<thead data-options="frozen:true">
-			<tr>			
-				<th data-options="field:'ck',checkbox:true">选取</th>
-		     </tr>
-		</thead>
-			<thead>
 			<tr>
+				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">序号</th>
-				<th field="fromTeaUnit">所属教学单位</th>
-				<th field="unitId">单位号</th>
-				<th field="majorName">专业名称</th>
-				<th field="majorId">专业代码</th>
-				<th field="amisPlanNum">招生计划数</th>
-				<th field="actulEnrollNum">实际录取数</th>
-				<th field="actulRegisterNum">实际报到数</th>
-				<th field="autoEnrollNum">自主招生数</th>
-				<th field="specialtyEnrollNum">招收特长生数</th>
-				<th field="inProviEnrollNum">招收本省学生数</th>
-				<th field="newMajEnrollNum">新办专业招生数</th>
-				<th field="time" formatter="formattime">时间</th>
-				<th field="note">备注</th>
+				<th field="province">省份</th>
+				<th field="batch">批次</th>
+			</tr>
+		</thead>	
+		<thead>
+			<tr>
+				<th field="libEnrollNum">文科录取数</th>
+				<th field="sciEnrollNum">理科录取数</th>			
+				<th field="libLowestScore">文科批次最低控制线（分）</th>		
+				<th field="sciLowestScore">理科批次最低控制线（分）</th>		
+				<th field="libAvgScore">文科当年录取平均分数（分）</th>
+				<th field="sciAvgScore">理科当年录取平均分数（分）</th>
+				<th field="note">说明</th>
+				<th field="time" formatter="formattime">填写时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -147,106 +145,133 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form id="addItemForm" method="post">
 		<table>
 			<tr>
-			<td>
+				<td>
 					<div class="fitem">
-						<label>所属教学单位：</label> 
-						<input id="seqNumber" type="hidden" name="UndergraAdmiInfo.seqNumber">		
-						<input id="fromTeaUnit" type="hidden" name="UndergraAdmiInfo.fromTeaUnit">										
-						<input id="unitId" type="text" name="UndergraAdmiInfo.unitId" class='easyui-combobox'
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
-							onSelect:function(){
-							 	 document.getElementById('fromTeaUnit').value=$(this).combobox('getText') ;
-							 }">
+						<label>省份：</label> 
+						<input id="seqNumber" type="hidden" name="T622_bean.seqNumber">		
+						<select id="province" type="text" name="T622_bean.province" class='easyui-combobox'  panelHeight="auto" editable="false">
+							<option value="北京市">北京市</option>
+							<option value="天津市">天津市</option>
+							<option value="河北省">河北省</option>
+							<option value="山西省">山西省</option>
+							<option value="内蒙古自治区">内蒙古自治区</option>
+							<option value="辽宁省">辽宁省</option>
+							<option value="吉林省">吉林省</option>
+							<option value="黑龙江省">黑龙江省</option>
+							<option value="上海市">上海市</option>
+							<option value="江苏省">江苏省</option>
+							<option value="浙江省">浙江省</option>
+							<option value="安徽省">安徽省</option>
+							<option value="福建省">福建省</option>
+							<option value="江西省">江西省</option>
+							<option value="山东省">山东省</option>
+							<option value="河南省">河南省</option>
+							<option value="湖北省">湖北省</option>
+							<option value="湖南省">湖南省</option>
+							<option value="广东省">广东省</option>
+							<option value="广西壮族自治区">广西壮族自治区</option>
+							<option value="海南省">海南省</option>
+							<option value="重庆市">重庆市</option>
+							<option value="四川省">四川省</option>
+							<option value="贵州省">贵州省</option>
+							<option value="云南省">云南省</option>
+							<option value="西藏自治区">西藏自治区</option>
+							<option value="陕西省">陕西省</option>
+							<option value="甘肃省">甘肃省</option>
+							<option value="青海省">青海省</option>
+							<option value="宁夏回族自治区">宁夏回族自治区</option>
+							<option value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+							<option value="台湾">台湾</option>
+							<option value="香港">香港</option>
+							<option value="澳门">澳门</option>
+						</select>
+						<span id="provinceSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
-						<label>专业名称：</label> 
-						<input id="majorName" type="hidden" name="UndergraAdmiInfo.majorName">
-						<input id="majorId" type="text" name="UndergraAdmiInfo.majorId" class='easyui-combobox'
-							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
-							onSelect:function(){
-							 	 document.getElementById('majorName').value=$(this).combobox('getText') ;
-							 }"></input>
-					</div>
-				</td>
-			</tr>
-		
-			<tr>
-				<td>
-					<div class="fitem">
-						<label>招生计划数：</label> 
-						<input id="amisPlanNum" name="UndergraAdmiInfo.amisPlanNum" 
-							 class='easyui-validatebox'><span id="amisPlanNumSpan"></span>
-					</div>
-				</td>
-				<td>
-					<div class="fitem">
-						<label>实际录取数：</label> 
-						<input id="actulEnrollNum" name="UndergraAdmiInfo.actulEnrollNum" 
-							 class='easyui-validatebox'><span id="actulEnrollNumSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="fitem">
-						<label>实际报到数：</label> 
-						<input id="actulRegisterNum" name="UndergraAdmiInfo.actulRegisterNum" 
-							 class='easyui-validatebox'><span id="actulRegisterNumSpan"></span>
-					</div>
-				</td>
-				<td>
-					<div class="fitem">
-						<label>自主招生数：</label> 
-						<input id="autoEnrollNum" name="UndergraAdmiInfo.autoEnrollNum" 
-							 class='easyui-validatebox'><span id="autoEnrollNumSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="fitem">
-						<label>招收特长生数：</label> 
-						<input id="specialtyEnrollNum" name="UndergraAdmiInfo.specialtyEnrollNum" 
-							 class='easyui-validatebox'><span id="specialtyEnrollNumSpan"></span>
-					</div>
-				</td>
-				<td>
-					<div class="fitem">
-						<label>招收本省学生数：</label> 
-						<input id="inProviEnrollNum" name="UndergraAdmiInfo.inProviEnrollNum" 
-							 class='easyui-validatebox'><span id="inProviEnrollNumSpan"></span>
+						<label>批次：</label> 	
+						<select id="batch" type="text" name="T622_bean.batch" class='easyui-combobox'  panelHeight="auto" editable="false">
+							<option value="提前批招生">提前批招生</option>
+							<option value="第一批次招生">第一批次招生</option>
+							<option value="第二批次招生A">第二批次招生A</option>
+							<option value="第二批次招生B">第二批次招生B</option>
+							<option value="第三批次招生A">第三批次招生A</option>
+							<option value="第三批次招生B">第三批次招生B</option>
+						</select>
+						<span id="batchSpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>新办专业招生数：</label> 
-						<input id="newMajEnrollNum" name="UndergraAdmiInfo.newMajEnrollNum" 
-							 class='easyui-validatebox'><span id="newMajEnrollNumSpan"></span>
+						<label>文科录取数：</label> 
+						<input id="libEnrollNum" name="T622_bean.libEnrollNum" 
+							 class='easyui-validatebox'><span id="libEnrollNumSpan"></span>
 					</div>
 				</td>
+				<td>
+					<div class="fitem">
+						<label>理科录取数：</label> 
+						<input id="sciEnrollNum" name="T622_bean.sciEnrollNum" 
+							 class='easyui-validatebox'><span id="sciEnrollNumSpan"></span>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>文科批次最低控制线（分）：</label> 
+						<input id="libLowestScore" name="T622_bean.libLowestScore" 
+							 class='easyui-validatebox'><span id="libLowestScoreSpan"></span>
+					</div>
+				</td>
+				<td>
+					<div class="fitem">
+						<label>理科批次最低控制线（分）：</label> 
+						<input id="sciLowestScore" name="T622_bean.sciLowestScore" 
+							 class='easyui-validatebox'><span id="sciLowestScoreSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>文科当年录取平均分数（分）：</label> 
+						<input id="libAvgScore" name="T622_bean.libAvgScore" 
+							 class='easyui-validatebox'><span id="libAvgScoreSpan"></span>
+					</div>
+				</td>
+
+				<td>
+					<div class="fitem">
+						<label>理科当年录取平均分数（分）：</label> 
+						<input id="sciAvgScore" name="T622_bean.sciAvgScore" 
+							 class='easyui-validatebox'><span id="sciAvgScoreSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>填写时间：</label> 
 						<input class="easyui-datebox"  id="time" type="text" 
-						name="UndergraAdmiInfo.time"  editable="false" />
+						name="T622_bean.time"  editable="false" />
 						<span id="timeSpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
-					<textarea id="note" name="UndergraAdmiInfo.note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="note" name="T622_bean.note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="noteSpan"></span>
 				</td>
 			</tr>
 		</table>
 		</form>
 	</div>
-	
 
 	<div id="dlg-buttons">
 		<a href="javascript:void(0)" class="easyui-linkbutton"

@@ -36,45 +36,28 @@ function singleImport() {
 function validate() {
 	// 获取文本框的值
 	var  num = /^\d+$/;  //用于判断字符串是否全是数字
-	var unitId = $('#unitId').combobox('getText');
-	var majorId = $('#majorId').combobox('getText');
-	var amisPlanNum = $('#amisPlanNum').val();
-	var actulEnrollNum = $('#actulEnrollNum').val();
-	var actulRegisterNum = $('#actulRegisterNum').val();
-	var autoEnrollNum = $('#autoEnrollNum').val();
-	var specialtyEnrollNum = $('#specialtyEnrollNum').val();
-	var inProviEnrollNum = $('#inProviEnrollNum').val();
-	var newMajEnrollNum = $('#newMajEnrollNum').val();
+
+	var province = $('#province').combobox('getText');
+	var batch = $('#batch').combobox('getText');
+	var libEnrollNum = $('#libEnrollNum').val();
+	var sciEnrollNum = $('#sciEnrollNum').val();
+	var libLowestScore = $('#libLowestScore').val();
+	var sciLowestScore = $('#sciLowestScore').val();
+	var libAvgScore = $('#libAvgScore').val();
+	var sciAvgScore = $('#sciAvgScore').val();
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
 
 	// 根据数据库定义的字段的长度，对其进行判断
 
-	if (unitId == null || unitId.length == 0) {
-		$('#fromTeaUnit').focus();
-		$('#fromTeaUnit').select();
-		alert("所属教学单位不能为空");
-		return false;
-	}
 
-	if (majorId == null || majorId.length == 0) {
-		$('#majorName').focus();
-		$('#majorName').select();
-		alert("专业名称不能为空");
-		return false;
-	}
-
-	if (amisPlanNum == "" || actulEnrollNum == "" || actulRegisterNum == ""
-			|| autoEnrollNum == "" || specialtyEnrollNum == ""
-			|| inProviEnrollNum == "" || newMajEnrollNum == "") {
-		alert("请填写数字，若无请填写0");
+	if (libEnrollNum == "" || sciEnrollNum == "") {
+		alert("录取人数部分请填写数字，若无请填写0");
 		return false;
 	}
 	
-	if (!amisPlanNum.match(num) || !actulEnrollNum.match(num) || !actulRegisterNum.match(num)
-			|| !autoEnrollNum.match(num) || !specialtyEnrollNum.match(num)
-			|| !inProviEnrollNum.match(num)|| !newMajEnrollNum.match(num)) {
-		alert("请填写数字，若无请填写0");
+	if (!libEnrollNum.match(num) || !sciEnrollNum.match(num)) {
+		alert("录取人数部分请填写数字，若无请填写0");
 		return false;
 	}
 
@@ -152,15 +135,16 @@ function editItem() {
 	$('#dlg').dialog('open').dialog('setTitle', '近一届文、理科本科生录取标准及人数');
 
 	$('#seqNumber').val(row[0].seqNumber);
-	$('#unitId').combobox('select', row[0].unitId);
-	$('#majorId').combobox('select', row[0].majorId);
-	$('#amisPlanNum').val(row[0].amisPlanNum);
-	$('#actulEnrollNum').val(row[0].actulEnrollNum);
-	$('#actulRegisterNum').val(row[0].actulRegisterNum);
-	$('#autoEnrollNum').val(row[0].autoEnrollNum);
-	$('#specialtyEnrollNum').val(row[0].specialtyEnrollNum);
-	$('#inProviEnrollNum').val(row[0].inProviEnrollNum);
-	$('#newMajEnrollNum').val(row[0].newMajEnrollNum);
+	$('#province').combobox('select', row[0].province);
+	$('#batch').combobox('select', row[0].batch);
+	
+	$('#libEnrollNum').val(row[0].libEnrollNum);
+	$('#sciEnrollNum').val(row[0].sciEnrollNum);
+	$('#libLowestScore').val(row[0].libLowestScore);
+	$('#sciLowestScore').val(row[0].sciLowestScore);
+	$('#libAvgScore').val(row[0].libAvgScore);
+	$('#sciAvgScore').val(row[0].sciAvgScore);
+
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);
 	

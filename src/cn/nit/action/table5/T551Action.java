@@ -66,8 +66,7 @@ public class T551Action {
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t551Bean.setTime(new Date()) ;
-//		System.out.println(t151Bean.getResInsID());
-//		System.out.println(t151Bean.getResInsName());
+
 		//这还没确定,设置填报者的职工号与部门号
 //		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
 //		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
@@ -201,41 +200,41 @@ public class T551Action {
 			}
 		}
 	}
-//	
-//	/**数据导出*/
-//	public InputStream getInputStream(){
-//		
-////        System.out.println("年份："+this.Year);
-//		InputStream inputStream = null ;
-//
-//		try {
-//			
-//			List<T551Bean> list = t551Dao.totalList();
-//			
-//			String sheetName = this.getExcelName();
-//			
-//			List<String> columns = new ArrayList<String>();
-//			columns.add("序号");
-//			columns.add("科研机构名称");columns.add("单位号");columns.add("类别");columns.add("共建情况");
-//			columns.add("是否对本科生开放");columns.add("对本科生开放情况（500字以内）");columns.add("所属教学单位");columns.add("教学单位号");
-//			columns.add("开设年份");columns.add("专业科研用房面积（平方米）");columns.add("备注");
-//
-//			
-//			Map<String,Integer> maplist = new HashMap<String,Integer>();
-//			maplist.put("SeqNum", 0);
-//			maplist.put("ResInsName", 1);maplist.put("ResInsID", 2);maplist.put("Type", 3);maplist.put("BuildCondition", 4);
-//			maplist.put("BiOpen", 5);maplist.put("OpenCondition", 6);maplist.put("TeaUnit", 7);maplist.put("UnitID", 8);
-//			maplist.put("BeginYear", 9);maplist.put("HouseArea", 10);maplist.put("Note", 11);
-//			
-//			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-//			inputStream = new ByteArrayInputStream(t151Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//        System.out.println(inputStream);
-//		return inputStream ;
-//	}
+	
+	/**数据导出*/
+	public InputStream getInputStream(){
+		
+//        System.out.println("年份："+this.Year);
+		InputStream inputStream = null ;
+
+		try {
+			
+			List<T551Bean> list = t551Dao.totalList();
+			
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("教学单位");columns.add("单位号");columns.add("专业名称");columns.add("专业代码");
+			columns.add("入校年份");columns.add("本科生党员数（个）");columns.add("考试违纪、作弊及受处分（人次）");
+			columns.add("优良学风班的比例（%）");columns.add("备注");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("MajorName", 3);maplist.put("MajorID", 4);
+			maplist.put("AdmisSchYear", 5);maplist.put("PartyMemNum", 6);maplist.put("CheatNum", 7);maplist.put("GoodClassRatio", 8);
+			maplist.put("Note", 9);
+			
+			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t151Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+        System.out.println(inputStream);
+		return inputStream ;
+	}
 	
 
 	public String execute() throws Exception{

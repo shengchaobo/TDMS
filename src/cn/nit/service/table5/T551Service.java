@@ -101,6 +101,12 @@ public class T551Service {
 		
 		return sql.toString() ;
 	}
+	
+	public static void main(String arg[]){
+		T551Service ser=new T551Service();
+		String info=ser.auditingData(null, null, 1, 2);
+		System.out.println(info);
+	}
 
 
 }

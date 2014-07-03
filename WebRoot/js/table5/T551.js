@@ -148,12 +148,12 @@
    	
    	$('#dlg').dialog('open').dialog('setTitle','修改学风概况');
    	$('#seqNumber').val(row[0].seqNumber) ;
-  	$('#UnitID').combobox('select', row[0].UnitID) ;
-	$('#MajorID').combobox('select', row[0].MajorID) ;
-	$('#AdmisSchYear').val(row[0].AdmisSchYear) ;
-	$('#PartyMemNum').val(row[0].PartyMemNum) ;
-   	$('#CheatNum').val(row[0].CheatNum) ;
-   	$('#GoodClassRatio').val(row[0].GoodClassRatio) ;
+  	$('#UnitID').combobox('select', row[0].unitID) ;
+	$('#MajorID').combobox('select', row[0].majorID) ;
+	$('#AdmisSchYear').val(row[0].admisSchYear) ;
+	$('#PartyMemNum').val(row[0].partyMemNum) ;
+   	$('#CheatNum').val(row[0].cheatNum) ;
+   	$('#GoodClassRatio').val(row[0].goodClassRatio) ;
 	$('#Note').val(row[0].note) ;
 	}
 
@@ -197,7 +197,7 @@
    function deletes(ids) {
    	$.ajax( {
    		type : "POST",
-   		url : "pages/T42/deleteByIds?ids=" + ids,
+   		url : "pages/T551/deleteByIds?ids=" + ids,
    		async : "true",
    		dataType : "text",
    		success : function(result) {

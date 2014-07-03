@@ -1,0 +1,20 @@
+{"total":7,"rows":[
+	{"项目":"Name","内容":"Bill Smith","group":"1.占地面积(平方米)","editor":"text"},
+	{"项目":"Address","内容":"","group":"1.占地面积(平方米)","editor":"text"},
+	{"项目":"Age","内容":"40","group":"1.占地面积(平方米)","editor":"numberbox"},
+	{"项目":"Birthday","内容":"01/02/2012","group":"1.占地面积(平方米)","editor":"datebox"},
+	{"项目":"SSN","内容":"123-456-7890","group":"1.占地面积(平方米)","editor":"text"},
+	{"项目":"Email","内容":"bill@gmail.com","group":"1.占地面积(平方米)","editor":{
+		"type":"validatebox",
+		"options":{
+			"validType":"email"
+		}
+	}},
+	{"项目":"FrequentBuyer","内容":"false","group":"1.占地面积(平方米)","editor":{
+		"type":"checkbox",
+		"options":{
+			"on":true,
+			"off":false
+		}
+	}}
+]}

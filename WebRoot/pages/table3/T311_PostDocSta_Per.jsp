@@ -192,19 +192,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-		
-		
-		
-
-		
-		
-		
-		
-		
-		
-		
-		
-	
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
 		<div class="ftitle">高级检索</div>
 		<div id="dicTables"  class="fitem">

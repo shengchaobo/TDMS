@@ -5,13 +5,11 @@
 <struts>
 	<package name="postDocSta" namespace="/pages/PostDocSta" extends="struts-default">
 		<!-- 添加博士后流动站 -->
-	    <action name="insert" class="cn.nit.action.table3.T311_Action" method="insert" />
-	    
+	    <action name="insert" class="cn.nit.action.table3.T311_Action" method="insert" />	    
 	    <!-- 显示数据 -->
 	    <action name="auditingData" class="cn.nit.action.table3.T311_Action" method="auditingData" />
-	    	     <!-- 编辑数据 -->
-	    <action name="edit" class="cn.nit.action.table3.T311_Action" method="edit" />
-	    
+	   <!-- 编辑数据 -->
+	    <action name="edit" class="cn.nit.action.table3.T311_Action" method="edit" />	    
 	     <!-- 删除数据 -->
 	    <action name="deleteCoursesByIds" class="cn.nit.action.table3.T311_Action" method="deleteCoursesByIds" />
 	   

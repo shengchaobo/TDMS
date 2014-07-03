@@ -24,12 +24,12 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T313_Bean;
 import org.springframework.beans.BeanWrapperImpl;
 
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table3.T313_Service;

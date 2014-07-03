@@ -51,9 +51,7 @@ public class ExcelUtil {
 		Workbook workbook = Workbook.getWorkbook(file) ;
 		Sheet sheet = workbook.getSheet(index) ;
 		
-
 		int rows = getRightRows(sheet)+1;
-
 
 		if(rows <= 0){
 			return null ;

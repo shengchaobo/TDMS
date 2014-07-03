@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
 
+import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T322_Bean;
 
 import cn.nit.service.table3.T322_Service;

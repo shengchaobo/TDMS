@@ -39,7 +39,9 @@ public class T410_Dao {
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
 			list = DAOUtil.getList(rs,T410_Bean.class) ;
-			bean = list.get(0);
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;

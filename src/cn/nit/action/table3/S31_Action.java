@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
 
+import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.S31_Bean;
 import cn.nit.dao.table3.S31_DAO;
 import cn.nit.excel.imports.table3.S31Excel;

@@ -122,7 +122,7 @@ public class T251_Action {
 		JSONObject testjson = new JSONObject();
 		testjson.accumulate("total", total);
 		testjson.accumulate("rows", list);
-		
+				
         String json = testjson.toString();
         System.out.println(json) ;
 		return json;

@@ -94,6 +94,7 @@
     <include file="cn/nit/configuration/table1/T19.xml"/>
     
      <!-- table2 -->
+     <include file="cn/nit/configuration/table2/T21.xml"/>
     <include file="cn/nit/configuration/table2/T251.xml"/>
    	<include file="cn/nit/configuration/table2/T252.xml"/>
 	<include file="cn/nit/configuration/table2/T26.xml"/>

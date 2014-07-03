@@ -30,11 +30,13 @@ public class TreeManagerDAO extends Dao{
 	/**
 	 * 根据树节点的父节点获取子树节点
 	 * @param parentId
+	 * @param roleId
 	 * @return
 	 */
-	public List<Trees> getTrees(int parentId){
+	public List<Trees> getTrees(int parentId, String roleId){
 		
 		String sql = "select " + getFields() + " from " + tableName + " where parentId=" + parentId + " order by treeName" ;
+//		String sql = "select t.TreeId,t.TreeName,t.Url,t.ParentId from DiTrees t,DiRoleTree r where r.TreeID=t.TreeId and r.RoleID='" + roleId + "' and t.ParentId=" + parentId ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

@@ -51,7 +51,7 @@ public class T17Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request,String selectYear){
 		
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
@@ -118,7 +118,7 @@ public class T17Excel {
 				t17Bean.setBuildYear(BuildYear);
 				t17Bean.setPlace(Place);
 				t17Bean.setNote(note);
-				t17Bean.setTime(new Date()) ;
+				t17Bean.setTime(TimeUtil.changeDateY(selectYear)) ;
 				list.add(t17Bean);
 				
 			}

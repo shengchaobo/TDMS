@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 
-import cn.nit.bean.table7.T711_Bean;
 import cn.nit.bean.table7.T712_Bean;
 import cn.nit.dao.table7.T712_DAO;
 

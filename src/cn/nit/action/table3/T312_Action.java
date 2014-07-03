@@ -21,6 +21,7 @@ import cn.nit.dao.table3.T312_DAO;
 import cn.nit.excel.imports.table3.T312Excel;
 import cn.nit.service.table3.T312_Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 
 
@@ -50,7 +51,7 @@ public class T312_Action {
 	}
 	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -66,6 +67,8 @@ public class T312_Action {
 	
 	/**每页显示的条数  */
 	private String rows ;
+	
+	private String selectYear;
 	
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
@@ -109,8 +112,29 @@ public class T312_Action {
 			return ;
 		}
 		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = docAndGraStaSer.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
+		
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
+		}
+		String pages = docAndGraStaSer.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+	
 
 		PrintWriter out = null ;
 		
@@ -129,26 +153,7 @@ public class T312_Action {
 		}
 	}
 	
-	/**  生成查询条件   */
-	public void auditingConditions(){
-		
-		String sqlConditions = docAndGraStaSer.gernateAuditingConditions(seqNum, startTime, endTime) ;
-		getSession().setAttribute("auditingConditions", sqlConditions) ;
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+
 	
 	/**  编辑数据  */
 	public void edit(){
@@ -207,23 +212,26 @@ public class T312_Action {
 
 		try {
 			
-			List<T312_Bean> list = t312_DAO.totalList();
+			List<T312_Bean> list = t312_DAO.totalList(this.getSelectYear());
 			
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("名称");columns.add("代码");columns.add("所属单位");columns.add("单位号");
-			columns.add("类型");columns.add("备注");
+			columns.add("类型");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("StaName", 1);maplist.put("StaID", 2);maplist.put("UnitName", 3);maplist.put("UnitID", 4);
-			maplist.put("StaType", 5);maplist.put("Note", 6);
+			maplist.put("StaType", 5);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -232,6 +240,38 @@ public class T312_Action {
 		return inputStream ;
 	}
 	
+
+	public T312_DAO getT312_DAO() {
+		return t312_DAO;
+	}
+
+	public void setT312_DAO(T312_DAO t312DAO) {
+		t312_DAO = t312DAO;
+	}
+
+	public T312Excel getT312Excel() {
+		return t312Excel;
+	}
+
+	public void setT312Excel(T312Excel t312Excel) {
+		this.t312Excel = t312Excel;
+	}
+
+	public Integer getSeqNum() {
+		return seqNum;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public String getIds() {
+		return ids;
+	}
 
 	public String execute() throws Exception{
 
@@ -273,7 +313,7 @@ public class T312_Action {
 		this.docAndGraStaSer = docAndGraStaSer;
 	}
 
-	public void setSeqNum(int seqNum){
+	public void setSeqNum(Integer seqNum){
 		this.seqNum = seqNum ;
 	}
 	
@@ -304,6 +344,14 @@ public class T312_Action {
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
 	}
 	
 

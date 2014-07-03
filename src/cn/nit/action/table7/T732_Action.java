@@ -1,7 +1,13 @@
 package cn.nit.action.table7;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,13 +16,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table7.T732_Bean;
+import cn.nit.dao.table7.T732_DAO;
 import cn.nit.service.table7.T732_Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 public class T732_Action {
 	T732_Service t732_Sr=new T732_Service();
 	
 	T732_Bean teaLeadInClassInfo=new T732_Bean();
+	
+	private T732_DAO t732_Dao=new T732_DAO();
 	
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
@@ -36,6 +46,11 @@ public class T732_Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+	/**  下载的excelName  */
+	private String excelName ;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	public void insert(){
 		teaLeadInClassInfo.setTime(new Date());
@@ -173,6 +188,44 @@ public class T732_Action {
 			}
 		}
 	}
+	
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+		
+		try {
+			
+			List<T732_Bean> list = t732_Dao.totalList();
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("听课学期");columns.add("教学单位领导姓名");columns.add("领导教工号");columns.add("行政职务");columns.add("听课日期");columns.add("授课教师");
+			columns.add("授课教教工号");columns.add("听课课程");columns.add("课程编号");columns.add("开课单位");columns.add("单位号");columns.add("上课班级");columns.add("综合评价");
+			columns.add("备注");
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("AttendClassTerm", 1);maplist.put("LeaderName", 2);maplist.put("LeaderTeaID", 3);maplist.put("AdminTitle", 4);maplist.put("AttendClassTime", 5);maplist.put("LectureTea", 6);
+			maplist.put("LectureTeaID", 7);maplist.put("LectureCS", 8);maplist.put("CSID", 9);maplist.put("SetCSUnit", 10);maplist.put("UnitID", 11);maplist.put("LectureClass", 12);maplist.put("Evaluate", 13);
+			maplist.put("Note", 14);
+			
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+	
+	
+	public String execute() throws Exception{
+		request.setCharacterEncoding("UTF-8") ;
+		System.out.println("excelName=============" + excelName) ;
+		return "success" ;
+	}
+
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest();
 	}
@@ -271,6 +324,20 @@ public class T732_Action {
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+
+
+
+
+	public String getExcelName() {
+		return excelName;
+	}
+
+
+
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
 	}
 	
 	

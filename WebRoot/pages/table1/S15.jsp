@@ -255,13 +255,13 @@
 		</table>
 		<div id="toolbar" style="height: auto">
 			<div>
-				<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a> 
-				<a href="javascript:void(0)" class="easyui-linkbutton"
-					iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a>-->
+			
+			<form  id="exportForm"  method="post" style="float: right;">
+				<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
+	  		</form>
 				<a href="pages/S15/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
-				<!-- 
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">数据导入</a>
-			<a href='pages/T11/downloadModel?saveFile=<%=URLEncoder.encode("表1-1学校基本信息（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a> -->
+				
 			</div>
 		</div>
 		
@@ -303,6 +303,23 @@
 
 		loadAuotCityList();
 	});
+
+	//导出数据
+	function exports() {
+    	var temp = encodeURI('S-1-5科研机构.xls');
+	    $('#exportForm').form('submit', {
+	    url : "pages/S15/dataExport",
+	    onSubmit : function() {
+	    return $(this).form('validate');//对数据进行格式化
+	    },
+	    success : function(data) {
+	    $.messager.show({
+	    	title : '提示',
+	    	msg : data
+	    });
+	    }
+	    }); 
+    }
 
 	function loadAuotCityList() {
 		//alert(123);
@@ -773,45 +790,6 @@
 		loadDictionary();
 
 	}
-
-	function loadDictionary() {
-
-		$
-				.ajax(
-						{
-							type : "POST",
-							url : "table5/loadDic",
-							async : "false",
-							dataType : "text",
-							success : function(data) {
-								data = eval("(" + data + ")");
-								alert(data[0].id);
-								var str = "<table width=\"100%\" border=\"1\">__tag_509$54_";
-								$(data)
-										.each(
-												function(index) {
-													var val = data[index];
-													if (index % 4 == 0
-															&& index != 0) {
-														str += "__tag_513$18_<tr>";
-													}
-													str += "__tag_515$17_<input type=\"checkbox\" id=\""
-															+ val.id
-															+ "\"name="
-															+ "\"checkboxex\""
-															+ "value=\""
-															+ val.data
-															+ "\">"
-															+ val.data
-															+ "__tag_515$140_</td>";
-												});
-								//alert(str);
-								str += "__tag_518$16_<tr>__tag_518$25_<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加__tag_518$176_</td>__tag_518$185_</table>";
-								document.getElementById("dicTables").innerHTML = str;
-								$.parser.parse('#dicTables');
-							}
-						}).submit();
-	}
 </script>
 
 	<script type="text/javascript"> 
@@ -833,6 +811,16 @@
 			    //alert(time) ;
 			        return time1;  
 			    }  
-			</script>
+		</script>
+		<script type="text/javascript">
+			var currentYear = new Date().getFullYear();
+			var select = document.getElementById("cbYearContrast");
+			for (var i = 0; i <= 10; i++) {
+		    var theOption = document.createElement("option");
+		    	theOption.innerHTML = currentYear-i + "年";
+		    	theOption.value = currentYear-i;
+		    	select.appendChild(theOption);
+			}
+       </script>
 
 </html>

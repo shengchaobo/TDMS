@@ -217,8 +217,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="easyui-layout" data-options="fit:true">
 	    <div style="height:46px;background:url(images/main19.jpg);width:1364px;" data-options="region:'north',split:true">
 	    	<div class="left">
-	    	<img src="" border="0" />
-	    	<font face="楷体" style="font-size:20pt;color:#0033CC">教 学 基 本 状 态 数 据 管 理</font>
+	    	<table>
+	    	<tr>
+	    	<td><img src="images/index.jpg" border="0"></td>
+	    	<td><font face="宋体" style="font-size:21pt;color:#0033CC">教 学 基 本 状 态 数 据 管 理</font></td> 
+	    	</tr></table>
 	    	</div>
 	    	<div class="right">
 				<h5 style="align:'right';valign:'bottom'"><a href="./login.jsp">退出系统</a>&nbsp;&nbsp;&nbsp;</h5>

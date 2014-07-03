@@ -17,6 +17,7 @@ import cn.nit.bean.table3.T322_Bean;
 
 import cn.nit.service.table3.T322_Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 public class T322_Action {
 	private T322_Service t322_Service = new T322_Service() ;
@@ -25,7 +26,7 @@ public class T322_Action {
 	private T322_Bean t322_Bean = new T322_Bean() ;
 	
 	/**  待审核数据的查询的序列号  */
-	private int seqNum ;
+	private Integer seqNum ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -41,6 +42,8 @@ public class T322_Action {
 	
 	/**每页显示的条数  */
 	private String rows ;
+	
+	private String selectYear;
 	
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
@@ -95,8 +98,28 @@ public void auditingData(){
 			return ;
 		}
 		
-		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-		String pages = t322_Service.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
+		
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
+		}
+		String pages = t322_Service.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -228,7 +251,7 @@ public void auditingData(){
 
 
 
-
+	
 	public T322_Service getT322_Service() {
 		return t322_Service;
 	}
@@ -253,30 +276,90 @@ public void auditingData(){
 
 
 
-	public void setSeqNum(int seqNum){
-		this.seqNum = seqNum ;
+	public Integer getSeqNum() {
+		return seqNum;
 	}
-	
-	public void setStartTime(Date startTime){
-		this.startTime = startTime ;
+
+
+
+	public void setSeqNum(Integer seqNum) {
+		this.seqNum = seqNum;
 	}
-	
-	public void setEndTime(Date endTime){
-		this.endTime = endTime ;
+
+
+
+	public Date getStartTime() {
+		return startTime;
 	}
+
+
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+
+
+	public String getIds() {
+		return ids;
+	}
+
+
 
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
 
-	public void setPage(String page){
-		this.page = page ;
+
+
+	public String getPage() {
+		return page;
 	}
-	
-	public void setRows(String rows){
-		this.rows = rows ;
+
+
+
+	public void setPage(String page) {
+		this.page = page;
 	}
-	
+
+
+
+	public String getRows() {
+		return rows;
+	}
+
+
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
+
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+
+
 	public static void main(String args[]){
 		String match = "[\\d]+" ;
 		System.out.println("23gfhf4".matches(match)) ;

@@ -44,7 +44,7 @@ public class T19Excel {
 	 * @param request  {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request){
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request,String selectYear){
 		
 		System.out.println("你好！");
 		if((cellList == null) || (cellList.size() < 2)){
@@ -169,7 +169,7 @@ public class T19Excel {
 				t19Bean.setRewardLevel(RewardLevel);
 				t19Bean.setRewardFromUnit(RewardFromUnit);
 				t19Bean.setNote(note);
-				t19Bean.setTime(new Date());
+				t19Bean.setTime(TimeUtil.changeDateY(selectYear));
 				t19Bean.setUnitID(UnitID);
 				t19Bean.setUnitName(UnitName);
 				t19Bean.setRewardTime(rewardTime);

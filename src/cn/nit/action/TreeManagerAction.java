@@ -28,7 +28,8 @@ public class TreeManagerAction {
 	 */
 	public void loadTree(){
 
-		String jsonTree = treeSer.loadTrees(refId) ;
+		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
+		String jsonTree = treeSer.loadTrees(refId, userinfo.getRoleId()) ;	
 		HttpServletResponse response = ServletActionContext.getResponse() ;
 		PrintWriter out = null ;
 

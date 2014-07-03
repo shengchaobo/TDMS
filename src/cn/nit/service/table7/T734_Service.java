@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
+
 import cn.nit.bean.table7.T734_Bean;
 import cn.nit.dao.table7.T734_DAO;
 import cn.nit.pojo.table7.T734POJO;
@@ -24,6 +25,10 @@ public class T734_Service {
 	}
 	public boolean update(T734_Bean t734){
 		return t734_DAO.update(t734);				
+	}
+	public boolean batchInsert(List<T734_Bean> list){
+		return t734_DAO.batchInsert(list);
+		
 	}
 	
 	/**

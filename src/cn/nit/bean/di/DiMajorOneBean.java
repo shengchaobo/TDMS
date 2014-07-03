@@ -14,7 +14,6 @@ import javax.persistence.Table;
  * DiMajorOne entity. @author MyEclipse Persistence Tools
  */
 
-@Table(name = "DiMajorOne", schema = "dbo", catalog = "TDMS")
 public class DiMajorOneBean implements java.io.Serializable {
 
 	// Fields

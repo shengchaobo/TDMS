@@ -167,7 +167,10 @@
 		<div id="toolbar" style="height:auto">
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
-			<a href="pages/T16/dataExport?excelName=表1-6办学指导思想（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+			<form  id="exportForm"  method="post" style="float: right;">
+				<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
+	  		</form>
 			<!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 		 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a> -->
 		</div>
@@ -230,6 +233,22 @@
 		loadAuotCityList();
 	});
 
+	function exports() {
+    	var temp = encodeURI('表1-6办学指导思想（党院办）.xls');
+	    $('#exportForm').form('submit', {
+	    url : "pages/T16/dataExport?excelName="+temp ,
+	    onSubmit : function() {
+	    return $(this).form('validate');//对数据进行格式化
+	    },
+	    success : function(data) {
+	    $.messager.show({
+	    	title : '提示',
+	    	msg : data
+	    });
+	    }
+	    }); 
+    }
+
 	function cancel1(){
 		$('div#di1').css("display","inline");
 		$('div#input1').css("display","none");
@@ -290,17 +309,6 @@
 		 document.getElementById("Note2").value=data.note2 ;
 		}
 
-
-	 //结果返回
- //   success: function(result){
-    //json格式转化
-//	    var result = eval('('+result+')');
-	//    $.messager.alert('温馨提示', result.data) ;
-//	    if (result.state){ 
-	//	    $('#dlg').dialog('close'); 
-	//	    $('#unverfiedData').datagrid('reload');  
-	//    }
-  //  }
 	
 	 function save1()
      {
@@ -530,32 +538,6 @@
 		    
 	    }
 	    
-	    function loadDictionary(){
-	    	
-	    	$.ajax({ 
-	    		type: "POST", 
-	    		url: "table5/loadDic", 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			data = eval("(" + data + ")");
-	    			alert(data[0].id) ;
-	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
-	    			$(data).each(function(index) {
-	    				var val = data[index];
-	    				if(index%4 == 0 && index != 0){
-	    					str += "</tr><tr>" ;
-	    				}
-	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
-	    			}); 
-	    			//alert(str);
-	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
-	    			document.getElementById("dicTables").innerHTML = str;
-	    			$.parser.parse('#dicTables');
-	    		}
-	    	}).submit();
-	    }
-	    	
 	    function loadData(){
 	    	
 	    	//flag判断
@@ -653,6 +635,16 @@
 			        return time;  
 			    }  
 			</script>
+			<script type="text/javascript">
+			var currentYear = new Date().getFullYear();
+			var select = document.getElementById("cbYearContrast");
+			for (var i = 0; i <= 10; i++) {
+		    var theOption = document.createElement("option");
+		    	theOption.innerHTML = currentYear-i + "年";
+		    	theOption.value = currentYear-i;
+		    	select.appendChild(theOption);
+			}
+       </script>
 
 
 </html>

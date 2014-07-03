@@ -131,6 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="ftitle">教学管理人员发表教学论文情况批量导入</div>
 		<div class="fitem">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
+			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href="pages/T712/downloadModel?saveFile=<%=URLEncoder.encode("表7-1-2教学管理人员发表教学论文情况.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
@@ -300,6 +301,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 	<script type="text/javascript">
 	
+	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	
 	    var url;
 	   function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 
@@ -465,8 +475,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#PaperName').val(row[0].paperName) ;
 	    	$('#PaperType').val(row[0].paperType) ;
 	    	$('#FirstSubject').combobox('select', row[0].firstSubject) ;
-	    	$('#JonalID').val(row[0].jonalID) 
-			$('#JonalName').val(row[0].jonalName) 
+	    	$('#JonalID').val(row[0].jonalID);
+			$('#JonalName').val(row[0].jonalName); 
 		
 			$('#PaperWordNum').val(row[0].paperWordNum) ;
 			$('#ConfirmLevel').val(row[0].confirmLevel) ;

@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -20,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 
-<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
 	
@@ -54,20 +55,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  style ="overflow-y: hide;" url="pages/PostDocSta/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
-		<thead>
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  style ="height: auto;" url="pages/PostDocSta/auditingData"
+		toolbar="#toolbar" pagination="true" 
+		 singleSelect="false" >
+		<thead data-options="frozen:true">
+		<tr>
+				<th data-options="field:'ck',checkbox:true" >选取</th>
+				<th field="seqNumber" >序号</th>
+				</tr>
+		</thead>
+			<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="seqNumber" width=10>序号</th>
-				<th field="postDocStaName" width=10>博士后流动站名称</th>
-				<th field="setTime" width=10 formatter="formattime">设置时间</th>
-				<th field="researcherNum" width=10>研究员人数</th>
-				<th field="unitName" width=10>所属单位</th>
-				<th field="unitID" width=10>单位号</th>
-				<th field="time" width=10 formatter="formattime">日期</th>
-				<th field="note" width=10>备注</th>
+				<th field="postDocStaName" >博士后流动站名称</th>
+				<th field="setTime"  formatter="formattime">设置时间</th>
+				<th field="researcherNum" >研究员人数</th>
+				<th field="unitName" >所属单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -76,7 +80,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newPostDocSta()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editPostDocSta()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href="pages/PostDocSta/dataExport?excelName=表3-1-1博士后流动站（人事处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>
 
 		
@@ -85,28 +88,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid ()">查询</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 		</div>
 	</div>
 	<div id="toolbar2">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="newPostDocSta()">数据导出</a>
+	 <form  id="exportForm"  method="post" style="float: right;">
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+	</form> 
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
-		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
-		<thead>
+		toolbar="#toolbar2" pagination="true" 
+		 singleSelect="false">
+		<thead data-options="frozen:true">
+		<tr>
+				<th data-options="field:'ck',checkbox:true" >选取</th>
+				<th field="SeqNumber" >序号</th>
+		</tr>
+		</thead>
+			<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true" width="5%">选取</th>
-				<th field="SeqNumber" width="5%">序号</th>
-				<th field="PostDocStaName" width="10%">博士后流动站名称</th>
-				<th field="SetTime" width="10%">设置时间</th>
-				<th field="ResearcherNum" width="5%">研究员人数</th>
-				<th field="UnitName" width="5%">所属单位</th>
-				<th field="UnitID" width="5%">单位号</th>
-				<th field="Time" width="5%">日期</th>
-				<th field="Note" width="5%">备注</th>
+				<th field="PostDocStaName" >博士后流动站名称</th>
+				<th field="SetTime" >设置时间</th>
+				<th field="ResearcherNum">研究员人数</th>
+				<th field="UnitName">所属单位</th>
+				<th field="UnitID">单位号</th>
+				<th field="Note">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -115,12 +124,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		buttons="#dlg-buttons">
 		<div class="ftitle">博士后流动站批量导入</div>
 		<div class="fitem">
-			<form method="post">
+			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<input type="file" name="fileToUpload" id="fileToUpload" class="easyui-validatebox"
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href="table5/downloadCSBaseLibraries" class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/PostDocSta/downloadModel?saveFile=<%=URLEncoder.encode("表3-1-1博士后流动站（人事处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
@@ -161,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
 						<input type="hidden" name="postDocStaBean.UnitName" id="UnitName"/>
 						<input id="UnitID" type="text" name="postDocStaBean.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',multiple:true,listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
 							 }">
@@ -221,25 +231,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               
               
 	    function batchImport(){
-	    	 $('#fm').form('submit',{
-	    		 url: url,
+	    	 $('#batchForm').form('submit',{
+	    		 url: 'pages/PostDocSta/uploadFile',
+	    		 type: "post",
+		         dataType: "json",
 	    		 onSubmit: function(){
-	    		 	return $(this).form('validate');
+	    			 return check() ;
 	    		 },
 	    		 success: function(result){
 	    		 	var result = eval('('+result+')');
-	    		 	if (result.errorMsg){
+	    		 	if (!result.success){
 	    		 		$.messager.show({
 	    		 			title: 'Error',
 	    		 			msg: result.errorMsg
 	    			 });
 	    		 	} else {
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#dg').datagrid('reload'); // reload the user data
+			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
 	    		 	}
 	    		 }
 	    		 });
 	    }
+	    
+	    function check(){
+	    	var fileName = $('#uploadFile').val() ;
+	    	
+	    	if(fileName == null || fileName == ""){
+	    		 $.messager.alert("操作提示", "请先选择要导入的文件！");
+	    		return false ;
+	    	}
+	    	
+	    	var pos = fileName.lastIndexOf(".") ;
+	    	var suffixName = fileName.substring(pos, fileName.length) ;
+	    	
+	    	if(suffixName == ".xls"){
+	    		return true ;
+	    	}else{
+	    		 $.messager.alert("操作提示", "请选择正确的Excel文件（后缀为.xls）");
+	    		return false ;
+	    	}
+	    } 
 	    
 	    function newPostDocSta(){
 		    $('#dlg').dialog('open').dialog('setTitle','添加博士后流动站');
@@ -263,7 +294,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverifiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload'); 
+						
 					    }
 				    }
 			    });
@@ -318,6 +350,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			return true ;
 		}
+
+
+	    function exports() {
+	    	var temp = encodeURI('表3-1-1博士后流动站（人事处）.xls');
+		    $('#exportForm').form('submit', {
+		    url : "pages/PostDocSta/dataExport?excelName="+temp ,
+		    onSubmit : function() {
+		    return $(this).form('validate');//对数据进行格式化
+		    },
+		    success : function(data) {
+		    $.messager.show({
+		    	title : '提示',
+		    	msg : data
+		    });
+		    }
+		    }); 
+	    }
 
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');
@@ -438,6 +487,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			     return time;  
 			    }  
 			</script>
+			
+		<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
 
 </html>
 

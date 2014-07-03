@@ -1,8 +1,14 @@
 package cn.nit.action.table7;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +17,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table7.T734_Bean;
+import cn.nit.dao.table7.T734_DAO;
 import cn.nit.service.table7.T734_Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 public class T734_Action {
@@ -19,6 +27,8 @@ public class T734_Action {
 	T734_Service t734_Sr=new T734_Service();
 	
 	T734_Bean teachAccidentTea=new T734_Bean();
+	
+	T734_DAO t734_Dao=new T734_DAO();
 
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
@@ -37,6 +47,12 @@ public class T734_Action {
 	
 	/**每页显示的条数  */
 	private String rows ;
+	
+	/**  下载的excelName  */
+	private String excelName ;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	
 	public void insert(){
@@ -174,7 +190,42 @@ public class T734_Action {
 			}
 		}
 	}
+	public InputStream getInputStream(){
+
+		InputStream inputStream = null ;
+		
+		try {
+			
+			List<T734_Bean> list = t734_Dao.totalList();
+			String sheetName = this.getExcelName();
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("教师");columns.add("教工号");columns.add("所属部门");columns.add("单位号");columns.add("事故发生地点");columns.add("事由");
+			columns.add("处理时间");columns.add("教学事故等级");columns.add("处理文号");columns.add("备注");
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("TeaName", 1);maplist.put("TeaID", 2);maplist.put("FromDept", 3);maplist.put("UnitID", 4);maplist.put("AccidentSite", 5);maplist.put("Cause", 6);
+			maplist.put("HandingTime", 7);maplist.put("AccidentLevel", 8);maplist.put("HandingID", 9);maplist.put("Note", 10);
+			
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
 	
+	
+	public String execute() throws Exception{
+		request.setCharacterEncoding("UTF-8") ;
+		System.out.println("excelName=============" + excelName) ;
+		return "success" ;
+	}
+
+
 	
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest();
@@ -250,6 +301,16 @@ public class T734_Action {
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+
+
+	public String getExcelName() {
+		return excelName;
+	}
+
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
 	}
 
 	

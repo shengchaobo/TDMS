@@ -57,30 +57,7 @@ public class T321_Service {
 		return json.toString() ;
 		}
 	
-	public String gernateAuditingConditions(int seqNum, Date startTime, Date endTime){
-		
-		if(seqNum == 0 && startTime == null && endTime == null){
-			return null ;
-		}
-		
-		StringBuffer sql = new StringBuffer() ;
-		
-		if(seqNum != 0){
-			sql.append(" and SeqNumber=" + seqNum) ;
-		}
-		
-		if(startTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(startTime) + "')as datetime)") ;
-		}
-		
-		if(endTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(endTime) + "')as datetime)") ;
-		}
-		
-		return sql.toString() ;
-	}
+
 	
 	/**
 	 * 更新数据

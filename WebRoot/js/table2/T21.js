@@ -140,7 +140,7 @@
 				     $('#edit').propertygrid('loadData', rows);
 				});	
 				
-			   //取消
+			   //导出
 			   $("#export").click(function(){
 			        var tableName = encodeURI('表2-1占地与建筑面积.xls');
 			        var year = $("#cbYearContrast").combobox('getValue'); 

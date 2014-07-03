@@ -52,10 +52,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 		<thead>
 				<tr>					
-					<th data-options="field:'TeaUnit'">
+					<th data-options="field:'teaUnit'">
 						教学单位
 					</th>
-					<th data-options="field:'UnitID'">
+					<th data-options="field:'unitID'">
 						单位号
 					</th>
 					<th data-options="field:'majorName'">
@@ -64,16 +64,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'majorID'">
 						专业代码
 					</th>
-					<th data-options="field:'AdmisSchYea'">
+					<th data-options="field:'admisSchYear'">
 						入校年份
 					</th>
-					<th data-options="field:'PartyMemNum'">
+					<th data-options="field:'partyMemNum'">
 						本科生党员数（个）
 					</th>
-					<th data-options="field:'CheatNum'">
+					<th data-options="field:'cheatNum'">
 						考试违纪、作弊及受处分（人次）
 					</th>
-					<th data-options="field:'GoodClassRatio'">
+					<th data-options="field:'goodClassRatio'">
 						优良学风班的比例（%）
 					</th>
 					<th data-options="field:'note'">
@@ -105,10 +105,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 		<thead>
 				<tr>					
-					<th data-options="field:'TeaUnit'">
+					<th data-options="field:'teaUnit'">
 						教学单位
 					</th>
-					<th data-options="field:'UnitID'">
+					<th data-options="field:'unitID'">
 						单位号
 					</th>
 					<th data-options="field:'majorName'">
@@ -117,16 +117,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'majorID'">
 						专业代码
 					</th>
-					<th data-options="field:'AdmisSchYea'">
+					<th data-options="field:'admisSchYear'">
 						入校年份
 					</th>
-					<th data-options="field:'PartyMemNum'">
+					<th data-options="field:'partyMemNum'">
 						本科生党员数（个）
 					</th>
-					<th data-options="field:'CheatNum'">
+					<th data-options="field:'cheatNum'">
 						考试违纪、作弊及受处分（人次）
 					</th>
-					<th data-options="field:'GoodClassRatio'">
+					<th data-options="field:'goodClassRatio'">
 						优良学风班的比例（%）
 					</th>
 					<th data-options="field:'note'">
@@ -159,11 +159,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table>
 			<tr>
 				<td>
-					<input type="hidden" name="T412_bean.SeqNumber"  id="seqNumber"/>
+					<input type="hidden" name="t551Bean.SeqNumber"  id="seqNumber"/>
 					<div class="fitem">
 						<label>教学单位：</label> 
-						<input type="hidden" name="T511bean.TeaUnit" id="TeaUnit"/>
-						<input id="UnitID" type="text" name="T551bean.UnitID" class='easyui-combobox' 
+						<input type="hidden" name="t551Bean.TeaUnit" id="TeaUnit"/>
+						<input id="UnitID" type="text" name="t551Bean.UnitID" class='easyui-combobox' 
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:true,
 							onSelect:function(){
 							    document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
@@ -175,8 +175,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>专业名称：</label> 
-						<input type="hidden" name="T551bean.MajorName" id="MajorName"/>
-						<input id="MajorID" type="text" name="T551bean.MajorID" class='easyui-combobox' 
+						<input type="hidden" name="t551Bean.MajorName" id="MajorName"/>
+						<input id="MajorID" type="text" name="t551Bean.MajorID" class='easyui-combobox' 
 							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:true,
 							onSelect:function(){
 							 	 document.getElementById('MajorName').value=$(this).combobox('getText') ;
@@ -189,7 +189,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>入校年份:</label>
-						<input id="AdmisSchYear" name="T551bean.AdmisSchYear" type="text" class="easyui_validatebox">
+						<input id="AdmisSchYear" name="t551Bean.AdmisSchYear" type="text" class="easyui_validatebox">
 						<span id="AdmisSchYearSpan"></span>
 					</div>
 				</td>
@@ -197,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>本科生党员数（个）:</label>
-						<input id="PartyMemNum" name="T551bean.PartyMemNum" type="text" class="easyui_validatebox">
+						<input id="PartyMemNum" name="t551Bean.PartyMemNum" type="text" class="easyui_validatebox">
 						<span id="PartyMemNumSpan"></span>
 					</div>
 				</td>
@@ -207,7 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>违纪人数:</label>
-						<input id="CheatNum" name="T551bean.CheatNum" type="text" class="easyui_validatebox">
+						<input id="CheatNum" name="t551Bean.CheatNum" type="text" class="easyui_validatebox">
 						<span id="CheatNumSpan"></span>
 					</div>
 				</td>
@@ -215,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>优良学风班的比例（%）:</label>
-						<input id="GoodClassRatio" name="T551bean.GoodClassRatio" type="text" class="easyui_validatebox">
+						<input id="GoodClassRatio" name="t551Bean.GoodClassRatio" type="text" class="easyui_validatebox">
 						<span id="GoodClassRatio"></span>
 					</div>
 				</td>
@@ -223,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
-					<textarea id="Note" name="T551bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="t551Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>			

@@ -30,13 +30,13 @@ public class T551DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T551Bean t511Bean){
+	public boolean insert(T551Bean t551Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			flag = DAOUtil.insert(t511Bean, tableName, field, conn) ;
+			flag = DAOUtil.insert(t551Bean, tableName, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -76,7 +76,7 @@ public class T551DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*) ") ;
-		sql.append(" from "+tableName+"as t,DiDepartment as did,DiMajorTwo as dmt");
+		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
 		int total = 0 ;
 		
@@ -120,8 +120,8 @@ public class T551DAO {
 		StringBuffer sql = new StringBuffer() ;
 		List<T551POJO> list = null ;
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.AdmisSchYear,t.PartyMemNum,t.CheatNum" +
-				"t.GoodClassRatio,t.Time,t.Note");
-		sql.append(" from "+tableName+"as t,DiDepartment as did,DiMajorTwo as dmt");
+				",t.GoodClassRatio,t.Time,t.Note");
+		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
 
 //		if(fillUnitId != null && !fillUnitId.equals("")){
@@ -165,7 +165,7 @@ public class T551DAO {
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.AdmisSchYear,t.PartyMemNum,t.CheatNum" +
 		"t.GoodClassRatio,t.Time,t.Note");
-		sql.append(" from "+tableName+"as t,DiDepartment as did,DiMajorTwo as dmt");
+		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
 
 		
@@ -230,6 +230,12 @@ public class T551DAO {
 	}
 	public String getTableName(){
 		return this.tableName ;
+	}
+	
+	public static void main(String arg[]){
+		T551DAO dao=new T551DAO();
+		List<T551POJO> list= dao.auditingData(null, null, 1, 1);
+		System.out.println(list.size());
 	}
 	
 

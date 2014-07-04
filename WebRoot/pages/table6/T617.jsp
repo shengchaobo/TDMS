@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>近一届本科生分专业招生录取情况</title>
+<title>专科在校生信息补充表（教务处）</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -56,38 +56,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript" src="js/table6/T621.js"></script>
+	<script type="text/javascript" src="js/table6/T617.js"></script>
 </head>
 
+
 <body>
-	<table id="commomData" title="近一届本科生分专业招生录取情况" class="easyui-datagrid" url="pages/T621/loadData" style="height: auto;">
-		<thead>
+	<table id="commomData" title="专科在校生信息补充表" class="easyui-datagrid" url="pages/T617/loadData" style="height: auto;">
+		<thead   data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">序号</th>
-				<th field="fromTeaUnit">所属教学单位</th>
+				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
+			</tr>
+		</thead>
+		<thead>
+			<tr>
 				<th field="majorName">专业名称</th>
 				<th field="majorId">专业代码</th>
-				<th field="amisPlanNum">招生计划数</th>
-				<th field="actulEnrollNum">实际录取数</th>
-				<th field="actulRegisterNum">实际报到数</th>
-				<th field="autoEnrollNum">自主招生数</th>
-				<th field="specialtyEnrollNum">招收特长生数</th>
-				<th field="inProviEnrollNum">招收本省学生数</th>
-				<th field="newMajEnrollNum">新办专业招生数</th>
+				<th field="majorFieldName">专业方向名称</th>
+				
+				<th field="juniorStuSumNum">在校生总人数</th>
+				<th field="juniorOneStuNum">一年级生人数</th>
+				<th field="juniorTwoStuNum">二年级生人数</th>
+				<th field="juniorThreeStuNum">三年级生人数</th>
+
 				<th field="time" formatter="formattime">时间</th>
 				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
-	
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newItem()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editItem()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			
 		</div>
 		 <div style="float: right;">
 		 	专业名称: <input id="searchItem" class="easyui-box" style="width:80px"/>
@@ -97,73 +100,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<!--审核通过数据-->
 	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
-		<thead data-options="frozen:true">
-			<tr>			
-				<th data-options="field:'ck',checkbox:true">选取</th>
-		     </tr>
-		</thead>
-			<thead>
+		<thead   data-options="frozen:true">
 			<tr>
+				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">序号</th>
-				<th field="fromTeaUnit">所属教学单位</th>
+				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
+			</tr>
+		</thead>
+		<thead>
+			<tr>
 				<th field="majorName">专业名称</th>
 				<th field="majorId">专业代码</th>
-				<th field="amisPlanNum">招生计划数</th>
-				<th field="actulEnrollNum">实际录取数</th>
-				<th field="actulRegisterNum">实际报到数</th>
-				<th field="autoEnrollNum">自主招生数</th>
-				<th field="specialtyEnrollNum">招收特长生数</th>
-				<th field="inProviEnrollNum">招收本省学生数</th>
-				<th field="newMajEnrollNum">新办专业招生数</th>
+				<th field="majorFieldName">专业方向名称</th>
+				
+				<th field="juniorStuSumNum">在校生总人数</th>
+				<th field="juniorOneStuNum">一年级生人数</th>
+				<th field="juniorTwoStuNum">二年级生人数</th>
+				<th field="juniorThreeStuNum">三年级生人数</th>
+
 				<th field="time" formatter="formattime">时间</th>
 				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T621/dataExport?excelName=<%=URLEncoder.encode("表6-2-1近一届本科生分专业招生录取情况（招就处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href='pages/T617/dataExport?excelName=<%=URLEncoder.encode("表6-1-7专科在校生信息补充表（教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
 	
-	<!--添加弹出框-->
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">分专业招生情况批量导入</div>
+		<div class="ftitle" id="title1">专科在校生信息批量导入</div>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+				<label>批量上传：</label> 
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href='pages/T621/downloadModel?saveFile=<%=URLEncoder.encode("表6-2-1近一届本科生分专业招生录取情况（招就处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T617/downloadModel?saveFile=<%=URLEncoder.encode("表6-1-7专科在校生信息补充表（教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
 	
 		<div></div>
-		<div class="ftitle">分专业招生情况逐条导入</div>
+		<div class="ftitle">专科在校生信息逐条导入</div>
 		<form id="addItemForm" method="post">
 		<table>
 			<tr>
-			<td>
+				<td>
 					<div class="fitem">
-						<label>所属教学单位：</label> 
-						<input id="seqNumber" type="hidden" name="UndergraAdmiInfo.seqNumber">		
-						<input id="fromTeaUnit" type="hidden" name="UndergraAdmiInfo.fromTeaUnit">										
-						<input id="unitId" type="text" name="UndergraAdmiInfo.unitId" class='easyui-combobox'
+						<label>教学单位：</label> 
+						<input id="seqNumber" type="hidden" name="T617_bean.seqNumber">	
+						<input id="TeaUnit" type="hidden" name="T617_bean.teaUnit">										
+						<input id="unitId" type="text" name="T617_bean.unitId" class='easyui-combobox'
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							onSelect:function(){
-							 	 document.getElementById('fromTeaUnit').value=$(this).combobox('getText') ;
+							 	 document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
 						<label>专业名称：</label> 
-						<input id="majorName" type="hidden" name="UndergraAdmiInfo.majorName">
-						<input id="majorId" type="text" name="UndergraAdmiInfo.majorId" class='easyui-combobox'
+						<input id="majorName" type="hidden" name="T617_bean.majorName">
+						<input id="majorId" type="text" name="T617_bean.majorId" class='easyui-combobox'
 							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('majorName').value=$(this).combobox('getText') ;
@@ -171,75 +173,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 			</tr>
-		
+
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>招生计划数：</label> 
-						<input id="amisPlanNum" name="UndergraAdmiInfo.amisPlanNum" 
-							 class='easyui-validatebox'><span id="amisPlanNumSpan"></span>
+						<label>专业方向名称：</label> 
+						<input id="majorFieldName" name="T617_bean.majorFieldName" 
+							 class='easyui-validatebox'><span id="majorFieldNameSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
-						<label>实际录取数：</label> 
-						<input id="actulEnrollNum" name="UndergraAdmiInfo.actulEnrollNum" 
-							 class='easyui-validatebox'><span id="actulEnrollNumSpan"></span>
+						<label>在校生总人数：</label> 
+						<input id="juniorStuSumNum" name="T617_bean.juniorStuSumNum" 
+							 class='easyui-validatebox'><span id="juniorStuSumNumSpan"></span>
 					</div>
 				</td>
 			</tr>
+
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>实际报到数：</label> 
-						<input id="actulRegisterNum" name="UndergraAdmiInfo.actulRegisterNum" 
-							 class='easyui-validatebox'><span id="actulRegisterNumSpan"></span>
+						<label>一年级生人数：</label> 
+						<input id="juniorOneStuNum" name="T617_bean.juniorOneStuNum" 
+							 class='easyui-validatebox'><span id="juniorOneStuNumSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
-						<label>自主招生数：</label> 
-						<input id="autoEnrollNum" name="UndergraAdmiInfo.autoEnrollNum" 
-							 class='easyui-validatebox'><span id="autoEnrollNumSpan"></span>
+						<label>二年级生人数：</label> 
+						<input id="juniorTwoStuNum" name="T617_bean.juniorTwoStuNum" 
+							 class='easyui-validatebox'><span id="juniorTwoStuNumSpan"></span>
 					</div>
 				</td>
 			</tr>
+
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>招收特长生数：</label> 
-						<input id="specialtyEnrollNum" name="UndergraAdmiInfo.specialtyEnrollNum" 
-							 class='easyui-validatebox'><span id="specialtyEnrollNumSpan"></span>
+						<label>三年级生人数：</label> 
+						<input id="juniorThreeStuNum" name="T617_bean.juniorThreeStuNum" 
+							 class='easyui-validatebox'><span id="juniorThreeStuNumSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
-						<label>招收本省学生数：</label> 
-						<input id="inProviEnrollNum" name="UndergraAdmiInfo.inProviEnrollNum" 
-							 class='easyui-validatebox'><span id="inProviEnrollNumSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="fitem">
-						<label>新办专业招生数：</label> 
-						<input id="newMajEnrollNum" name="UndergraAdmiInfo.newMajEnrollNum" 
-							 class='easyui-validatebox'><span id="newMajEnrollNumSpan"></span>
-					</div>
-				</td>
-				<td>
-					<div class="fitem">
-						<label>填写时间：</label> 
+						<label>时间：</label> 
 						<input class="easyui-datebox"  id="time" type="text" 
-						name="UndergraAdmiInfo.time"  editable="false" />
+						name="T617_bean.time"  editable="false" />
 						<span id="timeSpan"></span>
 					</div>
 				</td>
 			</tr>
+
 			<tr>
-				<td style="valign:left" colspan="3"><label>备注：</label>
-					<textarea id="note" name="UndergraAdmiInfo.note" style="resize:none" cols="50" rows="10"></textarea>
+				<td style="valign:left"><label>备注：</label>
+					<textarea id="note" name="T617_bean.note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="noteSpan"></span>
 				</td>
 			</tr>
@@ -255,16 +244,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
 </body>
-
-	<script type="text/javascript">
-    	var currentYear = new Date().getFullYear();
-    	var select = document.getElementById("cbYearContrast");
-    	for (var i = 0; i <= 10; i++) {
-        var theOption = document.createElement("option");
-        	theOption.innerHTML = currentYear-i + "年";
-        	theOption.value = currentYear-i;
-        	select.appendChild(theOption);
-    	}
-	</script>
 
 </html>

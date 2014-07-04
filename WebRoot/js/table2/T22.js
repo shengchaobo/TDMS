@@ -1,29 +1,95 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "面积‌‌（平方米）", "group": "1.行政办公用房", "value": "",  "field": "admOfficeArea","editor": "numberbox" },
+				        { "name": "面积‌‌（平方米）", "group": "1.行政办公用房", "value": "",  "field": "admOfficeArea","editor":  {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				        { "name": "数量（个）", "group": "1.行政办公用房", "value": "/", "field": "admOfficeNum", "editor": false },
-				        { "name": "面积‌‌（平方米）", "value": "", "group": "2.图书馆", "field": "libArea", "editor": "numberbox" },
+				        { "name": "面积‌‌（平方米）", "value": "", "group": "2.图书馆", "field": "libArea", "editor":  {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				        { "name": "数量（个）", "value": "", "group": "2.图书馆", "field": "libNum", "editor": "numberbox" },
 				        { "name": "面积‌‌（平方米）", "group": "3.图书馆阅览室座位数", "value": "/", "field": "libRoomArea", "editor": false },
 				        { "name": "数量（个）", "group": "3.图书馆阅览室座位数", "editor": "numberbox", "value": "", "field": "libRoomSitNum" },
-				        { "name": "面积‌‌（平方米）", "group": "4.博物馆", "value": "", "field": "museumArea", "editor": "numberbox" },
+				        { "name": "面积‌‌（平方米）", "group": "4.博物馆", "value": "", "field": "museumArea", "editor":  {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				       	{ "name": "数量（个）", "group": "4.博物馆", "editor": "numberbox", "value": "", "field": "museumNum" },
-				       	{ "name": "面积‌‌（平方米）", "group": "5.校史馆", "editor": "numberbox", "value": "", "field": "schHisHallArea" },
+				       	{ "name": "面积‌‌（平方米）", "group": "5.校史馆",  "value": "", "field": "schHisHallArea","editor": {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				       	{ "name": "数量（个）", "group": "5.校史馆", "editor": "numberbox", "value": "", "field": "schHisHallNum" },
-				       	{ "name": "面积‌‌（平方米）", "group": "6.体育馆", "editor": "numberbox", "value": "", "field": "gymArea" },
+				       	{ "name": "面积‌‌（平方米）", "group": "6.体育馆",  "value": "", "field": "gymArea","editor": {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				       	{ "name": "数量（个）", "group": "6.体育馆", "editor": "numberbox", "value": "", "field": "gymNum" },
-				        { "name": "面积‌‌（平方米）", "group": "7.运动场", "value": "",  "field": "sportArea","editor": "numberbox" },
+				        { "name": "面积‌‌（平方米）", "group": "7.运动场", "value": "",  "field": "sportArea","editor": {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				        { "name": "数量（个）", "group": "7.运动场", "value": "", "field": "sportNum", "editor": "numberbox" },
-				        { "name": "面积‌‌（平方米）", "value": "", "group": "8.学生活动中心", "field": "stuCenterArea", "editor": "numberbox" },
+				        { "name": "面积‌‌（平方米）", "value": "", "group": "8.学生活动中心", "field": "stuCenterArea","editor": {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				        { "name": "数量（个）", "value": "", "group": "8.学生活动中心", "field": "stuCenterNum", "editor": "numberbox" },
-				        { "name": "面积‌‌（平方米）", "group": "9.会堂", "value": "", "field": "hallArea", "editor": "numberbox" },
+				        { "name": "面积‌‌（平方米）", "group": "9.会堂", "value": "", "field": "hallArea","editor": {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				        { "name": "其中：独立使用", "group": "9.会堂", "editor": "numberbox", "value": "", "field": "hallNum" },
-				        { "name": "面积‌‌（平方米）", "group": "10.学生食堂", "value": "", "field": "stuCanteenArea", "editor": "numberbox" },
+				        { "name": "面积‌‌（平方米）", "group": "10.学生食堂", "value": "", "field": "stuCanteenArea","editor": {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				       	{ "name": "数量（个）", "group": "10.学生食堂", "editor": "numberbox", "value": "", "field": "stuCanteenNum" },
-				       	{ "name": "面积‌‌（平方米）", "group": "11.学生宿舍", "editor": "numberbox", "value": "", "field": "stuDormiArea" },
+				       	{ "name": "面积‌‌（平方米）", "group": "11.学生宿舍", "value": "", "field": "stuDormiArea","editor": {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				       	{ "name": "数量（个）", "group": "11.学生宿舍", "editor": "numberbox", "value": "", "field": "stuDormiNum" },
-				       	{ "name": "面积‌‌（平方米）", "group": "12.其他", "editor": "numberbox", "value": "", "field": "otherArea" },
+				       	{ "name": "面积‌‌（平方米）", "group": "12.其他", "value": "", "field": "otherArea","editor": {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
 				       	{ "name": "数量（个）", "group": "12.其他", "editor": "numberbox", "value": "", "field": "otherNum" }
 				    ];
 				    							
@@ -170,7 +236,7 @@
 				
 			   //取消
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表2-2用房面积.xls');
+			        var tableName = encodeURI('表2-2用房面积（后勤处）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),

@@ -1,90 +1,18 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "总占地面积", "group": "1.占地面积(平方米)", "value": "",  "field": "sumArea","editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "学校产权", "group": "1.占地面积(平方米)", "value": "", "field": "schProArea", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "其中：绿化用地", "value": "", "group": "1.占地面积(平方米)", "field": "greenArea", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "非学校产权", "value": "", "group": "1.占地面积(平方米)", "field": "notSchProArea", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "其中：绿化用地", "group": "1.占地面积(平方米)", "value": "", "field": "greenAreaNotInSch", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "其中：独立使用", "group": "1.占地面积(平方米)", "value": "", "field": "onlyUseArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "共同使用", "group": "1.占地面积(平方米)", "value": "", "field": "coUseArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "总建筑面积", "group": "2.总建筑面积(平方米)", "value": "", "field": "sumCoverArea" ,"editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "学校产权", "group": "2.总建筑面积(平方米)", "value": "", "field": "schProCovArea","editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "非学校产权", "group": "2.总建筑面积(平方米)",  "value": "", "field": "notSchProCovArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "其中：独立使用", "group": "2.总建筑面积(平方米)",  "value": "", "field": "onlyUseCovArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "共同使用", "group": "2.总建筑面积(平方米)",  "value": "", "field": "coUseCovArea","editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } }
+				        { "name": "总占地面积", "group": "1.占地面积(平方米)", "value": "",  "field": "sumArea","editor": "numberbox" },
+				        { "name": "学校产权", "group": "1.占地面积(平方米)", "value": "", "field": "schProArea", "editor": "numberbox" },
+				        { "name": "其中：绿化用地", "value": "", "group": "1.占地面积(平方米)", "field": "greenArea", "editor": "numberbox" },
+				        { "name": "非学校产权", "value": "", "group": "1.占地面积(平方米)", "field": "notSchProArea", "editor": "numberbox" },
+				        { "name": "其中：绿化用地", "group": "1.占地面积(平方米)", "value": "", "field": "greenAreaNotInSch", "editor": "numberbox" },
+				        { "name": "其中：独立使用", "group": "1.占地面积(平方米)", "editor": "numberbox", "value": "", "field": "onlyUseArea" },
+				        { "name": "共同使用", "group": "1.占地面积(平方米)", "value": "", "field": "coUseArea", "editor": "numberbox" },
+				       	{ "name": "总建筑面积", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "sumCoverArea" },
+				       	{ "name": "学校产权", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "schProCovArea" },
+				       	{ "name": "非学校产权", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "notSchProCovArea" },
+				       	{ "name": "其中：独立使用", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "onlyUseCovArea" },
+				       	{ "name": "共同使用", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "coUseCovArea" }
 				    ];
 				    							
 				$('#edit').propertygrid({
@@ -103,7 +31,7 @@
 				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T21/loadInfo?selectYear='+selectYear,
+							url: 'pages/T241/loadInfo?selectYear='+selectYear,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
@@ -138,7 +66,7 @@
        				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T21/loadInfo?selectYear='+year,
+							url: 'pages/T241/loadInfo?selectYear='+year,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
@@ -184,7 +112,7 @@
      				$.ajax( {
 					    		type : "POST",
 					    		contentType: "application/json;utf-8",
-								url: 'pages/T21/save?data='+data+'&selectYear='+year+'&fields='+f,
+								url: 'pages/T241/save?data='+data+'&selectYear='+year+'&fields='+f,
 					    		async : false,
 					    		dataType : "json",
 					    		success : function(json) {
@@ -214,11 +142,11 @@
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表2-1占地与建筑面积（后勤处）');
+			        var tableName = encodeURI('表2-4-1图书数量.xls');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),
-					    url : "pages/T21/dataExport?excelName="+tableName+'&selectYear='+year,
+					    url : "pages/T241/dataExport?excelName="+tableName+'&selectYear='+year,
 					    onSubmit : function() {
 					    	return $(this).form('validate');//对数据进行格式化
 					    },

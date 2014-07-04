@@ -1,94 +1,23 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "总占地面积", "group": "1.占地面积(平方米)", "value": "",  "field": "sumArea","editor":  {
+				        { "name": "1.面积（平方米）", "group": "", "value": "",  "field": "classrmArea","editor":  {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				        { "name": "学校产权", "group": "1.占地面积(平方米)", "value": "", "field": "schProArea", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "其中：绿化用地", "value": "", "group": "1.占地面积(平方米)", "field": "greenArea", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "非学校产权", "value": "", "group": "1.占地面积(平方米)", "field": "notSchProArea", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "其中：绿化用地", "group": "1.占地面积(平方米)", "value": "", "field": "greenAreaNotInSch", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "其中：独立使用", "group": "1.占地面积(平方米)", "value": "", "field": "onlyUseArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "共同使用", "group": "1.占地面积(平方米)", "value": "", "field": "coUseArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "总建筑面积", "group": "2.总建筑面积(平方米)", "value": "", "field": "sumCoverArea" ,"editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "学校产权", "group": "2.总建筑面积(平方米)", "value": "", "field": "schProCovArea","editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "非学校产权", "group": "2.总建筑面积(平方米)",  "value": "", "field": "notSchProCovArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "其中：独立使用", "group": "2.总建筑面积(平方米)",  "value": "", "field": "onlyUseCovArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "共同使用", "group": "2.总建筑面积(平方米)",  "value": "", "field": "coUseCovArea","editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } }
+				        { "name": "2.数量（间）", "group": "", "value": "", "field": "classNum", "editor": "numberbox" },
+				        { "name": "其中：外语教学计算机机房（含语音室）", "value": "", "group": "", "field": "computerNum",  "editor": "numberbox"},
+				        { "name": "其中：多媒体教室", "value": "", "group": "", "field": "mediaNum", "editor": "numberbox" },
+				        { "name": "3.座位数（个）", "group": "", "value": "", "field": "classSeatNum", "editor": "numberbox" },
+				        { "name": "其中：外语教学计算机机房（含语音室）", "group": "", "editor": "numberbox", "value": "", "field": "computerSitNum" },
+				        { "name": "其中：多媒体教室", "group": "", "value": "", "field": "mediaSitNum", "editor": "numberbox" }
 				    ];
 				    							
 				$('#edit').propertygrid({
-						title : '占地与建筑面积',
+						title : '全校教室信息',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 				        width: '60%',
 				        height: 'auto',
@@ -103,12 +32,12 @@
 				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T21/loadInfo?selectYear='+selectYear,
+							url: 'pages/T231/loadInfo?selectYear='+selectYear,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<7){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i= i+1;
 			                    }														
@@ -116,15 +45,14 @@
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
-				                    while(i<12){
+				                    while(i<7){
 				                    	rows[i].value = "";	
 				                    	i= i+1;
 				                    }			                      
 			                }
 		    		})
 
-					$('#edit').propertygrid('loadData', rows);
-			   	
+				$('#edit').propertygrid('loadData', rows);
 			   	
    				//刷新页面
 				 $("#cbYearContrast").combobox({  
@@ -138,12 +66,12 @@
        				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T21/loadInfo?selectYear='+year,
+							url: 'pages/T231/loadInfo?selectYear='+year,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<7){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i=i+1;
 			                    }								
@@ -151,7 +79,7 @@
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<7){
 			                    	rows[i].value = "";	
 			                    	i=i+1;
 			                    }
@@ -184,7 +112,7 @@
      				$.ajax( {
 					    		type : "POST",
 					    		contentType: "application/json;utf-8",
-								url: 'pages/T21/save?data='+data+'&selectYear='+year+'&fields='+f,
+								url: 'pages/T231/save?data='+data+'&selectYear='+year+'&fields='+f,
 					    		async : false,
 					    		dataType : "json",
 					    		success : function(json) {
@@ -214,11 +142,11 @@
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表2-1占地与建筑面积（后勤处）');
+			        var tableName = encodeURI('表2-3教室（教务处）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),
-					    url : "pages/T21/dataExport?excelName="+tableName+'&selectYear='+year,
+					    url : "pages/T231/dataExport?excelName="+tableName+'&selectYear='+year,
 					    onSubmit : function() {
 					    	return $(this).form('validate');//对数据进行格式化
 					    },

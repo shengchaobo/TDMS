@@ -13,8 +13,12 @@ public class T534POJO {
 	private String TeaID;
 	private boolean IsOutEmploy;
 	private String Education;
+	private String EducationID;
+	
 	private String Degree;
+	private String DegreeID;
 	private String Title;
+	private String TitleID;
 	private boolean IsExcellent;
 	private int TrainIssueNum;
 	private int SocialNum;
@@ -77,6 +81,12 @@ public class T534POJO {
 	}
 	public void setEducation(String education) {
 		Education = education;
+	}
+	public String getDegreeID() {
+		return DegreeID;
+	}
+	public void setDegreeID(String degreeID) {
+		DegreeID = degreeID;
 	}
 	public String getDegree() {
 		return Degree;
@@ -143,6 +153,18 @@ public class T534POJO {
 	}
 	public void setNote(String note) {
 		Note = note;
+	}
+	public String getEducationID() {
+		return EducationID;
+	}
+	public void setEducationID(String educationID) {
+		EducationID = educationID;
+	}
+	public String getTitleID() {
+		return TitleID;
+	}
+	public void setTitleID(String titleID) {
+		TitleID = titleID;
 	}
 
 	

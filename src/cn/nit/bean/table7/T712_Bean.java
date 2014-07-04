@@ -3,7 +3,7 @@ package cn.nit.bean.table7;
 import java.util.Date;
 
 public class T712_Bean {
-    private int SeqNumber ;
+    private Integer SeqNumber ;
 	
 	private String TeaUnit ;
 	
@@ -43,11 +43,13 @@ public class T712_Bean {
 	/**  审核单位ID号  */
 	private String audit ;
 
-	public int getSeqNumber() {
+	
+
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
 
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 

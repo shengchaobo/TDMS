@@ -91,7 +91,7 @@ public class T733_Excel {
 				
 				T733_Bean.setUnitName(unit);
 				T733_Bean.setUnitID(unitId);
-				T733_Bean.setMeetingDate(TimeUtil.changeDateYM(meetDate));
+				T733_Bean.setMeetingDate(TimeUtil.changeDateYMD(meetDate));
 				T733_Bean.setMeetingMemberInfo(meetmeinfo);
 				T733_Bean.setMeetingNum(Integer.parseInt(meetNum));
 				T733_Bean.setMeetingTheme(meetTheme);

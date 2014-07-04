@@ -26,27 +26,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
 	
 	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
+	  label {
+	    width: 10em;
+	    float: left;
+	}
+	.empty{
+		width: 4em;
+	}
 	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
@@ -75,7 +61,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="joinTeaNum" width="20%">合作教师人数</th>
 				<th field="otherJoinTeaInfo" width="20%">其他合作教师</th>	
 				<th field="note" width="20%">备注</th>
-				<th field="time" width="10" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -117,16 +102,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="appvlID" width="10%">批文号</th>
 				<th field="joinTeaNum" width="20%">合作教师人数</th>
 				<th field="otherJoinTeaInfo" width="20%">其他合作教师</th>	
-				<th field="note" width="20%">备注</th>
-				<th field="time" width="10" formatter="formattime">时间</th>
+				<th field="note" width="20%">备注</th>		
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">教学管理人员获得教学成果奖情况批量导入</div>
-		<div class="fitem">
+		<div class="ftitle"  id="title1">教学管理人员获得教学成果奖情况批量导入</div>
+		<div class="fitem"  id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
@@ -135,8 +119,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			<a href="123"></a>
 		</div>
-		<div></div>
-		<div class="ftitle">本科课程库逐条导入</div>
+		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+			
+		<h3 class="ftitle">教学管理人员获得教学成果奖情况逐条导入</h3>
 		
 		<form id="t711Form" method="post">
 		<table>
@@ -330,6 +315,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  		 });
 	   }
 	    function newCourse(){   	
+	    	$('#title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
+	    	
 	     	url = "pages/T711/insert";
 		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 		    $('#t711Form').form('reset');
@@ -444,6 +433,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/T711/edit' ;
+	    	
+	    	  	
+	    	$('#title1').hide();
+	    	$('#item1').hide();
+	    	$('hr').hide();
+	    	
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;

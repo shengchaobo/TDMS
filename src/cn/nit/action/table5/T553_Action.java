@@ -1,4 +1,4 @@
-package cn.nit.action.table7;
+package cn.nit.action.table5;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -14,20 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table7.T711_Bean;
-import cn.nit.dao.table7.T711_DAO;
-import cn.nit.service.table7.T711_Service;
+
+import cn.nit.bean.table5.T553_Bean;
+import cn.nit.dao.table5.T553_DAO;
+import cn.nit.service.table5.T553_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class T711_Action {
-
+public class T553_Action {
 	
-	private T711_Service t711_Sr=new T711_Service();
+	private T553_Service t553_Sr=new T553_Service();
 	
-	private T711_Bean t711_Bean=new T711_Bean();
+	private T553_Bean t553_Bean=new T553_Bean();
 	
-	private T711_DAO t711_DAO=new T711_DAO();
+	private T553_DAO t553_DAO=new T553_DAO();
+	
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
 	
@@ -54,10 +55,10 @@ public class T711_Action {
 	
 	
 	public void insert(){
-		//System.out.println(t711_Bean.getUnitID()) ;
-		t711_Bean.setTime(new Date());
 		
-		boolean flag= t711_Sr.insert(t711_Bean);
+		t553_Bean.setTime(new Date());
+		
+		boolean flag= t553_Sr.insert(t553_Bean);
         PrintWriter out = null ;
 		
 		try{
@@ -79,10 +80,7 @@ public class T711_Action {
 		}
 		out.flush() ;
 	}
-	
-	
-	
-	
+
 	/**  为界面加载数据  */
 	
 	public void auditingData(){
@@ -118,7 +116,7 @@ public class T711_Action {
 			cond = conditions.toString();
 		}
 
-		String pages = t711_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String pages = t553_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -138,8 +136,8 @@ public class T711_Action {
 
 	/**  编辑数据  */
 	public void edit(){
-		t711_Bean.setTime(new Date());
-		boolean flag=t711_Sr.update(t711_Bean);
+		t553_Bean.setTime(new Date());
+		boolean flag=t553_Sr.update(t553_Bean);
 		
 		PrintWriter out=null;
 		
@@ -165,7 +163,7 @@ public class T711_Action {
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
-		boolean flag = t711_Sr.deleteCoursesByIds(ids) ;
+		boolean flag = t553_Sr.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -187,26 +185,24 @@ public class T711_Action {
 			}
 		}
 	}
-	
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
 		
 		try {
 			
-			List<T711_Bean> list = t711_DAO.totalList();
+			List<T553_Bean> list = t553_DAO.totalList();
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
-			columns.add("教学单位");columns.add("单位号");columns.add("姓名");columns.add("教工号");columns.add("奖励名称");columns.add("级别");
-			columns.add("等级");columns.add("获奖时间");columns.add("授予单位");columns.add("批文号");columns.add("合作教师人数");columns.add("其他合作教师");
+			columns.add("获奖名称");columns.add("获奖学生姓名");columns.add("学号");columns.add("所在教学单位");columns.add("所在班级");columns.add("级别");columns.add("获奖时间");
 			columns.add("备注");
+			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("Name", 3);maplist.put("TeaID", 4);maplist.put("AwardName", 5);maplist.put("AwardLevel", 6);
-			maplist.put("AwardRank", 7);maplist.put("AwardTime", 8);maplist.put("AwardFromUnit", 9);maplist.put("AppvlID", 10);maplist.put("JoinTeaNum", 11);maplist.put("OtherJoinTeaInfo", 12);
-			maplist.put("Note", 13);		
+			maplist.put("AwardName", 1);maplist.put("AwardStuName", 2);maplist.put("StuID", 3);maplist.put("TeaUnit", 4);maplist.put("FromClass", 5);maplist.put("AwardLevel", 6);maplist.put("AwardTime", 7);
+			maplist.put("Note", 8);		
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -223,7 +219,6 @@ public class T711_Action {
 		return "success" ;
 	}
 
-
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
 	}
@@ -235,121 +230,70 @@ public class T711_Action {
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
 	}
-		
-	
 
-
-
-
-	public T711_Bean getT711_Bean() {
-		return t711_Bean;
+	public T553_Bean getT553_Bean() {
+		return t553_Bean;
 	}
 
-
-
-
-	public void setT711_Bean(T711_Bean t711_Bean) {
-		this.t711_Bean = t711_Bean;
+	public void setT553_Bean(T553_Bean t553_Bean) {
+		this.t553_Bean = t553_Bean;
 	}
-
-
-
 
 	public Integer getSeqNum() {
 		return seqNum;
 	}
 
-
-
-
 	public void setSeqNum(Integer seqNum) {
 		this.seqNum = seqNum;
 	}
-
-
-
 
 	public Date getStartTime() {
 		return startTime;
 	}
 
-
-
-
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
-
-
-
 
 	public Date getEndTime() {
 		return endTime;
 	}
 
-
-
-
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-
-
-
 
 	public String getIds() {
 		return ids;
 	}
 
-
-
-
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
-
-
-
 
 	public String getPage() {
 		return page;
 	}
 
-
-
-
 	public void setPage(String page) {
 		this.page = page;
 	}
-
-
-
 
 	public String getRows() {
 		return rows;
 	}
 
-
-
-
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
-
-
-
 
 	public String getExcelName() {
 		return excelName;
 	}
 
-
-
-
 	public void setExcelName(String excelName) {
 		this.excelName = excelName;
 	}
 	
-	}
-	
 
+}

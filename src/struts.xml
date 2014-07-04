@@ -119,6 +119,9 @@
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
     
+    <include file="cn/nit/configuration/table5/T552.xml"/>
+    <include file="cn/nit/configuration/table5/T553.xml"/>
+    
     <!-- table6 学生信息库 -->
     
     <!-- table6 近一届本科生分专业招生录取情况 -->

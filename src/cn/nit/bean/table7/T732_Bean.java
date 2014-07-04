@@ -5,7 +5,7 @@ import java.util.Date;
 public class T732_Bean {
 	
 	
-	private int SeqNumber;
+	private Integer SeqNumber;
 	
 	private String AttendClassTerm;
 	
@@ -44,13 +44,15 @@ public class T732_Bean {
 		/**  审核单位ID号  */
 	private String audit ;
 
-	public int getSeqNumber() {
-		return SeqNumber;
-	}
+	
 
-	public void setSeqNumber(int seqNumber) {
-		SeqNumber = seqNumber;
-	}
+	public Integer getSeqNumber() {
+			return SeqNumber;
+		}
+
+		public void setSeqNumber(Integer seqNumber) {
+			SeqNumber = seqNumber;
+		}
 
 	public String getAttendClassTerm() {
 		return AttendClassTerm;

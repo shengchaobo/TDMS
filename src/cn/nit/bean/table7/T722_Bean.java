@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class T722_Bean {
 
-	private int SeqNumber ;
+	private Integer SeqNumber ;
 	
 	private String AwardName; 
 	
@@ -40,11 +40,13 @@ public class T722_Bean {
 	private String audit ;
 
 
-	public int getSeqNumber() {
+	
+
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
 
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 

@@ -20,11 +20,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
+
+     <link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
+	
 	<style type="text/css">
-	     label {
+     label {
 	    width: 10em;
 	    float: left;
 	}
@@ -39,13 +41,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript" src="js/table4/T412.js"></script>
+	<script type="text/javascript" src="js/table5/T553.js"></script>
 </head>
-
-<body style="height: 100%'" >
-	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T553/loadMajorTea"  style="height: auto"  >
+<body style="overflow-y:scroll">
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T553/auditingData"
+		toolbar="#toolbar" pagination="true" rownumbers="true"
+		fitColumns="true" singleSelect="false" >
 		<thead data-options="frozen:true">
-			<tr>			
+		<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
 		     </tr>
@@ -56,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						获奖名称
 					</th>
 					<th data-options="field:'awardStuName'">
-						获奖名称
+						获奖学生姓名
 					</th>
 					<th data-options="field:'stuID'">
 						学号
@@ -68,9 +71,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						所在班级
 					</th>
 					<th data-options="field:'awardLevel'">
-				                         级别
+						级别
 					</th>
-					<th data-options="field:'awardTime'">
+					<th data-options="field:'awardTime'" formatter="formattime">
 						获奖时间
 					</th>
 					<th data-options="field:'note'">
@@ -81,21 +84,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
-		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-		 	编号: <input  id="seqNum"   name="seqNum"  class="easyui-box" style="width:80px"/>
-			起始日期: <input id ="startTime"  name ="startTime"   class="easyui-datebox" style="width:80px"/>
-			结束日期: <input id="endTime"  name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid()">查询</a>
-		</form>
+		 <div>
+		 <form id="auditing" method="post" style="float: right;height: 26px;">
+		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:70px"/>
+				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+			</form>
+		</div>
 	</div>
-	
-	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+	<div id="toolbar2">
+		<a href="pages/T553/dataExport?excelName=<%=URLEncoder.encode("表5-5-3优秀本科生.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+	</div>
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
+		toolbar="#toolbar2" pagination="true" rownumbers="true"
+		fitColumns="true" singleSelect="false">
 		<thead data-options="frozen:true">
-			<tr>			
+		<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
 		     </tr>
@@ -106,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						获奖名称
 					</th>
 					<th data-options="field:'awardStuName'">
-						获奖名称
+						获奖学生姓名
 					</th>
 					<th data-options="field:'stuID'">
 						学号
@@ -118,9 +128,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						所在班级
 					</th>
 					<th data-options="field:'awardLevel'">
-				                         级别
+						级别
 					</th>
-					<th data-options="field:'awardTime'">
+					<th data-options="field:'awardTime'" formatter="formattime">
 						获奖时间
 					</th>
 					<th data-options="field:'note'">
@@ -129,31 +139,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</thead>
 	</table>
-	<div id="toolbar2" style="float: right;">
-		<a href='pages/T553/dataExport?excelName=<%=URLEncoder.encode("表5-5-3优秀本科生.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
-	</div>
-	
-	<!--添加弹出框-->
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle" id="title1">优秀本科生模板导入</h3>
+		<h3 class="ftitle" id="title1">优秀本科生批量导入</h3>
 		<div class="fitem" id="item1">
-		  <form method="post"  id="batchForm" enctype="multipart/form-data">
-		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+			<form method="post" id="batchForm" enctype="multipart/form-data">
+			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href='pages/T553/downloadModel?saveFile=<%=URLEncoder.encode("表5-5-3优秀本科生.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href="pages/T553/downloadModel?saveFile=<%=URLEncoder.encode("表5-5-3优秀本科生.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
+			<a href="123"></a>
 		</div>	
 		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
-	   <h3 class="ftitle">优秀本科生逐条导入</h3>
-	   <form id="addForm" method="post">
-		<table>
+			
+		<h3 class="ftitle">优秀本科生逐条导入</h3>
+		
+		
+		<form id="t553Form" method="post">
+			<table>
 			<tr>
 				<td>
-					<input type="hidden" name="T553_bean.SeqNumber"  id="seqNumber"/>
+					<input type="hidden" name="t553_Bean.SeqNumber"  id="seqNumber"/>
 					<div class="fitem">
 						<label>获奖名称：</label> 
 						<input id="AwardName" type="text" name="t553_Bean.AwardName"
@@ -168,34 +176,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AwardStuNameSpan"></span>
 					</div>
 				</td>
-			</tr>
+			</tr>	
+			
 			<tr>
-				<td >
-				<div class="fitem">
-				<label>学号：</label> 
-			    <input id="StuID" type="text" name="t553_Bean.StuID"
-							><span id="StuIDSpan"></span>
-				</div>
-				</td>
-				<td class="empty"></td>
-				<td >
-				<div class="fitem">
-				<label>所在教学单位：</label> 
-		    	<input id="TeaUnit" type="text" name="t553_Bean.TeaUnit"
-							 ><span id="TeaUnitSpan"></span>
-				</div>
-				</td>
-		</tr>
-		<tr>
-		       <td>
+				<td>
 					<div class="fitem">
-						<label>所在班级：</label> 
-						<input id="FromClass" type="text" name="t553_Bean.FromClass"
-							><span id="FromClassSpan"></span>
+						<label>学号：</label> 
+						<input id="StuID" type="text" name="t553_Bean.StuID"
+							><span id="StuIDSpan"></span>
 					</div>
 				</td>
-		<td class="empty"></td>
-		       <td>
+			<td class="empty"></td>
+				<td>
+			   <div class="fitem">
+				<label>所在教学单位：</label> 
+				<input id="TeaUnit" type="text" name="t553_Bean.TeaUnit"><span id="TeaUnitSpan"></span>	
+				   </div>				   
+			    </td>
+			</tr>
+			<tr>
+			     <td>
 					<div class="fitem">
 						<label>级别：</label> 
 						<input class='easyui-combobox' id="AwardLevel" name="t553_Bean.AwardLevel"
@@ -203,8 +203,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="AwardLevelSpan"></span>					
 					</div>
 				</td>
-		</tr>
-		<tr>
+				<td class="empty"></td>
+			    <td>
+					<div class="fitem">
+						<label>所在班级：</label> 
+						<input id="FromClass" type="text" name="t553_Bean.FromClass"
+							><span id="FromClassSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="3">
 				<div class="fitem">
 				<label>获奖时间：</label> 
@@ -221,8 +229,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</table>
 		</form>
 	</div>
-	<!-- 跟dlg组合-->
-	<div id="dlg-buttons"  >
+	
+	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
+		<div class="ftitle">高级检索</div>
+		<div id="dicTables"  class="fitem">
+		</div>
+		<div id="dices"  class="fitem"></div>
+	</div>
+	 
+	<div id="dlg-buttons">
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-ok" onclick="singleImport()">保存</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton"
@@ -230,7 +245,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </body>
 	<script type="text/javascript">
-    	var currentYear = new Date().getFullYear();
+	
+	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
     	for (var i = 0; i <= 10; i++) {
         var theOption = document.createElement("option");
@@ -238,5 +254,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	theOption.value = currentYear-i;
         	select.appendChild(theOption);
     	}
-	</script>
+
+	
+	    </script>
+
+	<script type="text/javascript"> 
+			//日期格式转换 
+			function formattime(val) {  
+			    var year=parseInt(val.year)+1900;  
+			    var month=(parseInt(val.month)+1);  
+			    month=month>9?month:('0'+month);  
+			    var date=parseInt(val.date);  
+			    date=date>9?date:('0'+date);  
+			    var hours=parseInt(val.hours);  
+			    hours=hours>9?hours:('0'+hours);  
+			    var minutes=parseInt(val.minutes);  
+			    minutes=minutes>9?minutes:('0'+minutes);  
+			    var seconds=parseInt(val.seconds);  
+			    seconds=seconds>9?seconds:('0'+seconds);  
+			    var time=year+'-'+month+'-'+date ;  
+			    //alert(time) ;
+			        return time;  
+			    }  
+			</script>
+
 </html>

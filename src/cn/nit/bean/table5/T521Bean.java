@@ -5,7 +5,7 @@ import java.util.Date;
 public class T521Bean {
 	
 
-	private int SeqNumber;
+	private Integer SeqNumber;
 	private String CSType;
 	private String CSName;
 	private String CSID;
@@ -22,10 +22,11 @@ public class T521Bean {
 	private String AppvlID;
 	private Date Time;
 	private String Note;
-	public int getSeqNumber() {
+
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 	public String getCSType() {

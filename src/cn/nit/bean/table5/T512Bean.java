@@ -2,7 +2,7 @@ package cn.nit.bean.table5;
 
 public class T512Bean {
 	
-	private int SeqNumber;
+	private Integer SeqNumber;
 	private String Term;
 	private String CSUnit;
 	private String UnitID;
@@ -33,10 +33,13 @@ public class T512Bean {
 	private boolean IsAwardbook;
 	private String Time;
 	private String Note;
-	public int getSeqNumber() {
+	
+	
+
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 	public String getTerm() {

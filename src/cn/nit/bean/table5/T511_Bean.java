@@ -2,9 +2,9 @@ package cn.nit.bean.table5;
 
 import java.util.Date;
 
-public class T511Bean {
+public class T511_Bean {
 	
-	private String SeqNumber;
+	private Integer SeqNumber;
 	private String CSName;
 	private String CSID;
 	private String CSUnit;
@@ -19,10 +19,12 @@ public class T511Bean {
 	private String Note;
 	private String FillTeaID;
 	private String FillUnitID;
-	public String getSeqNumber() {
+	
+	
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
-	public void setSeqNumber(String seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 	public String getCSName() {

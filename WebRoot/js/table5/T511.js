@@ -1,111 +1,89 @@
-	//全局变量，用来暂存当前的url值
-   var url;
-
-   //弹出添加的界面
-	function newObject() {
-		
-		//update隐藏的量在提交之后要恢复
-    	$('#title1').show();
-    	$('#item1').show();
-    	$('hr').show();
-    	
-		url = 'pages/UndergraCSBaseTea/insert' ;
-		$('#dlg').dialog('open').dialog('setTitle', '添加新的开课、授课情况');
-		$('#addForm').form('reset');
-	}
-	
+    var url;
+	    
+	function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
+         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+         queryParams.seqNum = $('#seqNum').val(); 
+         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
+    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+         $("#unverfiedData").datagrid('reload'); 
+    }
+	 
+	    function newCourse(){ 
+	    
+	    	$('#title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
+	    	
+	    	
+	    
+	     	url = "pages/T511/insert";
+		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+		    $('#t511Form').form('reset');
+		   
+	    }
 
 	  //模板导入
-	 function batchImport(){
-		  var fileName = $('#fileToUpload').val() ; 	
-		  if(fileName == null || fileName == ""){
-			  $.messager.alert('Excel批量用户导入', '请选择将要上传的文件!');      
-		   		return false ;
-		  }	
-		  var pos = fileName.lastIndexOf(".") ;
-		  var suffixName = fileName.substring(pos, fileName.length) ; 	
-		  if(suffixName != ".xls"){
-			   $.messager.alert('Excel批量用户导入','文件类型不正确，请选择.xls文件!');   
-		   		return false ;
-		 }
-	  	 $('#batchForm').form('submit',{
-	  		 url: 'pages/T511/uploadFile',
-	  		 type: "post",
-		     dataType: "json",
-	  		 onSubmit: function(){
-	  			 return true;
-	  		 },
-	  		 success: function(result){
-	  		 	var result = eval('('+result+')');
-	  		 	if (!result.success){
-	  		 		$.messager.show({
-	  		 			title: 'Error',
-	  		 			msg: result.errorMsg
-	  			 });
-	  		 	} else {
-			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
-	  		 	}
-	  		 }
-	  		 });
-	   }
-
-	 	//单条导入
-	 function singleImport() {
-	// 录入数据的表单提交
-	  $('#addForm').form('submit', {
-			url : url,
-			data : $('#addForm').serialize(),
-			type : "post",
-			dataType : "json",
-			onSubmit : function() {
-				return validate();
-			},
-			// 结果返回
-			success : function(result) {
-			// json格式转化
-			var result = eval('(' + result + ')');
-			$.messager.alert('温馨提示', result.data);
-			if (result.state) {
-				$('#dlg').dialog('close');
-				$('#unverfiedData').datagrid('reload');
-			}
+		 function batchImport(){
+			  var fileName = $('#fileToUpload').val() ; 	
+			  if(fileName == null || fileName == ""){
+				  $.messager.alert('Excel批量用户导入', '请选择将要上传的文件!');      
+			   		return false ;
+			  }	
+			 
+			  var pos = fileName.lastIndexOf(".") ;
+			  var suffixName = fileName.substring(pos, fileName.length) ; 	
+			  if(suffixName != ".xls"){
+				   $.messager.alert('Excel批量用户导入','文件类型不正确，请选择.xls文件!');   
+			   		return false ;
+			 }
+		  	 $('#batchForm').form('submit',{
+		  	 
+		  		 url: 'pages/T511/uploadFile',
+		  		 type: "post",
+			     dataType: "json",
+		  		 onSubmit: function(){
+		  			 return true;
+		  		 },
+		  		 
+		  		 success: function(result){
+		  		 	var result = eval('('+result+')');
+		  		 	if (!result.success){
+		  		 		$.messager.show({
+		  		 			title: 'Error',
+		  		 			msg: result.errorMsg
+		  			 }); 
+		  		 	} else {
+				    		 $('#dlg').dialog('close'); // close the dialog
+				    		 $('#unverfiedData').datagrid('reload'); // reload the user data
+		  		 	}
+		  		 }
+		  		 });
+		   }
+	    
+	    
+	    function singleImport(){
+		    //录入数据的表单提交
+	    	 $('#t511Form').form('submit',{
+				    url: url ,
+				    data: $('#t511Form').serialize(),
+		            type: "post",
+		            dataType: "json",
+				    onSubmit: function(){
+				    	return validate();
+				    },
+				    //结果返回
+				    success: function(result){
+					    //json格式转化
+					    var result = eval('('+result+')');
+					    $.messager.alert('温馨提示', result.data) ;
+					    if (result.state){ 
+						    $('#dlg').dialog('close'); 
+						    $('#unverfiedData').datagrid('reload'); 
+					    }
+				    }
+			    });
 		}
-		});
-}
-	
-	     //查询
-		function reloadgrid ()  { 
-	        //查询参数直接添加在queryParams中 
-	         var  seqNum = $('#seqNum').val();
-	         var startTime = $('#startTime').datetimebox('getValue');
-	         var endTime = $('#endTime').datetimebox('getValue');
-	         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
-	         queryParams.seqNum = seqNum;  
-	         queryParams.startTime = startTime;  
-	         queryParams.endTime = endTime;  
-	         $("#unverfiedData").datagrid('reload'); 
-	    }	
-	
-	    
-	    
-	    function check(){
-	    	var fileName = $('#uploadFile').val() ;
-	    	
-	    	if(fileName == null || fileName == ""){
-	    		return false ;
-	    	}
-	    	
-	    	var pos = fileName.lastIndexOf(".") ;
-	    	var suffixName = fileName.substring(pos, fileName.length) ;
-	    	
-	    	if(suffixName == ".xls"){
-	    		return true ;
-	    	}else{
-	    		return false ;
-	    	}
-	    } 
-	    
 
 		function validate(){
 			//获取文本框的值
@@ -168,8 +146,7 @@
 			}
 			return true ;
 		}
-
-	    function edit(){
+		function editCourse(){
 	    	var row = $('#unverfiedData').datagrid('getSelections');
 	    	
 	    	if(row.length != 1){
@@ -177,7 +154,11 @@
 	    		return ;
 	    	}
 	    	
-	    	url = 'pages/UndergraCSBaseTea/edit' ;
+	    	url = 'pages/T511/edit' ;
+	    	
+	    	$('#title1').hide();
+	    	$('#item1').hide();
+	    	$('hr').hide();
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
@@ -186,13 +167,14 @@
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
 	    	$('#TeaResOfficeID').combobox('select', row[0].teaResOfficeID) ;
 	    	$('#CSType').combobox('select', row[0].CSTypeID) ;
-			$('#CSNature').combobox('select', row[0].CSNatureID) ;
-			$('#State').combobox('select', row[0].state) ;
-			$('#PubCSType').combobox('select', row[0].pubCSType) ;
-			$('#Note').val(row[0].note) ;
+	        $('#CSNature').combobox('select', row[0].CSNatureID) ;
+		    $('#State').combobox('select', row[0].state) ;
+		    $('#PubCSType').combobox('select', row[0].pubCSType) ;
+		    $('#Note').val(row[0].note) ;
 	    }
-	    
-	    function deleteByIds(){
+
+
+ function deleteByIds(){
 	    	//获取选中项
 			var row = $('#unverfiedData').datagrid('getSelections');
 	    	
@@ -214,16 +196,15 @@
 				 		}
 				 	}
 				 	
-				 	deletes(ids);
+				 	deleteCourses(ids) ;
 				 	
 				 }
 			});
 	    }
-	    
-	    function deletes(ids){
+	        function deleteCourses(ids){
 	    	$.ajax({ 
 	    		type: "POST", 
-	    		url: "pages/UndergraCSBaseTea/deleteByIds?ids=" + ids, 
+	    		url: "pages/T511/deleteByIds?ids=" + ids, 
 	    		async:"true",
 	    		dataType: "text",
 	    		success: function(result){
@@ -236,4 +217,5 @@
 	    		}
 	    	}).submit();
 	    }
-	    
+	
+	    	    

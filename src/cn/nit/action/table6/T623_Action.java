@@ -106,6 +106,7 @@ public class T623_Action {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		
+		
 		boolean flag = T623_service.insert(T623_bean);
 		PrintWriter out = null;
 
@@ -139,7 +140,7 @@ public class T623_Action {
 		
 		String cond = "1=1";
 		if(this.getSearchItem()!= null){
-			cond += " and MajorName LIKE '" + this.getSearchItem() + "%'";
+			cond += " and province LIKE '" + this.getSearchItem() + "%'";
 			System.out.println(cond);
 		}
 		List<T623_Bean> list = T623_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
@@ -248,65 +249,40 @@ public class T623_Action {
 			
 			List<String> columns = new ArrayList<String>();
 			
-		
-			
-//			columns.add("序号");
-//			columns.add("教学单位");
-//			columns.add("单位号");
-//			columns.add("专业名称");
-//			columns.add("专业代码");
-//			columns.add("应届就业总人数");
-//			columns.add("政府机构就业人数");
-//			columns.add("事业单位就业人数");
-//			columns.add("企业就业人数");
-//			columns.add("部队人数");
-//			columns.add("灵活就业人数");
-//			columns.add("升学人数");
-//			columns.add("参加国家地方项目就业人数");
-//			columns.add("其他人数");
-//			
-//			columns.add("应届升学总人数");
-//			columns.add("免试推荐研究生人数");
-//			columns.add("考研报名人数");
-//			columns.add("考研录取总人数");
-//			columns.add("考取本校人数");
-//			columns.add("考取外校人数");
-//			columns.add("出国（境）留学人数");
-//			
-//			columns.add("时间");
-//			columns.add("备注");
-			
+			columns.add("序号");
+			columns.add("省份");
+			columns.add("类型");
+			columns.add("批次");
+			columns.add("文科录取数");
+			columns.add("理科录取数");
+			columns.add("综合录取数");
+			columns.add("文化批次最低控制线（分）");
+			columns.add("专业批次最低控制线（分）");
+			columns.add("综合批次最低控制线（分）");
+			columns.add("文化当年录取平均分数（分）");
+			columns.add("专业当年录取平均分数（分）");
+			columns.add("综合当年录取平均分数（分）");
+			columns.add("说明");
 
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
-		
-
-//			
-//			maplist.put("seqNumber", 0);
-//			maplist.put("teaUnit", 1);
-//			maplist.put("unitId", 2);
-//			maplist.put("majorName", 3);
-//			maplist.put("majorId", 4);
-//			
-//			maplist.put("sumEmployNum", 5);
-//			maplist.put("govermentNum", 6);
-//			maplist.put("pubInstiNum", 7);
-//			maplist.put("enterpriseNum", 8);
-//			maplist.put("forceNum", 9);
-//			maplist.put("flexibleEmploy", 10);
-//			maplist.put("goOnHighStudy", 11);
-//			maplist.put("nationItemEmploy", 12);
-//			maplist.put("otherEmploy", 13);
-//			
-//			maplist.put("sumGoOnHighStudyNum", 14);
-//			maplist.put("recommendGraNum", 15);
-//			maplist.put("examGraApplyNum", 16);
-//			maplist.put("examGraEnrollNum", 17);
-//			maplist.put("examGraInSch", 18);
-//			maplist.put("examGraOutSch", 19);
-//			maplist.put("abroadNum", 20);
-//						
-//			maplist.put("time", 21);
-//			maplist.put("note", 22);
+	
+			maplist.put("seqNumber", 0);
+			maplist.put("province", 1);
+			maplist.put("artType", 2);
+			maplist.put("batch", 3);
+			maplist.put("libEnrollNum", 4);
+			maplist.put("sciEnrollNum", 5);
+			maplist.put("sumEnrollNum", 6);
+			
+			maplist.put("libLowestScore", 7);
+			maplist.put("sciLowestScore", 8);
+			maplist.put("sumLowestScore", 9);
+			
+			maplist.put("libAvgScore", 10);
+			maplist.put("sciAvgScore", 11);
+			maplist.put("sumAvgScore", 12);
+			
+			maplist.put("note", 13);
 				
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {

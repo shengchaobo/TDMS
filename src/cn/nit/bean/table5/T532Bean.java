@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class T532Bean {
 	
-	private int SeqNumber;
+	private Integer SeqNumber;
 	private String CenterName;
 	private String FromSubject;
 	private String CenterLevel;
@@ -21,10 +21,13 @@ public class T532Bean {
 	private double Fund;
 	private Date Time;
 	private String Note;
-	public int getSeqNumber() {
+
+	
+	
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 	public String getCenterName() {

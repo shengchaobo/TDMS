@@ -61,7 +61,7 @@ public class T621_Excel {
 	 *            {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request) {
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear) {
 
 		if ((cellList == null) || (cellList.size() < 2)) {
 			return "数据不标准，请重新提交";
@@ -197,7 +197,8 @@ public class T621_Excel {
 				T621_bean.setInProviEnrollNum(Integer.parseInt(inProviEnrollNum));
 				T621_bean.setNewMajEnrollNum(Integer.parseInt(newMajEnrollNum));
 				// 插入时间
-				T621_bean.setTime(new Date());
+//				T621_bean.setTime(new Date());
+				T621_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T621_bean);
 
 			} catch (Exception e) {

@@ -1,30 +1,27 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "总占地面积", "group": "1.占地面积(平方米)", "value": "",  "field": "sumArea","editor": "numberbox" },
-				        { "name": "学校产权", "group": "1.占地面积(平方米)", "value": "", "field": "schProArea", "editor": "numberbox" },
-				        { "name": "其中：绿化用地", "value": "", "group": "1.占地面积(平方米)", "field": "greenArea", "editor": "numberbox" },
-				        { "name": "非学校产权", "value": "", "group": "1.占地面积(平方米)", "field": "notSchProArea", "editor": "numberbox" },
-				        { "name": "其中：绿化用地", "group": "1.占地面积(平方米)", "value": "", "field": "greenAreaNotInSch", "editor": "numberbox" },
-				        { "name": "其中：独立使用", "group": "1.占地面积(平方米)", "editor": "numberbox", "value": "", "field": "onlyUseArea" },
-				        { "name": "共同使用", "group": "1.占地面积(平方米)", "value": "", "field": "coUseArea", "editor": "numberbox" },
-				       	{ "name": "总建筑面积", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "sumCoverArea" },
-				       	{ "name": "学校产权", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "schProCovArea" },
-				       	{ "name": "非学校产权", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "notSchProCovArea" },
-				       	{ "name": "其中：独立使用", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "onlyUseCovArea" },
-				       	{ "name": "共同使用", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "coUseCovArea" }
+				        { "name": "总量（册）", "group": "1.纸质图书", "value": "",  "field": "paperBookNum","editor": "numberbox" },
+				        { "name": "数量（份）", "group": "2.纸质期刊", "value": "", "field": "paperJonalNum", "editor": "numberbox" },
+				        { "name": "种类（种）", "value": "", "group": "2.纸质期刊", "field": "paperJonalType", "editor": "numberbox" },
+				        { "name": "数量（种）", "value": "", "group": "3.电子图书", "field": "digBookType", "editor": "numberbox" },
+				        { "name": "其中：中文数量（种）", "group": "3.电子图书", "value": "", "field": "chiDigBookType", "editor": "numberbox" },
+				        { "name": "其中：外文数量（种）", "group": "3.电子图书", "editor": "numberbox", "value": "", "field": "forDigBookType" },
+				        { "name": "电子图书总量（GB）", "group": "3.电子图书", "value": "", "field": "digBookSize", "editor": "numberbox" },
+				       	{ "name": "期刊种类（种）", "group": "5.数据库", "editor": "numberbox", "value": "", "field": "digJonalType" },
+				       	{ "name": "数量（个）", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "databaseNum" }
 				    ];
 				    							
 				$('#edit').propertygrid({
-						title : '占地与建筑面积',
+						title : '图书数量',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 				        width: '60%',
 				        height: 'auto',
 				        showGroup: true,
 				        scrollbarSize: 0,
 				        columns: [[
-				                { field: 'name', title: '项目', width: 100, resizable: true },
-				                { field: 'value', title: '内容', width: 100, resizable: false }
+				                { field: 'name', title: '', width: 100, resizable: true },
+				                { field: 'value', title: '', width: 100, resizable: false }
 				        ]]
 				 });
 				 				 
@@ -36,7 +33,7 @@
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<9){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i= i+1;
 			                    }														
@@ -44,7 +41,7 @@
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
-				                    while(i<12){
+				                    while(i<9){
 				                    	rows[i].value = "";	
 				                    	i= i+1;
 				                    }			                      
@@ -71,7 +68,7 @@
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<9){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i=i+1;
 			                    }								
@@ -79,7 +76,7 @@
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<9){
 			                    	rows[i].value = "";	
 			                    	i=i+1;
 			                    }
@@ -142,7 +139,7 @@
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表2-4-1图书数量.xls');
+			        var tableName = encodeURI('表2-4-1图书数量');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),

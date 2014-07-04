@@ -18,24 +18,25 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table5.T551Bean;
-import cn.nit.dao.table5.T551DAO;
-import cn.nit.excel.imports.table5.T551Excel;
-import cn.nit.service.table5.T551Service;
+import cn.nit.bean.table5.T534Bean;
+import cn.nit.dao.table5.T534DAO;
+import cn.nit.excel.imports.table5.T534Excel;
+import cn.nit.service.table5.T534Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class T551Action {
-
-	/**  表T551的数据库操作类  */
-	private T551DAO t551Dao = new T551DAO() ;
+public class T534Action {
 	
-	private T551Excel t551Excel=new T551Excel();
-
-	/**  表551的Service类  */
-	private T551Service t551Ser = new T551Service() ;
+	/**  表T534的数据库操作类  */
+	private T534DAO t534Dao = new T534DAO() ;
 	
-	/**  表551的Bean实体类  */
-	private T551Bean t551Bean = new T551Bean() ;
+	private T534Excel t534Excel=new T534Excel();
+
+	/**  表534的Service类  */
+	private T534Service t534Ser = new T534Service() ;
+	
+	/**  表534的Bean实体类  */
+	private T534Bean t534Bean = new T534Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -65,13 +66,13 @@ public class T551Action {
 	/**  逐条插入数据  */
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t551Bean.setTime(new Date()) ;
+		t534Bean.setTime(new Date()) ;
 
 		//这还没确定,设置填报者的职工号与部门号
 //		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
 //		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
 		
-		boolean flag = t551Ser.insert(t551Bean) ;
+		boolean flag = t534Ser.insert(t534Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -130,7 +131,7 @@ public class T551Action {
 			}
 
 
-			String pages = t551Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t534Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 
 			PrintWriter out = null ;
 			
@@ -153,8 +154,8 @@ public class T551Action {
 	public void edit(){
 
 		 
-		t551Bean.setTime(new Date()) ;
-		boolean flag = t551Ser.update(t551Bean) ;
+		t534Bean.setTime(new Date()) ;
+		boolean flag = t534Ser.update(t534Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -178,7 +179,7 @@ public class T551Action {
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 //		System.out.println("ids=" + ids) ;
-		boolean flag = t551Ser.deleteCoursesByIds(ids) ;
+		boolean flag = t534Ser.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -209,25 +210,32 @@ public class T551Action {
 
 		try {
 			
-			List<T551Bean> list = t551Dao.totalList();
+			List<T534Bean> list = t534Dao.totalList();
 			
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("教学单位");columns.add("单位号");columns.add("专业名称");columns.add("专业代码");
-			columns.add("入校年份");columns.add("本科生党员数（个）");columns.add("考试违纪、作弊及受处分（人次）");
-			columns.add("优良学风班的比例（%）");columns.add("备注");
+			columns.add("教师姓名");columns.add("教工号");columns.add("是否外聘");
+			columns.add("学历");
+			columns.add("学位");columns.add("职称");columns.add("是否获评校级优秀指导教师");columns.add("指导毕业综合训练课题数量");
+			columns.add("其中在实验、实习、工程实践和社会调查等社会实践中完成数");columns.add("指导学生人数");columns.add("其中：学生获优秀毕业设计人数");
+			columns.add("获评时间");
+			columns.add("备注");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("MajorName", 3);maplist.put("MajorID", 4);
-			maplist.put("AdmisSchYear", 5);maplist.put("PartyMemNum", 6);maplist.put("CheatNum", 7);maplist.put("GoodClassRatio", 8);
-			maplist.put("Note", 9);
+			maplist.put("TeaName", 5);maplist.put("TeaID", 6);maplist.put("IsOutEmploy", 7);maplist.put("Education", 8);
+			maplist.put("Degree", 9);maplist.put("Title",10);maplist.put("IsExcellent", 11);maplist.put("TrainIssueNum", 12);
+			maplist.put("SociaPraFinishNum", 13);maplist.put("GuideStuNum", 14);maplist.put("GainBestGraDesinNum", 15);
+			maplist.put("GainTime", 16);
+			maplist.put("Note", 17);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t551Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -259,12 +267,12 @@ public class T551Action {
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T551Bean getT551Bean() {
-		return t551Bean;
+	public T534Bean getT534Bean() {
+		return t534Bean;
 	}
 
-	public void setT551Bean(T551Bean t551Bean) {
-		this.t551Bean = t551Bean;
+	public void setT534Bean(T534Bean t534Bean) {
+		this.t534Bean = t534Bean;
 	}
 
 	
@@ -337,6 +345,5 @@ public class T551Action {
 		}
 		return excelName;
 	}
-	
 
 }

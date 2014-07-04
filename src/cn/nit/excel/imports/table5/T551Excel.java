@@ -261,9 +261,9 @@ public class T551Excel {
                      */  
                     ws.addCell(new Label(i, 0, columns.get(i), wcf));  
                 }  
-                ws.addCell(new Label(0,1,"全校合计：",wcf));
-                ws.mergeCells(0, 1, 5, 0);
-  
+//                ws.addCell(new Label(0,1,"全校合计：",wcf));
+//                ws.mergeCells(0, 1, 5, 0);
+//  
                 //判断表中是否有数据  
                 if (list != null && list.size() > 0) {  
                     //循环写入表中数据  

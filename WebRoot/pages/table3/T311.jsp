@@ -192,6 +192,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
+		
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+	
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
 		<div class="ftitle">高级检索</div>
 		<div id="dicTables"  class="fitem">
@@ -450,15 +463,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#dlg').dialog('open').dialog('setTitle','添加博士后流动站');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	        $('#PostDocStaName').val(row[0].postDocStaName);
-	        alert(row[0].postDocStaName);
+	      
 	    	$('#SetTime').datebox('setValue',formattime(row[0].setTime)) ;
-	    	alert(row[0].setTime);
+	    
 	    	$('#ResearcherNum').val(row[0].researcherNum) ;
-	    	alert(row[0].researcherNum);
+	   
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
-	    	alert(row[0].unitID);
+	    
 			$('#Note').val(row[0].note);
-			alert(row[0].note);
+		
 	    }
 	    
 	    

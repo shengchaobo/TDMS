@@ -364,6 +364,27 @@ public class T321Excel {
                 	int i=1;  
                 	for(Object obj : list){  
                 		if(mergedCells[i-1]==i-1){
+                			if(i!=1&&mergedCells[i-2]!=i-2){
+                				wrapper.setWrappedInstance(obj) ;  
+                                //循环输出map中的子集：既列值                         
+                                for(String column:maplist.keySet()){
+                                	
+                                	if(column.equals("MajorNameInSch")){
+                                		ws.addCell(new Label(4,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                	}else if(column.equals("MajorID")){
+                                		ws.addCell(new Label(5,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                	}else if(column.equals("UnitName")){
+                                		ws.addCell(new Label(6,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                	}else if(column.equals("UnitID")){
+                                		ws.addCell(new Label(7,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                	}
+
+                				
+                			}
+                    		
+                                i++;  
+                				
+                			}else {
                     		wrapper.setWrappedInstance(obj) ;  
                             //循环输出map中的子集：既列值                         
                             for(String column:maplist.keySet()){
@@ -396,6 +417,7 @@ public class T321Excel {
                             }
                             i++;
                             count++;
+                			}
                 		}else if(mergedCells[i-2]==i-2){
                     		wrapper.setWrappedInstance(obj) ;  
                         	mergedNum=mergedCells[i-1];

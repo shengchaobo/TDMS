@@ -54,29 +54,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="height: auto;" url="pages/DiscipRes/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="height: auto;" url="pages/DocAndGraSta/auditingData"
 		toolbar="#toolbar" pagination="true" 
 		 singleSelect="false" >
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber" >序号</th>
-				<th field="discipName" >重点学科名称</th>
+				<th field="staName" >名称</th>
 				</tr>
 				</thead>
 				<thead>
 				<tr>
-				<th field="discipID" >学科代码</th>
-				<th field="unitName" >所属教学单位</th>
+				<th field="staID" ">代码</th>
+				<th field="unitName" >所属单位</th>
 				<th field="unitID" >单位号</th>
-				<th field="discipType" >学科门类</th>
-				<th field="nationLevelOne"  formatter="booleanstr">国家一级</th>
-				<th field="nationLevelTwo"  formatter="booleanstr">国家二级</th>
-				<th field="nationLevelKey" formatter="booleanstr">国家重点（培育）</th>
-				<th field="provinceLevelOne" " formatter="booleanstr">省部一级</th>
-				<th field="provinceLevelTwo"  formatter="booleanstr">省部二级</th>
-				<th field="cityLevel"  formatter="booleanstr">市级</th>
-				<th field="schLevel"  formatter="booleanstr">校级</th>
+				<th field="staType" >类型</th>
 				<th field="note" >备注</th>
 			</tr>
 		</thead>
@@ -84,9 +77,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="toolbar" style="height:auto">
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDiscip()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDocAndGra()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href="pages/DiscipRes/dataExport?excelName=表3-1-3重点学科（科研处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+			<a href="pages/DocAndGraSta/dataExport?excelName=表3-1-2博士点 、硕士点（研究生院）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>
 		 <div>
 		 	<form id="auditing" method="post">
@@ -98,43 +91,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-	 <form  id="exportForm"  method="post" style="float: right;">
+		<form  id="exportForm"  method="post" style="float: right;">
 			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" url="table5/verifiedData"
-		toolbar="#toolbar2" pagination="true"
-		 singleSelect="false">
+		toolbar="#toolbar2" pagination="true" 
+		singleSelect="false">
 		<thead data-options="frozen:true">
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" >序号</th>
-				<th field="discipName" >重点学科名称</th>
+		<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="SeqNumber" >序号</th>
 			</tr>
-				</thead>
-				<thead>
+			</thead>
+			<thead>
 				<tr>
-				<th field="discipID" >学科代码</th>
-				<th field="unitName" >所属教学单位</th>
-				<th field="unitId" >单位号</th>
-				<th field="discipType" >学科门类</th>
-				<th field="nationLevelOne" >国家一级</th>
-				<th field="nationLevelTwo" >国家二级</th>
-				<th field="nationLevelKey" >国家重点（培育）</th>
-				<th field="provinceLevelOne" ">省部一级</th>
-				<th field="provinceLevelTwo" >省部二级</th>
-				<th field="cityLevel" >市级</th>
-				<th field="schLevel" >校级</th>
-				<th field="note" >备注</th>
+				<th field="StaName" >名称</th>
+				<th field="StaID" >代码</th>
+				<th field="UnitName" >所属单位</th>
+				<th field="UnitID" >单位号</th>
+				<th field="StaType" >类型</th>
+				<th field="Note" >备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">重点学科库批量导入</div>
+		<div class="ftitle">博士点硕士点批量导入</div>
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
@@ -142,29 +128,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href='pages/DiscipRes/downloadModel?saveFile=<%=URLEncoder.encode("表3-1-3重点学科（科研处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/DocAndGraSta/downloadModel?saveFile=<%=URLEncoder.encode("表3-1-2博士点 、硕士点（研究生院）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
 		<div></div>
-		<div class="ftitle">重点学科库逐条导入</div>
+		<div class="ftitle">博士点硕士点逐条导入</div>
 		
-		<form id="discipForm" method="post">
+		<form id="DocAndGraStaForm" method="post">
 		<table>
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>重点学科名称：</label> 
-						<input id="SeqNumber" name="discipBean.SeqNumber" type="hidden" > </input>
-						<input id="DiscipName" type="text" name="discipBean.DiscipName"
-							class="easyui-validatebox" required="true"><span id="DiscipNameSpan"></span>
+						<label>名称：</label> 
+						<input id="seqNumber" name="postDocStaBean.SeqNumber" type="hidden" > </input>
+						<input id="StaName" type="text" name="docAndGraStaBean.StaName"
+							class="easyui-validatebox" required="true"><span id="StaNameSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
-						<label>学科代码：</label> 
-						<input id="DiscipID" type="text" name="discipBean.DiscipID"
-							class="easyui-validatebox" required="true"><span id="DiscipIDSpan"></span>
+						<label>代码：</label> 
+						<input id="StaID" type="text" name="docAndGraStaBean.StaID"
+							class="easyui-validatebox" required="true"><span id="StaIDSpan"></span>
 					</div>
 				</td>
 			</tr>
@@ -173,8 +159,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>所属单位：</label> 
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
-						<input type="hidden" name="discipBean.UnitName" id="UnitName"/>
-						<input id="UnitID" type="text" name="discipBean.UnitID" 
+						<input type="hidden" name="docAndGraStaBean.UnitName" id="UnitName"/>
+						<input id="UnitID" type="text" name="docAndGraStaBean.UnitID" 
 							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
@@ -184,112 +170,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 				<td>
 					<div class="fitem">
-						<label>学科门类：</label> 
-						<select class='easyui-combobox' id="DiscipType" name="discipBean.DiscipType">
-							<option value="01哲学">01哲学</option>
-							<option value="02经济学">02经济学</option>
-							<option value="03法学">03法学</option>
-							<option value="04教育学">04教育学</option>
-							<option value="05文学">05文学</option>
-							<option value="06历史学">06历史学</option>
-							<option value="07理学">07理学</option>
-							<option value="08工学">08工学</option>
-							<option value="09农学">09农学</option>
-							<option value="10医学">10医学</option>
-							<option value="11军事学">11军事学</option>
-							<option value="12管理学">12管理学</option>
-							<option value="13艺术学">13艺术学</option>
+						<label>类型：</label> 
+						<select class='easyui-combobox' id="StaType" name="docAndGraStaBean.StaType">
+							<option value="硕士点">硕士点</option>
+							<option value="博士点">博士点</option>
 						</select>
-						<span id="DiscipTypeSpan"></span>
+						<span id="StaTypeSpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
-			<td>
-					<div class="fitem">
-						<label>国家一级：</label> 
-						<select class='easyui-combobox' id="NationLevelOne" name="discipBean.NationLevelOne">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="NationLevelOneSpan"></span>
-					</div>
-				</td>
-			<td>
-					<div class="fitem">
-						<label>国家二级：</label> 
-						<select class='easyui-combobox' id="NationLevelTwo" name="discipBean.NationLevelTwo">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="NationLevelTwoSpan"></span>
-					</div>
-				</td>
-				</tr>
-				<tr>
-							<td>
-					<div class="fitem">
-						<label>国家重点：</label> 
-						<select class='easyui-combobox' id="NationLevelKey" name="discipBean.NationLevelKey">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="NationLevelKeySpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-
-			<td>
-					<div class="fitem">
-						<label>省部一级：</label> 
-						<select class='easyui-combobox' id="ProvinceLevelOne" name="discipBean.ProvinceLevelOne">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="ProvinceLevelOneSpan"></span>
-					</div>
-				</td>
-							<td>
-					<div class="fitem">
-						<label>省部二级：</label> 
-						<select class='easyui-combobox' id="ProvinceLevelTwo" name="discipBean.ProvinceLevelTwo">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="ProvinceLevelTwoSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-
-			<td>
-					<div class="fitem">
-						<label>市级：</label> 
-						<select class='easyui-combobox' id="CityLevel" name="discipBean.CityLevel">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="CityLevelSpan"></span>
-					</div>
-				</td>
-								<td>
-					<div class="fitem">
-						<label>校级：</label> 
-						<select class='easyui-combobox' id="SchLevel" name="discipBean.SchLevel">
-							<option value="false">否</option>
-							<option value="true">是</option>
-						</select>
-						<span id="SchLevelSpan"></span>
-					</div>
-				</td>
-			</tr>
-
-			
-			<tr>
-
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-					<textarea id="Note" name="discipBean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="docAndGraStaBean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>
@@ -324,10 +216,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         $("#unverfiedData").datagrid('reload'); 
 	    }
 
+
 	    
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url: 'pages/DiscipRes/uploadFile',
+	    		 url: 'pages/DocAndGraSta/uploadFile',
 	    		 type: "post",
 		         dataType: "json",
 	    		 onSubmit: function(){
@@ -365,25 +258,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 $.messager.alert("操作提示", "请选择正确的Excel文件（后缀为.xls）");
 	    		return false ;
 	    	}
-	    } 
+	    }
 	    
 	    function newCourse(){
-		    $('#dlg').dialog('open').dialog('setTitle','添加重点学科库');
-		    $('#discipForm').form('reset');
+		    $('#dlg').dialog('open').dialog('setTitle','添加博士点硕士点库');
+		    $('#DocAndGraStaForm').form('reset');
 	    }
 
-
 	    function singleImport(){
-	
 		    //录入数据的表单提交
-	    	 $('#discipForm').form('submit',{
-				    url: 'pages/DiscipRes/insert',
-				    data: $('#discipForm').serialize(),
+	    	 $('#DocAndGraStaForm').form('submit',{
+				    url: 'pages/DocAndGraSta/insert',
+				    data: $('#DocAndGraStaForm').serialize(),
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
 				    	return validate();
-				    
 				    },
 				    //结果返回
 				    success: function(result){
@@ -396,57 +286,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    }
 				    }
 			    });
-		
 		}
-		
 
 		function validate(){
 			//获取文本框的值
-			var DiscipName = $('#DiscipName').val() ;
-			var DiscipID = $('#DiscipID').val() ;
+			var StaName = $('#StaName').val() ;
+			var StaID = $('#StaID').val() ;
 			var UnitName = $('#UnitID').combobox('getText') ;
-			var DiscipType = $('#DiscipType').combobox('getText') ;
-			var NationLevelOne = $('#NationLevelOne').combobox('getText') ;
-			var NationLevelTwo = $('#NationLevelTwo').combobox('getText') ;
-			var NationLevelKey = $('#NationLevelKey').combobox('getText') ;
-			var ProvinceLevelOne = $('#ProvinceLevelOne').combobox('getText') ;
-			var ProvinceLevelTwo = $('#ProvinceLevelTwo').combobox('getText') ;
-			var CityLevel = $('#CityLevel').combobox('getText') ;
-			var SchLevel = $('#SchLevel').combobox('getText') ;
+			var StaType = $('#StaType').combobox('getText') ;
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(DiscipName == null || DiscipName.length==0 || DiscipName.length > 100){
-				$('#DiscipName').focus();
-				$('#DiscipName').select();
-				$('#DiscipNameSpan').html("<font style=\"color:red\">学科名称不能为空或长度不超过100</font>") ;
+			if(StaName == null || StaName.length==0 || StaName.length > 100){
+				$('#StaName').focus();
+				$('#StaName').select();
+				$('#StaNameSpan').html("<font style=\"color:red\">名称不能为空或长度不超过100</font>") ;
 				return false ;
 			}else{
-				$('#DiscipNameSpan').html("") ;
+				$('#StaNameSpan').html("") ;
 			}
 			
-			if(DiscipID == null || DiscipID.length == 0 || DiscipID.length > 50){
-				$('#DiscipID').focus();
-				$('#DiscipID').select();
-				$('#DiscipIDSpan').html("<font style=\"color:red\">学科编号不能为空或长度不超过50</font>") ;
+			if(StaID == null || StaID.length == 0 || StaID.length > 50){
+				$('#StaID').focus();
+				$('#StaID').select();
+				$('#StaIDSpan').html("<font style=\"color:red\">代码不能为空或长度不超过50</font>") ;
 				return false ;
 			}else{
-				$('#DiscipIDSpan').html("") ;
+				$('#StaIDSpan').html("") ;
 			}
 			
 			if(UnitName == null || UnitName.length == 0){
-				$('#UnitNameSpan').html("<font style=\"color:red\">开课单位不能为空</font>") ;
+				$('#UnitNameSpan').html("<font style=\"color:red\">所属单位不能为空</font>") ;
 				return false ;
 			}else{
 				$('#UnitNameSpan').html("") ;
 			}
 			
-			if(DiscipType == null || DiscipType.length == 0){
-				$('#DiscipTypeSpan').html("<font style=\"color:red\">学科门类不能为空</font>") ;
+			if(StaType == null || StaType.length == 0){
+				$('#StaTypeSpan').html("<font style=\"color:red\">类别不能为空</font>") ;
 				return false ;
 			}else{
-				$('#DiscipTypeSpan').html("") ;
+				$('#StaTypeSpan').html("") ;
 			}
-			
+				
+	
 			if(Note !=null && Note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
@@ -456,26 +338,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return true ;
 		}
 
-		function singleSearch(){
-		   	 $('#auditing').form('submit',{
-		   		 url: 'pages/DiscipRes/singleSearch',
-		   		 type: "post",
-			     dataType: "json",
-		   		 success: function(result){
-		   		 	var result = eval('('+result+')');
-		   		 	if (!result.state){
-		   		 		$.messager.show({
-		   		 			title: 'Error',
-		   		 			msg: result.errorMsg
-		   			 });
-		   		 	} else {
-				    	$('#unverfiedData').datagrid('load'); // reload the auditing data
-		   		 	}
-		   		 }
-		   		 });
-		   }
 
-	    function editDiscip(){
+
+	    function editDocAndGra(){
 	    	var row = $('#unverfiedData').datagrid('getSelections');
 	    	
 	    	if(row.length != 1){
@@ -483,27 +348,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		return ;
 	    	}
 	    	
-	    	url = 'pages/DiscipRes/edit' ;
+	    	url = 'pages/DocAndGraSta/edit' ;
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加重点学科');
-	    	$('#SeqNumber').val(row[0].seqNumber) ;
-	        $('#DiscipName').val(row[0].discipName);
-	        $('#DiscipID').val(row[0].discipID);
-	        $('#UnitID').combobox('select',row[0].unitID) ;
-	        $('#DiscipType').combobox('select',row[0].discipType);
-	        $('#NationLevelOne').combobox('select',row[0].nationLevelOne);
-	        $('#NationLevelTwo').combobox('select',row[0].nationLevelTwo);
-	        $('#NationLevelKey').combobox('select',row[0].nationLevelKey);
-	        $('#ProvinceLevelOne').combobox('select',row[0].provinceLevelOne);
-	        $('#ProvinceLevelTwo').combobox('select',row[0].provinceLevelTwo);
-	        $('#CityLevel').combobox('select',row[0].cityLevel);
-	        $('#SchLevel').combobox('select',row[0].schLevel);
+	    	$('#dlg').dialog('open').dialog('setTitle','添加博士点硕士点库');
+	    	$('#seqNumber').val(row[0].seqNumber) ;
+	        $('#StaName').val(row[0].staName);
+	        $('#StaID').val(row[0].staID);
+	        $('#StaType').combobox('select',row[0].staType);
+	    	$('#UnitID').combobox('select',row[0].unitID) ;
 
 			$('#Note').val(row[0].note);
-		
+	
 	    }
 
+	    function exports() {
+	    	var temp = encodeURI('表3-1-2博士点 、硕士点（研究生院）.xls');
+		    $('#exportForm').form('submit', {
+		    url : "pages/DocAndGraSta/dataExport?excelName="+temp ,
+		    onSubmit : function() {
+		    return $(this).form('validate');//对数据进行格式化
+		    },
+		    success : function(data) {
+		    $.messager.show({
+		    	title : '提示',
+		    	msg : data
+		    });
+		    }
+		    }); 
+	    }
+	    
 
+	    function editUser(){
+	    	var row = $('#dg').datagrid('getSelections');
+	    	if(row.length != 1){
+	    		 $.messager.alert("信息提示","没选取或者选取了多行","info");  ;
+	    		return ;
+	    	}
+	    	alert(row[0].birthday) ;
+	    	var date = formattime(row[0].birthday) ;
+	    	//为文本框赋值
+	    	$('#id').val(row[0].id) ;
+	    	$('#username').val(row[0].username) ;
+	    	$('#password').val(row[0].password) ;
+	    	$('#email').val(row[0].email) ;
+	    	$('#sex').val(row[0].sex) ;
+	    	$('#birthday').val(date) ;
+	    	
+	    	
+		    if (row){
+			    $('#dlg').dialog('open').dialog('setTitle','本科课程库');
+			    $('#fm').form('load',row);
+			    url = 'updateUser';
+		    }
+	    }
 
 	    function deleteByIds(){
 	    	//获取选中项
@@ -527,33 +424,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 		}
 				 	}
 				 	
-				 	deleteDiscip(ids) ;
+				 	deleteDocAndGra(ids) ;
 				 	
 				 }
 			});
 	    }
 
-
-	    function exports() {
-	    	var temp = encodeURI('表3-1-3重点学科（科研处）.xls');
-		    $('#exportForm').form('submit', {
-		    url : "pages/DiscipRes/dataExport?excelName="+temp ,
-		    onSubmit : function() {
-		    return $(this).form('validate');//对数据进行格式化
-		    },
-		    success : function(data) {
-		    $.messager.show({
-		    	title : '提示',
-		    	msg : data
-		    });
-		    }
-		    }); 
-	    }
-
-	    function deleteDiscip(ids){
+	    function deleteDocAndGra(ids){
 	    	$.ajax({ 
 	    		type: "POST", 
-	    		url: "pages/DiscipRes/deleteCoursesByIds?ids=" + ids, 
+	    		url: "pages/DocAndGraSta/deleteCoursesByIds?ids=" + ids, 
 	    		async:"true",
 	    		dataType: "text",
 	    		success: function(result){
@@ -566,6 +446,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		}
 	    	}).submit();
 	    }
+
+
+
+	  
 	    
 	    
 	    function loadDic(){
@@ -574,8 +458,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    
 	    }
 	    
+	    function loadDictionary(){
+	    	
+	    	$.ajax({ 
+	    		type: "POST", 
+	    		url: "table3/loadDic", 
+	    		async:"false",
+	    		dataType: "text",
+	    		success: function(data){
+	    			data = eval("(" + data + ")");
+	    			alert(data[0].id) ;
+	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
+	    			$(data).each(function(index) {
+	    				var val = data[index];
+	    				if(index%4 == 0 && index != 0){
+	    					str += "</tr><tr>" ;
+	    				}
+	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
+	    			}); 
+	    			//alert(str);
+	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
+	    			document.getElementById("dicTables").innerHTML = str;
+	    			$.parser.parse('#dicTables');
+	    		}
+	    	}).submit();
+	    }
+	    	
+	    function loadData(){
 
-
+	    	//flag判断
+	    	
+	    	var flag = false ;
+	    	var checkboxes = document.getElementsByName("checkboxex");
+	    	var tables = "<div class=\"ftitle\">自定义查询条件</div><form method=\"post\" action=\"table3/dictorySearch\" id=\"dicsDataForm\"><table width=\"100%\" border=\"1\">" ;
+	    	tables += "<tr><td>查询名称</td><td>运算符</td><td>查询内容</td><td>逻辑关系</td></tr>" ;
+	    	for(i=0; i<checkboxes.length; i++){
+	    		if(checkboxes[i].checked){
+	    			flag = true ;
+	    			tables += ("<tr><td style=\"width:50%px\">" + hideId(checkboxes[i].id,i)  + checkboxes[i].value + "</td><td>" + selectOperateData(i) + "</td><td>" + selectDataHtml(checkboxes[i].id,i) +"</td><td>" + selectLogicData(i) + "</td></tr>") ;
+	    		}
+	    	}
+	    	if(flag){
+	    		tables += "<tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-search\" onclick=\"submitDicForm()\">查询</a></td></tr>" ;
+	    	}
+	    	tables += "</table></form>" ;
+	    	alert(tables) ;
+	    	document.getElementById("dices").innerHTML = tables ;
+	    	$.parser.parse('#dices');
+	    }
 	    
 	    function hideId(val,index){
 	    	var hiddenId = "<input type='hidden' name='dictorySearch[" + index + "].id' value='" + val + "'/>" ;
@@ -588,7 +518,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	var selectsHtml = "<select class=\"easyui-combogrid\" style=\"width:50%px\" name=\"dictorySearch[" + index + "].dicData\" data-options=\"panelWidth: 500, multiple: true,required:true,"
 	    	 + " idField: 'dicData',textField: 'dicData',"
-	    	 + "url: 'table5/loadDictionary?dicId=" + val + "',"
+	    	 + "url: 'table3/loadDictionary?dicId=" + val + "',"
 	    	 + "method: 'post',"
 	    	 + "columns: [[{field:'ck',checkbox:true},{field:'itemid',title:'数据',width:80},{field:'dicData',title:'数据',width:80}]],"
 	    	 + "fitColumns: true \"> </select>" ;
@@ -645,23 +575,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    //alert(time) ;
 			        return time;  
 			    }  
-			</script>
-			
-			<script type="text/javascript"> 
-		    function booleanstr(val) { 	 
-		    	if(val == null){
-					return null ;
-				}
-				var bo1=""+val;//吧boolean型转换成str类型再判断
-				var boo;
-				if( bo1 == "false") {
-					boo="否" ;
-				}else if (bo1 == "true"){
-
-					boo="是" ;
-				}
-				return boo;
-	        }  
 			</script>
 			
 		<script type="text/javascript">

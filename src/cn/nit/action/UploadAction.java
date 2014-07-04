@@ -27,10 +27,7 @@ public class UploadAction {
 	private String methodName ;
 	
 	private String selectYear;
-	
-	private int[] mergedCells;
-	
-	
+		
 	public void uploadFile(){
 		
 		PrintWriter out = null ;
@@ -49,11 +46,10 @@ public class UploadAction {
 			
 			List<Cell[]> list = ExcelUtil.readExcel(uploadFile, 0) ;
 			Class<?> clazz = Class.forName(className) ;
-			mergedCells=ExcelUtil.readMergedCells(uploadFile, 0,list.size()) ;
 
 		
 			Method method = clazz.getDeclaredMethod(methodName, List.class, HttpServletRequest.class, String.class,int[].class) ;
-			String errorMsg = (String)method.invoke(clazz.newInstance(), list, getRequest(),this.getSelectYear(),mergedCells) ;
+			String errorMsg = (String)method.invoke(clazz.newInstance(), list, getRequest(),this.getSelectYear()) ;
 			
 			if(errorMsg == null || errorMsg.equals("")){
 				out.print("{success:true,errorMsg:'数据存储成功'}") ;
@@ -71,14 +67,6 @@ public class UploadAction {
 		}
 	}
 	
-	public int[] getMergedCells() {
-		return mergedCells;
-	}
-
-	public void setMergedCells(int[] mergedCells) {
-		this.mergedCells = mergedCells;
-	}
-
 	public File getUploadFile() {
 		return uploadFile;
 	}

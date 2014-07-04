@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
@@ -9,14 +9,14 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.locale" value="zh_CN" /> 
 	<constant name="struts.i18n.encoding" value="UTF-8" /> 
-	<!-- ç”¨æˆ·ç™»å½• -->
+	<!-- ÓÃ»§µÇÂ¼ -->
     <include file="cn/nit/configuration/login.xml" />
-    <!-- åŠŸèƒ½èœå•ç®¡ç† -->
+    <!-- ¹¦ÄÜ²Ëµ¥¹ÜÀí -->
     <include file="cn/nit/configuration/treeManager.xml"/>
-    <!-- ç”¨æˆ·ç®¡ç† -->
+    <!-- ÓÃ»§¹ÜÀí -->
     <include file="cn/nit/configuration/system/UserManager.xml" />
     
-     <!-- Diï¼ˆæ‰€æœ‰å­—å…¸è¡¨ï¼‰-->
+     <!-- Di£¨ËùÓÐ×Öµä±í£©-->
     <include file="cn/nit/configuration/di/DiDepartment.xml"/>
     <include file="cn/nit/configuration/di/DiSource.xml"/>
     <include file="cn/nit/configuration/di/DiEducation.xml"/>
@@ -62,35 +62,35 @@
     
 
     <!-- table1 -->
-      <!-- t11å­¸æ ¡åŸºæœ¬ä¿¡æ¯ -->
+      <!-- t11ŒWÐ£»ù±¾ÐÅÏ¢ -->
     <include file="cn/nit/configuration/table1/T11.xml"/>
-     <!-- t151æ ¡çº§ä»¥ä¸Šç§‘ç ”æœºæž„å•ä½ï¼ˆç§‘ç ”å¤„ï¼‰ -->
+     <!-- t151Ð£¼¶ÒÔÉÏ¿ÆÑÐ»ú¹¹µ¥Î»£¨¿ÆÑÐ´¦£© -->
     <include file="cn/nit/configuration/table1/T151.xml"/>
-     <!-- t152æ ¡çº§ä»¥ä¸Šç§‘ç ”æœºæž„å•ä½ -->
+     <!-- t152Ð£¼¶ÒÔÉÏ¿ÆÑÐ»ú¹¹µ¥Î» -->
     <include file="cn/nit/configuration/table1/T152.xml"/>
-     <!-- t17æ ¡å‹ä¼š -->
+     <!-- t17Ð£ÓÑ»á -->
     <include file="cn/nit/configuration/table1/T17.xml"/>
-     <!-- t181ç­¾è®¢åˆä½œæœºæž„ï¼ˆæ•™åŠ¡å¤„ï¼‰ -->
+     <!-- t181Ç©¶©ºÏ×÷»ú¹¹£¨½ÌÎñ´¦£© -->
     <include file="cn/nit/configuration/table1/T181.xml"/>
-    <!-- t182ç­¾è®¢åˆä½œæœºæž„ï¼ˆç§‘ç ”å¤„å¤„ï¼‰ -->
+    <!-- t182Ç©¶©ºÏ×÷»ú¹¹£¨¿ÆÑÐ´¦´¦£© -->
     <include file="cn/nit/configuration/table1/T182.xml"/>
-     <!-- t183ç­¾è®¢åˆä½œæœºæž„ï¼ˆæ‹›å°±å¤„ï¼‰ -->
+     <!-- t183Ç©¶©ºÏ×÷»ú¹¹£¨ÕÐ¾Í´¦£© -->
     <include file="cn/nit/configuration/table1/T183.xml"/>
-     <!-- t16åŠžå­¦æŒ‡å¯¼æ€æƒ³ï¼ˆå…šé™¢åŠžï¼‰ -->
+     <!-- t16°ìÑ§Ö¸µ¼Ë¼Ïë£¨µ³Ôº°ì£© -->
     <include file="cn/nit/configuration/table1/T16.xml"/>
-       <!-- S18åè®®ç»Ÿè®¡è¡¨ -->
+       <!-- S18Ð­ÒéÍ³¼Æ±í -->
     <include file="cn/nit/configuration/table1/S18.xml"/>
-      <!-- S17æ ¡å‹ä¼šç»Ÿè®¡è¡¨ -->
+      <!-- S17Ð£ÓÑ»áÍ³¼Æ±í -->
     <include file="cn/nit/configuration/table1/S17.xml"/>
-      <!-- A15ç§‘ç ”å•ä½ç»Ÿè®¡è¡¨ -->
+      <!-- A15¿ÆÑÐµ¥Î»Í³¼Æ±í -->
     <include file="cn/nit/configuration/table1/A15.xml"/>
-       <!-- S15ç§‘ç ”å•ä½ç»Ÿè®¡è¡¨ -->
+       <!-- S15¿ÆÑÐµ¥Î»Í³¼Æ±í -->
     <include file="cn/nit/configuration/table1/S15.xml"/>
            <!-- T12 -->
     <include file="cn/nit/configuration/table1/T12.xml"/>
-           <!-- T13å­¦æ ¡ç§‘ç ”å•ä½ -->
+           <!-- T13Ñ§Ð£¿ÆÑÐµ¥Î» -->
     <include file="cn/nit/configuration/table1/T13.xml"/>
-        <!-- T14å­¦æ ¡æ•™å­¦å•ä½ -->
+        <!-- T14Ñ§Ð£½ÌÑ§µ¥Î» -->
     <include file="cn/nit/configuration/table1/T14.xml"/>
       <!-- T19 -->
     <include file="cn/nit/configuration/table1/T19.xml"/>
@@ -105,33 +105,44 @@
 	<include file="cn/nit/configuration/table2/T26.xml"/>
     
     <!--table3-->
-    <!-- t312åšå£«ç‚¹ç¡•å£«ç‚¹ -->
+    <!-- t312²©Ê¿µãË¶Ê¿µã -->
     <include file="cn/nit/configuration/table3/T312.xml"/>
-    <!-- t311åšå£«åŽæµåŠ¨ç«™ -->
+    <!-- t311²©Ê¿ºóÁ÷¶¯Õ¾ -->
     <include file="cn/nit/configuration/table3/T311.xml"/>
-    <!-- t313 é‡ç‚¹å­¦ç§‘è¡¨ -->
+    <!-- t313 ÖØµãÑ§¿Æ±í -->
     <include file="cn/nit/configuration/table3/T313.xml"/>
-    <!-- t321 å¤§ç±»åŸ¹å…»åŸºæœ¬æƒ…å†µ -->
+    <!-- t321 ´óÀàÅàÑø»ù±¾Çé¿ö -->
     <include file="cn/nit/configuration/table3/T321.xml"/>
-    <!-- t322 ä¸“ä¸šåŸºæœ¬æƒ…å†µ -->
+    <!-- t322 ×¨Òµ»ù±¾Çé¿ö -->
     <include file="cn/nit/configuration/table3/T322.xml"/> 
-    <!-- t33 ä¸“ä¸šåŸºæœ¬æƒ…å†µ -->
+    <!-- t33 ×¨Òµ»ù±¾Çé¿ö -->
     <include file="cn/nit/configuration/table3/T33.xml"/>        
-    <!-- S31å­¦ç§‘å»ºè®¾ -->
+    <!-- S31Ñ§¿Æ½¨Éè -->
     <include file="cn/nit/configuration/table3/S31.xml"/>   
     <include file="cn/nit/configuration/table3/A321.xml"/>       
     <include file="cn/nit/configuration/table3/S322.xml"/>
     
     
     
-    <!-- table5æœ¬ç§‘è¯¾ç¨‹åº“ -->
-    <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>   
+    <!-- table5±¾¿Æ¿Î³Ì¿â -->
+
+    <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
+       <include file="cn/nit/configuration/table5/T551.xml"/>
+        <include file="cn/nit/configuration/table5/T534.xml"/>
+       
+  
     <include file="cn/nit/configuration/table5/T552.xml"/>
     <include file="cn/nit/configuration/table5/T553.xml"/>
+
     <include file="cn/nit/configuration/table5/T551.xml"/>
     <include file="cn/nit/configuration/table5/T511.xml"/>
+
+
+
+
+
     
-    <!-- table6 è¿‘ä¸€å±Šæœ¬ç§‘ç”Ÿåˆ†ä¸“ä¸šæ‹›ç”Ÿå½•å–æƒ…å†µ -->
+    <!-- table6 ½üÒ»½ì±¾¿ÆÉú·Ö×¨ÒµÕÐÉúÂ¼È¡Çé¿ö -->
     <include file="cn/nit/configuration/table6/T611.xml"/>
     <include file="cn/nit/configuration/table6/T612.xml"/>
     <include file="cn/nit/configuration/table6/T613.xml"/>

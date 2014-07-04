@@ -1,11 +1,10 @@
 var url;
 //弹出添加的界面
 function newItem() {
+	url = 'pages/T615/insert' ; 
 	$('#title1').show();
 	$('#item1').show();
-	
-	url = 'pages/T621/insert' ;  // 配置action?
-	$('#dlg').dialog('open').dialog('setTitle', '近一届本科生分专业招生录取情况');
+	$('#dlg').dialog('open').dialog('setTitle', '普通本科分专业（大类）学生数');
 	$('#addItemForm').form('reset');
 }
 // 单条录入时的表单提交
@@ -38,45 +37,60 @@ function validate() {
 	var  num = /^\d+$/;  //用于判断字符串是否全是数字
 	var unitId = $('#unitId').combobox('getText');
 	var majorId = $('#majorId').combobox('getText');
-	var amisPlanNum = $('#amisPlanNum').val();
-	var actulEnrollNum = $('#actulEnrollNum').val();
-	var actulRegisterNum = $('#actulRegisterNum').val();
-	var autoEnrollNum = $('#autoEnrollNum').val();
-	var specialtyEnrollNum = $('#specialtyEnrollNum').val();
-	var inProviEnrollNum = $('#inProviEnrollNum').val();
-	var newMajEnrollNum = $('#newMajEnrollNum').val();
+
+	var schLen = $('#schLen').val();
+	var schStuSumNum = $('#schStuSumNum').val();
+	var freshmanNum = $('#freshmanNum').val();
+	var sophomoreNum = $('#sophomoreNum').val();
+	var juniorNum = $('#juniorNum').val();
+	
+	var seniorNum = $('#seniorNum').val();
+	var otherGradeNum = $('#otherGradeNum').val();
+	var minorNum = $('#minorNum').val();
+	var dualDegreeNum = $('#dualDegreeNum').val();
+	
+	var changeInNum = $('#changeInNum').val();
+	var changeOutNum = $('#changeOutNum').val();
+
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
 
 	// 根据数据库定义的字段的长度，对其进行判断
 
 	if (unitId == null || unitId.length == 0) {
-		$('#fromTeaUnit').focus();
-		$('#fromTeaUnit').select();
-		alert("所属教学单位不能为空");
+		alert("教学单位不能为空");
 		return false;
 	}
 
 	if (majorId == null || majorId.length == 0) {
-		$('#majorName').focus();
-		$('#majorName').select();
 		alert("专业名称不能为空");
 		return false;
 	}
-
-	if (amisPlanNum == "" || actulEnrollNum == "" || actulRegisterNum == ""
-			|| autoEnrollNum == "" || specialtyEnrollNum == ""
-			|| inProviEnrollNum == "" || newMajEnrollNum == "") {
-		alert("请填写数字，若无请填写0");
+	
+	if (schLen == null || schLen.length == 0) {
+		alert("学制不能为空");
 		return false;
 	}
 	
-	if (!amisPlanNum.match(num) || !actulEnrollNum.match(num) || !actulRegisterNum.match(num)
-			|| !autoEnrollNum.match(num) || !specialtyEnrollNum.match(num)
-			|| !inProviEnrollNum.match(num)|| !newMajEnrollNum.match(num)) {
-		alert("请填写数字，若无请填写0");
+	if (!schLen.match(num)) {
+		alert("学制应为数字");
 		return false;
 	}
+
+	if (schStuSumNum == "" || freshmanNum == "" || sophomoreNum == ""
+			|| juniorNum == "" || seniorNum == "" || otherGradeNum == "" || minorNum == ""
+				|| dualDegreeNum == "" || changeInNum == ""
+					|| changeOutNum == "" ) {
+		alert("人数部分请填写数字，若无请填写0");
+		return false;
+	}
+	
+	if (!schStuSumNum.match(num) || !freshmanNum.match(num) || !sophomoreNum.match(num)
+		|| !juniorNum.match(num)|| !seniorNum.match(num) || !otherGradeNum.match(num) || !minorNum.match(num)
+		|| !dualDegreeNum.match(num) || !changeInNum.match(num) || !changeOutNum.match(num)) {
+		alert("人数部分请填写数字，若无请填写0");
+		return false;
+		}
 
 	if (time == null || time.length == 0) {
 		$('#time').focus();
@@ -122,7 +136,7 @@ function deleteByIds() {
 function deletes(ids) {
 	$.ajax( {
 		type : "POST",
-		url : "pages/T621/deleteByIds?ids=" + ids,
+		url : "pages/T615/deleteByIds?ids=" + ids,
 		async : "true",
 		dataType : "text",
 		success : function(result) {
@@ -144,41 +158,47 @@ function editItem() {
 		return;
 	}
 
-	url = 'pages/T621/edit';
+	url = 'pages/T615/edit';
 	
 	$('#title1').hide();
 	$('#item1').hide();
-	
-	$('#dlg').dialog('open').dialog('setTitle', '近一届本科生分专业招生录取情况');
 
+	
+	$('#dlg').dialog('open').dialog('setTitle', '普通本科分专业（大类）学生数');
 	$('#seqNumber').val(row[0].seqNumber);
 	$('#unitId').combobox('select', row[0].unitId);
 	$('#majorId').combobox('select', row[0].majorId);
-	$('#amisPlanNum').val(row[0].amisPlanNum);
-	$('#actulEnrollNum').val(row[0].actulEnrollNum);
-	$('#actulRegisterNum').val(row[0].actulRegisterNum);
-	$('#autoEnrollNum').val(row[0].autoEnrollNum);
-	$('#specialtyEnrollNum').val(row[0].specialtyEnrollNum);
-	$('#inProviEnrollNum').val(row[0].inProviEnrollNum);
-	$('#newMajEnrollNum').val(row[0].newMajEnrollNum);
+
+	$('#schLen').val(row[0].schLen);
+
+	$('#schStuSumNum').val(row[0].schStuSumNum);
+	$('#freshmanNum').val(row[0].freshmanNum);
+	$('#sophomoreNum').val(row[0].sophomoreNum);
+	$('#juniorNum').val(row[0].juniorNum);
+	
+	$('#seniorNum').val(row[0].seniorNum);
+	$('#otherGradeNum').val(row[0].otherGradeNum);
+	$('#minorNum').val(row[0].minorNum);
+	$('#dualDegreeNum').val(row[0].dualDegreeNum);
+	
+	$('#changeInNum').val(row[0].changeInNum);
+	$('#changeOutNum').val(row[0].changeOutNum);
+
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);
-	
-
 }
-/**用于数据查询功能*/
+
 function reloadgrid ()  { 
     //查询参数直接添加在queryParams中 
      var  queryValue = $('#searchItem').val();
+//     alert("搜索的专业为："+ queryValue);
      var queryParams = $('#commomData').datagrid('options').queryParams;  
      queryParams.searchItem = queryValue;  
      $("#commomData").datagrid('reload'); 
-}		
-
+}
 
 //模板导入
 function batchImport(){
-
 	  var fileName = $('#uploadFile').val() ; 	
 	  if(fileName == null || fileName == ""){
 		  $.messager.alert('Excel批量用户导入', '请选择将要上传的文件!');      
@@ -191,7 +211,7 @@ function batchImport(){
 	   		return false ;
 	 }
 	 $('#batchForm').form('submit',{
-		 url: 'pages/T621/uploadFile',
+		 url: 'pages/T615/uploadFile',
 		 type: "post",
 	     dataType: "json",
 		 onSubmit: function(){
@@ -211,5 +231,3 @@ function batchImport(){
 		 }
 		 });
  }
-
-

@@ -11,7 +11,6 @@ import javax.persistence.TemporalType;
 /**
  * T281FixedAssetLog entity. @author MyEclipse Persistence Tools
  */
-@Entity
 @Table(name = "T281_FixedAsset_Log$", schema = "dbo", catalog = "TDMS")
 public class T281_Bean implements java.io.Serializable {
 

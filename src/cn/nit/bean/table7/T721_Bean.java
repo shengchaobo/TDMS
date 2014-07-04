@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class T721_Bean {
 	
-	private int SeqNumber ;
+	private Integer SeqNumber ;
 	
 	private String ItemName;
 	
@@ -45,11 +45,12 @@ public class T721_Bean {
 
 	
 	
-	public int getSeqNumber() {
+
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
 
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 

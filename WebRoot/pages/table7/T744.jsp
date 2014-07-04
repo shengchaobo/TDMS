@@ -25,27 +25,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
 	
 	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
+			 label {
+	    width: 10em;
+	    float: left;
+	}
+	.empty{
+		width: 4em;
+	}
 	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
@@ -73,18 +59,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="assessResult" width="10%">评估结果</th>
 				<th field="appvlID" width="10%">批文号</th>
 				<th field="note" width="20%">备注</th>
-				<th field="time" width="10" formatter="formattime">时间</th>
+				
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	 <form id="auditing" method="post">
+		 <form id="auditing" method="post" style="float: right;height: 26px;">
 		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
@@ -115,15 +101,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="assessResult" width="10%">评估结果</th>
 				<th field="appvlID" width="10%">批文号</th>
 				<th field="note" width="20%">备注</th>
-				<th field="time" width="10" formatter="formattime">时间</th>
+			
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">专业建设评估批量导入</div>
-		<div class="fitem">
+		<div class="ftitle" id="title1">专业建设评估批量导入</div>
+		<div class="fitem" id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
@@ -132,10 +118,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			<a href="123"></a>
 		</div>
-		<div></div>
-		<div class="ftitle">本科课程库逐条导入</div>
-		
-		<form id="courseForm" method="post">
+	
+	   <hr style="width: 100%; height: 5px; color: blue;"></hr>	
+			
+		<h3 class="ftitle">专业建设评估逐条导入</h3>
 		<table>
 		<tr>
 				<td>
@@ -349,6 +335,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   }
 	    
 	    function newCourse(){
+	    
+	    $('#title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
 	        url="pages/T744/insert";
 		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 		    $('#courseForm').form('reset');
@@ -448,7 +438,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/T744/edit' ;
-	    	
+	        $('#title1').hide();
+	    	$('#item1').hide();
+	    	$('hr').hide();
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#UnitID').combobox('select', row[0].unitID) ;

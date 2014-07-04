@@ -118,7 +118,7 @@ public class T732_Excel {
 				T732_Bean.setLeaderName(leaderName);
 				T732_Bean.setLeaderTeaID(leaderId);
 				T732_Bean.setAdminTitle(adTitle);
-				T732_Bean.setAttendClassTime(TimeUtil.changeDateYM(attclTime));
+				T732_Bean.setAttendClassTime(TimeUtil.changeDateYMD(attclTime));
 				T732_Bean.setLectureTea(lecTea);
 				T732_Bean.setLectureTeaID(lecTeaId);
 				T732_Bean.setLectureCS(lecCS);

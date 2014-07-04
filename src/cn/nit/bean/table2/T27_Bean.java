@@ -11,7 +11,6 @@ import javax.persistence.TemporalType;
 /**
  * T27SchNetworkNic entity. @author MyEclipse Persistence Tools
  */
-@Entity
 @Table(name = "T27_SchNetwork_NIC$", schema = "dbo", catalog = "TDMS")
 public class T27_Bean implements java.io.Serializable {
 

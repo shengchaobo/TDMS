@@ -138,7 +138,7 @@ public class T722_Excel {
 					T722_Bean.setOtherTeaNum(Integer.parseInt(OJTNum));
 					T722_Bean.setOtherTea(otherTea);
 					T722_Bean.setAwardLevel(ardLevelID);
-					T722_Bean.setAwardTime(TimeUtil.changeDateYM(ardTime));
+					T722_Bean.setAwardTime(TimeUtil.changeDateYMD(ardTime));
 					T722_Bean.setAwardFromUnit(ardfUnit);
 					T722_Bean.setAppvlID(appID);
 					T722_Bean.setFillUnitID(fillUnitID);

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class T552_Bean {
 	
-	private int SeqNumber;
+	private Integer SeqNumber;
 	
 	private String AwardName;
 	
@@ -27,11 +27,13 @@ public class T552_Bean {
 	/**  审核单位ID号  */
     private String audit ;
 
-	public int getSeqNumber() {
+	
+
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
 
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 

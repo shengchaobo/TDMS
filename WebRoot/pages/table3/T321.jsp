@@ -54,22 +54,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="height: auto;" url="pages/DocAndGraSta/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="height: auto;" url="pages/MainTrainBasicInfoTea/auditingData"
 		toolbar="#toolbar" pagination="true" 
 		 singleSelect="false" >
 		<thead data-options="frozen:true">
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th data-options="field:'ck',checkbox:true" >选取</th>
 				<th field="seqNumber" >序号</th>
-				<th field="staName" >名称</th>
+				<th field="mainClassName" >大类名称</th>
 				</tr>
 				</thead>
 				<thead>
 				<tr>
-				<th field="staID" ">代码</th>
+				<th field="mainClassID" >大类代码</th>
+				<th field="byPassTime" >分流时间</th>
+				<th field="majorNameInSch" ">包含校内专业名称</th>
+				<th field="majorID" >校内专业代码</th>
 				<th field="unitName" >所属单位</th>
 				<th field="unitID" >单位号</th>
-				<th field="staType" >类型</th>
 				<th field="note" >备注</th>
 			</tr>
 		</thead>
@@ -77,9 +79,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="toolbar" style="height:auto">
 		<div>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDocAndGra()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMainTrainBasicInfo()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href="pages/DocAndGraSta/dataExport?excelName=表3-1-2博士点 、硕士点（研究生院）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>
 		 <div>
 		 	<form id="auditing" method="post">
@@ -91,28 +92,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-		<form  id="exportForm"  method="post" style="float: right;">
+	 <form  id="exportForm"  method="post" style="float: right;">
 			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" url="table5/verifiedData"
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" url="table3/verifiedData"
 		toolbar="#toolbar2" pagination="true" 
-		singleSelect="false">
+		 singleSelect="false">
 		<thead data-options="frozen:true">
 			<tr>
-		<th data-options="field:'ck',checkbox:true">选取</th>
+				<th data-options="field:'ck',checkbox:true" >选取</th>
 				<th field="SeqNumber" >序号</th>
-			</tr>
-			</thead>
-			<thead>
+				<th field="MainClassName" >大类名称</th>
+				</tr>
+				</thead>
+				<thead>
 				<tr>
-				<th field="StaName" >名称</th>
-				<th field="StaID" >代码</th>
+				<th field="MainClassID" >大类代码</th>
+				<th field="ByPassTime" >分流时间</th>
+				<th field="MajorNameInSch" ">包含校内专业名称</th>
+				<th field="MajorID" >校内专业代码</th>
 				<th field="UnitName" >所属单位</th>
 				<th field="UnitID" >单位号</th>
-				<th field="StaType" >类型</th>
 				<th field="Note" >备注</th>
 			</tr>
 		</thead>
@@ -120,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">博士点硕士点批量导入</div>
+		<div class="ftitle">大类培养基本情况批量导入</div>
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
@@ -128,29 +131,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-				<a href='pages/DocAndGraSta/downloadModel?saveFile=<%=URLEncoder.encode("表3-1-2博士点 、硕士点（研究生院）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/MainTrainBasicInfoTea/downloadModel?saveFile=<%=URLEncoder.encode("表3-2-1大类培养基本情况表（教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
 		<div></div>
-		<div class="ftitle">博士点硕士点逐条导入</div>
+		<div class="ftitle">大类培养基本情况逐条导入</div>
 		
-		<form id="DocAndGraStaForm" method="post">
+		<form id="mainTrainBasicInfoForm" method="post">
 		<table>
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>名称：</label> 
-						<input id="seqNumber" name="postDocStaBean.SeqNumber" type="hidden" > </input>
-						<input id="StaName" type="text" name="docAndGraStaBean.StaName"
-							class="easyui-validatebox" required="true"><span id="StaNameSpan"></span>
+						<label>大类名称：</label> 
+						<input id="MainClassName" type="text" name="t321_Bean.MainClassName"
+							class="easyui-validatebox" required="true"><span id="MainClassNameSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
-						<label>代码：</label> 
-						<input id="StaID" type="text" name="docAndGraStaBean.StaID"
-							class="easyui-validatebox" required="true"><span id="StaIDSpan"></span>
+						<label>大类代码：</label> 
+						<input id="MainClassID" type="text" name="t321_Bean.MainClassID"
+							class="easyui-validatebox" required="true"><span id="MainClassIDSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>分流时间：</label> 
+						<select class='easyui-combobox' id="ByPassTime" name="t321_Bean.ByPassTime">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+						<span id="ByPassTimeSpan"></span>
+					</div>
+				</td>
+		
+				<td>
+					<div class="fitem">
+						<label>包含校内专业名称：</label> 
+					<input id="SeqNumber" name="t321_Bean.SeqNumber" type="hidden" > </input>
+						<input type="hidden" name="t321_Bean.MajorNameInSch" id="MajorNameInSch"/>
+						<input id="MajorID" type="text" name="t321_Bean.MajorID" 
+							 class='easyui-combobox' data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
+							 onSelect:function(){
+							 	document.getElementById('MajorNameInSch').value=$(this).combobox('getText') ;
+							 }">
+						<span id="MajorNameInSchSpan"></span>
 					</div>
 				</td>
 			</tr>
@@ -159,8 +195,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>所属单位：</label> 
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
-						<input type="hidden" name="docAndGraStaBean.UnitName" id="UnitName"/>
-						<input id="UnitID" type="text" name="docAndGraStaBean.UnitID" 
+						<input type="hidden" name="t321_Bean.UnitName" id="UnitName"/>
+						<input id="UnitID" type="text" name="t321_Bean.UnitID" 
 							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
@@ -168,20 +204,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="UnitNameSpan"></span>
 					</div>
 				</td>
-				<td>
-					<div class="fitem">
-						<label>类型：</label> 
-						<select class='easyui-combobox' id="StaType" name="docAndGraStaBean.StaType">
-							<option value="硕士点">硕士点</option>
-							<option value="博士点">博士点</option>
-						</select>
-						<span id="StaTypeSpan"></span>
-					</div>
-				</td>
+
+
 			</tr>
+			
 			<tr>
 				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-					<textarea id="Note" name="docAndGraStaBean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="t321_Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>
@@ -220,7 +249,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url: 'pages/DocAndGraSta/uploadFile',
+	    		 url: 'pages/MainTrainBasicInfoTea/uploadFile',
 	    		 type: "post",
 		         dataType: "json",
 	    		 onSubmit: function(){
@@ -258,18 +287,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 $.messager.alert("操作提示", "请选择正确的Excel文件（后缀为.xls）");
 	    		return false ;
 	    	}
-	    }
+	    } 
 	    
 	    function newCourse(){
-		    $('#dlg').dialog('open').dialog('setTitle','添加博士点硕士点库');
-		    $('#DocAndGraStaForm').form('reset');
+		    $('#dlg').dialog('open').dialog('setTitle','添加大类基本情况');
+		    $('#mainTrainBasicInfoForm').form('reset');
 	    }
 
 	    function singleImport(){
+	    
 		    //录入数据的表单提交
-	    	 $('#DocAndGraStaForm').form('submit',{
-				    url: 'pages/DocAndGraSta/insert',
-				    data: $('#DocAndGraStaForm').serialize(),
+	    	 $('#mainTrainBasicInfoForm').form('submit',{
+				    url: 'pages/MainTrainBasicInfoTea/insert',
+				    data: $('#mainTrainBasicInfoForm').serialize(),
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
@@ -290,29 +320,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var StaName = $('#StaName').val() ;
-			var StaID = $('#StaID').val() ;
+			var MainClassName = $('#MainClassName').val() ;
+			var MainClassID = $('#MainClassID').val() ;
 			var UnitName = $('#UnitID').combobox('getText') ;
-			var StaType = $('#StaType').combobox('getText') ;
+			var ByPassTime = $('#ByPassTime').combobox('getText') ;
+			var MajorNameInSch = $('#MajorID').combobox('getText');
+		
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(StaName == null || StaName.length==0 || StaName.length > 100){
-				$('#StaName').focus();
-				$('#StaName').select();
-				$('#StaNameSpan').html("<font style=\"color:red\">名称不能为空或长度不超过100</font>") ;
+			if(MainClassName == null || MainClassName.length==0 || MainClassName.length > 100){
+				$('#MainClassName').focus();
+				$('#MainClassName').select();
+				$('#MainClassNameSpan').html("<font style=\"color:red\">大类名称不能为空或长度不超过100</font>") ;
 				return false ;
 			}else{
-				$('#StaNameSpan').html("") ;
+				$('#MainClassNameSpan').html("") ;
+			}
+
+			
+			if(MajorNameInSch == null || MajorNameInSch.length == 0){
+				$('#MajorNameInSchSpan').html("<font style=\"color:red\">校内专业名称不能为空</font>") ;
+				return false ;
+			}else{
+				$('#MajorNameInSchSpan').html("") ;
+			}
+
+			if(MainClassID == null || MainClassID.length == 0 || MainClassID.length > 50){
+				$('#MainClassID').focus();
+				$('#MainClassID').select();
+				$('#MainClassIDSpan').html("<font style=\"color:red\">大类代码不能为空或长度不超过50</font>") ;
+				return false ;
+			}else{
+				$('#MainClassIDSpan').html("") ;
 			}
 			
-			if(StaID == null || StaID.length == 0 || StaID.length > 50){
-				$('#StaID').focus();
-				$('#StaID').select();
-				$('#StaIDSpan').html("<font style=\"color:red\">代码不能为空或长度不超过50</font>") ;
-				return false ;
-			}else{
-				$('#StaIDSpan').html("") ;
-			}
+
 			
 			if(UnitName == null || UnitName.length == 0){
 				$('#UnitNameSpan').html("<font style=\"color:red\">所属单位不能为空</font>") ;
@@ -320,15 +362,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}else{
 				$('#UnitNameSpan').html("") ;
 			}
+
+
 			
-			if(StaType == null || StaType.length == 0){
-				$('#StaTypeSpan').html("<font style=\"color:red\">类别不能为空</font>") ;
+			if(ByPassTime == null || ByPassTime.length == 0){
+				$('#ByPassTimeSpan').html("<font style=\"color:red\">分流时间不能为空</font>") ;
 				return false ;
 			}else{
-				$('#StaTypeSpan').html("") ;
+				$('#ByPassTimeSpan').html("") ;
 			}
-				
-	
+			
 			if(Note !=null && Note.length > 1000){
 				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
 				return false ;
@@ -339,8 +382,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 
-
-	    function editDocAndGra(){
+	    function editMainTrainBasicInfo(){
 	    	var row = $('#unverfiedData').datagrid('getSelections');
 	    	
 	    	if(row.length != 1){
@@ -348,35 +390,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		return ;
 	    	}
 	    	
-	    	url = 'pages/DocAndGraSta/edit' ;
+	    	url = 'pages/MainTrainBasicInfoTea/edit' ;
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加博士点硕士点库');
-	    	$('#seqNumber').val(row[0].seqNumber) ;
-	        $('#StaName').val(row[0].staName);
-	        $('#StaID').val(row[0].staID);
-	        $('#StaType').combobox('select',row[0].staType);
-	    	$('#UnitID').combobox('select',row[0].unitID) ;
-	    	alert(row[0].unitID);
+	    	$('#dlg').dialog('open').dialog('setTitle','添加重点学科');
+	    	$('#SeqNumber').val(row[0].seqNumber) ;
+	        $('#MainClassName').val(row[0].mainClassName);
+	        $('#MainClassID').val(row[0].mainClassID);
+	        $('#ByPassTime').combobox('select',row[0].byPassTime) ;
+	        $('#MajorID').combobox('select',row[0].majorID);
+	        $('#UnitID').combobox('select',row[0].unitID);
+
 			$('#Note').val(row[0].note);
-			alert(row[0].note);
+		
 	    }
 
-	    function exports() {
-	    	var temp = encodeURI('表3-1-2博士点 、硕士点（研究生院）.xls');
-		    $('#exportForm').form('submit', {
-		    url : "pages/DocAndGraSta/dataExport?excelName="+temp ,
-		    onSubmit : function() {
-		    return $(this).form('validate');//对数据进行格式化
-		    },
-		    success : function(data) {
-		    $.messager.show({
-		    	title : '提示',
-		    	msg : data
-		    });
-		    }
-		    }); 
-	    }
-	    
+
+		   
 
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');
@@ -402,6 +431,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    }
 	    }
 
+
 	    function deleteByIds(){
 	    	//获取选中项
 			var row = $('#unverfiedData').datagrid('getSelections');
@@ -424,16 +454,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 		}
 				 	}
 				 	
-				 	deleteDocAndGra(ids) ;
+				 	deleteDiscip(ids) ;
 				 	
 				 }
 			});
 	    }
 
-	    function deleteDocAndGra(ids){
+	    function deleteDiscip(ids){
 	    	$.ajax({ 
 	    		type: "POST", 
-	    		url: "pages/DocAndGraSta/deleteCoursesByIds?ids=" + ids, 
+	    		url: "pages/MainTrainBasicInfoTea/deleteCoursesByIds?ids=" + ids, 
 	    		async:"true",
 	    		dataType: "text",
 	    		success: function(result){
@@ -447,9 +477,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}).submit();
 	    }
 
-
-
-	  
+	    function exports() {
+	    	var temp = encodeURI('表3-2-1大类培养基本情况表（教务处）.xls');
+		    $('#exportForm').form('submit', {
+		    url : "pages/MainTrainBasicInfoTea/dataExport?excelName="+temp ,
+		    onSubmit : function() {
+		    return $(this).form('validate');//对数据进行格式化
+		    },
+		    success : function(data) {
+		    $.messager.show({
+		    	title : '提示',
+		    	msg : data
+		    });
+		    }
+		    }); 
+	    }
 	    
 	    
 	    function loadDic(){
@@ -485,7 +527,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    	
 	    function loadData(){
-
+	 
 	    	//flag判断
 	    	
 	    	var flag = false ;
@@ -505,6 +547,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	alert(tables) ;
 	    	document.getElementById("dices").innerHTML = tables ;
 	    	$.parser.parse('#dices');
+	    	
 	    }
 	    
 	    function hideId(val,index){

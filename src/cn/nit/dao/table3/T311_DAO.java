@@ -84,15 +84,16 @@ public class T311_DAO {
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
 //		sql.append(" from "+ tableName);
-		sql.append(" from " + tableName + " as t,DiDepartment dpt ") ;
-		sql.append(" where dpt.UnitID=t.UnitID ");		
+		sql.append(" from " + tableName+" where PostDocStaName is not null") ;
+	
 		int total = 0 ;
 
 //		System.out.println(sql.toString());
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillDept=" + fillUnitId) ;
 		}
-		
+		System.out.println("查询条件");
+		System.out.println(conditions);		
 		if(conditions != null && !conditions.equals("")){
 			sql.append(conditions) ;
 		}
@@ -125,24 +126,26 @@ public class T311_DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T311POJO> list =null ;
-		sql.append("select t.SeqNumber,t.PostDocStaName,t.SetTime,t.ResearcherNum, t.UnitName," +
-				"t.UnitID,t.Note,t.Time");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
-		sql.append(" where   dpt.UnitID=t.UnitID" );
+		sql.append("select SeqNumber,PostDocStaName,SetTime,ResearcherNum, UnitName," +
+				"UnitID,Note,Time");
+		sql.append(" from "+tableName+" where PostDocStaName is not null");
 //		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
 //		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
 //		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 //		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		//
-//		System.out.println(sql.toString());
+		
+		
+
+
 		if(fillDept != null && !fillDept.equals("")){
-			sql.append(" and FillDept=" + fillDept) ;
+			sql.append(" FillDept=" + fillDept) ;
 		}
 		
 		if(conditions != null){
 			sql.append(conditions) ;
 		}
-		
+		System.out.println(sql.toString());
 		sql.append(" order by SeqNumber desc") ;
 		
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -208,13 +211,13 @@ public class T311_DAO {
 	}
 	
 	/**用于数据导出*/
-	public List<T311_Bean> totalList(){
+	public List<T311_Bean> totalList(String year){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.PostDocStaName,t.SetTime,t.ResearcherNum, t.UnitName," +
-		"t.UnitID,t.Note,t.Time");
-        sql.append(" from "+tableName + " as t,DiDepartment dpt ");
-        sql.append(" where   dpt.UnitID=t.UnitID" );
+		sql.append("select SeqNumber,PostDocStaName,SetTime,ResearcherNum, UnitName," +
+		"UnitID,Note,Time");
+        sql.append(" from "+tableName+" where convert(varchar(4),Time,120)=" + year);
+
 
 		
 		
@@ -253,6 +256,9 @@ public class T311_DAO {
 	public String getTableName(){
 		return this.tableName ;
 	}
+
+
+
 
 
 }

@@ -60,7 +60,10 @@
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript"
 			src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+				<script type="text/javascript" src="js/commom.js"></script>
+	<script type="text/javascript" src="js/table5/S511.js"></script>
 	</head>
+	
 	<body style="overflow-y: scroll">
 		<table class="easyui-datagrid" toolbar="#toolbar" title="S-5-1-1本科课程库信息统计"></table>
 		
@@ -367,53 +370,24 @@
 		
 	  
 		<div id="toolbar" style="height: auto">
-			<div>
-				<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a> 
-				<a href="javascript:void(0)" class="easyui-linkbutton"
-					iconCls="icon-edit" plain="true" onclick="edit()">编辑</a>-->
+		<form  id="exportForm"  method="post" style="float: right;">
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
 				<a href="pages/T11/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
-				<!-- 
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">数据导入</a>
-			<a href='pages/T11/downloadModel?saveFile=<%=URLEncoder.encode("表1-1学校基本信息（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
-			</div>
+				</form>
 		</div>
-		
-	
-		<div id="dlg" class="easyui-dialog"
-		style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true"
-		buttons="#dlg-buttons">
-		<div class="ftitle">学校基本信息导入</div>
-		<div class="fitem">
-			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
-			</form>
-		</div>
-	</div>
-	-->
+				
 	</body>
+	
+    <script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
 
-	<script type="text/javascript"> 
-			//日期格式转换 
-			function formattime(val) {  
-			    var year=parseInt(val.year)+1900;  
-			    var month=(parseInt(val.month)+1);  
-			    month=month>9?month:('0'+month);  
-			    var date=parseInt(val.date);  
-			    date=date>9?date:('0'+date);  
-			    var hours=parseInt(val.hours);  
-			    hours=hours>9?hours:('0'+hours);  
-			    var minutes=parseInt(val.minutes);  
-			    minutes=minutes>9?minutes:('0'+minutes);  
-			    var seconds=parseInt(val.seconds);  
-			    seconds=seconds>9?seconds:('0'+seconds);  
-			    var time=year+'-'+month+'-'+date ;  
-			    var time1=year;
-			    //alert(time) ;
-			        return time1;  
-			    }  
-			</script>
 
 </html>

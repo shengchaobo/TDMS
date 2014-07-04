@@ -95,6 +95,12 @@
       <!-- T19 -->
     <include file="cn/nit/configuration/table1/T19.xml"/>
     
+     <!-- table2 -->
+     <include file="cn/nit/configuration/table2/T21.xml"/>
+     <include file="cn/nit/configuration/table2/T22.xml"/>
+    <include file="cn/nit/configuration/table2/T251.xml"/>
+   	<include file="cn/nit/configuration/table2/T252.xml"/>
+	<include file="cn/nit/configuration/table2/T26.xml"/>
     
     <!--table3-->
     <!-- t312博士点硕士点 -->
@@ -118,11 +124,15 @@
     
     <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
+<<<<<<< HEAD
     
     <include file="cn/nit/configuration/table5/T552.xml"/>
     <include file="cn/nit/configuration/table5/T553.xml"/>
     
     <!-- table6 学生信息库 -->
+=======
+       <include file="cn/nit/configuration/table5/T551.xml"/>
+>>>>>>> 68169083e5d4aa478933967ea7f76dd0555251cd
     
     <!-- table6 近一届本科生分专业招生录取情况 -->
     <include file="cn/nit/configuration/table6/T611.xml"/>

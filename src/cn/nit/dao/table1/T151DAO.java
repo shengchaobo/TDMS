@@ -197,7 +197,7 @@ public class T151DAO {
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;
 			try{
-				System.out.println("hello！");
+//				System.out.println("hello！");
 				flag = DAOUtil.update(t151Bean, tableName, key, field, conn) ;
 			}catch(Exception e){
 				e.printStackTrace() ;
@@ -208,6 +208,7 @@ public class T151DAO {
 			return flag ;
 		}
 	
+	//删除
 	public boolean deleteCoursesByIds(String ids){
 		
 		int flag = 0 ;

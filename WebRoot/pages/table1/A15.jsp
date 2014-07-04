@@ -135,9 +135,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
-			<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a> -->
+			
+		<form  id="exportForm"  method="post" style="float: right;">
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
+	  	</form>
 		<a href="pages/A15/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
-			<!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a> -->
+			
 		</div> 
 	</div>
 	
@@ -163,6 +167,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		loadAuotCityList();
 	});
+
+	function exports() {
+    	var temp = encodeURI('A-1-5科研机构.xls');
+	    $('#exportForm').form('submit', {
+	    url : "pages/A15/dataExport" ,
+	    onSubmit : function() {
+	    return $(this).form('validate');//对数据进行格式化
+	    },
+	    success : function(data) {
+	    $.messager.show({
+	    	title : '提示',
+	    	msg : data
+	    });
+	    }
+	    }); 
+    }
+	
 
 	function loadAuotCityList() {
 		$.ajax( {
@@ -330,32 +351,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    loadDictionary() ;
 		    
 	    }
-	    
-	    function loadDictionary(){
-	    	
-	    	$.ajax({ 
-	    		type: "POST", 
-	    		url: "table5/loadDic", 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			data = eval("(" + data + ")");
-	    			alert(data[0].id) ;
-	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
-	    			$(data).each(function(index) {
-	    				var val = data[index];
-	    				if(index%4 == 0 && index != 0){
-	    					str += "</tr><tr>" ;
-	    				}
-	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
-	    			}); 
-	    			//alert(str);
-	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
-	    			document.getElementById("dicTables").innerHTML = str;
-	    			$.parser.parse('#dicTables');
-	    		}
-	    	}).submit();
-	    }
 	   </script>
 	   
 	   
@@ -365,6 +360,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     if(val ==  null){
 			     str=null;
 		     }else{
+			     val=val*100;
 		    	 var bol=""+val;//把double型转换成sre类型
 			     str = bol+"%";
 		     }
@@ -391,5 +387,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+			
+		<script type="text/javascript">
+			var currentYear = new Date().getFullYear();
+			var select = document.getElementById("cbYearContrast");
+			for (var i = 0; i <= 10; i++) {
+		    var theOption = document.createElement("option");
+		    	theOption.innerHTML = currentYear-i + "年";
+		    	theOption.value = currentYear-i;
+		    	select.appendChild(theOption);
+			}
+       </script>
 
 </html>

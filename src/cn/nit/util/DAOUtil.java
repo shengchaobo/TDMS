@@ -91,7 +91,6 @@ public class DAOUtil {
 					pst.setBoolean(i+1, (Boolean) wrapper.getPropertyValue(fields[i])) ;
 				}else if(type.endsWith("double")||type.endsWith("Double")){
 					pst.setDouble(i+1, (Double) wrapper.getPropertyValue(fields[i])) ;
-
 				}else{
 					throw new Exception("自行添加对应类型" + type) ;
 				}
@@ -339,8 +338,7 @@ public class DAOUtil {
 					}else{
 						pst.setInt(j + 1, (Integer) wrapper.getPropertyValue(vField)) ;
 					}	
-				}else if(type.endsWith("Date")){
-					
+				}else if(type.endsWith("Date")){				
 					if(wrapper.getPropertyValue(vField)==null){
 						pst.setDate(j + 1, null ) ;
 					}else{
@@ -350,12 +348,21 @@ public class DAOUtil {
 					}
 					//System.out.println(sqlDate);
 				}else if(type.endsWith("long") || type.endsWith("Long")){
-					pst.setLong(j + 1, (Long) wrapper.getPropertyValue(vField)) ;
+					if(wrapper.getPropertyValue(vField) == null){
+						pst.setLong(j + 1, 0) ;
+					}else{
+						pst.setLong(j + 1, (Long) wrapper.getPropertyValue(vField)) ;
+					}					
 				}else if(type.endsWith("Boolean") || type.endsWith("boolean")){
 					//System.out.println((Boolean) wrapper.getPropertyValue(vField));
-					pst.setBoolean(j + 1, (Boolean) wrapper.getPropertyValue(vField)) ;
+					pst.setBoolean(j + 1, (Boolean) wrapper.getPropertyValue(vField)) ;					
 				}else if(type.endsWith("double") || type.endsWith("Double")){
-					pst.setDouble(j + 1, (Double) wrapper.getPropertyValue(vField)) ;
+					if(wrapper.getPropertyValue(vField) == null){
+						pst.setDouble(j + 1, 0) ;
+					}else{
+						pst.setDouble(j + 1, (Double) wrapper.getPropertyValue(vField)) ;
+					}
+					
 				}else{
 
 					throw new Exception("自行添加对应类型" + type) ;

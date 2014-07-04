@@ -42,6 +42,17 @@ public class T16Action {
 	/**excel导出名字*/
 	private String excelName; //
 	
+	/**数据库导出数据年份*/
+	private String selectYear;
+	
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
 	public String getExcelName() {
 		return excelName;
 	}
@@ -169,10 +180,10 @@ public class T16Action {
 		try {
 			
 			List<T16POJO> list=new ArrayList<T16POJO>(); 
-            Date time=new Date();
-            String time1=time.toString();
-            String year=time1.substring(time1.length()-4, time1.length());
-            list=t16Dao.forExcel(year);
+//            Date time=new Date();
+//            String time1=time.toString();
+//            String year=time1.substring(time1.length()-4, time1.length());
+            list=t16Dao.forExcel(this.selectYear);
             inputStream = new ByteArrayInputStream(t16Excel.writeExcel(list).toByteArray());
 
 		} catch (Exception e) {

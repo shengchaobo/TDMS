@@ -127,6 +127,7 @@ public class TimeUtil {
 		return date ;
 	}
 	
+
 	/**判断字符串格式是否为2013/02*/
 	public static boolean judgeFormat1(String dataString){
 		boolean flag=false;

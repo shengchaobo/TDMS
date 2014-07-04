@@ -47,14 +47,27 @@ public class T311_Service {
 		
 	    int total = postDocStaDao.totalAuditingData(conditions, fillDept) ;
 		List<T311POJO> list = postDocStaDao.auditingData(conditions, fillDept, page, rows) ;
+		System.out.println("替换");
+		System.out.println(list.get(0).getUnitName());
+		for(int i=0;i<list.size();i++){
+			try{
+		list.get(i).getUnitName().replace(',','；');
+		list.get(i).getUnitID().replace(',', '；');	
+			}catch(Exception e){
+				e.printStackTrace() ;
+				
+			}
+		}	
+		System.out.println("怎么样");
 		Pagition pages = new Pagition(total, list) ;
-//		System.out.println("total:"+total);
-		System.out.println(list.get(0));
-		System.out.println("hahahahha");
+		System.out.println("total:"+total);
+
+	
 		JSON json = JSONSerializer.toJSON(pages) ;
+	
 			
 //		System.out.println(json.toString()) ;
-			
+		System.out.println(json.toString());
 		return json.toString() ;
 		}
 	

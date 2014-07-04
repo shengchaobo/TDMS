@@ -92,9 +92,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
-			 <a href="pages/S17/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
-			<!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-			 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a> -->
+		<form  id="exportForm"  method="post" style="float: right;">
+				<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
+	  		</form>	
 		</div> 
 	</div>
 	<!--  
@@ -119,6 +120,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 		loadAuotCityList();
 	});
+
+	function exports() {
+    	var temp = encodeURI('S-1-7校友会.xls');
+	    $('#exportForm').form('submit', {
+	    url : "pages/S17/dataExport" ,
+	    onSubmit : function() {
+	    return $(this).form('validate');//对数据进行格式化
+	    },
+	    success : function(data) {
+	    $.messager.show({
+	    	title : '提示',
+	    	msg : data
+	    });
+	    }
+	    }); 
+    }
 
 	function loadAuotCityList() {
 		
@@ -324,6 +341,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    //alert(time) ;
 			        return time;  
 			    }  
-			</script>
+	</script>
+
+	<script type="text/javascript">
+			var currentYear = new Date().getFullYear();
+			var select = document.getElementById("cbYearContrast");
+			for (var i = 0; i <= 10; i++) {
+		    var theOption = document.createElement("option");
+		    	theOption.innerHTML = currentYear-i + "年";
+		    	theOption.value = currentYear-i;
+		    	select.appendChild(theOption);
+			}
+       </script>
 
 </html>

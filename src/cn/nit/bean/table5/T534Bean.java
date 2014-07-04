@@ -25,13 +25,11 @@ public class T534Bean {
 	private String FillUnitID;
 	private String Note;
 	
-<<<<<<< HEAD
+
+	
 	
 	
 	public Integer getSeqNumber() {
-=======
-	public int getSeqNumber() {
->>>>>>> 962183cda05f15813726c708519c322e60b0e1ad
 		return SeqNumber;
 	}
 	public void setSeqNumber(Integer seqNumber) {

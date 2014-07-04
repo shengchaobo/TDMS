@@ -24,6 +24,7 @@ public class T534Bean {
 	private Date Time;
 	private String FillUnitID;
 	private String Note;
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}

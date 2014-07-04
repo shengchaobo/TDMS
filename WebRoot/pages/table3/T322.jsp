@@ -827,15 +827,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#dlg').dialog('open').dialog('setTitle','添加博士后流动站');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	        $('#MajorName').val(row[0].MajorName);
-	        alert(row[0].MajorName);
+	     
 	    	$('#SetTime').datebox('setValue',formattime(row[0].setTime)) ;
-	    	alert(row[0].setTime);
+	  
 	    	$('#MajorID').val(row[0].MajorID) ;
-	    	alert(row[0].MajorID);
+	 
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
-	    	alert(row[0].unitID);
+	
 			$('#Note').val(row[0].note);
-			alert(row[0].note);
+		
 	    }
 	    
 	    

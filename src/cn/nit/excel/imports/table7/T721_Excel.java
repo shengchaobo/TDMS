@@ -149,8 +149,8 @@ public class T721_Excel {
 				T721_Bean.setOtherTeaNum(Integer.parseInt(OJTNum));
 				T721_Bean.setOtherTea(otherTea);
 				T721_Bean.setItemLevel(itemLevelID);
-				T721_Bean.setItemSetUpTime(TimeUtil.changeDateYM(ISUTime));
-				T721_Bean.setReceptTime(TimeUtil.changeDateYM(recTime));
+				T721_Bean.setItemSetUpTime(TimeUtil.changeDateYMD(ISUTime));
+				T721_Bean.setReceptTime(TimeUtil.changeDateYMD(recTime));
 				T721_Bean.setApplvExp(Double.parseDouble(appExp));
 				T721_Bean.setSchSupportExp(Double.parseDouble(schExp));
 				T721_Bean.setAppvlID(appID);

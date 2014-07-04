@@ -169,7 +169,7 @@ public class T671_Action {
 		
 		String cond = "1=1";
 		if(this.getSearchItem()!= null){
-			cond += " and MajorName LIKE '" + this.getSearchItem() + "%'";
+			cond += " and stuName LIKE '" + this.getSearchItem() + "%'";
 			System.out.println(cond);
 		}
 		List<T671_Bean> list = T671_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
@@ -277,66 +277,43 @@ public class T671_Action {
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
+
+			columns.add("序号");
+			columns.add("学生姓名");
+			columns.add("学号");
+			columns.add("所在教学单位");
+			columns.add("单位号");
+			columns.add("所在专业");
+			columns.add("所在专业代码");
+			columns.add("所在班级");
+			columns.add("辅修专业所在教学单位");
+			columns.add("单位号");
 			
+			columns.add("辅修专业");
+			columns.add("辅修专业代码");
+			columns.add("起始时间");
+			columns.add("预计毕业时间");
 		
-			
-//			columns.add("序号");
-//			columns.add("教学单位");
-//			columns.add("单位号");
-//			columns.add("专业名称");
-//			columns.add("专业代码");
-//			columns.add("应届就业总人数");
-//			columns.add("政府机构就业人数");
-//			columns.add("事业单位就业人数");
-//			columns.add("企业就业人数");
-//			columns.add("部队人数");
-//			columns.add("灵活就业人数");
-//			columns.add("升学人数");
-//			columns.add("参加国家地方项目就业人数");
-//			columns.add("其他人数");
-//			
-//			columns.add("应届升学总人数");
-//			columns.add("免试推荐研究生人数");
-//			columns.add("考研报名人数");
-//			columns.add("考研录取总人数");
-//			columns.add("考取本校人数");
-//			columns.add("考取外校人数");
-//			columns.add("出国（境）留学人数");
-//			
-//			columns.add("时间");
-//			columns.add("备注");
-			
 
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
-		
-
-//			
-//			maplist.put("seqNumber", 0);
-//			maplist.put("teaUnit", 1);
-//			maplist.put("unitId", 2);
-//			maplist.put("majorName", 3);
-//			maplist.put("majorId", 4);
-//			
-//			maplist.put("sumEmployNum", 5);
-//			maplist.put("govermentNum", 6);
-//			maplist.put("pubInstiNum", 7);
-//			maplist.put("enterpriseNum", 8);
-//			maplist.put("forceNum", 9);
-//			maplist.put("flexibleEmploy", 10);
-//			maplist.put("goOnHighStudy", 11);
-//			maplist.put("nationItemEmploy", 12);
-//			maplist.put("otherEmploy", 13);
-//			
-//			maplist.put("sumGoOnHighStudyNum", 14);
-//			maplist.put("recommendGraNum", 15);
-//			maplist.put("examGraApplyNum", 16);
-//			maplist.put("examGraEnrollNum", 17);
-//			maplist.put("examGraInSch", 18);
-//			maplist.put("examGraOutSch", 19);
-//			maplist.put("abroadNum", 20);
-//						
-//			maplist.put("time", 21);
-//			maplist.put("note", 22);
+	
+			maplist.put("seqNumber", 0);
+			maplist.put("stuName", 1);
+			maplist.put("stuId", 2);
+			
+			maplist.put("fromTeaUnit", 3);
+			maplist.put("unitId", 4);
+			
+			maplist.put("fromMaj", 5);
+			maplist.put("majId", 6);
+			maplist.put("fromClass", 7);
+			
+			maplist.put("minorFromTeaUnit", 8);
+			maplist.put("minorUnitId", 9);
+			maplist.put("minorMaj", 10);
+			maplist.put("minorId", 11);
+			maplist.put("beginTime", 12);
+			maplist.put("graduateTime", 13);
 				
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {

@@ -103,7 +103,7 @@ public class T734_Excel {
 				T734_Bean.setUnitID(unitId);
 				T734_Bean.setAccidentSite(accsite);
 				T734_Bean.setCause(cause);
-				T734_Bean.setHandingTime(TimeUtil.changeDateYM(handTime));
+				T734_Bean.setHandingTime(TimeUtil.changeDateYMD(handTime));
 				T734_Bean.setAccidentLevel(accLevel);
 				T734_Bean.setHandingID(handId);
 				T734_Bean.setFillUnitID(fillUnitID);

@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">本科生交流情况情况批量导入</div>
+		<div class="ftitle" id="title1">本科生交流情况批量导入</div>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	
 		<div></div>
-		<div class="ftitle">本科生交流情况情况逐条导入</div>
+		<div class="ftitle">本科生交流情况逐条导入</div>
 		<form id="addItemForm" method="post">
 		<table>
 			<tr>

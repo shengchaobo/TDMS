@@ -236,15 +236,20 @@ public class T711_Action {
 		return ServletActionContext.getResponse() ;
 	}
 		
-	public T711_Bean getTeaManagerAwardInfoTeaTea(){
+	
+
+
+
+
+	public T711_Bean getT711_Bean() {
 		return t711_Bean;
 	}
-	
-	
-	public void setTeaManagerAwardInfoTeaTea(T711_Bean t711_Bean){
-		
-		
-		this.t711_Bean=t711_Bean;
+
+
+
+
+	public void setT711_Bean(T711_Bean t711_Bean) {
+		this.t711_Bean = t711_Bean;
 	}
 
 

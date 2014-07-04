@@ -127,7 +127,7 @@ public class T712_Excel {
 					T712_Bean.setFirstSubject(FSub);
 					T712_Bean.setJonalName(JnName);
 					T712_Bean.setJonalID(JnID);
-					T712_Bean.setJonalTime(TimeUtil.changeDateYM(JnTime));
+					T712_Bean.setJonalTime(TimeUtil.changeDateYMD(JnTime));
 					T712_Bean.setPaperWordNum(Integer.parseInt(PWNum));
 					T712_Bean.setConfirmLevel(CfLevel);
 					T712_Bean.setJoinTeaNum(Integer.parseInt(joinTn));

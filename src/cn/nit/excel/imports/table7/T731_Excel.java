@@ -116,7 +116,7 @@ public class T731_Excel {
 				T731_Bean.setAttendClassTerm(attclTerm);
 				T731_Bean.setLeaderName(leaderName);
 				T731_Bean.setLeaderID(leaderId);
-				T731_Bean.setAttendClassTime(TimeUtil.changeDateYM(attclTime));
+				T731_Bean.setAttendClassTime(TimeUtil.changeDateYMD(attclTime));
 				T731_Bean.setLectureTea(lecTea);
 				T731_Bean.setLectureTeaID(lecTeaId);
 				T731_Bean.setLectureCS(lecCS);

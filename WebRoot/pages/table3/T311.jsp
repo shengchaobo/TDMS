@@ -501,7 +501,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    }  
 			</script>
 			
-		<script type="text/javascript">
+	<script type="text/javascript">
     	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
     	for (var i = 0; i <= 10; i++) {

@@ -31,22 +31,22 @@ public class T461_Dao {
 		String cond = null;
 		
 		if(param.equals("1")){
-			cond = tableName + ".AwardType = '51000'";
+			cond = "(" + tableName + ".AwardType = '51000'" + ")";
 		}
 		else if(param.equals("2")){
-			cond = tableName + ".AwardType = '51001' or" + tableName + ".AwardType = '51002'";
+			cond = "(" + tableName + ".AwardType = '51001' or " + tableName + ".AwardType = '51002'" + ")";;
 		}
 		else if(param.equals("3")){
-			cond = tableName + ".AwardType = '51003'";
+			cond = "(" + tableName + ".AwardType = '51003'" + ")";
 		}
 		else if(param.equals("4")){
-			cond = tableName + ".AwardType = '51004' or" + tableName + ".AwardType = '51005'";
+			cond = "(" + tableName + ".AwardType = '51004' or " + tableName + ".AwardType = '51005'" + ")";;
 		}
 		else if(param.equals("5")){
-			cond = tableName + ".AwardType = '51006'";
+			cond = "(" + tableName + ".AwardType = '51006'" + ")";;
 		}
 		else if(param.equals("6")){
-			cond = tableName + ".AwardType = '51007'";
+			cond = "(" + tableName + ".AwardType = '51007'" + ")";;
 		}
 		
 		String sql = "select " +

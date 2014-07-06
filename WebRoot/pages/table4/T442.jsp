@@ -149,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<h3 class="ftitle" id="title1">研究生导师模板导入</h3>
 		<div class="fitem" id="item1">
 		  <form method="post"  id="batchForm" enctype="multipart/form-data">
-		 		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+		 		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"  editable=false></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T442/downloadModel?saveFile=<%=URLEncoder.encode("表4-4-2研究生导师情况.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>

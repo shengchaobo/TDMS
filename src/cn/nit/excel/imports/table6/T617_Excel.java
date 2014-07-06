@@ -36,7 +36,7 @@ import cn.nit.bean.di.DiResearchRoomBean;
 import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
-import cn.nit.bean.table6.T631_Bean;
+import cn.nit.bean.table6.T617_Bean;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDegreeService;
@@ -49,11 +49,10 @@ import cn.nit.service.di.DiResearchRoomService;
 import cn.nit.service.di.DiSourceService;
 import cn.nit.service.di.DiTitleLevelService;
 import cn.nit.service.di.DiTitleNameService;
-import cn.nit.service.table6.T631_Service;
-
+import cn.nit.service.table6.T617_Service;
 import cn.nit.util.TimeUtil;
 
-public class T631_Excel {
+public class T617_Excel {
 
 	/**
 	 * 批量导入
@@ -71,26 +70,26 @@ public class T631_Excel {
 		}
 
 		int count = 1;
-		T631_Bean T631_bean = null;
+		T617_Bean T617_bean = null;
 		boolean flag = false;
-		List<T631_Bean> list = new LinkedList<T631_Bean>();
+		List<T617_Bean> list = new LinkedList<T617_Bean>();
 
 		DiDepartmentService diDep = new DiDepartmentService();
 		List<DiDepartmentBean> diDepList = diDep.getList();
 
-		DiMajorTwoService diMaj2 = new DiMajorTwoService();
-		List<DiMajorTwoBean> diMaj2List = diMaj2.getList();
+		DiMajorOneService diMaj2 = new DiMajorOneService();
+		List<DiMajorOneBean> diMaj2List = diMaj2.getList();
 
 		for (Cell[] cell : cellList) {
 			try {
-				if (count <= 4) {
+				if (count <= 5) {
 					count++;
 					continue;
 				}
-				
+	
 				String fromTeaUnit = cell[1].getContents();
 				if (fromTeaUnit == null || fromTeaUnit.equals("")) {
-					return "第" + count + "行，所属教学单位不能为空";
+					return "第" + count + "行，教学单位不能为空";
 				}
 				
 				String unitId = cell[2].getContents();
@@ -113,7 +112,7 @@ public class T631_Excel {
 	
 
 				if (!flag) {
-					return "第" + count + "行，单位号和所属教学单位不匹配";
+					return "第" + count + "行，单位号和教学单位不匹配";
 				} else {
 					flag = false;
 				}
@@ -130,7 +129,7 @@ public class T631_Excel {
 				}
 				
 				String MajName = null;
-				for (DiMajorTwoBean diMaj2Bean : diMaj2List) {
+				for (DiMajorOneBean diMaj2Bean : diMaj2List) {
 					if (diMaj2Bean.getMajorNum().equals(majorId)) {
 						MajName = diMaj2Bean.getMajorName();
 						if(MajName.equals(majorName)){
@@ -147,44 +146,53 @@ public class T631_Excel {
 				} else {
 					flag = false;
 				}
-				
 
-				String thisYearGraduNum = cell[5].getContents();
-				if (thisYearGraduNum == null || thisYearGraduNum.equals("")) {
-					return "第" + count + "行，应届毕业生数不能为空";
+				String majorFieldName = cell[5].getContents();
+				if (majorFieldName == null || majorFieldName.equals("")) {
+					return "第" + count + "行，专业方向名称不能为空";
 				}
 
-				String thisYearNotGraduNum = cell[6].getContents();
-				if (thisYearNotGraduNum == null || thisYearNotGraduNum.equals("")) {
-					return "第" + count + "行，应届生中未按时毕业数不能为空，没有请添加0";
+
+				String juniorStuSumNum = cell[6].getContents();
+				if (juniorStuSumNum == null || juniorStuSumNum.equals("")) {
+					return "第" + count + "行，在校生总人数不能为空，没有请添加0";
 				}
 
-				String awardDegreeNum = cell[7].getContents();
-				if (awardDegreeNum == null || awardDegreeNum.equals("")) {
-					return "第" + count + "行，授予学位数不能为空";
-				}
-				
-				if(Integer.parseInt(awardDegreeNum) > Integer.parseInt(thisYearGraduNum)){
-					return "授予学位数应当小于等于应届毕业生数";
+				String juniorOneStuNum = cell[7].getContents();
+				if (juniorOneStuNum == null || juniorOneStuNum.equals("")) {
+					return "第" + count + "行，一年级生人数不能为空，没有请添加0";
 				}
 
-				
+				String juniorTwoStuNum = cell[8].getContents();
+				if (juniorTwoStuNum == null || juniorTwoStuNum.equals("")) {
+					return "第" + count + "行，二年级生人数不能为空，没有请添加0";
+				}
+
+				String juniorThreeStuNum = cell[9].getContents();
+				if (juniorThreeStuNum == null || juniorThreeStuNum.equals("")) {
+					return "第" + count + "行，三年级生人数不能为空，没有请添加0";
+				}
+
 
 				count++;
 
-				T631_bean = new T631_Bean();
+				T617_bean = new T617_Bean();
 							
-				T631_bean.setTeaUnit(fromTeaUnit);
-				T631_bean.setUnitId(unitId);
-				T631_bean.setMajorName(majorName);
-				T631_bean.setMajorId(majorId);
-				T631_bean.setThisYearGraduNum(Integer.parseInt(thisYearGraduNum));
-				T631_bean.setThisYearNotGraduNum(Integer.parseInt(thisYearNotGraduNum));
-				T631_bean.setAwardDegreeNum(Integer.parseInt(awardDegreeNum));
+				T617_bean.setTeaUnit(fromTeaUnit);
+				T617_bean.setUnitId(unitId);
+				T617_bean.setMajorName(majorName);
+				T617_bean.setMajorId(majorId);
+				T617_bean.setMajorFieldName(majorFieldName);
+				
+				T617_bean.setJuniorStuSumNum(Integer.parseInt(juniorStuSumNum));
+				T617_bean.setJuniorOneStuNum(Integer.parseInt(juniorOneStuNum));
+				T617_bean.setJuniorTwoStuNum(Integer.parseInt(juniorTwoStuNum));
+				T617_bean.setJuniorThreeStuNum(Integer.parseInt(juniorThreeStuNum));
 
+		
 				// 插入时间
-				T631_bean.setTime(TimeUtil.changeDateY(selectYear));
-				list.add(T631_bean);
+				T617_bean.setTime(TimeUtil.changeDateY(selectYear));
+				list.add(T617_bean);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -193,8 +201,8 @@ public class T631_Excel {
 		}
 
 		flag = false;
-		T631_Service T631_services = new T631_Service();
-		flag = T631_services.batchInsert(list);
+		T617_Service T617_services = new T617_Service();
+		flag = T617_services.batchInsert(list);
 
 		if (flag) {
 			return null;

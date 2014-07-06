@@ -134,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="ftitle" id="title1">分专业招生情况批量导入</div>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>

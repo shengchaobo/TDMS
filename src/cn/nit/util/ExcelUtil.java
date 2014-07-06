@@ -52,7 +52,7 @@ public class ExcelUtil {
 		Sheet sheet = workbook.getSheet(index) ;
 		
 		int rows = getRightRows(sheet)+1;
-
+		
 		if(rows <= 0){
 			return null ;
 		}
@@ -60,7 +60,6 @@ public class ExcelUtil {
 		List<Cell[]> list = new ArrayList<Cell[]>() ;
 
 		for(int i = 0 ; i < rows ; i++){
-
 			Cell cell[] = sheet.getRow(i) ;
 			list.add(cell) ;
 		}

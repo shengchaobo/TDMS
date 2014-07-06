@@ -146,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		buttons="#dlg-buttons">
 		<h3 class="ftitle" id="title1">本科实验、实习、实训场所信息模板导入</h3>
 		<div class="fitem" id="item1">
-		  <form method="post"  id="batchForm" enctype="multipart/form-data">
+		  <form method="post"  id="batchForm" enctype="multipart/form-data" editable=false>
 		 		 <select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>

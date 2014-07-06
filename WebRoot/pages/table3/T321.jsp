@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -622,7 +622,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		<script type="text/javascript">
     	var currentYear = new Date().getFullYear();
-    	var select = document.getElementByName("selectYear");
+    	var select = document.getElementById("cbYearContrast");
     	for (var i = 0; i <= 10; i++) {
         var theOption = document.createElement("option");
         	theOption.innerHTML = currentYear-i + "年";
@@ -631,5 +631,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	}
 	</script>
 	
+<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast1");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
 
 </html>

@@ -65,6 +65,7 @@ public class T312Excel {
 	
 		
 		for(Cell[] cell : cellList){
+			System.out.println(cell.length);
 			
 			T312_Bean t312_Bean = new  T312_Bean();
 				

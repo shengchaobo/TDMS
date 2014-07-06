@@ -100,10 +100,24 @@
      <include file="cn/nit/configuration/table2/T22.xml"/>
      <include file="cn/nit/configuration/table2/T231.xml"/>
      <include file="cn/nit/configuration/table2/T241.xml"/>
+     <include file="cn/nit/configuration/table2/T242.xml"/>
      <include file="cn/nit/configuration/table2/T232.xml"/>
     <include file="cn/nit/configuration/table2/T251.xml"/>
    	<include file="cn/nit/configuration/table2/T252.xml"/>
 	<include file="cn/nit/configuration/table2/T26.xml"/>
+	<include file="cn/nit/configuration/table2/T27.xml"/>
+	<include file="cn/nit/configuration/table2/T281.xml"/>
+	<include file="cn/nit/configuration/table2/T282.xml"/>
+	<include file="cn/nit/configuration/table2/T283.xml"/>
+	<include file="cn/nit/configuration/table2/T284.xml"/>
+	<include file="cn/nit/configuration/table2/T291.xml"/>
+	<include file="cn/nit/configuration/table2/T292.xml"/>
+	<include file="cn/nit/configuration/table2/T293.xml"/>
+	
+	<include file="cn/nit/configuration/table2/T2101.xml"/>
+	<include file="cn/nit/configuration/table2/T2102.xml"/>
+	<include file="cn/nit/configuration/table2/T2103.xml"/>
+	
     
     <!--table3-->
     <!-- t312博士点硕士点 -->

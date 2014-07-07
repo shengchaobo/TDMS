@@ -224,7 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</tr></table>
 	    	</div>
 	    	<div class="right">
-				<h5 style="align:'right';valign:'bottom'"><a href="./login.jsp">退出系统</a>&nbsp;&nbsp;&nbsp;</h5>
+				<h5 style="align:'right';valign:'bottom'"><a href="exit">注销登录</a>&nbsp;&nbsp;&nbsp;</h5>
 			</div>
 	   </div>
 	   <div style="height:30px;background:url(images/main01.jpg);width:1364px;" data-options="region:'south',split:true">

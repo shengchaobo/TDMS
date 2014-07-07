@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body style="height: 100%'" >
-	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T534/loadMajorTea"  style="height: auto"  >
+	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T534/auditingData"  style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -52,52 +52,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 		<thead>
 				<tr>					
-					<th data-options="field:'TeaUnit'">
+					<th data-options="field:'teaUnit'">
 						教学单位
 					</th>
-					<th data-options="field:'UnitID'">
+					<th data-options="field:'unitID'">
 						单位号
 					</th>
-					<th data-options="field:'MajorName'">
+					<th data-options="field:'majorName'">
 						专业名称
 					</th>
 					<th data-options="field:'majorID'">
 						专业代码
 					</th>
-					<th data-options="field:'TeaName'">
+					<th data-options="field:'teaName'">
 						教师姓名
 					</th>
-					<th data-options="field:'TeaID'">
+					<th data-options="field:'teaID'">
 						教工号
 					</th>
-					<th data-options="field:'IsOutEmploy'">
+					<th data-options="field:'isOutEmploy'" formatter="formatBoolean">
 						是否外聘
 					</th>
-					<th data-options="field:'Education'">
+					<th data-options="field:'education'">
 						学历
 					</th>
-					<th data-options="field:'Degree'">
+					<th data-options="field:'degree'">
 						学位
 					</th>
-					<th data-options="field:'Title'">
+					<th data-options="field:'title'">
 						职称
 					</th>
-					<th data-options="field:'IsExcellent'">
+					<th data-options="field:'isExcellent'" formatter="formatBoolean">
 						是否获评校级优秀指导教师
 					</th>
-					<th data-options="field:'TrainIssueNum'">
+					<th data-options="field:'trainIssueNum'">
 						指导毕业综合训练课题数量
 					</th>
-					<th data-options="field:'SociaPraFinishNum'">
+					<th data-options="field:'socialNum'">
 						其中在实验、实习、工程实践和社会调查等社会实践中完成数
 					</th>
-					<th data-options="field:'GuideStuNum'">
+					<th data-options="field:'guideStuNum'">
 						指导学生人数
 					</th>
-					<th data-options="field:'GainBestGraDesinNum'">
+					<th data-options="field:'gainBestNum'">
 						其中：学生获优秀毕业设计人数
 					</th>
-					<th data-options="field:'GainTime'">
+					<th data-options="field:'gainTime'" formatter="formattime">
 						获评时间
 					</th>
 					
@@ -197,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<h3 class="ftitle" id="title1">分专业毕业综合训练情况模板导入</h3>
 		<div class="fitem" id="item1">
 		  <form method="post"  id="batchForm" enctype="multipart/form-data">
-		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T534/downloadModel?saveFile=<%=URLEncoder.encode("表5-3-4分专业毕业综合训练情况（教学单位-教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
@@ -209,14 +209,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table>
 			<tr>
 				<td>
-					<input type="hidden" name="T534bean.SeqNumber"  id="seqNumber"/>
+					<input type="hidden" name="t534Bean.SeqNumber"  id="seqNumber"/>
 					<div class="fitem">
 						<label>教学单位：</label> 
-						<input type="hidden" name="T534bean.TeaUnit" id="TeaUnit"/>
-						<input id="UnitID" type="text" name="T534bean.UnitID" class='easyui-combobox' 
+						<input type="hidden" name="t534Bean.TeaUnit" id="TeaUnit"/>
+						<input id="UnitID" type="text" name="t534Bean.UnitID" class='easyui-combobox' 
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:true,
 							onSelect:function(){
-							    document.getElementById('fromTeaUnit').value=$(this).combobox('getText') ;
+							    document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">
 						 <span id="teaUnitIDSpan"></span>
 					</div>
@@ -225,8 +225,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>专业名称：</label> 
-						<input type="hidden" name="T534bean.MajorName" id="MajorName"/>
-						<input id="MajorID" type="text" name="T534bean.MajorID" class='easyui-combobox' 
+						<input type="hidden" name="t534Bean.MajorName" id="MajorName"/>
+						<input id="MajorID" type="text" name="t534Bean.MajorID" class='easyui-combobox' 
 							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:true,
 							onSelect:function(){
 							 	 document.getElementById('MajorName').value=$(this).combobox('getText') ;
@@ -238,11 +238,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td colspan="3">
 				<div class="fitem">
 				<label>教师姓名：</label> 
-				<input type="hidden" name="T534bean.TeaID" id="TeaID"/>
-				<input id="TeaName" type="text" name="T534bean.TeaName" class='easyui-combobox' 
-							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+				<input type="hidden" name="t534Bean.TeaName" id="TeaName"/>
+				<input id="TeaID" type="text" name="t534Bean.TeaID" class='easyui-combobox' 
+							data-options="valueField:'teaId',textField:'teaName',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							onSelect:function(){
-							 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
+							 	 document.getElementById('TeaName').value=$(this).combobox('getText') ;
 							 }">
 				<span id="teaIdSpan"></span>
 				</div></td>
@@ -251,7 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>是否外聘：</label> 
-						<select class='easyui-combobox' style="width:50px"  id="IsOutEmploy" name="T534bean.IsOutEmploy"  panelHeight="auto" editable="false" >
+						<select class='easyui-combobox' style="width:50px"  id="IsOutEmploy" name="t534bean.IsOutEmploy"  panelHeight="auto" editable="false" >
 							<option value="true" selected = "selected">是</option>
 							<option value="false">否</option>
 						</select>	
@@ -262,7 +262,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>学历：</label> 
-						<input class='easyui-combobox'  id="Education" name="T534bean.Education" 
+						<input class='easyui-combobox'  id="Education" name="t534Bean.Education" 
 							data-options="valueField:'indexId',textField:'education',url:'pages/DiEducation/loadDiEducation',listHeight:'auto',editable:false" panelHeight="auto">
 						<span id="EducationSpan"></span>
 					</div>
@@ -272,7 +272,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>学位：</label> 
-						<input class='easyui-combobox'  id="Degree" name="T534bean.Degree" 
+						<input class='easyui-combobox'  id="Degree" name="t534Bean.Degree" 
 							data-options="valueField:'indexId',textField:'degree',url:'pages/DiDegree/loadDiDegree',listHeight:'auto',editable:false" panelHeight="auto">
 						<span id="DegreeSpan"></span>
 					</div>
@@ -281,7 +281,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>职称：</label> 
-						<input class='easyui-combobox'  id="Title" name="T534bean.Title" 
+						<input class='easyui-combobox'  id="Title" name="t534Bean.Title" 
 							data-options="valueField:'indexId',textField:'titleName',url:'pages/DiTitleName/loadDiTitleName',listHeight:'auto',editable:false" panelHeight="auto">
 						<span id="TitleSpan"></span>
 					</div>
@@ -291,7 +291,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>校级优秀指导教师：</label> 
-						<select class='easyui-combobox' style="width:50px"  id="IsExcellent" name="T534bean.IsExcellent"  panelHeight="auto" editable="false" >
+						<select class='easyui-combobox' style="width:50px"  id="IsExcellent" name="t534Bean.IsExcellent"  panelHeight="auto" editable="false" >
 							<option value="true" selected = "selected">是</option>
 							<option value="false">否</option>
 						</select>	
@@ -302,7 +302,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>综合训练课题数量:</label>
-					<input id="TrainIssueNum" name="T534bean.TrainIssueNum" type="text" class="easyui-validatebox">
+					<input id="TrainIssueNum" name="t534Bean.TrainIssueNum" type="text" class="easyui-validatebox">
 					<span id="TrainIssueNumSpan"></span>
 					</div>
 				</td>
@@ -311,15 +311,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>社会实践中完成数:</label>
-					<input id="SociaPraFinishNum" name="T534bean.SociaPraFinishNum" type="text" class="easyui-validatebox">
-					<span id="SociaPraFinishNumSpan"></span>
+					<input id="SocialNum" name="t534Bean.SocialNum" type="text" class="easyui-validatebox">
+					<span id="SocialNumSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 					<label>指导学生人数:</label>
-					<input id="GuideStuNum" name="T534bean.GuideStuNum" type="text" class="easyui-validatebox">
+					<input id="GuideStuNum" name="t534Bean.GuideStuNum" type="text" class="easyui-validatebox">
 					<span id="GuideStuNumSpan"></span>
 					</div>
 				</td>
@@ -328,7 +328,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>优秀毕业设计人数：</label> 
-						<select class='easyui-combobox' style="width:50px"  id="GainBestGraDesinNum" name="T534bean.GainBestGraDesinNum"  panelHeight="auto" editable="false" >
+						<select class='easyui-combobox' style="width:50px"  id="GainBestNum" name="t534Bean.GainBestNum"  panelHeight="auto" editable="false" >
 							<option value="6" selected = "selected">6</option>
 							<option value="5">5</option>
 							<option value="4">4</option>
@@ -344,14 +344,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>获评时间:</label>
-					<input id="GainTime" name="T534bean.GainTime" type="text" class="easyui-datebox">
+					<input id="GainTime" name="t534Bean.GainTime" type="text" class="easyui-datebox">
 					<span id="GainTimeSpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
-					<textarea id="Note" name="T534bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="t534Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>			

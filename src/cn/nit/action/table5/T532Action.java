@@ -1,4 +1,4 @@
-package cn.nit.action.table1;
+package cn.nit.action.table5;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -18,31 +18,35 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table1.T12Bean;
-import cn.nit.dao.table1.T12DAO;
-import cn.nit.excel.imports.table1.T12Excel;
-import cn.nit.service.table1.T12Service;
+import cn.nit.bean.table5.T532Bean;
+import cn.nit.dao.table5.T532DAO;
+import cn.nit.excel.imports.table5.T532Excel;
+
+import cn.nit.service.table5.T532Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class T12Action {
+public class T532Action {
+
 	
+	/**  表T531的数据库操作类  */
+	private T532DAO t532Dao = new T532DAO() ;
 	
-	/**  表12的Service类  */
-	private T12Service t12Ser = new T12Service() ;
+	private T532Excel t532Excel=new T532Excel();
+
+	/**  表532的Service类  */
+	private T532Service t532Ser = new T532Service() ;
 	
-	/**  表12的Bean实体类  */
-	private T12Bean t12Bean = new T12Bean() ;
-	
-	/**  表12的DAO实体类  */
-	private T12DAO t12Dao=new T12DAO();
-	
-	/**  表12的Excel实体类  */
-	private T12Excel t12Excel=new T12Excel();
+	/**  表532的Bean实体类  */
+	private T532Bean t532Bean = new T532Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
 	
+	/**导出数据说要的年份*/
+	private String Year;//
+	
+
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
 	
@@ -60,12 +64,47 @@ public class T12Action {
 	
 	/**每页显示的条数  */
 	private String rows ;
+	
 	/**  逐条插入数据  */
+	public void insert(){
+//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+		t532Bean.setTime(new Date()) ;
+//		t533Bean.setFillUnitID("3001");
+//		System.out.println(t532Bean.getCenterName());
+//		System.out.println(t532Bean.getFromSubject());
+//		System.out.println(t532Bean.getCenterLevel());
+//		System.out.println(t532Bean.getFromTeaUnit());
+//		这还没确定,设置填报者的职工号与部门号
+//		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
+//		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
+		
+		boolean flag = t532Ser.insert(t532Bean) ;
+		PrintWriter out = null ;
+		
+		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
+//			getResponse().setHeader("Content-type", "text/html");  
+			out = getResponse().getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+		out.flush() ;
+	}
 	
 	/**  为界面加载数据  */
 	public void auditingData(){
 			
-			System.out.println("輸出輸出輸出");
+//			System.out.println("輸出輸出輸出");
 			
 			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 				return ;
@@ -97,7 +136,9 @@ public class T12Action {
 				cond = conditions.toString();
 			}
 
-			String pages = t12Ser.auditingData(cond, "1001", Integer.parseInt(page), Integer.parseInt(rows)) ;
+
+			String pages = t532Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+
 			PrintWriter out = null ;
 			
 			try{
@@ -115,6 +156,60 @@ public class T12Action {
 		}
 
 	
+	/**  编辑数据  */
+	public void edit(){
+
+		 
+		t532Bean.setTime(new Date()) ;
+//		t533Bean.setFillUnitID("3001");
+		
+		boolean flag = t532Ser.update(t532Bean) ;
+		PrintWriter out = null ;
+		
+		try{
+			out = getResponse().getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  根据数据的id删除数据  */
+	public void deleteCoursesByIds(){
+//		System.out.println("ids=" + ids) ;
+		boolean flag = t532Ser.deleteCoursesByIds(ids) ;
+		PrintWriter out = null ;
+		
+		try{
+			out = getResponse().getWriter() ;
+			
+			if(flag){
+				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
 	/**数据导出*/
 	public InputStream getInputStream(){
 		
@@ -123,22 +218,25 @@ public class T12Action {
 
 		try {
 			
-			List<T12Bean> list = t12Dao.totalList();
+			List<T532Bean> list = t532Dao.totalList();
 			
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
-			columns.add("行政单位名称");columns.add("单位号");columns.add("单位职能");
-			columns.add("单位负责人");columns.add("备注");
-
+			columns.add("中心名称");columns.add("所属学科");columns.add("级别");columns.add("所属教学单位");
+			columns.add("单位号");columns.add("中心主任");
+			columns.add("教工号");columns.add("职称");columns.add("设立时间");columns.add("建设批文号");
+			columns.add("验收时间");columns.add("验收批文号");
+			columns.add("有效期（年）");columns.add("经费(万元)");columns.add("备注");
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("UnitName", 1);maplist.put("UnitID", 2);maplist.put("Functions", 3);
-			maplist.put("Leader", 4);
-			maplist.put("Note", 5);
-			
+			maplist.put("CenterName", 1);maplist.put("FromSubject", 2);maplist.put("CenterLevel", 3);maplist.put("FromTeaUnit", 4);
+			maplist.put("UnitID", 5);maplist.put("CenterLeader", 6);
+			maplist.put("TeaID", 7);maplist.put("TeaTitle", 8);maplist.put("BuildTime", 9);maplist.put("BuildAppvlID", 10);
+			maplist.put("ReceptTime", 11);maplist.put("ReceptAppvlID", 12);
+			maplist.put("ValidTime", 13);maplist.put("Fund", 14);maplist.put("Note", 15);
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
@@ -172,14 +270,14 @@ public class T12Action {
 		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
-	public T12Bean getT12Bean() {
-		return t12Bean;
+	public T532Bean getT532Bean() {
+		return t532Bean;
 	}
 
-	public void setT12Bean(T12Bean t12Bean) {
-		this.t12Bean = t12Bean;
+	public void setT532Bean(T532Bean t532Bean) {
+		this.t532Bean = t532Bean;
 	}
-	
+
 	
 	public Integer getSeqNum() {
 		return seqNum;
@@ -220,6 +318,14 @@ public class T12Action {
 	public void setPage(String page) {
 		this.page = page;
 	}
+	
+	public String getYear() {
+		return Year;
+	}
+
+	public void setYear(String year) {
+		this.Year = year;
+	}
 
 	public String getRows() {
 		return rows;
@@ -242,6 +348,4 @@ public class T12Action {
 		}
 		return excelName;
 	}
-	
-
 }

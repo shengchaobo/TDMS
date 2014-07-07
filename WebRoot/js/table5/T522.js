@@ -75,17 +75,18 @@
 
 	//对输入字符串进行验证
 	function validate() {
+		
+		var  num = /^\d+$/;  //用于判断字符串是否全是数字	
 		// 获取文本框的值
-		var csType = $('#CSType').combobox('getText') ;
+		var csType = $('#CStype').combobox('getText') ;
 		var csName = $('#CSName').val(); 
 		var csID = $('#CSID').val();
 		var csLevel = $('#CSLevel').combobox('getText');
-		var teaID = $('#TeaID').combobox('getText');
-		var joinTeaNum = $('#JoinTeaNum').val();
+		var teaID = $('#Leader').val();
+		var joinTeaNum = $('#JoinTeaNum').combobox('getText');
 		var appvlTime = $('#AppvlTime').datebox('getValue');
-		var csID = $('#CSID').combobox('getText');
+		var unitID = $('#TeaUnit').val();
 		var note = $('#Note').val();
-		var  num = /^\d+$/;  //用于判断字符串是否全是数字	
 		
 		if(csType ==null || csType.length == 0){
 			alert("类型不能为空");
@@ -115,10 +116,12 @@
 			alert("获准时间不能为空");
 			return false;
 		}
-		if(csID ==null || csID.length == 0){
+		
+		if(unitID ==null || unitID.length == 0){
 			alert("所属教学单位不能为空");
 			return false;
 		}
+
 		if (note != null && note.length > 1000) {
 			alert("备注中文字数不超过500");
 /*			$('#noteSpan').html(
@@ -145,18 +148,18 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改专任教师的信息');
     	$('#seqNumber').val(row[0].seqNumber) 
-    	$('#CStype').combobox('select', row[0].CStype);
-    	$('#CSLevel').combobox('select', row[0].CSLevel);
+    	$('#CStype').combobox('select', row[0].CSType);
+    	$('#CSLevel').combobox('select', row[0].CSLevelID);
     	$('#CSName').val(row[0].CSName);
     	$('#CSID').val(row[0].CSID);
-    	$('#TeaID').combobox('select', row[0].TeaID) ;
-    	$('#JoinTeaNum').combobox('select', row[0].JoinTeaNum) ;
-    	$('#OtherTeaNum').val(row[0].OtherTeaNum) ;
+    	$('#TeaID').combobox('select', row[0].teaID) ;
+    	$('#JoinTeaNum').combobox('select', row[0].joinTeaNum) ;
     	$('#CSUrl').val(row[0].CSUrl) ;
-    	$('AppvlTime').datebox('setValue',row[0].AppvlTime );
-    	$('ReceptTime').datebox('setValue',row[0].ReceptTime );
-    	$('#CSID').combobox('select', row[0].CSID) ;
-    	$('#AppvlID').val(row[0].AppvlID) ;
+    	$('#UnitID').combobox('select', row[0].unitID) ;
+    	$('#AppvlTime').datebox('setValue', formattime(row[0].appvlTime));
+    	$('#ReceptTime').datebox('setValue', formattime(row[0].receptTime));
+    	$('#AppvlID').val(row[0].appvlID) ;
+    	$('#OtherTea').val(row[0].otherTea) ;
 		$('#Note').val(row[0].note) ;
 	}
 
@@ -215,5 +218,26 @@
 		}
     	}).submit();
     }
+    
+    function formattime(val) {  
+        if(val == null){
+    	    return null ;
+        }
+        var year=parseInt(val.year)+1900;  
+        var month=(parseInt(val.month)+1);  
+        month=month>9?month:('0'+month);  
+        var date=parseInt(val.date);  
+        date=date>9?date:('0'+date);  
+        var hours=parseInt(val.hours);  
+        hours=hours>9?hours:('0'+hours);  
+        var minutes=parseInt(val.minutes);  
+        minutes=minutes>9?minutes:('0'+minutes);  
+        var seconds=parseInt(val.seconds);  
+        seconds=seconds>9?seconds:('0'+seconds);  
+        var time=year+'-'+month+'-'+date ;  
+        //alert(time) ;
+         return time;  
+    }  
+
 
 	

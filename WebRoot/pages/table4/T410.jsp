@@ -323,9 +323,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--添加弹出框-->
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
-		buttons="#dlg-buttons">
+		buttons="#dlg-buttons"><!--
 	   <h3 class="ftitle">教师科研情况导入</h3>
-	   <form id="addForm" method="post">
+	   --><form id="addForm" method="post">
 		<table><!--
 			<tr>
 				<td style="valign:left" colspan="3">

@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle" id="title1">本科实验、实习、实训场所信息模板导入</h3>
+		<h3 class="title1">本科实验、实习、实训场所信息模板导入</h3>
 		<div class="fitem" id="item1">
 		  <form method="post"  id="batchForm" enctype="multipart/form-data" editable=false>
 		 		 <select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
@@ -154,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  </form>
 		</div>	
 		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
-	   <h3 class="ftitle">本科实验、实习、实训场所信息逐条导入</h3>
+	   <h3 class="title1">本科实验、实习、实训场所信息逐条导入</h3>
 	   <form id="addForm" method="post">
 		<table>	
 			<tr>

@@ -1,84 +1,98 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "总占地面积", "group": "1.占地面积(平方米)", "value": "",  "field": "sumArea","editor":  {
+				        { "name": "1.学校教育经费支出总额（万元）", "group": "", "value": "",  "field": "schTeaExpTotal","editor":  {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				        { "name": "学校产权", "group": "1.占地面积(平方米)", "value": "", "field": "schProArea", "editor":  {
+				        { "name": "支出总计", "group": "2.其中本科教育经费支出（万元）", "value": "", "field": "undergraTeaExpTotal", "editor":  {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				        { "name": "其中：绿化用地", "value": "", "group": "1.占地面积(平方米)", "field": "greenArea", "editor":  {
+				        { "name": "教学日常运行支出", "value": "", "group": "2.其中本科教育经费支出（万元）", "field": "dayTeaExp", "editor":  {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				        { "name": "非学校产权", "value": "", "group": "1.占地面积(平方米)", "field": "notSchProArea", "editor":  {
+				        { "name": "教学改革支出", "value": "", "group": "2.其中本科教育经费支出（万元）", "field": "teaReformExp", "editor":  {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				        { "name": "其中：绿化用地", "group": "1.占地面积(平方米)", "value": "", "field": "greenAreaNotInSch", "editor":  {
+				        { "name": "课程建设支出", "group": "2.其中本科教育经费支出（万元）", "value": "", "field": "courseExp", "editor":  {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				        { "name": "其中：独立使用", "group": "1.占地面积(平方米)", "value": "", "field": "onlyUseArea", "editor": {
+				        { "name": "专业建设支出", "group": "2.其中本科教育经费支出（万元）", "value": "", "field": "majorExp", "editor": {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				        { "name": "共同使用", "group": "1.占地面积(平方米)", "value": "", "field": "coUseArea", "editor": {
+				        { "name": "教材建设支出", "group": "2.其中本科教育经费支出（万元）", "value": "", "field": "textbookExp", "editor": {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				       	{ "name": "总建筑面积", "group": "2.总建筑面积(平方米)", "value": "", "field": "sumCoverArea" ,"editor": {
+				       	{ "name": "实践教学支出总数", "group": "2.其中本科教育经费支出（万元）", "value": "", "field": "praTeaExpTotal" ,"editor": {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				       	{ "name": "学校产权", "group": "2.总建筑面积(平方米)", "value": "", "field": "schProCovArea","editor": {
+				       	{ "name": "实践教学支出（其中实验经费支出）", "group": "2.其中本科教育经费支出（万元）", "value": "", "field": "expTeaExp","editor": {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				       	{ "name": "非学校产权", "group": "2.总建筑面积(平方米)",  "value": "", "field": "notSchProCovArea", "editor": {
+				       	{ "name": "实践教学支出（其中实验经费支出）", "group": "2.其中本科教育经费支出（万元）",  "value": "", "field": "praTeaExp","editor": {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				       	{ "name": "其中：独立使用", "group": "2.总建筑面积(平方米)",  "value": "", "field": "onlyUseCovArea", "editor": {
+				       	{ "name": "实践教学支出（其中校外）", "group": "2.其中本科教育经费支出（万元）",  "value": "", "field": "outSchPraExp", "editor": {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
 				    		}
 				        } },
-				       	{ "name": "共同使用", "group": "2.总建筑面积(平方米)",  "value": "", "field": "coUseCovArea","editor": {
+				       	{ "name": "学生活动经费支出", "group": "2.其中本科教育经费支出（万元）",  "value": "", "field": "stuActExp","editor": {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
+				       	{ "name": "教师培训进修专项经费支出", "group": "2.其中本科教育经费支出（万元）",  "value": "", "field": "teaTrainExp", "editor": {
+				    		"type":"numberbox",
+				    		"options":{
+				        	 	"min":  0,
+				        	 	"precision": 2
+				    		}
+				        } },
+				       	{ "name": "其他教学专项", "group": "2.其中本科教育经费支出（万元）",  "value": "", "field": "coUseCovArea","editor": {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,
@@ -88,7 +102,7 @@
 				    ];
 				    							
 				$('#edit').propertygrid({
-						title : '占地与建筑面积',
+						title : '本科教育经费支出情况',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 				        width: '60%',
 				        height: 'auto',
@@ -103,12 +117,12 @@
 				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T21/loadInfo?selectYear='+selectYear,
+							url: 'pages/T292/loadInfo?selectYear='+selectYear,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i= i+1;
 			                    }														
@@ -116,7 +130,7 @@
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
-				                    while(i<12){
+				                    while(i<rows.length){
 				                    	rows[i].value = "";	
 				                    	i= i+1;
 				                    }			                      
@@ -138,12 +152,12 @@
        				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T21/loadInfo?selectYear='+year,
+							url: 'pages/T292/loadInfo?selectYear='+year,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i=i+1;
 			                    }								
@@ -151,7 +165,7 @@
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<rows.length){
 			                    	rows[i].value = "";	
 			                    	i=i+1;
 			                    }
@@ -184,7 +198,7 @@
      				$.ajax( {
 					    		type : "POST",
 					    		contentType: "application/json;utf-8",
-								url: 'pages/T21/save?data='+data+'&selectYear='+year+'&fields='+f,
+								url: 'pages/T292/save?data='+data+'&selectYear='+year+'&fields='+f,
 					    		async : false,
 					    		dataType : "json",
 					    		success : function(json) {
@@ -214,11 +228,11 @@
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表2-1占地与建筑面积（后勤处）');
+			        var tableName = encodeURI('表2-9-2本科教育经费支出情况（计财处）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),
-					    url : "pages/T21/dataExport?excelName="+tableName+'&selectYear='+year,
+					    url : "pages/T292/dataExport?excelName="+tableName+'&selectYear='+year,
 					    onSubmit : function() {
 					    	return $(this).form('validate');//对数据进行格式化
 					    },

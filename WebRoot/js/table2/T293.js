@@ -1,94 +1,132 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
+
+
 				var rows = [
-				        { "name": "总占地面积", "group": "1.占地面积(平方米)", "value": "",  "field": "sumArea","editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "学校产权", "group": "1.占地面积(平方米)", "value": "", "field": "schProArea", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "其中：绿化用地", "value": "", "group": "1.占地面积(平方米)", "field": "greenArea", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "非学校产权", "value": "", "group": "1.占地面积(平方米)", "field": "notSchProArea", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "其中：绿化用地", "group": "1.占地面积(平方米)", "value": "", "field": "greenAreaNotInSch", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "其中：独立使用", "group": "1.占地面积(平方米)", "value": "", "field": "onlyUseArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				        { "name": "共同使用", "group": "1.占地面积(平方米)", "value": "", "field": "coUseArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "总建筑面积", "group": "2.总建筑面积(平方米)", "value": "", "field": "sumCoverArea" ,"editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "学校产权", "group": "2.总建筑面积(平方米)", "value": "", "field": "schProCovArea","editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "非学校产权", "group": "2.总建筑面积(平方米)",  "value": "", "field": "notSchProCovArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "其中：独立使用", "group": "2.总建筑面积(平方米)",  "value": "", "field": "onlyUseCovArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
-				       	{ "name": "共同使用", "group": "2.总建筑面积(平方米)",  "value": "", "field": "coUseCovArea","editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } }
-				    ];
+					        { "name": "1.学校教育经费收入总额（万元）", "group": "", "value": "",  "field": "sumIncom","editor":  {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					        { "name": "收入总计", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "sumUndergraIncome", "editor":  {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					        { "name": "本科生生均拨款总额", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "allocateFund", "editor":  {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					        { "name": "本科生生均国家拨款总额", "value": "", "group": "2.其中本科教育经费支出（万元）", "field": "nationFund", "editor":  {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					        { "name": "本科生生均地方拨款总额", "group": "2.其中本科教育经费支出（万元）", "value": "", "field": "localFund", "editor":  {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					        { "name": "本科生学费收入", "value": "", "group": "2.其中本科教育经费支出（万元）", "field": "undergraTuition", "editor":  {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					        { "name": "本科教改专项拨款", "group": "2.其中本科教育经费支出（万元）", "value": "", "field": "eduReformFund", "editor":  {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					        { "name": "收入总计", "group": "3.其他教育事业收入（万元）", "value": "", "field": "sumOtherIncome", "editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					        { "name": "经常性预算内教育事业费拨款总数", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherAllocateFund", "editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					       	{ "name": "经常性预算内教育事业费国家拨款", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherNationFund" ,"editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					       	{ "name": "经常性预算内教育事业费地方拨款", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherLocalFund","editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					       	{ "name": "学费收入总数", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "otherTuition","editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					       	{ "name": "各类研究生学费收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "graTuition", "editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					       	{ "name": "高职高专学费收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "juniorTuition","editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					       	{ "name": "网络与继续教育学费收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "netTeaTuition", "editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					       	{ "name": "社会捐赠收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "donation","editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
+					       	{ "name": "其他教育事业收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "otherIncome","editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } }
+
+					    ];
 				    							
 				$('#edit').propertygrid({
-						title : '占地与建筑面积',
+						title : '本科教育经费收入情况',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 				        width: '60%',
 				        height: 'auto',
@@ -103,12 +141,12 @@
 				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T21/loadInfo?selectYear='+selectYear,
+							url: 'pages/T293/loadInfo?selectYear='+selectYear,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i= i+1;
 			                    }														
@@ -116,7 +154,7 @@
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
-				                    while(i<12){
+				                    while(i<rows.length){
 				                    	rows[i].value = "";	
 				                    	i= i+1;
 				                    }			                      
@@ -138,12 +176,12 @@
        				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T21/loadInfo?selectYear='+year,
+							url: 'pages/T293/loadInfo?selectYear='+year,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i=i+1;
 			                    }								
@@ -151,7 +189,7 @@
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
 			                    var i = 0;
-			                    while(i<12){
+			                    while(i<rows.length){
 			                    	rows[i].value = "";	
 			                    	i=i+1;
 			                    }
@@ -184,7 +222,7 @@
      				$.ajax( {
 					    		type : "POST",
 					    		contentType: "application/json;utf-8",
-								url: 'pages/T21/save?data='+data+'&selectYear='+year+'&fields='+f,
+								url: 'pages/T293/save?data='+data+'&selectYear='+year+'&fields='+f,
 					    		async : false,
 					    		dataType : "json",
 					    		success : function(json) {
@@ -214,11 +252,11 @@
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表2-1占地与建筑面积（后勤处）');
+			        var tableName = encodeURI('表2-9-3本科教育经费收入情况（计财处）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),
-					    url : "pages/T21/dataExport?excelName="+tableName+'&selectYear='+year,
+					    url : "pages/T293/dataExport?excelName="+tableName+'&selectYear='+year,
 					    onSubmit : function() {
 					    	return $(this).form('validate');//对数据进行格式化
 					    },

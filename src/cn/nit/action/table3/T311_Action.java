@@ -182,9 +182,9 @@ private T311_Service postDocStaSer = new T311_Service() ;
 		try{
 			out = getResponse().getWriter() ;
 			if(flag){
-				out.print("{\"state\":true,data:\"删除成功!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
-				out.print("{\"state\":true,data:\"删除失败!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
 		}catch(Exception e){

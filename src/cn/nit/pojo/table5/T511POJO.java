@@ -5,7 +5,7 @@ import java.util.Date;
 public class T511POJO {
 	
 	
-	private String SeqNumber;
+	private Integer SeqNumber;
 	private String CSName;
 	private String CSID;
 	private String CSUnit;
@@ -13,17 +13,20 @@ public class T511POJO {
 	private String FromTeaResOffice;
 	private String TeaResOfficeID;
 	private String CSType;
+	private String CSTypeID;
 	private String CSNature;
+	private String CSNatureID;
 	private String State;
 	private String PubCSType;
 	private Date Time;
 	private String Note;
-	private String FillTeaID;
-	private String FillUnitID;
-	public String getSeqNumber() {
+	
+	
+	
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
-	public void setSeqNumber(String seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 	public String getCSName() {
@@ -68,11 +71,25 @@ public class T511POJO {
 	public void setCSType(String cSType) {
 		CSType = cSType;
 	}
+	
+	public String getCSTypeID() {
+		return CSTypeID;
+	}
+	public void setCSTypeID(String cSTypeID) {
+		CSTypeID = cSTypeID;
+	}
 	public String getCSNature() {
 		return CSNature;
 	}
 	public void setCSNature(String cSNature) {
 		CSNature = cSNature;
+	}
+	
+	public String getCSNatureID() {
+		return CSNatureID;
+	}
+	public void setCSNatureID(String cSNatureID) {
+		CSNatureID = cSNatureID;
 	}
 	public String getState() {
 		return State;
@@ -98,17 +115,6 @@ public class T511POJO {
 	public void setNote(String note) {
 		Note = note;
 	}
-	public String getFillTeaID() {
-		return FillTeaID;
-	}
-	public void setFillTeaID(String fillTeaID) {
-		FillTeaID = fillTeaID;
-	}
-	public String getFillUnitID() {
-		return FillUnitID;
-	}
-	public void setFillUnitID(String fillUnitID) {
-		FillUnitID = fillUnitID;
-	}
+
 
 }

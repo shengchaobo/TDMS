@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
@@ -91,6 +91,7 @@
            <!-- T13学校科研单位 -->
     <include file="cn/nit/configuration/table1/T13.xml"/>
         <!-- T14学校教学单位 -->
+
     <include file="cn/nit/configuration/table1/T14.xml"/>
       <!-- T19 -->
     <include file="cn/nit/configuration/table1/T19.xml"/>
@@ -99,12 +100,28 @@
      <include file="cn/nit/configuration/table2/T21.xml"/>
      <include file="cn/nit/configuration/table2/T22.xml"/>
      <include file="cn/nit/configuration/table2/T231.xml"/>
+     <include file="cn/nit/configuration/table2/T241.xml"/>
+     <include file="cn/nit/configuration/table2/T242.xml"/>
      <include file="cn/nit/configuration/table2/T232.xml"/>
     <include file="cn/nit/configuration/table2/T251.xml"/>
    	<include file="cn/nit/configuration/table2/T252.xml"/>
 	<include file="cn/nit/configuration/table2/T26.xml"/>
+	<include file="cn/nit/configuration/table2/T27.xml"/>
+	<include file="cn/nit/configuration/table2/T281.xml"/>
+	<include file="cn/nit/configuration/table2/T282.xml"/>
+	<include file="cn/nit/configuration/table2/T283.xml"/>
+	<include file="cn/nit/configuration/table2/T284.xml"/>
+	<include file="cn/nit/configuration/table2/T291.xml"/>
+	<include file="cn/nit/configuration/table2/T292.xml"/>
+	<include file="cn/nit/configuration/table2/T293.xml"/>
+	
+	<include file="cn/nit/configuration/table2/T2101.xml"/>
+	<include file="cn/nit/configuration/table2/T2102.xml"/>
+	<include file="cn/nit/configuration/table2/T2103.xml"/>
+	
     
     <!--table3-->
+
     <!-- t312博士点硕士点 -->
     <include file="cn/nit/configuration/table3/T312.xml"/>
     <!-- t311博士后流动站 -->
@@ -121,12 +138,10 @@
     <include file="cn/nit/configuration/table3/S31.xml"/>   
     <include file="cn/nit/configuration/table3/A321.xml"/>       
     <include file="cn/nit/configuration/table3/S322.xml"/>
-    
-    
-    
-    <!-- table5本科课程库 -->
 
+    <!-- table5本科课程库 -->
     <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
+
        <include file="cn/nit/configuration/table5/T551.xml"/>
          <include file="cn/nit/configuration/table5/T521.xml"/>
         <include file="cn/nit/configuration/table5/T522.xml"/>
@@ -135,12 +150,12 @@
          <include file="cn/nit/configuration/table5/T533.xml"/>
         <include file="cn/nit/configuration/table5/T534.xml"/>
  
+
     <include file="cn/nit/configuration/table5/T552.xml"/>
     <include file="cn/nit/configuration/table5/T553.xml"/>
+    <include file="cn/nit/configuration/table5/T551.xml"/>
+    <include file="cn/nit/configuration/table5/T511.xml"/>
 
-
-
-    
     <!-- table6 近一届本科生分专业招生录取情况 -->
     <include file="cn/nit/configuration/table6/T611.xml"/>
     <include file="cn/nit/configuration/table6/T612.xml"/>

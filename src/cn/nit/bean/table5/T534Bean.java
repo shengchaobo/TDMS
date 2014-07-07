@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class T534Bean {
 	
-	private int SeqNumber;
+	private Integer SeqNumber;
 	private String TeaUnit;
 	private String UnitID;
 	private String MajorName;
@@ -25,12 +25,6 @@ public class T534Bean {
 	private String FillUnitID;
 	private String Note;
 	
-	public int getSeqNumber() {
-		return SeqNumber;
-	}
-	public void setSeqNumber(int seqNumber) {
-		SeqNumber = seqNumber;
-	}
 	public String getTeaUnit() {
 		return TeaUnit;
 	}
@@ -144,6 +138,12 @@ public class T534Bean {
 	}
 	public void setNote(String note) {
 		Note = note;
+	}
+	public void setSeqNumber(Integer seqNumber) {
+		SeqNumber = seqNumber;
+	}
+	public Integer getSeqNumber() {
+		return SeqNumber;
 	}
 
 

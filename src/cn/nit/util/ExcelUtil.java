@@ -52,7 +52,7 @@ public class ExcelUtil {
 		Sheet sheet = workbook.getSheet(index) ;
 		
 		int rows = getRightRows(sheet)+1;
-
+		
 		if(rows <= 0){
 			return null ;
 		}
@@ -60,40 +60,14 @@ public class ExcelUtil {
 		List<Cell[]> list = new ArrayList<Cell[]>() ;
 
 		for(int i = 0 ; i < rows ; i++){
-
 			Cell cell[] = sheet.getRow(i) ;
 			list.add(cell) ;
-//			System.out.println("我还不信了");
+
 		}
 
 		return list ;
 
 	}
-	
-	public static int[] readMergedCells(File file, int index,int length) throws JXLException, IOException{ 
-	
-			int[] mergedCells;
-			mergedCells=new int [length];
-		Workbook wb = Workbook.getWorkbook(file); 
-		Sheet sheet = wb.getSheet(index); 
-		Range[] ranges = sheet.getMergedCells(); 
-		    System.out.println("sheet" + index + "包含" + ranges.length + "个区域"); 
-		    for(int i=0;i<ranges.length;i=i+4){ 
-		    	int top=ranges[i].getTopLeft().getRow();
-		    	int bottom=ranges[i].getBottomRight().getRow();
-		    	mergedCells[top]=bottom;
-		    	
-//		    System.out.print(space.getTopLeft().getRow()+1+"行,"); 
-//		    System.out.print(space.getTopLeft().getColumn()+1+"列\t"); 
-//		    System.out.print(space.getBottomRight().getRow()+1+"行,"); 
-//		    System.out.print(space.getBottomRight().getColumn()+1+"列\n"); 
-		    } 
-		
-	
-	
-
-		return mergedCells;
-		} 
 	
 	/**
 	 * 批量导出

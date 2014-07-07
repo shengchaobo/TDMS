@@ -114,7 +114,7 @@
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<24){
+			                    while(i<rows.length){
 			                    	if((i==1)|| (i==4)) {
 			                    		i=i+1;
 			                    		continue;
@@ -126,7 +126,7 @@
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
-				                    while(i<24){
+				                    while(i<rows.length){
 				                    	if((i==1)|| (i==4)) {
 				                    		i=i+1;
 				                    		continue;
@@ -157,7 +157,7 @@
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<24){			                    	
+			                    while(i<rows.length){			                    	
 			                    	if((i==1)|| (i==4)) {
 			                    		i=i+1;
 			                    		continue;
@@ -169,7 +169,7 @@
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
 			                    var i = 0;
-			                    while(i<24){			                    	
+			                    while(i<rows.length){			                    	
 			                    	if((i==1)|| (i==4)) {
 			                    		i=i+1;
 			                    		continue;

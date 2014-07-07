@@ -5,7 +5,7 @@
 	function newObject() {
 		
 		//update隐藏的量在提交之后要恢复
-    	$('#title1').show();
+		$('.title1').show();
     	$('#item1').show();
     	$('hr').show();
     	
@@ -141,9 +141,9 @@
     	
     	url = 'pages/T533/edit' ;
     
-    	$('#title1').hide();
-    	$('#item1').hide();
-    	$('hr').hide();
+    	$('.title1').hide();
+       	$('#item1').hide();
+       	$('hr').hide();
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改分专业实验按情况');
     	$('#seqNumber').val(row[0].seqNumber) ;

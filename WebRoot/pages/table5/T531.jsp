@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle" id="title1">创新实验项目模板导入</h3>
+		<h3  class="title1">创新实验项目模板导入</h3>
 		<div class="fitem" id="item1">
 		  <form method="post"  id="batchForm" enctype="multipart/form-data">
 		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>	
 		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
-	   <h3 class="ftitle">创新实验项目逐条导入</h3>
+	   <h3  class="title1">创新实验项目逐条导入</h3>
 	   <form id="addForm" method="post">
 		<table>
 			<tr>
@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 			    <td>
 			   	    <div class="fitem">
-					<label>批文号：</label> 
+					<label>级别：</label> 
 					<input id="ItemLevel" type="text" name="t531Bean.ItemLevel" class="easyui-validatebox"  >
 					<span id="ItemLevelSpan"></span>
 					</div>

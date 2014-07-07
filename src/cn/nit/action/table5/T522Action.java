@@ -237,8 +237,8 @@ public class T522Action {
 			maplist.put("SeqNum", 0);
 			maplist.put("CSType", 1);maplist.put("CSName", 2);maplist.put("CSID", 3);maplist.put("CSLevel", 4);
 			maplist.put("Leader", 5);maplist.put("TeaID", 6);
-			maplist.put("JoinTeaNum", 7);maplist.put("OtherTeaNum", 8);maplist.put("CSUrl", 9);maplist.put("AppvlTime", 10);
-			maplist.put("ReceptTime", 11);maplist.put("FromTeaUnit", 12);
+			maplist.put("JoinTeaNum", 7);maplist.put("OtherTea", 8);maplist.put("CSUrl", 9);maplist.put("AppvlTime", 10);
+			maplist.put("ReceptTime", 11);maplist.put("TeaUnit", 12);
 			maplist.put("UnitID", 13);maplist.put("AppvlID", 14);maplist.put("Note", 15);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());

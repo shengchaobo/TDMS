@@ -171,7 +171,7 @@ public class T522DAO {
 		sql.append("select SeqNumber,CSType,CSName,CSID,CSLevel,Leader,TeaID,JoinTeaNum,OtherTea,CSUrl,AppvlTime,ReceptTime,TeaUnit," +
 			"UnitID,AppvlID,Time,Note");
 		sql.append(" from "+tableName);
-
+		sql.append(" where CSType='网络课程'");
 		
 		
 		Connection conn = DBConnection.instance.getConnection() ;

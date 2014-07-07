@@ -78,9 +78,9 @@ public class T534DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*) ") ;
-		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTittleName as dtn");
+		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
 		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
-				" and  dtn.IndexID = t.t.Title");
+				" and  dtn.IndexID = t.Title");
 		int total = 0 ;
 		
 		if(fillUnitId != null && !fillUnitId.equals("")){
@@ -123,9 +123,9 @@ public class T534DAO {
 		StringBuffer sql = new StringBuffer() ;
 		List<T534POJO> list = null ;
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
-				"dea.Educaion as Education,t.Education as EducationID,dde.Degree as Degree,t.Degree as DegreeID, dtn.TittleName as Title,t.Title as TitleID," +
+				"dea.Education as Education,t.Education as EducationID,dde.Degree as Degree,t.Degree as DegreeID, dtn.TitleName as Title,t.Title as TitleID," +
 				"t.IsExcellent, t.TrainIssueNum, t.SocialNum,t.GuideStuNum,t.GainBestNum,t.GainTime,t.Time,t.Note,t.FillUnitID");
-		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTittleName as dtn");
+		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
 		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
 				" and  dtn.IndexID = t.Title");
 
@@ -169,9 +169,9 @@ public class T534DAO {
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
-				"dea.Educaion as Education,dde.Degree as Degree, dtn.TittleName as Title," +
+				"dea.Education as Education,dde.Degree as Degree, dtn.TitleName as Title," +
 				"t.IsExcellent, t.TrainIssueNum, t.SocialNum,t.GuideStuNum,t.GainBestNum,t.GainTime,t.Time,t.Note,t.FillUnitID");
-		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTittleName as dtn");
+		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
 		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
 				" and  dtn.IndexID = t.Title");
 

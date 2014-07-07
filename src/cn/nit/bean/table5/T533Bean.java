@@ -16,9 +16,10 @@ public class T533Bean {
 	private String FillUnitID;
 	private String Note;
 	private Date Time;
-	
+
 	
 	public Integer getSeqNumber() {
+
 		return SeqNumber;
 	}
 	public void setSeqNumber(Integer seqNumber) {

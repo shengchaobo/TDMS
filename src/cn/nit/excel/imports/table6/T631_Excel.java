@@ -64,7 +64,7 @@ public class T631_Excel {
 	 *            {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request) {
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear) {
 
 		if ((cellList == null) || (cellList.size() < 2)) {
 			return "数据不标准，请重新提交";
@@ -83,7 +83,7 @@ public class T631_Excel {
 
 		for (Cell[] cell : cellList) {
 			try {
-				if (count <= 3) {
+				if (count <= 4) {
 					count++;
 					continue;
 				}
@@ -183,7 +183,7 @@ public class T631_Excel {
 				T631_bean.setAwardDegreeNum(Integer.parseInt(awardDegreeNum));
 
 				// 插入时间
-				T631_bean.setTime(new Date());
+				T631_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T631_bean);
 
 			} catch (Exception e) {

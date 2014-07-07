@@ -16,6 +16,7 @@ public class T533POJO {
 	private String FillUnitID;
 	private String Note;
 	private Date Time;
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}

@@ -22,6 +22,7 @@ import cn.nit.bean.table1.T12Bean;
 import cn.nit.dao.table1.T12DAO;
 import cn.nit.excel.imports.table1.T12Excel;
 import cn.nit.service.table1.T12Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 public class T12Action {
@@ -113,29 +114,6 @@ public class T12Action {
 			}
 		}
 
-//	/**  为界面加载数据  */
-//	public void auditingData(){
-//		
-//		Date date=new Date();
-//		String cuYear=date.toString();
-//		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
-//		
-//		String pages = t12Ser.auditingData() ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			out = getResponse().getWriter() ;
-//			out.print(pages) ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			return ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
 	
 	/**数据导出*/
 	public InputStream getInputStream(){
@@ -157,12 +135,12 @@ public class T12Action {
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("UnitName", 1);maplist.put("UnitID", 2);maplist.put("Function", 3);
+			maplist.put("UnitName", 1);maplist.put("UnitID", 2);maplist.put("Functions", 3);
 			maplist.put("Leader", 4);
 			maplist.put("Note", 5);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t12Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

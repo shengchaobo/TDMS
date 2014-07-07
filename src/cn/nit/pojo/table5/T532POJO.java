@@ -8,11 +8,14 @@ public class T532POJO {
 	private String CenterName;
 	private String FromSubject;
 	private String CenterLevel;
+	private String CenterLevelID;
 	private String FromTeaUnit;
 	private String UnitID;
 	private String CenterLeader;
 	private String TeaID;
 	private String TeaTitle;
+	private String TeaTitleID;
+	
 	private Date BuildTime;
 	private String BuildAppvlID;
 	private Date ReceptTime;
@@ -122,6 +125,18 @@ public class T532POJO {
 	}
 	public void setNote(String note) {
 		Note = note;
+	}
+	public String getCenterLevelID() {
+		return CenterLevelID;
+	}
+	public void setCenterLevelID(String centerLevelID) {
+		CenterLevelID = centerLevelID;
+	}
+	public String getTeaTitleID() {
+		return TeaTitleID;
+	}
+	public void setTeaTitleID(String teaTitleID) {
+		TeaTitleID = teaTitleID;
 	}
 	
 }

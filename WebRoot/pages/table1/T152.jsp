@@ -24,6 +24,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
 	
+		
+	<style type="text/css">
+	     label {
+	    width: 10em;
+	    float: left;
+	}  
+	.empty{
+		width: 4em;
+	}
+	</style>
 	<style type="text/css">
 		#fm {
 			margin: 0;
@@ -42,10 +52,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			margin-bottom: 5px;
 		}
 		
-		.fitem label {
-			display: inline-block;
-			width: 120px;
-		}
 	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
@@ -64,12 +70,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 					<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
+					<th field="resInsName" >科研机构名称</th>
+				<th field="resInsID" >单位号</th>
 		     </tr>
 		</thead>
 		<thead>
 			<tr>
-				<th field="resInsName" >科研机构名称</th>
-				<th field="resInsID" >单位号</th>
+			
 				<th field="type" >类别</th>
 				<th field="buildCondition"  formatter="booleanstr" >共建情况</th>
 				<th field="biOpen"  formatter="booleanstr" >是否对本科生开放</th>
@@ -83,17 +90,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		 <div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<form id="auditing" method="post" style="float: right;height: 24px;">
+			</div>
+			<form method="post"  id="auditing"   style="float: right;height: 24px;" >
 			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
-		</div>
 	</div>
 	
 	
@@ -122,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	</table>
-	<div id="toolbar2" style="float: left;">
+	<div id="toolbar2" style="float: right;">
 		<a href="pages/T152/dataExport?excelName=表1-5-2教学单位科研机构（教学单位-科研处）.xls"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
@@ -131,20 +138,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">校级以上科研机构批量导入</div>
-		<div class="fitem">
+		<h3 class="title1">教学单位科研机构批量导入</h3>
+		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 
 				<a href='pages/T152/downloadModel?saveFile=<%=URLEncoder.encode("表1-5-2教学单位科研机构（教学单位-科研处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
-		<div></div>
-		<div class="ftitle">校级以上科研机构逐条导入</div>
+		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+		<h3 class="title1">教学单位科研机构逐条导入</h3>
 		
 		<form id="addForm" method="post">
 		<table>
@@ -159,10 +165,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							onSelect:function(){
 							 	$('#ResInsName').val($(this).combobox('getText')) ;
 							 }">
-					    <span id="ResInsNameSpan"></span>
-							
+					    <span id="ResInsNameSpan"></span>	
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>类别：</label> 
@@ -180,6 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						 <span id="BeginYearSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>所属教学单位：</label> 
@@ -198,17 +205,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <td>
 					<div class="fitem">
 						<label>共建情况：</label> 
-						<select class='easyui-combobox' id='BuildCondition' name='t152Bean.BuildCondition'>
+						<select class='easyui-combobox' id='BuildCondition' name='t152Bean.BuildCondition' style="width:50px">
 						   <option value="true">是</option>
 						   <option value="false">否</option> 
 						</select>
 						<span id="BuildConditionSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>是否对本科生开放：</label> 
-						<select class='easyui-combobox' id='BiOpen' name='t152Bean.BiOpen'>
+						<select class='easyui-combobox' id='BiOpen' name='t152Bean.BiOpen' style="width:50px">
 						   <option value="true">是</option>
 						   <option value="false">否</option> 
 						</select>
@@ -218,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 			<tr>
-				<td>
+				<td style="valign:left" colspan="3">
 					<div class="fitem">
 						<label>专业科研用房面积（平方米）：</label> 
 						<input id="HouseArea" type="text" name="t152Bean.HouseArea" 
@@ -229,23 +237,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 		    <tr>
-				<td >
+				<td style="valign:left" colspan="3">
 					<div class="fitem">
 						<label>对本科生开放情况（500字以内）：</label> 
-						<br/>
 						<textarea id="OpenCondition" name="t152Bean.OpenCondition" style="resize:none" cols="50" rows="10"></textarea>
 						<span id="OpenConditionSpan"></span>
 						</div>
 				</td>
-			
-				
 			</tr>
 			<tr>
 			
-			   <td>
+			   <td style="valign:left" colspan="3">
 			        <div class="fitem">
-				    <label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
-				    <br/>
+				    <label>备注：</label>
 					<textarea id="Note" name="t152Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 					</div>
@@ -347,8 +351,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newObject(){
+
+	    	$('.title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
 	    	url = 'pages/T152/insert' ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加校级科研机构库（科研处）');
+		    $('#dlg').dialog('open').dialog('setTitle','添加教学单位科研机构');
 		    $('#resInsForm').form('reset');
 	    }
 
@@ -473,8 +481,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/SchResIns/edit' ;
+
+	    	$('.title1').hide();
+	       	$('#item1').hide();
+	       	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改教学单位科研机构');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#ResInsID').combobox('select',row[0].resInsID);
 	    	$('#Type').combobox('select',row[0].typeID);

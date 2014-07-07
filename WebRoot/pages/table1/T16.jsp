@@ -30,28 +30,33 @@
 		<link rel="stylesheet" type="text/css"
 			href="jquery-easyui/demo/demo.css">
 
+	<style type="text/css">
+	     label {
+	    width: 10em;
+	    float: left;
+	}  
+	.empty{
+		width: 4em;
+	}
+	</style>
 		<style type="text/css">
-#fm {
+	#fm {
 	margin: 0;
 	padding: 10px 30px;
-}
+	}
 
-.ftitle {
+	.ftitle {
 	font-size: 14px;
 	font-weight: bold;
 	padding: 5px 0;
 	margin-bottom: 10px;
 	border-bottom: 1px solid #ccc;
-}
+	}
 
-.fitem {
+	.fitem {
 	margin-bottom: 5px;
-}
+	}
 
-.fitem label {
-	display: inline-block;
-	width: 80px;
-}
 </style>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
@@ -165,15 +170,16 @@
 			</tbody>
 		</table>
 		<div id="toolbar" style="height:auto">
-		<div>
+	    <div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
-			<form  id="exportForm"  method="post" style="float: right;">
+				</div>
+			<form  id="exportForm"  method="post"  style="float: right;height: 24px;">
 				<select class="easyui-combobox" id="cbYearContrast" name="selectYear" editable="false" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 	  		</form>
 			<!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 		 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a> -->
-		</div>
+	
 	</div>
 		
 	
@@ -186,20 +192,22 @@
 		<form id="t16Form" method="post">
 		<table>
 			<tr>
-			       <div class="fitem">
+			    <td style="valign:left">
 						<label>项目名：</label> 
-						<select class='easyui-combobox' id='Item' name='t16Bean.Item'>
+						<select class='easyui-combobox' id='Item' name='t16Bean.Item'  style="width:140px" editable="false" >
 						   <option value="1.校训">1.校训</option>
 						   <option value="2.定位与发展目标">2.定位与发展目标</option> 
 						</select>
 						 <span id="ItemSpan"></span>
-					</div>
+			</td>
 			<tr>
-				<td style="valign:left"><label>内&nbsp;&nbsp;&nbsp;&nbsp;容：</label>
+				<td style="valign:left"><label>内容：</label>
 					<textarea id="Contents" name="t16Bean.Contents" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="ContentsSpan"></span>
 				</td>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：：</label>
+				</tr>
+				<tr>
+				<td style="valign:left"><label>备注：</label>
 					<textarea id="Note" name="t16Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>

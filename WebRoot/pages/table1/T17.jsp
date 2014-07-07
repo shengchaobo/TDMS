@@ -24,6 +24,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
 	
+	
+	<style type="text/css">
+	     label {
+	    width: 10em;
+	    float: left;
+	}  
+	.empty{
+		width: 4em;
+	}
+	</style>
+	
 	<style type="text/css">
 		#fm {
 			margin: 0;
@@ -41,11 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.fitem {
 			margin-bottom: 5px;
 		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
+	
 	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
@@ -71,42 +78,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 			<a href="pages/T17/dataExport?excelName=表T-1-7校友会（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		</div>	
 			<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
-			</form>
-		</div>
-		
+			</form>	
 	</div>
-	<!-- 
-	<div id="toolbar2">
-		<a href="pages/UndergraCSBaseTea/dataExport" class="easyui-linkbutton" iconCls="icon-download">数据导出</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
-	</div>
-	 -->
+	
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">校友会记录批量导入</div>
-		<div class="fitem">
+		<h3 class="title1">校友会记录批量导入</h3>
+		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T17/downloadModel?saveFile=<%=URLEncoder.encode("表T17校友会（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
-		<div></div>
-		<div class="ftitle">校友会逐条导入</div>
+		<hr style="width: 100%; height: 5px; color: blue;"></hr>
+		<h3 class="title1">校友会逐条导入</h3>
 		
 		<form id="t17form" method="post">
 		<table>
@@ -119,6 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="ClubNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 			    <td>
 					<div class="fitem">
 						<label>建设时间：</label> 
@@ -132,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点：</label> 
-						<select class='easyui-combobox' id='Place' name='t17Bean.Place'>
+						<select class='easyui-combobox' id='Place' name='t17Bean.Place' style="width:100px" editable="false">
 						   <option value="境内" >境内</option>
 						   <option value="境外">境外</option> 
 						</select>
@@ -141,7 +142,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3">
+				<label>备注：</label>
 					<textarea id="Note" name="t17Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -240,6 +242,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newObject(){
+
+	      	$('.title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
 	    	url = url ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加校友会（党院办）');
 		    $('#t17form').form('reset');
@@ -311,6 +317,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/T17/edit' ;
+	    	$('.title1').hide();
+	       	$('#item1').hide();
+	       	$('hr').hide();
+	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改校友会信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#ClubName').val(row[0].clubName);

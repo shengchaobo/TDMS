@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="seqNumber" width=10>编号</th>
 				<th field="unitName" width=10>行政单位名称</th>
 				<th field="unitID" width=10 >单位号</th>
-				<th field="function" width=10>单位职能</th>
+				<th field="functions" width=10>单位职能</th>
 				<th field="leader" width=10>单位负责人</th>
 				<th field="teaID" width=10>教工号</th>
 				<th field="note" width=10>备注</th>
@@ -73,15 +73,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		<div style="float: left;">
 			<a href="pages/T12/dataExport?excelName=表1-2学校行政单位（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
+			</div>
 			<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
-		</div>
 	</div>
 	<!-- 
 	<div id="toolbar2">

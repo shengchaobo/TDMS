@@ -227,12 +227,12 @@ public class T531Action {
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("名称");columns.add("类型");columns.add("级别");columns.add("设立时间");
-			columns.add("所属教学单位");columns.add("参与学生数（人）");
+			columns.add("所属教学单位");columns.add("参与学生数（人）");columns.add("备注");
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("Name", 1);maplist.put("Type", 2);maplist.put("ItemLevel", 3);maplist.put("buildTime", 4);
-			maplist.put("TeaUnit", 5);maplist.put("JoinStuNum", 6);
+			maplist.put("TeaUnit", 5);maplist.put("JoinStuNum", 6);maplist.put("Note", 6);
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {

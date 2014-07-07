@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 			    <td>
 			   	    <div class="fitem">
-					<label>批文号：</label> 
+					<label>级别：</label> 
 					<input id="ItemLevel" type="text" name="t531Bean.ItemLevel" class="easyui-validatebox"  >
 					<span id="ItemLevelSpan"></span>
 					</div>

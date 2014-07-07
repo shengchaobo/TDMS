@@ -62,6 +62,7 @@ public class ExcelUtil {
 		for(int i = 0 ; i < rows ; i++){
 			Cell cell[] = sheet.getRow(i) ;
 			list.add(cell) ;
+
 		}
 
 		return list ;
@@ -164,7 +165,7 @@ public class ExcelUtil {
                         	}
                         	                        	
         					String type = wrapper.getPropertyType(column).toString() ;
-        					//System.out.println(type +"test" + column);
+//        					System.out.println(type +"test" + column);
 
         					//判断插入数据的类型，并赋�?
         					if(type.endsWith("String")){

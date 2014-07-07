@@ -5,40 +5,39 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table5.T534Bean;
+import cn.nit.bean.table5.T521Bean;
 import cn.nit.dbconnection.DBConnection;
-import cn.nit.pojo.table5.T534POJO;
+import cn.nit.pojo.table5.T521POJO;
 import cn.nit.util.DAOUtil;
 
-public class T534DAO {
-	
+public class T521DAO {
 	
 	/**  数据库表名  */
-	private String tableName = "T534_ByMajGraTrainInfo_TeaTea$" ;
+	private String tableName = "T521_CSBuildInfo_Tea$" ;
 	
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "TeaUnit,UnitID,MajorName,MajorID,TeaName,TeaID,IsOutEmploy,Education,Degree,Title," +
-			"IsExcellent,TrainIssueNum,SocialNum,GuideStuNum,GainBestNum,GainTime,FillUnitID,Time,Note";
+	private String field = "CSType,CSName,CSID,CSLevel,Leader,TeaID,JoinTeaNum,OtherTea,CSUrl,AppvlTime,ReceptTime,TeaUnit," +
+			"UnitID,AppvlID,Time,Note";
 	
 	
 	
 	/**
-	 * 将数据表551的实体类插入数据库
+	 * 将数据表522的实体类插入数据库
 	 * @param schResIns
 	 * @return
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T534Bean t534Bean){
+	public boolean insert(T521Bean t521Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			flag = DAOUtil.insert(t534Bean, tableName, field, conn) ;
+			flag = DAOUtil.insert(t521Bean, tableName, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -49,11 +48,11 @@ public class T534DAO {
 	}
 	
 	/**
-	 * 讲数据批量插入534表中
+	 * 讲数据批量插入531表中
 	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T534Bean> list){
+	public boolean batchInsert(List<T521Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -77,16 +76,16 @@ public class T534DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select count(*) ") ;
-		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
-		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
-				" and  dtn.IndexID = t.Title");
+		sql.append("select t.SeqNumber,t.CSType,t.CSName,t.CSID,t.CSLevel,t.Leader,t.TeaID,t.JoinTeaNum,t.OtherTea,t.CSUrl," +
+		"t.AppvlTime,t.ReceptTime,t.TeaUnit,t.UnitID,t.AppvlID,t.Time,t.Note") ;
+		sql.append(" from "+tableName+" as t,DiAwardLevel dal,DiDepartment ddm" );
+		sql.append(" where t.CSType!='网络课程' and dal.IndexID=t.CSLevel and ddm.UnitID=t.UnitID");
 		int total = 0 ;
 		
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
-		}
-		
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
+//		
 		if(conditions != null && !conditions.equals("")){
 			sql.append(conditions) ;
 		}
@@ -105,6 +104,7 @@ public class T534DAO {
 			
 			while(rs.next()){
 				total = rs.getInt(1) ;
+				System.out.println(total);
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -118,16 +118,15 @@ public class T534DAO {
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
 	 */
-	public List<T534POJO> auditingData(String conditions, String fillUnitId, int page, int rows){
+	public List<T521POJO> auditingData(String conditions, String fillUnitId, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T534POJO> list = null ;
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
-				"dea.Education as Education,t.Education as EducationID,dde.Degree as Degree,t.Degree as DegreeID, dtn.TitleName as Title,t.Title as TitleID," +
-				"t.IsExcellent, t.TrainIssueNum, t.SocialNum,t.GuideStuNum,t.GainBestNum,t.GainTime,t.Time,t.Note,t.FillUnitID");
-		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
-		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
-				" and  dtn.IndexID = t.Title");
+		List<T521POJO> list = null ;
+		sql.append("select t.SeqNumber,t.CSType,t.CSName,t.CSID,dal.AwardLevel as CSLevel,t.CSLevel as CSLevelID,t.Leader,t.TeaID,t.JoinTeaNum,t.OtherTea,t.CSUrl," +
+		"t.AppvlTime,t.ReceptTime,t.TeaUnit,t.UnitID,t.AppvlID,t.Time,t.Note") ;
+		sql.append(" from "+tableName+" as t,DiAwardLevel dal,DiDepartment ddm" );
+		sql.append(" where t.CSType ! ='网络课程' and dal.IndexID=t.CSLevel and ddm.UnitID=t.UnitID");
+		
 
 //		if(fillUnitId != null && !fillUnitId.equals("")){
 //			sql.append(" and FillUnitID=" + fillUnitId) ;
@@ -148,7 +147,7 @@ public class T534DAO {
 			st.setMaxRows(page * rows) ;
 			rs = st.executeQuery(sql.toString()) ;
 			rs.absolute((page - 1) * rows) ;
-			list = DAOUtil.getList(rs, T534POJO.class) ;
+			list = DAOUtil.getList(rs, T521POJO.class) ;
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -165,27 +164,24 @@ public class T534DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T534Bean> totalList(){
+	public List<T521Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
-				"dea.Education as Education,dde.Degree as Degree, dtn.TitleName as Title," +
-				"t.IsExcellent, t.TrainIssueNum, t.SocialNum,t.GuideStuNum,t.GainBestNum,t.GainTime,t.Time,t.Note,t.FillUnitID");
-		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
-		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
-				" and  dtn.IndexID = t.Title");
+		sql.append("select SeqNumber,CSType,CSName,CSID,CSLevel,Leader,TeaID,JoinTeaNum,OtherTea,CSUrl,AppvlTime,ReceptTime,TeaUnit," +
+			"UnitID,AppvlID,Time,Note");
+		sql.append(" from "+tableName);
 
 		
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T534Bean> list = null ;
+		List<T521Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T534Bean.class) ;
+			list = DAOUtil.getList(rs, T521Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -195,13 +191,13 @@ public class T534DAO {
 	}
 	
 	//更新！
-	public boolean update(T534Bean t534Bean){
+	public boolean update(T521Bean t521Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;
 			try{
 //				System.out.println("hello！");
-				flag = DAOUtil.update(t534Bean, tableName, key, field, conn) ;
+				flag = DAOUtil.update(t521Bean, tableName, key, field, conn) ;
 			}catch(Exception e){
 				e.printStackTrace() ;
 				return flag ;
@@ -238,5 +234,6 @@ public class T534DAO {
 	public String getTableName(){
 		return this.tableName ;
 	}
+	
 
 }

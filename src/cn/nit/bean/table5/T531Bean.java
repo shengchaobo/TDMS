@@ -13,8 +13,9 @@ public class T531Bean {
 	private int JoinStuNum;
 	private String Note;
 	private Date Time;
-	
+
 	public Integer getSeqNumber() {
+
 		return SeqNumber;
 	}
 	public void setSeqNumber(Integer seqNumber) {

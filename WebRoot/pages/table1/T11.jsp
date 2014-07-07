@@ -379,7 +379,7 @@
 					iconCls="icon-edit" plain="true" onclick="edit()">编辑</a>
 					
 			<form  id="exportForm"  method="post" style="float: right;">
-				<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+				<select class="easyui-combobox" id="cbYearContrast" name="selectYear" editable="false" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 	  		</form>
 		

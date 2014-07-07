@@ -86,7 +86,6 @@
 		var joinStuNum = $('#JoinStuNum').val();
 		var note = $('#Note').val();
 	
-		
 		if(name == null|| name.length == 0 || name.length > 100){
 			alert("名称不能为空且不能超过50个字");
 			return false;
@@ -95,6 +94,7 @@
 			alert("类型不能为空且不能超过25个字");
 			return false;
 		}
+
 		if(itemLevel == null || itemLevel.length == 0){
 			alert("级别不能为空");
 			return false;
@@ -117,6 +117,7 @@
 				"<font style=\"color:red\">备注中文字数不超过500</font>");*/
 				return false;
 		}
+		alert(123);
 		return true;
 	 }
 
@@ -137,12 +138,12 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改专任教师的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#Name').val(row[0].Name) ;
-    	$('#TypeType').val(row[0].Type) ;
-    	$('#ItemLevel').val(row[0].ItemLevel) ;
-    	$('#buildTime').datebox('setValue'.row[0].buildTime);
-    	$('#TeaUnit').val(row[0].TeaUnit);
-    	$('#JoinStuNum').val(row[0].JoinStuNum);
+    	$('#Name').val(row[0].name) ;
+    	$('#Type').combobox('select', row[0].type) ;
+    	$('#ItemLevel').val(row[0].itemLevel) ;
+    	$('#buildTime').datebox('setValue',formattime(row[0].buildTime));
+    	$('#TeaUnit').val(row[0].teaUnit);
+    	$('#JoinStuNum').val(row[0].joinStuNum);
 		$('#Note').val(row[0].note) ;
 	}
 
@@ -202,4 +203,23 @@
     	}).submit();
     }
 
+    function formattime(val) {  
+        if(val == null){
+    	    return null ;
+        }
+        var year=parseInt(val.year)+1900;  
+        var month=(parseInt(val.month)+1);  
+        month=month>9?month:('0'+month);  
+        var date=parseInt(val.date);  
+        date=date>9?date:('0'+date);  
+        var hours=parseInt(val.hours);  
+        hours=hours>9?hours:('0'+hours);  
+        var minutes=parseInt(val.minutes);  
+        minutes=minutes>9?minutes:('0'+minutes);  
+        var seconds=parseInt(val.seconds);  
+        seconds=seconds>9?seconds:('0'+seconds);  
+        var time=year+'-'+month+'-'+date ;  
+        //alert(time) ;
+         return time;  
+    }  
 	

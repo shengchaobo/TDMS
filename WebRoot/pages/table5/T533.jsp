@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body style="height: 100%'" >
-	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T533/loadMajorTea"  style="height: auto"  >
+	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T533/auditingData"  style="height: auto"  >
 			<thead>		
 				<tr>	
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<h3 class="ftitle" id="title1">分专业实验情况模板导入</h3>
 		<div class="fitem" id="item1">
 		  <form method="post"  id="batchForm" enctype="multipart/form-data">
-		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T533/downloadModel?saveFile=<%=URLEncoder.encode("表5-3-3分专业实验情况（教学单位-教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
@@ -151,11 +151,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table>
 			<tr>
 				<td>
-					<input type="hidden" name="T533bean.SeqNumber"  id="seqNumber"/>
+					<input type="hidden" name="t533Bean.SeqNumber"  id="seqNumber"/>
 					<div class="fitem">
 						<label>教学单位：</label> 
-						<input type="hidden" name="T533bean.TeaUnit" id="TeaUnit"/>
-						<input id="UnitID" type="text" name="T533bean.UnitID" class='easyui-combobox' 
+						<input type="hidden" name="t533Bean.TeaUnit" id="TeaUnit"/>
+						<input id="UnitID" type="text" name="t533Bean.UnitID" class='easyui-combobox' 
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:true,
 							onSelect:function(){
 							    document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
@@ -167,8 +167,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>专业名称：</label> 
-						<input type="hidden" name="T533bean.MajorName" id="MajorName"/>
-						<input id="MajorID" type="text" name="T533bean.MajorID" class='easyui-combobox' 
+						<input type="hidden" name="t533Bean.MajorName" id="MajorName"/>
+						<input id="MajorID" type="text" name="t533Bean.MajorID" class='easyui-combobox' 
 							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:true,
 							onSelect:function(){
 							 	 document.getElementById('MajorName').value=$(this).combobox('getText') ;
@@ -180,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>有实验的课程（门）:</label>
-					<input id="ExpCSNum" name="T533bean.ExpCSNum" class=""easyui-numberbox" type="text" data-options="min:0">
+					<input id="ExpCSNum" name="t533Bean.ExpCSNum" class="easyui-numberbox" type="text" data-options="min:0">
 					<span id="ExpCSNumSpan"></span>
 					</div>
 				</td>
@@ -188,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>独立设置的实验课程（门）:</label>
-					<input id="IndepentExpCSNum" name="T533bean.IndepentExpCSNum" class=""easyui-numberbox" type="text" data-options="min:0">
+					<input id="IndepentExpCSNum" name="t533Bean.IndepentExpCSNum" class="easyui-numberbox" type="text" data-options="min:0">
 					<span id="IndepentExpCSNumSpan"></span>
 					</div>
 				</td>
@@ -197,22 +197,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>实验教学:</label>
-					<input id="DesignExpCSNum" name="T533bean.DesignExpCSNum" class=""easyui-numberbox" type="text" data-options="min:0">
+					<input id="DesignExpCSNum" name="t533Bean.DesignExpCSNum" class="easyui-numberbox" type="text" data-options="min:0">
 					<span id="DesignExpCSNumSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>
 				<td>
 					<div class="fitem">
-					<label>实验开出率（%）:</label>
-					<input id="ExpRatio" name="T533bean.ExpRatio" class="easyui-validatebox" type="text" >
-					<span id="ExpRatioSpan"></span>
+					<label>实验开出率:</label>
+					<input id="ExpRatio" name="t533Bean.ExpRatio" class="easyui-validatebox" type="text" >
+					<span id="ExpRatioSpan" style="color: red">(注：请写成小数形式)</span>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
-					<textarea id="Note" name="T533bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="t533Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>			

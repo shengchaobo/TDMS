@@ -81,8 +81,8 @@
 		var centerName = $('#CenterName').val();
 		var fromSubject = $('#FromSubject').val();
 		var centerLevel = $('#CenterLevel').combobox('getText');
-		var unitID = $('#UnitID').combobox('getText');
-		var teaID = $('#TeaID').combobox('getText');
+		var unitID = $('#FromTeaUnit').val();
+		var teaID = $('#Leader').val();
 		var teaTitle = $('#TeaTitle').combobox('getText');
 		var buildTime = $('#BuildTime').datebox('getValue');
 		var buildAppvlID = $('#BuildAppvlID').val();
@@ -90,7 +90,7 @@
 		var receptAppvlID = $('#ReceptAppvlID').val();
 		var validTime = $('#ValidTime').val();
 		var fund = $('#Fund').val();
-		var note = $('#note').val();
+		var note = $('#Note').val();
 	
 		if(centerName == null|| centerName.length == 0){
 			alert("中心名称不能为空");
@@ -160,31 +160,32 @@
 	function edit() {
 		
     	var row = $('#unverfiedData').datagrid('getSelections');
-    	
+   
     	if(row.length != 1){
     		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
     		return ;
     	}
     	
     	url = 'pages/T532/edit' ;
-    
+    	
     	$('#title1').hide();
     	$('#item1').hide();
     	$('hr').hide();
     	
-    	$('#dlg').dialog('open').dialog('setTitle','修改专任教师的信息');
+    	$('#dlg').dialog('open').dialog('setTitle','修改实验教学示范中心的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#CenterName').val(row[0].CenterName) ;
-    	$('#FromSubject').val(row[0].FromSubject) ;
-    	$('#CenterLevel').combobox('select', row[0].CenterLevel) ;
-    	$('#UnitID').combobox('select', row[0].UnitID) ;
-    	$('#TeaID').combobox('select', row[0].TeaID) ;
-    	$('#TeaTitle').combobox('select', row[0].TeaTitle) ;
-    	$('#BuildTime').datebox('setValue',row[0].BuildTime);
-    	$('#BuildAppvlID').val(row[0].BuildAppvlID) ;
-    	$('#ReceptTime').datebox('setValue',row[0].ReceptTime);
-    	$('#ReceptAppvlID').val(row[0].ReceptAppvlID) ;
-    	$('#Fund').val(row[0].Fund) ;
+    	$('#CenterName').val(row[0].centerName) ;
+    	$('#FromSubject').val(row[0].fromSubject) ;
+    	$('#CenterLevel').combobox('select', row[0].centerLevelID) ;
+    	$('#UnitID').combobox('select', row[0].unitID) ;
+    	$('#TeaID').combobox('select', row[0].teaID) ;
+    	$('#TeaTitle').combobox('select', row[0].teaTitleID) ;
+    	$('#BuildTime').datebox('setValue',formattime(row[0].buildTime));
+    	$('#BuildAppvlID').val(row[0].buildAppvlID) ;
+    	$('#ReceptTime').datebox('setValue',formattime(row[0].receptTime));
+    	$('#ReceptAppvlID').val(row[0].receptAppvlID) ;
+    	$('#ValidTime').val(row[0].validTime) ;
+    	$('#Fund').val(row[0].fund) ;
 		$('#Note').val(row[0].note) ;
 	}
 
@@ -243,5 +244,25 @@
 		}
     	}).submit();
     }
+    
+    function formattime(val) {  
+        if(val == null){
+    	    return null ;
+        }
+        var year=parseInt(val.year)+1900;  
+        var month=(parseInt(val.month)+1);  
+        month=month>9?month:('0'+month);  
+        var date=parseInt(val.date);  
+        date=date>9?date:('0'+date);  
+        var hours=parseInt(val.hours);  
+        hours=hours>9?hours:('0'+hours);  
+        var minutes=parseInt(val.minutes);  
+        minutes=minutes>9?minutes:('0'+minutes);  
+        var seconds=parseInt(val.seconds);  
+        seconds=seconds>9?seconds:('0'+seconds);  
+        var time=year+'-'+month+'-'+date ;  
+        //alert(time) ;
+         return time;  
+    }  
 
 	

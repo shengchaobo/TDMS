@@ -75,11 +75,10 @@
 
 	//对输入字符串进行验证
 	function validate() {
-		
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
 		// 获取文本框的值
-		var unitID = $('#UnitID').combobox('getText');
-		var majorID = $('#MajorID').combobox('getText');
+		var unitID = $('#TeaUnit').val();
+		var majorID = $('#MajorName').val();
 		var expCSNum = $('#ExpCSNum').numberbox('getValue');
 		var indepentExpCSNum = $('#IndepentExpCSNum').numberbox('getValue');
 		var designExpCSNum = $('#DesignExpCSNum').numberbox('getValue');
@@ -148,12 +147,12 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改分专业实验按情况');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#UnitID').combobox('select', row[0].UnitID) ;
-    	$('#MajorID').combobox('select', row[0].MajorID) ;
-    	$('#ExpCSNum').val(row[0].ExpCSNum) ;
-    	$('#IndepentExpCSNum').numberbox('setValue',row[0].IndepentExpCSNum);
-    	$('#DesignExpCSNum').numberbox('setValue',row[0].DesignExpCSNum);
-    	$('#ExpRatio').val(row[0].ExpRatio) ;
+    	$('#UnitID').combobox('select', row[0].unitID) ;
+    	$('#MajorID').combobox('select', row[0].majorID) ;
+    	$('#ExpCSNum').val(row[0].expCSNum) ;
+    	$('#IndepentExpCSNum').numberbox('setValue',row[0].indepentExpCSNum);
+    	$('#DesignExpCSNum').numberbox('setValue',row[0].designExpCSNum);
+    	$('#ExpRatio').val(row[0].expRatio) ;
 		$('#Note').val(row[0].note) ;
 	}
 

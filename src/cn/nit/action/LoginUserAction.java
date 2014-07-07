@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
@@ -113,6 +114,25 @@ public class LoginUserAction {
 		}
 		
 		return true ;
+	}
+	
+	
+	/**
+	 * 防止SQL注入
+	 * @return
+	 *
+	 * @time: 2014-4-21/上午11:24:51
+	 */
+	public String exit() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession() ;
+		UserRoleBean user = (UserRoleBean) session.getAttribute("userinfo") ;
+		
+		if(user != null){
+			session.removeAttribute("userinfo");
+		}
+		//session.invalidate();
+        return "exit";
 	}
 	
 	public void setUser(LoginUser user){

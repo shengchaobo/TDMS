@@ -12,7 +12,7 @@ import cn.nit.util.DAOUtil;
 
 public class T511_DAO {
 
-    private String tableName="T511_ExcellentUndergraClass_Stu$";
+    private String tableName="T511_UndergraCSBase_Tea$";
 	
 	private String key="SeqNumber";
 	
@@ -51,7 +51,7 @@ public class T511_DAO {
         StringBuffer sql=new StringBuffer();
      	sql.append("select count(*)");
      	sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
      	int total=0;
      	
      	if(fillUnitId!=null && !fillUnitId.equals("")){
@@ -106,7 +106,7 @@ public class T511_DAO {
      	
     	sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
 		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
      	
      	
      	//System.out.println(123);

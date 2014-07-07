@@ -24,6 +24,11 @@
 	-->
 		<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	</head>
+	<script language="JavaScript">
+	 //保证过滤总是回到top层login.jsp
+	   if (window != top)
+	   top.location.href = location.href;
+	</script>
 	<script type="text/javascript">
 			function validate() {
 			    if(!check()){
@@ -59,8 +64,14 @@
 				}
 				return true ;
 			}
+			
+			//enter提交登录
+		    function keyLogin(){  
+	        	if (event.keyCode==13)   //回车键的键值为13  
+	             document.getElementById("loginBtn").click(); //调用登录按钮的登录事件  
+	        }  
 	</script>
-	<body>
+	<body  onkeydown="keyLogin();">
 		<table class="table1"  align="center" cellpadding="0" cellspacing="0" >
 			<tr>
 				<td width="353" height="259" align="center" valign="bottom"
@@ -115,7 +126,7 @@
                   </td>
 
                   <td height="30" align="right">
-                  <input type="reset"  id="forgetPsd"
+                  <input type="reset"  id="reset"
                       style="width:80px;background: url(images/reset.jpg) no-repeat"
                       value = "">
                   </td>

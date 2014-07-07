@@ -11,7 +11,7 @@
 	 
 	    function newCourse(){ 
 	    
-	    	$('#title1').show();
+	    	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	
@@ -129,12 +129,12 @@
 	    	
 	    	url = 'pages/T552/edit' ;
 	    	
-	    	$('#title1').hide();
+	    	$('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	
 	    	$('#AwardName').val(row[0].awardName) ;

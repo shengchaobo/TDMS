@@ -92,7 +92,7 @@
 				        	 	"precision": 2
 				    		}
 				        } },
-				       	{ "name": "其他教学专项", "group": "2.其中本科教育经费支出（万元）",  "value": "", "field": "coUseCovArea","editor": {
+				       	{ "name": "其他教学专项", "group": "2.其中本科教育经费支出（万元）",  "value": "", "field": "otherTeaExp","editor": {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,

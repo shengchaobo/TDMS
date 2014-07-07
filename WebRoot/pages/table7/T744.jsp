@@ -38,27 +38,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T744/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="teaUnit">教学单位</th>
+				<th field="unitID">单位号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="teaUnit" width="10%">教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="majorName" width="10%">专业名称</th>
-				<th field="majorID" width="10%">专业代码</th>
-				<th field="degreeType" width="15%">学位授予门类</th>
-				<th field="leaderName" width="15%">负责人姓名</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="setYear" width="10%">设置年份</th>
-				<th field="assessYear" width="10%">评估年份</th>
-				<th field="assessResult" width="10%">评估结果</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="note" width="20%">备注</th>
+
+
+				<th field="majorName">专业名称</th>
+				<th field="majorID">专业代码</th>
+				<th field="degreeType">学位授予门类</th>
+				<th field="leaderName">负责人姓名</th>
+				<th field="teaID">教工号</th>
+				<th field="setYear">设置年份</th>
+				<th field="assessYear">评估年份</th>
+				<th field="assessResult">评估结果</th>
+				<th field="appvlID">批文号</th>
+				<th field="note">备注</th>
 				
 			</tr>
 		</thead>
@@ -84,24 +92,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="teaUnit">教学单位</th>
+				<th field="unitID">单位号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="teaUnit" width="10%">教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="majorName" width="10%">专业名称</th>
-				<th field="majorID" width="10%">专业代码</th>
-				<th field="degreeType" width="15%">学位授予门类</th>
-				<th field="leaderName" width="15%">负责人姓名</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="setYear" width="10%">设置年份</th>
-				<th field="assessYear" width="10%">评估年份</th>
-				<th field="assessResult" width="10%">评估结果</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="note" width="20%">备注</th>
-			
+
+
+				<th field="majorName">专业名称</th>
+				<th field="majorID">专业代码</th>
+				<th field="degreeType">学位授予门类</th>
+				<th field="leaderName">负责人姓名</th>
+				<th field="teaID">教工号</th>
+				<th field="setYear">设置年份</th>
+				<th field="assessYear">评估年份</th>
+				<th field="assessResult">评估结果</th>
+				<th field="appvlID">批文号</th>
+				<th field="note">备注</th>
+				
 			</tr>
 		</thead>
 	</table>
@@ -527,10 +541,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    </script>
-
-	<script type="text/javascript"> 
+<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -547,6 +563,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+	
 
 </html>
 

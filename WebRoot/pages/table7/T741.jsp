@@ -38,26 +38,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T741/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="teaName">教师姓名</th>
+				<th field="teaID">教工号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="teaName" width="10%">教师姓名</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="teaUnit" width="15%">所属教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="assessCS" width="10%">参评课程</th>
-				<th field="CSID" width="10%">课程编号</th>
-				<th field="CSType" width="10%">课程类别</th>
-				<th field="assessYear" width="10%">评估年份</th>
-				<th field="accessResult" width="10%">评估结果</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="note" width="20%">备注</th>
+				<th field="teaUnit">所属教学单位</th>
+				<th field="unitID">单位号</th>
+				<th field="assessCS">参评课程</th>
+				<th field="CSID">课程编号</th>
+				<th field="CSType">课程类别</th>
+				<th field="assessYear">评估年份</th>
+				<th field="accessResult">评估结果</th>
+				<th field="appvlID">批文号</th>
+				<th field="note">备注</th>
 				
 			</tr>
 		</thead>
@@ -83,22 +89,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+	<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="teaName">教师姓名</th>
+				<th field="teaID">教工号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="teaName" width="10%">教师姓名</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="teaUnit" width="15%">所属教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="assessCS" width="10%">参评课程</th>
-				<th field="CSID" width="10%">课程编号</th>
-				<th field="CSType" width="10%">课程类别</th>
-				<th field="assessYear" width="10%">评估年份</th>
-				<th field="accessResult" width="10%">评估结果</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="note" width="20%">备注</th>
+				<th field="teaUnit">所属教学单位</th>
+				<th field="unitID">单位号</th>
+				<th field="assessCS">参评课程</th>
+				<th field="CSID">课程编号</th>
+				<th field="CSType">课程类别</th>
+				<th field="assessYear">评估年份</th>
+				<th field="accessResult">评估结果</th>
+				<th field="appvlID">批文号</th>
+				<th field="note">备注</th>
 				
 			</tr>
 		</thead>
@@ -498,7 +508,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    </script>
 
-	<script type="text/javascript"> 
+ <script type="text/javascript"> 
+			//日期格式转换 
 			function formattime(val) {  
 			    if(val == null){
 				    return null ;
@@ -516,8 +527,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    seconds=seconds>9?seconds:('0'+seconds);  
 			    var time=year+'-'+month+'-'+date ;  
 			    //alert(time) ;
-			     return time;  
-			} 
+			        return time;  
+			    }  
 			</script>
 
 </html>

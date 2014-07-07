@@ -38,30 +38,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T712/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="name">姓名</th>
+				<th field="teaID">教工号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="teaUnit" width="10%">教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="name" width="10%">姓名</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="paperName" width="10%">论文名称</th>
-				<th field="paperType" width="10%">归口类型</th>
-				<th field="firstSubject" width="14%">所属一级学科</th>
-				<th field="jonalName" width="15%">刊物/会议名称</th>
-				<th field="jonalID" width="10%">刊号</th>
-				<th field="jonalTime" width="10%" formatter="formattime">刊期/日期</th>
-				<th field="paperWordNum" width="10%">论文字数</th>
-				<th field="confirmLevel" width="10%">认定等级</th>
-				<th field="joinTeaNum" width="15%">合作教师人数</th>
-				<th field="otherJoinTeaInfo" width="15%">其他合作教师</th>	
-				<th field="note" width="20%">备注</th>
+			
+				<th field="teaUnit">教学单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="paperName" >论文名称</th>
+				<th field="paperType">归口类型</th>
+				<th field="firstSubject">所属一级学科</th>
+				<th field="jonalName">刊物/会议名称</th>
+				<th field="jonalID">刊号</th>
+				<th field="jonalTime" formatter="formattime">刊期/日期</th>
+				<th field="paperWordNum">论文字数</th>
+				<th field="confirmLevel" >认定等级</th>
+				<th field="joinTeaNum">合作教师人数</th>
+				<th field="otherJoinTeaInfo">其他合作教师</th>	
+				<th field="note">备注</th>
 				
 			</tr>
 		</thead>
@@ -87,26 +95,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="name">姓名</th>
+				<th field="teaID">教工号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="teaUnit" width="10%">教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="name" width="10%">姓名</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="paperName" width="10%">论文名称</th>
-				<th field="paperType" width="10%">归口类型</th>
-				<th field="firstSubject" width="14%">所属一级学科</th>
-				<th field="jonalName" width="15%">刊物/会议名称</th>
-				<th field="jonalID" width="10%">刊号</th>
-				<th field="jonalTime" width="10%" formatter="formattime">刊期/日期</th>
-				<th field="paperWordNum" width="10%">论文字数</th>
-				<th field="confirmLevel" width="10%">认定等级</th>
-				<th field="joinTeaNum" width="15%">合作教师人数</th>
-				<th field="otherJoinTeaInfo" width="15%">其他合作教师</th>	
-				<th field="note" width="20%">备注</th>
+			
+				<th field="teaUnit">教学单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="paperName" >论文名称</th>
+				<th field="paperType">归口类型</th>
+				<th field="firstSubject">所属一级学科</th>
+				<th field="jonalName">刊物/会议名称</th>
+				<th field="jonalID">刊号</th>
+				<th field="jonalTime" formatter="formattime">刊期/日期</th>
+				<th field="paperWordNum">论文字数</th>
+				<th field="confirmLevel" >认定等级</th>
+				<th field="joinTeaNum">合作教师人数</th>
+				<th field="otherJoinTeaInfo">其他合作教师</th>	
+				<th field="note">备注</th>
 				
 			</tr>
 		</thead>
@@ -395,56 +408,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var note = $('#Note').val();
 			//根据数据库定义的字段的长度，对其进行判断
 			if(teaUnit == null || teaUnit.length==0 || teaUnit.length > 100){
-				$('#TeaUnit').focus();
-				$('#TeaUnit').select();
-				$('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空或长度不超过100</font>") ;
+			   alert("教学单位不能为空或长度不超过100");	
 				return false;
 			}
 			
 			if(teaID == null || teaID.length == 0 || teaID.length > 200){
-				$('#TeaID').focus();
-				$('#TeaID').select();
-				$('#TeaIDSpan').html("<font style=\"color:red\">教工号不能为空或长度不超过200</font>") ;
+			   alert("教工号不能为空或长度不超过200");
 				return false;
 			}
 			if(paperName == null || paperName.length==0 || paperName.length > 200){
-				$('#paperName').focus();
-				$('#paperName').select();
-				$('#PaperNameSpan').html("<font style=\"color:red\">奖励名称不能为空或长度不超过200</font>") ;
+			  alert("奖励名称不能为空或长度不超过200");
 				return false ;
 			}
 			if(paperType == null || paperType.length == 0 ){
-				alert(awardRank) ;
-				$('#PaperTypeSpan').html("<font style=\"color:red\">等级不能为空</font>") ;
+				alert("等级不能为空") ;
 				return false ;
 			}
 			if(firstSubject == null || firstSubject.length == 0){
-				
-				$('#FirstSubjectSpan').html("<font style=\"color:red\">级别不能为空</font>") ;
+				alert("级别不能为空") ;
 				return false ;
 			}
 			if(jonalID == null || jonalID.length == 0){
-				$('#JonalIDSpan').html("<font style=\"color:red\">获奖时间不能为空</font>") ;
+			alert("获奖时间不能为空") ;
 				return false ;
 			}
 			if(jonalName == null || jonalName.length == 0){
-				$('#JonalNameSpan').html("<font style=\"color:red\">授予单位不能为空</font>") ;
+				alert("授予单位不能为空") ;
 				return false ;
 			}
 			if(confirmLevel == null || confirmLevel.length == 0){
-				$('#ConfirmLevelSpan').html("<font style=\"color:red\">批文号不能为空</font>") ;
+			alert("批文号不能为空") ;
 				return false ;
 			}
-			if(joinTeaNum == null){
-				$('#JoinTeaNumSpan').html("<font style=\"color:red\">合作教师人数不能为空</font>") ;
-				return false ;
-			}
-			if(otherjoinTeaInfo == null){
-				$('#OtherJoinTeaInfoSpan').html("<font style=\"color:red\">其他合作教师不能为空</font>") ;
-				return false ;
-			}
-			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+	
+			if(note.length > 500){
+			alert("备注中文字数不超过500") ;
 				return false ;
 			}
 			alert($('#TeaUnit').val()) ;
@@ -553,9 +551,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	    </script>
 
-	<script type="text/javascript"> 
+<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -572,5 +573,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+
+	
 
 </html>

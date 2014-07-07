@@ -39,27 +39,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T722/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="leader" >负责人</th>
+				<th field="teaID">教工号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="awardName" width="10%">奖励名称</th>
-				<th field="teaUnit" width="15%">所属教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="leader" width="10%">负责人</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="otherTeaNum" width="20%">其他参与教师人数</th>
-				<th field="otherTea" width="10%">其他教师</th>
-				<th field="awardLevel" width="10%">级别</th>
-				<th field="awardTime" width="10%" formatter="formattime">获奖时间</th>
-				<th field="awardFromUnit" width="10%">授予单位</th>
-				<th field="appvlID" width="8%">批文号</th>	
-				<th field="note" width="20%">备注</th>
+			
+				<th field="awardName">奖励名称</th>
+				<th field="teaUnit">所属教学单位</th>
+				<th field="unitID">单位号</th>
+				<th field="otherTeaNum">其他参与教师人数</th>
+				<th field="otherTea">其他教师</th>
+				<th field="awardLevel">级别</th>
+				<th field="awardTime" formatter="formattime">获奖时间</th>
+				<th field="awardFromUnit" >授予单位</th>
+				<th field="appvlID" >批文号</th>	
+				<th field="note">备注</th>
 				
 			</tr>
 		</thead>
@@ -85,23 +92,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="leader" >负责人</th>
+				<th field="teaID">教工号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="awardName" width="10%">奖励名称</th>
-				<th field="teaUnit" width="15%">所属教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="leader" width="10%">负责人</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="otherTeaNum" width="20%">其他参与教师人数</th>
-				<th field="otherTea" width="10%">其他教师</th>
-				<th field="awardLevel" width="10%">级别</th>
-				<th field="awardTime" width="10%" formatter="formattime">获奖时间</th>
-				<th field="awardFromUnit" width="10%">授予单位</th>
-				<th field="appvlID" width="8%">批文号</th>	
-				<th field="note" width="20%">备注</th>
+			
+				<th field="awardName">奖励名称</th>
+				<th field="teaUnit">所属教学单位</th>
+				<th field="unitID">单位号</th>
+				<th field="otherTeaNum">其他参与教师人数</th>
+				<th field="otherTea">其他教师</th>
+				<th field="awardLevel">级别</th>
+				<th field="awardTime" formatter="formattime">获奖时间</th>
+				<th field="awardFromUnit" >授予单位</th>
+				<th field="appvlID" >批文号</th>	
+				<th field="note">备注</th>
+				
 			</tr>
 		</thead>
 	</table>
@@ -345,52 +358,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var appvlID = $('#AppvlID').val();
 			var note = $('#Note').val();
 			//根据数据库定义的字段的长度，对其进行判断
-			if(awardName == null || awardName.length==0 || awardName.length > 100){
-				
-				$('#AwardNameSpan').html("<font style=\"color:red\">奖励名称不能为空或长度不超过100</font>") ;
+			if(awardName == null || awardName.length==0 || awardName.length > 50){
+				alert("奖励名称不能为空或长度不超过50");
 				return false;
 			}
 			if(teaUnit == null || teaUnit.length == 0){
-				$('#TeaUnitSpan').html("<font style=\"color:red\">所属教学单位不能为空</font>") ;
+				alert("所属教学单位不能为空");
 				return false ;
 			}
 			if(teaID == null || teaID.length == 0){
-				$('#TeaIDSpan').html("<font style=\"color:red\">负责人不能为空</font>") ;
+			    alert("负责人不能为空");
 				return false ;
 			}
-			if(otherTeaNum == null || otherTeaNum.length==0){
-				
-				$('#OtherTeaNumSpan').html("<font style=\"color:red\">其他参与教师人数不能为空</font>") ;
-				return false;
-			}
-			if(otherTea== null || otherTea.length == 0 || otherTea.length > 50){
-		
-				$('#OtherTeaSpan').html("<font style=\"color:red\">其他教师不能为空或长度不超过50</font>") ;
-				return false;
-			}
-			if(awardLevel == null || awardLevel.length==0 || awardLevel.length > 200){
-				
-				$('#AwardLevelSpan').html("<font style=\"color:red\">级别不能为空或长度不超过200</font>") ;
+	
+			if(awardLevel == null || awardLevel.length==0 || awardLevel.length > 20){
+				alert("级别不能为空或长度不超过20");
 				return false ;
 			}
 			if(awardTime == null || awardTime.length == 0 ){
-	
-				$('#AwardTimeSpan').html("<font style=\"color:red\">立项时间不能为空</font>") ;
+	            alert("立项时间不能为空");
 				return false ;
 			}
 			if(awardFromUnit == null || awardFromUnit.length == 0 || awardFromUnit.length >50){
-				
-				$('#AwardFromUnit').html("<font style=\"color:red\">授予单位不能为空或长度不超过50</font>") ;
+				alert("授予单位不能为空或长度不超过50");
 				return false ;
 			}
 			
 			if(appvlID == null || appvlID.length == 0|| appvlID.length >50){
-				$('#AppvlIDSpan').html("<font style=\"color:red\">批文号不能为空或长度不超过50</font>") ;
+			alert("批文号不能为空或长度不超过50");
 				return false ;
 			}
 			
-			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过1000</font>") ;
+			if(note.length > 1000){
+			   alert("备注中文字数不超过1000");
 				return false ;
 			}
 			alert($('#TeaUnit').val()) ;
@@ -496,10 +496,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    </script>
-
-	<script type="text/javascript"> 
+<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -516,6 +518,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+
 
 </html>
 

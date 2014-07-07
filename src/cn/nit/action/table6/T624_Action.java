@@ -240,8 +240,8 @@ public class T624_Action {
 			List<String> columns = new ArrayList<String>();
 			
 			columns.add("序号");
-			columns.add("所属教学单");
-			columns.add("单位");
+			columns.add("所属教学单位");
+			columns.add("单位号");
 			columns.add("专业名称");
 			columns.add("专业代码");
 			columns.add("专业方向名称");

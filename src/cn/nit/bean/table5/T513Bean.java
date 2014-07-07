@@ -2,7 +2,7 @@ package cn.nit.bean.table5;
 
 public class T513Bean {
 	
-	private int SeqNumber;
+	private Integer SeqNumber;
 	private String Item;
 	private String Category;
 	private int ShouldASCSNum;
@@ -18,10 +18,13 @@ public class T513Bean {
 	private double PoorRatio;
 	private String Time;
 	private String Note;
-	public int getSeqNumber() {
+	
+	
+	
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 	public String getItem() {

@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">院（系）教学工作状态评估批量导入</div>
+		<h3 class="ftitle">院（系）教学工作状态评估批量导入</h3>
 		<div class="fitem" id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>

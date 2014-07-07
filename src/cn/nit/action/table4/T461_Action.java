@@ -246,7 +246,7 @@ public class T461_Action {
 			maplist.put("SeqNum", 0);
 			maplist.put("name", 1);maplist.put("teaId", 2);maplist.put("fromTeaUnit", 3);maplist.put("unitId", 4);
 			maplist.put("awardType", 5);maplist.put("awardLevel", 6);maplist.put("awardFromUnit", 7);maplist.put("gainAwardTime", 8);
-			maplist.put("appvlId", 9);maplist.put("otherTeaNum", 10);maplist.put("otherTeaInfo", 11);maplist.put("note", 11);
+			maplist.put("appvlId", 9);maplist.put("otherTeaNum", 10);maplist.put("otherTeaInfo", 11);maplist.put("note", 12);
 						
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {

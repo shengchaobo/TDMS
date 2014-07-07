@@ -63,7 +63,7 @@ public class T624_Excel {
 	 *            {@link javax.servlet.http.HttpServletRequest}
 	 * @return
 	 */
-	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request) {
+	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear) {
 
 		if ((cellList == null) || (cellList.size() < 2)) {
 			return "数据不标准，请重新提交";
@@ -82,7 +82,7 @@ public class T624_Excel {
 
 		for (Cell[] cell : cellList) {
 			try {
-				if (count <= 3) {
+				if (count <= 4) {
 					count++;
 					continue;
 				}
@@ -209,7 +209,7 @@ public class T624_Excel {
 				T624_bean.setSecondVocationNum(Integer.parseInt(secondVocationNum));
 				T624_bean.setOtherNum(Integer.parseInt(otherNum));
 				// 插入时间
-				T624_bean.setTime(new Date());
+				T624_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T624_bean);
 
 			} catch (Exception e) {

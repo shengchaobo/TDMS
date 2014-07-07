@@ -5,7 +5,7 @@ import java.util.Date;
 public class T54Bean {
 
 	
-	private int SeqNumber;
+	private Integer SeqNumber;
 	private int LectureSumNum;
 	private int SchLecture;
 	private int CollegeLecture;
@@ -15,10 +15,13 @@ public class T54Bean {
 	private int SchActItem;
 	private Date Time;
 	private String Note;
-	public int getSeqNumber() {
+	
+	
+	
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 	public int getLectureSumNum() {

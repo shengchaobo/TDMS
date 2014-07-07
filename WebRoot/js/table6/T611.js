@@ -4,10 +4,10 @@
 				var rows = [
 				        { "name": "上学年人数（个）", "group": "普通本科学生数", "value": "", "field": "undergraLastYearNum","editor": "numberbox" },
 				        { "name": "本学年人数（个）", "group": "普通本科学生数", "value": "", "field": "undergraThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "value": "", "group": "普通高职（含专科）学生数", "field": "juniorLastYearNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "value": "", "group": "普通高职（含专科）学生数", "field": "juniorThisYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "普通高职（含专科）学生数", "value": "", "field": "juniorLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "普通高职（含专科）学生数", "value": "", "field": "juniorThisYearNum", "editor": "numberbox" },
 				        { "name": "上学年人数（个）", "group": "合计", "value": "", "field": "lastYearSumNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "合计", "editor": "numberbox", "value": "", "field": "thisYearSumNum" },
+				        { "name": "本学年人数（个）", "group": "合计", "value": "", "field": "thisYearSumNum","editor": "numberbox" },
 				        { "name": "学生信息库链接", "group": "其他", "value": "", "field": "stuInfoBaseUrl", "editor": "text" }
 				    ];
 				    							
@@ -32,7 +32,7 @@
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<7){
+			                    while(i < 7){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i++;
 			                    }														
@@ -40,7 +40,7 @@
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
-				                    while(i<7){
+				                    while(i < 7){
 				                    	rows[i].value = "";	
 				                    	i++;
 				                    }			                      
@@ -67,7 +67,7 @@
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<7){
+			                    while(i < 7){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i=i+1;
 			                    }								
@@ -75,7 +75,7 @@
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
 			                    var i = 0;
-			                    while(i<7){
+			                    while(i < 7){
 			                    	rows[i].value = "";	
 			                    	i=i+1;
 			                    }
@@ -136,7 +136,7 @@
 				     $('#edit').propertygrid('loadData', rows);
 				});	
 				
-			   //取消
+			   //导出
 			   $("#export").click(function(){
 			        var tableName = encodeURI('表6-1-1本专科学生数量基本情况.xls');
 			        var year = $("#cbYearContrast").combobox('getValue'); 

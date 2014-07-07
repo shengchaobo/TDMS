@@ -33,7 +33,7 @@
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<9){
+			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i= i+1;
 			                    }														
@@ -41,7 +41,7 @@
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
-				                    while(i<9){
+				                    while(i<rows.length){
 				                    	rows[i].value = "";	
 				                    	i= i+1;
 				                    }			                      
@@ -68,7 +68,7 @@
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i<9){
+			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i=i+1;
 			                    }								
@@ -76,7 +76,7 @@
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
 			                    var i = 0;
-			                    while(i<9){
+			                    while(i<rows.length){
 			                    	rows[i].value = "";	
 			                    	i=i+1;
 			                    }

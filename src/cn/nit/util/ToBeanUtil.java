@@ -43,17 +43,29 @@ public class ToBeanUtil {
 				//System.out.println(fieldName);
 				String type = clazzType.getName() ;
 
-				//给实体类的相关属性赋�?
+				//给实体类的相关属性赋
 				if(type.endsWith("String")){
 					wrapper.setPropertyValue(mapVal[0], mapVal[1]) ;
 				}else if(type.endsWith("Integer")||type.endsWith("int")){
-					wrapper.setPropertyValue(mapVal[0], Integer.parseInt(mapVal[1])) ;
+					if(mapVal.length==1){
+						wrapper.setPropertyValue(mapVal[0], 0) ;
+					}else{
+						wrapper.setPropertyValue(mapVal[0], Integer.parseInt(mapVal[1])) ;
+					}				
 				}else if(type.endsWith("Double")||type.endsWith("double")){
-					wrapper.setPropertyValue(mapVal[0], Double.parseDouble(mapVal[1])) ;
+					if(mapVal.length==1){
+						wrapper.setPropertyValue(mapVal[0], 0.0) ;
+					}else{
+						wrapper.setPropertyValue(mapVal[0], Double.parseDouble(mapVal[1])) ;
+					}					
 				}else if(type.endsWith("Date")){
 					wrapper.setPropertyValue(mapVal[0], TimeUtil.changeDateYMD(mapVal[1])) ;				
 				}else if(type.endsWith("long")||type.endsWith("Long")){
-					wrapper.setPropertyValue(mapVal[0], Long.parseLong(mapVal[1])) ;
+					if(mapVal.length==1){
+						wrapper.setPropertyValue(mapVal[0], 0) ;
+					}else{
+						wrapper.setPropertyValue(mapVal[0], Long.parseLong(mapVal[1])) ;
+					}					
 				}else if(type.endsWith("Boolean")||type.endsWith("boolean")){
 					wrapper.setPropertyValue(mapVal[0], Boolean.parseBoolean(mapVal[1])) ;
 				}else{

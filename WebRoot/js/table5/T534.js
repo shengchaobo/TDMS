@@ -5,7 +5,7 @@
 	function newObject() {
 		
 		//update隐藏的量在提交之后要恢复
-    	$('#title1').show();
+		$('.title1').show();
     	$('#item1').show();
     	$('hr').show();
     	
@@ -51,6 +51,7 @@
     
 	//单条导入
 	function singleImport() {
+		alert(123);
 		// 录入数据的表单提交
 		$('#addForm').form('submit', {
 				url : url,
@@ -78,17 +79,17 @@
 		
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
 		// 获取文本框的值
-		var unitID = $('#UnitID').combobox('getText');
-		var majorID = $('#MajorID').combobox('getText');
-		var teaName = $('#TeaName').combobox('getText');
+		var unitID = $('#TeaUnit').val();
+		var majorID = $('#MajorName').val();
+		var teaName = $('#TeaName').val();
 		var education = $('#Education').combobox('getText');
 		var degree = $('#Degree').combobox('getText');
 		var title = $('#Title').combobox('getText');
 		var trainIssueNum = $('#TrainIssueNum').val();
-		var sociaPraFinishNum = $('#SociaPraFinishNum').val();
+		var sociaPraFinishNum = $('#SocialNum').val();
 		var guideStuNum = $('#GuideStuNum').val();
 		var gainTime = $('#GainTime').datebox('getValue');
-		var note = $('#note').val();
+		var note = $('#Note').val();
 		
 		if(unitID == null || unitID.length == 0){
 			alert("教学单位不能为空");
@@ -162,26 +163,26 @@
     	
     	url = 'pages/T534/edit' ;
     
-    	$('#title1').hide();
-    	$('#item1').hide();
-    	$('hr').hide();
+    	$('.title1').hide();
+       	$('#item1').hide();
+       	$('hr').hide();
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改分专业毕业综合情况');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#UnitID').combobox('select', row[0].UnitID) ;
-    	$('#MajorID').combobox('select', row[0].MajorID) ;
-    	$('#TeaName').combobox('select', row[0].TeaName) ;
-    	$('#IsOutEmploy').combobox('select', row[0].IsOutEmploy) ;
-    	$('#Education').combobox('select', row[0].Education) ;
-    	$('#Degree').combobox('select', row[0].Degree) ;
-    	$('#Title').combobox('select', row[0].Title) ;
-    	$('#IsExcellent').combobox('select', row[0].IsExcellent) ;
-    	$('#TrainIssueNum').val(row[0].TrainIssueNum);
-    	$('#SociaPraFinishNum').val(row[0].SociaPraFinishNum);
-    	$('#GuideStuNum').val(row[0].GuideStuNum);
-    	$('#GainBestGraDesinNum').combobox('select', row[0].GainBestGraDesinNum) ;
-    	$('#GainTime').datebox('setValue',formattime(row[0].GainTime));
-		$('#Note').val(row[0].Note) ;
+    	$('#UnitID').combobox('select', row[0].unitID) ;
+    	$('#MajorID').combobox('select', row[0].majorID) ;
+    	$('#TeaID').combobox('select', row[0].teaID) ;
+    	$('#IsOutEmploy').combobox('select', row[0].isOutEmploy) ;
+    	$('#Education').combobox('select', row[0].educationID) ;
+    	$('#Degree').combobox('select', row[0].degreeID) ;
+    	$('#Title').combobox('select', row[0].titleID) ;
+    	$('#IsExcellent').combobox('select', row[0].isExcellent) ;
+    	$('#TrainIssueNum').val(row[0].trainIssueNum);
+    	$('#SocialNum').val(row[0].socialNum);
+    	$('#GuideStuNum').val(row[0].guideStuNum);
+    	$('#GainBestNum').combobox('select', row[0].gainBestNum) ;
+    	$('#GainTime').datebox('setValue',formattime(row[0].gainTime));
+		$('#Note').val(row[0].note) ;
 	}
 
 	//查询
@@ -239,5 +240,35 @@
 		}
     	}).submit();
     }
+    function formattime(val) {  
+        if(val == null){
+    	    return null ;
+        }
+        var year=parseInt(val.year)+1900;  
+        var month=(parseInt(val.month)+1);  
+        month=month>9?month:('0'+month);  
+        var date=parseInt(val.date);  
+        date=date>9?date:('0'+date);  
+        var hours=parseInt(val.hours);  
+        hours=hours>9?hours:('0'+hours);  
+        var minutes=parseInt(val.minutes);  
+        minutes=minutes>9?minutes:('0'+minutes);  
+        var seconds=parseInt(val.seconds);  
+        seconds=seconds>9?seconds:('0'+seconds);  
+        var time=year+'-'+month+'-'+date ;  
+        //alert(time) ;
+         return time;  
+    }  
+
+    function formatBoolean(val) {  
+        if(val == true){
+    	    return '是' ;
+        }else if(val == false){
+        	return '否' ;
+        }else{
+        	return null;
+        }
+    }  
+
 
 	

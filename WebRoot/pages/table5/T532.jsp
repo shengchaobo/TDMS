@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body style="height: 100%'" >
-	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T532/loadMajorTea"  style="height: auto"  >
+	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T532/auditingData"  style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -52,43 +52,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 		<thead>
 				<tr>					
-					<th data-options="field:'CenterName'">
+					<th data-options="field:'centerName'">
 						中心名称
 					</th>
-					<th data-options="field:'FromSubject'">
+					<th data-options="field:'fromSubject'">
 						所属学科
 					</th>
-					<th data-options="field:'FromTeaUnit'">
+					<th data-options="field:'fromTeaUnit'">
 						所属教学单位
 					</th>
-					<th data-options="field:'UnitID'">
+					<th data-options="field:'unitID'">
 						单位号
 					</th>
-					<th data-options="field:'CenterLeader'">
+					<th data-options="field:'centerLeader'">
 						中心主任
 					</th>
-					<th data-options="field:'TeaID'">
+					<th data-options="field:'teaID'">
 						教工号
 					</th>
-					<th data-options="field:'TeaTitle'">
+					<th data-options="field:'teaTitle'">
 						职称
 					</th>
-					<th data-options="field:'BuildTime'">
+					<th data-options="field:'buildTime'" formatter="formattime">
 						设立时间
 					</th>
-					<th data-options="field:'BuildAppvlID'">
+					<th data-options="field:'buildAppvlID'">
 						建设批文号
 					</th>
-					<th data-options="field:'ReceptTime'">
+					<th data-options="field:'receptTime'" formatter="formattime">
 						验收时间
 					</th>
-					<th data-options="field:'ReceptAppvlID'">
+					<th data-options="field:'receptAppvlID'">
 						验收批文号
 					</th>
-					<th data-options="field:'ValidTime'">
+					<th data-options="field:'validTime'">
 						有效期（年）
 					</th>
-					<th data-options="field:'Fund'">
+					<th data-options="field:'fund'">
 						经费(万元)
 					</th>
 					<th data-options="field:'note'">
@@ -120,43 +120,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 		<thead>
 				<tr>					
-					<th data-options="field:'CenterName'">
+					<th data-options="field:'centerName'">
 						中心名称
 					</th>
-					<th data-options="field:'FromSubject'">
+					<th data-options="field:'fromSubject'">
 						所属学科
 					</th>
-					<th data-options="field:'FromTeaUnit'">
+					<th data-options="field:'fromTeaUnit'">
 						所属教学单位
 					</th>
-					<th data-options="field:'UnitID'">
+					<th data-options="field:'unitID'">
 						单位号
 					</th>
-					<th data-options="field:'CenterLeader'">
+					<th data-options="field:'centerLeader'">
 						中心主任
 					</th>
-					<th data-options="field:'TeaID'">
+					<th data-options="field:'teaID'">
 						教工号
 					</th>
-					<th data-options="field:'TeaTitle'">
+					<th data-options="field:'teaTitle'">
 						职称
 					</th>
-					<th data-options="field:'BuildTime'">
+					<th data-options="field:'buildTime'">
 						设立时间
 					</th>
-					<th data-options="field:'BuildAppvlID'">
+					<th data-options="field:'buildAppvlID'">
 						建设批文号
 					</th>
-					<th data-options="field:'ReceptTime'">
+					<th data-options="field:'receptTime'">
 						验收时间
 					</th>
-					<th data-options="field:'ReceptAppvlID'">
+					<th data-options="field:'receptAppvlID'">
 						验收批文号
 					</th>
-					<th data-options="field:'ValidTime'">
+					<th data-options="field:'validTime'">
 						有效期（年）
 					</th>
-					<th data-options="field:'Fund'">
+					<th data-options="field:'fund'">
 						经费(万元)
 					</th>
 					<th data-options="field:'note'">
@@ -174,24 +174,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle" id="title1">实验教学示范中心模板导入</h3>
+		<h3  class="title1">实验教学示范中心模板导入</h3>
 		<div class="fitem" id="item1">
 		  <form method="post"  id="batchForm" enctype="multipart/form-data">
-		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T532/downloadModel?saveFile=<%=URLEncoder.encode("表5-3-2实验教学示范中心（设备处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>	
 		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
-	   <h3 class="ftitle">实验教学示范中心逐条导入</h3>
+	   <h3  class="title1">实验教学示范中心逐条导入</h3>
 	   <form id="addForm" method="post">
 		<table>
 		   <tr>
 		   		<td>
 		   		   <div class="fitem">
 		   		   <label>中心名称:</label>
-		   		   <input id="CenterName" id="T532bean.CenterName" type="text" class="easyui-validatebox">
+		   		   <input id="seqNumber" name="t532Bean.SeqNumber" type="hidden" value="0">
+		   		   <input id="CenterName" name="t532Bean.CenterName" type="text" class="easyui-validatebox">
 		   		   <span id="CenterNameSpan"></span>
 		   		   </div>
 		   		</td>
@@ -199,7 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   			<div class="fitem">
 		   			<label>所属学科:</label>
-		   			 <input id="FromSubject" id="T532bean.FromSubject" type="text" class="easyui-validatebox">
+		   			 <input id="FromSubject" name="t532Bean.FromSubject" type="text" class="easyui-validatebox">
 		   		   <span id="FromSubjectSpan"></span>
 		   			</div>
 		   		</td>
@@ -208,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   		<div class="fitem">
 		   		<label>级别：</label> 
-			    <input class='easyui-combobox' id="CenterLevel" name="T532bean.CenterLevel"
+			    <input class='easyui-combobox' id="CenterLevel" name="t532Bean.CenterLevel"
 							data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDiAwardLevel',listHeight:'auto',editable:false">
 				<span id="CenterLevelSpan"></span>
 		   		</div>
@@ -217,11 +218,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   			<div class="fitem">
 					<label>所属教学单位：</label> 
-					<input type="hidden" name="T532Bean.FromTeaUnit" id="FromTeaUnit"/>
-						<input id="UnitID" type="text" name="T532Bean.UnitID" class='easyui-combobox' 
+					<input type="hidden" name="t532Bean.FromTeaUnit" id="FromTeaUnit"/>
+						<input id="UnitID" type="text" name="t532Bean.UnitID" class='easyui-combobox' 
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
 							onSelect:function(){
-							    $('#TeaUnit').val($(this).combobox('getText')) ;
+							    $('#FromTeaUnit').val($(this).combobox('getText')) ;
 							 }">
 					<span id="UnitIDSpan"></span>
 					</div>
@@ -231,9 +232,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   			<div class="fitem">
 					<label>负责人：</label> 
-					<input type="hidden" name="T532Bean.CenterLeader" id="Leader"/>
-						<input id="TeaID" type="text" name="T532Bean.TeaID" class='easyui-combobox' 
-							data-options="valueField:'teaId',textField:'teaName',url:'pages/T411/loadT411' ,listHeight:'auto',editable:false,
+					<input type="hidden" name="t532Bean.CenterLeader" id="Leader"/>
+						<input id="TeaID" type="text" name="t532Bean.TeaID" class='easyui-combobox' 
+							data-options="valueField:'teaId',textField:'teaName',url:'pages/T411/loadT411' ,listHeight:'auto',editable:'false',
 							onSelect:function(){
 							    $('#Leader').val($(this).combobox('getText')) ;
 							 }">
@@ -244,8 +245,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 			   		<div class="fitem">
 			   		<label>职称：</label> 
-				    <input class='easyui-combobox' id="TeaTitle" name="T532bean.TeaTitle"
-								data-options="valueField:'indexId',textField:'titleName',url:'pages/DiTitleName/loadDiTitleName',listHeight:'auto',editable:false">
+				    <input class='easyui-combobox' id="TeaTitle" name="t532Bean.TeaTitle"
+								data-options="valueField:'indexId',textField:'titleName',url:'pages/DiTitleName/loadDiTitleName',listHeight:'auto',editable:'false'">
 					<span id="TeaTitleSpan"></span>
 			   		</div>
 		   		</td>
@@ -254,7 +255,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   			<div class="fitem">
 						<label>设立时间：</label> 
-						 <input class="easyui-datebox" id="BuildTime" name="T532Bean.BuildTime" >
+						 <input class="easyui-datebox" id="BuildTime" name="t532Bean.BuildTime"  type="text">
 						 <span id="BuildTimeSpan"></span>
 					</div>
 		   		</td>
@@ -262,7 +263,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   			<div class="fitem">
 		   			<label>建设批文号:</label>
-		   			<input id="BuildAppvlID" name="T532bean.BuildAppvlID" type="text" class="easyui-validatebox">
+		   			<input id="BuildAppvlID" name="t532Bean.BuildAppvlID" type="text" class="easyui-validatebox">
 		   			<span id="BuildAppvlIDSpan"></span>
 		   			</div>
 		   		</td>
@@ -271,7 +272,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   		<div class="fitem">
 		   		<label>验收时间：</label> 
-				<input class="easyui-datebox" id="ReceptTime" name="T532Bean.ReceptTime" >
+				<input class="easyui-datebox" id="ReceptTime" name="t532Bean.ReceptTime" type="text">
 				<span id="ReceptTimeSpan"></span>
 		   		</div>
 		   		</td>
@@ -279,7 +280,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   			<div class="fitem">
 		   			<label>验收批文号:</label>
-		   			<input id="ReceptAppvlID" name="T532bean.ReceptAppvlID" type="text" class="easyui-validatebox">
+		   			<input id="ReceptAppvlID" name="t532Bean.ReceptAppvlID" type="text" class="easyui-validatebox">
 		   			<span id="ReceptAppvlIDSpan"></span>
 		   			</div>
 		   		</td>
@@ -288,7 +289,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   			<div class="fitem">
 		   			<label>有效期（年）:</label>
-		   			<input id="ValidTime" name="T532bean.ValidTime" type="text" class="easyui-validatebox">
+		   			<input id="ValidTime" name="t532Bean.ValidTime" type="text" class="easyui-validatebox">
 		   			<span id="ValidTimeSpan"></span>
 		   			</div>
 		   		</td>
@@ -296,14 +297,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   			<div class="fitem">
 		   			<label>经费(万元):</label>
-		   			<input id="Fund" name="T532bean.Fund" type="text" class="easyui-validatebox">
+		   			<input id="Fund" name="t532Bean.Fund" type="text" class="easyui-validatebox">
 		   			<span id="FundSpan"></span>
 		   			</div>
 		   		</td>
 		   	</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
-					<textarea id="Note" name="T532bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="t532Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>			

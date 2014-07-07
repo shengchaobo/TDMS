@@ -107,6 +107,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="seqNumber">序号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
+				</tr>
+		</thead>	
+		<thead>
+			<tr>
 				<th field="jonalName">专利名称</th>
 				<th field="jonalId">专利号</th>
 				<th field="patentType">类别</th>
@@ -132,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="ftitle" id="title1">学生获准专利情况批量导入</div>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -260,5 +264,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
 </body>
+
+	<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
 
 </html>

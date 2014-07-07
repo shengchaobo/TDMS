@@ -9,7 +9,7 @@
 	      <!-- 数据查询 -->
 	    <action name="singleSearch" class="cn.nit.action.table1.T12Action" method="auditingConditions"/>
 	    
-	        <!-- 数据导出 -->
+	      <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table1.T12Action" method="execute">
 	    	<result name="success" type="stream">
 	    		<!-- 指定下载文件的类型，下面表示无限制 -->

@@ -8,5 +8,9 @@
         <action name="login" class="cn.nit.action.LoginUserAction" method="login">
         	<param name="redirect">pages/mainFrame.jsp</param>
         </action>
+        
+        <action name="exit" class="cn.nit.action.LoginUserAction" method="exit">
+				<result name="exit" type="redirect">/login.jsp</result>
+        </action>
     </package>
 </struts>

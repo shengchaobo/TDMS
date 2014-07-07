@@ -118,8 +118,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-	   <h3 class="ftitle">就业管理人员信息导入</h3>
-	   <form id="addForm" method="post">
+	   <!--<h3 class="ftitle">就业管理人员信息导入</h3>
+	   --><form id="addForm" method="post">
 		<table>
 			<tr>
 				<td>

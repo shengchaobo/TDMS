@@ -315,7 +315,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar2" >
 	  <form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 	  </form> 
 	</div>
@@ -323,9 +323,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--添加弹出框-->
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
-		buttons="#dlg-buttons">
+		buttons="#dlg-buttons"><!--
 	   <h3 class="ftitle">教师科研情况导入</h3>
-	   <form id="addForm" method="post">
+	   --><form id="addForm" method="post">
 		<table><!--
 			<tr>
 				<td style="valign:left" colspan="3">

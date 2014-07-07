@@ -9,6 +9,8 @@ public class T521POJO {
 	private String CSName;
 	private String CSID;
 	private String CSLevel;
+	private String CSLevelID;
+
 	private String Leader;
 	private String TeaID;
 	private int JoinTeaNum;
@@ -122,6 +124,13 @@ public class T521POJO {
 	}
 	public void setNote(String note) {
 		Note = note;
+	}
+	
+	public String getCSLevelID() {
+		return CSLevelID;
+	}
+	public void setCSLevelID(String cSLevelID) {
+		CSLevelID = cSLevelID;
 	}
 
 }

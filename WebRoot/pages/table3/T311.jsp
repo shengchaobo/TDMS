@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div id="toolbar2">
 	 <form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" editable=false style="width:80px; padding-top:5px; margin-top:10px;"></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</form> 
@@ -126,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
+				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -145,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>博士后流动站名称：</label> 
 						<input id="seqNumber" name="postDocStaBean.SeqNumber" type="hidden" > </input>
 						<input id="PostDocStaName" type="text" name="postDocStaBean.PostDocStaName"
-							class="easyui-validatebox" required="true"><span id="PostDocStaNameSpan"></span>
+							class="easyui-validatebox" ><span id="PostDocStaNameSpan"></span>
 					</div>
 				</td>
 				<td>
@@ -286,6 +286,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newPostDocSta(){
+	    	url=' pages/PostDocSta/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加博士后流动站');
 		    $('#postDocStaForm').form('reset');
 	    }
@@ -293,7 +294,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function singleImport(){
 		    //录入数据的表单提交
 	    	 $('#postDocStaForm').form('submit',{
-				    url: 'pages/PostDocSta/insert',
+				    url: url,
 				    data: $('#postDocStaForm').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -323,45 +324,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(PostDocStaName == null || PostDocStaName.length==0 || PostDocStaName.length > 100){
-				$('#PostDocStaName').focus();
-				$('#PostDocStaName').select();
-				$('#PostDocStaNameSpan').html("<font style=\"color:red\">博士后流动站名称不能为空或长度不超过100</font>") ;
-				return false ;
-			}else{
-				$('#PostDocStaNameSpan').html("") ;
+				$.messager.alert('提示',"博士后流动站名称不能为空或长度不超过100") ;
+				return false;
 			}
 			
 			if(UnitName == null || UnitName.length == 0){
-				$('#UnitNameSpan').html("<font style=\"color:red\">所属单位不能为空</font>") ;
-				return false ;
-			}else{
-				$('#UnitNameSpan').html("") ;
-			}
-			
-			
-			if(SetTime == null || SetTime.length == 0){
-				$('#SetTimeSpan').html("<font style=\"color:red\">设置时间不能为空</font>") ;
-				return false ;
-			}else{
-				$('#SetTimeSpan').html("") ;
+				$.messager.alert('提示',"所属单位不能为空") ;
+				return false;
 			}
 			
 			if(ResearcherNum == null || ResearcherNum.length == 0){
-				$('#ResearcherNumSpan').html("<font style=\"color:red\">研究员人数不能为空</font>") ;
-				return false ;
-			}else{
-				$('#ResearcherNumSpan').html("") ;
+				$.messager.alert('提示',"研究员人数不能为空") ;
+				return false;	
+			}else if(!checkRate(ResearcherNum)){
+				$.messager.alert('提示',"研究员人数必须是正整数");
+				return false;
+				}
+			
+			if(SetTime == null || SetTime.length == 0){
+				$.messager.alert('提示',"设置时间不能为空") ;
+				return false;
 			}
-			
-
-			
+		
 			if(Note !=null && Note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
-				return false ;
-			}else{
-				$('#NoteSpan').html("") ;
+				$.messager.alert('提示',"备注中文字数不超过500") ;
+				return false;
 			}
 			return true ;
+		}
+
+
+		function checkRate(input)  
+		{  
+		     var re = /^[1-9]+[0-9]*]*$/;		  
+		     if (!re.test(input))  
+		    {  
+		        return false;  
+		     }else{
+			     return true;
+			     }  
 		}
 
 
@@ -478,9 +479,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    </script>
 
+	<script type="text/javascript"> 
+			//日期格式转换 
+			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
+			    var year=parseInt(val.year)+1900;  
+			    var month=(parseInt(val.month)+1);  
+			    month=month>9?month:('0'+month);  
+			    var date=parseInt(val.date);  
+			    date=date>9?date:('0'+date);  
+			    var hours=parseInt(val.hours);  
+			    hours=hours>9?hours:('0'+hours);  
+			    var minutes=parseInt(val.minutes);  
+			    minutes=minutes>9?minutes:('0'+minutes);  
+			    var seconds=parseInt(val.seconds);  
+			    seconds=seconds>9?seconds:('0'+seconds);  
+			    var time=year+'-'+month+'-'+date ;  
+			    //alert(time) ;
+			     return time;  
+			    }  
+			</script>
+			
 	<script type="text/javascript">
     	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
+	
+			<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast1");
     	for (var i = 0; i <= 10; i++) {
         var theOption = document.createElement("option");
         	theOption.innerHTML = currentYear-i + "年";

@@ -48,7 +48,7 @@ public class UploadAction {
 			Class<?> clazz = Class.forName(className) ;
 
 		
-			Method method = clazz.getDeclaredMethod(methodName, List.class, HttpServletRequest.class, String.class,int[].class) ;
+			Method method = clazz.getDeclaredMethod(methodName, List.class, HttpServletRequest.class, String.class) ;
 			String errorMsg = (String)method.invoke(clazz.newInstance(), list, getRequest(),this.getSelectYear()) ;
 			
 			if(errorMsg == null || errorMsg.equals("")){

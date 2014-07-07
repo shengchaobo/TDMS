@@ -11,7 +11,7 @@
 	 
 	    function newCourse(){ 
 	    
-	    	$('#title1').show();
+	    	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	
@@ -156,7 +156,7 @@
 	    	
 	    	url = 'pages/T511/edit' ;
 	    	
-	    	$('#title1').hide();
+	    	$('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
@@ -170,7 +170,7 @@
 	        $('#CSNature').combobox('select', row[0].CSNatureID) ;
 		    $('#State').combobox('select', row[0].state) ;
 		    $('#PubCSType').combobox('select', row[0].pubCSType) ;
-		    $('#Note').val(row[0].note) ;
+		    $('#note').val(row[0].note) ;
 	    }
 
 

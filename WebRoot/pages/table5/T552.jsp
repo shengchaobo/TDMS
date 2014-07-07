@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2">
+	<div id="toolbar2" style="float: right;">
 		<a href="pages/T552/dataExport?excelName=<%=URLEncoder.encode("表5-5-2优秀本科班级.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle" id="title1">优秀本科班级情况批量导入</h3>
+		<h3 class="title1">优秀本科班级情况批量导入</h3>
 		<div class="fitem" id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>	
 		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
 			
-		<h3 class="ftitle">优秀本科班级情况逐条导入</h3>
+		<h3 class="title1">优秀本科班级情况逐条导入</h3>
 		
 		
 		<form id="t552Form" method="post">
@@ -193,8 +193,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
-					<textarea id="note" name="t552_Bean.note" style="resize:none" cols="50" rows="10"></textarea>
-					<span id="noteSpan"></span>
+					<textarea id="Note" name="t552_Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<span id="NoteSpan"></span>
 				</td>
 			</tr>			
 		</table>

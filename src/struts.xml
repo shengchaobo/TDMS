@@ -99,6 +99,7 @@
      <include file="cn/nit/configuration/table2/T21.xml"/>
      <include file="cn/nit/configuration/table2/T22.xml"/>
      <include file="cn/nit/configuration/table2/T231.xml"/>
+     <include file="cn/nit/configuration/table2/T241.xml"/>
      <include file="cn/nit/configuration/table2/T232.xml"/>
     <include file="cn/nit/configuration/table2/T251.xml"/>
    	<include file="cn/nit/configuration/table2/T252.xml"/>
@@ -125,12 +126,13 @@
     
     
     <!-- table5本科课程库 -->
-    <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>   
+    <include file="cn/nit/configuration/table5/T551.xml"/>
+    <include file="cn/nit/configuration/table5/T534.xml"/> 
     <include file="cn/nit/configuration/table5/T552.xml"/>
     <include file="cn/nit/configuration/table5/T553.xml"/>
     <include file="cn/nit/configuration/table5/T551.xml"/>
     <include file="cn/nit/configuration/table5/T511.xml"/>
-    
+  
     <!-- table6 近一届本科生分专业招生录取情况 -->
     <include file="cn/nit/configuration/table6/T611.xml"/>
     <include file="cn/nit/configuration/table6/T612.xml"/>

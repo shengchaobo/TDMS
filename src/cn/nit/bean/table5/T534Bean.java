@@ -26,15 +26,6 @@ public class T534Bean {
 	private String Note;
 	
 
-	
-	
-	
-	public Integer getSeqNumber() {
-		return SeqNumber;
-	}
-	public void setSeqNumber(Integer seqNumber) {
-		SeqNumber = seqNumber;
-	}
 	public String getTeaUnit() {
 		return TeaUnit;
 	}
@@ -148,6 +139,12 @@ public class T534Bean {
 	}
 	public void setNote(String note) {
 		Note = note;
+	}
+	public void setSeqNumber(Integer seqNumber) {
+		SeqNumber = seqNumber;
+	}
+	public Integer getSeqNumber() {
+		return SeqNumber;
 	}
 
 

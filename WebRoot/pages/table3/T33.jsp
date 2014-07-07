@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="majorLeader" >专业带头人姓名</th>
 				<th field="LIsFullTime"  formatter="booleanstr">专业带头人是否专职</th>
 				<th field="majorChargeMan" >专业负责人姓名</th>
-				<th field="CI sFullTime"  formatter="booleanstr">专业负责人是否专职</th>
+				<th field="CIsFullTime"  formatter="booleanstr">专业负责人是否专职</th>
 				<th field="note" >备注</th>
 			</tr>
 		</thead>
@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div id="toolbar2">
 	 <form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;" editable=false></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
@@ -145,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"></select>
+				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -226,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>是否特色专业：</label> 
-						<select class='easyui-combobox' id="IsSepcialMajor" name="t33_Bean.IsSepcialMajor">
+						<select class='easyui-combobox' id="IsSepcialMajor" name="t33_Bean.IsSepcialMajor" editable=false>
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -236,7 +236,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>是否重点专业：</label> 
-						<select class='easyui-combobox' id="IsKeyMajor" name="t33_Bean.IsKeyMajor">
+						<select class='easyui-combobox' id="IsKeyMajor" name="t33_Bean.IsKeyMajor" editable=false>
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -255,7 +255,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>专业带头人是否专职：</label> 
-						<select class='easyui-combobox' id="LIsFullTime" name="t33_Bean.LIsFullTime">
+						<select class='easyui-combobox' id="LIsFullTime" name="t33_Bean.LIsFullTime" editable=false>
 							<option value="true">是</option>
 							<option value="false">否</option>
 						</select>
@@ -275,13 +275,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>专业负责人是否专职：</label> 
-						<select class='easyui-combobox' id="CIsFullTime" name="t33_Bean.CIsFullTime">
+						<select class='easyui-combobox' id="CIsFullTime" name="t33_Bean.CIsFullTime" editable=false>
 							<option value="true">是</option>
 							<option value="false">否</option>
 						</select>
 						<span id="CIsFullTimeSpan"></span>
 					</div>
-				</td>			
+				</td>				
 				</tr>
 
 
@@ -390,6 +390,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newJuniorMajInfo(){
+	    	url=' pages/JuniorMajInfo/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加专科专业');
 		    $('#juniorMajInfoForm').form('reset');
 	    }
@@ -397,7 +398,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function singleImport(){
 		    //录入数据的表单提交
 	    	 $('#juniorMajInfoForm').form('submit',{
-				    url: 'pages/JuniorMajInfo/insert',
+				    url: url,
 				    data: $('#juniorMajInfoForm').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -421,33 +422,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			//获取文本框的值
 			var TeaUnit =$('#UnitID').combobox('getText')  ;
 			var MajorName = $('#MajorID').combobox('getText') ;
+			var MajorFieldName=$('#MajorFieldName').val()  ;
+			var AppvlSetTime = $('#AppvlSetTime').datebox('getValue') ;
+			var FirstAdmisTime = $('#FirstAdmisTime').datebox('getValue') ;
+			var MajorYearLimit = $('#MajorYearLimit').val() ;
+			var MajorLeader = $('#MajorLeader').val() ;
+			var MajorChargeMan = $('#MajorChargeMan').val() ;
 			var Note = $('#Note').val() ;
 	
 			
 			if(TeaUnit == null || TeaUnit.length == 0){
-				$('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空</font>") ;
-				return false ;
-			}else{
-				$('#TeaUnitSpan').html("") ;
+				$.messager.alert('提示',"教学单位不能为空") ;
+				return false;
 			}
 			
 			if(MajorName == null || MajorName.length == 0){
-				$('#MajorNameSpan').html("<font style=\"color:red\">教学单位不能为空</font>") ;
-				return false ;
-			}else{
-				$('#MajorNameSpan').html("") ;
+				$.messager.alert('提示',"专业名称不能为空") ;
+				return false;
 			}
-	
-			
+
+			if(MajorFieldName == null || MajorFieldName.length==0 || MajorFieldName.length > 100){
+				$.messager.alert('提示',"专业方向名称不能为空或长度不超过100") ;
+				return false;
+			}
+
+			if(AppvlSetTime == null || AppvlSetTime.length == 0){
+				$.messager.alert('提示',"批准设置时间不能为空") ;
+				return false;
+			}
+
+			if(FirstAdmisTime == null || FirstAdmisTime.length == 0){
+				$.messager.alert('提示',"首次招生时间不能为空") ;
+				return false;
+			}
+
+			if(MajorYearLimit == null || MajorYearLimit.length == 0){
+				$.messager.alert('提示',"修业年限不能为空") ;
+				return false;	
+			}else if(!checkData(MajorYearLimit)){
+				$.messager.alert('提示',"修业年限必须是正整数");
+				return false;
+				}
+			if(MajorLeader == null || MajorLeader.length==0 || MajorLeader.length > 100){
+				$.messager.alert('提示',"专业带头人姓名不能为空或长度不超过100");
+				return false;
+			}
+
+			if(MajorChargeMan == null || MajorChargeMan.length==0 || MajorChargeMan.length > 100){
+				$.messager.alert('提示',"专业负责人姓名不能为空或长度不超过100");
+				return false;
+			}
+
 
 			
 			if(Note !=null && Note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
-				return false ;
-			}else{
-				$('#NoteSpan').html("") ;
+				$.messager.alert('提示',"备注中文字数不超过500") ;
+				return false;
 			}
 			return true ;
+		}
+
+		function checkData(input)  
+		{  
+		     var re = /^[1-9]+[0-9]*]*$/;		  
+		     if (!re.test(input))  
+		    {  
+		        return false;  
+		     }else{
+			     return true;
+			     }  
 		}
 
 	    function editUser(){

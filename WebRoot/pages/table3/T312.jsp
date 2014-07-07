@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div id="toolbar2">
 		<form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" editable=false style="width:80px; padding-top:5px; margin-top:10px;"></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"></select>
+				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -141,16 +141,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>名称：</label> 
-						<input id="seqNumber" name="postDocStaBean.SeqNumber" type="hidden" > </input>
+						<input id="SeqNumber" name="postDocStaBean.SeqNumber" type="hidden" > </input>
 						<input id="StaName" type="text" name="docAndGraStaBean.StaName"
-							class="easyui-validatebox" required="true"><span id="StaNameSpan"></span>
+							class="easyui-validatebox" ><span id="StaNameSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
 						<label>代码：</label> 
 						<input id="StaID" type="text" name="docAndGraStaBean.StaID"
-							class="easyui-validatebox" required="true"><span id="StaIDSpan"></span>
+							class="easyui-validatebox" ><span id="StaIDSpan"></span>
 					</div>
 				</td>
 			</tr>
@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>类型：</label> 
-						<select class='easyui-combobox' id="StaType" name="docAndGraStaBean.StaType">
+						<select class='easyui-combobox' id="StaType" name="docAndGraStaBean.StaType" editable=false>
 							<option value="硕士点">硕士点</option>
 							<option value="博士点">博士点</option>
 						</select>
@@ -261,6 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    function newCourse(){
+	    	url=' pages/DocAndGraSta/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加博士点硕士点库');
 		    $('#DocAndGraStaForm').form('reset');
 	    }
@@ -268,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function singleImport(){
 		    //录入数据的表单提交
 	    	 $('#DocAndGraStaForm').form('submit',{
-				    url: 'pages/DocAndGraSta/insert',
+				    url: url,
 				    data: $('#DocAndGraStaForm').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -293,48 +294,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var StaName = $('#StaName').val() ;
 			var StaID = $('#StaID').val() ;
 			var UnitName = $('#UnitID').combobox('getText') ;
-			var StaType = $('#StaType').combobox('getText') ;
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(StaName == null || StaName.length==0 || StaName.length > 100){
-				$('#StaName').focus();
-				$('#StaName').select();
-				$('#StaNameSpan').html("<font style=\"color:red\">名称不能为空或长度不超过100</font>") ;
-				return false ;
-			}else{
-				$('#StaNameSpan').html("") ;
+				$.messager.alert('提示',"名称不能为空或长度不超过100");
+				return false;
 			}
 			
 			if(StaID == null || StaID.length == 0 || StaID.length > 50){
-				$('#StaID').focus();
-				$('#StaID').select();
-				$('#StaIDSpan').html("<font style=\"color:red\">代码不能为空或长度不超过50</font>") ;
-				return false ;
-			}else{
-				$('#StaIDSpan').html("") ;
+				$.messager.alert('提示',"代码不能为空或长度不超过50");
+				return false;
+
 			}
 			
 			if(UnitName == null || UnitName.length == 0){
-				$('#UnitNameSpan').html("<font style=\"color:red\">所属单位不能为空</font>") ;
-				return false ;
-			}else{
-				$('#UnitNameSpan').html("") ;
-			}
-			
-			if(StaType == null || StaType.length == 0){
-				$('#StaTypeSpan').html("<font style=\"color:red\">类别不能为空</font>") ;
-				return false ;
-			}else{
-				$('#StaTypeSpan').html("") ;
+				$.messager.alert('提示',"所属单位不能为空");
+				return false;
 			}
 				
 	
 			if(Note !=null && Note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
-				return false ;
-			}else{
-				$('#NoteSpan').html("") ;
+				$.messager.alert('提示',"备注中文字数不超过500");
+				return false;
 			}
+			
 			return true ;
 		}
 
@@ -351,7 +334,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	url = 'pages/DocAndGraSta/edit' ;
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加博士点硕士点库');
-	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#SeqNumber').val(row[0].seqNumber) ;
 	        $('#StaName').val(row[0].staName);
 	        $('#StaID').val(row[0].staID);
 	        $('#StaType').combobox('select',row[0].staType);

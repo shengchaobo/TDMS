@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div id="toolbar2">
 	 <form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;" editable=false></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"></select>
+				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -145,14 +145,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>大类名称：</label> 
 						<input id="MainClassName" type="text" name="t321_Bean.MainClassName"
-							class="easyui-validatebox" required="true"><span id="MainClassNameSpan"></span>
+							class="easyui-validatebox" ><span id="MainClassNameSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
 						<label>大类代码：</label> 
 						<input id="MainClassID" type="text" name="t321_Bean.MainClassID"
-							class="easyui-validatebox" required="true"><span id="MainClassIDSpan"></span>
+							class="easyui-validatebox" ><span id="MainClassIDSpan"></span>
 					</div>
 				</td>
 			</tr>
@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>分流时间：</label> 
-						<select class='easyui-combobox' id="ByPassTime" name="t321_Bean.ByPassTime">
+						<select class='easyui-combobox' id="ByPassTime" name="t321_Bean.ByPassTime" editable=false>
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -290,6 +290,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newCourse(){
+	    	url='pages/MainTrainBasicInfoTea/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加大类基本情况');
 		    $('#mainTrainBasicInfoForm').form('reset');
 	    }
@@ -298,7 +299,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 		    //录入数据的表单提交
 	    	 $('#mainTrainBasicInfoForm').form('submit',{
-				    url: 'pages/MainTrainBasicInfoTea/insert',
+				    url: url,
 				    data: $('#mainTrainBasicInfoForm').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -323,60 +324,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var MainClassName = $('#MainClassName').val() ;
 			var MainClassID = $('#MainClassID').val() ;
 			var UnitName = $('#UnitID').combobox('getText') ;
-			var ByPassTime = $('#ByPassTime').combobox('getText') ;
 			var MajorNameInSch = $('#MajorID').combobox('getText');
 		
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(MainClassName == null || MainClassName.length==0 || MainClassName.length > 100){
-				$('#MainClassName').focus();
-				$('#MainClassName').select();
-				$('#MainClassNameSpan').html("<font style=\"color:red\">大类名称不能为空或长度不超过100</font>") ;
-				return false ;
-			}else{
-				$('#MainClassNameSpan').html("") ;
+				$.messager.alert('提示',"大类名称不能为空或长度不超过100");
+				return false;
+			}
+
+			if(MainClassID == null || MainClassID.length == 0 || MainClassID.length > 50){
+				$.messager.alert('提示',"大类代码不能为空或长度不超过50");
+				return false;
 			}
 
 			
 			if(MajorNameInSch == null || MajorNameInSch.length == 0){
-				$('#MajorNameInSchSpan').html("<font style=\"color:red\">校内专业名称不能为空</font>") ;
-				return false ;
-			}else{
-				$('#MajorNameInSchSpan').html("") ;
+				$.messager.alert('提示',"包含校内专业名称不能为空");
+				return false;
+
 			}
 
-			if(MainClassID == null || MainClassID.length == 0 || MainClassID.length > 50){
-				$('#MainClassID').focus();
-				$('#MainClassID').select();
-				$('#MainClassIDSpan').html("<font style=\"color:red\">大类代码不能为空或长度不超过50</font>") ;
-				return false ;
-			}else{
-				$('#MainClassIDSpan').html("") ;
-			}
+
 			
 
 			
 			if(UnitName == null || UnitName.length == 0){
-				$('#UnitNameSpan').html("<font style=\"color:red\">所属单位不能为空</font>") ;
-				return false ;
-			}else{
-				$('#UnitNameSpan').html("") ;
+				$.messager.alert('提示',"所属单位不能为空");
+				return false;
 			}
 
-
-			
-			if(ByPassTime == null || ByPassTime.length == 0){
-				$('#ByPassTimeSpan').html("<font style=\"color:red\">分流时间不能为空</font>") ;
-				return false ;
-			}else{
-				$('#ByPassTimeSpan').html("") ;
-			}
 			
 			if(Note !=null && Note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
-				return false ;
-			}else{
-				$('#NoteSpan').html("") ;
+				$.messager.alert('提示',"备注中文字数不超过500");
+				return false;
 			}
 			return true ;
 		}

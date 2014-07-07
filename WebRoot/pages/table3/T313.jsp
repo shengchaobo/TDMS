@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div id="toolbar2">
 	 <form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;" editable=false></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"></select>
+				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -157,14 +157,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>重点学科名称：</label> 
 						<input id="SeqNumber" name="discipBean.SeqNumber" type="hidden" > </input>
 						<input id="DiscipName" type="text" name="discipBean.DiscipName"
-							class="easyui-validatebox" required="true"><span id="DiscipNameSpan"></span>
+							class="easyui-validatebox" ><span id="DiscipNameSpan"></span>
 					</div>
 				</td>
 				<td>
 					<div class="fitem">
 						<label>学科代码：</label> 
 						<input id="DiscipID" type="text" name="discipBean.DiscipID"
-							class="easyui-validatebox" required="true"><span id="DiscipIDSpan"></span>
+							class="easyui-validatebox" ><span id="DiscipIDSpan"></span>
 					</div>
 				</td>
 			</tr>
@@ -185,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>学科门类：</label> 
-						<select class='easyui-combobox' id="DiscipType" name="discipBean.DiscipType">
+						<select class='easyui-combobox' id="DiscipType" name="discipBean.DiscipType" editable=false>
 							<option value="01哲学">01哲学</option>
 							<option value="02经济学">02经济学</option>
 							<option value="03法学">03法学</option>
@@ -208,7 +208,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>国家一级：</label> 
-						<select class='easyui-combobox' id="NationLevelOne" name="discipBean.NationLevelOne">
+						<select class='easyui-combobox' id="NationLevelOne" name="discipBean.NationLevelOne" editable=false>
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -218,7 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>国家二级：</label> 
-						<select class='easyui-combobox' id="NationLevelTwo" name="discipBean.NationLevelTwo">
+						<select class='easyui-combobox' id="NationLevelTwo" name="discipBean.NationLevelTwo" editable=false>
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -230,7 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td>
 					<div class="fitem">
 						<label>国家重点：</label> 
-						<select class='easyui-combobox' id="NationLevelKey" name="discipBean.NationLevelKey">
+						<select class='easyui-combobox' id="NationLevelKey" name="discipBean.NationLevelKey" editable=false>
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -243,7 +243,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>省部一级：</label> 
-						<select class='easyui-combobox' id="ProvinceLevelOne" name="discipBean.ProvinceLevelOne">
+						<select class='easyui-combobox' id="ProvinceLevelOne" name="discipBean.ProvinceLevelOne" editable=false>
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -253,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td>
 					<div class="fitem">
 						<label>省部二级：</label> 
-						<select class='easyui-combobox' id="ProvinceLevelTwo" name="discipBean.ProvinceLevelTwo">
+						<select class='easyui-combobox' id="ProvinceLevelTwo" name="discipBean.ProvinceLevelTwo" editable=false>
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -266,7 +266,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>市级：</label> 
-						<select class='easyui-combobox' id="CityLevel" name="discipBean.CityLevel">
+						<select class='easyui-combobox' id="CityLevel" name="discipBean.CityLevel" editable=false>
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -276,7 +276,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td>
 					<div class="fitem">
 						<label>校级：</label> 
-						<select class='easyui-combobox' id="SchLevel" name="discipBean.SchLevel">
+						<select class='easyui-combobox' id="SchLevel" name="discipBean.SchLevel" editable=false>
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -368,6 +368,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newCourse(){
+	    	url='pages/DiscipRes/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加重点学科库');
 		    $('#discipForm').form('reset');
 	    }
@@ -377,7 +378,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		    //录入数据的表单提交
 	    	 $('#discipForm').form('submit',{
-				    url: 'pages/DiscipRes/insert',
+				    url: url,
 				    data: $('#discipForm').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -405,53 +406,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var DiscipName = $('#DiscipName').val() ;
 			var DiscipID = $('#DiscipID').val() ;
 			var UnitName = $('#UnitID').combobox('getText') ;
-			var DiscipType = $('#DiscipType').combobox('getText') ;
-			var NationLevelOne = $('#NationLevelOne').combobox('getText') ;
-			var NationLevelTwo = $('#NationLevelTwo').combobox('getText') ;
-			var NationLevelKey = $('#NationLevelKey').combobox('getText') ;
-			var ProvinceLevelOne = $('#ProvinceLevelOne').combobox('getText') ;
-			var ProvinceLevelTwo = $('#ProvinceLevelTwo').combobox('getText') ;
-			var CityLevel = $('#CityLevel').combobox('getText') ;
-			var SchLevel = $('#SchLevel').combobox('getText') ;
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(DiscipName == null || DiscipName.length==0 || DiscipName.length > 100){
-				$('#DiscipName').focus();
-				$('#DiscipName').select();
-				$('#DiscipNameSpan').html("<font style=\"color:red\">学科名称不能为空或长度不超过100</font>") ;
-				return false ;
-			}else{
-				$('#DiscipNameSpan').html("") ;
+				$.messager.alert('提示',"学科名称不能为空或长度不超过100");
+				return false;
 			}
 			
 			if(DiscipID == null || DiscipID.length == 0 || DiscipID.length > 50){
-				$('#DiscipID').focus();
-				$('#DiscipID').select();
-				$('#DiscipIDSpan').html("<font style=\"color:red\">学科编号不能为空或长度不超过50</font>") ;
-				return false ;
-			}else{
-				$('#DiscipIDSpan').html("") ;
+				$.messager.alert('提示',"学科代码不能为空或长度不超过50");
+				return false;
 			}
 			
 			if(UnitName == null || UnitName.length == 0){
-				$('#UnitNameSpan').html("<font style=\"color:red\">开课单位不能为空</font>") ;
-				return false ;
-			}else{
-				$('#UnitNameSpan').html("") ;
+				$.messager.alert('提示',"所属单位不能为空");
+				return false;
 			}
 			
-			if(DiscipType == null || DiscipType.length == 0){
-				$('#DiscipTypeSpan').html("<font style=\"color:red\">学科门类不能为空</font>") ;
-				return false ;
-			}else{
-				$('#DiscipTypeSpan').html("") ;
-			}
+
 			
 			if(Note !=null && Note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
-				return false ;
-			}else{
-				$('#NoteSpan').html("") ;
+				$.messager.alert('提示',"备注中文字数不超过500");
+				return false;
 			}
 			return true ;
 		}

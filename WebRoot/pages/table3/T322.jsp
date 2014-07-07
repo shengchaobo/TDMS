@@ -134,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div id="toolbar2">
 	 <form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
+			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;" editable=false></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
@@ -205,7 +205,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
-				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"></select>
+				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
@@ -251,7 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>版本代码：</label> 
-						<select class='easyui-combobox' id="MajorVersion" name="t322_Bean.MajorVersion">					
+						<select class='easyui-combobox' id="MajorVersion" name="t322_Bean.MajorVersion" editable=false>					
 							<option value="2012">2012</option>
 							<option value="1998">1998</option>
 							<option value="99">99</option>
@@ -300,7 +300,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>学制：</label> 
-						<select class='easyui-combobox' id="MajorDurition" name="t322_Bean.MajorDurition">					
+						<select class='easyui-combobox' id="MajorDurition" name="t322_Bean.MajorDurition" editable=false>					
 							<option value="4">4</option>
 							<option value="5">5</option>
 						</select>
@@ -310,7 +310,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>学位授予门类：</label> 
-						<select class='easyui-combobox' id="MajorDegreeType" name="t322_Bean.MajorDegreeType">
+						<select class='easyui-combobox' id="MajorDegreeType" name="t322_Bean.MajorDegreeType" editable=false>
 							<option value="01哲学">01哲学</option>
 							<option value="02经济学">02经济学</option>
 							<option value="03法学">03法学</option>
@@ -342,7 +342,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>招生状态：</label> 
-						<select class='easyui-combobox' id="MajorState" name="t322_Bean.MajorState">					
+						<select class='easyui-combobox' id="MajorState" name="t322_Bean.MajorState" editable=false>					
 							<option value="true">在招</option>
 							<option value="false">当年停招</option>
 						</select>
@@ -363,7 +363,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>是否新办专业：</label> 
-						<select class='easyui-combobox' id="IsNewMajor" name="t322_Bean.IsNewMajor">					
+						<select class='easyui-combobox' id="IsNewMajor" name="t322_Bean.IsNewMajor" editable=false>					
 							<option value="true">是</option>
 							<option value="false">否</option>
 						</select>
@@ -399,7 +399,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>类型：</label> 
-						<select class='easyui-combobox' id="Type" name="t322_Bean.Type">
+						<select class='easyui-combobox' id="Type" name="t322_Bean.Type" editable=false>
 							<option value="特色专业">特色专业</option>
 							<option value="品牌专业">品牌专业</option>
 							<option value="名牌专业">名牌专业</option>
@@ -498,7 +498,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>认证结果：</label> 
-						<select class='easyui-combobox' id="AppvlResult" name="t322_Bean.AppvlResult">
+						<select class='easyui-combobox' id="AppvlResult" name="t322_Bean.AppvlResult" editable=false>
 							<option value="通过">通过</option>
 							<option value="未通过">未通过</option>
 							<option value="未参加评估">未参加评估</option>
@@ -685,7 +685,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function singleImport(){
 		    //录入数据的表单提交
 	    	 $('#UndergraMajorInfoForm').form('submit',{
-				    url: 'pages/UndergraMajorInfoTea/insert',
+				    url: url,
 				    data: $('#UndergraMajorInfoForm').serialize(),
 		            type: "post",
 		            dataType: "json",

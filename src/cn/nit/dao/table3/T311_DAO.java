@@ -129,15 +129,6 @@ public class T311_DAO {
 		sql.append("select SeqNumber,PostDocStaName,SetTime,ResearcherNum, UnitName," +
 				"UnitID,Note,Time");
 		sql.append(" from "+tableName+" where PostDocStaName is not null");
-//		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
-//		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
-//		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-//		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
-		//
-		
-		
-
-
 		if(fillDept != null && !fillDept.equals("")){
 			sql.append(" FillDept=" + fillDept) ;
 		}

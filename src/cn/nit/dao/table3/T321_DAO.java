@@ -104,7 +104,6 @@ public class T321_DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
-//		sql.append(" from "+ tableName);
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ") ;
 		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID");		
 		int total = 0 ;

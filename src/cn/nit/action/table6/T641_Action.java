@@ -178,38 +178,35 @@ public class T641_Action {
 		           ws.mergeCells(0, 0, 1, 0);
 		           
 		           ws.addCell(new Label(0, 2, "项目", wcf)); 
-		           ws.addCell(new Label(2, 2, "内容", wcf)); 
-		           ws.addCell(new Label(0, 3, "1.占地面积(平方米)", wcf)); 
-		           ws.addCell(new Label(0, 10, "2.总建筑面积(平方米)", wcf)); 
-		           ws.addCell(new Label(1, 3, "总占地面积", wcf)); 
-		           ws.addCell(new Label(1, 4, "学校产权", wcf));  
-		           ws.addCell(new Label(1, 5, "  其中：绿化用地", wcf)); 
-		           ws.addCell(new Label(1, 6, "非学校产权", wcf)); 
-		           ws.addCell(new Label(1, 7, "  其中：绿化用地", wcf)); 
-		           ws.addCell(new Label(1, 8, "  其中：独立使用", wcf)); 
-		           ws.addCell(new Label(1, 9, "       共同使用", wcf)); 
-		           ws.addCell(new Label(1, 10, "总建筑面积", wcf)); 
-		           ws.addCell(new Label(1, 11, "学校产权", wcf)); 
-		           ws.addCell(new Label(1, 12, "非学校产权", wcf)); 
-		           ws.addCell(new Label(1, 13, "  其中：独立使用", wcf)); 
-		           ws.addCell(new Label(1, 14, "        共同使用", wcf)); 
+		           ws.addCell(new Label(1, 2, "资助金额（万元）", wcf)); 
+		           ws.addCell(new Label(2, 2, "资助学生数（人次", wcf)); 
+		           ws.addCell(new Label(0, 3, "总计", wcf)); 
+		           ws.addCell(new Label(0, 4, "1.政府奖、助学金", wcf)); 
+		           ws.addCell(new Label(0, 5, "2.社会奖、助学金", wcf));
+		           ws.addCell(new Label(0, 6, "3.学校奖学金", wcf));
+		           ws.addCell(new Label(0, 7, "4.国家助学贷款", wcf));
+		           ws.addCell(new Label(0, 8, "5.勤工助学金", wcf));
+		           ws.addCell(new Label(0, 9, "6.减免学费", wcf));
+		           ws.addCell(new Label(0, 10, "7.临时困难补助", wcf));
 
-		           ws.mergeCells(0, 2, 1, 2);
-		           ws.mergeCells(0, 3, 0, 9);
-		           ws.mergeCells(0, 10, 0, 14);
-//		           		           
-//		           ws.addCell(new Label(2, 3, bean.getSumArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 4, bean.getSchProArea().toString(), wcf1));  
-//		           ws.addCell(new Label(2, 5, bean.getGreenArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 6, bean.getNotSchProArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 7, bean.getGreenAreaNotInSch().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 8, bean.getOnlyUseArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 9, bean.getCoUseArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 10, bean.getSumCoverArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 11, bean.getSchProCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 12, bean.getNotSchProCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 13, bean.getOnlyUseCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 14, bean.getCoUseCovArea().toString(), wcf1)); 
+		           		           
+		           ws.addCell(new Label(1, 3, bean.getSumAidFund().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 4, bean.getGovAidFund().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 5, bean.getSocialAidFund().toString(), wcf1));
+		           ws.addCell(new Label(1, 6, bean.getSchAidFund().toString(), wcf1));
+		           ws.addCell(new Label(1, 7, bean.getNationAidFund().toString(), wcf1));
+		           ws.addCell(new Label(1, 8, bean.getWorkStudyFund().toString(), wcf1));
+		           ws.addCell(new Label(1, 9, bean.getTuitionWaiberFund().toString(), wcf1));
+		           ws.addCell(new Label(1, 10, bean.getTempFund().toString(), wcf1));
+		           
+		           ws.addCell(new Label(2, 3, bean.getSumAidNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 4, bean.getGovAidNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 5, bean.getSocialAidNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 6, bean.getSchAidNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 7, bean.getNationAidNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 8, bean.getWorkStudyNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 9, bean.getTuitionWaiberNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 10, bean.getTempNum().toString(), wcf1));
 		             
 
 		          wwb.write();

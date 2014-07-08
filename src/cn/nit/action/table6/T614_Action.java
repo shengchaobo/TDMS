@@ -177,41 +177,34 @@ public class T614_Action {
 		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		           ws.mergeCells(0, 0, 1, 0);
 		           
-		           ws.addCell(new Label(0, 2, "项目", wcf)); 
-		           ws.addCell(new Label(2, 2, "内容", wcf)); 
-		           ws.addCell(new Label(0, 3, "1.占地面积(平方米)", wcf)); 
-		           ws.addCell(new Label(0, 10, "2.总建筑面积(平方米)", wcf)); 
-		           ws.addCell(new Label(1, 3, "总占地面积", wcf)); 
-		           ws.addCell(new Label(1, 4, "学校产权", wcf));  
-		           ws.addCell(new Label(1, 5, "  其中：绿化用地", wcf)); 
-		           ws.addCell(new Label(1, 6, "非学校产权", wcf)); 
-		           ws.addCell(new Label(1, 7, "  其中：绿化用地", wcf)); 
-		           ws.addCell(new Label(1, 8, "  其中：独立使用", wcf)); 
-		           ws.addCell(new Label(1, 9, "       共同使用", wcf)); 
-		           ws.addCell(new Label(1, 10, "总建筑面积", wcf)); 
-		           ws.addCell(new Label(1, 11, "学校产权", wcf)); 
-		           ws.addCell(new Label(1, 12, "非学校产权", wcf)); 
-		           ws.addCell(new Label(1, 13, "  其中：独立使用", wcf)); 
-		           ws.addCell(new Label(1, 14, "        共同使用", wcf)); 
+		           ws.addCell(new Label(0, 2, "分类", wcf)); 
+		           ws.addCell(new Label(1, 2, "上学年人数（个）", wcf)); 
+		           ws.addCell(new Label(2, 2, "本学年人数（个）", wcf)); 
+		           ws.addCell(new Label(0, 3, "6.普通预科生数", wcf)); 
+		           ws.addCell(new Label(0, 4, "7.进修生数", wcf)); 
+		           ws.addCell(new Label(0, 5, "8.成人脱产学生数", wcf)); 
+		           ws.addCell(new Label(0, 6, "9.夜大（业余）学生数", wcf)); 
+		           ws.addCell(new Label(0, 7, "10.函授学生数", wcf)); 
+		           ws.addCell(new Label(0, 8, "11.网络学生数", wcf)); 
+		           ws.addCell(new Label(0, 9, "12.自考学生数", wcf));
 
-		           ws.mergeCells(0, 2, 1, 2);
-		           ws.mergeCells(0, 3, 0, 9);
-		           ws.mergeCells(0, 10, 0, 14);
-//		           		           
-//		           ws.addCell(new Label(2, 3, bean.getSumArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 4, bean.getSchProArea().toString(), wcf1));  
-//		           ws.addCell(new Label(2, 5, bean.getGreenArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 6, bean.getNotSchProArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 7, bean.getGreenAreaNotInSch().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 8, bean.getOnlyUseArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 9, bean.getCoUseArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 10, bean.getSumCoverArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 11, bean.getSchProCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 12, bean.getNotSchProCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 13, bean.getOnlyUseCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 14, bean.getCoUseCovArea().toString(), wcf1)); 
-		             
-
+		           		           
+		           ws.addCell(new Label(1, 3, bean.getPreppyLastYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 4, bean.getAdvStuLastYearNum().toString(), wcf1));
+		           ws.addCell(new Label(1, 5, bean.getAdultLastYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 6, bean.getNightUniLastYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 7, bean.getCorrespdCoLastYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 8, bean.getNetStuLastYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 9, bean.getSelfStudyLastYearNum().toString(), wcf1));
+		         
+		           ws.addCell(new Label(2, 3, bean.getPreppyThisYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 4, bean.getAdvStuThisYearNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 5, bean.getAdultThisYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 6, bean.getNightUniThisYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 7, bean.getCorrespdThisYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 8, bean.getNetStuThisYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 9, bean.getSelfStudyThisYearNum().toString(), wcf1));
+		           
 		          wwb.write();
 		          wwb.close();
 

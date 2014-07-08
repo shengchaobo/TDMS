@@ -1,6 +1,8 @@
 package cn.nit.bean.table5;
 
-public class T512Bean {
+import java.util.Date;
+
+public class T512_Bean {
 	
 	private Integer SeqNumber;
 	private String Term;
@@ -31,9 +33,10 @@ public class T512Bean {
 	private String BookUseInfo;
 	private boolean IsPlanbook;
 	private boolean IsAwardbook;
-	private String Time;
+	private Date Time;
 	private String Note;
-	
+	private String FillTeaID;
+	private String FillUnitID;
 	
 
 	public Integer getSeqNumber() {
@@ -210,10 +213,11 @@ public class T512Bean {
 	public void setIsAwardbook(boolean isAwardbook) {
 		IsAwardbook = isAwardbook;
 	}
-	public String getTime() {
+	
+	public Date getTime() {
 		return Time;
 	}
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		Time = time;
 	}
 	public String getNote() {
@@ -221,6 +225,18 @@ public class T512Bean {
 	}
 	public void setNote(String note) {
 		Note = note;
+	}
+	public String getFillTeaID() {
+		return FillTeaID;
+	}
+	public void setFillTeaID(String fillTeaID) {
+		FillTeaID = fillTeaID;
+	}
+	public String getFillUnitID() {
+		return FillUnitID;
+	}
+	public void setFillUnitID(String fillUnitID) {
+		FillUnitID = fillUnitID;
 	}
 	
 	

@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	<link rel="stylesheet" type="text/css" href="css/common.css">
+	
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -144,23 +144,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 				<td class="empty"></td>
-				<td>
-					<div class="fitem">
-						<label>姓名：</label> 
-						<input id="Name" type="text" name="t711_Bean.Name"
-							><span id="NameSpan"></span>
-					</div>
-				</td>
-				</tr>
-			<tr>
 			<td>
 					<div class="fitem">
 						<label>教工号：</label> 
-						<input id="TeaID" type="text" name="t711_Bean.TeaID"
-							><span id="TeaIDSpan"></span>
+						<input id="TeaID" type="hidden" name="t711_Bean.TeaID">
+						<input id="Name" type="text" name="t711_Bean.Name" class='easyui-combobox'
+						data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+						 onSelect:function(){
+							 	document.getElementById('TeaID').value=$(this).combobox('getText') ;
+							 }">
+							<span id="TeaIDSpan"></span>
 					</div>
 					</td>
-					<td class="empty"></td>
+					</tr>
+				<tr>
+					
 				<td>
 					<div class="fitem">
 						<label>奖励名称：</label> 
@@ -168,8 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AwardNameSpan"></span>
 					</div>
 				</td>
-				</tr>
-				<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>级别：</label> 
@@ -178,7 +175,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="AwardLevelSpan"></span>
 					</div>
 				</td>
-			   <td class="empty"></td>
+			  	</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>等级：</label> 
@@ -191,8 +189,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="AwardRankSpan"></span>
 					</div>
 				</td>
-				</tr>
-				<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>获奖时间：</label> 
@@ -201,7 +198,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="AwardTimeSpan"></span>
 					</div>
 				</td>
-			<td class="empty"></td>
+			</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>授予单位：</label> 
@@ -209,8 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AwardFromUnitSpan"></span>
 					</div>
 				</td>
-				</tr>
-				<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>批文号：</label> 
@@ -218,7 +215,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AppvlIDSpan"></span>
 					</div>
 				</td>
-			<td class="empty"></td>
+		</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>合作教师人数：</label> 
@@ -226,8 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="JoinTeaNumSpan"></span>
 					</div>
 				</td>
-				</tr>
-			<tr>
+			<td class="empty"></td>
 				<td>
 				
 					<div class="fitem">
@@ -358,8 +355,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function validate(){
 			//获取文本框的值
 			var teaUnit = $('#UnitID').combobox('getText');
-			var name = $('#Name').val();
-			var teaID = $('#TeaID').val();
+			var teaID = $('#Name').combobox('getText');
 			var awardName = $('#AwardName').val();
 			var awardLevel = $('#AwardLevel').combobox('getText');
 			var awardRank = $('#AwardRank').combobox('getText');
@@ -374,10 +370,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert("教学单位不能为空或长度不超过100");
 				return false;
 			}
-			if(name == null || name.length==0 || name.length > 10){
-				alert("名字不能为空或长度不超过10");
-				return false;
-			}
+			
 			if(teaID == null || teaID.length == 0 || teaID.length > 50){
 			  alert("教工号不能为空或长度不超过50");
 				return false;
@@ -432,8 +425,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#dlg').dialog('open').dialog('setTitle','编辑教学管理人员获得教学成果奖情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	//alert(row[0].seqNumber);
-	    	$('#Name').val(row[0].name) ;
-	    	$('#TeaID').val(row[0].teaID) ;
+	    	$('#Name').combobox('select', row[0].name) ;
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
 	    	$('#AwardName').val(row[0].awardName) ;
 	    	$('#AwardLevel').combobox('select', row[0].awardLevelID) ;

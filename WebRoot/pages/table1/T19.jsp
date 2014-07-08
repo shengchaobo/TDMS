@@ -22,57 +22,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	
-	
-	<style type="text/css">
-	     label {
-	    width: 10em;
-	    float: left;
-	}  
-	.empty{
-		width: 4em;
-	}
-	</style>
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-	
-	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/commom.js"></script>
+		
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:350px" url="pages/T19/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true" collapsible="true"
-		fitColumns="true" singleSelect="false" >
+<body style="height: 100%'" >
+	<table id="unverfiedData" class="easyui-datagrid" url="pages/T19/auditingData">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10">编号</th>
-				<th field="rewardName" width="10">奖励名称</th>
-				<th field="rewardLevel" width="10">级别</th>
-				<th field="rewardFromUnit" width="10">授予单位</th>
-				<th field="unitName" width="10">获奖单位</th>
-				<th field="unitID" width="10">单位号</th>
-				<th field="rewardTime" width="10" formatter="formattime">获奖时间</th>
-				<th field="note" width="10">备注</th>
+				<th field="seqNumber" >编号</th>
+				<th field="rewardName" >奖励名称</th>
+				<th field="rewardLevel" >级别</th>
+				<th field="rewardFromUnit" >授予单位</th>
+				<th field="unitName" >获奖单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="rewardTime"  formatter="formattime">获奖时间</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -94,21 +66,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="pages/T19/dataExport?excelName=表1-9学校获得荣誉（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
-
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
-		toolbar="#toolbar2" pagination="true" rownumbers="true" collapsible="true"
-		fitColumns="true" singleSelect="false">
+<div></div>
+	<table id="verfiedData"class="easyui-datagrid"  url="table5/verifiedData">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="5%">序号</th>
-				<th field="rewardName" width="25%">奖励名称</th>
-				<th field="rewardLevel" width="10%">级别</th>
-				<th field="rewardFromUnit" width="20%">授予单位</th>
-				<th field="unitName" width="15%">获奖单位</th>
-				<th field="unitID" width="5%">单位号</th>
-				<th field="rewardTime" width="10%">获奖时间</th>
-				<th field="note" width="10%">备注</th>
+				<th field="seqNumber" >序号</th>
+				<th field="rewardName" >奖励名称</th>
+				<th field="rewardLevel" >级别</th>
+				<th field="rewardFromUnit" >授予单位</th>
+				<th field="unitName" >获奖单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="rewardTime" >获奖时间</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -121,14 +91,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem" id="item1"> 
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select> 
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T19/downloadModel?saveFile=<%=URLEncoder.encode("表1-9学校获得荣誉（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
-		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+		<hr></hr>	
 		<h3 class="title1">学校荣誉记录逐条导入</h3>
 		
 		<form id="rewardForm" method="post">

@@ -1,4 +1,4 @@
-package cn.nit.action.table2;
+package cn.nit.action.table5;
 
 
 import java.io.ByteArrayInputStream;
@@ -31,19 +31,19 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table2.T293_Bean;
-import cn.nit.service.table2.T293_Service;
+import cn.nit.bean.table5.T54_Bean;
+import cn.nit.service.table5.T54_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
 import cn.nit.util.TimeUtil;
 import cn.nit.util.ToBeanUtil;
 
 
-public class T293_Action {
+public class T54_Action {
 	
-	private T293_Service T293_services = new T293_Service();
+	private T54_Service T54_services = new T54_Service();
 	
-	private T293_Bean T293_bean = new T293_Bean();	
+	private T54_Bean T54_bean = new T54_Bean();	
 	
 	/**  哪一年数据  */
 	private String selectYear; //删除的id
@@ -66,7 +66,7 @@ public class T293_Action {
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		T293_Bean bean = T293_services.getYearInfo(this.getSelectYear()) ;
+		T54_Bean bean = T54_services.getYearInfo(this.getSelectYear()) ;
 		
 		//private JSONObject jsonObj;
 		bean.setTime(null);
@@ -106,11 +106,10 @@ public class T293_Action {
 		
 		String tempData = this.getData();
 		//System.out.println(tempData);
-		
-		
-		T293_Bean bean  = ToBeanUtil.toBean(tempData, T293_Bean.class);
+				
+		T54_Bean bean  = ToBeanUtil.toBean(tempData, T54_Bean.class);
 										
-		boolean flag = T293_services.save(bean,this.getSelectYear(),this.getFields());
+		boolean flag = T54_services.save(bean,this.getSelectYear(),this.getFields());
 		PrintWriter out = null ;
 		
 		try{
@@ -135,7 +134,7 @@ public class T293_Action {
 	public InputStream getInputStream() throws Exception{
 
 		System.out.println(this.getSelectYear());
-		T293_Bean bean = T293_services.getYearInfo(this.getSelectYear());
+		T54_Bean bean = T54_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -177,59 +176,30 @@ public class T293_Action {
 		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		           ws.mergeCells(0, 0, 1, 0);
 		           
-		           ws.addCell(new Label(0, 2, "1.学校教育经费收入总额（万元）", wcf)); 
-		           ws.addCell(new Label(0, 3, "2.其中本科教育事业收入（万元）", wcf)); 
-		           ws.addCell(new Label(1, 3, "收入总计", wcf)); 
-		           ws.addCell(new Label(1, 4, "本科生生均拨款总额", wcf)); 
-		           ws.addCell(new Label(2, 4, "总数", wcf));
-		           ws.addCell(new Label(2, 5, "国家", wcf));
-		           ws.addCell(new Label(2, 6, "地方", wcf));
-		           ws.addCell(new Label(1, 7, "本科生学费收入", wcf)); 
-		           ws.addCell(new Label(1, 8, "本科教改专项拨款", wcf)); 
-		           ws.addCell(new Label(0, 9, "3.其他教育事业收入（万元）", wcf));
-		           ws.addCell(new Label(1, 9, "收入总计", wcf)); 
-		           ws.addCell(new Label(1, 10, "经常性预算内教育事业费拨款", wcf)); 		           
-		           ws.addCell(new Label(2, 10, "总数", wcf));
-		           ws.addCell(new Label(2, 11, "国家", wcf));
-		           ws.addCell(new Label(2, 12, "地方", wcf));
-		           ws.addCell(new Label(1, 13, "学费收入", wcf)); 
-		           ws.addCell(new Label(2, 13, "总数", wcf));
-		           ws.addCell(new Label(2, 14, "各类研究生", wcf));
-		           ws.addCell(new Label(2, 15, "高职高专", wcf));
-		           ws.addCell(new Label(2, 16, "网络与继续教育", wcf));
-		           ws.addCell(new Label(1, 17, "社会捐赠收入", wcf)); 
-		           ws.addCell(new Label(1, 18, "其他教育事业收入", wcf)); 
-		           
-		           ws.mergeCells(0, 2, 2, 2);
-		           ws.mergeCells(0, 3, 0, 8);
-		           ws.mergeCells(1, 4, 1, 6);
-		           ws.mergeCells(1, 7, 2, 7);
-		           ws.mergeCells(1, 8, 2, 8);
-		           ws.mergeCells(0, 9, 0, 18);
-		           ws.mergeCells(1, 9, 2, 9);
-		           ws.mergeCells(1, 10, 1, 12);
-		           ws.mergeCells(1, 13, 1, 16);
-		           ws.mergeCells(1, 17, 2, 17);
-		           ws.mergeCells(1, 18, 2, 18);
-		           
-		           		
-		           ws.addCell(new Label(3, 2, bean.getSumIncome().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 3, bean.getSumUndergraIncome().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 4, bean.getAllocateFund().toString(), wcf1));  
-		           ws.addCell(new Label(3, 5, bean.getNationFund().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 6, bean.getLocalFund().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 7, bean.getUndergraTuition().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 8, bean.getEduReformFund().toString(), wcf1));  
-		           ws.addCell(new Label(3, 9, bean.getSumOtherIncome().toString(), wcf1));
-		           ws.addCell(new Label(3, 10, bean.getOtherAllocateFund().toString(), wcf1));
-		           ws.addCell(new Label(3, 11, bean.getOtherNationFund().toString(), wcf1));
-		           ws.addCell(new Label(3, 12, bean.getOtherLocalFund().toString(), wcf1));
-		           ws.addCell(new Label(3, 13, bean.getOtherTuition().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 14, bean.getGraTuition().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 15, bean.getJuniorTuition().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 16, bean.getNetTeaTuition().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 17, bean.getDonation().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 18, bean.getOtherIncome().toString(), wcf1)); 
+		           ws.addCell(new Label(0, 2, "项目", wcf)); 
+		           ws.addCell(new Label(2, 2, "内容", wcf)); 
+		           ws.addCell(new Label(0, 3, "1.文化、学术讲座数（个）", wcf)); 
+		           ws.addCell(new Label(0, 6, "2.本科生课外科技、文化活动项目（个）", wcf)); 
+		           ws.addCell(new Label(1, 3, "总数", wcf)); 
+		           ws.addCell(new Label(1, 4, "其中：校级", wcf));  
+		           ws.addCell(new Label(1, 5, "其中：院（系）级", wcf)); 
+		           ws.addCell(new Label(1, 6, "总数", wcf)); 
+		           ws.addCell(new Label(1, 7, "其中：国家大学生创新性实验计划项目", wcf)); 
+		           ws.addCell(new Label(1, 8, "其中：省部级项目", wcf)); 
+		           ws.addCell(new Label(1, 9, "其中：学校项目", wcf)); 
+
+		           ws.mergeCells(0, 2, 1, 2);
+		           ws.mergeCells(0, 3, 0, 5);
+		           ws.mergeCells(0, 6, 0, 9);
+		           		           
+		           ws.addCell(new Label(2, 3, bean.getLectureSumNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 4, bean.getSchLecture().toString(), wcf1));  
+		           ws.addCell(new Label(2, 5, bean.getCollegeLecture().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 6, bean.getActItemSumNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 7, bean.getNationActItem().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 8, bean.getProviActItem().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 9, bean.getSchActItem().toString(), wcf1)); 
+		             
 
 		          wwb.write();
 		          wwb.close();
@@ -249,12 +219,12 @@ public class T293_Action {
 	}
 	
 
-	public T293_Bean getT293_bean() {
-		return T293_bean;
+	public T54_Bean getT54_bean() {
+		return T54_bean;
 	}
 
-	public void setT293_bean(T293_Bean T293Bean) {
-		T293_bean = T293Bean;
+	public void setT54_bean(T54_Bean T54Bean) {
+		T54_bean = T54Bean;
 	}
 	
 	public String getExcelName() {

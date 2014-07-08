@@ -1,6 +1,5 @@
 package cn.nit.action.di;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.List;

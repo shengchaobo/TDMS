@@ -23,16 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-	     label {
-	    width: 10em;
-	    float: left;
-	}
-	.empty{
-		width: 4em;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -54,13 +45,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<thead>
 			<tr>
-				<th data-options="field:'Term',align:'center'" rowspan="2">
+				<th data-options="field:'term',align:'center'" rowspan="2">
 			          学期
 				</th>
 				<th data-options="field:'CSUnit',align:'center'" rowspan="2">
 				开课单位
 				</th>
-				<th data-options="field:'UnitID',align:'center'" rowspan="2">
+				<th data-options="field:'unitID',align:'center'" rowspan="2">
 				单位号
 				</th>
 				<th data-options="field:'CSMajor',align:'center'" rowspan="2">
@@ -92,28 +83,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'CSNature',align:'center' ">
 				课程性质
 				</th>
-				<th data-options="field:'PubCSType',align:'center'">
+				<th data-options="field:'pubCSType',align:'center'">
 				公选课类别
 				</th>
-				<th data-options="field:'IsDoubleCS',align:'center'">
+				<th data-options="field:'isDoubleCS',align:'center'">
 			          是否双语授课
 				</th>
-				<th data-options="field:'Credit',align:'center'">
+				<th data-options="field:'credit',align:'center'">
 				学分
 				</th>
-				<th data-options="field:'SumCSHour',align:'center'">
+				<th data-options="field:'sumCSHour',align:'center'">
 				总学时
 				</th>
-				<th data-options="field:'TheoryCSHour',align:'center' ">
+				<th data-options="field:'theoryCSHour',align:'center' ">
 				理论学时
 				</th>
-				<th data-options="field:'PraCSHour',align:'center'">
+				<th data-options="field:'praCSHour',align:'center'">
 				实践学时
 				</th>
-				<th data-options="field:'ExamWay',align:'center' ">
+				<th data-options="field:'examWay',align:'center' ">
 				考核方式
 				</th>
-				<th data-options="field:'PlanTime',align:'center'">
+				<th data-options="field:'planTime',align:'center'">
 				实习、设计时间
 				</th>
 				<th data-options="field:'CSGrade',align:'center'">
@@ -122,31 +113,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'CSClass',align:'center'">
 				授课班级
 				</th>
-				<th data-options="field:'ClassID',align:'center'">
+				<th data-options="field:'classID',align:'center'">
 				开课班号
 				</th>
-				<th data-options="field:'ClassInfo',align:'center' ">
+				<th data-options="field:'classInfo',align:'center' ">
 				合班情况
 				</th>
-				<th data-options="field:'StuNum',align:'center'">
+				<th data-options="field:'stuNum',align:'center'">
 				学生人数
 				</th>
 				<th data-options="field:'CSTea',align:'center'">
 			        任课教师
 				</th>
-				<th data-options="field:'IsAccordJob',align:'center'">
+				<th data-options="field:'isAccordJob',align:'center'">
 			         是否符合岗位资格
 				</th>
-				<th data-options="field:'TeaTitle',align:'center'">
+				<th data-options="field:'teaTitle',align:'center'">
 			        教师职称
 				</th>
-				<th data-options="field:'BookUseInfo',align:'center'">
+				<th data-options="field:'bookUseInfo',align:'center'">
 				使用情况
 				</th>
-				<th data-options="field:'IsPlanbook',align:'center'">
+				<th data-options="field:'isPlanbook',align:'center'">
 			         是否规划教材
 				</th>
-				<th data-options="field:'IsAwardbook',align:'center'">
+				<th data-options="field:'isAwardbook',align:'center'">
 				是否获奖教材
 				</th>
 			</tr>			
@@ -156,8 +147,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
+		    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
@@ -176,15 +167,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     </tr>
 		</thead>
 		
-		<thead>
+	<thead>
 			<tr>
-				<th data-options="field:'Term',align:'center'" rowspan="2">
+				<th data-options="field:'term',align:'center'" rowspan="2">
 			          学期
 				</th>
 				<th data-options="field:'CSUnit',align:'center'" rowspan="2">
 				开课单位
 				</th>
-				<th data-options="field:'UnitID',align:'center'" rowspan="2">
+				<th data-options="field:'unitID',align:'center'" rowspan="2">
 				单位号
 				</th>
 				<th data-options="field:'CSMajor',align:'center'" rowspan="2">
@@ -216,28 +207,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'CSNature',align:'center' ">
 				课程性质
 				</th>
-				<th data-options="field:'PubCSType',align:'center'">
+				<th data-options="field:'pubCSType',align:'center'">
 				公选课类别
 				</th>
-				<th data-options="field:'IsDoubleCS',align:'center'">
+				<th data-options="field:'isDoubleCS',align:'center'">
 			          是否双语授课
 				</th>
-				<th data-options="field:'Credit',align:'center'">
+				<th data-options="field:'credit',align:'center'">
 				学分
 				</th>
-				<th data-options="field:'SumCSHour',align:'center'">
+				<th data-options="field:'sumCSHour',align:'center'">
 				总学时
 				</th>
-				<th data-options="field:'TheoryCSHour',align:'center' ">
+				<th data-options="field:'theoryCSHour',align:'center' ">
 				理论学时
 				</th>
-				<th data-options="field:'PraCSHour',align:'center'">
+				<th data-options="field:'praCSHour',align:'center'">
 				实践学时
 				</th>
-				<th data-options="field:'ExamWay',align:'center' ">
+				<th data-options="field:'examWay',align:'center' ">
 				考核方式
 				</th>
-				<th data-options="field:'PlanTime',align:'center'">
+				<th data-options="field:'planTime',align:'center'">
 				实习、设计时间
 				</th>
 				<th data-options="field:'CSGrade',align:'center'">
@@ -246,40 +237,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'CSClass',align:'center'">
 				授课班级
 				</th>
-				<th data-options="field:'ClassID',align:'center'">
+				<th data-options="field:'classID',align:'center'">
 				开课班号
 				</th>
-				<th data-options="field:'ClassInfo',align:'center' ">
+				<th data-options="field:'classInfo',align:'center' ">
 				合班情况
 				</th>
-				<th data-options="field:'StuNum',align:'center'">
+				<th data-options="field:'stuNum',align:'center'">
 				学生人数
 				</th>
 				<th data-options="field:'CSTea',align:'center'">
 			        任课教师
 				</th>
-				<th data-options="field:'IsAccordJob',align:'center'">
+				<th data-options="field:'isAccordJob',align:'center'">
 			         是否符合岗位资格
 				</th>
-				<th data-options="field:'TeaTitle',align:'center'">
+				<th data-options="field:'teaTitle',align:'center'">
 			        教师职称
 				</th>
-				<th data-options="field:'BookUseInfo',align:'center'">
+				<th data-options="field:'bookUseInfo',align:'center'">
 				使用情况
 				</th>
-				<th data-options="field:'IsPlanbook',align:'center'">
+				<th data-options="field:'isPlanbook',align:'center'">
 			         是否规划教材
 				</th>
-				<th data-options="field:'IsAwardbook',align:'center'">
+				<th data-options="field:'isAwardbook',align:'center'">
 				是否获奖教材
 				</th>
-			</tr>
-			
+			</tr>			
 			</thead>
+						  
 	</table>
 	
-	<div id="toolbar2" style="float:left;">
-		<a href='pages/T512/dataExport?excelName=<%=URLEncoder.encode("表5-1-1开课、授课情况（教学单位-教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	<div id="toolbar2" style="float: right;">
+		<a href='pages/T512/dataExport?excelName=<%=URLEncoder.encode("表5-1-2开课、授课情况（教学单位-教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
@@ -287,33 +278,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle" id="title1">开课、授课情况（教学单位-教务处）模板导入</h3>
+		<h3 class="title1">开课、授课情况（教学单位-教务处）模板导入</h3>
 		<div class="fitem" id="item1">
 		  <form method="post"  id="batchForm" enctype="multipart/form-data">
 		  <select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href='pages/T512/downloadModel?saveFile=<%=URLEncoder.encode("表5-1-1开课、授课情况（教学单位-教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T512/downloadModel?saveFile=<%=URLEncoder.encode("表5-1-2开课、授课情况（教学单位-教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>	
-		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+		<hr></hr>	
 	   <h3 class="ftitle">开课、授课逐条导入</h3>
-	    <form id="addForm" method="post">
+	    <form id="t512From" method="post">
 		<table>
 			<tr>
 				<td><div class="fitem">
 				<label>学期：</label> 
-				<input id="seqNum" name="T512bean.SeqNumber" type="hidden"/>
-				<input id="Term" type="text" name="T512bean.Term"
-				class="easyui-validatebox" ><span id="TermSpan"></span>
+				<input id="seqNumber" name="t512_Bean.SeqNumber" type="hidden"/>
+				   <input id="Term" type="text" name="t512_Bean.Term"
+				   ><span id="TermSpan"></span>
 				</div>
 				</td>
 				<td class="empty"></td>
 				<td>
 				<div class="fitem">
 					<label>开课单位：</label> 
-					<input type="hidden" name="T512Bean.CSUnit" id="CSUnit"/>
-							<input id="UnitID" type="text" name="T512Bean.UnitID" class='easyui-combobox' 
+					<input type="hidden" name="t512_Bean.CSUnit" id="CSUnit"/>
+							<input id="UnitID" type="text" name="t512_Bean.UnitID" class='easyui-combobox' 
 								data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
 								onSelect:function(){
 								    $('CSUnit').val($(this).combobox('getText')) ;
@@ -326,11 +317,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>上课专业名称：</label> 
-					<input type="hidden" name="T512Bean.CSMajorName" id="CSMajorName"/>
-					<input id="CSMajorID" type="text" name="T512Bean.CSMajorID class='easyui-combobox' 
-							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo' ,listHeight:'auto',editable:false,
-							onSelect:function(){
-							    $('CSMajorName').val($(this).combobox('getText')) ;
+					<input type="hidden" name="t512_Bean.CSMajorName" id="CSMajorName"/>
+					<input id="CSMajorID" type="text" name="t512_Bean.CSMajorID"
+			            class='easyui-combobox' data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
+							 onSelect:function(){
+							   document.getElementById('CSMajorName').value=$(this).combobox('getText') ;
 							 }">
 					<span id="teaIdSpan"></span>
 					</div>
@@ -343,38 +334,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>课程名称：</label> 
-					<input type="hidden" name="T512Bean.CSName" id="CSName"/>
-						<input id="CSID" type="text" name="T512Bean.CSID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
-							onSelect:function(){
-							    $('#TeaUnit').val($(this).combobox('getText')) ;
-							 }">
+					<input type="hidden" name="t512_Bean.CSName" id="CSName"/>
+						<input id="CSName" type="text" name="t512_Bean.CSName"
+							><span id="CSNameSpan"></span>
 					<span id="CSNameSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>
-				<td><div class="fitem">
+					<td>
+					<div class="fitem">
+					<label>课程编号：</label> 
+					<input type="hidden" name="t512_Bean.CSID" id="CSID"/>
+						<input id="CSID" type="text" name="t512_Bean.CSID"
+							><span id="CSIDSpan"></span>
+					<span id="CSIDSpan"></span>
+					</div>
+				</td>
+				</tr>	
+			<tr>
+				<td>
+				<div class="fitem">
 					<label>课程类别：</label> 
-						<input id="CSType" type="text" name="T512bean.CSType" class='easyui-combobox'  
+						<input id="CSType" type="text" name="t512_Bean.CSType" class='easyui-combobox'  
 						data-options="valueField:'indexId',textField:'courseCategories',url:'pages/DiCourseCategories/loadDiCourseCategories',listHeight:'auto',editable:false">
 						<span id="CSTypeSpan"></span>
 					</div>
 					</td>
-			</tr>
-			<tr>
+			<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>课程性质：</label> 
-						<input id="CSNature" type="text" name="T512bean.CSNature"  panelHeight="auto"
+						<input id="CSNature" type="text" name="t512_Bean.CSNature"  
 							 class='easyui-combobox' data-options="valueField:'indexId',textField:'courseChar',url:'pages/DiCourseChar/loadDiCourseChar',listHeight:'auto',editable:false"/>
 						<span id="CSNatureSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+					</tr>	
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>公共课类别：</label> 
-						<select class='easyui-combobox'  id="PubCSType" name="T512bean.PubCSType"  panelHeight="auto" editable="false" >
+						<select class='easyui-combobox'  id="PubCSType" name="t512_Bean.PubCSType"  panelHeight="auto" editable="false" >
 							<option value="无">无</option>
 							<option value="理工科">理工科</option>
 							<option value="人文社科类">人文社科类</option>
@@ -383,68 +383,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="PubCSTypeSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+			<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>是否双语授课：</label> 
-						<select class='easyui-combobox' style="width:50px"  id="IsDoubleCS" name="T512bean.IsDoubleCS"  panelHeight="auto" editable="false" >
+						<select class='easyui-combobox' style="width:50px"  id="IsDoubleCS" name="t512_Bean.IsDoubleCS"  panelHeight="auto" editable="false" >
 							<option value="true" selected = "selected">是</option>
 							<option value="false">否</option>
 						</select>	
 							<span id="IsDoubleCSSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+					</tr>	
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>学分：</label> 
-						<input id="Credit" name="T512bean.Credit" type="text" class="easyui-numberbox" data-options="min:0">
+						<input id="Credit" name="t512_Bean.Credit" type="text" class="easyui-numberbox" data-options="min:0">
 						<span id="CreditSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+			<td class="empty"></td>
 			  <td>
 					<div class="fitem">
 						<label>总学时：</label> 
-						<input id="SumCSHour" name="T512bean.SumCSHour" type="text" class="easyui-numberbox" data-options="min:0">
+						<input id="SumCSHour" name="t512_Bean.SumCSHour" type="text" class="easyui-numberbox" data-options="min:0">
 						<span  id="SumCSHourSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
-				 <td>
-					<div class="fitem">
-						<label>理论学时：</label> 
-						<input id="TheoryCSHour" name="T512bean.TheoryCSHour" type="text" class="easyui-numberbox" data-options="min:0">
-						<span  id="TheoryCSHourSpan"></span>
-					</div>
-				</td>
-			</tr>
+					</tr>	
 			<tr>
 				 <td>
 					<div class="fitem">
+						<label>理论学时：</label> 
+						<input id="TheoryCSHour" name="t512_Bean.TheoryCSHour" type="text" class="easyui-numberbox" data-options="min:0">
+						<span  id="TheoryCSHourSpan"></span>
+					</div>
+				</td>
+			<td class="empty"></td>
+				 <td>
+					<div class="fitem">
 						<label>实践学时：</label> 
-						<input id="PraCSHour" name="T512bean.PraCSHour" type="text" class="easyui-numberbox" data-options="min:0">
+						<input id="PraCSHour" name="t512_Bean.PraCSHour" type="text" class="easyui-numberbox" data-options="min:0">
 						<span  id="PraCSHourSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+				</tr>	
+			<tr>
 				<td>
 					<div class="fitem">
 					<label>考核方式：</label> 
-					<select class='easyui-combobox' style="width:60px" id="ExamWay" name="T512bean.ExamWay"  panelHeight="auto" editable="false" >
+					<select class='easyui-combobox' style="width:60px" id="ExamWay" name="t512_Bean.ExamWay"  panelHeight="auto" editable="false" >
 							<option value="考试" selected="selected">考试</option>
 							<option value="考查">考查</option>
 					</select><span id="ExamWaySpan"></span>
 					</div>
 				</td>
-		  </tr>
-		  <tr>
-		  <td>
+		<td class="empty"></td>
+		        <td>
 					<div class="fitem">
 						<label>实习、设计时间：</label> 
-						<input id="PlanTime" type="text" name="T512bean.PlanTime" class="easyui-validatebox" >
+						<input id="PlanTime" type="text" name="t512_Bean.PlanTime" class="easyui-validatebox" >
 						 <span id="PlanTimeSpan"></span>
 					</div>
 				</td>
@@ -456,7 +455,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>授课年级：</label> 
-					<select class='easyui-combobox' style="width:50px" id="CSGrade" name="T512bean.CSGrade"  panelHeight="auto" editable="false" >
+					<select class='easyui-combobox' style="width:50px" id="CSGrade" name="t512_Bean.CSGrade"  panelHeight="auto" editable="false" >
 							<option value="1" selected="selected">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -469,9 +468,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>授课班级：</label> 
-						<input class='easyui-combobox'  id="CSClass" name="T512bean.CSClass" 
-							data-options="valueField:'indexId',textField:'titleLevel',url:'pages/DiTitleLevel/loadDiTitleLevel',listHeight:'auto',editable:false" panelHeight="auto">
-						<span id="CSClassSpan"></span>
+						  <input id="CSClass" type="text" name="t512_Bean.CSClass"
+				   ><span id="CSClassSpan"></span>
 					</div>
 				</td>	
 			</tr>
@@ -479,8 +477,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>合班情况：</label> 
-						<input id="ClassInfo" type="text" name="T512bean.ClassInfo"
-							class="easyui-validatebox">
+						<input id="ClassInfo" type="text" name="t512_Bean.ClassInfo"
+							>
 							<span id="ClassInfoSpan"></span>
 					</div>
 				</td>
@@ -488,7 +486,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>学生人数：</label> 
-						<input class="easyui-numbox"  id="StuNum" name="T512bean.StuNum"  panelHeight="auto">
+						<input class="easyui-numbox"  id="StuNum" name="t512_Bean.StuNum"  panelHeight="auto">
 						<span id="StuNumSpan"></span>
 					</div>
 				</td>
@@ -497,8 +495,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>任课老师：</label> 
-					<input id="CSTea" type="text" name="T512bean.CSTea"
-					class="easyui-validatebox">
+					<input id="CSTea" type="text" name="t512_Bean.CSTea"
+					>
 					<span id="CSTeaSpan"></span>
 					</div>
 				</td>
@@ -506,7 +504,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>是否符合岗位资格：</label> 
-					<select class='easyui-combobox' style="width:50px" id="IsAccordJob" name="T512bean.IsAccordJob"  panelHeight="auto" editable="false" >
+					<select class='easyui-combobox' style="width:50px" id="IsAccordJob" name="t512_Bean.IsAccordJob"  panelHeight="auto" editable="false" >
 							<option value="true" selected = "selected">是</option>
 							<option value="false">否</option>
 					</select><span id="IsAccordJobSpan"></span>
@@ -517,7 +515,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>教师职称：</label> 
-					<select class='easyui-combobox' style="width:70px" id="TeaTitle" name="T512bean.TeaTitle"  panelHeight="auto" editable="false" >
+					<select class='easyui-combobox' style="width:70px" id="TeaTitle" name="t512_Bean.TeaTitle"  panelHeight="auto" editable="false" >
 							<option value="正高级" selected = "seletced">正高级</option>
 							<option value="副高级">副高级</option>
 							<option value="中级">中级</option>
@@ -536,7 +534,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>使用情况：</label> 
-					<select class='easyui-combobox' style="width:50px" id="BookUseInfo" name="T512bean.BookUseInfo"  panelHeight="auto" editable="false" >
+					<select class='easyui-combobox' style="width:50px" id="BookUseInfo" name="t512_Bean.BookUseInfo"  panelHeight="auto" editable="false" >
 							<option value="选用" selected="selected">选用</option>
 							<option value="自编">自编</option>
 					</select><span id="BookUseInfoSpan"></span>
@@ -546,7 +544,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>是否规划教材：</label> 
-					<select class='easyui-combobox' style="width:50px"  id="IsPlanbook" name="T512bean.IsPlanbook"  panelHeight="auto" editable="false" >
+					<select class='easyui-combobox' style="width:50px"  id="IsPlanbook" name="t512_Bean.IsPlanbook"  panelHeight="auto" editable="false" >
 							<option value="true" selected = "selected">是</option>
 							<option value="false">否</option>
 					</select><span id="IsPlanbookSpan"></span>
@@ -557,7 +555,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>是否获奖教材：</label> 
-					<select class='easyui-combobox' style="width:50px" id="IsAwardbook" name="T512bean.IsAwardbook"  panelHeight="auto" editable="false" >
+					<select class='easyui-combobox' style="width:50px" id="IsAwardbook" name="t512_Bean.IsAwardbook"  panelHeight="auto" editable="false" >
 							<option value="true" selected = "selected">是</option>
 							<option value="false">否</option>
 					</select><span id="IsAwardbookSpan"></span>
@@ -566,7 +564,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
-					<textarea id="Note" name="T512bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="t512_Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>			

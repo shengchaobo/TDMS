@@ -112,8 +112,7 @@
 	<include file="cn/nit/configuration/table2/T284.xml"/>
 	<include file="cn/nit/configuration/table2/T291.xml"/>
 	<include file="cn/nit/configuration/table2/T292.xml"/>
-	<include file="cn/nit/configuration/table2/T293.xml"/>
-	
+	<include file="cn/nit/configuration/table2/T293.xml"/>	
 	<include file="cn/nit/configuration/table2/T2101.xml"/>
 	<include file="cn/nit/configuration/table2/T2102.xml"/>
 	<include file="cn/nit/configuration/table2/T2103.xml"/>
@@ -144,11 +143,12 @@
        <include file="cn/nit/configuration/table5/T532.xml"/>
          <include file="cn/nit/configuration/table5/T533.xml"/>
         <include file="cn/nit/configuration/table5/T534.xml"/>
- 
+	<include file="cn/nit/configuration/table5/T54.xml"/>
     <include file="cn/nit/configuration/table5/T552.xml"/>
     <include file="cn/nit/configuration/table5/T553.xml"/>
     <include file="cn/nit/configuration/table5/T551.xml"/>
     <include file="cn/nit/configuration/table5/T511.xml"/>
+    <include file="cn/nit/configuration/table5/T512.xml"/>
 
     <!-- table6 近一届本科生分专业招生录取情况 -->
     <include file="cn/nit/configuration/table6/T611.xml"/>

@@ -2,7 +2,7 @@ package cn.nit.pojo.table5;
 
 public class T512POJO {
 	
-	private int SeqNumber;
+	private Integer SeqNumber;
 	private String Term;
 	private String CSUnit;
 	private String UnitID;
@@ -11,7 +11,9 @@ public class T512POJO {
 	private String CSName;
 	private String CSID;
 	private String CSType;
+	private String CSTypeID;
 	private String CSNature;
+	private String CSNatureID;
 	private String PubCSType;
 	private boolean IsDoubleCS;
 	private double Credit;
@@ -33,10 +35,11 @@ public class T512POJO {
 	private boolean IsAwardbook;
 	private String Time;
 	private String Note;
-	public int getSeqNumber() {
+	
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 	public String getTerm() {
@@ -87,11 +90,25 @@ public class T512POJO {
 	public void setCSType(String cSType) {
 		CSType = cSType;
 	}
+	
+	public String getCSTypeID() {
+		return CSTypeID;
+	}
+	public void setCSTypeID(String cSTypeID) {
+		CSTypeID = cSTypeID;
+	}
 	public String getCSNature() {
 		return CSNature;
 	}
 	public void setCSNature(String cSNature) {
 		CSNature = cSNature;
+	}
+	
+	public String getCSNatureID() {
+		return CSNatureID;
+	}
+	public void setCSNatureID(String cSNatureID) {
+		CSNatureID = cSNatureID;
 	}
 	public String getPubCSType() {
 		return PubCSType;

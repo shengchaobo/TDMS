@@ -333,42 +333,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(teaID == null || teaID.length==0){
+				alert("教工号不能为空");
 				
-				$('#TeaIDSpan').html("<font style=\"color:red\">不能为空</font>") ;
 				return false ;
 			}
 			if(fromDept == null || fromDept.length == 0){
-				$('#FromDept').focus();
-				$('#FromDept').select();
-				$('#FromDeptSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				alert("所属部门不能为空");
 				return false ;
 			}
 			if(accidentSite == null || accidentSite.length == 0){
-
-				$('#AccidentSiteSpan').html("<font style=\"color:red\">不能为空</font>") ;
+	            alert("事故发生地点不能为空");
 				return false ;
 			}
 			if(cause == null || cause.length == 0){
-				$('#CauseSpan').html("<font style=\"color:red\">不能为空</font>") ;
+					alert("事由不能为空");
 				return false ;
 			}
 			if(handingTime == null || handingTime.length == 0){
-				$('#HandingTimeSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				alert("处理时间不能为空");
 				return false ;
 			}
 			if(accidentLevel == null || accidentLevel.length == 0){
-				$('#AccidentLevelSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				alert("教学事故等级不能为空");
 				return false ;
 			}
 			if(handingID == null || handingID.length == 0){
-				$('#HandingIDSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				alert("处理文号不能为空");
 				return false ;
 			}
-			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+			if(note.length > 1000){
+			     alert("备注中文字数不超过500");
 				return false ;
 			}
-			alert($('#FromDept').val()) ;
+			
 			return true ;
 		}
 			

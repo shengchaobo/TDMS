@@ -313,45 +313,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var note = $('#Note').val();
 			//根据数据库定义的字段的长度，对其进行判断
 			if(unitName == null || unitName.length==0 || unitName.length > 100){
-				$('#UnitName').focus();
-				$('#UnitName').select();
-				$('#UnitNameSpan').html("<font style=\"color:red\">单位名称不能为空或长度不超过100</font>") ;
+				alert("单位名称不能为空或长度不超过100");
 				return false;
 			}
 			if(meetingDate == null || meetingDate.length==0){
-				$('#MeetingDate').focus();
-				$('#MeetingDate').select();
-				$('#MeetingDateSpan').html("<font style=\"color:red\">会议日期不能为空</font>") ;
+				alert("会议日期不能为空");
 				return false;
 			}
 			if(meetingMemberInfo == null || meetingMemberInfo.length == 0 || meetingMemberInfo.length >200){
-				$('#MeetingMemberInfo').focus();
-				$('#MeetingMemberInfo').select();
-				$('#MeetingMemberInfoSpan').html("<font style=\"color:red\">参会人员情况不能为空或长度不超过200</font>") ;
+				alert("参会人员情况不能为空或长度不超过200");
 				return false;
 			}
 			if(meetingNum == null || meetingNum.length==0){
-				$('#MeetingNum').focus();
-				$('#MeetingNum').select();
-				$('#MeetingNumSpan').html("<font style=\"color:red\">不能为空</font>") ;
+					alert("会议人数不能为空");
+			
 				return false ;
 			}
 			if(meetingTheme == null || meetingTheme.length == 0 ){
-		
-				$('#MeetingThemeSpan').html("<font style=\"color:red\">不能为空</font>") ;
+		           	alert("会议主题不能为空");
+			
 				return false ;
 			}
 			if(meetingResult == null || meetingResult.length == 0){
-				
-				$('#MeetingResultSpan').html("<font style=\"color:red\">不能为空</font>") ;
+					alert("会议结果不能为空");
 				return false ;
 			}
 			
-			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+			if(note.length > 1000){
+				alert("备注中文字数不超过500");
+			
 				return false ;
 			}
-			alert($('#UnitName').val()) ;
+			
 			return true ;
 		}
 		

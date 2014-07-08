@@ -33,20 +33,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/commom.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:300px" url="pages/T152/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+	<table id="unverfiedData" class="easyui-datagrid"  url="pages/T152/auditingData" >
 		<thead data-options="frozen:true">
-			<tr>			
+					<tr>			
 					<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber">编号</th>
+					<th field="seqNumber">编号</th>
 					<th field="resInsName" >科研机构名称</th>
-				<th field="resInsID" >单位号</th>
-		     </tr>
+					<th field="resInsID" >单位号</th>
+		   	  		</tr>
 		</thead>
 		<thead>
 			<tr>
-			
 				<th field="type" >类别</th>
 				<th field="buildCondition"  formatter="booleanstr" >共建情况</th>
 				<th field="biOpen"  formatter="booleanstr" >是否对本科生开放</th>
@@ -60,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		 <div style="float: left;">
+		  <div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
@@ -74,19 +71,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
-		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+	<table id="verfiedData" class="easyui-datagrid"  url="">
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
+				<th field="ResInsName" >科研机构名称</th>
+				<th field="ResInsID" >单位号</th>
 		     </tr>
 		</thead>
 		<thead>
 			<tr>
-				<th field="ResInsName" >科研机构名称</th>
-				<th field="ResInsID" >单位号</th>
+				
 				<th field="Type" >类别</th>
 				<th field="BuildCondition" >共建情况</th>
 				<th field="BiOpen"  >是否对本科生开放</th>
@@ -112,14 +108,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-
 				<a href='pages/T152/downloadModel?saveFile=<%=URLEncoder.encode("表1-5-2教学单位科研机构（教学单位-科研处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
-		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+		<hr></hr>	
 		<h3 class="title1">教学单位科研机构逐条导入</h3>
 		
 		<form id="addForm" method="post">

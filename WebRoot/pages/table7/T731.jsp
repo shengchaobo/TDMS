@@ -39,28 +39,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T731/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+		        <th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber" >编号</th>
+				<th field="attendClassTerm" >听课学期</th>
+				<th field="leaderName" >校领导姓名</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="attendClassTerm" width="10%">听课学期</th>
-				<th field="leaderName" width="15%">校领导姓名</th>
-				<th field="leaderID" width="15%">校领导教工号</th>
-				<th field="attendClassTime" width="10%" formatter="formattime">听课日期</th>
-				<th field="lectureTea" width="10%">授课教师</th>
-				<th field="lectureTeaID" width="15%">授课教教工号</th>
-				<th field="lectureCS" width="10%">听课课程</th>
-				<th field="CSID" width="10%">课程编号</th>
-				<th field="setCSUnit" width="10%">开课单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="lectureClass" width="10%">上课班级</th>
-				<th field="evaluate" width="10%">综合评价</th>	
-				<th field="note" width="20%">备注</th>
+				<th field="leaderID">校领导教工号</th>
+				<th field="attendClassTime" formatter="formattime">听课日期</th>
+				<th field="lectureTea">授课教师</th>
+				<th field="lectureTeaID" >授课教教工号</th>
+				<th field="lectureCS" >听课课程</th>
+				<th field="CSID">课程编号</th>
+				<th field="setCSUnit">开课单位</th>
+				<th field="unitID">单位号</th>
+				<th field="lectureClass">上课班级</th>
+				<th field="evaluate">综合评价</th>	
+				<th field="note">备注</th>
 			
 			</tr>
 		</thead>
@@ -80,38 +87,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2">
+	<div id="toolbar2" style="float: right;">
 	<a href="pages/T731/dataExport?excelName=<%=URLEncoder.encode("表7-3-1校领导听课情况.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+			<thead data-options="frozen:true">
+			<tr>			
+		        <th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber" >编号</th>
+				<th field="attendClassTerm" >听课学期</th>
+				<th field="leaderName" >校领导姓名</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-					<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="attendClassTerm" width="10%">听课学期</th>
-				<th field="leaderName" width="15%">校领导姓名</th>
-				<th field="leaderID" width="15%">校领导教工号</th>
-				<th field="attendClassTime" width="10%" formatter="formattime">听课日期</th>
-				<th field="lectureTea" width="10%">授课教师</th>
-				<th field="lectureTeaID" width="15%">授课教教工号</th>
-				<th field="lectureCS" width="10%">听课课程</th>
-				<th field="CSID" width="10%">课程编号</th>
-				<th field="setCSUnit" width="10%">开课单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="lectureClass" width="10%">上课班级</th>
-				<th field="evaluate" width="10%">综合评价</th>	
-				<th field="note" width="20%">备注</th>
-				
+				<th field="leaderID">校领导教工号</th>
+				<th field="attendClassTime" formatter="formattime">听课日期</th>
+				<th field="lectureTea">授课教师</th>
+				<th field="lectureTeaID" >授课教教工号</th>
+				<th field="lectureCS" >听课课程</th>
+				<th field="CSID">课程编号</th>
+				<th field="setCSUnit">开课单位</th>
+				<th field="unitID">单位号</th>
+				<th field="lectureClass">上课班级</th>
+				<th field="evaluate">综合评价</th>	
+				<th field="note">备注</th>
+			
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">校领导听课情况批量导入</div>
+		<h3 class="title1">校领导听课情况批量导入</h3>
 		<div class="fitem" id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
@@ -121,9 +132,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			<a href="123"></a>
 		</div>
-<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+    <hr style="width: 100%; height: 5px; color: blue;"></hr>	
 			
-		<h3 class="ftitle">校领导听课情况逐条导入</h3>
+		<h3 class="title1">校领导听课情况逐条导入</h3>
 		<form id="t731Form" method="post">
 		<table>
 		
@@ -135,7 +146,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="AttendClassTerm" type="text" name="schleadInClass.AttendClassTerm"
 							><span id="AttendClassTermSpan"></span>
 					</div>
-					</td>
+				</td>
+					<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>校领导教工号：</label> 
@@ -157,6 +169,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="AttendClassTime" class="easyui-datebox" style="width:80px" name="schleadInClass.AttendClassTime"
 							><span id="AttendClassTimeSpan"></span>
 					</div>
+				</td>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>授课教师教工号：</label> 
@@ -179,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="LectureCSSpan"></span>
 					</div>
 				</td>
-			
+			<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>课程编号：</label> 
@@ -201,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="TeaUnitSpan"></span>
 					</div>
 				</td>
-			
+			<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>上课班级：</label> 
@@ -214,7 +228,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>综合评价：</label> 
-						<select class='easyui-combobox' id="Evaluate" name="schleadInClass.Evaluate">
+						<select class='easyui-combobox' id="Evaluate" name="schleadInClass.Evaluate" panelHeight="auto">
 						<option value="优">优</option>
 						<option value="良">良</option>
 						<option value="中">中</option>
@@ -226,7 +240,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>		
 			</tr>
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="schleadInClass.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -309,11 +323,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   }
 	    
 	    function newCourse(){
-	      $('#title1').show();
+	      $('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
 	        url="pages/T731/insert";
-		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+		    $('#dlg').dialog('open').dialog('setTitle','添加校领导听课情况');
 		    $('#t731Form').form('reset');
 	    }
 
@@ -408,11 +422,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	url = 'pages/T731/edit' ;
 	    		
-	    	 $('#title1').hide();
+	    	 $('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改校领导听课情况');
 	    
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#AttendClassTerm').val(row[0].attendClassTerm) ;
@@ -500,10 +514,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    </script>
-
-	<script type="text/javascript"> 
+<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
+			    var year=parseInt(val.year)+1900;  
+			    var month=(parseInt(val.month)+1);  
+			    month=month>9?month:('0'+month);  
+			    var date=parseInt(val.date);  
+			    date=date>9?date:('0'+date);  
+			    var hours=parseInt(val.hours);  
+			    hours=hours>9?hours:('0'+hours);  
+			    var minutes=parseInt(val.minutes);  
+			    minutes=minutes>9?minutes:('0'+minutes);  
+			    var seconds=parseInt(val.seconds);  
+			    seconds=seconds>9?seconds:('0'+seconds);  
+			    var time=year+'-'+month+'-'+date ;  
+			    //alert(time) ;
+			        return time;  
+			    }  
+			</script>
+         <script type="text/javascript"> 
+			//日期格式转换 
+			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  

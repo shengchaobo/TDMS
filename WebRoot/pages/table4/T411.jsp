@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href='pages/T411/downloadModel?saveFile=<%=URLEncoder.encode("表4-1-1教师基本信息（人事处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>	
-		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+		<hr width= 100%; height= 5px; color= blue></hr>	
 	   <h3 class="title1" >教师基本信息逐条导入</h3>
 	   <form id="addForm" method="post">
 		<table>

@@ -39,29 +39,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T721/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="itemName">项目名称</th>
+				<th field="teaUnit">所属教学单位</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="itemName" width="10%">项目名称</th>
-				<th field="teaUnit" width="15%">所属教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="leader" width="10%">负责人</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="otherTeaNum" width="20%">其他参与教师人数</th>
-				<th field="otherTea" width="10%">其他教师</th>
-				<th field="itemLevel" width="10%">级别</th>
-				<th field="itemSetUpTime" width="10%" formatter="formattime">立项时间</th>
-				<th field="receptTime" width="10%" formatter="formattime">验收时间</th>
-				<th field="applvExp" width="17%">批准经费（万元）</th>
-				<th field="schSupportExp" width="22%">学校配套经费（万元）</th>
-				<th field="appvlID" width="10%">批文号</th>	
-				<th field="note" width="20%">备注</th>
+				<th field="unitID">单位号</th>
+				<th field="leader">负责人</th>
+				<th field="teaID">教工号</th>
+				<th field="otherTeaNum">其他参与教师人数</th>
+				<th field="otherTea">其他教师</th>
+				<th field="itemLevel">级别</th>
+				<th field="itemSetUpTime" formatter="formattime">立项时间</th>
+				<th field="receptTime" formatter="formattime">验收时间</th>
+				<th field="applvExp">批准经费（万元）</th>
+				<th field="schSupportExp">学校配套经费（万元）</th>
+				<th field="appvlID">批文号</th>	
+				<th field="note">备注</th>
 				
 			</tr>
 		</thead>
@@ -81,39 +88,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2">
+	<div id="toolbar2" style="float: right;">
 		<a href="pages/T721/dataExport?excelName=<%=URLEncoder.encode("表7-2-1教育教学研究与改革项目.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="itemName">项目名称</th>
+				<th field="teaUnit">所属教学单位</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="itemName" width="10%">项目名称</th>
-				<th field="teaUnit" width="15%">所属教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="leader" width="10%">负责人</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="otherTeaNum" width="20%">其他参与教师人数</th>
-				<th field="otherTea" width="10%">其他教师</th>
-				<th field="itemLevel" width="10%">级别</th>
-				<th field="itemSetUpTime" width="10%" formatter="formattime">立项时间</th>
-				<th field="receptTime" width="10%" formatter="formattime">验收时间</th>
-				<th field="applvExp" width="17%">批准经费（万元）</th>
-				<th field="schSupportExp" width="22%">学校配套经费（万元）</th>
-				<th field="appvlID" width="10%">批文号</th>	
-				<th field="note" width="20%">备注</th>
-			
+				<th field="unitID">单位号</th>
+				<th field="leader">负责人</th>
+				<th field="teaID">教工号</th>
+				<th field="otherTeaNum">其他参与教师人数</th>
+				<th field="otherTea">其他教师</th>
+				<th field="itemLevel">级别</th>
+				<th field="itemSetUpTime" formatter="formattime">立项时间</th>
+				<th field="receptTime" formatter="formattime">验收时间</th>
+				<th field="applvExp">批准经费（万元）</th>
+				<th field="schSupportExp">学校配套经费（万元）</th>
+				<th field="appvlID">批文号</th>	
+				<th field="note">备注</th>
+				
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">教育教学研究与改革项目批量导入</div>
+		<h3 class="title1">教育教学研究与改革项目批量导入</h3>
 		<div class="fitem" id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
@@ -123,9 +134,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			<a href="123"></a>
 		</div>
- <hr style="width: 100%; height: 5px; color: blue;"></hr>	
+     <hr style="width: 100%; height: 5px; color: blue;"></hr>	
 			
-		<h3 class="ftitle">教育教学研究与改革项目逐条导入</h3>
+		<h3 class="title1">教育教学研究与改革项目逐条导入</h3>
 		<form id="t721Form" method="post">
 		<table>
 		
@@ -137,6 +148,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="ItemName" type="text" name="teachResItemTea.ItemName" 
 							><span id="ItemNameSpan"></span>
 					</div>
+				</td>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 					<label>所属教学单位：</label>
@@ -163,6 +176,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							
 							<span id="TeaIDSpan"></span>
 					</div>
+					</td>
+					<td class="empty"></td>	
 					
 				<td>
 					<div class="fitem">
@@ -180,7 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="OtherTeaSpan"></span>
 					</div>
 				</td>
-			
+			<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>级别：</label> 
@@ -200,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="ItemSetUpTimeSpan"></span>
 					</div>
 				</td>
-			
+			<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>验收时间：</label> 
@@ -209,6 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 				</tr>
+				
 				<tr>
 				<td>
 					<div class="fitem">
@@ -217,6 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="ApplvExpSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>学校配套经费（万元）：</label> 
@@ -236,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 			
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="teachResItemTea.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -321,11 +338,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   }
 	    
 	    function newCourse(){
-	     $('#title1').show();
-	    	$('#item1').show();
+	     $('.title1').show();
+	    	$('.item1').show();
 	    	$('hr').show();
 	        url="pages/T721/insert";
-		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+		    $('#dlg').dialog('open').dialog('setTitle','添加教育教学研究与改革项目');
 		    $('#t721Form').form('reset');
 	    }
 
@@ -368,57 +385,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var note = $('#Note').val();
 			//根据数据库定义的字段的长度，对其进行判断
 			if(itemName == null || itemName.length==0 || itemName.length > 100){
-				$('#ItemName').focus();
-				$('#ItemName').select();
-				$('#ItemNameSpan').html("<font style=\"color:red\">教学单位不能为空或长度不超过100</font>") ;
+			alert("教学单位不能为空或长度不超过100");
 				return false;
 			}
 			if(teaID == null || teaID.length == 0){
-				$('#TeaIDSpan').html("<font style=\"color:red\">负责人不能为空</font>") ;
+			alert("负责人不能为空");
 				return false ;
 			}
-			if(otherTeaNum == null || otherTeaNum.length==0){
-				
-				$('#OtherTeaNumSpan').html("<font style=\"color:red\">其他参与教师人数不能为空或长度不超过10</font>") ;
-				return false;
-			}
-			if(otherTea == null || otherTea.length == 0 || otherTea.length > 50){
-				$('#OtherTea').focus();
-				$('#OtherTea').select();
-				$('#OtherTeaSpan').html("<font style=\"color:red\">其他教师不能为空或长度不超过50</font>") ;
-				return false;
-			}
-			if(itemLevel == null || itemLevel.length==0 || itemLevel.length > 200){
-				$('#ItemLevel').focus();
-				$('#ItemLevel').select();
-				$('#ItemLevelSpan').html("<font style=\"color:red\">级别不能为空或长度不超过200</font>") ;
+			if(itemLevel == null || itemLevel.length==0 || itemLevel.length > 20){
+				alert("级别不能为空或长度不超过20");
 				return false ;
 			}
 			if(itemSetUpTime == null || itemSetUpTime.length == 0 ){
-				alert(awardRank) ;
-				$('#ItemSetUpTimeSpan').html("<font style=\"color:red\">立项时间不能为空</font>") ;
+				alert("立项时间不能为空") ;
 				return false ;
 			}
 			if(receptTime == null || receptTime.length == 0){
-				
-				$('#ReceptTimeSpan').html("<font style=\"color:red\">验收时间不能为空</font>") ;
+			    alert("验收时间不能为空") ;
 				return false ;
 			}
 			if(applvExp == null || applvExp.length == 0){
-				$('#ApplvExpSpan').html("<font style=\"color:red\">批准经费不能为空</font>") ;
+			    alert("批准经费不能为空") ;
 				return false ;
 			}
 			if(schSupportExp == null || schSupportExp.length == 0){
-				$('#SchSupportExpSpan').html("<font style=\"color:red\">学校配套经费不能为空</font>") ;
+			    alert("学校配套经费不能为空") ;
 				return false ;
 			}
 			if(appvlID == null || appvlID.length == 0){
-				$('#AppvlIDSpan').html("<font style=\"color:red\">批文号不能为空</font>") ;
+			   alert("批文号不能为空") ;
 				return false ;
 			}
 			
-			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+			if(note !=null && note.length > 500){
+			  alert("备注中文字数不超过500") ;
 				return false ;
 			}
 			alert($('#TeaUnit').val()) ;
@@ -433,11 +433,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/T721/edit' ;
-	        $('#title1').hide();
+	      	$('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','编辑教育教学研究与改革项目');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#ItemName').val(row[0].itemName) ;
 	    	$('#UnitID').combobox('select', row[0].unitID) ;
@@ -522,10 +522,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    }
 	    }
 	    </script>
-
 	<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -542,5 +544,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+	
 
 </html>

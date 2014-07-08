@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
@@ -90,8 +90,7 @@
     <include file="cn/nit/configuration/table1/T12.xml"/>
            <!-- T13学校科研单位 -->
     <include file="cn/nit/configuration/table1/T13.xml"/>
-        <!-- T14学校教学单位 -->
-
+       <!-- T14学校教学单位 -->
     <include file="cn/nit/configuration/table1/T14.xml"/>
       <!-- T19 -->
     <include file="cn/nit/configuration/table1/T19.xml"/>
@@ -103,7 +102,7 @@
      <include file="cn/nit/configuration/table2/T241.xml"/>
      <include file="cn/nit/configuration/table2/T242.xml"/>
      <include file="cn/nit/configuration/table2/T232.xml"/>
-    <include file="cn/nit/configuration/table2/T251.xml"/>
+     <include file="cn/nit/configuration/table2/T251.xml"/>
    	<include file="cn/nit/configuration/table2/T252.xml"/>
 	<include file="cn/nit/configuration/table2/T26.xml"/>
 	<include file="cn/nit/configuration/table2/T27.xml"/>
@@ -121,7 +120,6 @@
 	
     
     <!--table3-->
-
     <!-- t312博士点硕士点 -->
     <include file="cn/nit/configuration/table3/T312.xml"/>
     <!-- t311博士后流动站 -->
@@ -140,9 +138,6 @@
     <include file="cn/nit/configuration/table3/S322.xml"/>
 
     <!-- table5本科课程库 -->
-    <include file="cn/nit/configuration/UndergraCSBaseTea.xml"/>
-
-       <include file="cn/nit/configuration/table5/T551.xml"/>
          <include file="cn/nit/configuration/table5/T521.xml"/>
         <include file="cn/nit/configuration/table5/T522.xml"/>
           <include file="cn/nit/configuration/table5/T531.xml"/>
@@ -150,7 +145,6 @@
          <include file="cn/nit/configuration/table5/T533.xml"/>
         <include file="cn/nit/configuration/table5/T534.xml"/>
  
-
     <include file="cn/nit/configuration/table5/T552.xml"/>
     <include file="cn/nit/configuration/table5/T553.xml"/>
     <include file="cn/nit/configuration/table5/T551.xml"/>

@@ -11,14 +11,14 @@
 	 
 	    function newCourse(){ 
 	    
-	    	$('#title1').show();
+	    	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	
 	    	
 	    
 	     	url = "pages/T553/insert";
-		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+		    $('#dlg').dialog('open').dialog('setTitle','添加优秀本科生');
 		    $('#t553Form').form('reset');
 		   
 	    }
@@ -136,19 +136,19 @@
 	    	
 	    	url = 'pages/T553/edit' ;
 	    	
-	    	$('#title1').hide();
+	    	$('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改优秀本科生');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	
 	    	$('#AwardName').val(row[0].awardName) ;
-	    	$('#awardStuName').val(row[0].awardStuName) ;
-	    	$('#stuID').val(row[0].stuID) ;
+	    	$('#AwardStuName').val(row[0].awardStuName) ;
+	    	$('#StuID').val(row[0].stuID) ;
 	    	$('#TeaUnit').val(row[0].teaUnit) ;
-	    	$('#fromClass').val(row[0].fromClass) ;
+	    	$('#FromClass').val(row[0].fromClass) ;
 	    	$('#AwardLevel').combobox('select', row[0].awardLevelID) ;
 			$('#AwardTime').datebox('setValue',formattime(row[0].awardTime)) ;
 			$('#Note').val(row[0].note) ;

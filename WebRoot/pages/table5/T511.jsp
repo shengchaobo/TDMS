@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2">
+	<div id="toolbar2" style="float: right;">
 		<a href="pages/T511/dataExport?excelName=<%=URLEncoder.encode("表5-1-1本科课程库.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle" id="title1">本科课程库批量导入</h3>
+		<h3 class="title1">本科课程库批量导入</h3>
 		<div class="fitem" id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>	
 		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
 			
-		<h3 class="ftitle">本科课程库逐条导入</h3>
+		<h3 class="title1">本科课程库逐条导入</h3>
 		
 		
 		<form id="t511Form" method="post">
@@ -183,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>课程名称：</label> 
 						<input id="CSName" type="text" name="t511_Bean.CSName"
-							class="easyui-validatebox"><span id="CSNameSpan"></span>
+							><span id="CSNameSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>
@@ -191,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>课程编号：</label> 
 						<input id="CSID" type="text" name="t511_Bean.CSID"
-							class="easyui-validatebox" ><span id="CSIDSpan"></span>
+							><span id="CSIDSpan"></span>
 					</div>
 				</td>
 			</tr>	
@@ -224,7 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3">
+				<td>
 			    <div class="fitem">
 						<label>课程类别：</label> 
 						<input class='easyui-combobox' id="CSType" name="t511_Bean.CSType" 
@@ -246,7 +246,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>状&nbsp;&nbsp;&nbsp;&nbsp;态：</label> 
-						<select class='easyui-combobox' id="State" name="t511_Bean.State" >
+						<select class='easyui-combobox' id="State" name="t511_Bean.State" panelHeight="auto">
 							<option value="启用">启用</option>
 							<option value="停用">停用</option>
 						</select>	
@@ -257,7 +257,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>公选课类别：</label> 
-						<select class='easyui-combobox' id="PubCSType" name="t511_Bean.PubCSType">
+						<select class='easyui-combobox' id="PubCSType" name="t511_Bean.PubCSType" panelHeight="auto">
 							<option value="理工类">理工类</option>
 							<option value="人文社科类">人文社科类</option>
 							<option value="体育保健类">体育保健类</option>
@@ -269,8 +269,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
-					<textarea id="note" name="t511_Bean.note" style="resize:none" cols="50" rows="10"></textarea>
-					<span id="noteSpan"></span>
+					<textarea id="Note" name="t511_Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<span id="NoteSpan"></span>
 				</td>
 			</tr>			
 		</table>
@@ -305,24 +305,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	    </script>
 
-	<script type="text/javascript"> 
-			//日期格式转换 
-			function formattime(val) {  
-			    var year=parseInt(val.year)+1900;  
-			    var month=(parseInt(val.month)+1);  
-			    month=month>9?month:('0'+month);  
-			    var date=parseInt(val.date);  
-			    date=date>9?date:('0'+date);  
-			    var hours=parseInt(val.hours);  
-			    hours=hours>9?hours:('0'+hours);  
-			    var minutes=parseInt(val.minutes);  
-			    minutes=minutes>9?minutes:('0'+minutes);  
-			    var seconds=parseInt(val.seconds);  
-			    seconds=seconds>9?seconds:('0'+seconds);  
-			    var time=year+'-'+month+'-'+date ;  
-			    //alert(time) ;
-			        return time;  
-			    }  
-			</script>
+	
 
 </html>

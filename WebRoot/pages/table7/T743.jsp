@@ -38,27 +38,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T743/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="CSName" >课程名称</th>
+				<th field="CSID" >课程编号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="CSName" width="10%">课程名称</th>
-				<th field="CSID" width="10%">课程编号</th>
-				<th field="setCSUnit" width="10%">开课单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="CSType" width="10%">课程类别</th>
-				<th field="CSNature" width="10%">课程性质</th>
-				<th field="CSLeader" width="10%">课程负责人</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="assessYear" width="10%">评估年份</th>
-				<th field="assessResult" width="10%">评估结果</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="note" width="20%">备注</th>
+				<th field="setCSUnit">开课单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="CSType">课程类别</th>
+				<th field="CSNature">课程性质</th>
+				<th field="CSLeader">课程负责人</th>
+				<th field="teaID">教工号</th>
+				<th field="assessYear">评估年份</th>
+				<th field="assessResult">评估结果</th>
+				<th field="appvlID">批文号</th>
+				<th field="note">备注</th>
 				
 			</tr>
 		</thead>
@@ -78,37 +84,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2">
+	<div id="toolbar2" style="float: right;">
 	<a href="pages/T743/dataExport?excelName=<%=URLEncoder.encode("表7-4-3课程建设评估.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="CSName" >课程名称</th>
+				<th field="CSID" >课程编号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="CSName" width="10%">课程名称</th>
-				<th field="CSID" width="10%">课程编号</th>
-				<th field="setCSUnit" width="10%">开课单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="CSType" width="10%">课程类别</th>
-				<th field="CSNature" width="10%">课程性质</th>
-				<th field="CSLeader" width="10%">课程负责人</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="assessYear" width="10%">评估年份</th>
-				<th field="assessResult" width="10%">评估结果</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="note" width="20%">备注</th>
-			
+				<th field="setCSUnit">开课单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="CSType">课程类别</th>
+				<th field="CSNature">课程性质</th>
+				<th field="CSLeader">课程负责人</th>
+				<th field="teaID">教工号</th>
+				<th field="assessYear">评估年份</th>
+				<th field="assessResult">评估结果</th>
+				<th field="appvlID">批文号</th>
+				<th field="note">备注</th>
+				
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle"  id="title1">课程建设评估批量导入</div>
+		<h3 class="title1">课程建设评估批量导入</h3>
 		<div class="fitem" id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
@@ -120,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	    <hr style="width: 100%; height: 5px; color: blue;"></hr>	
 			
-		<h3 class="ftitle">课程建设评估逐条导入</h3>
+		<h3 class="title1">课程建设评估逐条导入</h3>
 		
 		<form id="courseForm" method="post">
 		<table>
@@ -133,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="CSNameSpan"></span>
 					</div>
 				</td>
-				
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>课程编号：</label> 
@@ -156,6 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="TeaUnitSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>课程类别：</label> 
@@ -180,6 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="CSNatureSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>教工号：</label> 
@@ -203,10 +215,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="AssessYearSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>评估结果：</label> 
-						<select class='easyui-combobox' id="AssessResult" name="courseBuildAssessAC.AssessResult" >
+						<select class='easyui-combobox' id="AssessResult" name="courseBuildAssessAC.AssessResult" panelHeight="auto">
 							<option value="校级优秀">校级优秀</option>
 							<option value="校级良好">校级良好</option>
 							<option value="校级合格">校级合格</option>
@@ -216,8 +229,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="AssessResultSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+		</tr>
+		<tr>
 				<td>
 					<div class="fitem">
 						<label>批文号：</label> 
@@ -228,7 +241,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="courseBuildAssessAC.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -319,11 +332,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  		 });
 	   }
 	    function newCourse(){
-	     $('#title1').show();
+	     $('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
 	        url="pages/T743/insert";
-		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+		    $('#dlg').dialog('open').dialog('setTitle','添加课程建设评估情况');
 		    $('#courseForm').form('reset');
 	    }
    function singleImport(){
@@ -426,11 +439,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/T743/edit' ;
-	    	  $('#title1').hide();
+	    	  $('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改课程建设评估情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#CSName').val(row[0].CSName) ;
 	    	$('#CSID').val(row[0].CSID) ;
@@ -516,10 +529,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    </script>
-
-	<script type="text/javascript"> 
+<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -536,6 +551,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+	
 
 </html>
 

@@ -39,23 +39,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T733/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+		    	<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="unitName">单位名称</th>
+				<th field="unitID">单位号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="unitName" width="10%">单位名称</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="meetingDate" width="10%" formatter="formattime">会议日期</th>
-				<th field="meetingMemberInfo" width="15%">参会人员情况</th>
-				<th field="meetingNum" width="10%">参会人数</th>
-				<th field="meetingTheme" width="22%">会议主要议题或内容</th>
-				<th field="meetingResult" width="25%">会议形成的主要决议或共识</th>	
-				<th field="note" width="20%">备注</th>
+				<th field="meetingDate" formatter="formattime">会议日期</th>
+				<th field="meetingMemberInfo">参会人员情况</th>
+				<th field="meetingNum">参会人数</th>
+				<th field="meetingTheme">会议主要议题或内容</th>
+				<th field="meetingResult">会议形成的主要决议或共识</th>	
+				<th field="note">备注</th>
 			
 			</tr>
 		</thead>
@@ -75,33 +81,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2">
+	<div id="toolbar2" style="float: right;">
 	<a href="pages/T733/dataExport?excelName=<%=URLEncoder.encode("表7-3-3各单位开展教学研究活动情况.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+		<thead data-options="frozen:true">
+			<tr>			
+		    	<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="unitName">单位名称</th>
+				<th field="unitID">单位号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="unitName" width="10%">单位名称</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="meetingDate" width="10%" formatter="formattime">会议日期</th>
-				<th field="meetingMemberInfo" width="15%">参会人员情况</th>
-				<th field="meetingNum" width="10%">参会人数</th>
-				<th field="meetingTheme" width="22%">会议主要议题或内容</th>
-				<th field="meetingResult" width="25%">会议形成的主要决议或共识</th>	
-				<th field="note" width="20%">备注</th>
-				
+				<th field="meetingDate" formatter="formattime">会议日期</th>
+				<th field="meetingMemberInfo">参会人员情况</th>
+				<th field="meetingNum">参会人数</th>
+				<th field="meetingTheme">会议主要议题或内容</th>
+				<th field="meetingResult">会议形成的主要决议或共识</th>	
+				<th field="note">备注</th>
+			
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 	style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">校领导听课情况批量导入</div>
+		<h3 class="title1">各单位开展教学研究活动情况批量导入</h3>
 		<div class="fitem" id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
@@ -113,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	<hr style="width: 100%; height: 5px; color: blue;"></hr>	
 			
-		<h3 class="ftitle">校领导听课情况逐条导入</h3>
+		<h3 class="title1">各单位开展教学研究活动情况逐条导入</h3>
 		<form id="courseForm" method="post">
 		<table>
 		
@@ -130,6 +140,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 }">
 							<span id="UnitNameSpan"></span>
 					</div>
+				</td>
+				<td class="empty"></td>		
 				<td>
 					<div class="fitem">
 						<label>会议日期：</label> 
@@ -145,6 +157,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="MeetingMemberInfo" type="text" name="eachUnitTeachResActInfo.MeetingMemberInfo"
 							><span id="MeetingMemberInfoSpan"></span>
 					</div>
+				</td>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>参会人数：</label> 
@@ -161,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="MeetingThemeSpan"></span>
 					</div>
 				</td>
-			
+			<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>会议形成的主要决议或共识：</label> 
@@ -173,7 +187,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 			<tr>
 			
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="eachUnitTeachResActInfo.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -257,11 +271,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    function newCourse(){
 	    
-	       $('#title1').show();
+	       $('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
 	        url="pages/T733/insert";
-		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+		    $('#dlg').dialog('open').dialog('setTitle','添加各单位开展教学研究活动情况');
 		    $('#courseForm').form('reset');
 	    }
 
@@ -351,10 +365,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	url = 'pages/T733/edit' ;
 	    	
-	        $('#title1').hide();
+	        $('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改各单位开展教学研究活动情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#UnitID').combobox('select', row[0].unitIDD) ;
 	    	$('#MeetingMemberInfo').val(row[0].meetingMemberInfo);
@@ -438,10 +452,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    </script>
-
-	<script type="text/javascript"> 
+       <script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -458,5 +474,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
-
+	
 </html>

@@ -15,16 +15,13 @@ import javax.persistence.TemporalType;
  * T655Cet46andJiangxiNcreTea entity. @author Yuan
  */
 
-@Table(name = "T655_CET46NCRE_Tea$", schema = "dbo", catalog = "TDMS")
-public class T655_Bean implements java.io.Serializable {
+public class T656_Bean implements java.io.Serializable {
 
 	// Fields
 	private int seqNumber;
 	private String unitId;
 	private String teaUnit;
-	private double CET4PassRate;
-	private double CET6PassRate;
-	private double jiangxiNCREPassRate;
+	private double nationNCREPassRate;
 	private Date time;
 	private String note;
 	
@@ -46,32 +43,13 @@ public class T655_Bean implements java.io.Serializable {
 	public void setTeaUnit(String teaUnit) {
 		this.teaUnit = teaUnit;
 	}
-	public double getCET4PassRate() {
-		return CET4PassRate;
-	}
-	public void setCET4PassRate(double cET4PassRate) {
-		CET4PassRate = cET4PassRate;
-	}
-	public void setCET6PassRate(double cET6PassRate) {
-		CET6PassRate = cET6PassRate;
-	}
-	public void setJiangxiNCREPassRate(double jiangxiNCREPassRate) {
-		this.jiangxiNCREPassRate = jiangxiNCREPassRate;
-	}
 	
-	public Double getCET6PassRate() {
-		return CET6PassRate;
+	public Double getNationNCREPassRate() {
+		return nationNCREPassRate;
 	}
-	public void setCET6PassRate(Double cET6PassRate) {
-		CET6PassRate = cET6PassRate;
+	public void setNationNCREPassRate(Double nationNCREPassRate) {
+		this.nationNCREPassRate = nationNCREPassRate;
 	}
-	public Double getJiangxiNCREPassRate() {
-		return jiangxiNCREPassRate;
-	}
-	public void setJiangxiNCREPassRate(Double jiangxiNCREPassRate) {
-		this.jiangxiNCREPassRate = jiangxiNCREPassRate;
-	}
-
 	public Date getTime() {
 		return time;
 	}

@@ -12,7 +12,7 @@
 				    ];
 				    							
 				$('#edit').propertygrid({
-						title : '本专科学生数量基本情况',
+						title : '留学生数量基本情况',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 				        width: '60%',
 				        height: 'auto',
@@ -27,22 +27,22 @@
 				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T611/loadInfo?selectYear='+selectYear,
+							url: 'pages/T613/loadInfo?selectYear='+selectYear,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i < 7){
+			                    while(i < rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
-			                    	i++;
+			                    	i= i+ 1;
 			                    }														
 							},
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
-				                    while(i < 7){
+				                    while(i < rows.length){
 				                    	rows[i].value = "";	
-				                    	i++;
+				                    	i= i+ 1;
 				                    }			                      
 			                }
 		    		})
@@ -62,12 +62,12 @@
        				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T611/loadInfo?selectYear='+year,
+							url: 'pages/T613/loadInfo?selectYear='+year,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i < 7){
+			                    while(i < rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i=i+1;
 			                    }								
@@ -75,7 +75,7 @@
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
 			                    var i = 0;
-			                    while(i < 7){
+			                    while(i < rows.length){
 			                    	rows[i].value = "";	
 			                    	i=i+1;
 			                    }
@@ -108,7 +108,7 @@
      				$.ajax( {
 					    		type : "POST",
 					    		contentType: "application/json;utf-8",
-								url: 'pages/T611/save?data='+data+'&selectYear='+year+'&fields='+f,
+								url: 'pages/T613/save?data='+data+'&selectYear='+year+'&fields='+f,
 					    		async : false,
 					    		dataType : "json",
 					    		success : function(json) {
@@ -138,11 +138,11 @@
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表6-1-1本专科学生数量基本情况.xls');
+			        var tableName = encodeURI('表6-1-3留学生数量基本情况（国际交流与合作处）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),
-					    url : "pages/T611/dataExport?excelName="+tableName+'&selectYear='+year,
+					    url : "pages/T613/dataExport?excelName="+tableName+'&selectYear='+year,
 					    onSubmit : function() {
 					    	return $(this).form('validate');//对数据进行格式化
 					    },

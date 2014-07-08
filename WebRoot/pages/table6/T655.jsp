@@ -26,29 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -74,8 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<th field="CET4PassRate">1.英语四级考试累计通过率（%）</th>
 				<th field="CET6PassRate">2.英语六级考试累计通过率（%）</th>
-				<th field="jiangxiNCREPassRate">3.江西省高校计算机等级考试累计通过率（%）</th>
-				<th field="nationNCREPassRate">4.全国高校计算机等级考试累计通过率（%）</th>				
+				<th field="jiangxiNCREPassRate">3.江西省高校计算机等级考试累计通过率（%）</th>			
 				<th field="note">备注</th>
 				<th field="time" formatter="formattime">时间</th>
 			</tr>
@@ -107,8 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<th field="CET4PassRate">1.英语四级考试累计通过率（%）</th>
 				<th field="CET6PassRate">2.英语六级考试累计通过率（%）</th>
-				<th field="jiangxiNCREPassRate">3.江西省高校计算机等级考试累计通过率（%）</th>
-				<th field="nationNCREPassRate">4.全国高校计算机等级考试累计通过率（%）</th>				
+				<th field="jiangxiNCREPassRate">3.江西省高校计算机等级考试累计通过率（%）</th>			
 				<th field="note">备注</th>
 				<th field="time" formatter="formattime">时间</th>
 			</tr>
@@ -122,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">英语四六级、计算机等级考试通过率批量导入</div>
+		<h3 class="title1">英语四六级、计算机等级考试通过率批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
@@ -132,9 +108,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href='pages/T655/downloadModel?saveFile=<%=URLEncoder.encode("表6-5-5学习成果—英语四六级、计算机等级考试.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
-	
+	<hr></hr>
 		<div></div>
-		<div class="ftitle">英语四六级、计算机等级考试通过率逐条导入</div>
+		<h3 class="title1">英语四六级、计算机等级考试通过率逐条导入</h3>
 		<form id="addItemForm" method="post">
 		<table>
 			<tr>
@@ -150,6 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 }">
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>英语四级考试累计通过率（%）：</label> 
@@ -166,6 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="CET6PassRate" name="T655_bean.CET6PassRate" class='easyui-validatebox'><span id="CET6PassRateSpan" ></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>江西省高校计算机等级考试累计通过率（%）：</label> 
@@ -175,13 +153,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 			<tr>
-				<td>			
-					<div class="fitem">
-						<label>全国高校计算机等级考试累计通过率（%）：</label> 
-						<input id="nationNCREPassRate" name="T655_bean.nationNCREPassRate" 
-							 class='easyui-validatebox'><span id="nationNCREPassRateSpan"></span>
-					</div>
-				</td>
 				<td>
 					<div class="fitem">
 						<label>时间：</label> 
@@ -193,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 			</tr>
 			<tr>
-				<td style="valign:left"><label>备注：</label>
+				<td style="valign:left" colspan="3"><label>备注：</label>
 					<textarea id="note" name="T655_bean.note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="noteSpan"></span>
 				</td>

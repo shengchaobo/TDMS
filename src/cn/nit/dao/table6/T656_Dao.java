@@ -8,28 +8,23 @@ import java.util.List;
 
 import net.sf.json.JSON;
 
-
-
-import cn.nit.bean.table6.T621_Bean;
-import cn.nit.bean.table6.T622_Bean;
-import cn.nit.bean.table6.T641_Bean;
-import cn.nit.bean.table6.T655_Bean;
+import cn.nit.bean.table6.T656_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 
-public class T655_Dao {
+public class T656_Dao {
 
 	/** 数据库表名 */
-	private String tableName = "T655_CET46NCRE_Tea$";
+	private String tableName = "T656_NationNCRE_Info$";
 
 	/** 数据自增长字段的主键，必须为自增长字段 */
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
-	private String field = "TeaUnit,UnitId,CET4PassRate,CET6PassRate,JiangxiNCREPassRate,Time,Note";
+	private String field = "TeaUnit,UnitId,NationNCREPassRate,Time,Note";
 
 	
-	private String fieldShow = "SeqNumber,TeaUnit,UnitId,CET4PassRate,CET6PassRate,JiangxiNCREPassRate,Time,Note";
+	private String fieldShow = "SeqNumber,TeaUnit,UnitId,NationNCREPassRate,Time,Note";
 		
 	/* ,FillTeaID,FillUnitID,audit */
 
@@ -41,7 +36,7 @@ public class T655_Dao {
 	 * 
 	 * @time: 2014-6-12
 	 */
-	public boolean insert(T655_Bean CET46AndJiangxiNCRE) {
+	public boolean insert(T656_Bean CET46AndJiangxiNCRE) {
 
 		// flag判断数据是否插入成功
 		boolean flag = false;
@@ -65,7 +60,7 @@ public class T655_Dao {
 	 *            {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T655_Bean> list) {
+	public boolean batchInsert(List<T656_Bean> list) {
 
 		boolean flag = false;
 		Connection conn = DBConnection.instance.getConnection();
@@ -81,7 +76,7 @@ public class T655_Dao {
 	}
 
 	// 更新
-	public boolean update(T655_Bean CET46AndJiangxiNCRE) {
+	public boolean update(T656_Bean CET46AndJiangxiNCRE) {
 
 		boolean flag = false;
 		Connection conn = DBConnection.instance.getConnection();
@@ -127,7 +122,7 @@ public class T655_Dao {
 		return this.tableName;
 	}
 	
-	public List<T655_Bean> queryPageList(int pagesize, int currentpage) {
+	public List<T656_Bean> queryPageList(int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
 		
 		
@@ -140,12 +135,12 @@ public class T655_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T655_Bean> list = null ;
+		List<T656_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(queryPageSql) ;
-			list = DAOUtil.getList(rs, T655_Bean.class) ;
+			list = DAOUtil.getList(rs, T656_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
@@ -158,7 +153,7 @@ public class T655_Dao {
 		return list ;
 	}
 	
-	public List<T655_Bean> queryPageList(String cond, Object object,
+	public List<T656_Bean> queryPageList(String cond, Object object,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
 		String queryPageSql;
@@ -174,12 +169,12 @@ public class T655_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T655_Bean> list = null ;
+		List<T656_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(queryPageSql) ;
-			list = DAOUtil.getList(rs, T655_Bean.class) ;
+			list = DAOUtil.getList(rs, T656_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
@@ -192,18 +187,18 @@ public class T655_Dao {
 		return list ;
 	}
 	
-	public List<T655_Bean> getAllList() {
+	public List<T656_Bean> getAllList() {
 		// TODO Auto-generated method stub
 		String sql = "select " + fieldShow + " from " + tableName ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T655_Bean> list = null ;
+		List<T656_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T655_Bean.class) ;
+			list = DAOUtil.getList(rs, T656_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
@@ -216,7 +211,7 @@ public class T655_Dao {
 		return list ;
 	}
 	
-	public List<T655_Bean> getAllList(String cond, Object object) {
+	public List<T656_Bean> getAllList(String cond, Object object) {
 		// TODO Auto-generated method stub
 		String sql;
 		
@@ -226,12 +221,12 @@ public class T655_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T655_Bean> list = null ;
+		List<T656_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T655_Bean.class) ;
+			list = DAOUtil.getList(rs, T656_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
@@ -246,16 +241,15 @@ public class T655_Dao {
 
 	public static void main(String args[]) {
 
-		T655_Dao CET46AndJiangxiNCREDao = new T655_Dao();
-		T655_Bean CET46AndJiangxiNCRE = new T655_Bean();
+		T656_Dao CET46AndJiangxiNCREDao = new T656_Dao();
+		T656_Bean CET46AndJiangxiNCRE = new T656_Bean();
 //		 CET46AndJiangxiNCRE.setSeqNumber(1);
 		//	
 		
 		CET46AndJiangxiNCRE.setTeaUnit("水利与生态工程学院");
 		CET46AndJiangxiNCRE.setUnitId("3001");
-		CET46AndJiangxiNCRE.setCET4PassRate(48.511);
-		CET46AndJiangxiNCRE.setCET6PassRate(48.50);
-		CET46AndJiangxiNCRE.setJiangxiNCREPassRate(48.50);
+
+		CET46AndJiangxiNCRE.setNationNCREPassRate(48.50);
 	
 				
 		CET46AndJiangxiNCRE.setTime(new Date());

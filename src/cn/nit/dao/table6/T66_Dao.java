@@ -25,11 +25,7 @@ public class T66_Dao {
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
-	private String field = "StuClubSum,StuClubSciNum,StuClubHumanNum,StuClubSportNum,StuClubArtNum,OtherStuClub,JoinStuSum,JoinClubSciNum,StuClubHumanNum1,JoinClubSportNum,JoinClubArtNum,JoinOtherClub,Time,Note";
-
-	
-	private String fieldShow = "SeqNumber,StuClubSum,StuClubSciNum,StuClubHumanNum,StuClubSportNum,StuClubArtNum,OtherStuClub,JoinStuSum,JoinClubSciNum,StuClubHumanNum1,JoinClubSportNum,JoinClubArtNum,JoinOtherClub,Time,Note";
-
+	private String field = "StuClubSum,StuClubSciNum,StuClubHumanNum,StuClubSportNum,StuClubArtNum,OtherStuClub,JoinStuSum,JoinClubSciNum,JoinClubHumanNum,JoinClubSportNum,JoinClubArtNum,JoinOtherClub,Time,Note";	
 
 	/**
 	 * 获取字典表的所有数据
@@ -89,10 +85,132 @@ public class T66_Dao {
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());
-				flag = DAOUtil.update(bean, tableName, key, fields, conn) ;
+				String tempfields = fields + ",StuClubSum,JoinStuSum";
+				
+				int stuClubSum = tempBean.getStuClubSum();
+				int joinStuSum = tempBean.getJoinStuSum();
+				
+//				学生社团总数
+				if(bean.getStuClubSciNum()!=null){
+					if(tempBean.getStuClubSciNum()==null){
+						stuClubSum = stuClubSum + bean.getStuClubSciNum();
+					}else{
+						stuClubSum = stuClubSum + (bean.getStuClubSciNum()-tempBean.getStuClubSciNum());
+					}
+				}
+				if(bean.getStuClubHumanNum()!=null){
+					if(tempBean.getStuClubHumanNum()==null){
+						stuClubSum = stuClubSum + bean.getStuClubHumanNum();
+					}else{
+						stuClubSum = stuClubSum + (bean.getStuClubHumanNum()-tempBean.getStuClubHumanNum());
+					}
+				}
+				if(bean.getStuClubSportNum()!=null){
+					if(tempBean.getStuClubSportNum()==null){
+						stuClubSum = stuClubSum + bean.getStuClubSportNum();
+					}else{
+						stuClubSum = stuClubSum + (bean.getStuClubSportNum()-tempBean.getStuClubSportNum());
+					}
+				}
+				if(bean.getStuClubArtNum()!=null){
+					if(tempBean.getStuClubArtNum()==null){
+						stuClubSum = stuClubSum + bean.getStuClubArtNum();
+					}else{
+						stuClubSum = stuClubSum + (bean.getStuClubArtNum()-tempBean.getStuClubArtNum());
+					}
+				}
+				if(bean.getOtherStuClub()!=null){
+					if(tempBean.getOtherStuClub()==null){
+						stuClubSum = stuClubSum + bean.getOtherStuClub();
+					}else{
+						stuClubSum = stuClubSum + (bean.getOtherStuClub()-tempBean.getOtherStuClub());
+					}
+				}
+				bean.setStuClubSum(stuClubSum);
+				
+				
+//				参与人次数
+				if(bean.getJoinClubSciNum()!=null){
+					if(tempBean.getJoinClubSciNum()==null){
+						joinStuSum = joinStuSum + bean.getJoinClubSciNum();
+					}else{
+						joinStuSum = joinStuSum + (bean.getJoinClubSciNum()-tempBean.getJoinClubSciNum());
+					}
+				}
+				if(bean.getJoinClubHumanNum()!=null){
+					if(tempBean.getJoinClubHumanNum()==null){
+						joinStuSum = joinStuSum + bean.getJoinClubHumanNum();
+					}else{
+						joinStuSum = joinStuSum + (bean.getJoinClubHumanNum()-tempBean.getJoinClubHumanNum());
+					}
+				}
+				if(bean.getJoinClubSportNum()!=null){
+					if(tempBean.getJoinClubSportNum()==null){
+						joinStuSum = joinStuSum + bean.getJoinClubSportNum();
+					}else{
+						joinStuSum = joinStuSum + (bean.getJoinClubSportNum()-tempBean.getJoinClubSportNum());
+					}
+				}
+				if(bean.getJoinClubArtNum()!=null){
+					if(tempBean.getJoinClubArtNum()==null){
+						joinStuSum = joinStuSum + bean.getJoinClubArtNum();
+					}else{
+						joinStuSum = joinStuSum + (bean.getJoinClubArtNum()-tempBean.getJoinClubArtNum());
+					}
+				}
+				if(bean.getJoinOtherClub()!=null){
+					if(tempBean.getJoinOtherClub()==null){
+						joinStuSum = joinStuSum + bean.getJoinOtherClub();
+					}else{
+						joinStuSum = joinStuSum + (bean.getJoinOtherClub()-tempBean.getJoinOtherClub());
+					}
+				}
+				bean.setJoinStuSum(joinStuSum);									
+				flag = DAOUtil.update(bean, tableName, key, tempfields, conn) ;
 			}else{
 				bean.setTime(TimeUtil.changeDateY(year));
-				String tempfields = fields + ",Time";
+				int stuClubSum =0;
+				int joinStuSum = 0;
+				
+				
+//				学生社团总数
+				if(bean.getStuClubSciNum()!=null){
+					stuClubSum = stuClubSum + bean.getStuClubSciNum();
+				}
+				if(bean.getStuClubHumanNum()!=null){
+					stuClubSum = stuClubSum + bean.getStuClubHumanNum();
+				}
+				if(bean.getStuClubSportNum()!=null){
+					stuClubSum = stuClubSum + bean.getStuClubSportNum();
+				}
+				if(bean.getStuClubArtNum()!=null){
+					stuClubSum = stuClubSum + bean.getStuClubArtNum();
+				}
+				if(bean.getOtherStuClub()!=null){
+					stuClubSum = stuClubSum + bean.getOtherStuClub();
+				}
+				bean.setStuClubSum(stuClubSum);
+				
+				
+//				参与人次数
+				if(bean.getJoinClubSciNum()!=null){
+					joinStuSum = joinStuSum + bean.getJoinClubSciNum();
+				}
+				if(bean.getJoinClubHumanNum()!=null){
+					joinStuSum = joinStuSum + bean.getJoinClubHumanNum();
+				}
+				if(bean.getJoinClubSportNum()!=null){
+					joinStuSum = joinStuSum + bean.getJoinClubSportNum();
+				}
+				if(bean.getJoinClubArtNum()!=null){
+					joinStuSum = joinStuSum + bean.getJoinClubArtNum();
+				}
+				if(bean.getJoinOtherClub()!=null){
+					joinStuSum = joinStuSum + bean.getJoinOtherClub();
+				}
+				bean.setJoinStuSum(joinStuSum);	
+				
+				String tempfields = fields + ",StuClubSum,JoinStuSum,Time";
 				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
 			}
 		}catch(Exception e){

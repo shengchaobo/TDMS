@@ -1,11 +1,12 @@
 var url;
 //弹出添加的界面
 function newItem() {
-	url = 'pages/T671/insert' ; 
+	url = 'pages/T656/insert' ; 
+
 	$('.title1').show();
 	$('#item1').show();
 	$('hr').show();
-	$('#dlg').dialog('open').dialog('setTitle', '辅修情况汇总');
+	$('#dlg').dialog('open').dialog('setTitle', '学习成果—英语四六级、计算机等级考试通过率');
 	$('#addItemForm').form('reset');
 }
 // 单条录入时的表单提交
@@ -37,60 +38,42 @@ function validate() {
 	// 获取文本框的值
 	
 	var  num = /^\d+$/;  //用于判断字符串是否全是数字
-
-	var stuName = $('#stuName').val();
-	var stuId = $('#stuId').val();
+	
 	
 	var unitId = $('#unitId').combobox('getText');
-	var majId = $('#majId').combobox('getText');
-
-	var fromClass = $('#fromClass').val();
-	var minorUnitId = $('#minorUnitId').combobox('getText');
-	var minorId = $('#minorId').combobox('getText');
-	
-	var beginTime = $('#beginTime').datetimebox('getValue');
-	var graduateTime = $('#graduateTime').datetimebox('getValue');
-
+	var nationNCREPassRate = $('#nationNCREPassRate').val();
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
 
-	// 根据数据库定义的字段的长度，对其进行判断
-	
-	if (stuName == null || stuName.length == 0) {
-		alert("学生姓名不能为空");
-		return false;
-	}
-	
-	if (stuId == null || stuId.length == 0) {
-		alert("学号不能为空");
-		return false;
-	}
 
-	if (unitId == null || unitId.length == 0 || minorUnitId == null || minorUnitId.length == 0) {
-		alert("所在教学单位不能为空");
+
+	// 根据数据库定义的字段的长度，对其进行判断
+
+	if (unitId == null || unitId.length == 0) {
+		alert("教学单位不能为空");
 		return false;
 	}
 	
-	if (majId == null || majId.length == 0 || minorId == null || minorId.length == 0) {
-		alert("所在专业或辅修专业不能为空");
+	if (nationNCREPassRate == null || nationNCREPassRate.length == 0) {
+		alert("全国高校计算机等级考试累计通过率不能为空");
 		return false;
 	}
+	
+//
+//	
+//	if (awardStuNum == "" || guideTeaNum == "") {
+//		alert("获奖学生数或指导教师部分请填写数字，若无请填写0");
+//		return false;
+//	}
+//	
+//	if (!awardStuNum.match(num) || !guideTeaNum.match(num)) {
+//	alert("获奖学生数或指导教师部分请填写数字，若无请填写0");
+//	return false;
+//	}
 	
 	if (time == null || time.length == 0) {
-		
+	
 		alert("请选择时间");
-		return false;
-	}
-	
-	if (beginTime == null || beginTime.length == 0) {
-		
-		alert("请选择起始时间");
-		return false;
-	}
-	
-	if (graduateTime == null || graduateTime.length == 0) {
-	
-		alert("请选择预计毕业时间");
 		return false;
 	}
 
@@ -131,7 +114,7 @@ function deleteByIds() {
 function deletes(ids) {
 	$.ajax( {
 		type : "POST",
-		url : "pages/T671/deleteByIds?ids=" + ids,
+		url : "pages/T656/deleteByIds?ids=" + ids,
 		async : "true",
 		dataType : "text",
 		success : function(result) {
@@ -153,23 +136,17 @@ function editItem() {
 		return;
 	}
 
-	url = 'pages/T671/edit';
+	url = 'pages/T656/edit';
 	
 	$('.title1').hide();
 	$('#item1').hide();
 	$('hr').hide();
 	
-	$('#dlg').dialog('open').dialog('setTitle', '辅修情况汇总');
+	$('#dlg').dialog('open').dialog('setTitle', '学习成果—英语四六级、计算机等级考试通过率');
 	$('#seqNumber').val(row[0].seqNumber);
-	$('#stuName').val(row[0].stuName);
-	$('#stuId').val(row[0].stuId);
 	$('#unitId').combobox('select', row[0].unitId);
-	$('#majId').combobox('select', row[0].majId);
-	$('#minorUnitId').combobox('select', row[0].minorUnitId);
-	$('#minorId').combobox('select', row[0].minorId);
-	$('#fromClass').val(row[0].fromClass);
-	$('#beginTime').datebox("setValue", formattime(row[0].beginTime)) ;
-	$('#graduateTime').datebox("setValue", formattime(row[0].graduateTime)) ;
+	
+	$('#nationNCREPassRate').val(row[0].nationNCREPassRate);
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);
 }
@@ -197,7 +174,7 @@ function batchImport(){
 	   		return false ;
 	 }
 	 $('#batchForm').form('submit',{
-		 url: 'pages/T671/uploadFile',
+		 url: 'pages/T656/uploadFile',
 		 type: "post",
 	     dataType: "json",
 		 onSubmit: function(){

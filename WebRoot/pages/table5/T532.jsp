@@ -41,13 +41,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
+					<th data-options="field:'centerName'">
+						中心名称
+					</th>
 		     </tr>
 		</thead>
 		<thead>
 				<tr>					
-					<th data-options="field:'centerName'">
-						中心名称
-					</th>
+				
 					<th data-options="field:'fromSubject'">
 						所属学科
 					</th>
@@ -109,13 +110,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
+				<th data-options="field:'centerName'">
+						中心名称
+					</th>
+				
 		     </tr>
 		</thead>
 		<thead>
 				<tr>					
-					<th data-options="field:'centerName'">
-						中心名称
-					</th>
+					
 					<th data-options="field:'fromSubject'">
 						所属学科
 					</th>

@@ -41,16 +41,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
-		     </tr>
-		</thead>
-		<thead>
-				<tr>					
-					<th data-options="field:'teaUnit'">
+				<th data-options="field:'teaUnit'">
 						教学单位
 					</th>
 					<th data-options="field:'unitID'">
 						单位号
 					</th>
+		     </tr>
+		</thead>
+		<thead>
+				<tr>					
+					
 					<th data-options="field:'majorName'">
 						专业名称
 					</th>
@@ -75,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'title'">
 						职称
 					</th>
-					<th data-options="field:'isExcellent'" formatter="formatBoolean">
+					<th data-options="field:'isExcellent'" formatter="formatBoolean"> 
 						是否获评校级优秀指导教师
 					</th>
 					<th data-options="field:'trainIssueNum'">
@@ -119,16 +120,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
-		     </tr>
-		</thead>
-		<thead>
-				<tr>					
-					<th data-options="field:'TeaUnit'">
+				<th data-options="field:'TeaUnit'">
 						教学单位
 					</th>
 					<th data-options="field:'UnitID'">
 						单位号
 					</th>
+		     </tr>
+		</thead>
+		<thead>
+				<tr>					
+					
 					<th data-options="field:'MajorName'">
 						专业名称
 					</th>

@@ -39,29 +39,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T732/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+		       	<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="attendClassTerm">听课学期</th>
+				<th field="leaderName">教学单位领导姓名</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="attendClassTerm" width="10%">听课学期</th>
-				<th field="leaderName" width="20%">教学单位领导姓名</th>
-				<th field="leaderTeaID" width="15%">领导教工号</th>
-				<th field="adminTitle" width="10%">行政职务</th>
-				<th field="attendClassTime" width="10%" formatter="formattime">听课日期</th>
-				<th field="lectureTea" width="10%">授课教师</th>
-				<th field="lectureTeaID" width="15%">授课教教工号</th>
-				<th field="lectureCS" width="10%">听课课程</th>
-				<th field="CSID" width="10%">课程编号</th>
-				<th field="setCSUnit" width="10%">开课单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="lectureClass" width="10%">上课班级</th>
-				<th field="evaluate" width="10%">综合评价</th>	
-				<th field="note" width="20%">备注</th>
+				<th field="leaderTeaID">领导教工号</th>
+				<th field="adminTitle" >行政职务</th>
+				<th field="attendClassTime" formatter="formattime">听课日期</th>
+				<th field="lectureTea">授课教师</th>
+				<th field="lectureTeaID" >授课教教工号</th>
+				<th field="lectureCS">听课课程</th>
+				<th field="CSID">课程编号</th>
+				<th field="setCSUnit">开课单位</th>
+				<th field="unitID">单位号</th>
+				<th field="lectureClass">上课班级</th>
+				<th field="evaluate">综合评价</th>	
+				<th field="note">备注</th>
 			
 			</tr>
 		</thead>
@@ -87,26 +93,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+			<thead data-options="frozen:true">
+			<tr>			
+		       	<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+					<th field="attendClassTerm">听课学期</th>
+				<th field="leaderName">教学单位领导姓名</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="attendClassTerm" width="10%">听课学期</th>
-				<th field="leaderName" width="20%">教学单位领导姓名</th>
-				<th field="leaderTeaID" width="15%">领导教工号</th>
-				<th field="adminTitle" width="10%">行政职务</th>
-				<th field="attendClassTime" width="10%" formatter="formattime">听课日期</th>
-				<th field="lectureTea" width="10%">授课教师</th>
-				<th field="lectureTeaID" width="15%">授课教教工号</th>
-				<th field="lectureCS" width="10%">听课课程</th>
-				<th field="CSID" width="10%">课程编号</th>
-				<th field="setCSUnit" width="10%">开课单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="lectureClass" width="10%">上课班级</th>
-				<th field="evaluate" width="10%">综合评价</th>	
-				<th field="note" width="20%">备注</th>
-				
+				<th field="leaderTeaID">领导教工号</th>
+				<th field="adminTitle" >行政职务</th>
+				<th field="attendClassTime" formatter="formattime">听课日期</th>
+				<th field="lectureTea">授课教师</th>
+				<th field="lectureTeaID" >授课教教工号</th>
+				<th field="lectureCS">听课课程</th>
+				<th field="CSID">课程编号</th>
+				<th field="setCSUnit">开课单位</th>
+				<th field="unitID">单位号</th>
+				<th field="lectureClass">上课班级</th>
+				<th field="evaluate">综合评价</th>	
+				<th field="note">备注</th>
+			
 			</tr>
 		</thead>
 	</table>
@@ -519,10 +529,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    </script>
-
-	<script type="text/javascript"> 
+    <script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -539,6 +551,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+
+
 
 </html>
 

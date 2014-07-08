@@ -39,23 +39,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T733/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+		    	<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="unitName">单位名称</th>
+				<th field="unitID">单位号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="unitName" width="10%">单位名称</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="meetingDate" width="10%" formatter="formattime">会议日期</th>
-				<th field="meetingMemberInfo" width="15%">参会人员情况</th>
-				<th field="meetingNum" width="10%">参会人数</th>
-				<th field="meetingTheme" width="22%">会议主要议题或内容</th>
-				<th field="meetingResult" width="25%">会议形成的主要决议或共识</th>	
-				<th field="note" width="20%">备注</th>
+				<th field="meetingDate" formatter="formattime">会议日期</th>
+				<th field="meetingMemberInfo">参会人员情况</th>
+				<th field="meetingNum">参会人数</th>
+				<th field="meetingTheme">会议主要议题或内容</th>
+				<th field="meetingResult">会议形成的主要决议或共识</th>	
+				<th field="note">备注</th>
 			
 			</tr>
 		</thead>
@@ -81,20 +87,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+		<thead data-options="frozen:true">
+			<tr>			
+		    	<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="unitName">单位名称</th>
+				<th field="unitID">单位号</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="unitName" width="10%">单位名称</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="meetingDate" width="10%" formatter="formattime">会议日期</th>
-				<th field="meetingMemberInfo" width="15%">参会人员情况</th>
-				<th field="meetingNum" width="10%">参会人数</th>
-				<th field="meetingTheme" width="22%">会议主要议题或内容</th>
-				<th field="meetingResult" width="25%">会议形成的主要决议或共识</th>	
-				<th field="note" width="20%">备注</th>
-				
+				<th field="meetingDate" formatter="formattime">会议日期</th>
+				<th field="meetingMemberInfo">参会人员情况</th>
+				<th field="meetingNum">参会人数</th>
+				<th field="meetingTheme">会议主要议题或内容</th>
+				<th field="meetingResult">会议形成的主要决议或共识</th>	
+				<th field="note">备注</th>
+			
 			</tr>
 		</thead>
 	</table>
@@ -442,10 +452,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    </script>
-
-	<script type="text/javascript"> 
+       <script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -462,5 +474,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
-
+	
 </html>

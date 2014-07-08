@@ -38,25 +38,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
 	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T734/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+		  		<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber" >编号</th>
+				<th field="accidentSite" >事故发生地点</th>
+				<th field="cause">事由</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="teaName" width="10%">教师</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="fromDept" width="10%">所属部门</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="accidentSite" width="15%">事故发生地点</th>
-				<th field="cause" width="10%">事由</th>
-				<th field="handingTime" width="10%" formatter="formattime">处理时间</th>
-				<th field="accidentLevel" width="15%">教学事故等级</th>
-				<th field="handingID" width="10%">处理文号</th>
-				<th field="note" width="20%">备注</th>
+				<th field="teaName" >教师</th>
+				<th field="teaID">教工号</th>
+				<th field="fromDept">所属部门</th>
+				<th field="unitID">单位号</th>
+				<th field="handingTime" formatter="formattime">处理时间</th>
+				<th field="accidentLevel">教学事故等级</th>
+				<th field="handingID">处理文号</th>
+				<th field="note">备注</th>
 			
 			</tr>
 		</thead>
@@ -82,22 +88,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+		<thead data-options="frozen:true">
+			<tr>			
+		  		<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber" >编号</th>
+				<th field="accidentSite" >事故发生地点</th>
+				<th field="cause">事由</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="teaName" width="10%">教师</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="fromDept" width="10%">所属部门</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="accidentSite" width="15%">事故发生地点</th>
-				<th field="cause" width="10%">事由</th>
-				<th field="handingTime" width="10%" formatter="formattime">处理时间</th>
-				<th field="accidentLevel" width="15%">教学事故等级</th>
-				<th field="handingID" width="10%">处理文号</th>
-				<th field="note" width="20%">备注</th>
-				
+				<th field="teaName" >教师</th>
+				<th field="teaID">教工号</th>
+				<th field="fromDept">所属部门</th>
+				<th field="unitID">单位号</th>
+				<th field="handingTime" formatter="formattime">处理时间</th>
+				<th field="accidentLevel">教学事故等级</th>
+				<th field="handingID">处理文号</th>
+				<th field="note">备注</th>
+			
 			</tr>
 		</thead>
 	</table>
@@ -459,10 +469,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    </script>
-
-	<script type="text/javascript"> 
+  <script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -479,6 +491,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+	
 
 </html>
 

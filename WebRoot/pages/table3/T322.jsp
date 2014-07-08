@@ -62,64 +62,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<th data-options="field:'ck',checkbox:true" >选取</th>
 				<th field="seqNumber" >序号</th>
+				<th field="majorName" >专业名称</th>
+				<th field="majorID" >专业代码</th>
 			</tr>
 		</thead>
 		<thead>
 			<tr>	
-				<th field="MajorName"  formatter="formattime">专业名称</th>
-				<th field="MajorID" >专业代码</th>
-				<th field="MajorVersion" >代码版本</th>
-				<th field="MajorField" >专业方向名称</th>
-				<th field="MajorFieldID" >专业方向号</th>
-				<th field="MajorSetTime"  formatter="formattime">专业设置时间</th>
-				<th field="MajorAppvlID"  >批文号</th>
-				<th field="MajorDurition" >学制</th>
-				<th field="MajorDegreeType" >学位授予门类</th>
-				<th field="MajorAdmisTime" >开始招生时间</th>
-				<th field="MajorState" >招生状态</th>
-				<th field="StopAdmisTime" >停止招生时间</th>
-				<th field="IsNewMajor"  formatter="formattime">是否新办专业</th>
-				<th field="AppvlYear" >批准建设年度</th>
-				<th field="BuildAppvlID" >建设批文号</th>
-				<th field="MajorLevel" >级别</th>
-				<th field="Type" >类型</th>
-				<th field="Field" >领域方向</th>
-				<th field="Leader"  formatter="formattime">建设负责人</th>
-				<th field="TeaID" >教工号</th>
-				<th field="CheckTime" >验收时间</th>
-				<th field="CheckAppvlID" >验收批文号</th>
-				<th field="SchExp" >学校经费（万元）</th>
-				<th field="EduMinistryExp" >教育部经费（万元）</th>
-				<th field="FirstAppvlTime"  formatter="formattime">首次通过认证时间</th>
-				<th field="AppvlTime" >认证时间</th>
-				<th field="AppvlID" >批文号</th>
-				<th field="AppvlResult" >认证结果</th>
-				<th field="FromTime" >有效期（起）</th>
-				<th field="EndTime" >有效期（止）</th>
-				<th field="AppvlAuth"  formatter="formattime">认证机构</th>
-				<th field="TotalCSHour" >总学时数</th>
-				<th field="RequireCShour" >必修课学时数</th>
-				<th field="OptionCSHour" >选修课学时数</th>
-				<th field="InClassCSHour" >课内教学学时数</th>
-				<th field="ExpCSHour" >实验教学学时数</th>
-				<th field="PraCSHour" >集中性实践教学环节学时数</th>
-				<th field="TotalCredit" >总学分数</th>
-				<th field="RequireCredit"  formatter="formattime">必修课学分数</th>
-				<th field="OptionCredit" >选修课学分数</th>
-				<th field="InClassCredit" >课内教学学分数</th>
-				<th field="ExpCredit" >实验教学学分数</th>
-				<th field="PraCredit" >集中实践教学环节学分数</th>
-				<th field="OutClassCredit" >课外科技活动学分数</th>
+				<th field="majorVersion" >代码版本</th>
+				<th field="majorField" >专业方向名称</th>
+				<th field="majorFieldID" >专业方向号</th>
+				<th field="majorSetTime"  formatter="formattime">专业设置时间</th>
+				<th field="majorAppvlID"  >批文号</th>
+				<th field="majorDurition" >学制</th>
+				<th field="majorDegreeType" >学位授予门类</th>
+				<th field="majorAdmisTime"  formatter="formattime">开始招生时间</th>
+				<th field="majorState" >招生状态</th>
+				<th field="stopAdmisTime"  formatter="formattime">停止招生时间</th>
+				<th field="isNewMajor"  >是否新办专业</th>
+				<th field="appvlYear"  formatter="formattime">批准建设年度</th>
+				<th field="buildAppvlID" >建设批文号</th>
+				<th field="majorLevel" >级别</th>
+				<th field="type" >类型</th>
+				<th field="field" >领域方向</th>
+				<th field="leader"  >建设负责人</th>
+				<th field="teaID" >教工号</th>
+				<th field="checkTime"  formatter="formattime">验收时间</th>
+				<th field="checkAppvlID" >验收批文号</th>
+				<th field="schExp" >学校经费（万元）</th>
+				<th field="eduMinistryExp" >教育部经费（万元）</th>
+				<th field="firstAppvlTime"  formatter="formattime">首次通过认证时间</th>
+				<th field="appvlTime"  formatter="formattime">认证时间</th>
+				<th field="appvlID" >批文号</th>
+				<th field="appvlResult" >认证结果</th>
+				<th field="fromTime"  formatter="formattime">有效期（起）</th>
+				<th field="endTime"  formatter="formattime">有效期（止）</th>
+				<th field="appvlAuth"  >认证机构</th>
+				<th field="totalCSHour" >总学时数</th>
+				<th field="requireCShour" >必修课学时数</th>
+				<th field="optionCSHour" >选修课学时数</th>
+				<th field="inClassCSHour" >课内教学学时数</th>
+				<th field="expCSHour" >实验教学学时数</th>
+				<th field="praCSHour" >集中性实践教学环节学时数</th>
+				<th field="totalCredit" >总学分数</th>
+				<th field="requireCredit" >必修课学分数</th>
+				<th field="optionCredit" >选修课学分数</th>
+				<th field="inClassCredit" >课内教学学分数</th>
+				<th field="expCredit" >实验教学学分数</th>
+				<th field="praCredit" >集中实践教学环节学分数</th>
+				<th field="outClassCredit" >课外科技活动学分数</th>
 				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newPostDocSta()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editPostDocSta()">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUndergraMajorInfo()">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUndergraMajorInfo()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href="pages/PostDocSta/dataExport?excelName=表3-1-1博士后流动站（人事处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
 		</div>
 
 		
@@ -145,56 +144,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true" >选取</th>
-				<th field="seqNumber">序号</th>
-							</tr>
+				<th field="SeqNumber" >序号</th>
+				<th field="MajorName" >专业名称</th>
+				<th field="MajorID" >专业代码</th>
+			</tr>
 		</thead>
 		<thead>
-			<tr>
-				<th field="MajorName" formatter="formattime">专业名称</th>
-				<th field="MajorID">专业代码</th>
-				<th field="MajorVersion">代码版本</th>
-				<th field="MajorField">专业方向名称</th>
-				<th field="MajorFieldID">专业方向号</th>
-				<th field="MajorSetTime" formatter="formattime">专业设置时间</th>
-				<th field="MajorAppvlID" >批文号</th>
-				<th field="MajorDurition">学制</th>
-				<th field="MajorDegreeType">学位授予门类</th>
-				<th field="MajorAdmisTime">开始招生时间</th>
-				<th field="MajorState">招生状态</th>
-				<th field="StopAdmisTime">停止招生时间</th>
-				<th field="IsNewMajor" >是否新办专业</th>
-				<th field="AppvlYear">批准建设年度</th>
-				<th field="BuildAppvlID">建设批文号</th>
-				<th field="MajorLevel">级别</th>
-				<th field="Type">类型</th>
-				<th field="Field">领域方向</th>
-				<th field="Leader" formatter="formattime">建设负责人</th>
-				<th field="TeaID">教工号</th>
-				<th field="CheckTime">验收时间</th>
-				<th field="CheckAppvlID">验收批文号</th>
-				<th field="SchExp">学校经费（万元）</th>
-				<th field="EduMinistryExp">教育部经费（万元）</th>
-				<th field="FirstAppvlTime" formatter="formattime">首次通过认证时间</th>
-				<th field="AppvlTime">认证时间</th>
-				<th field="AppvlID">批文号</th>
-				<th field="AppvlResult">认证结果</th>
-				<th field="FromTime">有效期（起）</th>
-				<th field="EndTime">有效期（止）</th>
-				<th field="AppvlAuth" formatter="formattime">认证机构</th>
-				<th field="TotalCSHour">总学时数</th>
-				<th field="RequireCShour">必修课学时数</th>
-				<th field="OptionCSHour">选修课学时数</th>
-				<th field="InClassCSHour">课内教学学时数</th>
-				<th field="ExpCSHour">实验教学学时数</th>
-				<th field="PraCSHour">集中性实践教学环节学时数</th>
-				<th field="TotalCredit">总学分数</th>
+			<tr>	
+				<th field="MajorVersion" >代码版本</th>
+				<th field="MajorField" >专业方向名称</th>
+				<th field="MajorFieldID" >专业方向号</th>
+				<th field="MajorSetTime"  formatter="formattime">专业设置时间</th>
+				<th field="MajorAppvlID"  >批文号</th>
+				<th field="MajorDurition" >学制</th>
+				<th field="MajorDegreeType" >学位授予门类</th>
+				<th field="MajorAdmisTime"  formatter="formattime">开始招生时间</th>
+				<th field="MajorState" >招生状态</th>
+				<th field="StopAdmisTime"  formatter="formattime">停止招生时间</th>
+				<th field="IsNewMajor"  >是否新办专业</th>
+				<th field="AppvlYear"  formatter="formattime">批准建设年度</th>
+				<th field="BuildAppvlID" >建设批文号</th>
+				<th field="MajorLevel" >级别</th>
+				<th field="Type" >类型</th>
+				<th field="Field" >领域方向</th>
+				<th field="Leader"  >建设负责人</th>
+				<th field="TeaID" >教工号</th>
+				<th field="CheckTime"  formatter="formattime">验收时间</th>
+				<th field="CheckAppvlID" >验收批文号</th>
+				<th field="SchExp" >学校经费（万元）</th>
+				<th field="EduMinistryExp" >教育部经费（万元）</th>
+				<th field="FirstAppvlTime"  formatter="formattime">首次通过认证时间</th>
+				<th field="AppvlTime"  formatter="formattime">认证时间</th>
+				<th field="AppvlID" >批文号</th>
+				<th field="AppvlResult" >认证结果</th>
+				<th field="FromTime"  formatter="formattime">有效期（起）</th>
+				<th field="EndTime"  formatter="formattime">有效期（止）</th>
+				<th field="AppvlAuth"  >认证机构</th>
+				<th field="TotalCSHour" >总学时数</th>
+				<th field="RequireCShour" >必修课学时数</th>
+				<th field="OptionCSHour" >选修课学时数</th>
+				<th field="InClassCSHour" >课内教学学时数</th>
+				<th field="ExpCSHour" >实验教学学时数</th>
+				<th field="PraCSHour" >集中性实践教学环节学时数</th>
+				<th field="TotalCredit" >总学分数</th>
 				<th field="RequireCredit" >必修课学分数</th>
-				<th field="OptionCredit">选修课学分数</th>
-				<th field="InClassCredit">课内教学学分数</th>
-				<th field="ExpCredit">实验教学学分数</th>
-				<th field="PraCredit">集中实践教学环节学分数</th>
-				<th field="OutClassCredit">课外科技活动学分数</th>
-				<th field="note">备注</th>
+				<th field="OptionCredit" >选修课学分数</th>
+				<th field="InClassCredit" >课内教学学分数</th>
+				<th field="ExpCredit" >实验教学学分数</th>
+				<th field="PraCredit" >集中实践教学环节学分数</th>
+				<th field="OutClassCredit" >课外科技活动学分数</th>
+				<th field="Note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -214,40 +213,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="123"></a>
 		</div>
 		<div></div>
-		<div class="ftitle">专业逐条导入</div>
+		<div class="ftitle">本科专业逐条导入</div>
 		
 		<form id="UndergraMajorInfoForm" method="post">
 		<table>
 			<tr>
+			<td>
 					<div class="fitem">
 						<label>专业名称：</label> 
-						<input id="seqNumber" name="t322_Bean.SeqNumber" type="hidden" > </input>
-						<input id="TotalCSHour" name="t322_Bean.TotalCSHour" type="hidden" > </input>
-						<input id="RequireCShour" name="t322_Bean.RequireCShour" type="hidden" > </input>
-						<input id="OptionCSHour" name="t322_Bean.OptionCSHour" type="hidden" > </input>
-						<input id="InClassCSHour" name="t322_Bean.InClassCSHour" type="hidden" > </input>
-						<input id="ExpCSHour" name="t322_Bean.ExpCSHour" type="hidden" > </input>
-						<input id="PraCSHour" name="t322_Bean.PraCSHour" type="hidden" > </input>
-						<input id="TotalCredit" name="t322_Bean.TotalCredit" type="hidden" > </input>					
+				
 						<input type="hidden" name="t322_Bean.MajorName" id="MajorName"/>
 						<input id="MajorID" type="text" name="t322_Bean.MajorID" 
 							 class='easyui-combobox' data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
 							 onSelect:function(){
-							 	document.getElementById('MajorNameInSch').value=$(this).combobox('getText') ;
+							 	document.getElementById('MajorName').value=$(this).combobox('getText') ;
 							 }">
 						<span id="MajorNameSpan"></span>
-					</div>			
-
-
-			</tr>
-			<tr>
-			<td>
-					<div class="fitem">
-						<label>研究员人数：</label> 
-						<input id="MajorID" type="text" name="t322_Bean.MajorID"
-							class="easyui-validatebox" ><span id="MajorIDSpan"></span>
-					</div>
-				</td>
+					</div>	
+					</td>	
 				<td>
 					<div class="fitem">
 						<label>版本代码：</label> 
@@ -258,9 +241,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</select>
 							<span id="MajorVersionSpan"></span>
 					</div>
-				</td>
-				
+				</td>	
 			</tr>
+
 		<tr>
 			<td>
 					<div class="fitem">
@@ -343,8 +326,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>招生状态：</label> 
 						<select class='easyui-combobox' id="MajorState" name="t322_Bean.MajorState" editable=false>					
-							<option value="true">在招</option>
-							<option value="false">当年停招</option>
+							<option value="在招">在招</option>
+							<option value="当年停招">当年停招</option>
 						</select>
 						<span id="MajorStateSpan"></span>
 					</div>
@@ -392,10 +375,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>级别：</label> 
-						<input id="MajorLevel" type="text" name="t322_Bean.MajorLevel"
-							class="easyui-validatebox" ><span id="MajorLevelSpan"></span>
+						<input id="MajorLevel" type="text" name="t322_Bean.MajorLevel" 
+							 class='easyui-combobox' data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDiAwardLevel',listHeight:'auto',editable:false,
+							 onSelect:function(){
+							 	document.getElementById('MajorLevel').value=$(this).combobox('getText') ;
+							 }">
+						<span id="MajorLevelSpan"></span>
 					</div>
-				</td>	
+				</td>
 				<td>
 					<div class="fitem">
 						<label>类型：</label> 
@@ -420,21 +407,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 				<td>
-					<div class="fitem">
-						<label>建设负责人：</label> 
-						<input id="Leader" type="text" name="t322_Bean.Leader"
-							class="easyui-validatebox" ><span id="LeaderSpan"></span>
-					</div>
+				<div class="fitem">
+				<label>教工号：</label> 
+				<input type="hidden" name="t322_Bean.TeaID" id="TeaID"/>
+				<input id="Leader" type="text" name="t322_Bean.Leader" class='easyui-combobox' 
+							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+							onSelect:function(){
+							 	 document.getElementById('TeaID').value=$(this).combobox('getText') ;
+							 }">
+				<span id="TeaIDSpan"></span>
+				</div>
 				</td>				
 			</tr>
 			 <tr>
-				<td>
-					<div class="fitem">
-						<label>教工号：</label> 
-						<input id="TeaID" type="text" name="t322_Bean.TeaID"
-							class="easyui-validatebox" ><span id="TeaIDSpan"></span>
-					</div>
-				</td>	
 				<td>
 					<div class="fitem">
 						<label>验收时间：</label> 
@@ -442,32 +427,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-datebox" editable="false" style="width:80px">
 							<span id="CheckTimeSpan"></span>
 					</div>
-				</td>			
-			</tr>		
-	<tr>
-			<td>
+				</td>
+					<td>
 					<div class="fitem">
 						<label>验收批文号：</label> 
 						<input id="CheckAppvlID" type="text" name="t322_Bean.CheckAppvlID"
 							class="easyui-validatebox" ><span id="CheckAppvlIDSpan"></span>
 					</div>
-				</td>
+				</td>			
+			</tr>		
+	<tr>
 				<td>
 					<div class="fitem">
 						<label>学校经费（万元）：</label> 
 						<input id="SchExp" type="text" name="t322_Bean.SchExp"
 							class="easyui-validatebox" ><span id="SchExpSpan"></span>
 					</div>
-				</td>				
-			</tr>
-		 <tr>
+				</td>
 				<td>
 					<div class="fitem">
 						<label>教育部经费(万元)：</label> 
 						<input id="EduMinistryExp" type="text" name="t322_Bean.EduMinistryExp"
 							class="easyui-validatebox" ><span id="EduMinistryExpSpan"></span>
 					</div>
-				</td>	
+				</td>					
+			</tr>
+		 <tr>
+
 				<td>
 					<div class="fitem">
 						<label>首次通过认证时间：</label> 
@@ -475,9 +461,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-datebox" editable="false" style="width:80px">
 							<span id="FirstAppvlTimeSpan"></span>
 					</div>
-				</td>			
-			</tr>
-			<tr>
+				</td>
 				<td>
 					<div class="fitem">
 						<label>认证时间：</label> 
@@ -485,16 +469,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-datebox" editable="false" style="width:80px">
 							<span id="AppvlTimeSpan"></span>
 					</div>
-				</td>	
+				</td>				
+			</tr>
+			<tr>
+
 				<td>
 					<div class="fitem">
 						<label>批文号：</label> 
 						<input id="AppvlID" type="text" name="t322_Bean.AppvlID"
 							class="easyui-validatebox" ><span id="AppvlIDSpan"></span>
 					</div>
-				</td>				
-			</tr>
-			<tr>
+				</td>
 				<td>
 					<div class="fitem">
 						<label>认证结果：</label> 
@@ -505,7 +490,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</select>
 						<span id="AppvlResultSpan"></span>
 					</div>
-				</td>
+				</td>				
+			</tr>
+			<tr>
+
 				<td>
 					<div class="fitem">
 						<label>有效期(起)：</label> 
@@ -513,9 +501,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-datebox" editable="false" style="width:80px">
 							<span id="FromTimeSpan"></span>
 					</div>
-				</td>			
-			</tr>
-			<tr>
+				</td>	
 				<td>
 					<div class="fitem">
 						<label>有效期(止)：</label> 
@@ -523,35 +509,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-datebox" editable="false" style="width:80px">
 							<span id="EndTimeSpan"></span>
 					</div>
-				</td>	
+				</td>			
+			</tr>
+			<tr>
+
 				<td>
 					<div class="fitem">
 						<label>认证机构：</label> 
 						<input id="AppvlAuth" type="text" name="t322_Bean.AppvlAuth"
 							class="easyui-validatebox" ><span id="AppvlAuthSpan"></span>
 					</div>
-				</td>				
-			</tr>
-			<tr>
-
-				<td>
+				</td>	
+					<td>
 					<div class="fitem">
 						<label>必修课学分数：</label> 
 						
 						<input id="RequireCredit" type="text" name="t322_Bean.RequireCredit"
 							class="easyui-validatebox" ><span id="RequireCreditSpan"></span>
 					</div>
-				</td>
+				</td>			
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>选修课学分数：</label> 
-						<input id="MajorField" type="text" name="t322_Bean.MajorField"
-							class="easyui-validatebox" ><span id="MajorFieldSpan"></span>
+						<input id="OptionCredit" type="text" name="OptionCredit"
+							class="easyui-validatebox" ><span id="OptionCreditSpan"></span>
 					</div>
 				</td>
-				
-			</tr>
-			<tr>
 				<td>
 					<div class="fitem">
 						<label>课内教学学分数：</label> 
@@ -559,16 +544,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="InClassCreditSpan"></span>
 					</div>
 				</td>
-							<td>
+				
+			</tr>
+			<tr>
+
+				<td>
 					<div class="fitem">
 						<label>实验教学学分数：</label> 
 						<input id="ExpCredit" type="text" name="t322_Bean.ExpCredit"
 							class="easyui-validatebox" ><span id="ExpCreditSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
-
 				<td>
 					<div class="fitem">
 						<label>集中实践教学环节学分数：</label> 
@@ -576,6 +562,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="PraCreditSpan"></span>
 					</div>
 				</td>
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>课外科技活动学分数：</label> 
@@ -610,10 +598,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
 </body>
+
+
+
+
 	<script type="text/javascript">
 	
 	    var url;
-
 
 		function reloadgrid ()  { 
 	        //查询参数直接添加在queryParams中 
@@ -637,7 +628,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url: 'pages/MainTrainBasicInfoTea/uploadFile',
+	    		 url: 'pages/UndergraMajorInfoTea/uploadFile',
 	    		 type: "post",
 		         dataType: "json",
 	    		 onSubmit: function(){
@@ -677,8 +668,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    } 
 	    
-	    function newPostDocSta(){
-		    $('#dlg').dialog('open').dialog('setTitle','添加专业');
+	    function newUndergraMajorInfo(){
+	    	url=' pages/UndergraMajorInfoTea/insert',
+		    $('#dlg').dialog('open').dialog('setTitle','添加本科专业');
 		    $('#UndergraMajorInfoForm').form('reset');
 	    }
 
@@ -699,38 +691,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverifiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload'); 
+						
 					    }
 				    }
 			    });
 		}
 
 		function validate(){
-			//获取文本框的值
-            var MajorName = $('#MajorID').combobox('getText');
-			var Note = $('#Note').val() ;
-			//根据数据库定义的字段的长度，对其进行判断
-			if(MajorName == null || MajorName.length == 0){
-				$('#MajorNameSpan').html("<font style=\"color:red\">校内专业名称不能为空</font>") ;
-				return false ;
-			}else{
-				$('#MajorNameSpan').html("") ;
-			}
-			
-
-			
-			if(Note !=null && Note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
-				return false ;
-			}else{
-				$('#NoteSpan').html("") ;
-			}
+	
 			return true ;
 		}
 
 
+		function checkRate(input)  
+		{  
+		     var re = /^[1-9]+[0-9]*]*$/;		  
+		     if (!re.test(input))  
+		    {  
+		        return false;  
+		     }else{
+			     return true;
+			     }  
+		}
+
+
 	    function exports() {
-	    	var temp = encodeURI('表3-2-2本科专业基本情况（教学单位-教务处）.xls');
+	    	var temp = encodeURI('表3-2-2本科专业信息表.xls');
 		    $('#exportForm').form('submit', {
 		    url : "pages/UndergraMajorInfoTea/dataExport?excelName="+temp ,
 		    onSubmit : function() {
@@ -814,7 +801,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}).submit();
 	    }
 
-	    function editPostDocSta(){
+	    function editUndergraMajorInfo(){
 	    	var row = $('#unverfiedData').datagrid('getSelections');
 	    	
 	    	if(row.length != 1){
@@ -824,129 +811,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	url = 'pages/UndergraMajorInfoTea/edit' ;
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加博士后流动站');
-	    	$('#seqNumber').val(row[0].seqNumber) ;
-	        $('#MajorName').val(row[0].MajorName);
-	     
-	    	$('#SetTime').datebox('setValue',formattime(row[0].setTime)) ;
-	  
-	    	$('#MajorID').val(row[0].MajorID) ;
-	 
-	    	$('#UnitID').combobox('select',row[0].unitID) ;
-	
+	    	$('#dlg').dialog('open').dialog('setTitle','添加本科专业');
+	    	$('#MajorID').combobox('select',row[0].majorID) ;
+	    	$('#MajorVersion').combobox('select',row[0].majorVersion) ;
+	        $('#MajorField').val(row[0].majorField);
+	        $('#MajorFieldID').val(row[0].majorFieldID);
+	    	$('#MajorSetTime').datebox('setValue',formattime(row[0].majorSetTime)) ;
+	        $('#MajorAppvlID').val(row[0].majorAppvlID);
+	    	$('#MajorDurition').combobox('select',row[0].majorDurition) ;
+	    	$('#MajorDegreeType').combobox('select',row[0].majorDegreeType) ;
+	    	$('#MajorAdmisTime').datebox('setValue',formattime(row[0].majorAdmisTime)) ;
+	    	$('#MajorState').combobox('select',row[0].majorState) ;
+	    	$('#StopAdmisTime').datebox('setValue',formattime(row[0].stopAdmisTime)) ;
+	    	$('#IsNewMajor').combobox('select',row[0].isNewMajor) ;
+	    	$('#AppvlYear').datebox('setValue',formattime(row[0].appvlYear)) ;
+	        $('#BuildAppvlID').val(row[0].buildAppvlID);
+	    	$('#MajorLevel').combobox('select',row[0].majorLevel) ;
+	      	$('#Type').combobox('select',row[0].type) ;
+	        $('#Field').val(row[0].field);
+	    	$('#Leader').combobox('select',row[0].leader) ;
+	    	$('#CheckTime').datebox('setValue',formattime(row[0].checkTime)) ;
+	        $('#CheckAppvlID').val(row[0].checkAppvlID);
+	        $('#SchExp').val(row[0].schExp);
+	        $('#EduMinistryExp').val(row[0].eduMinistryExp);
+	        $('#FirstAppvlTime').datebox('setValue',formattime(row[0].firstAppvlTime)) ;
+	        $('#AppvlTime').datebox('setValue',formattime(row[0].appvlTime)) ;
+	        $('#AppvlID').val(row[0].appvlID);
+	        $('#AppvlResult').combobox('select',row[0].appvlResult) ;
+	        $('#FromTime').datebox('setValue',formattime(row[0].fromTime)) ;
+	        $('#EndTime').datebox('setValue',formattime(row[0].endTime)) ;
+	        $('#AppvlAuth').val(row[0].appvlAuth);
+	        $('#RequireCredit').val(row[0].requireCredit);
+	        $('#OptionCredit').val(row[0].optionCredit);
+	        $('#InClassCredit').val(row[0].inClassCredit);
+	        $('#ExpCredit').val(row[0].expCredit);
+	        $('#PraCredit').val(row[0].praCredit);
+	        $('#OutClassCredit').val(row[0].outClassCredit);
 			$('#Note').val(row[0].note);
+
+
 		
 	    }
 	    
 	    
-	    function loadDic(){
-		    $('#dicDlg').dialog('open').dialog('setTitle','高级查询');
-		    loadDictionary() ;
-		    
-	    }
-	    
-	    function loadDictionary(){
-	    	
-	    	$.ajax({ 
-	    		type: "POST", 
-	    		url: "table5/loadDic", 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			data = eval("(" + data + ")");
-	    			alert(data[0].id) ;
-	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
-	    			$(data).each(function(index) {
-	    				var val = data[index];
-	    				if(index%4 == 0 && index != 0){
-	    					str += "</tr><tr>" ;
-	    				}
-	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
-	    			}); 
-	    			//alert(str);
-	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
-	    			document.getElementById("dicTables").innerHTML = str;
-	    			$.parser.parse('#dicTables');
-	    		}
-	    	}).submit();
-	    }
-	    	
-	    function loadData(){
-	    	
-	    	//flag判断
-	    	var flag = false ;
-	    	var checkboxes = document.getElementsByName("checkboxex");
-	    	var tables = "<div class=\"ftitle\">自定义查询条件</div><form method=\"post\" action=\"table5/dictorySearch\" id=\"dicsDataForm\"><table width=\"100%\" border=\"1\">" ;
-	    	tables += "<tr><td>查询名称</td><td>运算符</td><td>查询内容</td><td>逻辑关系</td></tr>" ;
-	    	for(i=0; i<checkboxes.length; i++){
-	    		if(checkboxes[i].checked){
-	    			flag = true ;
-	    			tables += ("<tr><td style=\"width:50%px\">" + hideId(checkboxes[i].id,i)  + checkboxes[i].value + "</td><td>" + selectOperateData(i) + "</td><td>" + selectDataHtml(checkboxes[i].id,i) +"</td><td>" + selectLogicData(i) + "</td></tr>") ;
-	    		}
-	    	}
-	    	if(flag){
-	    		tables += "<tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-search\" onclick=\"submitDicForm()\">查询</a></td></tr>" ;
-	    	}
-	    	tables += "</table></form>" ;
-	    	alert(tables) ;
-	    	document.getElementById("dices").innerHTML = tables ;
-	    	$.parser.parse('#dices');
-	    	
-	    }
-	    
-	    function hideId(val,index){
-	    	var hiddenId = "<input type='hidden' name='dictorySearch[" + index + "].id' value='" + val + "'/>" ;
-	    	
-	    	return hiddenId ;
-	    }
-	    
-	    //自动加载要查询的数据
-	    function selectDataHtml(val,index){
-	    	
-	    	var selectsHtml = "<select class=\"easyui-combogrid\" style=\"width:50%px\" name=\"dictorySearch[" + index + "].dicData\" data-options=\"panelWidth: 500, multiple: true,required:true,"
-	    	 + " idField: 'dicData',textField: 'dicData',"
-	    	 + "url: 'table5/loadDictionary?dicId=" + val + "',"
-	    	 + "method: 'post',"
-	    	 + "columns: [[{field:'ck',checkbox:true},{field:'itemid',title:'数据',width:80},{field:'dicData',title:'数据',width:80}]],"
-	    	 + "fitColumns: true \"> </select>" ;
-	    	 
-	    	 return selectsHtml ;
-	    }
-	    
-	    //生成运算关系combo
-	    function selectOperateData(index){
-	    	
-	    	var operateHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].operator\"> <option value=\"equals\">等于</option><option value=\"between\">之间</option><option value=\"side\">两边</option></select>" ;
-	    	
-	    	return operateHtml ;
-	    }
-	    
-	  //生成逻辑关系combo
-	    function selectLogicData(index){
-	    	
-	    	var logicHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].logic\"> <option value=\"and\">并且</option><option value=\"or\">或者</option></select>" ;
-	    	
-	    	return logicHtml ;
-	    }
-	  
-	  function submitDicForm(){
-		  $.ajax({ 
-	    		type: "POST", 
-	    		url: "table3/dictorySearch",
-	    		data: $('#dicsDataForm').serialize(), 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			alert(123) ;
-	    		}
-	    	}).submit();
-	  }
 	    
 	    </script>
 
 	<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -960,11 +876,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    seconds=seconds>9?seconds:('0'+seconds);  
 			    var time=year+'-'+month+'-'+date ;  
 			    //alert(time) ;
-			        return time;  
+			     return time;  
 			    }  
 			</script>
 			
-					<script type="text/javascript">
+	<script type="text/javascript">
     	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
     	for (var i = 0; i <= 10; i++) {
@@ -975,7 +891,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	}
 	</script>
 	
-				<script type="text/javascript">
+			<script type="text/javascript">
     	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast1");
     	for (var i = 0; i <= 10; i++) {
@@ -985,7 +901,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	select.appendChild(theOption);
     	}
 	</script>
-			
 
 </html>
 

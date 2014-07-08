@@ -118,12 +118,12 @@ public class T313Excel {
 					
 				    String DiscipType = cell[5].getContents();
 				    
-				    if(DiscipType == null || DiscipType.equals("")){
-				    	return "第" + count + "行，类型不能为空" ;
-				    }
-				    if(DiscipType.length()>100){
-				    	return "第" + count + "行，类型长度不能超过100" ;
-				    }
+					if(DiscipType.equals("01哲学")||DiscipType.equals("02经济学")||DiscipType.equals("03法学")||DiscipType.equals("04教育学")||DiscipType.equals("05文学")||DiscipType.equals("06历史学")||DiscipType.equals("07理学")||DiscipType.equals("08工学")||DiscipType.equals("09农学")||DiscipType.equals("10医学")||DiscipType.equals("11军事学")||DiscipType.equals("12管理学")||DiscipType.equals("13艺术学")){
+						flag=true;
+					}else{
+						return "第" + count + "行，学科门类输入有误" ;
+					}
+
 					
 				    String  NationLevelOne=cell[6].getContents();
 				    String  NationLevelTwo=cell[7].getContents();
@@ -134,39 +134,60 @@ public class T313Excel {
 				    String  SchLevel=cell[12].getContents();
 				    if(NationLevelOne.equals("是")){
 				    	NationLevelOne1=true;
-				    }else{
+				    }else if(NationLevelOne.equals("否")){
 				    	NationLevelOne1=false;
+				    }else{
+				    	return "第" + count + "行，国家一级必须为是或否" ;
 				    }
+				    
 				    if(NationLevelTwo.equals("是")){
 				    	NationLevelTwo1=true;
-				    }else{
+				    }else if(NationLevelTwo.equals("否")){
 				    	NationLevelTwo1=false;
+				    }else{
+				    	return "第" + count + "行，国家二级必须为是或否" ;
 				    }
+				    
 				    if(NationLevelKey.equals("是")){
 				    	NationLevelKey1=true;
-				    }else{
+				    }else if(NationLevelKey.equals("否")){
 				    	NationLevelKey1=false;
+				    }else{
+				    	return "第" + count + "行，国家重点必须为是或否" ;
 				    }
+
 				    if(ProvinceLevelOne.equals("是")){
 				    	ProvinceLevelOne1=true;
-				    }else{
+				    }else if(ProvinceLevelOne.equals("否")){
 				    	ProvinceLevelOne1=false;
+				    }else{
+				    	return "第" + count + "行，省部一级必须为是或否" ;
 				    }
+
 				    if(ProvinceLevelTwo.equals("是")){
 				    	ProvinceLevelTwo1=true;
-				    }else{
+				    }else if(ProvinceLevelTwo.equals("否")){
 				    	ProvinceLevelTwo1=false;
+				    }else{
+				    	return "第" + count + "行，省部二级级必须为是或否" ;
 				    }
+				    
 				    if(CityLevel.equals("是")){
 				    	CityLevel1=true;
-				    }else{
+				    }else if(CityLevel.equals("否")){
 				    	CityLevel1=false;
+				    }else{
+				    	return "第" + count + "行，市一级必须为是或否" ;
 				    }
+
 				    if(SchLevel.equals("是")){
 				    	SchLevel1=true;
-				    }else{
+				    }else if(SchLevel.equals("否")){
 				    	SchLevel1=false;
+				    }else{
+				    	return "第" + count + "行，校一级必须为是或否" ;
 				    }
+
 
 				    String  Note=cell[14].getContents();
 					if(Note.length()>1000){

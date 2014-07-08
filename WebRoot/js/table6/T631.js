@@ -2,8 +2,9 @@ var url;
 //弹出添加的界面
 function newItem() {
 	url = 'pages/T631/insert' ; 
-	$('#title1').show();
+	$('.title1').show();
 	$('#item1').show();
+	$('hr').show();
 	$('#dlg').dialog('open').dialog('setTitle', '分专业应届本科毕业生毕业情况');
 	$('#addItemForm').form('reset');
 }
@@ -139,8 +140,9 @@ function editItem() {
 
 	url = 'pages/T631/edit';
 	
-	$('#title1').hide();
+	$('.title1').hide();
 	$('#item1').hide();
+	$('hr').hide();
 
 	
 	$('#dlg').dialog('open').dialog('setTitle', '分专业应届本科毕业生毕业情况');

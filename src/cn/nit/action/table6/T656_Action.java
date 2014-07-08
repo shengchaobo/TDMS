@@ -24,51 +24,13 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table6.T611_Bean;
-import cn.nit.bean.table6.T612_Bean;
-import cn.nit.bean.table6.T613_Bean;
-import cn.nit.bean.table6.T614_Bean;
-import cn.nit.bean.table6.T615_Bean;
-import cn.nit.bean.table6.T617_Bean;
-import cn.nit.bean.table6.T621_Bean;
-import cn.nit.bean.table6.T622_Bean;
-import cn.nit.bean.table6.T631_Bean;
-import cn.nit.bean.table6.T632_Bean;
-import cn.nit.bean.table6.T641_Bean;
-import cn.nit.bean.table6.T651_Bean;
-import cn.nit.bean.table6.T652_Bean;
-import cn.nit.bean.table6.T653_Bean;
-import cn.nit.bean.table6.T654_Bean;
-import cn.nit.bean.table6.T655_Bean;
-import cn.nit.dao.table6.T611_Dao;
-import cn.nit.dao.table6.T612_Dao;
-import cn.nit.dao.table6.T613_Dao;
-import cn.nit.dao.table6.T614_Dao;
-import cn.nit.dao.table6.T615_Dao;
-import cn.nit.dao.table6.T617_Dao;
-import cn.nit.dao.table6.T622_Dao;
-import cn.nit.dao.table6.T632_Dao;
-import cn.nit.dao.table6.T641_Dao;
-import cn.nit.dao.table6.T651_Dao;
-import cn.nit.dao.table6.T652_Dao;
-import cn.nit.dao.table6.T653_Dao;
-import cn.nit.dao.table6.T654_Dao;
-import cn.nit.dao.table6.T655_Dao;
+
+import cn.nit.bean.table6.T656_Bean;
+
+import cn.nit.dao.table6.T656_Dao;
 import cn.nit.dbconnection.DBConnection;
-import cn.nit.service.table6.T611_Service;
-import cn.nit.service.table6.T612_Service;
-import cn.nit.service.table6.T613_Service;
-import cn.nit.service.table6.T614_Service;
-import cn.nit.service.table6.T615_Service;
-import cn.nit.service.table6.T617_Service;
-import cn.nit.service.table6.T622_Service;
-import cn.nit.service.table6.T632_Service;
-import cn.nit.service.table6.T641_Service;
-import cn.nit.service.table6.T651_Service;
-import cn.nit.service.table6.T652_Service;
-import cn.nit.service.table6.T653_Service;
-import cn.nit.service.table6.T654_Service;
-import cn.nit.service.table6.T655_Service;
+
+import cn.nit.service.table6.T656_Service;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
 
@@ -77,15 +39,15 @@ import cn.nit.util.ExcelUtil;
  * 
  * @author Yuan
  */
-public class T655_Action {
+public class T656_Action {
 
 	/** 表的Service类 */
-	private T655_Service T655_service = new T655_Service();
+	private T656_Service T656_service = new T656_Service();
 
 	/** 表的Bean实体类 */
-	T655_Bean T655_bean = new T655_Bean();
+	T656_Bean T656_bean = new T656_Bean();
 	
-	T655_Dao T655_dao = new T655_Dao();
+	T656_Dao T656_dao = new T656_Dao();
 
 	/** 待审核数据的查询的序列号 */
 	private int seqNum;
@@ -121,7 +83,7 @@ public class T655_Action {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		
-		boolean flag = T655_service.insert(T655_bean);
+		boolean flag = T656_service.insert(T656_bean);
 		PrintWriter out = null;
 
 		try {
@@ -157,8 +119,8 @@ public class T655_Action {
 			cond += " and teaUnit LIKE '" + this.getSearchItem() + "%'";
 			System.out.println(cond);
 		}
-		List<T655_Bean> list = T655_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
-		String TeaInfoJson = this.toBeJson(list, T655_service.getTotal(cond,null));
+		List<T656_Bean> list = T656_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
+		String TeaInfoJson = this.toBeJson(list, T656_service.getTotal(cond,null));
 
 		PrintWriter out = null;
 
@@ -184,7 +146,7 @@ public class T655_Action {
 	}
 
 	// 将分页系统的总数以及当前页的list转化一个json传页面显示
-	private String toBeJson(List<T655_Bean> list, int total) throws Exception {
+	private String toBeJson(List<T656_Bean> list, int total) throws Exception {
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -201,7 +163,7 @@ public class T655_Action {
 
 	/** 编辑数据 */
 	public void edit() {
-		boolean flag = T655_service.update(T655_bean);
+		boolean flag = T656_service.update(T656_bean);
 		PrintWriter out = null;
 
 		try {
@@ -225,7 +187,7 @@ public class T655_Action {
 	/** 根据数据的id删除数据 */
 	public void deleteByIds() {
 		System.out.println("ids=" +this.getIds());
-		boolean flag = T655_service.deleteItemsByIds(ids);
+		boolean flag = T656_service.deleteItemsByIds(ids);
 		PrintWriter out = null;
 
 		try {
@@ -257,7 +219,7 @@ public class T655_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T655_Bean> list = T655_dao.getAllList("1=1", null);
+			List<T656_Bean> list = T656_dao.getAllList("1=1", null);
 						
 			String sheetName = this.getExcelName();
 			
@@ -266,11 +228,7 @@ public class T655_Action {
 			columns.add("序号");
 			columns.add("教学单位");
 			columns.add("单位号");
-			columns.add("1.英语四级考试累计通过率（%）");
-			columns.add("2.英语六级考试累计通过率（%）");
-			columns.add("3.江西省高校计算机等级考试累计通过率（%）");
-			
-		
+			columns.add("全国高校计算机等级考试累计通过率（%）");
 			columns.add("备注");
 			columns.add("时间");
 			
@@ -282,14 +240,10 @@ public class T655_Action {
 			maplist.put("seqNumber", 0);
 			maplist.put("teaUnit", 1);
 			maplist.put("unitId", 2);
-			maplist.put("CET4PassRate", 3);
-			maplist.put("CET6PassRate", 4);
-			
-			maplist.put("jiangxiNCREPassRate", 5);
+			maplist.put("nationNCREPassRate", 3);
 
-
-			maplist.put("note", 6);			
-			maplist.put("time", 7);
+			maplist.put("note", 4);			
+			maplist.put("time", 5);
 			
 				
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
@@ -389,20 +343,20 @@ public class T655_Action {
 		this.majorName = majorName;
 	}
 
-	public T655_Service getT655_service() {
-		return T655_service;
+	public T656_Service getT656_service() {
+		return T656_service;
 	}
 
-	public void setT655_service(T655_Service t631Service) {
-		T655_service = t631Service;
+	public void setT656_service(T656_Service t631Service) {
+		T656_service = t631Service;
 	}
 
-	public T655_Bean getT655_bean() {
-		return T655_bean;
+	public T656_Bean getT656_bean() {
+		return T656_bean;
 	}
 
-	public void setT655_bean(T655_Bean T655Bean) {
-		T655_bean = T655Bean;
+	public void setT656_bean(T656_Bean T656Bean) {
+		T656_bean = T656Bean;
 	}
 
 	public String getSearchItem() {

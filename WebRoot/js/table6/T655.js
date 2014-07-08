@@ -2,8 +2,10 @@ var url;
 //弹出添加的界面
 function newItem() {
 	url = 'pages/T655/insert' ; 
-	$('#title1').show();
+
+	$('.title1').show();
 	$('#item1').show();
+	$('hr').show();
 	$('#dlg').dialog('open').dialog('setTitle', '学习成果—英语四六级、计算机等级考试通过率');
 	$('#addItemForm').form('reset');
 }
@@ -42,7 +44,6 @@ function validate() {
 	var CET4PassRate = $('#CET4PassRate').val();
 	var CET6PassRate = $('#CET6PassRate').val();
 	var jiangxiNCREPassRate = $('#jiangxiNCREPassRate').val();
-	var nationNCREPassRate = $('#nationNCREPassRate').val();
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
 
@@ -62,16 +63,6 @@ function validate() {
 	
 	if (CET6PassRate == null || CET6PassRate.length == 0) {
 		alert("英语六级考试累计通过率不能为空");
-		return false;
-	}
-	
-	if (jiangxiNCREPassRate == null || jiangxiNCREPassRate.length == 0) {
-		alert("江西省高校计算机等级考试累计通过率不能为空");
-		return false;
-	}
-	
-	if (nationNCREPassRate == null || nationNCREPassRate.length == 0) {
-		alert("全国高校计算机等级考试累计通过率不能为空");
 		return false;
 	}
 	
@@ -154,8 +145,9 @@ function editItem() {
 
 	url = 'pages/T655/edit';
 	
-	$('#title1').hide();
+	$('.title1').hide();
 	$('#item1').hide();
+	$('hr').hide();
 	
 	$('#dlg').dialog('open').dialog('setTitle', '学习成果—英语四六级、计算机等级考试通过率');
 	$('#seqNumber').val(row[0].seqNumber);
@@ -164,7 +156,6 @@ function editItem() {
 	$('#CET4PassRate').val(row[0].CET4PassRate);
 	$('#CET6PassRate').val(row[0].CET6PassRate);
 	$('#jiangxiNCREPassRate').val(row[0].jiangxiNCREPassRate);
-	$('#nationNCREPassRate').val(row[0].nationNCREPassRate);
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);
 }

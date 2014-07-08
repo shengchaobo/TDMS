@@ -41,6 +41,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table6.T655_Bean;
+import cn.nit.bean.table6.T656_Bean;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiAwardTypeService;
 import cn.nit.service.di.DiContestLevelService;
@@ -56,11 +57,11 @@ import cn.nit.service.di.DiResearchRoomService;
 import cn.nit.service.di.DiSourceService;
 import cn.nit.service.di.DiTitleLevelService;
 import cn.nit.service.di.DiTitleNameService;
-import cn.nit.service.table6.T655_Service;
+import cn.nit.service.table6.T656_Service;
 
 import cn.nit.util.TimeUtil;
 
-public class T655_Excel {
+public class T656_Excel {
 
 	/**
 	 * 批量导入
@@ -78,9 +79,9 @@ public class T655_Excel {
 		}
 
 		int count = 1;
-		T655_Bean T655_bean = null;
+		T656_Bean T656_bean = null;
 		boolean flag = false;
-		List<T655_Bean> list = new LinkedList<T655_Bean>();
+		List<T656_Bean> list = new LinkedList<T656_Bean>();
 
 		DiDepartmentService diDep = new DiDepartmentService();
 		List<DiDepartmentBean> diDepList = diDep.getList();
@@ -128,48 +129,26 @@ public class T655_Excel {
 					flag = false;
 				}
 
-				String CET4PassRate = cell[3].getContents();
-
-				if (CET4PassRate == null || CET4PassRate.equals("")) {
-					return "第" + count + "行，英语四级考试累计通过率不能为空";
-				}
-				
-				String CET6PassRate = cell[4].getContents();
-				if (CET6PassRate == null || CET6PassRate.equals("")) {
-					return "第" + count + "行，英语六级考试累计通过率不能为空";
-				}
-				
-				String jiangxiNCREPassRate = cell[5].getContents();
-				if (jiangxiNCREPassRate == null || jiangxiNCREPassRate.equals("")) {
-					return "第" + count + "行，江西省高校计算机等级考试累计通过率不能为空";
+				String nationNCREPassRate = cell[3].getContents();
+				if (nationNCREPassRate == null || nationNCREPassRate.equals("")) {
+					return "第" + count + "行，全国高校计算机等级考试累计通过率不能为空";
 				}
 
 				count++;
 
-				T655_bean = new T655_Bean();
+				T656_bean = new T656_Bean();
 
-				T655_bean.setTeaUnit(teaUnit);
-				T655_bean.setUnitId(unitId);
-				if(CET4PassRate.contains("%")){
-					CET4PassRate = CET4PassRate.substring(0,CET4PassRate.toString().length()-1);
-				}
-				T655_bean.setCET4PassRate(Double.parseDouble(CET4PassRate));
+				T656_bean.setTeaUnit(teaUnit);
+				T656_bean.setUnitId(unitId);
 				
-				if(CET6PassRate.contains("%")){
-					CET6PassRate = CET6PassRate.substring(0,CET6PassRate.toString().length()-1);
+				if(nationNCREPassRate.contains("%")){
+					nationNCREPassRate = nationNCREPassRate.substring(0,nationNCREPassRate.toString().length()-1);
 				}
-				T655_bean.setCET6PassRate(Double.parseDouble(CET6PassRate));
-				
-				if(jiangxiNCREPassRate.contains("%")){
-					jiangxiNCREPassRate = jiangxiNCREPassRate.substring(0,jiangxiNCREPassRate.toString().length()-1);
-				}
-				T655_bean.setJiangxiNCREPassRate(Double.parseDouble(jiangxiNCREPassRate));
-				
-
+				T656_bean.setNationNCREPassRate(Double.parseDouble(nationNCREPassRate));
 
 				// 插入时间
-				T655_bean.setTime(TimeUtil.changeDateY(selectYear));
-				list.add(T655_bean);
+				T656_bean.setTime(TimeUtil.changeDateY(selectYear));
+				list.add(T656_bean);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -178,8 +157,8 @@ public class T655_Excel {
 		}
 
 		flag = false;
-		T655_Service T655_services = new T655_Service();
-		flag = T655_services.batchInsert(list);
+		T656_Service T656_services = new T656_Service();
+		flag = T656_services.batchInsert(list);
 
 		if (flag) {
 			return null;

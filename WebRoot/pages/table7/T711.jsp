@@ -24,16 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-	  label {
-	    width: 10em;
-	    float: left;
-	}
-	.empty{
-		width: 4em;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -130,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			<a href="123"></a>
 		</div>
-		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+		<hr></hr>	
 			
 		<h3 class="title1">教学管理人员获得教学成果奖情况逐条导入</h3>
 		

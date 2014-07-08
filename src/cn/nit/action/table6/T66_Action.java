@@ -205,7 +205,7 @@ public class T66_Action {
 		           ws.addCell(new Label(2, 8,bean.getOtherStuClub().toString(), wcf1));
 		           ws.addCell(new Label(2, 9, bean.getJoinStuSum().toString(), wcf1));
 		           ws.addCell(new Label(2, 10, bean.getJoinClubSciNum().toString(), wcf1));
-		           ws.addCell(new Label(2, 11, bean.getStuClubHumanNum1().toString(), wcf1));
+		           ws.addCell(new Label(2, 11, bean.getJoinClubHumanNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 12, bean.getJoinClubSportNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 13, bean.getJoinClubArtNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 14, bean.getJoinOtherClub().toString(), wcf1));  

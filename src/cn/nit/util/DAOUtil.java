@@ -64,8 +64,7 @@ public class DAOUtil {
 			pst = conn.prepareStatement(sql.toString()) ;
 
 			for(int i = 0; i < length; i++){
-				//
-				System.out.println(fields[i]);
+
 				String type = wrapper.getPropertyType(fields[i]).toString() ;
 
 

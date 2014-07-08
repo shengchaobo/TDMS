@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'unitID',align:'center'" rowspan="2">
 				单位号
 				</th>
-				<th data-options="field:'CSMajor',align:'center'" rowspan="2">
+				<th data-options="field:'CSMajorName',align:'center'" rowspan="2">
 				上课专业名称
 				</th>
 				<th data-options="field:'CSMajorID',align:'center'" rowspan="2">
@@ -178,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'unitID',align:'center'" rowspan="2">
 				单位号
 				</th>
-				<th data-options="field:'CSMajor',align:'center'" rowspan="2">
+				<th data-options="field:'CSMajorName',align:'center'" rowspan="2">
 				上课专业名称
 				</th>
 				<th data-options="field:'CSMajorID',align:'center'" rowspan="2">
@@ -289,7 +289,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>	
 		<hr></hr>	
 	   <h3 class="ftitle">开课、授课逐条导入</h3>
-	    <form id="t512From" method="post">
+	    <form id="t512Form" method="post">
 		<table>
 			<tr>
 				<td><div class="fitem">
@@ -304,10 +304,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="fitem">
 					<label>开课单位：</label> 
 					<input type="hidden" name="t512_Bean.CSUnit" id="CSUnit"/>
-							<input id="UnitID" type="text" name="t512_Bean.UnitID" class='easyui-combobox' 
+							<input id="UnitID" name="t512_Bean.UnitID" class='easyui-combobox' 
 								data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
 								onSelect:function(){
-								    $('CSUnit').val($(this).combobox('getText')) ;
+								     document.getElementById('CSUnit').value=$(this).combobox('getText') ;
 								 }">
 					<span id="CSUnitSpan"></span>
 					</div>
@@ -334,7 +334,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>课程名称：</label> 
-					<input type="hidden" name="t512_Bean.CSName" id="CSName"/>
 						<input id="CSName" type="text" name="t512_Bean.CSName"
 							><span id="CSNameSpan"></span>
 					<span id="CSNameSpan"></span>
@@ -344,7 +343,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 					<div class="fitem">
 					<label>课程编号：</label> 
-					<input type="hidden" name="t512_Bean.CSID" id="CSID"/>
 						<input id="CSID" type="text" name="t512_Bean.CSID"
 							><span id="CSIDSpan"></span>
 					<span id="CSIDSpan"></span>
@@ -443,7 +441,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        <td>
 					<div class="fitem">
 						<label>实习、设计时间：</label> 
-						<input id="PlanTime" type="text" name="t512_Bean.PlanTime" class="easyui-validatebox" >
+						<input id="PlanTime" type="text" name="t512_Bean.PlanTime" >
 						 <span id="PlanTimeSpan"></span>
 					</div>
 				</td>
@@ -474,6 +472,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>	
 			</tr>
 			<tr>
+			<td>
+					<div class="fitem">
+						<label>开课班号：</label> 
+						  <input id="ClassID" type="text" name="t512_Bean.ClassID"
+				   ><span id="ClassIDSpan"></span>
+					</div>
+				</td>	
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 					<label>合班情况：</label> 
@@ -482,7 +488,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="ClassInfoSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+				</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>学生人数：</label> 
@@ -490,8 +497,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="StuNumSpan"></span>
 					</div>
 				</td>
-		  </tr>
-		  <tr>
+			<td class="empty"></td>
 				<td>
 					<div class="fitem">
 					<label>任课老师：</label> 
@@ -500,7 +506,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<span id="CSTeaSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 					<label>是否符合岗位资格：</label> 
@@ -510,8 +517,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</select><span id="IsAccordJobSpan"></span>
 					</div>
 				</td>
-		 </tr>
- 		  <tr>
+		<td class="empty"></td>
 				<td>
 					<div class="fitem">
 					<label>教师职称：</label> 

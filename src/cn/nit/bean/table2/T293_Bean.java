@@ -18,7 +18,7 @@ public class T293_Bean implements
 	// Fields
 
 	private Integer seqNumber;
-	private Double sumIncom;
+	private Double sumIncome;
 	private Double sumUndergraIncome;
 	private Double allocateFund;
 	private Double nationFund;
@@ -45,15 +45,6 @@ public class T293_Bean implements
 
 	public void setSeqNumber(Integer seqNumber) {
 		this.seqNumber = seqNumber;
-	}
-
-	@Column(name = "SumIncom", precision = 18)
-	public Double getSumIncom() {
-		return this.sumIncom;
-	}
-
-	public void setSumIncom(Double sumIncom) {
-		this.sumIncom = sumIncom;
 	}
 
 	@Column(name = "SumUndergraIncome", nullable = false, precision = 18)
@@ -217,6 +208,14 @@ public class T293_Bean implements
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setSumIncome(Double sumIncome) {
+		this.sumIncome = sumIncome;
+	}
+
+	public Double getSumIncome() {
+		return sumIncome;
 	}
 
 }

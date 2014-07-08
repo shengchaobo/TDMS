@@ -214,7 +214,7 @@ public class T293_Action {
 		           ws.mergeCells(1, 18, 2, 18);
 		           
 		           		
-		           ws.addCell(new Label(3, 2, bean.getSumIncom().toString(), wcf1)); 
+		           ws.addCell(new Label(3, 2, bean.getSumIncome().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 3, bean.getSumUndergraIncome().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 4, bean.getAllocateFund().toString(), wcf1));  
 		           ws.addCell(new Label(3, 5, bean.getNationFund().toString(), wcf1)); 

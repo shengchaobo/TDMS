@@ -22,14 +22,7 @@
 				        	 	"precision": 2
 				    		}
 				        } },
-				       	{ "name": "合计", "group": "",  "value": "", "field": "sumFixedAsset", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2,
-				        	 	"disabled": true
-				    		}
-				        } }
+				       	{ "name": "合计", "group": "",  "value": "", "field": "sumFixedAsset", "editor": false }
 				    ];
 				    							
 				$('#edit').propertygrid({

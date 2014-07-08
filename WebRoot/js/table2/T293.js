@@ -1,71 +1,39 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
-
-
 				var rows = [
-					        { "name": "1.学校教育经费收入总额（万元）", "group": "", "value": "",  "field": "sumIncom","editor":  {
+					        { "name": "1.学校教育经费收入总额（万元）", "group": "", "value": "",  "field": "sumIncome","editor": false },
+					        { "name": "收入总计", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "sumUndergraIncome", "editor":  false },
+					        { "name": "本科生生均拨款总额", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "allocateFund", "editor":  false },
+					        { "name": "本科生生均国家拨款总额", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "nationFund", "editor":  {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					        { "name": "收入总计", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "sumUndergraIncome", "editor":  {
+					        { "name": "本科生生均地方拨款总额", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "localFund", "editor":  {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					        { "name": "本科生生均拨款总额", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "allocateFund", "editor":  {
+					        { "name": "本科生学费收入", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "undergraTuition", "editor":  {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					        { "name": "本科生生均国家拨款总额", "value": "", "group": "2.其中本科教育经费支出（万元）", "field": "nationFund", "editor":  {
+					        { "name": "本科教改专项拨款", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "eduReformFund", "editor":  {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					        { "name": "本科生生均地方拨款总额", "group": "2.其中本科教育经费支出（万元）", "value": "", "field": "localFund", "editor":  {
-					    		"type":"numberbox",
-					    		"options":{
-					        	 	"min":  0,
-					        	 	"precision": 2
-					    		}
-					        } },
-					        { "name": "本科生学费收入", "value": "", "group": "2.其中本科教育经费支出（万元）", "field": "undergraTuition", "editor":  {
-					    		"type":"numberbox",
-					    		"options":{
-					        	 	"min":  0,
-					        	 	"precision": 2
-					    		}
-					        } },
-					        { "name": "本科教改专项拨款", "group": "2.其中本科教育经费支出（万元）", "value": "", "field": "eduReformFund", "editor":  {
-					    		"type":"numberbox",
-					    		"options":{
-					        	 	"min":  0,
-					        	 	"precision": 2
-					    		}
-					        } },
-					        { "name": "收入总计", "group": "3.其他教育事业收入（万元）", "value": "", "field": "sumOtherIncome", "editor": {
-					    		"type":"numberbox",
-					    		"options":{
-					        	 	"min":  0,
-					        	 	"precision": 2
-					    		}
-					        } },
-					        { "name": "经常性预算内教育事业费拨款总数", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherAllocateFund", "editor": {
-					    		"type":"numberbox",
-					    		"options":{
-					        	 	"min":  0,
-					        	 	"precision": 2
-					    		}
-					        } },
+					        { "name": "收入总计", "group": "3.其他教育事业收入（万元）", "value": "", "field": "sumOtherIncome", "editor": false},
+					        { "name": "经常性预算内教育事业费拨款总数", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherAllocateFund", "editor": false },
 					       	{ "name": "经常性预算内教育事业费国家拨款", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherNationFund" ,"editor": {
 					    		"type":"numberbox",
 					    		"options":{
@@ -80,13 +48,7 @@
 					        	 	"precision": 2
 					    		}
 					        } },
-					       	{ "name": "学费收入总数", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "otherTuition","editor": {
-					    		"type":"numberbox",
-					    		"options":{
-					        	 	"min":  0,
-					        	 	"precision": 2
-					    		}
-					        } },
+					       	{ "name": "学费收入总数", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "otherTuition","editor": false},
 					       	{ "name": "各类研究生学费收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "graTuition", "editor": {
 					    		"type":"numberbox",
 					    		"options":{
@@ -108,13 +70,7 @@
 					        	 	"precision": 2
 					    		}
 					        } },
-					       	{ "name": "社会捐赠收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "donation","editor": {
-					    		"type":"numberbox",
-					    		"options":{
-					        	 	"min":  0,
-					        	 	"precision": 2
-					    		}
-					        } },
+					       	{ "name": "社会捐赠收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "donation","editor": false},
 					       	{ "name": "其他教育事业收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "otherIncome","editor": {
 					    		"type":"numberbox",
 					    		"options":{
@@ -212,8 +168,8 @@
 					}
 					s += row[i].field + '%' + row[i].value;
 					f += row[i].field;
-					//alert(s);
-					//alert(f);
+					alert(s);
+					alert(f);
 					if(s == '') {
 						return false;
 					}

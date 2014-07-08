@@ -393,7 +393,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   alert("备注中文字数不超过1000");
 				return false ;
 			}
-			alert($('#TeaUnit').val()) ;
+			
 			return true ;
 		}
 		

@@ -386,47 +386,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(cSName == null || cSName.length==0){
-				
-				$('#CSNameSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				alert("课程名称不能为空");
 				return false ;
 			}
 			if(cSID == null || cSID.length == 0){
-				$('#CSIDSpan').html("<font style=\"color:red\">不能为空</font>") ;
+			alert("课程编号不能为空");
+				
 				return false ;
 			}
 			if(setCSUnit == null || setCSUnit.length == 0){
-				$('#SetCSUnitSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				alert("开课单位不能为空");
 				return false ;
 			}
 			if(cSType == null || cSType.length == 0){
-				$('#CSTypeSpan').html("<font style=\"color:red\">不能为空</font>") ;
+					alert("课程类别不能为空");
 				return false ;
 			}
 			if(cSNature == null || cSNature.length == 0){
-				$('#CSNatureSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				alert("课程性质不能为空");
 				return false ;
 			}
 			if(teaID == null || teaID.length == 0){
-				$('#TeaIDSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				alert("教工号不能为空");
 				return false ;
 			}
 			if(assessYear == null || assessYear.length == 0){
-				$('#AssessYearSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				alert("评估年份不能为空");
 				return false ;
 			}
 			if(assessResult == null || assessResult.length == 0){
-				$('#AssessResultSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				 alert("评估结果不能为空");
 				return false ;
 			}
 			if(appvlID == null || appvlID.length == 0){
-				$('#AppvlIDSpan').html("<font style=\"color:red\">不能为空</font>") ;
+				 alert("批文号不能为空");
 				return false ;
 			}
 			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+			   alert("备注中文字数不超过500");
 				return false ;
 			}
-			alert($('#CSNature').val()) ;
 			return true ; 
 		}
 		

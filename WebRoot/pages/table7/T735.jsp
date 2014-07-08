@@ -288,24 +288,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			//根据数据库定义的字段的长度，对其进行判断
 		
 			if(teaUnit == null || teaUnit.length == 0){
-				alert(teaUnit) ;
-				$('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空</font>") ;
+				alert("教学单位不能为空") ;
 				return false ;
 			}
 			if(assessYear == null || assessYear.length == 0){
-				$('#AssessYearSpan').html("<font style=\"color:red\">评估年份不能为空</font>") ;
+			alert("评估年份不能为空") ;
+				
 				return false ;
 			}
-			if(assessResult == null || assessResult.length == 0){
-				$('#AssessResultSpan').html("<font style=\"color:red\">评估结果不能为空</font>") ;
+			if(assessResult == null || assessResult.length == 0){4
+			alert("评估结果不能为空") ;
+			
 				return false ;
 			}
 			
 			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+			alert("备注中文字数不超过500") ;
+			
 				return false ;
 			}
-			alert($('#TeaUnit').val()) ;
+			
 			return true ;
 		}
 		function editCourse(){

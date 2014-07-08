@@ -421,7 +421,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  alert("备注中文字数不超过500") ;
 				return false ;
 			}
-			alert($('#TeaUnit').val()) ;
+			
 			return true ;
 		}
 		function editCourse(){

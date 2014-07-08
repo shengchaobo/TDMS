@@ -368,47 +368,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var note = $('#Note').val();
 			//根据数据库定义的字段的长度，对其进行判断
 			if(attendClassTerm == null || attendClassTerm.length==0){
-				$('#AttendClassTermSpan').html("<font style=\"color:red\">听课学期不能为空</font>") ;
+			    alert("听课学期不能为空");
 				return false;
 			}
 			if(leaderID == null || leaderID.length==0 || leaderID.length > 50){
-				
-				$('#LeaderIDSpan').html("<font style=\"color:red\">校领导姓名不能为空或长度不超过50</font>") ;
+				alert("校领导姓名不能为空或长度不超过50");
 				return false;
 			}
 			if(attendClassTime == null || attendClassTime.length == 0){
-				$('#AttendClassTimeSpan').html("<font style=\"color:red\">听课日期不能为空</font>") ;
+				alert("听课日期不能为空");
 				return false;
 			}
 			if(lectureTeaID == null || lectureTeaID.length==0){
-				$('#lectureTeaID').focus();
-				$('#lectureTeaID').select();
-				$('#LectureTeaIDSpan').html("<font style=\"color:red\">授课教师不能为空</font>") ;
+			    alert("授课教师不能为空");
 				return false ;
 			}
 			if(lectureCS == null || lectureCS.length == 0 ){
-				
-				$('#LectureCSSpan').html("<font style=\"color:red\">听课课程不能为空</font>") ;
+			  alert("听课课程不能为空");	
 				return false ;
 			}
 			if(cSID == null || cSID.length == 0){
-				
-				$('#CSIDSpan').html("<font style=\"color:red\">课程编号不能为空</font>") ;
+			 alert("课程编号不能为空");		
 				return false ;
 			}
 			if(setCSUnit == null || setCSUnit.length == 0){
-				$('#SetCSUnitSpan').html("<font style=\"color:red\">开课单位不能为空</font>") ;
+			 alert("开课单位不能为空");	
 				return false ;
 			}
 			if(lectureClass == null || lectureClass.length == 0){
-				$('#LectureClassSpan').html("<font style=\"color:red\">上课班级不能为空</font>") ;
+			 alert("上课班级不能为空");	
 				return false ;
 			}
 			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+			 alert("备注中文字数不超过500");	
 				return false ;
 			}
-			alert($('#LectureCS').val()) ;
+			
 			return true ;
 		}
 		

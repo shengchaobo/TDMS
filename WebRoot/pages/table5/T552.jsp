@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/table5/T552.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T552/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T552/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead data-options="frozen:true">
@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="pages/T552/dataExport?excelName=<%=URLEncoder.encode("表5-5-2优秀本科班级.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false">
 		<thead data-options="frozen:true">

@@ -25,55 +25,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
 	
 	
-	<style type="text/css">
-	     label {
-	    width: 10em;
-	    float: left;
-	}  
-	.empty{
-		width: 4em;
-	}
-	</style>
-	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-	
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript" src="js/commom.js"></script>
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="校友会（党员办）" class="easyui-datagrid" style="width:100%px;height:430px" url="pages/T17/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+	<table id="unverfiedData"  class="easyui-datagrid"  url="pages/T17/auditingData" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width=10>编号</th>
-				<th field="clubName" width=10>校友会名称</th>
-				<th field="buildYear" width=10  formatter="formattime">建设时间</th>
-				<th field="place" width=10>地点</th>
-				<th field="note" width=10>备注</th>
+				<th field="seqNumber" >编号</th>
+				<th field="clubName">校友会名称</th>
+				<th field="buildYear"  formatter="formattime">建设时间</th>
+				<th field="place" >地点</th>
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -99,13 +71,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T17/downloadModel?saveFile=<%=URLEncoder.encode("表T17校友会（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
-		<hr style="width: 100%; height: 5px; color: blue;"></hr>
+		<hr></hr>
 		<h3 class="title1">校友会逐条导入</h3>
 		
 		<form id="t17form" method="post">

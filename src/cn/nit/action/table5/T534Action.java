@@ -230,7 +230,7 @@ public class T534Action {
 			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("MajorName", 3);maplist.put("MajorID", 4);
 			maplist.put("TeaName", 5);maplist.put("TeaID", 6);maplist.put("IsOutEmploy", 7);maplist.put("Education", 8);
 			maplist.put("Degree", 9);maplist.put("Title",10);maplist.put("IsExcellent", 11);maplist.put("TrainIssueNum", 12);
-			maplist.put("SociaPraFinishNum", 13);maplist.put("GuideStuNum", 14);maplist.put("GainBestGraDesinNum", 15);
+			maplist.put("SocialNum", 13);maplist.put("GuideStuNum", 14);maplist.put("GainBestNum", 15);
 			maplist.put("GainTime", 16);
 			maplist.put("Note", 17);
 			

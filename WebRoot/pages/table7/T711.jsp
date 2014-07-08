@@ -24,43 +24,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-	  label {
-	    width: 10em;
-	    float: left;
-	}
-	.empty{
-		width: 4em;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T711/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  url="pages/T711/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>	
+				<th field="name" >姓名</th>
+				<th field="teaID">教工号</th>		
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="teaUnit" width="10%">教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="name" width="10%">姓名</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="awardName" width="10%">奖励名称</th>
-				<th field="awardLevel" width="10%">级别</th>
-				<th field="awardRank" width="10%">等级</th>
-				<th field="awardTime" width="10%" formatter="formattime">获奖时间</th>
-				<th field="awardFromUnit" width="10%">授予单位</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="joinTeaNum" width="20%">合作教师人数</th>
-				<th field="otherJoinTeaInfo" width="20%">其他合作教师</th>	
-				<th field="note" width="20%">备注</th>
+				<th field="teaUnit">教学单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="awardName">奖励名称</th>
+				<th field="awardLevel">级别</th>
+				<th field="awardRank">等级</th>
+				<th field="awardTime" formatter="formattime">获奖时间</th>
+				<th field="awardFromUnit">授予单位</th>
+				<th field="appvlID">批文号</th>
+				<th field="joinTeaNum">合作教师人数</th>
+				<th field="otherJoinTeaInfo">其他合作教师</th>	
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -79,37 +76,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2">
+	<div id="toolbar2" style="float: right;">
+	
 		<a href="pages/T711/dataExport?excelName=<%=URLEncoder.encode("表7-1-1教学管理人员获得教学成果奖情况.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid"  url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+			<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>	
+				<th field="name" >姓名</th>
+				<th field="teaID">教工号</th>		
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="teaUnit" width="10%">教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="name" width="10%">姓名</th>
-				<th field="teaID" width="10%">教工号</th>
-				<th field="awardName" width="10%">奖励名称</th>
-				<th field="awardLevel" width="10%">级别</th>
-				<th field="awardRank" width="10%">等级</th>
-				<th field="awardTime" width="10%" formatter="formattime">获奖时间</th>
-				<th field="awardFromUnit" width="10%">授予单位</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="joinTeaNum" width="20%">合作教师人数</th>
-				<th field="otherJoinTeaInfo" width="20%">其他合作教师</th>	
-				<th field="note" width="20%">备注</th>		
+				<th field="teaUnit">教学单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="awardName">奖励名称</th>
+				<th field="awardLevel">级别</th>
+				<th field="awardRank">等级</th>
+				<th field="awardTime" formatter="formattime">获奖时间</th>
+				<th field="awardFromUnit">授予单位</th>
+				<th field="appvlID">批文号</th>
+				<th field="joinTeaNum">合作教师人数</th>
+				<th field="otherJoinTeaInfo">其他合作教师</th>	
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle"  id="title1">教学管理人员获得教学成果奖情况批量导入</div>
+		<h3 class="title1">教学管理人员获得教学成果奖情况批量导入</h3>
 		<div class="fitem"  id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
@@ -119,18 +121,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			<a href="123"></a>
 		</div>
-		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+		<hr></hr>	
 			
-		<h3 class="ftitle">教学管理人员获得教学成果奖情况逐条导入</h3>
+		<h3 class="title1">教学管理人员获得教学成果奖情况逐条导入</h3>
 		
 		<form id="t711Form" method="post">
 		<table>
 		
 		<tr>
 			<td>
+			<input id="seqNumber" name="t711_Bean.SeqNumber" type="hidden" value="0">
 					<div class="fitem">
 						<label>教学单位：</label> 
-						<input id="seqNumber" name="t711_Bean.SeqNumber" type="hidden" value="0">
+						
 						<input id="TeaUnit" type="hidden" name="t711_Bean.TeaUnit">
 						<input id="UnitID" name="t711_Bean.UnitID" 
 							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
@@ -139,22 +142,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 }">
 							<span id="TeaUnitSpan"></span>
 					</div>
-				<td>
-					<div class="fitem">
-						<label>姓名：</label> 
-						<input id="Name" type="text" name="t711_Bean.Name"
-							><span id="NameSpan"></span>
-					</div>
 				</td>
-				</tr>
-			<tr>
+				<td class="empty"></td>
 			<td>
 					<div class="fitem">
 						<label>教工号：</label> 
-						<input id="TeaID" type="text" name="t711_Bean.TeaID"
-							><span id="TeaIDSpan"></span>
+						<input id="TeaID" type="hidden" name="t711_Bean.TeaID">
+						<input id="Name" type="text" name="t711_Bean.Name" class='easyui-combobox'
+						data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+						 onSelect:function(){
+							 	document.getElementById('TeaID').value=$(this).combobox('getText') ;
+							 }">
+							<span id="TeaIDSpan"></span>
 					</div>
 					</td>
+					</tr>
+				<tr>
+					
 				<td>
 					<div class="fitem">
 						<label>奖励名称：</label> 
@@ -162,8 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AwardNameSpan"></span>
 					</div>
 				</td>
-				</tr>
-				<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>级别：</label> 
@@ -172,11 +175,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="AwardLevelSpan"></span>
 					</div>
 				</td>
-			
+			  	</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>等级：</label> 
-						<select class='easyui-combobox' id="AwardRank" name="t711_Bean.AwardRank" >
+						<select class='easyui-combobox' id="AwardRank" name="t711_Bean.AwardRank" panelHeight="auto" >
 							<option value="一等奖">一等奖</option>
 							<option value="二等奖">二等奖</option>
 							<option value="三等奖">三等奖</option>
@@ -185,8 +189,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="AwardRankSpan"></span>
 					</div>
 				</td>
-				</tr>
-				<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>获奖时间：</label> 
@@ -195,7 +198,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="AwardTimeSpan"></span>
 					</div>
 				</td>
-			
+			</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>授予单位：</label> 
@@ -203,8 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AwardFromUnitSpan"></span>
 					</div>
 				</td>
-				</tr>
-				<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>批文号：</label> 
@@ -212,7 +215,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AppvlIDSpan"></span>
 					</div>
 				</td>
-			
+		</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>合作教师人数：</label> 
@@ -220,9 +224,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="JoinTeaNumSpan"></span>
 					</div>
 				</td>
-				</tr>
-			<tr>
+			<td class="empty"></td>
 				<td>
+				
 					<div class="fitem">
 						<label>其他合作教师：</label> 
 						<input id="OtherJoinTeaInfo" type="text" name="t711_Bean.OtherJoinTeaInfo"
@@ -232,7 +236,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 			
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="t711_Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -315,12 +319,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  		 });
 	   }
 	    function newCourse(){   	
-	    	$('#title1').show();
+	    	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	
 	     	url = "pages/T711/insert";
-		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+		    $('#dlg').dialog('open').dialog('setTitle','添加教学管理人员获得教学成果奖情况');
 		    $('#t711Form').form('reset');
 		   
 	    }
@@ -351,8 +355,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function validate(){
 			//获取文本框的值
 			var teaUnit = $('#UnitID').combobox('getText');
-			var name = $('#Name').val();
-			var teaID = $('#TeaID').val();
+			var teaID = $('#Name').combobox('getText');
 			var awardName = $('#AwardName').val();
 			var awardLevel = $('#AwardLevel').combobox('getText');
 			var awardRank = $('#AwardRank').combobox('getText');
@@ -364,64 +367,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var note = $('#Note').val();
 			//根据数据库定义的字段的长度，对其进行判断
 			if(teaUnit == null || teaUnit.length==0 || teaUnit.length > 100){
-				$('#TeaUnit').focus();
-				$('#TeaUnit').select();
-				$('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空或长度不超过100</font>") ;
+				alert("教学单位不能为空或长度不超过100");
 				return false;
 			}
-			if(name == null || name.length==0 || name.length > 10){
-				$('#Name').focus();
-				$('#Name').select();
-				$('#NameSpan').html("<font style=\"color:red\">名字不能为空或长度不超过10</font>") ;
-				return false;
-			}
+			
 			if(teaID == null || teaID.length == 0 || teaID.length > 50){
-				$('#TeaID').focus();
-				$('#TeaID').select();
-				$('#TeaIDSpan').html("<font style=\"color:red\">教工号不能为空或长度不超过50</font>") ;
+			  alert("教工号不能为空或长度不超过50");
 				return false;
 			}
 			if(awardName == null || awardName.length==0 || awardName.length > 200){
-				$('#awardName').focus();
-				$('#awardName').select();
-				$('#AwardNameSpan').html("<font style=\"color:red\">奖励名称不能为空或长度不超过200</font>") ;
+			   alert("奖励名称不能为空或长度不超过200");
 				return false ;
 			}
 			if(awardRank == null || awardRank.length == 0 ){
-				alert(awardRank) ;
-				$('#AwardRankSpan').html("<font style=\"color:red\">等级不能为空</font>") ;
+			  alert("等级不能为空");
 				return false ;
 			}
 			if(awardLevel == null || awardLevel.length == 0){
-				
-				$('#AwardLevelSpan').html("<font style=\"color:red\">级别不能为空</font>") ;
+		       alert("级别不能为空");
 				return false ;
 			}
 			if(awardTime == null || awardTime.length == 0){
-				$('#AwardTimeSpan').html("<font style=\"color:red\">获奖时间不能为空</font>") ;
+			  alert("获奖时间不能为空");
 				return false ;
 			}
 			if(awardFromUnit == null || awardFromUnit.length == 0){
-				$('#AwardFromUnitSpan').html("<font style=\"color:red\">授予单位不能为空</font>") ;
+			  alert("授予单位不能为空");
 				return false ;
 			}
 			if(appvlID == null || appvlID.length == 0){
-				$('#AppvlIDSpan').html("<font style=\"color:red\">批文号不能为空</font>") ;
+			 alert("批文号不能为空");
 				return false ;
 			}
-			if(joinTeaNum == null){
-				$('#JoinTeaNumSpan').html("<font style=\"color:red\">合作教师人数不能为空</font>") ;
+		if(note.length > 1000){
+		 alert("备注中文字数不超过500");
 				return false ;
 			}
-			if(otherjoinTeaInfo == null){
-				$('#OtherJoinTeaInfoSpan').html("<font style=\"color:red\">其他合作教师不能为空</font>") ;
-				return false ;
-			}
-			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
-				return false ;
-			}
-			alert($('#AwardFromUnit').val()) ;
+			
 			return true ;
 		}
 		function editCourse(){
@@ -435,21 +417,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	url = 'pages/T711/edit' ;
 	    	
 	    	  	
-	    	$('#title1').hide();
+	    	$('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','编辑教学管理人员获得教学成果奖情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	//alert(row[0].seqNumber);
-	    	$('#Name').val(row[0].name) ;
-	    	$('#TeaID').val(row[0].teaID) ;
+	    	$('#Name').combobox('select', row[0].name) ;
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
 	    	$('#AwardName').val(row[0].awardName) ;
 	    	$('#AwardLevel').combobox('select', row[0].awardLevelID) ;
 			$('#AwardRank').combobox('select', row[0].awardRank) ;
-		
 			$('#AwardFromUnit').val(row[0].awardFromUnit) ;
 			$('#AppvlID').val(row[0].appvlID) ;
 			$('#JoinTeaNum').val(row[0].joinTeaNum) ;
@@ -531,6 +511,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -547,5 +530,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+	
 
 </html>

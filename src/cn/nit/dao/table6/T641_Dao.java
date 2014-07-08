@@ -8,13 +8,12 @@ import java.util.List;
 
 import net.sf.json.JSON;
 
-
-
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T641_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
+import cn.nit.util.TimeUtil;
 
 public class T641_Dao {
 
@@ -25,261 +24,252 @@ public class T641_Dao {
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
-	private String field = "Item,AidFund,AidStuNum,Time,Note";
+	private String field = "SumAidFund,SumAidNum,GovAidFund,GovAidNum,SocialAidFund,SocialAidNum,SchAidFund," +
+			"SchAidNum,NationAidFund,NationAidNum,WorkStudyFund,WorkStudyNum,TuitionWaiberFund,TuitionWaiberNum," +
+			"TempFund,TempNum,Time,Note";
 
 	
-	private String fieldShow = "SeqNumber,Item,AidFund,AidStuNum,Time,Note";
-
-	
-	/* ,FillTeaID,FillUnitID,audit */
-
 	/**
-	 * 将数据表622的实体类插入数据库
-	 * 
-	 * @param UndergraAdmiInfo
+	 * 获取字典表的所有数据
 	 * @return
-	 * 
-	 * @time: 2014-6-12
+	 *
+	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public boolean insert(T641_Bean ScholarLoanSubsidy) {
-
-		// flag判断数据是否插入成功
-		boolean flag = false;
-		Connection conn = DBConnection.instance.getConnection();
-		try {
-			flag = DAOUtil.insert(ScholarLoanSubsidy, tableName, field, conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return flag;
-		} finally {
+	public T641_Bean getYearInfo(String year){
+		
+		String sql = "select " + " " + key + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T641_Bean> list = null ;
+		T641_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T641_Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
 			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
 		}
-		return flag;
+		
+		return bean ;
 	}
-
+		
 	/**
-	 * 讲数据批量插入T511表中
-	 * 
-	 * @param list
-	 *            {@linkplain java.util.List<
-	 *            {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}>}
-	 * @return true表示插入成功，false表示插入失败
+	 * 保存数据
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
 	 */
-	public boolean batchInsert(List<T641_Bean> list) {
-
+	public boolean save(T641_Bean bean, String year, String fields){
+		
+		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year;		
 		boolean flag = false;
-		Connection conn = DBConnection.instance.getConnection();
-
-		try {
-			flag = DAOUtil.batchInsert(list, tableName, field, conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return flag;
-		}
-
-		return flag;
-	}
-
-	// 更新
-	public boolean update(T641_Bean ScholarLoanSubsidy) {
-
-		boolean flag = false;
-		Connection conn = DBConnection.instance.getConnection();
-		try {
-			flag = DAOUtil
-					.update(ScholarLoanSubsidy, tableName, key, field, conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return flag;
-		} finally {
-			DBConnection.close(conn);
-		}
-
-		return flag;
-	}
-
-	// 删除 ids应书写为"(1,2,3)"
-	public boolean deleteItemsByIds(String ids) {
-
-		int flag = 0;
-		StringBuffer sql = new StringBuffer();
-		sql.append("delete from " + tableName);
-		sql.append(" where " + key + " in " + ids);
-		Connection conn = DBConnection.instance.getConnection();
-		Statement st = null;
-
-		try {
-			st = conn.createStatement();
-			flag = st.executeUpdate(sql.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-
-		if (flag == 0) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	public String getTableName() {
-		return this.tableName;
-	}
-	
-	public List<T641_Bean> queryPageList(int pagesize, int currentpage) {
-		// TODO Auto-generated method stub
-		
-		
-		String queryPageSql = "select top " + pagesize + 
-		fieldShow
-		+ " from " + tableName + 
-		" where (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-		tableName + " order by SeqNumber)) order by SeqNumber" ;
-		System.out.println(queryPageSql);
 		Connection conn = DBConnection.instance.getConnection() ;
+		
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T641_Bean> list = null ;
-		
-		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(queryPageSql) ;
-			list = DAOUtil.getList(rs, T641_Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}finally{
-			DBConnection.close(conn);
-			DBConnection.close(rs);
-			DBConnection.close(st);			
-		}
-		
-		return list ;
-	}
-	
-	public List<T641_Bean> queryPageList(String cond, Object object,
-			int pagesize, int currentpage) {
-		// TODO Auto-generated method stub
-		String queryPageSql;
-		
-			queryPageSql = "select top " + pagesize + 
-			fieldShow
-			+ " from " + tableName + 
-			" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
-	
-
-		System.out.println(queryPageSql);
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<T641_Bean> list = null ;
-		
-		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(queryPageSql) ;
-			list = DAOUtil.getList(rs, T641_Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}finally{
-			DBConnection.close(conn);
-			DBConnection.close(rs);
-			DBConnection.close(st);			
-		}
-		
-		return list ;
-	}
-	
-	public List<T641_Bean> getAllList() {
-		// TODO Auto-generated method stub
-		String sql = "select " + fieldShow + " from " + tableName ;
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<T641_Bean> list = null ;
-		
+		T641_Bean tempBean = null;
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
 			list = DAOUtil.getList(rs, T641_Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}finally{
-			DBConnection.close(conn);
-			DBConnection.close(rs);
-			DBConnection.close(st);			
-		}
-		
-		return list ;
-	}
-	
-	public List<T641_Bean> getAllList(String cond, Object object) {
-		// TODO Auto-generated method stub
-		String sql;
-		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
-	    System.out.println(sql);
-	
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<T641_Bean> list = null ;
-		
-		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T641_Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}finally{
-			DBConnection.close(conn);
-			DBConnection.close(rs);
-			DBConnection.close(st);			
-		}
-		
-		return list ;
-	}
-
-	public static void main(String args[]) {
-
-		T641_Dao ScholarLoanSubsidyDao = new T641_Dao();
-		T641_Bean ScholarLoanSubsidy = new T641_Bean();
-//		 ScholarLoanSubsidy.setSeqNumber(1);
-		//	
-		/**3.学校奖学金	203.7	5333
-		4.国家助学贷款	1465	2459
-		5.勤工助学金	81	820
-		6.减免学费	4.77	67
-		7.临时困难补助	7.9	325*/
-	
-		ScholarLoanSubsidy.setItem("7.临时困难补助");
-		ScholarLoanSubsidy.setAidFund(7.9);
-		ScholarLoanSubsidy.setAidStuNum(325);
+			if(list.size() != 0){
+				tempBean = list.get(0);
+				bean.setSeqNumber(tempBean.getSeqNumber());
+				String tempfields = fields + ",SumAidFund,SumAidNum";
 				
-		ScholarLoanSubsidy.setTime(new Date());
-		ScholarLoanSubsidy.setNote("无");
-//		//		
-		ScholarLoanSubsidyDao.insert(ScholarLoanSubsidy);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(ScholarLoanSubsidyDao.update(ScholarLoanSubsidy)) ;
-//		 System.out.println(ScholarLoanSubsidyDao.deleteItemsByIds("(8)")) ;
-
-		System.out.println("success!!");
+				double sumAidFund = tempBean.getSumAidFund();
+				int sumAidNum = tempBean.getSumAidNum();
+				
+//				资助金额
+				if(bean.getGovAidFund()!=null){
+					if(tempBean.getGovAidFund()==null){
+						sumAidFund = sumAidFund + bean.getGovAidFund();
+					}else{
+						sumAidFund = sumAidFund + (bean.getGovAidFund()-tempBean.getGovAidFund());
+					}
+				}
+				if(bean.getSocialAidFund()!=null){
+					if(tempBean.getSocialAidFund()==null){
+						sumAidFund = sumAidFund + bean.getSocialAidFund();
+					}else{
+						sumAidFund = sumAidFund + (bean.getSocialAidFund()-tempBean.getSocialAidFund());
+					}
+				}
+				if(bean.getSchAidFund()!=null){
+					if(tempBean.getSchAidFund()==null){
+						sumAidFund = sumAidFund + bean.getSchAidFund();
+					}else{
+						sumAidFund = sumAidFund + (bean.getSchAidFund()-tempBean.getSchAidFund());
+					}
+				}
+				if(bean.getNationAidFund()!=null){
+					if(tempBean.getNationAidFund()==null){
+						sumAidFund = sumAidFund + bean.getNationAidFund();
+					}else{
+						sumAidFund = sumAidFund + (bean.getNationAidFund()-tempBean.getNationAidFund());
+					}
+				}
+				if(bean.getWorkStudyFund()!=null){
+					if(tempBean.getWorkStudyFund()==null){
+						sumAidFund = sumAidFund + bean.getWorkStudyFund();
+					}else{
+						sumAidFund = sumAidFund + (bean.getWorkStudyFund()-tempBean.getWorkStudyFund());
+					}
+				}
+				if(bean.getTuitionWaiberFund()!=null){
+					if(tempBean.getTuitionWaiberFund()==null){
+						sumAidFund = sumAidFund + bean.getTuitionWaiberFund();
+					}else{
+						sumAidFund = sumAidFund + (bean.getTuitionWaiberFund()-tempBean.getTuitionWaiberFund());
+					}
+				}
+				if(bean.getTempFund()!=null){
+					if(tempBean.getTempFund()==null){
+						sumAidFund = sumAidFund + bean.getTempFund();
+					}else{
+						sumAidFund = sumAidFund + (bean.getTempFund()-tempBean.getTempFund());
+					}
+				}
+				bean.setSumAidFund(sumAidFund);
+				
+				
+//				资助学生数
+				if(bean.getGovAidFund()!=null){
+					if(tempBean.getGovAidNum()==null){
+						sumAidNum = sumAidNum + bean.getGovAidNum();
+					}else{
+						sumAidNum = sumAidNum + (bean.getGovAidNum()-tempBean.getGovAidNum());
+					}
+				}
+				if(bean.getSocialAidNum()!=null){
+					if(tempBean.getSocialAidNum()==null){
+						sumAidNum =sumAidNum + bean.getSocialAidNum();
+					}else{
+						sumAidNum = sumAidNum + (bean.getSocialAidNum()-tempBean.getSocialAidNum());
+					}
+				}
+				if(bean.getSchAidNum()!=null){
+					if(tempBean.getSchAidNum()==null){
+						sumAidNum = sumAidNum + bean.getSchAidNum();
+					}else{
+						sumAidNum = sumAidNum + (bean.getSchAidNum()-tempBean.getSchAidNum());
+					}
+				}
+				if(bean.getNationAidNum()!=null){
+					if(tempBean.getNationAidNum()==null){
+						sumAidNum = sumAidNum + bean.getNationAidNum();
+					}else{
+						sumAidNum = sumAidNum + (bean.getNationAidNum()-tempBean.getNationAidNum());
+					}
+				}
+				if(bean.getWorkStudyNum()!=null){
+					if(tempBean.getWorkStudyFund()==null){
+						sumAidNum = sumAidNum + bean.getWorkStudyNum();
+					}else{
+						sumAidNum = sumAidNum + (bean.getWorkStudyNum()-tempBean.getWorkStudyNum());
+					}
+				}
+				if(bean.getTuitionWaiberNum()!=null){
+					if(tempBean.getTuitionWaiberNum()==null){
+						sumAidNum = sumAidNum + bean.getTuitionWaiberNum();
+					}else{
+						sumAidNum = sumAidNum + (bean.getTuitionWaiberNum()-tempBean.getTuitionWaiberNum());
+					}
+				}
+				if(bean.getTempNum()!=null){
+					if(tempBean.getTempNum()==null){
+						sumAidNum = sumAidNum + bean.getTempNum();
+					}else{
+						sumAidNum = sumAidNum + (bean.getTempNum()-tempBean.getTempNum());
+					}
+				}
+				bean.setSumAidNum(sumAidNum);						
+				flag = DAOUtil.update(bean, tableName, key, tempfields, conn) ;
+			}else{
+				bean.setTime(TimeUtil.changeDateY(year));
+				double sumAidFund =0;
+				int sumAidNum = 0;				
+				
+//				资助金额
+				if(bean.getGovAidFund()!=null){
+					sumAidFund = sumAidFund + bean.getGovAidFund();
+				}
+				if(bean.getSocialAidFund()!=null){
+					sumAidFund = sumAidFund + bean.getSocialAidFund();
+				}
+				if(bean.getSchAidFund()!=null){
+					sumAidFund = sumAidFund + bean.getSchAidFund();
+				}
+				if(bean.getNationAidFund()!=null){
+					sumAidFund = sumAidFund + bean.getNationAidFund();
+				}
+				if(bean.getWorkStudyFund()!=null){
+					sumAidFund = sumAidFund + bean.getWorkStudyFund();
+				}
+				if(bean.getTuitionWaiberFund()!=null){
+					sumAidFund = sumAidFund + bean.getTuitionWaiberFund();
+				}
+				if(bean.getTempFund()!=null){
+					sumAidFund = sumAidFund + bean.getTempFund();
+				}
+				bean.setSumAidFund(sumAidFund);
+				
+				
+//				资助学生数
+				if(bean.getGovAidFund()!=null){
+					sumAidNum = sumAidNum + bean.getGovAidNum();
+				}
+				if(bean.getSocialAidNum()!=null){
+					sumAidNum =sumAidNum + bean.getSocialAidNum();
+				}
+				if(bean.getSchAidNum()!=null){
+					sumAidNum = sumAidNum + bean.getSchAidNum();
+				}
+				if(bean.getNationAidNum()!=null){
+					sumAidNum = sumAidNum + bean.getNationAidNum();
+				}
+				if(bean.getWorkStudyNum()!=null){
+					sumAidNum = sumAidNum + bean.getWorkStudyNum();
+				}
+				if(bean.getTuitionWaiberNum()!=null){
+					sumAidNum = sumAidNum + bean.getTuitionWaiberNum();
+				}
+				if(bean.getTempNum()!=null){
+					sumAidNum = sumAidNum + bean.getTempNum();
+				}
+				bean.setSumAidNum(sumAidNum);	
+				
+				String tempfields = fields + ",SumAidFund,SumAidNum,Time";
+				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+				
+		return flag ;
 	}
-
-
-
-
-
-
+	
+	
+	
+	public static void main(String args[]){
+		//T641_Dao testDao =  new T641_Dao() ;
+	}
 
 }

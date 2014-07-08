@@ -23,30 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -56,16 +32,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="表1-2学校行政单位（党院办）" class="easyui-datagrid" style="width:100%px;height:430px" url="pages/T12/auditingData"
+	<table id="unverfiedData" title="表1-2学校行政单位（党院办）" class="easyui-datagrid"  url="pages/T12/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
+			<!-- 	<th data-options="field:'ck',checkbox:true">选取</th> -->
 				<th field="seqNumber" width=10>编号</th>
 				<th field="unitName" width=10>行政单位名称</th>
 				<th field="unitID" width=10 >单位号</th>
-				<th field="function" width=10>单位职能</th>
+				<th field="functions" width=10>单位职能</th>
 				<th field="leader" width=10>单位负责人</th>
 				<th field="teaID" width=10>教工号</th>
 				<th field="note" width=10>备注</th>
@@ -73,15 +49,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		<div style="float: left;">
 			<a href="pages/T12/dataExport?excelName=表1-2学校行政单位（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
+			</div>
 			<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
-		</div>
 	</div>
 	<!-- 
 	<div id="toolbar2">

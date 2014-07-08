@@ -13,7 +13,7 @@ import cn.nit.util.TimeUtil;
 public class T293_Dao {
 	
 	private String tableName = "T293_UndergraTeaIncome_Finance$" ;
-	private String field = "SumIncom,SumUndergraIncome,AllocateFund,NationFund,LocalFund,UndergraTuition,EduReformFund," +
+	private String field = "SumIncome,SumUndergraIncome,AllocateFund,NationFund,LocalFund,UndergraTuition,EduReformFund," +
 			"SumOtherIncome,OtherAllocateFund,OtherNationFund,OtherLocalFund,OtherTuition,GraTuition,JuniorTuition," +
 			"NetTeaTuition,Donation,OtherIncome,Time,Note";
 	private String keyfield = "SeqNumber";
@@ -76,10 +76,180 @@ public class T293_Dao {
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());
-				flag = DAOUtil.update(bean, tableName, keyfield, fields, conn) ;
+				String tempfields = fields + ",SumIncome,SumUndergraIncome,AllocateFund,SumOtherIncome,OtherAllocateFund,OtherTuition";
+				
+				double sumIncome = tempBean.getSumIncome();
+				double sumUndergraIncome = tempBean.getSumUndergraIncome();
+				double allocateFund = tempBean.getAllocateFund();
+				double sumOtherIncome = tempBean.getSumOtherIncome();
+				double otherAllocateFund = tempBean.getOtherAllocateFund();
+				double otherTuition = tempBean.getOtherTuition();
+				
+//				统计本科拨款总额
+				if(bean.getNationFund()!=null){
+					if(tempBean.getNationFund()==null){
+						allocateFund = allocateFund + bean.getNationFund();
+					}else{
+						allocateFund = allocateFund + (bean.getNationFund()-tempBean.getNationFund());
+					}
+				}
+				if(bean.getLocalFund()!=null){
+					if(tempBean.getLocalFund()==null){
+						allocateFund = allocateFund + bean.getLocalFund();
+					}else{
+						allocateFund = allocateFund + (bean.getLocalFund()-tempBean.getLocalFund());
+					}
+				}
+				bean.setAllocateFund(allocateFund);
+				
+				
+//				统计本科生收入总计
+				sumUndergraIncome = sumUndergraIncome + allocateFund;				
+				if(bean.getEduReformFund()!= null){
+					if(tempBean.getEduReformFund() == null){
+						sumUndergraIncome = sumUndergraIncome + bean.getEduReformFund();
+					}else{
+						sumUndergraIncome = sumUndergraIncome + (bean.getEduReformFund()-tempBean.getEduReformFund());
+					}				
+				}				
+				if(bean.getUndergraTuition()!= null){
+					if(tempBean.getUndergraTuition() == null){
+						sumUndergraIncome = sumUndergraIncome + bean.getUndergraTuition();
+					}else{
+						sumUndergraIncome = sumUndergraIncome + (bean.getUndergraTuition()-tempBean.getUndergraTuition());
+					}	
+				}
+				bean.setSumUndergraIncome(sumUndergraIncome);
+				
+//				其他拨款总数					
+				if(bean.getOtherNationFund()!= null){
+					if(tempBean.getOtherNationFund() == null){
+						otherAllocateFund = otherAllocateFund + bean.getOtherNationFund();
+					}else{
+						otherAllocateFund = otherAllocateFund + (bean.getOtherNationFund()-tempBean.getOtherNationFund());
+					}	
+				}
+				if(bean.getOtherLocalFund()!=null){
+					if(tempBean.getOtherNationFund() == null){
+						otherAllocateFund = otherAllocateFund + bean.getOtherLocalFund();
+					}else{
+						otherAllocateFund = otherAllocateFund + (bean.getOtherLocalFund()-tempBean.getOtherLocalFund());
+					}
+				}
+				bean.setOtherAllocateFund(otherAllocateFund);
+				
+//				其他学费总额
+				if(bean.getGraTuition()!=null){
+					if(tempBean.getGraTuition() == null){
+						otherTuition = otherTuition + bean.getGraTuition();
+					}else{
+						otherTuition = otherTuition + (bean.getGraTuition()-tempBean.getGraTuition());
+					}
+				}
+				if(bean.getNetTeaTuition()!=null){
+					if(tempBean.getNetTeaTuition() == null){
+						otherTuition = otherTuition + bean.getNetTeaTuition();
+					}else{
+						otherTuition = otherTuition + (bean.getNetTeaTuition()-tempBean.getNetTeaTuition());
+					}
+				}
+				if(bean.getJuniorTuition()!=null){
+					if(tempBean.getJuniorTuition() == null){
+						otherTuition = otherTuition + bean.getJuniorTuition();
+					}else{
+						otherTuition = otherTuition + (bean.getJuniorTuition()-tempBean.getJuniorTuition());
+					}
+				}
+				bean.setOtherTuition(otherTuition);
+				
+//				其他收入总额
+				sumOtherIncome = sumOtherIncome + otherTuition + otherAllocateFund;
+				if(bean.getDonation()!= null){
+					if(tempBean.getDonation() == null){
+						sumOtherIncome = sumOtherIncome + bean.getDonation();
+					}else{
+						sumOtherIncome = sumOtherIncome + (bean.getDonation()-tempBean.getDonation());
+					}
+				}
+				if(bean.getOtherIncome()!= null){
+					if(tempBean.getOtherIncome() == null){
+						sumOtherIncome = sumOtherIncome + bean.getOtherIncome();
+					}else{
+						sumOtherIncome = sumOtherIncome + (bean.getOtherIncome()-tempBean.getOtherIncome());
+					}
+				}
+				bean.setSumOtherIncome(sumOtherIncome);
+
+//				总收入
+				sumIncome = sumUndergraIncome + sumOtherIncome;
+				bean.setSumIncome(sumIncome);			
+				
+				flag = DAOUtil.update(bean, tableName, keyfield, tempfields, conn) ;
 			}else{
 				bean.setTime(TimeUtil.changeDateY(year));
-				String tempfields = fields + ",Time";
+				double sumIncome = 0;
+				double sumUndergraIncome = 0;
+				double allocateFund = 0;
+				double sumOtherIncome = 0;
+				double otherAllocateFund = 0;
+				double otherTuition = 0;
+				
+				
+//				统计本科拨款总额
+				if(bean.getNationFund()!=null){
+					allocateFund = allocateFund + bean.getNationFund();
+				}				
+				if(bean.getLocalFund()!=null){
+					allocateFund = allocateFund + bean.getLocalFund();
+				}
+				bean.setAllocateFund(allocateFund);
+				
+//				统计本科生收入总计
+				sumUndergraIncome = sumUndergraIncome + allocateFund;				
+				if(bean.getEduReformFund()!=null){
+					sumUndergraIncome = sumUndergraIncome + bean.getEduReformFund();
+				}				
+				if(bean.getUndergraTuition()!=null){
+					sumUndergraIncome = sumUndergraIncome + bean.getUndergraTuition();
+				}
+				bean.setSumUndergraIncome(sumUndergraIncome);
+				
+//				其他拨款总数					
+				if(bean.getOtherNationFund()!=null){
+					otherAllocateFund = otherAllocateFund + bean.getOtherNationFund();
+				}
+				if(bean.getOtherLocalFund()!=null){
+					otherAllocateFund = otherAllocateFund + bean.getOtherLocalFund();
+				}
+				bean.setOtherAllocateFund(otherAllocateFund);
+				
+//				其他学费总额
+				if(bean.getGraTuition()!=null){
+					otherTuition = otherTuition + bean.getGraTuition();
+				}
+				if(bean.getNetTeaTuition()!=null){
+					otherTuition = otherTuition + bean.getNetTeaTuition();
+				}
+				if(bean.getJuniorTuition()!=null){
+					otherTuition = otherTuition + bean.getJuniorTuition();
+				}
+				bean.setOtherTuition(otherTuition);
+				
+//				其他收入总额
+				sumOtherIncome = sumOtherIncome + otherTuition + otherAllocateFund;
+				if(bean.getDonation()!= null){
+					sumOtherIncome = sumOtherIncome + bean.getDonation();
+				}
+				if(bean.getOtherIncome()!= null){
+					sumOtherIncome = sumOtherIncome + bean.getOtherIncome();
+				}
+				bean.setSumOtherIncome(sumOtherIncome);
+
+//				总收入
+				sumIncome = sumUndergraIncome + sumOtherIncome;
+				bean.setSumIncome(sumIncome);
+				
+				String tempfields = fields + ",SumIncome,SumUndergraIncome,AllocateFund,SumOtherIncome,OtherAllocateFund,OtherTuition,Time";
 				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
 			}
 		}catch(Exception e){

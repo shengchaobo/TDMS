@@ -23,15 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	<style type="text/css">
-	     label {
-	    width: 10em;
-	    float: left;
-	}
-	.empty{
-		width: 4em;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -209,8 +201,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-	   <h3 class="ftitle">教师出版教材信息逐条导入</h3>
-	   <form id="addForm" method="post">
+	   <!--<h3 class="ftitle">教师出版教材信息逐条导入</h3>
+	   --><form id="addForm" method="post">
 		<table>
 			<!--<tr>
 				<td style="valign:left" colspan="3">

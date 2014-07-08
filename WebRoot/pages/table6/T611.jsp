@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>本专科学生数量基本情况</title>
+<title>T611</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -23,15 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	<style type="text/css">
-	     label {
-	    width: 10em;
-	    float: left;
-	}
-	.empty{
-		width: 4em;
-	}
-	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>

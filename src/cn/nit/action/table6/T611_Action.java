@@ -177,39 +177,23 @@ public class T611_Action {
 		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		           ws.mergeCells(0, 0, 1, 0);
 		           
-		           ws.addCell(new Label(0, 2, "项目", wcf)); 
-		           ws.addCell(new Label(2, 2, "内容", wcf)); 
-		           ws.addCell(new Label(0, 3, "1.占地面积(平方米)", wcf)); 
-		           ws.addCell(new Label(0, 10, "2.总建筑面积(平方米)", wcf)); 
-		           ws.addCell(new Label(1, 3, "总占地面积", wcf)); 
-		           ws.addCell(new Label(1, 4, "学校产权", wcf));  
-		           ws.addCell(new Label(1, 5, "  其中：绿化用地", wcf)); 
-		           ws.addCell(new Label(1, 6, "非学校产权", wcf)); 
-		           ws.addCell(new Label(1, 7, "  其中：绿化用地", wcf)); 
-		           ws.addCell(new Label(1, 8, "  其中：独立使用", wcf)); 
-		           ws.addCell(new Label(1, 9, "       共同使用", wcf)); 
-		           ws.addCell(new Label(1, 10, "总建筑面积", wcf)); 
-		           ws.addCell(new Label(1, 11, "学校产权", wcf)); 
-		           ws.addCell(new Label(1, 12, "非学校产权", wcf)); 
-		           ws.addCell(new Label(1, 13, "  其中：独立使用", wcf)); 
-		           ws.addCell(new Label(1, 14, "        共同使用", wcf)); 
+		           ws.addCell(new Label(0, 2, "学生信息库链接", wcf)); 
+		           ws.addCell(new Label(0, 3, "分类", wcf)); 
+		           ws.addCell(new Label(0, 4, "合计", wcf)); 
+		           ws.addCell(new Label(0, 5, "1.普通本科学生数", wcf));
+		           ws.addCell(new Label(0, 6, "2.普通高职（含专科）学生数", wcf));
+		           ws.addCell(new Label(1, 3, "上学年人数（个）", wcf)); 
+		           ws.addCell(new Label(2, 3, "本学年人数（个）", wcf)); 
 
-		           ws.mergeCells(0, 2, 1, 2);
-		           ws.mergeCells(0, 3, 0, 9);
-		           ws.mergeCells(0, 10, 0, 14);
-//		           		           
-//		           ws.addCell(new Label(2, 3, bean.getSumArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 4, bean.getSchProArea().toString(), wcf1));  
-//		           ws.addCell(new Label(2, 5, bean.getGreenArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 6, bean.getNotSchProArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 7, bean.getGreenAreaNotInSch().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 8, bean.getOnlyUseArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 9, bean.getCoUseArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 10, bean.getSumCoverArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 11, bean.getSchProCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 12, bean.getNotSchProCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 13, bean.getOnlyUseCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 14, bean.getCoUseCovArea().toString(), wcf1)); 
+		           		           
+		           ws.addCell(new Label(1, 2, bean.getStuInfoBaseUrl().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 4, bean.getLastYearSumNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 4, bean.getThisYearSumNum().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 5, bean.getUndergraLastYearNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 5, bean.getUndergraThisYearNum().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 6, bean.getJuniorLastYearNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 6, bean.getJuniorThisYearNum().toString(), wcf1)); 
+		           ws.mergeCells(1, 2, 1, 0);
 		             
 
 		          wwb.write();

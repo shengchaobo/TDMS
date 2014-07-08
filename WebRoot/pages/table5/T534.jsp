@@ -23,15 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	<style type="text/css">
-	     label {
-	    width: 10em;
-	    float: left;
-	}
-	.empty{
-		width: 4em;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -48,16 +41,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
-		     </tr>
-		</thead>
-		<thead>
-				<tr>					
-					<th data-options="field:'teaUnit'">
+				<th data-options="field:'teaUnit'">
 						教学单位
 					</th>
 					<th data-options="field:'unitID'">
 						单位号
 					</th>
+		     </tr>
+		</thead>
+		<thead>
+				<tr>					
+					
 					<th data-options="field:'majorName'">
 						专业名称
 					</th>
@@ -82,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'title'">
 						职称
 					</th>
-					<th data-options="field:'isExcellent'" formatter="formatBoolean">
+					<th data-options="field:'isExcellent'" formatter="formatBoolean"> 
 						是否获评校级优秀指导教师
 					</th>
 					<th data-options="field:'trainIssueNum'">
@@ -126,16 +120,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
-		     </tr>
-		</thead>
-		<thead>
-				<tr>					
-					<th data-options="field:'TeaUnit'">
+				<th data-options="field:'TeaUnit'">
 						教学单位
 					</th>
 					<th data-options="field:'UnitID'">
 						单位号
 					</th>
+		     </tr>
+		</thead>
+		<thead>
+				<tr>					
+					
 					<th data-options="field:'MajorName'">
 						专业名称
 					</th>
@@ -194,7 +189,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle" id="title1">分专业毕业综合训练情况模板导入</h3>
+		<h3  class="title1">分专业毕业综合训练情况模板导入</h3>
 		<div class="fitem" id="item1">
 		  <form method="post"  id="batchForm" enctype="multipart/form-data">
 		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
@@ -203,8 +198,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href='pages/T534/downloadModel?saveFile=<%=URLEncoder.encode("表5-3-4分专业毕业综合训练情况（教学单位-教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>	
-		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
-	   <h3 class="ftitle">分专业毕业综合训练情况逐条导入</h3>
+		<hr></hr>	
+	   <h3  class="title1">分专业毕业综合训练情况逐条导入</h3>
 	   <form id="addForm" method="post">
 		<table>
 			<tr>

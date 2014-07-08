@@ -221,7 +221,7 @@ public class T533Action {
 			columns.add("序号");
 			columns.add("教学单位");columns.add("单位号");columns.add("专业名称");columns.add("专业代码");
 			columns.add("有实验的课程（门）");columns.add("独立设置的实验课程（门）");columns.add("综合性、设计性实验教学（门）");
-			columns.add("实验开出率（%）");
+			columns.add("实验开出率（%）");	columns.add("备注");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();

@@ -11,7 +11,7 @@
 	 
 	    function newCourse(){ 
 	    
-	    	$('#title1').show();
+	    	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	
@@ -98,15 +98,13 @@
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(csName == null || csName.length==0 || csName.length > 100){
-				$('#CSName').focus();
-				$('#CSName').select();
+				
 				alert("课程名称不能为空或长度不超过100");
 				return false ;
 			}
 			
 			if(csId == null || csId.length == 0 || csId.length > 50){
-				$('#CSID').focus();
-				$('#CSID').select();
+				
 				alert("课程编号不能为空或长度不超过50");
 				return false ;
 			}
@@ -140,7 +138,7 @@
 				return false ;
 			}
 			
-			if(note !=null && note.length > 1000){
+			if(note.length > 1000){
 				alert("备注中文字数不超过500");
 				return false ;
 			}
@@ -156,7 +154,7 @@
 	    	
 	    	url = 'pages/T511/edit' ;
 	    	
-	    	$('#title1').hide();
+	    	$('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
@@ -170,7 +168,7 @@
 	        $('#CSNature').combobox('select', row[0].CSNatureID) ;
 		    $('#State').combobox('select', row[0].state) ;
 		    $('#PubCSType').combobox('select', row[0].pubCSType) ;
-		    $('#Note').val(row[0].note) ;
+		    $('#note').val(row[0].note) ;
 	    }
 
 

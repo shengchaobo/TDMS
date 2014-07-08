@@ -143,11 +143,6 @@ public class T655_Excel {
 				if (jiangxiNCREPassRate == null || jiangxiNCREPassRate.equals("")) {
 					return "第" + count + "行，江西省高校计算机等级考试累计通过率不能为空";
 				}
-				
-				String nationNCREPassRate = cell[6].getContents();
-				if (nationNCREPassRate == null || nationNCREPassRate.equals("")) {
-					return "第" + count + "行，全国高校计算机等级考试累计通过率不能为空";
-				}
 
 				count++;
 
@@ -170,10 +165,7 @@ public class T655_Excel {
 				}
 				T655_bean.setJiangxiNCREPassRate(Double.parseDouble(jiangxiNCREPassRate));
 				
-				if(nationNCREPassRate.contains("%")){
-					nationNCREPassRate = nationNCREPassRate.substring(0,nationNCREPassRate.toString().length()-1);
-				}
-				T655_bean.setNationNCREPassRate(Double.parseDouble(nationNCREPassRate));
+
 
 				// 插入时间
 				T655_bean.setTime(TimeUtil.changeDateY(selectYear));

@@ -11,7 +11,7 @@
 	 
 	    function newCourse(){ 
 	    
-	    	$('#title1').show();
+	    	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	
@@ -96,24 +96,24 @@
 			//根据数据库定义的字段的长度，对其进行判断
 		
 			if(awardName == null || awardName.length==0 || awardName.length > 200){
-				$('#awardName').focus();
-				$('#awardName').select();
-				$('#AwardNameSpan').html("<font style=\"color:red\">奖励名称不能为空或长度不超过200</font>") ;
+			alert("奖励名称不能为空或长度不超过200");
+	
 				return false ;
 			}
 			if(awardClass == null || awardClass.length == 0 ){
-			
-				$('#AwardClassSpan').html("<font style=\"color:red\">班级不能为空</font>") ;
+				alert("班级不能为空");
+				
 				return false ;
 			}
 			if(awardLevel == null || awardLevel.length == 0){
+				alert("级别不能为空");
 				
-				$('#AwardLevelSpan').html("<font style=\"color:red\">级别不能为空</font>") ;
 				return false ;
 			}
 		
 			if(teaUnit == null || teaUnit.length == 0){
-				$('#TeaUnitSpan').html("<font style=\"color:red\">所在教学单位不能为空</font>") ;
+				alert("所在教学单位不能为空");
+				
 				return false ;
 			}
 		
@@ -129,12 +129,12 @@
 	    	
 	    	url = 'pages/T552/edit' ;
 	    	
-	    	$('#title1').hide();
+	    	$('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	
 	    	$('#AwardName').val(row[0].awardName) ;

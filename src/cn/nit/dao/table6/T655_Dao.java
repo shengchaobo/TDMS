@@ -26,10 +26,10 @@ public class T655_Dao {
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
-	private String field = "TeaUnit,UnitId,CET4PassRate,CET6PassRate,JiangxiNCREPassRate,NationNCREPassRate,Time,Note";
+	private String field = "TeaUnit,UnitId,CET4PassRate,CET6PassRate,JiangxiNCREPassRate,Time,Note";
 
 	
-	private String fieldShow = "SeqNumber,TeaUnit,UnitId,CET4PassRate,CET6PassRate,JiangxiNCREPassRate,NationNCREPassRate,Time,Note";
+	private String fieldShow = "SeqNumber,TeaUnit,UnitId,CET4PassRate,CET6PassRate,JiangxiNCREPassRate,Time,Note";
 		
 	/* ,FillTeaID,FillUnitID,audit */
 
@@ -256,7 +256,6 @@ public class T655_Dao {
 		CET46AndJiangxiNCRE.setCET4PassRate(48.511);
 		CET46AndJiangxiNCRE.setCET6PassRate(48.50);
 		CET46AndJiangxiNCRE.setJiangxiNCREPassRate(48.50);
-		CET46AndJiangxiNCRE.setNationNCREPassRate(48.50);
 	
 				
 		CET46AndJiangxiNCRE.setTime(new Date());

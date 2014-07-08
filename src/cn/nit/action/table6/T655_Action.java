@@ -269,7 +269,6 @@ public class T655_Action {
 			columns.add("1.英语四级考试累计通过率（%）");
 			columns.add("2.英语六级考试累计通过率（%）");
 			columns.add("3.江西省高校计算机等级考试累计通过率（%）");
-			columns.add("4.全国高校计算机等级考试累计通过率（%）");
 			
 		
 			columns.add("备注");
@@ -287,10 +286,10 @@ public class T655_Action {
 			maplist.put("CET6PassRate", 4);
 			
 			maplist.put("jiangxiNCREPassRate", 5);
-			maplist.put("nationNCREPassRate", 6);
 
-			maplist.put("note", 7);			
-			maplist.put("time", 8);
+
+			maplist.put("note", 6);			
+			maplist.put("time", 7);
 			
 				
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());

@@ -23,107 +23,80 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 120px;
-		}
-	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript" src="js/commom.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T182/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true" collapsible="true"
-		fitColumns="true" singleSelect="false" >
+	<table id="unverfiedData" class="easyui-datagrid"  url="pages/T182/auditingData" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width=10>编号</th>
-				<th field="cooperInsName" width=10>合作机构名称</th>
-				<th field="cooperInsType" width=10>合作机构类型</th>
-				<th field="cooperInsLevel" width=10>合作机构级别</th>
-				<th field="signedTime" width=10 fit="true" formatter="formattime">签订协议时间</th>
-				<th field="unitName" width=10>我方单位</th>
-				<th field="unitID" width=10>单位号</th>
-				<th field="unitLevel" width=10>我方单位级别</th>
-				<th field="note" width=10>备注</th>
+				<th field="seqNumber" >编号</th>
+				<th field="cooperInsName" >合作机构名称</th>
+				<th field="cooperInsType" >合作机构类型</th>
+				<th field="cooperInsLevel" >合作机构级别</th>
+				<th field="signedTime"  fit="true" formatter="formattime">签订协议时间</th>
+				<th field="unitName" >我方单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="unitLevel" >我方单位级别</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		 <div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+		 	</div>
 		 	<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
-		</div>
 	</div>
-	<div id="toolbar2">
+	<div id="toolbar2"  style="float: right">
 		<a href="pages/T181/dataExport?excelName=表1-8-2签订合作协议机构（科研处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
-		toolbar="#toolbar2" pagination="true" rownumbers="true" collapsible="true"
-		fitColumns="true" singleSelect="false">
+	<table id="verfiedData" class="easyui-datagrid" url="">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="id" width=10>序号</th>
-				<th field="CooperInsName" width=10>合作机构名称</th>
-				<th field="CooperInsType" width=10>合作机构类型</th>
-				<th field="CooperInsLevel" width=10>合作机构级别</th>
-				<th field="SignedTime" width=10>签订协议时间</th>
-				<th field="UnitName" width=10>我方单位</th>
-				<th field="UnitID" width=10>单位号</th>
-				<th field="UnitLevel" width=10>我方单位级别</th>
-				<th field="note" width=10>备注</th>
+				<th field="id" >序号</th>
+				<th field="CooperInsName" >合作机构名称</th>
+				<th field="CooperInsType" >合作机构类型</th>
+				<th field="CooperInsLevel" >合作机构级别</th>
+				<th field="SignedTime" >签订协议时间</th>
+				<th field="UnitName" >我方单位</th>
+				<th field="UnitID" >单位号</th>
+				<th field="UnitLevel" >我方单位级别</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">签订合作协议机构导入</div>
-		<div class="fitem">
+		<h3 class="title1">签订合作协议机构导入</h3>
+		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" required="true" />
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T182/downloadModel?saveFile=<%=URLEncoder.encode("表1-8-2签订合作协议机构（科研处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
-		<div></div>
-		<div class="ftitle">签订合作协议机构逐条导入</div>
+		<hr></hr>	
+		<h3 class="title1">签订合作协议机构逐条导入</h3>
 		
 		<form id="t182Form" method="post">
 		<table>
@@ -136,10 +109,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" required="true"><span id="CooperInsNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>合作机构类型：</label> 
-						<select class='easyui-combobox' id="CooperInsType" name="t181Bean.CooperInsType" >
+						<select class='easyui-combobox' id="CooperInsType" name="t181Bean.CooperInsType"  style="width:140px" editable="false">
 							<option value="学术机构">学术机构</option>
 							<option value="行业机构和企业">行业机构和企业</option>
 							<option value="地方政府">地方政府</option>
@@ -156,7 +130,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDiAwardLevel',listHeight:'auto',editable:false">
 						<span id="CooperInsLevelSpan"></span>
 					</div>
-				</td>	
+				</td>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>签订时间：</label> 
@@ -179,6 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="UnitNameSpan"></span>
 					</div>
 			  </td>
+			  <td class="empty"></td>
 			  <td>
 					<div class="fitem">
 						<label>我方单位级别：</label> 
@@ -189,7 +165,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</td>
 			</tr>
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3">
+				<label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="t181Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -288,8 +265,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newObject(){
+	    	$('.title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
 	    	url = 'pages/T182/insert' ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加校级科研机构库（科研处）');
+		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构（科研处）');
 		    $('#t182Form').form('reset');
 	    }
 
@@ -395,8 +375,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/T182/edit' ;
-	    	 
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('.title1').hide();
+	       	$('#item1').hide();
+	       	$('hr').hide();
+	       	
+	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构（科研处）');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#CooperInsName').val(row[0].cooperInsName);
 	    	$('#CooperInsType').combobox('select',row[0].cooperInsType);

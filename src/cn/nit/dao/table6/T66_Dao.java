@@ -8,14 +8,13 @@ import java.util.List;
 
 import net.sf.json.JSON;
 
-
-
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T641_Bean;
 import cn.nit.bean.table6.T66_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
+import cn.nit.util.TimeUtil;
 
 public class T66_Dao {
 
@@ -26,265 +25,210 @@ public class T66_Dao {
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
-	private String field = "StuClubSum,StuClubSciNum,StuClubHumanNum,StuClubSportNum,StuClubArtNum,OtherStuClub,JoinStuSum,JoinClubSciNum,StuClubHumanNum1,JoinClubSportNum,JoinClubArtNum,JoinOtherClub,Time,Note";
-
-	
-	private String fieldShow = "SeqNumber,StuClubSum,StuClubSciNum,StuClubHumanNum,StuClubSportNum,StuClubArtNum,OtherStuClub,JoinStuSum,JoinClubSciNum,StuClubHumanNum1,JoinClubSportNum,JoinClubArtNum,JoinOtherClub,Time,Note";
-
-
-		/* ,FillTeaID,FillUnitID,audit */
+	private String field = "StuClubSum,StuClubSciNum,StuClubHumanNum,StuClubSportNum,StuClubArtNum,OtherStuClub,JoinStuSum,JoinClubSciNum,JoinClubHumanNum,JoinClubSportNum,JoinClubArtNum,JoinOtherClub,Time,Note";	
 
 	/**
-	 * 将数据表622的实体类插入数据库
-	 * 
-	 * @param UndergraAdmiInfo
+	 * 获取字典表的所有数据
 	 * @return
-	 * 
-	 * @time: 2014-6-12
+	 *
+	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public boolean insert(T66_Bean StuClub) {
-
-		// flag判断数据是否插入成功
-		boolean flag = false;
-		Connection conn = DBConnection.instance.getConnection();
-		try {
-			flag = DAOUtil.insert(StuClub, tableName, field, conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return flag;
-		} finally {
+	public T66_Bean getYearInfo(String year){
+		
+		String sql = "select " + " " + key + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T66_Bean> list = null ;
+		T66_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T66_Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
 			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
 		}
-		return flag;
+		
+		return bean ;
 	}
-
+		
 	/**
-	 * 讲数据批量插入T511表中
-	 * 
-	 * @param list
-	 *            {@linkplain java.util.List<
-	 *            {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}>}
-	 * @return true表示插入成功，false表示插入失败
+	 * 保存数据
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
 	 */
-	public boolean batchInsert(List<T66_Bean> list) {
-
+	public boolean save(T66_Bean bean, String year, String fields){
+		
+		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year;		
 		boolean flag = false;
-		Connection conn = DBConnection.instance.getConnection();
-
-		try {
-			flag = DAOUtil.batchInsert(list, tableName, field, conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return flag;
-		}
-
-		return flag;
-	}
-
-	// 更新
-	public boolean update(T66_Bean StuClub) {
-
-		boolean flag = false;
-		Connection conn = DBConnection.instance.getConnection();
-		try {
-			flag = DAOUtil
-					.update(StuClub, tableName, key, field, conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return flag;
-		} finally {
-			DBConnection.close(conn);
-		}
-
-		return flag;
-	}
-
-	// 删除 ids应书写为"(1,2,3)"
-	public boolean deleteItemsByIds(String ids) {
-
-		int flag = 0;
-		StringBuffer sql = new StringBuffer();
-		sql.append("delete from " + tableName);
-		sql.append(" where " + key + " in " + ids);
-		Connection conn = DBConnection.instance.getConnection();
-		Statement st = null;
-
-		try {
-			st = conn.createStatement();
-			flag = st.executeUpdate(sql.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-
-		if (flag == 0) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	public String getTableName() {
-		return this.tableName;
-	}
-	
-	public List<T66_Bean> queryPageList(int pagesize, int currentpage) {
-		// TODO Auto-generated method stub
-		
-		
-		String queryPageSql = "select top " + pagesize + 
-		fieldShow
-		+ " from " + tableName + 
-		" where (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-		tableName + " order by SeqNumber)) order by SeqNumber" ;
-		System.out.println(queryPageSql);
 		Connection conn = DBConnection.instance.getConnection() ;
+		
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T66_Bean> list = null ;
-		
-		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(queryPageSql) ;
-			list = DAOUtil.getList(rs, T66_Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}finally{
-			DBConnection.close(conn);
-			DBConnection.close(rs);
-			DBConnection.close(st);			
-		}
-		
-		return list ;
-	}
-	
-	public List<T66_Bean> queryPageList(String cond, Object object,
-			int pagesize, int currentpage) {
-		// TODO Auto-generated method stub
-		String queryPageSql;
-		
-			queryPageSql = "select top " + pagesize + 
-			fieldShow
-			+ " from " + tableName + 
-			" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
-	
-
-		System.out.println(queryPageSql);
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<T66_Bean> list = null ;
-		
-		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(queryPageSql) ;
-			list = DAOUtil.getList(rs, T66_Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}finally{
-			DBConnection.close(conn);
-			DBConnection.close(rs);
-			DBConnection.close(st);			
-		}
-		
-		return list ;
-	}
-	
-	public List<T66_Bean> getAllList() {
-		// TODO Auto-generated method stub
-		String sql = "select " + fieldShow + " from " + tableName ;
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<T66_Bean> list = null ;
-		
+		T66_Bean tempBean = null;
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
 			list = DAOUtil.getList(rs, T66_Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}finally{
-			DBConnection.close(conn);
-			DBConnection.close(rs);
-			DBConnection.close(st);			
-		}
-		
-		return list ;
-	}
-	
-	public List<T66_Bean> getAllList(String cond, Object object) {
-		// TODO Auto-generated method stub
-		String sql;
-		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
-	    System.out.println(sql);
-	
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<T66_Bean> list = null ;
-		
-		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T66_Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}finally{
-			DBConnection.close(conn);
-			DBConnection.close(rs);
-			DBConnection.close(st);			
-		}
-		
-		return list ;
-	}
-
-	public static void main(String args[]) {
-
-		T66_Dao StuClubDao = new T66_Dao();
-		T66_Bean StuClub = new T66_Bean();
-//		 StuClub.setSeqNumber(1);
-		//	
-	
-		StuClub.setStuClubSum(87);
-		StuClub.setStuClubSciNum(15);
-		StuClub.setStuClubHumanNum(35);
-		StuClub.setStuClubSportNum(18);
-		StuClub.setStuClubArtNum(19);
-		StuClub.setOtherStuClub(0);
-		StuClub.setJoinStuSum(14725);
-		StuClub.setJoinClubSciNum(1490);
-		StuClub.setStuClubHumanNum1(8005);
-		StuClub.setJoinClubSportNum(2665);
-		StuClub.setJoinClubArtNum(2565);
-		StuClub.setJoinOtherClub(0);
+			if(list.size() != 0){
+				tempBean = list.get(0);
+				bean.setSeqNumber(tempBean.getSeqNumber());
+				String tempfields = fields + ",StuClubSum,JoinStuSum";
 				
-		StuClub.setTime(new Date());
-		StuClub.setNote("无");
-//		//		
-		StuClubDao.insert(StuClub);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(StuClubDao.update(StuClub)) ;
-//		 System.out.println(StuClubDao.deleteItemsByIds("(8)")) ;
-
-		System.out.println("success!!");
+				int stuClubSum = tempBean.getStuClubSum();
+				int joinStuSum = tempBean.getJoinStuSum();
+				
+//				学生社团总数
+				if(bean.getStuClubSciNum()!=null){
+					if(tempBean.getStuClubSciNum()==null){
+						stuClubSum = stuClubSum + bean.getStuClubSciNum();
+					}else{
+						stuClubSum = stuClubSum + (bean.getStuClubSciNum()-tempBean.getStuClubSciNum());
+					}
+				}
+				if(bean.getStuClubHumanNum()!=null){
+					if(tempBean.getStuClubHumanNum()==null){
+						stuClubSum = stuClubSum + bean.getStuClubHumanNum();
+					}else{
+						stuClubSum = stuClubSum + (bean.getStuClubHumanNum()-tempBean.getStuClubHumanNum());
+					}
+				}
+				if(bean.getStuClubSportNum()!=null){
+					if(tempBean.getStuClubSportNum()==null){
+						stuClubSum = stuClubSum + bean.getStuClubSportNum();
+					}else{
+						stuClubSum = stuClubSum + (bean.getStuClubSportNum()-tempBean.getStuClubSportNum());
+					}
+				}
+				if(bean.getStuClubArtNum()!=null){
+					if(tempBean.getStuClubArtNum()==null){
+						stuClubSum = stuClubSum + bean.getStuClubArtNum();
+					}else{
+						stuClubSum = stuClubSum + (bean.getStuClubArtNum()-tempBean.getStuClubArtNum());
+					}
+				}
+				if(bean.getOtherStuClub()!=null){
+					if(tempBean.getOtherStuClub()==null){
+						stuClubSum = stuClubSum + bean.getOtherStuClub();
+					}else{
+						stuClubSum = stuClubSum + (bean.getOtherStuClub()-tempBean.getOtherStuClub());
+					}
+				}
+				bean.setStuClubSum(stuClubSum);
+				
+				
+//				参与人次数
+				if(bean.getJoinClubSciNum()!=null){
+					if(tempBean.getJoinClubSciNum()==null){
+						joinStuSum = joinStuSum + bean.getJoinClubSciNum();
+					}else{
+						joinStuSum = joinStuSum + (bean.getJoinClubSciNum()-tempBean.getJoinClubSciNum());
+					}
+				}
+				if(bean.getJoinClubHumanNum()!=null){
+					if(tempBean.getJoinClubHumanNum()==null){
+						joinStuSum = joinStuSum + bean.getJoinClubHumanNum();
+					}else{
+						joinStuSum = joinStuSum + (bean.getJoinClubHumanNum()-tempBean.getJoinClubHumanNum());
+					}
+				}
+				if(bean.getJoinClubSportNum()!=null){
+					if(tempBean.getJoinClubSportNum()==null){
+						joinStuSum = joinStuSum + bean.getJoinClubSportNum();
+					}else{
+						joinStuSum = joinStuSum + (bean.getJoinClubSportNum()-tempBean.getJoinClubSportNum());
+					}
+				}
+				if(bean.getJoinClubArtNum()!=null){
+					if(tempBean.getJoinClubArtNum()==null){
+						joinStuSum = joinStuSum + bean.getJoinClubArtNum();
+					}else{
+						joinStuSum = joinStuSum + (bean.getJoinClubArtNum()-tempBean.getJoinClubArtNum());
+					}
+				}
+				if(bean.getJoinOtherClub()!=null){
+					if(tempBean.getJoinOtherClub()==null){
+						joinStuSum = joinStuSum + bean.getJoinOtherClub();
+					}else{
+						joinStuSum = joinStuSum + (bean.getJoinOtherClub()-tempBean.getJoinOtherClub());
+					}
+				}
+				bean.setJoinStuSum(joinStuSum);									
+				flag = DAOUtil.update(bean, tableName, key, tempfields, conn) ;
+			}else{
+				bean.setTime(TimeUtil.changeDateY(year));
+				int stuClubSum =0;
+				int joinStuSum = 0;
+				
+				
+//				学生社团总数
+				if(bean.getStuClubSciNum()!=null){
+					stuClubSum = stuClubSum + bean.getStuClubSciNum();
+				}
+				if(bean.getStuClubHumanNum()!=null){
+					stuClubSum = stuClubSum + bean.getStuClubHumanNum();
+				}
+				if(bean.getStuClubSportNum()!=null){
+					stuClubSum = stuClubSum + bean.getStuClubSportNum();
+				}
+				if(bean.getStuClubArtNum()!=null){
+					stuClubSum = stuClubSum + bean.getStuClubArtNum();
+				}
+				if(bean.getOtherStuClub()!=null){
+					stuClubSum = stuClubSum + bean.getOtherStuClub();
+				}
+				bean.setStuClubSum(stuClubSum);
+				
+				
+//				参与人次数
+				if(bean.getJoinClubSciNum()!=null){
+					joinStuSum = joinStuSum + bean.getJoinClubSciNum();
+				}
+				if(bean.getJoinClubHumanNum()!=null){
+					joinStuSum = joinStuSum + bean.getJoinClubHumanNum();
+				}
+				if(bean.getJoinClubSportNum()!=null){
+					joinStuSum = joinStuSum + bean.getJoinClubSportNum();
+				}
+				if(bean.getJoinClubArtNum()!=null){
+					joinStuSum = joinStuSum + bean.getJoinClubArtNum();
+				}
+				if(bean.getJoinOtherClub()!=null){
+					joinStuSum = joinStuSum + bean.getJoinOtherClub();
+				}
+				bean.setJoinStuSum(joinStuSum);	
+				
+				String tempfields = fields + ",StuClubSum,JoinStuSum,Time";
+				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+				
+		return flag ;
 	}
-
-
-
-
-
-
+	
+	
+	
+	public static void main(String args[]){
+		//T66_Dao testDao =  new T66_Dao() ;
+	}
 
 }

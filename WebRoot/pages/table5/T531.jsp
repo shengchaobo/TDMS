@@ -23,15 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	<style type="text/css">
-	     label {
-	    width: 10em;
-	    float: left;
-	}
-	.empty{
-		width: 4em;
-	}
-	</style>
+		<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -125,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="ftitle" id="title1">创新实验项目模板导入</h3>
+		<h3  class="title1">创新实验项目模板导入</h3>
 		<div class="fitem" id="item1">
 		  <form method="post"  id="batchForm" enctype="multipart/form-data">
 		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
@@ -134,8 +126,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href='pages/T531/downloadModel?saveFile=<%=URLEncoder.encode("表5-3-1人才培养模式创新实验项目（教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>	
-		<hr style="width: 100%; height: 5px; color: blue;"></hr>	
-	   <h3 class="ftitle">创新实验项目逐条导入</h3>
+		<hr></hr>	
+	   <h3  class="title1">创新实验项目逐条导入</h3>
 	   <form id="addForm" method="post">
 		<table>
 			<tr>
@@ -165,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 			    <td>
 			   	    <div class="fitem">
-					<label>批文号：</label> 
+					<label>级别：</label> 
 					<input id="ItemLevel" type="text" name="t531Bean.ItemLevel" class="easyui-validatebox"  >
 					<span id="ItemLevelSpan"></span>
 					</div>

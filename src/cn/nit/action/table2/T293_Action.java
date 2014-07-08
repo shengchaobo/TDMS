@@ -182,8 +182,8 @@ public class T293_Action {
 		           ws.addCell(new Label(1, 3, "收入总计", wcf)); 
 		           ws.addCell(new Label(1, 4, "本科生生均拨款总额", wcf)); 
 		           ws.addCell(new Label(2, 4, "总数", wcf));
-		           ws.addCell(new Label(2, 5, "总数", wcf));
-		           ws.addCell(new Label(2, 6, "总数", wcf));
+		           ws.addCell(new Label(2, 5, "国家", wcf));
+		           ws.addCell(new Label(2, 6, "地方", wcf));
 		           ws.addCell(new Label(1, 7, "本科生学费收入", wcf)); 
 		           ws.addCell(new Label(1, 8, "本科教改专项拨款", wcf)); 
 		           ws.addCell(new Label(0, 9, "3.其他教育事业收入（万元）", wcf));
@@ -208,13 +208,12 @@ public class T293_Action {
 		           ws.mergeCells(0, 9, 0, 18);
 		           ws.mergeCells(1, 9, 2, 9);
 		           ws.mergeCells(1, 10, 1, 12);
-		           ws.mergeCells(1, 13, 2, 16);
-		           ws.mergeCells(1, 14, 2, 14);
+		           ws.mergeCells(1, 13, 1, 16);
 		           ws.mergeCells(1, 17, 2, 17);
 		           ws.mergeCells(1, 18, 2, 18);
 		           
 		           		
-		           ws.addCell(new Label(3, 2, bean.getSumIncom().toString(), wcf1)); 
+		           ws.addCell(new Label(3, 2, bean.getSumIncome().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 3, bean.getSumUndergraIncome().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 4, bean.getAllocateFund().toString(), wcf1));  
 		           ws.addCell(new Label(3, 5, bean.getNationFund().toString(), wcf1)); 

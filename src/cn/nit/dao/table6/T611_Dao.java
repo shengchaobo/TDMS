@@ -8,9 +8,6 @@ import java.util.List;
 
 import net.sf.json.JSON;
 
-
-
-import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.dbconnection.DBConnection;
@@ -30,8 +27,6 @@ public class T611_Dao {
 
 	
 	private String fieldShow = "SeqNumber,StuInfoBaseUrl,LastYearSumNum,ThisYearSumNum,UndergraLastYearNum,UndergraThisYearNum,JuniorLastYearNum,JuniorThisYearNum,Time,Note";
-
-	/* ,FillTeaID,FillUnitID,audit */
 
 	/**
 	 * 获取字典表的所有数据
@@ -108,41 +103,10 @@ public class T611_Dao {
 				
 		return flag ;
 	}
-
-	public static void main(String args[]) {
-
-		T611_Dao UnderGraStuNuminfoDao = new T611_Dao();
-		T611_Bean UnderGraStuNuminfo = new T611_Bean();
-//		 UnderGraStuNuminfo.setSeqNumber(1);
-		//		
-		UnderGraStuNuminfo.setStuInfoBaseUrl("test//123.456.789");
-		UnderGraStuNuminfo.setLastYearSumNum(18782);
-		UnderGraStuNuminfo.setThisYearSumNum(19018);
-		UnderGraStuNuminfo.setUndergraLastYearNum(13038);
-		UnderGraStuNuminfo.setUndergraThisYearNum(13775);
-		UnderGraStuNuminfo.setJuniorLastYearNum(5744);
-		UnderGraStuNuminfo.setJuniorThisYearNum(5243);
-		
-		UnderGraStuNuminfo.setTime(new Date());
-		UnderGraStuNuminfo.setNote("无");
-//		//		
-//		UnderGraStuNuminfoDao.insert(UnderGraStuNuminfo);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(UnderGraStuNuminfoDao.update(UnderGraStuNuminfo)) ;
-//		 System.out.println(UnderGraStuNuminfoDao.deleteItemsByIds("(8)")) ;
-
-		System.out.println("success!!");
+	
+	
+	
+	public static void main(String args[]){
+		//T611_Dao testDao =  new T611_Dao() ;
 	}
-
-
-
-
-
-
-
 }

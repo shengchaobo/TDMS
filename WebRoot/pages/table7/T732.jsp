@@ -24,44 +24,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-			 label {
-	    width: 10em;
-	    float: left;
-	}
-	.empty{
-		width: 4em;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="pages/T732/auditingData"
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T732/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false" >
+		fitColumns="false" singleSelect="false" >
+		<thead data-options="frozen:true">
+			<tr>			
+		       	<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+				<th field="attendClassTerm">听课学期</th>
+				<th field="leaderName">教学单位领导姓名</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="attendClassTerm" width="10%">听课学期</th>
-				<th field="leaderName" width="20%">教学单位领导姓名</th>
-				<th field="leaderTeaID" width="15%">领导教工号</th>
-				<th field="adminTitle" width="10%">行政职务</th>
-				<th field="attendClassTime" width="10%" formatter="formattime">听课日期</th>
-				<th field="lectureTea" width="10%">授课教师</th>
-				<th field="lectureTeaID" width="15%">授课教教工号</th>
-				<th field="lectureCS" width="10%">听课课程</th>
-				<th field="CSID" width="10%">课程编号</th>
-				<th field="setCSUnit" width="10%">开课单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="lectureClass" width="10%">上课班级</th>
-				<th field="evaluate" width="10%">综合评价</th>	
-				<th field="note" width="20%">备注</th>
+				<th field="leaderTeaID">领导教工号</th>
+				<th field="adminTitle" >行政职务</th>
+				<th field="attendClassTime" formatter="formattime">听课日期</th>
+				<th field="lectureTea">授课教师</th>
+				<th field="lectureTeaID" >授课教教工号</th>
+				<th field="lectureCS">听课课程</th>
+				<th field="CSID">课程编号</th>
+				<th field="setCSUnit">开课单位</th>
+				<th field="unitID">单位号</th>
+				<th field="lectureClass">上课班级</th>
+				<th field="evaluate">综合评价</th>	
+				<th field="note">备注</th>
 			
 			</tr>
 		</thead>
@@ -81,39 +78,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2">
+	<div id="toolbar2" style="float: right;">
 	<a href="pages/T732/dataExport?excelName=<%=URLEncoder.encode("表7-3-2教学单位领导听课情况.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url=""
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="false">
+		fitColumns="false" singleSelect="false">
+			<thead data-options="frozen:true">
+			<tr>			
+		       	<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber">编号</th>
+					<th field="attendClassTerm">听课学期</th>
+				<th field="leaderName">教学单位领导姓名</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">序号</th>
-				<th field="attendClassTerm" width="10%">听课学期</th>
-				<th field="leaderName" width="20%">教学单位领导姓名</th>
-				<th field="leaderTeaID" width="15%">领导教工号</th>
-				<th field="adminTitle" width="10%">行政职务</th>
-				<th field="attendClassTime" width="10%" formatter="formattime">听课日期</th>
-				<th field="lectureTea" width="10%">授课教师</th>
-				<th field="lectureTeaID" width="15%">授课教教工号</th>
-				<th field="lectureCS" width="10%">听课课程</th>
-				<th field="CSID" width="10%">课程编号</th>
-				<th field="setCSUnit" width="10%">开课单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="lectureClass" width="10%">上课班级</th>
-				<th field="evaluate" width="10%">综合评价</th>	
-				<th field="note" width="20%">备注</th>
-				
+				<th field="leaderTeaID">领导教工号</th>
+				<th field="adminTitle" >行政职务</th>
+				<th field="attendClassTime" formatter="formattime">听课日期</th>
+				<th field="lectureTea">授课教师</th>
+				<th field="lectureTeaID" >授课教教工号</th>
+				<th field="lectureCS">听课课程</th>
+				<th field="CSID">课程编号</th>
+				<th field="setCSUnit">开课单位</th>
+				<th field="unitID">单位号</th>
+				<th field="lectureClass">上课班级</th>
+				<th field="evaluate">综合评价</th>	
+				<th field="note">备注</th>
+			
 			</tr>
 		</thead>
 	</table>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">教学单位领导听课情况批量导入</div>
+		<h3 class="title1">教学单位领导听课情况批量导入</h3>
 		<div class="fitem" id="item1">
 			<form method="post" id="batchForm" enctype="multipart/form-data">
 			<select class="easyui-combobox"  id="cbYearContrast" name="selectYear"></select>
@@ -123,9 +124,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			<a href="123"></a>
 		</div>
-<hr style="width: 100%; height: 5px; color: blue;"></hr>	
+     <hr></hr>	
 			
-		<h3 class="ftitle">教学单位领导听课情况逐条导入</h3>
+		<h3 class="title1">教学单位领导听课情况逐条导入</h3>
 		
 		<form id="courseForm" method="post">
 		<table>
@@ -138,7 +139,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="AttendClassTerm" type="text" name="teaLeadInClassInfo.AttendClassTerm"
 							><span id="AttendClassTermSpan"></span>
 					</div>
-					</td>
+				</td>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>领导教工号：</label> 
@@ -161,6 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AdminTitleSpan"></span>
 					</div>
 					</td>
+					<td class="empty"></td>	
 			         <td>
 					<div class="fitem">
 						<label>听课日期：</label> 
@@ -183,6 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="LeaderIDSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>听课课程：</label> 
@@ -200,7 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="CSIDSpan"></span>
 					</div>
 				</td>
-				
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>开课单位：</label> 
@@ -222,11 +226,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="LectureClassSpan"></span>
 					</div>
 				</td>
-				
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>综合评价：</label> 
-						<select class='easyui-combobox' id="Evaluate" name="teaLeadInClassInfo.Evaluate">
+						<select class='easyui-combobox' id="Evaluate" name="teaLeadInClassInfo.Evaluate" panelHeight="auto">
 						<option value="优">优</option>
 						<option value="良">良</option>
 						<option value="中">中</option>
@@ -238,7 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 				</tr>
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="teaLeadInClassInfo.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -324,11 +328,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    function newCourse(){
 	    
-	       $('#title1').show();
+	       $('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
 	        url="pages/T732/insert";
-		    $('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+		    $('#dlg').dialog('open').dialog('setTitle','添加教学单位领导听课情况');
 		    $('#courseForm').form('reset');
 	    }
 
@@ -370,47 +374,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var note = $('#Note').val();
 			//根据数据库定义的字段的长度，对其进行判断
 			if(attendClassTerm == null || attendClassTerm.length==0){
-				$('#AttendClassTermSpan').html("<font style=\"color:red\">听课学期不能为空</font>") ;
+			alert("听课学期不能为空");
 				return false;
 			}
 			if(leaderTeaID == null || leaderTeaID.length==0 || leaderTeaID.length > 50){
-				
-				$('#LeaderTeaIDSpan').html("<font style=\"color:red\">校领导姓名不能为空或长度不超过50</font>") ;
+				alert("校领导姓名不能为空或长度不超过50");
 				return false;
 			}
 			if(attendClassTime == null || attendClassTime.length == 0){
-				$('#AttendClassTimeSpan').html("<font style=\"color:red\">听课日期不能为空</font>") ;
+			alert("听课日期不能为空");
 				return false;
 			}
 			if(lectureTeaID == null || lectureTeaID.length==0){
-				$('#lectureTeaID').focus();
-				$('#lectureTeaID').select();
-				$('#LectureTeaIDSpan').html("<font style=\"color:red\">授课教师不能为空</font>") ;
+				alert("授课教师不能为空");
 				return false ;
 			}
 			if(lectureCS == null || lectureCS.length == 0 ){
-				
-				$('#LectureCSSpan').html("<font style=\"color:red\">听课课程不能为空</font>") ;
+				alert("听课课程不能为空");
 				return false ;
 			}
 			if(cSID == null || cSID.length == 0){
-				
-				$('#CSIDSpan').html("<font style=\"color:red\">课程编号不能为空</font>") ;
+				alert("课程编号不能为空");
 				return false ;
 			}
 			if(setCSUnit == null || setCSUnit.length == 0){
-				$('#SetCSUnitSpan').html("<font style=\"color:red\">开课单位不能为空</font>") ;
+			alert("开课单位不能为空");
 				return false ;
 			}
 			if(lectureClass == null || lectureClass.length == 0){
-				$('#LectureClassSpan').html("<font style=\"color:red\">上课班级不能为空</font>") ;
+			alert("上课班级不能为空");
 				return false ;
 			}
 			if(note !=null && note.length > 1000){
-				$('#NoteSpan').html("<font style=\"color:red\">备注中文字数不超过500</font>") ;
+				alert("备注中文字数不超过500");
 				return false ;
 			}
-			alert($('#LectureCS').val()) ;
+		
 			return true ;
 		}
 		
@@ -425,10 +424,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	url = 'pages/T732/edit' ;
 	    	
-	    	 $('#title1').hide();
+	    	 $('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改教学单位领导听课情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#AttendClassTerm').val(row[0].attendClassTerm) ;
 	    	$('#LeaderName').combobox('select', row[0].leaderName) ;
@@ -516,10 +515,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    </script>
-
-	<script type="text/javascript"> 
+    <script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
+			    if(val == null){
+				    return null ;
+			    }
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  
@@ -536,6 +537,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+
+
 
 </html>
 

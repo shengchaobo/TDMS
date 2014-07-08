@@ -22,88 +22,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/commom.js"></script>
+		
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="width:100%px;height:350px" url="pages/T19/auditingData"
-		toolbar="#toolbar" pagination="true" rownumbers="true" collapsible="true"
-		fitColumns="true" singleSelect="false" >
+<body style="height: 100%'" >
+	<table id="unverfiedData" class="easyui-datagrid" url="pages/T19/auditingData">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10">编号</th>
-				<th field="rewardName" width="10">奖励名称</th>
-				<th field="rewardLevel" width="10">级别</th>
-				<th field="rewardFromUnit" width="10">授予单位</th>
-				<th field="unitName" width="10">获奖单位</th>
-				<th field="unitID" width="10">单位号</th>
-				<th field="rewardTime" width="10" formatter="formattime">获奖时间</th>
-				<th field="note" width="10">备注</th>
+				<th field="seqNumber" >编号</th>
+				<th field="rewardName" >奖励名称</th>
+				<th field="rewardLevel" >级别</th>
+				<th field="rewardFromUnit" >授予单位</th>
+				<th field="unitName" >获奖单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="rewardTime"  formatter="formattime">获奖时间</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-		
+		</div>
 			<form id="auditing" method="post" style="float: right;height: 24px;">
 		 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 			日期 起始:  <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 			结束:  <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
-		</div>
-
 	</div>
-	<div id="toolbar2">
+	
+	<div id="toolbar2" style="float: right">
 			<a href="pages/T19/dataExport?excelName=表1-9学校获得荣誉（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
-
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" url="table5/verifiedData"
-		toolbar="#toolbar2" pagination="true" rownumbers="true" collapsible="true"
-		fitColumns="true" singleSelect="false">
+<div></div>
+	<table id="verfiedData"class="easyui-datagrid"  url="table5/verifiedData">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="5%">序号</th>
-				<th field="rewardName" width="25%">奖励名称</th>
-				<th field="rewardLevel" width="10%">级别</th>
-				<th field="rewardFromUnit" width="20%">授予单位</th>
-				<th field="unitName" width="15%">获奖单位</th>
-				<th field="unitID" width="5%">单位号</th>
-				<th field="rewardTime" width="10%">获奖时间</th>
-				<th field="note" width="10%">备注</th>
+				<th field="seqNumber" >序号</th>
+				<th field="rewardName" >奖励名称</th>
+				<th field="rewardLevel" >级别</th>
+				<th field="rewardFromUnit" >授予单位</th>
+				<th field="unitName" >获奖单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="rewardTime" >获奖时间</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -112,20 +87,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">学校荣誉记录批量导入</div>
-		<div class="fitem">
+		<h3 class="title1">学校荣誉记录批量导入</h3>
+		<div class="fitem" id="item1"> 
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label>
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select> 
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" required="true" />
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T19/downloadModel?saveFile=<%=URLEncoder.encode("表1-9学校获得荣誉（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
-		<div></div>
-		<div class="ftitle">学校荣誉记录逐条导入</div>
+		<hr></hr>	
+		<h3 class="title1">学校荣誉记录逐条导入</h3>
 		
 		<form id="rewardForm" method="post">
 		<table>
@@ -138,6 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" required="true"><span id="RewardNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>授予单位：</label> 
@@ -156,6 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="RewardLevelSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 				      <div class="fitem">
 				        <label>获奖时间：</label>
@@ -165,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<td >
 					<div class="fitem">
 					<label>获奖单位：</label> 
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
@@ -180,8 +155,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 				
 			</tr>	
-					<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3">
+				<label>备注：</label>
 					<textarea id="Note" name="t19Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -262,7 +237,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	   
 	    function newObject(){
-		    $('#dlg').dialog('open').dialog('setTitle','添加学校荣誉库');
+	     	$('.title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
+	    	url = url ;
+		    $('#dlg').dialog('open').dialog('setTitle','添加学校荣誉');
 		    $('#rewardForm').form('reset');
 	    }
 
@@ -404,8 +383,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		return ;
 		    	}
 		    	url = 'pages/T19/edit' ;
+		    	$('.title1').hide();
+		       	$('#item1').hide();
+		       	$('hr').hide();
 		    	
-		    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
+		    	$('#dlg').dialog('open').dialog('setTitle','修改学校荣誉情况');
 		    	$('#seqNumber').val(row[0].seqNumber) ;
 		    	$('#RewardName').val(row[0].rewardName);
 		    	$('#RewardFromUnit').val(row[0].rewardFromUnit);

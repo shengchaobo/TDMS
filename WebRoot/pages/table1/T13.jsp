@@ -24,29 +24,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
 	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -56,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="表1-3学校科研单位（科研处）" class="easyui-datagrid" style="width:100%px;height:430px" url="pages/T13/auditingData"
+	<table id="unverfiedData" title="表1-3学校科研单位（科研处）" class="easyui-datagrid"  url="pages/T13/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
@@ -72,14 +49,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
-		<!-- 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">数据导入</a>
-			 -->
+		<div style="float: left">
 			<a href="pages/T13/dataExport?excelName=表1-3学校科研单位（科研处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-			<!--  
-			<a href='pages/T11/downloadModel?saveFile=<%=URLEncoder.encode("表1-1学校基本信息（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
- 			-->
+		</div>
 		 	<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>

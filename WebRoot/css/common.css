@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+    label {
+	    width: 10em;
+	    float: left;
+	}
+	.empty{
+		width: 4em;
+	}
+	
+	hr{
+		width: 100%; 
+		height: 6px;
+		color: blue;
+	}

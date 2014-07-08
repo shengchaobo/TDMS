@@ -23,43 +23,7 @@
 		   
 	    }
 
-	  //模板导入
-		 function batchImport(){
-			  var fileName = $('#fileToUpload').val() ; 	
-			  if(fileName == null || fileName == ""){
-				  $.messager.alert('Excel批量用户导入', '请选择将要上传的文件!');      
-			   		return false ;
-			  }	
-			 
-			  var pos = fileName.lastIndexOf(".") ;
-			  var suffixName = fileName.substring(pos, fileName.length) ; 	
-			  if(suffixName != ".xls"){
-				   $.messager.alert('Excel批量用户导入','文件类型不正确，请选择.xls文件!');   
-			   		return false ;
-			 }
-		  	 $('#batchForm').form('submit',{
-		  	 
-		  		 url: 'pages/T512/uploadFile',
-		  		 type: "post",
-			     dataType: "json",
-		  		 onSubmit: function(){
-		  			 return true;
-		  		 },
-		  		 
-		  		 success: function(result){
-		  		 	var result = eval('('+result+')');
-		  		 	if (!result.success){
-		  		 		$.messager.show({
-		  		 			title: 'Error',
-		  		 			msg: result.errorMsg
-		  			 }); 
-		  		 	} else {
-				    		 $('#dlg').dialog('close'); // close the dialog
-				    		 $('#unverfiedData').datagrid('reload'); // reload the user data
-		  		 	}
-		  		 }
-		  		 });
-		   }
+	  
 	    
 	    
 	    function singleImport(){
@@ -87,32 +51,51 @@
 
 		function validate(){
 			// 获取文本框的值
-			var term = $('Term').val();
-			var cSUnit = $('UnitID').combobox('getText');
-			var cSMajorName = $('CSMajorID').combobox('getText');
-			var cSName = $('CSName').val();
-			var cSID = $('CSID').val();
-			var cSType = $('CSType').combobox('getText');
-			var cSNature = $('CSNature').combobox('getText');
-			var pubCSType = $('PubCSType').combobox('getText');
-			var credit = $('Credit').val();
-			var sumCSHour = $('SumCSHour').val();
-			var theoryCSHour = $('TheoryCSHour').val();
-			var praCSHour = $('PraCSHour').val();
-			var planTime = $('PlanTime').datebox('getValue');
-			var cSClass = $('CSClass').combobox('getText');
-			var stuNum = $('StuNum').val();
-			var cSTea = $('CSTea').val();
+			var term = $('#Term').val();		
+			
+			var cSUnit = $('#UnitID').combobox('getText');
+			
+			var cSMajorName = $('#CSMajorID').combobox('getText');
+			
+			var cSName = $('#CSName').val();
+			
+			var cSID = $('#CSID').val();
+			
+			var cSType = $('#CSType').combobox('getText');
+			
+			var cSNature = $('#CSNature').combobox('getText');
+		
+			var pubCSType = $('#PubCSType').combobox('getText');
+		
+			var credit = $('#Credit').val();
+			
+			var sumCSHour = $('#SumCSHour').val();
+			
+			var theoryCSHour = $('#TheoryCSHour').val();
+			
+			var praCSHour = $('#PraCSHour').val();
+			
+			var planTime = $('#PlanTime').val();
+			
+			var cSClass = $('#CSClass').val();
+			
+			var classID = $('#ClassID').val();
+		
+			var stuNum = $('#StuNum').val();
+			
+			var cSTea = $('#CSTea').val();
+			
 			var note = $('#Note').val();
+			
 			var  num = /^\d+$/;  //用于判断字符串是否全是数字		
 			
 			if(term ==null || term.length==0){
 				alert("学期不能为空");
 			}
-			if(unitID == null || unitID.length==0){
+			if(cSUnit == null || cSUnit.length==0){
 				alert("开课单位不能为空");
 			}
-			if(cSMajorID == null || cSMajorID.length==0){
+			if(cSMajorName == null || cSMajorName.length==0){
 				alert("上课专业名称不能为空");
 				return false;
 			}
@@ -196,6 +179,44 @@
 			}
 			return true;
 		 }
+		
+		//模板导入
+		 function batchImport(){
+			  var fileName = $('#fileToUpload').val() ; 	
+			  if(fileName == null || fileName == ""){
+				  $.messager.alert('Excel批量用户导入', '请选择将要上传的文件!');      
+			   		return false ;
+			  }	
+			 
+			  var pos = fileName.lastIndexOf(".") ;
+			  var suffixName = fileName.substring(pos, fileName.length) ; 	
+			  if(suffixName != ".xls"){
+				   $.messager.alert('Excel批量用户导入','文件类型不正确，请选择.xls文件!');   
+			   		return false ;
+			 }
+		  	 $('#batchForm').form('submit',{
+		  	 
+		  		 url: 'pages/T512/uploadFile',
+		  		 type: "post",
+			     dataType: "json",
+		  		 onSubmit: function(){
+		  			 return true;
+		  		 },
+		  		 
+		  		 success: function(result){
+		  		 	var result = eval('('+result+')');
+		  		 	if (!result.success){
+		  		 		$.messager.show({
+		  		 			title: 'Error',
+		  		 			msg: result.errorMsg
+		  			 }); 
+		  		 	} else {
+				    		 $('#dlg').dialog('close'); // close the dialog
+				    		 $('#unverfiedData').datagrid('reload'); // reload the user data
+		  		 	}
+		  		 }
+		  		 });
+		   }
 		function editCourse(){
 	    	var row = $('#unverfiedData').datagrid('getSelections');
 	    	
@@ -206,21 +227,35 @@
 	    	
 	    	url = 'pages/T512/edit' ;
 	    	
-	    	$('.title1').hide();
-	    	$('#item1').hide();
-	    	$('hr').hide();
-	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
-	    	$('#seqNumber').val(row[0].seqNumber) ;
-	    	$('#CSID').val(row[0].CSID) ;
+	    	$('#dlg').dialog('open').dialog('setTitle','修改开课、授课情况');
+	       	$('#seqNumber').val(row[0].seqNumber) ;
+	      	$('#Term').val(row[0].term) ;
+	      	$('#UnitID').combobox('select',row[0].unitID) ;
+	    	$('#CSMajorID').combobox('select', row[0].CSMajorID) ;
 	    	$('#CSName').val(row[0].CSName) ;
-	    	$('#UnitID').combobox('select',row[0].unitID) ;
-	    	$('#TeaResOfficeID').combobox('select', row[0].teaResOfficeID) ;
+	    	$('#CSID').val(row[0].CSID) ;
 	    	$('#CSType').combobox('select', row[0].CSTypeID) ;
-	        $('#CSNature').combobox('select', row[0].CSNatureID) ;
-		    $('#State').combobox('select', row[0].state) ;
-		    $('#PubCSType').combobox('select', row[0].pubCSType) ;
-		    $('#note').val(row[0].note) ;
+	    	$('#CSNature').combobox('select', row[0].CSNatureID) ;	
+	    	$('#PubCSType').combobox('setText', row[0].pubCSType) ;
+	    	$('#IsDoubleCS').combobox('setText', row[0].isDoubleCS) ;
+	       	$('#Credit').val(row[0].credit) ;
+	       	$('#SumCSHour').val(row[0].sumCSHour) ;
+	    	$('#TheoryCSHour').val(row[0].theoryCSHour) ;
+	    	$('#PraCSHour').val(row[0].praCSHour) ;
+	    	$('#ExamWay').val(row[0].examWay) ;
+	    	$('#PlanTime').val(row[0].planTime) ;
+	    	$('#CSGrade').combobox('setText', row[0].CSGrade) ;
+	    	$('#CSClass').val(row[0].CSClass) ;
+	    	$('#ClassID').val(row[0].classID) ;
+	    	$('#ClassInfo').val(row[0].classInfo);
+	    	$('#StuNum').val(row[0].stuNum);
+	    	$('#CSTea').val(row[0].CSTea);
+	    	$('#IsAccordJob').combobox('setText', row[0].isAccordJob) ;
+	    	$('#TeaTitle').combobox('setText', row[0].teaTitle) ;
+	    	$('#BookUseInfo').combobox('setText', row[0].bookUseInfo) ;
+	    	$('#IsPlanbook').combobox('setText', row[0].isPlanbook) ;
+	    	$('#IsAwardbook').combobox('setText', row[0].isAwardbook) ;
+	    	$('#Note').val(row[0].note);
 	    }
 
 

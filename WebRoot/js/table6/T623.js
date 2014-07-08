@@ -1,8 +1,9 @@
 var url;
 //弹出添加的界面
 function newItem() {
-	$('#title1').show();
+	$('.title1').show();
 	$('#item1').show();
+	$('hr').show();
 	
 	url = 'pages/T623/insert' ;  // 配置action?
 	$('#dlg').dialog('open').dialog('setTitle', '近一届艺术类本科生录取标准及人数');
@@ -157,8 +158,9 @@ function editItem() {
 
 	url = 'pages/T623/edit';
 	
-	$('#title1').hide();
+	$('.title1').hide();
 	$('#item1').hide();
+	$('hr').hide();
 	
 	$('#dlg').dialog('open').dialog('setTitle', '近一届艺术类本科生录取标准及人数');
 

@@ -26,29 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -129,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">近一届文、理科本科生录取标准及人数批量导入</div>
+		<h3 class="title1">近一届文、理科本科生录取标准及人数批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
@@ -139,9 +118,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href='pages/T622/downloadModel?saveFile=<%=URLEncoder.encode("表6-2-2近一届文、理科本科生录取标准及人数（招就处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
-	
+		<hr></hr>
 		<div></div>
-		<div class="ftitle">近一届文、理科本科生录取标准及人数逐条导入</div>
+		<h3 class="title1">近一届文、理科本科生录取标准及人数逐条导入</h3>
 		<form id="addItemForm" method="post">
 		<table>
 			<tr>
@@ -188,6 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="provinceSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>批次：</label> 	
@@ -211,6 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="libEnrollNumSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>理科录取数：</label> 
@@ -228,6 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="libLowestScoreSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>理科批次最低控制线（分）：</label> 
@@ -244,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="libAvgScoreSpan"></span>
 					</div>
 				</td>
-
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>理科当年录取平均分数（分）：</label> 

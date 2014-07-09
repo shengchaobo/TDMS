@@ -186,14 +186,14 @@ public class T611_Action {
 		           ws.addCell(new Label(2, 3, "本学年人数（个）", wcf)); 
 
 		           		           
-		           ws.addCell(new Label(1, 2, bean.getStuInfoBaseUrl().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 2, bean.getStuInfoBaseUrl(), wcf1)); 
 		           ws.addCell(new Label(1, 4, bean.getLastYearSumNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 4, bean.getThisYearSumNum().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 5, bean.getUndergraLastYearNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 5, bean.getUndergraThisYearNum().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 6, bean.getJuniorLastYearNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 6, bean.getJuniorThisYearNum().toString(), wcf1)); 
-		           ws.mergeCells(1, 2, 1, 0);
+//		           ws.mergeCells(1, 2, 1, 0);
 		             
 
 		          wwb.write();

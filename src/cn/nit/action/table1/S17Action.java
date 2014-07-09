@@ -148,6 +148,7 @@ public class S17Action {
 		           wcf.setAlignment(Alignment.CENTRE);
 		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
 						     jxl.format.Colour.BLACK); 
+		           wcf.setAlignment(jxl.write.Alignment.LEFT);
 		           ws.setRowView(1, 500);
 		           
 //		            //    设置内容单无格的文字格式
@@ -166,20 +167,20 @@ public class S17Action {
 		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		           ws.mergeCells(0, 0, 1, 0);
 		             
-		           ws.addCell(new Label(0, 1, "项目", wcf)); 
-		           ws.addCell(new Label(2, 1, "内容", wcf));
-		           ws.addCell(new Label(0,2,"校友会（个）",wcf));
-		           ws.addCell(new Label(1,2,"总数",wcf));
-		           ws.addCell(new Label(1,3,"其中：境内",wcf));
-		           ws.addCell(new Label(1,4,"境外",wcf));
+		           ws.addCell(new Label(0, 2, "项目", wcf)); 
+		           ws.addCell(new Label(2, 2, "内容", wcf));
+		           ws.addCell(new Label(0,3,"校友会（个）",wcf));
+		           ws.addCell(new Label(1,3,"总数",wcf));
+		           ws.addCell(new Label(1,4,"其中：境内",wcf));
+		           ws.addCell(new Label(1,5,"境外",wcf));
 		           
-		           ws.mergeCells(0, 1, 1, 0);
-		           ws.mergeCells(0, 2, 0, 2);
+		           ws.mergeCells(0, 2, 1, 2);
+		           ws.mergeCells(0, 3, 0, 5);
 		           
 		          
-		           ws.addCell(new Label(2, 2, ""+bean.getSumSchFriNum(), wcf1)); 
-		           ws.addCell(new Label(2, 3,""+bean.getInlandNum() , wcf1));
-		           ws.addCell(new Label(2, 4, ""+bean.getOutlandNum(), wcf1));
+		           ws.addCell(new Label(2, 3, ""+bean.getSumSchFriNum(), wcf1)); 
+		           ws.addCell(new Label(2, 4,""+bean.getInlandNum() , wcf1));
+		           ws.addCell(new Label(2, 5, ""+bean.getOutlandNum(), wcf1));
 		           
 		           
 		          wwb.write();

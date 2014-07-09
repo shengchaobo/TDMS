@@ -428,7 +428,7 @@
 	var data;
 
 	function exports() {
-    	var temp = encodeURI('表1-1学校基本信息（党院办）.xls');
+    	var temp = encodeURI('表1-1学校基本信息（党院办）');
 	    $('#exportForm').form('submit', {
 	    url : "pages/T11/dataExport?excelName="+temp ,
 	    onSubmit : function() {

@@ -2,13 +2,10 @@
 				//alert("test");
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "上学年人数（个）", "group": "普通本科学生数", "value": "", "field": "undergraLastYearNum","editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "普通本科学生数", "value": "", "field": "undergraThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "普通高职（含专科）学生数", "value": "", "field": "juniorLastYearNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "普通高职（含专科）学生数", "value": "", "field": "juniorThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "合计", "value": "", "field": "lastYearSumNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "合计", "value": "", "field": "thisYearSumNum","editor": "numberbox" },
-				        { "name": "学生信息库链接", "group": "其他", "value": "", "field": "stuInfoBaseUrl", "editor": "text" }
+				        { "name": "上学年人数（个）", "group": "与国（境）外大学联合培养的普通本科学生数", "value": "", "field": "coTrainStuLastYearNum","editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "与国（境）外大学联合培养的普通本科学生数", "value": "", "field": "coTrainStuThisYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "5.留学生数", "value": "", "field": "foreignStuLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "5.留学生数", "value": "", "field": "foreignStuThisYearNum", "editor": "numberbox" }
 				    ];
 				    							
 				$('#edit').propertygrid({

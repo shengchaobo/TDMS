@@ -24,24 +24,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     	<div>
-		    <div id="system" class="easyui-panel" title="系统公告" style="width:'auto';height:'auto';padding:10px;">
+		    <div id="system" class="easyui-panel"  title="系统公告" style="width:'auto';height:'auto';padding:10px;">
 		    	<ul>
 						<li>关于该系统的使用方法介绍</li>
 						<li>校领导</li>
 						<li>关于2014年数据采集截止时间</li>
 				</ul>
 			</div>
-					
-			<div id="dataHelp" class="easyui-panel" title="校园新闻" style="width:'auto';height:'auto';padding:10px;">
-						<p style="font-size:14px">jQuery EasyUI framework helps you build your web pages easily.</p>
-						<ul>
-							<li>easyui is a collection of user-interface plugin based on jQuery.</li>
-							<li>easyui provides essential functionality for building modem, interactive, javascript applications.</li>
-							<li>complete framework for HTML5 web page.</li>
-							<li>easyui save your time and scales while developing your products.</li>
-							<li>easyui is very easy but powerful.</li>
-						</ul>
-			</div>
+
 		</div>
   </body>
 </html>

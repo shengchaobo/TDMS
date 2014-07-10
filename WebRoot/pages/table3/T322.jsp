@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="majorAdmisTime"  formatter="formattime">开始招生时间</th>
 				<th field="majorState" >招生状态</th>
 				<th field="stopAdmisTime"  formatter="formattime">停止招生时间</th>
-				<th field="isNewMajor"  >是否新办专业</th>
+				<th field="isNewMajor" formatter="booleanstr" >是否新办专业</th>
 				<th field="appvlYear"  formatter="formattime">批准建设年度</th>
 				<th field="buildAppvlID" >建设批文号</th>
 				<th field="majorLevel" >级别</th>
@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="MajorAdmisTime"  formatter="formattime">开始招生时间</th>
 				<th field="MajorState" >招生状态</th>
 				<th field="StopAdmisTime"  formatter="formattime">停止招生时间</th>
-				<th field="IsNewMajor"  >是否新办专业</th>
+				<th field="IsNewMajor" formatter="booleanstr" >是否新办专业</th>
 				<th field="AppvlYear"  formatter="formattime">批准建设年度</th>
 				<th field="BuildAppvlID" >建设批文号</th>
 				<th field="MajorLevel" >级别</th>
@@ -884,6 +884,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    //alert(time) ;
 			     return time;  
 			    }  
+			</script>
+			
+			
+			<script type="text/javascript"> 
+		    function booleanstr(val) { 	 
+		    	if(val == null){
+					return null ;
+				}
+				var bo1=""+val;//吧boolean型转换成str类型再判断
+				var boo;
+				if( bo1 == "false") {
+					boo="否" ;
+				}else if (bo1 == "true"){
+
+					boo="是" ;
+				}
+				return boo;
+	        }  
 			</script>
 			
 	<script type="text/javascript">

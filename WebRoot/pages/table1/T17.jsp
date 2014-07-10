@@ -64,6 +64,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>	
 	</div>
 	
+	<table id="verfiedData"  class="easyui-datagrid"  url="pages/T17/auditingData" >
+		<thead>
+			<tr>
+				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="seqNumber" >编号</th>
+				<th field="clubName">校友会名称</th>
+				<th field="buildYear"  formatter="formattime">建设时间</th>
+				<th field="place" >地点</th>
+				<th field="note">备注</th>
+			</tr>
+		</thead>
+	</table>
+	
+	<div id="toolbar2" style="float: right;">
+		<a href="pages/T152/dataExport?excelName=表1-7学校校友会.xls"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+	</div>
+	
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
@@ -218,7 +236,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	url = url ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加校友会（党院办）的信息');
+		    $('#dlg').dialog('open').dialog('setTitle','添加校友会的信息');
 		    $('#t17form').form('reset');
 	    }
 
@@ -292,7 +310,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       	$('#item1').hide();
 	       	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','修改校友会信息的信息');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改校友会的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#ClubName').val(row[0].clubName);
 	    	$('#BuildYear').datebox('setValue',formattime(row[0].buildYear)) ;

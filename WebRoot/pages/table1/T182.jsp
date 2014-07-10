@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 	</div>
 	<div id="toolbar2"  style="float: right">
-		<a href="pages/T181/dataExport?excelName=表1-8-2签订合作协议机构（科研处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href="pages/T181/dataExport?excelName=表1-8-2签订合作协议机构.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" class="easyui-datagrid" url="">
@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href='pages/T182/downloadModel?saveFile=<%=URLEncoder.encode("表1-8-2签订合作协议机构（科研处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T182/downloadModel?saveFile=<%=URLEncoder.encode("表1-8-2签订合作协议机构.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
 		<hr></hr>	
@@ -269,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	url = 'pages/T182/insert' ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构（科研处）的信息');
+		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构的信息');
 		    $('#t182Form').form('reset');
 	    }
 
@@ -379,7 +379,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       	$('#item1').hide();
 	       	$('hr').hide();
 	       	
-	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构（科研处）的信息');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#CooperInsName').val(row[0].cooperInsName);
 	    	$('#CooperInsType').combobox('select',row[0].cooperInsType);

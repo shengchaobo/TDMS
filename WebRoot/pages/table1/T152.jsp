@@ -320,7 +320,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	url = 'pages/T152/insert' ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加教学单位科研机构');
+		    $('#dlg').dialog('open').dialog('setTitle','添加教学单位科研机构的信息');
 		    $('#resInsForm').form('reset');
 	    }
 
@@ -450,7 +450,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       	$('#item1').hide();
 	       	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','修改教学单位科研机构');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改教学单位科研机构的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#ResInsID').combobox('select',row[0].resInsID);
 	    	$('#Type').combobox('select',row[0].typeID);

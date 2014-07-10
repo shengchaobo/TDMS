@@ -79,7 +79,7 @@ public class T412_Excel {
 				
 		for(Cell[] cell : cellList){
 			try{
-				if(count<3){
+				if(count<4){
 					count++;
 					continue;
 				}

@@ -193,7 +193,7 @@ public class T611_Action {
 		           ws.addCell(new Label(2, 5, bean.getUndergraThisYearNum().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 6, bean.getJuniorLastYearNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 6, bean.getJuniorThisYearNum().toString(), wcf1)); 
-//		           ws.mergeCells(1, 2, 1, 0);
+		           ws.mergeCells(1, 2, 2, 2);
 		             
 
 		          wwb.write();

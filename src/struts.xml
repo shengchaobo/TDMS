@@ -193,6 +193,9 @@
     <include file="cn/nit/configuration/table7/T743.xml"/>
     <include file="cn/nit/configuration/table7/T744.xml"/>
     <include file="cn/nit/configuration/table7/T745.xml"/>
+    
+    <!-- 文件上传下载 -->
+    <include file = "cn/nit/configuration/FileUploadDownload.xml"/>
 
     <package name="default" namespace="/" extends="struts-default">
         <default-action-ref name="index" />

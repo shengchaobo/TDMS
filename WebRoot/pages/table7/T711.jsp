@@ -422,7 +422,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('hr').hide();
 	    	
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','编辑教学管理人员获得教学成果奖情况');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改教学管理人员获得教学成果奖情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	//alert(row[0].seqNumber);
 	    	$('#Name').combobox('select', row[0].name) ;

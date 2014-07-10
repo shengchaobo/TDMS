@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>学校基本情况</title>
+<title>协议个数</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -55,7 +55,7 @@
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table class="easyui-datagrid" toolbar="#toolbar" title="学校基本情况"></table>
+	<table class="easyui-datagrid" toolbar="#toolbar" title="协议个数"></table>
 	<hr color="blue" width="100%" />
 	<table class="doc-table"  id="showInfo" url="pages/S18/auditingData">
 	<tbody >

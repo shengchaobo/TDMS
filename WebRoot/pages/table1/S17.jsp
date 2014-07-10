@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table class="easyui-datagrid" toolbar="#toolbar" title="学校基本情况"></table>
+	<table class="easyui-datagrid" toolbar="#toolbar" title="校友会个数"></table>
 	<hr color="blue" width="100%" />
 	<table class="doc-table" id="showInfo" url="pages/S17/auditingData"> 
 	<tbody >

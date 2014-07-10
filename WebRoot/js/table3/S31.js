@@ -2,12 +2,12 @@
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
 				         
-				        	{"name": "1.博士后流动站（个）", "group": "", "value": "",  "field": "postdocStation","editor": "numberbox" },
-				        	{"name": "2.博士点（个）", "group": "", "value": "",  "field": "docStation","editor": "numberbox" },
-				        	{"name": "3.硕士点（个）", "group": "", "value": "",  "field": "masterStation","editor": "numberbox" },
-				        	{"name": "4.本科专业总数（个）", "group": "", "value": "",  "field": "sumMajor","editor": "numberbox" },
-				        	{"name": "4.本科专业其中：新专业（个）", "group": "", "value": "",  "field": "newMajor","editor": "numberbox" },
-				        	{"name": "5.专科专业（各）", "group": "", "value": "",  "field": "juniorMajor","editor": "numberbox" }				        
+				        	{"name": "1.博士后流动站（个）", "group": "", "value": "",  "field": "postdocStation","editor": false },
+				        	{"name": "2.博士点（个）", "group": "", "value": "",  "field": "docStation","editor": false },
+				        	{"name": "3.硕士点（个）", "group": "", "value": "",  "field": "masterStation","editor": false },
+				        	{"name": "4.本科专业总数（个）", "group": "", "value": "",  "field": "sumMajor","editor": false },
+				        	{"name": "4.本科专业其中：新专业（个）", "group": "", "value": "",  "field": "newMajor","editor": false },
+				        	{"name": "5.专科专业（各）", "group": "", "value": "",  "field": "juniorMajor","editor": false }				        
 				        
 				    ];
 				    							
@@ -142,7 +142,7 @@
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),
-					    url : "pages/S31/dataExport?excelName="+tableName+'&selectYear='+year,
+					    url : 'pages/S31/dataExport',
 					    onSubmit : function() {
 					    	return $(this).form('validate');//对数据进行格式化
 					    },

@@ -127,10 +127,8 @@ private S31_Service s31_Service = new S31_Service() ;
 		InputStream inputStream =null;
 		
 		try{
-			System.out.println("愁死了");
-			Date date=new Date();	
-			String sdate=date.toString();
-			String year=sdate.substring(sdate.length()-4, sdate.length());
+			System.out.println("愁死了");	
+			String year=this.getSelectYear();
 			List<S31POJO> list = s31_DAO.exportData(year);
 			inputStream=new ByteArrayInputStream(s31Excel.exportExcel(list).toByteArray());
 			

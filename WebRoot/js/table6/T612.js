@@ -1,18 +1,23 @@
 	$(function(){  
 				//alert("test");
-				var selectYear = $("#cbYearContrast").combobox('getValue'); 
+				var selectYear = $("#cbYearContrast").combobox('getValue');
 				var rows = [
-				        { "name": "上学年人数（个）", "group": "普通本科学生数", "value": "", "field": "undergraLastYearNum","editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "普通本科学生数", "value": "", "field": "undergraThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "普通高职（含专科）学生数", "value": "", "field": "juniorLastYearNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "普通高职（含专科）学生数", "value": "", "field": "juniorThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "合计", "value": "", "field": "lastYearSumNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "合计", "value": "", "field": "thisYearSumNum","editor": "numberbox" },
-				        { "name": "学生信息库链接", "group": "其他", "value": "", "field": "stuInfoBaseUrl", "editor": "text" }
+				        { "name": "上学年人数（个）", "group": "3.硕士研究生数", "value": "", "field": "masterLastYearNum","editor": false },
+				        { "name": "本学年人数（个）", "group": "3.硕士研究生数", "value": "", "field": "masterThisYearNum", "editor": false },
+				        { "name": "上学年人数（个）", "group": "其中：全日制研究生", "value": "", "field": "fullTimeMasterLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "其中：全日制研究生", "value": "", "field": "fullTimeMasterThisYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "其中：非全日制研究生", "value": "", "field": "partTimeMasterLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "其中：非全日制研究生", "value": "", "field": "partTimeMasterThisYearNum","editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "4.博士研究生数", "value": "", "field": "doctorLastYearNum","editor": false },
+				        { "name": "本学年人数（个）", "group": "4.博士研究生数", "value": "", "field": "doctorThisYearNum", "editor": false },
+				        { "name": "上学年人数（个）", "group": "其中：全日制博士生", "value": "", "field": "fullTimeDoctorLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "其中：全日制博士生", "value": "", "field": "fullTimeDoctorThisYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "其中：非全日制博士生", "value": "", "field": "partTimeDoctorLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "其中：非全日制博士生", "value": "", "field": "partTimeDoctorThisYearNum","editor": "numberbox" }
 				    ];
 				    							
 				$('#edit').propertygrid({
-						title : '本专科学生数量基本情况',
+						title : '研究生数量基本情况',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 				        width: '60%',
 				        height: 'auto',
@@ -27,22 +32,22 @@
 				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T611/loadInfo?selectYear='+selectYear,
+							url: 'pages/T612/loadInfo?selectYear='+selectYear,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i < 7){
+			                    while(i < rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
-			                    	i++;
+			                    	i= i+ 1;
 			                    }														
 							},
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
-				                    while(i < 7){
+				                    while(i < rows.length){
 				                    	rows[i].value = "";	
-				                    	i++;
+				                    	i= i+ 1;
 				                    }			                      
 			                }
 		    		})
@@ -62,12 +67,12 @@
        				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T611/loadInfo?selectYear='+year,
+							url: 'pages/T612/loadInfo?selectYear='+year,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
 			                    var i = 0;
-			                    while(i < 7){
+			                    while(i < rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i=i+1;
 			                    }								
@@ -75,7 +80,7 @@
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
 			                    var i = 0;
-			                    while(i < 7){
+			                    while(i < rows.length){
 			                    	rows[i].value = "";	
 			                    	i=i+1;
 			                    }
@@ -108,7 +113,7 @@
      				$.ajax( {
 					    		type : "POST",
 					    		contentType: "application/json;utf-8",
-								url: 'pages/T611/save?data='+data+'&selectYear='+year+'&fields='+f,
+								url: 'pages/T612/save?data='+data+'&selectYear='+year+'&fields='+f,
 					    		async : false,
 					    		dataType : "json",
 					    		success : function(json) {
@@ -138,11 +143,11 @@
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表6-1-1本专科学生数量基本情况.xls');
+			        var tableName = encodeURI('表6-1-2研究生数量基本情况（研究生院）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),
-					    url : "pages/T611/dataExport?excelName="+tableName+'&selectYear='+year,
+					    url : "pages/T612/dataExport?excelName="+tableName+'&selectYear='+year,
 					    onSubmit : function() {
 					    	return $(this).form('validate');//对数据进行格式化
 					    },

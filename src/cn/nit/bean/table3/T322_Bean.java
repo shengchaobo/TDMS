@@ -4,9 +4,10 @@ import java.util.Date;
 
 public class T322_Bean {
 	
-    private int SeqNumber;
+   
+	
+	private int SeqNumber;
     
-    private String FillUnitID;
 	
 	private String MajorName ;
 	
@@ -100,22 +101,18 @@ public class T322_Bean {
 	
 	private String Note;
 	
+	
+	
+
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}
 
-	public void setSeqNumber(int SeqNumber) {
-		this.SeqNumber = SeqNumber;
-	}
-	
-	public String getFillUnitID() {
-		return FillUnitID;
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
 	}
 
-	public void setFillUnitID(String FillUnitID) {
-		this.FillUnitID = FillUnitID;
-	}
-	
 	public String getMajorName() {
 		return MajorName;
 	}

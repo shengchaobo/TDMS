@@ -179,37 +179,36 @@ public class T66_Action {
 		           
 		           ws.addCell(new Label(0, 2, "项目", wcf)); 
 		           ws.addCell(new Label(2, 2, "内容", wcf)); 
-		           ws.addCell(new Label(0, 3, "1.占地面积(平方米)", wcf)); 
-		           ws.addCell(new Label(0, 10, "2.总建筑面积(平方米)", wcf)); 
-		           ws.addCell(new Label(1, 3, "总占地面积", wcf)); 
-		           ws.addCell(new Label(1, 4, "学校产权", wcf));  
-		           ws.addCell(new Label(1, 5, "  其中：绿化用地", wcf)); 
-		           ws.addCell(new Label(1, 6, "非学校产权", wcf)); 
-		           ws.addCell(new Label(1, 7, "  其中：绿化用地", wcf)); 
-		           ws.addCell(new Label(1, 8, "  其中：独立使用", wcf)); 
-		           ws.addCell(new Label(1, 9, "       共同使用", wcf)); 
-		           ws.addCell(new Label(1, 10, "总建筑面积", wcf)); 
-		           ws.addCell(new Label(1, 11, "学校产权", wcf)); 
-		           ws.addCell(new Label(1, 12, "非学校产权", wcf)); 
-		           ws.addCell(new Label(1, 13, "  其中：独立使用", wcf)); 
-		           ws.addCell(new Label(1, 14, "        共同使用", wcf)); 
-
+		           ws.addCell(new Label(0, 3, "1.学生社团（个）", wcf)); 
+		           ws.addCell(new Label(0, 9, "2.参与人次数（人次）", wcf)); 
+		           ws.addCell(new Label(1, 3, "总数", wcf));
+		           ws.addCell(new Label(1, 4, "其中：科技类", wcf));
+		           ws.addCell(new Label(1, 5, "人文社会类", wcf));
+		           ws.addCell(new Label(1, 6, "体育类", wcf));
+		           ws.addCell(new Label(1, 7, "	文艺类", wcf));
+		           ws.addCell(new Label(1, 8, " 其他", wcf));
+		           ws.addCell(new Label(1, 9, " 总数", wcf));
+		           ws.addCell(new Label(1, 10, "其中：科技类", wcf));
+		           ws.addCell(new Label(1, 11, "人文社会类", wcf));
+		           ws.addCell(new Label(1, 12, "体育类", wcf));
+		           ws.addCell(new Label(1, 13, "文艺类", wcf));
+		           ws.addCell(new Label(1, 14, "其他", wcf));  
 		           ws.mergeCells(0, 2, 1, 2);
-		           ws.mergeCells(0, 3, 0, 9);
-		           ws.mergeCells(0, 10, 0, 14);
-//		           		           
-//		           ws.addCell(new Label(2, 3, bean.getSumArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 4, bean.getSchProArea().toString(), wcf1));  
-//		           ws.addCell(new Label(2, 5, bean.getGreenArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 6, bean.getNotSchProArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 7, bean.getGreenAreaNotInSch().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 8, bean.getOnlyUseArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 9, bean.getCoUseArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 10, bean.getSumCoverArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 11, bean.getSchProCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 12, bean.getNotSchProCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 13, bean.getOnlyUseCovArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 14, bean.getCoUseCovArea().toString(), wcf1)); 
+		           ws.mergeCells(0, 3, 0, 8);
+		           ws.mergeCells(0, 9, 0, 14);
+		           		           
+		           ws.addCell(new Label(2, 3, bean.getStuClubSum().toString(), wcf1));
+		           ws.addCell(new Label(2, 4,bean.getStuClubSciNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 5,bean.getStuClubHumanNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 6, bean.getStuClubSportNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 7, bean.getStuClubArtNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 8,bean.getOtherStuClub().toString(), wcf1));
+		           ws.addCell(new Label(2, 9, bean.getJoinStuSum().toString(), wcf1));
+		           ws.addCell(new Label(2, 10, bean.getJoinClubSciNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 11, bean.getJoinClubHumanNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 12, bean.getJoinClubSportNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 13, bean.getJoinClubArtNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 14, bean.getJoinOtherClub().toString(), wcf1));  
 		             
 
 		          wwb.write();

@@ -37,7 +37,10 @@ public class T322POJO {
 	private String BuildAppvlID;
 	
 	private String MajorLevel;
+	private String MajorLevelID;
 	
+	
+
 	private String Type;
 	
 	private String Field;
@@ -474,6 +477,14 @@ public class T322POJO {
 	
 	public void setNote(String Note){
 		this.Note=Note;
+	}
+	
+	public String getMajorLevelID() {
+		return MajorLevelID;
+	}
+
+	public void setMajorLevelID(String majorLevelID) {
+		MajorLevelID = majorLevelID;
 	}
 
 }

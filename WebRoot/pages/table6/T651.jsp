@@ -26,29 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -141,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">本科生竞赛获奖情况批量导入</div>
+		<h3 class="title1">本科生竞赛获奖情况批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
@@ -151,9 +129,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href='pages/T651/downloadModel?saveFile=<%=URLEncoder.encode("表6-5-1学习成果—本科生竞赛获奖情况（教学单位-团委）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
-	
+		<hr></hr>	
 		<div></div>
-		<div class="ftitle">本科生竞赛获奖情况逐条导入</div>
+		<h3 class="title1">本科生竞赛获奖情况逐条导入</h3>
 		<form id="addItemForm" method="post">
 		<table>
 			<tr>
@@ -169,6 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 }">
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>竞赛类型：</label> 
@@ -192,6 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="competiName" name="T651_bean.competiName" class='easyui-validatebox'><span id="competiNameSpan" ></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>获奖项目：</label> 
@@ -216,6 +196,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="awardLevelSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>			
 					<div class="fitem">
 						<label>等级：</label> 
@@ -235,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="awardFromUnitSpan"></span>
 					</div>
 				</td>
-				
+				<td class="empty"></td>
 				<td>			
 					<div class="fitem">
 						<label>获奖时间：</label> 
@@ -253,6 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>			
 					<div class="fitem">
 						<label>获奖学生数：</label> 
@@ -269,6 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="guideTeaNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>			
 					<div class="fitem">
 						<label>指导教师数：</label> 
@@ -287,6 +270,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="fillUnitIDSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>填写时间：</label> 
@@ -297,7 +281,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备注：</label>
 					<textarea id="note" name="T651_bean.note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="noteSpan"></span>
 				</td>

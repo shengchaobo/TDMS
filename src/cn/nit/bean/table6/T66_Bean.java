@@ -25,7 +25,7 @@ public class T66_Bean implements java.io.Serializable {
 	private Integer otherStuClub;
 	private Integer joinStuSum;
 	private Integer joinClubSciNum;
-	private Integer stuClubHumanNum1;
+	private Integer joinClubHumanNum;
 	private Integer joinClubSportNum;
 	private Integer joinClubArtNum;
 	private Integer joinOtherClub;
@@ -86,12 +86,6 @@ public class T66_Bean implements java.io.Serializable {
 	public void setJoinClubSciNum(Integer joinClubSciNum) {
 		this.joinClubSciNum = joinClubSciNum;
 	}
-	public Integer getStuClubHumanNum1() {
-		return stuClubHumanNum1;
-	}
-	public void setStuClubHumanNum1(Integer stuClubHumanNum1) {
-		this.stuClubHumanNum1 = stuClubHumanNum1;
-	}
 	public Integer getJoinClubSportNum() {
 		return joinClubSportNum;
 	}
@@ -121,6 +115,12 @@ public class T66_Bean implements java.io.Serializable {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public void setJoinClubHumanNum(Integer joinClubHumanNum) {
+		this.joinClubHumanNum = joinClubHumanNum;
+	}
+	public Integer getJoinClubHumanNum() {
+		return joinClubHumanNum;
 	}
 
 	

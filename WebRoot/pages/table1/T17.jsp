@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" required="true" />
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T17/downloadModel?saveFile=<%=URLEncoder.encode("表T17校友会（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
@@ -218,7 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	url = url ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加校友会（党院办）');
+		    $('#dlg').dialog('open').dialog('setTitle','添加校友会（党院办）的信息');
 		    $('#t17form').form('reset');
 	    }
 
@@ -292,7 +292,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       	$('#item1').hide();
 	       	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','修改校友会信息');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改校友会信息的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#ClubName').val(row[0].clubName);
 	    	$('#BuildYear').datebox('setValue',formattime(row[0].buildYear)) ;

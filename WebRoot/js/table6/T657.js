@@ -2,8 +2,10 @@ var url;
 //弹出添加的界面
 function newItem() {
 	url = 'pages/T657/insert' ; 
-	$('#title1').show();
+
+	$('.title1').show();
 	$('#item1').show();
+	$('hr').show();
 	$('#dlg').dialog('open').dialog('setTitle', '学习成果—体质合格、达标率（体育教学部）');
 	$('#addItemForm').form('reset');
 }
@@ -129,8 +131,9 @@ function editItem() {
 
 	url = 'pages/T657/edit';
 	
-	$('#title1').hide();
+	$('.title1').hide();
 	$('#item1').hide();
+	$('hr').hide();
 	
 	$('#dlg').dialog('open').dialog('setTitle', '学习成果—体质合格、达标率（体育教学部）');
 	$('#seqNumber').val(row[0].seqNumber);

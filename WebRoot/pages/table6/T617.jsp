@@ -26,29 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -133,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle" id="title1">专科在校生信息批量导入</div>
+		<h3 class="title1">专科在校生信息批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
@@ -143,9 +121,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href='pages/T617/downloadModel?saveFile=<%=URLEncoder.encode("表6-1-7专科在校生信息补充表（教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
-	
+		<hr></hr>
 		<div></div>
-		<div class="ftitle">专科在校生信息逐条导入</div>
+		<h3 class="title1">专科在校生信息逐条导入</h3>
 		<form id="addItemForm" method="post">
 		<table>
 			<tr>
@@ -161,6 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 }">
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>专业名称：</label> 
@@ -182,6 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="majorFieldNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>在校生总人数：</label> 
@@ -199,6 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="juniorOneStuNumSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>二年级生人数：</label> 
@@ -216,6 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="juniorThreeStuNumSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>时间：</label> 
@@ -227,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 
 			<tr>
-				<td style="valign:left"><label>备注：</label>
+				<td style="valign:left" colspan="3"><label>备注：</label>
 					<textarea id="note" name="T617_bean.note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="noteSpan"></span>
 				</td>

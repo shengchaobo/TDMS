@@ -25,9 +25,6 @@ public class T611_Dao {
 	/** 数据库表中除了自增长字段的所有字段 */
 	private String field = "StuInfoBaseUrl,LastYearSumNum,ThisYearSumNum,UndergraLastYearNum,UndergraThisYearNum,JuniorLastYearNum,JuniorThisYearNum,Time,Note";
 
-	
-	private String fieldShow = "SeqNumber,StuInfoBaseUrl,LastYearSumNum,ThisYearSumNum,UndergraLastYearNum,UndergraThisYearNum,JuniorLastYearNum,JuniorThisYearNum,Time,Note";
-
 	/**
 	 * 获取字典表的所有数据
 	 * @return
@@ -86,10 +83,73 @@ public class T611_Dao {
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());
-				flag = DAOUtil.update(bean, tableName, key, fields, conn) ;
+				String tempfields = fields + ",LastYearSumNum,ThisYearSumNum";
+				
+				int lastYearSumNum = tempBean.getLastYearSumNum();
+				int thisYearSumNum = tempBean.getThisYearSumNum();
+				
+//				上学年总计人数
+				if(bean.getUndergraLastYearNum()!=null){
+					if(tempBean.getUndergraLastYearNum() ==null){
+						lastYearSumNum = lastYearSumNum + bean.getUndergraLastYearNum();
+					}else{
+						lastYearSumNum = lastYearSumNum + (bean.getUndergraLastYearNum()-tempBean.getUndergraLastYearNum());
+					}
+				}
+				if(bean.getJuniorLastYearNum()!=null){
+					if(tempBean.getJuniorLastYearNum() ==null){
+						lastYearSumNum = lastYearSumNum + bean.getJuniorLastYearNum();
+					}else{
+						lastYearSumNum = lastYearSumNum + (bean.getJuniorLastYearNum()-tempBean.getJuniorLastYearNum());
+					}
+				}
+				bean.setLastYearSumNum(lastYearSumNum);
+				
+				
+//				本学年总计人数
+				if(bean.getUndergraThisYearNum()!=null){
+					if(tempBean.getUndergraThisYearNum()==null){
+						thisYearSumNum = thisYearSumNum + bean.getUndergraThisYearNum();
+					}else{
+						thisYearSumNum = thisYearSumNum + (bean.getUndergraThisYearNum()-tempBean.getUndergraThisYearNum());
+					}
+				}
+				if(bean.getJuniorThisYearNum()!=null){
+					if(tempBean.getJuniorThisYearNum()==null){
+						thisYearSumNum = thisYearSumNum + bean.getJuniorThisYearNum();
+					}else{
+						thisYearSumNum = thisYearSumNum + (bean.getJuniorThisYearNum()-tempBean.getJuniorThisYearNum());
+					}
+				}
+				bean.setThisYearSumNum(thisYearSumNum);	
+				flag = DAOUtil.update(bean, tableName, key, tempfields, conn) ;
+				
 			}else{
 				bean.setTime(TimeUtil.changeDateY(year));
-				String tempfields = fields + ",Time";
+				int lastYearSumNum = 0;
+				int thisYearSumNum = 0;
+				
+				
+//				上学年总计人数
+				if(bean.getUndergraLastYearNum()!=null){
+					lastYearSumNum = lastYearSumNum + bean.getUndergraLastYearNum();
+				}
+				if(bean.getJuniorLastYearNum()!=null){
+					lastYearSumNum = lastYearSumNum + bean.getJuniorLastYearNum();
+				}
+				bean.setLastYearSumNum(lastYearSumNum);
+				
+				
+//				本学年总计人数
+				if(bean.getUndergraThisYearNum()!=null){
+					thisYearSumNum = thisYearSumNum + bean.getUndergraThisYearNum();
+				}
+				if(bean.getJuniorThisYearNum()!=null){
+					thisYearSumNum = thisYearSumNum + bean.getJuniorThisYearNum();
+				}
+				bean.setThisYearSumNum(thisYearSumNum);	
+				
+				String tempfields = fields + ",LastYearSumNum,ThisYearSumNum,Time";
 				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
 			}
 		}catch(Exception e){

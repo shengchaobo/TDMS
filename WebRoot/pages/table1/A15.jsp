@@ -168,9 +168,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 
 	function exports() {
-    	var temp = encodeURI('A-1-5科研机构.xls');
+    	var temp = encodeURI('A-1-5科研机构');
 	    $('#exportForm').form('submit', {
-	    url : "pages/A15/dataExport" ,
+	    url : "pages/A15/dataExport",
 	    onSubmit : function() {
 	    return $(this).form('validate');//对数据进行格式化
 	    },

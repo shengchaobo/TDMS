@@ -104,7 +104,6 @@ public class T321_DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
-//		sql.append(" from "+ tableName);
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ") ;
 		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID");		
 		int total = 0 ;
@@ -189,14 +188,14 @@ public class T321_DAO {
 	}
 	
 	/**用于数据导出*/
-	public List<T321_Bean> totalList(String year){
+	public List<T321_Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.MainClassName,t.MainClassID,t.ByPassTime," +
 				"t.MajorNameInSch,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.UnitName,t.UnitID,"+
 				"t.Note,t.Time");
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ");
-		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID and convert(varchar(4),Time,120)=" + year );
+		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID ");
 		sql.append(" order by cast(MainClassID as int)") ;
 		
 		

@@ -217,7 +217,7 @@ public void auditingData(){
 
 		try {
 			
-			List<T33_Bean> list = t33_DAO.totalList(this.getSelectYear());
+			List<T33_Bean> list = t33_DAO.totalList();
 			
 			String sheetName = this.getExcelName();
 			

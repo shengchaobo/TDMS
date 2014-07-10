@@ -145,7 +145,7 @@
        	$('#item1').hide();
        	$('hr').hide();
     	
-    	$('#dlg').dialog('open').dialog('setTitle','修改分专业实验按情况');
+    	$('#dlg').dialog('open').dialog('setTitle','修改分专业实验情况的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
     	$('#UnitID').combobox('select', row[0].unitID) ;
     	$('#MajorID').combobox('select', row[0].majorID) ;

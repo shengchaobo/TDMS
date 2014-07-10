@@ -23,44 +23,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript" src="js/commom.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="height: auto;" url="pages/DocAndGraSta/auditingData"
-		toolbar="#toolbar" pagination="true" 
-		 singleSelect="false" >
+	<table id="unverfiedData"  class="easyui-datagrid"  url="pages/DocAndGraSta/auditingData" >
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" >序号</th>
+				<th field="seqNumber" >编号</th>
 				<th field="staName" >名称</th>
 				</tr>
 				</thead>
@@ -75,15 +52,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDocAndGra()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href="pages/DocAndGraSta/dataExport?excelName=表3-1-2博士点 、硕士点（研究生院）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>
 		 <div>
-		 	<form id="auditing" method="post">
-			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+		 	<form id="auditing" method="post" style="float: right;height: 26px;">
+			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
@@ -92,7 +68,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div id="toolbar2">
 		<form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" editable=false style="width:80px; padding-top:5px; margin-top:10px;"></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
@@ -103,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>
 		<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="SeqNumber" >序号</th>
+				<th field="SeqNumber" >编号</th>
 			</tr>
 			</thead>
 			<thead>
@@ -120,20 +95,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">博士点硕士点批量导入</div>
-		<div class="fitem">
+		<h3 class="title1">博士点硕士点批量导入</h3>
+		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
+
 				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/DocAndGraSta/downloadModel?saveFile=<%=URLEncoder.encode("表3-1-2博士点 、硕士点（研究生院）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
-		<div></div>
-		<div class="ftitle">博士点硕士点逐条导入</div>
+		<hr></hr>	
+		<h3 class="title1">博士点硕士点逐条导入</h3>
 		
 		<form id="DocAndGraStaForm" method="post">
 		<table>
@@ -146,6 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="StaNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>代码：</label> 
@@ -160,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属单位：</label> 
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
 						<input type="hidden" name="docAndGraStaBean.UnitName" id="UnitName"/>
-						<input id="UnitID" type="text" name="docAndGraStaBean.UnitID" 
+						<input id="UnitID" type="text" name="docAndGraStaBean.UnitID" panelHeight="auto"
 							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
@@ -168,10 +144,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="UnitNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>类型：</label> 
-						<select class='easyui-combobox' id="StaType" name="docAndGraStaBean.StaType" editable=false>
+						<select class='easyui-combobox' id="StaType" name="docAndGraStaBean.StaType" editable=false panelHeight="auto">
 							<option value="硕士点">硕士点</option>
 							<option value="博士点">博士点</option>
 						</select>
@@ -180,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="docAndGraStaBean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -261,6 +238,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 	    
 	    function newCourse(){
+	    	$('.title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
+		    
 	    	url=' pages/DocAndGraSta/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加博士点硕士点库');
 		    $('#DocAndGraStaForm').form('reset');
@@ -332,8 +313,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/DocAndGraSta/edit' ;
+
+	    	$('.title1').hide();
+	    	$('#item1').hide();
+	    	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加博士点硕士点库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改博士点硕士点库');
 	    	$('#SeqNumber').val(row[0].seqNumber) ;
 	        $('#StaName').val(row[0].staName);
 	        $('#StaID').val(row[0].staID);

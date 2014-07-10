@@ -25,7 +25,6 @@ public class T655_Bean implements java.io.Serializable {
 	private double CET4PassRate;
 	private double CET6PassRate;
 	private double jiangxiNCREPassRate;
-	private double nationNCREPassRate;
 	private Date time;
 	private String note;
 	
@@ -59,9 +58,6 @@ public class T655_Bean implements java.io.Serializable {
 	public void setJiangxiNCREPassRate(double jiangxiNCREPassRate) {
 		this.jiangxiNCREPassRate = jiangxiNCREPassRate;
 	}
-	public void setNationNCREPassRate(double nationNCREPassRate) {
-		this.nationNCREPassRate = nationNCREPassRate;
-	}
 	
 	public Double getCET6PassRate() {
 		return CET6PassRate;
@@ -75,12 +71,7 @@ public class T655_Bean implements java.io.Serializable {
 	public void setJiangxiNCREPassRate(Double jiangxiNCREPassRate) {
 		this.jiangxiNCREPassRate = jiangxiNCREPassRate;
 	}
-	public Double getNationNCREPassRate() {
-		return nationNCREPassRate;
-	}
-	public void setNationNCREPassRate(Double nationNCREPassRate) {
-		this.nationNCREPassRate = nationNCREPassRate;
-	}
+
 	public Date getTime() {
 		return time;
 	}

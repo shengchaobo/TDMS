@@ -64,6 +64,7 @@ public class DAOUtil {
 			pst = conn.prepareStatement(sql.toString()) ;
 
 			for(int i = 0; i < length; i++){
+
 				String type = wrapper.getPropertyType(fields[i]).toString() ;
 
 
@@ -279,15 +280,16 @@ public class DAOUtil {
 		sql.append(" set ") ;
 		String fields[] = field.split(",") ;
 		int length = fields.length ;
-
+        
 		for(int i = 0; i < length; i++){
 			if(i == (length - 1)){
 				sql.append(fields[i] + "=?") ;
 			}else{
 				sql.append(fields[i] + "=?,") ;
 			}
+			
 		}
-		
+	
 		if(key == null){
 			return false ;
 		}
@@ -303,9 +305,11 @@ public class DAOUtil {
 			}
 		}
 		
+		
 		length = length + keyFields.length ;
 		//System.out.println(sql.toString()) ;
 		BeanWrapper wrapper = new BeanWrapperImpl(obj) ;
+		//判断数据插入的条数，0代表数据插入失败
 		//判断数据插入的条数，0代表数据插入失败
 		int flag = 0 ;
 		int j = 0 ;
@@ -327,7 +331,7 @@ public class DAOUtil {
 					vField = keyFields[j - fields.length] ;
 				}
 
-				//判断插入数据的类型，并赋�?
+				//判断插入数据的类型，并赋 ?
 				if(type.endsWith("String")){
 					//System.out.println((String) wrapper.getPropertyValue(vField));
 					pst.setString(j + 1, (String) wrapper.getPropertyValue(vField)) ;					
@@ -371,7 +375,8 @@ public class DAOUtil {
 			}
 			//System.out.println(sql.toString()) ;
 			flag = pst.executeUpdate() ;
-			//System.out.println(flag);
+//			System.out.println(flag);
+
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;

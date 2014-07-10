@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" editable="false" name="selectYear" editable="false"></select>
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" required="true" />
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 		
 				<a href='pages/SchResIns/downloadModel?saveFile=<%=URLEncoder.encode("表1-5-1校级以上科研机构（科研处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
@@ -319,7 +319,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	url = 'pages/SchResIns/insert' ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加校级科研机构库（科研处）');
+		    $('#dlg').dialog('open').dialog('setTitle','添加校级以上科研机构的信息');
 		    $('#resInsForm').form('reset');
 	    }
 
@@ -450,7 +450,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       	$('#item1').hide();
 	       	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','修改本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改校级以上科研机构的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#ResInsID').combobox('select',row[0].resInsID);
 	    	$('#Type').combobox('select',row[0].typeID);

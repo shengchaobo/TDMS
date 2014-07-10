@@ -10,7 +10,7 @@
     	$('hr').show();
     	
 		url = 'pages/T522/insert' ;
-		$('#dlg').dialog('open').dialog('setTitle', '添加新的课程建设情况');
+		$('#dlg').dialog('open').dialog('setTitle', '添加新的网络课程建设情况');
 		$('#addForm').form('reset');
 	}
 	
@@ -146,7 +146,7 @@
        	$('#item1').hide();
        	$('hr').hide();
     	
-    	$('#dlg').dialog('open').dialog('setTitle','修改专任教师的信息');
+    	$('#dlg').dialog('open').dialog('setTitle','修改网络课程建设的信息');
     	$('#seqNumber').val(row[0].seqNumber) 
     	$('#CStype').combobox('select', row[0].CSType);
     	$('#CSLevel').combobox('select', row[0].CSLevelID);

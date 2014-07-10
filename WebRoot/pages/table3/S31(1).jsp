@@ -1,9 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -11,7 +9,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>协议个数</title>
+<title>学科建设</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -55,9 +53,9 @@
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table class="easyui-datagrid" toolbar="#toolbar" title="协议个数"></table>
+	<table class="easyui-datagrid" toolbar="#toolbar" title="学科建设"></table>
 	<hr color="blue" width="100%" />
-	<table class="doc-table"  id="showInfo" url="pages/S18/auditingData">
+	<table class="doc-table" id="showInfo" > 
 	<tbody >
 	 
 	        <tr>
@@ -65,102 +63,117 @@
 	          <th align="center" style="width:80px; height:50px ;background-color:white ">内容</th>
 	        </tr>
 	        <tr>
-	          <th  rowspan = 4  align="left" style="width:40px;background-color:white ">签订合作协议机构的协议个数</th>
-	          <th  align="left" style="width:60px;background-color:white ">协议总数</th>
-	          <th style="background-color:white">
-              		  <div>
-		          	    <span id="SumAgreeNumSpan"></span>
-		             </div>
-              </th>
-	        </tr>
-	        <tr>
-	          <th align="left" style="width:60px;background-color:white ">其中：学术机构</th>
-	          <th style="background-color:white">
-                  <div>
-		          	    <span id="AcademicNumSpan"></span>
-		             </div>
-              </th>
-	        </tr>
-	        <tr>
-	          <th align="left" style="width:60px;background-color:white ">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行业机构和企业</th>
+	          <th  colspan = 2  align="left" style="width:40px;background-color:white ">1.博士后流动站（个）</th>
+	          
 	          <th style="background-color:white">
 	             <div>
-		          	    <span id="IndustryNumSpan"></span>
-		             </div>
+	          		<span id="PostdocStationSpan"></span>
+	          	</div>
 	          </th>
 	        </tr>
 	        <tr>
-	          <th align="left" style="width:60px;background-color:white ">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地方政府</th>
+	          <th  colspan = 2  align="left" style="width:40px;background-color:white ">2.博士点（个）</th>
+	          
 	          <th style="background-color:white">
-	              <div>
-		          	    <span id="LocalGoverNumSpan"></span>
-		             </div>
+	             <div>
+	          		<span id="DocStationSpan"></span>
+	          	</div>
 	          </th>
 	        </tr>
+	         <tr>
+	          <th  colspan = 2  align="left" style="width:40px;background-color:white ">3.硕士点（个）</th>
+	          
+	          <th style="background-color:white">
+	             <div>
+	          		<span id="MasterStationSpan"></span>
+	          	</div>
+	          </th>
+	        </tr>
+	        <tr>
+	          <th align="left" style="width:60px;background-color:white ">本科专业</th>
+	           <th align="left" style="width:60px;background-color:white ">总数</th>
+	          <th style="background-color:white">
+	         	<div>
+	         		 <span id="SumMajorSpan"></span>
+	         	</div>	 
+	          </th>
+	        </tr>
+	        <tr>
+	          <th align="left" style="width:60px;background-color:white "></th>
+	           <th align="left" style="width:60px;background-color:white ">其中：新专业</th>
+	          <th style="background-color:white">
+	         	<div>
+	         		 <span id="NewMajorSpan"></span>
+	         	</div>	 
+	          </th>
+	        </tr>
+	        <tr>
+	          <th  colspan = 2  align="left" style="width:40px;background-color:white ">5.专科专业（各）</th>
+	          
+	          <th style="background-color:white">
+	             <div>
+	          		<span id="JuniorMajorSpan"></span>
+	          	</div>
+	          </th>
+	        </tr>
+	        
 		</tbody>
-	
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div>
-		
-		<form  id="exportForm"  method="post" style="float: right;">
-				<select class="easyui-combobox" id="cbYearContrast" name="selectYear" editable="false" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
-	  	</form>	
+
+			 <a href="pages/S31/dataExport" class="easyui-linkbutton" iconCls="icon-download" plain="true">数据导出</a>
+			<!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
+			 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a> -->
 		</div> 
 	</div>
+	<!--  
+	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
+		<div class="ftitle">高级检索</div>
+		<div id="dicTables"  class="fitem">
+		</div>
+		<div id="dices"  class="fitem"></div>
+	</div>
+	 
+	<div id="dlg-buttons">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-ok" onclick="singleImport()">保存</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+	</div>
+	-->
 </body>
-
 	<script type="text/javascript">
 
 	$(document).ready(function() {
-       //alert(2224);
+  
 		loadAuotCityList();
 	});
 
-	function exports() {
-    	var temp = encodeURI('S-1-8签订合作协议机构的协议个数.xls');
-	    $('#exportForm').form('submit', {
-	    url : "pages/S18/dataExport" ,
-	    onSubmit : function() {
-	    return $(this).form('validate');//对数据进行格式化
-	    },
-	    success : function(data) {
-	    $.messager.show({
-	    	title : '提示',
-	    	msg : data
-	    });
-	    }
-	    }); 
-    }
-
 	function loadAuotCityList() {
-    //  alert(3334);
+		
 		$.ajax( {
 			type : "POST", //post请求
-			url : "pages/S18/auditingData", //请求action的URL
+			url : "pages/S31/auditingData", //请求action的URL
 			dataType : "json",//返回类型
-			success : function(result) { //回调函数	    		 
-				// var data = eval('('+result+')');
-			    var data = result;
-			    if(data == null){
-			    	$(function () {
-			            $.messager.alert("操作提示", "还未有统计数据，请先录取数据再查看！");
-			        });
-			    }else{
-			    	$('#SumAgreeNumSpan').html(data.sumAgreeNum);
-		            $('#AcademicNumSpan').html(data.academicNum);
-		            $('#IndustryNumSpan').html(data.industryNum);
-		            $('#LocalGoverNumSpan').html(data.localGoverNum);
-			    }
-			
+			success : function(result) { //回调函数	 		 
+				var data = result;
+				if(data == null){
+					 $(function () {
+				            $.messager.alert("操作提示", "还未有统计数据，请先录取数据再查看！");
+				        });
+				}
+				$('#PostdocStationSpan').html(data.postdocStation);
+				$('#DocStationSpan').html(data.docStation);
+				$('#MasterStationSpan').html(data.masterStation);
+				$('#SumMajorSpan').html(data.sumMajor);
+				$('#NewMajorSpan').html(data.newMajor);
+				$('#JuniorMajorSpan').html(data.juniorMajor);
 			}
 		});
+	
 	}
 	
-	
-	
-
 	    var url;
 	    function batchImport(){
 	    	 $('#fm').form('submit',{
@@ -291,6 +304,39 @@
 			    url = 'updateUser';
 		    }
 	    }
+	    
+	    
+	    function loadDic(){
+		    $('#dicDlg').dialog('open').dialog('setTitle','高级查询');
+		    loadDictionary() ;
+		    
+	    }
+	    
+	    function loadDictionary(){
+	    	
+	    	$.ajax({ 
+	    		type: "POST", 
+	    		url: "table5/loadDic", 
+	    		async:"false",
+	    		dataType: "text",
+	    		success: function(data){
+	    			data = eval("(" + data + ")");
+	    			alert(data[0].id) ;
+	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
+	    			$(data).each(function(index) {
+	    				var val = data[index];
+	    				if(index%4 == 0 && index != 0){
+	    					str += "</tr><tr>" ;
+	    				}
+	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
+	    			}); 
+	    			//alert(str);
+	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
+	    			document.getElementById("dicTables").innerHTML = str;
+	    			$.parser.parse('#dicTables');
+	    		}
+	    	}).submit();
+	    }
 	   </script>
 
 	<script type="text/javascript"> 
@@ -311,16 +357,6 @@
 			    //alert(time) ;
 			        return time;  
 			    }  
-    </script>
-    <script type="text/javascript">
-			var currentYear = new Date().getFullYear();
-			var select = document.getElementById("cbYearContrast");
-			for (var i = 0; i <= 10; i++) {
-		    var theOption = document.createElement("option");
-		    	theOption.innerHTML = currentYear-i + "年";
-		    	theOption.value = currentYear-i;
-		    	select.appendChild(theOption);
-			}
-       </script>
+			</script>
 
 </html>

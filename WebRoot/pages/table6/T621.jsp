@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-	<table id="commomData" title="近一届本科生分专业招生录取情况" class="easyui-datagrid" url="pages/T621/loadData" style="height: auto;">
+	<table id="commomData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T621/loadData" style="height: auto;">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>

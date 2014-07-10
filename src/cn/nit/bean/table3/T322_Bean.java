@@ -6,7 +6,7 @@ public class T322_Bean {
 	
    
 	
-	private Integer SeqNumber;
+	private int SeqNumber;
     
 	
 	private String MajorName ;
@@ -105,11 +105,11 @@ public class T322_Bean {
 	
 
 	
-	public Integer getSeqNumber() {
+	public int getSeqNumber() {
 		return SeqNumber;
 	}
 
-	public void setSeqNumber(Integer seqNumber) {
+	public void setSeqNumber(int seqNumber) {
 		SeqNumber = seqNumber;
 	}
 

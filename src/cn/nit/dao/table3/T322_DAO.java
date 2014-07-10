@@ -172,7 +172,7 @@ public class T322_DAO {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			flag = DAOUtil.update(t322_Bean, tableName, key, field, conn) ;
+			flag = DAOUtil.update(t322_Bean,tableName,key,field,conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;

@@ -24,30 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -115,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUndergraMajorInfo()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUndergraMajorInfo()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
@@ -123,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		
 		 <div>
-		 	<form id="auditing" method="post">
+		 	<form id="auditing" method="post" style="float: right;height: 26px;">
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
@@ -200,10 +177,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">专业批量导入</div>
-		<div class="fitem">
+		<h3 class="title1">本科专业批量导入</h3>
+		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
 				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
@@ -212,8 +188,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			<a href="123"></a>
 		</div>
-		<div></div>
-		<div class="ftitle">本科专业逐条导入</div>
+		<hr></hr>	
+			<h3 class="title1">本科专业逐条导入</h3>
 		
 		<form id="UndergraMajorInfoForm" method="post">
 		<table>
@@ -221,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>专业名称：</label> 
-				
+						<input id="SeqNumber" name="t322_Bean.SeqNumber" type="hidden" value="0"></input>
 						<input type="hidden" name="t322_Bean.MajorName" id="MajorName"/>
 						<input id="MajorID" type="text" name="t322_Bean.MajorID" 
 							 class='easyui-combobox' data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
@@ -231,10 +207,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="MajorNameSpan"></span>
 					</div>	
 					</td>	
+						<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>版本代码：</label> 
-						<select class='easyui-combobox' id="MajorVersion" name="t322_Bean.MajorVersion" editable=false>					
+						<select class='easyui-combobox' id="MajorVersion" name="t322_Bean.MajorVersion" editable=false panelHeight="auto">					
 							<option value="2012">2012</option>
 							<option value="1998">1998</option>
 							<option value="99">99</option>
@@ -252,6 +229,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="MajorFieldSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>专业方向号：</label> 
@@ -270,6 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="MajorSetTimeSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>批文号：</label> 
@@ -290,10 +269,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="MajorDuritionSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>学位授予门类：</label> 
-						<select class='easyui-combobox' id="MajorDegreeType" name="t322_Bean.MajorDegreeType" editable=false>
+						<select class='easyui-combobox' id="MajorDegreeType" name="t322_Bean.MajorDegreeType" editable=false panelHeight="auto">
 							<option value="01哲学">01哲学</option>
 							<option value="02经济学">02经济学</option>
 							<option value="03法学">03法学</option>
@@ -322,10 +302,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="MajorAdmisTimeSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>招生状态：</label> 
-						<select class='easyui-combobox' id="MajorState" name="t322_Bean.MajorState" editable=false>					
+						<select class='easyui-combobox' id="MajorState" name="t322_Bean.MajorState" editable=false panelHeight="auto">					
 							<option value="在招">在招</option>
 							<option value="当年停招">当年停招</option>
 						</select>
@@ -343,10 +324,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="StopAdmisTimeSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>是否新办专业：</label> 
-						<select class='easyui-combobox' id="IsNewMajor" name="t322_Bean.IsNewMajor" editable=false>					
+						<select class='easyui-combobox' id="IsNewMajor" name="t322_Bean.IsNewMajor" editable=false panelHeight="auto">					
 							<option value="true">是</option>
 							<option value="false">否</option>
 						</select>
@@ -363,6 +345,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="AppvlYearSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>建设批文号：</label> 
@@ -375,18 +358,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>级别：</label> 
-						<input id="MajorLevel" type="text" name="t322_Bean.MajorLevel" 
-							 class='easyui-combobox' data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDiAwardLevel',listHeight:'auto',editable:false,
-							 onSelect:function(){
-							 	document.getElementById('MajorLevel').value=$(this).combobox('getText') ;
-							 }">
+						<input id="MajorLevel" name="t322_Bean.MajorLevel" 
+							 class='easyui-combobox' data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDiAwardLevel',listHeight:'auto',editable:false">
 						<span id="MajorLevelSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>类型：</label> 
-						<select class='easyui-combobox' id="Type" name="t322_Bean.Type" editable=false>
+						<select class='easyui-combobox' id="Type" name="t322_Bean.Type" editable=false panelHeight="auto">
 							<option value="特色专业">特色专业</option>
 							<option value="品牌专业">品牌专业</option>
 							<option value="名牌专业">名牌专业</option>
@@ -406,6 +387,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="FieldSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 				<div class="fitem">
 				<label>教工号：</label> 
@@ -428,6 +410,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="CheckTimeSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 					<td>
 					<div class="fitem">
 						<label>验收批文号：</label> 
@@ -444,6 +427,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="SchExpSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>教育部经费(万元)：</label> 
@@ -462,6 +446,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="FirstAppvlTimeSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>认证时间：</label> 
@@ -480,10 +465,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="AppvlIDSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>认证结果：</label> 
-						<select class='easyui-combobox' id="AppvlResult" name="t322_Bean.AppvlResult" editable=false>
+						<select class='easyui-combobox' id="AppvlResult" name="t322_Bean.AppvlResult" editable=false panelHeight="auto">
 							<option value="通过">通过</option>
 							<option value="未通过">未通过</option>
 							<option value="未参加评估">未参加评估</option>
@@ -502,6 +488,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="FromTimeSpan"></span>
 					</div>
 				</td>	
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>有效期(止)：</label> 
@@ -520,6 +507,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="AppvlAuthSpan"></span>
 					</div>
 				</td>	
+					<td class="empty"></td>
 					<td>
 					<div class="fitem">
 						<label>必修课学分数：</label> 
@@ -537,6 +525,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="OptionCreditSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>课内教学学分数：</label> 
@@ -555,6 +544,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="ExpCreditSpan"></span>
 					</div>
 				</td>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>集中实践教学环节学分数：</label> 
@@ -575,7 +565,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="t322_Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -669,6 +659,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newUndergraMajorInfo(){
+	    	$('.title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
+		    
 	    	url=' pages/UndergraMajorInfoTea/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加本科专业');
 		    $('#UndergraMajorInfoForm').form('reset');
@@ -699,6 +693,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 		function validate(){
+			var MajorName = $('#MajorID').combobox('getText') ;
+			var MajorField = $('#MajorField').val() ;
+			var MajorFieldID = $('#MajorFieldID').val() ;
+			var MajorSetTime = $('#MajorSetTime').datebox('getValue') ;
+
+
+			
+
+
+			if(MajorName == null || MajorName.length==0 || MajorName.length > 100){
+				$.messager.alert('提示',"专业名称不能为空或长度不超过100") ;
+				return false;
+			}
+
+			if(MajorField == null ||MajorField.length == 0 || MajorField.length > 50){
+				$.messager.alert('提示',"专业方向名称不能为空或长度不超过50");
+				return false;
+			}
+			if(MajorFieldID == null ||MajorFieldID.length == 0 || MajorFieldID.length > 50){
+				$.messager.alert('提示',"专业方向号不能为空或长度不超过50");
+				return false;
+			}
+			if(MajorSetTime == null || MajorSetTime.length == 0){
+				$.messager.alert('提示',"专业设置时间不能为空") ;
+				return false;
+			}
+
+
+			
 	
 			return true ;
 		}
@@ -730,30 +753,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    });
 		    }
 		    }); 
-	    }
-
-	    function editUser(){
-	    	var row = $('#dg').datagrid('getSelections');
-	    	if(row.length != 1){
-	    		 $.messager.alert("信息提示","没选取或者选取了多行","info");  ;
-	    		return ;
-	    	}
-	    	alert(row[0].birthday) ;
-	    	var date = formattime(row[0].birthday) ;
-	    	//为文本框赋值
-	    	$('#id').val(row[0].id) ;
-	    	$('#username').val(row[0].username) ;
-	    	$('#password').val(row[0].password) ;
-	    	$('#email').val(row[0].email) ;
-	    	$('#sex').val(row[0].sex) ;
-	    	$('#birthday').val(date) ;
-	    	
-	    	
-		    if (row){
-			    $('#dlg').dialog('open').dialog('setTitle','本科课程库');
-			    $('#fm').form('load',row);
-			    url = 'updateUser';
-		    }
 	    }
 
 	    function deleteByIds(){
@@ -810,8 +809,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/UndergraMajorInfoTea/edit' ;
+
+	    	$('.title1').hide();
+	    	$('#item1').hide();
+	    	$('hr').hide();
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科专业');
+	    	$('#SeqNumber').val(row[0].seqNumber) ;
+
 	    	$('#MajorID').combobox('select',row[0].majorID) ;
 	    	$('#MajorVersion').combobox('select',row[0].majorVersion) ;
 	        $('#MajorField').val(row[0].majorField);
@@ -826,7 +831,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#IsNewMajor').combobox('select',row[0].isNewMajor) ;
 	    	$('#AppvlYear').datebox('setValue',formattime(row[0].appvlYear)) ;
 	        $('#BuildAppvlID').val(row[0].buildAppvlID);
-	    	$('#MajorLevel').combobox('select',row[0].majorLevel) ;
+	    	$('#MajorLevel').combobox('select',row[0].majorLevelID) ;
+
 	      	$('#Type').combobox('select',row[0].type) ;
 	        $('#Field').val(row[0].field);
 	    	$('#Leader').combobox('select',row[0].leader) ;

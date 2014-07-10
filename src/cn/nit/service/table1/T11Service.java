@@ -7,6 +7,7 @@ import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import cn.nit.bean.table1.T11Bean;
 import cn.nit.bean.table1.T152Bean;
+import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T11DAO;
 
@@ -34,6 +35,23 @@ public class T11Service {
 	/**
 	 * 科研处
 	 * */
+	public T11Bean loadData(String year){
+			
+		T11Bean bean = t11Dao.loadData(year) ;
+//		T11POJO t11Pojo=list.get(0);
+//		System.out.println(t11Pojo.);
+//		System.out.println("total:"+total);
+//		System.out.println("list:"+list.size());
+//		JSON json = JSONSerializer.toJSON(bean) ;
+			
+//		System.out.println(json.toString()) ;
+			
+		return bean;
+		}
+	
+	/**
+	 * 科研处
+	 * */
 	public String auditingData(String year){
 			
 		List<T11POJO> list = t11Dao.auditingData(year) ;
@@ -47,6 +65,12 @@ public class T11Service {
 			
 		return json.toString() ;
 		}
+	
+	
+	//保存
+	public Boolean save(T11Bean bean, String year,	String fields){
+		return t11Dao.save(bean,year,fields);
+	}
 	
 	/**
 	 * 更新数据
@@ -114,8 +138,8 @@ public class T11Service {
 	public static void main(String arg[])
 	{
 		T11Service ser=new T11Service();
-		String info=ser.auditingData("2014") ;
-		System.out.println(info);
+//		String info=ser.auditingData("2014") ;
+//		System.out.println(info);
 	}
 	
 }

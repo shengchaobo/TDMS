@@ -23,30 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -77,13 +54,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMainTrainBasicInfo()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 	<form id="auditing" method="post">
+		 	<form id="auditing" method="post" style="float: right;height: 26px;">
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
@@ -123,8 +100,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">大类培养基本情况批量导入</div>
-		<div class="fitem">
+		<h3 class="title1">大类培养基本情况批量导入</h3>
+		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<label>批量上传：</label> 
 				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
@@ -135,8 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			<a href="123"></a>
 		</div>
-		<div></div>
-		<div class="ftitle">大类培养基本情况逐条导入</div>
+			<hr></hr>	
+		<h3 class="title1">大类培养基本情况逐条导入</h3>
 		
 		<form id="mainTrainBasicInfoForm" method="post">
 		<table>
@@ -148,6 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="MainClassNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>大类代码：</label> 
@@ -160,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>分流时间：</label> 
-						<select class='easyui-combobox' id="ByPassTime" name="t321_Bean.ByPassTime" editable=false>
+						<select class='easyui-combobox' id="ByPassTime" name="t321_Bean.ByPassTime" editable=false panelHeight="auto">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -175,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="ByPassTimeSpan"></span>
 					</div>
 				</td>
-		
+		<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>包含校内专业名称：</label> 
@@ -209,7 +187,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="t321_Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -290,6 +268,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newCourse(){
+	    	$('.title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
+	    	
 	    	url='pages/MainTrainBasicInfoTea/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加大类基本情况');
 		    $('#mainTrainBasicInfoForm').form('reset');
@@ -372,6 +354,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/MainTrainBasicInfoTea/edit' ;
+
+	    	$('.title1').hide();
+	    	$('#item1').hide();
+	    	$('hr').hide();
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加重点学科');
 	    	$('#SeqNumber').val(row[0].seqNumber) ;

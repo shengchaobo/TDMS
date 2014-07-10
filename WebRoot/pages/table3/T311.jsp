@@ -24,30 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -76,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newPostDocSta()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editPostDocSta()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
@@ -84,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		
 		 <div>
-		 	<form id="auditing" method="post">
+		 	<form id="auditing" method="post" style="float: right;height: 26px;">
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
@@ -122,37 +99,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">博士后流动站批量导入</div>
-		<div class="fitem">
+		<h3 class="title1">博士后流动站批量导入</h3>
+		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
 				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/PostDocSta/downloadModel?saveFile=<%=URLEncoder.encode("表3-1-1博士后流动站（人事处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
 		</div>
-		<div></div>
-		<div class="ftitle">博士后流动站逐条导入</div>
-		
+		<hr></hr>	
+
+		<h3 class="title1">博士后流动站逐条导入</h3>
 		<form id="postDocStaForm" method="post">
 		<table>
 			<tr>
 				<td>
 					<div class="fitem">
 						<label>博士后流动站名称：</label> 
-						<input id="seqNumber" name="postDocStaBean.SeqNumber" type="hidden" > </input>
+						<input id="seqNumber" name="postDocStaBean.SeqNumber" type="hidden" > 
 						<input id="PostDocStaName" type="text" name="postDocStaBean.PostDocStaName"
 							class="easyui-validatebox" ><span id="PostDocStaNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>设置时间：</label> 
 						<input id="SetTime" name="postDocStaBean.SetTime"
-							class="easyui-datebox" editable="false" style="width:80px">
+							class="easyui-datebox" editable="false" >
 							<span id="SetTimeSpan"></span>
 					</div>
 				</td>
@@ -165,6 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="ResearcherNumSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>所属单位：</label> 
@@ -182,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 			<tr>
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="postDocStaBean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -275,6 +253,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newPostDocSta(){
+	    	$('.title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
 	    	url=' pages/PostDocSta/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加博士后流动站');
 		    $('#postDocStaForm').form('reset');
@@ -371,29 +352,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    }); 
 	    }
 
-	    function editUser(){
-	    	var row = $('#dg').datagrid('getSelections');
-	    	if(row.length != 1){
-	    		 $.messager.alert("信息提示","没选取或者选取了多行","info");  ;
-	    		return ;
-	    	}
-	    	alert(row[0].birthday) ;
-	    	var date = formattime(row[0].birthday) ;
-	    	//为文本框赋值
-	    	$('#id').val(row[0].id) ;
-	    	$('#username').val(row[0].username) ;
-	    	$('#password').val(row[0].password) ;
-	    	$('#email').val(row[0].email) ;
-	    	$('#sex').val(row[0].sex) ;
-	    	$('#birthday').val(date) ;
-	    	
-	    	
-		    if (row){
-			    $('#dlg').dialog('open').dialog('setTitle','本科课程库');
-			    $('#fm').form('load',row);
-			    url = 'updateUser';
-		    }
-	    }
+
 
 	    function deleteByIds(){
 	    	//获取选中项
@@ -449,6 +408,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/PostDocSta/edit' ;
+
+	    	$('.title1').hide();
+	    	$('#item1').hide();
+	    	$('hr').hide();
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加博士后流动站');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
@@ -458,7 +421,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    	$('#ResearcherNum').val(row[0].researcherNum) ;
 	   
-	    	$('#UnitID').combobox('select',row[0].unitID) ;
+	    	$('#UnitID').combobox('getValues') ;
+
 	    
 			$('#Note').val(row[0].note);
 		

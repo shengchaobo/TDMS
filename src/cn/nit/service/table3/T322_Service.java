@@ -55,7 +55,7 @@ public class T322_Service {
 	 * @return
 	 */
 	public boolean update(T322_Bean t322_Bean){
-//	    this.setAudit(t151Bean) ;
+
 		return t322_Dao.update(t322_Bean) ;
 	}
 	

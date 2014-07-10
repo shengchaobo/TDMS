@@ -165,16 +165,18 @@ private T322_Service t322_Service = new T322_Service() ;
 
 		t322_Bean.setTime(new Date());
 		t322_Bean.setRequireCShour((int)t322_Bean.getRequireCredit()*16);
-		System.out.println("完蛋了完蛋了");
-		System.out.println(t322_Bean.getRequireCShour());
 		t322_Bean.setOptionCSHour((int)t322_Bean.getOptionCredit()*16);
 		t322_Bean.setInClassCSHour((int)t322_Bean.getInClassCredit()*16);
 		t322_Bean.setExpCSHour((int)t322_Bean.getExpCredit()*16);
 		t322_Bean.setPraCSHour((int)t322_Bean.getPraCredit()*16);
 		t322_Bean.setTotalCSHour(t322_Bean.getRequireCShour()+t322_Bean.getOptionCSHour()+t322_Bean.getPraCSHour());
 		t322_Bean.setTotalCredit(t322_Bean.getRequireCredit()+t322_Bean.getOptionCredit()+t322_Bean.getPraCredit()+t322_Bean.getOutClassCredit());
-
+		System.out.println(t322_Bean.getAppvlAuth());
+		System.out.println(t322_Bean.getAppvlResult());
+		System.out.println("hello!!!");
+		System.out.println(t322_Bean.getMajorLevel());
 		boolean flag = t322_Service.update(t322_Bean) ;
+		System.out.println("flag:"+flag);
 
 		PrintWriter out = null ;
 		

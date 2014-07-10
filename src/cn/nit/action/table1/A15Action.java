@@ -150,7 +150,8 @@ public class A15Action {
 		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
 		           wcf.setAlignment(Alignment.CENTRE);
 		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
-						     jxl.format.Colour.BLACK); 
+						     jxl.format.Colour.BLACK);
+		           wcf.setAlignment(jxl.write.Alignment.LEFT);
 		           ws.setRowView(1, 500);
 		           
 //		            //    设置内容单无格的文字格式
@@ -169,26 +170,26 @@ public class A15Action {
 		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		           ws.mergeCells(0, 0, 1, 0);
 		             
-		           ws.addCell(new Label(0, 1, "项目", wcf)); 
-		           ws.addCell(new Label(1, 1, "个数（个）", wcf));
-		           ws.addCell(new Label(2, 1, "所占比例（%）", wcf));
-		           ws.addCell(new Label(0,2,"1.国家级科研机构",wcf));
-		           ws.addCell(new Label(0,3,"2.省部级科研机构",wcf));
-		           ws.addCell(new Label(0,4,"3.市级科研机构",wcf));
-		           ws.addCell(new Label(0,5,"4.校级科研机构",wcf));
-		           ws.addCell(new Label(0,6,"5.总计",wcf));
-		           ws.addCell(new Label(2,6,"/",wcf));
+		           ws.addCell(new Label(0, 2, "项目", wcf)); 
+		           ws.addCell(new Label(1, 2, "个数（个）", wcf));
+		           ws.addCell(new Label(2, 2, "所占比例（%）", wcf));
+		           ws.addCell(new Label(0,3,"1.国家级科研机构",wcf));
+		           ws.addCell(new Label(0,4,"2.省部级科研机构",wcf));
+		           ws.addCell(new Label(0,5,"3.市级科研机构",wcf));
+		           ws.addCell(new Label(0,6,"4.校级科研机构",wcf));
+		           ws.addCell(new Label(0,7,"5.总计",wcf));
+		           ws.addCell(new Label(2,7,"/",wcf));
 		           
 		          
-		           ws.addCell(new Label(1, 2, ""+bean.getNationResNum(), wcf1)); 
-		           ws.addCell(new Label(2, 2,this.toStr(bean.getNationResRatio()) , wcf1));
-		           ws.addCell(new Label(1, 3, ""+bean.getProviResNum(), wcf1));
-		           ws.addCell(new Label(2, 3, this.toStr(bean.getProviResRatio()), wcf1));
-		           ws.addCell(new Label(1, 4,""+bean.getCityResNum(), wcf1));
-		           ws.addCell(new Label(2, 4, this.toStr(bean.getCityResRatio()), wcf1)); 
-		           ws.addCell(new Label(1, 5,""+bean.getSchResNum(), wcf1));
-		           ws.addCell(new Label(2, 5, this.toStr(bean.getSchResRatio()), wcf1));
-		           ws.addCell(new Label(1, 6, ""+bean.getSumResNum(), wcf1));
+		           ws.addCell(new Label(1, 3, ""+bean.getNationResNum(), wcf1)); 
+		           ws.addCell(new Label(2, 3,this.toStr(bean.getNationResRatio()) , wcf1));
+		           ws.addCell(new Label(1, 4, ""+bean.getProviResNum(), wcf1));
+		           ws.addCell(new Label(2, 4, this.toStr(bean.getProviResRatio()), wcf1));
+		           ws.addCell(new Label(1, 5,""+bean.getCityResNum(), wcf1));
+		           ws.addCell(new Label(2, 5, this.toStr(bean.getCityResRatio()), wcf1)); 
+		           ws.addCell(new Label(1, 6,""+bean.getSchResNum(), wcf1));
+		           ws.addCell(new Label(2, 6, this.toStr(bean.getSchResRatio()), wcf1));
+		           ws.addCell(new Label(1, 7, ""+bean.getSumResNum(), wcf1));
 		           
 		          wwb.write();
 		          wwb.close();

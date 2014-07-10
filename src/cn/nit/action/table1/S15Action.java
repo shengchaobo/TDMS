@@ -143,6 +143,7 @@ public class S15Action {
 			           wcf.setAlignment(Alignment.CENTRE);
 			           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
 							     jxl.format.Colour.BLACK); 
+			           wcf.setAlignment(jxl.write.Alignment.LEFT);
 			           ws.setRowView(1, 500);
 			           
 //			            //    设置内容单无格的文字格式
@@ -161,74 +162,74 @@ public class S15Action {
 			           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 			           ws.mergeCells(0, 0, 1, 0);
 			             
-			           ws.addCell(new Label(0, 1, "项目", wcf)); 
-			           ws.addCell(new Label(1, 1, "数量（个）", wcf));
-			           ws.addCell(new Label(2, 1, "专业科研用房面积（平方米）", wcf));
-			           ws.addCell(new Label(0,2,"总计",wcf));
-			           ws.addCell(new Label(0,3,"1.国家实验室",wcf));
-			           ws.addCell(new Label(0,4,"2.国家重点实验室",wcf));
-			           ws.addCell(new Label(0,5,"3.国家工程（技术）研究中心",wcf));
-			           ws.addCell(new Label(0,6,"4.其他国家级科研机构",wcf));
-			           ws.addCell(new Label(0,7,"5.省、部级设置的研究所（院、中心）",wcf));
-			           ws.addCell(new Label(0,8,"6.省、部级设置的实验室",wcf));
-			           ws.addCell(new Label(0,9,"7.其他省级科研机构",wcf));
-			           ws.addCell(new Label(0,10,"8.人文科学重点研究基地",wcf));
-			           ws.addCell(new Label(0,13,"9.市级科研机构",wcf));
-			           ws.addCell(new Label(0,14,"10.教学单位科研实验室",wcf));
-			           ws.addCell(new Label(0,15,"11.其他校级科研机构",wcf));
-			           ws.addCell(new Label(1,10,"9.市级科研机构",wcf));
-			           ws.addCell(new Label(1,11,"10.教学单位科研实验室",wcf));
-			           ws.addCell(new Label(1,12,"11.其他校级科研机构",wcf));
+			           ws.addCell(new Label(0, 2, "项目", wcf)); 
+			           ws.addCell(new Label(2, 2, "数量（个）", wcf));
+			           ws.addCell(new Label(3, 2, "专业科研用房面积（平方米）", wcf));
+			           ws.addCell(new Label(0,3,"总计",wcf));
+			           ws.addCell(new Label(0,4,"1.国家实验室",wcf));
+			           ws.addCell(new Label(0,5,"2.国家重点实验室",wcf));
+			           ws.addCell(new Label(0,6,"3.国家工程（技术）研究中心",wcf));
+			           ws.addCell(new Label(0,7,"4.其他国家级科研机构",wcf));
+			           ws.addCell(new Label(0,8,"5.省、部级设置的研究所（院、中心）",wcf));
+			           ws.addCell(new Label(0,9,"6.省、部级设置的实验室",wcf));
+			           ws.addCell(new Label(0,10,"7.其他省级科研机构",wcf));
+			           ws.addCell(new Label(0,11,"8.人文科学重点研究基地",wcf));
+			           ws.addCell(new Label(0,14,"9.市级科研机构",wcf));
+			           ws.addCell(new Label(0,15,"10.教学单位科研实验室",wcf));
+			           ws.addCell(new Label(0,16,"11.其他校级科研机构",wcf));
+			           ws.addCell(new Label(1,11,"总数",wcf));
+			           ws.addCell(new Label(1,12,"其中：国家级",wcf));
+			           ws.addCell(new Label(1,13,"省部级",wcf));
 			           
-			           ws.mergeCells(0, 1, 1, 0);
-			           ws.mergeCells(0, 2, 1, 0);
-			           ws.mergeCells(0, 3, 1, 0);
-			           ws.mergeCells(0, 4, 1, 0);
-			           ws.mergeCells(0, 5, 1, 0);
-			           ws.mergeCells(0, 6, 1, 0);
-			           ws.mergeCells(0, 7, 1, 0);
-			           ws.mergeCells(0, 8, 1, 0);
-			           ws.mergeCells(0, 9, 1, 0);
-			           ws.mergeCells(0, 13, 1, 0);
-			           ws.mergeCells(0, 14, 1, 0);
-			           ws.mergeCells(0, 15, 1, 0);
-			           ws.mergeCells(0, 10, 0, 2);
+			           ws.mergeCells(0, 2, 1, 2);
+			           ws.mergeCells(0, 3, 1, 3);
+			           ws.mergeCells(0, 11, 0, 13);
+			           ws.mergeCells(0, 4, 1, 4);
+			           ws.mergeCells(0, 5, 1, 5);
+			           ws.mergeCells(0, 6, 1, 6);
+			           ws.mergeCells(0, 7, 1, 7);
+			           ws.mergeCells(0, 8, 1, 8);
+			           ws.mergeCells(0, 9, 1, 9);
+			           ws.mergeCells(0, 10, 1, 10);
+			           ws.mergeCells(0, 14, 1, 14);
+			           ws.mergeCells(0, 15, 1, 15);
+			           ws.mergeCells(0, 16, 1, 16);
 			           
-			           ws.addCell(new Label(2, 2, ""+bean.getSumResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 2,""+bean.getSumResArea() , wcf1));
-			           ws.addCell(new Label(2, 3, ""+bean.getNationResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 3,""+bean.getNationResArea() , wcf1));
-			           ws.addCell(new Label(2, 4, ""+bean.getNationKeyResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 4,""+bean.getNationKeyResArea() , wcf1));
-			           ws.addCell(new Label(2, 5, ""+bean.getNationEnginResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 5,""+bean.getNationEnginResArea() , wcf1));
+			           
+			           ws.addCell(new Label(2, 3, ""+bean.getSumResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 3,""+bean.getSumResArea() , wcf1));
+			           ws.addCell(new Label(2, 4, ""+bean.getNationResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 4,""+bean.getNationResArea() , wcf1));
+			           ws.addCell(new Label(2, 5, ""+bean.getNationKeyResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 5,""+bean.getNationKeyResArea() , wcf1));
+			           ws.addCell(new Label(2, 6, ""+bean.getNationEnginResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 6,""+bean.getNationEnginResArea() , wcf1));
 			           ws.addCell(new Label(2, 6, ""+bean.getOtherNationResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 6,""+bean.getOtherNationResArea() , wcf1));
-			           ws.addCell(new Label(2, 7, ""+bean.getProviResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 7,""+bean.getProviResArea() , wcf1));
-			           ws.addCell(new Label(2, 8, ""+bean.getProviLabNum(), wcf1)); 
-			           ws.addCell(new Label(3, 8,""+bean.getProviLabArea() , wcf1));
-			           ws.addCell(new Label(2, 9, ""+bean.getOtherProviResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 9,""+bean.getOtherSchResArea() , wcf1));
-			           ws.addCell(new Label(2, 10, ""+bean.getHumanResSumNum(), wcf1)); 
-			           ws.addCell(new Label(3, 10,""+bean.getHumanResSumArea() , wcf1));
-			           ws.addCell(new Label(2, 11, ""+bean.getHumanNationResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 11,""+bean.getHumanNationResArea() , wcf1));
-			           ws.addCell(new Label(2, 12, ""+bean.getHumanProviResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 12,""+bean.getHumanProviResArea() , wcf1));
-			           ws.addCell(new Label(2, 13, ""+bean.getCityResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 13,""+bean.getCityResArea() , wcf1));
-			           ws.addCell(new Label(2, 14, ""+bean.getTeaUnitResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 14,""+bean.getTeaUnitResArea() , wcf1));
-			           ws.addCell(new Label(2, 15, ""+bean.getOtherSchResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 15,""+bean.getOtherSchResArea() , wcf1));
+			           ws.addCell(new Label(3, 7,""+bean.getOtherNationResArea() , wcf1));
+			           ws.addCell(new Label(2, 8, ""+bean.getProviResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 8,""+bean.getProviResArea() , wcf1));
+			           ws.addCell(new Label(2, 9, ""+bean.getProviLabNum(), wcf1)); 
+			           ws.addCell(new Label(3, 9,""+bean.getProviLabArea() , wcf1));
+			           ws.addCell(new Label(2, 10, ""+bean.getOtherProviResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 10,""+bean.getOtherSchResArea() , wcf1));
+			           ws.addCell(new Label(2, 11, ""+bean.getHumanResSumNum(), wcf1)); 
+			           ws.addCell(new Label(3, 11,""+bean.getHumanResSumArea() , wcf1));
+			           ws.addCell(new Label(2, 12, ""+bean.getHumanNationResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 12,""+bean.getHumanNationResArea() , wcf1));
+			           ws.addCell(new Label(2, 13, ""+bean.getHumanProviResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 13,""+bean.getHumanProviResArea() , wcf1));
+			           ws.addCell(new Label(2, 14, ""+bean.getCityResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 14,""+bean.getCityResArea() , wcf1));
+			           ws.addCell(new Label(2, 15, ""+bean.getTeaUnitResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 15,""+bean.getTeaUnitResArea() , wcf1));
+			           ws.addCell(new Label(2, 16, ""+bean.getOtherSchResNum(), wcf1)); 
+			           ws.addCell(new Label(3, 16,""+bean.getOtherSchResArea() , wcf1));
 			          wwb.write();
 			          wwb.close();
 
 			        } catch (IOException e){
 			        } catch (RowsExceededException e){
-			        } catch (WriteException e){}
-			        
+			        } catch (WriteException e){}    
 			}
 			return new ByteArrayInputStream(fos.toByteArray());
 	}

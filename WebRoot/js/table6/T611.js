@@ -136,6 +136,7 @@
 				     $('#edit').propertygrid('loadData', rows);
 				});	
 				
+		
 			   //导出
 			   $("#export").click(function(){
 			        var tableName = encodeURI('表6-1-1本专科学生数量基本情况（教务处）');

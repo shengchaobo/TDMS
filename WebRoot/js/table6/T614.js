@@ -2,13 +2,20 @@
 				//alert("test");
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "上学年人数（个）", "group": "普通本科学生数", "value": "", "field": "undergraLastYearNum","editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "普通本科学生数", "value": "", "field": "undergraThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "普通高职（含专科）学生数", "value": "", "field": "juniorLastYearNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "普通高职（含专科）学生数", "value": "", "field": "juniorThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "合计", "value": "", "field": "lastYearSumNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "合计", "value": "", "field": "thisYearSumNum","editor": "numberbox" },
-				        { "name": "学生信息库链接", "group": "其他", "value": "", "field": "stuInfoBaseUrl", "editor": "text" }
+				        { "name": "上学年人数（个）", "group": "6.普通预科生数", "value": "", "field": "preppyThisYearNum","editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "6.普通预科生数", "value": "", "field": "preppyLastYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "7.进修生数", "value": "", "field": "advStuLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "7.进修生数", "value": "", "field": "advStuThisYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "8.成人脱产学生数", "value": "", "field": "adultLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "8.成人脱产学生数", "value": "", "field": "adultThisYearNum","editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "9.夜大（业余）学生数", "value": "", "field": "nightUniLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "9.夜大（业余）学生数", "value": "", "field": "nightUniThisYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "10.函授学生数", "value": "", "field": "correspdCoLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "10.函授学生数", "value": "", "field": "correspdThisYearNum","editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "11.网络学生数", "value": "", "field": "netStuLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "11.网络学生数", "value": "", "field": "netStuThisYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "12.自考学生数", "value": "", "field": "selfStudyLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "12.自考学生数", "value": "", "field": "selfStudyThisYearNum","editor": "numberbox" }
 				    ];
 				    							
 				$('#edit').propertygrid({

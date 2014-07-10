@@ -25,9 +25,6 @@ public class T612_Dao {
 	private String field = "MasterLastYearNum,MasterThisYearNum,FullTimeMasterLastYearNum,FullTimeMasterThisYearNum,PartTimeMasterLastYearNum,PartTimeMasterThisYearNum,DoctorLastYearNum," +
 			"DoctorThisYearNum,FullTimeDoctorLastYearNum,FullTimeDoctorThisYearNum,PartTimeDoctorLastYearNum,PartTimeDoctorThisYearNum,Time,Note";
 
-	
-	private String fieldShow = "SeqNumber,MasterLastYearNum,MasterThisYearNum,FullTimeMasterLastYearNum,FullTimeMasterThisYearNum,PartTimeMasterLastYearNum,PartTimeMasterThisYearNum,DoctorLastYearNum," +
-			"DoctorThisYearNum,FullTimeDoctorLastYearNum,FullTimeDoctorThisYearNum,PartTimeDoctorLastYearNum,PartTimeDoctorThisYearNum,Time,Note";
 
 	/**
 	 * 获取字典表的所有数据
@@ -87,10 +84,128 @@ public class T612_Dao {
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());
-				flag = DAOUtil.update(bean, tableName, key, fields, conn) ;
+				String tempfields = fields + ",MasterLastYearNum,MasterThisYearNum,DoctorLastYearNum,DoctorThisYearNum";
+				
+				int masterLastYearNum = tempBean.getMasterLastYearNum();
+				int masterThisYearNum = tempBean.getMasterThisYearNum();
+				int doctorLastYearNum = tempBean.getDoctorLastYearNum();
+				int doctorThisYearNum = tempBean.getDoctorThisYearNum();
+				
+//				研究生上学年总人数
+				if(bean.getFullTimeMasterLastYearNum()!=null){
+					if(tempBean.getFullTimeMasterLastYearNum()==null){
+						masterLastYearNum = masterLastYearNum + bean.getFullTimeMasterLastYearNum();
+					}else{
+						masterLastYearNum = masterLastYearNum + (bean.getFullTimeMasterLastYearNum()-tempBean.getFullTimeMasterLastYearNum());
+					}
+				}
+				if(bean.getPartTimeMasterLastYearNum()!=null){
+					if(tempBean.getPartTimeMasterLastYearNum()==null){
+						masterLastYearNum = masterLastYearNum + bean.getPartTimeMasterLastYearNum();
+					}else{
+						masterLastYearNum = masterLastYearNum + (bean.getPartTimeMasterLastYearNum()-tempBean.getPartTimeMasterLastYearNum());
+					}
+				}
+				bean.setMasterLastYearNum(masterLastYearNum);
+				
+//				研究生本学年总人数
+				if(bean.getFullTimeMasterThisYearNum()!=null){
+					if(tempBean.getFullTimeMasterThisYearNum()==null){
+						masterThisYearNum = masterThisYearNum + bean.getFullTimeMasterThisYearNum();
+					}else{
+						masterThisYearNum = masterThisYearNum + (bean.getFullTimeMasterThisYearNum()-tempBean.getFullTimeMasterThisYearNum());
+					}
+				}
+				if(bean.getPartTimeMasterThisYearNum()!=null){
+					if(tempBean.getPartTimeMasterThisYearNum()==null){
+						masterThisYearNum = masterThisYearNum + bean.getPartTimeMasterThisYearNum();
+					}else{
+						masterThisYearNum = masterThisYearNum + (bean.getPartTimeMasterThisYearNum()-tempBean.getPartTimeMasterThisYearNum());
+					}
+				}
+				bean.setMasterThisYearNum(masterThisYearNum);
+				
+				
+//				博士生上学年总人数
+				if(bean.getFullTimeDoctorLastYearNum()!=null){
+					if(tempBean.getFullTimeMasterLastYearNum()==null){
+						doctorLastYearNum = doctorLastYearNum + bean.getFullTimeDoctorLastYearNum();
+					}else{
+						doctorLastYearNum = doctorLastYearNum + (bean.getFullTimeDoctorLastYearNum()-tempBean.getFullTimeMasterLastYearNum());
+					}
+				}
+				if(bean.getPartTimeDoctorLastYearNum()!=null){
+					if(tempBean.getPartTimeDoctorLastYearNum()==null){
+						doctorLastYearNum = doctorLastYearNum + bean.getPartTimeDoctorLastYearNum();
+					}else{
+						doctorLastYearNum = doctorLastYearNum + (bean.getPartTimeDoctorLastYearNum()-tempBean.getPartTimeMasterLastYearNum());
+					}
+				}
+				bean.setDoctorLastYearNum(doctorLastYearNum);
+				
+//				博士本学年总人数
+				if(bean.getFullTimeDoctorThisYearNum()!=null){
+					if(tempBean.getFullTimeDoctorThisYearNum()==null){
+						doctorThisYearNum = doctorThisYearNum + bean.getFullTimeDoctorThisYearNum();
+					}else{
+						doctorThisYearNum = doctorThisYearNum + (bean.getFullTimeDoctorThisYearNum()-tempBean.getFullTimeDoctorThisYearNum());
+					}
+				}
+				if(bean.getPartTimeDoctorThisYearNum()!=null){
+					if(tempBean.getPartTimeDoctorThisYearNum()==null){
+						doctorThisYearNum = doctorThisYearNum + bean.getPartTimeDoctorThisYearNum();
+					}else{
+						doctorThisYearNum = doctorThisYearNum + (bean.getPartTimeDoctorThisYearNum()-tempBean.getPartTimeDoctorThisYearNum());
+					}
+				}
+				bean.setDoctorThisYearNum(doctorThisYearNum);
+				
+				flag = DAOUtil.update(bean, tableName, key, tempfields, conn) ;
 			}else{
 				bean.setTime(TimeUtil.changeDateY(year));
-				String tempfields = fields + ",Time";
+				String tempfields = fields + ",MasterLastYearNum,MasterThisYearNum,DoctorLastYearNum,DoctorThisYearNum,Time";
+				
+				int masterLastYearNum = 0;
+				int masterThisYearNum = 0;
+				int doctorLastYearNum = 0;
+				int doctorThisYearNum = 0;
+				
+//				研究生上学年总人数
+				if(bean.getFullTimeMasterLastYearNum()!=null){
+					masterLastYearNum = masterLastYearNum + bean.getFullTimeMasterLastYearNum();
+				}
+				if(bean.getPartTimeMasterLastYearNum()!=null){
+					masterLastYearNum = masterLastYearNum + bean.getPartTimeMasterLastYearNum();
+				}
+				bean.setMasterLastYearNum(masterLastYearNum);
+				
+//				研究生本学年总人数
+				if(bean.getFullTimeMasterThisYearNum()!=null){
+					masterThisYearNum = masterThisYearNum + bean.getFullTimeMasterThisYearNum();
+				}
+				if(bean.getPartTimeMasterThisYearNum()!=null){
+					masterThisYearNum = masterThisYearNum + bean.getPartTimeMasterThisYearNum();
+				}
+				bean.setMasterThisYearNum(masterThisYearNum);
+				
+				
+//				博士生上学年总人数
+				if(bean.getFullTimeDoctorLastYearNum()!=null){
+					doctorLastYearNum = doctorLastYearNum + bean.getFullTimeDoctorLastYearNum();
+				}
+				if(bean.getPartTimeDoctorLastYearNum()!=null){
+					doctorLastYearNum = doctorLastYearNum + bean.getPartTimeDoctorLastYearNum();
+				}
+				bean.setDoctorLastYearNum(doctorLastYearNum);
+				
+//				博士本学年总人数
+				if(bean.getFullTimeDoctorThisYearNum()!=null){
+					doctorThisYearNum = doctorThisYearNum + bean.getFullTimeDoctorThisYearNum();
+				}
+				if(bean.getPartTimeDoctorThisYearNum()!=null){
+					doctorThisYearNum = doctorThisYearNum + bean.getPartTimeDoctorThisYearNum();
+				}
+				bean.setDoctorThisYearNum(doctorThisYearNum);
 				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
 			}
 		}catch(Exception e){

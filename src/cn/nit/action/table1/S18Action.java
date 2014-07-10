@@ -144,6 +144,7 @@ public InputStream getInputStream() throws Exception{
 		           wcf.setAlignment(Alignment.CENTRE);
 		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
 						     jxl.format.Colour.BLACK); 
+		           wcf.setAlignment(jxl.write.Alignment.LEFT);
 		           ws.setRowView(1, 500);
 		           
 //		            //    设置内容单无格的文字格式
@@ -162,22 +163,22 @@ public InputStream getInputStream() throws Exception{
 		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		           ws.mergeCells(0, 0, 2, 0);
 		             
-		           ws.addCell(new Label(0, 1, "项目", wcf)); 
-		           ws.addCell(new Label(2, 1, "内容", wcf));
-		           ws.addCell(new Label(0,2,"签订合作协议机构的协议个数",wcf));
-		           ws.addCell(new Label(1,2,"协议总数",wcf));
-		           ws.addCell(new Label(1,3,"其中：学术机构",wcf));
-		           ws.addCell(new Label(1,4," 行业机构和企业",wcf));
-		           ws.addCell(new Label(1,5," 地方政府",wcf));
+		           ws.addCell(new Label(0, 2, "项目", wcf)); 
+		           ws.addCell(new Label(2, 2, "内容", wcf));
+		           ws.addCell(new Label(0,3,"签订合作协议机构的协议个数",wcf));
+		           ws.addCell(new Label(1,3,"协议总数",wcf));
+		           ws.addCell(new Label(1,4,"其中：学术机构",wcf));
+		           ws.addCell(new Label(1,5," 行业机构和企业",wcf));
+		           ws.addCell(new Label(1,6," 地方政府",wcf));
 		           
-		           ws.mergeCells(0, 1, 1, 0);
-		           ws.mergeCells(0, 2, 0, 3);
+		           ws.mergeCells(0, 2, 1, 2);
+		           ws.mergeCells(0, 3, 0, 6);
 		           
 		          
-		           ws.addCell(new Label(2, 2, ""+bean.getSumAgreeNum(), wcf1)); 
-		           ws.addCell(new Label(2, 3,""+bean.getAcademicNum() , wcf1));
-		           ws.addCell(new Label(2, 4, ""+bean.getIndustryNum(), wcf1));
-		           ws.addCell(new Label(2, 5, ""+bean.getLocalGoverNum(), wcf1));
+		           ws.addCell(new Label(2, 3, ""+bean.getSumAgreeNum(), wcf1)); 
+		           ws.addCell(new Label(2, 4,""+bean.getAcademicNum() , wcf1));
+		           ws.addCell(new Label(2, 5, ""+bean.getIndustryNum(), wcf1));
+		           ws.addCell(new Label(2, 6, ""+bean.getLocalGoverNum(), wcf1));
 		           
 		           
 		          wwb.write();

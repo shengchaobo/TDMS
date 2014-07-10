@@ -193,9 +193,9 @@ public class T66_Action {
 		           ws.addCell(new Label(1, 12, "体育类", wcf));
 		           ws.addCell(new Label(1, 13, "文艺类", wcf));
 		           ws.addCell(new Label(1, 14, "其他", wcf));  
-		           ws.mergeCells(0, 2, 1, 0);
-		           ws.mergeCells(0, 3, 5, 0);
-		           ws.mergeCells(0, 9, 5, 0);
+		           ws.mergeCells(0, 2, 1, 2);
+		           ws.mergeCells(0, 3, 0, 8);
+		           ws.mergeCells(0, 9, 0, 14);
 		           		           
 		           ws.addCell(new Label(2, 3, bean.getStuClubSum().toString(), wcf1));
 		           ws.addCell(new Label(2, 4,bean.getStuClubSciNum().toString(), wcf1));
@@ -205,7 +205,7 @@ public class T66_Action {
 		           ws.addCell(new Label(2, 8,bean.getOtherStuClub().toString(), wcf1));
 		           ws.addCell(new Label(2, 9, bean.getJoinStuSum().toString(), wcf1));
 		           ws.addCell(new Label(2, 10, bean.getJoinClubSciNum().toString(), wcf1));
-		           ws.addCell(new Label(2, 11, bean.getStuClubHumanNum1().toString(), wcf1));
+		           ws.addCell(new Label(2, 11, bean.getJoinClubHumanNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 12, bean.getJoinClubSportNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 13, bean.getJoinClubArtNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 14, bean.getJoinOtherClub().toString(), wcf1));  

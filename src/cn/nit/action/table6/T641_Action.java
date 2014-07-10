@@ -190,24 +190,24 @@ public class T641_Action {
 		           ws.addCell(new Label(0, 10, "7.临时困难补助", wcf));
 
 		           		           
-//		           ws.addCell(new Label(1, 3, bean.g.toString(), wcf1)); 
-//		           ws.addCell(new Label(1, 4, bean.getMasterLastYearNum().toString(), wcf1)); 
-//		           ws.addCell(new Label(1, 5, bean.getMasterLastYearNum().toString(), wcf1));
-//		           ws.addCell(new Label(1, 6, bean.getMasterLastYearNum().toString(), wcf1));
-//		           ws.addCell(new Label(1, 7, bean.getMasterLastYearNum().toString(), wcf1));
-//		           ws.addCell(new Label(1, 8, bean.getMasterLastYearNum().toString(), wcf1));
-//		           ws.addCell(new Label(1, 9, bean.getMasterLastYearNum().toString(), wcf1));
-//		           ws.addCell(new Label(1, 10, bean.getMasterLastYearNum().toString(), wcf1));
-//		           
-//		           ws.addCell(new Label(2, 3, bean.getMasterLastYearNum().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 4, bean.getMasterLastYearNum().toString(), wcf1)); 
-//		           ws.addCell(new Label(2, 5, bean.getMasterLastYearNum().toString(), wcf1));
-//		           ws.addCell(new Label(2, 6, bean.getMasterLastYearNum().toString(), wcf1));
-//		           ws.addCell(new Label(2, 7, bean.getMasterLastYearNum().toString(), wcf1));
-//		           ws.addCell(new Label(2, 8, bean.getMasterLastYearNum().toString(), wcf1));
-//		           ws.addCell(new Label(2, 9, bean.getMasterLastYearNum().toString(), wcf1));
-//		           ws.addCell(new Label(2, 10, bean.getMasterLastYearNum().toString(), wcf1));
-//		             
+		           ws.addCell(new Label(1, 3, bean.getSumAidFund().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 4, bean.getGovAidFund().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 5, bean.getSocialAidFund().toString(), wcf1));
+		           ws.addCell(new Label(1, 6, bean.getSchAidFund().toString(), wcf1));
+		           ws.addCell(new Label(1, 7, bean.getNationAidFund().toString(), wcf1));
+		           ws.addCell(new Label(1, 8, bean.getWorkStudyFund().toString(), wcf1));
+		           ws.addCell(new Label(1, 9, bean.getTuitionWaiberFund().toString(), wcf1));
+		           ws.addCell(new Label(1, 10, bean.getTempFund().toString(), wcf1));
+		           
+		           ws.addCell(new Label(2, 3, bean.getSumAidNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 4, bean.getGovAidNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 5, bean.getSocialAidNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 6, bean.getSchAidNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 7, bean.getNationAidNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 8, bean.getWorkStudyNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 9, bean.getTuitionWaiberNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 10, bean.getTempNum().toString(), wcf1));
+		             
 
 		          wwb.write();
 		          wwb.close();

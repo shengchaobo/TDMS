@@ -1,19 +1,19 @@
 	$(function(){  
 				//alert("test");
-				var selectYear = $("#cbYearContrast").combobox('getValue'); 
+				var selectYear = $("#cbYearContrast").combobox('getValue');
 				var rows = [
-				        { "name": "上学年人数（个）", "group": "3.硕士研究生数", "value": "", "field": "undergraLastYearNum","editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "3.硕士研究生数", "value": "", "field": "undergraThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "其中：全日制", "value": "", "field": "juniorLastYearNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "其中：全日制", "value": "", "field": "juniorThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "其中：非全日制", "value": "", "field": "lastYearSumNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "其中：非全日制", "value": "", "field": "thisYearSumNum","editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "3.硕士研究生数", "value": "", "field": "undergraLastYearNum","editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "3.硕士研究生数", "value": "", "field": "undergraThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "其中：全日制", "value": "", "field": "juniorLastYearNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "其中：全日制", "value": "", "field": "juniorThisYearNum", "editor": "numberbox" },
-				        { "name": "上学年人数（个）", "group": "其中：非全日制", "value": "", "field": "lastYearSumNum", "editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "其中：非全日制", "value": "", "field": "thisYearSumNum","editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "3.硕士研究生数", "value": "", "field": "masterLastYearNum","editor": false },
+				        { "name": "本学年人数（个）", "group": "3.硕士研究生数", "value": "", "field": "masterThisYearNum", "editor": false },
+				        { "name": "上学年人数（个）", "group": "其中：全日制研究生", "value": "", "field": "fullTimeMasterLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "其中：全日制研究生", "value": "", "field": "fullTimeMasterThisYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "其中：非全日制研究生", "value": "", "field": "partTimeMasterLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "其中：非全日制研究生", "value": "", "field": "partTimeMasterThisYearNum","editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "4.博士研究生数", "value": "", "field": "doctorLastYearNum","editor": false },
+				        { "name": "本学年人数（个）", "group": "4.博士研究生数", "value": "", "field": "doctorThisYearNum", "editor": false },
+				        { "name": "上学年人数（个）", "group": "其中：全日制博士生", "value": "", "field": "fullTimeDoctorLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "其中：全日制博士生", "value": "", "field": "fullTimeDoctorThisYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "其中：非全日制博士生", "value": "", "field": "partTimeDoctorLastYearNum", "editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "其中：非全日制博士生", "value": "", "field": "partTimeDoctorThisYearNum","editor": "numberbox" }
 				    ];
 				    							
 				$('#edit').propertygrid({

@@ -208,7 +208,7 @@ public class T322_DAO {
 	
 	
 	/**用于数据导出*/
-	public List<T322_Bean> totalList(String year){
+	public List<T322_Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorVersion,t.MajorField,t.MajorFieldID,t.MajorSetTime,t.MajorAppvlID,t.MajorDurition," +
@@ -218,7 +218,7 @@ public class T322_DAO {
 				"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit,t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note");
 			sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
 			sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID" );
-        sql.append(" and convert(varchar(4),Time,120)=" + year);
+  
 
 
 		

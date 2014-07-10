@@ -212,7 +212,7 @@ public class T312_Action {
 
 		try {
 			
-			List<T312_Bean> list = t312_DAO.totalList(this.getSelectYear());
+			List<T312_Bean> list = t312_DAO.totalList();
 			
 			String sheetName = this.getExcelName();
 			

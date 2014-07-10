@@ -27,17 +27,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript" src="js/commom.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" style="height: auto;" url="pages/MainTrainBasicInfoTea/auditingData"
-		toolbar="#toolbar" pagination="true" 
-		 singleSelect="false" >
+	<table id="unverfiedData" class="easyui-datagrid" url="pages/MainTrainBasicInfoTea/auditingData" >
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true" >选取</th>
-				<th field="seqNumber" >序号</th>
+				<th field="seqNumber" >编号</th>
 				<th field="mainClassName" >大类名称</th>
 				</tr>
 				</thead>
@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		 <div>
 		 	<form id="auditing" method="post" style="float: right;height: 26px;">
-			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div id="toolbar2">
 	 <form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;" editable=false></select>
+
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true" >选取</th>
-				<th field="SeqNumber" >序号</th>
+				<th field="SeqNumber" >编号</th>
 				<th field="MainClassName" >大类名称</th>
 				</tr>
 				</thead>
@@ -103,11 +103,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<h3 class="title1">大类培养基本情况批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
 				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/MainTrainBasicInfoTea/downloadModel?saveFile=<%=URLEncoder.encode("表3-2-1大类培养基本情况表（教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
@@ -359,7 +358,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加重点学科');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改重点学科');
 	    	$('#SeqNumber').val(row[0].seqNumber) ;
 	        $('#MainClassName').val(row[0].mainClassName);
 	        $('#MainClassID').val(row[0].mainClassID);

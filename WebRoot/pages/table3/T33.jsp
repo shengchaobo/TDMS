@@ -28,17 +28,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript" src="js/commom.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  style="height: auto;" url="pages/JuniorMajInfo/auditingData"
-		toolbar="#toolbar" pagination="true" 
-		 singleSelect="false" >
+	<table id="unverfiedData" class="easyui-datagrid"  url="pages/JuniorMajInfo/auditingData" >
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" >序号</th>
+				<th field="seqNumber" >编号</th>
 				</tr>
 				</thead>
 				<thead>
@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		 <div>
 		 	<form id="auditing" method="post" style="float: right;height: 26px;">
-			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div id="toolbar2">
 	 <form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;" editable=false></select>
+
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true" >选取</th>
-				<th field="SeqNumber" >序号</th>
+				<th field="SeqNumber" >编号</th>
 				</tr>
 				</thead>
 				<thead>
@@ -118,12 +118,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
 		<h3 class="title1">专科专业批量导入</h3>
-		<div class="fitem">
+		<div class="fitem"  id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/JuniorMajInfo/downloadModel?saveFile=<%=URLEncoder.encode("表3-3专科专业基本情况（教务处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 			<a href="123"></a>
@@ -477,29 +477,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			     }  
 		}
 
-	    function editUser(){
-	    	var row = $('#dg').datagrid('getSelections');
-	    	if(row.length != 1){
-	    		 $.messager.alert("信息提示","没选取或者选取了多行","info");  ;
-	    		return ;
-	    	}
-	    	alert(row[0].birthday) ;
-	    	var date = formattime(row[0].birthday) ;
-	    	//为文本框赋值
-	    	$('#id').val(row[0].id) ;
-	    	$('#username').val(row[0].username) ;
-	    	$('#password').val(row[0].password) ;
-	    	$('#email').val(row[0].email) ;
-	    	$('#sex').val(row[0].sex) ;
-	    	$('#birthday').val(date) ;
-	    	
-	    	
-		    if (row){
-			    $('#dlg').dialog('open').dialog('setTitle','本科课程库');
-			    $('#fm').form('load',row);
-			    url = 'updateUser';
-		    }
-	    }
+
 
 	    function deleteByIds(){
 	    	//获取选中项
@@ -561,7 +539,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').hide();
 	    	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','添加专科专业');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改专科专业');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
 	    	$('#MajorID').combobox('select',row[0].majorID) ;

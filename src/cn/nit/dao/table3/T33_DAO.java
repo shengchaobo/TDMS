@@ -166,13 +166,13 @@ public class T33_DAO {
 	
 	
 	/**用于数据导出*/
-	public List<T33_Bean> totalList(String year){
+	public List<T33_Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,dmo.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorFieldName,t.AppvlSetTime,t.FirstAdmisTime," +
 		"t.MajorYearLimit,t.IsSepcialMajor,t.IsKeyMajor,t.MajorLeader,t.LIsFullTime,t.MajorChargeMan,t.CIsFullTime,t.Time,t.Note");
 	sql.append(" from "+tableName + " as t,DiDepartment dpt,DiMajorOne dmo ");
-	sql.append(" where dpt.UnitID=t.UnitID and dmo.MajorNum=t.MajorID and convert(varchar(4),Time,120)=" + year );
+	sql.append(" where dpt.UnitID=t.UnitID and dmo.MajorNum=t.MajorID");
 
 		
 		

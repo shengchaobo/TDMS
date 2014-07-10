@@ -212,13 +212,13 @@ public class T312_DAO {
 	
 	
 	/**用于数据导出*/
-	public List<T312_Bean> totalList(String year){
+	public List<T312_Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.StaName,t.StaID,t.UnitName,t.UnitID, t.StaType," +
 		"t.Time,t.Note");
         sql.append(" from "+tableName + " as t,DiDepartment dpt");
-        sql.append(" where   dpt.UnitID=t.UnitID and convert(varchar(4),Time,120)=" + year );
+        sql.append(" where   dpt.UnitID=t.UnitID" );
 
 		
 		

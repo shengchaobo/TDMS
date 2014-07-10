@@ -68,7 +68,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div id="toolbar2">
 		<form  id="exportForm"  method="post" style="float: right;">
-			<select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" editable=false style="width:80px; padding-top:5px; margin-top:10px;"></select>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>

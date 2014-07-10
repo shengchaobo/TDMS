@@ -231,7 +231,7 @@ private T322_Service t322_Service = new T322_Service() ;
 
 		try {
 			
-			List<T322_Bean> list = t322_DAO.totalList(this.getSelectYear());
+			List<T322_Bean> list = t322_DAO.totalList();
 			
 			String sheetName = this.getExcelName();
 			

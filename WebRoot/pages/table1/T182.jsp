@@ -86,11 +86,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="title1">签订合作协议机构导入</h3>
+		<h3 class="title1">签订合作协议机构批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" required="true" />
+				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T182/downloadModel?saveFile=<%=URLEncoder.encode("表1-8-2签订合作协议机构（科研处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
@@ -269,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	url = 'pages/T182/insert' ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构（科研处）');
+		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构（科研处）的信息');
 		    $('#t182Form').form('reset');
 	    }
 
@@ -379,7 +379,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       	$('#item1').hide();
 	       	$('hr').hide();
 	       	
-	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构（科研处）');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构（科研处）的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#CooperInsName').val(row[0].cooperInsName);
 	    	$('#CooperInsType').combobox('select',row[0].cooperInsType);

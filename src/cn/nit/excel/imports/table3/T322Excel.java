@@ -59,7 +59,7 @@ public class T322Excel {
 				
 			  try{
 				  
-				    if(count<4){
+				    if(count<5){
 				    	count++;
 				    	continue;
 				    }
@@ -122,7 +122,7 @@ public class T322Excel {
 					
 					int MajorDurition=Integer.parseInt(cell[8].getContents());
 
-					if(MajorDurition!=4||MajorDurition!=5){
+					if(MajorDurition!=4&&MajorDurition!=5){
 						return "第" + count + "行，学制必须是4或5" ;
 					}
 					
@@ -154,7 +154,7 @@ public class T322Excel {
 					
 					
 					if(MajorState.equals("在招")){
-						if(StopAdmisTime.isEmpty()){
+						if(!StopAdmisTime.isEmpty()){
 							return  "第" + count + "行，在招生状态为在招的情况下，停止招生时间应该不填 ";
 						}
 					}else{
@@ -196,15 +196,22 @@ public class T322Excel {
 				    	return "第" + count + "行，建设批文号长度不能超过100" ;
 				    }
 				    
-				    String MajorLevel=cell[16].getContents();
+				    String MajorLevel1=cell[16].getContents();
+				    String Majorlevel = null;
 					for(DiAwardLevelBean diAwardLevelBean : diAwardLevelList){
-						if(diAwardLevelBean.getAwardLevel().equals(MajorLevel)){
+						if(diAwardLevelBean.getAwardLevel().equals(MajorLevel1)){
+							Majorlevel=diAwardLevelBean.getIndexId();
 								flag = true ;
 								break ;
-							}else{
-								return "第" + count + "行，所填级别有误" ;
 							}
+							
 						}
+					if(Majorlevel.equals(null)){
+						return "第" + count + "行，所填级别有误" ;
+		
+					}
+					
+					
 					
 					String Type=cell[17].getContents();
 					if(Type.equals("特色专业")||Type.equals("品牌专业")||Type.equals("名牌专业")||Type.equals("示范专业")||Type.equals("重点建设专业")||Type.equals("地方优势专业")){
@@ -366,7 +373,7 @@ public class T322Excel {
 				t322_Bean.setIsNewMajor(IsNewMajor);
 				t322_Bean.setAppvlYear(TimeUtil.changeDateYM(AppvlYear));
 				t322_Bean.setBuildAppvlID(BuildAppvlID);
-				t322_Bean.setMajorLevel(MajorLevel);
+				t322_Bean.setMajorLevel(Majorlevel);
 				t322_Bean.setType(Type);
 				t322_Bean.setField(Field);
 				t322_Bean.setLeader(Leader);

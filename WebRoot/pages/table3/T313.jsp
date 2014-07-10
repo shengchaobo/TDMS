@@ -23,30 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 80px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -82,14 +59,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div>
+		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDiscip()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href="pages/DiscipRes/dataExport?excelName=表3-1-3重点学科（科研处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+			
 		</div>
 		 <div>
-		 	<form id="auditing" method="post">
+		 	<form id="auditing" method="post" style="float: right;height: 26px;">
 			 	序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
@@ -134,10 +111,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<div class="ftitle">重点学科库批量导入</div>
-		<div class="fitem">
+		<h3 class="title1">重点学科库批量导入</h3>
+		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<label>批量上传：</label> 
 				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
@@ -146,8 +122,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 			<a href="123"></a>
 		</div>
-		<div></div>
-		<div class="ftitle">重点学科库逐条导入</div>
+		<hr></hr>	
+		<h3 class="title1">重点学科库逐条导入</h3>
 		
 		<form id="discipForm" method="post">
 		<table>
@@ -160,6 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="easyui-validatebox" ><span id="DiscipNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>学科代码：</label> 
@@ -182,10 +159,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="UnitNameSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>学科门类：</label> 
-						<select class='easyui-combobox' id="DiscipType" name="discipBean.DiscipType" editable=false>
+						<select class='easyui-combobox' id="DiscipType" name="discipBean.DiscipType" editable=false panelHeight="auto">
 							<option value="01哲学">01哲学</option>
 							<option value="02经济学">02经济学</option>
 							<option value="03法学">03法学</option>
@@ -208,17 +186,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>国家一级：</label> 
-						<select class='easyui-combobox' id="NationLevelOne" name="discipBean.NationLevelOne" editable=false>
+						<select class='easyui-combobox' id="NationLevelOne" name="discipBean.NationLevelOne" editable=false panelHeight="auto">
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
 						<span id="NationLevelOneSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
 			<td>
 					<div class="fitem">
 						<label>国家二级：</label> 
-						<select class='easyui-combobox' id="NationLevelTwo" name="discipBean.NationLevelTwo" editable=false>
+						<select class='easyui-combobox' id="NationLevelTwo" name="discipBean.NationLevelTwo" editable=false panelHeight="auto">
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -230,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td>
 					<div class="fitem">
 						<label>国家重点：</label> 
-						<select class='easyui-combobox' id="NationLevelKey" name="discipBean.NationLevelKey" editable=false>
+						<select class='easyui-combobox' id="NationLevelKey" name="discipBean.NationLevelKey" editable=false panelHeight="auto">
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -243,17 +222,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>省部一级：</label> 
-						<select class='easyui-combobox' id="ProvinceLevelOne" name="discipBean.ProvinceLevelOne" editable=false>
+						<select class='easyui-combobox' id="ProvinceLevelOne" name="discipBean.ProvinceLevelOne" editable=false panelHeight="auto">
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
 						<span id="ProvinceLevelOneSpan"></span>
 					</div>
 				</td>
-							<td>
+				<td class="empty"></td>
+				<td>
 					<div class="fitem">
 						<label>省部二级：</label> 
-						<select class='easyui-combobox' id="ProvinceLevelTwo" name="discipBean.ProvinceLevelTwo" editable=false>
+						<select class='easyui-combobox' id="ProvinceLevelTwo" name="discipBean.ProvinceLevelTwo" editable=false panelHeight="auto">
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -266,17 +246,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>市级：</label> 
-						<select class='easyui-combobox' id="CityLevel" name="discipBean.CityLevel" editable=false>
+						<select class='easyui-combobox' id="CityLevel" name="discipBean.CityLevel" editable=false panelHeight="auto">
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
 						<span id="CityLevelSpan"></span>
 					</div>
 				</td>
-								<td>
+				<td class="empty"></td>
+				<td>
 					<div class="fitem">
 						<label>校级：</label> 
-						<select class='easyui-combobox' id="SchLevel" name="discipBean.SchLevel" editable=false>
+						<select class='easyui-combobox' id="SchLevel" name="discipBean.SchLevel" editable=false panelHeight="auto">
 							<option value="false">否</option>
 							<option value="true">是</option>
 						</select>
@@ -288,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<tr>
 
-				<td style="valign:left"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="discipBean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -368,6 +349,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    } 
 	    
 	    function newCourse(){
+	    	$('.title1').show();
+	    	$('#item1').show();
+	    	$('hr').show();
 	    	url='pages/DiscipRes/insert',
 		    $('#dlg').dialog('open').dialog('setTitle','添加重点学科库');
 		    $('#discipForm').form('reset');
@@ -460,6 +444,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 	    	
 	    	url = 'pages/DiscipRes/edit' ;
+
+	    	$('.title1').hide();
+	    	$('#item1').hide();
+	    	$('hr').hide();
+	    	
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加重点学科');
 	    	$('#SeqNumber').val(row[0].seqNumber) ;

@@ -152,7 +152,7 @@
        	$('#item1').hide();
        	$('hr').hide();
     	
-    	$('#dlg').dialog('open').dialog('setTitle','修改专任教师的信息');
+    	$('#dlg').dialog('open').dialog('setTitle','修改课程信息的情况');
     	$('#seqNumber').val(row[0].seqNumber) 
     	$('#CStype').combobox('select', row[0].CSType);
     	$('#CSLevel').combobox('select', row[0].CSLevelID);

@@ -319,7 +319,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	url = 'pages/SchResIns/insert' ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加校级科研机构库（科研处）');
+		    $('#dlg').dialog('open').dialog('setTitle','添加校级以上科研机构的信息');
 		    $('#resInsForm').form('reset');
 	    }
 
@@ -450,7 +450,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       	$('#item1').hide();
 	       	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','修改本科教学课程库');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改校级以上科研机构的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#ResInsID').combobox('select',row[0].resInsID);
 	    	$('#Type').combobox('select',row[0].typeID);

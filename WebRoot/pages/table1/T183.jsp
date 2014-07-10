@@ -268,7 +268,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	url = url ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构（招就处）');
+		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构（招就处）的信息');
 		    $('#t183Form').form('reset');
 	    }
 
@@ -377,7 +377,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       	$('#item1').hide();
 	       	$('hr').hide();
 	    	 
-	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构（招就处）');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构（招就处）的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#CooperInsName').val(row[0].cooperInsName);
 	    	$('#CooperInsType').combobox('select',row[0].cooperInsType);

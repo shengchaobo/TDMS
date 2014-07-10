@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="title1">签订合作协议机构导入</h3>
+		<h3 class="title1">签订合作协议机构批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
@@ -272,7 +272,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	url = url ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构（教务处）');
+		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构（教务处）的信息');
 		    $('#t181Form').form('reset');
 	    }
 
@@ -380,7 +380,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('.title1').hide();
 	       	$('#item1').hide();
 	       	$('hr').hide();
-	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构（教务处）');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构（教务处）的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#CooperInsName').val(row[0].cooperInsName);
 	    	$('#CooperInsType').combobox('select',row[0].cooperInsType);

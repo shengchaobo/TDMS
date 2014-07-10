@@ -241,7 +241,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#item1').show();
 	    	$('hr').show();
 	    	url = url ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加学校荣誉');
+		    $('#dlg').dialog('open').dialog('setTitle','添加新的学校荣誉信息');
 		    $('#rewardForm').form('reset');
 	    }
 
@@ -387,7 +387,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       	$('#item1').hide();
 		       	$('hr').hide();
 		    	
-		    	$('#dlg').dialog('open').dialog('setTitle','修改学校荣誉情况');
+		    	$('#dlg').dialog('open').dialog('setTitle','修改学校荣誉的信息');
 		    	$('#seqNumber').val(row[0].seqNumber) ;
 		    	$('#RewardName').val(row[0].rewardName);
 		    	$('#RewardFromUnit').val(row[0].rewardFromUnit);

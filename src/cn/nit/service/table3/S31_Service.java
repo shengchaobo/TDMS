@@ -87,6 +87,8 @@ public class S31_Service {
 		s31_Bean.setNewMajor(num5);
 		s31_Bean.setJuniorMajor(num6);	
 	   	s31_Bean.setTime(new Date());
+	   	s31_DAO.delete(Year);
+	   	s31_DAO.insert(s31_Bean);
 	   	return s31_Bean;
 	}
 	

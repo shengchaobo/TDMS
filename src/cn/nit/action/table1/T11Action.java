@@ -43,6 +43,7 @@ import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dao.table1.T11DAO;
 import cn.nit.excel.imports.table1.T11Excel;
 
+import cn.nit.pojo.table1.T11POJO;
 import cn.nit.service.table1.T11Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
@@ -105,24 +106,27 @@ public class T11Action {
 
 	//查询出所有
 	public void loadInfo() throws Exception{
+		System.out.println("nnnnnnnn");
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		T11Bean bean = t11Ser.loadData(this.getSelectYear()) ;
+		T11POJO pojo = t11Ser.loadData(this.getSelectYear()) ;
 		
 		//private JSONObject jsonObj;
-		bean.setTime(null);
-		String json = JsonUtil.beanToJson(bean);
+		pojo.setTime(null);
+		String json = JsonUtil.beanToJson(pojo);
 		
 		PrintWriter out = null ;
 
-		if(bean == null){
+		if(pojo == null){
+			System.out.println("no data");
 			response.setContentType("text/html;charset=UTF-8") ;
 			out = response.getWriter() ;
 			out.println( "<script language='javascript'>window.alert('无该年数据');</script>" ); 
 		}else{
+			System.out.println("have data");
 			try {				
-				System.out.println(json) ;
+//				System.out.println(json) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(json) ;
@@ -142,7 +146,7 @@ public class T11Action {
 	//保存
 	public void save(){
 		
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
 		String tempData = this.getData();
@@ -179,13 +183,15 @@ public class T11Action {
 		String cuYear=date.toString();
 		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
 		
-		String pages = t11Ser.auditingData(year) ;
+		T11POJO pojo = t11Ser.auditingData(year) ;
+		String json = JsonUtil.beanToJson(pojo);
+		
 		PrintWriter out = null ;
 		
 		try{
 			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
-			out.print(pages) ;
+			out.print(json) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return ;

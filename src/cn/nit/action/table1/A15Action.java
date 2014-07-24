@@ -32,12 +32,13 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.A15Bean;
-import cn.nit.bean.table1.S18Bean;
-import cn.nit.bean.table1.T11Bean;
+
 import cn.nit.dao.table1.A15DAO;
 import cn.nit.excel.imports.table1.A15Excel;
+import cn.nit.pojo.table1.A15POJO;
 import cn.nit.service.table1.A15Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.JsonUtil;
 import cn.nit.util.TimeUtil;
 
 public class A15Action {
@@ -67,36 +68,104 @@ public class A15Action {
 	public void setSelectYear(String selectYear) {
 		this.selectYear = selectYear;
 	}
+	
+	//save的字段
+	private String fields;
+	
 
-	/**  为界面加载数据  */
-	public void auditingData(){
+	public String getFields() {
+		return fields;
+	}
+
+
+	public void setFields(String fields) {
+		this.fields = fields;
+	}
+	
+	/**  前台获数据 */
+	private String data ;
+
+
+	public String getData() {
+		return data;
+	}
+
+	
+	//查询出所有
+	public void loadInfo() throws Exception{
+		System.out.println("nnnnnnnn");
 		
-//		System.out.println("=========");
-		Date date=new Date();
-		String cuYear=date.toString();
-		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
+		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		String pages = a15Ser.autidingdata(year);
-//		System.out.println("pages:"+pages);
-		PrintWriter out = null ;
-//		boolean flag=false;
-//		if(pages!=null){
-//			flag=true;
-//		}
+		A15Bean bean = a15Ser.loadData(this.getSelectYear()) ;
+		
+		System.out.println(bean == null);
+		
+		String json=null;
+		boolean flag = false; 
+		if(bean != null){
+			bean.setTime(null);
+			json = JsonUtil.beanToJson(bean);
+			flag = true;
+		}
+	
+//		System.out.println(json);
 //		
-		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print(pages) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return ;
-		}finally{
-			if(out != null){
-				out.close() ;
+		PrintWriter out = null ;
+		
+		if(flag == false){
+			System.out.print("无该年数据！！！");
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
+		}else{
+			System.out.println("have data");
+			try {				
+				System.out.println(json) ;
+				response.setContentType("application/json;charset=UTF-8") ;
+				out = response.getWriter() ;
+				out.print(json) ;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if(out != null){
+					out.flush() ;
+					out.close() ;
+				}
 			}
 		}
 	}
+
+//	/**  为界面加载数据  */
+//	public void auditingData(){
+//		
+////		System.out.println("=========");
+//		Date date=new Date();
+//		String cuYear=date.toString();
+//		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
+//		
+//		String pages = a15Ser.autidingdata(year);
+////		System.out.println("pages:"+pages);
+//		PrintWriter out = null ;
+////		boolean flag=false;
+////		if(pages!=null){
+////			flag=true;
+////		}
+////		
+//		try{
+//			getResponse().setContentType("text/html; charset=UTF-8") ;
+//			out = getResponse().getWriter() ;
+//			out.print(pages) ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
 	
 //	public InputStream getInputStream(){
 //

@@ -31,12 +31,12 @@ import jxl.write.biff.RowsExceededException;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table1.S17Bean;
 import cn.nit.bean.table1.S18Bean;
 import cn.nit.dao.table1.S18DAO;
 import cn.nit.excel.imports.table1.S18Excel;
 
 import cn.nit.service.table1.S18Service;
+import cn.nit.util.JsonUtil;
 import cn.nit.util.TimeUtil;
 
 public class S18Action {
@@ -63,6 +63,73 @@ public class S18Action {
 
 	public void setSelectYear(String selectYear) {
 		this.selectYear = selectYear;
+	}
+	
+	//save的字段
+	private String fields;
+	
+
+	public String getFields() {
+		return fields;
+	}
+
+
+	public void setFields(String fields) {
+		this.fields = fields;
+	}
+	
+	/**  前台获数据 */
+	private String data ;
+
+
+	public String getData() {
+		return data;
+	}
+
+
+	public void setData(String data) {
+		this.data = data;
+	}
+	
+	//查询出所有
+	public void loadInfo() throws Exception{
+		System.out.println("nnnnnnnn");
+		
+		HttpServletResponse response = ServletActionContext.getResponse() ;		
+		
+		S18Bean bean = s18Ser.loadData(this.getSelectYear()) ;
+		
+		String json=null;
+		boolean flag = false; 
+		if(bean != null){
+			bean.setTime(null);
+			json = JsonUtil.beanToJson(bean);
+			flag = true;
+		}
+		PrintWriter out = null ;
+		
+		if(flag == false){
+			System.out.print("无该年数据！！！");
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
+		}else{
+			System.out.println("have data");
+			try {				
+				System.out.println(json) ;
+				response.setContentType("application/json;charset=UTF-8") ;
+				out = response.getWriter() ;
+				out.print(json) ;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if(out != null){
+					out.flush() ;
+					out.close() ;
+				}
+			}
+		}
 	}
 
 	/**  为界面加载数据  */

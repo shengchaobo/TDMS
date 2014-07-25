@@ -41,7 +41,7 @@ public class T12Service {
 		Pagition pages = new Pagition(total, list) ;
 		JSON json = JSONSerializer.toJSON(pages) ;	
 		return json.toString() ;
-		}
+	}
 	
 	/**批量导入*/
 	public boolean batchInsert(List<T12Bean> list){
@@ -53,7 +53,7 @@ public class T12Service {
 	
 	public static void main(String arg[]){
 		T12Service ser=new T12Service();
-		String info=ser.auditingData(null, "1001", 1, 1);
+		String info=ser.auditingData(null, "10", 1, 10);
 		System.out.println(info);
 	}
 

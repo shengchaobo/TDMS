@@ -4,7 +4,7 @@
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#showData').datagrid( {
 			title : '本科课程、授课情况统计表',  //可变内容在具体页面定义
-			url: 'pages/S512/loadInfo',
+			url: 'pages/S52/loadInfo',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -20,10 +20,11 @@
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
 					 
+			
 					var merges2 = [{
 		                  field:'teaUnit',
 		                  index: 0,
-		                  colspan: 2
+		                  colspan: 1
 		              }           
 		              ];
 
@@ -54,7 +55,7 @@
 			
 			//alert(year);
 	        //查询参数直接添加在queryParams中 
-			alert(222);
+//			alert(222);
 	         var queryParams = $('#showData').datagrid('options').queryParams;  
 	         queryParams.selectYear = year;   
 	         $("#showData").datagrid('reload'); 
@@ -62,11 +63,11 @@
 		
 	   //导出
 	   $("#export").click(function(){
-	        var tableName = encodeURI('S-5-1-2本科课程、授课情况统计表');
+	        var tableName = encodeURI('S-5-2课程建设情况统计');
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/S512/dataExport?excelName="+tableName+'&selectYear='+year,
+			    url : "pages/S52/dataExport?excelName="+tableName+'&selectYear='+year,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },

@@ -5,8 +5,9 @@
 <struts>
 	<package name="s18" namespace="/pages/S18" extends="struts-default">
 	    
-	    <action name="auditingData" class="cn.nit.action.table1.S18Action" method="auditingData" />
-	    
+	    <!-- 显示数据 -->
+	    <action name="loadInfo" class="cn.nit.action.table1.S18Action" method="loadInfo" />
+	   
 	      <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table1.S18Action" method="execute">
 	    	<result name="success" type="stream">

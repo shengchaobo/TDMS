@@ -5,7 +5,7 @@
 <struts>
 	<package name="A15" namespace="/pages/A15" extends="struts-default">
 		    <!-- 显示数据 -->
-	    <action name="auditingData" class="cn.nit.action.table1.A15Action" method="auditingData" />
+	    <action name="loadInfo" class="cn.nit.action.table1.A15Action" method="loadInfo" />
 	
 	    <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table1.A15Action" method="execute">

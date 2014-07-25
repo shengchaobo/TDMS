@@ -13,7 +13,7 @@ import cn.nit.util.DAOUtil;
 public class T14DAO {
 	
 	/**  数据库表名  */
-	private String tableName = "T12_SchUnit$" ;
+	private String tableName = "DiDepartment" ;
 	
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
@@ -119,11 +119,10 @@ public class T14DAO {
 	public List<T14Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.UnitName,t.UnitID, t.Leader,t.TeaID,t.Time,t.Note" );
-		sql.append(" from "+tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea");
-//		sql.append(" where t.Time like '"+Year+"%' ");
-		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
-		sql.append(" and t.UnitID like '30%'");
+		sql.append("select UnitName,UnitID, Leader,TeaID,Note" );
+		sql.append(" from "+tableName );
+		sql.append(" where UnitID like '30%'");
+//		System.out.println(sql.toString());
 //		System.out.println(sql.toString());
 
 		
@@ -166,6 +165,12 @@ public class T14DAO {
 	
 	public String getTableName(){
 		return this.tableName ;
+	}
+	
+	public static void main(String arg[]){
+		T14DAO dao = new T14DAO();
+		List<T14Bean> list=dao.totalList();
+		System.out.println(list.size());
 	}
 
 }

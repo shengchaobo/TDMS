@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'table.jsp' starting page</title>
+<title>S512</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -54,22 +54,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript" src="js/table5/T512.js"></script>
+	<script type="text/javascript" src="js/table5/S512.js"></script>
 
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  url="pages/S512/auditingData"  style="height: auto">
+	<table id="showData"  style="height: auto">	
 		
-					<thead>
+		<thead>
 			<tr>
-				<th data-options="field:'SeqNumber',align:'center'" rowspan="3">
-				编号
-				</th>
-				<th data-options="field:'Term',align:'center'" rowspan="3">
+			
+				<th data-options="field:'teaUnit',align:'center'" rowspan="3" >
 			          开课单位
 				</th>
-				<th data-options="field:'CSUnit',align:'center'" rowspan="3">
+				<th data-options="field:'unitID',align:'center'" rowspan="3">
 				单位号
 				</th>
 				<th colspan="2">
@@ -83,77 +81,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</th>
 			</tr>
 			<tr>
-				<th rowspan="2">
+				<th  data-options="field:'sumCS',align:'center'" rowspan="2" >
 				总数
 				</th>
-				<th rowspan="2">
+				<th data-options="field:'smallCSNum',align:'center'" rowspan="2">
 			         其中：小班授课
 				</th>
-				<th rowspan="2">
+				<th data-options="field:'sumTeaNum',align:'center'" rowspan="2">
 				总人数(人)
 				</th>
 				<th colspan="5">
 				其中
 				</th>
-				<th rowspan="2">
+				<th  data-options="field:'CSProfNum',align:'center'" rowspan="2">
 				由教授授课的课程门次（门次）
 				</th>
-				<th rowspan="2">
+				<th data-options="field:'CSViceProfNum',align:'center'" rowspan="2">
 				由副教授授课的课程门次（门次）
 				</th>
 			</tr>
 			<tr>
-				<th data-options="field:'CSName',align:'center'">
+				<th data-options="field:'quqlifyTea',align:'center'">
 				符合岗位资格（人）
 				</th>
-				<th data-options="field:'CSID',align:'center'">
+				<th data-options="field:'professor',align:'center'">
 				教授（人）
 				</th>
-				<th data-options="field:'CSType',align:'center'">
+				<th data-options="field:'viceProfessor',align:'center'">
 				副教授（人）
 				</th>
-				<th data-options="field:'CSNature',align:'center' ">
+				<th data-options="field:'juniorTea',align:'center' ">
 				为低年级授课的教授（人）
 				</th>
-				<th data-options="field:'PubCSType',align:'center'">
+				<th data-options="field:'juniorViceProf',align:'center'">
 				为低年级授课的副教授（人）
 				</th>
 			</tr>
 			
 			</thead>
-					
-		
-	  
 	</table>
+			 
 	<div id="toolbar" style="height:auto">
-	<div style="float: left;">
-			<a href="pages/S512/dataExport?excelName=S-5-1-2本科课程、授课情况统计表.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">数据导入</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+		<div style="float: left;">	
+			<a href="javascript:void(0)" id="export" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		</div>
-		<div>
-		 	<form id="auditing" method="post" style="float: right;height: 24px;">
-			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
-			</form>
-		</div>
-	</div>
-	
-	<div id="dlg" class="easyui-dialog"
-		style="width:520px;height:200px;padding:10px 20px;" closed="true" data-options="modal:true"
-		buttons="#dlg-buttons">
-		<h3 class="ftitle" id="title1">本科课程、授课情况统计表模板导入</h3>
-		<div class="fitem" id="item1">
-		  <form method="post"  id="batchForm" enctype="multipart/form-data">
-		     <select class="easyui-combobox" id="cbYearContrast" name="selectYear" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
-				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href='pages/T512/downloadModel?saveFile=<%=URLEncoder.encode("S-5-1-2本科课程、授课情况统计表.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
-			</form>
-		</div>	
-	</div>
+	 	 <form  id="exportForm"  style="float: right;"  method="post" >
+			显示： <select class="easyui-combobox" id="cbYearContrast" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false ></select>
+	 	</form>	
+	</div>	
 </body>
 
 			 <script type="text/javascript">
@@ -168,3 +143,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</script>
 		
 </html>
+

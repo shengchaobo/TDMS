@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript" src="js/table5/S52.js"></script>
+	<script type="text/javascript" src="js/table5/S534.js"></script>
 
 	
 </head>
@@ -63,31 +63,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<thead>
 			<tr>
-			
-				<th data-options="field:'CSType',align:'center'">
-			     	类型
-				</th>
-				<th data-options="field:'sumCSNum',align:'center'">
-				合计
-				</th>
-				<th data-options="field:'interLevel',align:'center'">
-			     国际级
-				</th>
-				<th data-options="field:'nationLevel',align:'center'">
-				国家级
-				</th>
-				<th data-options="field:'proviLevel',align:'center'">
-			     	省部级
-				</th>
-				<th data-options="field:'cityLevel',align:'center'">
-				市级
-				</th>
-				<th data-options="field:'schLevel',align:'center'">
-			     	校级
-				</th>
+			   <tr>
+					<th data-options="field:'teaUnit',align:'center'" rowspan="2" >
+				          教学单位
+					</th>
+					<th  colspan="8" >
+				        1.指导教师数（人）
+					</th>
+					<th  colspan="2" >
+				        2.课题数（个）
+					</th>
+					<th  colspan="2">
+				       3.学生数（人）
+					</th>
+				</tr>
 				
-			</tr>
-			
+				<tr>
+						<th data-options="field:'sumTeaNum',align:'center'">
+						总人数
+						</th>
+						<th data-options="field:'outHireTeaNum',align:'center'" >
+						其中外聘教师
+						</th>
+						<th data-options="field:'highTitle',align:'center'">
+						其中正高职称
+						</th>
+						<th data-options="field:'viceHighTitle',align:'center'" >
+						其中副高职称
+						</th>
+						<th data-options="field:'midTitle',align:'center'">
+						其中中级职称
+						</th>
+						<th data-options="field:'graDegree',align:'center'" >
+						其中研究生学历
+						</th>
+						<th data-options="field:'aboveGraDegree',align:'center'">
+						其中硕士以上学位
+						</th>
+						<th data-options="field:'schGoodTea',align:'center'" >
+						其中获评校级优秀指导教师
+						</th>
+						<th data-options="field:'issueNum',align:'center'">
+						数量
+						</th>
+						<th data-options="field:'praIssueNum',align:'center'" >
+						其中在社会实践中完成
+						</th>
+						<th data-options="field:'stuNum',align:'center'">
+						总人数
+						</th>
+						<th data-options="field:'goodStuNum',align:'center'" >
+						获评优秀毕业设计学生人数
+						</th>
+						
+				</tr>
+				
 			</thead>
 	</table>
 			 

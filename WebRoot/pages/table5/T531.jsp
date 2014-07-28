@@ -158,7 +158,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <td>
 			   	    <div class="fitem">
 					<label>级别：</label> 
-					<input id="ItemLevel" type="text" name="t531Bean.ItemLevel" class="easyui-validatebox"  >
+					<select class='easyui-combobox'  id="ItemLevel" name="t531Bean.ItemLevel" style="width:200px" panelHeight="auto" editable="false" >
+							<option value="国际级">国际级</option>
+							<option value="国家级">国家级</option>
+							<option value="省部级">省部级</option>
+							<option value="市级">市级</option>
+							<option value="校级">校级</option>
+						</select>
 					<span id="ItemLevelSpan"></span>
 					</div>
 			    </td>

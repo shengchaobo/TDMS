@@ -82,7 +82,7 @@
 		var type = $('#Type').combobox('getText');
 		var itemLevel = $('#ItemLevel').combobox('getText');
 		var buildTime = $('#buildTime').datebox('getValue');
-		var teaUnit = $('#TeaUnit').val();
+		var teaUnit = $('#TeaUnit').combobox('getText');
 		var joinStuNum = $('#JoinStuNum').val();
 		var note = $('#Note').val();
 	

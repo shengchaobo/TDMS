@@ -181,7 +181,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   <td>
 					<div class="fitem">
 					<label>所属教学单位：</label>
-					<input id="TeaUnit" name="t531Bean.TeaUnit" type="text" class="easyui-validatebox">
+					<input id="TeaUnit"  name="t531Bean.TeaUnit" class='easyui-combobox'
+						data-options="valueField:'unitName',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false">
 					<span id="TeaUnitSpan"></span>
 					</div>
 			   </td>

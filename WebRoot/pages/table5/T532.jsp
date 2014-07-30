@@ -52,6 +52,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'fromSubject'">
 						所属学科
 					</th>
+					<th data-options="field:'centerLevel'">
+						级别
+						</th>
 					<th data-options="field:'fromTeaUnit'">
 						所属教学单位
 					</th>
@@ -122,6 +125,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'fromSubject'">
 						所属学科
 					</th>
+					<th data-options="field:'centerLevel'">
+						级别
+						</th>
 					<th data-options="field:'fromTeaUnit'">
 						所属教学单位
 					</th>

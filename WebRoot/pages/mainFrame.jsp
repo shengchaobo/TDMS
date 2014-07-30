@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -215,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
     <body style="margin-left:auto;margin-right:auto;align-text:center">
     <div class="easyui-layout" data-options="fit:true">
-	    <div style="height:46px;background:url(images/main19.jpg);width:1364px;" data-options="region:'north',split:true">
+	    <div style="height:46px;background:url(images/main02.jpg);width:1364px; overflow: hidden;" data-options="region:'north',split:true">
 	    	<div class="left">
 	    	<table>
 	    	<tr>
@@ -224,7 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</tr></table>
 	    	</div>
 	    	<div class="right">
-				<h5 style="align:'right';valign:'bottom'"><a href="exit">注销登录</a>&nbsp;&nbsp;&nbsp;</h5>
+				<h5 style="position: relative;"><a href="exit">注销登录</a>&nbsp;&nbsp;&nbsp;</h5>
 			</div>
 	   </div>
 	   <div style="height:30px;background:url(images/main01.jpg);width:1364px;" data-options="region:'south',split:true">

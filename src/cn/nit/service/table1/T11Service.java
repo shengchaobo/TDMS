@@ -7,6 +7,7 @@ import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import cn.nit.bean.table1.T11Bean;
 import cn.nit.bean.table1.T152Bean;
+import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T11DAO;
 
@@ -32,21 +33,66 @@ public class T11Service {
 	}
 	
 	/**
+	 * 数据录入
+	 * */
+	public T11POJO loadData(String year){
+			
+		T11Bean bean = t11Dao.loadData(year) ;
+		T11POJO t11Pojo=new T11POJO();
+		t11Pojo.setAdmissonBatch(bean.getAdmissonBatch());
+		t11Pojo.setMajDept(bean.getMajDept());
+		t11Pojo.setMediaUrl(bean.getMediaUrl());
+		t11Pojo.setNote(bean.getNote());
+		t11Pojo.setPengHuSchAdd(bean.getPengHuSchAdd());
+		t11Pojo.setSch_BeginTime(TimeUtil.changeFormat5(bean.getSch_BeginTime()));
+		t11Pojo.setSchAddress(bean.getSchAddress());
+		t11Pojo.setSchBuilder(bean.getSchBuilder());
+		t11Pojo.setSchEnName(bean.getSchEnName());
+		t11Pojo.setSchFax(bean.getSchFax());
+		t11Pojo.setSchFillerEmail(bean.getSchFillerEmail());
+		t11Pojo.setSchFillerName(bean.getSchFillerName());
+		t11Pojo.setSchFillerTel(bean.getSchFillerTel());
+		t11Pojo.setSchID(bean.getSchID());
+		t11Pojo.setSchName(bean.getSchName());
+		t11Pojo.setSchQuality(bean.getSchQuality());
+		t11Pojo.setSchTel(bean.getSchTel());
+		t11Pojo.setSchType(bean.getSchType());
+		t11Pojo.setSchUrl(bean.getSchUrl());
+		t11Pojo.setYaohuSchAdd(bean.getYaohuSchAdd());
+		t11Pojo.setTime(bean.getTime());
+		t11Pojo.setSeqNumber(bean.getSeqNumber());
+//		System.out.println(t11Pojo.);
+//		System.out.println("total:"+total);
+//		System.out.println("list:"+list.size());
+//		JSON json = JSONSerializer.toJSON(bean) ;
+			
+//		System.out.println(json.toString()) ;
+			
+		return t11Pojo;
+		}
+	
+	/**
 	 * 科研处
 	 * */
-	public String auditingData(String year){
+	public T11POJO auditingData(String year){
 			
 		List<T11POJO> list = t11Dao.auditingData(year) ;
 		T11POJO t11Pojo=list.get(0);
 //		System.out.println(t11Pojo.);
 //		System.out.println("total:"+total);
 //		System.out.println("list:"+list.size());
-		JSON json = JSONSerializer.toJSON(t11Pojo) ;
+//		JSON json = JSONSerializer.toJSON(t11Pojo) ;
 			
 //		System.out.println(json.toString()) ;
 			
-		return json.toString() ;
+		return t11Pojo ;
 		}
+	
+	
+	//保存
+	public Boolean save(T11Bean bean, String year,	String fields){
+		return t11Dao.save(bean,year,fields);
+	}
 	
 	/**
 	 * 更新数据
@@ -106,7 +152,6 @@ public class T11Service {
 	
 	/**批量导入*/
 	public boolean batchInsert(List<T11Bean> list){
-		
 		return t11Dao.batchInsert(list) ;
 	}
    
@@ -114,8 +159,12 @@ public class T11Service {
 	public static void main(String arg[])
 	{
 		T11Service ser=new T11Service();
-		String info=ser.auditingData("2014") ;
-		System.out.println(info);
+//        T11Bean bean=ser.loadData("2014");
+//        if(bean == null){
+//        	System.out.println("无数据！");
+//        }else{
+//        	System.out.println("有");
+//        }
 	}
 	
 }

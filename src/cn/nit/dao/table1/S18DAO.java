@@ -6,12 +6,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.bean.table1.S17Bean;
+
 import cn.nit.bean.table1.S18Bean;
 import cn.nit.bean.table1.T181Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.S18POJO;
-import cn.nit.pojo.table1.T11POJO;
 import cn.nit.util.DAOUtil;
 
 public class S18DAO {
@@ -29,6 +28,117 @@ public class S18DAO {
 	
 	/**  数据库表中除了自增长字段的所有字段  */
 	private String field = "SumAgreeNum,AcademicNum,IndustryNum,LocalGoverNum,Time,Note" ;
+	
+	/**
+	 * 显示数据
+	 * @param conditions 查询条件
+	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
+	 * @return
+	 */
+	public S18Bean loadData(String year){
+		
+		StringBuffer sql = new StringBuffer() ;
+		List<S18Bean> list=null;
+		S18Bean bean=null;
+        
+		sql.append("select * from "+ tableName);
+		sql.append(" where Time like '"+year+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+//		System.out.println(sql.toString());
+		
+		try{
+			st = conn.createStatement() ;
+//			ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY
+//			st.setMaxRows(1) ;
+			rs = st.executeQuery(sql.toString()) ;
+//			rs.absolute((page - 1) * rows) ;
+			list = DAOUtil.getList(rs, S18Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}
+		return bean ;
+	}
+	
+	/**
+	 * 符合条件原始数据条数
+	 * */
+	public int countOri(String year){
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(*) AS icount from "+ tableName1);
+		sql.append(" where Time like '"+year+"%'");
+		int count = 0;
+		
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				count = rs.getInt("icount");
+				System.out.println(count);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return count;
+		}
+		
+		return count;
+	}
+	
+	/**
+	 * 查询相关年份的SeqNumber
+	 * */
+	public int getSeqNumber(String year){
+		int seq=-1;
+		StringBuffer sql=new StringBuffer();
+		sql.append("select SeqNumber from "+tableName+" where Time like '"+year+"%'");
+		
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st=conn.createStatement();
+			rs=st.executeQuery(sql.toString());
+			while(rs.next()){
+				seq=rs.getInt("SeqNumber");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return seq;
+		}
+		return seq;
+		
+	}
+	
+	/**
+	 * 更新数据
+	 * */
+	public boolean update(S18Bean s18Bean){
+			
+			boolean flag = false ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			try{
+//				System.out.println("hello！");
+				flag = DAOUtil.update(s18Bean, tableName, key, field, conn) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return flag ;
+			}finally{
+				DBConnection.close(conn) ;
+			}
+			return flag ;
+		}
 	
 	
 	/**
@@ -111,12 +221,14 @@ public class S18DAO {
 	}
 	
 	/**得到统计信息*/
-	public List<T181Bean> getOriData()
+	public List<T181Bean> getOriData(String year)
 	{
 		List<T181Bean> list=new ArrayList<T181Bean>();
 		
 		StringBuffer sql=new StringBuffer();
 		sql.append("select * from "+tableName1);
+		sql.append(" where Time like '"+year+"%'");
+		sql.append(" and FillDept like '1012' or FillDept like '1013' or FillDept like '1017'");
 		
 		Connection conn=DBConnection.instance.getConnection();
 		Statement st=null;
@@ -134,6 +246,8 @@ public class S18DAO {
 		}
 		return list;
 	}
+	
+	
 	
 	/**
 	excel数据导出
@@ -167,6 +281,12 @@ public class S18DAO {
 	public String getTableName(){
 		return this.tableName ;
 	}
+	
+    public static void main(String arg[]){
+    	S18DAO dao=new S18DAO();
+    	List<T181Bean> list=dao.getOriData("2014");
+    	System.out.println(list.size());
+    }
 	
 
 }

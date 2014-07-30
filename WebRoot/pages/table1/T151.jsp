@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'table.jsp' starting page</title>
+<title>校级以上科研机构</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -194,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>专业科研用房面积（平方米）：</label> 
 						<input id="HouseArea" type="text" name="t151Bean.HouseArea" 
-						class="easyui-numberbox"  data-options="min:0,precision:2" required="true">
+						class="easyui-numberbox"  data-options="min:1,precision:2" required="true">
 						   <span id="HouseAreaSpan"></span>
 					</div>
 				</td>
@@ -420,7 +420,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(openCondition == null || openCondition.length==0 || openCondition.length > 500){
 				$('#OpenConditionSpan').focus();
 				$('#OpenConditionSpan').select();
-				alert("对本科生开放情况不能为空或长度不超过100");
+				alert("对本科生开放情况不能为空或字数不超过500");
 				//$('#OpenConditionSpan').html("<font style=\"color:red\">对本科生开放情况不能为空或长度不超过100</font>") ;
 				return false ;
 			}

@@ -39,12 +39,16 @@ import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T11Bean;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table4.T410_Bean;
+import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dao.table1.T11DAO;
 import cn.nit.excel.imports.table1.T11Excel;
 
+import cn.nit.pojo.table1.T11POJO;
 import cn.nit.service.table1.T11Service;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.JsonUtil;
 import cn.nit.util.TimeUtil;
+import cn.nit.util.ToBeanUtil;
 
 /**
  * 
@@ -73,33 +77,97 @@ public class T11Action {
 	/**excel名稱*/
 	private String excelName;
 	
+	//save的字段
+	private String fields;
+	
+
+	public String getFields() {
+		return fields;
+	}
 
 
-	/**  逐条插入数据  */
-	public void insert(){
-//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t11Bean.setTime(new Date()) ;
-//		System.out.println(t151Bean.getResInsID());
-//		System.out.println(t151Bean.getResInsName());
-		//这还没确定,设置填报者的职工号与部门号
-//		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
-//		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
+	public void setFields(String fields) {
+		this.fields = fields;
+	}
+	
+	/**  前台获数据 */
+	private String data ;
+
+
+	public String getData() {
+		return data;
+	}
+
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+
+	//查询出所有
+	public void loadInfo() throws Exception{
+		System.out.println("nnnnnnnn");
 		
-		boolean flag = t11Ser.insert(t11Bean) ;
+		HttpServletResponse response = ServletActionContext.getResponse() ;		
+		
+		T11POJO pojo = t11Ser.loadData(this.getSelectYear()) ;
+		
+		//private JSONObject jsonObj;
+		pojo.setTime(null);
+		String json = JsonUtil.beanToJson(pojo);
+		
+		PrintWriter out = null ;
+
+		if(pojo == null){
+			System.out.println("no data");
+			response.setContentType("text/html;charset=UTF-8") ;
+			out = response.getWriter() ;
+			out.println( "<script language='javascript'>window.alert('无该年数据');</script>" ); 
+		}else{
+			System.out.println("have data");
+			try {				
+//				System.out.println(json) ;
+				response.setContentType("application/json;charset=UTF-8") ;
+				out = response.getWriter() ;
+				out.print(json) ;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if(out != null){
+					out.flush() ;
+					out.close() ;
+				}
+			}
+		}
+	}
+	
+
+	//保存
+	public void save(){
+		
+//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		String tempData = this.getData();
+		//System.out.println(tempData);
+				
+		T11Bean bean  = ToBeanUtil.toBean(tempData, T11Bean.class);
+										
+		boolean flag = t11Ser.save(bean,this.getSelectYear(),this.getFields());
 		PrintWriter out = null ;
 		
 		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			getResponse().setHeader("Content-type", "text/html");  
-			out = getResponse().getWriter() ;
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
 			if(flag){
-				out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
+				out.print("{\"mesg\":\"success\"}") ;
 			}else{
-				out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+				out.print("{\"mesg\":\"fail\"}") ;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+			out.print("{\"state\":false,data:\"保存失败!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
@@ -115,13 +183,15 @@ public class T11Action {
 		String cuYear=date.toString();
 		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
 		
-		String pages = t11Ser.auditingData(year) ;
+		T11POJO pojo = t11Ser.auditingData(year) ;
+		String json = JsonUtil.beanToJson(pojo);
+		
 		PrintWriter out = null ;
 		
 		try{
 			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
-			out.print(pages) ;
+			out.print(json) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return ;

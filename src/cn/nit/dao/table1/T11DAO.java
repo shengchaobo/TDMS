@@ -9,6 +9,7 @@ import java.util.List;
 
 import cn.nit.bean.table1.T11Bean;
 import cn.nit.bean.table1.T152Bean;
+import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T11POJO;
 import cn.nit.pojo.table1.T151POJO;
@@ -71,7 +72,6 @@ public class T11DAO {
 		
 		return flag ;
 	}
-
 	
 	/**
 	 * @param conditions 查询条件
@@ -105,6 +105,87 @@ public class T11DAO {
 			return null ;
 		}
 		return list ;
+	}
+
+	
+	/**
+	 * @param conditions 查询条件
+	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
+	 * @return
+	 */
+	public T11Bean loadData(String year){
+		
+		StringBuffer sql = new StringBuffer() ;
+		List<T11Bean> list=null;
+		T11Bean bean=null;
+        
+		sql.append("select * from "+ tableName);
+		sql.append(" where Time like '"+year+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+//		System.out.println(sql.toString());
+		
+		try{
+			st = conn.createStatement() ;
+//			ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY
+//			st.setMaxRows(1) ;
+			rs = st.executeQuery(sql.toString()) ;
+//			rs.absolute((page - 1) * rows) ;
+			list = DAOUtil.getList(rs, T11Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}
+		return bean ;
+	}
+	
+	
+	/**
+	 * 保存数据
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */
+	public boolean save(T11Bean bean, String year, String fields){
+		
+		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year;		
+		boolean flag = false;
+		Connection conn = DBConnection.instance.getConnection() ;
+		
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T11Bean> list = null ;
+		T11Bean tempBean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T11Bean.class) ;
+			if(list.size() != 0){
+				tempBean = list.get(0);
+				bean.setSeqNumber(tempBean.getSeqNumber());	
+				
+				
+				flag = DAOUtil.update(bean, tableName, key, fields, conn) ;
+				
+			}else{
+				flag = DAOUtil.insert(bean, tableName, key, conn) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+				
+		return flag ;
 	}
 	
 	/**
@@ -210,8 +291,8 @@ public class T11DAO {
     public static void main(String arg[])
     {
     	T11DAO dao=new T11DAO();
-//    	List<T11Bean> list=dao.auditingData("2014");
-//    	System.out.println(list.size());
+//    	T11Bean bean=dao.auditingData("2014");
+//    	System.out.println(bean.getMajDept());
     }
 
 }

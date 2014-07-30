@@ -1,5 +1,6 @@
 package cn.nit.service.table1;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +8,11 @@ import java.util.List;
 import cn.nit.bean.table1.S17Bean;
 import cn.nit.bean.table1.T17Bean;
 import cn.nit.dao.table1.S17DAO;
+import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.S17POJO;
+import cn.nit.pojo.table1.T11POJO;
+import cn.nit.util.DAOUtil;
+import cn.nit.util.TimeUtil;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
@@ -16,39 +21,85 @@ import net.sf.json.JSONSerializer;
 public class S17Service {
 	
 	 private S17DAO s17Dao=new S17DAO();
+	 
+	 /**  数据自增长字段的主键，必须为自增长字段  */
+	 private String key = "SeqNumber" ;
+	 
+	 /**  数据库表中除了自增长字段的所有字段  */
+	 private String field = "SumSchFriNum,InlandNum,OutlandNum,Time,Note" ;
+	/**  数据库表名  */
+	 private String tableName = "S17_SchFriClubNum$" ;
 		
 
-	 /**得到json字符串
-	 * @throws SQLException */
-   public String autidingdata(String year)
-	{
-	   	S17Bean s17bean=null;
-	   	S17POJO s17Pojo=null;
-	   	String str=null;
-//	   	List<S18POJO> list=null;
-	   	//先删除信息
-	   	if(s17Dao.delete(year))
-	   	{
-	   		//得到统计信息
-	   	    s17bean=this.getStatic();
-	   		boolean flag=s17Dao.insert(s17bean);
-	   		if(flag)
-	   		{
-	   			List<S17POJO> list=s17Dao.auditingData(year);
-	   			s17Pojo=list.get(0);
-	   		}
-	   	}
-			JSON json=JSONSerializer.toJSON(s17Pojo) ;
-			String jsonStr=json.toString();
-			return jsonStr;
-	}
+		/**
+		 * 数据显示
+		 * */
+		public S17Bean loadData(String year){
+			
+			boolean flag=false;
+			S17Bean s17bean=null;//用作统计信息
+			S17Bean bean=null;//输出
+		   	int seq=s17Dao.getSeqNumber(year);
+		   	
+		   	if(seq!=-1){// seq!=-1,说明数据库中有这条数据
+		   		if(s17Dao.countOri(year)>0){//存在数据
+		   		  s17bean = this.getStatic(year);
+		   		  s17bean.setSeqNumber(seq);
+		   		  flag = s17Dao.update(s17bean);
+		   		  if(flag){
+		   			bean=s17Dao.loadData(year);
+		   		  }
+		   		}
+		   	}
+		   	else if(seq == -1){//does not exist the data information
+		   		
+		       if(s17Dao.countOri(year)>0){//有统计数据
+		    	   s17bean = this.getStatic(year);
+		    	   flag = s17Dao.insert(s17bean);
+		    	   if(flag){
+		    		   bean = s17Dao.loadData(year);
+		    	   }
+		       }
+		   	}
+			return bean;
+		}
+		
+		//保存
+		public Boolean save(S17Bean bean, String year,	String fields){
+			return s17Dao.save(bean,year,fields);
+		}
+
+//	 /**得到json字符串
+//	 * @throws SQLException */
+//   public String autidingdata(String year)
+//	{
+//	   	S17Bean s17bean=null;
+//	   	S17POJO s17Pojo=null;
+//	   	String str=null;
+////	   	List<S18POJO> list=null;
+//	   	//先删除信息
+//	   	if(s17Dao.delete(year))
+//	   	{
+//	   		//得到统计信息
+//	   	    s17bean=this.getStatic();
+//	   		boolean flag=s17Dao.insert(s17bean);
+//	   		if(flag)
+//	   		{
+//	   			List<S17POJO> list=s17Dao.auditingData(year);
+//	   			s17Pojo=list.get(0);
+//	   		}
+//	   	}
+//			JSON json=JSONSerializer.toJSON(s17Pojo) ;
+//			String jsonStr=json.toString();
+//			return jsonStr;
+//	}
    
 	/**得到统计信息*/
-   public S17Bean getStatic()
+   public S17Bean getStatic(String year)
    {
 //	   System.out.println("hello");
 	   S17Bean s17Bean=new S17Bean();
-	   	List<T17Bean> list=s17Dao.getOriData();
+	   	List<T17Bean> list=s17Dao.getOriData(year);
 	   	/**境内个数*/
 	   	int num1=0;
 	   	/**境外个数*/
@@ -78,5 +129,15 @@ public class S17Service {
 	   	
 		return s17Bean;
 	   }
+   
+   public static void main(String arg[]){
+	   S17Service ser=new S17Service();
+	   S17Bean bean=ser.loadData("2011");
+	   if(bean!=null){
+		   System.out.println("有数据");
+	   }else {
+		   System.out.println("无数据");
+	   }
+   }
 
 }

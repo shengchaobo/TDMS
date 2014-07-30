@@ -12,7 +12,7 @@
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>学校基本情况</title>
+		<title>办学指导思想</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="expires" content="0">
@@ -67,7 +67,7 @@
 			src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	</head>
 	<body style="overflow-y: scroll">
-		<table class="easyui-datagrid" toolbar="#toolbar" title="学校基本情况"></table>
+		<table class="easyui-datagrid" toolbar="#toolbar" title="办学指导思想"></table>
 		
 		<hr color="blue" width="100%" />
 		<table id="showInfo" class="doc-table"

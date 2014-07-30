@@ -6,7 +6,8 @@
 	<package name="S31" namespace="/pages/S31" extends="struts-default">
 	    
 	    <action name="auditingData" class="cn.nit.action.table3.S31_Action" method="auditingData" />
-	    
+	    <!-- 初始化加载所有信息 -->
+	    <action name="loadInfo" class="cn.nit.action.table3.S31_Action" method="loadInfo" />
 	    
 	     <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table3.S31_Action" method="execute">

@@ -21,14 +21,16 @@ import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T14Bean;
 import cn.nit.dao.table1.T14DAO;
 import cn.nit.excel.imports.table1.T14Excel;
+import cn.nit.service.table1.T12Service;
 import cn.nit.service.table1.T14Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 public class T14Action {
 	
 
 	/**  表14的Service类  */
-	private T14Service t14Ser = new T14Service() ;
+	private T12Service t12Ser = new T12Service() ;
 	
 	/**  表14的Bean实体类  */
 	private T14Bean t14Bean = new T14Bean() ;
@@ -97,7 +99,7 @@ public class T14Action {
 				cond = conditions.toString();
 			}
 
-			String pages = t14Ser.auditingData(cond, "30", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t12Ser.auditingData(cond, "30", Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -151,19 +153,17 @@ public class T14Action {
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
-			columns.add("序号");
 			columns.add("教学单位名称");columns.add("单位号");
 			columns.add("单位负责人");columns.add("备注");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("SeqNum", 0);
-			maplist.put("UnitName", 1);maplist.put("UnitID", 2);
-			maplist.put("Leader", 3);
-			maplist.put("Note", 4);
+			maplist.put("UnitName", 0);maplist.put("UnitID", 1);
+			maplist.put("Leader", 2);
+			maplist.put("Note", 3);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t14Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

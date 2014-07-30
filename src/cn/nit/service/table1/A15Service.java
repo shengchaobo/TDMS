@@ -23,47 +23,76 @@ public class A15Service {
 	private A15DAO a15Dao=new A15DAO();
 	
 	
-	//输出数据
-	public String autidingdata(String year)
-	{
-		List<A15POJO> list=new ArrayList<A15POJO>();
-		A15POJO a15Pojo=new A15POJO();
-		String str=null;
+	/**
+	 * 数据显示
+	 * */
+	public A15Bean loadData(String year){
+		
 		boolean flag=false;
-		if(a15Dao.delete(year))
-		{
-			//得到最终统计信息
-			A15Bean a15Bean=this.getStatic(year);
-			
-//			System.out.println("sum:"+a15Bean.getSumResNum());
-//			System.out.println("cityNum:"+a15Bean.getCityResNum());
-//			System.out.println("cityRatio:"+a15Bean.getCityResRatio());
-//			System.out.println("NationNum:"+a15Bean.getNationResNum());
-//			System.out.println("NationRatio:"+a15Bean.getNationResRatio());
-//			System.out.println("ProNum:"+a15Bean.getProviResNum());
-//			System.out.println("ProRatio:"+a15Bean.getProviResRatio());
-//			System.out.println("SchNum:"+a15Bean.getSchResNum());
-//			System.out.println("SchRatio:"+a15Bean.getSchResRatio());
-			
-			if(a15Bean.getSumResNum()==0){
-				flag=false;
-			}else{flag=true;}
-//			System.out.println(flag);
-			if(flag){
-//				System.out.println("hello!");
-				//插入数据库
-				if(a15Dao.insert(a15Bean))
-				{
-					list=a15Dao.auditingData(year);
-					a15Pojo=list.get(0);
-				}
-				JSON json=JSONSerializer.toJSON(a15Pojo) ;
-				str=json.toString();
-//				System.out.println(str);
-			}
-		}
-	    return str;
+		A15Bean a15bean=new A15Bean();//用作统计信息
+		A15Bean bean=null;//用于输出
+//	   	String str=null;
+	   	int seq=a15Dao.getSeqNumber(year);
+//	   	System.out.println(seq);
+	   	if(seq!=-1){// seq!=-1,说明数据库中有这条数据
+	   		
+	   		if(a15Dao.countOri(year)>0){//存在统计信息
+	   			System.out.println("1:"+a15Dao.countOri(year));
+	   			a15bean = this.getStatic(year);
+	   			a15bean.setSeqNumber(seq);
+	   			flag = a15Dao.update(a15bean);
+	   		  if(flag){
+			    	 bean=a15Dao.loadData(year);
+			     }else{
+			    	 bean = null;
+			     }
+	   		}
+	   	}
+	   	else if(seq == -1){//does not exist the data information
+	   		if(a15Dao.countOri(year)>0){
+	   			System.out.println("2:"+a15Dao.countOri(year));
+	   			a15bean = this.getStatic(year);
+	   			flag = a15Dao.insert(a15bean);
+	   			if(flag){
+	   				bean = a15Dao.loadData(year);
+	   			}
+	   		}
+	   	}
+		return bean;
 	}
+	
+	
+//	//输出数据
+//	public String autidingdata(String year)
+//	{
+//		List<A15POJO> list=new ArrayList<A15POJO>();
+//		A15POJO a15Pojo=new A15POJO();
+//		String str=null;
+//		boolean flag=false;
+//		if(a15Dao.delete(year))
+//		{
+//			//得到最终统计信息
+//			A15Bean a15Bean=this.getStatic(year);
+//			
+//			if(a15Bean.getSumResNum()==0){
+//				flag=false;
+//			}else{flag=true;}
+////			System.out.println(flag);
+//			if(flag){
+////				System.out.println("hello!");
+//				//插入数据库
+//				if(a15Dao.insert(a15Bean))
+//				{
+//					list=a15Dao.auditingData(year);
+//					a15Pojo=list.get(0);
+//				}
+//				JSON json=JSONSerializer.toJSON(a15Pojo) ;
+//				str=json.toString();
+////				System.out.println(str);
+//			}
+//		}
+//	    return str;
+//	}
 	
 	
 	/**统计数据*/
@@ -151,6 +180,34 @@ public class A15Service {
 		return a15Dao.insert(a15Bean) ;
 	}
 	
+	
+	public A15POJO beanToPojo(A15Bean bean){
+		A15POJO pojo = new A15POJO();
+		pojo.setCityResNum(bean.getCityResNum());
+		pojo.setNationResNum(bean.getNationResNum());
+		pojo.setProviResNum(bean.getProviResNum());
+		pojo.setSchResNum(bean.getSchResNum());
+		pojo.setSumResNum(bean.getSumResNum());
+		pojo.setCityResRatio(this.doubleToStr(bean.getCityResRatio()));
+		pojo.setNationResRatio(this.doubleToStr(bean.getNationResRatio()));
+		pojo.setProviResRatio(this.doubleToStr(bean.getProviResRatio()));
+		pojo.setSchResRatio(this.doubleToStr(bean.getSchResRatio()));
+		pojo.setNote(bean.getNote());
+		pojo.setTime(bean.getTime());
+		
+		return pojo;
+	}
+	
+	public String doubleToStr(double num){
+		String str=null;
+		num=num*100;
+		num=this.m2(num);
+		System.out.println(num);
+		str=""+num+"%";
+		System.out.println(str);
+		return str;
+	}
+	
 	//保留两位小数
 	public double m2(double n){
 		 BigDecimal bg = new BigDecimal(n);
@@ -159,15 +216,20 @@ public class A15Service {
 	     return f1;
 	}
 	
+	
+	
 	public static void main(String arg[]){
 		double s1=0.0;
 		A15Service ser=new A15Service();
-//		A15Bean a15Bean=ser.getStatic("2014");
-//		System.out.println(a15Bean.getSumResNum());
-//		A15Bean a15Bean=ser.getStatic("2014");
-		String info=ser.autidingdata("2014");
-		System.out.println(info);
+	    A15Bean bean = ser.loadData("2011");
+	    if(bean!=null){
+	    	System.out.println("有数据");
+	    }else{
+	    	System.out.println("无数据");
+	    }
+
 		
+//		
 	}
 
 }

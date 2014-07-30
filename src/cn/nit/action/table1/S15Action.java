@@ -32,10 +32,11 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table1.A15Bean;
 import cn.nit.bean.table1.S15Bean;
-import cn.nit.bean.table1.T11Bean;
 import cn.nit.dao.table1.S15DAO;
 import cn.nit.excel.imports.table1.S15Excel;
+import cn.nit.pojo.table1.A15POJO;
 import cn.nit.service.table1.S15Service;
+import cn.nit.util.JsonUtil;
 
 public class S15Action {
 	
@@ -59,35 +60,99 @@ public class S15Action {
 	public void setSelectYear(String selectYear) {
 		this.selectYear = selectYear;
 	}
+	
+	//save的字段
+	private String fields;
+	
 
-	/**S15的Dao類*/
-	private S15DAO s15Dao=new S15DAO();
+	public String getFields() {
+		return fields;
+	}
+
+
+	public void setFields(String fields) {
+		this.fields = fields;
+	}
+	
+	/**  前台获数据 */
+	private String data ;
+
+
+	public String getData() {
+		return data;
+	}
+
+	//查询出所有
+	public void loadInfo() throws Exception{
+		System.out.println("nnnnnnnn");
 		
-		/**
-		 * 输出json格式数据
-		 * */
-		public void autidingdata(){
+		HttpServletResponse response = ServletActionContext.getResponse() ;		
+		
+		S15Bean bean = s15Ser.loadData(this.getSelectYear()) ;
+			
+		String json=null;
+		boolean flag = false; 
+		if(bean != null){
+			bean.setTime(null);
+			json = JsonUtil.beanToJson(bean);
+			flag = true;
+		}
+
 	
-			System.out.println("=======================");
-			Date time=new Date();
-			String date=time.toString();
-			String year=date.substring(date.length()-4);
-			String info =s15Ser.autidingdata(year) ;
-			PrintWriter out = null ;
-	
-			try{
-				getResponse().setContentType("text/html; charset=UTF-8") ;
-				out = getResponse().getWriter() ;
-				out.print(info) ;
-			}catch(Exception e){
-				e.printStackTrace() ;
-				return ;
+		PrintWriter out = null ;
+		
+		if(flag == false){
+			System.out.print("无该年数据！！！");
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
+		}else{
+			System.out.println("have data");
+			try {				
+				System.out.println(json) ;
+				response.setContentType("application/json;charset=UTF-8") ;
+				out = response.getWriter() ;
+				out.print(json) ;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}finally{
 				if(out != null){
+					out.flush() ;
 					out.close() ;
 				}
 			}
 		}
+	}
+
+	/**S15的Dao類*/
+	private S15DAO s15Dao=new S15DAO();
+		
+//		/**
+//		 * 输出json格式数据
+//		 * */
+//		public void autidingdata(){
+//	
+//			System.out.println("=======================");
+//			Date time=new Date();
+//			String date=time.toString();
+//			String year=date.substring(date.length()-4);
+//			String info =s15Ser.autidingdata(year) ;
+//			PrintWriter out = null ;
+//	
+//			try{
+//				getResponse().setContentType("text/html; charset=UTF-8") ;
+//				out = getResponse().getWriter() ;
+//				out.print(info) ;
+//			}catch(Exception e){
+//				e.printStackTrace() ;
+//				return ;
+//			}finally{
+//				if(out != null){
+//					out.close() ;
+//				}
+//			}
+//		}
 		
 //		/**Excel表導出*/
 //		public InputStream getInputStream(){

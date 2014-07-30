@@ -12,33 +12,77 @@ import cn.nit.pojo.table1.S15POJO;
 
 public class S15Service {
 	
-private S15DAO s15Dao=new S15DAO();
-	
-		/**輸出數據*/
-	public String autidingdata(String year)
-	{
-		S15Bean s15Bean=new S15Bean();
-		if(s15Dao.deleteByYear(year))
-		{
-			//得到最终统计信息
-			S15POJO s15Pojo=this.getStatic();
-			//插入数据库
-			if(s15Dao.insert(s15Pojo))
-			{
-				s15Bean=s15Dao.getData();
-			}
-			
-		}
-		JSON json=JSONSerializer.toJSON(s15Bean) ;
-	    return json.toString();
+		private S15DAO s15Dao=new S15DAO();
 		
-	} 
+		
+		/**
+		 * 数据显示
+		 * */
+		public S15Bean loadData(String year){
+			
+			boolean flag=false;
+			S15Bean s15bean=new S15Bean();//用作统计信息
+			S15Bean bean=new S15Bean();
+		//   	String str=null;
+		   	int seq=s15Dao.getSeqNumber(year);
+		   	System.out.println("seq:"+seq);
+		 // seq!=-1,说明数据库中有这条数据
+		   	if(seq!=-1){
+		   		
+		   		if(s15Dao.countOriDate(year)>0){//被统计表中有数据
+			   		 s15bean = this.getStatic(year);//获得统计信息
+			   		 s15bean.setSeqNumber(seq);
+				     flag = s15Dao.update(s15bean);
+				     if(flag){
+				    	 bean=s15Dao.loadData(year);
+				     }else{
+				    	 bean = null;
+				     }
+		   		}
+		   	}
+		   	//不存在数据 直接统计
+		   	else if(seq == -1){//does not exist the data information
+		   		System.out.println("hello");
+		   		System.out.println(s15Dao.countOriDate(year));
+		   		if(s15Dao.countOriDate(year)>0){//有数据 统计
+		   			s15bean = this.getStatic(year);
+		   			flag = s15Dao.insert(s15bean);
+		   		}
+		   		if(flag){
+		   			bean = s15Dao.loadData(year);
+		   		}else{
+		   			bean = null;
+			   		}
+		   	}
+		        
+			return bean;
+		}
+	
+//		/**輸出數據*/
+//	public String autidingdata(String year)
+//	{
+//		S15Bean s15Bean=new S15Bean();
+//		if(s15Dao.deleteByYear(year))
+//		{
+//			//得到最终统计信息
+//			S15Bean s15Pojo=this.getStatic(year);
+//			//插入数据库
+//			if(s15Dao.insert(s15Pojo))
+//			{
+//				s15Bean=s15Dao.getData();
+//			}
+//			
+//		}
+//		JSON json=JSONSerializer.toJSON(s15Bean) ;
+//	    return json.toString();
+//		
+//	} 
 	
 	/**得到统计信息*/
-	public S15POJO getStatic()
+	public S15Bean getStatic(String year)
 	{
-		List<T15Bean> list=s15Dao.getOriData();
-		S15POJO s15Pojo=new S15POJO();
+		List<T15Bean> list=s15Dao.getOriData(year);
+		S15Bean s15bean=new S15Bean();
 		
 		/**总个数*/
 	    int SumResNum=0;
@@ -152,6 +196,7 @@ private S15DAO s15Dao=new S15DAO();
 				OtherSchResNum+=1;
 				OtherSchResArea+=area;
 			}
+		}
 			
 			HumanResSumNum=HumanProviResNum+HumanNationResNum;
 			HumanResSumArea=HumanProviResArea+HumanNationResArea;
@@ -161,29 +206,33 @@ private S15DAO s15Dao=new S15DAO();
 			SumResArea=NationResArea+NationKeyResArea+NationEnginResArea+OtherNationResArea+ProviResArea
 			          +ProviLabArea+OtherProviResArea+HumanResSumArea+CityResArea+TeaUnitResArea+OtherSchResArea;
 			
-			s15Pojo.setCityResArea(CityResArea);  s15Pojo.setCityResNum(CityResNum);
-			s15Pojo.setHumanNationResArea(HumanNationResArea); s15Pojo.setHumanNationResNum(HumanNationResNum);
-			s15Pojo.setHumanProviResArea(HumanProviResArea); s15Pojo.setHumanProviResNum(HumanProviResNum);
-			s15Pojo.setHumanResSumArea(HumanResSumArea); s15Pojo.setHumanResSumNum(HumanResSumNum);
-			s15Pojo.setNationEnginResArea(NationEnginResArea); s15Pojo.setNationEnginResNum(NationEnginResNum);
-			s15Pojo.setNationKeyResArea(NationKeyResArea); s15Pojo.setNationKeyResNum(NationKeyResNum);
-			s15Pojo.setNationResArea(HumanNationResArea); s15Pojo.setNationResNum(HumanNationResNum);
-			s15Pojo.setOtherNationResArea(OtherNationResArea); s15Pojo.setOtherNationResNum(OtherNationResNum);
-			s15Pojo.setOtherProviResArea(OtherProviResArea); s15Pojo.setOtherProviResNum(OtherProviResNum);
-			s15Pojo.setOtherSchResArea(OtherSchResArea); s15Pojo.setOtherSchResNum(OtherSchResNum);
-			s15Pojo.setProviLabArea(ProviLabArea); s15Pojo.setProviLabNum(ProviLabNum);
-			s15Pojo.setProviResArea(ProviResArea); s15Pojo.setProviResNum(ProviResNum);
-			s15Pojo.setSumResArea(SumResArea); s15Pojo.setSumResNum(SumResNum);
-			s15Pojo.setTeaUnitResArea(TeaUnitResArea); s15Pojo.setTeaUnitResNum(TeaUnitResNum);
-			s15Pojo.setTime(new Date());
-		}
+			s15bean.setCityResArea(CityResArea);  s15bean.setCityResNum(CityResNum);
+			s15bean.setHumanNationResArea(HumanNationResArea); s15bean.setHumanNationResNum(HumanNationResNum);
+			s15bean.setHumanProviResArea(HumanProviResArea); s15bean.setHumanProviResNum(HumanProviResNum);
+			s15bean.setHumanResSumArea(HumanResSumArea); s15bean.setHumanResSumNum(HumanResSumNum);
+			s15bean.setNationEnginResArea(NationEnginResArea); s15bean.setNationEnginResNum(NationEnginResNum);
+			s15bean.setNationKeyResArea(NationKeyResArea); s15bean.setNationKeyResNum(NationKeyResNum);
+			s15bean.setNationResArea(NationResArea); s15bean.setNationResNum(NationResNum);
+			s15bean.setOtherNationResArea(OtherNationResArea); s15bean.setOtherNationResNum(OtherNationResNum);
+			s15bean.setOtherProviResArea(OtherProviResArea); s15bean.setOtherProviResNum(OtherProviResNum);
+			s15bean.setOtherSchResArea(OtherSchResArea); s15bean.setOtherSchResNum(OtherSchResNum);
+			s15bean.setProviLabArea(ProviLabArea); s15bean.setProviLabNum(ProviLabNum);
+			s15bean.setProviResArea(ProviResArea); s15bean.setProviResNum(ProviResNum);
+			s15bean.setSumResArea(SumResArea); s15bean.setSumResNum(SumResNum);
+			s15bean.setTeaUnitResArea(TeaUnitResArea); s15bean.setTeaUnitResNum(TeaUnitResNum);
+			s15bean.setTime(new Date());
 		
-		return s15Pojo;
+		
+		return s15bean;
 	}
 	public static void main(String arg[]){
 		S15Service ser=new S15Service();
-		String info=ser.autidingdata("2014");
-		System.out.println(info);
+		S15Bean bean = ser.loadData("2009");
+		if(bean == null){
+			System.out.println("无数据");
+		}else {
+			System.out.println("有数据");
+		}
 	}
 
 }

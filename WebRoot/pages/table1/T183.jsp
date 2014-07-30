@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 	</div>
 	<div id="toolbar2"  style="float: right">
-		<a href="pages/T183/dataExport?excelName=表1-8-3签订合作协议机构（招就处）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href="pages/T183/dataExport?excelName=表1-8-3签订合作协议机构.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" class="easyui-datagrid"  url="">
@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href='pages/T183/downloadModel?saveFile=<%=URLEncoder.encode("表1-8-3签订合作协议机构（招就处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T183/downloadModel?saveFile=<%=URLEncoder.encode("表1-8-3签订合作协议机构.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
 			<hr ></hr>	
@@ -190,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 	<script type="text/javascript">
 	
-	var url="pages/T183/insert" ;
+	var url ;
 
 	 function reloadgrid ()  { 
 	        //查询参数直接添加在queryParams中 
@@ -267,8 +267,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
-	    	url = url ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构（招就处）的信息');
+	    	url = 'pages/T183/insert' ; ;
+		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构的信息');
 		    $('#t183Form').form('reset');
 	    }
 
@@ -377,7 +377,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       	$('#item1').hide();
 	       	$('hr').hide();
 	    	 
-	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构（招就处）的信息');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#CooperInsName').val(row[0].cooperInsName);
 	    	$('#CooperInsType').combobox('select',row[0].cooperInsType);

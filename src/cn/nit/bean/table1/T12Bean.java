@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class T12Bean {
 	
-	private int SeqNumber;
 	private String UnitID;
 	private String UnitName;
 //	private String UnitType;
@@ -13,14 +12,8 @@ public class T12Bean {
 	/**单位负责人*/
 	private String Leader;
 	private String TeaID;
-	private Date Time;
 	private String Note;
-	public int getSeqNumber() {
-		return SeqNumber;
-	}
-	public void setSeqNumber(int seqNumber) {
-		SeqNumber = seqNumber;
-	}
+	
 	public String getUnitID() {
 		return UnitID;
 	}
@@ -57,12 +50,7 @@ public class T12Bean {
 	public void setTeaID(String teaID) {
 		TeaID = teaID;
 	}
-	public Date getTime() {
-		return Time;
-	}
-	public void setTime(Date time) {
-		Time = time;
-	}
+
 	public String getNote() {
 		return Note;
 	}

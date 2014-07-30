@@ -13,6 +13,7 @@ public class S17Bean {
 	private int OutlandNum;
 	private Date Time;
 	private String Note;
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}

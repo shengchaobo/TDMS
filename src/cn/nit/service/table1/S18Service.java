@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+
 import cn.nit.bean.table1.S18Bean;
 import cn.nit.bean.table1.T181Bean;
 import cn.nit.dao.table1.S18DAO;
@@ -17,6 +18,41 @@ public class S18Service {
 	
 	
    private S18DAO s18Dao=new S18DAO();
+   
+   
+   /**
+	 * 数据显示
+	 * */
+	public S18Bean loadData(String year){
+		
+		boolean flag=false;
+		S18Bean s18bean=null;//用作统计信息
+		S18Bean bean=null ;//输出数据
+	   	int seq=s18Dao.getSeqNumber(year);
+
+	   	if(seq!=-1){// seq!=-1,说明数据库中有这条数据
+	   		if(s18Dao.countOri(year)>0){//有统计数据
+	   			s18bean = this.getStatic(year);
+	   			s18bean.setSeqNumber(seq);
+	   			flag = s18Dao.update(s18bean);
+	   			if(flag){
+	   				bean=s18Dao.loadData(year);
+	   			}
+	   		}
+	   	}
+	   	else if(seq == -1){//does not exist the data information
+	   		
+	   		if(s18Dao.countOri(year)>0){//有条数
+	   			s18bean = this.getStatic(year);
+	   			flag = s18Dao.insert(s18bean);
+	   			if(flag){
+	   				bean = s18Dao.loadData(year) ;	
+	   			}
+	   		}
+	   	}
+
+		return bean;
+	}
 	
 
 	 /**得到json字符串
@@ -32,7 +68,7 @@ public class S18Service {
 	   	{
 	   		//得到统计信息
 	   		
-	   		s18bean=this.getStatic();
+	   		s18bean=this.getStatic(year);
 	   		boolean flag=s18Dao.insert(s18bean);
 	   		if(flag)
 	   		{
@@ -46,11 +82,11 @@ public class S18Service {
 	}
    
 	/**得到统计信息*/
-   public S18Bean getStatic()
+   public S18Bean getStatic(String year)
    {
 //	   System.out.println("hello");
 	   S18Bean s18Bean=new S18Bean();
-	   	List<T181Bean> list=s18Dao.getOriData();
+	   	List<T181Bean> list=s18Dao.getOriData(year);
 	   	/**学术机构个数*/
 	   	int num1=0;
 	   	/**行业机构和企业个数*/
@@ -92,8 +128,12 @@ public class S18Service {
    
    public static void main(String arg[]) throws SQLException{
 	   S18Service ser=new S18Service();
-	   String info=ser.autidingdata("2014");
-	   System.out.println(info);
+	   S18Bean bean = ser.loadData("2013");
+	   if(bean != null){
+		   System.out.println("有数据");
+	   }else{
+		   System.out.println("无数据");
+	   }
    }
   
 }

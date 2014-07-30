@@ -4,6 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,13 +36,15 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.A15Bean;
 import cn.nit.bean.table1.S17Bean;
-import cn.nit.bean.table1.T11Bean;
 import cn.nit.bean.table1.T17Bean;
 import cn.nit.dao.table1.S17DAO;
+import cn.nit.dbconnection.DBConnection;
 import cn.nit.excel.imports.table1.S17Excel;
-import cn.nit.excel.imports.table1.T11Excel;
 import cn.nit.service.table1.S17Service;
+import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.JsonUtil;
+import cn.nit.util.ToBeanUtil;
 
 public class S17Action {
 	
@@ -67,32 +72,133 @@ public class S17Action {
 	public void setSelectYear(String selectYear) {
 		this.selectYear = selectYear;
 	}
+	
+	//save的字段
+	private String fields;
+	
 
-	/**  为界面加载数据  */
-	public void auditingData(){
+	public String getFields() {
+		return fields;
+	}
+
+
+	public void setFields(String fields) {
+		this.fields = fields;
+	}
+	
+	/**  前台获数据 */
+	private String data ;
+
+
+	public String getData() {
+		return data;
+	}
+
+
+	public void setData(String data) {
+		this.data = data;
+	}
+	
+	//查询出所有
+	public void loadInfo() throws Exception{
+//		System.out.println("nnnnnnnn");
 		
-//		System.out.println("=========");
-		Date date=new Date();
-		String cuYear=date.toString();
-		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
+		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		String pages = s17Ser.autidingdata(year);
-//		System.out.println("pages:"+pages);
+		S17Bean bean = s17Ser.loadData(this.getSelectYear()) ;
+		
+		String json=null;
+		boolean flag = false; 
+		if(bean != null){
+			bean.setTime(null);
+			json = JsonUtil.beanToJson(bean);
+			flag = true;
+		}
+		PrintWriter out = null ;
+		
+		if(flag == false){
+			System.out.print("无该年数据！！！");
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
+		}else{
+			System.out.println("have data");
+			try {				
+				System.out.println(json) ;
+				response.setContentType("application/json;charset=UTF-8") ;
+				out = response.getWriter() ;
+				out.print(json) ;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				if(out != null){
+					out.flush() ;
+					out.close() ;
+				}
+			}
+		}
+	}
+	
+	
+	//保存
+	public void save(){
+		
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		String tempData = this.getData();
+		//System.out.println(tempData);
+				
+		S17Bean bean  = ToBeanUtil.toBean(tempData, S17Bean.class);
+										
+		boolean flag = s17Ser.save(bean,this.getSelectYear(),this.getFields());
 		PrintWriter out = null ;
 		
 		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print(pages) ;
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"mesg\":\"success\"}") ;
+			}else{
+				out.print("{\"mesg\":\"fail\"}") ;
+			}
 		}catch(Exception e){
 			e.printStackTrace() ;
-			return ;
+			out.print("{\"state\":false,data:\"保存失败!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
 			}
 		}
+		out.flush() ;
 	}
+
+//	/**  为界面加载数据  */
+//	public void auditingData(){
+//		
+////		System.out.println("=========");
+//		Date date=new Date();
+//		String cuYear=date.toString();
+//		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
+//		
+//		String pages = s17Ser.autidingdata(year);
+////		System.out.println("pages:"+pages);
+//		PrintWriter out = null ;
+//		
+//		try{
+//			getResponse().setContentType("text/html; charset=UTF-8") ;
+//			out = getResponse().getWriter() ;
+//			out.print(pages) ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
 	
 //	public InputStream getInputStream(){
 //

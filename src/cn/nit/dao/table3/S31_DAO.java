@@ -175,6 +175,30 @@ public class S31_DAO {
 		return list;
 	}
 	
+	public <T> List<T> getOriData(Class<T> cla ,String tableName1, String year)
+	{
+		List<T> list=new ArrayList<T>();
+		
+		StringBuffer sql=new StringBuffer();
+		sql.append("select * from "+tableName1+" where Time like '"+year+"%'");
+		
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try
+		{
+			st=conn.createStatement();
+			rs=st.executeQuery(sql.toString());
+			list = DAOUtil.getList(rs, cla) ;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		return list;
+	}
+	
 
 
 }

@@ -75,6 +75,7 @@ public class S5301_DAO {
 		 sql.append(" sum (case when ItemLevel = '校级' then 1 else 0 end) AS SchLevel ");
 		 sql.append(" from T531_TalentTrainItem_Tea$");
 		 sql.append(" where convert(varchar(4),T531_TalentTrainItem_Tea$.Time,120) =" + year);
+//		 sql.append(" ");
 		 sql.append(" group by T531_TalentTrainItem_Tea$.Type");
 		 
 		 System.out.println(sql.toString());
@@ -151,6 +152,7 @@ public class S5301_DAO {
 		List<S5301_Bean> list = null ;
 		sql.append("select * from "+ tableName);
 		sql.append(" where Time like '"+year+"%'");
+		sql.append(" and Item not like '30%'");
 //		sql.append(" and Item like ");
 //		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.SumCS,t.SmallCSNum,t.SumTeaNum," +
 //				"t.QuqlifyTea,t.Professor,t.ViceProfessor,t.JuniorTea,t.JuniorViceProf,t.CSProfNum,t.CSViceProfNum,t.Time,t.Note") ;

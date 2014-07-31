@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -54,7 +54,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</th>
 					<th data-options="field:'centerLevel'">
 						级别
-					</th>
+				        </th>
+
 					<th data-options="field:'fromTeaUnit'">
 						所属教学单位
 					</th>
@@ -128,6 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'centerLevel'">
 						级别
 					</th>
+
 					<th data-options="field:'fromTeaUnit'">
 						所属教学单位
 					</th>

@@ -103,7 +103,7 @@ public class S5101_Action {
 		
 		System.out.println(this.getSelectYear());
 
-		List<S5101POJO>  list = s5101Dao.totalList(this.getSelectYear());
+		List<S5101POJO>  list = s5101Ser.getAll(this.getSelectYear());
 //		System.out.println("S52 de "+list.size());
 		
 	    ByteArrayOutputStream fos = null;
@@ -193,9 +193,9 @@ public class S5101_Action {
 			        		   ws.addCell(new Label(3, j, ""+pojo.getInClassNum(), wcf1)); 
 			        		   ws.addCell(new Label(4, j, ""+pojo.getInClassRatio(), wcf1)); 
 			        		   ws.addCell(new Label(5, j, ""+pojo.getPraNum(), wcf1)); 
-			        		   ws.addCell(new Label(5, j, ""+pojo.getPraRatio(), wcf1)); 
-			        		   ws.addCell(new Label(5, j, ""+pojo.getExpNum(), wcf1)); 
-			        		   ws.addCell(new Label(5, j, ""+pojo.getExpRatio(), wcf1)); 
+			        		   ws.addCell(new Label(6, j, ""+pojo.getPraRatio(), wcf1)); 
+			        		   ws.addCell(new Label(7, j, ""+pojo.getExpNum(), wcf1)); 
+			        		   ws.addCell(new Label(8, j, ""+pojo.getExpRatio(), wcf1)); 
 			         
 			        		   j++;
 			        	   }

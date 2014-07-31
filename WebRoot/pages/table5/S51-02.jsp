@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 			
-				<th data-options="field:'Item',align:'center'" rowspan="2">
+				<th data-options="field:'item',align:'center'" rowspan="2">
 			     	项目
 				</th>
 				<th align="center" colspan="2">
@@ -81,14 +81,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</th>
 			</tr>
 			<tr>
-					<th data-options="field:'TheoPraNum',align:'center'">门数（们）</th>
-					<th data-options="field:'TheoPraRatio',align:'center'">比例（%）</th>
-					<th data-options="field:'InClassNum',align:'center'">门数（们）</th>
-					<th data-options="field:'InClassRatio',align:'center'">比例（%）</th>
-					<th data-options="field:'PraNum',align:'center'">门数（们）</th>
-					<th data-options="field:'PraRatio',align:'center'">比例（%）</th>
-					<th data-options="field:'ExpNum',align:'center'">门数（们）</th>
-					<th data-options="field:'ExpRatio',align:'center'">比例（%）</th>
+					<th data-options="field:'theoPraNum',align:'center'">门数（们）</th>
+					<th data-options="field:'theoPraRatio',align:'center'">比例（%）</th>
+					<th data-options="field:'inClassNum',align:'center'">门数（们）</th>
+					<th data-options="field:'inClassRatio',align:'center'">比例（%）</th>
+					<th data-options="field:'praNum',align:'center'">门数（们）</th>
+					<th data-options="field:'praRatio',align:'center'">比例（%）</th>
+					<th data-options="field:'expNum',align:'center'">门数（们）</th>
+					<th data-options="field:'expRatio',align:'center'">比例（%）</th>
 				</tr>
 			
 			</thead>

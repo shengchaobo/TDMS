@@ -3,6 +3,7 @@ package cn.nit.dao.table5;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,16 +69,16 @@ public class S5101_DAO {
 		 List<S5101_Bean> list = new ArrayList<S5101_Bean>();
 		 
 		 StringBuffer sql = new StringBuffer();
-		 	sql.append("select DiCourseChar.IndexID as Item,");
+		 	sql.append("select IndexID as Item,");
 //			sql.append(" Count(CSUnit) as SumCS,");
 			sql.append(" sum(case when CSType = '22000' then 1 else 0 end) AS TheoPraNum , ");
 			sql.append(" sum(case when CSType = '22001' then 1 else 0 end) AS InClassNum,");
 			sql.append(" sum(case when CSType = '22002' then 1 else 0 end) AS PraNum,");
-			sql.append(" sum(case when CSType = '22003' then 1 else 0 end) AS ExpNum,");
+			sql.append(" sum(case when CSType = '22003' then 1 else 0 end) AS ExpNum");
 			sql.append(" from DiCourseChar ");
 			sql.append(" left join T511_UndergraCSBase_Tea$ on DiCourseChar.IndexID = T511_UndergraCSBase_Tea$.CSNature ");
 			sql.append(" where convert(varchar(4),T511_UndergraCSBase_Tea$.Time,120) =" + year);
-			sql.append(" and DiCourseChar.IndexID  group by DiCourseChar.IndexID,CourseChar");
+			sql.append("  group by DiCourseChar.IndexID,CourseChar");
 		 
 		 System.out.println(sql.toString());
 		 Connection conn = DBConnection.instance.getConnection();
@@ -96,6 +97,7 @@ public class S5101_DAO {
 			 while(rs.next()){
 				 S5101_Bean bean = new S5101_Bean();
 				 String Item = rs.getString("Item");
+			
 				 TheoPraNum = rs.getInt("TheoPraNum");
 				 InClassNum = rs.getInt("InClassNum");
 				 PraNum = rs.getInt("PraNum");
@@ -103,23 +105,37 @@ public class S5101_DAO {
 				 
 				 int sum = TheoPraNum+InClassNum+PraNum+ExpNum;
 				 if(sum!=0){
-					 TheoPraRatio = (double)TheoPraNum/(double)sum;
-					 InClassRatio = (double)InClassNum/(double)sum;
-					 PraRatio = (double)PraNum/(double)sum;
-					 ExpRatio = (double)ExpNum/(double)sum;
+					 TheoPraRatio = this.toDouble(TheoPraNum, sum);
+//					 System.out.println(TheoPraRatio);
+					 InClassRatio = this.toDouble(InClassNum,sum);
+//					 System.out.println(InClassRatio);
+					 PraRatio = this.toDouble(PraNum, sum);
+//					 System.out.println(PraRatio);
+					 ExpRatio = this.toDouble(ExpNum,sum);
+//					 System.out.println(ExpRatio);
 				 }
 
 				
-				 bean.setItem(Item);
+				 bean.setItem(Item);	 
+//				 System.out.println("Item:"+Item);
 				 bean.setExpNum(ExpNum);
+//				 System.out.println("ExpNum:"+ExpNum);
 				 bean.setExpRatio(ExpRatio);
+//				 System.out.println("ExpRatio:"+ExpRatio);
 				 bean.setInClassNum(InClassNum);
+//				 System.out.println("InClassNum:"+InClassNum);
 				 bean.setInClassRatio(InClassRatio);
+//				 System.out.println("InClassRatio:"+InClassRatio);
 				 bean.setPraNum(PraNum);
+//				 System.out.println("PraNum:"+PraNum);
 				 bean.setPraRatio(PraRatio);
+//				 System.out.println("PraRatio:"+PraRatio);
 				 bean.setTheoPraNum(TheoPraNum);
+//				 System.out.println("TheoPraNum:"+TheoPraNum);
 				 bean.setTheoPraRatio(TheoPraRatio);
+//				 System.out.println("TheoPraRatio:"+TheoPraRatio);
 				 bean.setTime(TimeUtil.changeDateY(year));
+//				 System.out.println("Item:"+Item);
 				 list.add(bean);
 			 }
 //			 //统计合计
@@ -159,7 +175,7 @@ public class S5101_DAO {
 		sql.append("select t.SeqNumber,dic.CourseChar as Item,t.Item as ItemID,t.TheoPraNum,t.TheoPraRatio,t.InClassNum,t.InClassRatio,t.PraNum," +
 				"t.PraRatio,t.ExpNum,t.ExpRatio,t.Time,t.Note");
 		sql.append(" from "+tableName+" as t,DiCourseChar as dic ");
-		sql.append(" where dic.IndexID = t.CSNature");
+		sql.append(" where dic.IndexID = t.Item");
 		sql.append(" and Time like '"+year+"%'");
 //		sql.append(" where Time like '"+year+"%'");
 //		sql.append("  and Item like '23%'");
@@ -253,7 +269,35 @@ public class S5101_DAO {
  		
  	}
 
+	/**转换成保存两位小数的double*/
+	public double toDouble(int a,int b){
+		
+		double d1=(double)a/(double)b;
+		DecimalFormat df = new DecimalFormat("0.00");
+		String str = df.format(d1);
+		double d=Double.parseDouble(str);
+		return d;
+		
+	}
 	
+	
+	public static void main(String arg[]){
+		S5101_DAO dao= new S5101_DAO();
+		List<S5101_Bean> list = dao.getOriData("2014");
+		for(int i=0;i<list.size();i++){
+			S5101_Bean bean = list.get(i);
+			System.out.println("项目："+bean.getItem());
+			System.out.println("实验课："+bean.getExpNum());
+			System.out.println("实验课比列："+bean.getExpRatio());
+			System.out.println("理论课（不含实践）："+bean.getInClassNum());
+			System.out.println("理论课（含实践）："+bean.getPraNum());
+			System.out.println("集中性实践环节："+bean.getTheoPraNum());
+		}
+		
+	
+	    
+//		System.out.println(list.size());
+	}
 	
 	
 	

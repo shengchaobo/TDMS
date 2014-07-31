@@ -1,9 +1,11 @@
 package cn.nit.service.table5;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import cn.nit.bean.table5.S5102_Bean;
 import cn.nit.dao.table5.S5102_DAO;
+import cn.nit.pojo.table5.S5101POJO;
 import cn.nit.pojo.table5.S5102POJO;
 
 
@@ -46,10 +48,10 @@ public List<S5102POJO> loadInfo(String year){
 		}
 		int sum = TheoPraNum+InClassNum+PraNum+ExpNum;
 		if(sum>0){
-			TheoPraRatio = (double)TheoPraNum/(double)sum;
-			InClassRatio = (double)InClassNum/(double)sum;
-			PraRatio = (double)PraNum/(double)sum;
-			ExpRatio = (double)ExpNum/(double)sum;
+			TheoPraRatio = this.toDouble(TheoPraNum, sum);
+			 InClassRatio = this.toDouble(InClassNum,sum);
+			 PraRatio = this.toDouble(PraNum, sum);
+			 ExpRatio = this.toDouble(ExpNum,sum);
 			}
 		pojo.setExpNum(ExpNum);
 		pojo.setExpRatio(ExpRatio);
@@ -61,6 +63,26 @@ public List<S5102POJO> loadInfo(String year){
 		pojo.setTheoPraRatio(TheoPraRatio);
 		pojo.setItem("全校合计");
 		return pojo;
+	}
+	
+	/**用于Excel导出*/
+	public List<S5102POJO> getAll(String year){
+		List<S5102POJO> list = null;
+		list = s5102Dao.loadInfo(year);
+		S5102POJO pojo = this.getAll(list);
+		list.add(0, pojo);
+		return list;
+	}
+	
+	/**转换成保存两位小数的double*/
+	public double toDouble(int a,int b){
+		
+		double d1=(double)a/(double)b;
+		DecimalFormat df = new DecimalFormat("0.00");
+		String str = df.format(d1);
+		double d=Double.parseDouble(str);
+		return d;
+		
 	}
 
 }

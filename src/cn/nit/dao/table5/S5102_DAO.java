@@ -3,9 +3,11 @@ package cn.nit.dao.table5;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.nit.bean.table5.S5101_Bean;
 import cn.nit.bean.table5.S5102_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.S5102POJO;
@@ -73,11 +75,11 @@ public class S5102_DAO {
 			sql.append(" sum(case when CSType = '22000' then 1 else 0 end) AS TheoPraNum , ");
 			sql.append(" sum(case when CSType = '22001' then 1 else 0 end) AS InClassNum,");
 			sql.append(" sum(case when CSType = '22002' then 1 else 0 end) AS PraNum,");
-			sql.append(" sum(case when CSType = '22003' then 1 else 0 end) AS ExpNum,");
-			sql.append(" from DiCourseChar ");
+			sql.append(" sum(case when CSType = '22003' then 1 else 0 end) AS ExpNum ");
+			sql.append(" from DiDepartment ");
 			sql.append(" left join T511_UndergraCSBase_Tea$ on DiDepartment.UnitID = T511_UndergraCSBase_Tea$.UnitID ");
 			sql.append(" where convert(varchar(4),T511_UndergraCSBase_Tea$.Time,120) =" + year);
-			sql.append(" and DiDepartment.UnitID  group by DiDepartment.UnitID,UnitName");
+			sql.append(" group by DiDepartment.UnitID,UnitName");
 		 
 		 System.out.println(sql.toString());
 		 Connection conn = DBConnection.instance.getConnection();
@@ -103,10 +105,14 @@ public class S5102_DAO {
 				 
 				 int sum = TheoPraNum+InClassNum+PraNum+ExpNum;
 				 if(sum!=0){
-					 TheoPraRatio = (double)TheoPraNum/(double)sum;
-					 InClassRatio = (double)InClassNum/(double)sum;
-					 PraRatio = (double)PraNum/(double)sum;
-					 ExpRatio = (double)ExpNum/(double)sum;
+					 TheoPraRatio = this.toDouble(TheoPraNum, sum);
+//					 System.out.println(TheoPraRatio);
+					 InClassRatio = this.toDouble(InClassNum,sum);
+//					 System.out.println(InClassRatio);
+					 PraRatio = this.toDouble(PraNum, sum);
+//					 System.out.println(PraRatio);
+					 ExpRatio = this.toDouble(ExpNum,sum);
+//					 System.out.println(ExpRatio);
 				 }
 
 				
@@ -252,11 +258,30 @@ public class S5102_DAO {
  		return flag ;
  		
  	}
-
 	
+	/**转换成保存两位小数的double*/
+	public double toDouble(int a,int b){
+		
+		double d1=(double)a/(double)b;
+		DecimalFormat df = new DecimalFormat("0.00");
+		String str = df.format(d1);
+		double d=Double.parseDouble(str);
+		return d;
+		
+	}
 	
+	public static void main(String arg[]){
+		S5102_DAO dao= new S5102_DAO();
+		List<S5102_Bean> list = dao.getOriData("2014");
+		for(int i=0;i<list.size();i++){
+			S5102_Bean bean = list.get(i);
+			System.out.println("项目："+bean.getItem());
+			System.out.println("实验课："+bean.getExpNum());
+			System.out.println("实验课比列："+bean.getExpRatio());
+			System.out.println("理论课（不含实践）："+bean.getInClassNum());
+			System.out.println("理论课（含实践）："+bean.getPraNum());
+			System.out.println("集中性实践环节："+bean.getTheoPraNum());
+		}
 	
-	
-	
-
+	}
 }

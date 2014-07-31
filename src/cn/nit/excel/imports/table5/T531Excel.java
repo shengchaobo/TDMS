@@ -39,8 +39,8 @@ public class T531Excel {
 		Date Time = new Date();
 		List<T531Bean> list = new LinkedList<T531Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
-//		DiDepartmentService diDepartSer = new DiDepartmentService() ;
-//		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
+		DiDepartmentService diDepartSer = new DiDepartmentService() ;
+		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 //		DiMajorTwoService diMajorTwoSer=new DiMajorTwoService();
 //		List<DiMajorTwoBean> diMajorTwoBeanList=diMajorTwoSer.getList();
 		
@@ -52,8 +52,6 @@ public class T531Excel {
 				continue;
 			}
 			else{
-				
-				
 			  try{
 				 
 				 String Name = cell[1].getContents() ;
@@ -80,6 +78,12 @@ public class T531Excel {
 					if(ItemLevel == null || ItemLevel.equals("")){
 						return "第" + count + "行，级别不能为空" ;
 					}
+                    if(!this.isType(ItemLevel)){
+                    	return "第" + count + "行，级别填写有误" ;
+                    }
+                    if(ItemLevel.equals("省部级")){
+                    	ItemLevel = "省级";
+                    }
 		
 					String buildTime = cell[4].getContents() ;
 					
@@ -87,13 +91,27 @@ public class T531Excel {
 						return "第" + count + "行，设立时间不能为空" ;
 					}
 					if(!TimeUtil.judgeFormat3(buildTime)){
-						return "第" + count + "行，时间格式错误，格式为：：2014" ;
+						return "第" + count + "行，时间格式错误，格式为：2014" ;
 					}
 					
 					String TeaUnit = cell[5].getContents();
-					
+//					System.out.println("TeaUnit:"+TeaUnit);
 					if(TeaUnit == null || TeaUnit.equals("")){
 						return "第" + count + "行，所属教学单位不能为空" ;
+					}
+					
+					for(DiDepartmentBean diDepart:diDepartBeanList){
+//						System.out.println("UnitName:"+diDepart.getUnitName());
+						if(diDepart.getUnitName().equals(TeaUnit)){
+							TeaUnit = diDepart.getUnitId();
+							flag = true;
+							break;
+						}
+					}
+					if(!flag){
+						return "第" + count + "行，所属教学单位不存在" ;
+					}else{
+						flag = false ;
 					}
 					
 					String JoinStuNum=cell[6].getContents();
@@ -157,6 +175,15 @@ public class T531Excel {
 	    double num2=num1/100;
 	    double num =(double)Math.round(num1)/100;
 		return num;
+	}
+	
+	/**判断ItemLevel的类型是否正确*/
+	public boolean isType(String str){
+		boolean flag = false;
+		if(str.equals("国际级")||str.equals("国家级")||str.equals("省部级")||str.equals("省级")||str.equals("市级")||str.equals("校级")){
+			flag = true;
+		}
+		return flag;
 	}
 	
 

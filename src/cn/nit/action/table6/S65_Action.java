@@ -1,19 +1,11 @@
-package cn.nit.action.table5;
+package cn.nit.action.table6;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import jxl.Workbook;
 import jxl.format.Alignment;
@@ -29,75 +21,9 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
-import net.sf.json.JSON;
-import net.sf.json.JSONSerializer;
-
-import org.apache.struts2.ServletActionContext;
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table5.S52_Bean;
-import cn.nit.dao.table5.S52_DAO;
-import cn.nit.service.table5.S52_Service;
 
-
-public class S52_Action {
-	
-	/**  表s52的数据库操作类  */
-	private S52_DAO s52Dao = new S52_DAO() ;
-	
-//	private S512Excel s512Excel=new S512Excel();
-
-	/**  表s52的Service类  */
-	private S52_Service s52Ser = new S52_Service() ;
-	
-	/**  表s52的Bean实体类  */
-	private S52_Bean s52Bean = new S52_Bean() ;
-	
-	/**excel导出名字*/
-	private String excelName; //
-	
-
-	/**导出选择年份*/
-	private String selectYear;
-
-
-	/**
-	 * 显示数据
-	 * */
-	public void loadInfo() throws Exception{
-		
-		System.out.println();
-		HttpServletResponse response = ServletActionContext.getResponse() ;		
-		
-		List<S52_Bean> list = new ArrayList<S52_Bean>();
-//		List<S512_Bean> list=s512Ser.loadInfo(this.getSelectYear());
-		if(s52Ser.loadInfo(this.getSelectYear())!=null){
-			list = s52Ser.loadInfo(this.getSelectYear());
-		}
-		System.out.println("year:"+this.getSelectYear());
-
-		JSON json = JSONSerializer.toJSON(list) ;
-		PrintWriter out = null ;
-
-		try {
-			//设置输出内容的格式为json
-				response.setContentType("application/json; charset=UTF-8") ;
-				out = response.getWriter() ;
-				//设置数据的内容的编码格式
-				String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
-				out.print(outPrint) ;
-				out.flush() ;
-				} catch (Exception e) {
-						e.printStackTrace();
-				}finally{
-					if(out != null){
-				out.close() ;
-				}
-			}
-//		}
-	
-	}
-
+public class S65_Action {
 	
 	/**用于excel导出*/
 	public InputStream getInputStream() throws Exception{
@@ -221,65 +147,6 @@ public class S52_Action {
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
 		return "success" ;
 	}
-	
-	
-	public HttpServletRequest getRequest(){
-		return ServletActionContext.getRequest() ;
-	}
-	
-	public HttpSession getSession(){
-		return getRequest().getSession() ;
-	}
-	
-	public HttpServletResponse getResponse(){
-		return ServletActionContext.getResponse() ;
-	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
-	
-	public void setExcelName(String excelName) {
-		this.excelName = excelName;
-	}
-
-	public S52_Bean getS52Bean() {
-		return s52Bean;
-	}
-
-
-	public void setS52Bean(S52_Bean s52Bean) {
-		this.s52Bean = s52Bean;
-	}
-
-
-	public String getExcelName() {
-		try {
-			this.excelName = URLEncoder.encode(excelName, "UTF-8");
-			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return excelName;
-	}
-
-
-
-
-	public String getSelectYear() {
-		return selectYear;
-	}
-
-
-
-
-	public void setSelectYear(String selectYear) {
-		this.selectYear = selectYear;
-	}
-
-
-	
 	
 
 }

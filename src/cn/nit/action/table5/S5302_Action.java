@@ -37,6 +37,7 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table5.S5302_Bean;
 import cn.nit.dao.table5.S5302_DAO;
+import cn.nit.pojo.table5.S5302POJO;
 import cn.nit.service.table5.S5302_Service;
 
 
@@ -70,12 +71,13 @@ public class S5302_Action {
 		System.out.println();
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<S5302_Bean> list = new ArrayList<S5302_Bean>();
+		List<S5302POJO> list = new ArrayList<S5302POJO>();
 //		List<S512_Bean> list=s512Ser.loadInfo(this.getSelectYear());
 		if(s5302Ser.loadInfo(this.getSelectYear())!=null){
 			list = s5302Ser.loadInfo(this.getSelectYear());
 		}
-		System.out.println("year:"+this.getSelectYear());
+//		System.out.println("year:"+this.getSelectYear());
+//		System.out.println(list.size());
 
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
@@ -105,8 +107,8 @@ public class S5302_Action {
 		
 		System.out.println(this.getSelectYear());
 
-		List<S5302_Bean>  list = s5302Dao.totalList(this.getSelectYear());
-		System.out.println("S5302 de "+list.size());
+		List<S5302POJO>  list = s5302Ser.loadInfo(this.getSelectYear());
+//		System.out.println("S5302 de "+list.size());
 		
 	    ByteArrayOutputStream fos = null;
 	    
@@ -119,7 +121,7 @@ public class S5302_Action {
 			System.out.println("后台传入的数据为空");
 		}else{
 //			String sheetName = this.getExcelName();
-				String sheetName="S-5-3-1人才培养模式创新实验项目统计(按教学单位统计项目数)";	
+				String sheetName="S-5-3-2人才培养模式创新实验项目统计(按教学单位统计项目数)";	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();
@@ -165,40 +167,29 @@ public class S5302_Action {
 		           ws.addCell(new Label(3, 3, "省部级", wcf));
 		           ws.addCell(new Label(4, 3, "市级", wcf));
 		           ws.addCell(new Label(5, 3, "校级", wcf));
+		           ws.mergeCells(0, 2, 0, 3);
 		           ws.mergeCells(1, 2, 5, 2);
 		           
 
 		           
 		           int n = list.size();
-		           int j = 5;
+		           int j = 4;
 		            int seq = 1;//序号
 		           if(list!=null && list.size()>0){
 		        	   
 		        	   for(int i = 0 ; i<n;i++){
-		        		   S5302_Bean  bean = list.get(i);
-			        	   if(i == 0){//总计 的那个数据
-			        		   ws.addCell(new Label(0, 4, bean.getItem(), wcf1)); 
-//			       
-			        		   ws.addCell(new Label(1, 4, ""+bean.getInterLevel(), wcf1)); 
-			        		   ws.addCell(new Label(2, 4, ""+bean.getNationLevel(), wcf1)); 
-			        		   ws.addCell(new Label(3, 4, ""+bean.getProviLevel(), wcf1)); 
-			        		   ws.addCell(new Label(4, 4, ""+bean.getCityLevel(), wcf1)); 
-			        		   ws.addCell(new Label(5, 4, ""+bean.getSchLevel(), wcf1));  
-			        	   }
-			        	   else if(i> 0){
-			        		   ws.addCell(new Label(0,j,bean.getItem(),wcf1));
-			        		   ws.addCell(new Label(1, j, ""+bean.getInterLevel(), wcf1)); 
-			        		   ws.addCell(new Label(2, j, ""+bean.getNationLevel(), wcf1)); 
-			        		   ws.addCell(new Label(3, j, ""+bean.getProviLevel(), wcf1)); 
-			        		   ws.addCell(new Label(4, j, ""+bean.getCityLevel(), wcf1)); 
-			        		   ws.addCell(new Label(5, j, ""+bean.getSchLevel(), wcf1)); 
+		        		   S5302POJO  pojo = list.get(i);
+			        	    ws.addCell(new Label(0,j,pojo.getItem(),wcf1));
+			        		ws.addCell(new Label(1, j, ""+pojo.getInternation(), wcf1)); 
+			        		ws.addCell(new Label(2, j, ""+pojo.getNation(), wcf1)); 
+			        		ws.addCell(new Label(3, j, ""+pojo.getProvi(), wcf1)); 
+			        	    ws.addCell(new Label(4, j, ""+pojo.getCity(), wcf1)); 
+			        		ws.addCell(new Label(5, j, ""+pojo.getSchool(), wcf1)); 
 			         
 			        		   j++;
 			        	   }
 			        	  
-			           }
-		        	  
-		           }else{
+			           }else{
 		        	   System.out.println("后台传入的数据为空");
 		           }
 		          wwb.write();

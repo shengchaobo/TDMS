@@ -26,8 +26,40 @@ public class S5301_Service {
 			flag = s5301Dao.save1(list1, year);
 			if(flag){
 				list = s5301Dao.loadInfo(year);
+				S5301_Bean bean = this.getAll(list);
+				list.add(0, bean);
 			}
 		}
+		return list;
+	}
+	
+	/**得到中的总的统计数据*/
+	public S5301_Bean getAll(List<S5301_Bean> list){
+		S5301_Bean bean = new S5301_Bean();
+		int inter = 0; int nation = 0;int provi = 0; int city = 0;int sch = 0;
+		
+		for(int i =0;i<list.size();i++){
+			S5301_Bean bean1 = list.get(i);
+			inter += bean1.getInternation();
+			nation += bean1.getNation();
+			provi += bean1.getProvi();
+			city += bean1.getCity();
+			sch += bean1.getSchool();
+		}
+		bean.setCity(city);
+		bean.setInternation(inter);
+		bean.setItem("全校合计");
+		bean.setNation(nation);
+		bean.setProvi(provi);
+		bean.setSchool(sch);
+		return bean;
+	}
+	
+	public List<S5301_Bean> getAll(String year){
+		List<S5301_Bean> list = null;
+		list = s5301Dao.loadInfo(year);
+		S5301_Bean bean = this.getAll(list);
+		list.add(0, bean);
 		return list;
 	}
 

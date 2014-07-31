@@ -64,31 +64,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 			
-				<th data-options="field:'CSType',align:'center'" rowspan="2">
+				<th data-options="field:'Item',align:'center'" rowspan="2">
 			     	项目
 				</th>
-				<th data-options="field:'sumCSNum',align:'center'" colspan="2">
+				<th align="center" colspan="2">
 				理论课（实践课）
 				</th>
-				<th data-options="field:'interLevel',align:'center'" colspan="2">
+				<th align="center" colspan="2">
 			   理论课（不含实践）
 				</th>
-				<th data-options="field:'nationLevel',align:'center'" colspan="2">
+				<th align="center"colspan="2">
 				集中性实践环节
 				</th>
-				<th data-options="field:'proviLevel',align:'center'" colspan="2">
+				<th align="center" colspan="2">
 			     	实验课
 				</th>
 			</tr>
 			<tr>
-					<th data-options="field:'CSType',align:'center'">门数（们）</th>
-					<th data-options="field:'CSType',align:'center'">比例（%）</th>
-					<th data-options="field:'CSType',align:'center'">门数（们）</th>
-					<th data-options="field:'CSType',align:'center'">比例（%）</th>
-					<th data-options="field:'CSType',align:'center'">门数（们）</th>
-					<th data-options="field:'CSType',align:'center'">比例（%）</th>
-					<th data-options="field:'CSType',align:'center'">门数（们）</th>
-					<th data-options="field:'CSType',align:'center'">比例（%）</th>
+					<th data-options="field:'TheoPraNum',align:'center'">门数（们）</th>
+					<th data-options="field:'TheoPraRatio',align:'center'">比例（%）</th>
+					<th data-options="field:'InClassNum',align:'center'">门数（们）</th>
+					<th data-options="field:'InClassRatio',align:'center'">比例（%）</th>
+					<th data-options="field:'PraNum',align:'center'">门数（们）</th>
+					<th data-options="field:'PraRatio',align:'center'">比例（%）</th>
+					<th data-options="field:'ExpNum',align:'center'">门数（们）</th>
+					<th data-options="field:'ExpRatio',align:'center'">比例（%）</th>
 				</tr>
 			
 			</thead>

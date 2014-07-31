@@ -35,23 +35,23 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table5.S5301_Bean;
-import cn.nit.dao.table5.S5301_DAO;
-import cn.nit.service.table5.S5301_Service;
+import cn.nit.bean.table5.S5102_Bean;
+import cn.nit.dao.table5.S5102_DAO;
+import cn.nit.pojo.table5.S5102POJO;
+import cn.nit.service.table5.S5102_Service;
 
 
-public class S5301_Action {
+public class S5102_Action {
 	
-	/**  表s5301的数据库操作类  */
-	private S5301_DAO s5301Dao = new S5301_DAO() ;
-	
-//	private S512Excel s512Excel=new S512Excel();
+	/**  表s5102的数据库操作类  */
+	private S5102_DAO s5102Dao = new S5102_DAO() ;
 
-	/**  表s5301的Service类  */
-	private S5301_Service s5301Ser = new S5301_Service() ;
+
+	/**  表s5102的Service类  */
+	private S5102_Service s5102Ser = new S5102_Service() ;
 	
-	/**  表S5301的Bean实体类  */
-	private S5301_Bean s5301Bean = new S5301_Bean() ;
+	/**  表S5101的Bean实体类  */
+	private S5102_Bean s5102Bean = new S5102_Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -69,10 +69,10 @@ public class S5301_Action {
 		System.out.println();
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<S5301_Bean> list = new ArrayList<S5301_Bean>();
+		List<S5102POJO> list = new ArrayList<S5102POJO>();
 //		List<S512_Bean> list=s512Ser.loadInfo(this.getSelectYear());
-		if(s5301Ser.loadInfo(this.getSelectYear())!=null){
-			list = s5301Ser.loadInfo(this.getSelectYear());
+		if(s5102Ser.loadInfo(this.getSelectYear())!=null){
+			list = s5102Ser.loadInfo(this.getSelectYear());
 		}
 		System.out.println("year:"+this.getSelectYear());
 
@@ -104,8 +104,8 @@ public class S5301_Action {
 		
 		System.out.println(this.getSelectYear());
 
-		List<S5301_Bean>  list = s5301Ser.getAll(this.getSelectYear());
-		System.out.println("S52 de "+list.size());
+		List<S5102POJO>  list = s5102Dao.totalList(this.getSelectYear());
+//		System.out.println("S52 de "+list.size());
 		
 	    ByteArrayOutputStream fos = null;
 	    
@@ -118,7 +118,7 @@ public class S5301_Action {
 			System.out.println("后台传入的数据为空");
 		}else{
 //			String sheetName = this.getExcelName();
-				String sheetName="S-5-3-1人才培养模式创新实验项目统计(按类型统计项目数)";	
+				String sheetName="S-5-1-1本科课程库信息统计（按教学单位）";	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();
@@ -158,14 +158,25 @@ public class S5301_Action {
 		           ws.mergeCells(0, 0, 3, 0);
 		             
 		           ws.addCell(new Label(0, 2, "项目", wcf)); 
-		           ws.addCell(new Label(1, 2, "级别", wcf)); 
-		           ws.addCell(new Label(1, 3, "国际级", wcf));
-		           ws.addCell(new Label(2, 3, "国家级", wcf));
-		           ws.addCell(new Label(3, 3, "省部级", wcf));
-		           ws.addCell(new Label(4, 3, "市级", wcf));
-		           ws.addCell(new Label(5, 3, "校级", wcf));
+		           ws.addCell(new Label(1, 2, "理论课（含实践）", wcf)); 
+		           ws.addCell(new Label(3, 2, "理论课（不含实践）", wcf)); 
+		           ws.addCell(new Label(5, 2, "集中性实践环节", wcf)); 
+		           ws.addCell(new Label(7, 2, "实验课", wcf)); 
+		           
+		           ws.addCell(new Label(1, 3, "门数（门）", wcf)); 
+		           ws.addCell(new Label(2, 3, "比例（%）", wcf)); 
+		           ws.addCell(new Label(3, 3, "门数（门）", wcf));
+		           ws.addCell(new Label(4, 3, "比例（%）", wcf)); 
+		           ws.addCell(new Label(5, 3, "门数（门）", wcf));
+		           ws.addCell(new Label(6, 3, "比例（%）", wcf)); 
+		           ws.addCell(new Label(7, 3, "门数（门）", wcf));
+		           ws.addCell(new Label(8, 3, "比例（%）", wcf)); 
+		           
 		           ws.mergeCells(0, 2, 0, 3);
-		           ws.mergeCells(1, 2, 5, 2);
+		           ws.mergeCells(1, 2, 2, 2);
+		           ws.mergeCells(3, 2, 4, 2);
+		           ws.mergeCells(5, 2, 6, 2);
+		           ws.mergeCells(7, 2, 8, 2);
 		           
 
 		           
@@ -175,14 +186,17 @@ public class S5301_Action {
 		           if(list!=null && list.size()>0){
 		        	   
 		        	   for(int i = 0 ; i<n;i++){
-		        		   S5301_Bean  bean = list.get(i);
-			        		   ws.addCell(new Label(0, j, bean.getItem(), wcf1)); 
+		        		   S5102POJO  pojo = list.get(i);
+			        		   ws.addCell(new Label(0, j, pojo.getItem(), wcf1)); 
 //			       
-			        		   ws.addCell(new Label(1, j, ""+bean.getInternation(), wcf1)); 
-			        		   ws.addCell(new Label(2, j, ""+bean.getNation(), wcf1)); 
-			        		   ws.addCell(new Label(3, j, ""+bean.getProvi(), wcf1)); 
-			        		   ws.addCell(new Label(4, j, ""+bean.getCity(), wcf1)); 
-			        		   ws.addCell(new Label(5, j, ""+bean.getSchool(), wcf1));  
+			        		   ws.addCell(new Label(1, j, ""+pojo.getTheoPraNum(), wcf1)); 
+			        		   ws.addCell(new Label(2, j, ""+pojo.getTheoPraRatio(), wcf1)); 
+			        		   ws.addCell(new Label(3, j, ""+pojo.getInClassNum(), wcf1)); 
+			        		   ws.addCell(new Label(4, j, ""+pojo.getInClassRatio(), wcf1)); 
+			        		   ws.addCell(new Label(5, j, ""+pojo.getPraNum(), wcf1)); 
+			        		   ws.addCell(new Label(5, j, ""+pojo.getPraRatio(), wcf1)); 
+			        		   ws.addCell(new Label(5, j, ""+pojo.getExpNum(), wcf1)); 
+			        		   ws.addCell(new Label(5, j, ""+pojo.getExpRatio(), wcf1)); 
 			         
 			        		   j++;
 			        	   }
@@ -229,13 +243,13 @@ public class S5301_Action {
 		this.excelName = excelName;
 	}
 
-	public S5301_Bean getS5301Bean() {
-		return s5301Bean;
+	public S5102_Bean getS5102Bean() {
+		return s5102Bean;
 	}
 
 
-	public void setS5301Bean(S5301_Bean s5301Bean) {
-		this.s5301Bean = s5301Bean;
+	public void setS5102Bean(S5102_Bean s5102Bean) {
+		this.s5102Bean = s5102Bean;
 	}
 
 
@@ -255,5 +269,7 @@ public class S5301_Action {
 		this.selectYear = selectYear;
 	}
 	
+
+
 
 }

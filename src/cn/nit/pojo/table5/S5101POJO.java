@@ -1,11 +1,12 @@
-package cn.nit.bean.table5;
+package cn.nit.pojo.table5;
 
 import java.util.Date;
 
-public class S5101_Bean {
+public class S5101POJO {
 	
 	private int SeqNumber;
 	private String Item;
+	private String ItemID;
 	private int TheoPraNum;
 	private double TheoPraRatio;
 	private int InClassNum;
@@ -16,6 +17,8 @@ public class S5101_Bean {
 	private double ExpRatio;
 	private Date Time ;
 	private String Note;
+	
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}
@@ -27,6 +30,12 @@ public class S5101_Bean {
 	}
 	public void setItem(String item) {
 		Item = item;
+	}
+	public String getItemID() {
+		return ItemID;
+	}
+	public void setItemID(String itemID) {
+		ItemID = itemID;
 	}
 	public int getTheoPraNum() {
 		return TheoPraNum;
@@ -88,10 +97,6 @@ public class S5101_Bean {
 	public void setNote(String note) {
 		Note = note;
 	}
-	
-	
-	
-	
 	
 
 }

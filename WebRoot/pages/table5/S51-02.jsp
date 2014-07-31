@@ -62,23 +62,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table id="showData"  style="height: auto">	
 		
 		<thead>
-            <tr>
-					<th rowspan="2" data-options="field:'CSType',align:'center'">项目</th>
-					<th colspan="2" data-options="field:'CSType',align:'center'">理论课（实践课）</th>
-					<th colspan="2" data-options="field:'CSType',align:'center'">理论课（不含实践）</th>
-					<th colspan="2" data-options="field:'CSType',align:'center'">集中性实践环节</th>
-					<th colspan="2" data-options="field:'CSType',align:'center'">实验课</th>
+			<tr>
+			
+				<th data-options="field:'Item',align:'center'" rowspan="2">
+			     	项目
+				</th>
+				<th align="center" colspan="2">
+				理论课（实践课）
+				</th>
+				<th align="center" colspan="2">
+			   理论课（不含实践）
+				</th>
+				<th align="center"colspan="2">
+				集中性实践环节
+				</th>
+				<th align="center" colspan="2">
+			     	实验课
+				</th>
+			</tr>
+			<tr>
+					<th data-options="field:'TheoPraNum',align:'center'">门数（们）</th>
+					<th data-options="field:'TheoPraRatio',align:'center'">比例（%）</th>
+					<th data-options="field:'InClassNum',align:'center'">门数（们）</th>
+					<th data-options="field:'InClassRatio',align:'center'">比例（%）</th>
+					<th data-options="field:'PraNum',align:'center'">门数（们）</th>
+					<th data-options="field:'PraRatio',align:'center'">比例（%）</th>
+					<th data-options="field:'ExpNum',align:'center'">门数（们）</th>
+					<th data-options="field:'ExpRatio',align:'center'">比例（%）</th>
 				</tr>
-				<tr>
-					<th data-options="field:'CSType',align:'center'">门数（们）</th>
-					<th data-options="field:'CSType',align:'center'">比例（%）</th>
-					<th data-options="field:'CSType',align:'center'">门数（们）</th>
-					<th data-options="field:'CSType',align:'center'">比例（%）</th>
-					<th data-options="field:'CSType',align:'center'">门数（们）</th>
-					<th data-options="field:'CSType',align:'center'">比例（%）</th>
-					<th data-options="field:'CSType',align:'center'">门数（们）</th>
-					<th data-options="field:'CSType',align:'center'">比例（%）</th>
-				</tr>
+			
 			</thead>
 	</table>
 			 

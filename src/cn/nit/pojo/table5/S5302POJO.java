@@ -1,11 +1,14 @@
-package cn.nit.bean.table5;
+package cn.nit.pojo.table5;
 
 import java.util.Date;
 
-public class S5302_Bean {
+public class S5302POJO {
+
 	
 	private int SeqNumber;
 	private String Item;
+	private String ItemID;
+	
 	private int Internation;
 	private int Nation;
 	private int Provi;
@@ -24,6 +27,12 @@ public class S5302_Bean {
 	}
 	public void setItem(String item) {
 		Item = item;
+	}
+	public String getItemID() {
+		return ItemID;
+	}
+	public void setItemID(String itemID) {
+		ItemID = itemID;
 	}
 	public int getInternation() {
 		return Internation;
@@ -67,6 +76,5 @@ public class S5302_Bean {
 	public void setNote(String note) {
 		Note = note;
 	}
-	
 	
 }

@@ -2,7 +2,8 @@ package cn.nit.bean.table5;
 
 import java.util.Date;
 
-public class S5101_Bean {
+public class S5102_Bean {
+	
 	
 	private int SeqNumber;
 	private String Item;
@@ -88,7 +89,6 @@ public class S5101_Bean {
 	public void setNote(String note) {
 		Note = note;
 	}
-	
 	
 	
 	

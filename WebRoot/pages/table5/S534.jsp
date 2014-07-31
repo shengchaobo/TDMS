@@ -61,12 +61,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="overflow-y:scroll">
 	<table id="showData"  style="height: auto">	
 		
+		<thead data-options="frozen:true">
+			<tr>			
+				<th data-options="field:'teaUnit',align:'center'" rowspan="2" >
+				          教学单位
+					</th>
+		     </tr>
+		</thead>
 		<thead>
 			<tr>
 			   <tr>
-					<th data-options="field:'teaUnit',align:'center'" rowspan="2" >
-				          教学单位
-					</th>
+					
 					<th  colspan="8" >
 				        1.指导教师数（人）
 					</th>

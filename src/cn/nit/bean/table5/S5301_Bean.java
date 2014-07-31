@@ -6,50 +6,13 @@ public class S5301_Bean {
 	
 	private int SeqNumber;
 	private String Item;
-	private int InterLevel;
-	private int NationLevel;
-	private int ProviLevel;
-	private int CityLevel;
-	private int SchLevel;
+	private int Internation;
+	private int Nation;
+	private int Provi;
+	private int City;
+	private int School;
 	private Date Time;
 	private String Note;
-	
-//	public int getSumCSNum() {
-//		return SumCSNum;
-//	}
-//	public void setSumCSNum(int sumCSNum) {
-//		SumCSNum = sumCSNum;
-//	}
-	public int getInterLevel() {
-		return InterLevel;
-	}
-	public void setInterLevel(int interLevel) {
-		InterLevel = interLevel;
-	}
-	public int getNationLevel() {
-		return NationLevel;
-	}
-	public void setNationLevel(int nationLevel) {
-		NationLevel = nationLevel;
-	}
-	public int getProviLevel() {
-		return ProviLevel;
-	}
-	public void setProviLevel(int proviLevel) {
-		ProviLevel = proviLevel;
-	}
-	public int getCityLevel() {
-		return CityLevel;
-	}
-	public void setCityLevel(int cityLevel) {
-		CityLevel = cityLevel;
-	}
-	public int getSchLevel() {
-		return SchLevel;
-	}
-	public void setSchLevel(int schLevel) {
-		SchLevel = schLevel;
-	}
 	
 	
 	public int getSeqNumber() {
@@ -64,6 +27,36 @@ public class S5301_Bean {
 	public void setItem(String item) {
 		Item = item;
 	}
+	public int getInternation() {
+		return Internation;
+	}
+	public void setInternation(int internation) {
+		Internation = internation;
+	}
+	public int getNation() {
+		return Nation;
+	}
+	public void setNation(int nation) {
+		Nation = nation;
+	}
+	public int getProvi() {
+		return Provi;
+	}
+	public void setProvi(int provi) {
+		Provi = provi;
+	}
+	public int getCity() {
+		return City;
+	}
+	public void setCity(int city) {
+		City = city;
+	}
+	public int getSchool() {
+		return School;
+	}
+	public void setSchool(int school) {
+		School = school;
+	}
 	public Date getTime() {
 		return Time;
 	}
@@ -77,6 +70,6 @@ public class S5301_Bean {
 		Note = note;
 	}
 	
-	
+
 
 }

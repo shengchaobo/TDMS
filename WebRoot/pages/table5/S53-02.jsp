@@ -64,27 +64,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 			
-				<th data-options="field:'CSType',align:'center'" rowspan="2">
+				<th data-options="field:'item',align:'center'" rowspan="2">
 			     	项目
 				</th>
-				<th data-options="field:'sumCSNum',align:'center'" colspan="5">
+				<th align="center " colspan="5">
 				级别
 				</th>
 			</tr>
 			<tr>
-				<th data-options="field:'interLevel',align:'center'">
+				<th data-options="field:'internation',align:'center'">
 			     国际级
 				</th>
-				<th data-options="field:'nationLevel',align:'center'">
+				<th data-options="field:'nation',align:'center'">
 				国家级
 				</th>
-				<th data-options="field:'proviLevel',align:'center'">
-			     	省部级
+				<th data-options="field:'provi',align:'center'">
+			     	省级
 				</th>
-				<th data-options="field:'cityLevel',align:'center'">
+				<th data-options="field:'city',align:'center'">
 				市级
 				</th>
-				<th data-options="field:'schLevel',align:'center'">
+				<th data-options="field:'school',align:'center'">
 			     	校级
 				</th>
 				

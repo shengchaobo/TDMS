@@ -6,27 +6,29 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.bean.table5.S5301_Bean;
+import cn.nit.bean.table5.S5101_Bean;
 import cn.nit.dbconnection.DBConnection;
+import cn.nit.pojo.table5.S5101POJO;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.TimeUtil;
 
-public class S5301_DAO {
+/**按课程性质统计*/
+public class S5101_DAO {
 	
 	/**  数据库表名  */
-	private String tableName="S531_TalentTrainItem";
+	private String tableName="S511_UndergraCourseInfo";
 	
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "Item,Internation,Nation,Provi,City,School,Time,Note";
+	private String field = "Item,TheoPraNum,TheoPraRatio,InClassNum,InClassRatio,PraNum,PraRatio,ExpNum,ExpRatio,Time,Note";
 	
 	/**  被统计数据库表名  */
-	private String tableName1="T531_TalentTrainItem_Tea$";
+	private String tableName1="T511_UndergraCSBase_Tea$";
 	
 	/**  被统计数据库表中所有字段  */
-	private String field1="Type,ItemLevel,TeaUnit";
+	private String field1="CSType,CSNature";
 	
 	/**
 	 * 统计原始数据条数
@@ -59,23 +61,23 @@ public class S5301_DAO {
 	
 	
 	/**
-	 * 统计S53-01中的数据：按类型统计项目数
+	 * 统计S51-01中的数据：按课程性质统计项目数
 	 * */
-	public List<S5301_Bean> getOriData1(String year){
+	public List<S5101_Bean> getOriData(String year){
 		
-		 List<S5301_Bean> list = new ArrayList<S5301_Bean>();
+		 List<S5101_Bean> list = new ArrayList<S5101_Bean>();
 		 
 		 StringBuffer sql = new StringBuffer();
-		 sql.append("select Type AS Item,");
-
-		 sql.append(" sum (case when ItemLevel = '国际级' then 1 else 0 end) AS InterLevel , ");
-		 sql.append(" sum (case when ItemLevel = '国家级' then 1 else 0 end) AS NationLevel , ");
-		 sql.append(" sum (case when ItemLevel = '省级' then 1 else 0 end) AS ProviLevel , ");
-		 sql.append(" sum (case when ItemLevel = '市级' then 1 else 0 end) AS CityLevel , ");
-		 sql.append(" sum (case when ItemLevel = '校级' then 1 else 0 end) AS SchLevel ");
-		 sql.append(" from T531_TalentTrainItem_Tea$");
-		 sql.append(" where convert(varchar(4),T531_TalentTrainItem_Tea$.Time,120) =" + year);
-		 sql.append(" group by T531_TalentTrainItem_Tea$.Type");
+		 	sql.append("select DiCourseChar.IndexID as Item,");
+//			sql.append(" Count(CSUnit) as SumCS,");
+			sql.append(" sum(case when CSType = '22000' then 1 else 0 end) AS TheoPraNum , ");
+			sql.append(" sum(case when CSType = '22001' then 1 else 0 end) AS InClassNum,");
+			sql.append(" sum(case when CSType = '22002' then 1 else 0 end) AS PraNum,");
+			sql.append(" sum(case when CSType = '22003' then 1 else 0 end) AS ExpNum,");
+			sql.append(" from DiCourseChar ");
+			sql.append(" left join T511_UndergraCSBase_Tea$ on DiCourseChar.IndexID = T511_UndergraCSBase_Tea$.CSNature ");
+			sql.append(" where convert(varchar(4),T511_UndergraCSBase_Tea$.Time,120) =" + year);
+			sql.append(" and DiCourseChar.IndexID  group by DiCourseChar.IndexID,CourseChar");
 		 
 		 System.out.println(sql.toString());
 		 Connection conn = DBConnection.instance.getConnection();
@@ -89,30 +91,34 @@ public class S5301_DAO {
 			 
 			 st = conn.createStatement();
 			 rs = st.executeQuery(sql.toString());
-			 
+			 int TheoPraNum =0;int InClassNum = 0;int PraNum = 0;int ExpNum = 0;
+			 double TheoPraRatio = 0;double  InClassRatio = 0; double PraRatio = 0;double  ExpRatio= 0;
 			 while(rs.next()){
-				 S5301_Bean bean = new S5301_Bean();
-//				 int SumNum = 0;
+				 S5101_Bean bean = new S5101_Bean();
 				 String Item = rs.getString("Item");
-				 int InterLevel = rs.getInt("InterLevel");
-//				 interLevel += InterLevel;
-				 int NationLevel = rs.getInt("NationLevel");
-//				 nationLevel += NationLevel;
-				 int ProviLevel = rs.getInt("ProviLevel");
-//				 proviLevel += ProviLevel;
-				 int CityLevel  = rs.getInt("CityLevel");
-//				 cityLevel += CityLevel;
-				 int SchLevel = rs.getInt("SchLevel");
-//				 schLevel += SchLevel;
-//				 SumNum  =  InterLevel+NationLevel+ProviLevel+CityLevel+SchLevel;
+				 TheoPraNum = rs.getInt("TheoPraNum");
+				 InClassNum = rs.getInt("InClassNum");
+				 PraNum = rs.getInt("PraNum");
+				 ExpNum  = rs.getInt("ExpNum");
+				 
+				 int sum = TheoPraNum+InClassNum+PraNum+ExpNum;
+				 if(sum!=0){
+					 TheoPraRatio = (double)TheoPraNum/(double)sum;
+					 InClassRatio = (double)InClassNum/(double)sum;
+					 PraRatio = (double)PraNum/(double)sum;
+					 ExpRatio = (double)ExpNum/(double)sum;
+				 }
+
 				
 				 bean.setItem(Item);
-				 bean.setInternation(InterLevel);
-				 bean.setCity(CityLevel);
-				 bean.setNation(NationLevel);
-				 bean.setProvi(ProviLevel);
-				 bean.setSchool(SchLevel);
-//				 bean.setSumCSNum(SumNum);
+				 bean.setExpNum(ExpNum);
+				 bean.setExpRatio(ExpRatio);
+				 bean.setInClassNum(InClassNum);
+				 bean.setInClassRatio(InClassRatio);
+				 bean.setPraNum(PraNum);
+				 bean.setPraRatio(PraRatio);
+				 bean.setTheoPraNum(TheoPraNum);
+				 bean.setTheoPraRatio(TheoPraRatio);
 				 bean.setTime(TimeUtil.changeDateY(year));
 				 list.add(bean);
 			 }
@@ -145,20 +151,18 @@ public class S5301_DAO {
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
 	 */
-	public List<S5301_Bean> loadInfo(String year){
+	public List<S5101POJO> loadInfo(String year){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<S5301_Bean> list = null ;
-		sql.append("select * from "+ tableName);
-		sql.append(" where Time like '"+year+"%'");
-//		sql.append(" and Item like ");
-//		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.SumCS,t.SmallCSNum,t.SumTeaNum," +
-//				"t.QuqlifyTea,t.Professor,t.ViceProfessor,t.JuniorTea,t.JuniorViceProf,t.CSProfNum,t.CSViceProfNum,t.Time,t.Note") ;
-//		sql.append(" from "+tableName+" as t,DiDepartment as did ");
-//		sql.append(" where did.UnitID = t.UnitID ");
-//		sql.append(" and Time like '"+year+"%'");
-		
-//		sql.append(" order by SeqNumber desc") ;
+		List<S5101POJO> list = null ;
+//		sql.append("select * from "+ tableName);
+		sql.append("select t.SeqNumber,dic.CourseChar as Item,t.Item as ItemID,t.TheoPraNum,t.TheoPraRatio,t.InClassNum,t.InClassRatio,t.PraNum," +
+				"t.PraRatio,t.ExpNum,t.ExpRatio,t.Time,t.Note");
+		sql.append(" from "+tableName+" as t,DiCourseChar as dic ");
+		sql.append(" where dic.IndexID = t.CSNature");
+		sql.append(" and Time like '"+year+"%'");
+//		sql.append(" where Time like '"+year+"%'");
+//		sql.append("  and Item like '23%'");
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -167,7 +171,7 @@ public class S5301_DAO {
 		try{
 			st = conn.createStatement();
 			rs = st.executeQuery(sql.toString());
-			list = DAOUtil.getList(rs, S5301_Bean.class) ;
+			list = DAOUtil.getList(rs, S5101POJO.class) ;
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -181,12 +185,15 @@ public class S5301_DAO {
 	/**
 	 * 用于excel
 	 * */
-	public List<S5301_Bean> totalList1(String year){
+	public List<S5101POJO> totalList(String year){
 		
-		List<S5301_Bean> list = null;
+		List<S5101POJO> list = null;
 		StringBuffer sql = new StringBuffer();
-		sql.append("select * from "+tableName);
-		sql.append(" where Time  like '"+year+"%'");
+		sql.append("select t.SeqNumber,dic.CourseChar as Item,t.Item as ItemID,t.TheoPraNum,t.TheoPraRatio,t.InClassNum,t.InClassRatio,t.PraNum," +
+		"t.PraRatio,t.ExpNum,t.ExpRatio,t.Time,t.Note");
+		sql.append(" from "+tableName+" as t,DiCourseChar as dic ");
+		sql.append(" where dic.IndexID = t.CSNature");
+		sql.append(" and Time like '"+year+"%'");
 		
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
@@ -195,7 +202,7 @@ public class S5301_DAO {
 		try{
 			st = conn.createStatement();
 			rs = st.executeQuery(sql.toString());
-			list = DAOUtil.getList(rs, S5301_Bean.class);
+			list = DAOUtil.getList(rs, S5101POJO.class);
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -210,22 +217,22 @@ public class S5301_DAO {
 	 * 针对S53-01
 	 * 保存数据（两种情况:有数据 ，delete first then batchinsert；无数据，batchinsert）
 	 * */
-	public boolean save1(List<S5301_Bean> list,String year){
+	public boolean save1(List<S5101_Bean> list,String year){
  		
-		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year+" and Item not like '30%'";
+		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year+" and Item like '23%'";
 		System.out.println("s5301:"+sql);
 		boolean flag = false;
 		Connection conn = DBConnection.instance.getConnection() ;		
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<S5301_Bean> templist = null ;
-		String tempField = "Item,Internation,Nation,Provi,City,School,Time,Note";
+		List<S5101_Bean> templist = null ;
+		String tempField = "Item,TheoPraNum,TheoPraRatio,InClassNum,InClassRatio,PraNum,PraRatio,ExpNum,ExpRatio,Time,Note";
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
-			templist = DAOUtil.getList(rs, S5301_Bean.class) ;
+			templist = DAOUtil.getList(rs, S5101_Bean.class) ;
 			if(templist.size() != 0){ //存在数据
-				String delSql = "delete  from " + tableName + " where convert(varchar(4),Time,120)=" + year+" and Item not like '30%'";
+				String delSql = "delete  from " + tableName + " where convert(varchar(4),Time,120)=" + year+" and Item like '23%'";
 				int delflag = st.executeUpdate(delSql.toString());
 				if(delflag >0 ){
 					flag = DAOUtil.batchInsert(list, tableName, tempField, conn) ;
@@ -243,20 +250,12 @@ public class S5301_DAO {
 		}
  		
  		return flag ;
+ 		
  	}
+
 	
-	public static void main(String arg[]){
-		S5301_DAO  dao = new S5301_DAO();
-		 List<S5301_Bean> list = dao.getOriData1("2014");
-		 for(int i =0;i<list.size();i++){
-			 S5301_Bean bean = list.get(i);
-			 System.out.println(bean.getItem());
-			 System.out.println("市级："+bean.getCity());
-			 System.out.println("国际级："+bean.getInternation());
-			 System.out.println("省级："+bean.getProvi());
-			 System.out.println("校级"+bean.getSchool());
-			 System.out.println("国家级："+bean.getNation());
-		 }
-	}
+	
+	
+	
 
 }

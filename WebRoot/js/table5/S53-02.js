@@ -4,7 +4,7 @@
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#showData').datagrid( {
 			title : '本科课程、授课情况统计表',  //可变内容在具体页面定义
-			url: 'pages/S531/loadInfo2',
+			url: 'pages/S5302/loadInfo',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -22,7 +22,7 @@
 					 
 			
 					var merges2 = [{
-		                  field:'teaUnit',
+		                  field:'item',
 		                  index: 0,
 		                  colspan: 1
 		              }           
@@ -67,7 +67,7 @@
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/S531/dataExport2?excelName="+tableName+'&selectYear='+year,
+			    url : "pages/S5302/dataExport?excelName="+tableName+'&selectYear='+year,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },

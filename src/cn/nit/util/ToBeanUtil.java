@@ -59,7 +59,16 @@ public class ToBeanUtil {
 						wrapper.setPropertyValue(mapVal[0], Double.parseDouble(mapVal[1])) ;
 					}					
 				}else if(type.endsWith("Date")){
-					wrapper.setPropertyValue(mapVal[0], TimeUtil.changeDateYMD(mapVal[1])) ;				
+//					wrapper.setPropertyValue(mapVal[0], TimeUtil.changeDateYMD(mapVal[1])) ;
+					if(mapVal[1].length() == 4){
+						wrapper.setPropertyValue(mapVal[0], TimeUtil.changeDateY(mapVal[1])) ;				
+					}
+					else if(mapVal[1].length() == 7){
+						wrapper.setPropertyValue(mapVal[0], TimeUtil.changeDateYM(mapVal[1])) ;
+					}
+					else if(mapVal[1].length() == 10){
+						wrapper.setPropertyValue(mapVal[0], TimeUtil.changeDateYMD(mapVal[1])) ;	
+					}
 				}else if(type.endsWith("long")||type.endsWith("Long")){
 					if(mapVal.length==1){
 						wrapper.setPropertyValue(mapVal[0], 0) ;

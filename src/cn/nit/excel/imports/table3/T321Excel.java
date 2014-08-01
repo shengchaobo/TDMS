@@ -164,11 +164,6 @@ public class T321Excel {
 					
 
 					
-					String  Note=cell[9].getContents();
-					if(Note.length()>1000){
-						return "第" + count + "行，备注的长度不能超过500个字符！" ;
-					}
-					
 					
 				
 				count++ ;
@@ -180,8 +175,6 @@ public class T321Excel {
 				t321_Bean.setMajorID(MajorID);
 				t321_Bean.setUnitName(UnitName);
 				t321_Bean.setUnitID(UnitID);
-				t321_Bean.setNote(Note);
-//				t321_Bean.setTime(time);
 				t321_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t321_Bean);
 				System.out.println("数字");

@@ -240,6 +240,41 @@ public class T322_DAO {
 		return list ;
 	}
 	
+	public int getMajorNum(String year,int flag){
+		int count = 0;
+		StringBuffer sql=new StringBuffer();
+		sql.append("SELECT COUNT(DISTINCT MajorName)");
+        sql.append(" from "+tableName+" where Time like '"+year+"%'");
+        if(flag==1){
+        	   sql.append(" and IsNewMajor='true'");
+        }
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			if(rs == null){
+				return count ;
+			}
+			
+			while(rs.next()){
+				count = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0;
+		}
+		
+		return count ;
+		
+	}
+	
+	
+
+	
 	
 	public String getTableName(){
 		return this.tableName ;

@@ -1,5 +1,8 @@
 package cn.nit.service.table3;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,12 +13,14 @@ import net.sf.json.JSONSerializer;
 
 
 
+import cn.nit.bean.table3.A3211_Bean;
 import cn.nit.bean.table3.A321_Bean;
 import cn.nit.bean.table3.T311_Bean;
 import cn.nit.bean.table3.T312_Bean;
 import cn.nit.bean.table3.T322_Bean;
 import cn.nit.bean.table3.T33_Bean;
 import cn.nit.dao.table3.A321_DAO;
+import cn.nit.dao.table3.T322_DAO;
 
 
 import cn.nit.pojo.table3.A321POJO;
@@ -23,9 +28,12 @@ import cn.nit.util.TimeUtil;
 
 public class A321_Service {
 	
+	
+
+	
 	/**  表311的数据库操作类  */
 	private A321_DAO a321_DAO = new A321_DAO() ;
-	private A321_Bean a321_Bean=new A321_Bean();
+
 	private A321POJO a321POJO=new A321POJO();
 	
 
@@ -34,62 +42,74 @@ public class A321_Service {
 
 	
 	public String auditingData(String year){
-	
+		
+
 		System.out.println(year);
 		System.out.println("一定输出来1");
-			a321_DAO.delete(year);
-			this.getStatic();
-			if(a321_DAO.insert(a321_Bean)){
-				List<A321POJO> list = a321_DAO.auditingData(year) ;
-				a321POJO=list.get(0);
-			}
-		JSON json=JSONSerializer.toJSON(a321POJO) ;
+
+		List<A321_Bean> list1=new ArrayList<A321_Bean>();
+		list1=getInfo(year);
+		try{
+		if(list1.size()!=0){
+			A321_Bean a321_Bean=new A321_Bean();			
+			a321_Bean.setTotalNum(list1.get(0).getTotalNum());
+			a321_Bean.setFieldNum(list1.get(0).getTotalNum());
+			a321_Bean.setDisClass("合计");
+			a321_Bean.setArtRatio(100);
+			list1.add(0,a321_Bean);
+		}	
+	}catch(Exception e){
+		e.printStackTrace() ;
+	}
+
+
+		JSON json=JSONSerializer.toJSON(list1) ;
 		String jsonStr=json.toString();
 		return jsonStr;
 		}
+	
+	
+	
+	public List<A321_Bean> getInfo(String year){
 
+		int total=0;
+		String disClass=null;
+		int fieldNum=0;
+		double artRatio=0.0;
+		boolean flag;
 
-	public void getStatic(){
-		System.out.println("一定输出来2");
-		int num1=0,num2=0,num3 = 0,num4=0,num5=0,num6=0,num7=0;
-		double total=0.0;
-		List<T322_Bean> list=a321_DAO.getOriData(T322_Bean.class, "T322_UndergraMajorInfo_Tea$");
-		total=list.size();
+		List<A3211_Bean> list=a321_DAO.getOriData(year);
+		List<A321_Bean> list1=new ArrayList<A321_Bean>();
 		for(int i=0;i<list.size();i++){
-			T322_Bean t322_Bean=new T322_Bean();
-			t322_Bean=list.get(i);
-			System.out.println(t322_Bean.getMajorDegreeType());
-			if(t322_Bean.getMajorDegreeType().equals("02经济学")){
-				num1++;
-			}else if(t322_Bean.getMajorDegreeType().equals("05文学")){
-				num2++;
-			}else if(t322_Bean.getMajorDegreeType().equals("07理学")){
-				num3++;
-			}else if(t322_Bean.getMajorDegreeType().equals("08工学")){
-				num4++;
-			}else if(t322_Bean.getMajorDegreeType().equals("09农学")){
-				num5++;
-			}else if(t322_Bean.getMajorDegreeType().equals("12管理学")){
-				num6++;
-			}else if(t322_Bean.getMajorDegreeType().equals("13艺术学")){
-				num7++;
-			}	
+			total=total+list.get(i).getFieldNum();
 		}
-		a321_Bean.setEconomicNum(num1);
-		a321_Bean.setLiteratureNum(num2);
-		a321_Bean.setScienceNum(num3);
-		a321_Bean.setEngineerNum(num4);
-		a321_Bean.setAgronomyNum(num5);
-		a321_Bean.setManageNum(num6);	
-		a321_Bean.setArtNum(num7);	
-		a321_Bean.setEconomicRatio(num1/total);
-		a321_Bean.setLiteratureRatio(num2/total);
-		a321_Bean.setScienceRatio(num3/total);
-		a321_Bean.setEngineerRatio(num4/total);
-		a321_Bean.setAgronomyRatio(num5/total);
-		a321_Bean.setManageRatio(num6/total);	
-		a321_Bean.setArtRatio(num7/total);
-		a321_Bean.setTime(new Date());
+		for(int i=0;i<list.size();i++){
+			A321_Bean a321_Bean = new A321_Bean();
+			disClass=list.get(i).getMajorDegreeType();
+			fieldNum=list.get(i).getFieldNum();
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMinimumFractionDigits(4);
+			artRatio=Double.parseDouble(nf.format((double)(fieldNum)/(double)(total)))*100;
+			System.out.println(artRatio);
+			try{
+			a321_Bean.setTotalNum(total);
+			a321_Bean.setFieldNum(fieldNum);
+			a321_Bean.setArtRatio(artRatio);
+			a321_Bean.setDisClass(disClass);
+			flag=a321_DAO.update(year, a321_Bean);
+			if(flag){
+				System.out.println("成功");
+			}else{
+				System.out.println("失败");
+			}
+			list1.add(i,a321_Bean);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return list1;
+
 	}
+
 
 }

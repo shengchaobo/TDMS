@@ -73,6 +73,9 @@ public class T33_Service {
 		return t33_DAO.deleteCoursesByIds(ids) ;
 	}
 	
+	public int getMajorNum(String year){
+		return t33_DAO.getMajorNum(year);
+	}
 
 	
 	public static void main(String args[]){

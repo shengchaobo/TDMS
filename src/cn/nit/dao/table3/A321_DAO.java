@@ -13,6 +13,7 @@ import sun.security.krb5.internal.UDPClient;
 
 
 
+import cn.nit.bean.table3.A3211_Bean;
 import cn.nit.bean.table3.A321_Bean;
 import cn.nit.dbconnection.DBConnection;
 
@@ -20,145 +21,74 @@ import cn.nit.dbconnection.DBConnection;
 
 import cn.nit.pojo.table3.A321POJO;
 import cn.nit.util.DAOUtil;
+import cn.nit.util.TimeUtil;
 
 public class A321_DAO {
+	
+
 
 
 	/**  数据库表名  */
 	private String tableName = "A321_MajorDiscipInfo$" ;
 	
+	private String tableName1 = "T322_UndergraMajorInfo_Tea$" ;
+	
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "EconomicNum,EconomicRatio,LiteratureNum,LiteratureRatio,ScienceNum,ScienceRatio,EngineerNum,EngineerRatio," +
-			"AgronomyNum,AgronomyRatio,ManageNum,ManageRatio,ArtNum,ArtRatio,Time,Note" ;
+	private String field = "TotalNum,DisClass,FieldNum,ArtRatio,Time,Note" ;
 	
-	/**
-	 * 将数据表311的实体类插入数据库
-	 * @param undergraCSBase
-	 * @return
-	 *
-	 * @time: 2014-5-14/上午10:53:10
-	 */
-	public boolean insert(A321_Bean a321_Bean){
-		
-		//flag判断数据是否插入成功
-		boolean flag = false ;
+
+	
+	
+	public boolean update(String year,A321_Bean a321_bean){
+		String sql="select * from " + tableName + " where Time like '"+year+"%' and DisClass="+"'"+a321_bean.getDisClass()+"'";	
+		boolean flag=false;
 		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null;
+		ResultSet rs = null;
+		List<A321_Bean> list=new ArrayList<A321_Bean>();
+		A321_Bean bean=new A321_Bean();
 		try{
-			flag = DAOUtil.insert(a321_Bean, tableName, field, conn) ;
-		}catch(Exception e){
+			st=conn.createStatement();
+			rs = st.executeQuery(sql);
+			list=DAOUtil.getList(rs, A321_Bean.class);
+			if(list.size()!=0){
+				bean=list.get(0);
+				System.out.println("haha");
+				System.out.println(bean.getArtRatio());
+				a321_bean.setSeqNumber(bean.getSeqNumber());
+				a321_bean.setTime(TimeUtil.changeDateY(year));
+				flag=DAOUtil.update(a321_bean, tableName, key, field, conn);
+			}else{
+				a321_bean.setTime(TimeUtil.changeDateY(year));
+				flag=DAOUtil.insert(a321_bean, tableName, field, conn);
+				
+			}
+		}catch (Exception e){
 			e.printStackTrace() ;
-			return flag ;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
 		}
-		return flag ;
-	}
-	
-	public int beTheYear (String year){
-		System.out.println("一定输出来3");
-		StringBuffer sql = new StringBuffer() ;
-		sql.append("select count(*)") ;
+		return flag;
 		
-		sql.append(" from " + tableName+" where Time like '"+year+"%'") ;
-//		System.out.println(sql.toString());
-//		if(fillUnitId != null && !fillUnitId.equals("")){
-//			sql.append(" and FillDept=" + fillUnitId) ;
-//		}
 		
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		
-		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(sql.toString()) ;
-//			System.out.println(rs);
-			
-		}catch(Exception e){
-			e.printStackTrace() ;
-		}
-		if(rs == null){
-			return 0 ;
-		}else{
-			return 1;
-		}
-
-	}
-	
-	public void delete(String year){
-		StringBuffer sql=new StringBuffer();
-		sql.append("delete from "+tableName+" where Time like '"+year+"%'");
-		Connection conn=DBConnection.instance.getConnection();
-		Statement st=null;
-		
-		try{
-			st=conn.createStatement();
-			st.executeUpdate(sql.toString());
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-
-
-	
-	
-	public List<A321POJO> auditingData(String year){
-		
-		StringBuffer sql = new StringBuffer() ;
-		List<A321POJO> list =null ;
-		sql.append("select * from "+tableName+" where Time like '"+year+"%'");		
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-//		System.out.println(sql.toString());
-		
-		try{
-			st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY) ;
-			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, A321POJO.class) ;		
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}
-		
-		return list ;
 	}
 	
 	
 	
-	public List<A321POJO> exportData(String year){
-		StringBuffer sql=new StringBuffer();
-		List<A321POJO> list=null;
-		sql.append("select * from "+tableName+" where Time like '"+year+"%'");
-		Connection conn=DBConnection.instance.getConnection();
-		Statement st=null;
-		ResultSet rs=null;
-		try{
-			st=conn.createStatement();
-			rs=st.executeQuery(sql.toString());
-			list=DAOUtil.getList(rs, A321POJO.class);
-		}catch(Exception e){
-			e.printStackTrace();
-			return null;
-		}
-//		System.out.println("神马都是浮云a ");
-//		System.out.println(list.get(0).getAgronomyNum());
-		return list;	
-	}
-	
-	
-	
-	public <T> List<T> getOriData(Class<T> cla ,String tableName1)
+	public  List<A3211_Bean> getOriData(String year)
 	{
-		List<T> list=new ArrayList<T>();
+		List<A3211_Bean> list=new ArrayList<A3211_Bean>();
 		
 		StringBuffer sql=new StringBuffer();
-		sql.append("select * from "+tableName1);
+		sql.append("select a.MajorDegreeType,COUNT(b.MajorDegreeType) AS FieldNum" +
+				" from (SELECT distinct MajorDegreeType FROM T322_UndergraMajorInfo_Tea$) a " +
+				"left join (select * from T322_UndergraMajorInfo_Tea$) b on a.MajorDegreeType = b.MajorDegreeType where Time like '"+year+"%'group by a.MajorDegreeType");
+	
 		
 		Connection conn=DBConnection.instance.getConnection();
 		Statement st=null;
@@ -168,13 +98,34 @@ public class A321_DAO {
 		{
 			st=conn.createStatement();
 			rs=st.executeQuery(sql.toString());
-			list = DAOUtil.getList(rs, cla) ;
+			list = DAOUtil.getList (rs, A3211_Bean.class) ;
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 			return null;
 		}
 		return list;
+	}
+	
+	/**用于数据导出*/
+	public List<A321_Bean> totalList(String year){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select SeqNumber,TotalNum,DisClass,FieldNum,ArtRatio,Time,Note");
+        sql.append(" from "+tableName+ " where Time like '"+year+"%'");
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<A321_Bean> list = null ;		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, A321_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}		
+		return list ;
 	}
 
 }

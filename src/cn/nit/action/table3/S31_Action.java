@@ -2,6 +2,7 @@ package cn.nit.action.table3;
 
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -12,11 +13,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
+
 import org.apache.struts2.ServletActionContext;
 
 
 import cn.nit.bean.other.UserRoleBean;
-import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table3.S31_Bean;
 import cn.nit.dao.table3.S31_DAO;
 import cn.nit.excel.imports.table3.S31Excel;
@@ -53,6 +68,10 @@ private S31_Service s31_Service = new S31_Service() ;
 	//save的字段
 	private String fields;
 	
+
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	//查询出所有
 	public void loadInfo() throws Exception{
@@ -67,18 +86,17 @@ private S31_Service s31_Service = new S31_Service() ;
 		
 		PrintWriter out = null ;
 
-		if(bean == null){
+		if(bean.getDocStation()==0||bean.getJuniorMajor()==0||bean.getMasterStation()==0||bean.getNewMajor()==0||bean.getPostdocStation()==0||bean.getSumMajor()==0){
 			response.setContentType("text/html;charset=UTF-8") ;
 			out = response.getWriter() ;
-			out.println( "<script language='javascript'>window.alert('无该年数据');</script>" ); 
+			out.println( "{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计。\"}"); 
 		}else{
-			try {				
+			try {	
 				System.out.println(json) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(json) ;
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally{
 				if(out != null){
@@ -90,71 +108,93 @@ private S31_Service s31_Service = new S31_Service() ;
 	}
 
 	
+	
+	
+	
+	public InputStream getInputStream() throws IOException{
+		
 
-	
-	/**  为界面加载数据  */
-	public void auditingData(){
+		System.out.println(this.getSelectYear());
+		S31_Bean bean = s31_Service.getYearInfo(this.getSelectYear());
 		
-		System.out.println("一定输出来");
-		Date date=new Date();	
-		String sdate=date.toString();
-		String year=sdate.substring(sdate.length()-4, sdate.length());
+	    ByteArrayOutputStream fos = null;
 		
-		
-		String result = s31_Service.auditingData(year) ;
-		PrintWriter out = null ;
-		
-		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print(result) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
-	
-	
-	
-	
-	
-	public InputStream getInputStream(){
-		
-		InputStream inputStream =null;
-		
-		try{
-			System.out.println("愁死了");
-			Date date=new Date();	
-			String sdate=date.toString();
-			String year=sdate.substring(sdate.length()-4, sdate.length());
-			List<S31POJO> list = s31_DAO.exportData(year);
-			inputStream=new ByteArrayInputStream(s31Excel.exportExcel(list).toByteArray());
-			
-			
-		}catch (Exception e){
-			e.printStackTrace();
+		if(bean.getDocStation()==0&&bean.getJuniorMajor()==0&&bean.getMasterStation()==0&&bean.getNewMajor()==0&&bean.getPostdocStation()==0&&bean.getSumMajor()==0){
+			PrintWriter out = null ;
+			response.setContentType("text/html;charset=utf-8") ;
+			out = response.getWriter() ;
+			out.print("后台传入的数据为空") ;
+			System.out.println("后台传入的数据为空");
 			return null;
-			
-			
+		}else{
+			String sheetName = this.getExcelName();
+						
+		    WritableWorkbook wwb;
+		    try {    
+		           fos = new ByteArrayOutputStream();
+		           wwb = Workbook.createWorkbook(fos);
+		           WritableSheet ws = wwb.createSheet("S3-1", 0);        // 创建一个工作表
+		
+		            //    设置单元格的文字格式
+		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		           WritableCellFormat wcf = new WritableCellFormat(wf);
+		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		           wcf.setAlignment(Alignment.CENTRE);
+		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+		        		     jxl.format.Colour.BLACK);
+		           ws.setRowView(1, 500);
+		           
+		            //    设置内容单无格的文字格式
+		           WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		            WritableCellFormat wcf1 = new WritableCellFormat(wf1);        
+		            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+		            wcf1.setAlignment(Alignment.CENTRE);
+		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+			        		     jxl.format.Colour.BLACK);
+		           
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.mergeCells(0, 0, 1, 0);
+		           
+		           ws.addCell(new Label(0, 2, "项目", wcf)); 
+		           ws.addCell(new Label(2, 2, "内容", wcf)); 
+		           ws.addCell(new Label(0, 3, "1.博士后流动站（个）", wcf)); 
+		           ws.addCell(new Label(0, 4, "2.博士点（个）", wcf)); 
+		           ws.addCell(new Label(0, 5, "3.硕士点（个）", wcf)); 
+		           ws.addCell(new Label(0, 6, "4.本科专业（个）", wcf));  
+		           ws.addCell(new Label(0, 8, "5.专科专业（各）", wcf)); 
+		           ws.addCell(new Label(1, 6, "总数", wcf)); 
+		           ws.addCell(new Label(1, 7, "其中：新专业", wcf)); 
+
+
+		           ws.mergeCells(0, 2, 1, 2);
+		           ws.mergeCells(0, 3, 1, 3);
+		           ws.mergeCells(0, 4, 1, 4);
+		           ws.mergeCells(0, 5, 1, 5);
+		           ws.mergeCells(0, 8, 1, 8);
+		           
+		           
+		           ws.addCell(new Label(2, 3, ""+bean.getPostdocStation(), wcf1)); 
+		           ws.addCell(new Label(2, 4, ""+bean.getDocStation(), wcf1));  
+		           ws.addCell(new Label(2, 5, ""+bean.getMasterStation(), wcf1)); 
+		           ws.addCell(new Label(2, 6, ""+bean.getSumMajor(), wcf1)); 
+		           ws.addCell(new Label(2, 7, ""+bean.getNewMajor(), wcf1)); 
+		           ws.addCell(new Label(2, 8, ""+bean.getJuniorMajor(), wcf1)); 
+ 
+		             
+
+		          wwb.write();
+		          wwb.close();
+
+		        } catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
+		        
 		}
-		return inputStream;
+		return new ByteArrayInputStream(fos.toByteArray());
 		
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 
 	public String execute() throws Exception{

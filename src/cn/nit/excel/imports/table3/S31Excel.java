@@ -7,7 +7,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.pojo.table3.S31POJO;
+import cn.nit.bean.table3.S31_Bean;
 
 
 
@@ -25,7 +25,7 @@ public class S31Excel {
 	
 
 
-	public ByteArrayOutputStream exportExcel(List<S31POJO> list){
+	public ByteArrayOutputStream exportExcel(List<S31_Bean> list){
 		ByteArrayOutputStream fos=null;
 		String path="/cn/nit/excel/downloads/table3/S31.xls";
 		String rPath=this.getClass().getResource("/"+path).getPath();
@@ -72,15 +72,15 @@ public class S31Excel {
 	}
 
 	
-	public List<String> changeToString (List<S31POJO> list){
+	public List<String> changeToString (List<S31_Bean> list){
 		List<String> listStr = new ArrayList<String> ();
-		S31POJO s31POJO = list.get(0);
-		listStr.add(""+s31POJO.getPostdocStation());
-		listStr.add(""+s31POJO.getDocStation());
-		listStr.add(""+s31POJO.getMasterStation());
-		listStr.add(""+s31POJO.getSumMajor());
-		listStr.add(""+s31POJO.getNewMajor());
-		listStr.add(""+s31POJO.getJuniorMajor());
+		S31_Bean s31_Bean = list.get(0);
+		listStr.add(""+s31_Bean.getPostdocStation());
+		listStr.add(""+s31_Bean.getDocStation());
+		listStr.add(""+s31_Bean.getMasterStation());
+		listStr.add(""+s31_Bean.getSumMajor());
+		listStr.add(""+s31_Bean.getNewMajor());
+		listStr.add(""+s31_Bean.getJuniorMajor());
 		return listStr;
 
 	}

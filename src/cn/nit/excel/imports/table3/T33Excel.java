@@ -210,10 +210,7 @@ public class T33Excel {
 				    }else{
 				    	CIsFullTime1=false;
 				    }
-					String  Note=cell[16].getContents();
-					if(Note.length()>1000){
-						return "第" + count + "行，备注的长度不能超过500个字符！" ;
-					}
+
 
 					
 
@@ -236,7 +233,6 @@ public class T33Excel {
 				t33_Bean.setCIsFullTime(CIsFullTime1);
 //				t33_Bean.setTime(time);
 				t33_Bean.setTime(TimeUtil.changeDateY(selectYear));
-				t33_Bean.setNote(Note);
 				list.add(t33_Bean);
 				System.out.println("数字");
 				System.out.println(count);

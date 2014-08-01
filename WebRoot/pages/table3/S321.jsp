@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-	<script type="text/javascript" src="js/table3/S322.js"></script>
+	<script type="text/javascript" src="js/table3/S321.js"></script>
 
 	
 </head>
@@ -38,14 +38,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table id="showData"  style="height: auto">		
 		<thead>
 			<tr>
-			<th field="teaUnit" >教学单位</th>
-			<th field="unitID">单位号</th>
-			<th field="passedMajor" >已通过专业认证（评估）的本科专业名称</th>
-			<th field="majorID" >专业代码</th>
-			<th field="assessTime" formatter="formattime">认证时间</th>
-			<th field="validityBegin" formatter="formattime">有效期(起)</th>
-			<th field="validityEnd" formatter="formattime">有效期(止)</th>
-			<th field="assessOrg">认证机构</th>
+				<th data-options="field:'fieldType',align:'center'" rowspan="2">
+			          类型
+				</th>
+				<th colspan="6">
+				优势专业数（个）
+				</th>
+			</tr>
+			<tr>
+				<th data-options="field:'sum'">
+				合计
+				</th>
+				<th data-options="field:'internation'">
+			          国际级
+				</th>
+				<th  data-options="field:'nation'">
+				国家级
+				</th>
+				<th data-options="field:'provi'">
+				省部级
+				</th>
+				<th data-options="field:'city'">
+				市级
+				</th>
+				<th  data-options="field:'school'">
+				校级
+				</th>
 			</tr>			
 			</thead>
 	</table>

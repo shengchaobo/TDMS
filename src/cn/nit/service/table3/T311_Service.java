@@ -48,16 +48,7 @@ public class T311_Service {
 	    int total = postDocStaDao.totalAuditingData(conditions, fillDept) ;
 		List<T311POJO> list = postDocStaDao.auditingData(conditions, fillDept, page, rows) ;
 		System.out.println("替换");
-		System.out.println(list.get(0).getUnitName());
-		for(int i=0;i<list.size();i++){
-			try{
-		list.get(i).getUnitName().replace(',','；');
-		list.get(i).getUnitID().replace(',', '；');	
-			}catch(Exception e){
-				e.printStackTrace() ;
-				
-			}
-		}	
+		System.out.println(list.get(0).getUnitName());	
 		System.out.println("怎么样");
 		Pagition pages = new Pagition(total, list) ;
 		System.out.println("total:"+total);
@@ -87,6 +78,14 @@ public class T311_Service {
 		return postDocStaDao.deleteCoursesByIds(ids) ;
 	}
 	
+	/**
+	 * 统计博士流动站的数量
+	 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
+	 * @return
+	 */
+	public int getStationNum(String year){		
+		return postDocStaDao.getStationNum(year) ;
+	}
 
 	
 	public static void main(String args[]){

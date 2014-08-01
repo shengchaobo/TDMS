@@ -35,20 +35,18 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
-
 import cn.nit.bean.table3.S321_Bean;
-import cn.nit.bean.table3.S322_Bean;
-import cn.nit.dao.table3.S322_DAO;
-import cn.nit.service.table3.S322_Service;
+import cn.nit.dao.table3.S321_DAO;
+import cn.nit.service.table3.S321_Service;
 import cn.nit.util.JsonUtil;
 
-public class S322_Action {
+public class S321_Action {
 	
-	private S322_Service s322_Service=new S322_Service();
+	private S321_Service s321_Service=new S321_Service();
 	
-	private S322_Bean s322_Bean=new S322_Bean();
+	private S321_Bean s321_Bean=new S321_Bean();
 	
-	private S322_DAO s322_Dao=new S322_DAO();
+	private S321_DAO s321_Dao=new S321_DAO();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -65,13 +63,13 @@ public class S322_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<S322_Bean> list=s322_Service.getYearInfo(this.getSelectYear());
+		List<S321_Bean> list=s321_Service.getYearInfo(this.getSelectYear());
 		
 		System.out.println(this.getSelectYear());
 		System.out.println(list.size());
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
-		System.out.println(json.toString());
+		//System.out.println(json.toString());
 		try {
 			//设置输出内容的格式为json
 			response.setContentType("application/json; charset=UTF-8") ;
@@ -94,7 +92,7 @@ public class S322_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<S322_Bean> list = s322_Dao.totalList(this.getSelectYear());
+		List<S321_Bean> list = s321_Dao.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -137,25 +135,44 @@ public class S322_Action {
 		           ws.mergeCells(0, 0, 1, 0);
 		           
 		           ws.addCell(new Label(0, 2, "序号", wcf)); 
-		           ws.addCell(new Label(1, 2, "教学单位", wcf)); 
-		           ws.addCell(new Label(2, 2, "单位号", wcf)); 
-		           ws.addCell(new Label(3, 2, "已通过专业认证（评估）的本科专业名称", wcf)); 
-		           ws.addCell(new Label(4, 2, "专业代码", wcf)); 
-		           ws.addCell(new Label(5, 2, "认证时间", wcf)); 
-		           ws.addCell(new Label(6, 2, "有效期(起)", wcf)); 
-		           ws.addCell(new Label(7, 2, "有效期(止)", wcf)); 
-		           ws.addCell(new Label(8, 2, "认证机构", wcf));            
-		           for(int i=0;i<list.size();i++){
-		        	   ws.addCell(new Label(0, 3+i,""+(i+1), wcf));
-		        	   ws.addCell(new Label(1, 3+i,list.get(i).getTeaUnit(), wcf));
-		        	   ws.addCell(new Label(2, 3+i,""+list.get(i).getUnitID(), wcf1));
-		        	   ws.addCell(new Label(3, 3+i,""+list.get(i).getPassedMajor(), wcf1));
-		        	   ws.addCell(new Label(4, 3+i,""+list.get(i).getMajorID(), wcf1));
-		        	   ws.addCell(new Label(5, 3+i,""+list.get(i).getAssessTime(), wcf1));
-		        	   ws.addCell(new Label(6, 3+i,""+list.get(i).getValidityBegin(), wcf1));
-		        	   ws.addCell(new Label(7, 3+i,""+list.get(i).getValidityEnd(), wcf1));
-		        	   ws.addCell(new Label(8, 3+i,""+list.get(i).getAssessOrg(), wcf1));
+		           ws.addCell(new Label(1, 2, "类型", wcf)); 
+		           ws.addCell(new Label(2, 2, "优势专业数（个）", wcf)); 
+		           ws.addCell(new Label(2, 3, "合计", wcf)); 
+		           ws.addCell(new Label(3, 3, "国际级", wcf)); 
+		           ws.addCell(new Label(4, 3, "国家级", wcf)); 
+		           ws.addCell(new Label(5, 3, "省部级", wcf)); 
+		           ws.addCell(new Label(6, 3, "市级", wcf)); 
+		           ws.addCell(new Label(7, 3, "校级", wcf)); 
+		           ws.addCell(new Label(0, 4, "全校合计", wcf)); 
+		           ws.addCell(new Label(2, 4, ""+list.get(0).getSum(), wcf1)); 
+		           ws.addCell(new Label(3, 4, ""+list.get(0).getInternation(), wcf1)); 
+		           ws.addCell(new Label(4, 4, ""+list.get(0).getNation(), wcf1)); 
+		           ws.addCell(new Label(5, 4, ""+list.get(0).getProvi(), wcf1)); 
+		           ws.addCell(new Label(6, 4, ""+list.get(0).getCity(), wcf1)); 
+		           ws.addCell(new Label(7, 4, ""+list.get(0).getSchool(), wcf1)); 
+		           
+		           for(int i=1;i<list.size();i++){
+		        	   ws.addCell(new Label(0, 4+i,""+i, wcf));
+		        	   ws.addCell(new Label(1, 4+i,list.get(i).getFieldType(), wcf));
+		        	   ws.addCell(new Label(2, 4+i,""+list.get(i).getSum(), wcf1));
+		        	   ws.addCell(new Label(3, 4+i,""+list.get(i).getInternation(), wcf1));
+		        	   ws.addCell(new Label(4, 4+i,""+list.get(i).getNation(), wcf1));
+		        	   ws.addCell(new Label(5, 4+i,""+list.get(i).getProvi(), wcf1));
+		        	   ws.addCell(new Label(6, 4+i,""+list.get(i).getCity(), wcf1));
+		        	   ws.addCell(new Label(7, 4+i,""+list.get(i).getSchool(), wcf1));
 		           }
+		           
+
+
+
+		           ws.mergeCells(0, 2, 0, 3);
+		           ws.mergeCells(1, 2, 1, 3);
+		           ws.mergeCells(2, 2, 7, 2);
+		           ws.mergeCells(0, 4, 1, 4);
+		           
+
+ 
+		             
 
 		          wwb.write();
 		          wwb.close();
@@ -193,28 +210,28 @@ public class S322_Action {
 		this.excelName = excelName;
 	}
 
-	public S322_Service getS322_Service() {
-		return s322_Service;
+	public S321_Service getS321_Service() {
+		return s321_Service;
 	}
 
-	public void setS322_Service(S322_Service s322Service) {
-		s322_Service = s322Service;
+	public void setS321_Service(S321_Service s321Service) {
+		s321_Service = s321Service;
 	}
 
-	public S322_Bean getS322_Bean() {
-		return s322_Bean;
+	public S321_Bean getS321_Bean() {
+		return s321_Bean;
 	}
 
-	public void setS322_Bean(S322_Bean s322Bean) {
-		s322_Bean = s322Bean;
+	public void setS321_Bean(S321_Bean s321Bean) {
+		s321_Bean = s321Bean;
 	}
 
-	public S322_DAO getS322_Dao() {
-		return s322_Dao;
+	public S321_DAO getS321_Dao() {
+		return s321_Dao;
 	}
 
-	public void setS322_Dao(S322_DAO s322Dao) {
-		s322_Dao = s322Dao;
+	public void setS321_Dao(S321_DAO s321Dao) {
+		s321_Dao = s321Dao;
 	}
 
 	public HttpServletResponse getResponse() {

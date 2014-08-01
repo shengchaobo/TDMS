@@ -126,6 +126,7 @@ public class T311_DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T311POJO> list =null ;
+		//List<T311POJO> list1 = null;
 		sql.append("select SeqNumber,PostDocStaName,SetTime,ResearcherNum, UnitName," +
 				"UnitID,Note,Time");
 		sql.append(" from "+tableName+" where PostDocStaName is not null");
@@ -156,6 +157,7 @@ public class T311_DAO {
 			e.printStackTrace() ;
 			return null ;
 		}
+
 		
 		return list ;
 	}
@@ -230,6 +232,38 @@ public class T311_DAO {
 	}
 	
 	
+	/*
+	 * 统计流动站的数目
+	 */
+	
+	public int getStationNum(String year){
+		int count = 0;
+		StringBuffer sql=new StringBuffer();
+		sql.append("SELECT COUNT(DISTINCT PostDocStaName)");
+        sql.append(" from "+tableName+" where Time like '"+year+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			if(rs == null){
+				return count ;
+			}
+			
+			while(rs.next()){
+				count = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0;
+		}
+		
+		return count ;
+		
+	}
 
 	
 	public static void main(String args[]){
@@ -240,8 +274,7 @@ public class T311_DAO {
 		t311Bean.setTime(new java.util.Date()) ;
 
 		System.out.println(t311Dao.update(t311Bean)) ;
-		
-		
+				
 	}
 	
 	public String getTableName(){

@@ -64,6 +64,10 @@ public class T322_Service {
 		return t322_Dao.deleteCoursesByIds(ids) ;
 	}
 	
+	public int getMajorNum(String year,int flag){
+		return t322_Dao.getMajorNum(year,flag);
+	}
+	
 
 	
 	public static void main(String args[]){

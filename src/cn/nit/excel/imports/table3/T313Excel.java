@@ -188,12 +188,6 @@ public class T313Excel {
 				    	return "第" + count + "行，校一级必须为是或否" ;
 				    }
 
-
-				    String  Note=cell[14].getContents();
-					if(Note.length()>1000){
-						return "第" + count + "行，备注的长度不能超过500个字符！" ;
-					}
-					
 					
 				
 				count++ ;
@@ -212,7 +206,6 @@ public class T313Excel {
 				t313_Bean.setSchLevel(SchLevel1);
 //				t313_Bean.setTime(time);
 				t313_Bean.setTime(TimeUtil.changeDateY(selectYear));
-				t313_Bean.setNote(Note);
 				list.add(t313_Bean);
 				System.out.println("数字");
 				System.out.println(count);

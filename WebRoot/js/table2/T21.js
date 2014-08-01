@@ -214,6 +214,7 @@
 				
 			   //导出
 			   $("#export").click(function(){
+				   
 			        var tableName = encodeURI('表2-1占地与建筑面积（后勤处）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {

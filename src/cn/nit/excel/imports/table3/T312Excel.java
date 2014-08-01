@@ -132,10 +132,8 @@ public class T312Excel {
 				    	return "第" + count + "行，类型长度不能超过100" ;
 				    }
 					
-					String  Note=cell[7].getContents();
-					if(Note.length()>1000){
-						return "第" + count + "行，备注的长度不能超过500个字符！" ;
-					}
+				
+				
 					
 					
 				
@@ -146,7 +144,6 @@ public class T312Excel {
 				t312_Bean.setUnitName(UnitName);
 				t312_Bean.setUnitID(UnitID);
 				t312_Bean.setStaType(StaType);
-				t312_Bean.setNote(Note);
 //				t312_Bean.setTime(time);
 				t312_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t312_Bean);

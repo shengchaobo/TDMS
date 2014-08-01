@@ -1,4 +1,4 @@
-package cn.nit.util;
+﻿package cn.nit.util;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;

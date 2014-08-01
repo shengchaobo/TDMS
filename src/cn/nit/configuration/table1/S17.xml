@@ -5,7 +5,9 @@
 <struts>
 	<package name="s17" namespace="/pages/S17" extends="struts-default">
 	    
-	    <action name="auditingData" class="cn.nit.action.table1.S17Action" method="auditingData" />
+	    <action name="loadInfo" class="cn.nit.action.table1.S17Action" method="loadInfo" />
+	       <!-- 编辑数据 -->
+	    <action name="save" class="cn.nit.action.table1.S17Action" method="save" />
 	    
 	      <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table1.S17Action" method="execute">

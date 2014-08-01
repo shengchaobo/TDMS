@@ -168,87 +168,12 @@ public class T11DAO {
 			list = DAOUtil.getList(rs, T11Bean.class) ;
 			if(list.size() != 0){
 				tempBean = list.get(0);
-				bean.setSeqNumber(tempBean.getSeqNumber());
-//				String tempfields = fields + ",LectureSumNum,ActItemSumNum";
-//				
-//				int lectureSumNum = tempBean.getLectureSumNum();
-//				int actItemSumNum = tempBean.getActItemSumNum();
-//				
-////				学术讲座总数
-//				if(bean.getCollegeLecture()!=null){
-//					if(tempBean.getCollegeLecture()==null){
-//						lectureSumNum = lectureSumNum + bean.getCollegeLecture();
-//					}else{
-//						lectureSumNum = lectureSumNum + (bean.getCollegeLecture()- tempBean.getCollegeLecture());
-//					}
-//					
-//				}
-//				if(bean.getSchLecture()!=null){
-//					if(tempBean.getSchLecture()==null){
-//						lectureSumNum = lectureSumNum + bean.getSchLecture();
-//					}else{
-//						lectureSumNum = lectureSumNum + (bean.getSchLecture()- tempBean.getSchLecture());
-//					}
-//				}
-//				bean.setLectureSumNum(lectureSumNum);
-//				
-//				
-////				活动项目总数
-//				if(bean.getNationActItem()!=null){
-//					if(tempBean.getNationActItem()==null){
-//						actItemSumNum = actItemSumNum + bean.getNationActItem();
-//					}else{
-//						actItemSumNum = actItemSumNum + (bean.getNationActItem()- tempBean.getNationActItem());
-//					}
-//				}
-//				if(bean.getProviActItem()!=null){	
-//					if(tempBean.getProviActItem()==null){
-//						actItemSumNum = actItemSumNum + bean.getProviActItem();
-//					}else{
-//						actItemSumNum = actItemSumNum + (bean.getProviActItem()- tempBean.getProviActItem());
-//					}
-//				}
-//				if(bean.getSchActItem()!=null){
-//					if(tempBean.getSchActItem()==null){
-//						actItemSumNum = actItemSumNum + bean.getSchActItem();
-//					}else{
-//						actItemSumNum = actItemSumNum + (bean.getSchActItem()- tempBean.getSchActItem());
-//					}
-//				}
-//				bean.setActItemSumNum(actItemSumNum);
+				bean.setSeqNumber(tempBean.getSeqNumber());	
+				
 				
 				flag = DAOUtil.update(bean, tableName, key, fields, conn) ;
 				
 			}else{
-				
-//				bean.setTime(TimeUtil.changeDateY(year));
-//				
-//				int lectureSumNum = 0;
-//				int actItemSumNum = 0;
-//				
-////				学术讲座总数
-//				if(bean.getCollegeLecture()!=null){
-//					lectureSumNum = lectureSumNum + bean.getCollegeLecture();
-//				}
-//				if(bean.getSchLecture()!=null){
-//					lectureSumNum = lectureSumNum + bean.getSchLecture();
-//				}
-//				bean.setLectureSumNum(lectureSumNum);
-//				
-//				
-////				活动项目总数
-//				if(bean.getNationActItem()!=null){
-//					actItemSumNum = actItemSumNum + bean.getNationActItem();
-//				}
-//				if(bean.getProviActItem()!=null){	
-//					actItemSumNum = actItemSumNum + bean.getProviActItem();
-//				}
-//				if(bean.getSchActItem()!=null){
-//					actItemSumNum = actItemSumNum + bean.getSchActItem();
-//				}
-//				bean.setActItemSumNum(actItemSumNum);
-//				
-//				String tempfields = fields + ",LectureSumNum,ActItemSumNum,Time";
 				flag = DAOUtil.insert(bean, tableName, key, conn) ;
 			}
 		}catch(Exception e){

@@ -8,12 +8,9 @@ import java.util.List;
 
 import cn.nit.bean.table1.A15Bean;
 import cn.nit.bean.table1.S15Bean;
-import cn.nit.bean.table1.S18Bean;
 import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T17Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.A15POJO;
-import cn.nit.pojo.table1.T11POJO;
 import cn.nit.util.DAOUtil;
 
 public class A15DAO {
@@ -31,6 +28,143 @@ public class A15DAO {
 	private String field = "NationResNum,NationResRatio,ProviResNum,ProviResRatio,CityResNum,CityResRatio,SchResNum,SchResRatio,SumResNum" +
 			",Time,Note" ;
 	
+	
+	/**
+	 * 查询相关年份的SeqNumber
+	 * */
+	public int getSeqNumber(String year){
+		int seq=-1;
+		StringBuffer sql=new StringBuffer();
+		sql.append("select SeqNumber from "+tableName+" where Time like '"+year+"%'");
+		
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st=conn.createStatement();
+			rs=st.executeQuery(sql.toString());
+			while(rs.next()){
+				seq=rs.getInt("SeqNumber");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return seq;
+		}
+		return seq;
+	}
+	
+	/**
+	 * 查询相关年份的SeqNumber
+	 * */
+	public int getSeqNumber1(String year){
+		int seq=-1;
+		StringBuffer sql=new StringBuffer();
+		sql.append("select SeqNumber from "+tableName1+" where Time like '"+year+"%'");
+		
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st=conn.createStatement();
+			rs=st.executeQuery(sql.toString());
+			while(rs.next()){
+				seq=rs.getInt("SeqNumber");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return seq;
+		}
+		return seq;
+	}
+	
+	/**
+	 * 符合条件原始数据条数
+	 * */
+	public int countOri(String year){
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(*) AS icount from "+ tableName1);
+		sql.append(" where Time like '"+year+"%'");
+		int count = 0;
+		
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				count = rs.getInt("icount");
+				System.out.println(count);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return count;
+		}
+		
+		return count;
+	}
+	
+	/**
+	 * 显示数据
+	 * @param conditions 查询条件
+	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
+	 * @return
+	 */
+	public A15Bean loadData(String year){
+		
+		StringBuffer sql = new StringBuffer() ;
+		List<A15Bean> list=null;
+		A15Bean bean=null;
+        
+		sql.append("select * from "+ tableName);
+		sql.append(" where Time like '"+year+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+//		System.out.println(sql.toString());
+		
+		try{
+			st = conn.createStatement() ;
+//			ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY
+//			st.setMaxRows(1) ;
+			rs = st.executeQuery(sql.toString()) ;
+//			rs.absolute((page - 1) * rows) ;
+			list = DAOUtil.getList(rs, A15Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}
+		return bean ;
+	}
+	
+	/**
+	 * 更新数据
+	 * */
+	public boolean update(A15Bean a15Bean){
+			
+			boolean flag = false ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			try{
+//				System.out.println("hello！");
+				flag = DAOUtil.update(a15Bean, tableName, key, field, conn) ;
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return flag ;
+			}finally{
+				DBConnection.close(conn) ;
+			}
+			return flag ;
+		}
+	
+
 	
 	/**
 	 * 将数据表A15的实体类插入数据库

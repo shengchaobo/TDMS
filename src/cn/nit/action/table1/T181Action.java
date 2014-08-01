@@ -138,7 +138,7 @@ public class T181Action {
 				cond = conditions.toString();
 			}
 
-			String pages = t181Ser.auditingData(cond, "1012", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t181Ser.auditingData(cond, "10", Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{

@@ -118,8 +118,12 @@ public class T531DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T531POJO> list = null ;
-		sql.append("select SeqNumber,Name,Type,ItemLevel,buildTime,TeaUnit,JoinStuNum,Time,Note") ;
-		sql.append(" from "+tableName);
+		sql.append("select t.SeqNumber,t.Name,t.Type,t.ItemLevel,t.buildTime,dpt.UnitName as TeaUnit,t.TeaUnit as TeaUnitID," +
+				"t.JoinStuNum,t.Time,t.Note") ;
+		sql.append(" from "+tableName+" as t,DiDepartment dpt");
+		sql.append(" where t.TeaUnit = dpt.UnitID");
+		
+//		sql.append(" from "+tableName);
 
 //		if(fillUnitId != null && !fillUnitId.equals("")){
 //			sql.append(" and FillUnitID=" + fillUnitId) ;

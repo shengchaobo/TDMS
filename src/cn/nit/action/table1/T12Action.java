@@ -97,7 +97,7 @@ public class T12Action {
 				cond = conditions.toString();
 			}
 
-			String pages = t12Ser.auditingData(cond, "1001", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t12Ser.auditingData(cond, "10", Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -128,16 +128,14 @@ public class T12Action {
 			String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
-			columns.add("序号");
 			columns.add("行政单位名称");columns.add("单位号");columns.add("单位职能");
 			columns.add("单位负责人");columns.add("备注");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("SeqNum", 0);
-			maplist.put("UnitName", 1);maplist.put("UnitID", 2);maplist.put("Functions", 3);
-			maplist.put("Leader", 4);
-			maplist.put("Note", 5);
+			maplist.put("UnitName", 0);maplist.put("UnitID", 1);maplist.put("Functions", 2);
+			maplist.put("Leader", 3);
+			maplist.put("Note", 4);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());

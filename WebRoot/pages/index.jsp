@@ -19,15 +19,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+<style type="text/css">
+ <!-- 
+a { text-decoration: none} 
+ -->
+a:link {color: #FF0000}
+a:hover {color: #FF0000}
+a:active {color: #0000FF}
+ </style>
   </head>
   
   <body>
     	<div>
-		    <div id="system" class="easyui-panel"  title="系统公告" style="width:'auto';height:'auto';padding:10px;">
+		    <div id="system" class="easyui-panel" style="width:'auto';height:'auto';padding:10px;">
 		    	<ul>
-						<li>关于该系统的使用方法介绍</li>
-						<li>校领导</li>
+						<li><a text-decoration="none" href ="data/manual.doc" >关于该系统的使用方法介绍</a></li>
+						
+						<li ><a text-decoration="none" href = "leader.jsp">校领导</a></li>
 						<li>关于2014年数据采集截止时间</li>
 				</ul>
 			</div>

@@ -235,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
-	    	url = url ;
+	    	url = 'pages/T17/insert' ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加校友会的信息');
 		    $('#t17form').form('reset');
 	    }
@@ -273,7 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(clubName == null || clubName.length==0 || clubName.length> 200){
 				$('#ClubName').focus();
 				$('#ClubName').select();
-				alert("校友会名称不能为空或长度不超过100");
+				alert("校友会名称不能为空或字数不能超过100");
 				//$('#ClubNameSpan').html("<font style=\"color:red\">校友会名称不能为空或长度不超过100</font>") ;
 				return false ;
 			}

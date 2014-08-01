@@ -190,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 	<script type="text/javascript">
 	
-	var url="pages/T183/insert" ;
+	var url ;
 
 	 function reloadgrid ()  { 
 	        //查询参数直接添加在queryParams中 
@@ -267,7 +267,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
-	    	url = url ;
+	    	url = 'pages/T183/insert' ; ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加签订合作协议机构的信息');
 		    $('#t183Form').form('reset');
 	    }

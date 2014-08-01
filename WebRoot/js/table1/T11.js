@@ -1,14 +1,32 @@
-	$(function(){  
+	
+$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "1.学校地址", "group": "联系方式", "value": "",  "field": "schAddress","editor":  false },
-				        { "name": "总数", "group": "1.文化、学术讲座数（个）", "value": "",  "field": "lectureSumNum","editor":  false },
-				        { "name": "其中：校级", "group": "1.文化、学术讲座数（个）", "value": "", "field": "schLecture", "editor": "numberbox" },
-				        { "name": "其中：院（系）级", "value": "", "group": "1.文化、学术讲座数（个）", "field": "collegeLecture", "editor": "numberbox" },
-				        { "name": "总数", "value": "", "group": "2.本科生课外科技、文化活动项目（个）", "field": "actItemSumNum", "editor":  false},
-				        { "name": "其中：国家大学生创新性实验计划项目", "group": "2.本科生课外科技、文化活动项目（个）", "value": "", "field": "nationActItem", "editor": "numberbox" },
-				        { "name": "其中：省部级项目", "group": "2.本科生课外科技、文化活动项目（个）", "value": "", "field": "proviActItem", "editor": "numberbox" },
-				        { "name": "其中：学校项目", "group": "2.本科生课外科技、文化活动项目（个）", "value": "", "field": "schActItem", "editor": "numberbox"}
+				        { "name": "1 学校地址", "group": "联系方式", "value": "",  "field": "schAddress","editor": "text" },
+				        { "name": "2 学校办公电话号码", "group": "联系方式", "value": "", "field": "schTel", "editor": "text"},
+				        { "name": "3 学校办公传真号码", "value": "", "group": "联系方式", "field": "schFax", "editor": "text"},
+				        { "name": "4.1 学校填报负责人姓名", "value": "", "group": "联系方式", "field": "schFillerName", "editor": "text"},
+				        { "name": "4.2 学校填报负责人联系电话", "group": "联系方式", "value": "", "field": "schFillerTel", "editor": "text" },
+				        { "name": "4.3 学校填报负责人联系电子邮箱", "group": "联系方式", "value": "", "field": "schFillerEmail", "editor": "text" },
+				        { "name": "5 学校名称", "group": "学校概况", "value": "", "field": "schName", "editor": "text" },
+				        { "name": "6 代码", "group": "学校概况", "value": "", "field": "schID", "editor": "text" },
+				        { "name": "7 英文名称", "group": "学校概况", "value": "", "field": "schEnName", "editor": "text" },
+				        { "name": "8 办学类型", "group": "学校概况", "value": "", "field": "schType", "editor": "text" },
+				        { "name": "9 学校性质", "group": "学校概况", "value": "", "field": "schQuality", "editor": "text" },
+				        { "name": "10 举办者", "group": "学校概况", "value": "", "field": "schBuilder", "editor": "text" },
+				        { "name": "11 主管部门", "group": "学校概况", "value": "", "field": "majDept", "editor": "text" },
+				        { "name": "12 学校网址", "group": "学校概况", "value": "", "field": "schUrl", "editor": "text" },
+				        { "name": "13 招生批次", "group": "学校概况", "value": "", "field": "admissonBatch", "editor": "text" },
+				        { "name": "14 办学本科教育年份", "group": "学校概况", "value": "", "field": "sch_BeginTime", "editor": {
+				        	"type":"numberbox",
+				        	"options":{
+				            	"min":0,
+				            	"precision":0
+				            }		
+				        } },
+				        { "name": "15 多媒体反映", "group": "学校概况", "value": "", "field": "mediaUrl", "editor": "text" },
+				        { "name": "16.1  校区名称（瑶湖校区）", "group": "学校地址", "value": "", "field": "yaohuSchAdd", "editor": "text" },
+				        { "name": "16.2  校区名称（彭桥校区）", "group": "学校地址", "value": "", "field": "pengHuSchAdd", "editor": "text" }
 				    ];
 				    							
 				$('#edit').propertygrid({
@@ -38,6 +56,7 @@
 			                    }														
 							},
 			                error: function(XMLResponse) {
+//								alert(XMLResponse.responseText);
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
 				                    while(i<rows.length){
@@ -138,11 +157,11 @@
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表5-4课外活动、讲座（团委）');
+			        var tableName = encodeURI('表1-1学校基本信息（党院办）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),
-					    url : "pages/T54/dataExport?excelName="+tableName+'&selectYear='+year,
+					    url : "pages/T11/dataExport?excelName="+tableName+'&selectYear='+year,
 					    onSubmit : function() {
 					    	return $(this).form('validate');//对数据进行格式化
 					    },

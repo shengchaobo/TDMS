@@ -7,16 +7,16 @@ public class A15POJO {
 	private int SeqNumber;
 	/**国家级科研机构*/
 	private int NationResNum;
-	private double NationResRatio;
+	private String NationResRatio;
 	/**省部级科研机构*/
 	private int ProviResNum;
-	private double ProviResRatio;
+	private String ProviResRatio;
 	/**市级科研机构*/
 	private int CityResNum;
-	private double CityResRatio;
+	private String CityResRatio;
 	/**校级科研机构*/
     private int SchResNum;
-    private double SchResRatio;
+    private String SchResRatio;
     
     
     /**总计*/
@@ -36,10 +36,10 @@ public class A15POJO {
 	public void setNationResNum(int nationResNum) {
 		NationResNum = nationResNum;
 	}
-	public double getNationResRatio() {
+	public String getNationResRatio() {
 		return NationResRatio;
 	}
-	public void setNationResRatio(double nationResRatio) {
+	public void setNationResRatio(String nationResRatio) {
 		NationResRatio = nationResRatio;
 	}
 	public int getProviResNum() {
@@ -48,10 +48,10 @@ public class A15POJO {
 	public void setProviResNum(int proviResNum) {
 		ProviResNum = proviResNum;
 	}
-	public double getProviResRatio() {
+	public String getProviResRatio() {
 		return ProviResRatio;
 	}
-	public void setProviResRatio(double proviResRatio) {
+	public void setProviResRatio(String proviResRatio) {
 		ProviResRatio = proviResRatio;
 	}
 	public int getCityResNum() {
@@ -60,10 +60,10 @@ public class A15POJO {
 	public void setCityResNum(int cityResNum) {
 		CityResNum = cityResNum;
 	}
-	public double getCityResRatio() {
+	public String getCityResRatio() {
 		return CityResRatio;
 	}
-	public void setCityResRatio(double cityResRatio) {
+	public void setCityResRatio(String cityResRatio) {
 		CityResRatio = cityResRatio;
 	}
 	public int getSchResNum() {
@@ -72,10 +72,10 @@ public class A15POJO {
 	public void setSchResNum(int schResNum) {
 		SchResNum = schResNum;
 	}
-	public double getSchResRatio() {
+	public String getSchResRatio() {
 		return SchResRatio;
 	}
-	public void setSchResRatio(double schResRatio) {
+	public void setSchResRatio(String schResRatio) {
 		SchResRatio = schResRatio;
 	}
 	public Date getTime() {

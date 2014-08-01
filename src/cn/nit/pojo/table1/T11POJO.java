@@ -20,7 +20,7 @@ public class T11POJO {
 	private String MajDept;//主管部门
 	private String SchUrl;//学校网址
 	private String AdmissonBatch;//招生批次
-	private Date Sch_BeginTime;//开办本科年份
+	private String Sch_BeginTime;//开办本科年份
 	private String MediaUrl;//多媒体链接
 	private String YaohuSchAdd;//校区名称
 	private String PengHuSchAdd;//校区名称
@@ -124,10 +124,10 @@ public class T11POJO {
 	public void setAdmissonBatch(String admissonBatch) {
 		AdmissonBatch = admissonBatch;
 	}
-	public Date getSch_BeginTime() {
+	public String getSch_BeginTime() {
 		return Sch_BeginTime;
 	}
-	public void setSch_BeginTime(Date schBeginTime) {
+	public void setSch_BeginTime(String schBeginTime) {
 		Sch_BeginTime = schBeginTime;
 	}
 	public String getMediaUrl() {

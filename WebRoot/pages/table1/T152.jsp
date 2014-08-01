@@ -194,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>专业科研用房面积（平方米）：</label> 
 						<input id="HouseArea" type="text" name="t152Bean.HouseArea" 
-						class="easyui-numberbox"  data-options="min:0,precision:2" required="true">
+						class="easyui-numberbox"  data-options="min:1,precision:2" required="true">
 						   <span id="HouseAreaSpan"></span>
 					</div>
 				</td>
@@ -328,7 +328,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    //录入数据的表单提交
 
 	    	 $('#resInsForm').form('submit',{
-				    url: 'pages/T152/insert' ,
+				    url: url ,
 				    data: $('#resInsForm').serialize(),
 		            type: "post",
 		            dataType: "json",
@@ -420,7 +420,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(openCondition == null || openCondition.length==0 || openCondition.length > 500){
 				$('#OpenCondition').focus();
 				$('#OpenCondition').select();
-				alert("对本科生开放情况不能为空或长度不超过100");
+				alert("对本科生开放情况不能为空或字数不超过500");
 				//$('#OpenConditionSpan').html("<font style=\"color:red\">对本科生开放情况不能为空或长度不超过100</font>") ;
 				return false ;
 			}

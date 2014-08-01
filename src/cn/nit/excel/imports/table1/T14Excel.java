@@ -264,8 +264,6 @@ public class T14Excel {
 				t14Bean.setLeader(Leader);
 				t14Bean.setTeaID(TeaID);
 				t14Bean.setNote(Note);
-				t14Bean.setTime(time);
-				
 				list.add(t14Bean);
 							
 			}

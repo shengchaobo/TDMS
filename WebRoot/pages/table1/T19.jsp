@@ -240,7 +240,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
-	    	url = url ;
+	    	url = 'pages/T19/insert' ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加新的学校荣誉信息');
 		    $('#rewardForm').form('reset');
 	    }

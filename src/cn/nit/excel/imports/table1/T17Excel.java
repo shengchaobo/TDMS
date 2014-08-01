@@ -103,12 +103,12 @@ public class T17Excel {
 //				if(!Place.equals("境外")||!Place.equals("境内")){
 //					return "第" + count + "行，地点只能为“境内”或“境外”" ;
 //				}
-				String note = cell[4].getContents() ;
-				
-				if(note.length() > 1000){
-					return "第" + count + "行，备注不能超过500个汉字" ;
-				}
-				
+//				String note = cell[4].getContents() ;
+//				
+//				if(note.length() > 1000){
+//					return "第" + count + "行，备注不能超过500个汉字" ;
+//				}
+//				
 				count++ ;
 				
 				Date BuildYear=TimeUtil.changeDateY(BuildYearStr);
@@ -116,7 +116,7 @@ public class T17Excel {
 				t17Bean.setClubName(ClubName);
 				t17Bean.setBuildYear(BuildYear);
 				t17Bean.setPlace(Place);
-				t17Bean.setNote(note);
+//				t17Bean.setNote(note);
 				t17Bean.setTime(TimeUtil.changeDateY(selectYear)) ;
 				list.add(t17Bean);
 				

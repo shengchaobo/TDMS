@@ -238,7 +238,7 @@ public class T152Excel {
 					if(!DateUtil.isDouble(HouseArea)){
 						return "第" + count + "行，用房面积只能为保留两位的整型数" ;
 					}
-					String  note=cell[11].getContents();
+//					String  note=cell[11].getContents();
 				 
 				
 				
@@ -253,7 +253,7 @@ public class T152Excel {
 				t152Bean.setBiOpen(biOpen);
 				t152Bean.setBuildCondition(buildCondi);
 				t152Bean.setHouseArea(houseArea);
-				t152Bean.setNote(note);
+//				t152Bean.setNote(note);
 				t152Bean.setOpenCondition(OpenCondition);
 				t152Bean.setResInsID(ResInsID);
 				t152Bean.setResInsName(ResInsName);

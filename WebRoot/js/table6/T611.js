@@ -31,6 +31,9 @@
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
+				    			if(typeof(json.data)!="undefined"){
+				    				alert(json.data);
+				    			}
 			                    var i = 0;
 			                    while(i < rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
@@ -66,6 +69,9 @@
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
+				    			if(typeof(json.data)!="undefined"){
+				    				alert(json.data);
+				    			}
 			                    var i = 0;
 			                    while(i < rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	

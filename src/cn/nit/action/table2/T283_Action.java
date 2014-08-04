@@ -68,16 +68,24 @@ public class T283_Action {
 		
 		T283_Bean bean = T283_services.getYearInfo(this.getSelectYear()) ;
 		
-		//private JSONObject jsonObj;
-		bean.setTime(null);
-		String json = JsonUtil.beanToJson(bean);
+		String json = null;
+		boolean flag = false;
+		if(bean != null){
+			bean.setTime(null);
+			json = JsonUtil.beanToJson(bean);
+			flag = true;
+		}
+		
 		
 		PrintWriter out = null ;
-
-		if(bean == null){
+		
+		
+		
+		if(flag == false){
+			System.out.print("无该年数据!!!");
 			response.setContentType("text/html;charset=UTF-8") ;
 			out = response.getWriter() ;
-			out.println( "<script language='javascript'>window.alert('无该年数据');</script>" ); 
+			out.print("{\"data\":\"无该年数据!!!\"}"); 
 		}else{
 			try {				
 				System.out.println(json) ;

@@ -113,6 +113,9 @@
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
+				    			if(typeof(json.data)!="undefined"){
+				    				alert(json.data);
+				    			}
 			                    var i = 0;
 			                    while(i<rows.length){
 			                    	if((i==1)|| (i==4)) {
@@ -156,6 +159,9 @@
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
+				    			if(typeof(json.data)!="undefined"){
+				    				alert(json.data);
+				    			}
 			                    var i = 0;
 			                    while(i<rows.length){			                    	
 			                    	if((i==1)|| (i==4)) {

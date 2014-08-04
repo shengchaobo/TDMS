@@ -96,6 +96,8 @@
     <include file="cn/nit/configuration/table1/T19.xml"/>
     
      <!-- table2 -->
+     <include file="cn/nit/configuration/table2/S22.xml"/>
+     <include file="cn/nit/configuration/table2/S28.xml"/>
      <include file="cn/nit/configuration/table2/T21.xml"/>
      <include file="cn/nit/configuration/table2/T22.xml"/>
      <include file="cn/nit/configuration/table2/T231.xml"/>
@@ -208,15 +210,5 @@
     
     <!-- 文件上传下载 -->
     <include file = "cn/nit/configuration/FileUploadDownload.xml"/>
-
-    <package name="default" namespace="/" extends="struts-default">
-        <default-action-ref name="index" />
-        <action name="index">
-            <result type="redirectAction">
-                <param name="actionName">HelloWorld</param>
-                <param name="namespace">/example1</param>
-            </result>
-        </action>
-    </package>
 
 </struts>

@@ -237,6 +237,47 @@ public class T251_Dao {
 	}
 	
 	
+	/**
+	 * 获得总面积
+	 * @param 
+	 * @return
+	 */
+	
+	public double getTrainArea(String year){
+		
+		double total = 0;
+		
+		String queryPageSql = "select sum(Area) " 
+		+ " from " + tableName + " where convert(varchar(4),Time,120)=" + year ;
+		
+		System.out.println(queryPageSql);
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			if(rs == null){
+				return total ;
+			}
+			
+			while(rs.next()){
+				total = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return total ;
+	}
+	
+	
 	public static void main(String args[]){
 		T251_Dao testDao =  new T251_Dao() ;
 		System.out.println(testDao.totalList().size()) ;

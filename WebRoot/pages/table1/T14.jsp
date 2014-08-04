@@ -38,8 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width=10>编号</th>
+				<!--  <th data-options="field:'ck',checkbox:true">选取</th>-->
 				<th field="unitName" width=10>行政单位名称</th>
 				<th field="unitID" width=10 >单位号</th>
 				<th field="leader" width=10>单位负责人</th>

@@ -50,6 +50,7 @@ public class T251_Service {
 	}
 	
 	
+	
 	/**
 	 * 删除数据
 	 * @param 
@@ -59,6 +60,17 @@ public class T251_Service {
 	public boolean deleteByIds(String ids){
 		
 		return placeDao.deleteByIds(ids) ;
+	}
+	
+	/**
+	 * 获得面积
+	 * @param 
+	 * @return
+	 */
+	
+	public double getTrainArea(String year){
+		
+		return placeDao.getTrainArea(year) ;
 	}
 
 }

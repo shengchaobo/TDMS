@@ -25,6 +25,9 @@
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
+				    			if(typeof(json.data)!="undefined"){
+				    				alert(json.data);
+				    			}
 			                    var i = 0;
 			                    while(i<2){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
@@ -59,6 +62,9 @@
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
+				    			if(typeof(json.data)!="undefined"){
+				    				alert(json.data);
+				    			}
 			                    var i = 0;
 			                    while(i<2){
 			                    	rows[i].value = eval('json.'+rows[i].field);	

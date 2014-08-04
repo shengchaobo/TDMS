@@ -26,6 +26,7 @@ public class T241_Bean implements java.io.Serializable {
 	private Integer digBookSize;
 	private Integer digJonalType;
 	private Integer databaseNum;
+	private Integer otherDatabase;
 	private Date time;
 	private String note;
 
@@ -138,6 +139,14 @@ public class T241_Bean implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public Integer getOtherDatabase() {
+		return otherDatabase;
+	}
+
+	public void setOtherDatabase(Integer otherDatabase) {
+		this.otherDatabase = otherDatabase;
 	}
 
 }

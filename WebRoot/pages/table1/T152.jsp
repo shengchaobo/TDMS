@@ -420,7 +420,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(openCondition == null || openCondition.length==0 || openCondition.length > 500){
 				$('#OpenCondition').focus();
 				$('#OpenCondition').select();
-				alert("对本科生开放情况不能为空或长度不超过100");
+				alert("对本科生开放情况不能为空或字数不超过500");
 				//$('#OpenConditionSpan').html("<font style=\"color:red\">对本科生开放情况不能为空或长度不超过100</font>") ;
 				return false ;
 			}

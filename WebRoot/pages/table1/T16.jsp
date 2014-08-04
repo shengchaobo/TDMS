@@ -65,13 +65,14 @@
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript"
 			src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+			<script type="text/javascript" src="js/commom.js"></script>
 	</head>
 	<body style="overflow-y: scroll">
 		<table class="easyui-datagrid" toolbar="#toolbar" title="办学指导思想"></table>
 		
 		<hr color="blue" width="100%" />
 		<table id="showInfo" class="doc-table"
-			url="pages/T16/auditingData">
+			url="pages/T16/loadInfo?selectYear="+selectYear>
 			<tbody>
 <tr>
 		    <td style="background-color: white" align="center">项目</td>
@@ -173,12 +174,10 @@
 	    <div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 				</div>
-			<form  id="exportForm"  method="post"  style="float: right;height: 24px;">
-				<select class="easyui-combobox" id="cbYearContrast" name="selectYear" editable="false" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"></select>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
-	  		</form>
-			<!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
-		 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a> -->
+			 <form  id="exportForm"  style="float: right;"  method="post" >
+			显示： <select class="easyui-combobox" id="cbYearContrast" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false ></select>
+	 	</form>
+
 	
 	</div>
 		
@@ -200,14 +199,23 @@
 						</select>
 						 <span id="ItemSpan"></span>
 			</td>
+			<!-- 
+			<td class="empty"></td>
+			<td>
+			<label>选择年份：</label> 	
+			<select class="easyui-combobox" id="cbYearContrast" name="t16Bean.Time" editable="false" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;">
+			</select>
+			</td>
+			 -->
+			</tr>
 			<tr>
-				<td style="valign:left"><label>内容：</label>
+				<td style="valign:left" colspan="3"><label>内容：</label>
 					<textarea id="Contents" name="t16Bean.Contents" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="ContentsSpan"></span>
 				</td>
 				</tr>
 				<tr>
-				<td style="valign:left"><label>备注：</label>
+				<td style="valign:left" colspan="3"><label>备注：</label>
 					<textarea id="Note" name="t16Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
@@ -235,6 +243,7 @@
 
 	<script type="text/javascript">
 	var data;
+	var selectYear = $("#cbYearContrast").combobox('getValue'); 
 
 	$(document).ready(function() {
 

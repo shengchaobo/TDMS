@@ -194,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>专业科研用房面积（平方米）：</label> 
 						<input id="HouseArea" type="text" name="t151Bean.HouseArea" 
-						class="easyui-numberbox"  data-options="min:0,precision:2" required="true">
+						class="easyui-numberbox"  data-options="min:1,precision:2" required="true">
 						   <span id="HouseAreaSpan"></span>
 					</div>
 				</td>

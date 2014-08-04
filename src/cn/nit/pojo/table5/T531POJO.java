@@ -10,9 +10,12 @@ public class T531POJO {
 	private String ItemLevel;
 	private Date buildTime;
 	private String TeaUnit;
+	private String TeaUnitID;
+	
 	private int JoinStuNum;
 	private String Note;
 	private Date Time;
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}
@@ -48,6 +51,12 @@ public class T531POJO {
 	}
 	public void setTeaUnit(String teaUnit) {
 		TeaUnit = teaUnit;
+	}
+	public String getTeaUnitID() {
+		return TeaUnitID;
+	}
+	public void setTeaUnitID(String teaUnitID) {
+		TeaUnitID = teaUnitID;
 	}
 	public int getJoinStuNum() {
 		return JoinStuNum;

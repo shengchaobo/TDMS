@@ -1,4 +1,4 @@
-package cn.nit.util;
+﻿package cn.nit.util;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
@@ -68,6 +68,7 @@ public class ToBeanUtil {
 					else if(mapVal[1].length() == 10){
 						wrapper.setPropertyValue(mapVal[0], TimeUtil.changeDateYMD(mapVal[1])) ;	
 					}								
+
 				}else if(type.endsWith("long")||type.endsWith("Long")){
 					if(mapVal.length==1){
 						wrapper.setPropertyValue(mapVal[0], 0) ;

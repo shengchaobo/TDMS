@@ -59,8 +59,7 @@ public class T311Excel {
 		boolean flag = false ;
 		List<T311_Bean> list = new LinkedList<T311_Bean>() ;
 		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
-		DiDepartmentService diDepartSer = new DiDepartmentService() ;
-		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
+
 		
 	
 		
@@ -108,32 +107,16 @@ public class T311Excel {
 					String UnitID=cell[5].getContents();
 					
 					if(UnitName == null || UnitName.equals("")){
-						return "第" + count + "行，我方不能为空";
+						return "第" + count + "行，所属不能为空";
 					}
 					
 					if(UnitID == null || UnitID.equals("")){
-						return "第" + count + "行，我方单位号不能为空";
+						return "第" + count + "行，单位号不能为空";
 					}
 					
-					if(UnitID.length()>50){
-						return "第" + count + "行，我方单位号长度不能超过50";
-					}
-					for(DiDepartmentBean diDepartBean : diDepartBeanList){
-						if(diDepartBean.getUnitId().equals(UnitID)){
-							if(diDepartBean.getUnitName().equals(UnitName)){
-								flag = true ;
-								break ;
-							}else{
-								return "第" + count + "行，我方单位与单位编号不对应" ;
-							}
-						}//if
-					}//for
+
 					
-					String  Note=cell[7].getContents();
-					if(Note.length()>1000){
-						return "第" + count + "行，备注的长度不能超过500个字符！" ;
-					}
-					
+
 				
 				count++ ;
 				
@@ -143,7 +126,6 @@ public class T311Excel {
 				t311_Bean.setResearcherNum(ResearcherNum);
 				t311_Bean.setUnitName(UnitName);
 				t311_Bean.setUnitID(UnitID);
-				t311_Bean.setNote(Note);
 				//t311_Bean.setTime(time);
 				t311_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t311_Bean);

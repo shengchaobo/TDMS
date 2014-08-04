@@ -164,7 +164,6 @@ public class T12Excel {
 				t12Bean.setLeader(Leader);
 				t12Bean.setTeaID(TeaID);
 				t12Bean.setNote(Note);
-				t12Bean.setTime(time);
 				
 				list.add(t12Bean);
 							

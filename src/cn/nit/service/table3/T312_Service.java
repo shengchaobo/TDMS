@@ -55,6 +55,12 @@ public class T312_Service {
 		return json.toString() ;
 	}
 	
+	public int getStaNameNum(String year,String staType){		
+		return docAndGraStaDao.getStaNameNum(year,staType) ;
+	}
+
+	
+	
 	
 
 

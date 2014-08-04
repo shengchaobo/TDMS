@@ -80,9 +80,7 @@ private T311_Service postDocStaSer = new T311_Service() ;
 		//这还没确定,设置填报者的职工号与部门号
 		//UserInfo userinfo = (UserInfo)getSession().getAttribute("userinfo") ;
 		//undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
-		System.out.println("多个哦");
-		System.out.println(postDocStaBean.getUnitName());
-		System.out.println(postDocStaBean.getUnitID());
+
 		boolean flag = postDocStaSer.insert(postDocStaBean) ;
 		PrintWriter out = null ;
 		

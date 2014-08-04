@@ -80,9 +80,9 @@
 		// 获取文本框的值\
 		var name = $('#Name').val();
 		var type = $('#Type').combobox('getText');
-		var itemLevel = $('#ItemLevel').val();
+		var itemLevel = $('#ItemLevel').combobox('getText');
 		var buildTime = $('#buildTime').datebox('getValue');
-		var teaUnit = $('#TeaUnit').val();
+		var teaUnit = $('#TeaUnit').combobox('getText');
 		var joinStuNum = $('#JoinStuNum').val();
 		var note = $('#Note').val();
 	

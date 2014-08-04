@@ -6,9 +6,9 @@
 	<package name="T11" namespace="/pages/T11" extends="struts-default">
 		<!-- 添加获奖 -->
 	    <action name="insert" class="cn.nit.action.table1.T11Action" method="insert" />
-	    <action name="auditingData" class="cn.nit.action.table1.T11Action" method="auditingData" />
+	    <action name="loadInfo" class="cn.nit.action.table1.T11Action" method="loadInfo" />
 	     <!-- 编辑数据 -->
-	    <action name="edit" class="cn.nit.action.table1.T11Action" method="edit" />
+	    <action name="save" class="cn.nit.action.table1.T11Action" method="save" />
 	     <!-- 删除数据 -->
 	    <action name="deleteByIds" class="cn.nit.action.table1.T11Action" method="deleteCoursesByIds" />
 	     <!-- 数据查询 -->

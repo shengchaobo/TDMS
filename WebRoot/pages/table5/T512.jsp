@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'pubCSType',align:'center'">
 				公选课类别
 				</th>
-				<th data-options="field:'isDoubleCS',align:'center'">
+				<th data-options="field:'isDoubleCS',align:'center'" formatter="formatBoolean">
 			          是否双语授课
 				</th>
 				<th data-options="field:'credit',align:'center'">
@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'CSTea',align:'center'">
 			        任课教师
 				</th>
-				<th data-options="field:'isAccordJob',align:'center'">
+				<th data-options="field:'isAccordJob',align:'center'" formatter="formatBoolean">
 			         是否符合岗位资格
 				</th>
 				<th data-options="field:'teaTitle',align:'center'">
@@ -134,10 +134,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'bookUseInfo',align:'center'">
 				使用情况
 				</th>
-				<th data-options="field:'isPlanbook',align:'center'">
+				<th data-options="field:'isPlanbook',align:'center'" formatter="formatBoolean">
 			         是否规划教材
 				</th>
-				<th data-options="field:'isAwardbook',align:'center'">
+				<th data-options="field:'isAwardbook',align:'center'" formatter="formatBoolean">
 				是否获奖教材
 				</th>
 			</tr>			

@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<thead>
 			<tr>
 				<th field="PostDocStaName" >博士后流动站名称</th>
-				<th field="SetTime" >设置时间</th>
+				<th field="SetTime"  formatter="formattime">设置时间</th>
 				<th field="ResearcherNum">研究员人数</th>
 				<th field="UnitName">所属单位</th>
 				<th field="UnitID">单位号</th>
@@ -146,16 +146,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>所属单位：</label> 
-						<input type="hidden" name="postDocStaBean.UnitName" id="UnitName"/>
-						<input id="UnitID" type="text" name="postDocStaBean.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',multiple:true,listHeight:'auto',editable:false,
-							 onSelect:function(){
-							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
-							 }">
-						<span id="UnitNameSpan"></span>
+						<input id="UnitName" type="text" name="postDocStaBean.UnitName"
+							class="easyui-validatebox" ><span id="UnitNameSpan"></span>
+					</div>
+				</td>				
+			</tr>
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>单位号：</label> 
+						<input id="UnitID" type="text" name="postDocStaBean.UnitID"
+							class="easyui-validatebox" ><span id="UnitIDSpan"></span>
 					</div>
 				</td>
-				
 			</tr>
 
 
@@ -290,19 +293,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var PostDocStaName = $('#PostDocStaName').val() ;
 			var SetTime = $('#SetTime').datebox('getValue') ;
 			var ResearcherNum = $('#ResearcherNum').val() ;
-			var UnitName = $('#UnitID').combobox('getText') ;
+			var UnitName = $('#UnitName').val() ;
+			var UnitID = $('#UnitID').val() ;
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
 			if(PostDocStaName == null || PostDocStaName.length==0 || PostDocStaName.length > 100){
 				$.messager.alert('提示',"博士后流动站名称不能为空或长度不超过100") ;
 				return false;
 			}
-			
-			if(UnitName == null || UnitName.length == 0){
-				$.messager.alert('提示',"所属单位不能为空") ;
-				return false;
-			}
-			
 			if(ResearcherNum == null || ResearcherNum.length == 0){
 				$.messager.alert('提示',"研究员人数不能为空") ;
 				return false;	
@@ -313,6 +311,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			if(SetTime == null || SetTime.length == 0){
 				$.messager.alert('提示',"设置时间不能为空") ;
+				return false;
+			}
+			
+			if(UnitName == null || UnitName.length == 0){
+				$.messager.alert('提示',"所属单位不能为空") ;
+				return false;
+			}
+			
+			if(UnitID == null || UnitID.length == 0){
+				$.messager.alert('提示',"单位号不能为空") ;
 				return false;
 			}
 		
@@ -412,18 +420,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('.title1').hide();
 	    	$('#item1').hide();
 	    	$('hr').hide();
-	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改博士后流动站');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	        $('#PostDocStaName').val(row[0].postDocStaName);
-	      
 	    	$('#SetTime').datebox('setValue',formattime(row[0].setTime)) ;
-	    
 	    	$('#ResearcherNum').val(row[0].researcherNum) ;
-	   
-	    	$('#UnitID').combobox('getValues') ;
-
-	    
+	        $('#UnitName').val(row[0].unitName) ;
+	    	$('#UnitID').val(row[0].unitID) ;
 			$('#Note').val(row[0].note);
 		
 	    }

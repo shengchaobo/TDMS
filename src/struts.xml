@@ -137,6 +137,7 @@
     <include file="cn/nit/configuration/table3/S31.xml"/>   
     <include file="cn/nit/configuration/table3/A321.xml"/>       
     <include file="cn/nit/configuration/table3/S322.xml"/>
+    <include file="cn/nit/configuration/table3/S321.xml"/>
 
     <!-- table5本科课程库 -->
          <include file="cn/nit/configuration/table5/T521.xml"/>
@@ -151,6 +152,15 @@
     <include file="cn/nit/configuration/table5/T551.xml"/>
     <include file="cn/nit/configuration/table5/T511.xml"/>
     <include file="cn/nit/configuration/table5/T512.xml"/>
+    <include file="cn/nit/configuration/table5/S512.xml"/>
+    <include file="cn/nit/configuration/table5/S52.xml"/>
+    <include file="cn/nit/configuration/table5/S534.xml"/>
+    <include file="cn/nit/configuration/table5/S5301.xml"/>
+    <include file="cn/nit/configuration/table5/S5302.xml"/>
+    <include file="cn/nit/configuration/table5/S5101.xml"/>
+    <include file="cn/nit/configuration/table5/S5102.xml"/>
+	   <include file="cn/nit/configuration/table5/S532.xml"/>
+	   <include file="cn/nit/configuration/table5/S533.xml"/>
 
     <!-- table6 近一届本科生分专业招生录取情况 -->
     <include file="cn/nit/configuration/table6/T611.xml"/>
@@ -182,6 +192,7 @@
     
     <!-- table7 -->
     <include file="cn/nit/configuration/table7/S71.xml"/>
+    <include file="cn/nit/configuration/table7/S72.xml"/>
     <include file="cn/nit/configuration/table7/T711.xml"/>
     <include file="cn/nit/configuration/table7/T712.xml"/>
     <include file="cn/nit/configuration/table7/T721.xml"/>

@@ -234,6 +234,38 @@ public class T33_DAO {
 	}
 	
 	
+	public int getMajorNum(String year){
+		
+		int count = 0;
+		StringBuffer sql=new StringBuffer();
+		sql.append("SELECT COUNT(DISTINCT MajorName)");
+        sql.append(" from "+tableName+" where Time like '"+year+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			if(rs == null){
+				return count ;
+			}
+			
+			while(rs.next()){
+				count = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0;
+		}
+		
+		return count ;
+		
+		
+	}
+	
+	
 
 	
 	public static void main(String args[]){

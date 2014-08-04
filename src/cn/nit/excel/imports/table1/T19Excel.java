@@ -90,10 +90,13 @@ public class T19Excel {
 				    
 					String RewardLevel = cell[2].getContents() ;
 					
+					
 					if(RewardLevel == null || RewardLevel.equals("")){
 						return "第" + count + "行，级别不能为空" ;
 					}
-					
+					if(RewardLevel.equals("省级")){
+						RewardLevel = "省部级";
+					}
 					for(DiAwardLevelBean diAwardLevelBean:diAwardLevelList) {
 						if(diAwardLevelBean.getAwardLevel().equals(RewardLevel)){
 							RewardLevel=diAwardLevelBean.getIndexId() ;
@@ -119,6 +122,7 @@ public class T19Excel {
 					
 				 
 					String UnitName = cell[4].getContents() ;
+					UnitName = UnitName.trim();
 					String UnitID = cell[5].getContents();
 					
 					if(UnitName == null || UnitName.equals("")){
@@ -157,18 +161,18 @@ public class T19Excel {
 					if(!TimeUtil.judgeFormat3(RewardTime)){
 						return "第" + count + "行，获奖时间格式为：“2013”" ;
 					}
-					String note=cell[7].getContents();
-					
-					if(note.length()>500){
-						return "第" + count + "行，备注字数不能超过500" ;
-					}
+//					String note=cell[7].getContents();
+//					
+//					if(note.length()>500){
+//						return "第" + count + "行，备注字数不能超过500" ;
+//					}
 					
 				Date rewardTime=TimeUtil.changeDateY(RewardTime);
 				count++ ;
 				t19Bean.setRewardName(RewardName);
 				t19Bean.setRewardLevel(RewardLevel);
 				t19Bean.setRewardFromUnit(RewardFromUnit);
-				t19Bean.setNote(note);
+//				t19Bean.setNote(note);
 				t19Bean.setTime(TimeUtil.changeDateY(selectYear));
 				t19Bean.setUnitID(UnitID);
 				t19Bean.setUnitName(UnitName);

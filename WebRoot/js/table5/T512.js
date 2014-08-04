@@ -237,7 +237,7 @@
 	    	$('#CSType').combobox('select', row[0].CSTypeID) ;
 	    	$('#CSNature').combobox('select', row[0].CSNatureID) ;	
 	    	$('#PubCSType').combobox('setText', row[0].pubCSType) ;
-	    	$('#IsDoubleCS').combobox('setText', row[0].isDoubleCS) ;
+	    	$('#IsDoubleCS').combobox('setText', formatBoolean(row[0].isDoubleCS)) ;
 	       	$('#Credit').val(row[0].credit) ;
 	       	$('#SumCSHour').val(row[0].sumCSHour) ;
 	    	$('#TheoryCSHour').val(row[0].theoryCSHour) ;
@@ -250,11 +250,11 @@
 	    	$('#ClassInfo').val(row[0].classInfo);
 	    	$('#StuNum').val(row[0].stuNum);
 	    	$('#CSTea').val(row[0].CSTea);
-	    	$('#IsAccordJob').combobox('setText', row[0].isAccordJob) ;
+	    	$('#IsAccordJob').combobox('setText', formatBoolean(row[0].isAccordJob)) ;
 	    	$('#TeaTitle').combobox('setText', row[0].teaTitle) ;
 	    	$('#BookUseInfo').combobox('setText', row[0].bookUseInfo) ;
-	    	$('#IsPlanbook').combobox('setText', row[0].isPlanbook) ;
-	    	$('#IsAwardbook').combobox('setText', row[0].isAwardbook) ;
+	    	$('#IsPlanbook').combobox('setText', formatBoolean(row[0].isPlanbook)) ;
+	    	$('#IsAwardbook').combobox('setText', formatBoolean(row[0].isAwardbook)) ;
 	    	$('#Note').val(row[0].note);
 	    }
 

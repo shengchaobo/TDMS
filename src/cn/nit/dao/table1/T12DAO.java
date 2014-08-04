@@ -15,7 +15,7 @@ import cn.nit.util.DAOUtil;
 public class T12DAO {
 	
 	/**  数据库表名  */
-	private String tableName = "T12_SchUnit$" ;
+	private String tableName = "DiDepartment" ;
 	
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
@@ -38,13 +38,13 @@ public class T12DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select t.SeqNumber,t.UnitID,t.UnitName,t.Functions,t.Leader,t.TeaID,t.Time,t.Note") ;
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea") ;
-		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
+		sql.append("select UnitID,UnitName,Functions,Leader,TeaID,Note") ;
+		sql.append(" from " + tableName ) ;
+//		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
 		int total = 0 ;
 		
 		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and t.UnitID=" + fillUnitId) ;
+			sql.append(" where UnitID like '"+fillUnitId+"%'") ;
 		}
 		
 		if(conditions != null && !conditions.equals("")){
@@ -64,7 +64,8 @@ public class T12DAO {
 			}
 			
 			while(rs.next()){
-				total = rs.getInt(1) ;
+				total = total+1;
+//				System.out.println(total);
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -83,15 +84,14 @@ public class T12DAO {
 		StringBuffer sql = new StringBuffer() ;
 		List<T12POJO> list = null ;
 		
-		sql.append("select t.SeqNumber,t.UnitID,t.UnitName,t.Functions,t.Leader,t.TeaID,t.Time,t.Note") ;
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea") ;
-		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
+		sql.append("select UnitID,UnitName,Functions,Leader,TeaID,Note") ;
+		sql.append(" from " + tableName ) ;
 
 		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and t.UnitID=" + fillUnitId) ;
+			sql.append(" where UnitID like '"+fillUnitId+"%'") ;
 		}
 		
-		if(conditions != null){
+		if(conditions != null && !conditions.equals("")){
 			sql.append(conditions) ;
 		}
 		
@@ -146,11 +146,9 @@ public class T12DAO {
 	public List<T12Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.UnitName,t.UnitID,t.Functions, t.Leader,t.TeaID,t.Time,t.Note" );
-		sql.append(" from "+tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea");
-//		sql.append(" where t.Time like '"+Year+"%' ");
-		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
-		sql.append(" and t.UnitID like '10%'");
+		sql.append("select UnitName,UnitID,Functions, Leader,TeaID,Note" );
+		sql.append(" from "+tableName );
+		sql.append(" where UnitID like '10%'");
 //		System.out.println(sql.toString());
 
 		
@@ -263,6 +261,8 @@ public class T12DAO {
     {
     	T12DAO dao=new T12DAO();
     	List<T12Bean> list=dao.totalList();
+//    	int i=dao.totalAuditingData(null, "10");
+//    	List<T12POJO> pojo = dao.auditingData(null, "10", 1, 33);
     	System.out.println(list.size());
     }
 }

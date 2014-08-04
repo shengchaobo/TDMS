@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import cn.nit.bean.table1.T12Bean;
 import cn.nit.bean.table1.T13Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T13POJO;
@@ -13,13 +14,13 @@ import cn.nit.util.DAOUtil;
 public class T13DAO {
 	
 	/**  数据库表名  */
-	private String tableName = "T12_SchUnit$" ;
+	private String tableName = "DiDepartment" ;
 	
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "UnitID,UnitName,Leader,TeaID,Time,Note" ;
+	private String field = "UnitID,UnitName,Leader,TeaID,Note" ;
 	
 	
 	
@@ -116,14 +117,12 @@ public class T13DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T13Bean> totalList(){
+	public List<T12Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.UnitName,t.UnitID, t.Leader,t.TeaID,t.Time,t.Note" );
-		sql.append(" from "+tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea");
-//		sql.append(" where t.Time like '"+Year+"%' ");
-		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
-		sql.append(" and t.UnitID like '20%'");
+		sql.append("select UnitName,UnitID,Functions,Leader,TeaID,Note" );
+		sql.append(" from "+tableName );
+		sql.append(" where UnitID like '20%'");
 //		System.out.println(sql.toString());
 
 		
@@ -131,12 +130,12 @@ public class T13DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T13Bean> list = null ;
+		List<T12Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T13Bean.class) ;
+			list = DAOUtil.getList(rs, T12Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -168,6 +167,12 @@ public class T13DAO {
 	public String getTableName(){
 		return this.tableName ;
 	}
+	
+	public static void  main(String arg[]){
+		T13DAO dao=new T13DAO();
+		List<T12Bean> list=dao.totalList();
+		System.out.println(list.size());
+	} 
 
 
 }

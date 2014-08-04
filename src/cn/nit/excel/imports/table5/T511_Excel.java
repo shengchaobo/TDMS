@@ -34,7 +34,7 @@ public class T511_Excel {
 		}
 		
 		int  count=1;
-		T511_Bean T511_Bean=new T511_Bean();
+	
 		boolean flag=false;
 	    List<T511_Bean> list=new LinkedList<T511_Bean>();
 	
@@ -54,7 +54,7 @@ public class T511_Excel {
 		
 		
 		for(Cell[] cell: cellList){
-			
+			T511_Bean T511_Bean=new T511_Bean();
 			try {
 				
 				if(count<4){
@@ -63,18 +63,22 @@ public class T511_Excel {
 				}
 				
 				String csName = cell[1].getContents() ;
+				System.out.println("csName:"+csName);
 				if(csName == null || csName.equals("")){
 					return "第" + count + "行，课程名称不能为空" ;
 				}
 				String csID = cell[2].getContents() ;
+				System.out.println("csID:"+csID);
 				if((csID == null) || csID.equals("")){
 					return "第" + count + "行，课程编号不能为空" ;
 				}
 				String unit = cell[3].getContents() ;
+				System.out.println("unit:"+unit);
 				if((unit == null) || unit.equals("")){
 					return "第" + count + "行，开课单位不能为空" ;
 				}
 				String unitId = cell[4].getContents() ;
+				System.out.println("unitId:"+unitId);
 				if((unitId == null) || unitId.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
 				}
@@ -95,11 +99,13 @@ public class T511_Excel {
 					flag = false ;
 				}
 				String fromTeaResOffice = cell[5].getContents();
+				System.out.println("fromTeaResOffice:"+fromTeaResOffice);
 				if(fromTeaResOffice == null || fromTeaResOffice.equals("")){
 					return "第" + count + "行，所属教研室不能为空" ;
 				}
 				
 				String teaResOfficeID = cell[6].getContents();
+				System.out.println("teaResOfficeID:"+teaResOfficeID);
 				if(teaResOfficeID == null || teaResOfficeID.equals("")){
 					return "第" + count + "行，教研室号不能为空" ;
 				}
@@ -118,6 +124,7 @@ public class T511_Excel {
 					
 				}
 				String csType = cell[7].getContents() ;
+				System.out.println("csType:"+csType);
 				if((csType == null) || csType.equals("")){
 					return "第" + count + "行，课程类别不能为空" ;
 				}
@@ -137,6 +144,7 @@ public class T511_Excel {
 				}
 				
 				String csNature = cell[8].getContents() ;
+				System.out.println("csNature:"+csNature);
 				if((csNature == null) || csNature.equals("")){
 					return "第" + count + "行，课程性质不能为空" ;
 				}
@@ -156,10 +164,12 @@ public class T511_Excel {
 				}
 				
 				String state = cell[9].getContents() ;
+				System.out.println("state:"+state);
 				if((state == null) || state.equals("")){
 					return "第" + count + "行，状态不能为空" ;
 				}
 				String pubcs = cell[10].getContents() ;
+				System.out.println("pubcs:"+pubcs);
 				if((pubcs == null) || pubcs.equals("")){
 					return "第" + count + "行，公选课类别不能为空" ;
 				}

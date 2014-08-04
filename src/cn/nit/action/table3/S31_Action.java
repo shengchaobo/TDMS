@@ -1,4 +1,4 @@
-﻿package cn.nit.action.table3;
+package cn.nit.action.table3;
 
 
 import java.io.ByteArrayInputStream;
@@ -116,7 +116,7 @@ private S31_Service s31_Service = new S31_Service() ;
 
 		System.out.println(this.getSelectYear());
 		S31_Bean bean = s31_Service.getYearInfo(this.getSelectYear());
-
+		
 	    ByteArrayOutputStream fos = null;
 		
 		if(bean.getDocStation()==0&&bean.getJuniorMajor()==0&&bean.getMasterStation()==0&&bean.getNewMajor()==0&&bean.getPostdocStation()==0&&bean.getSumMajor()==0){
@@ -125,15 +125,6 @@ private S31_Service s31_Service = new S31_Service() ;
 			out = response.getWriter() ;
 			out.print("后台传入的数据为空") ;
 			System.out.println("后台传入的数据为空");
-		try{
-			System.out.println("愁死了");	
-			String year=this.getSelectYear();
-			List<S31POJO> list = s31_DAO.exportData(year);
-			inputStream=new ByteArrayInputStream(s31Excel.exportExcel(list).toByteArray());
-			
-			
-		}catch (Exception e){
-			e.printStackTrace();
 			return null;
 		}else{
 			String sheetName = this.getExcelName();

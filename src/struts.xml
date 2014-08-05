@@ -136,6 +136,7 @@
     <include file="cn/nit/configuration/table3/A321.xml"/>       
     <include file="cn/nit/configuration/table3/S322.xml"/>
     <include file="cn/nit/configuration/table3/S321.xml"/>
+    <include file="cn/nit/configuration/table3/A322.xml"/>
 
     <!-- table5本科课程库 -->
          <include file="cn/nit/configuration/table5/T521.xml"/>

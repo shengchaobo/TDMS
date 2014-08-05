@@ -85,7 +85,7 @@ public class T18DAO {
 
 //		System.out.println(sql.toString());
 		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillDept=" + fillUnitId) ;
+			sql.append(" and t.UnitID=" + fillUnitId) ;
 		}
 		
 		if(conditions != null && !conditions.equals("")){
@@ -135,7 +135,7 @@ public class T18DAO {
 		//
 //		System.out.println(sql.toString());
 		if(fillDept != null && !fillDept.equals("")){
-			sql.append(" and FillDept=" + fillDept) ;
+			sql.append(" and t.UnitID=" + fillDept) ;
 		}
 		
 		if(conditions != null){

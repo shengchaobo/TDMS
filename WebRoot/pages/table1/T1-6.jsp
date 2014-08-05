@@ -6,11 +6,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
 <html>
 <head>
 <base href="<%=basePath%>">
 
-<title>S22</title>
+<title>T11</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -30,15 +31,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript" src="js/table2/S28.js"></script>
+	<script type="text/javascript" src="js/table1/T16.js"></script>
 	<script type="text/javascript"></script>
 </head>
 
 <body style="height: 100%'" >
- <table id="edit" class="easyui-propertygrid"  ></table>
+ <table id="edit" class="easyui-propertygrid" ></table>
  <div id="toolbar" style="height:30px;">
 		<div style="float: left;">	
+			<a href="javascript:void(0)" id="save" class="easyui-linkbutton" iconCls="icon-save" plain="true"  onclick="getSave()">保存</a>
+			<a href="javascript:void(0)" id="cancel" class="easyui-linkbutton" iconCls="icon-cancel" plain="true"  >取消</a>
+			<!--
 			<a href="javascript:void(0)" id="export" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
+		  -->
 		</div>
 	 	 <form  id="exportForm"  style="float: right;"  method="post" >
 			显示： <select class="easyui-combobox" id="cbYearContrast" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false ></select>
@@ -56,3 +61,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	}
 	</script>
 </html>
+

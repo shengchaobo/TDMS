@@ -121,6 +121,7 @@ public class T251_Excel {
 				String buildTime = cell[5].getContents() ;
 				
 				if((buildTime == null) || buildTime.equals("")){
+					T251_bean.setBuildTime(null);
 					return "第" + count + "行，创建时间不能为空" ;
 				}
 				
@@ -133,19 +134,46 @@ public class T251_Excel {
 				String forMajor = cell[12].getContents() ;
 								
 				count++ ;
-				
-				
+								
 				T251_bean = new T251_Bean() ;
 				T251_bean.setExpCenterName(expCenterName);
 				T251_bean.setTeaUnit(unit);
 				T251_bean.setTeaUnitID(unitId);
 				T251_bean.setLabName(labName);
-				T251_bean.setBuildTime(TimeUtil.changeDateYM(buildTime));
+				if((buildTime == null) || buildTime.equals("")){
+					T251_bean.setBuildTime(null);
+				}else{
+					T251_bean.setBuildTime(TimeUtil.changeDateYM(buildTime));
+				}
+				
 				T251_bean.setPlace(place);
-				T251_bean.setMachNum(Integer.parseInt(machNum));
-				T251_bean.setMoney(Double.parseDouble(money));
-				T251_bean.setArea(Double.parseDouble(area));
-				T251_bean.setNewAddArea(Double.parseDouble(newAddArea));
+				
+				if((machNum == null) || machNum.equals("")){
+					T251_bean.setMachNum(0);
+				}else{
+					T251_bean.setMachNum(Integer.parseInt(machNum));
+				}
+
+				if((money == null) || money.equals("")){
+					T251_bean.setMoney(0.0);
+				}else{
+					T251_bean.setMoney(Double.parseDouble(money));
+				}
+				
+				
+				if((area == null) || area.equals("")){
+					T251_bean.setArea(0.0);
+				}else{
+					T251_bean.setArea(Double.parseDouble(area));
+				}
+				
+				
+				if((newAddArea == null) || newAddArea.equals("")){
+					T251_bean.setNewAddArea(0.0);
+				}else{
+					T251_bean.setNewAddArea(Double.parseDouble(newAddArea));
+				}
+				
 				T251_bean.setNature(nature);
 				T251_bean.setForMajor(forMajor);
 				//插入时间

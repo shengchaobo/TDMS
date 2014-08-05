@@ -1,32 +1,36 @@
-	$(function(){  
-				var selectYear = $("#cbYearContrast").combobox('getValue'); 
+$(function(){  
+				var selectYear = $("#cbYearContrast").combobox('getValue');
 				var rows = [
-				        { "name": "1.大学生职业资质培训数（人次）", "group": "", "value": "",  "field": "stuProfTrainNum","editor": "numberbox" }
-				    ];
+					        { "name": "1.校训", "group": "办学指导思想", "value": "",  "field": "contents1","editor": "text"},
+					        { "name": "2.定位与发展目标",  "group": "办学指导思想", "value": "", "field": "contents2","editor": "textarea",
+					        	"rowheight":"300px"
+					        }     
+	                   ];
+
 				    							
 				$('#edit').propertygrid({
-						title : '职业资质培训',
+						title : '学校办学指导思想',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 				        width: '60%',
-				        height: 'auto',
+				        height: '400px',
 				        showGroup: true,
 				        scrollbarSize: 0,
 				        columns: [[
-				                { field: 'name', title: '项目', width: 100, resizable: true },
-				                { field: 'value', title: '内容', width: 100, resizable: false }
+				                   { field: 'name', title: '项目', width: 100, resizable: true },
+					               { field: 'value', title: '内容', width: 100, resizable: false }
 				        ]]
 				 });
 				 				 
 				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T2103/loadInfo?selectYear='+selectYear,
+							url: 'pages/T16/loadInfo?selectYear='+selectYear,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
-				    			if(typeof(json.data)!="undefined"){
-				    				alert(json.data);
-				    			}
+					  			if(typeof(json.data)!="undefined"){
+					  				alert(json.data);
+					  			}
 			                    var i = 0;
 			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
@@ -43,7 +47,8 @@
 			                }
 		    		})
 
-				$('#edit').propertygrid('loadData', rows);
+					$('#edit').propertygrid('loadData', rows);
+			   	
 			   	
    				//刷新页面
 				 $("#cbYearContrast").combobox({  
@@ -57,13 +62,13 @@
        				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
-							url: 'pages/T2103/loadInfo?selectYear='+year,
+							url: 'pages/T16/loadInfo?selectYear='+year,
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
-				    			if(typeof(json.data)!="undefined"){
-				    				alert(json.data);
-				    			}
+					  			if(typeof(json.data)!="undefined"){
+					  				alert(json.data);
+					  			}
 			                    var i = 0;
 			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
@@ -91,8 +96,8 @@
 					var flag = true;
 					var row = $('#edit').propertygrid('getChanges');
 					for(var i=0; i<row.length-1; i++){
-						s += row[i].field + '%' + row[i].value + ',';
-						f += row[i].field+ ',';
+						s += row[i].field + '%' + row[i].value + 'a';
+						f += row[i].field+ 'a';
 					}
 					s += row[i].field + '%' + row[i].value;
 					f += row[i].field;
@@ -106,7 +111,7 @@
      				$.ajax( {
 					    		type : "POST",
 					    		contentType: "application/json;utf-8",
-								url: 'pages/T2103/save?data='+data+'&selectYear='+year+'&fields='+f,
+								url: 'pages/T16/save?data='+data+'&selectYear='+year+'&fields='+f,
 					    		async : false,
 					    		dataType : "json",
 					    		success : function(json) {
@@ -125,7 +130,9 @@
 			    		})		    		
 						reloadgrid (year,flag) 	;
      					$('#edit').propertygrid('loadData', rows);						 					 
-				});		
+				});	
+			   
+			 
 							   
 			   //取消
 			   $("#cancel").click(function(){
@@ -136,11 +143,11 @@
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表2-10-3职业资质培训（职教处）');
+			        var tableName = encodeURI('表1-6办学指导思想（党院办）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),
-					    url : "pages/T2103/dataExport?excelName="+tableName+'&selectYear='+year,
+				    	   url : "pages/T16/dataExport?excelName="+tableName+'&selectYear='+year,
 					    onSubmit : function() {
 					    	return $(this).form('validate');//对数据进行格式化
 					    },
@@ -153,3 +160,16 @@
 				    }); 
 				});							    	
 		}); 
+
+
+			function douToStr(val){
+				     var str;
+				     if(val ==  null){
+					     str=null;
+				     }else{
+					     val=val*100;
+				    	 var bol=""+val;//把double型转换成sre类型
+					     str = bol+"%";
+				     }
+				     return str;
+			  }

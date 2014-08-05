@@ -68,16 +68,24 @@ public class T241_Action {
 		
 		T241_Bean bean = T241_services.getYearInfo(this.getSelectYear()) ;
 		
-		//private JSONObject jsonObj;
-		bean.setTime(null);
-		String json = JsonUtil.beanToJson(bean);
+		String json = null;
+		boolean flag = false;
+		if(bean != null){
+			bean.setTime(null);
+			json = JsonUtil.beanToJson(bean);
+			flag = true;
+		}
+		
 		
 		PrintWriter out = null ;
-
-		if(bean == null){
+		
+		
+		
+		if(flag == false){
+			System.out.print("无该年数据!!!");
 			response.setContentType("text/html;charset=UTF-8") ;
 			out = response.getWriter() ;
-			out.println( "<script language='javascript'>window.alert('无该年数据');</script>" ); 
+			out.print("{\"data\":\"无该年数据!!!\"}"); 
 		}else{
 			try {				
 				System.out.println(json) ;
@@ -189,8 +197,10 @@ public class T241_Action {
 		           ws.addCell(new Label(1, 8, "电子图书总量（GB）", wcf)); 
 		           ws.addCell(new Label(0, 9, "4.电子期刊", wcf)); 
 		           ws.addCell(new Label(1, 9, "期刊种类（种）", wcf)); 
-		           ws.addCell(new Label(0, 10, "3.电子图书", wcf)); 
-		           ws.addCell(new Label(1, 10, "5.数据库", wcf)); 
+		           ws.addCell(new Label(0, 10, "5.电子期刊数据库", wcf)); 
+		           ws.addCell(new Label(1, 10, "数量（个）", wcf)); 
+		           ws.addCell(new Label(0, 11, "6.其他数据库", wcf)); 
+		           ws.addCell(new Label(1, 11, "数量（个）", wcf)); 
 		           ws.mergeCells(0, 3, 0, 4);
 		           ws.mergeCells(0, 5, 0, 8);
 		           
@@ -202,9 +212,9 @@ public class T241_Action {
 		           ws.addCell(new Label(2, 7, bean.getForDigBookType().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 8, bean.getDigBookSize().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 9, bean.getDigJonalType().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 10, bean.getDatabaseNum().toString(), wcf1)); 
-		             
-
+		           ws.addCell(new Label(2, 10, bean.getDatabaseNum().toString(), wcf1)); 		             
+		           ws.addCell(new Label(2, 11, bean.getOtherDatabase().toString(), wcf1)); 
+		           
 		          wwb.write();
 		          wwb.close();
 

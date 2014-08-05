@@ -13,7 +13,7 @@ import cn.nit.util.TimeUtil;
 public class T241_Dao {
 	
 	private String tableName = "T241_BookNum_Lib$" ;
-	private String field = "PaperBookNum,PaperJonalNum,PaperJonalType,DigBookType,ChiDigBookType,ForDigBookType,DigBookSize,DigJonalType,DatabaseNum,Time,Note";
+	private String field = "PaperBookNum,PaperJonalNum,PaperJonalType,DigBookType,ChiDigBookType,ForDigBookType,DigBookSize,DigJonalType,DatabaseNum,OtherDatabase,Time,Note";
 	private String keyfield = "SeqNumber";
 	
 	/**

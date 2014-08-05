@@ -28,6 +28,11 @@ public class ToBeanUtil {
 		BeanWrapper wrapper = null ;
 		try{	
 			String fields[] = data.split(",");
+			System.out.println(fields.length);
+			for(int i=0;i<fields.length;i++){
+				System.out.print(i+":");
+				System.out.println(fields[i]);
+			}
 			
 			Class clazz = null ;
 			//初始化实体类
@@ -67,7 +72,8 @@ public class ToBeanUtil {
 					}
 					else if(mapVal[1].length() == 10){
 						wrapper.setPropertyValue(mapVal[0], TimeUtil.changeDateYMD(mapVal[1])) ;	
-					}
+					}								
+
 				}else if(type.endsWith("long")||type.endsWith("Long")){
 					if(mapVal.length==1){
 						wrapper.setPropertyValue(mapVal[0], 0) ;

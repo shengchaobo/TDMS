@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T16Bean;
 import cn.nit.dbconnection.DBConnection;
 
-import cn.nit.pojo.table1.T151POJO;
 import cn.nit.pojo.table1.T16POJO;
 import cn.nit.util.DAOUtil;
 
@@ -100,6 +98,48 @@ public class T16DAO {
 		
 		return list ;
 	}
+	
+	/**
+	 * 保存数据
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */
+	public boolean save(T16Bean bean, String year, String fields,String item){
+		
+		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year+" and Item like '"+item+"%'";	
+//		System.out.println("sql:"+sql);
+		boolean flag = false;
+		Connection conn = DBConnection.instance.getConnection() ;
+		
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T16Bean> list = null ;
+		T16Bean tempBean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T16Bean.class) ;
+			if(list.size() != 0){
+				tempBean = list.get(0);
+				bean.setSeqNumber(tempBean.getSeqNumber());	
+				flag = DAOUtil.update(bean, tableName, key, fields, conn) ;
+			}else{
+				flag = DAOUtil.insert(bean, tableName, key, conn) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+				
+		return flag ;
+	}
+
 	/**
 	 * 讲数据批量插入16表中
 	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
@@ -113,75 +153,33 @@ public class T16DAO {
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
 		}catch(Exception e){
-			e.printStackTrace() ;
+			e.printStackTrace();
 			return flag ;
 		}
-		
 		return flag ;
 	}
 	
-//	/**
-//	 * 查询待审核数据在数据库中共有多少条
-//	 * @param conditions 查询条件
-//	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
-//	 * @return
-//	 */
-//	public int totalAuditingData(String Year){
-//		
-//		StringBuffer sql = new StringBuffer() ;
-//		sql.append("select from "+ tableName) ;
-//		sql.append(" where Time like '"+Year+"%'") ;
-////		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-////		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
-//		int total = 0 ;
-//		
-//		Connection conn = DBConnection.instance.getConnection() ;
-//		Statement st = null ;
-//		ResultSet rs = null ;
-//		
-//		try{
-//			st = conn.createStatement() ;
-//			rs = st.executeQuery(sql.toString()) ;
-//			
-//			if(rs == null){
-//				return total ;
-//			}
-//			
-//			while(rs.next()){
-//				total = rs.getInt(1) ;
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			return 0 ;
-//		}
-//		return total ;
-//	}
-	
-	
-//    public List<T16POJO> auditingData(String Year){
-//		
-//		StringBuffer sql = new StringBuffer() ;
-//		List<T16POJO> list = new ArrayList<T16POJO>() ;
-//		sql.append("select * from "+tableName) ;
-//		sql.append(" where Time like '"+Year+"%'") ;
-//		
-//		Connection conn = DBConnection.instance.getConnection() ;
-//		Statement st = null ;
-//		ResultSet rs = null ;
-////		System.out.println(sql.toString());
-//		
-//		try{
-//			st = conn.createStatement() ;
-//			rs = st.executeQuery(sql.toString()) ;
-//			list = DAOUtil.getList(rs, T16POJO.class) ;
-//			
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			return null ;
-//		}
-//		
-//		return list ;
-//	}
+     public int countDate(String year){
+    	 int n= 0;
+    	 StringBuffer sql = new StringBuffer();
+    	 sql.append("select count(*) AS Count from "+tableName+ "");
+    	 sql.append("  where Time like '"+year+"%'");
+    	 
+    		Connection conn = DBConnection.instance.getConnection() ;
+    		Statement st = null ;
+    		ResultSet rs = null ;
+    		try{
+    			st = conn.createStatement();
+    			rs = st.executeQuery(sql.toString());
+    			while(rs.next()){
+    				n = rs.getInt("Count");
+    			}
+    		}catch(Exception e){
+    			e.printStackTrace() ;
+    			return n ;
+    		}
+    	 return n;
+     }
 	/**
 	 * @param conditions 查询条件
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
@@ -276,11 +274,9 @@ public class T16DAO {
 	
 	public static void main(String arg[])
 	{
-//		T16DAO dao=new T16DAO();
-//		List<T16POJO> list=dao.forExcel();
-//		T16POJO t16=list.get(0);
-//		System.out.println(t16.getNote1());
-//		System.out.println(t16.getNote2());
+		T16DAO dao=new T16DAO();
+		int n = dao.countDate("2013");
+		System.out.println(n);
 	}
 
 }

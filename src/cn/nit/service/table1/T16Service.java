@@ -1,10 +1,12 @@
 package cn.nit.service.table1;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
+import cn.nit.bean.table1.T11Bean;
 import cn.nit.bean.table1.T16Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T16DAO;
@@ -31,25 +33,56 @@ public class T16Service {
 	}
 	
 	/**
-	 * 科研处
+	 *取出数据
 	 * */
 	public String auditingData(String Year){
 			
-//	    int total = t16Dao.totalAuditingData(conditions, fillUnitId) ;
-		List<T16POJO> list = t16Dao.auditingData1(Year) ;
-		String str=null;
-		if(list.isEmpty())
-		{
-			return str;
-		}else
-		{
+		String str = null;
+		int n = t16Dao.countDate(Year);
+		if(n>0){
+			List<T16POJO> list = t16Dao.auditingData1(Year);
 			T16POJO t16Pojo=list.get(0);
 			JSON json = JSONSerializer.toJSON(t16Pojo) ;
-				
-			return json.toString() ;
+			str = json.toString() ;
 		}
-			
+		else if(n==0){
+			str = null;
+		}
+		return str;
   }
+	
+	/**编辑保存*/
+	public Boolean save(String data, String year,	String fields){
+		T16Bean bean1 = new T16Bean();
+		T16Bean bean2 = new T16Bean();
+		boolean flag = false;
+		String field[] = data.split("a");
+		for(String s : field){
+			String fieldName = s;
+			String mapVal[] = s.split("%");
+			if(mapVal[0].equals("contents1")){
+				bean1.setContents(mapVal[1]);
+				String Item = "1.校训";
+				String dataF = "Contents";
+//				bean1.setItem("1.校训");
+//				bean1.setTime(TimeUtil.changeDateY(year));
+				flag = t16Dao.save(bean1, year, dataF, Item);
+			}else if(mapVal[0].equals("contents2")){
+				bean2.setContents(mapVal[1]);
+				String Item = "2.定位与发展目标";
+				String dataF = "Contents";
+				flag = t16Dao.save(bean2, year, dataF, Item);
+//				bean2.setItem("2.定位与发展目标");
+//				bean2.setTime(TimeUtil.changeDateY(year));
+			}
+		}
+		return flag;
+	}
+	
+	public List<T16POJO> forExcel(String year){
+		List<T16POJO> list = t16Dao.forExcel(year);
+		return list;
+	}
 	
 	/**
 	 * 更新数据
@@ -105,14 +138,14 @@ public class T16Service {
 		
 		return sql.toString() ;
 	}
+	
+	
   public static void main(String arg[])
   {
-	  Date currentTi=new Date();
-		String str=currentTi.toString();
-		String Year=str.substring(str.length()-4, str.length()) ;
-		T16Service ser=new T16Service();
-		String str1=ser.auditingData(Year);
-		System.out.println(str1);
+	  T16Service ser = new T16Service();
+	  String str= ser.auditingData("2013");
+	  System.out.println(str);
+		
 		
   }
 

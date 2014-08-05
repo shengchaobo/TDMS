@@ -16,7 +16,6 @@ public class T21_Service {
 	public T21_Bean getYearInfo(String selectYear){
 				
 		T21_Bean bean = infoDao.getYearInfo(selectYear);
-		
 		return bean;		
 	}
 	

@@ -8,8 +8,9 @@
 				        { "name": "其中：中文数量（种）", "group": "3.电子图书", "value": "", "field": "chiDigBookType", "editor": "numberbox" },
 				        { "name": "其中：外文数量（种）", "group": "3.电子图书", "editor": "numberbox", "value": "", "field": "forDigBookType" },
 				        { "name": "电子图书总量（GB）", "group": "3.电子图书", "value": "", "field": "digBookSize", "editor": "numberbox" },
-				       	{ "name": "期刊种类（种）", "group": "5.数据库", "editor": "numberbox", "value": "", "field": "digJonalType" },
-				       	{ "name": "数量（个）", "group": "2.总建筑面积(平方米)", "editor": "numberbox", "value": "", "field": "databaseNum" }
+				       	{ "name": "期刊种类（种）", "group": "4.电子期刊", "editor": "numberbox", "value": "", "field": "digJonalType" },
+				       	{ "name": "数量（个）", "group": "5.数据库", "editor": "numberbox", "value": "", "field": "databaseNum" },
+				       	{ "name": "数量（个）", "group": "6.其他数据库", "editor": "numberbox", "value": "", "field": "otherDatabase" }
 				    ];
 				    							
 				$('#edit').propertygrid({
@@ -32,6 +33,9 @@
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
+				    			if(typeof(json.data)!="undefined"){
+				    				alert(json.data);
+				    			}
 			                    var i = 0;
 			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
@@ -67,6 +71,9 @@
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
+				    			if(typeof(json.data)!="undefined"){
+				    				alert(json.data);
+				    			}
 			                    var i = 0;
 			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	

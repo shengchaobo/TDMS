@@ -131,10 +131,11 @@ public class T181Excel {
 					}
 					
 					String UnitName = cell[5].getContents();
+					UnitName = UnitName.trim();
 					String UnitID=cell[6].getContents();
 					
 					if(UnitName == null || UnitName.equals("")){
-						return "第" + count + "行，我方不能为空";
+						return "第" + count + "行，我方单位名称不能为空";
 					}
 					
 					if(UnitID == null || UnitID.equals("")){
@@ -144,21 +145,27 @@ public class T181Excel {
 					if(UnitID.length()>50){
 						return "第" + count + "行，我方单位号长度不能超过50";
 					}
-					for(DiDepartmentBean diDepartBean : diDepartBeanList){
-						if(diDepartBean.getUnitId().equals(UnitID)){
-							if(diDepartBean.getUnitName().equals(UnitName)){
-								flag = true ;
-								break ;
-							}else{
-								return "第" + count + "行，我方单位与单位编号不对应" ;
-							}
-						}//if
-					}//for
-					
-					if(!flag){
-						return "第" + count + "行，没有与之相匹配的单位编号" ;
-					}else{
-						flag = false ;	}
+					if(!UnitName.equals("教务处")){
+						return "第" + count + "行，我方单位应为 “教务处”";
+					}
+					if(!UnitID.equals("1012")){
+						return "第" + count + "行，我方单位号应为 “1012”";
+					}
+//					for(DiDepartmentBean diDepartBean : diDepartBeanList){
+//						if(diDepartBean.getUnitId().equals(UnitID)){
+//							if(diDepartBean.getUnitName().equals(UnitName)){
+//								flag = true ;
+//								break ;
+//							}else{
+//								return "第" + count + "行，我方单位与单位编号不对应" ;
+//							}
+//						}//if
+//					}//for
+//					
+//					if(!flag){
+//						return "第" + count + "行，没有与之相匹配的单位编号" ;
+//					}else{
+//						flag = false ;	}
 						
 					
 					String UnitLevel=cell[7].getContents();

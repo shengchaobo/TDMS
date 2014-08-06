@@ -177,6 +177,9 @@ public class T551Excel {
 					if(GoodClassRatio == null || GoodClassRatio.equals("")){
 						return "第" + count + "行，优良学风班的比例不能为空" ;
 					}
+					if(!this.isRatio(GoodClassRatio)){
+						return "第" + count + "行，优良学风班的比例格式不正确，请填写百分数" ;
+					}
 				
 				count++ ;
 				
@@ -211,6 +214,25 @@ public class T551Excel {
 		}
 		
 	}
+	
+	/**判断字符串是否为百分数*/
+	public boolean isRatio(String str){
+		boolean flag = false;
+		if(str.indexOf("%")!=-1){
+			String s = str.substring(0, str.indexOf("%"));
+			try{
+				double d=Double.parseDouble(s);
+				if(d<=100&&d>=0){
+					flag = true;
+				}
+			}catch(NumberFormatException ex){
+				flag = false;
+			}
+		}
+		return flag;
+		
+	}
+	
 	
 	/**
 	 * 批量导出

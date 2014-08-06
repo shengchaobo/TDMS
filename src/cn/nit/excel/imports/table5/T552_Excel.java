@@ -28,7 +28,7 @@ public class T552_Excel {
 		}
 		
 		int  count=1;
-		T552_Bean T552_Bean=new T552_Bean();
+		
 		boolean flag=false;
 	    List<T552_Bean> list=new LinkedList<T552_Bean>();
 	
@@ -39,7 +39,7 @@ public class T552_Excel {
 		
 		
 		for(Cell[] cell: cellList){
-			
+			T552_Bean T552_Bean=new T552_Bean();
 			try {
 				
 				if(count<4){
@@ -64,6 +64,9 @@ public class T552_Excel {
 				if((ardLevel == null) || ardLevel.equals("")){
 					return "第" + count + "行，级别不能为空" ;
 				}
+				if(ardLevel.equals("省级")){
+					ardLevel = "省部级";
+				}
 				String ardLevelID=null;
 				for(DiAwardLevelBean ardlevelBean : diAwardLeBeanList){
 					if(ardlevelBean.getAwardLevel().equals(ardLevel)){
@@ -77,10 +80,15 @@ public class T552_Excel {
 				}else{
 					flag = false ;
 				}
+				
 				String awardTime = cell[5].getContents();
 				if(awardTime == null || awardTime.equals("")){
 					return "第" + count + "行，获奖时间不能为空" ;
 				}
+				if(!TimeUtil.judgeFormat3(awardTime)){
+					return "第" + count + "行，获奖时间格式不正确，格式为：2014" ;
+				}
+				
 				count++ ;
 
 				String fillUnitID = null;
@@ -90,7 +98,7 @@ public class T552_Excel {
 				T552_Bean.setTeaUnit(teaUnit);
 				T552_Bean.setAwardLevel(ardLevelID);
 				T552_Bean.setFillUnitID(fillUnitID);
-				T552_Bean.setAwardTime(TimeUtil.changeDateYMD(awardTime));
+				T552_Bean.setAwardTime(TimeUtil.changeDateY(awardTime));
 				T552_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				
 				list.add(T552_Bean);
@@ -108,7 +116,7 @@ public class T552_Excel {
 		T552_Service t552_Sr=new T552_Service();
 		flag=t552_Sr.batchInsert(list);
 		if(flag){
-			return null ;
+			return "数据导入成功" ;
 		}else{
 			return "数据存储失败，请联系管理员" ;
 		}

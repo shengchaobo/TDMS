@@ -272,11 +272,12 @@ public class T16DAO {
 		return this.tableName ;
 	}
 	
+
 	public static void main(String arg[])
 	{
 		T16DAO dao=new T16DAO();
-		int n = dao.countDate("2013");
-		System.out.println(n);
+      
+
 	}
 
 }

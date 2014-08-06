@@ -1,4 +1,4 @@
-﻿package cn.nit.service.table3;
+package cn.nit.service.table3;
 
 import java.util.Date;
 import java.util.List;
@@ -68,22 +68,8 @@ public class S31_Service {
 		}else{
 			System.out.println("失败");
 		}
-
 		return s31_Bean;
 
-
-		List<T33_Bean> list4=s31_DAO.getOriData(T33_Bean.class, "T33_JuniorMajInfo_Tea$", Year);
-		num6=list4.size();
-		s31_Bean.setPostdocStation(num1);
-		s31_Bean.setDocStation(num2);
-		s31_Bean.setMasterStation(num3);
-		s31_Bean.setSumMajor(num4);
-		s31_Bean.setNewMajor(num5);
-		s31_Bean.setJuniorMajor(num6);	
-	   	s31_Bean.setTime(new Date());
-	   	s31_DAO.delete(Year);
-	   	s31_DAO.insert(s31_Bean);
-	   	return s31_Bean;
 	}
 	
 	

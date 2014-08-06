@@ -3,7 +3,7 @@
 		
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#showData').datagrid( {
-			title : '教学管理人员成果',  //可变内容在具体页面定义
+			title : '本科优势专业情况统计',  //可变内容在具体页面定义
 			url: 'pages/S321/loadInfo',
 			iconCls : 'icon-ok',
 			width : '100%',

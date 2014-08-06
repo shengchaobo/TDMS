@@ -14,6 +14,7 @@ import sun.security.krb5.internal.UDPClient;
 
 import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table3.S31_Bean;
+import cn.nit.bean.table3.S321_Bean;
 import cn.nit.dbconnection.DBConnection;
 
 

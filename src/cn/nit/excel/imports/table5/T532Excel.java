@@ -83,6 +83,9 @@ public class T532Excel {
 					if(CenterLevel == null || CenterLevel.equals("")){
 						return "第" + count + "行，级别不能为空" ;
 					}
+					if(CenterLevel.equals("省级")){
+						CenterLevel="省部级";
+					}
 					for(DiAwardLevelBean diAwardBean :diAwardList){
 						if(diAwardBean.getAwardLevel().equals(CenterLevel)){
 							CenterLevel = diAwardBean.getIndexId();
@@ -195,7 +198,7 @@ public class T532Excel {
 						return "第" + count + "行，验收时间不能为空" ;
 					}
 					if(!TimeUtil.judgeFormat1(ReceptTime)){
-						return "第" + count + "行，时间格式不对，格式应为：2005/02" ;
+						return "第" + count + "行，时间格式不对，格式应为：2005/02/01" ;
 					}
 					
 					String ReceptAppvlID=cell[12].getContents();
@@ -204,7 +207,7 @@ public class T532Excel {
 						return "第" + count + "行，验收批文号不能为空" ;
 					}
 					
-					String ValidTime=cell[12].getContents();
+					String ValidTime=cell[13].getContents();
 					
 					if(ValidTime == null || ValidTime.equals("")){
 						return "第" + count + "行，有效期（年）不能为空" ;
@@ -213,18 +216,18 @@ public class T532Excel {
 						return "第" + count + "行，有效期（年）只能填数字" ;
 					}
 					
-					String Fund=cell[13].getContents();
+					String Fund=cell[14].getContents();
 					
 					if(Fund == null || Fund.equals("")){
 						return "第" + count + "行，经费(万元)不能为空" ;
 					}
-					if(!this.isNumeric(Fund)){
+					if(!this.isDouble(Fund)){
 						return "第" + count + "行，经费(万元)只能填数字" ;
 					}
 					
-					String Note=cell[14].getContents();
-					
-					if(Note != null || Fund.length()>1000){
+					String Note=cell[15].getContents();
+					System.out.println("Note:"+Note);
+					if(Note!= null && Note.length()>1000){
 						return "第" + count + "行，备注字数不能超过500字" ;
 					}	
 				
@@ -270,14 +273,30 @@ public class T532Excel {
 	
 	/**判断字符串是否是数字*/
 	public boolean isNumeric(String str){
-		  for (int i = str.length();--i>=0;){   
-		   if (!Character.isDigit(str.charAt(i))){
-		    return false;
-		   }
-		  }
-		  return true;
+		boolean flag = false;
+		try{
+			Integer.parseInt(str);
+			flag = true;
+		} catch(NumberFormatException ex)
+		{
+			flag = false;
+		}
+		return flag;
 		 }
 	
+	/**判断字符串是否是double类型*/
+	public boolean isDouble(String str){
+		boolean flag = true;
+		try{
+			Double.parseDouble(str);
+			flag = true;
+		} catch(NumberFormatException ex)
+		{
+			flag = false;
+		}
+		   return flag;
+		
+	}
 	
 	/**将带%的字符串转换成double类型*/
 	public double toDouble(String str){
@@ -287,6 +306,16 @@ public class T532Excel {
 	    double num =(double)Math.round(num1)/100;
 		return num;
 	}
-	
 
+	public static void main(String arg[])
+	{
+		T532Excel exl= new T532Excel();
+		String str="2.2";
+		boolean flag = exl.isDouble(str);
+		if(flag){
+			System.out.println("是");
+		}else{
+			System.out.println("不是");		
+			}
+	}
 }

@@ -28,7 +28,7 @@ public class T553_Excel {
 		}
 		
 		int  count=1;
-		T553_Bean T553_Bean=new T553_Bean();
+		
 		boolean flag=false;
 	    List<T553_Bean> list=new LinkedList<T553_Bean>();
 	
@@ -39,7 +39,7 @@ public class T553_Excel {
 		
 		
 		for(Cell[] cell: cellList){
-			
+			T553_Bean T553_Bean=new T553_Bean();
 			try {
 				
 				if(count<4){
@@ -51,26 +51,47 @@ public class T553_Excel {
 				if(awardname == null || awardname.equals("")){
 					return "第" + count + "行，获奖名称不能为空" ;
 				}
+				if(awardname.length()>100){
+					return "第" + count + "行，获奖名称字数不能超过50字" ;
+				}
 				String awardstuname = cell[2].getContents() ;
 				if((awardstuname == null) || awardstuname.equals("")){
 					return "第" + count + "行，获奖学生姓名不能为空" ;
 				}
+				if(awardstuname.length()>50){
+					return "第" + count + "行，获奖学生姓名字数不能超过50字" ;
+				}
+				
 				String stuID = cell[3].getContents() ;
 				if((stuID == null) || stuID.equals("")){
 					return "第" + count + "行，学号不能为空" ;
 				}
+				if(stuID.length()>50){
+					return "第" + count + "行，学号字数不能超过50字" ;
+				}
+				
 				String teaUnit = cell[4].getContents() ;
 				if((teaUnit == null) || teaUnit.equals("")){
 					return "第" + count + "行，所在教学单位不能为空" ;
+				}	
+				if(teaUnit.length()>200){
+					return "第" + count + "行，所在教学单位字数不能超过100字" ;
 				}
+				
 				String fromClass = cell[5].getContents() ;
 				if((fromClass == null) || fromClass.equals("")){
 					return "第" + count + "行，所在班级不能为空" ;
+				}
+				if(fromClass.length()>100){
+					return "第" + count + "行，所在班级字数不能超过50字" ;
 				}
 				
 				String ardLevel = cell[6].getContents() ;
 				if((ardLevel == null) || ardLevel.equals("")){
 					return "第" + count + "行，级别不能为空" ;
+				}
+				if(ardLevel.equals("省级")){
+					ardLevel = "省部级";
 				}
 				String ardLevelID=null;
 				for(DiAwardLevelBean ardlevelBean : diAwardLeBeanList){
@@ -89,6 +110,9 @@ public class T553_Excel {
 				if(awardTime == null || awardTime.equals("")){
 					return "第" + count + "行，获奖时间不能为空" ;
 				}
+				if(!TimeUtil.judgeFormat3(awardTime)){
+					return "第" + count + "行，获奖时间格式不正确" ;
+				}
 				count++ ;
 
 				String fillUnitID = null;
@@ -100,7 +124,7 @@ public class T553_Excel {
 				T553_Bean.setFromClass(fromClass);
 				T553_Bean.setAwardLevel(ardLevelID);
 				T553_Bean.setFillUnitID(fillUnitID);
-				T553_Bean.setAwardTime(TimeUtil.changeDateYMD(awardTime));
+				T553_Bean.setAwardTime(TimeUtil.changeDateY(awardTime));
 				T553_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				
 				list.add(T553_Bean);
@@ -118,7 +142,7 @@ public class T553_Excel {
 		T553_Service t553_Sr=new T553_Service();
 		flag=t553_Sr.batchInsert(list);
 		if(flag){
-			return null ;
+			return "数据导入成功";
 		}else{
 			return "数据存储失败，请联系管理员" ;
 		}

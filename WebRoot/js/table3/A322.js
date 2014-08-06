@@ -3,8 +3,8 @@
 		
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#showData').datagrid( {
-			title : '专业认证（评估）情况统计',  //可变内容在具体页面定义
-			url: 'pages/S322/loadInfo',
+			title : '本科优势专业情况分析',  //可变内容在具体页面定义
+			url: 'pages/A322/loadInfo',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -18,6 +18,22 @@
 			//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
 			remoteSort : false,
 			rownumbers : true,
+			onLoadSuccess: function (rowData) {					 
+					var merges2 = [{
+		                  field:'fieldType',
+		                  index: 0,
+		                  colspan: 1
+		              }           
+		              ];
+
+		            for (var i = 0; i < merges2.length; i++)
+		                $('#showData').datagrid('mergeCells', {
+		                    index: merges2[i].index,
+		                    field: merges2[i].field,
+		                    colspan: merges2[i].colspan,
+		                    rowspan: merges2[i].rowspan
+		                });	
+					},
 
 			queryParams:{
 				'selectYear': year
@@ -43,11 +59,11 @@
 		
 	   //导出
 	   $("#export").click(function(){
-	        var tableName = encodeURI('S-3-2-2专业认证（评估）情况统计');
+	        var tableName = encodeURI('A-3-2-2本科优势专业情况分析');
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/S322/dataExport?excelName="+tableName+'&selectYear='+year,
+			    url : "pages/A322/dataExport?excelName="+tableName+'&selectYear='+year,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },
@@ -58,28 +74,8 @@
 					    });
 			    }
 		    }); 
-		});	
+		});							
 	});
 	
-	
-	   function formattime(val) {  
-		    if(val == null){
-			    return null ;
-		    }
-		    var year=parseInt(val.year)+1900;  
-		    var month=(parseInt(val.month)+1);  
-		    month=month>9?month:('0'+month);  
-		    var date=parseInt(val.date);  
-		    date=date>9?date:('0'+date);  
-		    var hours=parseInt(val.hours);  
-		    hours=hours>9?hours:('0'+hours);  
-		    var minutes=parseInt(val.minutes);  
-		    minutes=minutes>9?minutes:('0'+minutes);  
-		    var seconds=parseInt(val.seconds);  
-		    seconds=seconds>9?seconds:('0'+seconds);  
-		    var time=year+'-'+month+'-'+date ;  
-		    //alert(time) ;
-		     return time;  
-		} 
 
             	

@@ -51,7 +51,7 @@ public class A15Action {
 	private A15Bean a15Bean = new A15Bean() ;
 	
 
-	/**  表A15的DAO类  */
+//	/**  表A15的DAO类  */
 	private A15DAO a15Dao = new A15DAO() ;
 	
 	/**  表A15的Excel类  */

@@ -123,19 +123,7 @@ public class S5101_Action {
 		           fos = new ByteArrayOutputStream();
 		           wwb = Workbook.createWorkbook(fos);
 		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
-//		           
-//		           List<String> colums = new ArrayList<String>() ;
-//		            columns.add("序号");
-//					columns.add("开课单位");columns.add("单位号");columns.add("1.本科课程门次数");columns.add("2.主讲本科课程的教师");
-//					columns.add("3.授课情况");columns.add("总数");columns.add("其中：小班授课");columns.add("总人数（人）");
-//					columns.add("开设年份");columns.add("专业科研用房面积（平方米）");columns.add("备注");
-//
-//					
-//					Map<String,Integer> maplist = new HashMap<String,Integer>();
-//					maplist.put("SeqNum", 0);
-//					maplist.put("ResInsName", 1);maplist.put("ResInsID", 2);maplist.put("Type", 3);maplist.put("BuildCondition", 4);
-//					maplist.put("BiOpen", 5);maplist.put("OpenCondition", 6);maplist.put("TeaUnit", 7);maplist.put("UnitID", 8);
-//					maplist.put("BeginYear", 9);maplist.put("HouseArea", 10);maplist.put("Note", 11);
+
 		
 		            //    设置单元格的文字格式
 		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,

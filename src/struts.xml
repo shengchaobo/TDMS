@@ -115,6 +115,7 @@
 	<include file="cn/nit/configuration/table2/T291.xml"/>
 	<include file="cn/nit/configuration/table2/T292.xml"/>
 	<include file="cn/nit/configuration/table2/T293.xml"/>	
+	<include file="cn/nit/configuration/table2/T294.xml"/>
 	<include file="cn/nit/configuration/table2/T2101.xml"/>
 	<include file="cn/nit/configuration/table2/T2102.xml"/>
 	<include file="cn/nit/configuration/table2/T2103.xml"/>

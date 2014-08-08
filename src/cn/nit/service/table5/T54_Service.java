@@ -27,6 +27,12 @@ public class T54_Service {
 		return infoDao.batchInsert(list,year);
 	}
 	
+	/**按年份删除数据*/
+	public boolean deleteByYear(String year){
+		
+		return infoDao.deleteByYear(year) ;
+	}
+	
 	
 	//保存
 	public Boolean save(T54_Bean bean, String year,	String fields){

@@ -105,7 +105,7 @@ public class T16Service {
 		String audits[] = audit.split(",") ;
 	}
 	
-	/**按id删除数据*/
+	/**按年份删除数据*/
 	public boolean deleteByYear(String year){
 		
 		return t16Dao.deleteByYear(year) ;

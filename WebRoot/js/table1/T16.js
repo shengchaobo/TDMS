@@ -172,7 +172,7 @@ $(function(){
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表1-6办学指导思想（党院办）');
+			        var tableName = encodeURI('表1-6办学指导思想（党院办');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),

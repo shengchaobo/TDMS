@@ -271,7 +271,7 @@ public class T16Action {
 		}
 	}
 	
-	/**  根据数据的id删除数据  */
+	/**  根据数据的year删除数据  */
 	public void deleteByYear(){
 		
 		System.out.println("year=" + year) ;
@@ -296,102 +296,102 @@ public class T16Action {
 		}
 	}
 	
-//	/**导出
-//	 * @throws Exception */
-//	public InputStream getInputStream() throws Exception{
-//
-//		System.out.println(this.getSelectYear());
-//
-//		List<T16POJO> list = t16Ser.forExcel(this.getSelectYear());
-//		
-//	    ByteArrayOutputStream fos = null;
-//	    
-//	
-//		if(list==null){
-//			PrintWriter out = null ;
-//			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			out = getResponse().getWriter() ;
-//			out.print("后台传入的数据为空!!!") ;
-//			System.out.println("后台传入的数据为空");
-//		}else{
-////			String sheetName = this.getExcelName();
-//				String sheetName="表1-6办学指导思想（党院办）";	
-//		    WritableWorkbook wwb;
-//		    try {    
-//		           fos = new ByteArrayOutputStream();
-//		           wwb = Workbook.createWorkbook(fos);
-//		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
-//
-//		
-//		            //    设置单元格的文字格式
-//		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
-//		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
-//		           WritableCellFormat wcf = new WritableCellFormat(wf);
-//		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
-//		           wcf.setAlignment(Alignment.CENTRE);
-//		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
-//						     jxl.format.Colour.BLACK); 
-//		           wcf.setAlignment(jxl.write.Alignment.CENTRE);
-//		           ws.setRowView(1, 500);
-//		     
-//		           //设置格式
-//				   WritableCellFormat wcf1 = new WritableCellFormat();
-//				   wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
-//						     jxl.format.Colour.BLACK); 
-//		           
-//		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
-//		           ws.mergeCells(0, 0, 3, 0);
-//		             
-//		           ws.addCell(new Label(0, 2, "项目", wcf)); 
-//		           ws.addCell(new Label(1, 2, "内容", wcf)); 
-//		           ws.addCell(new Label(3, 2, "备注", wcf));  
-//		   
-//
-//		           if(list!=null&&list.size()>0){
-//		        	   System.out.println("导出");
-//		        	  
-//		        		   T16POJO pojo = list.get(0);
-//			        		   ws.addCell(new Label(0, 3, pojo.getItem1(), wcf1)); 
-//			        		   ws.addCell(new Label(1, 3, pojo.getContents1(), wcf1)); 
-//			        		   ws.addCell(new Label(2, 3, pojo.getNote1(), wcf1)); 
-//			        		   ws.addCell(new Label(0, 4, pojo.getItem2(), wcf1)); 
-//			        		   ws.addCell(new Label(1, 4, pojo.getContents2(), wcf1)); 
-//			        		   ws.addCell(new Label(2, 4, pojo.getNote2(), wcf1)); 
-//			           }else{
-//		        	   System.out.println("后台传入的数据为空");
-//		           }
-//		          wwb.write();
-//		          wwb.close();
-//
-//		        } catch (IOException e){
-//		        } catch (RowsExceededException e){
-//		        } catch (WriteException e){}
-//		        
-//		}
-//		return new ByteArrayInputStream(fos.toByteArray());
-//	}
+	/**导出
+	 * @throws Exception */
+	public InputStream getInputStream() throws Exception{
+
+		System.out.println(this.getSelectYear());
+
+		List<T16POJO> list = t16Ser.forExcel(this.getSelectYear());
+		
+	    ByteArrayOutputStream fos = null;
+	    
 	
+		if(list==null){
+			PrintWriter out = null ;
+			getResponse().setContentType("text/html; charset=UTF-8") ;
+			out = getResponse().getWriter() ;
+			out.print("后台传入的数据为空!!!") ;
+			System.out.println("后台传入的数据为空");
+		}else{
+//			String sheetName = this.getExcelName();
+				String sheetName="表1-6办学指导思想（党院办）";	
+		    WritableWorkbook wwb;
+		    try {    
+		           fos = new ByteArrayOutputStream();
+		           wwb = Workbook.createWorkbook(fos);
+		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 
-	public InputStream getInputStream(){
+		
+		            //    设置单元格的文字格式
+		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		           WritableCellFormat wcf = new WritableCellFormat(wf);
+		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		           wcf.setAlignment(Alignment.CENTRE);
+		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+						     jxl.format.Colour.BLACK); 
+		           wcf.setAlignment(jxl.write.Alignment.CENTRE);
+		           ws.setRowView(1, 500);
+		     
+		           //设置格式
+				   WritableCellFormat wcf1 = new WritableCellFormat();
+				   wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+						     jxl.format.Colour.BLACK); 
+		           
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.mergeCells(0, 0, 2, 0);
+		             
+		           ws.addCell(new Label(0, 2, "项目", wcf)); 
+		           ws.addCell(new Label(1, 2, "内容", wcf)); 
+		           ws.addCell(new Label(2, 2, "备注", wcf));  
+		   
 
-		InputStream inputStream = null ;
+		           if(list!=null && list.size()>0){
+		        	   System.out.println("导出");
+		        	  
+		        		   T16POJO pojo = list.get(0);
+			        		   ws.addCell(new Label(0, 3, pojo.getItem1(), wcf1)); 
+			        		   ws.addCell(new Label(1, 3, pojo.getContents1(), wcf1)); 
+			        		   ws.addCell(new Label(2, 3, pojo.getNote1(), wcf1)); 
+			        		   ws.addCell(new Label(0, 4, pojo.getItem2(), wcf1)); 
+			        		   ws.addCell(new Label(1, 4, pojo.getContents2(), wcf1)); 
+			        		   ws.addCell(new Label(2, 4, pojo.getNote2(), wcf1)); 
+			           }else{
+		        	   System.out.println("后台传入的数据为空");
+		           }
+		          wwb.write();
+		          wwb.close();
 
-		try {
-			
-			List<T16POJO> list=new ArrayList<T16POJO>(); 
-//            Date time=new Date();
-//            String time1=time.toString();
-//            String year=time1.substring(time1.length()-4, time1.length());
-            list=t16Dao.forExcel(this.getSelectYear());
-            inputStream = new ByteArrayInputStream(t16Excel.writeExcel(list).toByteArray());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null ;
+		        } catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
+		        
 		}
-		return inputStream ;
+		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	
+
+//	public InputStream getInputStream(){
+//
+//		InputStream inputStream = null ;
+//
+//		try {
+//			
+//			List<T16POJO> list=new ArrayList<T16POJO>(); 
+////            Date time=new Date();
+////            String time1=time.toString();
+////            String year=time1.substring(time1.length()-4, time1.length());
+//            list=t16Dao.forExcel(this.getSelectYear());
+//            inputStream = new ByteArrayInputStream(t16Excel.writeExcel(list).toByteArray());
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null ;
+//		}
+//		return inputStream ;
+//	}
+//	
 	public String execute() throws Exception{
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;

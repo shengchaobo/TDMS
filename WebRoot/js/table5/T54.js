@@ -143,6 +143,37 @@
 				     $('#edit').propertygrid('loadData', rows);
 				});	
 			   
+			   $("#delete").click(function(){
+				   var year= $("#cbYearContrast").combobox('getValue'); 
+				 $.messager.confirm('数据删除', '您确定删除'+year+'年数据？', function(sure){
+					 if (sure){
+					 	deleteCourses(year) ;
+					 }
+				});
+			 });
+			 
+			 function deleteCourses(year){
+				 var flag = true;
+			    	$.ajax({ 
+			    		type: "POST", 
+			    		url: "pages/T54/deleteByYear?selectYear="+year, 
+			    		async:"true",
+			    		dataType: "json",
+			    		success: function(json){
+					    		if(json.mesg == 'success'){
+			    					alert("刪除成功");
+			    				}
+			    				if(json.mesg == 'fail'){
+			    					alert("刪除失败");
+			    					flag = false;
+			    				}
+			    				 reloadgrid (year,flag) 
+			   					$('#edit').propertygrid('loadData', rows);	
+			    		}
+			    	}).submit();
+			 
+			    }
+			   
 			   //打开导入窗口
 			   $("#add").click(function(){
 				   
@@ -151,6 +182,8 @@
 			   
 			   //导入
 			 $("#import").click(function(){
+				 var year =  $("#cbYearContrast1").combobox('getValue'); 
+//				 alert(year);
 				 $('#batchForm').form('submit',{
 		    		 url: 'pages/T54/uploadFile',
 		    		 type: "post",
@@ -160,17 +193,21 @@
 						   },
 		    		 success: function(result){
 		    		 	var result = eval('('+result+')');
-		    		 	alert(result);
+//		    		 	alert(result);
 		    		 	if (!result.success){
 		    		 		$.messager.show({
 		    		 			title: 'Error',
 		    		 			msg: result.errorMsg
 		    			 });
 		    		 		  $('#dlg').dialog('close');
+		    		 			$('#cbYearContrast').combobox('select',year);
+		    		 		  	reloadgrid (year,true) 
+			   					$('#edit').propertygrid('loadData', rows);
+		    		 		  	
 		    		 	} else {
 		    		 		alert(123);
 				    		  $('#dlg').dialog('close'); // close the dialog
-				    		   reloadgrid(newValue,true);
+				    		   reloadgrid(newValue,true)
 								$('#edit').propertygrid('loadData', rows);
 		    		 	}
 		    		 }

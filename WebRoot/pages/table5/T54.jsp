@@ -40,6 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="float: left;">	
 			<a href="javascript:void(0)" id="save" class="easyui-linkbutton" iconCls="icon-save" plain="true"  onclick="getSave()">保存</a>
 			<a href="javascript:void(0)" id="cancel" class="easyui-linkbutton" iconCls="icon-cancel" plain="true"  >取消</a>
+			<a href="javascript:void(0)" id="delete" class="easyui-linkbutton" iconCls="icon-remove" plain="true"  >删除</a>
 			<a href="javascript:void(0)" id="export" class="easyui-linkbutton" iconCls="icon-download" plain="true"  ">数据导出</a>
 			<a href="javascript:void(0)" id="add" class="easyui-linkbutton" iconCls="icon-add" plain="true"  ">数据导入</a>
 		</div>

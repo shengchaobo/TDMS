@@ -58,10 +58,10 @@ public class T16DAO {
 	public List<T16POJO> forExcel(String year){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T16POJO> list = new ArrayList<T16POJO>() ;
+		List<T16POJO> list = new  ArrayList<T16POJO>();
 		sql.append("select * from "+tableName) ;
 		sql.append(" where Time like '"+year+"%'") ;
-		T16POJO t16Pojo =new T16POJO();
+		T16POJO t16Pojo = new T16POJO();
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -89,8 +89,9 @@ public class T16DAO {
 					t16Pojo.setNote2(note);
 					t16Pojo.setSeqNumber2(seqNumber);
 				}
+				
 			}
-               list.add(t16Pojo) ;
+			list.add(t16Pojo) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
@@ -279,6 +280,18 @@ public class T16DAO {
 	public static void main(String arg[])
 	{
 		T16DAO dao=new T16DAO();
+		List<T16POJO> list = dao.forExcel("2013");
+		if(list == null){
+			System.out.println("空");
+		}else{
+			T16POJO pojo = list.get(0);
+			System.out.println(pojo.getContents1());
+			System.out.println(pojo.getItem1());
+			System.out.println(pojo.getContents2());
+			System.out.println(pojo.getItem2());
+		}
+		
+		
       
 
 	}

@@ -30,6 +30,7 @@ public class T54_Excel {
 	 */
 	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request,String selectYear) throws Exception{
 		
+		PrintWriter out = null ;
 		if((cellList == null) || (cellList.size() < 2)){
 			return "数据不标准，请重新提交" ;
 		}
@@ -144,7 +145,10 @@ public class T54_Excel {
 		flag = t54Ser.batchInsert(list,selectYear) ;
 //		PrintWriter out = null ;
 		
+//		getResponse().setContentType("text/html; charset=UTF-8") ; 
+//		out = getResponse().getWriter() ;
 		if(flag){
+//			out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
 			return "数据导入成功" ;
 		}else{
 			return "数据存储失败，请联系管理员" ;

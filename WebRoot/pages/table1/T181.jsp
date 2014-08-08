@@ -235,6 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 },
 	    		 success: function(result){
 	    		 	var result = eval('('+result+')');
+	    		 	alert(result);
 	    		 	if (!result.success){
 	    		 		$.messager.show({
 	    		 			title: 'Error',

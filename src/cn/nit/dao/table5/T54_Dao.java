@@ -170,6 +170,30 @@ public class T54_Dao {
 		return flag ;
 	}
 	
+	/**按年份删除数据*/
+	public boolean deleteByYear(String year){
+		
+		int flag = 0 ;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("delete from " + tableName) ;
+		sql.append(" where Time like '"+year+"%'") ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			flag = st.executeUpdate(sql.toString()) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}
+		
+		if(flag == 0){
+			return false ;
+		}else{
+			return true ;
+		}
+	}
 	
 	/**
 	 * 讲数据批量插入551表中

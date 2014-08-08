@@ -11,7 +11,7 @@
 	     <!-- 编辑数据 -->
 	    <action name="save" class="cn.nit.action.table1.T16Action" method="save" />
 	    <!-- 删除数据 -->
-	    <action name="deleteByIds" class="cn.nit.action.table1.T16Action" method="deleteCoursesByIds" />
+	    <action name="deleteByYear" class="cn.nit.action.table1.T16Action" method="deleteByYear" />
 	      <!-- 数据查询 -->
 	    <action name="singleSearch" class="cn.nit.action.table1.T16Action" method="auditingConditions"/>
 	    

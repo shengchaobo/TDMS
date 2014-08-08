@@ -126,7 +126,8 @@ public class T16DAO {
 				bean.setSeqNumber(tempBean.getSeqNumber());	
 				flag = DAOUtil.update(bean, tableName, key, fields, conn) ;
 			}else{
-				flag = DAOUtil.insert(bean, tableName, key, conn) ;
+//				System.out.println("beande Item："+bean.getItem());
+				flag = DAOUtil.insert(bean, tableName, field, conn) ;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -245,12 +246,13 @@ public class T16DAO {
 		return flag ;
 	}
 	
-	public boolean deleteCoursesByIds(String ids){
+	/**按年份删除数据*/
+	public boolean deleteByYear(String year){
 		
 		int flag = 0 ;
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("delete from " + tableName) ;
-		sql.append(" where " + key + " in " + ids) ;
+		sql.append(" where Time like '"+year+"%'") ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		
@@ -268,6 +270,7 @@ public class T16DAO {
 			return true ;
 		}
 	}
+	
 	public String getTableName(){
 		return this.tableName ;
 	}
@@ -279,5 +282,6 @@ public class T16DAO {
       
 
 	}
+
 
 }

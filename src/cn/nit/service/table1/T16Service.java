@@ -63,6 +63,8 @@ public class T16Service {
 			if(mapVal[0].equals("contents1")){
 				bean1.setContents(mapVal[1]);
 				String Item = "1.校训";
+				bean1.setItem(Item);
+				bean1.setTime(TimeUtil.changeDateY(year));
 				String dataF = "Contents";
 //				bean1.setItem("1.校训");
 //				bean1.setTime(TimeUtil.changeDateY(year));
@@ -70,6 +72,8 @@ public class T16Service {
 			}else if(mapVal[0].equals("contents2")){
 				bean2.setContents(mapVal[1]);
 				String Item = "2.定位与发展目标";
+				bean2.setItem(Item);
+				bean2.setTime(TimeUtil.changeDateY(year));
 				String dataF = "Contents";
 				flag = t16Dao.save(bean2, year, dataF, Item);
 //				bean2.setItem("2.定位与发展目标");
@@ -102,9 +106,9 @@ public class T16Service {
 	}
 	
 	/**按id删除数据*/
-	public boolean deleteCoursesByIds(String ids){
+	public boolean deleteByYear(String year){
 		
-		return t16Dao.deleteCoursesByIds(ids) ;
+		return t16Dao.deleteByYear(year) ;
 	}
 	
 	/**
@@ -143,8 +147,15 @@ public class T16Service {
   public static void main(String arg[])
   {
 	  T16Service ser = new T16Service();
-	  String str= ser.auditingData("2013");
-	  System.out.println(str);
+	  String str= "contents1%特色团acontents2%ytest2";
+	  boolean flag = false;
+	  String field="contents1acontents2";
+	  flag = ser.save(str, "2014", field);
+	  if(flag){
+		  System.out.println("插入成功！");
+	  }else{
+		  System.out.println("fails");
+	  }
 		
 		
   }

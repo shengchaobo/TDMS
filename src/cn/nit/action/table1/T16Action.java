@@ -67,6 +67,19 @@ public class T16Action {
 	//save的字段
 	private String fields;
 	
+	/**要删除数据的年份*/
+	private String year;
+	
+
+	public String getYear() {
+		return year;
+	}
+
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
 
 	public String getFields() {
 		return fields;
@@ -197,11 +210,13 @@ public class T16Action {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
 		String tempData = this.getData();
+		System.out.println(tempData);
 //		System.out.println("tempDate:"+tempData);
 		//System.out.println(tempData);
 				
 //		T16POJO pojo  = this.toBean(tempData, T16POJO.class);
-//		System.out.println("fields:"+this.getFields());							
+//		System.out.println("fields:"+this.getFields());	
+		System.out.println(this.getFields());
 		boolean flag = t16Ser.save(tempData,this.getSelectYear(),this.getFields());
 	
 		PrintWriter out = null ;
@@ -246,6 +261,31 @@ public class T16Action {
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  根据数据的id删除数据  */
+	public void deleteByYear(){
+		
+		System.out.println("year=" + year) ;
+		boolean flag = t16Ser.deleteByYear(year);
+		PrintWriter out = null ;
+		
+		try{
+			out = getResponse().getWriter() ;
+			
+			if(flag){
+				out.print("{\"mesg\":\"success\"}") ;
+			}else{
+				out.print("{\"mesg\":\"fail\"}") ;
+			}
 		}catch(Exception e){
 			e.printStackTrace() ;
 			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;

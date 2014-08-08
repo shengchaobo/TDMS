@@ -91,6 +91,8 @@
 		    		})
 			   }	
 
+		       	
+		       	
 			   //保存
 			   $("#save").click(function(){
 					var  s= '';
@@ -140,7 +142,60 @@
 				     reloadgrid (year,false) 
 				     $('#edit').propertygrid('loadData', rows);
 				});	
-				
+			   
+			   //打开导入窗口
+			   $("#add").click(function(){
+				   
+				   $('#dlg').dialog('open').dialog('setTitle','课外活动、讲座情况的导入');
+			   });
+			   
+			   //导入
+			 $("#import").click(function(){
+				 $('#batchForm').form('submit',{
+		    		 url: 'pages/T54/uploadFile',
+		    		 type: "post",
+			         dataType: "json",
+		    		 onSubmit: function(){
+					       return check() ;
+						   },
+		    		 success: function(result){
+		    		 	var result = eval('('+result+')');
+		    		 	alert(result);
+		    		 	if (!result.success){
+		    		 		$.messager.show({
+		    		 			title: 'Error',
+		    		 			msg: result.errorMsg
+		    			 });
+		    		 		  $('#dlg').dialog('close');
+		    		 	} else {
+		    		 		alert(123);
+				    		  $('#dlg').dialog('close'); // close the dialog
+				    		   reloadgrid(newValue,true);
+								$('#edit').propertygrid('loadData', rows);
+		    		 	}
+		    		 }
+		    		 });
+			 });
+			 
+			 function check(){
+			    	var fileName = $('#uploadFile').val() ;
+			    	
+			    	if(fileName == null || fileName == ""){
+				    	$.messager.alert("操作提示","请选择一个Excel文件！");
+			    		return false ;
+			    	}
+			    	
+			    	var pos = fileName.lastIndexOf(".") ;
+			    	var suffixName = fileName.substring(pos, fileName.length) ;
+			    	
+			    	if(suffixName == ".xls"){
+			    		return true ;
+			    	}else{
+			    		$.messager.alert("操作提示","文件格式错误，请选择后缀为“.xls”的文件！");
+			    		return false ;
+			    	}
+			    } 
+			     
 			   //导出
 			   $("#export").click(function(){
 			        var tableName = encodeURI('表5-4课外活动、讲座（团委）');

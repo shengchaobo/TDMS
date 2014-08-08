@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import cn.nit.bean.table5.S5302_Bean;
 import cn.nit.bean.table5.T54_Bean;
+
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.TimeUtil;
@@ -165,6 +167,45 @@ public class T54_Dao {
 			DBConnection.close(st);			
 		}
 				
+		return flag ;
+	}
+	
+	
+	/**
+	 * 讲数据批量插入551表中
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @return true表示插入成功，false表示插入失败
+	 */
+	public boolean batchInsert(List<T54_Bean> list,String year){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		StringBuffer sql = new StringBuffer();
+		sql.append("select * from "+tableName);
+		sql.append(" where Time like '"+year+"%'");
+		
+		Statement st = null;
+		ResultSet rs = null;
+		List<T54_Bean> templist = null ;
+		
+		try{
+			st=conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			templist = DAOUtil.getList(rs, T54_Bean.class) ;
+			if(templist.size()!=0){
+				String delSql = "delete  from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+				int delflag = st.executeUpdate(delSql.toString());
+				if(delflag>0){
+					flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+				}
+			}else{
+				flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}
+		
 		return flag ;
 	}
 	

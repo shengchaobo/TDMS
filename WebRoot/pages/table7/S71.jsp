@@ -35,6 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
+	<table>
+	</table>
 	<table id="showData"  style="height: auto">		
 		<thead>
 			<tr>
@@ -56,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				总数
 				</th>
 				<th data-options="field:'interAward'">
-			          国际级
+		          国际级
 				</th>
 				<th  data-options="field:'nationAward'">
 				国家级
@@ -74,13 +76,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				总数
 				</th>
 				<th data-options="field:'teaResPaper'">
-			           教学研究
+	           教学研究
 				</th>
 				<th  data-options="field:'teaManagePaper'">
 				教学管理
 				</th>
-			</tr>			
+			</tr>	
 			</thead>
+			
 	</table>
 					
 			 

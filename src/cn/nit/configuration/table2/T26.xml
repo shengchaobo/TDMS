@@ -4,9 +4,9 @@
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
 	<package name="pages/T26" namespace="/pages/T26" extends="struts-default">
-		<!-- 初始化加载所有领导信息（用于分页系统） -->
+		<!-- 初始化加载所有信息（用于分页系统） -->
 	    <action name="loadPlaceInfo" class="cn.nit.action.table2.T26_Action" method="loadPlaceInfo" />
-   		<!-- 插入新的领导信息 -->
+   		<!-- 插入新的信息 -->
 	    <action name="insert"  class="cn.nit.action.table2.T26_Action" method="insert" ></action>
 	    
    	    <!-- 文件批量上传 -->

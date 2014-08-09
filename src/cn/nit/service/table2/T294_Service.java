@@ -40,5 +40,11 @@ public class T294_Service {
 		return T294_Dao.deleteByIds(ids, year) ;
 	}
 
-
+	/**
+	 * 获得某年的捐赠总计
+	 * 
+	 */
+	public double getYearSumDona(String year){
+		return T294_Dao.getYearSumDona(year);
+	}
 }

@@ -70,7 +70,7 @@
 					        	 	"precision": 2
 					    		}
 					        } },
-					       	{ "name": "社会捐赠收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "donation","editor": false},
+					       	{ "name": "社会捐赠收入（如为0，则表示无该年捐赠收入，请先填写相关表）", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "donation","editor": false},
 					       	{ "name": "其他教育事业收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "otherIncome","editor": {
 					    		"type":"numberbox",
 					    		"options":{
@@ -174,8 +174,6 @@
 					}
 					s += row[i].field + '%' + row[i].value;
 					f += row[i].field;
-					alert(s);
-					alert(f);
 					if(s == '') {
 						return false;
 					}

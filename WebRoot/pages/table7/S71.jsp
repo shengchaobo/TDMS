@@ -35,8 +35,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table>
-	</table>
 	<table id="showData"  style="height: auto">		
 		<thead>
 			<tr>

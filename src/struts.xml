@@ -112,6 +112,7 @@
 	<include file="cn/nit/configuration/table2/T282.xml"/>
 	<include file="cn/nit/configuration/table2/T283.xml"/>
 	<include file="cn/nit/configuration/table2/T284.xml"/>
+	<include file="cn/nit/configuration/table2/T285.xml"/>
 	<include file="cn/nit/configuration/table2/T291.xml"/>
 	<include file="cn/nit/configuration/table2/T292.xml"/>
 	<include file="cn/nit/configuration/table2/T293.xml"/>	

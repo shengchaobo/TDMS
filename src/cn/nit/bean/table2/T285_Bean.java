@@ -16,13 +16,13 @@ public class T285_Bean implements java.io.Serializable {
 	// Fields
 
 	private Integer seqNumber;
-    private String TeaUnit;
-    private String UnitID;
-    private Integer SumEquNum;
-    private Integer AboveTenEquNum;
-    private Double SumEquAsset;
-    private Double NewAddAsset;
-    private Double AboveTenEquAsset;
+    private String teaUnit;
+    private String unitID;
+    private Integer sumEquNum;
+    private Integer aboveTenEquNum;
+    private Double sumEquAsset;
+    private Double newAddAsset;
+    private Double aboveTenEquAsset;
 	private Date time;
 	private String note;
 	
@@ -37,77 +37,76 @@ public class T285_Bean implements java.io.Serializable {
 		this.seqNumber = seqNumber;
 	}
 
-	@Column(name = "Note")
-	public String getNote() {
-		return this.note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
-	public String getTeaUnit() {
-		return TeaUnit;
-	}
-
-	public void setTeaUnit(String teaUnit) {
-		TeaUnit = teaUnit;
-	}
-
-	public String getUnitID() {
-		return UnitID;
-	}
-
-	public void setUnitID(String unitID) {
-		UnitID = unitID;
-	}
-
-	public Integer getSumEquNum() {
-		return SumEquNum;
-	}
-
-	public void setSumEquNum(Integer sumEquNum) {
-		SumEquNum = sumEquNum;
-	}
-
-	public Integer getAboveTenEquNum() {
-		return AboveTenEquNum;
-	}
-
-	public void setAboveTenEquNum(Integer aboveTenEquNum) {
-		AboveTenEquNum = aboveTenEquNum;
-	}
-
-	public Double getSumEquAsset() {
-		return SumEquAsset;
-	}
-
-	public void setSumEquAsset(Double sumEquAsset) {
-		SumEquAsset = sumEquAsset;
-	}
-
-	public Double getAboveTenEquAsset() {
-		return AboveTenEquAsset;
-	}
-
-	public void setAboveTenEquAsset(Double aboveTenEquAsset) {
-		AboveTenEquAsset = aboveTenEquAsset;
-	}
-
-	public Double getNewAddAsset() {
-		return NewAddAsset;
-	}
-
-	public void setNewAddAsset(Double newAddAsset) {
-		NewAddAsset = newAddAsset;
-	}
-
 	public Date getTime() {
 		return time;
 	}
 
 	public void setTime(Date time) {
 		this.time = time;
+	}
+
+	public void setTeaUnit(String teaUnit) {
+		this.teaUnit = teaUnit;
+	}
+
+	public String getTeaUnit() {
+		return teaUnit;
+	}
+
+	public void setUnitID(String unitID) {
+		this.unitID = unitID;
+	}
+
+	public String getUnitID() {
+		return unitID;
+	}
+
+	public void setSumEquNum(Integer sumEquNum) {
+		this.sumEquNum = sumEquNum;
+	}
+
+	public Integer getSumEquNum() {
+		return sumEquNum;
+	}
+
+	public void setAboveTenEquNum(Integer aboveTenEquNum) {
+		this.aboveTenEquNum = aboveTenEquNum;
+	}
+
+	public Integer getAboveTenEquNum() {
+		return aboveTenEquNum;
+	}
+
+	public void setSumEquAsset(Double sumEquAsset) {
+		this.sumEquAsset = sumEquAsset;
+	}
+
+	public Double getSumEquAsset() {
+		return sumEquAsset;
+	}
+
+	public void setNewAddAsset(Double newAddAsset) {
+		this.newAddAsset = newAddAsset;
+	}
+
+	public Double getNewAddAsset() {
+		return newAddAsset;
+	}
+
+	public void setAboveTenEquAsset(Double aboveTenEquAsset) {
+		this.aboveTenEquAsset = aboveTenEquAsset;
+	}
+
+	public Double getAboveTenEquAsset() {
+		return aboveTenEquAsset;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public String getNote() {
+		return note;
 	}
 
 }

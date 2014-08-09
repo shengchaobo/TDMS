@@ -271,6 +271,29 @@ public class T294_Dao {
 	}
 	
 
+	public double getYearSumDona(String year){
+		
+		String sql = "select DonaMoney from " + tableName + " where convert(varchar(4),Time,120)=" + year + " and DonaName=" + "'捐赠金额总计'" + ";";			
+		Connection conn = DBConnection.instance.getConnection();
+		Statement st = null;
+		ResultSet rs = null;
+		double donaMoney = 0.0;
+		try{
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			while(rs.next()){
+				donaMoney = rs.getDouble("DonaMoney");
+			}
+						
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		return donaMoney;
+	}
 	
 	public static void main(String arg[]){
 		//T294_DAO t=new T294_DAO();

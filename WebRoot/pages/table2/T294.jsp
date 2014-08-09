@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th  data-options="field:'seqNumber'" >编号</th>
+				<th  data-options="field:'seqNumber'"  hidden="true">编号</th>
 				<th data-options="field:'donaName'">
 				捐赠机构或人员名称
 				</th>

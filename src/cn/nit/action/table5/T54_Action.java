@@ -11,6 +11,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import jxl.Workbook;
 import jxl.format.Alignment;
@@ -103,8 +104,31 @@ public class T54_Action {
 			}
 		}
 	}
-
-
+	
+	/**按年份删除数据*/
+	public void deleteByYear(){
+		
+		System.out.println("selectYear=" + this.getSelectYear()) ;
+		boolean flag = T54_services.deleteByYear(this.getSelectYear());
+		PrintWriter out = null ;
+		
+		try{
+			out = getResponse().getWriter() ;
+			
+			if(flag){
+				out.print("{\"mesg\":\"success\"}") ;
+			}else{
+				out.print("{\"mesg\":\"fail\"}") ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
 	
 	//保存
 	public void save(){
@@ -274,4 +298,17 @@ public class T54_Action {
 	public String getFields() {
 		return fields;
 	}
+	
+	public HttpServletRequest getRequest(){
+		return ServletActionContext.getRequest() ;
+	}
+	
+	public HttpSession getSession(){
+		return getRequest().getSession() ;
+	}
+	
+	public HttpServletResponse getResponse(){
+		return ServletActionContext.getResponse() ;
+	}
+	
 }

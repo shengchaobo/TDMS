@@ -132,7 +132,36 @@ $(function(){
      					$('#edit').propertygrid('loadData', rows);						 					 
 				});	
 			   
+			 $("#delete").click(function(){
+				   var year = $("#cbYearContrast").combobox('getValue'); 
+				 $.messager.confirm('数据删除', '您确定删除'+year+'年数据？', function(sure){
+					 if (sure){
+					 	deleteCourses(year) ;
+					 }
+				});
+			 });
 			 
+			 function deleteCourses(year){
+				 var flag = true;
+			    	$.ajax({ 
+			    		type: "POST", 
+			    		url: "pages/T16/deleteByYear?year="+year, 
+			    		async:"true",
+			    		dataType: "json",
+			    		success: function(json){
+					    		if(json.mesg == 'success'){
+			    					alert("刪除成功");
+			    				}
+			    				if(json.mesg == 'fail'){
+			    					alert("刪除失败");
+			    					flag = false;
+			    				}
+			    				 reloadgrid (year,flag) 
+			   					$('#edit').propertygrid('loadData', rows);	
+			    		}
+			    	}).submit();
+			 
+			    }
 							   
 			   //取消
 			   $("#cancel").click(function(){
@@ -143,7 +172,7 @@ $(function(){
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表1-6办学指导思想（党院办）');
+			        var tableName = encodeURI('表1-6办学指导思想（党院办');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),

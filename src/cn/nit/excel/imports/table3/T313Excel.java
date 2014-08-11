@@ -223,6 +223,7 @@ public class T313Excel {
 	     }
 		
 	
+		flag=false;
 		T313_Service t313_Ser = new T313_Service() ;
 		flag = t313_Ser.batchInsert(list) ;
 		

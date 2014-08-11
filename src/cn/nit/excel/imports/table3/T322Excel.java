@@ -85,13 +85,15 @@ public class T322Excel {
 								flag = true ;
 								break ;
 							}else{
-								flag = false;
+								return "第" + count + "行，专业名称与专业代码不对应" ;
 							}
 						}//if
 					}//for
 					
 					if(!flag){
 						return "第" + count + "行，没有与之相匹配的专业代码" ;
+					}else{
+						flag=false;
 					}
 					
 					
@@ -99,14 +101,9 @@ public class T322Excel {
 					if(MajorVersion == null || MajorVersion.equals("")){
 						return "第" + count + "行，代码版本不能为空";
 					}
-					if(MajorVersion.equals("2012")||MajorVersion.equals("1998")||MajorVersion.equals("99")){
-						flag=true;
-					}else{
-						flag = false;
-						
-					}
-					if(flag == false){
+					if(!(MajorVersion.equals("2012")||MajorVersion.equals("1998")||MajorVersion.equals("99"))){
 						return  "第" + count + "行，代码版本有误" ;
+						
 					}
 					
 					String MajorField=cell[4].getContents();
@@ -141,26 +138,27 @@ public class T322Excel {
 					if(MajorDurition1 == null || MajorDurition1.equals("")){
 				    	return "第" + count + "行，学制不能为空" ;
 				    }
-					int MajorDurition=Integer.parseInt(MajorDurition1);
-
-					if(MajorDurition!=4&&MajorDurition!=5){
+					int MajorDurition;
+					try{
+						MajorDurition=Integer.parseInt(MajorDurition1);
+						if(MajorDurition!=4&&MajorDurition!=5){
+							return "第" + count + "行，学制必须是4或5" ;
+						}
+					}catch (Exception e){
 						return "第" + count + "行，学制必须是4或5" ;
 					}
+					
+
+					
 					
 					String MajorDegreeType=cell[9].getContents();
 					if(MajorDegreeType == null || MajorDegreeType.equals("")){
 				    	return "第" + count + "行，学位授予每类不能为空" ;
 				    }
-					if(MajorDegreeType.equals("01哲学")||MajorDegreeType.equals("02经济学")||MajorDegreeType.equals("03法学")||MajorDegreeType.equals("04教育学")||MajorDegreeType.equals("05文学")||MajorDegreeType.equals("06历史学")||MajorDegreeType.equals("07理学")||MajorDegreeType.equals("08工学")||MajorDegreeType.equals("09农学")||MajorDegreeType.equals("10医学")||MajorDegreeType.equals("11军事学")||MajorDegreeType.equals("12管理学")||MajorDegreeType.equals("13艺术学")){
-						flag=true;
-					}else{
-						flag = false;
-					}
-					
-					if(flag == false){
+					if(!(MajorDegreeType.equals("01哲学")||MajorDegreeType.equals("02经济学")||MajorDegreeType.equals("03法学")||MajorDegreeType.equals("04教育学")||MajorDegreeType.equals("05文学")||MajorDegreeType.equals("06历史学")||MajorDegreeType.equals("07理学")||MajorDegreeType.equals("08工学")||MajorDegreeType.equals("09农学")||MajorDegreeType.equals("10医学")||MajorDegreeType.equals("11军事学")||MajorDegreeType.equals("12管理学")||MajorDegreeType.equals("13艺术学"))){
 						return "第" + count + "行，学位授予门类输入有误" ;
 					}
-
+					
 					String MajorAdmisTime = cell[10].getContents() ;
 					if(MajorAdmisTime == null || MajorAdmisTime.equals("")){
 						return "第" + count + "行，开始招生时间不能为空" ;
@@ -231,25 +229,19 @@ public class T322Excel {
 						if(diAwardLevelBean.getAwardLevel().equals(MajorLevel)){
 								flag = true ;
 								break ;
-							}else{
-								flag = false;
-							}
-							
+							}	
 						}
 					if(flag==false){
 						return "第" + count + "行，所填级别有误" ;
 		
+					}else{
+						flag=false;
 					}
 					
 					
 					
 					String Type=cell[17].getContents();
-					if(Type.equals("特色专业")||Type.equals("品牌专业")||Type.equals("名牌专业")||Type.equals("示范专业")||Type.equals("重点建设专业")||Type.equals("地方优势专业")){
-						flag=true;
-					}else{
-						flag = false;
-					}
-					if(flag == false){
+					if(!(Type.equals("特色专业")||Type.equals("品牌专业")||Type.equals("名牌专业")||Type.equals("示范专业")||Type.equals("重点建设专业")||Type.equals("地方优势专业"))){
 						return "第" + count + "行，所填类型有误" ;
 					}
 					
@@ -279,7 +271,7 @@ public class T322Excel {
 								flag = true ;
 								break ;
 							}else{
-								flag = false;
+								return "第" + count + "行，建设负责人与教工号不对应" ;
 								
 							}
 						}//if
@@ -287,6 +279,8 @@ public class T322Excel {
 					
 					if(!flag){
 						return "第" + count + "行，没有与之相匹配的教工号" ;
+					}else{
+						flag=false;
 					}
 					
 					String CheckTime = cell[21].getContents() ;

@@ -29,12 +29,12 @@ import org.springframework.beans.BeanWrapperImpl;
 
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
-import cn.nit.bean.di.DiMajorTwoBean;
+import cn.nit.bean.di.DiMajorOneBean;
 import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T33_Bean;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
-import cn.nit.service.di.DiMajorTwoService;
+import cn.nit.service.di.DiMajorOneService;
 import cn.nit.service.table3.T33_Service;
 import cn.nit.util.TimeUtil;
 
@@ -62,8 +62,8 @@ public class T33Excel {
 		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
-		DiMajorTwoService diMajorTwoSer=new DiMajorTwoService();
-		List<DiMajorTwoBean> diMajorTwoList=diMajorTwoSer.getList();
+		DiMajorOneService diMajorOneSer=new DiMajorOneService();
+		List<DiMajorOneBean> diMajorOneList=diMajorOneSer.getList();
 	
 		
 		for(Cell[] cell : cellList){
@@ -105,6 +105,12 @@ public class T33Excel {
 						}//if
 					}//for
 					
+					if(!flag){
+						return "第" + count + "行，没有与之相匹配的单位号" ;
+					}else{
+						flag=false;
+					}
+					
 					
 					String MajorName = cell[3].getContents();
 					String MajorID=cell[4].getContents();
@@ -120,9 +126,9 @@ public class T33Excel {
 					if(MajorID.length()>50){
 						return "第" + count + "行，专业代码长度不能超过50";
 					}
-					for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
-						if(diMajorTwoBean.getMajorNum().equals(MajorID)){
-							if(diMajorTwoBean.getMajorName().equals(MajorName)){
+					for(DiMajorOneBean diMajorOneBean : diMajorOneList){
+						if(diMajorOneBean.getMajorName().equals(MajorName)){
+							if(diMajorOneBean.getMajorNum().equals(MajorID)){
 								flag = true ;
 								break ;
 							}else{
@@ -130,6 +136,12 @@ public class T33Excel {
 							}
 						}//if
 					}//for
+					
+					if(!flag){
+						return "第" + count + "行，没有与之相匹配的专业代码" ;
+					}else{
+						flag=false;
+					}
 				 
 				    String MajorFieldName = cell[5].getContents();
 				    
@@ -153,7 +165,7 @@ public class T33Excel {
 					String FirstAdmisTime = cell[7].getContents() ;
 					
 					if(FirstAdmisTime == null || FirstAdmisTime.equals("")){
-						return "第" + count + "行，批准设置时间不能为空" ;
+						return "第" + count + "行，首次招生时间不能为空" ;
 					}
 					
 				    if(!TimeUtil.judgeFormat1(FirstAdmisTime)){
@@ -161,9 +173,18 @@ public class T33Excel {
 					}
 				    
 				    
+					
+					String MajorYearLimit1 = cell[8].getContents();
+					if(MajorYearLimit1 == null || MajorYearLimit1.equals("")){
+				    	return "第" + count + "行，修业年限不能为空" ;
+				    }
+					boolean isNum = MajorYearLimit1.matches("[0-9]+"); 
+					if(!isNum){
+						return "第"+count+"行，修业年限必须为正整数";
+					}
 					int MajorYearLimit = 0;
 					try{
-						MajorYearLimit=Integer.parseInt(cell[8].getContents());
+						MajorYearLimit=Integer.parseInt(MajorYearLimit1);
 					}catch( NumberFormatException e){
 						e.printStackTrace() ;
 					}
@@ -171,16 +192,25 @@ public class T33Excel {
 					boolean IsKeyMajor1;
 				    String  IsSepcialMajor=cell[9].getContents();
 				    String  IsKeyMajor=cell[10].getContents();
-				    if(IsSepcialMajor=="是"){
+				    
+				    
+				    if(IsSepcialMajor.equals("是")){
 				    	IsSepcialMajor1=true;
-				    }else{
+				    }else if(IsSepcialMajor.equals("否")){
 				    	IsSepcialMajor1=false;
-				    }
-				    if(IsKeyMajor=="是"){
-				    	IsKeyMajor1=true;
 				    }else{
+				    	return "第" + count + "行，特色专业应该填是或否" ; 
+				    }
+				    
+				    
+				    
+				    if(IsKeyMajor.equals("是")){
+				    	IsKeyMajor1=true;
+				    }else if(IsKeyMajor.equals("否")){
 				    	IsKeyMajor1=false;
-				    }			
+				    }else{
+				    	return "第" + count + "行，重点专业应该填 是或否" ; 
+				    }
 				    
 					String MajorLeader = cell[11].getContents() ;
 					
@@ -190,10 +220,12 @@ public class T33Excel {
 					
 					boolean LIsFullTime1;
 					String LIsFullTime= cell[12].getContents();
-				    if(LIsFullTime=="是"){
+				    if(LIsFullTime.equals("是")){
 				    	LIsFullTime1=true;
-				    }else{
+				    }else if(LIsFullTime.equals("否")){
 				    	LIsFullTime1=false;
+				    }else{
+				    	return "第" + count + "行，专业带头人是否专职应该填是或否" ; 
 				    }
 					
 				    
@@ -205,10 +237,12 @@ public class T33Excel {
 					
 					boolean CIsFullTime1;
 					String CIsFullTime= cell[14].getContents();
-				    if(CIsFullTime=="是"){
+				    if(CIsFullTime.equals("是")){
 				    	CIsFullTime1=true;
-				    }else{
+				    }else if(CIsFullTime.equals("否")){
 				    	CIsFullTime1=false;
+				    }else{
+				    	return "第" + count + "行，专业负责人是否专职应该填是或否" ; 
 				    }
 
 

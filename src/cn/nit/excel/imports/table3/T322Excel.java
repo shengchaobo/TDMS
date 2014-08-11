@@ -75,10 +75,7 @@ public class T322Excel {
 					if(MajorID == null || MajorID.equals("")){
 						return "第" + count + "行，专业代码不能为空";
 					}
-					
-					if(MajorID.length()>50){
-						return "第" + count + "行，专业代码长度不能超过50";
-					}
+
 					for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
 						if(diMajorTwoBean.getMajorNum().equals(MajorID)){
 							if(diMajorTwoBean.getMajorName().equals(MajorName)){
@@ -130,10 +127,7 @@ public class T322Excel {
 				    if(MajorAppvlID == null || MajorAppvlID.equals("")){
 				    	return "第" + count + "行，批文号不能为空" ;
 				    }
-				    if(MajorAppvlID.length()>100){
-				    	return "第" + count + "行，批文号长度不能超过100" ;
-				    }
-				    
+
 					String MajorDurition1 = cell[8].getContents();
 					if(MajorDurition1 == null || MajorDurition1.equals("")){
 				    	return "第" + count + "行，学制不能为空" ;
@@ -217,10 +211,7 @@ public class T322Excel {
 				    if(BuildAppvlID == null || BuildAppvlID.equals("")){
 				    	return "第" + count + "行，建设批文号不能为空" ;
 				    }
-				    if(BuildAppvlID.length()>100){
-				    	return "第" + count + "行，建设批文号长度不能超过100" ;
-				    }
-				    
+
 				    String MajorLevel=cell[16].getContents();
 					if(MajorLevel == null || MajorLevel.equals("")){
 						return "第" + count + "行，级别不能为空";
@@ -250,10 +241,7 @@ public class T322Excel {
 				    if(Field == null || Field.equals("")){
 				    	return "第" + count + "行，领域、方向不能为空" ;
 				    }
-				    if(Field.length()>100){
-				    	return "第" + count + "行，领域、方向长度不能超过100" ;
-				    }
-				    
+
 					String Leader = cell[19].getContents();
 					String TeaID=cell[20].getContents();
 					
@@ -298,9 +286,7 @@ public class T322Excel {
 				    if(CheckAppvlID == null || CheckAppvlID.equals("")){
 				    	return "第" + count + "行，验收批文号不能为空" ;
 				    }
-				    if(CheckAppvlID.length()>100){
-				    	return "第" + count + "行，验收批文号长度不能超过100" ;
-				    }
+
 				    Pattern pattern = Pattern.compile("([-\\+]?[1-9]([0-9]*)(\\.[0-9]+)?)|(^0$)"); 
 				    String SchExp1=cell[23].getContents();
 				    if(SchExp1 == null || SchExp1.equals("")){
@@ -348,9 +334,7 @@ public class T322Excel {
 					    if(AppvlID == null || AppvlID.equals("")){
 					    	return "第" + count + "行，批文号不能为空" ;
 					    }
-					    if(AppvlID.length()>100){
-					    	return "第" + count + "行，批文号长度不能超过100" ;
-					    }
+
 						if(FromTime == null || FromTime.equals("")){
 							return "第" + count + "行，有效期起不能为空" ;
 						}
@@ -368,10 +352,7 @@ public class T322Excel {
 					    if(AppvlAuth == null || AppvlAuth.equals("")){
 					    	return "第" + count + "行，认证机构不能为空" ;
 					    }
-					    if(AppvlAuth.length()>100){
-					    	return "第" + count + "行，认证机构长度不能超过100" ;
-					    }  
-				    	
+
 				    }else if(AppvlResult.equals("未通过")){
 						if(FirstAppvlTime == null || FirstAppvlTime.equals("")){
 							return "第" + count + "行，首次通过认证时间不能为空" ;
@@ -390,9 +371,7 @@ public class T322Excel {
 					    if(AppvlID == null || AppvlID.equals("")){
 					    	return "第" + count + "行，批文号不能为空" ;
 					    }
-					    if(AppvlID.length()>100){
-					    	return "第" + count + "行，批文号长度不能超过100" ;
-					    }
+
 						if(!(FromTime == null || FromTime.equals(""))){
 							return "第" + count + "行，有效期起应该为空" ;
 						}
@@ -404,10 +383,7 @@ public class T322Excel {
 					    if(AppvlAuth == null || AppvlAuth.equals("")){
 					    	return "第" + count + "行，认证机构不能为空" ;
 					    }
-					    if(AppvlAuth.length()>100){
-					    	return "第" + count + "行，认证机构长度不能超过100" ;
-					    }  
-				    	
+
 				    }else if(AppvlResult.equals("未参加评估")){
 //						if(FirstAppvlTime == null || FirstAppvlTime.equals("")){
 //							return "第" + count + "行，首次通过认证时间不能为空" ;

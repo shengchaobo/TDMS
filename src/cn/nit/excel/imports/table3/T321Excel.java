@@ -93,19 +93,13 @@ public class T321Excel {
 				    if(MainClassName == null || MainClassName.equals("")){
 				    	return "第" + count + "行，大类名称不能为空" ;
 				    }
-				    if(MainClassName.length()>100){
-				    	return "第" + count + "行，大类名称长度不能超过100" ;
-				    }
-				    
-				    
+
 					MainClassID = cell[2].getContents() ;
 					
 					if(MainClassID == null || MainClassID.equals("")){
 						return "第" + count + "行，大类代码不能为空" ;
 					}
-					if(MainClassID.length()>50){
-						return "第" + count + "行，大类代码长度不能超过50";
-					}
+
 					ByPassTime=cell[3].getContents();
 					boolean isNum = ByPassTime.matches("[0-9]+"); 
 					if(!isNum){
@@ -132,10 +126,7 @@ public class T321Excel {
 					if(MajorID == null || MajorID.equals("")){
 						return "第" + count + "行，校内专业代码不能为空";
 					}
-					
-					if(MajorID.length()>50){
-						return "第" + count + "行，校内专业代码长度不能超过50";
-					}
+
 					for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
 						if(diMajorTwoBean.getMajorNum().equals(MajorID)){
 							if(diMajorTwoBean.getMajorName().equals(MajorNameInSch)){
@@ -163,10 +154,7 @@ public class T321Excel {
 					if(UnitID == null || UnitID.equals("")){
 						return "第" + count + "行，单位号不能为空";
 					}
-					
-					if(UnitID.length()>50){
-						return "第" + count + "行，单位号长度不能超过50";
-					}
+
 					for(DiDepartmentBean diDepartBean : diDepartBeanList){
 						if(diDepartBean.getUnitId().equals(UnitID)){
 							if(diDepartBean.getUnitName().equals(UnitName)){
@@ -212,10 +200,7 @@ public class T321Excel {
 				if(MajorID == null || MajorID.equals("")){
 					return "第" + count + "行，校内专业代码不能为空";
 				}
-				
-				if(MajorID.length()>50){
-					return "第" + count + "行，校内专业代码长度不能超过50";
-				}
+
 				for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
 					if(diMajorTwoBean.getMajorNum().equals(MajorID)){
 						if(diMajorTwoBean.getMajorName().equals(MajorNameInSch)){
@@ -245,10 +230,7 @@ public class T321Excel {
 				if(UnitID == null || UnitID.equals("")){
 					return "第" + count + "行，单位号不能为空";
 				}
-				
-				if(UnitID.length()>50){
-					return "第" + count + "行，单位号长度不能超过50";
-				}
+
 				for(DiDepartmentBean diDepartBean : diDepartBeanList){
 					if(diDepartBean.getUnitId().equals(UnitID)){
 						if(diDepartBean.getUnitName().equals(UnitName)){

@@ -90,10 +90,7 @@ public class T33Excel {
 					if(UnitID == null || UnitID.equals("")){
 						return "第" + count + "行，单位号不能为空";
 					}
-					
-					if(UnitID.length()>50){
-						return "第" + count + "行，单位号长度不能超过50";
-					}
+
 					for(DiDepartmentBean diDepartBean : diDepartBeanList){
 						if(diDepartBean.getUnitId().equals(UnitID)){
 							if(diDepartBean.getUnitName().equals(TeaUnit)){
@@ -122,10 +119,7 @@ public class T33Excel {
 					if(MajorID == null || MajorID.equals("")){
 						return "第" + count + "行，专业代码不能为空";
 					}
-					
-					if(MajorID.length()>50){
-						return "第" + count + "行，专业代码长度不能超过50";
-					}
+
 					for(DiMajorOneBean diMajorOneBean : diMajorOneList){
 						if(diMajorOneBean.getMajorName().equals(MajorName)){
 							if(diMajorOneBean.getMajorNum().equals(MajorID)){
@@ -148,10 +142,7 @@ public class T33Excel {
 				    if(MajorFieldName == null || MajorFieldName.equals("")){
 				    	return "第" + count + "行，专业方向名称不能为空" ;
 				    }
-				    if(MajorFieldName.length()>100){
-				    	return "第" + count + "行，专业方向名称长度不能超过100" ;
-				    }
-				    
+
 					String AppvlSetTime = cell[6].getContents() ;
 					
 					if(AppvlSetTime == null || AppvlSetTime.equals("")){

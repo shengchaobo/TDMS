@@ -82,9 +82,7 @@ public class T311Excel {
 				    if(PostDocStaName == null || PostDocStaName.equals("")){
 				    	return "第" + count + "行，博士后流动站名称不能为空" ;
 				    }
-				    if(PostDocStaName.length()>100){
-				    	return "第" + count + "行，博士后流动站名称长度不能超过100" ;
-				    }
+
 				    
 					String setTime = cell[2].getContents() ;
 					

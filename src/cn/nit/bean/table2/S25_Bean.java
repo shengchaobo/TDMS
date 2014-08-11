@@ -20,15 +20,15 @@ public class S25_Bean implements java.io.Serializable {
 	// Fields
 
 	private Integer seqNumber;
-	private String labCenterName;
+	private String expCenterName;
 	private String teaUnit;
-	private String UnitID;
+	private String unitID;
 	private Integer machNum;
 	private Double money;
 	private Double area;
 	private Double newArea;
 	private Integer labHour;
-	private String labStuNum;
+	private Integer labStuNum;
 	private Integer yearHour;
 	private Integer yearTimes;
 	private Integer itemNum;
@@ -45,15 +45,6 @@ public class S25_Bean implements java.io.Serializable {
 
 	public void setSeqNumber(Integer seqNumber) {
 		this.seqNumber = seqNumber;
-	}
-
-	@Column(name = "LabCenterName", nullable = false)
-	public String getLabCenterName() {
-		return this.labCenterName;
-	}
-
-	public void setLabCenterName(String labCenterName) {
-		this.labCenterName = labCenterName;
 	}
 
 	@Column(name = "TeaUnit")
@@ -110,15 +101,6 @@ public class S25_Bean implements java.io.Serializable {
 		this.labHour = labHour;
 	}
 
-	@Column(name = "LabStuNum")
-	public String getLabStuNum() {
-		return this.labStuNum;
-	}
-
-	public void setLabStuNum(String labStuNum) {
-		this.labStuNum = labStuNum;
-	}
-
 	@Column(name = "YearHour")
 	public Integer getYearHour() {
 		return this.yearHour;
@@ -166,11 +148,27 @@ public class S25_Bean implements java.io.Serializable {
 	}
 
 	public void setUnitID(String unitID) {
-		UnitID = unitID;
+		this.unitID = unitID;
 	}
 
 	public String getUnitID() {
-		return UnitID;
+		return unitID;
+	}
+
+	public void setExpCenterName(String expCenterName) {
+		this.expCenterName = expCenterName;
+	}
+
+	public String getExpCenterName() {
+		return expCenterName;
+	}
+
+	public void setLabStuNum(Integer labStuNum) {
+		this.labStuNum = labStuNum;
+	}
+
+	public Integer getLabStuNum() {
+		return labStuNum;
 	}
 
 }

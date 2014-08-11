@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,26 +35,25 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
-import cn.nit.bean.table2.T285_Bean;
-import cn.nit.dao.table2.T285_Dao;
-import cn.nit.service.table2.T285_Service;
-import cn.nit.util.JsonUtil;
+import cn.nit.bean.table2.S25_Bean;
+import cn.nit.dao.table2.S25_Dao;
+import cn.nit.service.table2.S25_Service;
 
-public class T285_Action {
+public class S25_Action {
 	
-	private T285_Service T285_Service = new T285_Service();
+	private S25_Service s25_Service=new S25_Service();
 	
-	private T285_Bean T285_bean = new T285_Bean();
+	private S25_Bean s25_Bean=new S25_Bean();
 	
-	private T285_Dao T285_Dao = new T285_Dao();
+	private S25_Dao s25_Dao=new S25_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
 
 	/**  导出的excelName名 */
 	private String excelName ;
-
 	
+
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
@@ -64,10 +62,9 @@ public class T285_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<T285_Bean> list = T285_Service.getYearInfo(this.getSelectYear());
-		
-		//System.out.println(this.getSelectYear());
-		//System.out.println(list.size());
+		List<S25_Bean> list=s25_Service.getYearInfo(this.getSelectYear());
+		System.out.println(this.getSelectYear());
+		System.out.println(list.size());
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
 		//System.out.println(json.toString());
@@ -86,44 +83,6 @@ public class T285_Action {
 				out.close() ;
 			}
 		}
-	}	
-	
-	/**  编辑数据  */
-	public void edit(){
-
-		T285_Bean oldBean = T285_Service.findBySeqNum(T285_bean.getSeqNumber());
-		String teaUnitName = "全校合计：";
-		T285_Bean sumBean = T285_Service.findSumBean(teaUnitName,this.getSelectYear());
-		
-		sumBean.setSumEquNum(sumBean.getSumEquNum()+(T285_bean.getSumEquNum()-oldBean.getSumEquNum()));
-		sumBean.setAboveTenEquNum(sumBean.getAboveTenEquNum()+(T285_bean.getAboveTenEquNum()-oldBean.getAboveTenEquNum()));
-		sumBean.setSumEquAsset(sumBean.getSumEquAsset()+(T285_bean.getSumEquAsset()-oldBean.getSumEquAsset()));
-		sumBean.setNewAddAsset(sumBean.getNewAddAsset()+(T285_bean.getNewAddAsset()-oldBean.getNewAddAsset()));
-		sumBean.setAboveTenEquAsset(sumBean.getAboveTenEquAsset()+(T285_bean.getAboveTenEquAsset()-oldBean.getAboveTenEquAsset()));
-		
-		T285_bean.setTime(oldBean.getTime());
-		boolean flag = T285_Service.update(T285_bean) ;		
-		boolean flag0 = T285_Service.update(sumBean) ;
-		
-		PrintWriter out = null ;
-	
-		try{
-			response.setContentType("text/html; charset=UTF-8") ;
-			out = response.getWriter() ;
-			if(flag&&flag0){
-				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
-			}else{
-				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
-			}
-			out.flush() ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
 	}
 	
 	public InputStream getInputStream(){
@@ -131,7 +90,7 @@ public class T285_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T285_Bean> list=T285_Dao.totalList(this.getSelectYear());
+			List<S25_Bean> list=s25_Dao.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;
@@ -141,15 +100,22 @@ public class T285_Action {
 				return null;
 			}
 			String sheetName = this.getExcelName();
+			
 			List<String> columns = new ArrayList<String>();
-			columns.add("序号");columns.add("教学单位");columns.add("单位号");columns.add("总量");
-			columns.add("单价10万元以上");columns.add("总量");columns.add("当年新增值");columns.add("单价10万元以上");
+			columns.add("序号");
+			columns.add("实验中心名称");columns.add("所属教学单位");columns.add("教学单位号");
+			columns.add("台件数量");columns.add("金额（元）");columns.add("面积（平方米）");columns.add("其中当年新增面积（平方米）");
+			columns.add("每次实验教学学时数");columns.add("每次可容纳的学生数（个）");columns.add("学年度承担的实验教学人时数（人时）");
+			columns.add("学年度承担的实验教学人次数（人次）");columns.add("本科生实验、实习、实训项目数（个）");
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("SeqNum", 0);maplist.put("teaUnit", 1);maplist.put("unitID", 2);maplist.put("sumEquNum", 3);
-			maplist.put("aboveTenEquNum", 4);maplist.put("sumEquAsset", 5);maplist.put("newAddAsset", 6);
-			maplist.put("aboveTenEquAsset", 7);
+			maplist.put("SeqNum", 0);
+			maplist.put("expCenterName", 1);maplist.put("teaUnit", 2);maplist.put("unitID", 3);
+			maplist.put("machNum", 4);maplist.put("money", 5);maplist.put("area", 6);maplist.put("newArea", 7);
+			maplist.put("labHour", 8);maplist.put("labStuNum", 9);maplist.put("yearHour", 10);maplist.put("yearTimes", 11);
+			maplist.put("itemNum", 12);	
+		
 			WritableWorkbook wwb;
-		    try {    
+		        try {    
 		            fos = new ByteArrayOutputStream();
 		            wwb = Workbook.createWorkbook(fos);
 		            WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
@@ -176,7 +142,6 @@ public class T285_Action {
 					//第一行存表名
 					ws.addCell(new Label(0, 0, sheetName, wcf)); 
 					ws.mergeCells(0, 0, 1, 0);
-					
 		            //判断一下表头数组是否有数据    
 		            if (columns != null && columns.size() > 0) {  
 		  
@@ -192,24 +157,8 @@ public class T285_Action {
 		                     * 其中i为列、0为行、columns[i]为数据、wcf为样式 
 		                     * 合起来就是说将columns[i]添加到第一行(行、列下标都是从0开始)第i列、样式为什么"色"内容居中 
 		                     */ 
-		                	
-		                	if(i<3){
-		                		ws.addCell(new Label(i, 2, columns.get(i), wcf));
-		                		ws.mergeCells(i, 2, i, 3);
-		                	}
-		                	else if(i==3){
-		                		ws.addCell(new Label(i, 2, "1.教学、科研仪器设备台数（台）", wcf));
-		                		ws.mergeCells(3, 2, 4, 2);
-		                		ws.addCell(new Label(i, 3, columns.get(i), wcf));
-		                	}
-		                	else if(i==5){
-		                		ws.addCell(new Label(i, 2, "2.教学、科研仪器设备值（万元）", wcf));
-		                		ws.mergeCells(5, 2, 7, 2);
-		                		ws.addCell(new Label(i, 3, columns.get(i), wcf));
-		                	}
-		                	else{
-		                		ws.addCell(new Label(i, 3, columns.get(i), wcf));
-		                	}		                			                	
+		             
+		                	ws.addCell(new Label(i, 2, columns.get(i), wcf));	                			                	
 		                }  
 		                
 		            }
@@ -217,14 +166,16 @@ public class T285_Action {
 		            if (list != null && list.size() > 0) {  
 		                    //循环写入表中数据  
 		                	BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
-		                	int i=1;  
+		                	int i=0;  
 		                	for(Object obj : list){  
 		                		wrapper.setWrappedInstance(obj) ;  
 		                        //循环输出map中的子集：既列值                         
 		                        for(String column:maplist.keySet()){
 		                        	
 		                        	if(column.equals("SeqNum")){
-		                        		ws.addCell(new Label(0,i+3,""+(i-1),wcf1)); 
+		                        		if(i!=0) {
+		                        			ws.addCell(new Label(0,i+3,""+i,wcf1)); 
+		                        		}		                        		
 		                        		continue;
 		                        	}
 		                        	                        	
@@ -233,20 +184,15 @@ public class T285_Action {
 
 		        					//判断插入数据的类型，并赋�?
 		        					if(type.endsWith("String")){
-		        						if(wrapper.getPropertyValue(column) == null){
-		        							continue;
-		        						}
 		        						if(((String) wrapper.getPropertyValue(column)).equals("全校合计：")){
 		        							ws.addCell(new Label(maplist.get(column).intValue()-1,i+3,(String) wrapper.getPropertyValue(column),wcf1));
 		        							ws.mergeCells(0,i+3,3,i+3);
 		        						}else{
 		        							ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column),wcf1));
-		        						}
-		        						
+		        						}		        						
 		        					}else if(type.endsWith("int")||type.endsWith("Integer")){
 		        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
-		        					}
-		        					else if(type.endsWith("double")||type.endsWith("Double")){
+		        					}else if(type.endsWith("double")||type.endsWith("Double")){
 		        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
 		        					}else{
 		        						throw new Exception("自行添加对应类型" + type) ;
@@ -296,17 +242,17 @@ public class T285_Action {
 		this.excelName = excelName;
 	}
 
-	public T285_Bean getT285_bean() {
-		return T285_bean;
+	public S25_Bean getS25_Bean() {
+		return s25_Bean;
 	}
 
-	public void setT285_bean(T285_Bean T285Bean) {
-		T285_bean = T285Bean;
+	public void setS25_Bean(S25_Bean s25_Bean) {
+		this.s25_Bean = s25_Bean;
 	}
-
 	public static void main(String arg[]){
-		T285_Action s=new T285_Action();
-		 		
+		S25_Action s=new S25_Action();
+		 
+		
 	}
 	
 	

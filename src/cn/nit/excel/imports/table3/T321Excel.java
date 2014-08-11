@@ -64,9 +64,13 @@ public class T321Excel {
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		DiMajorTwoService diMajorTwoSer=new DiMajorTwoService();
 		List<DiMajorTwoBean> diMajorTwoList=diMajorTwoSer.getList();
+		System.out.println("hahah");
+		System.out.println(diMajorTwoList.size());
 		String MainClassName = null;
 		String MainClassID=null;
-		int ByPassTime = 0;
+		String ByPassTime=null;
+		int ByPassTime1=0;
+
 	
 		
 		for(Cell[] cell : cellList){
@@ -102,13 +106,19 @@ public class T321Excel {
 					if(MainClassID.length()>50){
 						return "第" + count + "行，大类代码长度不能超过50";
 					}
+					ByPassTime=cell[3].getContents();
+					boolean isNum = ByPassTime.matches("[0-9]+"); 
+					if(!isNum){
+						return "第"+count+"行，研究员人数必须为正整数";
+					}
+					
 					
 					try{
-						ByPassTime=Integer.parseInt(cell[3].getContents());
+						ByPassTime1=Integer.parseInt(ByPassTime);
 					}catch( NumberFormatException e){
-						e.printStackTrace() ;
+						e.printStackTrace() ;	
 					}
-					if(ByPassTime>10||ByPassTime<1){
+					if(ByPassTime1>10||ByPassTime1<1){
 						return "第" + count + "行，分流时间必须在1与10之间" ;
 					}
 					
@@ -137,6 +147,12 @@ public class T321Excel {
 						}//if
 					}//for
 					
+					if(!flag){
+						return "第" + count + "行，没有与之相匹配的校内专业代码" ;
+					}else{
+						flag = false ;
+					}
+				
 					String UnitName = cell[6].getContents();
 					String UnitID=cell[7].getContents();
 					
@@ -162,6 +178,12 @@ public class T321Excel {
 						}//if
 					}//for
 					
+					if(!flag){
+						return "第" + count + "行，没有与之相匹配的单位号" ;
+					}else{
+						flag = false ;
+					}
+					
 
 					
 					
@@ -170,7 +192,7 @@ public class T321Excel {
 				
 				t321_Bean.setMainClassName(MainClassName);
 				t321_Bean.setMainClassID(MainClassID);
-				t321_Bean.setByPassTime(ByPassTime);
+				t321_Bean.setByPassTime(ByPassTime1);
 				t321_Bean.setMajorNameInSch(MajorNameInSch);
 				t321_Bean.setMajorID(MajorID);
 				t321_Bean.setUnitName(UnitName);
@@ -205,6 +227,14 @@ public class T321Excel {
 					}//if
 				}//for
 				
+				
+				if(!flag){
+					return "第" + count + "行，没有与之相匹配的校内专业代码" ;
+				}else{
+					flag = false ;
+				}
+			
+				
 				String UnitName = cell[6].getContents();
 				String UnitID=cell[7].getContents();
 				
@@ -230,12 +260,14 @@ public class T321Excel {
 					}//if
 				}//for
 				
-
-				
-				String  Note=cell[9].getContents();
-				if(Note.length()>1000){
-					return "第" + count + "行，备注的长度不能超过500个字符！" ;
+				if(!flag){
+					return "第" + count + "行，没有与之相匹配的单位号" ;
+				}else{
+					flag = false ;
 				}
+				
+
+
 				
 				
 			
@@ -243,13 +275,11 @@ public class T321Excel {
 			
 			t321_Bean.setMainClassName(MainClassName);
 			t321_Bean.setMainClassID(MainClassID);
-			t321_Bean.setByPassTime(ByPassTime);
+			t321_Bean.setByPassTime(ByPassTime1);
 			t321_Bean.setMajorNameInSch(MajorNameInSch);
 			t321_Bean.setMajorID(MajorID);
 			t321_Bean.setUnitName(UnitName);
 			t321_Bean.setUnitID(UnitID);
-			t321_Bean.setNote(Note);
-//			t321_Bean.setTime(time);
 			t321_Bean.setTime(TimeUtil.changeDateY(selectYear));
 			list.add(t321_Bean);
 			System.out.println("数字");

@@ -103,11 +103,16 @@ public class T311Excel {
 						return "第" + count + "行，研究员人数不能为空" ;
 					}
 					
+					boolean isNum = ResearcherNum.matches("[0-9]+"); 
+					if(!isNum){
+						return "第"+count+"行，研究员人数必须为正整数";
+					}
+					
 					String UnitName = cell[4].getContents();
 					String UnitID=cell[5].getContents();
 					
 					if(UnitName == null || UnitName.equals("")){
-						return "第" + count + "行，所属不能为空";
+						return "第" + count + "行，所属单位不能为空";
 					}
 					
 					if(UnitID == null || UnitID.equals("")){
@@ -123,10 +128,9 @@ public class T311Excel {
 				t311_Bean.setPostDocStaName(PostDocStaName);
 				System.out.println(TimeUtil.changeDateY(setTime));
 				t311_Bean.setSetTime(TimeUtil.changeDateY(setTime));
-				t311_Bean.setResearcherNum(ResearcherNum);
+				t311_Bean.setResearcherNum(Integer.parseInt(ResearcherNum));
 				t311_Bean.setUnitName(UnitName);
 				t311_Bean.setUnitID(UnitID);
-				//t311_Bean.setTime(time);
 				t311_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t311_Bean);
 				System.out.println("数字");

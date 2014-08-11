@@ -108,7 +108,7 @@ public class T313Excel {
 					for(DiDepartmentBean diDepartBean : diDepartBeanList){
 						if(diDepartBean.getUnitId().equals(UnitID)){
 							if(diDepartBean.getUnitName().equals(UnitName)){
-								flag = true ;
+								flag = true;
 								break ;
 							}else{
 								return "第" + count + "行，所属教学单位与单位号不对应" ;
@@ -116,10 +116,16 @@ public class T313Excel {
 						}//if
 					}//for
 					
+					if(!flag){
+						return "第" + count + "行，没有与之相匹配的单位号" ;
+					}else{
+						flag = false ;
+					}
+					
 				    String DiscipType = cell[5].getContents();
 				    
 					if(DiscipType.equals("01哲学")||DiscipType.equals("02经济学")||DiscipType.equals("03法学")||DiscipType.equals("04教育学")||DiscipType.equals("05文学")||DiscipType.equals("06历史学")||DiscipType.equals("07理学")||DiscipType.equals("08工学")||DiscipType.equals("09农学")||DiscipType.equals("10医学")||DiscipType.equals("11军事学")||DiscipType.equals("12管理学")||DiscipType.equals("13艺术学")){
-						flag=true;
+					
 					}else{
 						return "第" + count + "行，学科门类输入有误" ;
 					}
@@ -137,7 +143,7 @@ public class T313Excel {
 				    }else if(NationLevelOne.equals("否")){
 				    	NationLevelOne1=false;
 				    }else{
-				    	return "第" + count + "行，国家一级必须为是或否" ;
+				    	return "第" + count + "行，国家一级应为是或否" ;
 				    }
 				    
 				    if(NationLevelTwo.equals("是")){
@@ -145,7 +151,7 @@ public class T313Excel {
 				    }else if(NationLevelTwo.equals("否")){
 				    	NationLevelTwo1=false;
 				    }else{
-				    	return "第" + count + "行，国家二级必须为是或否" ;
+				    	return "第" + count + "行，国家二级应为是或否" ;
 				    }
 				    
 				    if(NationLevelKey.equals("是")){
@@ -153,7 +159,7 @@ public class T313Excel {
 				    }else if(NationLevelKey.equals("否")){
 				    	NationLevelKey1=false;
 				    }else{
-				    	return "第" + count + "行，国家重点必须为是或否" ;
+				    	return "第" + count + "行，国家重点应为是或否" ;
 				    }
 
 				    if(ProvinceLevelOne.equals("是")){
@@ -161,7 +167,7 @@ public class T313Excel {
 				    }else if(ProvinceLevelOne.equals("否")){
 				    	ProvinceLevelOne1=false;
 				    }else{
-				    	return "第" + count + "行，省部一级必须为是或否" ;
+				    	return "第" + count + "行，省部一级应为是或否" ;
 				    }
 
 				    if(ProvinceLevelTwo.equals("是")){
@@ -169,7 +175,7 @@ public class T313Excel {
 				    }else if(ProvinceLevelTwo.equals("否")){
 				    	ProvinceLevelTwo1=false;
 				    }else{
-				    	return "第" + count + "行，省部二级级必须为是或否" ;
+				    	return "第" + count + "行，省部二级级应为是或否" ;
 				    }
 				    
 				    if(CityLevel.equals("是")){
@@ -177,7 +183,7 @@ public class T313Excel {
 				    }else if(CityLevel.equals("否")){
 				    	CityLevel1=false;
 				    }else{
-				    	return "第" + count + "行，市一级必须为是或否" ;
+				    	return "第" + count + "行，市一级应为是或否" ;
 				    }
 
 				    if(SchLevel.equals("是")){
@@ -185,7 +191,7 @@ public class T313Excel {
 				    }else if(SchLevel.equals("否")){
 				    	SchLevel1=false;
 				    }else{
-				    	return "第" + count + "行，校一级必须为是或否" ;
+				    	return "第" + count + "行，校一级应为是或否" ;
 				    }
 
 					
@@ -216,7 +222,7 @@ public class T313Excel {
 			}
 	     }
 		
-		flag = false ;
+	
 		T313_Service t313_Ser = new T313_Service() ;
 		flag = t313_Ser.batchInsert(list) ;
 		

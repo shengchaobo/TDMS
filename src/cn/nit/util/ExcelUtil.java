@@ -70,7 +70,6 @@ public class ExcelUtil {
 	}
 	
 	public static int[] readMergedCells(File file, int index,int length) throws JXLException, IOException{ 
-		
 		int[] mergedCells;
 		mergedCells=new int [length];
 	Workbook wb = Workbook.getWorkbook(file); 
@@ -81,15 +80,8 @@ public class ExcelUtil {
 	    	int top=ranges[i].getTopLeft().getRow();
 	    	int bottom=ranges[i].getBottomRight().getRow();
 	    	mergedCells[top]=bottom;
-	    	
-//	    System.out.print(space.getTopLeft().getRow()+1+"行,"); 
-//	    System.out.print(space.getTopLeft().getColumn()+1+"列\t"); 
-//	    System.out.print(space.getBottomRight().getRow()+1+"行,"); 
-//	    System.out.print(space.getBottomRight().getColumn()+1+"列\n"); 
+
 	    } 
-	
-
-
 
 	return mergedCells;
 	} 

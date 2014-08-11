@@ -102,15 +102,15 @@ public class T312Excel {
 					String UnitID=cell[4].getContents();
 					
 					if(UnitName == null || UnitName.equals("")){
-						return "第" + count + "行，我方不能为空";
+						return "第" + count + "行，所属单位不能为空";
 					}
 					
 					if(UnitID == null || UnitID.equals("")){
-						return "第" + count + "行，我方单位号不能为空";
+						return "第" + count + "行，单位号不能为空";
 					}
 					
 					if(UnitID.length()>50){
-						return "第" + count + "行，我方单位号长度不能超过50";
+						return "第" + count + "行，单位号长度不能超过50";
 					}
 					for(DiDepartmentBean diDepartBean : diDepartBeanList){
 						if(diDepartBean.getUnitId().equals(UnitID)){
@@ -118,20 +118,26 @@ public class T312Excel {
 								flag = true ;
 								break ;
 							}else{
-								return "第" + count + "行，我方单位与单位编号不对应" ;
+								return "第" + count + "行，所属单位与单位号不对应" ;
 							}
 						}//if
 					}//for
+					
+					if(!flag){
+						return "第" + count + "行，没有与之相匹配的单位号" ;
+					}else{
+						flag = false ;
+					}
 					
 				    String StaType = cell[5].getContents();
 				    
 				    if(StaType == null || StaType.equals("")){
 				    	return "第" + count + "行，类型不能为空" ;
 				    }
-				    if(StaType.length()>100){
-				    	return "第" + count + "行，类型长度不能超过100" ;
+				    if(!StaType.equals("硕士点")&&!StaType.equals("博士点")){
+				    	return "第"+count+"行，类型应该为硕士点或是博士点";
 				    }
-					
+
 				
 				
 					

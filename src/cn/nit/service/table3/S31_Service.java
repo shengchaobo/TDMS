@@ -56,8 +56,8 @@ public class S31_Service {
 		
 
 		s31_Bean.setPostdocStation(postdocStation);
-		s31_Bean.setDocStation(staNameNum1);
-		s31_Bean.setMasterStation(staNameNum2);
+		s31_Bean.setDocStation(staNameNum2);
+		s31_Bean.setMasterStation(staNameNum1);
 		s31_Bean.setSumMajor(majorNum);
 		s31_Bean.setNewMajor(newMajorNum);
 		s31_Bean.setJuniorMajor(majorNum1);

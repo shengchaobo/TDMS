@@ -325,10 +325,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 
 			}
-
-
-			
-
 			
 			if(UnitName == null || UnitName.length == 0){
 				$.messager.alert('提示',"所属单位不能为空");

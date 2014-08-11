@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="unitLevel"  >我方单位级别</th>
 				<th field="note"  >备注</th>
 			</tr>
-		</thead>
+		</thead>	
 	</table>
 	<p></p>
 	<div id="toolbar" style="height:auto">
@@ -235,6 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 },
 	    		 success: function(result){
 	    		 	var result = eval('('+result+')');
+	    		 	alert(result);
 	    		 	if (!result.success){
 	    		 		$.messager.show({
 	    		 			title: 'Error',

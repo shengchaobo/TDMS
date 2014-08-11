@@ -175,11 +175,15 @@ public class T533Excel {
 					String ExpRatio=cell[8].getContents();
 					
 					if(ExpRatio == null || ExpRatio.equals("")){
-						return "第" + count + "行，优良学风班的比例不能为空" ;
+						return "第" + count + "行，实验开出率（%）不能为空" ;
 					}
+					if(!this.isRatio(ExpRatio)){
+						return "第" + count + "行，实验开出率（%）格式有误，请填写百分数" ;
+					}
+					
 				
 				count++ ;
-				
+				String fillUnitID="3001";
 				t533Bean.setDesignExpCSNum(Integer.parseInt(DesignExpCSNum));
 				t533Bean.setExpCSNum(Integer.parseInt(ExpCSNum));
 				t533Bean.setExpRatio(this.toDouble(ExpRatio));
@@ -188,6 +192,7 @@ public class T533Excel {
 				t533Bean.setMajorName(MajorName);
 				t533Bean.setTeaUnit(TeaUnit);
 				t533Bean.setUnitID(UnitID);
+				t533Bean.setFillUnitID(fillUnitID);
 				t533Bean.setTime(Time);
 				list.add(t533Bean);
 				
@@ -232,6 +237,26 @@ public class T533Excel {
 		return num;
 	}
 	
+//	public boolean isDouble
+	
+	/**判断字符串是否为百分数*/
+	public boolean isRatio(String str){
+		boolean flag = false;
+		if(str.indexOf("%")!=-1){
+			String s = str.substring(0, str.indexOf("%"));
+			try{
+				double d=Double.parseDouble(s);
+				if(d<=100&&d>=0){
+					flag = true;
+				}
+			}catch(NumberFormatException ex){
+				flag = false;
+			}
+		}
+		return flag;
+		
+	}
+	
 //	public static boolean isCorrectVersion(String odivalue) {  
 //	    // TODO Auto-generated method stub  
 //	    Pattern pattern = Pattern.compile("d{2}" + "%");  
@@ -242,6 +267,16 @@ public class T533Excel {
 //	    }  
 //	        return true;  
 //	    }   
-	
+	public static void main(String arg[]){
+		T533Excel exl= new T533Excel();
+		String a = "20.3%";
+		String b="20";
+		boolean flag=exl.isRatio(a);
+		if(flag){
+			System.out.println("是");
+		}else{
+			System.out.println("否");
+		}
+	}
 
 }

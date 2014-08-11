@@ -200,7 +200,7 @@ public class T534Excel {
 						 IsOutEmploy=false;
 					}
 					if(!isOutEmploy.equals("是")&&!isOutEmploy.equals("否")){
-						return "第" + count + "行，是否外聘不能为空" ;
+						return "第" + count + "行，是否外聘填写格式有误，请填写”是“或者”否“ ";
 					}
 					
 					
@@ -278,7 +278,7 @@ public class T534Excel {
 						 IsExcellent=false;
 					}
 					if(!isExcellent.equals("是")&&!isExcellent.equals("否")){
-						return "第" + count + "行，格式不正确,只能填”是“或”否“" ;
+						return "第" + count + "行，是否获评校级优秀指导教师不格式不正确,只能填”是“或”否“" ;
 					}
 					
 					String TrainIssueNum=cell[12].getContents();
@@ -325,7 +325,7 @@ public class T534Excel {
 						return "第" + count + "行，获评时间格式不正确，应为：2012/09" ;
 					}
 					String Note=cell[17].getContents();
-					if(Note.length()>1000){
+					if(Note!=null&&Note.length()>1000){
 						return "第" + count + "行，备注长度不能超过500字" ;
 					}
 					

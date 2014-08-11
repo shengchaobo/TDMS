@@ -58,10 +58,10 @@ public class T16DAO {
 	public List<T16POJO> forExcel(String year){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T16POJO> list = new ArrayList<T16POJO>() ;
+		List<T16POJO> list = new  ArrayList<T16POJO>();
 		sql.append("select * from "+tableName) ;
 		sql.append(" where Time like '"+year+"%'") ;
-		T16POJO t16Pojo =new T16POJO();
+		T16POJO t16Pojo = new T16POJO();
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -89,8 +89,9 @@ public class T16DAO {
 					t16Pojo.setNote2(note);
 					t16Pojo.setSeqNumber2(seqNumber);
 				}
+				
 			}
-               list.add(t16Pojo) ;
+			list.add(t16Pojo) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
@@ -126,7 +127,8 @@ public class T16DAO {
 				bean.setSeqNumber(tempBean.getSeqNumber());	
 				flag = DAOUtil.update(bean, tableName, key, fields, conn) ;
 			}else{
-				flag = DAOUtil.insert(bean, tableName, key, conn) ;
+//				System.out.println("beande Item："+bean.getItem());
+				flag = DAOUtil.insert(bean, tableName, field, conn) ;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -245,12 +247,13 @@ public class T16DAO {
 		return flag ;
 	}
 	
-	public boolean deleteCoursesByIds(String ids){
+	/**按年份删除数据*/
+	public boolean deleteByYear(String year){
 		
 		int flag = 0 ;
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("delete from " + tableName) ;
-		sql.append(" where " + key + " in " + ids) ;
+		sql.append(" where Time like '"+year+"%'") ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		
@@ -268,15 +271,30 @@ public class T16DAO {
 			return true ;
 		}
 	}
+	
 	public String getTableName(){
 		return this.tableName ;
 	}
 	
+
 	public static void main(String arg[])
 	{
 		T16DAO dao=new T16DAO();
-		int n = dao.countDate("2013");
-		System.out.println(n);
+		List<T16POJO> list = dao.forExcel("2013");
+		if(list == null){
+			System.out.println("空");
+		}else{
+			T16POJO pojo = list.get(0);
+			System.out.println(pojo.getContents1());
+			System.out.println(pojo.getItem1());
+			System.out.println(pojo.getContents2());
+			System.out.println(pojo.getItem2());
+		}
+		
+		
+      
+
 	}
+
 
 }

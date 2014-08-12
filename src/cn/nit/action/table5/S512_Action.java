@@ -199,19 +199,19 @@ public InputStream getInputStream() throws Exception{
 		           ws.addCell(new Label(10,4,"为低年级授课的副教授（人",wcf));
 		           
 		           //合并单元格
-		           ws.mergeCells(0, 2, 0, 4);
-		           ws.mergeCells(1, 2, 1, 4);
-		           ws.mergeCells(2, 2, 2, 4);
-		           ws.mergeCells(3, 2, 4, 2);
-		           ws.mergeCells(5, 2, 10, 2);
-		           ws.mergeCells(11, 2, 12, 2);
+		           ws.mergeCells(0, 2, 0, 4);//序号
+		           ws.mergeCells(1, 2, 1, 4);//开课单位
+		           ws.mergeCells(2, 2, 2, 4);//单位号
+		           ws.mergeCells(3, 2, 4, 2);//1.本科课程门次数
+		           ws.mergeCells(5, 2, 10, 2);//2.主讲本科课程的教师
+		           ws.mergeCells(11, 2, 12, 2);//3.授课情况
 
-		           ws.mergeCells(3, 3, 3, 4);
-		           ws.mergeCells(4, 3, 4, 4);
-		           ws.mergeCells(5, 3, 5, 4);
-		           ws.mergeCells(6, 3, 10, 4);
-		           ws.mergeCells(11, 3, 11, 4);
-		           ws.mergeCells(12, 3, 12, 4);
+		           ws.mergeCells(3, 3, 3, 4);//总数
+		           ws.mergeCells(4, 3, 4, 4);//其中：小班授课
+		           ws.mergeCells(5, 3, 5, 4);//总人数（人）
+		           ws.mergeCells(6, 3, 10, 3);//其中 
+		           ws.mergeCells(11, 3, 11, 4);//由教授授课的课程门次（门次）
+		           ws.mergeCells(12, 3, 12, 4);//由副教授授课的课程门次（门次）
 		           
 		           int n = list.size();
 		           int j = 6;
@@ -223,6 +223,7 @@ public InputStream getInputStream() throws Exception{
 			        	   if(i == 0){
 			        		   ws.addCell(new Label(0,5,""+seq,wcf1));
 			        		   ws.addCell(new Label(1, 5, ""+bean.getTeaUnit(), wcf1));
+			        		   ws.mergeCells(1, 5, 2, 5);
 			        		   ws.addCell(new Label(3, 5, ""+bean.getSumCS(), wcf1)); 
 			        		   ws.addCell(new Label(4, 5, ""+bean.getSmallCSNum(), wcf1)); 
 			        		   ws.addCell(new Label(5, 5, ""+bean.getSumTeaNum(), wcf1)); 

@@ -859,7 +859,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$.messager.alert('提示',"教育部经费(万元)必须是数字") ;
 				return false;
 			}
-			if(AppvlResult == "通过"){
+			var rs1= "通过";
+			var rs2= "未通过";
+			var rs3= "未参加评估";
+			if(AppvlResult ==rs1){
 				if(FirstAppvlTime == null || FirstAppvlTime.length == 0){
 					$.messager.alert('提示',"首次通过认证时间不能为空") ;
 					return false;
@@ -887,7 +890,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				
 			}
-			if(AppvlResult == "未通过"){
+			if(AppvlResult == rs2){
 				if(FirstAppvlTime == null || FirstAppvlTime.length == 0){
 					$.messager.alert('提示',"首次通过认证时间不能为空") ;
 					return false;
@@ -915,7 +918,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				
 			}
-			if(AppvlResult == "未参加评估"){
+			if(AppvlResult == rs3){
 				if(FirstAppvlTime == null || FirstAppvlTime.length == 0){
 					$.messager.alert('提示',"首次通过认证时间不能为空") ;
 					return false;

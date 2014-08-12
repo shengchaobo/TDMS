@@ -42,6 +42,7 @@ import cn.nit.service.table2.T281_Service;
 import cn.nit.service.table2.T282_Service;
 import cn.nit.service.table2.T283_Service;
 import cn.nit.service.table2.T284_Service;
+import cn.nit.service.table2.T285_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
 import cn.nit.util.TimeUtil;
@@ -55,6 +56,7 @@ public class S28_Action {
 	private T282_Service T282_services = new T282_Service();
 	private T283_Service T283_services = new T283_Service();
 	private T284_Service T284_services = new T284_Service();
+	private T285_Service T285_services = new T285_Service();
 	//private T285_Service T285_services = new T285_Service();	暂不写
 	
 	/**  哪一年数据  */
@@ -85,7 +87,8 @@ public class S28_Action {
 		T282_Bean bean282 = T282_services.getYearInfo(this.getSelectYear());
 		T283_Bean bean283 = T283_services.getYearInfo(this.getSelectYear());
 		T284_Bean bean284 = T284_services.getYearInfo(this.getSelectYear());
-		T285_Bean bean285 = null;
+		T285_Bean bean285 = T285_services.findSumBean("全校合计：", this.getSelectYear());
+		
 		//T285_Bean bean285 = T285_services.getYearInfo(this.getSelectYear());
 		
 		if((bean281 == null) || (bean282 == null) || (bean283 == null) || (bean284 == null) || (bean285 == null)){	
@@ -204,7 +207,7 @@ public class S28_Action {
 		           		           
 		           ws.addCell(new Label(2, 3, bean.getFixedAsset().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 4, bean.getPlantAsset().toString(), wcf1));  
-		           ws.addCell(new Label(2, 5, bean.getNote().toString(), wcf1));
+		           ws.addCell(new Label(2, 5, bean.getNewAddAsset().toString(), wcf1));
 		             
 
 		          wwb.write();

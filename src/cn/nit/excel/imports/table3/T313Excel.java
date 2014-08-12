@@ -78,19 +78,13 @@ public class T313Excel {
 				    if(DiscipName == null || DiscipName.equals("")){
 				    	return "第" + count + "行，重点学科名称不能为空" ;
 				    }
-				    if(DiscipName.length()>100){
-				    	return "第" + count + "行，重点学科名称长度不能超过100" ;
-				    }
-				    
+
 					String DiscipID = cell[2].getContents() ;
 					
 					if(DiscipID == null ||DiscipID.equals("")){
 						return "第" + count + "行，学科代码不能为空" ;
 					}
-					if(DiscipID.length()>50){
-						return "第" + count + "行，学科代码长度不能超过50";
-					}
-					
+
 					String UnitName = cell[3].getContents();
 					String UnitID=cell[4].getContents();
 					
@@ -101,10 +95,7 @@ public class T313Excel {
 					if(UnitID == null || UnitID.equals("")){
 						return "第" + count + "行，单位号不能为空";
 					}
-					
-					if(UnitID.length()>50){
-						return "第" + count + "行，单位号长度不能超过50";
-					}
+
 					for(DiDepartmentBean diDepartBean : diDepartBeanList){
 						if(diDepartBean.getUnitId().equals(UnitID)){
 							if(diDepartBean.getUnitName().equals(UnitName)){
@@ -223,6 +214,7 @@ public class T313Excel {
 	     }
 		
 	
+		flag=false;
 		T313_Service t313_Ser = new T313_Service() ;
 		flag = t313_Ser.batchInsert(list) ;
 		

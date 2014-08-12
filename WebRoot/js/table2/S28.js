@@ -1,9 +1,9 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "1.固定资产总值（万元）", "group": "", "value": "",  "field": "FixedAsset","editor": false},
-				        { "name": "总值", "group": "其中：教学、科研仪器设备资产", "value": "", "field": "PlantAsset", "editor":  false},
-				        { "name": "其中：当年新增值", "value": "", "group": "其中：教学、科研仪器设备资产", "field": "NewAddAsset", "editor":  false}
+				        { "name": "1.固定资产总值（万元）", "group": "", "value": "",  "field": "fixedAsset","editor": false},
+				        { "name": "总值", "group": "其中：教学、科研仪器设备资产", "value": "", "field": "plantAsset", "editor":  false},
+				        { "name": "其中：当年新增值", "value": "", "group": "其中：教学、科研仪器设备资产", "field": "newAddAsset", "editor":  false}
 				    ];
 				    							
 				$('#edit').propertygrid({

@@ -1,4 +1,5 @@
-	
+	//全局变量，用来控制字段合并次数
+	var count = 0;	
 
 	//只是用来展示的数据
 	$(function() {
@@ -23,26 +24,30 @@
 					if(rowData.rows.length == 0){
 						alert("无该年数据！！！");
 					}else{
-						var merges2 = [
-						  {
-			                  field:'donaName',
-			                  index: 0,
-			                  colspan: 2
-			              },
-						  {
-			                  field:'donaMoney',
-			                  index: 0,
-			                  colspan: 2
-			              }   
-			              ];
-
-			            for (var i = 0; i < merges2.length; i++)
-			                $('#showData').datagrid('mergeCells', {
-			                    index: merges2[i].index,
-			                    field: merges2[i].field,
-			                    colspan: merges2[i].colspan,
-			                    rowspan: merges2[i].rowspan
-			                });						
+						 if(count == 0 ) {			
+							var merges2 = [
+							  {
+				                  field:'donaName',
+				                  index: 0,
+				                  colspan: 2
+				              },
+							  {
+				                  field:'donaMoney',
+				                  index: 0,
+				                  colspan: 2
+				              }   
+				              ];
+	
+				            for (var i = 0; i < merges2.length; i++)
+				                $('#showData').datagrid('mergeCells', {
+				                    index: merges2[i].index,
+				                    field: merges2[i].field,
+				                    colspan: merges2[i].colspan,
+				                    rowspan: merges2[i].rowspan
+				             });	
+				            
+				            count++;
+						 }
 					}
 					},
 

@@ -173,9 +173,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td colspan = "3">
 					<div class="fitem">
 						<label>覆盖比例：</label> 
-						<input  class="easyui-numberbox" id="CoverRatio"   min=0  precision=4
+						<input  class="easyui-numberbox" id="CoverRatio"   min=0  precision=2
 						name="t513Bean.CoverRatio"  editable="false" />
-						<span id="CoverRatioSpan"><font  color="red">(请填写小数形式)</span>
+						<span id="CoverRatioSpan"><font  color="blue">%</font></span>
 					</div>
 				</td>
 			</tr>
@@ -199,9 +199,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td >
 					<div class="fitem">
 						<label>比例：</label> 
-						<input  id="ExcellentRatio"  class="easyui-numberbox" min=0  precision=4
+						<input  id="ExcellentRatio"  class="easyui-numberbox" min=0  precision=2
 						name="t513Bean.ExcellentRatio"  editable="false" />
-						<span id="ExcellentRatioSpan"><font  color="red">(请填写小数形式)</span>
+						<span id="ExcellentRatioSpan"><font  color="blue">%</font></span>
 					</div>
 				</td>
 			</tr>
@@ -224,9 +224,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td >
 					<div class="fitem">
 						<label>比例：</label> 
-						<input  id="GoodRatio"   class="easyui-numberbox"  min=0 precision=4
+						<input  id="GoodRatio"   class="easyui-numberbox"  min=0 precision=2
 						name="t513Bean.GoodRatio"  editable="false" />
-						<span id="GoodRatioSpan"><font  color="red">(请填写小数形式)</span>
+						<span id="GoodRatioSpan"><font  color="blue">%</font></span>
 					</div>
 				</td>
 			</tr>
@@ -249,9 +249,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td >
 					<div class="fitem">
 						<label>比例：</label> 
-						<input  id="AvgRatio"   class="easyui-numberbox"  min=0 precision=4
+						<input  id="AvgRatio"   class="easyui-numberbox"  min=0 precision=2
 						name="t513Bean.AvgRatio"  editable="false" />
-						<span id="AvgRatioSpan"><font  color="red">(请填写小数形式)</span>
+						<span id="AvgRatioSpan"><font  color="blue">%</font></span>
 					</div>
 				</td>
 			</tr>
@@ -273,9 +273,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td >
 					<div class="fitem">
 						<label>比例：</label> 
-						<input  id="PoorRatio"   class="easyui-numberbox"  min=0 precision=4
+						<input  id="PoorRatio"   class="easyui-numberbox"  min=0 precision=2
 						name="t513Bean.PoorRatio"  editable="false" />
-						<span id="PoorRatioSpan"><font  color="red">(请填写小数形式)</font></span>
+						<span id="PoorRatioSpan"><font  color="blue">%</font></span>
 					</div>
 				</td>
 			</tr>		
@@ -304,8 +304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript">
    function formatRatio(val){
-        var str=val+"";
-        str=str.substring(2,str.length);
+        var str = val+"";
 	   var ratio=str+"%";
 	   return ratio;
    }

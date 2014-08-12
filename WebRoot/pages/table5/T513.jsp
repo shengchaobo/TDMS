@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th  data-options="field:'havedASCSNum'" rowspan=2>
 				已评课程门次数
 				</th>
-				<th data-options="field:'coverRatio'" rowspan=2>
+				<th data-options="field:'coverRatio'" rowspan=2 formatter = "formatRatio">
 				覆盖比例（%）
 				</th>
 				<th colspan=2>
@@ -73,25 +73,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <th  data-options="field:'excellentNum'">
 				门次数
 				</th>
-				<th  data-options="field:'excellentRatio'">
+				<th  data-options="field:'excellentRatio'" formatter = "formatRatio">
 				比例
 				</th>
 				  <th  data-options="field:'goodNum'">
 				门次数
 				</th>
-				<th  data-options="field:'goodRatio'">
+				<th  data-options="field:'goodRatio'" formatter = "formatRatio">
 				比例
 				</th>
 				  <th  data-options="field:'avgNum'">
 				门次数
 				</th>
-				<th  data-options="field:'avgRatio'">
+				<th  data-options="field:'avgRatio'" formatter = "formatRatio">
 				比例
 				</th>
 				  <th  data-options="field:'poorNum'">
 				门次数
 				</th>
-				<th  data-options="field:'poorRatio'">
+				<th  data-options="field:'poorRatio'" formatter = "formatRatio">
 				比例
 				</th>
 			
@@ -172,10 +172,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td colspan = "3">
 					<div class="fitem">
-						<label>覆盖比例（%）：</label> 
-						<input  id="CoverRatio"  type="text"  min=0  precision=2
+						<label>覆盖比例：</label> 
+						<input  class="easyui-numberbox" id="CoverRatio"   min=0  precision=4
 						name="t513Bean.CoverRatio"  editable="false" />
-						<span id="CoverRatioSpan"></span>
+						<span id="CoverRatioSpan"><font  color="red">(请填写小数形式)</span>
 					</div>
 				</td>
 			</tr>
@@ -199,9 +199,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td >
 					<div class="fitem">
 						<label>比例：</label> 
-						<input  id="ExcellentRatio"  type="text"  min=0  precision=2
+						<input  id="ExcellentRatio"  class="easyui-numberbox" min=0  precision=4
 						name="t513Bean.ExcellentRatio"  editable="false" />
-						<span id="ExcellentRatioSpan"></span>
+						<span id="ExcellentRatioSpan"><font  color="red">(请填写小数形式)</span>
 					</div>
 				</td>
 			</tr>
@@ -224,9 +224,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td >
 					<div class="fitem">
 						<label>比例：</label> 
-						<input  id="GoodRatio"  type="text"  min=0 
+						<input  id="GoodRatio"   class="easyui-numberbox"  min=0 precision=4
 						name="t513Bean.GoodRatio"  editable="false" />
-						<span id="GoodRatioSpan"></span>
+						<span id="GoodRatioSpan"><font  color="red">(请填写小数形式)</span>
 					</div>
 				</td>
 			</tr>
@@ -249,9 +249,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td >
 					<div class="fitem">
 						<label>比例：</label> 
-						<input  id="AvgRatio"  type="text"  min=0 
+						<input  id="AvgRatio"   class="easyui-numberbox"  min=0 precision=4
 						name="t513Bean.AvgRatio"  editable="false" />
-						<span id="AvgRatioSpan"></span>
+						<span id="AvgRatioSpan"><font  color="red">(请填写小数形式)</span>
 					</div>
 				</td>
 			</tr>
@@ -273,9 +273,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td >
 					<div class="fitem">
 						<label>比例：</label> 
-						<input  id="PoorRatio"  type="text"  min=0 
+						<input  id="PoorRatio"   class="easyui-numberbox"  min=0 precision=4
 						name="t513Bean.PoorRatio"  editable="false" />
-						<span id="PoorRatioSpan"></span>
+						<span id="PoorRatioSpan"><font  color="red">(请填写小数形式)</font></span>
 					</div>
 				</td>
 			</tr>		
@@ -299,6 +299,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        	theOption.value = currentYear-i;
        	select.appendChild(theOption);
    	}
+</script>
+
+
+<script type="text/javascript">
+   function formatRatio(val){
+        var str=val+"";
+        str=str.substring(2,str.length);
+	   var ratio=str+"%";
+	   return ratio;
+   }
 </script>
 		
 </html>

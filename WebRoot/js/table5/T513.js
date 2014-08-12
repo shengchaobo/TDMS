@@ -7,7 +7,7 @@
  //只是用来展示的数据
 	$(function() {
 		var year = $("#cbYearContrast").combobox('getValue'); 
-		alert(year);
+//		alert(year);
 		$('#showData').datagrid( {
 			title : '课堂教学质量评估统计表',  //可变内容在具体页面定义
 			url: 'pages/T513/auditingData',
@@ -137,7 +137,7 @@
 	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
 	    		return ;
 	    	}
-	    	alert(26);
+//	    	alert(26);
 	    	
 	    	var year= $("#cbYearContrast").combobox('getValue'); 
 	    	url = 'pages/T513/edit?selectYear='+year ;
@@ -145,20 +145,19 @@
 	    	$('#dlg').dialog('open').dialog('setTitle','修改课堂教学质量评估统计的信息');
 	    	
 	    	$('#seqNumber').val(row[0].seqNumber) ;
-	    	alert(row[0].seqNumber);
 	    	$('#Item').combobox('select', row[0].itemID) ;
 	    	$('#Category').combobox('select', row[0].category) ;
 	    	$('#ShouldASCSNum').numberbox('setValue',row[0].shouldASCSNum) ;
 	    	$('#HavedASCSNum').numberbox('setValue',row[0].havedASCSNum);
-	    	$('#CoverRatio').val(row[0].coverRatio);
+	    	$('#CoverRatio').numberbox('setValue',row[0].coverRatio);
 	    	$('#ExcellentNum').numberbox('setValue',row[0].excellentNum);
-	    	$('#ExcellentRatio').val(row[0].excellentRatio);
+	    	$('#ExcellentRatio').numberbox('setValue',row[0].excellentRatio);
 	    	$('#GoodNum').numberbox('setValue',row[0].goodNum);
-	    	$('#GoodRatio').val(row[0].goodRatio);
+	    	$('#GoodRatio').numberbox('setValue',row[0].excellentRatio);
 	    	$('#AvgNum').numberbox('setValue',row[0].avgNum);
-	    	$('#AvgRatio').val(row[0].avgRatio);
+	    	$('#AvgRatio').numberbox('setValue',row[0].avgRatio);
 	    	$('#PoorNum').numberbox('setValue',row[0].poorNum);
-	    	$('#PoorRatio').val(row[0].poorRatio);
+	    	$('#PoorRatio').numberbox('setValue',row[0].poorRatio);
 		}
 
   

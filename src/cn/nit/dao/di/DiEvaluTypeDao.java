@@ -11,7 +11,7 @@ import cn.nit.util.DAOUtil;
 
 public class DiEvaluTypeDao {
 
-	private String tableName = "DiTitleLevel" ;
+	private String tableName = "DiEvaluType" ;
 	
 	private String field = "IndexID,EvaluType" ;
 	

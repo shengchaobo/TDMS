@@ -18,7 +18,7 @@ package cn.nit.bean;
 public class UserinfoBean {
 	
 	/**  自增长序号  */
-	private int SeqNumber ;
+	private Integer SeqNumber ;
 
 	/**  教职工Id号  */
 	private String TeaID ;
@@ -41,13 +41,11 @@ public class UserinfoBean {
 	/**  部门编号  */
 	private String UnitID ;
 	
-	public int getSeqNumber() {
-		return SeqNumber;
-	}
-
-	public void setSeqNumber(int seqNumber) {
-		SeqNumber = seqNumber;
-	}
+	/** 所属角色 **/
+	private String RoleName;
+	
+	/** 所属角色 ID**/
+	private String RoleID;
 
 	public String getTeaID() {
 		return TeaID;
@@ -103,6 +101,30 @@ public class UserinfoBean {
 
 	public void setUnitID(String unitID) {
 		UnitID = unitID;
+	}
+
+	public void setRoleID(String roleID) {
+		RoleID = roleID;
+	}
+
+	public String getRoleID() {
+		return RoleID;
+	}
+
+	public void setRoleName(String roleName) {
+		RoleName = roleName;
+	}
+
+	public String getRoleName() {
+		return RoleName;
+	}
+
+	public void setSeqNumber(Integer seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public Integer getSeqNumber() {
+		return SeqNumber;
 	}
 
 

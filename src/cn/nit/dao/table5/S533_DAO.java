@@ -3,6 +3,7 @@ package cn.nit.dao.table5;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,14 +136,14 @@ public class S533_DAO {
 				s533_Bean.setHasExpCourseNum(rs.getInt("HasExpCourseNum"));
 				s533_Bean.setExpCourseNum(rs.getInt("ExpCourseNum"));
 				s533_Bean.setExpTeachNum(rs.getInt("ExpTeachNum"));
-				s533_Bean.setExpRatio(rs.getDouble("ExpRatio"));
+				s533_Bean.setExpRatio(this.toDouble1(rs.getDouble("ExpRatio")));
 				s533_Bean.setTime(TimeUtil.changeDateY(year));
 				list.add(s533_Bean);
 				
 				System.out.println(list.size());
 			}
 			if(list.size()!=0){
-				expRatio   =expRatio1/(list.size()-1);
+				expRatio   = this.toDouble(expRatio1, (list.size()-1));
 				S533_Bean s533_Bean=new S533_Bean();			
 				s533_Bean.setTeaUnit("全校合计");
 				s533_Bean.setUnitID("");
@@ -164,6 +165,26 @@ public class S533_DAO {
 			return null;
 		}
 		return list ;
+	}
+	
+	
+	/**转换成保存两位小数的double*/
+	public double toDouble(double a,int b){
+		
+		double d1=(a/(double)b)*100;
+		DecimalFormat df = new DecimalFormat("0.00");
+		String str = df.format(d1);
+		double d=Double.parseDouble(str);
+		return d;
+	}
+	
+	/**转换成保存两位小数的double*/
+	public double toDouble1(double a){
+		a = a*100;
+		DecimalFormat df = new DecimalFormat("0.00");
+		String str = df.format(a);
+		double d=Double.parseDouble(str);
+		return d;
 	}
 
 }

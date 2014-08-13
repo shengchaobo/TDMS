@@ -51,6 +51,7 @@ public class T531Service {
 		return t531Dao.update(t531Bean) ;
 	}
 	
+	
 	private void setAudit(T531Bean t531Bean){
 		
 		String audit = DIResourceDAO.getAudit(t531Dao.getTableName()) ;

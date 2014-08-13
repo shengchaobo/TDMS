@@ -374,6 +374,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<option value="示范专业">示范专业</option>
 							<option value="重点建设专业">重点建设专业</option>
 							<option value="地方优势专业">地方优势专业</option>
+							<option value="地方优势专业">其他</option>
 						</select>
 						<span id="TypeSpan"></span>
 					</div>
@@ -510,6 +511,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td class="empty"></td>
 					<td>
 					<div class="fitem">
+						<label>必修课学时数：</label> 
+						
+						<input id="RequireCShour" type="text" name="t322_Bean.RequireCShour"
+							class="easyui-validatebox" ><span id="RequireCShourSpan"></span>
+					</div>
+				</td>
+					
+			</tr>
+			<tr>
+				<td>
+					<div class="fitem">
+						<label>选修课学时数：</label> 
+						<input id="OptionCSHour" type="text" name="t322_Bean.OptionCSHour"
+							class="easyui-validatebox" ><span id="OptionCSHourSpan"></span>
+					</div>
+				</td>
+					<td class="empty"></td>
+				<td>
+					<div class="fitem">
+						<label>课内教学学时数：</label> 
+						<input id="InClassCSHour" type="text" name="t322_Bean.InClassCSHour"
+							class="easyui-validatebox" ><span id="InClassCSHourSpan"></span>
+					</div>
+				</td>
+				
+			</tr>
+					<tr>
+					<td>
+					<div class="fitem">
+						<label>实验教学学时数：</label> 
+						<input id="ExpCSHour" type="text" name="t322_Bean.ExpCSHour"
+							class="easyui-validatebox" ><span id="ExpCSHourSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+					<td>
+					<div class="fitem">
 						<label>必修课学分数：</label> 
 						
 						<input id="RequireCredit" type="text" name="t322_Bean.RequireCredit"
@@ -521,7 +559,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>选修课学分数：</label> 
-						<input id="OptionCredit" type="text" name="OptionCredit"
+						<input id="OptionCredit" type="text" name="t322_Bean.OptionCredit"
 							class="easyui-validatebox" ><span id="OptionCreditSpan"></span>
 					</div>
 				</td>
@@ -693,14 +731,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 		function validate(){
-			var MajorName = $('#MajorID').combobox('getText') ;
 			var MajorField = $('#MajorField').val() ;
 			var MajorFieldID = $('#MajorFieldID').val() ;
 			var MajorSetTime = $('#MajorSetTime').datebox('getValue') ;
+			var MajorAppvlID = $('#MajorAppvlID').val() ;
+			var MajorAdmisTime = $('#MajorAdmisTime').datebox('getValue') ;
+			var MajorState = $('#MajorState').combobox('getText') ;
+			var StopAdmisTime = $('#StopAdmisTime').datebox('getValue') ;
+			var AppvlYear = $('#AppvlYear').datebox('getValue') ;
+			var BuildAppvlID = $('#BuildAppvlID').val() ;
+			var MajorLevel = $('#MajorLevel').combobox('getText');
+			var Field = $('#Field').val() ;
+			var TeaID = $('#Leader').combobox('getText') ;
+			var CheckTime = $('#CheckTime').datebox('getValue') ;
+			var CheckAppvlID = $('#CheckAppvlID').val() ;
+			var SchExp = $('#SchExp').val() ;
+			var EduMinistryExp = $('#EduMinistryExp').val() ;
+			var AppvlResult = $('#AppvlResult').combobox('getText');
+			var FirstAppvlTime = $('#FirstAppvlTime').datebox('getValue') ;
+			var AppvlTime = $('#AppvlTime').datebox('getValue') ;
+			var AppvlID = $('#AppvlID').val() ;
+			var FromTime = $('#FromTime').datebox('getValue') ;
+			var EndTime = $('#EndTime').datebox('getValue') ;
+			var AppvlAuth = $('#AppvlAuth').val() ;
+			var RequireCShour = $('#RequireCShour').val() ;
+			var InClassCSHour = $('#InClassCSHour').val() ;
+			var OptionCredit = $('#OptionCredit').val() ;
+			var ExpCSHour = $('#ExpCSHour').val() ;
+			var RequireCredit = $('#RequireCredit').val() ;
+			var OptionCredit = $('#OptionCredit').val() ;
+			var InClassCredit = $('#InClassCredit').val() ;
+			var ExpCredit = $('#ExpCredit').val() ;
+			var PraCredit = $('#PraCredit').val() ;
+			var OutClassCredit = $('#OutClassCredit').val() ;
+	
 
-
+		
+			
+			
+			
 			
 
+			
 
 			if(MajorName == null || MajorName.length==0 || MajorName.length > 100){
 				$.messager.alert('提示',"专业名称不能为空或长度不超过100") ;
@@ -708,11 +780,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 
 			if(MajorField == null ||MajorField.length == 0 || MajorField.length > 50){
-				$.messager.alert('提示',"专业方向名称不能为空或长度不超过50");
+				$.messager.alert('提示',"专业方向名称不能为空（没有请填无）或长度不超过50");
 				return false;
 			}
 			if(MajorFieldID == null ||MajorFieldID.length == 0 || MajorFieldID.length > 50){
-				$.messager.alert('提示',"专业方向号不能为空或长度不超过50");
+				$.messager.alert('提示',"专业方向号不能为空（没有请填无）或长度不超过50");
 				return false;
 			}
 			if(MajorSetTime == null || MajorSetTime.length == 0){
@@ -720,25 +792,204 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 			}
 
+			if(MajorAppvlID == null || MajorAppvlID.length==0 || MajorAppvlID.length > 100){
+				$.messager.alert('提示',"批文号不能为空或长度不超过100") ;
+				return false;
+			}
+
+			if(MajorAdmisTime == null || MajorAdmisTime.length == 0){
+				$.messager.alert('提示',"开始招生时间不能为空") ;
+				return false;
+			}
+
+			if(MajorState == "在招" && !StopAdmisTime== null){
+				$.messager.alert('提示',"招生状态为'在招'时，停止招生时间不填") ;
+				return false;
+			}
+
+
+			if(MajorState == "当年停招" && StopAdmisTime== null){
+				$.messager.alert('提示',"招生状态为'当年停招'时，停止招生时间不能为空 ") ;
+				return false;
+			}
+
+			if(AppvlYear == null || AppvlYear.length == 0){
+				$.messager.alert('提示',"批准建设年度不能为空") ;
+				return false;
+			}
+
+			if(BuildAppvlID == null || BuildAppvlID.length==0 || BuildAppvlID.length > 100){
+				$.messager.alert('提示',"建设批文号不能为空或长度不超过100") ;
+				return false;
+			}
+
+			if(MajorLevel == null || MajorLevel.length == 0){
+				$.messager.alert('提示',"级别不能为空") ;
+				return false;
+			}
+
+			if(Field == null || Field.length == 0){
+				$.messager.alert('提示',"领域方向不能为空") ;
+				return false;
+			}
+			if(TeaID == null || TeaID.length == 0){
+				$.messager.alert('提示',"建设负责人教工号不能为空") ;
+				return false;
+			}
+			if(CheckTime == null || CheckTime.length == 0){
+				$.messager.alert('提示',"验收时间不能为空") ;
+				return false;
+			}
+			if(CheckAppvlID == null || CheckAppvlID.length == 0){
+				$.messager.alert('提示',"验收批文号不能为空") ;
+				return false;
+			}
+			if(SchExp == null || SchExp.length == 0){
+				$.messager.alert('提示',"学校经费(万元)不能为空") ;
+				return false;
+			}else if(isNaN(SchExp)){
+				$.messager.alert('提示',"学校经费(万元)必须是数字") ;
+				return false;
+			}
+
+			if(EduMinistryExp == null || EduMinistryExp.length == 0){
+				$.messager.alert('提示',"教育部经费(万元)不能为空") ;
+				return false;
+			}else if(isNaN(EduMinistryExp)){
+				$.messager.alert('提示',"教育部经费(万元)必须是数字") ;
+				return false;
+			}
+			var rs1= "通过";
+			var rs2= "未通过";
+			var rs3= "未参加评估";
+			if(AppvlResult ==rs1){
+				if(FirstAppvlTime == null || FirstAppvlTime.length == 0){
+					$.messager.alert('提示',"首次通过认证时间不能为空") ;
+					return false;
+				}
+				if(AppvlTime == null || AppvlTime.length == 0){
+					$.messager.alert('提示',"认证时间不能为空") ;
+					return false;
+				}
+				if(AppvlID == null || AppvlID.length == 0){
+					$.messager.alert('提示',"认证批文号不能为空") ;
+					return false;
+				}
+				if(FromTime == null || FromTime.length == 0){
+					$.messager.alert('提示',"有限期起不能为空") ;
+					return false;
+				}
+				if(EndTime == null || EndTime.length == 0){
+					$.messager.alert('提示',"有限期止不能为空") ;
+					return false;
+				}
+				if(AppvlAuth == null || AppvlAuth.length == 0){
+					$.messager.alert('提示',"认证机构不能为空") ;
+					return false;
+				}
+				
+				
+			}
+			if(AppvlResult == rs2){
+				if(FirstAppvlTime == null || FirstAppvlTime.length == 0){
+					$.messager.alert('提示',"首次通过认证时间不能为空") ;
+					return false;
+				}
+				if(AppvlTime == null || AppvlTime.length == 0){
+					$.messager.alert('提示',"认证时间不能为空") ;
+					return false;
+				}
+				if(AppvlID == null || AppvlID.length == 0){
+					$.messager.alert('提示',"认证批文号不能为空") ;
+					return false;
+				}
+				if(!(FromTime == null || FromTime.length == 0)){
+					$.messager.alert('提示',"有限期起必须为空") ;
+					return false;
+				}
+				if(!(EndTime == null || EndTime.length == 0)){
+					$.messager.alert('提示',"有限期止必须为空") ;
+					return false;
+				}
+				if(AppvlAuth == null || AppvlAuth.length == 0){
+					$.messager.alert('提示',"认证机构不能为空") ;
+					return false;
+				}
+				
+				
+			}
+			if(AppvlResult == rs3){
+				if(FirstAppvlTime == null || FirstAppvlTime.length == 0){
+					$.messager.alert('提示',"首次通过认证时间不能为空") ;
+					return false;
+				}
+				if(!(AppvlTime == null || AppvlTime.length == 0)){
+					$.messager.alert('提示',"认证时间必须为空") ;
+					return false;
+				}
+				if(!(AppvlID == null || AppvlID.length == 0)){
+					$.messager.alert('提示',"认证批文号必须为空") ;
+					return false;
+				}
+				if(!(FromTime == null || FromTime.length == 0)){
+					$.messager.alert('提示',"有限期起必须为空") ;
+					return false;
+				}
+				if(!(EndTime == null || EndTime.length == 0)){
+					$.messager.alert('提示',"有限期止必须为空") ;
+					return false;
+				}
+				if(!(AppvlAuth == null || AppvlAuth.length == 0)){
+					$.messager.alert('提示',"认证机构必须为空") ;
+					return false;
+				}
+				
+
+			}
+			if(RequireCShour == null || RequireCShour.length == 0){
+				$.messager.alert('提示',"必修课学时数不能为空") ;
+				return false;
+			}
+			if(OptionCSHour == null || OptionCSHour.length == 0){
+				$.messager.alert('提示',"选修课学时数不能为空") ;
+				return false;
+			}
+			if(InClassCSHour == null || InClassCSHour.length == 0){
+				$.messager.alert('提示',"课内教学学时数不能为空") ;
+				return false;
+			}
+			if(ExpCSHour == null || ExpCSHour.length == 0){
+				$.messager.alert('提示',"实验教学学时数不能为空") ;
+				return false;
+			}
+			if(RequireCredit == null || RequireCredit.length == 0){
+				$.messager.alert('提示',"必修课学分数不能为空") ;
+				return false;
+			}
+			if(OptionCredit == null || OptionCredit.length == 0){
+				$.messager.alert('提示',"选修课学分数不能为空") ;
+				return false;
+			}
+			if(InClassCredit == null || InClassCredit.length == 0){
+				$.messager.alert('提示',"课内教学学分数不能为空") ;
+				return false;
+			}
+			if(ExpCredit == null || ExpCredit.length == 0){
+				$.messager.alert('提示',"实验教学学分数不能为空") ;
+				return false;
+			}
+			if(PraCredit == null || PraCredit.length == 0){
+				$.messager.alert('提示',"集中实践教学环节学分数不能为空") ;
+				return false;
+			}
+			if(OutClassCredit == null || OutClassCredit.length == 0){
+				$.messager.alert('提示',"课外科技活动学分数不能为空") ;
+				return false;
+			}
 
 			
-	
 			return true ;
 		}
-
-
-		function checkRate(input)  
-		{  
-		     var re = /^[1-9]+[0-9]*]*$/;		  
-		     if (!re.test(input))  
-		    {  
-		        return false;  
-		     }else{
-			     return true;
-			     }  
-		}
-
-
 	    function exports() {
 	    	var temp = encodeURI('表3-2-2本科专业信息表.xls');
 		    $('#exportForm').form('submit', {
@@ -847,6 +1098,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        $('#FromTime').datebox('setValue',formattime(row[0].fromTime)) ;
 	        $('#EndTime').datebox('setValue',formattime(row[0].endTime)) ;
 	        $('#AppvlAuth').val(row[0].appvlAuth);
+	        
+	        $('#RequireCShour').val(row[0].requireCShour);
+	        $('#InClassCSHour').val(row[0].inClassCSHour);
+	        $('#OptionCSHour').val(row[0].optionCSHour);
+	        $('#ExpCSHour').val(row[0].expCSHour);
+
+
+	        
 	        $('#RequireCredit').val(row[0].requireCredit);
 	        $('#OptionCredit').val(row[0].optionCredit);
 	        $('#InClassCredit').val(row[0].inClassCredit);

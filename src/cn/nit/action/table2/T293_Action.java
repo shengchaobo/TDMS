@@ -33,6 +33,7 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table2.T293_Bean;
 import cn.nit.service.table2.T293_Service;
+import cn.nit.service.table2.T294_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
 import cn.nit.util.TimeUtil;
@@ -42,6 +43,8 @@ import cn.nit.util.ToBeanUtil;
 public class T293_Action {
 	
 	private T293_Service T293_services = new T293_Service();
+	
+	private T294_Service T294_services = new T294_Service();
 	
 	private T293_Bean T293_bean = new T293_Bean();	
 	
@@ -66,11 +69,24 @@ public class T293_Action {
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		T293_Bean bean = T293_services.getYearInfo(this.getSelectYear()) ;
+		double donaMoney = T294_services.getYearSumDona(this.getSelectYear());
 		
+		
+		T293_Bean bean = T293_services.getYearInfo(this.getSelectYear()) ;	
+
 		String json = null;
 		boolean flag = false;
 		if(bean != null){
+			bean.setSumIncome(bean.getSumIncome()+(donaMoney-bean.getDonation()));
+			bean.setSumOtherIncome(bean.getSumOtherIncome()+(donaMoney-bean.getDonation()));
+			bean.setDonation(donaMoney);			
+			//更新捐赠收入
+			boolean flag1 = T293_services.update(bean,this.getSelectYear());
+			if(flag1==false){
+				System.out.println("更新捐赠总收入失败");
+			}
+			
+			//将time设为null，是方便转为前台所需要的json格式
 			bean.setTime(null);
 			json = JsonUtil.beanToJson(bean);
 			flag = true;

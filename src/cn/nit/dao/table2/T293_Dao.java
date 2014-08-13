@@ -104,7 +104,7 @@ public class T293_Dao {
 				
 				
 //				统计本科生收入总计
-				sumUndergraIncome = sumUndergraIncome + allocateFund;				
+				sumUndergraIncome = allocateFund;				
 				if(bean.getEduReformFund()!= null){
 					if(tempBean.getEduReformFund() == null){
 						sumUndergraIncome = sumUndergraIncome + bean.getEduReformFund();
@@ -163,7 +163,7 @@ public class T293_Dao {
 				bean.setOtherTuition(otherTuition);
 				
 //				其他收入总额
-				sumOtherIncome = sumOtherIncome + otherTuition + otherAllocateFund;
+				sumOtherIncome = otherTuition + otherAllocateFund;
 				if(bean.getDonation()!= null){
 					if(tempBean.getDonation() == null){
 						sumOtherIncome = sumOtherIncome + bean.getDonation();
@@ -236,7 +236,7 @@ public class T293_Dao {
 				bean.setOtherTuition(otherTuition);
 				
 //				其他收入总额
-				sumOtherIncome = sumOtherIncome + otherTuition + otherAllocateFund;
+				sumOtherIncome = otherTuition + otherAllocateFund;
 				if(bean.getDonation()!= null){
 					sumOtherIncome = sumOtherIncome + bean.getDonation();
 				}
@@ -261,6 +261,30 @@ public class T293_Dao {
 			DBConnection.close(st);			
 		}
 				
+		return flag ;
+	}
+	
+	
+	/**
+	 * 更新捐赠收入
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public boolean update(T293_Bean bean, String year){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		try{
+			String updatefield = "Donation,SumOtherIncome,SumIncome";							
+			flag = DAOUtil.update(bean, tableName, keyfield, updatefield, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
 		return flag ;
 	}
 	

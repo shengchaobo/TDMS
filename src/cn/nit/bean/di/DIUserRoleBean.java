@@ -1,6 +1,6 @@
 package cn.nit.bean.di;
 
-public class DIUserRoleBean {
+public class DiUserRoleBean {
 
 	private String TeaID ;
 	

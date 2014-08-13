@@ -25,6 +25,7 @@ public class DiEvaluTypeAction {
 		List<DiEvaluTypeBean> list = EvaluTypeServices.getList() ;
 		//将数据转换为json格式
 		JSON json = JSONSerializer.toJSON(list) ;
+		System.out.println(json.toString());
 		PrintWriter out = null ;
 		
 		try {

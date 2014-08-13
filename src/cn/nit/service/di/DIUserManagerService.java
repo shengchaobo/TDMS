@@ -6,6 +6,7 @@ import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.UsersBean;
 import cn.nit.dao.di.DIUserManagerDAO;
 import cn.nit.util.Pagition;
 
@@ -23,7 +24,7 @@ public class DIUserManagerService {
 	 * @param userinfo
 	 * @return
 	 */
-	public boolean insert(UserinfoBean userinfo){
+	public boolean insert(UsersBean userinfo){
 		return userManagerDao.insert(userinfo) ;
 	}
 	
@@ -49,7 +50,7 @@ public class DIUserManagerService {
 	 * @param userinfo
 	 * @return
 	 */
-	public boolean update(UserinfoBean userinfo){
+	public boolean update(UsersBean userinfo){
 		
 		return userManagerDao.update(userinfo) ;
 	}
@@ -70,5 +71,14 @@ public class DIUserManagerService {
 	 */
 	public boolean resetPassword(String ids){
 		return userManagerDao.resetPassword(ids) ;
+	}
+	
+	
+	/**
+	 * 判断users表中是否已包含该用户
+	 */
+	
+	public boolean hasUser(String userID){
+		return userManagerDao.hasUser(userID);
 	}
 }

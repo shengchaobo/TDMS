@@ -272,7 +272,7 @@ public class S5101_DAO {
 	/**转换成保存两位小数的double*/
 	public double toDouble(int a,int b){
 		
-		double d1=(double)a/(double)b;
+		double d1=((double)a/(double)b)*100;
 		DecimalFormat df = new DecimalFormat("0.00");
 		String str = df.format(d1);
 		double d=Double.parseDouble(str);
@@ -283,23 +283,25 @@ public class S5101_DAO {
 	
 	public static void main(String arg[]){
 		S5101_DAO dao= new S5101_DAO();
-		List<S5101_Bean> list = dao.getOriData("2014");
-		for(int i=0;i<list.size();i++){
-			S5101_Bean bean = list.get(i);
-			System.out.println("项目："+bean.getItem());
-			System.out.println("实验课："+bean.getExpNum());
-			System.out.println("实验课比列："+bean.getExpRatio());
-			System.out.println("理论课（不含实践）："+bean.getInClassNum());
-			System.out.println("理论课（含实践）："+bean.getPraNum());
-			System.out.println("集中性实践环节："+bean.getTheoPraNum());
-		}
+//		List<S5101_Bean> list = dao.getOriData("2014");
+//		for(int i=0;i<list.size();i++){
+//			S5101_Bean bean = list.get(i);
+//			System.out.println("项目："+bean.getItem());
+//			System.out.println("实验课："+bean.getExpNum());
+//			System.out.println("实验课比列："+bean.getExpRatio());
+//			System.out.println("理论课（不含实践）："+bean.getInClassNum());
+//			System.out.println("理论课（含实践）："+bean.getPraNum());
+//			System.out.println("集中性实践环节："+bean.getTheoPraNum());
+//		}
+		int a = 1;
+		int b = 3;
+	    double n = dao.toDouble(a, b);
+	    System.out.println(n);
 		
 	
 	    
 //		System.out.println(list.size());
 	}
-	
-	
 	
 
 }

@@ -4,6 +4,8 @@ public class T513POJO {
 	
 	private int SeqNumber;
 	private String Item;
+	private String ItemID;
+	
 	private String Category;
 	private int ShouldASCSNum;
 	private int HavedASCSNum;
@@ -18,6 +20,7 @@ public class T513POJO {
 	private double PoorRatio;
 	private String Time;
 	private String Note;
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}
@@ -29,6 +32,12 @@ public class T513POJO {
 	}
 	public void setItem(String item) {
 		Item = item;
+	}
+	public String getItemID() {
+		return ItemID;
+	}
+	public void setItemID(String itemID) {
+		ItemID = itemID;
 	}
 	public String getCategory() {
 		return Category;

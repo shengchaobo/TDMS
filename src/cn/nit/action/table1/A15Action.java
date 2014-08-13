@@ -105,7 +105,8 @@ public class A15Action {
 		boolean flag = false; 
 		if(bean != null){
 			bean.setTime(null);
-			json = JsonUtil.beanToJson(bean);
+			A15POJO pojo = a15Ser.beanToPojo(bean);
+			json = JsonUtil.beanToJson(pojo);
 			flag = true;
 		}
 	

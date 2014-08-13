@@ -22,8 +22,12 @@ public class T293_Service {
 	
 	
 	//保存
-	public Boolean save(T293_Bean bean, String year,	String fields){
-		return infoDao.save(bean,year,fields);
+	public Boolean save(T293_Bean bean, String year, String fields){
+		return infoDao.save(bean, year, fields);
 	}
 
+	//更新捐赠收入
+	public Boolean update(T293_Bean bean,String year){
+		return infoDao.update(bean,year);
+	}
 }

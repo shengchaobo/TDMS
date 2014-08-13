@@ -85,7 +85,7 @@ public class S18DAO {
 			rs = st.executeQuery(sql.toString());
 			while(rs.next()){
 				count = rs.getInt("icount");
-				System.out.println(count);
+//				System.out.println(count);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -228,7 +228,7 @@ public class S18DAO {
 		StringBuffer sql=new StringBuffer();
 		sql.append("select * from "+tableName1);
 		sql.append(" where Time like '"+year+"%'");
-		sql.append(" and FillDept like '1012' or FillDept like '1013' or FillDept like '1017'");
+		sql.append(" and UnitID like '1012' or UnitID like '1013' or UnitID like '1017'");
 		
 		Connection conn=DBConnection.instance.getConnection();
 		Statement st=null;

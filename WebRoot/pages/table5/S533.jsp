@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'expTeachNum'">
 				综合性、设计性实验教学（门）
 				</th>
-				<th data-options="field:'expRatio'">
+				<th data-options="field:'expRatio'"  formatter="formatRatio">
 				平均实验开出率（%）
 				</th>
 			</tr>			
@@ -82,6 +82,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        	theOption.value = currentYear-i;
 		        	select.appendChild(theOption);
 		    	}
+			</script>
+			<script type="text/javascript">
+			   function formatRatio(val){
+			        var str = val+"";
+				   var ratio=str+"%";
+				   return ratio;
+			   }
 			</script>
 		
 </html>

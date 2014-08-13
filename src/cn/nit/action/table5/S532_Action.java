@@ -219,8 +219,8 @@ public class S532_Action {
 			e.printStackTrace();
 			return null ;
 		}
-		inputStream = new ByteArrayInputStream(fos.toByteArray());
-		return inputStream ;
+//		inputStream = new ByteArrayInputStream(fos.toByteArray());
+		return  new ByteArrayInputStream(fos.toByteArray());
 	}
 	
 	public String execute() throws Exception{

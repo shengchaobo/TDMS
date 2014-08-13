@@ -11,7 +11,7 @@ public class T311_Bean {
 	
 	private  Date  SetTime ;
 	
-	private String ResearcherNum ;
+	private int ResearcherNum ;
 	
 	private String UnitName ;
 	
@@ -45,12 +45,14 @@ public class T311_Bean {
 		this.SetTime = SetTime;
 	}
 
-	public String getResearcherNum() {
+
+
+	public int getResearcherNum() {
 		return ResearcherNum;
 	}
 
-	public void setResearcherNum(String ResearcherNum) {
-		this.ResearcherNum = ResearcherNum;
+	public void setResearcherNum(int researcherNum) {
+		ResearcherNum = researcherNum;
 	}
 
 	public String getUnitName() {

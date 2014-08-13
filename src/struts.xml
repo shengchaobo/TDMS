@@ -15,6 +15,8 @@
     <include file="cn/nit/configuration/treeManager.xml"/>
     <!-- 用户管理 -->
     <include file="cn/nit/configuration/system/UserManager.xml" />
+    <!-- 角色管理 -->
+    <include file="cn/nit/configuration/system/RoleManager.xml" />
     
      <!-- Di（所有字典表）-->
     <include file="cn/nit/configuration/di/DiDepartment.xml"/>
@@ -97,6 +99,7 @@
     
      <!-- table2 -->
      <include file="cn/nit/configuration/table2/S22.xml"/>
+     <include file="cn/nit/configuration/table2/S25.xml"/>
      <include file="cn/nit/configuration/table2/S28.xml"/>
      <include file="cn/nit/configuration/table2/T21.xml"/>
      <include file="cn/nit/configuration/table2/T22.xml"/>
@@ -112,9 +115,11 @@
 	<include file="cn/nit/configuration/table2/T282.xml"/>
 	<include file="cn/nit/configuration/table2/T283.xml"/>
 	<include file="cn/nit/configuration/table2/T284.xml"/>
+	<include file="cn/nit/configuration/table2/T285.xml"/>
 	<include file="cn/nit/configuration/table2/T291.xml"/>
 	<include file="cn/nit/configuration/table2/T292.xml"/>
 	<include file="cn/nit/configuration/table2/T293.xml"/>	
+	<include file="cn/nit/configuration/table2/T294.xml"/>
 	<include file="cn/nit/configuration/table2/T2101.xml"/>
 	<include file="cn/nit/configuration/table2/T2102.xml"/>
 	<include file="cn/nit/configuration/table2/T2103.xml"/>
@@ -162,6 +167,7 @@
     <include file="cn/nit/configuration/table5/S5102.xml"/>
 	   <include file="cn/nit/configuration/table5/S532.xml"/>
 	   <include file="cn/nit/configuration/table5/S533.xml"/>
+	    <include file="cn/nit/configuration/table5/T513.xml"/>
 
     <!-- table6 近一届本科生分专业招生录取情况 -->
     <include file="cn/nit/configuration/table6/T611.xml"/>

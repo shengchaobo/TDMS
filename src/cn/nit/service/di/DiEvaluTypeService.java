@@ -28,6 +28,10 @@ public class DiEvaluTypeService {
 	public boolean insert(DiEvaluTypeBean degree){
 		return EvaluTypeDao.insert(degree) ;
 	}
-
+     public static void main(String arg[]){
+    	 DiEvaluTypeService ser = new DiEvaluTypeService();
+    	 List<DiEvaluTypeBean> list = ser.getList();
+    	 System.out.println(list.size());
+     }
 
 }

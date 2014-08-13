@@ -31,6 +31,7 @@ public class S18Service {
 	   	int seq=s18Dao.getSeqNumber(year);
 
 	   	if(seq!=-1){// seq!=-1,说明数据库中有这条数据
+	   		System.out.println("原始数据条数:"+s18Dao.countOri(year));
 	   		if(s18Dao.countOri(year)>0){//有统计数据
 	   			s18bean = this.getStatic(year);
 	   			s18bean.setSeqNumber(seq);
@@ -87,6 +88,7 @@ public class S18Service {
 //	   System.out.println("hello");
 	   S18Bean s18Bean=new S18Bean();
 	   	List<T181Bean> list=s18Dao.getOriData(year);
+	   	System.out.println("s18条数："+list.size());
 	   	/**学术机构个数*/
 	   	int num1=0;
 	   	/**行业机构和企业个数*/
@@ -112,10 +114,10 @@ public class S18Service {
 	   		}
 	   	}
 	   	totalCount=num1+num2+num3;
-//	   	System.out.println(totalCount);
-//	   	System.out.println(num1);
-//	   	System.out.println(num2);
-//	   	System.out.println(num3);
+	   	System.out.println("totalCount"+totalCount);
+	   	System.out.println("num1"+num1);
+	   	System.out.println("num2"+num2);
+	   	System.out.println("num3"+num3);
 	   	s18Bean.setAcademicNum(num1);
 	   	s18Bean.setIndustryNum(num2);
 	   	s18Bean.setLocalGoverNum(num3);
@@ -128,12 +130,11 @@ public class S18Service {
    
    public static void main(String arg[]) throws SQLException{
 	   S18Service ser=new S18Service();
-	   S18Bean bean = ser.loadData("2013");
-	   if(bean != null){
-		   System.out.println("有数据");
-	   }else{
-		   System.out.println("无数据");
-	   }
+	   S18Bean bean = ser.loadData("2014");
+	  System.out.println(bean.getAcademicNum());
+	  System.out.println(bean.getIndustryNum());
+	  System.out.println(bean.getLocalGoverNum());
+	  System.out.println(bean.getSumAgreeNum());
    }
   
 }

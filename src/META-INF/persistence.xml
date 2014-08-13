@@ -55,6 +55,9 @@
 		<class>cn.nit.bean.table2.T293UndergraTeaIncomeFinance</class>
 		<class>cn.nit.bean.table2.T294SocialDonaInfoFinance</class>
 		<class>cn.nit.bean.table5.T54OutClassActAndLetureYlc</class>
+		<class>cn.nit.bean.Role</class>
+		<class>cn.nit.bean.Users</class>
+		<class>cn.nit.bean.DiUserRole</class>
 		<properties>
 			<property name="toplink.jdbc.driver"
 				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />

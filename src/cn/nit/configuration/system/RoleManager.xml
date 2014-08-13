@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
 	<package name="role" namespace="/pages/diRole" extends="struts-default">
-		<!-- 初始化加载课程性质 -->
+		<!-- 初始化所有角色 -->
 	    <action name="loadDIRoles" class="cn.nit.action.di.DiRoleAction" method="loadDiRoles" />
 	</package>
 </struts>

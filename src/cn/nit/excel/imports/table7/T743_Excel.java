@@ -26,7 +26,7 @@ public class T743_Excel {
 		}
 		
 		int  count=1;
-		T743_Bean T743_Bean=new T743_Bean();
+		
 		boolean flag=false;
 	    List<T743_Bean> list=new LinkedList<T743_Bean>();
 	
@@ -40,7 +40,7 @@ public class T743_Excel {
 		List<DiCourseCharBean> diCourseCharBeanList=diCourseCharSer.getList();
 		
 		for(Cell[] cell: cellList){
-			
+			T743_Bean T743_Bean=new T743_Bean();
 			try {		
 				if(count<4){
 					count++;
@@ -50,17 +50,29 @@ public class T743_Excel {
 				if(csName == null || csName.equals("")){
 					return "第" + count + "行，课程名称不能为空" ;
 				}
+				if(csName.length()>100){
+					return "第" + count + "行，课程名称不能超过100个字符" ;
+				}
 				String csId = cell[2].getContents() ;
 				if(csId == null || csId.equals("")){
 					return "第" + count + "行，课程编号不能为空" ;
+				}
+				if(csId.length()>50){
+					return "第" + count + "行，课程编号不能超过50个字符" ;
 				}
 				String unit = cell[3].getContents() ;
 				if((unit == null) || unit.equals("")){
 					return "第" + count + "行，开课单位不能为空" ;
 				}
+				if(unit.length()>200){
+					return "第" + count + "行，开课单位不能超过200个字符" ;
+				}
 				String unitId = cell[4].getContents() ;
 				if((unitId == null) || unitId.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
+				}
+				if(unitId.length()>50){
+					return "第" + count + "行，单位号不能超过50个字符" ;
 				}
 				for(DiDepartmentBean diDepartBean : diDepartBeanList){
 					if(diDepartBean.getUnitId().equals(unitId)){
@@ -82,6 +94,9 @@ public class T743_Excel {
 				if((csType == null) || csType.equals("")){
 					return "第" + count + "行，课程类别不能为空" ;
 				}
+				if(!csType.equals("理论课（含实践）") && !csType.equals("理论课（不含实践）")&& !csType.equals("集中性实践环节")&& !csType.equals("实验课")){
+					return "第" + count + "行，课程类别只能是“理论课（含实践）”或“理论课（不含实践）”或“集中性实践环节”或“实验课”" ;
+				}
 				String csTypeId=null;
 				for(DiCourseCategoriesBean diCorCateBean : diCourseBeanList){
 					if(diCorCateBean.getCourseCategories().equals(csType)){
@@ -100,6 +115,11 @@ public class T743_Excel {
 				if((csNature == null) || csNature.equals("")){
 					return "第" + count + "行，课程性质不能为空" ;
 				}
+				if(!csNature.equals("大学外语课") && !csNature.equals("公共任选课")&& !csNature.equals("集中实践教学环节")&& !csNature.equals("通识必修课")
+						   && !csNature.equals("通识任选课")&& !csNature.equals("通识限选课")&& !csNature.equals("学科基础课")&& !csNature.equals("专业必修课")
+						   && !csNature.equals("专业基础课")&& !csNature.equals("专业课必修")&& !csNature.equals("专业任选课")&& !csNature.equals("专业限选课")&& !csNature.equals("专业选修课")){
+							return "第" + count + "行，课程性质格式有误，只能填写“大学外语课”或“公共任选课”或“集中实践教学环节”或“通识必修课”或“通识任选课”或“通识限选课”或“学科基础课”或“专业必修课”或“专业基础课”或“专业课必修”或“专业任选课”或“专业限选课”或“专业选修课”";
+						}
 				String csNatureId=null;
 				for(DiCourseCharBean diCorBean : diCourseCharBeanList){
 					if(diCorBean.getCourseChar().equals(csNature)){
@@ -119,23 +139,38 @@ public class T743_Excel {
 				if((csLeader == null) || csLeader.equals("")){
 					return "第" + count + "行，课程负责人不能为空" ;
 				}
+				if(csLeader.length()>50){
+					return "第" + count + "行，课程负责人不能超过50个字符" ;
+				}
+
 				String teaId = cell[8].getContents() ;
 				if((teaId == null) || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
+				}
+				if(teaId.length()>50){
+					return "第" + count + "行，教工号不能超过50个字符" ;
 				}
 				String assYear = cell[9].getContents() ;
 				if((assYear == null) || assYear.equals("")){
 					return "第" + count + "行，评估年份不能为空" ;
 				}
+				if(assYear.length()>10){
+					return "第" + count + "行，评估年份不能超过10个字符" ;
+				}
 				String assResult = cell[10].getContents() ;
 				if(assResult == null || assResult.equals("")){
 					return "第" + count + "行，评估结果不能为空" ;
+				}
+				if(!assResult.equals("校级优秀") && !assResult.equals("校级良好")&& !assResult.equals("校级合格")&& !assResult.equals("校级不合格")){
+					return "第" + count + "行，考评结论只能是“校级优秀”或“校级良好”或“校级合格”或“校级不合格”" ;
 				}
 				String appID = cell[11].getContents() ;
 				if(appID == null || appID.equals("")){
 					return "第" + count + "行，批文号不能为空" ;
 				}
-				
+				if(appID.length()>100){
+					return "第" + count + "行，批文号不能超过100个字符" ;
+				}
 				String note = cell[12].getContents();
 					
 				count++ ;

@@ -38,7 +38,7 @@ public class A15Service {
 	   		
 	   		if(a15Dao.countOri(year)>0){//存在统计信息
 	   			System.out.println("1:"+a15Dao.countOri(year));
-	   			a15bean = this.getStatic(year);
+	   			a15bean = this.getStatic(year);//通过原始数据计算值！
 	   			a15bean.setSeqNumber(seq);
 	   			flag = a15Dao.update(a15bean);
 	   		  if(flag){
@@ -147,17 +147,17 @@ public class A15Service {
 		if(totalNum!=0){
 //			double n1=(double)(num1/totalNum);
 			
-			ratio1=this.m2(((double)num1/(double)totalNum));
+			ratio1=this.m2(((double)num1/(double)totalNum)*100);
 //			ratio1=ratio1*100;
 //			System.out.println(ratio1);
-			ratio2=this.m2(((double)num2/(double)totalNum));
+			ratio2=this.m2(((double)num2/(double)totalNum)*100);
 //			ratio2=ratio2*100;
 //			System.out.println((num2/totalNum));
 //			System.out.println(ratio2);
-			ratio3=this.m2(((double)num3/(double)totalNum));
+			ratio3=this.m2(((double)num3/(double)totalNum)*100);
 //			ratio3=ratio3*100;
 //			System.out.println(ratio3);
-			ratio4=this.m2(((double)num4/(double)totalNum));
+			ratio4=this.m2(((double)num4/(double)totalNum)*100);
 //			ratio4=ratio4*100;
 //			System.out.println(ratio4);
 			a15Bean.setCityResNum(num3);
@@ -198,11 +198,12 @@ public class A15Service {
 		return pojo;
 	}
 	
+	/**吧double类型转换成百分数*/
 	public String doubleToStr(double num){
 		String str=null;
-		num=num*100;
-		num=this.m2(num);
-		System.out.println(num);
+//		num=num*100;
+//		num=this.m2(num);
+//		System.out.println(num);
 		str=""+num+"%";
 		System.out.println(str);
 		return str;
@@ -211,7 +212,7 @@ public class A15Service {
 	//保留两位小数
 	public double m2(double n){
 		 BigDecimal bg = new BigDecimal(n);
-	     double f1 = bg.setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+	     double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 //	     System.out.println(f1);
 	     return f1;
 	}
@@ -221,14 +222,11 @@ public class A15Service {
 	public static void main(String arg[]){
 		double s1=0.0;
 		A15Service ser=new A15Service();
-	    A15Bean bean = ser.loadData("2011");
-	    if(bean!=null){
-	    	System.out.println("有数据");
-	    }else{
-	    	System.out.println("无数据");
-	    }
-
-		
+	   int a = 1;
+	   int b = 3;
+	   double ratio4=ser.m2(((double)a/(double)b)*100);
+		System.out.println(ratio4);
+		System.out.println(ser.doubleToStr(ratio4));
 //		
 	}
 

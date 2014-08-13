@@ -94,7 +94,70 @@
 					    });
 			    }
 		    }); 
-		});							
+		});
+	        
+	        
+	        //打开导入窗口
+			   $("#add").click(function(){
+				   
+				   $('#dlg-import').dialog('open').dialog('setTitle','课堂教学质量评估统计表的导入');
+			   });
+			   
+			   //导入
+			 $("#import").click(function(){
+				 var year =  $("#cbYearContrast1").combobox('getValue'); 
+//				 alert(year);
+				 $('#batchForm').form('submit',{
+		    		 url: 'pages/T513/uploadFile',
+		    		 type: "post",
+			         dataType: "json",
+		    		 onSubmit: function(){
+					       return check() ;
+						   },
+		    		 success: function(result){
+		    		 	var result = eval('('+result+')');
+//		    		 	alert(result);
+		    		 	if (!result.success){
+		    		 		$.messager.show({
+		    		 			title: 'Error',
+		    		 			msg: result.errorMsg
+		    			 });
+		    		 		  $('#dlg-import').dialog('close');
+		    		 			$('#cbYearContrast').combobox('select',year);
+		    		 		  	reloadgrid (year,true) 
+			   					$('#edit').propertygrid('loadData', rows);
+		    		 		  	
+		    		 	} else {
+		    		 		alert(123);
+				    		  $('#dlg-import').dialog('close'); // close the dialog
+				    		   reloadgrid(newValue,true)
+								$('#edit').propertygrid('loadData', rows);
+		    		 	}
+		    		 }
+		    		 });
+			 });
+			 
+			 function check(){
+			    	var fileName = $('#uploadFile').val() ;
+			    	
+			    	if(fileName == null || fileName == ""){
+				    	$.messager.alert("操作提示","请选择一个Excel文件！");
+			    		return false ;
+			    	}
+			    	
+			    	var pos = fileName.lastIndexOf(".") ;
+			    	var suffixName = fileName.substring(pos, fileName.length) ;
+			    	
+			    	if(suffixName == ".xls"){
+			    		return true ;
+			    	}else{
+			    		$.messager.alert("操作提示","文件格式错误，请选择后缀为“.xls”的文件！");
+			    		return false ;
+			    	}
+			    } 
+	        
+	        
+	        
 	});
 	
 
@@ -159,9 +222,5 @@
 	    	$('#PoorNum').numberbox('setValue',row[0].poorNum);
 	    	$('#PoorRatio').numberbox('setValue',row[0].poorRatio);
 		}
-
-  
-
-	
 
 

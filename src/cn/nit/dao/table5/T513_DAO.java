@@ -236,12 +236,30 @@ public class T513_DAO {
 	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T513Bean> list){
+	public boolean batchInsert(List<T513Bean> list,String year){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
+		StringBuffer sql = new StringBuffer();
+		sql.append("select * from "+tableName);
+		sql.append(" where Time like '"+year+"%'");
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T513Bean> templist = null ;
 		
 		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			templist = DAOUtil.getList(rs, T513Bean.class);
+			if(templist.size() != 0){
+				String delSql = "delete from " + tableName + " where Time like '" + year+"%'";
+				int delflag = st.executeUpdate(delSql.toString());
+				if(delflag > 0 ){
+					flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+				}
+			}else{
+				flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+			}
 			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;

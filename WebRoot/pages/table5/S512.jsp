@@ -60,16 +60,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body style="overflow-y:scroll">
 	<table id="showData"  style="height: auto">	
-		
-		<thead>
-			<tr>
-			
+	<thead data-options="frozen:true">
+			<tr>			
 				<th data-options="field:'teaUnit',align:'center'" rowspan="3" >
 			          开课单位
 				</th>
 				<th data-options="field:'unitID',align:'center'" rowspan="3">
 				单位号
 				</th>
+		     </tr>
+		</thead>
+		
+		<thead>
+			<tr>
 				<th colspan="2">
 				1.本科课程门次数
 				</th>

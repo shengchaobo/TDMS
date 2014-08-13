@@ -104,9 +104,9 @@ public class T513Service {
 	
 
 	/**批量导入*/
-	public boolean batchInsert(List<T513Bean> list){
+	public boolean batchInsert(List<T513Bean> list,String year){
 		
-		return t513Dao.batchInsert(list) ;
+		return t513Dao.batchInsert(list,year) ;
 	}
 	public static void main(String arg[]){
 		T513Service ser = new T513Service();

@@ -173,7 +173,6 @@ $(function(){
 				     if(val ==  null){
 					     str=null;
 				     }else{
-					     val=val*100;
 				    	 var bol=""+val;//把double型转换成sre类型
 					     str = bol+"%";
 				     }

@@ -214,7 +214,7 @@ public class T513Excel {
 		
 		flag = false ;
 		T513Service t513Ser = new T513Service() ;
-		flag = t513Ser.batchInsert(list) ;
+		flag = t513Ser.batchInsert(list,selectYear) ;
 		
 		if(flag){
 			return "数据导入成功" ;

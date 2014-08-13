@@ -40,11 +40,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
-		     </tr>
-		</thead>
-		
-		<thead>
-			<tr>
 				<th data-options="field:'term',align:'center'" rowspan="2">
 			          学期
 				</th>
@@ -54,6 +49,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'unitID',align:'center'" rowspan="2">
 				单位号
 				</th>
+		     </tr>
+		</thead>
+		
+		<thead>
+			<tr>
 				<th data-options="field:'CSMajorName',align:'center'" rowspan="2">
 				上课专业名称
 				</th>
@@ -164,11 +164,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
-		     </tr>
-		</thead>
-		
-	<thead>
-			<tr>
 				<th data-options="field:'term',align:'center'" rowspan="2">
 			          学期
 				</th>
@@ -178,6 +173,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'unitID',align:'center'" rowspan="2">
 				单位号
 				</th>
+		     </tr>
+		</thead>
+		
+	<thead>
+			<tr>
 				<th data-options="field:'CSMajorName',align:'center'" rowspan="2">
 				上课专业名称
 				</th>

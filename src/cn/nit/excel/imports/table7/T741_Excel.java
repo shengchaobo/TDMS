@@ -24,7 +24,7 @@ public class T741_Excel {
 		}
 		
 		int  count=1;
-		T741_Bean T741_Bean=new T741_Bean();
+		
 		boolean flag=false;
 	    List<T741_Bean> list=new LinkedList<T741_Bean>();
 	
@@ -37,7 +37,7 @@ public class T741_Excel {
 		System.out.println(cellList.size());
 		
 		for(Cell[] cell: cellList){
-			
+			T741_Bean T741_Bean=new T741_Bean();
 			try {
 				
 				if(count<4){
@@ -49,19 +49,30 @@ public class T741_Excel {
 				if(teaName == null || teaName.equals("")){
 					return "第" + count + "行，教师姓名不能为空" ;
 				}
+				if(teaName.length()>50){
+					return "第" + count + "行，教师姓名不能超过50个字符" ;
+				}
 				String teaId = cell[2].getContents() ;
 				if(teaId == null || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
+				}
+				if(teaId.length()>50){
+					return "第" + count + "行，教工号不能超过50个字符" ;
 				}
 				String unit = cell[3].getContents() ;
 				if((unit == null) || unit.equals("")){
 					return "第" + count + "行，所属教学单位不能为空" ;
 				}
+				if(unit.length()>200){
+					return "第" + count + "行，所属教学单位不能超过200个字符" ;
+				}
 				String unitId = cell[4].getContents() ;
 				if((unitId == null) || unitId.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
 				}
-				
+				if(unitId.length()>50){
+					return "第" + count + "行，单位号不能超过50个字符" ;
+				}
 				for(DiDepartmentBean diDepartBean : diDepartBeanList){
 					if(diDepartBean.getUnitId().equals(unitId)){
 						if(diDepartBean.getUnitName().equals(unit)){
@@ -82,13 +93,22 @@ public class T741_Excel {
 				if(assCs == null || assCs.equals("")){
 					return "第" + count + "行，参评课程不能为空" ;
 				}
+				if(assCs.length()>100){
+					return "第" + count + "行，参评课程不能超过100个字符" ;
+				}
 				String csId = cell[6].getContents() ;
 				if((csId == null) || csId.equals("")){
 					return "第" + count + "行，课程编号不能为空" ;
 				}
+				if(csId.length()>50){
+					return "第" + count + "行，课程编号不能超过50个字符" ;
+				}
 				String csType = cell[7].getContents() ;
 				if((csType == null) || csType.equals("")){
 					return "第" + count + "行，课程类别不能为空" ;
+				}
+				if(!csType.equals("理论课（含实践）") && !csType.equals("理论课（不含实践）")&& !csType.equals("集中性实践环节")&& !csType.equals("实验课")){
+					return "第" + count + "行，课程类别只能是“理论课（含实践）”或“理论课（不含实践）”或“集中性实践环节”或“实验课”" ;
 				}
 				String csTypeId=null;
 				for(DiCourseCategoriesBean diCorCateBean : diCourseBeanList){
@@ -108,15 +128,23 @@ public class T741_Excel {
 				if((assYear == null) || assYear.equals("")){
 					return "第" + count + "行，评估年份不能为空" ;
 				}
+				if(assYear.length()>10){
+					return "第" + count + "行，评估年份不能超过10个字符" ;
+				}
 				String accResult = cell[9].getContents() ;
 				if(accResult == null || accResult.equals("")){
 					return "第" + count + "行，评估结果不能为空" ;
+				}
+				if(accResult.length()>50){
+					return "第" + count + "行，评估结果不能超过50个字符" ;
 				}
 				String appID = cell[10].getContents() ;
 				if(appID == null || appID.equals("")){
 					return "第" + count + "行，批文号不能为空" ;
 				}
-				
+				if(appID.length()>100){
+					return "第" + count + "行，批文号不能超过100个字符" ;
+				}
 				 String note = cell[11].getContents();
 					
 					count++ ;

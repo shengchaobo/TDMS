@@ -25,7 +25,7 @@ public class T744_Excel {
 		}
 		
 		int count = 1 ;
-		T744_Bean T744_Bean =new T744_Bean();
+		
 		boolean flag = false ;
 		List<T744_Bean> list = new LinkedList<T744_Bean>() ;
 		
@@ -36,6 +36,7 @@ public class T744_Excel {
 		List<DiMajorTwoBean> diMajorBeanList = diMajorSer.getList() ;
 		
 		for(Cell[] cell : cellList){
+			T744_Bean T744_Bean =new T744_Bean();
 			try {
 				if(count<4){
 					count++;
@@ -48,11 +49,15 @@ public class T744_Excel {
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
 				}
-				
+				if(unit.length()>200){
+					return "第" + count + "行，教学单位不能超过200个字符" ;
+				}
 				if(unitId == null || unitId.equals("")){
 					return "第" + count + "行，所属单位号不能为空" ;
 				}			
-				
+				if(unitId.length()>50){
+					return "第" + count + "行，所属单位号不能超过50个字符" ;
+				}
 				for(DiDepartmentBean diDepartBean : diDepartBeanList){
 					if(diDepartBean.getUnitId().equals(unitId)){
 						if(diDepartBean.getUnitName().equals(unit)){
@@ -76,11 +81,15 @@ public class T744_Excel {
 				if(major == null || major.equals("")){
 					return "第" + count + "行，专业名称不能为空" ;
 				}
-				
-				if(unitId == null || unitId.equals("")){
+				if(major.length()>100){
+					return "第" + count + "行，专业名称不能超过100个字符" ;
+				}
+				if(majorId == null || majorId.equals("")){
 					return "第" + count + "行，专业代码不能为空" ;
 				}			
-				
+				if(majorId.length()>50){
+					return "第" + count + "行，专业代码不能超过50个字符" ;
+				}
 				for(DiMajorTwoBean diMajorBean : diMajorBeanList){
 					if(diMajorBean.getMajorNum().equals(majorId)){
 						if(diMajorBean.getMajorName().equals(major)){
@@ -102,29 +111,54 @@ public class T744_Excel {
 				if((deType == null) || deType.equals("")){
 					return "第" + count + "行，学位授予门类不能为空" ;
 				}
+				if(!deType.equals("01哲学") && !deType.equals("02经济学")&& !deType.equals("03法学")&& !deType.equals("04教育学")
+						   && !deType.equals("05文学")&& !deType.equals("06历史学")&& !deType.equals("07理学")&& !deType.equals("08工学")
+						   && !deType.equals("09农学")&& !deType.equals("10医学")&& !deType.equals("11军事学")&& !deType.equals("12管理学")&& !deType.equals("13艺术学")){
+							return "第" + count + "行，学位授予门类格式有误，只能填写“01哲学”或“02经济学”或“03法学”或“04教育学”或“05文学”或“06历史学”或“07理学”或“08工学”或“09农学”或“10医学”或“11军事学”或“12管理学”或“13艺术学”";
+						}
 				String leaderName = cell[6].getContents() ;
 				if((leaderName == null) || leaderName.equals("")){
 					return "第" + count + "行，负责人姓名不能为空" ;
 				}
-				
+				if(leaderName.length()>50){
+					return "第" + count + "行，负责人姓名不能超过50个字符" ;
+				}
 				String teaId = cell[7].getContents() ;
 				if((teaId == null) || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
 				}
-				String assYear = cell[8].getContents() ;
-				if((assYear == null) || assYear.equals("")){
+				if(teaId.length()>50){
+					return "第" + count + "行，教工号不能超过50个字符" ;
+				}
+				String setYear = cell[8].getContents() ;
+				if((setYear == null) || setYear.equals("")){
 					return "第" + count + "行，设置年份不能为空" ;
 				}
-				String assResult = cell[9].getContents() ;
+				if(setYear.length()>10){
+					return "第" + count + "行，设置年份不能超过10个字符" ;
+				}
+				String assYear = cell[9].getContents() ;
+				if((assYear == null) || assYear.equals("")){
+					return "第" + count + "行，评估年份不能为空" ;
+				}
+				if(assYear.length()>10){
+					return "第" + count + "行，评估年份不能超过10个字符" ;
+				}
+				String assResult = cell[10].getContents() ;
 				if(assResult == null || assResult.equals("")){
 					return "第" + count + "行，评估结果不能为空" ;
 				}
-				String appID = cell[10].getContents() ;
+				if(!assResult.equals("校级优秀") && !assResult.equals("校级良好")&& !assResult.equals("校级合格")&& !assResult.equals("校级不合格")){
+					return "第" + count + "行，评估结果只能是“校级优秀”或“校级良好”或“校级合格”或“校级不合格”" ;
+				}
+				String appID = cell[11].getContents() ;
 				if(appID == null || appID.equals("")){
 					return "第" + count + "行，批文号不能为空" ;
 				}
-				
-				String note = cell[11].getContents();
+				if(appID.length()>100){
+					return "第" + count + "行，批文号不能超过100个字符" ;
+				}
+				String note = cell[12].getContents();
 					
 				count++ ;
 
@@ -137,6 +171,7 @@ public class T744_Excel {
 				T744_Bean.setDegreeType(deType);
 				T744_Bean.setLeaderName(leaderName);
 				T744_Bean.setTeaID(teaId);
+				T744_Bean.setSetYear(setYear);
 				T744_Bean.setAssessYear(assYear);
 				T744_Bean.setAssessResult(assResult);
 				T744_Bean.setAppvlID(appID);

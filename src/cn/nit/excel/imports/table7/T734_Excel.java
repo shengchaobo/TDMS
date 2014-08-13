@@ -22,7 +22,6 @@ public class T734_Excel {
 		}
 		
 		int  count=1;
-		T734_Bean T734_Bean=new T734_Bean();
 		boolean flag=false;
 	    List<T734_Bean> list=new LinkedList<T734_Bean>();
 	
@@ -30,7 +29,7 @@ public class T734_Excel {
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		
 		for(Cell[] cell: cellList){
-			
+			T734_Bean T734_Bean=new T734_Bean();
 			try {
 				
 				if(count<4){
@@ -41,19 +40,30 @@ public class T734_Excel {
 				if(teaName == null || teaName.equals("")){
 					return "第" + count + "行，教师不能为空" ;
 				}
+				if(teaName.length()>50){
+					return "第" + count + "行，教师不能超过50个字符" ; 
+				}
 				String teaId = cell[2].getContents() ;
 				if(teaId == null || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
+				}
+				if(teaId.length()>50){
+					return "第" + count + "行，教工号不能超过50个字符" ; 
 				}
 				String unit = cell[3].getContents() ;
 				if((unit == null) || unit.equals("")){
 					return "第" + count + "行，所属部门不能为空" ;
 				}
+				if(unit.length()>200){
+					return "第" + count + "行，所属部门不能超过200个字符" ; 
+				}
 				String unitId = cell[4].getContents() ;
 				if((unitId == null) || unitId.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
 				}
-				
+				if(unitId.length()>50){
+					return "第" + count + "行，单位号不能超过50个字符" ; 
+				}
 				for(DiDepartmentBean diDepartBean : diDepartBeanList){
 					if(diDepartBean.getUnitId().equals(unitId)){
 						if(diDepartBean.getUnitName().equals(unit)){
@@ -74,22 +84,37 @@ public class T734_Excel {
 				if((accsite == null) || accsite.equals("")){
 					return "第" + count + "行，事故发生地点不能为空" ;
 				}
+				if(accsite.length()>200){
+					return "第" + count + "行，事故发生地点不能超过200个字符" ; 
+				}
 				String cause = cell[6].getContents() ;
 				if((cause == null) || cause.equals("")){
 					return "第" + count + "行，事由不能为空" ;
 				}
+				if(cause.length()>200){
+					return "第" + count + "行，事由不能超过200个字符" ; 
+				}
 				String handTime = cell[7].getContents() ;
 				if((handTime == null) || handTime.equals("")){
 					return "第" + count + "行，处理时间不能为空" ;
+				}
+				if(!TimeUtil.judgeFormat1(handTime)){
+					return "第" + count + "行，处理时间格式不正确，格式为：2012/09" ;
 				}
 				
 				String accLevel = cell[8].getContents() ;
 				if((accLevel == null) || accLevel.equals("")){
 					return "第" + count + "行，教学事故等级不能为空" ;
 				}
+				if(accLevel.length()>50){
+					return "第" + count + "行，教学事故等级不能超过50个字符" ; 
+				}
 				String handId = cell[9].getContents() ;
 				if((handId == null) || handId.equals("")){
 					return "第" + count + "行，处理文号不能为空" ;
+				}
+				if(handId.length()>100){
+					return "第" + count + "行，处理文号不能超过100个字符" ; 
 				}
                 String note = cell[10].getContents();
 				
@@ -103,7 +128,7 @@ public class T734_Excel {
 				T734_Bean.setUnitID(unitId);
 				T734_Bean.setAccidentSite(accsite);
 				T734_Bean.setCause(cause);
-				T734_Bean.setHandingTime(TimeUtil.changeDateYMD(handTime));
+				T734_Bean.setHandingTime(TimeUtil.changeDateYM(handTime));
 				T734_Bean.setAccidentLevel(accLevel);
 				T734_Bean.setHandingID(handId);
 				T734_Bean.setFillUnitID(fillUnitID);

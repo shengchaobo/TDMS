@@ -127,6 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   <hr></hr>	
 			
 		<h3 class="title1">专业建设评估逐条导入</h3>
+		<form id="courseForm" method="post">
 		<table>
 		<tr>
 				<td>

@@ -120,7 +120,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   <h3 class="title1">外聘教师基本信息逐条导入</h3>
 	   <form id="addForm" method="post">
 		<table>
-			<tr><td><div class="fitem">
+			<tr>
+			<td>
+			<div class="fitem">
 				<label>姓名：</label> 
 				<input id="name" type="text" name="T413_bean.name"
 				class="easyui-validatebox" ><span id="nameSpan"></span>
@@ -131,7 +133,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<label>教工号：</label> 
 				<input id="teaId" type="text" name="T413_bean.teaId"
 				class="easyui-validatebox" ><span id="teaIdSpan"></span>
-				</div></td>
+				</div>
+			</td>
 			</tr>
 			<tr>
 				<td>

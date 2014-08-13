@@ -9,13 +9,19 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.UsersBean;
+import cn.nit.bean.di.DiUserRoleBean;
 import cn.nit.service.di.DIUserManagerService;
+import cn.nit.service.di.DiUserRoleService;
 import cn.nit.util.MD5Util;
 
 public class DIUserManagerAction {
 	
 	/**  用户管理Service类  */
 	private DIUserManagerService userManagerSer = new DIUserManagerService() ;
+	
+	/**  用户角色管理Service类  */
+	private DiUserRoleService userRoleSer = new DiUserRoleService() ;
 	
 	/**  新建用户的实体类  */
 	private UserinfoBean userinfo = new UserinfoBean() ;
@@ -28,6 +34,8 @@ public class DIUserManagerAction {
 	
 	/**  当前页共显示的总记录数  */
 	private String rows ;
+	
+	private String searchID; //用于查询的教工号
 	
 	/**
 	 * 初始化加载用户
@@ -42,7 +50,13 @@ public class DIUserManagerAction {
 			return ;
 		}
 		
-		String json = userManagerSer.loadUsers(null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String cond = null;
+		if(this.getSearchID()!= null){
+			cond = " and Users.TeaID LIKE '" + this.getSearchID() + "%'";
+			System.out.println(cond);
+		}
+		
+		String json = userManagerSer.loadUsers(cond, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -65,12 +79,32 @@ public class DIUserManagerAction {
 	 */
 	public void edit(){
 		
-		boolean flag = userManagerSer.update(userinfo) ;
+		
+		//将userInfoBean对应数据usersBean以及DiUserRoleBean
+		UsersBean userBean = new UsersBean();
+		userBean.setSeqNumber(userinfo.getSeqNumber());
+		userBean.setTeaID(userinfo.getTeaID());
+		userBean.setTeaPasswd(MD5Util.encode("123456"));
+		userBean.setTeaName(userinfo.getTeaName());
+		userBean.setTeaEmail(userinfo.getTeaEmail());
+		userBean.setFromOffice(userinfo.getFromOffice());
+		userBean.setUnitID(userinfo.getUnitID());
+		userBean.setUserNote(userinfo.getUserNote());
+	
+		DiUserRoleBean userRoleBean = new DiUserRoleBean();
+		userRoleBean.setTeaID(userinfo.getTeaID());
+		userRoleBean.setRoleID(userinfo.getRoleID());
+		
+		boolean flag = userManagerSer.update(userBean) ;
+		boolean flag1 = userRoleSer.update(userRoleBean);
+		
 		PrintWriter out = null ;
 		
 		try{
+			
+			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
-			if(flag){
+			if(flag&&flag1){
 				out.print("{\"state\":true,data:\"用户更新成功!!!\"}") ;
 			}else{
 				out.print("{\"state\":true,data:\"用户更新失败!!!\"}") ;
@@ -91,19 +125,51 @@ public class DIUserManagerAction {
 	 */
 	public void insert(){
 		
-		userinfo.setTeaPasswd(MD5Util.encode("123456")) ;
-		boolean flag = userManagerSer.insert(userinfo) ;
+		//首先该用 户是否已存数据库
+		Boolean flag0 = userManagerSer.hasUser(userinfo.getTeaID());
+		
+		boolean flag = false;
+		boolean flag1 = false;
+		//如果该用户不存数据库，可以添加
+		if(flag0 == false){
+			
+			//将userInfoBean对应数据usersBean以及DiUserRoleBean
+			UsersBean userBean = new UsersBean();
+			userBean.setSeqNumber(userinfo.getSeqNumber());
+			userBean.setTeaID(userinfo.getTeaID());
+			userBean.setTeaPasswd(MD5Util.encode("123456"));
+			userBean.setTeaName(userinfo.getTeaName());
+			userBean.setTeaEmail(userinfo.getTeaEmail());
+			userBean.setFromOffice(userinfo.getFromOffice());
+			userBean.setUnitID(userinfo.getUnitID());
+			userBean.setUserNote(userinfo.getUserNote());
+		
+			DiUserRoleBean userRoleBean = new DiUserRoleBean();
+			userRoleBean.setTeaID(userinfo.getTeaID());
+			userRoleBean.setRoleID(userinfo.getRoleID());
+			
+			flag = userManagerSer.insert(userBean) ;
+			flag1 = userRoleSer.insert(userRoleBean);
+		}
+
+		
 		PrintWriter out = null ;
 		
 		try{
+			
 			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			
-			if(flag){
-				out.print("{\"state\":true,data:\"用户添加成功!!!\"}") ;
+			if(flag0){
+				out.print("{\"state\":true,data:\"该用户已存在!!!\"}") ;
 			}else{
-				out.print("{\"state\":false,data:\"用户添加失败!!!\"}") ;
+				if(flag&&flag1){
+					out.print("{\"state\":true,data:\"用户添加成功!!!\"}") ;
+				}else{
+					out.print("{\"state\":false,data:\"用户添加失败!!!\"}") ;
+				}
 			}
+
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -123,12 +189,14 @@ public class DIUserManagerAction {
 	public void deleteByIds(){
 		
 		boolean flag = userManagerSer.deleteByIds(ids) ;
+		boolean flag1 = userRoleSer.deleteByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			
-			if(flag){
+			if(flag&&flag1){
 				out.print("{\"state\":true,data:\"用户删除成功!!!\"}") ;
 			}else{
 				out.print("{\"state\":false,data:\"用户删除失败!!!\"}") ;
@@ -154,6 +222,7 @@ public class DIUserManagerAction {
 		PrintWriter out = null ;
 		
 		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			
 			if(flag){
@@ -221,5 +290,13 @@ public class DIUserManagerAction {
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+
+	public void setSearchID(String searchID) {
+		this.searchID = searchID;
+	}
+
+	public String getSearchID() {
+		return searchID;
 	}
 }

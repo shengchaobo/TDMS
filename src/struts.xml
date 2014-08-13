@@ -15,6 +15,8 @@
     <include file="cn/nit/configuration/treeManager.xml"/>
     <!-- 用户管理 -->
     <include file="cn/nit/configuration/system/UserManager.xml" />
+    <!-- 角色管理 -->
+    <include file="cn/nit/configuration/system/RoleManager.xml" />
     
      <!-- Di（所有字典表）-->
     <include file="cn/nit/configuration/di/DiDepartment.xml"/>

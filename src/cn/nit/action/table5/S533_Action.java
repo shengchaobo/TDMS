@@ -5,7 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -199,7 +201,7 @@ public class S533_Action {
 			        					}else if(type.endsWith("int")||type.endsWith("Integer")){
 			        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
 			        					}else if(type.endsWith("double")||type.endsWith("Double")){
-			        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
+			        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString()+"%",wcf1));
 			        					}else{
 			        						throw new Exception("自行添加对应类型" + type) ;
 			        					}                       	                         	
@@ -250,6 +252,12 @@ public class S533_Action {
 		}
 
 		public String getExcelName() {
+			try {
+				this.excelName = URLEncoder.encode(excelName, "UTF-8");
+				//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 			return excelName;
 		}
 

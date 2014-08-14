@@ -190,13 +190,13 @@ public class S5102_Action {
 			        		   ws.addCell(new Label(0, j, pojo.getItem(), wcf1)); 
 //			       
 			        		   ws.addCell(new Label(1, j, ""+pojo.getTheoPraNum(), wcf1)); 
-			        		   ws.addCell(new Label(2, j, ""+pojo.getTheoPraRatio(), wcf1)); 
+			        		   ws.addCell(new Label(2, j, ""+pojo.getTheoPraRatio()+"%", wcf1)); 
 			        		   ws.addCell(new Label(3, j, ""+pojo.getInClassNum(), wcf1)); 
-			        		   ws.addCell(new Label(4, j, ""+pojo.getInClassRatio(), wcf1)); 
+			        		   ws.addCell(new Label(4, j, ""+pojo.getInClassRatio()+"%", wcf1)); 
 			        		   ws.addCell(new Label(5, j, ""+pojo.getPraNum(), wcf1)); 
-			        		   ws.addCell(new Label(6, j, ""+pojo.getPraRatio(), wcf1)); 
+			        		   ws.addCell(new Label(6, j, ""+pojo.getPraRatio()+"%", wcf1)); 
 			        		   ws.addCell(new Label(7, j, ""+pojo.getExpNum(), wcf1)); 
-			        		   ws.addCell(new Label(8, j, ""+pojo.getExpRatio(), wcf1)); 
+			        		   ws.addCell(new Label(8, j, ""+pojo.getExpRatio()+"%", wcf1)); 
 			         
 			        		   j++;
 			        	   }

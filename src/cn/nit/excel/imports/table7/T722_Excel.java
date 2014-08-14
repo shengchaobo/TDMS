@@ -24,7 +24,6 @@ public class T722_Excel {
 			}
 			
 			int  count=1;
-			T722_Bean T722_Bean=new T722_Bean();
 			boolean flag=false;
 		    List<T722_Bean> list=new LinkedList<T722_Bean>();
 		
@@ -37,7 +36,7 @@ public class T722_Excel {
 			System.out.println(cellList.size());
 			
 			for(Cell[] cell: cellList){
-				
+				T722_Bean T722_Bean=new T722_Bean();
 				try {
 					if(count<4){
 						count++;
@@ -47,16 +46,25 @@ public class T722_Excel {
 					if(ardname == null || ardname.equals("")){
 						return "第" + count + "行，奖励名称不能为空" ;
 					}
+					if(ardname.length()>200){
+						return "第" + count + "行，奖励名称不能超过200个字符" ; 
+					}
 					String unit = cell[2].getContents() ;
 					String unitId = cell[3].getContents() ;
 					
 					if(unit == null || unit.equals("")){
 						return "第" + count + "行，所属教学单位不能为空" ;
 					}
+					if(unit.length()>200){
+						return "第" + count + "行，所属教学单位不能超过200个字符" ; 
+					}
 					
 					if(unitId == null || unitId.equals("")){
 						return "第" + count + "行，单位号不能为空" ;
-					}			
+					}		
+					if(unitId.length()>50){
+						return "第" + count + "行，单位号不能超过50个字符" ;
+					}
 					
 					for(DiDepartmentBean diDepartBean : diDepartBeanList){
 						if(diDepartBean.getUnitId().equals(unitId)){
@@ -79,22 +87,37 @@ public class T722_Excel {
 					if((leader == null) || leader.equals("")){
 						return "第" + count + "行，负责人不能为空" ;
 					}
+					if(leader.length()>50){
+						return "第" + count + "行，负责人不能超过50个字符" ;
+					}
 					String teaId = cell[5].getContents() ;
 					if((teaId == null) || teaId.equals("")){
 						return "第" + count + "行，教工号不能为空" ;
+					}
+					if(teaId.length()>50){
+						return "第" + count + "行，教工号不能超过50个字符" ;
 					}
 					String OJTNum = cell[6].getContents() ;
 					if((OJTNum == null) || OJTNum.equals("")){
 						return "第" + count + "行，其他参与教师人数不能为空" ;
 					}
+					if(!this.isNumeric(OJTNum)){
+						return "第" + count + "行，其他参与教师人数只能填数字" ;
+					}
 					String otherTea = cell[7].getContents() ;
 					if((otherTea == null) || otherTea.equals("")){
 						return "第" + count + "行，其他教师不能为空" ;
+					}
+					if(otherTea.length()>300){
+						return "第" + count + "行，其他合作教师不能超过300个字符" ; 
 					}
 					
 					String ardLevel = cell[8].getContents() ;
 					if((ardLevel == null) || ardLevel.equals("")){
 						return "第" + count + "行，级别不能为空" ;
+					}
+					if(ardLevel.length()>5){
+						return "第" + count + "行，级别不能超过5个字符" ; 
 					}
 					String ardLevelID=null;
 					for(DiAwardLevelBean ardlevelBean : diAwardLeBeanList){
@@ -114,14 +137,23 @@ public class T722_Excel {
 					if(ardTime == null || ardTime.equals("")){
 						return "第" + count + "行，获奖时间不能为空" ;
 					}
+					if(!TimeUtil.judgeFormat1(ardTime)){
+						return "第" + count + "行，获准时间格式不正确，格式为：2012/09" ;
+					}
 					String ardfUnit = cell[10].getContents();
 					if(ardfUnit == null || ardfUnit.equals("")){
 						return "第" + count + "行，授予单位不能为空" ;
+					}
+					if(ardfUnit.length()>200){
+						return "第" + count + "行，授予单位不能超过200个字符" ; 
 					}
 					
 					String appID = cell[11].getContents();
 					if(appID == null || appID.equals("")){
 						return "第" + count + "行，批文号不能为空" ;
+					}
+					if(appID.length()>100){
+						return "第" + count + "行，批文号不能超过100个字符" ; 
 					}
 					
 					String note = cell[12].getContents();
@@ -138,7 +170,7 @@ public class T722_Excel {
 					T722_Bean.setOtherTeaNum(Integer.parseInt(OJTNum));
 					T722_Bean.setOtherTea(otherTea);
 					T722_Bean.setAwardLevel(ardLevelID);
-					T722_Bean.setAwardTime(TimeUtil.changeDateYMD(ardTime));
+					T722_Bean.setAwardTime(TimeUtil.changeDateYM(ardTime));
 					T722_Bean.setAwardFromUnit(ardfUnit);
 					T722_Bean.setAppvlID(appID);
 					T722_Bean.setFillUnitID(fillUnitID);
@@ -165,4 +197,13 @@ public class T722_Excel {
 				}
 			}
 
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
 }

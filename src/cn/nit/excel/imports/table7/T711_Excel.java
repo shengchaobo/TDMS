@@ -32,10 +32,9 @@ public class T711_Excel {
 		}
 		
 		int  count=1;
-		T711_Bean T711_Bean=new T711_Bean();
+		
 		boolean flag=false;
-	    List<T711_Bean> list=new LinkedList<T711_Bean>();
-	
+	    List<T711_Bean> list=new LinkedList<T711_Bean>();	
 	    DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		
@@ -44,9 +43,8 @@ public class T711_Excel {
 		
 		System.out.println(cellList.size());
 		
-		for(Cell[] cell: cellList){
-			
-			
+		for(Cell[] cell: cellList){		
+			T711_Bean T711_Bean=new T711_Bean();
 			try {
 				
 				if(count<4){
@@ -60,11 +58,15 @@ public class T711_Excel {
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
 				}
-				
+				if(unit.length()>200){
+					return "第" + count + "行，教学单位不能超过200个字符" ; 
+				}
 				if(unitId == null || unitId.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
 				}			
-				
+				if(unitId.length()>50){
+					return "第" + count + "行，单位号不能超过50个字符" ;
+				}
 				for(DiDepartmentBean diDepartBean : diDepartBeanList){
 					if(diDepartBean.getUnitId().equals(unitId)){
 						if(diDepartBean.getUnitName().equals(unit)){
@@ -85,17 +87,29 @@ public class T711_Excel {
 				if(name == null || name.equals("")){
 					return "第" + count + "行，名称不能为空" ;
 				}
+				if(name.length()>50){
+					return "第" + count + "行，名称不能超过50个字符" ;
+				}
 				String teaId = cell[4].getContents() ;
 				if((teaId == null) || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
+				}
+				if(teaId.length()>50){
+					return "第" + count + "行，教工号不能超过50个字符" ;
 				}
 				String ardName = cell[5].getContents() ;
 				if((ardName == null) || ardName.equals("")){
 					return "第" + count + "行，奖励名称不能为空" ;
 				}
+				if(ardName.length()>200){
+					return "第" + count + "行，奖励名称不能超过200个字符" ; 
+				}
 				String ardLevel = cell[6].getContents() ;
 				if((ardLevel == null) || ardLevel.equals("")){
 					return "第" + count + "行，级别不能为空" ;
+				}
+				if(ardLevel.length()>5){
+					return "第" + count + "行，级别不能超过5个字符" ; 
 				}
 				String ardLevelID=null;
 				for(DiAwardLevelBean ardlevelBean : diAwardLeBeanList){
@@ -115,25 +129,44 @@ public class T711_Excel {
 				if(ardRank == null || ardRank.equals("")){
 					return "第" + count + "行，等级不能为空" ;
 				}
+				if(!ardRank.equals("一等奖") && !ardRank.equals("二等奖")&& !ardRank.equals("三等奖")&& !ardRank.equals("优秀奖")){
+					return "第" + count + "行，等级格式有误，只能填写“一等奖”或“二等奖”或“三等奖”或“优秀奖”";
+				}
 				String ardTime = cell[8].getContents();
 				if(ardTime == null || ardTime.equals("")){
 					return "第" + count + "行，获奖时间不能为空" ;
+				}
+				if(!TimeUtil.judgeFormat1(ardTime)){
+					return "第" + count + "行，获准时间格式不正确，格式为：2012/09" ;
 				}
 				String ardFu = cell[9].getContents();
 				if(ardFu == null || ardFu.equals("")){
 					return "第" + count + "行，授予单位不能为空" ;
 				}
+				if(ardFu.length()>200){
+					return "第" + count + "行，授予单位不能超过200个字符" ; 
+				}
 				String appID = cell[10].getContents();
 				if(appID == null || appID.equals("")){
 					return "第" + count + "行，批文号不能为空" ;
+				}
+				if(appID.length()>100){
+					return "第" + count + "行，批文号不能超过100个字符" ; 
 				}
 				String joinTn = cell[11].getContents();
 				if(joinTn == null || joinTn.equals("")){
 					return "第" + count + "行，合作教师人数不能为空" ;
 				}
+				if(!this.isNumeric(joinTn)){
+					return "第" + count + "行，合作教师人数只能填数字" ;
+				}
+				
 				String otherJTI = cell[12].getContents();
 				if(otherJTI == null || otherJTI.equals("")){
 					return "第" + count + "行，其他合作教师不能为空" ;
+				}
+				if(otherJTI.length()>300){
+					return "第" + count + "行，其他合作教师不能超过300个字符" ; 
 				}
 				
 				String note = cell[13].getContents();
@@ -176,6 +209,17 @@ public class T711_Excel {
 			return "数据存储失败，请联系管理员" ;
 		}
 	}
+	
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
+	
 	
 
 }

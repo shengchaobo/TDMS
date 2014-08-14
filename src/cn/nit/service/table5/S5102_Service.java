@@ -77,7 +77,7 @@ public List<S5102POJO> loadInfo(String year){
 	/**转换成保存两位小数的double*/
 	public double toDouble(int a,int b){
 		
-		double d1=(double)a/(double)b;
+		double d1=((double)a/(double)b)*100;
 		DecimalFormat df = new DecimalFormat("0.00");
 		String str = df.format(d1);
 		double d=Double.parseDouble(str);

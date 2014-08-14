@@ -26,7 +26,6 @@ public class T721_Excel {
 		}
 		
 		int  count=1;
-		T721_Bean T721_Bean=new T721_Bean();
 		boolean flag=false;
 	    List<T721_Bean> list=new LinkedList<T721_Bean>();
 	
@@ -39,10 +38,8 @@ public class T721_Excel {
 		System.out.println(cellList.size());
 		
 		for(Cell[] cell: cellList){
-			
+			T721_Bean T721_Bean=new T721_Bean();
 			try {
-				
-
 				if(count<4){
 					count++;
 					continue;
@@ -52,16 +49,25 @@ public class T721_Excel {
 				if(itemname == null || itemname.equals("")){
 					return "第" + count + "行，项目名称不能为空" ;
 				}
+				if(itemname.length()>200){
+					return "第" + count + "行，项目名称不能超过200个字符" ; 
+				}
 				String unit = cell[2].getContents() ;
 				String unitId = cell[3].getContents() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属教学单位不能为空" ;
 				}
+				if(unit.length()>200){
+					return "第" + count + "行，所属教学单位不能超过200个字符" ; 
+				}
 				
 				if(unitId == null || unitId.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
-				}			
+				}	
+				if(unitId.length()>50){
+					return "第" + count + "行，单位号不能超过50个字符" ;
+				}
 				
 				for(DiDepartmentBean diDepartBean : diDepartBeanList){
 					if(diDepartBean.getUnitId().equals(unitId)){
@@ -84,22 +90,36 @@ public class T721_Excel {
 				if((leader == null) || leader.equals("")){
 					return "第" + count + "行，负责人不能为空" ;
 				}
+				if(leader.length()>50){
+					return "第" + count + "行，负责人不能超过50个字符" ;
+				}
 				String teaId = cell[5].getContents() ;
 				if((teaId == null) || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
+				}
+				if(teaId.length()>50){
+					return "第" + count + "行，教工号不能超过50个字符" ;
 				}
 				String OJTNum = cell[6].getContents() ;
 				if((OJTNum == null) || OJTNum.equals("")){
 					return "第" + count + "行，其他参与教师人数不能为空" ;
 				}
+				if(!this.isNumeric(OJTNum)){
+					return "第" + count + "行，合作教师人数只能填数字" ;
+				}
 				String otherTea = cell[7].getContents() ;
 				if((otherTea == null) || otherTea.equals("")){
 					return "第" + count + "行，其他教师不能为空" ;
 				}
-				
+				if(otherTea.length()>300){
+					return "第" + count + "行，其他教师不能超过300个字符" ; 
+				}
 				String itemLevel = cell[8].getContents() ;
 				if((itemLevel == null) || itemLevel.equals("")){
 					return "第" + count + "行，级别不能为空" ;
+				}
+				if(itemLevel.length()>5){
+					return "第" + count + "行，级别不能超过5个字符" ; 
 				}
 				String itemLevelID=null;
 				for(DiAwardLevelBean ardlevelBean : diAwardLeBeanList){
@@ -118,21 +138,36 @@ public class T721_Excel {
 				if(ISUTime == null || ISUTime.equals("")){
 					return "第" + count + "行，立项时间不能为空" ;
 				}
+				if(!TimeUtil.judgeFormat1(ISUTime)){
+					return "第" + count + "行，立项时间格式不正确，格式为：2012/09" ;
+				}
 				String recTime = cell[10].getContents();
 				if(recTime == null || recTime.equals("")){
 					return "第" + count + "行，验收时间不能为空" ;
+				}
+				if(!TimeUtil.judgeFormat1(recTime)){
+					return "第" + count + "行，验收时间格式不正确，格式为：2012/09" ;
 				}
 				String appExp = cell[11].getContents();
 				if(appExp == null || appExp.equals("")){
 					return "第" + count + "行，批准经费不能为空" ;
 				}
+				if(!this.isDouble(appExp)){
+					return "第" + count + "行，批准经费只能填数字" ;
+				}
 				String schExp = cell[12].getContents();
 				if(schExp == null || schExp.equals("")){
 					return "第" + count + "行，学校配套经费不能为空" ;
 				}
+				if(!this.isDouble(schExp)){
+					return "第" + count + "行，学校配套经费只能填数字" ;
+				}
 				String appID = cell[13].getContents();
 				if(appID == null || appID.equals("")){
 					return "第" + count + "行，批文号不能为空" ;
+				}
+				if(appID.length()>100){
+					return "第" + count + "行，批文号不能超过100个字符" ; 
 				}
 				
 				String note = cell[14].getContents();
@@ -149,8 +184,8 @@ public class T721_Excel {
 				T721_Bean.setOtherTeaNum(Integer.parseInt(OJTNum));
 				T721_Bean.setOtherTea(otherTea);
 				T721_Bean.setItemLevel(itemLevelID);
-				T721_Bean.setItemSetUpTime(TimeUtil.changeDateYMD(ISUTime));
-				T721_Bean.setReceptTime(TimeUtil.changeDateYMD(recTime));
+				T721_Bean.setItemSetUpTime(TimeUtil.changeDateYM(ISUTime));
+				T721_Bean.setReceptTime(TimeUtil.changeDateYM(recTime));
 				T721_Bean.setApplvExp(Double.parseDouble(appExp));
 				T721_Bean.setSchSupportExp(Double.parseDouble(schExp));
 				T721_Bean.setAppvlID(appID);
@@ -176,4 +211,28 @@ public class T721_Excel {
 			}
 		}
 
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
+	
+	/**判断字符串是否是double类型*/
+	public boolean isDouble(String str){
+		boolean flag = true;
+		try{
+			Double.parseDouble(str);
+			flag = true;
+		} catch(NumberFormatException ex)
+		{
+			flag = false;
+		}
+		   return flag;
+		
+	}
+	
 }

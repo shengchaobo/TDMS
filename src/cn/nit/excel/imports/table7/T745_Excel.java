@@ -23,7 +23,7 @@ public class T745_Excel {
 		}
 		
 		int  count=1;
-		T745_Bean T745_Bean=new T745_Bean();
+		
 		boolean flag=false;
 	    List<T745_Bean> list=new LinkedList<T745_Bean>();
 	
@@ -31,6 +31,7 @@ public class T745_Excel {
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		
 		for(Cell[] cell : cellList){
+			T745_Bean T745_Bean=new T745_Bean();
 			try {
 				
 				if(count<4){
@@ -44,11 +45,15 @@ public class T745_Excel {
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
 				}
-				
+				if(unit.length()>200){
+					return "第" + count + "行，教学单位不能超过200个字符" ;
+				}
 				if(unitId == null || unitId.equals("")){
 					return "第" + count + "行，所属单位号不能为空" ;
 				}			
-				
+				if(unitId.length()>50){
+					return "第" + count + "行，所属单位号不能超过50个字符" ;
+				}
 				for(DiDepartmentBean diDepartBean : diDepartBeanList){
 					if(diDepartBean.getUnitId().equals(unitId)){
 						if(diDepartBean.getUnitName().equals(unit)){
@@ -68,17 +73,25 @@ public class T745_Excel {
 				
 				String assYear = cell[3].getContents() ;
 				if((assYear == null) || assYear.equals("")){
-					return "第" + count + "行，设置年份不能为空" ;
+					return "第" + count + "行，评估年份不能为空" ;
+				}
+				if(assYear.length()>10){
+					return "第" + count + "行，评估年份不能超过10个字符" ;
 				}
 				String assResult = cell[4].getContents() ;
 				if(assResult == null || assResult.equals("")){
 					return "第" + count + "行，评估结果不能为空" ;
 				}
+				if(!assResult.equals("校级优秀") && !assResult.equals("校级良好")&& !assResult.equals("校级合格")&& !assResult.equals("校级不合格")){
+					return "第" + count + "行，评估结果只能是“校级优秀”或“校级良好”或“校级合格”或“校级不合格”" ;
+				}
 				String appID = cell[5].getContents() ;
 				if(appID == null || appID.equals("")){
 					return "第" + count + "行，批文号不能为空" ;
 				}
-				
+				if(appID.length()>100){
+					return "第" + count + "行，批文号不能超过100个字符" ;
+				}
 				String note = cell[6].getContents();
 					
 				count++ ;

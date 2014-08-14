@@ -204,7 +204,9 @@ public InputStream getInputStream() throws Exception{
 			        	   S534_Bean  bean = list.get(i);
 			        	   if(i == 0){
 //			        		   ws.addCell(new Label(0,4,""+seq,wcf1));
-			        		   ws.addCell(new Label(1, 4, ""+bean.getTeaUnit(), wcf1));
+			        		   
+			        		   ws.addCell(new Label(0, 4, ""+bean.getTeaUnit(), wcf1));
+			        		   ws.mergeCells(0, 4, 1, 4);
 			        		   ws.addCell(new Label(2, 4, ""+bean.getSumTeaNum(), wcf1));
 			        		   ws.addCell(new Label(3, 4, ""+bean.getOutHireTeaNum(), wcf1)); 
 			        		   ws.addCell(new Label(4, 4, ""+bean.getHighTitle(), wcf1)); 

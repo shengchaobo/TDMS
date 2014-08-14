@@ -20,7 +20,7 @@ public class T733_Excel {
 		}
 		
 		int  count=1;
-		T733_Bean T733_Bean=new T733_Bean();
+		
 		boolean flag=false;
 	    List<T733_Bean> list=new LinkedList<T733_Bean>();
 	
@@ -28,7 +28,7 @@ public class T733_Excel {
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		
 		for(Cell[] cell: cellList){
-			
+			T733_Bean T733_Bean=new T733_Bean();
 			try {
 				if(count<4){
 					count++;
@@ -41,10 +41,16 @@ public class T733_Excel {
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，单位名称不能为空" ;
 				}
+				if(unit.length()>200){
+					return "第" + count + "行，单位名称不能超过200个字符" ; 
+				}
 				
 				if(unitId == null || unitId.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
-				}			
+				}	
+				if(unitId.length()>50){
+					return "第" + count + "行，单位号不能超过50个字符" ; 
+				}
 				
 				for(DiDepartmentBean diDepartBean : diDepartBeanList){
 					if(diDepartBean.getUnitId().equals(unitId)){
@@ -67,21 +73,36 @@ public class T733_Excel {
 				if(meetDate == null || meetDate.equals("")){
 					return "第" + count + "行，会议日期不能为空" ;
 				}
+				if(!TimeUtil.judgeFormat1(meetDate)){
+					return "第" + count + "行，听课日期格式不正确，格式为：2012/09" ;
+				}
 				String meetmeinfo = cell[4].getContents() ;
 				if((meetmeinfo == null) || meetmeinfo.equals("")){
 					return "第" + count + "行，参会人员情况不能为空" ;
+				}
+				if(meetmeinfo.length()>300){
+					return "第" + count + "行，参会人员情况不能超过300个字符" ; 
 				}
 				String meetNum = cell[5].getContents() ;
 				if((meetNum == null) || meetNum.equals("")){
 					return "第" + count + "行，参会人数不能为空" ;
 				}
+				if(!isNumeric(meetNum)){
+					return "第" + count + "行，参会人数只能填数字" ;
+				}
 				String meetTheme = cell[6].getContents() ;
 				if((meetTheme == null) || meetTheme.equals("")){
 					return "第" + count + "行，会议主要议题或内容不能为空" ;
 				}
+				if(meetTheme.length()>200){
+					return "第" + count + "行，会议主要议题或内容不能超过200个字符" ; 
+				}
 				String meetResult = cell[7].getContents() ;
 				if((meetResult == null) || meetResult.equals("")){
 					return "第" + count + "行，会议形成的主要决议或共识内容不能为空" ;
+				}
+				if(meetResult.length()>200){
+					return "第" + count + "行，会议形成的主要决议或共识内容不能超过1000个字符" ; 
 				}
 	            String note = cell[8].getContents();
 				
@@ -91,7 +112,7 @@ public class T733_Excel {
 				
 				T733_Bean.setUnitName(unit);
 				T733_Bean.setUnitID(unitId);
-				T733_Bean.setMeetingDate(TimeUtil.changeDateYMD(meetDate));
+				T733_Bean.setMeetingDate(TimeUtil.changeDateYM(meetDate));
 				T733_Bean.setMeetingMemberInfo(meetmeinfo);
 				T733_Bean.setMeetingNum(Integer.parseInt(meetNum));
 				T733_Bean.setMeetingTheme(meetTheme);
@@ -117,5 +138,15 @@ public class T733_Excel {
 				return "数据存储失败，请联系管理员" ;
 			}
 		}
+	
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
 
 }

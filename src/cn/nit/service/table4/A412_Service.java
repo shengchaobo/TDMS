@@ -18,5 +18,10 @@ public class A412_Service {
          
 		return bean;				
 	}
+	
+	//保存
+	public Boolean save(A412_Bean bean, String year){
+		return a412_dao.save(bean,year);
+	}
 
 }

@@ -38,6 +38,7 @@ import org.springframework.beans.BeanWrapperImpl;
 import cn.nit.bean.table4.A412_Bean;
 import cn.nit.dao.table4.A412_Dao;
 import cn.nit.service.table4.A412_Service;
+import cn.nit.util.JsonUtil;
 
 
 
@@ -65,10 +66,25 @@ public class A412_Action {
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
 		A412_Bean bean=a412_Service.getYearInfo(this.getSelectYear());
-
-		bean.setTime(null);
-		JSON json = JSONSerializer.toJSON(bean) ;
+		
+		
+		boolean flag = false;
+		String json = null;
+		if(bean!=null){
+			flag = a412_Service.save(bean,this.getSelectYear());
+			bean.setTime(null);
+			json = JsonUtil.beanToJson(bean);
+			System.out.println(json) ;
+		}		
 		PrintWriter out = null ;
+		if(flag == false ){
+			System.out.println("统计数据保存失败");
+			response.setContentType("text/html;charset=UTF-8") ;
+			out = response.getWriter() ;
+			out.println("{\"data\":\"统计数据保存失败\"}"); 
+		}else{
+
+		
 
 			//System.out.println(json.toString());
 			try {
@@ -86,7 +102,7 @@ public class A412_Action {
 					out.close() ;
 				}
 			}
-			
+		}
 		
 
 	}

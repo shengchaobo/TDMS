@@ -32,37 +32,7 @@ public class A412_Dao {
 
 	
 	
-    /**
-	 * 获取字典表的所有数据
-	 * @return
-	 *
-	 * @time: 2014-5-14/下午02:34:42
-	 */
-	public List<A412_Bean> totalList(String year){
-		
-		String sql = "select " + key+ "," +field + " from " + tableName 
-				+ " where convert(varchar(4),Time,120)=" + year;		
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<A412_Bean> list = null ;
-		System.out.println(sql);
-		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, A412_Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}finally{
-			DBConnection.close(conn);
-			DBConnection.close(rs);
-			DBConnection.close(st);			
-		}
-		
-		return list ;
-	}
-	
+
   /**
  	 * 模板导入
  	 * @param diCourseCategories
@@ -70,40 +40,40 @@ public class A412_Dao {
  	 *
  	 * @time: 2014-5-14/下午02:34:23
  	 */
- 	public boolean save(List<A412_Bean> list,String year){
- 		
-		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year;		
-		boolean flag = false;
-		Connection conn = DBConnection.instance.getConnection() ;		
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<A412_Bean> templist = null ;
-		
+
+	public boolean save(A412_Bean a412_bean, String year){
+		String sql="select * from " + tableName + " where Time like '"+year+"%'";	
+		boolean flag=false;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null;
+		ResultSet rs = null;
+		List<A412_Bean> list=new ArrayList<A412_Bean>();
+		A412_Bean bean=new A412_Bean();
 		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(sql) ;
-			templist = DAOUtil.getList(rs, A412_Bean.class) ;
-			if(templist.size() != 0){
-				String delSql = "delete from " + tableName + " where convert(varchar(4),Time,120)=" + year;
-				int delflag = st.executeUpdate(delSql.toString());
-				if(delflag > 0 ){
-					flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
-				}
+			st=conn.createStatement();
+			rs = st.executeQuery(sql);
+			list=DAOUtil.getList(rs, A412_Bean.class);
+			if(list.size()!=0){
+				bean=list.get(0);
+				a412_bean.setSeqNumber(bean.getSeqNumber());
+				a412_bean.setTime(TimeUtil.changeDateY(year));
+				flag=DAOUtil.update(a412_bean, tableName, key, field, conn);
 			}else{
-				flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+				a412_bean.setTime(TimeUtil.changeDateY(year));
+				flag=DAOUtil.insert(a412_bean, tableName, field, conn);
+				
 			}
-		}catch(Exception e){
+		}catch (Exception e){
 			e.printStackTrace() ;
-			return false ;
 		}finally{
 			DBConnection.close(conn);
 			DBConnection.close(rs);
 			DBConnection.close(st);			
 		}
- 		
- 		return flag ;
- 		
- 	}
+		return flag;
+		
+		
+	}
 	/**得到数据*/
  	
 

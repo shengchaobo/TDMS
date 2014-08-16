@@ -77,7 +77,7 @@ public class A411_Action {
 		int num,num1,num2,num3,num4,num5,num6,num7,num8,num9,num10,num11,num12,num13,num14,num15,num16,num17,num18,num19,num20,num21,num22,num23,num24;
 		double ratio1,ratio2,ratio3,ratio4,ratio5,ratio6,ratio7,ratio8,ratio9,ratio10,ratio11,ratio12,ratio13,ratio14,ratio15,ratio16,ratio17,ratio18,ratio19,ratio20,ratio21,ratio22,ratio23,ratio24;
 		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(4);
+		nf.setMaximumFractionDigits(2);
 		DecimalFormat dec = new DecimalFormat("0.0000");
 		num = t411_service.getTotalNum();
 		num1 = t411_service.getTitleNum("41000");

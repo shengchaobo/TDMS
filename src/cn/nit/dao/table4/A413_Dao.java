@@ -140,7 +140,7 @@ public class A413_Dao {
 				num19 = rs.getInt("NotTutorNum");
 
 				NumberFormat nf = NumberFormat.getNumberInstance();
-				nf.setMaximumFractionDigits(4);
+				nf.setMaximumFractionDigits(2);
 				
 				ratio1 = Double.parseDouble(nf.format((double)num1*100/num));
 				ratio2 = Double.parseDouble(nf.format((double)num2*100/num));				

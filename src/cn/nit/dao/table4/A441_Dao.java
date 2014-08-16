@@ -7,27 +7,28 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import cn.nit.bean.table4.A412_Bean;
+import cn.nit.bean.table4.A441_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.TimeUtil;
 
-public class A412_Dao {
+public class A441_Dao {
 	
 	
 	/**  数据库表名  */
-	private String tableName = "A412_AllMajTeaInfo$" ;
+	private String tableName = "A441_MajorLeader$" ;
 	
 	/**待统计数据库表名*/
 	private String tableName1 = "T411_TeaBasicInfo_Per$";
 	
+	private String tableName2 = "T441_MajLeader_TeaTea$";
+	
 	
 	private String field = "SeniorNum,SeniorRatio,SubSenior,SubSeniorRatio,MiddleNum,MiddleRatio," +
 	"PrimaryNum,PrimaryRatio,DoctorNum,DoctorRatio,MasterNum,MasterRatio,BachelorNum," +
-	"BachelorRatio,NotDegreeNum,NotDegreeRatio,Below35Num,Below35Ratio,In36To45Num,In36To45Ratio,In46To55Num,In46To55Ratio,Above56Num,Above56Ratio," +
-	"ThisSchNum,ThisSchRatio,OutSchInNum,OutSchInRatio,OutSchOutNum,OutSchOutRatio,DuTeaNum,DuTeaRatio,IndustryNum," +
-	"IndustryRatio,EngineerNum,EngineerRatio,Time,Note";
+	"BachelorRatio,NotDegreeNum,NotDegreeRatio,Below35Num,Below35Ratio,In36To45Num," +
+	"In36To45Ratio,In46To55Num,In46To55Ratio,Above56Num,Above56Ratio," +
+	"ThisSchNum,ThisSchRatio,OutSchInNum,OutSchInRatio,OutSchOutNum,OutSchOutRatio,Time,Note";
 	private String key = "SeqNumber";
 
 	
@@ -41,26 +42,26 @@ public class A412_Dao {
  	 * @time: 2014-5-14/下午02:34:23
  	 */
 
-	public boolean save(A412_Bean a412_bean, String year){
+	public boolean save(A441_Bean a441_bean, String year){
 		String sql="select * from " + tableName + " where Time like '"+year+"%'";	
 		boolean flag=false;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null;
 		ResultSet rs = null;
-		List<A412_Bean> list=new ArrayList<A412_Bean>();
-		A412_Bean bean=new A412_Bean();
+		List<A441_Bean> list=new ArrayList<A441_Bean>();
+		A441_Bean bean=new A441_Bean();
 		try{
 			st=conn.createStatement();
 			rs = st.executeQuery(sql);
-			list=DAOUtil.getList(rs, A412_Bean.class);
+			list=DAOUtil.getList(rs, A441_Bean.class);
 			if(list.size()!=0){
 				bean=list.get(0);
-				a412_bean.setSeqNumber(bean.getSeqNumber());
-				a412_bean.setTime(TimeUtil.changeDateY(year));
-				flag=DAOUtil.update(a412_bean, tableName, key, field, conn);
+				a441_bean.setSeqNumber(bean.getSeqNumber());
+				a441_bean.setTime(TimeUtil.changeDateY(year));
+				flag=DAOUtil.update(a441_bean, tableName, key, field, conn);
 			}else{
-				a412_bean.setTime(TimeUtil.changeDateY(year));
-				flag=DAOUtil.insert(a412_bean, tableName, field, conn);
+				a441_bean.setTime(TimeUtil.changeDateY(year));
+				flag=DAOUtil.insert(a441_bean, tableName, field, conn);
 				
 			}
 		}catch (Exception e){
@@ -78,37 +79,34 @@ public class A412_Dao {
  	
 
 
-	public A412_Bean getYearInfo(String selectYear)
+	public A441_Bean getYearInfo(String selectYear)
 	{
 		int year = Integer.parseInt(selectYear);
 	    String querysql="select " +
-	    	"count(distinct teaId) as Sum," +
-			"sum (case when majTechTitle = '41000' then 1 else 0 end) as SeniorNum," +
-			"sum (case when majTechTitle = '41001' then 1 else 0 end) as SubSenior," +
-			"sum (case when majTechTitle = '41002' then 1 else 0 end) as MiddleNum," +
-			"sum (case when TopDegree = '81000' then 1 else 0 end) as DoctorNum," +
-			"sum (case when TopDegree = '81001' then 1 else 0 end) as MasterNum," +
-			"sum (case when TopDegree = '81002' then 1 else 0 end) as BachelorNum," +
-			"sum (case when TopDegree = '81003' then 1 else 0 end) as NotDegreeNum," +
-			"sum (case when birthday >= '"+(year-36)+"-09-01' and birthday <='"+year+"-08-31' then 1 else 0 end) as Below35Num," +
-			"sum (case when birthday >= '"+(year-46)+"-09-01' and birthday <='"+(year-36)+"-08-31' then 1 else 0 end) as In36To45Num," +
-			"sum (case when birthday >= '"+(year-56)+"-09-01' and birthday <='"+(year-46)+"-08-31' then 1 else 0 end) as In46To55Num," +
-			"sum (case when source = '83000' then 1 else 0 end) as ThisSchNum," +
-			"sum (case when source = '83001' or source = '83002' then 1 else 0 end) as OutSchInNum," +
-			"sum (case when source = '83003' then 1 else 0 end) as OutSchOutNum," +
-			"sum (case when doubleTea = 'true' then 1 else 0 end) as DuTeaNum," +
-			"sum (case when industry = 'true' then 1 else 0 end) as IndustryNum," +
-			"sum (case when engineer = 'true' then 1 else 0 end) as EngineerNum " +
-			" from "+tableName1+" where IDCode = '40000' and (TeaFlag is null or TeaFlag != '外聘')";
+	    	"count(distinct "+tableName2+".TeaID) as Sum," +
+			"sum (case when "+tableName1+".majTechTitle = '41000' then 1 else 0 end) as SeniorNum," +
+			"sum (case when "+tableName1+".majTechTitle = '41001' then 1 else 0 end) as SubSenior," +
+			"sum (case when "+tableName1+".majTechTitle = '41002' then 1 else 0 end) as MiddleNum," +
+			"sum (case when "+tableName1+".TopDegree = '81000' then 1 else 0 end) as DoctorNum," +
+			"sum (case when "+tableName1+".TopDegree = '81001' then 1 else 0 end) as MasterNum," +
+			"sum (case when "+tableName1+".TopDegree = '81002' then 1 else 0 end) as BachelorNum," +
+			"sum (case when "+tableName1+".TopDegree = '81003' then 1 else 0 end) as NotDegreeNum," +
+			"sum (case when "+tableName1+".birthday >= '"+(year-36)+"-09-01' and "+tableName1+".birthday <='"+year+"-08-31' then 1 else 0 end) as Below35Num," +
+			"sum (case when "+tableName1+".birthday >= '"+(year-46)+"-09-01' and "+tableName1+".birthday <='"+(year-36)+"-08-31' then 1 else 0 end) as In36To45Num," +
+			"sum (case when "+tableName1+".birthday >= '"+(year-56)+"-09-01' and "+tableName1+".birthday <='"+(year-46)+"-08-31' then 1 else 0 end) as In46To55Num," +
+			"sum (case when "+tableName1+".source = '83000' then 1 else 0 end) as ThisSchNum," +
+			"sum (case when "+tableName1+".source = '83001' or "+tableName1+".source = '83002' then 1 else 0 end) as OutSchInNum," +
+			"sum (case when "+tableName1+".source = '83003' then 1 else 0 end) as OutSchOutNum" +
+			" from "+tableName2+" left join "+tableName1+" on "+tableName2+".TeaID = "+tableName1+".TeaID ";
    
 		System.out.println(querysql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		A412_Bean bean = new A412_Bean() ;
+		A441_Bean bean = new A441_Bean() ;
 		
-		int num,num1,num2,num3,num4,num5,num6,num7,num8,num9,num10,num11,num12,num13,num14,num15,num16,num17,num18;
-		double ratio1,ratio2,ratio3,ratio4,ratio5,ratio6,ratio7,ratio8,ratio9,ratio10,ratio11,ratio12,ratio13,ratio14,ratio15,ratio16,ratio17,ratio18;
+		int num,num1,num2,num3,num4,num5,num6,num7,num8,num9,num10,num11,num12,num13,num14,num15;
+		double ratio1,ratio2,ratio3,ratio4,ratio5,ratio6,ratio7,ratio8,ratio9,ratio10,ratio11,ratio12,ratio13,ratio14,ratio15;
 		
 		
 		try{
@@ -134,9 +132,7 @@ public class A412_Dao {
 				num13 = rs.getInt("ThisSchNum");
 				num14 = rs.getInt("OutSchInNum");
 				num15 = rs.getInt("OutSchOutNum");
-				num16 = rs.getInt("DuTeaNum");
-				num17 = rs.getInt("IndustryNum");
-				num18 = rs.getInt("EngineerNum");
+
 
 				NumberFormat nf = NumberFormat.getNumberInstance();
 				nf.setMaximumFractionDigits(2);
@@ -156,9 +152,7 @@ public class A412_Dao {
 				ratio13 = Double.parseDouble(nf.format((double)num13*100/num));
 				ratio14 = Double.parseDouble(nf.format((double)num14*100/num));
 				ratio15 = Double.parseDouble(nf.format((double)num15*100/num));
-				ratio16 = Double.parseDouble(nf.format((double)num16*100/num));
-				ratio17 = Double.parseDouble(nf.format((double)num17*100/num));
-				ratio18 = Double.parseDouble(nf.format((double)num18*100/num));
+
 				
 				bean.setSeniorNum(num1);
 				bean.setSeniorRatio(ratio1);
@@ -190,12 +184,7 @@ public class A412_Dao {
 				bean.setOutSchInRatio(ratio14);
 				bean.setOutSchOutNum(num15);
 				bean.setOutSchOutRatio(ratio15);
-				bean.setDuTeaNum(num16);
-				bean.setDuTeaRatio(ratio16);
-				bean.setIndustryNum(num17);
-				bean.setIndustryRatio(ratio17);
-				bean.setEngineerNum(num18);
-				bean.setEngineerRatio(ratio18);
+
 				
 			}
 			

@@ -22,5 +22,10 @@ public class S443_Service {
 	public Boolean save(S443_Bean bean, String year){
 		return s443_dao.save(bean,year);
 	}
+	
+	
+	public S443_Bean getData(String selectYear){
+		return s443_dao.getData(selectYear);
+	}
 
 }

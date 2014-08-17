@@ -103,7 +103,7 @@ public class A413_Action {
 	public InputStream getInputStream() throws Exception{
 
 		System.out.println(this.getSelectYear());
-		A413_Bean bean = a413_Service.getYearInfo(this.getSelectYear());
+		A413_Bean bean = a413_Service.getData(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		

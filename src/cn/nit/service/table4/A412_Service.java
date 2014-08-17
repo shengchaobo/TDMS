@@ -23,5 +23,9 @@ public class A412_Service {
 	public Boolean save(A412_Bean bean, String year){
 		return a412_dao.save(bean,year);
 	}
+	
+	public A412_Bean getData(String year){
+		return a412_dao.getData(year);
+	}
 
 }

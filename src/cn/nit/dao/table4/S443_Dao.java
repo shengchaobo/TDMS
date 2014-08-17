@@ -73,6 +73,35 @@ public class S443_Dao {
 			
 		}
 		/**得到数据*/
+		
+		
+		public S443_Bean getData(String year){
+			
+			String sql="select * from "+tableName+" where convert(varchar(4),Time,120)=" + year;
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			List<S443_Bean> list = null ;
+			S443_Bean bean = null;
+			try{
+				st = conn.createStatement() ;
+				rs = st.executeQuery(sql) ;
+				list = DAOUtil.getList(rs, S443_Bean.class) ;
+				if(list.size() != 0){
+					bean = list.get(0);
+				}
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return null ;
+			}finally{
+				DBConnection.close(conn);
+				DBConnection.close(rs);
+				DBConnection.close(st);			
+			}
+			
+			return bean ;
+			
+		}
 	 	
 
 
@@ -90,7 +119,7 @@ public class S443_Dao {
 				"sum (case when Type = '52007' then 1 else 0 end) as youthTeaTalent," +
 				"sum (case when Type = '52008' then 1 else 0 end) as highLevelTalent," +
 				"sum (case when Type = '52009' then 1 else 0 end) as youthOverseas " +
-				"from "+tableName1;
+				"from "+tableName1+" where convert(varchar(4),Time,120)=" + selectYear;
 
 	   
 			System.out.println(querysql);
@@ -151,5 +180,6 @@ public class S443_Dao {
 		   // List<S25_Bean> list =t.getData("2014");
 			//System.out.println(list.size());
 		}
+
 
 }

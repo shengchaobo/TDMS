@@ -75,6 +75,37 @@ public class A441_Dao {
 		
 		
 	}
+	
+	public A441_Bean getData(String year){
+		
+		String sql="select * from "+tableName+" where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<A441_Bean> list = null ;
+		A441_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, A441_Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return bean ;
+		
+	}
+	
+	
+	
 	/**得到数据*/
  	
 
@@ -97,7 +128,8 @@ public class A441_Dao {
 			"sum (case when "+tableName1+".source = '83000' then 1 else 0 end) as ThisSchNum," +
 			"sum (case when "+tableName1+".source = '83001' or "+tableName1+".source = '83002' then 1 else 0 end) as OutSchInNum," +
 			"sum (case when "+tableName1+".source = '83003' then 1 else 0 end) as OutSchOutNum" +
-			" from "+tableName2+" left join "+tableName1+" on "+tableName2+".TeaID = "+tableName1+".TeaID ";
+			" from "+tableName2+" left join "+tableName1+" on "+tableName2+".TeaID = "+tableName1+".TeaID " +
+			" where convert(varchar(4),Time,120)=" + selectYear;
    
 		System.out.println(querysql);
 		Connection conn = DBConnection.instance.getConnection() ;

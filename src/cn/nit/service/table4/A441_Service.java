@@ -22,5 +22,10 @@ public class A441_Service {
 	public Boolean save(A441_Bean bean, String year){
 		return a441_dao.save(bean,year);
 	}
+	
+	
+	public A441_Bean getData(String year){
+		return a441_dao.getData(year);
+	}
 
 }

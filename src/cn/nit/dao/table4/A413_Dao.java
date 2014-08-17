@@ -73,6 +73,38 @@ public class A413_Dao {
 		
 		
 	}
+	
+	
+	public A413_Bean getData(String year){
+		
+		String sql="select * from "+tableName+" where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<A413_Bean> list = null ;
+		A413_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, A413_Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return bean ;
+		
+	}
+	
+	
+	
 	/**得到数据*/
  	
 

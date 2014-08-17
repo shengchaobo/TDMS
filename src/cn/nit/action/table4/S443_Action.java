@@ -58,7 +58,7 @@ public class S443_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		S443_Bean bean=s443_Service.getYearInfo(this.getSelectYear());
+		S443_Bean bean=s443_Service.getData(this.getSelectYear());
 		
 		
 		boolean flag = false;

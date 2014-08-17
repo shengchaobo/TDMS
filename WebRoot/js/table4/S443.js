@@ -23,8 +23,8 @@
 				        showGroup: true,
 				        scrollbarSize: 0,
 				        columns: [[
-				                { field: 'name', title: '项目', width: 100, resizable: true },
-				                { field: 'value', title: '内容', width: 100, resizable: false ,
+				                { field: 'name', title: '类型', width: 100, resizable: true },
+				                { field: 'value', title: '人次数', width: 100, resizable: false ,
 				                }
 				        ]]
 				 });

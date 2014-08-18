@@ -66,7 +66,7 @@
     <include file="cn/nit/configuration/table4/A413.xml"/>
     <include file="cn/nit/configuration/table4/A441.xml"/>
     <include file="cn/nit/configuration/table4/S443.xml"/>
-
+    <include file="cn/nit/configuration/table4/S444.xml"/>
     <!-- table1 -->
       <!-- t11學校基本信息 -->
     <include file="cn/nit/configuration/table1/T11.xml"/>

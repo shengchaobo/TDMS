@@ -28,7 +28,7 @@
 						  {
 			                  field:'stuType',
 			                  index: 0,
-			                  colspan: 2
+			                  colspan: 1
 			              }
 			              ];
 

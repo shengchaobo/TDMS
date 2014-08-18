@@ -2,8 +2,8 @@
 				//alert("test");
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "上学年人数（个）", "group": "6.普通预科生数", "value": "", "field": "preppyThisYearNum","editor": "numberbox" },
-				        { "name": "本学年人数（个）", "group": "6.普通预科生数", "value": "", "field": "preppyLastYearNum", "editor": "numberbox" },
+				        { "name": "上学年人数（个）", "group": "6.普通预科生数", "value": "", "field": "preppyLastYearNum","editor": "numberbox" },
+				        { "name": "本学年人数（个）", "group": "6.普通预科生数", "value": "", "field": "preppyThisYearNum", "editor": "numberbox" },
 				        { "name": "上学年人数（个）", "group": "7.进修生数", "value": "", "field": "advStuLastYearNum", "editor": "numberbox" },
 				        { "name": "本学年人数（个）", "group": "7.进修生数", "value": "", "field": "advStuThisYearNum", "editor": "numberbox" },
 				        { "name": "上学年人数（个）", "group": "8.成人脱产学生数", "value": "", "field": "adultLastYearNum", "editor": "numberbox" },

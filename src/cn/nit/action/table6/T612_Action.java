@@ -209,7 +209,7 @@ public class T612_Action {
 		           ws.addCell(new Label(2, 5, bean.getPartTimeMasterThisYearNum().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 6, bean.getDoctorThisYearNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 7, bean.getFullTimeDoctorThisYearNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 8, bean.getPartTimeMasterThisYearNum().toString(), wcf1));
+		           ws.addCell(new Label(2, 8, bean.getPartTimeDoctorThisYearNum().toString(), wcf1));
 
 		          wwb.write();
 		          wwb.close();

@@ -50,9 +50,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>	
 		<thead>
 			<tr>
-				<th field="CET4PassRate">1.英语四级考试累计通过率（%）</th>
-				<th field="CET6PassRate">2.英语六级考试累计通过率（%）</th>
-				<th field="jiangxiNCREPassRate">3.江西省高校计算机等级考试累计通过率（%）</th>			
+				<th field="CET4PassRate" formatter="formatRatio">1.英语四级考试累计通过率（%）</th>
+				<th field="CET6PassRate" formatter="formatRatio">2.英语六级考试累计通过率（%）</th>
+				<th field="jiangxiNCREPassRate"  formatter="formatRatio">3.江西省高校计算机等级考试累计通过率（%）</th>			
 				<th field="note">备注</th>
 				<th field="time" formatter="formattime">时间</th>
 			</tr>
@@ -82,9 +82,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>	
 		<thead>
 			<tr>
-				<th field="CET4PassRate">1.英语四级考试累计通过率（%）</th>
-				<th field="CET6PassRate">2.英语六级考试累计通过率（%）</th>
-				<th field="jiangxiNCREPassRate">3.江西省高校计算机等级考试累计通过率（%）</th>			
+				<th field="CET4PassRate" formatter="formatRatio">1.英语四级考试累计通过率（%）</th>
+				<th field="CET6PassRate" formatter="formatRatio">2.英语六级考试累计通过率（%）</th>
+				<th field="jiangxiNCREPassRate" formatter="formatRatio">3.江西省高校计算机等级考试累计通过率（%）</th>			
 				<th field="note">备注</th>
 				<th field="time" formatter="formattime">时间</th>
 			</tr>
@@ -192,5 +192,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	select.appendChild(theOption);
     	}
 	</script>
+	
+		
+	 <script type="text/javascript">
+		   function formatRatio(val){
+		        var str = val+"";
+			   var ratio=str+"%";
+			   return ratio;
+		   }
+		</script>
 
 </html>

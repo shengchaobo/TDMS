@@ -28,3 +28,7 @@ WebRoot/WEB-INF/classes/META-INF/persistence.xml
 .classpath
 
 .mymetadata/
+
+.mymetadata
+
+.metadata/

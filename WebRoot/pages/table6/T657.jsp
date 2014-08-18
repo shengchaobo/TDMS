@@ -50,8 +50,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>	
 		<thead>
 			<tr>
-				<th field="habitusQualifiedRate">1.体质合格率（%）</th>
-				<th field="habitusTestReachRate">2.体质测试达标率（%）</th>
+				<th field="habitusQualifiedRate" formatter="formatRatio">1.体质合格率（%）</th>
+				<th field="habitusTestReachRate" formatter="formatRatio"> 2.体质测试达标率（%）</th>
 				<th field="note">备注</th>
 				<th field="time" formatter="formattime">时间</th>
 			</tr>
@@ -81,8 +81,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>	
 	<thead>
 			<tr>
-				<th field="habitusQualifiedRate">1.体质合格率（%）</th>
-				<th field="habitusTestReachRate">2.体质测试达标率（%）</th>
+				<th field="habitusQualifiedRate" formatter="formatRatio">1.体质合格率（%）</th>
+				<th field="habitusTestReachRate" formatter="formatRatio">2.体质测试达标率（%）</th>
 				<th field="note">备注</th>
 				<th field="time" formatter="formattime">时间</th>
 			</tr>
@@ -182,5 +182,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	select.appendChild(theOption);
     	}
 	</script>
+	
+	 <script type="text/javascript">
+		   function formatRatio(val){
+		        var str = val+"";
+			   var ratio=str+"%";
+			   return ratio;
+		   }
+		</script>
 
 </html>

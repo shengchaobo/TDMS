@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>	
 		<thead>
 			<tr>
-				<th field="nationNCREPassRate">全国高校计算机等级考试累计通过率（%）</th>				
+				<th field="nationNCREPassRate" formatter="formatRatio">全国高校计算机等级考试累计通过率（%）</th>				
 				<th field="note">备注</th>
 				<th field="time" formatter="formattime">时间</th>
 			</tr>
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>	
 		<thead>
 			<tr>
-				<th field="nationNCREPassRate">全国高校计算机等级考试累计通过率（%）</th>				
+				<th field="nationNCREPassRate" formatter="formatRatio">全国高校计算机等级考试累计通过率（%）</th>				
 				<th field="note">备注</th>
 				<th field="time" formatter="formattime">时间</th>
 			</tr>
@@ -173,5 +173,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	select.appendChild(theOption);
     	}
 	</script>
+	
+		
+	 <script type="text/javascript">
+		   function formatRatio(val){
+		        var str = val+"";
+			   var ratio=str+"%";
+			   return ratio;
+		   }
+		</script>
 
 </html>

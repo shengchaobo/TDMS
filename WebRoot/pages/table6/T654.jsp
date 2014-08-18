@@ -159,9 +159,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>类别：</label> 
-						<input id="patentType" name="T654_bean.patentType" class='easyui-validatebox'><span id="patentTypeSpan"></span>
+						<select  class='easyui-combobox' id="patentType" name="T654_bean.patentType" style="width:80px">
+							<option value="发明">发明</option>
+							<option value="实用新型">实用新型</option>
+							<option value="外观专利">外观专利</option>
+						<span id="patentTypeSpan"></span>
 					</div>
-				</td>
+				</td>	
 			</tr>
 			
 			<tr>
@@ -186,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>参与学生人数：</label> 
 						<input id="awardStuNum" name="T654_bean.awardStuNum" 
-							 class='easyui-validatebox'><span id="awardStuNumSpan"></span>
+							 class='easyui-numberbox'><span id="awardStuNumSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>
@@ -203,7 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>指导教师人数：</label> 
 						<input id="guideTeaNum" name="T654_bean.guideTeaNum" 
-							 class='easyui-validatebox'><span id="guideTeaNumSpan"></span>
+							 class='easyui-numberbox'><span id="guideTeaNumSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>

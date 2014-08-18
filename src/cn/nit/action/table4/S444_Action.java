@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,29 +25,27 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
-
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
-import org.springframework.beans.BeanWrapperImpl;
+
+import cn.nit.bean.table4.S444_Bean;
+import cn.nit.dao.table4.S444_Dao;
+import cn.nit.service.table4.S444_Service;
 
 
 
-import cn.nit.bean.table4.S443_Bean;
-import cn.nit.dao.table4.S443_Dao;
-import cn.nit.service.table4.S443_Service;
-import cn.nit.util.JsonUtil;
-
-public class S443_Action {
+public class S444_Action {
 	
 	
 	
-	private S443_Service s443_Service=new S443_Service();
 	
-	private S443_Bean s443_Bean=new S443_Bean();
+	private S444_Service s444_Service=new S444_Service();
 	
-	private S443_Dao s443_Dao=new S443_Dao();
+	private S444_Bean s444_Bean=new S444_Bean();
+	
+	private S444_Dao s444_Dao=new S444_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -67,7 +62,7 @@ public class S443_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<S443_Bean> list=s443_Service.getYearInfo(this.getSelectYear());
+		List<S444_Bean> list=s444_Service.getYearInfo(this.getSelectYear());
 		System.out.println(this.getSelectYear());
 		System.out.println(list.size());
 		JSON json = JSONSerializer.toJSON(list) ;
@@ -94,7 +89,7 @@ public class S443_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<S443_Bean> list = s443_Dao.totalList(this.getSelectYear());
+		List<S444_Bean> list = s444_Dao.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -138,15 +133,15 @@ public class S443_Action {
 		           
 		           ws.addCell(new Label(0,2,"序号",wcf));
 		           ws.addCell(new Label(1,2,"类型",wcf));
-		           ws.addCell(new Label(2,2,"人次数",wcf));
-		           ws.addCell(new Label(0,3,list.get(0).getTalentType(),wcf));
-		           ws.addCell(new Label(2,3,list.get(0).getTalentNum()+"",wcf1));
+		           ws.addCell(new Label(2,2,"数量",wcf));
+		           ws.addCell(new Label(0,3,list.get(0).getTeamType(),wcf));
+		           ws.addCell(new Label(2,3,list.get(0).getTeamNum()+"",wcf1));
  
 		           
 		           for(int i=1;i<list.size();i++){
 		        	   ws.addCell(new Label(0, 3+i,""+i, wcf));
-		        	   ws.addCell(new Label(1, 3+i,list.get(i).getTalentType(), wcf1));
-		        	   ws.addCell(new Label(2, 3+i,list.get(i).getTalentNum()+"", wcf1));
+		        	   ws.addCell(new Label(1, 3+i,list.get(i).getTeamType(), wcf1));
+		        	   ws.addCell(new Label(2, 3+i,list.get(i).getTeamNum()+"", wcf1));
 
 		           }
 		           
@@ -196,28 +191,30 @@ public class S443_Action {
 		this.excelName = excelName;
 	}
 
-	public S443_Service getS443_Service() {
-		return s443_Service;
+
+
+	public S444_Service getS444_Service() {
+		return s444_Service;
 	}
 
-	public void setS443_Service(S443_Service s443Service) {
-		s443_Service = s443Service;
+	public void setS444_Service(S444_Service s444Service) {
+		s444_Service = s444Service;
 	}
 
-	public S443_Bean getS443_Bean() {
-		return s443_Bean;
+	public S444_Bean getS444_Bean() {
+		return s444_Bean;
 	}
 
-	public void setS443_Bean(S443_Bean s443Bean) {
-		s443_Bean = s443Bean;
+	public void setS444_Bean(S444_Bean s444Bean) {
+		s444_Bean = s444Bean;
 	}
 
-	public S443_Dao getS443_Dao() {
-		return s443_Dao;
+	public S444_Dao getS444_Dao() {
+		return s444_Dao;
 	}
 
-	public void setS443_Dao(S443_Dao s443Dao) {
-		s443_Dao = s443Dao;
+	public void setS444_Dao(S444_Dao s444Dao) {
+		s444_Dao = s444Dao;
 	}
 
 	public HttpServletResponse getResponse() {
@@ -235,8 +232,5 @@ public class S443_Action {
 	public void setRequest(HttpServletRequest request) {
 		this.request = request;
 	}
-	
-	
-
 
 }

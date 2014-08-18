@@ -4,8 +4,8 @@
 	$(function() {
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#showData').datagrid( {
-			title : '高层次人才统计',  //可变内容在具体页面定义
-			url: 'pages/S443/loadInfo',
+			title : '高层次研究团队统计',  //可变内容在具体页面定义
+			url: 'pages/S444/loadInfo',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -44,11 +44,11 @@
 		
 	   //导出
 	   $("#export").click(function(){
-	        var tableName = encodeURI('S-4-4-3高层次人才统计');
+	        var tableName = encodeURI('S-4-4-4高层次研究团队统计');
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/S443/dataExport?excelName="+tableName+'&selectYear='+year,
+			    url : "pages/S444/dataExport?excelName="+tableName+'&selectYear='+year,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },

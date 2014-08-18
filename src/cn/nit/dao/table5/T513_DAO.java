@@ -260,7 +260,7 @@ public class T513_DAO {
 			}else{
 				flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
 			}
-			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+//			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;

@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +29,12 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONSerializer;
+
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.BeanWrapperImpl;
+
 
 
 import cn.nit.bean.table4.S443_Bean;
@@ -58,57 +67,38 @@ public class S443_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		S443_Bean bean=s443_Service.getData(this.getSelectYear());
-		
-		
-		boolean flag = false;
-		String json = null;
-		if(bean!=null){
-			flag = s443_Service.save(bean,this.getSelectYear());
-			bean.setTime(null);
-			json = JsonUtil.beanToJson(bean);
-			System.out.println(json) ;
-		}		
+		List<S443_Bean> list=s443_Service.getYearInfo(this.getSelectYear());
+		System.out.println(this.getSelectYear());
+		System.out.println(list.size());
+		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
-		if(flag == false ){
-			System.out.println("统计数据保存失败");
-			response.setContentType("text/html;charset=UTF-8") ;
+		//System.out.println(json.toString());
+		try {
+			//设置输出内容的格式为json
+			response.setContentType("application/json; charset=UTF-8") ;
 			out = response.getWriter() ;
-			out.println("{\"data\":\"统计数据保存失败\"}"); 
-		}else{
-
-		
-
-			//System.out.println(json.toString());
-			try {
-				//设置输出内容的格式为json
-				response.setContentType("application/json; charset=UTF-8") ;
-				out = response.getWriter() ;
-				//设置数据的内容的编码格式
-				String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
-				out.print(outPrint) ;
-				out.flush() ;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}finally{
-				if(out != null){
-					out.close() ;
-				}
+			//设置数据的内容的编码格式
+			String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
+			out.print(outPrint) ;
+			out.flush() ;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(out != null){
+				out.close() ;
 			}
 		}
-		
-
 	}
 	
-
-	public InputStream getInputStream() throws Exception{
+	public InputStream getInputStream() throws IOException{
+		
 
 		System.out.println(this.getSelectYear());
-		S443_Bean bean = s443_Service.getYearInfo(this.getSelectYear());
+		List<S443_Bean> list = s443_Dao.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
+		if(list.isEmpty()){
 			PrintWriter out = null ;
 			response.setContentType("text/html;charset=utf-8") ;
 			out = response.getWriter() ;
@@ -122,7 +112,7 @@ public class S443_Action {
 		    try {    
 		           fos = new ByteArrayOutputStream();
 		           wwb = Workbook.createWorkbook(fos);
-		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+		           WritableSheet ws = wwb.createSheet(sheetName , 0);        // 创建一个工作表
 		
 		            //    设置单元格的文字格式
 		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
@@ -146,46 +136,29 @@ public class S443_Action {
 		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		           ws.mergeCells(0, 0, 2, 0);
 		           
-		           ws.addCell(new Label(0, 2, "序号", wcf)); 
-		           ws.addCell(new Label(1, 2, "类型", wcf)); 
-		           ws.addCell(new Label(2, 2, "人次数", wcf)); 
-		           ws.addCell(new Label(0, 3, "合计", wcf));  
-		           ws.addCell(new Label(0, 4, "1", wcf)); 
-		           ws.addCell(new Label(1, 4, "中国科学院院士", wcf)); 
-		           ws.addCell(new Label(0, 5, "2", wcf)); 
-		           ws.addCell(new Label(1, 5, "中国工程院院士", wcf)); 
-		           ws.addCell(new Label(0, 6, "3", wcf)); 
-		           ws.addCell(new Label(1, 6, "引进海外高层次人才“千人计划”入选者", wcf)); 
-		           ws.addCell(new Label(0, 7, "4", wcf)); 
-		           ws.addCell(new Label(1, 7, "长江学者特聘教授", wcf)); 
-		           ws.addCell(new Label(0, 8, "5", wcf)); 
-		           ws.addCell(new Label(1, 8, "国家杰出青年科学基金资助者", wcf)); 
-		           ws.addCell(new Label(0, 9, "6", wcf)); 
-		           ws.addCell(new Label(1, 9, "省部级突出贡献专家", wcf)); 
-		           ws.addCell(new Label(0, 10, "7", wcf)); 
-		           ws.addCell(new Label(1, 10, "新世纪优秀人才", wcf)); 
-		           ws.addCell(new Label(0, 11, "8", wcf)); 
-		           ws.addCell(new Label(1, 11, "教育部高校青年教师获奖者", wcf)); 
-		           ws.addCell(new Label(0, 12, "9", wcf)); 
-		           ws.addCell(new Label(1, 12, "省级高层次人才", wcf)); 
-		           ws.addCell(new Label(0, 13, "10", wcf)); 
-		           ws.addCell(new Label(1, 13, "青年“千人计划”入选者", wcf)); 
+		           ws.addCell(new Label(0,2,"序号",wcf));
+		           ws.addCell(new Label(1,2,"类型",wcf));
+		           ws.addCell(new Label(2,2,"人次数",wcf));
+		           ws.addCell(new Label(0,3,list.get(0).getTalentType(),wcf));
+		           ws.addCell(new Label(2,3,list.get(0).getTalentNum()+"",wcf1));
+ 
+		           
+		           for(int i=1;i<list.size();i++){
+		        	   ws.addCell(new Label(0, 3+i,""+i, wcf));
+		        	   ws.addCell(new Label(1, 3+i,list.get(i).getTalentType(), wcf1));
+		        	   ws.addCell(new Label(2, 3+i,list.get(i).getTalentNum()+"", wcf1));
 
+		           }
+		           
+
+
+
+		           ws.mergeCells(0, 3, 1, 3);
 
 		           
-		           ws.addCell(new Label(2, 3, bean.getSumTalent()+"", wcf1)); 
-		           ws.addCell(new Label(2, 4, bean.getScienceTalent()+"", wcf1)); 
-		           ws.addCell(new Label(2, 5, bean.getEngneerTalent()+"", wcf1)); 
-		           ws.addCell(new Label(2, 6, bean.getOverseasTalent()+"", wcf1)); 
-		           ws.addCell(new Label(2, 7, bean.getYangtzeTalent()+"", wcf1)); 
-		           ws.addCell(new Label(2, 8, bean.getYouthTalent()+"", wcf1)); 
-		           ws.addCell(new Label(2, 9, bean.getExpertTalent()+"", wcf1)); 
-		           ws.addCell(new Label(2, 10, bean.getExcellentTalent()+"", wcf1)); 
-		           ws.addCell(new Label(2, 11, bean.getYouthTeaTalent()+"", wcf1)); 
-		           ws.addCell(new Label(2, 12, bean.getHighLevelTalent()+"", wcf1)); 
-		           ws.addCell(new Label(2, 13, bean.getYouthOverseas()+"", wcf1)); 
- 		      
-		           ws.mergeCells(0, 3, 1, 3);
+
+ 
+		             
 
 		          wwb.write();
 		          wwb.close();
@@ -196,7 +169,9 @@ public class S443_Action {
 		        
 		}
 		return new ByteArrayInputStream(fos.toByteArray());
+		
 	}
+	
 	
 	
 	public String execute() throws Exception{
@@ -221,37 +196,29 @@ public class S443_Action {
 		this.excelName = excelName;
 	}
 
-
-
 	public S443_Service getS443_Service() {
 		return s443_Service;
 	}
-
 
 	public void setS443_Service(S443_Service s443Service) {
 		s443_Service = s443Service;
 	}
 
-
 	public S443_Bean getS443_Bean() {
 		return s443_Bean;
 	}
-
 
 	public void setS443_Bean(S443_Bean s443Bean) {
 		s443_Bean = s443Bean;
 	}
 
-
 	public S443_Dao getS443_Dao() {
 		return s443_Dao;
 	}
 
-
 	public void setS443_Dao(S443_Dao s443Dao) {
 		s443_Dao = s443Dao;
 	}
-
 
 	public HttpServletResponse getResponse() {
 		return response;
@@ -268,5 +235,8 @@ public class S443_Action {
 	public void setRequest(HttpServletRequest request) {
 		this.request = request;
 	}
+	
+	
+
 
 }

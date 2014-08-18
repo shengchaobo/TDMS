@@ -166,8 +166,11 @@ public class T652_Dao {
 		String queryPageSql;
 		
 			queryPageSql = "select top " + pagesize + 
-			fieldShow
-			+ " from " + tableName + 
+			"SeqNumber,TeaUnit,UnitID,PaperTitle,JonalName,JonalID,JonalDate,AwardStuName,AwardStuNum,GuideTeaName," +
+			"GuideTeaNum,IsAward,DiAwardLevel.AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID "+
+//			fieldShow
+			" from " + tableName + 
+			" left join DiAwardLevel on "+tableName+".AwardLevel = DiAwardLevel.IndexID "+
 			" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
 			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
 	

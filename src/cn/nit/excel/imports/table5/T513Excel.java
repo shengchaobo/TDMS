@@ -64,7 +64,7 @@ public class T513Excel {
 		for(Cell[] cell : cellList){
 			T513Bean t513Bean = new  T513Bean();
 			int n=cellList.indexOf(cell);
-			if(count<4){
+			if(count<5){
 				count++;
 				continue;
 			}

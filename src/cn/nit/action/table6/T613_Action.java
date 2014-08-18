@@ -6,6 +6,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 
 
@@ -161,7 +163,7 @@ public class T613_Action {
 		    try {    
 		           fos = new ByteArrayOutputStream();
 		           wwb = Workbook.createWorkbook(fos);
-		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+		           WritableSheet ws = wwb.createSheet("表6-1-3留学生数量基本情况（国际交流与合作处）", 0);        // 创建一个工作表
 		
 		            //    设置单元格的文字格式
 		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
@@ -182,7 +184,7 @@ public class T613_Action {
 		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
 			        		     jxl.format.Colour.BLACK);
 		           
-		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.addCell(new Label(0, 0, "表6-1-3留学生数量基本情况（国际交流与合作处）", wcf)); 
 		           ws.mergeCells(0, 0, 1, 0);
 		           
 		           ws.addCell(new Label(0, 2, "分类", wcf)); 
@@ -227,6 +229,12 @@ public class T613_Action {
 	}
 	
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

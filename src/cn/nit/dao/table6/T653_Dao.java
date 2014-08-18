@@ -163,9 +163,12 @@ public class T653_Dao {
 		// TODO Auto-generated method stub
 		String queryPageSql;
 		
-			queryPageSql = "select top " + pagesize + 
-			fieldShow
+			queryPageSql = "select top " + pagesize +
+			"SeqNumber,TeaUnit,UnitID,WorkName,JonalName,JonalID,JonalDate,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum," +
+			"DiAwardLevel.AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID,IsAward"
+			//fieldShow
 			+ " from " + tableName + 
+			" left join DiAwardLevel on "+tableName+".AwardLevel = DiAwardLevel.IndexID "+
 			" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
 			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
 	

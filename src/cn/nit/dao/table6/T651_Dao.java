@@ -21,7 +21,13 @@ public class T651_Dao {
 
 	/** 数据库表名 */
 	private String tableName = "T651_StuCompetiAwardInfo_TeaYLC$";
-
+	
+	/**外键表1*/
+    private String tableName1="DiContestLevel";
+    
+    /**外键表2*/
+    private String tableName2="DiAwardLevel";
+    
 	/** 数据自增长字段的主键，必须为自增长字段 */
 	private String key = "SeqNumber";
 
@@ -165,12 +171,14 @@ public class T651_Dao {
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
 		String queryPageSql;
-		
-			queryPageSql = "select top " + pagesize + 
-			fieldShow
-			+ " from " + tableName + 
-			" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
+		queryPageSql = "select top " + pagesize + 
+		" SeqNumber,TeaUnit,UnitID,"+tableName1+".ContestLevel as competiType,"+"CompetiName,AwardItem,"+tableName2+".AwardLevel as AwardLevel,"
+		+" AwardGrade,AwardFromUnit,AwardTime,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID"
+		+ " from " + tableName +
+		" left join "+tableName1+" on "+tableName+".competiType="+tableName1+".IndexID "+
+		"left join "+tableName2+" on "+tableName+".AwardLevel="+tableName2+".IndexID " +
+		" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
+		tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
 	
 
 		System.out.println(queryPageSql);
@@ -198,6 +206,7 @@ public class T651_Dao {
 	public List<T651_Bean> getAllList() {
 		// TODO Auto-generated method stub
 		String sql = "select " + fieldShow + " from " + tableName ;
+		System.out.println(sql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -253,28 +262,28 @@ public class T651_Dao {
 		T651_Bean StuCompetiAwardInfo = new T651_Bean();
 //		 StuCompetiAwardInfo.setSeqNumber(1);
 
-	
-		StuCompetiAwardInfo.setTeaUnit("水利与生态工程学院");
-		StuCompetiAwardInfo.setUnitId("3001");
-		StuCompetiAwardInfo.setCompetiType("55000");//本科生学科竞赛
-		StuCompetiAwardInfo.setCompetiName("第九届全国周培源大学生力学竞赛");
-		StuCompetiAwardInfo.setAwardItem("第九届全国周培源大学生力学竞赛");
-		StuCompetiAwardInfo.setAwardLevel("50001");//国家级
-		StuCompetiAwardInfo.setAwardGrade("三等");
-		StuCompetiAwardInfo.setAwardFromUnit("教育部高等学校力学基础课程教学指导委员会、中国力学学会、周培源基金会");
-		StuCompetiAwardInfo.setAwardTime(new Date());
-		StuCompetiAwardInfo.setAwardStuName("龚立尧2010980000、龚如2010980000");
-		StuCompetiAwardInfo.setAwardStuNum(2);
-		StuCompetiAwardInfo.setGuideTeaName("张三200698000、李四200698002");
-		StuCompetiAwardInfo.setGuideTeaNum(2);
-		
-		StuCompetiAwardInfo.setFillUnitID("1029");
-		
-				
-		StuCompetiAwardInfo.setTime(new Date());
-		StuCompetiAwardInfo.setNote("无");
-//		//		
-		StuCompetiAwardInfoDao.insert(StuCompetiAwardInfo);
+//	
+//		StuCompetiAwardInfo.setTeaUnit("水利与生态工程学院");
+//		StuCompetiAwardInfo.setUnitId("3001");
+//		StuCompetiAwardInfo.setCompetiType("55000");//本科生学科竞赛
+//		StuCompetiAwardInfo.setCompetiName("第九届全国周培源大学生力学竞赛");
+//		StuCompetiAwardInfo.setAwardItem("第九届全国周培源大学生力学竞赛");
+//		StuCompetiAwardInfo.setAwardLevel("50001");//国家级
+//		StuCompetiAwardInfo.setAwardGrade("三等");
+//		StuCompetiAwardInfo.setAwardFromUnit("教育部高等学校力学基础课程教学指导委员会、中国力学学会、周培源基金会");
+//		StuCompetiAwardInfo.setAwardTime(new Date());
+//		StuCompetiAwardInfo.setAwardStuName("龚立尧2010980000、龚如2010980000");
+//		StuCompetiAwardInfo.setAwardStuNum(2);
+//		StuCompetiAwardInfo.setGuideTeaName("张三200698000、李四200698002");
+//		StuCompetiAwardInfo.setGuideTeaNum(2);
+//		
+//		StuCompetiAwardInfo.setFillUnitID("1029");
+//		
+//				
+//		StuCompetiAwardInfo.setTime(new Date());
+//		StuCompetiAwardInfo.setNote("无");
+////		//		
+//		StuCompetiAwardInfoDao.insert(StuCompetiAwardInfo);
 		//		
 		//	
 		//		
@@ -284,7 +293,8 @@ public class T651_Dao {
 		// // System.out.println(StuCompetiAwardInfoDao.update(StuCompetiAwardInfo)) ;
 //		 System.out.println(StuCompetiAwardInfoDao.deleteItemsByIds("(8)")) ;
 
-		System.out.println("success!!");
+//		System.out.println("success!!");
+		List<T651_Bean> list = StuCompetiAwardInfoDao.queryPageList("1=1", null, 10, 1);
 	}
 
 

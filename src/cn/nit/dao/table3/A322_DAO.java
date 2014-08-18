@@ -125,8 +125,8 @@ public class A322_DAO {
 		List<A322_Bean> list = new ArrayList<A322_Bean>() ;
 		int sum=0,sumInterNation=0,sumNation=0,sumProvi=0,sumCity=0,sumSchool=0;
 		int fieldNum=0,interNation=0,nation=0,provi=0,city=0,school=0;
-		NumberFormat nf = NumberFormat.getInstance();
-		nf.setMinimumFractionDigits(4);
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		nf.setMaximumFractionDigits(4);
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(querysql) ;

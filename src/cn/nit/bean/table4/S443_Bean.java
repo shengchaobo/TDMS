@@ -17,6 +17,7 @@ public class S443_Bean implements java.io.Serializable {
 
 	// Fields
 
+	private Integer seqNumber;
 	private Integer sumTalent;
 	private Integer scienceTalent;
 	private Integer engneerTalent;
@@ -32,8 +33,18 @@ public class S443_Bean implements java.io.Serializable {
 	private String note;
 
 	@Column(name = "SumTalent")
+	
+	
 	public Integer getSumTalent() {
 		return this.sumTalent;
+	}
+
+	public Integer getSeqNumber() {
+		return seqNumber;
+	}
+
+	public void setSeqNumber(Integer seqNumber) {
+		this.seqNumber = seqNumber;
 	}
 
 	public void setSumTalent(Integer sumTalent) {

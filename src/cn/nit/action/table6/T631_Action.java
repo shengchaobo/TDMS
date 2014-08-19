@@ -26,8 +26,6 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
-
 
 import cn.nit.bean.table6.T631_Bean;
 
@@ -282,10 +280,6 @@ public class T631_Action {
 
 	public HttpServletResponse getResponse() {
 		return ServletActionContext.getResponse();
-	}
-
-	public UserRoleBean getUserinfo() {
-		return (UserRoleBean) getSession().getAttribute("userinfo");
 	}
 
 

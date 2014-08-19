@@ -32,6 +32,5 @@ public class RoleManagerDAO {
 			DBConnection.close(st) ;
 			DBConnection.close(conn) ;
 		}
-	}
-	
+	}	
 }

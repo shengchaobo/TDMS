@@ -29,8 +29,6 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.A15Bean;
 
 import cn.nit.dao.table1.A15DAO;
@@ -291,10 +289,7 @@ public class A15Action {
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
 	}
-	
-//	public UserRoleBean getUserinfo(){
-//		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-//	}
+
 
 	public A15Bean getA15Bean() {
 		return a15Bean;

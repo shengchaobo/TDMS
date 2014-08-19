@@ -25,8 +25,6 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T624_Bean;
 import cn.nit.dao.table6.T624_Dao;
@@ -310,9 +308,6 @@ public class T624_Action {
 		return ServletActionContext.getResponse();
 	}
 
-	public UserRoleBean getUserinfo() {
-		return (UserRoleBean) getSession().getAttribute("userinfo");
-	}
 
 
 

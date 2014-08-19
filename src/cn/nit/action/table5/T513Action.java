@@ -37,8 +37,6 @@ import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table5.T513Bean;
 import cn.nit.dao.table5.T513_DAO;
 import cn.nit.excel.imports.table5.T513Excel;
@@ -280,10 +278,6 @@ public class T513Action {
 		return ServletActionContext.getResponse() ;
 	}
 	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
 	public T513Bean getT513Bean() {
 		return t513Bean;
 	}

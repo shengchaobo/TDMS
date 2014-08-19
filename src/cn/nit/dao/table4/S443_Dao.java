@@ -109,10 +109,11 @@ public class S443_Dao {
 	public List<S443_Bean> getYearInfo(String year)
 	{
 		
-	String querysql="select "+tableName2+".TalentType as talentType,count("+tableName1+".Name) as talentNum from "+tableName1+
-	" left join "+tableName2+" on "+tableName1+".Type = "+tableName2+".IndexID "+
-	" where Time like '"+year+"%' group by "+tableName2+".TalentType";
-   
+	String querysql="select "+tableName2+".TalentType as talentType,count("+tableName1+".Name) as talentNum from "+tableName2+
+	" left join "+tableName1+" on "+tableName2+".IndexID = "+tableName1+".Type "+
+	" and Time like '"+year+"%' group by "+tableName2+".TalentType,"+tableName2+".IndexID" +
+	" order by "+tableName2+".IndexID";
+
 		System.out.println(querysql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

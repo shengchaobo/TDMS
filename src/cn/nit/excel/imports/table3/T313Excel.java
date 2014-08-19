@@ -24,7 +24,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
-import cn.nit.bean.other.UserRoleBean;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table3.T313_Bean;
 import org.springframework.beans.BeanWrapperImpl;
 
@@ -55,7 +55,7 @@ public class T313Excel {
 		 Date time=new Date();
 		boolean flag = false ;
 		List<T313_Bean> list = new LinkedList<T313_Bean>() ;
-		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
+		UserinfoBean userinfo = (UserinfoBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		

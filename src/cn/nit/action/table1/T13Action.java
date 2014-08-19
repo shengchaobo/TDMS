@@ -17,8 +17,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
-
 import cn.nit.bean.table1.T12Bean;
 import cn.nit.bean.table1.T13Bean;
 import cn.nit.dao.table1.T13DAO;
@@ -192,10 +190,7 @@ public class T13Action {
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
 	}
-	
-//	public UserRoleBean getUserinfo(){
-//		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-//	}
+
 
 	public T13Bean getT13Bean() {
 		return t13Bean;

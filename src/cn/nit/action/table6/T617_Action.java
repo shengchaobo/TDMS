@@ -41,7 +41,6 @@ import jxl.write.biff.RowsExceededException;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -407,12 +406,6 @@ public class T617_Action {
 	public HttpServletResponse getResponse() {
 		return ServletActionContext.getResponse();
 	}
-
-	public UserRoleBean getUserinfo() {
-		return (UserRoleBean) getSession().getAttribute("userinfo");
-	}
-
-
 
 	public int getSeqNum() {
 		return seqNum;

@@ -22,7 +22,6 @@ import org.apache.struts2.ServletActionContext;
 
 
 import cn.nit.bean.UserinfoBean;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.pojo.LoginUser;
 import cn.nit.service.LoginUserService;
 import cn.nit.util.MD5Util;
@@ -52,7 +51,7 @@ public class LoginUserAction {
 	 */
 	public void login(){
 		
-		List<UserRoleBean> list = loginService.getUserRoleById(user.getUserId()) ;
+		List<UserinfoBean> list = loginService.getUserRoleById(user.getUserId()) ;
 		HttpServletRequest request = ServletActionContext.getRequest() ;
 		HttpServletResponse response = ServletActionContext.getResponse() ;
 		response.setContentType("text/html;charset=UTF-8") ;
@@ -72,7 +71,7 @@ public class LoginUserAction {
 				logger.info("登录错误") ;
 				return ;
 			}else{
-				UserRoleBean userinfo = list.get(0) ;
+				UserinfoBean userinfo = list.get(0) ;
 				String password = MD5Util.encode(user.getPassword()) ;
 				
 				if(userinfo.getTeaPasswd().equals(password)){
@@ -118,7 +117,7 @@ public class LoginUserAction {
 	
 	
 	/**
-	 * 防止SQL注入
+	 * 退出系统
 	 * @return
 	 *
 	 * @time: 2014-4-21/上午11:24:51
@@ -126,7 +125,7 @@ public class LoginUserAction {
 	public String exit() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession() ;
-		UserRoleBean user = (UserRoleBean) session.getAttribute("userinfo") ;
+		UserinfoBean user = (UserinfoBean) session.getAttribute("userinfo") ;
 		
 		if(user != null){
 			session.removeAttribute("userinfo");

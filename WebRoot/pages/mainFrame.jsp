@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*"   import ="cn.nit.bean.UserinfoBean" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -52,6 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  	 	alert(s);
 			  	 }			  	 
 			  }
+			  
 			//向右边添加标签页
 		    function addPanel(node){
 			    var flag = $('#tabs').tabs('exists',node.text) ;
@@ -165,14 +166,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		
    		 //绑定tabs的右键菜单
 	  $(document).ready(function () {
-    	$("#tabs").tabs({
-       	 	onContextMenu : function (e, title) {
-            	e.preventDefault();
-            	$('#tabsMenu').menu('show', {
-             	   left : e.pageX,
-              	   top : e.pageY
-          	  }).data("tabTitle", title);
-      	  }
+	    	$("#tabs").tabs({
+	       	 	onContextMenu : function (e, title) {
+	            	e.preventDefault();
+	            	$('#tabsMenu').menu('show', {
+	             	   left : e.pageX,
+	              	   top : e.pageY
+	          	  }).data("tabTitle", title);
+	      	  }
     	});
     	
    		 //实例化menu的onClick事件
@@ -210,8 +211,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         for (var i = 0; i < closeTabsTitle.length; i++) {
             tabs.tabs("close", closeTabsTitle[i]);
         }
-    }
-   
+    } 
     </script>
     </head>
     <body style="margin-left:auto;margin-right:auto;align-text:center">
@@ -234,6 +234,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <span style="font-family:宋体;align:center;valign:bottom">北京交通大学技术支持</span>
 		    </div>
 	    </div>
+	    <%  
+	    		UserinfoBean user = (UserinfoBean) session.getAttribute("userinfo") ;
+	    		if("000".equals(user.getRoleID())){
+	     %>		
 		    <div id="tree-tools">
 		    	<a href="javascript:void(0)"   class="easyui-linkbutton"  data-options="plain:true,iconCls:'icon-back'" title="全部收起" onclick="collapseAll()" style="position: relative;top: -5px;"></a><!--
 				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-sum'" title="展开" onclick="expandAll()" style="position: relative;top: -5px;"></a>
@@ -241,6 +245,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" title="删除一个节点" onclick="remvoeTreeMenu()" style="position: relative;top: -5px;"></a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'" title="刷新" onclick="reFresh()" style="position: relative;top: -5px;"></a>
 		    </div>
+		<%    
+	    		}	    
+	    %>
+
 	    	<div id="menu" title="菜单栏"  data-options="region:'west',tools:'#tree-tools',split:true"   style="width:240px;"  >
 	    		<ul id="trees" class="easyui-tree"  data-options="lines:true,border:true" ></ul>
 	    	</div>

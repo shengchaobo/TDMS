@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T322_Bean;
 import cn.nit.dao.table3.T322_DAO;
 import cn.nit.excel.imports.table3.T322Excel;
@@ -274,10 +273,6 @@ private T322_Service t322_Service = new T322_Service() ;
 	
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
-	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
 	public T322_Service getT322_Service() {

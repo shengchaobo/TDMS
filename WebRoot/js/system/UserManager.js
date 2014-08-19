@@ -27,7 +27,7 @@
 	        var tableName = encodeURI('用户列表');
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/userManager/dataExport?excelName="+tableName,
+			    url : "pages/UserManager/dataExport?excelName="+tableName,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },
@@ -44,6 +44,9 @@
 	var url;
 	var req = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/ ;
 	function newUser() {
+		//update隐藏的量在提交之后要恢复
+		$('#TeaName').combobox('readonly',false);
+		
 		url = 'pages/UserManager/insert';
 		$('#dlg').dialog('open').dialog('setTitle', '添加用户');
 		$('#userManagerForm').form('reset');
@@ -79,7 +82,7 @@
 		var csUnit = $('#UnitID').combobox('getText');
 		var teaEmail = $('#TeaEmail').val();
 		var role = $('#RoleID').combobox('getText');
-		var note = $('#Note').val();
+		var note = $('#UserNote').val();
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null || teaId.length == 0 ) {
 			alert("教工号不能为空");

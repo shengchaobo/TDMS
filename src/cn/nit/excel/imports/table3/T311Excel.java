@@ -29,7 +29,6 @@ import org.springframework.beans.BeanWrapperImpl;
 
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T311_Bean;
 
 import cn.nit.service.di.DiAwardLevelService;
@@ -58,10 +57,6 @@ public class T311Excel {
 		 Date time=new Date();
 		boolean flag = false ;
 		List<T311_Bean> list = new LinkedList<T311_Bean>() ;
-		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
-
-		
-	
 		
 		for(Cell[] cell : cellList){
 			

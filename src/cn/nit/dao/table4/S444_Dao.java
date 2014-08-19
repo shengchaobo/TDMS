@@ -110,8 +110,9 @@ public class S444_Dao {
 	{
 		
 	String querysql="select "+tableName2+".ResearchTeam as TeamType,count("+tableName1+".ResField) as TeamNum from "+tableName1+
-	" left join "+tableName2+" on "+tableName1+".Type = "+tableName2+".IndexID "+
-	" where Time like '"+year+"%' group by "+tableName2+".ResearchTeam";
+	" right join "+tableName2+" on "+tableName2+".IndexID = "+tableName1+".Type "+
+	" and Time like '"+year+"%' group by "+tableName2+".ResearchTeam,"+tableName2+".IndexID " +
+	" order by "+tableName2+".IndexID";
    
 		System.out.println(querysql);
 		Connection conn = DBConnection.instance.getConnection() ;

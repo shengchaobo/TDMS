@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T152Bean;
 import cn.nit.dao.table1.T152DAO;
@@ -71,7 +71,7 @@ public class T152Action {
 		t152Bean.setTime(new Date()) ;
 		System.out.println(t152Bean.getTime());
 		//这还没确定,设置填报者的职工号与部门号
-		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
+		UserinfoBean userinfo = (UserinfoBean)getSession().getAttribute("userinfo") ;
 		t152Bean.setFillUnitID(userinfo.getTeaID());
 //		System.out.println(t152Bean.getResInsLevel());
 //		System.out.println(t152Bean.getTeaUnit());
@@ -303,8 +303,8 @@ public class T152Action {
 		return ServletActionContext.getResponse() ;
 	}
 	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
+	public UserinfoBean getUserinfo(){
+		return (UserinfoBean)getSession().getAttribute("userinfo") ;
 	}
 
 	public T152Bean getT152Bean() {

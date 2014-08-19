@@ -32,8 +32,6 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.A15Bean;
 import cn.nit.bean.table1.S17Bean;
 import cn.nit.bean.table1.T17Bean;
@@ -316,10 +314,6 @@ public class S17Action {
 	
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
-	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
 	public S17Bean getS17Bean() {

@@ -1,8 +1,8 @@
 	//只是用来展示的数据
 	$(function() {
-		$('#userManager').datagrid( {
-			title : '用户管理',  //可变内容在具体页面定义
-			url: 'pages/UserManager/loadUsers',
+		$('#roleManager').datagrid( {
+			title : '角色管理',  //可变内容在具体页面定义
+			url: 'pages/diRole/loadRoles',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -24,10 +24,10 @@
 					
 	   //导出
 	        $("#export").click(function(){
-	        var tableName = encodeURI('用户列表');
+	        var tableName = encodeURI('角色列表');
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/UserManager/dataExport?excelName="+tableName,
+			    url : "pages/diRole/dataExport?excelName="+tableName,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },
@@ -42,21 +42,22 @@
 	});
 			
 	var url;
-	var req = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/ ;
-	function newUser() {
-		//update隐藏的量在提交之后要恢复
-		$('#TeaName').combobox('readonly',false);
+	function newRole() {
 		
-		url = 'pages/UserManager/insert';
-		$('#dlg').dialog('open').dialog('setTitle', '添加用户');
-		$('#userManagerForm').form('reset');
+		//update隐藏的量在提交之后要恢复
+		$("input#RoleID").attr("readonly",false);
+		$("input#RoleID").css({"color":"black"});
+		
+		url = 'pages/diRole/insert';
+		$('#dlg').dialog('open').dialog('setTitle', '添加角色');
+		$('#roleManagerForm').form('reset');
 	}
 
 	function singleImport() {
 		//录入数据的表单提交
-		$('#userManagerForm').form('submit', {
+		$('#roleManagerForm').form('submit', {
 			url : url,
-			data : $('#userManagerForm').serialize(),
+			data : $('#roleManagerForm').serialize(),
 			type : "post",
 			dataType : "json",
 			onSubmit : function() {
@@ -69,7 +70,7 @@
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
 					$('#dlg').dialog('close');
-					$('#userManager').datagrid('reload');
+					$('#roleManager').datagrid('reload');
 				}
 			}
 		});
@@ -77,67 +78,57 @@
 
 	function validate() {
 		//获取文本框的值
-		var teaId = $('#TeaID').val();
-		var teaName = $('#TeaName').val();
-		var csUnit = $('#UnitID').combobox('getText');
-		var teaEmail = $('#TeaEmail').val();
-		var role = $('#RoleID').combobox('getText');
-		var note = $('#UserNote').val();
+		var roleID = $('#RoleID').val();
+		var roleName = $('#RoleName').val();
+		var csUnit = $('#UnitName').val();
+		var note = $('#RoleDest').val();
 		//根据数据库定义的字段的长度，对其进行判断
-		if (teaId == null || teaId.length == 0 ) {
-			alert("教工号不能为空");
+		if (roleID == null || roleID.length == 0 ) {
+			alert("角色编号不能为空");
+			return false;
+		}
+		
+		if (roleName == null || roleName.length == 0 ) {
+			alert("角色乐称不能为空");
 			return false;
 		}
 
 		if (csUnit == null || csUnit.length == 0) {
-			alert("教职工单位不能为空");
-			return false;
-		} 
-		
-		if (teaEmail == null || teaEmail.length == 0 || teaEmail.match(req) == null
-				|| teaEmail.length > 100) {
-			alert("邮箱输入错误或长度不能为空或长度不超过100");
-			return false;
-		} else {
-			$('#TeaEmailSpan').html("");
-		}
-		
-		if (role == null || role.length == 0) {
-			alert("用户角色不能为空");
+			alert("角色单位不能为空");
 			return false;
 		} 
 		
 		if (note != null && note.length > 1000) {
-			alert("备注长度不超过1000");
+			alert("角色描述长度不超过1000");
 			return false;
 		}
 		return true;
 	}
 
-	function editUser() {
-		var row = $('#userManager').datagrid('getSelections');
+	function editRole() {
+		var row = $('#roleManager').datagrid('getSelections');
 
 		if (row.length != 1) {
 			$.messager.alert('温馨提示', "请选择1条编辑的数据！！！");
 			return;
 		}
-
-		url = 'pages/UserManager/edit';
+		
+		url = 'pages/diRole/edit';
 
 		$('#dlg').dialog('open').dialog('setTitle', '编辑用户');
-		$('#seqNumber').val(row[0].seqNumber);
-		$('#TeaName').combobox('select', row[0].teaName);
-		$('#TeaName').combobox('readonly',true);
 		
-		$('#UnitID').combobox('select', row[0].unitID);
-		$('#RoleID').combobox('select', row[0].roleID);
-		$('#TeaEmail').val(row[0].teaEmail) ;
-		$('#UserNote').val(row[0].userNote);
+    	$('#RoleID').val(row[0].roleID) ;
+    	$("input#RoleID").attr("readonly",true);
+    	$("input#RoleID").css({"color":"#888"});
+    	
+    	$('#RoleName').val(row[0].roleName) ;		
+		$('#UnitName').val(row[0].unitName);
+		$('#roleDest').val(row[0].roleDest);
 	}
 
 	function deleteByIds() {
 		//获取选中项
-		var row = $('#userManager').datagrid('getSelections');
+		var row = $('#roleManager').datagrid('getSelections');
 
 		if (row.length == 0) {
 			$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
@@ -150,12 +141,12 @@
 				ids += "(";
 				for ( var i = 0; i < row.length; i++) {
 					if (i < (row.length - 1)) {
-						ids += ("'"+row[i].teaID+"'" + ",");
+						ids += ("'"+row[i].roleID+"'" + ",");
 					} else {
-						ids += ("'"+row[i].teaID +"'"+ ")");
+						ids += ("'"+row[i].roleID +"'"+ ")");
 					}
 				}				
-				url = "pages/UserManager/deleteByIds?ids=" + ids ;
+				url = "pages/diRole/deleteByIds?ids=" + ids ;
 				submitIds();
 			}
 		});
@@ -172,44 +163,17 @@
 				result = eval("(" + result + ")");
 				if (result.state) {
 					alert(result.data);
-					$('#userManager').datagrid('reload');
+					$('#roleManager').datagrid('reload');
 				}
 			}
 		}).submit();
 	}
 
-	function resetPassword() {
-		//获取选中项
-		var row = $('#userManager').datagrid('getSelections');
-
-		if (row.length == 0) {
-			$.messager.alert('温馨提示', "请选择需要进行密码重置的用户！！！");
-			return;
-		}
-
-		$.messager.confirm('密码重置', '您确定重置选中用户密码?', function(sure) {
-			if (sure) {
-				var ids = "";
-				ids += "(";
-
-				for ( var i = 0; i < row.length; i++) {
-					if (i < (row.length - 1)) {
-						ids += ("'"+row[i].teaID+"'" + ",");
-					} else {
-						ids += ("'"+row[i].teaID +"'"+ ")");
-					}
-				}	
-				url = "pages/UserManager/resetPassword?ids=" + ids ;
-				submitIds();
-			}
-		});
-	}
-	
 	//查询
 	function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 
          var  queryValue = $('#searchID').val();
-         var queryParams = $('#userManager').datagrid('options').queryParams;  
+         var queryParams = $('#roleManager').datagrid('options').queryParams;  
          queryParams.searchID = queryValue;  
-         $("#userManager").datagrid('reload'); 
+         $("#roleManager").datagrid('reload'); 
     }	

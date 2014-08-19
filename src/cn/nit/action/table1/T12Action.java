@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T12Bean;
 import cn.nit.dao.table1.T12DAO;
 import cn.nit.excel.imports.table1.T12Excel;
@@ -164,10 +163,6 @@ public class T12Action {
 	
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
-	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
 	public T12Bean getT12Bean() {

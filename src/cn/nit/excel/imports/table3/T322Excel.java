@@ -8,10 +8,10 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 import jxl.Cell;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T322_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.service.di.DiAwardLevelService;
@@ -42,7 +42,7 @@ public class T322Excel {
 		 Date time=new Date();
 		boolean flag = false ;
 		List<T322_Bean> list = new LinkedList<T322_Bean>() ;
-		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
+		UserinfoBean userinfo = (UserinfoBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		DiMajorTwoService diMajorTwoSer=new DiMajorTwoService();

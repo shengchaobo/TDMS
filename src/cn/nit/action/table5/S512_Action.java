@@ -40,7 +40,6 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.S17Bean;
 import cn.nit.bean.table5.S512_Bean;
 import cn.nit.dao.table5.S512_DAO;
@@ -286,11 +285,6 @@ public InputStream getInputStream() throws Exception{
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
 	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
 	
 	public void setExcelName(String excelName) {
 		this.excelName = excelName;

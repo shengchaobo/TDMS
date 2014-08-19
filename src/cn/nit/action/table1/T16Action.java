@@ -34,8 +34,6 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
-import cn.nit.bean.other.UserRoleBean;
-
 import cn.nit.bean.table1.T16Bean;
 import cn.nit.dao.table1.T16DAO;
 import cn.nit.excel.imports.table1.T16Excel;
@@ -408,10 +406,6 @@ public class T16Action {
 	
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
-	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
 	public T16Bean getT16Bean() {

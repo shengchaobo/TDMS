@@ -29,9 +29,9 @@ public class TreeManagerService {
 	 * @param parentId
 	 * @return
 	 */
-	public List<Trees> getTrees(int parentId, String roleId){
+	public List<Trees> getTrees(int parentId){
 		
-		return treeDAO.getTrees(parentId, roleId) ;
+		return treeDAO.getTrees(parentId) ;
 	}
 	
 	/**
@@ -45,9 +45,9 @@ public class TreeManagerService {
 	}
 	
 	
-	public String loadTrees(int parentId, String roleId){
+	public String loadTrees(int parentId){
 		
-		List<Trees> trees = treeDAO.getTrees(parentId, roleId) ;
+		List<Trees> trees = treeDAO.getTrees(parentId) ;
 		
 		if(trees == null || trees.isEmpty()){
 			return null ;
@@ -72,9 +72,10 @@ public class TreeManagerService {
 		return jsonTree.toString() ;
 	}
 	
-	public String getDITreeByUserRole(String roleId, int parentId){
+	
+	public String getDITreeByUserRole(int parentId,String roleId){
 		
-		List<Trees> list = treeDAO.getDITreeByUserRole(roleId, parentId) ;
+		List<Trees> list = treeDAO.getDITreeByUserRole(parentId,roleId) ;
 		
 		if(list == null || list.isEmpty()){
 			return null ;
@@ -98,5 +99,21 @@ public class TreeManagerService {
 		jsonTree.append("]") ;
 		
 		return jsonTree.toString() ;
+	}
+	
+	/**
+	 * 获得全部Tree,即所有权限
+	 * 
+	 */
+	public List<Trees> getTreesList(){		
+		return treeDAO.getTreesList() ;
+	}
+	
+	/**
+	 * 获得全部Tree的总数
+	 * 
+	 */
+	public int getSumTreeNum(){		
+		return treeDAO.getSumTreeNum() ;
 	}
 }

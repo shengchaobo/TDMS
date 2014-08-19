@@ -34,7 +34,6 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table5.S5101_Bean;
 import cn.nit.dao.table5.S5101_DAO;
 import cn.nit.pojo.table5.S5101POJO;
@@ -220,11 +219,6 @@ public class S5101_Action {
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
 	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
 	
 	public void setExcelName(String excelName) {
 		this.excelName = excelName;

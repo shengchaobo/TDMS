@@ -29,8 +29,6 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.S18Bean;
 import cn.nit.dao.table1.S18DAO;
 import cn.nit.excel.imports.table1.S18Excel;
@@ -278,10 +276,6 @@ public InputStream getInputStream() throws Exception{
 		return ServletActionContext.getResponse() ;
 	}
 	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
 	public S18Bean getS18Bean() {
 		return s18Bean;
 	}

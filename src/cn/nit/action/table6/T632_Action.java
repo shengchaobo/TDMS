@@ -24,7 +24,6 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T631_Bean;
 import cn.nit.bean.table6.T632_Bean;
@@ -326,12 +325,6 @@ public class T632_Action {
 	public HttpServletResponse getResponse() {
 		return ServletActionContext.getResponse();
 	}
-
-	public UserRoleBean getUserinfo() {
-		return (UserRoleBean) getSession().getAttribute("userinfo");
-	}
-
-
 
 	public int getSeqNum() {
 		return seqNum;

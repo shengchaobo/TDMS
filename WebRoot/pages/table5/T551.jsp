@@ -41,16 +41,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
-		     </tr>
-		</thead>
-		<thead>
-				<tr>					
-					<th data-options="field:'teaUnit'">
+				<th data-options="field:'teaUnit'">
 						教学单位
 					</th>
 					<th data-options="field:'unitID'">
 						单位号
 					</th>
+		     </tr>
+		</thead>
+		<thead>
+				<tr>					
+					
 					<th data-options="field:'majorName'">
 						专业名称
 					</th>
@@ -66,8 +67,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'cheatNum'">
 						考试违纪、作弊及受处分（人次）
 					</th>
-					<th data-options="field:'goodClassRatio'">
-						优良学风班的比例
+					<th data-options="field:'goodClassRatio'" formatter="formatRatio">
+						优良学风班的比例(%)
 					</th>
 					<th data-options="field:'note'">
 						备注
@@ -119,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'cheatNum'">
 						考试违纪、作弊及受处分（人次）
 					</th>
-					<th data-options="field:'goodClassRatio'">
+					<th data-options="field:'goodClassRatio'"  formatter ="formatRatio">
 						优良学风班的比例（%）
 					</th>
 					<th data-options="field:'note'">
@@ -182,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>入校年份:</label>
-						<input id="AdmisSchYear" name="t551Bean.AdmisSchYear" type="text" class="easyui_validatebox">
+						<input id="AdmisSchYear" name="t551Bean.AdmisSchYear" class="easyui-numberbox" min=0>
 						<span id="AdmisSchYearSpan"></span>
 					</div>
 				</td>
@@ -190,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>本科生党员数（个）:</label>
-						<input id="PartyMemNum" name="t551Bean.PartyMemNum" type="text" class="easyui_validatebox">
+						<input id="PartyMemNum" name="t551Bean.PartyMemNum" type="text" class="easyui-numberbox" min=0>
 						<span id="PartyMemNumSpan"></span>
 					</div>
 				</td>
@@ -200,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>违纪人数:</label>
-						<input id="CheatNum" name="t551Bean.CheatNum" type="text" class="easyui_validatebox">
+						<input id="CheatNum" name="t551Bean.CheatNum" type="text"  class="easyui-numberbox" min=0>
 						<span id="CheatNumSpan"></span>
 					</div>
 				</td>
@@ -208,8 +209,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>优良学风班的比例（%）:</label>
-						<input id="GoodClassRatio" name="t551Bean.GoodClassRatio" type="text" class="easyui_validatebox">
-						<span id="GoodClassRatio"></span>
+						<input id="GoodClassRatio" class="easyui-numberbox" min=0 precision=2 name="t551Bean.GoodClassRatio" type="text" class="easyui_validatebox">
+						<span id="GoodClassRatio"  style="color: blue">%</span>
 					</div>
 				</td>
 				
@@ -241,4 +242,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	select.appendChild(theOption);
     	}
 	</script>
+	<script type="text/javascript">
+		   function formatRatio(val){
+		        var str = val+"";
+			   var ratio=str+"%";
+			   return ratio;
+		   }
+		</script>
 </html>

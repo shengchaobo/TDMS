@@ -45,6 +45,7 @@
     <include file="cn/nit/configuration/di/DiCourseAttri.xml"/>
     <include file="cn/nit/configuration/di/DiContestScope.xml"/>
     
+    
      <!-- table4 -->
     <include file="cn/nit/configuration/table4/T411.xml"/>
     <include file="cn/nit/configuration/table4/T412.xml"/>
@@ -63,8 +64,15 @@
 	<include file="cn/nit/configuration/table4/T48.xml"/>
 	<include file="cn/nit/configuration/table4/T49.xml"/>
 	<include file="cn/nit/configuration/table4/T410.xml"/>
+    <include file="cn/nit/configuration/table4/A411.xml"/>
+    <include file="cn/nit/configuration/table4/A412.xml"/>
+    <include file="cn/nit/configuration/table4/A413.xml"/>
+    <include file="cn/nit/configuration/table4/A441.xml"/>
+    <include file="cn/nit/configuration/table4/S443.xml"/>
+    <include file="cn/nit/configuration/table4/S444.xml"/>
+    <include file="cn/nit/configuration/table4/S452.xml"/>
+    <include file="cn/nit/configuration/table4/S453.xml"/>
     
-
     <!-- table1 -->
       <!-- t11學校基本信息 -->
     <include file="cn/nit/configuration/table1/T11.xml"/>

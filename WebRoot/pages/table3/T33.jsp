@@ -39,14 +39,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber" >编号</th>
-				</tr>
-				</thead>
-				<thead>
-				<tr>
 				<th field="teaUnit" >教学单位</th>
 				<th field="unitID" >单位号</th>
 				<th field="majorName" >专业名称</th>
 				<th field="majorID" >专业代码</th>
+				</tr>
+				</thead>
+				<thead>
+				<tr>
 				<th field="majorFieldName" >专业方向名称</th>
 				<th field="appvlSetTime"  formatter="formattime">批准设置时间</th>
 				<th field="firstAdmisTime"  formatter="formattime">首次招生时间</th>

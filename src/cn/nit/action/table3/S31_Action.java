@@ -113,7 +113,7 @@ private S31_Service s31_Service = new S31_Service() ;
 		
 
 		System.out.println(this.getSelectYear());
-		S31_Bean bean = s31_Service.getYearInfo(this.getSelectYear());
+		S31_Bean bean = s31_DAO.exportData(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		

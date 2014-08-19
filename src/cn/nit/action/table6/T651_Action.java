@@ -133,6 +133,8 @@ public class T651_Action {
 
 	/** 为界面加载数据 */
 	public void loadData() throws Exception {
+		
+		System.out.println("+++++++++++++++++++++++++++++++++++++");
 
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
@@ -142,7 +144,7 @@ public class T651_Action {
 		String cond = "1=1";
 		if(this.getSearchItem()!= null){
 			cond += " and TeaUnit LIKE '" + this.getSearchItem() + "%'";
-			System.out.println(cond);
+			System.out.println("cond:"+cond);
 		}
 		List<T651_Bean> list = T651_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
 		String TeaInfoJson = this.toBeJson(list, T651_service.getTotal(cond,null));

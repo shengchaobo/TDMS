@@ -30,19 +30,20 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table4.S452_Bean;
-import cn.nit.dao.table4.S452_Dao;
-import cn.nit.service.table4.S452_Service;
+import cn.nit.bean.table4.S453_Bean;
+import cn.nit.dao.table4.S453_Dao;
+import cn.nit.service.table4.S453_Service;
 
 
-public class S452_Action {
+
+public class S453_Action {
 	
 	
-	private S452_Service s452_Service=new S452_Service();
+	private S453_Service s453_Service=new S453_Service();
 	
-	private S452_Bean s452_Bean=new S452_Bean();
+	private S453_Bean s453_Bean=new S453_Bean();
 	
-	private S452_Dao s452_Dao=new S452_Dao();
+	private S453_Dao s453_Dao=new S453_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -59,7 +60,7 @@ public class S452_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<S452_Bean> list=s452_Service.getYearInfo(this.getSelectYear());
+		List<S453_Bean> list=s453_Service.getYearInfo(this.getSelectYear());
 		System.out.println(this.getSelectYear());
 		System.out.println(list.size());
 		JSON json = JSONSerializer.toJSON(list) ;
@@ -86,7 +87,7 @@ public class S452_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<S452_Bean> list = s452_Dao.totalList(this.getSelectYear());
+		List<S453_Bean> list = s453_Dao.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -131,45 +132,39 @@ public class S452_Action {
 		           ws.addCell(new Label(0,2,"序号",wcf));
 		           ws.addCell(new Label(1,2,"教学单位",wcf));
 		           ws.addCell(new Label(2,2,"单位号",wcf));
-		           ws.addCell(new Label(3,2,"1.培训类型",wcf));
-		           ws.addCell(new Label(7,2,"2.培训时长",wcf));
-		           ws.addCell(new Label(10,2,"3.培训地点",wcf));
-		           ws.addCell(new Label(3,3,"到行业培训",wcf));
-		           ws.addCell(new Label(4,3,"攻读博士学位",wcf));
-		           ws.addCell(new Label(5,3,"攻读硕士学位",wcf));
-		           ws.addCell(new Label(6,3,"其他",wcf));
-		           ws.addCell(new Label(7,3,"一个月内",wcf));
-		           ws.addCell(new Label(8,3,"一个月~三个月",wcf));
-		           ws.addCell(new Label(9,3,"三个月以上",wcf));
-		           ws.addCell(new Label(10,3,"境内",wcf));
-		           ws.addCell(new Label(11,3,"境外",wcf));
+		           ws.addCell(new Label(3,2,"1.交流类型",wcf));
+		           ws.addCell(new Label(5,2,"2.交流时长",wcf));
+		           ws.addCell(new Label(8,2,"3.交流地点",wcf));
+		           ws.addCell(new Label(3,3,"来访",wcf));
+		           ws.addCell(new Label(4,3,"出访",wcf));
+		           ws.addCell(new Label(5,3,"一个月内",wcf));
+		           ws.addCell(new Label(6,3,"一个月~三个月",wcf));
+		           ws.addCell(new Label(7,3,"三个月以上",wcf));
+		           ws.addCell(new Label(8,3,"境内",wcf));
+		           ws.addCell(new Label(9,3,"境外",wcf));
 		           
-		     
+
 		           ws.addCell(new Label(0,4,list.get(0).getTeaUnit(),wcf));
-		           ws.addCell(new Label(3,4,list.get(0).getIndustryTrain()+"",wcf1));
-		           ws.addCell(new Label(4,4,list.get(0).getDoctorTrain()+"",wcf1));
-		           ws.addCell(new Label(5,4,list.get(0).getMasterTrain()+"",wcf1));
-		           ws.addCell(new Label(6,4,list.get(0).getOtherTrain()+"",wcf1));
-		           ws.addCell(new Label(7,4,list.get(0).getOneMonth()+"",wcf1));
-		           ws.addCell(new Label(8,4,list.get(0).getOneToThreeMonth()+"",wcf1));
-		           ws.addCell(new Label(9,4,list.get(0).getAboveThreeMonth()+"",wcf1));
-		           ws.addCell(new Label(10,4,list.get(0).getInPlace()+"",wcf1));
-		           ws.addCell(new Label(11,4,list.get(0).getOutPlace()+"",wcf1));
+		           ws.addCell(new Label(3,4,list.get(0).getComeTalk()+"",wcf1));
+		           ws.addCell(new Label(4,4,list.get(0).getGoTalk()+"",wcf1));
+		           ws.addCell(new Label(5,4,list.get(0).getOneMonth()+"",wcf1));
+		           ws.addCell(new Label(6,4,list.get(0).getOneToThreeMonth()+"",wcf1));
+		           ws.addCell(new Label(7,4,list.get(0).getAboveThreeMonth()+"",wcf1));
+		           ws.addCell(new Label(8,4,list.get(0).getInPlace()+"",wcf1));
+		           ws.addCell(new Label(9,4,list.get(0).getOutPlace()+"",wcf1));
  
 		           
 		           for(int i=1;i<list.size();i++){
 		        	   ws.addCell(new Label(0,4+i,i+"",wcf1));
 			           ws.addCell(new Label(1,4+i,list.get(i).getTeaUnit(),wcf1));
 			           ws.addCell(new Label(2,4+i,list.get(i).getUnitID(),wcf1));
-			           ws.addCell(new Label(3,4+i,list.get(i).getIndustryTrain()+"",wcf1));
-			           ws.addCell(new Label(4,4+i,list.get(i).getDoctorTrain()+"",wcf1));
-			           ws.addCell(new Label(5,4+i,list.get(i).getMasterTrain()+"",wcf1));
-			           ws.addCell(new Label(6,4+i,list.get(i).getOtherTrain()+"",wcf1));
-			           ws.addCell(new Label(7,4+i,list.get(i).getOneMonth()+"",wcf1));
-			           ws.addCell(new Label(8,4+i,list.get(i).getOneToThreeMonth()+"",wcf1));
-			           ws.addCell(new Label(9,4+i,list.get(i).getAboveThreeMonth()+"",wcf1));
-			           ws.addCell(new Label(10,4+i,list.get(i).getInPlace()+"",wcf1));
-			           ws.addCell(new Label(11,4+i,list.get(i).getOutPlace()+"",wcf1));
+			           ws.addCell(new Label(3,4+i,list.get(i).getComeTalk()+"",wcf1));
+			           ws.addCell(new Label(4,4+i,list.get(i).getGoTalk()+"",wcf1));
+			           ws.addCell(new Label(5,4+i,list.get(i).getOneMonth()+"",wcf1));
+			           ws.addCell(new Label(6,4+i,list.get(i).getOneToThreeMonth()+"",wcf1));
+			           ws.addCell(new Label(7,4+i,list.get(i).getAboveThreeMonth()+"",wcf1));
+			           ws.addCell(new Label(8,4+i,list.get(i).getInPlace()+"",wcf1));
+			           ws.addCell(new Label(9,4+i,list.get(i).getOutPlace()+"",wcf1));
 		           }
 		           
 
@@ -178,9 +173,9 @@ public class S452_Action {
 		           ws.mergeCells(0, 2, 0, 3);
 		           ws.mergeCells(1, 2, 1, 3);
 		           ws.mergeCells(2, 2, 2, 3);
-		           ws.mergeCells(3, 2, 6, 2);
-		           ws.mergeCells(7, 2, 9, 2);
-		           ws.mergeCells(10, 2, 11, 2);
+		           ws.mergeCells(3, 2, 4, 2);
+		           ws.mergeCells(5, 2, 7, 2);
+		           ws.mergeCells(8, 2, 9, 2);
 		           ws.mergeCells(0, 4, 2, 4);
 		           
 
@@ -227,28 +222,28 @@ public class S452_Action {
 
 
 
-	public S452_Service getS452_Service() {
-		return s452_Service;
+	public S453_Service getS453_Service() {
+		return s453_Service;
 	}
 
-	public void setS452_Service(S452_Service s452Service) {
-		s452_Service = s452Service;
+	public void setS453_Service(S453_Service s453Service) {
+		s453_Service = s453Service;
 	}
 
-	public S452_Bean getS452_Bean() {
-		return s452_Bean;
+	public S453_Bean getS453_Bean() {
+		return s453_Bean;
 	}
 
-	public void setS452_Bean(S452_Bean s452Bean) {
-		s452_Bean = s452Bean;
+	public void setS453_Bean(S453_Bean s453Bean) {
+		s453_Bean = s453Bean;
 	}
 
-	public S452_Dao getS452_Dao() {
-		return s452_Dao;
+	public S453_Dao getS453_Dao() {
+		return s453_Dao;
 	}
 
-	public void setS452_Dao(S452_Dao s452Dao) {
-		s452_Dao = s452Dao;
+	public void setS453_Dao(S453_Dao s453Dao) {
+		s453_Dao = s453Dao;
 	}
 
 	public HttpServletResponse getResponse() {

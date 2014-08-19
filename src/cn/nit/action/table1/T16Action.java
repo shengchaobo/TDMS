@@ -370,9 +370,9 @@ public class T16Action {
 		return ServletActionContext.getResponse() ;
 	}
 	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
+//	public UserRoleBean getUserinfo(){
+//		return (UserRoleBean)getSession().getAttribute("userinfo") ;
+//	}
 
 	public T16Bean getT16Bean() {
 		return t16Bean;

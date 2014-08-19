@@ -292,9 +292,9 @@ public class A15Action {
 		return ServletActionContext.getResponse() ;
 	}
 	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
+//	public UserRoleBean getUserinfo(){
+//		return (UserRoleBean)getSession().getAttribute("userinfo") ;
+//	}
 
 	public A15Bean getA15Bean() {
 		return a15Bean;

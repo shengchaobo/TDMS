@@ -129,8 +129,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>体质合格率（%）：</label> 
-						<input id="habitusQualifiedRate" name="T657_bean.habitusQualifiedRate" class='easyui-validatebox'>
-						<span id="habitusQualifiedRateSpan"></span>
+						<input id="habitusQualifiedRate" name="T657_bean.habitusQualifiedRate" class='easyui-numberbox' min =0, precision=2>
+						<span id="habitusQualifiedRateSpan" style="color:blue">%</span>
 					</div>
 				</td>
 			</tr>
@@ -139,7 +139,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>体质测试达标率（%）：</label> 
 						<input id="habitusTestReachRate" name="T657_bean.habitusTestReachRate" 
-							 class='easyui-validatebox'><span id="habitusTestReachRateSpan"></span>
+							class='easyui-numberbox' min =0, precision=2>
+							 <span id="habitusTestReachRateSpan" style="color:blue">%</span>
 					</div>
 				</td>
 				<td class="empty"></td>

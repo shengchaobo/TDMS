@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -55,6 +57,7 @@ import cn.nit.dao.table6.T653_Dao;
 import cn.nit.dao.table6.T654_Dao;
 import cn.nit.dao.table6.T655_Dao;
 import cn.nit.dbconnection.DBConnection;
+import cn.nit.excel.imports.table6.T655_Excel;
 import cn.nit.service.table6.T611_Service;
 import cn.nit.service.table6.T612_Service;
 import cn.nit.service.table6.T613_Service;
@@ -292,7 +295,7 @@ public class T655_Action {
 			maplist.put("time", 7);
 			
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(T655_Excel.exportExcel(list, "表6-5-5学习成果-英语四六级、省计算机等级考试（教务处）", maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -414,6 +417,12 @@ public class T655_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

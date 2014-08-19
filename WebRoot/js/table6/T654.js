@@ -47,7 +47,7 @@ function validate() {
 	var awardStuNum = $('#awardStuNum').numberbox('getValue');
 	var guideTeaName = $('#guideTeaName').val();
 	var guideTeaNum = $('#guideTeaNum').numberbox('getValue');
-	var fillUnitID = $('#fillUnitID').val();
+//	var fillUnitID = $('#fillUnitID').val();
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
 
@@ -183,7 +183,7 @@ function editItem() {
 	$('#guideTeaName').val(row[0].guideTeaName);
 	$('#guideTeaNum').numberbox('setValue',row[0].guideTeaNum);
 
-	$('#fillUnitID').val(row[0].fillUnitID);
+//	$('#fillUnitID').val(row[0].fillUnitID);
 
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);

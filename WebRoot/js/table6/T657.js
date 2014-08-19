@@ -41,8 +41,8 @@ function validate() {
 	
 	
 	var unitId = $('#unitId').combobox('getText');
-	var habitusQualifiedRate = $('#habitusQualifiedRate').val();
-	var habitusTestReachRate = $('#habitusTestReachRate').val();
+	var habitusQualifiedRate = $('#habitusQualifiedRate').numberbox("getValue");
+	var habitusTestReachRate = $('#habitusTestReachRate').numberbox("getValue");
 
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
@@ -139,8 +139,8 @@ function editItem() {
 	$('#seqNumber').val(row[0].seqNumber);
 	$('#unitId').combobox('select', row[0].unitId);
 
-	$('#habitusQualifiedRate').val(row[0].habitusQualifiedRate);
-	$('#habitusTestReachRate').val(row[0].habitusTestReachRate);
+	$('#habitusQualifiedRate').numberbox('setValue',row[0].habitusQualifiedRate);
+	$('#habitusTestReachRate').numberbox('setValue',row[0].habitusTestReachRate);
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);
 }

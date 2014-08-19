@@ -59,9 +59,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="awardStuNum">参与学生人数</th>
 				<th field="guideTeaName">指导教师</th>
 				<th field="guideTeaNum">指导教师人数</th>
-				<th field="note">备注</th>
-				<th field="fillUnitID">填写单位</th>	
+				<!-- 
+				<th field="fillUnitID">填写单位</th>	 -->
 				<th field="time" formatter="formattime">时间</th>
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -97,9 +98,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="awardStuNum">参与学生人数</th>
 				<th field="guideTeaName">指导教师</th>
 				<th field="guideTeaNum">指导教师人数</th>
-				<th field="note">备注</th>
-				<th field="fillUnitID">填写单位</th>	
+				<!-- 
+				<th field="fillUnitID">填写单位</th>	 -->
 				<th field="time" formatter="formattime">时间</th>
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -211,17 +213,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 				<td class="empty"></td>
-				<td>			
-					<div class="fitem">
-						<label>填写单位：</label> 
-						<input id="fillUnitID" name="T654_bean.fillUnitID" 
-							 class='easyui-validatebox'><span id="fillUnitIDSpan"></span>
-					</div>
-				</td>
-	
-			</tr>
-			
-			<tr>
 				<td>
 					<div class="fitem">
 						<label>填写时间：</label> 
@@ -230,6 +221,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="timeSpan"></span>
 					</div>
 				</td>
+				<!-- 
+				<td>			
+					<div class="fitem">
+						<label>填写单位：</label> 
+						<input id="fillUnitID" name="T654_bean.fillUnitID" 
+							 class='easyui-validatebox'><span id="fillUnitIDSpan"></span>
+					</div>
+				</td>
+	 -->
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>

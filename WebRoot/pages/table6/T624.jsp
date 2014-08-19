@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 	<table id="commomData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T624/loadData" style="height: auto;">
-		<thead>
+		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">序号</th>
@@ -48,6 +48,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="unitId">单位号</th>
 				<th field="majorName">专业名称</th>
 				<th field="majorId">专业代码</th>
+			</tr>
+		</thead>	
+		<thead>
+			<tr>
 				<th field="majorFieldName">专业方向名称</th>
 				<th data-options="field:'isCurrentYearAdmis'" formatter="formatBoolean">当年是否招生（含方向）</th>
 				<th field="planAdmisNum">当年计划招生数</th>
@@ -75,7 +79,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<!--审核通过数据-->
 	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
-		<thead>
+	
+	<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">序号</th>
@@ -83,6 +88,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="unitId">单位号</th>
 				<th field="majorName">专业名称</th>
 				<th field="majorId">专业代码</th>
+			</tr>
+		</thead>	
+		<thead>
+			<tr>
 				<th field="majorFieldName">专业方向名称</th>
 				<th data-options="field:'isCurrentYearAdmis'" formatter="formatBoolean">当年是否招生（含方向）</th>
 				<th field="planAdmisNum">当年计划招生数</th>

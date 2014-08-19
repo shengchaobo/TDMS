@@ -1,12 +1,15 @@
 package cn.nit.action.table6;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -19,6 +22,21 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 import net.sf.json.JSONObject;
 
@@ -95,6 +113,9 @@ public class T617_Action {
 	/**专业名称*/
 	private String majorName;
 
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
 	/** 逐条插入数据 */
 	public void insert() {
 		System.out
@@ -230,6 +251,7 @@ public class T617_Action {
 	public InputStream getInputStream() {
 
 		InputStream inputStream = null ;
+		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
 		try {
 /*			response.reset();
@@ -237,43 +259,134 @@ public class T617_Action {
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T617_Bean> list = T617_dao.getAllList("1=1", null);
-						
-			String sheetName = this.getExcelName();
-			
-			List<String> columns = new ArrayList<String>();
-			
-				columns.add("序号");
-				columns.add("教学单位");
-				columns.add("单位号");
-				columns.add("专业名称");
-				columns.add("专业代码");
-				columns.add("专业方向名称");
-				columns.add("在校生总人数");
-				columns.add("一年级生人数");
-				columns.add("二年级生人数");
-				columns.add("三年级生人数");
+			if(list==null){
+				if(list.size()==0){
+					PrintWriter out = null ;
+					response.setContentType("text/html;charset=utf-8") ;
+					out = response.getWriter() ;
+					out.print("后台传入的数据为空") ;
+					System.out.println("后台传入的数据为空");
+					return null;
+				}
+			}
+			if(list!=null){
+				//全校合计计算
+				int JuniorStuSumNum = 0;int JuniorOneStuNum = 0;int JuniorTwoStuNum=0; int JuniorThreeStuNum = 0;
+				for(T617_Bean bean: list){
+					JuniorStuSumNum += bean.getJuniorStuSumNum();
+					JuniorOneStuNum += bean.getJuniorOneStuNum();
+					JuniorTwoStuNum += bean.getJuniorTwoStuNum();
+					JuniorThreeStuNum += bean.getJuniorThreeStuNum();
+				}
+				T617_Bean beanSum = new T617_Bean();
+				beanSum.setTeaUnit("全校合计：");
+				beanSum.setJuniorStuSumNum(JuniorStuSumNum);
+				beanSum.setJuniorOneStuNum(JuniorOneStuNum);
+				beanSum.setJuniorTwoStuNum(JuniorTwoStuNum);
+				beanSum.setJuniorThreeStuNum(JuniorThreeStuNum);
+				list.add(0,beanSum);
+				
+				
+				List<String> columns = new ArrayList<String>();
+				
+				columns.add("序号");columns.add("教学单位");columns.add("单位号");columns.add("专业名称");
+				columns.add("专业代码");columns.add("专业方向名称");columns.add("在校生总人数");columns.add("总人数");
+				columns.add("一年级生人数");columns.add("二年级生人数");columns.add("三年级生人数");
 
 
 				Map<String,Integer> maplist = new HashMap<String,Integer>();
 				
-				maplist.put("seqNumber", 0);
-				maplist.put("teaUnit", 1);
-				maplist.put("unitId", 2);
-				maplist.put("majorName", 3);
-				maplist.put("majorId", 4);
-				maplist.put("majorFieldName", 5);
-				maplist.put("juniorStuSumNum", 6);
-				maplist.put("juniorOneStuNum", 7);
-				maplist.put("juniorTwoStuNum", 8);
-				maplist.put("juniorThreeStuNum", 9);
+				maplist.put("seqNumber", 0);maplist.put("teaUnit", 1);maplist.put("unitId", 2);maplist.put("majorName", 3);
+				maplist.put("majorId", 4);maplist.put("majorFieldName", 5);maplist.put("juniorStuSumNum", 6);
+				maplist.put("juniorOneStuNum", 7);maplist.put("juniorTwoStuNum", 8);maplist.put("juniorThreeStuNum", 9);
 
+				WritableWorkbook wwb;
+				try{
+					
+					 fos = new ByteArrayOutputStream();
+			            wwb = Workbook.createWorkbook(fos);
+			            WritableSheet ws = wwb.createSheet("表6-1-7专科在校生信息补充表（教务处）", 0);        // 创建一个工作表
+
+			            //    设置表头的文字格式
+			            
+			            WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+			                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);    
+			            WritableCellFormat wcf = new WritableCellFormat(wf);
+			            wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+			            wcf.setAlignment(Alignment.CENTRE);
+			            wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+				        		     jxl.format.Colour.BLACK);
+			            
+			            //    设置内容单无格的文字格式
+			            WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+				                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+			            WritableCellFormat wcf1 = new WritableCellFormat(wf1);       
+			            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+			            wcf1.setAlignment(Alignment.CENTRE);
+			            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+				        		     jxl.format.Colour.BLACK);
+			            ws.setRowView(1, 500);
+						//第一行存表名
+						ws.addCell(new Label(0, 0, "表6-1-7专科在校生信息补充表（教务处）", wcf)); 
+						ws.mergeCells(0, 0, 1, 0);
+						
+						//写表头
+						if(columns != null && columns.size() > 0){
+							int i = 0;
+							while(i<6){
+								ws.addCell(new Label(i, 2, columns.get(i), wcf));
+				            	ws.mergeCells(i, 2, i,3);
+				            	i++;
+							}
+							ws.addCell(new Label(i, 2, columns.get(i), wcf));
+							ws.mergeCells(i, 2, i+3, 2);
+							i+=1;
+							while(6<i&&i<11){
+								ws.addCell(new Label(i-1, 3, columns.get(i), wcf));
+								i++;
+							}
+						}
+						
+						//向表中写数据
+						int k=4;//从第5行开始写数据
+						for(int j=0;j<list.size();j++){
+							T617_Bean bean =  list.get(j);
+							if(j==0){
+								ws.addCell(new Label(0, 4, bean.getTeaUnit(), wcf));
+								ws.mergeCells(0, 4, 5, 4);
+								ws.addCell(new Label(6, 4, bean.getJuniorStuSumNum()+"", wcf));
+								ws.addCell(new Label(7, 4, bean.getJuniorOneStuNum()+"", wcf));
+								ws.addCell(new Label(8, 4, bean.getJuniorTwoStuNum()+"", wcf));
+								ws.addCell(new Label(9, 4, bean.getJuniorThreeStuNum()+"", wcf));
+							}else{
+								ws.addCell(new Label(0, k,j+"", wcf));
+								ws.addCell(new Label(1, k, bean.getTeaUnit(), wcf));
+								ws.addCell(new Label(2, k, bean.getUnitId(), wcf));
+								ws.addCell(new Label(3, k, bean.getMajorName(), wcf));
+								ws.addCell(new Label(4, k, bean.getMajorId(), wcf));
+								ws.addCell(new Label(5, k, bean.getMajorFieldName(), wcf));
+								ws.addCell(new Label(6, k, bean.getJuniorStuSumNum()+"", wcf));
+								ws.addCell(new Label(7, k, bean.getJuniorOneStuNum()+"", wcf));
+								ws.addCell(new Label(8, k, bean.getJuniorTwoStuNum()+"", wcf));
+								ws.addCell(new Label(9, k, bean.getJuniorThreeStuNum()+"", wcf));
+							}
+							k++;
+						}
+						    wwb.write();
+				            wwb.close();
+
+				} catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			}
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
 		}
 
+		inputStream = new ByteArrayInputStream(fos.toByteArray());
 		return inputStream ;
 	}
 
@@ -390,6 +503,12 @@ public class T617_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

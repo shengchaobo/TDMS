@@ -226,8 +226,13 @@ public class T658_Dao {
 	public List<T658_Bean> getAllList(String cond, Object object) {
 		// TODO Auto-generated method stub
 		String sql;
-		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
+		sql = "select SeqNumber,TeaUnit,UnitID,ConferenceName,PaperTitle,HoldTime,HoldPlace,HoldUnit,DiAwardLevel.AwardLevel as ConferenceLevel,AwardStuName" +
+		",AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID"
+//		fieldShow
+		+ " from " + tableName + 
+		" left join DiAwardLevel on "+tableName+".ConferenceLevel = DiAwardLevel.IndexID"+
+		" where "+cond;
+//		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
 	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -286,7 +291,7 @@ public class T658_Dao {
 ////		 System.out.println(InInterConferenceDao.deleteItemsByIds("(8)")) ;
 //
 //		System.out.println("success!!");
-		List<T658_Bean> list = InInterConferenceDao.queryPageList(10, 1);
+		List<T658_Bean> list = InInterConferenceDao.getAllList("1=1", null);
 		System.out.println(list.size());
 	}
 

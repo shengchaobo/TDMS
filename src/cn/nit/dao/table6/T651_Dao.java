@@ -232,7 +232,14 @@ public class T651_Dao {
 		// TODO Auto-generated method stub
 		String sql;
 		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
+		sql = "select SeqNumber,TeaUnit,UnitID,"+tableName1+".ContestLevel as competiType,"+"CompetiName,AwardItem,"
+		+tableName2+".AwardLevel as AwardLevel,"
+		+" AwardGrade,AwardFromUnit,AwardTime,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID"
+		+ " from " + tableName +
+		" left join "+tableName1+" on "+tableName+".competiType="+tableName1+".IndexID "+
+		" left join "+tableName2+" on "+tableName+".AwardLevel="+tableName2+".IndexID " +
+				" where " + cond ;
+//		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
 	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -294,7 +301,8 @@ public class T651_Dao {
 //		 System.out.println(StuCompetiAwardInfoDao.deleteItemsByIds("(8)")) ;
 
 //		System.out.println("success!!");
-		List<T651_Bean> list = StuCompetiAwardInfoDao.queryPageList("1=1", null, 10, 1);
+		List<T651_Bean> list = StuCompetiAwardInfoDao.getAllList("1=1", null);
+		System.out.println(list.size());
 	}
 
 

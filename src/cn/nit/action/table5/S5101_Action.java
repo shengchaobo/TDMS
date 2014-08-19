@@ -255,7 +255,4 @@ public class S5101_Action {
 	public void setSelectYear(String selectYear) {
 		this.selectYear = selectYear;
 	}
-	
-
-
 }

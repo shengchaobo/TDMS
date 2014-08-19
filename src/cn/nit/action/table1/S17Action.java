@@ -318,9 +318,9 @@ public class S17Action {
 		return ServletActionContext.getResponse() ;
 	}
 	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
+//	public UserRoleBean getUserinfo(){
+//		return (UserRoleBean)getSession().getAttribute("userinfo") ;
+//	}
 
 	public S17Bean getS17Bean() {
 		return s17Bean;

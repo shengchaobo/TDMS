@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -29,6 +31,7 @@ import cn.nit.bean.table6.T656_Bean;
 
 import cn.nit.dao.table6.T656_Dao;
 import cn.nit.dbconnection.DBConnection;
+import cn.nit.excel.imports.table6.T656_Excel;
 
 import cn.nit.service.table6.T656_Service;
 import cn.nit.util.DAOUtil;
@@ -43,6 +46,8 @@ public class T656_Action {
 
 	/** 表的Service类 */
 	private T656_Service T656_service = new T656_Service();
+	/** 表的Excel类 */
+	private T656_Excel T656_Excel = new T656_Excel();
 
 	/** 表的Bean实体类 */
 	T656_Bean T656_bean = new T656_Bean();
@@ -246,7 +251,7 @@ public class T656_Action {
 			maplist.put("time", 5);
 			
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(T656_Excel.exportExcel(list, "表6-5-6学习成果-全国计算机等级考试（信息工程学院）", maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -368,6 +373,12 @@ public class T656_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

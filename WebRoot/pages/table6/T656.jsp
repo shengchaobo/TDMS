@@ -127,7 +127,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>全国高校计算机等级考试累计通过率（%）：</label> 
 						<input id="nationNCREPassRate" name="T656_bean.nationNCREPassRate" 
-							 class='easyui-validatebox'><span id="nationNCREPassRateSpan"></span>
+							 class='easyui-numberbox' min='0' precision='2'>
+							 <span id="nationNCREPassRateSpan"style="color:blue">%</span>
 					</div>
 				</td>
 			</tr>

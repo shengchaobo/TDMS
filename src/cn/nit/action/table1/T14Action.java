@@ -192,9 +192,9 @@ public class T14Action {
 		return ServletActionContext.getResponse() ;
 	}
 	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
+//	public UserRoleBean getUserinfo(){
+//		return (UserRoleBean)getSession().getAttribute("userinfo") ;
+//	}
 
 	public T14Bean getT14Bean() {
 		return t14Bean;

@@ -402,9 +402,9 @@ public class T11Action {
 		return ServletActionContext.getResponse() ;
 	}
 	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
+//	public UserRoleBean getUserinfo(){
+//		return (UserRoleBean)getSession().getAttribute("userinfo") ;
+//	}
 
 	public T11Bean getT11Bean() {
 		return t11Bean;

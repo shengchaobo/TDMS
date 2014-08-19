@@ -130,8 +130,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>英语四级考试累计通过率（%）：</label> 
-						<input id="CET4PassRate" name="T655_bean.CET4PassRate" class='easyui-validatebox'>
-						<span id="CET4PassRateSpan"></span>
+						<input id="CET4PassRate" name="T655_bean.CET4PassRate" class='easyui-numberbox' min='0' precision='2'>
+						<span id="CET4PassRateSpan"style="color:blue">%</span>
 					</div>
 				</td>
 			</tr>
@@ -140,14 +140,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>英语六级考试累计通过率（%）：</label> 
-						<input id="CET6PassRate" name="T655_bean.CET6PassRate" class='easyui-validatebox'><span id="CET6PassRateSpan" ></span>
+						<input id="CET6PassRate" name="T655_bean.CET6PassRate" class='easyui-numberbox' min='0' precision='2'>
+						<span id="CET6PassRateSpan" style="color:blue">%</span>
 					</div>
 				</td>
 				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>江西省高校计算机等级考试累计通过率（%）：</label> 
-						<input id="jiangxiNCREPassRate" name="T655_bean.jiangxiNCREPassRate" class='easyui-validatebox'><span id="jiangxiNCREPassRateSpan"></span>
+						<input id="jiangxiNCREPassRate" name="T655_bean.jiangxiNCREPassRate" class='easyui-numberbox' min='0' precision='2'>
+						<span id="jiangxiNCREPassRateSpan" style="color:blue">%</span>
 					</div>
 				</td>
 			</tr>

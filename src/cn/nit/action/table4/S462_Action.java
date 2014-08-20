@@ -31,21 +31,20 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table4.S46_Bean;
-import cn.nit.dao.table4.S461_Dao;
-import cn.nit.service.table4.S461_Service;
+import cn.nit.dao.table4.S462_Dao;
+import cn.nit.service.table4.S462_Service;
 
 
-public class S461_Action {
-	
-	
+public class S462_Action {
 	
 	
 
-	private S461_Service s461_Service=new S461_Service();
+
+	private S462_Service s462_Service=new S462_Service();
 	
 	private S46_Bean s46_Bean=new S46_Bean();
 	
-	private S461_Dao s461_Dao=new S461_Dao();
+	private S462_Dao s462_Dao=new S462_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -62,7 +61,7 @@ public class S461_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<S46_Bean> list=s461_Service.getYearInfo(this.getSelectYear());
+		List<S46_Bean> list=s462_Service.getYearInfo(this.getSelectYear());
 		System.out.println(this.getSelectYear());
 		System.out.println(list.size());
 		JSON json = JSONSerializer.toJSON(list) ;
@@ -89,7 +88,7 @@ public class S461_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<S46_Bean> list = s461_Dao.totalList(this.getSelectYear());
+		List<S46_Bean> list = s462_Dao.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -140,7 +139,6 @@ public class S461_Action {
 		           ws.addCell(new Label(6,2,"优秀工作者",wcf));
 		           ws.addCell(new Label(7,2,"教学活动月获奖",wcf));
 		           ws.addCell(new Label(8,2,"其他",wcf));
-		           
 		           
 	        	   ws.addCell(new Label(0,3,"合计",wcf1));
 		           ws.addCell(new Label(1,3,list.get(0).getFameTeaAward()+"",wcf1));
@@ -208,12 +206,22 @@ public class S461_Action {
 	}
 
 
-	public S461_Service getS461_Service() {
-		return s461_Service;
+
+	
+	public S462_Service getS462_Service() {
+		return s462_Service;
 	}
 
-	public void setS461_Service(S461_Service s461Service) {
-		s461_Service = s461Service;
+	public void setS462_Service(S462_Service s462Service) {
+		s462_Service = s462Service;
+	}
+
+	public S462_Dao getS462_Dao() {
+		return s462_Dao;
+	}
+
+	public void setS462_Dao(S462_Dao s462Dao) {
+		s462_Dao = s462Dao;
 	}
 
 	public S46_Bean getS46_Bean() {
@@ -224,13 +232,6 @@ public class S461_Action {
 		s46_Bean = s46Bean;
 	}
 
-	public S461_Dao getS461_Dao() {
-		return s461_Dao;
-	}
-
-	public void setS461_Dao(S461_Dao s461Dao) {
-		s461_Dao = s461Dao;
-	}
 
 	public HttpServletResponse getResponse() {
 		return response;

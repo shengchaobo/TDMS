@@ -11,23 +11,22 @@ import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.TimeUtil;
 
-public class S461_Dao {
-	
+public class S462_Dao {
 	
 	
 	
 	
 	/**  数据库表名  */
-	private  String tableName = "S46_TeaHonorInfo$" ;
+	private static  String tableName = "S46_TeaHonorInfo$" ;
 	
 	/**待统计数据库表名*/
 	private  String tableName1 = "T461_FameTeaAward_Per$";
 	
 	
-	private  String tableName2 = "DiAwardLevel";
+	private static  String tableName2 = "DiDepartment";
 	
 	/**  数据自增长字段的主键，必须为自增长字段  */
-	private  String key = "SeqNumber" ;
+	private static  String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
 	private  String field = "Item,FameTeaAward,AdvanceTeaAward,WorkAward," +
@@ -44,34 +43,34 @@ public class S461_Dao {
 	public List<S46_Bean> totalList(String year){
 		
 		String sql = "select " + key+ ",Item,FameTeaAward,AdvanceTeaAward,WorkAward," +
-		"StuWordAward,OutstdTeaAward,OutWorkAward,TeathAward,OtherAward,Time,"+tableName+".Note from " + tableName2 
-			+ " left join "+tableName+" on "+tableName2+".AwardLevel = "+tableName+".Item " +
-			" where convert(varchar(4),Time,120)=" + year;		
-	String sql1 = "select * from "+tableName+" where Item = '合计1' and convert(varchar(4),Time,120)=" + year;
-	Connection conn = DBConnection.instance.getConnection() ;
-	Statement st = null ;
-	ResultSet rs = null ;
-	List<S46_Bean> list = null ;
-	List<S46_Bean> list1 = null ;
-	System.out.println(sql);
-	try{
-		st = conn.createStatement() ;
-		rs = st.executeQuery(sql) ;
-		list = DAOUtil.getList(rs, S46_Bean.class) ;
-		rs = st.executeQuery(sql1) ;
-		list1 = DAOUtil.getList(rs, S46_Bean.class) ;
-		list.add(0,list1.get(0));
-	}catch(Exception e){
-		e.printStackTrace() ;
-		return null ;
-	}finally{
-		DBConnection.close(conn);
-		DBConnection.close(rs);
-		DBConnection.close(st);			
+			"StuWordAward,OutstdTeaAward,OutWorkAward,TeathAward,OtherAward,Time,"+tableName+".Note from " + tableName2 
+				+ " left join "+tableName+" on "+tableName2+".UnitName = "+tableName+".Item " +
+				" where convert(varchar(4),Time,120)=" + year;		
+		String sql1 = "select * from "+tableName+" where Item = '合计2' and convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<S46_Bean> list = null ;
+		List<S46_Bean> list1 = null ;
+		System.out.println(sql);
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, S46_Bean.class) ;
+			rs = st.executeQuery(sql1) ;
+			list1 = DAOUtil.getList(rs, S46_Bean.class) ;
+			list.add(0,list1.get(0));
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
 	}
-	
-	return list ;
-}
 	
   /**
  	 * 模板导入
@@ -82,9 +81,9 @@ public class S461_Dao {
  	 */
  	public boolean save(List<S46_Bean> list,String year){
  		
-		String sql = "select " + key+ ",Item,FameTeaAward,AdvanceTeaAward,WorkAward," +
+		String sql ="select " + key+ ",Item,FameTeaAward,AdvanceTeaAward,WorkAward," +
 		"StuWordAward,OutstdTeaAward,OutWorkAward,TeathAward,OtherAward,Time,"+tableName+".Note from " + tableName2 + " left join "+tableName+
-		" on "+tableName+".Item = "+tableName2+".AwardLevel where convert(varchar(4),Time,120)=" + year;		
+				" on "+tableName+".Item = "+tableName2+".UnitName where convert(varchar(4),Time,120)=" + year;		
 		boolean flag = false;
 		Connection conn = DBConnection.instance.getConnection() ;		
 		Statement st = null ;
@@ -102,7 +101,7 @@ public class S461_Dao {
 					int delflag = st.executeUpdate(delSql.toString());
 					
 				}
-				String delSql = "delete from " + tableName + " where Item = '合计1' and convert(varchar(4),Time,120)=" + year;
+				String delSql = "delete from " + tableName + " where Item = '合计2' and convert(varchar(4),Time,120)=" + year;
 				int delflag = st.executeUpdate(delSql.toString());
 				flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
 			}else{
@@ -125,7 +124,7 @@ public class S461_Dao {
 	public List<S46_Bean> getYearInfo(String year)
 	{
 		
-	String querysql="select "+tableName2+".AwardLevel as Item," +
+	String querysql="select "+tableName2+".UnitName as Item," +
 	"sum(case when "+tableName1+".AwardType = '51000' then 1 else 0 end) as FameTeaAward," +
 	"sum(case when "+tableName1+".AwardType = '51001' then 1 else 0 end) as AdvanceTeaAward," +
 	"sum(case when "+tableName1+".AwardType = '51002' then 1 else 0 end) as WorkAward," +
@@ -135,9 +134,9 @@ public class S461_Dao {
 	"sum(case when "+tableName1+".AwardType = '51006' then 1 else 0 end) as TeathAward," +
 	"sum(case when "+tableName1+".AwardType = '51007' then 1 else 0 end) as OtherAward" +
 	" from "+tableName2+
-	" left join "+tableName1+" on "+tableName2+".IndexID = "+tableName1+".AwardLevel "+
-	" and Time like '"+year+"%' group by "+tableName2+".AwardLevel " +
-	" order by "+tableName2+".AwardLevel";
+	" left join "+tableName1+" on "+tableName2+".UnitID = "+tableName1+".UnitID "+
+	" and Time like '"+year+"%' where "+tableName2+".UnitID like '3%' group by "+tableName2+".UnitName,"+tableName2+".UnitID" +
+	" order by "+tableName2+".UnitID";
    
 		System.out.println(querysql);
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -188,7 +187,7 @@ public class S461_Dao {
 			
 			if(list.size()!=0){
 				S46_Bean s46_Bean=new S46_Bean();
-				s46_Bean.setItem("合计1");
+				s46_Bean.setItem("合计2");
 				s46_Bean.setFameTeaAward(sum1);
 				s46_Bean.setAdvanceTeaAward(sum2);
 				s46_Bean.setWorkAward(sum3);
@@ -200,8 +199,8 @@ public class S461_Dao {
 				s46_Bean.setTime(TimeUtil.changeDateY(year));	
 				list.add(0,s46_Bean);
 				
-				S461_Dao s461_Dao = new S461_Dao();
-				s461_Dao.save(list, year);
+				S462_Dao s462_Dao = new S462_Dao();
+				s462_Dao.save(list, year);
 				list.get(0).setItem("合计");
 			}		
 		}catch(Exception e){
@@ -214,20 +213,10 @@ public class S461_Dao {
 	
 	
 	public static void main(String args[]){
-//		String querysql="select "+tableName2+".AwardLevel as Item," +
-//		"sum(case when "+tableName1+".AwardType = '51000' then 1 else 0 end) as FameTeaAward," +
-//		"sum(case when "+tableName1+".AwardType = '51001' then 1 else 0 end) as AdvanceTeaAward," +
-//		"sum(case when "+tableName1+".AwardType = '51002' then 1 else 0 end) as WorkAward," +
-//		"sum(case when "+tableName1+".AwardType = '51003' then 1 else 0 end) as StuWordAward," +
-//		"sum(case when "+tableName1+".AwardType = '51004' then 1 else 0 end) as OutstdTeaAward," +
-//		"sum(case when "+tableName1+".AwardType = '51005' then 1 else 0 end) as OutWorkAward," +
-//		"sum(case when "+tableName1+".AwardType = '51006' then 1 else 0 end) as TeathAward," +
-//		"sum(case when "+tableName1+".AwardType = '51007' then 1 else 0 end) as OtherAward," +
-//		" from "+tableName2+
-//		" left join "+tableName1+" on "+tableName2+".IndexID = "+tableName1+".AwardLevel "+
-//		" and Time like '"+2014+"%' group by "+tableName2+".AwardLevel " +
-//		" order by "+tableName2+".AwardLevel";
-//		System.out.println(querysql);
+		String sql ="select " + key+ ",Item,FameTeaAward,AdvanceTeaAward,WorkAward," +
+		"StuWordAward,OutstdTeaAward,OutWorkAward,TeathAward,OtherAward,Time,"+tableName+".Note from " + tableName2 + " left join "+tableName+
+		" on "+tableName+".Item = "+tableName2+".UnitName where " +"convert(varchar(4),Time,120)=" + 2014;		
+		System.out.println(sql);
 //		
 	}
 

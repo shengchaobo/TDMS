@@ -12,7 +12,6 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.Trees;
 import cn.nit.bean.UserinfoBean;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.service.TreeManagerService;
 
 public class TreeManagerAction {
@@ -28,8 +27,15 @@ public class TreeManagerAction {
 	 */
 	public void loadTree(){
 
-		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
-		String jsonTree = treeSer.loadTrees(refId, userinfo.getRoleId()) ;	
+		UserinfoBean userinfo = (UserinfoBean)getSession().getAttribute("userinfo") ;
+		
+		String jsonTree;
+		if("000".equals(userinfo.getRoleID())){
+			jsonTree = treeSer.loadTrees(refId) ;	
+		}else{
+			jsonTree = treeSer.getDITreeByUserRole(refId, userinfo.getRoleID()) ;	
+		}
+		
 		HttpServletResponse response = ServletActionContext.getResponse() ;
 		PrintWriter out = null ;
 
@@ -111,8 +117,9 @@ public class TreeManagerAction {
 	
 	public void loadFunction(){
 		
-		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
-		String jsonTree = treeSer.getDITreeByUserRole(userinfo.getRoleId(), refId) ;
+		UserinfoBean userinfo = (UserinfoBean)getSession().getAttribute("userinfo") ;
+		
+		String jsonTree = treeSer.getDITreeByUserRole(refId, userinfo.getRoleID()) ;
 		HttpServletResponse response = ServletActionContext.getResponse() ;
 		PrintWriter out = null ;
 

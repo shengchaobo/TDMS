@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T181Bean;
 import cn.nit.dao.table1.T18DAO;
 import cn.nit.excel.imports.table1.T181Excel;
@@ -309,10 +307,6 @@ public class T182Action {
 	
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
-	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
 	}
 
 	public T181Bean getT181Bean() {

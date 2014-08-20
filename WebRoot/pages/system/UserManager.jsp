@@ -9,15 +9,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
+		<base href="<%=basePath%>">
 
-<title>用户管理</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
+		<title>用户管理</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="This is my page">
 
 		<link rel="stylesheet" type="text/css"  href="jquery-easyui/themes/default/easyui.css">
 		<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
@@ -39,8 +39,8 @@
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="teaID">教工号</th>
 				<th field="teaName">姓名</th>
-				<th field="fromOffice">单位号</th>
-				<th field="unitID">单位名称</th>
+				<th field="unitID">单位号</th>
+				<th field="fromOffice">单位名称</th>
 				<th field="teaEmail">电子邮箱</th>
 				<th field="roleID"  hidden="true">用户ID</th>
 				<th field="roleName">用户角色</th>
@@ -57,7 +57,7 @@
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除用户</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-remove" plain="true" onclick="resetPassword()">密码重置</a>
+				iconCls="icon-remove" plain="true" onclick="resetPassword()">重置密码</a>
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
 		 	教工号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />

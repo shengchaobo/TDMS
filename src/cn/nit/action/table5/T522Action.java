@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table5.T521Bean;
 import cn.nit.dao.table5.T522DAO;
 import cn.nit.excel.imports.table5.T522Excel;
@@ -269,12 +268,7 @@ public class T522Action {
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
 	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
-	
+		
 	public T521Bean getT522Bean() {
 		return t522Bean;
 	}

@@ -16,7 +16,6 @@ import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchRoomBean;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T17Bean;
 import cn.nit.service.di.DiCourseCategoriesService;

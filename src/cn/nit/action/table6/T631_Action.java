@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -23,8 +25,6 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
-
-import cn.nit.bean.other.UserRoleBean;
 
 
 import cn.nit.bean.table6.T631_Bean;
@@ -255,7 +255,7 @@ public class T631_Action {
 			maplist.put("time", 8);
 			maplist.put("note", 9);
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-3-1分专业应届本科毕业生毕业情况（教务处）", maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -280,10 +280,6 @@ public class T631_Action {
 
 	public HttpServletResponse getResponse() {
 		return ServletActionContext.getResponse();
-	}
-
-	public UserRoleBean getUserinfo() {
-		return (UserRoleBean) getSession().getAttribute("userinfo");
 	}
 
 
@@ -377,6 +373,12 @@ public class T631_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

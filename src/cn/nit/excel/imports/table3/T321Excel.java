@@ -27,10 +27,10 @@ import jxl.write.biff.RowsExceededException;
 
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T321_Bean;
 
 import cn.nit.service.di.DiAwardLevelService;
@@ -59,7 +59,7 @@ public class T321Excel {
 		 Date time=new Date();
 		boolean flag = false ;
 		List<T321_Bean> list = new LinkedList<T321_Bean>() ;
-		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
+		UserinfoBean userinfo = (UserinfoBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		DiMajorTwoService diMajorTwoSer=new DiMajorTwoService();

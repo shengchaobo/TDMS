@@ -34,7 +34,6 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table5.S52_Bean;
 import cn.nit.dao.table5.S52_DAO;
 import cn.nit.service.table5.S52_Service;
@@ -234,11 +233,6 @@ public class S52_Action {
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
 	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
 	
 	public void setExcelName(String excelName) {
 		this.excelName = excelName;

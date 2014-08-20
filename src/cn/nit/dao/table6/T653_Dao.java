@@ -222,8 +222,12 @@ public class T653_Dao {
 	public List<T653_Bean> getAllList(String cond, Object object) {
 		// TODO Auto-generated method stub
 		String sql;
-		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
+		sql = "select SeqNumber,TeaUnit,UnitID,WorkName,JonalName,JonalID,JonalDate,AwardStuName,AwardStuNum,"+
+		"GuideTeaName,GuideTeaNum,DiAwardLevel.AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID,IsAward"+
+		" from "+tableName+
+		" left join DiAwardLevel on "+tableName+".AwardLevel = DiAwardLevel.IndexID"+
+		" where "+cond;
+//		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
 	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -250,32 +254,32 @@ public class T653_Dao {
 	public static void main(String args[]) {
 
 		T653_Dao StuPublishWordDao = new T653_Dao();
-		T653_Bean StuPublishWord = new T653_Bean();
-//		 StuPublishWord.setSeqNumber(1);
-		//	
-
-		StuPublishWord.setTeaUnit("水利与生态工程学院");
-		StuPublishWord.setUnitId("3001");
-		
-		StuPublishWord.setWorkName("test");
-		StuPublishWord.setJonalName("test");
-		StuPublishWord.setJonalId("test");
-		StuPublishWord.setJonalDate(new Date());
-		StuPublishWord.setAwardStuName("test");
-		StuPublishWord.setAwardStuNum(2);
-		StuPublishWord.setGuideTeaName("test");
-		StuPublishWord.setGuideTeaNum(2);
-		StuPublishWord.setIsAward(true);
-		StuPublishWord.setAwardLevel("50002");
-		StuPublishWord.setAwardName("test");
-		StuPublishWord.setAwardFromUnit("test");
-		StuPublishWord.setFillUnitID("1022");
-		
-				
-		StuPublishWord.setTime(new Date());
-		StuPublishWord.setNote("无");
-//		//		
-		StuPublishWordDao.insert(StuPublishWord);
+//		T653_Bean StuPublishWord = new T653_Bean();
+////		 StuPublishWord.setSeqNumber(1);
+//		//	
+//
+//		StuPublishWord.setTeaUnit("水利与生态工程学院");
+//		StuPublishWord.setUnitId("3001");
+//		
+//		StuPublishWord.setWorkName("test");
+//		StuPublishWord.setJonalName("test");
+//		StuPublishWord.setJonalId("test");
+//		StuPublishWord.setJonalDate(new Date());
+//		StuPublishWord.setAwardStuName("test");
+//		StuPublishWord.setAwardStuNum(2);
+//		StuPublishWord.setGuideTeaName("test");
+//		StuPublishWord.setGuideTeaNum(2);
+//		StuPublishWord.setIsAward(true);
+//		StuPublishWord.setAwardLevel("50002");
+//		StuPublishWord.setAwardName("test");
+//		StuPublishWord.setAwardFromUnit("test");
+//		StuPublishWord.setFillUnitID("1022");
+//		
+//				
+//		StuPublishWord.setTime(new Date());
+//		StuPublishWord.setNote("无");
+////		//		
+//		StuPublishWordDao.insert(StuPublishWord);
 		//		
 		//	
 		//		
@@ -285,7 +289,9 @@ public class T653_Dao {
 		// // System.out.println(StuPublishWordDao.update(StuPublishWord)) ;
 //		 System.out.println(StuPublishWordDao.deleteItemsByIds("(8)")) ;
 
-		System.out.println("success!!");
+//		System.out.println("success!!");
+		List<T653_Bean> list = StuPublishWordDao.getAllList("1=1", null);
+		System.out.println(list.size());
 	}
 
 

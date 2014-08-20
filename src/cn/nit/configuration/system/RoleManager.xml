@@ -4,7 +4,12 @@
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
 	<package name="role" namespace="/pages/diRole" extends="struts-default">
-		<!-- 初始化所有角色 -->
+		<!-- 加载所有角色 -->
 	    <action name="loadDIRoles" class="cn.nit.action.di.DiRoleAction" method="loadDiRoles" />
+	    <!-- 初始化所有角色（分页） -->
+		<action name="loadRoles" class="cn.nit.action.di.DiRoleAction" method="loadRoles" />   	   
+		 <action name="insert" class="cn.nit.action.di.DiRoleAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiRoleAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiRoleAction" method="deleteByIds" />
 	</package>
 </struts>

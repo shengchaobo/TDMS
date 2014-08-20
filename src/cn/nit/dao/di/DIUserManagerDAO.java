@@ -248,11 +248,13 @@ public class DIUserManagerDAO {
 	 * 判断users表中是否已包含该用户
 	 */
 	public boolean hasUser(String userID){
-		String sql = "select * from " + tableName + " where TeaID="+ userID	;
+		String sql = "select * from " + tableName + " where TeaID='" + userID + "'"	;
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;
 		boolean flag = false;
+		
+		//System.out.println(sql);
 		try{
 			st = conn.createStatement();
 			rs = st.executeQuery(sql);

@@ -136,6 +136,8 @@ public class DIUserManagerAction {
 		//首先该用 户是否已存数据库
 		Boolean flag0 = userManagerSer.hasUser(userinfo.getTeaID());
 		
+		System.out.println(flag0);
+		
 		boolean flag = false;
 		boolean flag1 = false;
 		//如果该用户不存数据库，可以添加

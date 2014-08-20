@@ -1,11 +1,10 @@
-	
-
 	//只是用来展示的数据
 	$(function() {
+		
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#showData').datagrid( {
-			title : '教师所获荣誉统计',  //可变内容在具体页面定义
-			url: 'pages/S46/loadInfo',
+			title : '教师所获荣誉统计(按级别统计荣誉数)',  //可变内容在具体页面定义
+			url: 'pages/S461/loadInfo',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -19,34 +18,7 @@
 			//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
 			remoteSort : false,
 			rownumbers : true,
-			onLoadSuccess: function (rowData) {
-				var merges2 = [
-				  {
-	                  field:'item',
-	                  index: 0,
-	                  colspan: 2
-	              },
-				  {
-	                  field:'item',
-	                  index: 1,
-	                  rowspan: 5
-	              },
-				  {
-	                  field:'item',
-	                  index: 6,
-	                  rowspan: 14
-	              }
-	              ];
 
-	            for (var i = 0; i < merges2.length; i++)
-	                $('#showData').datagrid('mergeCells', {
-	                    index: merges2[i].index,
-	                    field: merges2[i].field,
-	                    rowspan: merges2[i].rowspan
-	                });						
-			},
-
-			
 			queryParams:{
 				'selectYear': year
 			}
@@ -71,11 +43,11 @@
 		
 	   //导出
 	   $("#export").click(function(){
-	        var tableName = encodeURI('S-4-6教师所获荣誉统计');
+	        var tableName = encodeURI('S-4-6-1教师所获荣誉统计');
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/S46/dataExport?excelName="+tableName+'&selectYear='+year,
+			    url : "pages/S461/dataExport?excelName="+tableName+'&selectYear='+year,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },
@@ -89,3 +61,5 @@
 		});							
 	});
 	
+
+            	

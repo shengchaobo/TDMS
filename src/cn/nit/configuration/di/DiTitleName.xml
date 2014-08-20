@@ -6,5 +6,8 @@
 	<package name="pages/DiTitleName" namespace="/pages/DiTitleName" extends="struts-default">
 		<!-- 初始化加载所有教学职称 -->
 	    <action name="loadDiTitleName" class="cn.nit.action.di.DiTitleNameAction" method="loadTitleName" />
+	    <action name="insert" class="cn.nit.action.di.DiTitleNameAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiTitleNameAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiTitleNameAction" method="deleteByIds" />
 	</package>
 </struts>

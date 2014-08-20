@@ -3,6 +3,7 @@ package cn.nit.service.di;
 import java.util.List;
 
 import cn.nit.bean.di.DiResearchTypeBean;
+import cn.nit.bean.di.DiTutorTypeBean;
 import cn.nit.dao.di.DiResearchTypeDao;
 
 
@@ -28,6 +29,34 @@ public class DiResearchTypeService {
 	 */
 	public boolean insert(DiResearchTypeBean Type){
 		return researchTypeDao.insert(Type) ;
+	}
+	
+	/**
+	 * 更新
+	 * @param userinfo
+	 * @return
+	 */
+	public boolean update(DiResearchTypeBean typebean){
+		
+		return researchTypeDao.update(typebean) ;
+	}
+	
+	/**
+	 * 删除
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteByIds(String ids){
+		return researchTypeDao.deleteByIds(ids) ;
+	}
+	
+	
+	/**
+	 * 判断中是否已包含该数据
+	 */
+	
+	public boolean hasType(String typeID){
+		return researchTypeDao.hasType(typeID);
 	}
 
 

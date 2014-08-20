@@ -64,9 +64,10 @@ public class S532_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<S532_Bean> list=s532_Service.getYearInfo(this.getSelectYear());
-		System.out.println(this.getSelectYear());
-		System.out.println(list.size());
+		List<S532_Bean> list= new ArrayList<S532_Bean>();
+		if(s532_Service.getYearInfo(this.getSelectYear())!=null){
+				list = s532_Service.getYearInfo(this.getSelectYear());}
+		
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
 		//System.out.println(json.toString());

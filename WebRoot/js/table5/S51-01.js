@@ -2,6 +2,7 @@
 	//只是用来展示的数据
 	$(function() {
 		var year = $("#cbYearContrast").combobox('getValue'); 
+		alert(year);
 		$('#showData').datagrid( {
 			title : '本科课程库信息统计表',  //可变内容在具体页面定义
 			url: 'pages/S5101/loadInfo',
@@ -20,6 +21,9 @@
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
 					 
+			if(typeof(rowData.rows[0].data) != "undefined"){
+				alert(rowData.rows[0].data);
+			}
 			
 					var merges2 = [{
 		                  field:'item',

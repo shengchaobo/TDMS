@@ -253,7 +253,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	select.appendChild(theOption);
     	}
 	var select = document.getElementById("AssessYear");
-    	for (var i = 0; i <= 10; i++) {
+    	for (var i = 0; i <= 20; i++) {
         var theOption = document.createElement("option");
         	theOption.innerHTML = currentYear-i + "年";
         	theOption.value = currentYear-i;

@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -23,7 +25,6 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -279,7 +280,7 @@ public class T615_Action {
 			maplist.put("changeOutNum", 15);
 
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-1-5普通本科分专业（大类）学生数（教务处）", maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -305,12 +306,6 @@ public class T615_Action {
 	public HttpServletResponse getResponse() {
 		return ServletActionContext.getResponse();
 	}
-
-	public UserRoleBean getUserinfo() {
-		return (UserRoleBean) getSession().getAttribute("userinfo");
-	}
-
-
 
 	public int getSeqNum() {
 		return seqNum;
@@ -401,6 +396,12 @@ public class T615_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

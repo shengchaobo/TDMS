@@ -41,9 +41,9 @@ function validate() {
 	
 	
 	var unitId = $('#unitId').combobox('getText');
-	var CET4PassRate = $('#CET4PassRate').val();
-	var CET6PassRate = $('#CET6PassRate').val();
-	var jiangxiNCREPassRate = $('#jiangxiNCREPassRate').val();
+	var CET4PassRate = $('#CET4PassRate').numberbox('getValue');
+	var CET6PassRate = $('#CET6PassRate').numberbox('getValue');
+	var jiangxiNCREPassRate = $('#jiangxiNCREPassRate').numberbox('getValue');
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
 
@@ -153,9 +153,9 @@ function editItem() {
 	$('#seqNumber').val(row[0].seqNumber);
 	$('#unitId').combobox('select', row[0].unitId);
 	
-	$('#CET4PassRate').val(row[0].CET4PassRate);
-	$('#CET6PassRate').val(row[0].CET6PassRate);
-	$('#jiangxiNCREPassRate').val(row[0].jiangxiNCREPassRate);
+	$('#CET4PassRate').numberbox('setValue',row[0].CET4PassRate);
+	$('#CET6PassRate').numberbox('setValue',row[0].CET6PassRate);
+	$('#jiangxiNCREPassRate').numberbox('setValue',row[0].jiangxiNCREPassRate);
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);
 }

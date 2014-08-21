@@ -60,6 +60,8 @@ public class DIUserManagerAction {
 		PrintWriter out = null ;
 		
 		try{
+			//设置输出内容的格式为json
+			getResponse().setContentType("application/json; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			out.print(json) ;
 		}catch(Exception e){

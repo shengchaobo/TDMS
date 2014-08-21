@@ -48,6 +48,48 @@ public class T411_Service {
 	}
 	
 	
+	//获得相应职称教师人数
+	public int getTitleNum(String title){
+		return teaInfoDao.getTitleNum(title);
+	}
+	
+	
+	//获得相应学位教师人数
+	public int getDegreeNum(String degree){
+		return teaInfoDao.getDegreeNum(degree);
+	}
+	
+	//获得相应年龄教师人数
+	public int getAgeNum(String selectYear,int age1,int age2){
+		return teaInfoDao.getAgeNum(selectYear,age1,age2);
+	}
+	
+	//获得相应学源教师数
+	public int getSourceNum(String source){
+		return teaInfoDao.getSourceNum(source);
+	}
+	
+	//获得相应双师型教师数
+	public int getDoubleNum(String type){
+		return teaInfoDao.getDoubleNum(type);
+	}
+	
+	//获得相应任职类别教师数
+	public int getIDNum(int flag){
+		return teaInfoDao.getIDNum(flag);
+	}
+	
+	//获得教师数
+	public int getTotalNum(){
+		return teaInfoDao.getTotalNum();
+	}
+	
+	
+	
+
+	
+	
+	
 	/**
 	 * 更新数据
 	 * @param 
@@ -73,6 +115,8 @@ public class T411_Service {
 	public List<T431_Bean> getT43List(int flag,String queryWord){
 		return teaInfoDao.getT43List(flag,queryWord) ;
 	}
+
+
 	
 	
 

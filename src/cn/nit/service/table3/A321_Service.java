@@ -87,8 +87,8 @@ public class A321_Service {
 			A321_Bean a321_Bean = new A321_Bean();
 			disClass=list.get(i).getMajorDegreeType();
 			fieldNum=list.get(i).getFieldNum();
-			NumberFormat nf = NumberFormat.getInstance();
-			nf.setMinimumFractionDigits(4);
+			NumberFormat nf = NumberFormat.getNumberInstance();
+			nf.setMaximumFractionDigits(4);
 			artRatio=Double.parseDouble(nf.format((double)(fieldNum)/(double)(total)))*100;
 			System.out.println(artRatio);
 			try{

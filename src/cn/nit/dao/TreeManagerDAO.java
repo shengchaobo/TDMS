@@ -33,10 +33,9 @@ public class TreeManagerDAO extends Dao{
 	 * @param roleId
 	 * @return
 	 */
-	public List<Trees> getTrees(int parentId, String roleId){
+	public List<Trees> getTrees(int parentId){
 		
-		String sql = "select " + getFields() + " from " + tableName + " where parentId=" + parentId + " order by treeName" ;
-//		String sql = "select t.TreeId,t.TreeName,t.Url,t.ParentId from DiTrees t,DiRoleTree r where r.TreeID=t.TreeId and r.RoleID='" + roleId + "' and t.ParentId=" + parentId ;
+		String sql = "select " + getFields() + " from " + tableName + " where parentId=" + parentId + " order by treeName" ;		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -112,7 +111,13 @@ public class TreeManagerDAO extends Dao{
 		}
 	}
 	
-	public List<Trees> getDITreeByUserRole(String roleId, int parentId){
+	/**
+	 * 根据角色和父结点获得子结点
+	 * @param roleId
+	 * @param parentId
+	 * @return
+	 */
+	public List<Trees> getDITreeByUserRole(int parentId, String roleId){
 		
 		StringBuffer sql = new StringBuffer("select t.TreeId as treeId,t.TreeName as treeName,t.Url as url,t.ParentId as ParentId") ;
 		sql.append(" from " + tableName +" as t,DiRoleTree as ra ") ;
@@ -121,6 +126,8 @@ public class TreeManagerDAO extends Dao{
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
+		
+		System.out.println(sql.toString());
 		
 		try {
 			st = conn.createStatement() ;
@@ -166,8 +173,72 @@ public class TreeManagerDAO extends Dao{
 		return this.key + "," + field ;
 	}
 	
+	/**
+	 * 获得全部的tree
+	 * @param roleId
+	 * @param parentId
+	 * @return
+	 */
+	public List<Trees> getTreesList(){
+		
+		StringBuffer sql = new StringBuffer("select *") ;
+		sql.append(" from " + tableName + " order by treeName");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try {
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			return DAOUtil.getList(rs, Trees.class) ;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null ;
+		}finally{
+			DBConnection.close(st) ;
+			DBConnection.close(conn) ;
+		}
+	}
+	
+	/**
+	 * 获得全部tree的总数
+	 * @param roleId
+	 * @param parentId
+	 * @return
+	 */
+	public int getSumTreeNum(){
+		
+		int count = 0;
+		
+		StringBuffer sql = new StringBuffer("select count(*)") ;
+		sql.append(" from " + tableName);
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try {
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			while(rs.next()){
+				count = rs.getInt(1);
+			}			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0 ;
+		}finally{
+			DBConnection.close(st) ;
+			DBConnection.close(conn) ;
+		}
+		
+		return count;
+	}
+	
 	public static void main(String args[]){
 		TreeManagerDAO tmdao = new TreeManagerDAO() ;
-		System.out.println(tmdao.getExistFunction("002").size()) ;
+		System.out.println(tmdao.getDITreeByUserRole(0,"002").size()) ;
 	}
 }

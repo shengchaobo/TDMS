@@ -11,8 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import cn.nit.bean.UserinfoBean;
 
-import cn.nit.bean.other.UserRoleBean;
 
 public class LoginFilter implements Filter{
 
@@ -29,7 +29,7 @@ public class LoginFilter implements Filter{
 		HttpServletRequest request = (HttpServletRequest) req ;
 		HttpServletResponse response = (HttpServletResponse) res ;
 		HttpSession session = request.getSession() ;
-		UserRoleBean user = (UserRoleBean) session.getAttribute("userinfo") ;
+		UserinfoBean user = (UserinfoBean) session.getAttribute("userinfo") ;
 		
 		if(user == null){
 			response.sendRedirect(config.getInitParameter("login")) ;

@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T33_Bean;
 import cn.nit.dao.table3.T33_DAO;
 import cn.nit.excel.imports.table3.T33Excel;
@@ -263,13 +261,7 @@ public void auditingData(){
 	
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
-	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
-	
+	}	
 	
 	public T33_Service getT33_Service() {
 		return t33_Service;

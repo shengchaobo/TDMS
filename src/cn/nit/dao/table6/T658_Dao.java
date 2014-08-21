@@ -167,9 +167,12 @@ public class T658_Dao {
 		// TODO Auto-generated method stub
 		String queryPageSql;
 		
-			queryPageSql = "select top " + pagesize + 
-			fieldShow
+			queryPageSql = "select top " + pagesize +
+			"SeqNumber,TeaUnit,UnitID,ConferenceName,PaperTitle,HoldTime,HoldPlace,HoldUnit,DiAwardLevel.AwardLevel as ConferenceLevel,AwardStuName" +
+			",AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID"
+//			fieldShow
 			+ " from " + tableName + 
+			" left join DiAwardLevel on "+tableName+".ConferenceLevel = DiAwardLevel.IndexID"+
 			" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
 			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
 	
@@ -223,8 +226,13 @@ public class T658_Dao {
 	public List<T658_Bean> getAllList(String cond, Object object) {
 		// TODO Auto-generated method stub
 		String sql;
-		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
+		sql = "select SeqNumber,TeaUnit,UnitID,ConferenceName,PaperTitle,HoldTime,HoldPlace,HoldUnit,DiAwardLevel.AwardLevel as ConferenceLevel,AwardStuName" +
+		",AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID"
+//		fieldShow
+		+ " from " + tableName + 
+		" left join DiAwardLevel on "+tableName+".ConferenceLevel = DiAwardLevel.IndexID"+
+		" where "+cond;
+//		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
 	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -253,36 +261,38 @@ public class T658_Dao {
 		T658_Dao InInterConferenceDao = new T658_Dao();
 		T658_Bean InInterConference = new T658_Bean();
 //		 InInterConference.setSeqNumber(1);
-		//	
-	
-		InInterConference.setTeaUnit("水利与生态工程学院");
-		InInterConference.setUnitId("3001");
-		InInterConference.setConferenceName("test");
-		InInterConference.setPaperTitle("test");
-		InInterConference.setHoldTime(new Date());
-		InInterConference.setHoldPlace("test");
-		InInterConference.setHoldUnit("test");
-		InInterConference.setConferenceLevel("50001");
-		InInterConference.setAwardStuNum(2);
-		InInterConference.setAwardStuName("test");
-		InInterConference.setGuideTeaName("test");
-		InInterConference.setGuideTeaNum(2);
-		InInterConference.setFillUnitID("1022");
-				
-		InInterConference.setTime(new Date());
-		InInterConference.setNote("无");
+//		//	
+//	
+//		InInterConference.setTeaUnit("水利与生态工程学院");
+//		InInterConference.setUnitId("3001");
+//		InInterConference.setConferenceName("test");
+//		InInterConference.setPaperTitle("test");
+//		InInterConference.setHoldTime(new Date());
+//		InInterConference.setHoldPlace("test");
+//		InInterConference.setHoldUnit("test");
+//		InInterConference.setConferenceLevel("50001");
+//		InInterConference.setAwardStuNum(2);
+//		InInterConference.setAwardStuName("test");
+//		InInterConference.setGuideTeaName("test");
+//		InInterConference.setGuideTeaNum(2);
+//		InInterConference.setFillUnitID("1022");
+//				
+//		InInterConference.setTime(new Date());
+//		InInterConference.setNote("无");
+////		//		
+//		InInterConferenceDao.insert(InInterConference);
 //		//		
-		InInterConferenceDao.insert(InInterConference);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(InInterConferenceDao.update(InInterConference)) ;
-//		 System.out.println(InInterConferenceDao.deleteItemsByIds("(8)")) ;
-
-		System.out.println("success!!");
+//		//	
+//		//		
+//		// //
+//		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
+//		// ;
+//		// // System.out.println(InInterConferenceDao.update(InInterConference)) ;
+////		 System.out.println(InInterConferenceDao.deleteItemsByIds("(8)")) ;
+//
+//		System.out.println("success!!");
+		List<T658_Bean> list = InInterConferenceDao.getAllList("1=1", null);
+		System.out.println(list.size());
 	}
 
 

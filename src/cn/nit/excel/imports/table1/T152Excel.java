@@ -29,10 +29,10 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchTypeBean;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T152Bean;
 import cn.nit.service.di.DiDepartmentService;
@@ -63,7 +63,7 @@ public class T152Excel {
 		boolean biOpen=false;
 		boolean buildCondi=false;
 		List<T152Bean> list = new LinkedList<T152Bean>() ;
-		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
+		UserinfoBean userinfo = (UserinfoBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		DiResearchTypeService diResearchSer=new DiResearchTypeService();

@@ -1,6 +1,6 @@
 package cn.nit.bean.di;
 
-public class DIRoleTreeBean {
+public class DiRoleTreeBean {
 
 	private String RoleID ;
 	

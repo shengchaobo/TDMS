@@ -62,6 +62,7 @@
 				    		"options":{
 				        	 	"min":  0,
 				        	 	"precision": 2
+
 				    		}
 				        } },
 				       	{ "name": "非学校产权", "group": "2.总建筑面积(平方米)",  "value": "", "field": "notSchProCovArea", "editor": {
@@ -96,7 +97,7 @@
 				        scrollbarSize: 0,
 				        columns: [[
 				                { field: 'name', title: '项目', width: 100, resizable: true },
-				                { field: 'value', title: '内容', width: 100, resizable: false }
+				                { field: 'value', title: '内容', width: 100, resizable: false}
 				        ]]
 				 });
 				 				 

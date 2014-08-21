@@ -23,10 +23,6 @@ import cn.nit.service.di.DiDepartmentService;
 import cn.nit.bean.di.DiDepartmentBean;
 
 
-
-
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T321_Bean;
 
 
@@ -383,15 +379,6 @@ public void auditingData(){
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
 	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
-
-
-
-	
 
 
 

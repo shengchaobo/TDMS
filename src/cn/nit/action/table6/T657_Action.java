@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -23,7 +25,6 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -57,6 +58,7 @@ import cn.nit.dao.table6.T654_Dao;
 import cn.nit.dao.table6.T655_Dao;
 import cn.nit.dao.table6.T657_Dao;
 import cn.nit.dbconnection.DBConnection;
+import cn.nit.excel.imports.table6.T657_Excel;
 import cn.nit.service.table6.T611_Service;
 import cn.nit.service.table6.T612_Service;
 import cn.nit.service.table6.T613_Service;
@@ -84,6 +86,9 @@ public class T657_Action {
 
 	/** 表的Service类 */
 	private T657_Service T657_service = new T657_Service();
+	
+	/** 表的Excel类 */
+	private T657_Excel T657_Excel = new T657_Excel();
 
 	/** 表的Bean实体类 */
 	T657_Bean T657_bean = new T657_Bean();
@@ -287,7 +292,7 @@ public class T657_Action {
 			maplist.put("time", 5);
 			maplist.put("note", 6);
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(T657_Excel.exportExcel(list, "表6-5-7学习成果-体质合格、达标率（体育教学部）", maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -313,12 +318,6 @@ public class T657_Action {
 	public HttpServletResponse getResponse() {
 		return ServletActionContext.getResponse();
 	}
-
-	public UserRoleBean getUserinfo() {
-		return (UserRoleBean) getSession().getAttribute("userinfo");
-	}
-
-
 
 	public int getSeqNum() {
 		return seqNum;
@@ -409,6 +408,12 @@ public class T657_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

@@ -16,76 +16,46 @@ import javax.persistence.TemporalType;
 public class S444_Bean implements java.io.Serializable {
 
 	// Fields
-	private Integer sumTeam;
-	private Integer teachTeam;
-	private Integer nationReaTeam;
-	private Integer proviResTeam;
-	private Integer otherTeam;
+	private Integer seqNumber;
+	private String teamType;
+	private Integer teamNum;
 	private Date time;
 	private String note;
-
-	@Column(name = "SumTeam")
-	public Integer getSumTeam() {
-		return this.sumTeam;
+	public Integer getSeqNumber() {
+		return seqNumber;
+	}
+	public void setSeqNumber(Integer seqNumber) {
+		this.seqNumber = seqNumber;
 	}
 
-	public void setSumTeam(Integer sumTeam) {
-		this.sumTeam = sumTeam;
+	
+	
+	public String getTeamType() {
+		return teamType;
 	}
-
-	@Column(name = "TeachTeam")
-	public Integer getTeachTeam() {
-		return this.teachTeam;
+	public void setTeamType(String teamType) {
+		this.teamType = teamType;
 	}
-
-	public void setTeachTeam(Integer teachTeam) {
-		this.teachTeam = teachTeam;
+	public Integer getTeamNum() {
+		return teamNum;
 	}
-
-	@Column(name = "NationReaTeam")
-	public Integer getNationReaTeam() {
-		return this.nationReaTeam;
+	public void setTeamNum(Integer teamNum) {
+		this.teamNum = teamNum;
 	}
-
-	public void setNationReaTeam(Integer nationReaTeam) {
-		this.nationReaTeam = nationReaTeam;
-	}
-
-	@Column(name = "ProviResTeam")
-	public Integer getProviResTeam() {
-		return this.proviResTeam;
-	}
-
-	public void setProviResTeam(Integer proviResTeam) {
-		this.proviResTeam = proviResTeam;
-	}
-
-	@Column(name = "OtherTeam")
-	public Integer getOtherTeam() {
-		return this.otherTeam;
-	}
-
-	public void setOtherTeam(Integer otherTeam) {
-		this.otherTeam = otherTeam;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Time", length = 10)
 	public Date getTime() {
-		return this.time;
+		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@Column(name = "Note")
 	public String getNote() {
-		return this.note;
+		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	
+	
 
 }

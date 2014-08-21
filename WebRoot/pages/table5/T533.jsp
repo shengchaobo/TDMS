@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'designExpCSNum'">
 						综合性、设计性实验教学（门）
 					</th>
-					<th data-options="field:'expRatio'">
+					<th data-options="field:'expRatio'"  formatter="formatRatio">
 						实验开出率（%）
 					</th>
 					<th data-options="field:'note'">
@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 	</div>
 	
-	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+	<table id="verfiedData"  class="easyui-datagrid"   style="height: auto;" >
 		<thead>		
 				<tr>	
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -116,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'designExpCSNum'">
 						综合性、设计性实验教学（门）
 					</th>
-					<th data-options="field:'expRatio'" formatter = "formatRatio">
+					<th data-options="field:'expRatio'" >
 						实验开出率（%）
 					</th>
 					<th data-options="field:'note'">
@@ -226,6 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </body>
 	<script type="text/javascript">
+	    
     	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
     	for (var i = 0; i <= 10; i++) {
@@ -235,13 +236,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	select.appendChild(theOption);
     	}
 	</script>
-	
-	
-<script type="text/javascript">
-   function formatRatio(val){
-        var str = val+"";
-	   var ratio=str+"%";
-	   return ratio;
-   }
-</script>
+
+     <script type="text/javascript">
+		   function formatRatio(val){
+		        var str = val+"";
+			   var ratio=str+"%";
+			   return ratio;
+		   }
+		</script>
 </html>

@@ -5,7 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -142,7 +144,7 @@ public class T616_Action {
 	}
 	
 	public InputStream getInputStream(){
-		
+		System.out.println(this.getSelectYear());
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
@@ -157,17 +159,25 @@ public class T616_Action {
 			}
 			String sheetName = this.getExcelName();
 			List<String> columns = new ArrayList<String>();
-			columns.add("序号");columns.add("教学单位");columns.add("单位号");columns.add("总量");
-			columns.add("单价10万元以上");columns.add("总量");columns.add("当年新增值");columns.add("单价10万元以上");
+			columns.add("1.毕（结）业生数（人）");columns.add("2.授予学位数（人）");columns.add("3.招生数（人）");columns.add("4.在校生数（人）");
+			columns.add("小计");columns.add("国外");columns.add("香港");columns.add("澳门");columns.add("台湾");
+			columns.add("小计");columns.add("国外");columns.add("香港");columns.add("澳门");columns.add("台湾");
+			columns.add("小计");columns.add("国外");columns.add("香港");columns.add("澳门");columns.add("台湾");
+			columns.add("小计");columns.add("国外");columns.add("香港");columns.add("澳门");columns.add("台湾");
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("SeqNum", 0);maplist.put("teaUnit", 1);maplist.put("unitID", 2);maplist.put("sumEquNum", 3);
-			maplist.put("aboveTenEquNum", 4);maplist.put("sumEquAsset", 5);maplist.put("newAddAsset", 6);
-			maplist.put("aboveTenEquAsset", 7);
+			maplist.put("StuType", 0);maplist.put("SumGraNum", 1);maplist.put("GraOutNum", 2);maplist.put("GraOutNum", 3);
+			maplist.put("GraAoNum", 4);maplist.put("GraTaiNum", 5);maplist.put("SumDegreeNum", 6);
+			maplist.put("DegreeOutNum", 7);
+			maplist.put("DegreeHongNum", 8);maplist.put("DegreeAoNum", 9);maplist.put("DegreeTaiNum",10);maplist.put("SumAdmisNum", 11);
+			maplist.put("AdmisHongNum", 12);maplist.put("AdmisAoNum", 13);maplist.put("AdmisOutNum", 14);
+			maplist.put("AdmisTaiNum", 15);
+			maplist.put("SumInSchNum", 16);maplist.put("InSchHongNum", 17);maplist.put("InSchAoNum", 18);
+			maplist.put("InSchTaiNum", 19);	maplist.put("InSchOutNum", 20);
 			WritableWorkbook wwb;
 		    try {    
 		            fos = new ByteArrayOutputStream();
 		            wwb = Workbook.createWorkbook(fos);
-		            WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+		            WritableSheet ws = wwb.createSheet("表6-1-6国外及港澳台学生情况（国际交流与合作处）", 0);        // 创建一个工作表
 
 		            //    设置表头的文字格式
 		            
@@ -189,86 +199,86 @@ public class T616_Action {
 			        		     jxl.format.Colour.BLACK);
 		            ws.setRowView(1, 500);
 					//第一行存表名
-					ws.addCell(new Label(0, 0, sheetName, wcf)); 
+					ws.addCell(new Label(0, 0, "表6-1-6国外及港澳台学生情况（国际交流与合作处）", wcf)); 
 					ws.mergeCells(0, 0, 1, 0);
 					
 		            //判断一下表头数组是否有数据    
 		            if (columns != null && columns.size() > 0) {  
-		  
-		                //循环写入表头  
-		                for (int i = 0; i < columns.size(); i++) {  
-		  
-		                    /* 
-		                     * 添加单元格(Cell)内容addCell() 
-		                     * 添加Label对象Label() 
-		                     * 数据的类型有很多种、在这里你需要什么类型就导入什么类型 
-		                     * 如：jxl.write.DateTime 、jxl.write.Number、jxl.write.Label 
-		                     * Label(i, 0, columns[i], wcf) 
-		                     * 其中i为列、0为行、columns[i]为数据、wcf为样式 
-		                     * 合起来就是说将columns[i]添加到第一行(行、列下标都是从0开始)第i列、样式为什么"色"内容居中 
-		                     */ 
-		                	
-		                	if(i<3){
-		                		ws.addCell(new Label(i, 2, columns.get(i), wcf));
-		                		ws.mergeCells(i, 2, i, 3);
-		                	}
-		                	else if(i==3){
-		                		ws.addCell(new Label(i, 2, "1.教学、科研仪器设备台数（台）", wcf));
-		                		ws.mergeCells(3, 2, 4, 2);
-		                		ws.addCell(new Label(i, 3, columns.get(i), wcf));
-		                	}
-		                	else if(i==5){
-		                		ws.addCell(new Label(i, 2, "2.教学、科研仪器设备值（万元）", wcf));
-		                		ws.mergeCells(5, 2, 7, 2);
-		                		ws.addCell(new Label(i, 3, columns.get(i), wcf));
-		                	}
-		                	else{
-		                		ws.addCell(new Label(i, 3, columns.get(i), wcf));
-		                	}		                			                	
-		                }  
+		            	ws.addCell(new Label(1, 2, columns.get(0), wcf));
+		            	ws.mergeCells(1, 2, 5,2);
+		            	ws.addCell(new Label(6, 2, columns.get(1), wcf));
+		            	ws.mergeCells(6, 2, 10,2);
+		            	ws.addCell(new Label(11, 2, columns.get(2), wcf));
+		            	ws.mergeCells(11, 2, 15,2);
+		            	ws.addCell(new Label(16, 2, columns.get(3), wcf));
+		            	ws.mergeCells(16, 2, 20,2);
+		            	
+		            	int k=1;
+		            	for(int i=4;i <columns.size(); i++){
+		            		 int j = k%5;
+		            		 switch (j){
+		            		  case 1: ws.addCell(new Label(k, 3, columns.get(i), wcf));break;
+		            		  case 2: ws.addCell(new Label(k, 3, columns.get(i), wcf));break;
+		            		  case 3: ws.addCell(new Label(k, 3, columns.get(i), wcf));break;
+		            		  case 4: ws.addCell(new Label(k, 3, columns.get(i), wcf));break;
+		            		  case 0: ws.addCell(new Label(k, 3, columns.get(i), wcf));break;
+		            		  
+		            		 }
+		            		 k++;
+		            	}
+		            	
+		            	
+//		                //循环写入表头  
+//		                for (int i = 0; i < columns.size(); i++) {  
+//		  
+//		                    /* 
+//		                     * 添加单元格(Cell)内容addCell() 
+//		                     * 添加Label对象Label() 
+//		                     * 数据的类型有很多种、在这里你需要什么类型就导入什么类型 
+//		                     * 如：jxl.write.DateTime 、jxl.write.Number、jxl.write.Label 
+//		                     * Label(i, 0, columns[i], wcf) 
+//		                     * 其中i为列、0为行、columns[i]为数据、wcf为样式 
+//		                     * 合起来就是说将columns[i]添加到第一行(行、列下标都是从0开始)第i列、样式为什么"色"内容居中 
+//		                     */ 
+//		                		                			                	
+//		                }  
 		                
 		            }
+		            
 		            //判断表中是否有数据  
+		            int j=4;
 		            if (list != null && list.size() > 0) {  
-		                    //循环写入表中数据  
-		                	BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
-		                	int i=1;  
-		                	for(Object obj : list){  
-		                		wrapper.setWrappedInstance(obj) ;  
-		                        //循环输出map中的子集：既列值                         
-		                        for(String column:maplist.keySet()){
-		                        	
-		                        	if(column.equals("SeqNum")){
-		                        		ws.addCell(new Label(0,i+3,""+(i-1),wcf1)); 
-		                        		continue;
-		                        	}
-		                        	                        	
-		        					String type = wrapper.getPropertyType(column).toString() ;
-//		        					System.out.println(type +"-test：" + column);
-
-		        					//判断插入数据的类型，并赋�?
-		        					if(type.endsWith("String")){
-		        						if(wrapper.getPropertyValue(column) == null){
-		        							continue;
-		        						}
-		        						if(((String) wrapper.getPropertyValue(column)).equals("全校合计：")){
-		        							ws.addCell(new Label(maplist.get(column).intValue()-1,i+3,(String) wrapper.getPropertyValue(column),wcf1));
-		        							ws.mergeCells(0,i+3,2,i+3);
-		        						}else{
-		        							ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column),wcf1));
-		        						}
-		        						
-		        					}else if(type.endsWith("int")||type.endsWith("Integer")){
-		        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
-		        					}
-		        					else if(type.endsWith("double")||type.endsWith("Double")){
-		        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
-		        					}else{
-		        						throw new Exception("自行添加对应类型" + type) ;
-		        					}                       	                         	
-		                    }
-		                    i++;
-		                }
+		            	for(int i =0;i<list.size();i++){
+		            		T616_Bean bean = list.get(i);
+		            		int k=0;
+		            		ws.addCell(new Label(k, j, bean.getStuType(), wcf));
+		            		k+=1;
+		            		ws.addCell(new Label(k, j, bean.getSumGraNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getGraOutNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getGraHongNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getGraAoNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getGraTaiNum()+"", wcf));
+		            		k+=1;
+		            		ws.addCell(new Label(k, j, bean.getSumDegreeNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getDegreeOutNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getDegreeHongNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getDegreeAoNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getDegreeTaiNum()+"", wcf));
+		            		k+=1;
+		            		ws.addCell(new Label(k, j, bean.getSumAdmisNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getAdmisHongNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getAdmisAoNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getAdmisOutNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getAdmisTaiNum()+"", wcf));
+		            		k+=1;
+		            		ws.addCell(new Label(k, j, bean.getSumInSchNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getInSchHongNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getInSchAoNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getInSchTaiNum()+"", wcf));
+		            		k+=1;ws.addCell(new Label(k, j, bean.getInSchOutNum()+"", wcf));
+		            		k+=1;
+		            		j++;
+		            	}
 		            }else{
 		            	System.out.println("后台传入的数据为空");
 		            }
@@ -304,6 +314,12 @@ public class T616_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

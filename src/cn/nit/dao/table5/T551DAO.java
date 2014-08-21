@@ -163,7 +163,7 @@ public class T551DAO {
 	public List<T551Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.AdmisSchYear,t.PartyMemNum,t.CheatNum" +
+		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.AdmisSchYear,t.PartyMemNum,t.CheatNum," +
 		"t.GoodClassRatio,t.Time,t.Note");
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");

@@ -24,6 +24,9 @@ WebRoot/WEB-INF/classes/cn/nit/excel/downloads/*.xls
 WebRoot/WEB-INF/classes/cn/nit/excel/downloads/table6/*.xls
 WebRoot/WEB-INF/classes/
 WebRoot/WEB-INF/classes/META-INF/persistence.xml
+.settings/com.genuitec.eclipse.migration.prefs
+.settings/org.eclipse.jpt.core.prefs
+.settings/org.eclipse.wst.common.project.facet.core.prefs.xml
 
 .classpath
 

@@ -170,6 +170,7 @@
 	    <include file="cn/nit/configuration/table5/T513.xml"/>
 
     <!-- table6 近一届本科生分专业招生录取情况 -->
+    <include file="cn/nit/configuration/table6/S65.xml"/>
     <include file="cn/nit/configuration/table6/T611.xml"/>
     <include file="cn/nit/configuration/table6/T612.xml"/>
     <include file="cn/nit/configuration/table6/T613.xml"/>

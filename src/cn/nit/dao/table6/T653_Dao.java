@@ -243,6 +243,31 @@ public class T653_Dao {
 		
 		return list ;
 	}
+	
+	public int getWork(String year){
+		int WorkNum = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select count(*) AS WorkNum from T653_StuPublishWord_TeaYLC$");
+		sql.append(" where convert(varchar(4),T653_StuPublishWord_TeaYLC$.Time,120) =" + year);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				WorkNum = rs.getInt("WorkNum");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBConnection.close(conn);
+		}
+		
+		return WorkNum;
+	}
 
 	public static void main(String args[]) {
 

@@ -2,6 +2,8 @@ package cn.nit.service.table6;
 
 import java.util.List;
 
+import cn.nit.bean.table5.T513Bean;
+import cn.nit.bean.table5.T531Bean;
 import cn.nit.bean.table6.T616_Bean;
 import cn.nit.dao.table6.T616_Dao;
 
@@ -39,6 +41,12 @@ public class T616_Service {
 	 */
 	public T616_Bean findSumBean(String name, String year){
 		return T616_Dao.findSumBean(name, year) ;
+	}
+	
+	/**批量导入*/
+	public boolean batchInsert(List<T616_Bean> list,String year){
+		
+		return T616_Dao.batchInsert(list,year) ;
 	}
 	
 }

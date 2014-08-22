@@ -121,6 +121,10 @@ public class ExcelUtil {
             wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
 	        		     jxl.format.Colour.BLACK);
             ws.setRowView(1, 500);
+            
+            
+            ws.addCell(new Label(0, 0, sheetName, wcf)); 
+            
 
             //判断一下表头数组是否有数据  
             if (columns != null && columns.size() > 0) {  
@@ -152,7 +156,7 @@ public class ExcelUtil {
                         for(String column:maplist.keySet()){
                         	
                         	if(column.equals("SeqNum")){
-                        		ws.addCell(new Label(0,i,""+i,wcf1)); 
+                        		ws.addCell(new Label(0,i+2,""+i,wcf1)); 
                         		continue;
                         	}
                         	                        	
@@ -161,27 +165,27 @@ public class ExcelUtil {
 
         					//判断插入数据的类型，并赋�?
         					if(type.endsWith("String")){
-        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column),wcf1));
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+2,(String) wrapper.getPropertyValue(column),wcf1));
         					}else if(type.endsWith("int")||type.endsWith("Integer")){
-        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString(),wcf1));
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+2,(String) wrapper.getPropertyValue(column).toString(),wcf1));
         					}else if(type.endsWith("Date")){
         						if((java.util.Date)wrapper.getPropertyValue(column) == null){
-        							ws.addCell(new Label(maplist.get(column).intValue(),i,null,wcf1));
+        							ws.addCell(new Label(maplist.get(column).intValue(),i+2,null,wcf1));
         						}else{
             						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(column) ;
             						Date sqlDate = new Date(utilDate.getTime()) ;
-            						ws.addCell(new Label(maplist.get(column).intValue(),i,sqlDate.toString(),wcf1));
+            						ws.addCell(new Label(maplist.get(column).intValue(),i+2,sqlDate.toString(),wcf1));
         						}
         					}else if(type.endsWith("long")||type.endsWith("Long")){
-        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString(),wcf1));
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+2,(String) wrapper.getPropertyValue(column).toString(),wcf1));
         					}else if(type.endsWith("boolean")||type.endsWith("Boolean")){
         						if((Boolean)wrapper.getPropertyValue(column)){
-        							ws.addCell(new Label(maplist.get(column).intValue(),i,"是",wcf1));
+        							ws.addCell(new Label(maplist.get(column).intValue(),i+2,"是",wcf1));
         						}else{
-        							ws.addCell(new Label(maplist.get(column).intValue(),i,"否",wcf1));
+        							ws.addCell(new Label(maplist.get(column).intValue(),i+2,"否",wcf1));
         						}
         					}else if(type.endsWith("double")||type.endsWith("Double")){
-        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString(),wcf1));
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+2,(String) wrapper.getPropertyValue(column).toString(),wcf1));
         					}else{
         						throw new Exception("自行添加对应类型" + type) ;
         					}                       	                         	

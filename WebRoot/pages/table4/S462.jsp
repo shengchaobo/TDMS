@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>S46</title>
+<title>S25</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -30,66 +30,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-	<script type="text/javascript" src="js/table4/S46.js"></script>
+	<script type="text/javascript" src="js/table4/S462.js"></script>
 
 </head>
 <body style="overflow-y:scroll">
 	<table id="showData"  style="height: auto">		
 		<thead>
-			<tr>
-				<th data-options="field:'ck',checkbox:true"  rowspan="2">选取</th>
-				<th  data-options="field:'seqNumber'"  hidden="true">编号</th>
-				<th data-options="field:'item'" colspan="2">
-				项目
-				</th>
-				<th data-options="field:'fameTeaAward'" >
-	       		教学名师
-				</th>
-				<th data-options="field:'advanceTeaAward'">
-				师德先进个人
-				</th>
-				<th data-options="field:'workAward'">
-	       		研究与创作奖
-				</th>
-				<th data-options="field:'stuWordAward'">
-				学生思政队伍工作成果奖
-				</th>
-				<th data-options="field:'outstdTeaAward'">
-				优秀教师
-				</th>
-				<th data-options="field:'outWorkAward'">
-	       		优秀工作者
-				</th>
-				<th data-options="field:'teathAward'">
-	       		教学活动月获奖
-				</th><th data-options="field:'otherAward'">
-	       		其他
-				</th>
-			</tr>			
-	</thead>
+			<th field="item" >项目</th>
+				<th field="fameTeaAward">教学名师</th>
+				<th field="advanceTeaAward" >师德先进个人</th>
+				<th field="workAward">研究与创作奖</th>
+				<th field="stuWordAward" >学生思政队伍工作成果奖</th>
+				<th field="outstdTeaAward">优秀教师</th>
+				<th field="outWorkAward" >优秀工作者</th>
+				<th field="teathAward">教学活动月获奖</th>
+				<th field="otherAward" >其他</th>
+			</thead>	
 	</table>
-								 
+					
+			 
 	<div id="toolbar" style="height:auto">
-		<div style="float: left;">
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
+		<div style="float: left;">	
 			<a href="javascript:void(0)" id="export" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		</div>
 	 	 <form  id="exportForm"  style="float: right;"  method="post" >
 			显示： <select class="easyui-combobox" id="cbYearContrast" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false ></select>
 	 	</form>	
-	</div>
-	
-	
+	</div>	
 </body>
- <script type="text/javascript">
-   	var currentYear = new Date().getFullYear();
-   	var select = document.getElementById("cbYearContrast");
-   	for (var i = 0; i <= 10; i++) {
-       var theOption = document.createElement("option");
-       	theOption.innerHTML = currentYear-i + "年";
-       	theOption.value = currentYear-i;
-       	select.appendChild(theOption);
-   	}
-</script>
+
+			 <script type="text/javascript">
+		    	var currentYear = new Date().getFullYear();
+		    	var select = document.getElementById("cbYearContrast");
+		    	for (var i = 0; i <= 10; i++) {
+		        var theOption = document.createElement("option");
+		        	theOption.innerHTML = currentYear-i + "年";
+		        	theOption.value = currentYear-i;
+		        	select.appendChild(theOption);
+		    	}
+			</script>
+
+
 		
 </html>

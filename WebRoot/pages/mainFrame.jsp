@@ -254,7 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</div>
 			<div id="tabs" class="easyui-tabs" data-options="region:'center',split:true" >
 		    	<div title="首页" >
-		    	   <iframe frameborder=0 width='100%' height='100%' src="./pages/index.jsp"></iframe>
+		    	   <iframe frameborder=0 width='100%' height='100%' src="pages/index.jsp"></iframe>
 				</div>
 		    </div>
 

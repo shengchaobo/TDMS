@@ -35,7 +35,7 @@ a:active {color: #0000FF}
 		    	<ul>
 						<li><a text-decoration="none" href ="data/manual.doc" >关于该系统的使用方法介绍</a></li>
 						
-						<li ><a text-decoration="none" href = "leader.jsp">校领导</a></li>
+						<li ><a text-decoration="none" href = "pages/leader.jsp">校领导</a></li>
 						<li>关于2014年数据采集截止时间</li>
 				</ul>
 			</div>

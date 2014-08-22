@@ -9,6 +9,7 @@
 	    <action name="insert" class="cn.nit.action.di.DIUserManagerAction" method="insert" />
 	    <action name="edit" class="cn.nit.action.di.DIUserManagerAction" method="edit" />
 	    <action name="resetPassword" class="cn.nit.action.di.DIUserManagerAction" method="resetPassword" />
+	    <action name="alertPassword" class="cn.nit.action.di.DIUserManagerAction" method="alertPassword" />
 	    <action name="deleteByIds" class="cn.nit.action.di.DIUserManagerAction" method="deleteByIds" />
 	</package>
 </struts>

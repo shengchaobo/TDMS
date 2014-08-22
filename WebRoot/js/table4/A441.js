@@ -36,7 +36,7 @@
 					        { "name": "外校（境内）人数", "group": "4.学缘结构", "value": "", "field": "outSchInNum","editor":  false },
 					        { "name": "外校（境内）比例", "group": "4.学缘结构", "value": "", "field": "outSchInRatio","editor":  false },
 				            { "name": "外校（境外）人数", "group": "4.学缘结构", "value": "",  "field": "outSchOutNum","editor":  false},
-					        { "name": "外校（境外）比例", "group": "4.学缘结构", "value": "",  "field": "outSchOutRatio","editor":  false},
+					        { "name": "外校（境外）比例", "group": "4.学缘结构", "value": "",  "field": "outSchOutRatio","editor":  false}
 					        
 
 	                   ];

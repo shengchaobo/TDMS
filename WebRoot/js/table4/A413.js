@@ -41,7 +41,7 @@
 					        { "name": "硕士导师人数", "group": "4.导师类别", "value": "", "field": "masterTutorNum","editor":  false },
 					        { "name": "硕士导师比例", "group": "4.导师类别", "value": "", "field": "masterTutorRatio","editor":  false },
 					        { "name": "其他人数", "group": "4.导师类别", "value": "",  "field": "notTutorNum","editor":  false},
-					        { "name": "其他比例", "group": "4.导师类别", "value": "",  "field": "notTutorRatio","editor":  false},
+					        { "name": "其他比例", "group": "4.导师类别", "value": "",  "field": "notTutorRatio","editor":  false}
 					        
 
 

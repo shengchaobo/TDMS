@@ -121,9 +121,9 @@ public class S71_DAO {
     " from DiDepartment "+
     " left join T711_TeaManagerAwardInfo_TeaTea$ on DiDepartment.UnitID = T711_TeaManagerAwardInfo_TeaTea$.UnitID "+
     " left join T712_TeaManagerPaperInfo_TeaTea$ on DiDepartment.UnitID = T712_TeaManagerPaperInfo_TeaTea$.UnitID "+
-    " where convert(varchar(4),T711_TeaManagerAwardInfo_TeaTea$.Time,120) = "  +  year  +  
+    " and convert(varchar(4),T711_TeaManagerAwardInfo_TeaTea$.Time,120) = "  +  year  +  
     " and "  +  "convert(varchar(4),T712_TeaManagerPaperInfo_TeaTea$.Time,120) = "  +  year  +  
-    " and "  +  "DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
+    " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
    
 		//System.out.println(querysql);
 		Connection conn = DBConnection.instance.getConnection() ;

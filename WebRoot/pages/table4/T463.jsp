@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T461/dataExport?param=3&&excelName=<%=URLEncoder.encode("表4-6-3教师所获荣誉-学生思政队伍工作成果奖.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
+		<a href='pages/T461/dataExport?param=3&&excelName=<%=URLEncoder.encode("表4-6-3教师所获荣誉-学生思政队伍工作成果奖（学工处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	

@@ -1,4 +1,4 @@
-package cn.nit.dao.table5;
+﻿package cn.nit.dao.table5;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -108,8 +108,8 @@ public class S533_DAO {
 				        " avg(ExpRatio) AS ExpRatio "+
 				        " from DiDepartment "+
 				        " left join T533_ByMajExpInfo_TeaTea$ on DiDepartment.UnitID = T533_ByMajExpInfo_TeaTea$.UnitID "+
-					    " where convert(varchar(4),T533_ByMajExpInfo_TeaTea$.Time,120) = "  +  year  +  
-					    " and "  +  "DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
+					    " and convert(varchar(4),T533_ByMajExpInfo_TeaTea$.Time,120) = "  +  year  +  
+					    " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;	
@@ -137,6 +137,7 @@ public class S533_DAO {
 				s533_Bean.setExpCourseNum(rs.getInt("ExpCourseNum"));
 				s533_Bean.setExpTeachNum(rs.getInt("ExpTeachNum"));
 				s533_Bean.setExpRatio(this.toDouble1(rs.getDouble("ExpRatio")));
+				System.out.println("小ratio:"+rs.getDouble("ExpRatio"));
 				s533_Bean.setTime(TimeUtil.changeDateY(year));
 				list.add(s533_Bean);
 				
@@ -144,6 +145,7 @@ public class S533_DAO {
 			}
 			if(list.size()!=0){
 				expRatio   = this.toDouble(expRatio1, (list.size()-1));
+				System.out.println("expRatio:"+expRatio);
 				S533_Bean s533_Bean=new S533_Bean();			
 				s533_Bean.setTeaUnit("全校合计");
 				s533_Bean.setUnitID("");
@@ -171,7 +173,7 @@ public class S533_DAO {
 	/**转换成保存两位小数的double*/
 	public double toDouble(double a,int b){
 		
-		double d1=(a/(double)b)*100;
+		double d1=(a/(double)b);
 		DecimalFormat df = new DecimalFormat("0.00");
 		String str = df.format(d1);
 		double d=Double.parseDouble(str);
@@ -180,11 +182,16 @@ public class S533_DAO {
 	
 	/**转换成保存两位小数的double*/
 	public double toDouble1(double a){
-		a = a*100;
+
+
 		DecimalFormat df = new DecimalFormat("0.00");
 		String str = df.format(a);
 		double d=Double.parseDouble(str);
 		return d;
+	}
+	public static void main(String arg[]){
+		S533_DAO dao = new S533_DAO();
+		List<S533_Bean> list = dao.getData("2014");
 	}
 
 }

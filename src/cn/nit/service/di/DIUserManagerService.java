@@ -73,6 +73,15 @@ public class DIUserManagerService {
 		return userManagerDao.resetPassword(ids) ;
 	}
 	
+	/**
+	 * 修改密码
+	 * @param ids
+	 * @return
+	 */
+	public boolean alertPassword(String teaID, String newPsd){
+		return userManagerDao.alertPassword(teaID, newPsd) ;
+	}
+	
 	
 	/**
 	 * 判断users表中是否已包含该用户

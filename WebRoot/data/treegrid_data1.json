@@ -1,0 +1,9 @@
+{"total":7,"rows":[
+	{"id":1,"name":"test1","checked":false,"iconCls":"icon-ok"},
+	{"id":2,"name":"test2","checked":false,"_parentId":1,"state":"closed"},
+	{"id":21,"name":"testt","checked":true,"_parentId":2},
+	{"id":22,"name":"tesL","checked":true,"_parentId":2},
+	{"id":23,"name":"est","checked":true,"_parentId":2},
+	{"id":3,"name":"Ceag","checked":true,"progress":80},
+	{"id":4,"name":"Teeasting","checked":false,"progress":20}
+]}

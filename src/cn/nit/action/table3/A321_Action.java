@@ -32,8 +32,6 @@ import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.other.UserRoleBean;
-
 import cn.nit.bean.table3.A321_Bean;
 
 
@@ -301,17 +299,6 @@ public class A321_Action {
 			return ServletActionContext.getResponse() ;
 		}
 		
-		public UserRoleBean getUserinfo(){
-			return (UserRoleBean)getSession().getAttribute("userinfo") ;
-		}
-
-
-
-		
-
-
-
-
 
 		public static void main(String args[]){
 			String match = "[\\d]+" ;

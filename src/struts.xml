@@ -12,11 +12,13 @@
 	<!-- 用户登录 -->
     <include file="cn/nit/configuration/login.xml" />
     <!-- 功能菜单管理 -->
-    <include file="cn/nit/configuration/treeManager.xml"/>
+    <include file="cn/nit/configuration/system/treeManager.xml"/>
     <!-- 用户管理 -->
     <include file="cn/nit/configuration/system/UserManager.xml" />
     <!-- 角色管理 -->
     <include file="cn/nit/configuration/system/RoleManager.xml" />
+     <!-- 权限管理 -->
+    <include file="cn/nit/configuration/system/RightManager.xml" />
     
      <!-- Di（所有字典表）-->
     <include file="cn/nit/configuration/di/DiDepartment.xml"/>
@@ -43,6 +45,7 @@
     <include file="cn/nit/configuration/di/DiCourseAttri.xml"/>
     <include file="cn/nit/configuration/di/DiContestScope.xml"/>
     
+    
      <!-- table4 -->
     <include file="cn/nit/configuration/table4/T411.xml"/>
     <include file="cn/nit/configuration/table4/T412.xml"/>
@@ -61,8 +64,17 @@
 	<include file="cn/nit/configuration/table4/T48.xml"/>
 	<include file="cn/nit/configuration/table4/T49.xml"/>
 	<include file="cn/nit/configuration/table4/T410.xml"/>
+    <include file="cn/nit/configuration/table4/A411.xml"/>
+    <include file="cn/nit/configuration/table4/A412.xml"/>
+    <include file="cn/nit/configuration/table4/A413.xml"/>
+    <include file="cn/nit/configuration/table4/A441.xml"/>
+    <include file="cn/nit/configuration/table4/S443.xml"/>
+    <include file="cn/nit/configuration/table4/S444.xml"/>
+    <include file="cn/nit/configuration/table4/S452.xml"/>
+    <include file="cn/nit/configuration/table4/S453.xml"/>
+    <include file="cn/nit/configuration/table4/S461.xml"/>
+    <include file="cn/nit/configuration/table4/S462.xml"/>
     
-
     <!-- table1 -->
       <!-- t11學校基本信息 -->
     <include file="cn/nit/configuration/table1/T11.xml"/>

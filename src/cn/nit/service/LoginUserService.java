@@ -13,11 +13,8 @@ package cn.nit.service;
 import java.util.List;
 
 import cn.nit.bean.UserinfoBean;
-import cn.nit.bean.other.UserRoleBean;
-import cn.nit.dao.UserManagerDAO;
-import cn.nit.dbconnection.DBConnection;
+import cn.nit.dao.di.DIUserManagerDAO;
 import cn.nit.pojo.LoginUser;
-import cn.nit.util.MD5Util;
 
 /**
  * 登录Serverice类
@@ -26,14 +23,13 @@ import cn.nit.util.MD5Util;
  */
 public class LoginUserService {
 	
-	private UserManagerDAO userManagerDao = new UserManagerDAO() ;
-	public List<UserinfoBean> login(LoginUser user){
-		
+	private DIUserManagerDAO userManagerDao = new DIUserManagerDAO() ;
+	public List<UserinfoBean> login(LoginUser user){		
 		List<UserinfoBean> list = userManagerDao.getUserById(user.getUserId()) ;
 		return list ;
 	}
 	
-	public List<UserRoleBean> getUserRoleById(String TeaID){
+	public List<UserinfoBean> getUserRoleById(String TeaID){
 		return userManagerDao.getUserRoleById(TeaID) ;
 	}
 	

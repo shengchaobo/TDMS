@@ -200,7 +200,6 @@ public class DAOUtil {
 			}
 		}
 
-		System.out.println(sql.toString()) ;
 		BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
 		//判断数据插入的条数，0代表数据插入失败
 		int flag[] ;

@@ -30,8 +30,6 @@ import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
 
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.S31_Bean;
 import cn.nit.dao.table3.S31_DAO;
 import cn.nit.excel.imports.table3.S31Excel;
@@ -115,7 +113,7 @@ private S31_Service s31_Service = new S31_Service() ;
 		
 
 		System.out.println(this.getSelectYear());
-		S31_Bean bean = s31_Service.getYearInfo(this.getSelectYear());
+		S31_Bean bean = s31_DAO.exportData(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -213,14 +211,7 @@ private S31_Service s31_Service = new S31_Service() ;
 	
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
-	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
-
-
+	}	
 	
 	public S31_Service getS31_Service() {
 		return s31_Service;

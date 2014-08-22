@@ -5,6 +5,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,8 +35,6 @@ import jxl.write.biff.RowsExceededException;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
-
-import cn.nit.bean.other.UserRoleBean;
 
 import cn.nit.bean.table1.T16Bean;
 import cn.nit.dao.table1.T16DAO;
@@ -70,53 +70,11 @@ public class T16Action {
 	/**要删除数据的年份*/
 	private String year;
 	
-
-	public String getYear() {
-		return year;
-	}
-
-
-	public void setYear(String year) {
-		this.year = year;
-	}
-
-
-	public String getFields() {
-		return fields;
-	}
-
-
-	public void setFields(String fields) {
-		this.fields = fields;
-	}
-	
 	/**  前台获数据 */
 	private String data ;
+	
 
-
-	public String getData() {
-		return data;
-	}
-
-
-	public void setData(String data) {
-		this.data = data;
-	}
-	public String getSelectYear() {
-		return selectYear;
-	}
-
-	public void setSelectYear(String selectYear) {
-		this.selectYear = selectYear;
-	}
-
-	public String getExcelName() {
-		return excelName;
-	}
-
-	public void setExcelName(String excelName) {
-		this.excelName = excelName;
-	}
+	
 
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
@@ -409,10 +367,7 @@ public class T16Action {
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
 	}
-	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
+
 
 	public T16Bean getT16Bean() {
 		return t16Bean;
@@ -424,6 +379,57 @@ public class T16Action {
 
 	public void setSeqNum(int seqNum){
 		this.seqNum = seqNum ;
+	}
+	public String getYear() {
+		return year;
+	}
+
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+
+	public String getFields() {
+		return fields;
+	}
+
+
+	public void setFields(String fields) {
+		this.fields = fields;
+	}
+	
+
+
+
+	public String getData() {
+		return data;
+	}
+
+
+	public void setData(String data) {
+		this.data = data;
+	}
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
 	}
 	
 	

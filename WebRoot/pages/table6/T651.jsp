@@ -63,9 +63,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="awardStuNum">获奖学生数</th>
 				<th field="guideTeaName">指导教师</th>
 				<th field="guideTeaNum">指导教师数</th>
-				<th field="note">备注</th>
-				<th field="fillUnitID">填写单位</th>	
+				<!-- 
+				<th field="fillUnitID">填写单位</th>	 -->
 				<th field="time" formatter="formattime">时间</th>
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -105,14 +106,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="awardStuNum">获奖学生数</th>
 				<th field="guideTeaName">指导教师</th>
 				<th field="guideTeaNum">指导教师数</th>
-				<th field="note">备注</th>
-				<th field="fillUnitID">填写单位</th>	
+			<!-- 
+				<th field="fillUnitID">填写单位</th>	 -->
 				<th field="time" formatter="formattime">时间</th>
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T651/dataExport?excelName=<%=URLEncoder.encode("表6-5-1学习成果—本科生竞赛获奖情况（教学单位-团委）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href='pages/T651/dataExport?excelName=<%=URLEncoder.encode("表6-5-1学习成果—本科生竞赛获奖情况（教学单位-团委）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	

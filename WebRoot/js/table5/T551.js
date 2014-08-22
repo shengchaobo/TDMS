@@ -80,9 +80,9 @@
 		// 获取文本框的值
 		var unitID = $('#UnitID').combobox('getText');
 		var majorID = $('#MajorID').combobox('getText');
-		var admisSchYear = $('#AdmisSchYear').val();
-		var partyMemNum = $('#PartyMemNum').val();
-		var cheatNum = $('#CheatNum').val();
+		var admisSchYear = $('#AdmisSchYear').numberbox('getValue');
+		var partyMemNum = $('#PartyMemNum').numberbox('getValue');
+		var cheatNum = $('#CheatNum').numberbox('getValue');
 		var goodClassRatio = $('#GoodClassRatio').val();
 		var note = $('#Note').val();
 		
@@ -150,10 +150,10 @@
    	$('#seqNumber').val(row[0].seqNumber) ;
   	$('#UnitID').combobox('select', row[0].unitID) ;
 	$('#MajorID').combobox('select', row[0].majorID) ;
-	$('#AdmisSchYear').val(row[0].admisSchYear) ;
-	$('#PartyMemNum').val(row[0].partyMemNum) ;
-   	$('#CheatNum').val(row[0].cheatNum) ;
-   	$('#GoodClassRatio').val(row[0].goodClassRatio) ;
+	$('#AdmisSchYear').numberbox('setValue',row[0].admisSchYear) ;
+	$('#PartyMemNum').numberbox('setValue',row[0].partyMemNum) ;
+   	$('#CheatNum').numberbox('setValue',row[0].cheatNum) ;
+   	$('#GoodClassRatio').numberbox("setValue",row[0].goodClassRatio) ;
 	$('#Note').val(row[0].note) ;
 	}
 

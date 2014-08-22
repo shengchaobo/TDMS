@@ -109,8 +109,8 @@ public class S532_DAO {
 		" sum(case when CenterLevel='50004' then 1 else 0 end) AS SchNum "+
 	    " from DiDepartment "+
 	    " left join T532_ExpTeachShowCenter_EQU$ on DiDepartment.UnitID = T532_ExpTeachShowCenter_EQU$.UnitID "+
-	    " where convert(varchar(4),T532_ExpTeachShowCenter_EQU$.Time,120) = "  +  year  +  
-	    " and "  +  "DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
+	    " and convert(varchar(4),T532_ExpTeachShowCenter_EQU$.Time,120) = "  +  year  +  
+	    " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

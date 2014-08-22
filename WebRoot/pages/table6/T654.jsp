@@ -59,9 +59,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="awardStuNum">参与学生人数</th>
 				<th field="guideTeaName">指导教师</th>
 				<th field="guideTeaNum">指导教师人数</th>
-				<th field="note">备注</th>
-				<th field="fillUnitID">填写单位</th>	
+				<!-- 
+				<th field="fillUnitID">填写单位</th>	 -->
 				<th field="time" formatter="formattime">时间</th>
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -97,9 +98,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="awardStuNum">参与学生人数</th>
 				<th field="guideTeaName">指导教师</th>
 				<th field="guideTeaNum">指导教师人数</th>
-				<th field="note">备注</th>
-				<th field="fillUnitID">填写单位</th>	
+				<!-- 
+				<th field="fillUnitID">填写单位</th>	 -->
 				<th field="time" formatter="formattime">时间</th>
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -159,9 +161,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>类别：</label> 
-						<input id="patentType" name="T654_bean.patentType" class='easyui-validatebox'><span id="patentTypeSpan"></span>
+						<select  class='easyui-combobox' id="patentType" name="T654_bean.patentType" style="width:80px">
+							<option value="发明">发明</option>
+							<option value="实用新型">实用新型</option>
+							<option value="外观专利">外观专利</option>
+						<span id="patentTypeSpan"></span>
 					</div>
-				</td>
+				</td>	
 			</tr>
 			
 			<tr>
@@ -186,7 +192,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>参与学生人数：</label> 
 						<input id="awardStuNum" name="T654_bean.awardStuNum" 
-							 class='easyui-validatebox'><span id="awardStuNumSpan"></span>
+							 class='easyui-numberbox'><span id="awardStuNumSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>
@@ -203,21 +209,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>指导教师人数：</label> 
 						<input id="guideTeaNum" name="T654_bean.guideTeaNum" 
-							 class='easyui-validatebox'><span id="guideTeaNumSpan"></span>
+							 class='easyui-numberbox'><span id="guideTeaNumSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>
-				<td>			
-					<div class="fitem">
-						<label>填写单位：</label> 
-						<input id="fillUnitID" name="T654_bean.fillUnitID" 
-							 class='easyui-validatebox'><span id="fillUnitIDSpan"></span>
-					</div>
-				</td>
-	
-			</tr>
-			
-			<tr>
 				<td>
 					<div class="fitem">
 						<label>填写时间：</label> 
@@ -226,6 +221,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="timeSpan"></span>
 					</div>
 				</td>
+				<!-- 
+				<td>			
+					<div class="fitem">
+						<label>填写单位：</label> 
+						<input id="fillUnitID" name="T654_bean.fillUnitID" 
+							 class='easyui-validatebox'><span id="fillUnitIDSpan"></span>
+					</div>
+				</td>
+	 -->
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>

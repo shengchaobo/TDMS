@@ -26,9 +26,9 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T181Bean;
 
@@ -59,7 +59,7 @@ public class T181Excel {
 		boolean biOpen=false;
 		boolean buildCondi=false;
 		List<T181Bean> list = new LinkedList<T181Bean>() ;
-		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
+		UserinfoBean userinfo = (UserinfoBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 	    DiAwardLevelService diAwardLevelSer=new DiAwardLevelService();

@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -23,7 +25,6 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -254,7 +255,7 @@ public class T622_Action {
 			columns.add("理科批次最低控制线（分）");
 			columns.add("文科当年录取平均分数（分）");
 			columns.add("理科当年录取平均分数（分）");
-			columns.add("说明");
+			columns.add("备注");
 
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 	
@@ -270,7 +271,7 @@ public class T622_Action {
 			maplist.put("sciAvgScore", 8);
 			maplist.put("note", 9);
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-2-2近一届文、理科本科生录取标准及人数（招就处）", maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -296,12 +297,6 @@ public class T622_Action {
 	public HttpServletResponse getResponse() {
 		return ServletActionContext.getResponse();
 	}
-
-	public UserRoleBean getUserinfo() {
-		return (UserRoleBean) getSession().getAttribute("userinfo");
-	}
-
-
 
 	public int getSeqNum() {
 		return seqNum;
@@ -392,6 +387,12 @@ public class T622_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

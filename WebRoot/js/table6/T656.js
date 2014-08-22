@@ -41,7 +41,7 @@ function validate() {
 	
 	
 	var unitId = $('#unitId').combobox('getText');
-	var nationNCREPassRate = $('#nationNCREPassRate').val();
+	var nationNCREPassRate = $('#nationNCREPassRate').numberbox('getValue');
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
 
@@ -146,7 +146,7 @@ function editItem() {
 	$('#seqNumber').val(row[0].seqNumber);
 	$('#unitId').combobox('select', row[0].unitId);
 	
-	$('#nationNCREPassRate').val(row[0].nationNCREPassRate);
+	$('#nationNCREPassRate').numberbox('setValue',row[0].nationNCREPassRate);
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);
 }

@@ -239,7 +239,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
      <script type="text/javascript">
 		   function formatRatio(val){
-			   val = val*100;
 		        var str = val+"";
 			   var ratio=str+"%";
 			   return ratio;

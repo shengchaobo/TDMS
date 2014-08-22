@@ -2,6 +2,7 @@ package cn.nit.dao.di;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -214,6 +215,36 @@ public class DIUserManagerDAO {
 	}
 	
 	/**
+	 * 修改密码
+	 * @param ids
+	 * @return
+	 */
+	public boolean alertPassword(String teaID , String newPsd){
+		
+		int flag = 0 ;
+		String sql = "update " + tableName + " set TeaPasswd='" + MD5Util.encode(newPsd) + "' where TeaID = " + teaID;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		//System.out.println(sql);
+		try{
+			st = conn.createStatement() ;
+			flag = st.executeUpdate(sql) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}finally{
+			DBConnection.close(st) ;
+			DBConnection.close(conn) ;
+		}
+		
+		if(flag > 0){
+			return true ;
+		}else{
+			return false ;
+		}
+	}
+	
+	/**
 	 * 判断users表中是否已包含该用户
 	 */
 	public boolean hasUser(String userID){
@@ -237,5 +268,108 @@ public class DIUserManagerDAO {
 			DBConnection.close(conn) ;
 		}
 		return flag;
+	}
+	
+	/**
+	 * 根据职工编号查询数据
+	 * @param userId
+	 * @return
+	 *
+	 * @time: 2014-4-21/上午08:44:09
+	 */
+	public List<UserinfoBean> getUserById(String userId){
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		List<UserinfoBean> list = null ;
+		
+		StringBuffer sql = new StringBuffer() ;
+		
+		sql.append("select " + key + "," + field) ;
+		sql.append(" from " + tableName + "," + tableName1 + "," + tableName2) ;
+		sql.append(" where 1=1 and " + tableName + ".TeaID=" + tableName1 + ".TeaID and " + tableName1 + ".RoleID=" + tableName2 + ".RoleID " ) ;
+		sql.append(" and " + tableName + ".TeaID='" + userId + "'") ;
+
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, UserinfoBean.class) ;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null ;
+		}finally{
+			DBConnection.close(rs) ;
+			DBConnection.close(st) ;
+			DBConnection.close(conn) ;
+		}
+		
+		return list ;
+	}
+	
+	public List<UserinfoBean> getUserRoleById(String TeaID){
+		Connection conn = DBConnection.instance.getConnection() ;
+		List<UserinfoBean> list = null ;
+		StringBuffer sql = new StringBuffer() ;
+		
+		sql.append("select " + key + "," + field) ;
+		sql.append(" from " + tableName + "," + tableName1 + "," + tableName2) ;
+		sql.append(" where 1=1 and " + tableName + ".TeaID=" + tableName1 + ".TeaID and " + tableName1 + ".RoleID=" + tableName2 + ".RoleID " ) ;
+		sql.append(" and " + tableName + ".TeaID='" + TeaID + "'") ;
+
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, UserinfoBean.class) ;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null ;
+		}finally{
+			DBConnection.close(rs) ;
+			DBConnection.close(st) ;
+			DBConnection.close(conn) ;
+		}
+		
+		return list ;
+	}
+	
+	public List<UserinfoBean> getList(){
+		
+		List<UserinfoBean> list = null ;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("select " + field) ;
+		sql.append(" from " + tableName) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, UserinfoBean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return list ;
+		}
+		return list ;
+	}
+	
+	public boolean batchInsert(List<UserinfoBean> list){
+		boolean flag = false ;
+		Connection conn =DBConnection.instance.getConnection() ;
+		
+		try{
+			flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}
+		return flag ;
 	}
 }

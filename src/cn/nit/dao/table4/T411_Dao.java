@@ -4,13 +4,16 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cn.nit.bean.table3.S31_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table4.T431_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
+import cn.nit.util.TimeUtil;
 
 public class T411_Dao {
 	
@@ -362,6 +365,260 @@ public class T411_Dao {
 		
 		return false;
 	}
+
+	//获得相应职称的教师数
+	public int getTitleNum(String title){
+		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
+		int count = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(distinct teaId)");
+		sql.append(" from " + tableName +" where "+Cond+" and majTechTitle =" + title);
+		
+		Connection conn = DBConnection.instance.getConnection();
+		Statement st = null;
+		ResultSet rs = null;
+		
+		try{
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			if(rs == null){
+				return 0;
+			}
+			
+			while(rs.next()){
+				count = rs.getInt(1);
+			}
+			
+			
+		}catch (Exception e){
+			e.printStackTrace();
+			return 0;
+				
+		}
+		return count;
+	}
+	
+	//获得相应学位教师数
+	public int getDegreeNum(String degree){
+		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
+		int count = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(distinct teaId)");
+		sql.append(" from " + tableName +" where "+Cond+" and topDegree =" + degree);
+		
+		Connection conn = DBConnection.instance.getConnection();
+		Statement st = null;
+		ResultSet rs = null;
+		
+		try{
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			if(rs == null){
+				return 0;
+			}
+			
+			while(rs.next()){
+				count = rs.getInt(1);
+			}
+			
+			
+		}catch (Exception e){
+			e.printStackTrace();
+			return 0;
+				
+		}
+		return count;
+		
+	}
+	
+	//获得相应年龄教师数
+	public int getAgeNum(String selectYear, int age1,int age2){
+		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
+		int year = Integer.parseInt(selectYear);
+		int front = year - age2-1;
+		int end = year - age1;
+		int count = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append("Select count(distinct teaId) from " + tableName +
+				" where "+Cond+" and birthday >= '"+front+"-09-01' and birthday <= '"+end+"-08-31'");
+		System.out.println("haha");
+		System.out.println(sql.toString());
+		Connection conn = DBConnection.instance.getConnection();
+		Statement st = null;
+		ResultSet rs = null;
+		
+		try{
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			if(rs == null){
+				return 0;
+			}
+			
+			while(rs.next()){
+				count = rs.getInt(1);
+			}
+			
+			
+		}catch (Exception e){
+			e.printStackTrace();
+			return 0;
+				
+		}
+		return count;
+		
+	}
+	
+	//获得相应学源教师数
+	public int getSourceNum(String source){
+		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
+		int count = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(distinct teaId)");
+		sql.append(" from " + tableName +" where "+Cond+" and source =" + source);
+		
+		Connection conn = DBConnection.instance.getConnection();
+		Statement st = null;
+		ResultSet rs = null;
+		
+		try{
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			if(rs == null){
+				return 0;
+			}
+			
+			while(rs.next()){
+				count = rs.getInt(1);
+			}
+			
+			
+		}catch (Exception e){
+			e.printStackTrace();
+			return 0;
+				
+		}
+		return count;
+	}
+	
+	//获得双师型教师人数
+	public int getDoubleNum(String type){
+		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
+		int count = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(distinct teaId)");
+		sql.append(" from " + tableName +" where " + type+" = 'true' and "+Cond);
+		
+		Connection conn = DBConnection.instance.getConnection();
+		Statement st = null;
+		ResultSet rs = null;
+		
+		try{
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			if(rs == null){
+				return 0;
+			}
+			
+			while(rs.next()){
+				count = rs.getInt(1);
+			}
+			
+			
+		}catch (Exception e){
+			e.printStackTrace();
+			return 0;
+				
+		}
+		return count;
+	}
+	
+	//获得相应任职类别教师数
+	public int getIDNum(int flag){
+		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
+		int count = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(distinct teaId) from "+tableName+" where "+Cond+" and ");
+		if(flag == 0){
+			sql.append(" idcode = 40000");
+		}else if(flag == 1){
+			sql.append(" idcode = 40001 or idcode = 40002");
+		}else if(flag == 2){
+			sql.append(" idcode = 40005 or idcode = 40006");
+		}else if(flag == 3){
+			sql.append(" idcode = 40007 or idcode = 40008");
+		}else if(flag == 4){
+			sql.append(" idcode = 40003 or idcode = 40004");
+		}else if(flag == 5){
+			sql.append(" idcode = 40010");
+		}
+		System.out.println(sql.toString());
+		Connection conn = DBConnection.instance.getConnection();
+		Statement st = null;
+		ResultSet rs = null;
+		
+		try{
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			if(rs == null){
+				return 0;
+			}
+			
+			while(rs.next()){
+				count = rs.getInt(1);
+			}
+			
+			
+		}catch (Exception e){
+			e.printStackTrace();
+			return 0;
+				
+		}
+		return count;
+		
+	}
+	
+	//获得教师数
+	public int getTotalNum(){
+		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
+		int count = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(distinct teaId)");
+		sql.append(" from " + tableName +" where "+Cond);
+		
+		Connection conn = DBConnection.instance.getConnection();
+		Statement st = null;
+		ResultSet rs = null;
+		
+		try{
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			if(rs == null){
+				return 0;
+			}
+			
+			while(rs.next()){
+				count = rs.getInt(1);
+			}
+			
+			
+		}catch (Exception e){
+			e.printStackTrace();
+			return 0;
+				
+		}
+		return count;
+	}
+	
+
+	
+	
 	
 	
 	/**

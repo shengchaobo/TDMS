@@ -15,9 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-
-
-import cn.nit.bean.other.UserRoleBean;
 import cn.nit.bean.table3.T311_Bean;
 import cn.nit.dao.table3.T311_DAO;
 import cn.nit.excel.imports.table3.T311Excel;
@@ -274,14 +271,6 @@ private T311_Service postDocStaSer = new T311_Service() ;
 		return ServletActionContext.getResponse() ;
 	}
 	
-	public UserRoleBean getUserinfo(){
-		return (UserRoleBean)getSession().getAttribute("userinfo") ;
-	}
-
-
-
-
-
 	public T311_Service getPostDocStaSer() {
 		return postDocStaSer;
 	}

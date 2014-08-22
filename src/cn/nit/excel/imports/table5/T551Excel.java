@@ -2,6 +2,7 @@ package cn.nit.excel.imports.table5;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -327,7 +328,7 @@ public class T551Excel {
         							ws.addCell(new Label(maplist.get(column).intValue(),i,"否",normalFormat));
         						}
         					}else if(type.endsWith("double")||type.endsWith("Double")){
-        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString(),normalFormat));
+        						ws.addCell(new Label(maplist.get(column).intValue(),i,(String) wrapper.getPropertyValue(column).toString()+"%",normalFormat));
         					}else{
         						throw new Exception("自行添加对应类型" + type) ;
         					}                       	                         	
@@ -359,13 +360,21 @@ public class T551Excel {
 		  return true;
 		 }
 	
+
+	//保留两位小数
+	public double m2(double n){
+		 BigDecimal bg = new BigDecimal(n);
+	     double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+//	     System.out.println(f1);
+	     return f1;
+	}
+	
 	
 	/**将带%的字符串转换成double类型*/
 	public double toDouble(String str){
 		String dou=str.substring(0,str.length()-1);
 	    double num1=Double.parseDouble(dou);
-	    double num2=num1/100;
-	    double num =(double)Math.round(num1)/100;
+	    double num =this.m2(num1);
 		return num;
 	}
 	

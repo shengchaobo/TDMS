@@ -9,7 +9,7 @@ public class S46_Bean {
 	private int FameTeaAward;
 	private int AdvanceTeaAward;
 	private int WorkAward;
-	private  int StuWordAward;
+	private int StuWordAward;
 	private int OutstdTeaAward;
 	private int OutWorkAward;
 	private int TeathAward;

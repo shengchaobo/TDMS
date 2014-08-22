@@ -41,13 +41,13 @@ function validate() {
 	var unitId = $('#unitId').combobox('getText');
 	var jonalName = $('#jonalName').val();
 	var jonalId = $('#jonalId').val();
-	var patentType = $('#patentType').val();
+	var patentType = $('#patentType').combobox('getText');
 	var appvlTime = $('#appvlTime').datetimebox('getValue');
 	var awardStuName = $('#awardStuName').val();
-	var awardStuNum = $('#awardStuNum').val();
+	var awardStuNum = $('#awardStuNum').numberbox('getValue');
 	var guideTeaName = $('#guideTeaName').val();
-	var guideTeaNum = $('#guideTeaNum').val();
-	var fillUnitID = $('#fillUnitID').val();
+	var guideTeaNum = $('#guideTeaNum').numberbox('getValue');
+//	var fillUnitID = $('#fillUnitID').val();
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
 
@@ -174,16 +174,16 @@ function editItem() {
 	$('#dlg').dialog('open').dialog('setTitle', '学习成果—学生获准专利情况');
 	$('#seqNumber').val(row[0].seqNumber);
 	$('#unitId').combobox('select', row[0].unitId);
-	$('#patentType').val(row[0].patentType);
+	$('#patentType').combobox('select', row[0].patentType);
 	$('#jonalName').val(row[0].jonalName);
 	$('#jonalId').val(row[0].jonalId);
 	$('#appvlTime').datebox("setValue", formattime(row[0].appvlTime)) ;
 	$('#awardStuName').val(row[0].awardStuName);
-	$('#awardStuNum').val(row[0].awardStuNum);
+	$('#awardStuNum').numberbox('setValue',row[0].awardStuNum);
 	$('#guideTeaName').val(row[0].guideTeaName);
-	$('#guideTeaNum').val(row[0].guideTeaNum);
+	$('#guideTeaNum').numberbox('setValue',row[0].guideTeaNum);
 
-	$('#fillUnitID').val(row[0].fillUnitID);
+//	$('#fillUnitID').val(row[0].fillUnitID);
 
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);

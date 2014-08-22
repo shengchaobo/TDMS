@@ -44,7 +44,7 @@
 					        { "name": "具有行业背景人数", "group": "5.双师型", "value": "", "field": "industryNum","editor":  false },
 					        { "name": "具有行业背景比例", "group": "5.双师型", "value": "", "field": "industryRatio", "editor":  false },
 					        { "name": "具有工程背景人数", "group": "5.双师型", "value": "","field": "engineerNum", "editor":  false},
-					        { "name": "具有工程背景比例",  "group": "5.双师型", "value": "", "field": "engineerRatio", "editor":  false},
+					        { "name": "具有工程背景比例",  "group": "5.双师型", "value": "", "field": "engineerRatio", "editor":  false}
 
 	                   ];
 				    							

@@ -215,6 +215,36 @@ public class DIUserManagerDAO {
 	}
 	
 	/**
+	 * 修改密码
+	 * @param ids
+	 * @return
+	 */
+	public boolean alertPassword(String teaID , String newPsd){
+		
+		int flag = 0 ;
+		String sql = "update " + tableName + " set TeaPasswd='" + MD5Util.encode(newPsd) + "' where TeaID = " + teaID;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		//System.out.println(sql);
+		try{
+			st = conn.createStatement() ;
+			flag = st.executeUpdate(sql) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}finally{
+			DBConnection.close(st) ;
+			DBConnection.close(conn) ;
+		}
+		
+		if(flag > 0){
+			return true ;
+		}else{
+			return false ;
+		}
+	}
+	
+	/**
 	 * 判断users表中是否已包含该用户
 	 */
 	public boolean hasUser(String userID){

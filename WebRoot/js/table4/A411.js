@@ -58,7 +58,7 @@
 					        { "name": "实验技术人员人数",  "group": "6.任职类别", "value": "", "field": "expTeaNum", "editor":  false},
 					        { "name": "实验技术人员比例", "group": "6.任职类别", "value": "", "field": "expTeaRatio","editor":  false },
 					        { "name": "其他人员人数", "group": "6.任职类别", "value": "", "field": "otherTeaNum","editor":  false },
-					        { "name": "其他人员比例", "group": "6.任职类别", "value": "", "field": "otherTeaRatio", "editor":  false },
+					        { "name": "其他人员比例", "group": "6.任职类别", "value": "", "field": "otherTeaRatio", "editor":  false }
 	                   ];
 				    							
 				$('#edit').propertygrid({

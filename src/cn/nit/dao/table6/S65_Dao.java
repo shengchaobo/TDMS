@@ -7,32 +7,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 import cn.nit.bean.table6.S65_Bean;
 import cn.nit.dbconnection.DBConnection;
+import cn.nit.util.DAOUtil;
 import cn.nit.util.TimeUtil;
 
 public class S65_Dao {
-	
+
 	/**  数据库表名  */
 	private String tableName="S65_StuAchievement";
 	/**  数据库表名 (本科生竞赛获奖) */
 	private String tableName1="T651_StuCompetiAwardInfo_TeaYLC$";
-	
+
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
-	
+
 	/**  数据库表中除了自增长字段的所有字段  */
 	private String field = "PaperNum,WorkNum,PatentNum,CET4,CET6,NCRE,JingxiNCRE,ConQualify,ConReach,InterConference," +
 			"SumDiscipAward,InterD,NationD,ProviD,CityD,SchD,SumActAward,InterA,NationA,ProviA,CityA," +
 			"SchA,SumLiterSportAward,InterLS,NationLS,ProviLS,CityLS,SchLS,Time,Note";
-//	
+//
 //	/**  被统计数据库表名  */
 //	private String tableName1="T511_UndergraCSBase_Tea$";
-//	
+//
 //	/**  被统计数据库表中所有字段  */
 //	private String field1="CSType,CSNature";
 
-	/**统计T651表中的获奖数据*/
+
+	/**统计T651 表中的获奖数据*/
+
 	public List<S65_Bean> getStuAward(String year){
 		List<S65_Bean> list= new ArrayList<S65_Bean>();
 		StringBuffer sql = new StringBuffer();
@@ -63,12 +67,12 @@ public class S65_Dao {
 //		sql.append(" left join T651_StuCompetiAwardInfo_TeaYLC$ on DiAwardLevel.IndexID = T651_StuCompetiAwardInfo_TeaYLC$.AwardLevel");
 //		sql.append("  T651_StuCompetiAwardInfo_TeaYLC$ on DiContestLevel.IndexID = T651_StuCompetiAwardInfo_TeaYLC$.CompetiType ");
 //		sql.append(" where convert(varchar(4),T651_StuCompetiAwardInfo_TeaYLC$.Time,120) = "  +  year);
-		
+
 //		System.out.println(sql.toString());
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		
+
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
@@ -85,7 +89,7 @@ public class S65_Dao {
 					int CityD = rs.getInt("CityD");  bean.setCityD(CityD);
 					System.out.println(CityD);
 					int SchD = rs.getInt("SchD");  bean.setSchD(SchD);
-					
+
 					int SumActAward = rs.getInt("SumActAward");  bean.setSumActAward(SumActAward);
 					int InterA = rs.getInt("InterA");  bean.setInterA(InterA);
 					int NationA = rs.getInt("NationA");  bean.setNationA(NationA);
@@ -93,7 +97,7 @@ public class S65_Dao {
 					int CityA = rs.getInt("CityA");  bean.setCityA(CityA);
 					int SchA= rs.getInt("SchA");  bean.setSchA(SchA);
 //					int SumActAward =InterA+NationA+ProviA+CityA+SchA;  bean.setSumDiscipAward(SumActAward);
-					
+
 					int SumLiterSportAward = rs.getInt("SumLiterSportAward");  bean.setSumLiterSportAward( SumLiterSportAward);
 					int InterLS = rs.getInt("InterLS");  bean.setInterLS(InterLS);
 					int NationLS = rs.getInt("NationLS");  bean.setNationLS(NationLS);
@@ -110,112 +114,116 @@ public class S65_Dao {
 		}
 		return list;
 	}
-	
-	/**T652学生发表论文数*/
-	public int getPaper(String year){
-		int PaperNum = 0;
-		StringBuffer sql = new StringBuffer();
-		sql.append(" select count(*) AS PaperNum from T652_StuPublishPaper_TeaYLC$");
-		sql.append(" where convert(varchar(4),T652_StuPublishPaper_TeaYLC$.Time,120) =" + year);
-		Connection conn=DBConnection.instance.getConnection();
-		Statement st=null;
-		ResultSet rs=null;
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * 显示数据
+	 * @param conditions 查询条件
+	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
+	 * @return
+	 */
+	public S65_Bean getYearInfo(String year){
+
+		StringBuffer sql = new StringBuffer() ;
+		List<S65_Bean> list=null;
+		S65_Bean bean=null;
+
+		sql.append("select * from "+ tableName);
+		sql.append(" where convert(varchar(4),Time,120)=" + year);
+
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+//		System.out.println(sql.toString());
+
 		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql.toString());
-			while(rs.next()){
-				PaperNum = rs.getInt("PaperNum");
+			st = conn.createStatement() ;
+//			ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY
+//			st.setMaxRows(1) ;
+			rs = st.executeQuery(sql.toString()) ;
+//			rs.absolute((page - 1) * rows) ;
+			list = DAOUtil.getList(rs, S65_Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
 			}
-			
 		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			DBConnection.close(conn);
+			e.printStackTrace() ;
+			return null ;
 		}
-		
-		return PaperNum;
+		return bean ;
 	}
 
-	/**T653学生发表作品数*/
-	public int getWork(String year){
-		int WorkNum = 0;
-		StringBuffer sql = new StringBuffer();
-		sql.append(" select count(*) AS WorkNum from T653_StuPublishWord_TeaYLC$");
-		sql.append(" where convert(varchar(4),T653_StuPublishWord_TeaYLC$.Time,120) =" + year);
-		Connection conn=DBConnection.instance.getConnection();
-		Statement st=null;
-		ResultSet rs=null;
-		
-		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql.toString());
-			while(rs.next()){
-				WorkNum = rs.getInt("WorkNum");
+	public boolean save(S65_Bean bean, String year){
+
+			String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+			boolean flag = false;
+			Connection conn = DBConnection.instance.getConnection() ;
+
+			Statement st = null ;
+			ResultSet rs = null ;
+			List<S65_Bean> list = null ;
+			S65_Bean tempBean = null;
+			try{
+				st = conn.createStatement() ;
+				rs = st.executeQuery(sql) ;
+				list = DAOUtil.getList(rs, S65_Bean.class) ;
+				if(list.size() != 0){
+					tempBean = list.get(0);
+					bean.setSeqNumber(tempBean.getSeqNumber());
+					String tempfields = "PaperNum,WorkNum,PatentNum,CET4,CET6,NCRE,JingxiNCRE,ConQualify,ConReach,InterConference," +
+							"SumDiscipAward,InterD,NationD,ProviD,CityD,SchD,SumActAward,InterA,NationA,ProviA,CityA," +
+							"SchA,SumLiterSportAward,InterLS,NationLS,ProviLS,CityLS,SchLS";
+					flag = DAOUtil.update(bean, tableName, key, tempfields, conn) ;
+				}else{
+					bean.setTime(TimeUtil.changeDateY(year));
+					String tempfields = "PaperNum,WorkNum,PatentNum,CET4,CET6,NCRE,JingxiNCRE,ConQualify,ConReach,InterConference," +
+							"SumDiscipAward,InterD,NationD,ProviD,CityD,SchD,SumActAward,InterA,NationA,ProviA,CityA," +
+							"SchA,SumLiterSportAward,InterLS,NationLS,ProviLS,CityLS,SchLS,Time";
+					flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
+				}
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return false ;
+			}finally{
+				DBConnection.close(conn);
+				DBConnection.close(rs);
+				DBConnection.close(st);
 			}
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			DBConnection.close(conn);
+
+			return flag ;
 		}
-		
-		return WorkNum;
-	}
-	
-	/**T653学生专利数*/
-	public int getPatent(String year){
-		int PatentNum = 0;
-		StringBuffer sql = new StringBuffer();
-		sql.append(" select count(*) AS PatentNum from T654_StuAwardPatent_TeaYLC$");
-		sql.append(" where convert(varchar(4),T654_StuAwardPatent_TeaYLC$.Time,120) =" + year);
-		Connection conn=DBConnection.instance.getConnection();
-		Statement st=null;
-		ResultSet rs=null;
-		
-		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql.toString());
-			while(rs.next()){
-				PatentNum = rs.getInt("PatentNum");
-			}
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			DBConnection.close(conn);
-		}
-		
-		return PatentNum;
-	}
-	
-	/**T658参加国际会议学生人数*/
-	public int getInterConference(String year){
-		int InterConference = 0;
-		StringBuffer sql = new StringBuffer();
-		sql.append(" select sum(AwardStuNum) AS InterConference from T658_InInterConference_TeaInter$");
-		sql.append(" where convert(varchar(4),T658_InInterConference_TeaInter$.Time,120) =" + year);
-		Connection conn=DBConnection.instance.getConnection();
-		Statement st=null;
-		ResultSet rs=null;
-		
-		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql.toString());
-			while(rs.next()){
-				InterConference = rs.getInt("InterConference");
-			}
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			DBConnection.close(conn);
-		}
-		
+
+
+
+	public static void main(String arg[]){
+//		S65_Dao dao=new S65_Dao();
+
+
 		return InterConference;
 	}
-	
-	
+
+
 	public static void main(String arg[]){
 		S65_Dao dao=new S65_Dao();
 		/**测试getStuAward*/
@@ -232,18 +240,18 @@ public class S65_Dao {
 		/**测试论文数*/
 //		int paperNum = dao.getPaper("2010");
 //		System.out.println(paperNum);
-		
+
 		/**测试作品数*/
 //		int workNum = dao.getPaper("2008");
 //		System.out.println(workNum);
-		
+
 		/**测试专利数*/
 //		int patentNum = dao.getPatent("2014");
 //		System.out.println(patentNum);
-		
+
 		/**测试参加会议人数*/
 		int conferStuNum = dao.getInterConference("2010");
 		System.out.println(conferStuNum);
 	}
-	
+
 }

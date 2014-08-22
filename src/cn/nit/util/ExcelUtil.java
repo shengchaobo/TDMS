@@ -137,7 +137,7 @@ public class ExcelUtil {
                      * 其中i为列、0为行、columns[i]为数据、wcf为样式 
                      * 合起来就是说将columns[i]添加到第一行(行、列下标都是从0开始)第i列、样式为什么"色"内容居中 
                      */  
-                    ws.addCell(new Label(i, 0, columns.get(i), wcf));  
+                    ws.addCell(new Label(i, 2, columns.get(i), wcf));  
                 }  
             }
   

@@ -1,171 +1,53 @@
-﻿0.登录输入为英文字母时，自动删除了，一直以为是病毒。
+﻿0.登录输入为英文字母时，页面会自动将其删除，一直以为是病毒。
 
 1.表6“导入”按钮改为“模版导入”
 
-2.表7-3-1，数据录入保存，提示录入成功后，并没有添加数据，后台报错：
-
-2014-07-09 15:07:29[WARN]ognl.MethodFailedException: Method "setAttendClassTime" failed for object cn.nit.bean.table7.T732_Bean@1708ac2 [java.lang.NoSuchMethodException: cn.nit.bean.table7.T732_Bean.setAttendClassTime([Ljava.lang.String;)]
-	at ognl.OgnlRuntime.callAppropriateMethod(OgnlRuntime.java:1265)
-	at ognl.OgnlRuntime.setMethodValue(OgnlRuntime.java:1454)
-	at ognl.ObjectPropertyAccessor.setPossibleProperty(ObjectPropertyAccessor.java:85)
-	at ognl.ObjectPropertyAccessor.setProperty(ObjectPropertyAccessor.java:162)
-	at com.opensymphony.xwork2.ognl.accessor.ObjectAccessor.setProperty(ObjectAccessor.java:28)
-	at ognl.OgnlRuntime.setProperty(OgnlRuntime.java:2225)
-	at ognl.ASTProperty.setValueBody(ASTProperty.java:127)
-	at ognl.SimpleNode.evaluateSetValueBody(SimpleNode.java:220)
-	at ognl.SimpleNode.setValue(SimpleNode.java:301)
-	at ognl.ASTChain.setValueBody(ASTChain.java:227)
-	at ognl.SimpleNode.evaluateSetValueBody(SimpleNode.java:220)
-	at ognl.SimpleNode.setValue(SimpleNode.java:301)
-	at ognl.Ognl.setValue(Ognl.java:737)
-	at com.opensymphony.xwork2.ognl.OgnlUtil.setValue(OgnlUtil.java:198)
-	at com.opensymphony.xwork2.ognl.OgnlValueStack.setValue(OgnlValueStack.java:161)
-	at com.opensymphony.xwork2.ognl.OgnlValueStack.setValue(OgnlValueStack.java:149)
-	at com.opensymphony.xwork2.interceptor.ParametersInterceptor.setParameters(ParametersInterceptor.java:276)
-	at com.opensymphony.xwork2.interceptor.ParametersInterceptor.doIntercept(ParametersInterceptor.java:187)
-	at com.opensymphony.xwork2.interceptor.MethodFilterInterceptor.intercept(MethodFilterInterceptor.java:87)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.ParametersInterceptor.doIntercept(ParametersInterceptor.java:195)
-	at com.opensymphony.xwork2.interceptor.MethodFilterInterceptor.intercept(MethodFilterInterceptor.java:87)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.StaticParametersInterceptor.intercept(StaticParametersInterceptor.java:179)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.interceptor.MultiselectInterceptor.intercept(MultiselectInterceptor.java:75)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.interceptor.CheckboxInterceptor.intercept(CheckboxInterceptor.java:94)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.interceptor.FileUploadInterceptor.intercept(FileUploadInterceptor.java:235)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.ModelDrivenInterceptor.intercept(ModelDrivenInterceptor.java:89)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.ScopedModelDrivenInterceptor.intercept(ScopedModelDrivenInterceptor.java:130)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.interceptor.debugging.DebuggingInterceptor.intercept(DebuggingInterceptor.java:267)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.ChainingInterceptor.intercept(ChainingInterceptor.java:126)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.PrepareInterceptor.doIntercept(PrepareInterceptor.java:138)
-	at com.opensymphony.xwork2.interceptor.MethodFilterInterceptor.intercept(MethodFilterInterceptor.java:87)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.I18nInterceptor.intercept(I18nInterceptor.java:165)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.interceptor.ServletConfigInterceptor.intercept(ServletConfigInterceptor.java:164)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.AliasInterceptor.intercept(AliasInterceptor.java:179)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.ExceptionMappingInterceptor.intercept(ExceptionMappingInterceptor.java:176)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.impl.StrutsActionProxy.execute(StrutsActionProxy.java:52)
-	at org.apache.struts2.dispatcher.Dispatcher.serviceAction(Dispatcher.java:488)
-	at org.apache.struts2.dispatcher.ng.ExecuteOperations.executeAction(ExecuteOperations.java:77)
-	at org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.doFilter(StrutsPrepareAndExecuteFilter.java:91)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
-	at cn.nit.util.EncodingFilter.doFilter(EncodingFilter.java:60)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
-	at cn.nit.util.LoginFilter.doFilter(LoginFilter.java:37)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
-	at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:879)
-	at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:617)
-	at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1760)
-	at java.lang.Thread.run(Thread.java:619)
-Caused by: java.lang.NoSuchMethodException: cn.nit.bean.table7.T732_Bean.setAttendClassTime([Ljava.lang.String;)
-	at ognl.OgnlRuntime.callAppropriateMethod(OgnlRuntime.java:1206)
-	... 71 more
-/-- Encapsulated exception ------------\
-java.lang.NoSuchMethodException: cn.nit.bean.table7.T732_Bean.setAttendClassTime([Ljava.lang.String;)
-	at ognl.OgnlRuntime.callAppropriateMethod(OgnlRuntime.java:1206)
-	at ognl.OgnlRuntime.setMethodValue(OgnlRuntime.java:1454)
-	at ognl.ObjectPropertyAccessor.setPossibleProperty(ObjectPropertyAccessor.java:85)
-	at ognl.ObjectPropertyAccessor.setProperty(ObjectPropertyAccessor.java:162)
-	at com.opensymphony.xwork2.ognl.accessor.ObjectAccessor.setProperty(ObjectAccessor.java:28)
-	at ognl.OgnlRuntime.setProperty(OgnlRuntime.java:2225)
-	at ognl.ASTProperty.setValueBody(ASTProperty.java:127)
-	at ognl.SimpleNode.evaluateSetValueBody(SimpleNode.java:220)
-	at ognl.SimpleNode.setValue(SimpleNode.java:301)
-	at ognl.ASTChain.setValueBody(ASTChain.java:227)
-	at ognl.SimpleNode.evaluateSetValueBody(SimpleNode.java:220)
-	at ognl.SimpleNode.setValue(SimpleNode.java:301)
-	at ognl.Ognl.setValue(Ognl.java:737)
-	at com.opensymphony.xwork2.ognl.OgnlUtil.setValue(OgnlUtil.java:198)
-	at com.opensymphony.xwork2.ognl.OgnlValueStack.setValue(OgnlValueStack.java:161)
-	at com.opensymphony.xwork2.ognl.OgnlValueStack.setValue(OgnlValueStack.java:149)
-	at com.opensymphony.xwork2.interceptor.ParametersInterceptor.setParameters(ParametersInterceptor.java:276)
-	at com.opensymphony.xwork2.interceptor.ParametersInterceptor.doIntercept(ParametersInterceptor.java:187)
-	at com.opensymphony.xwork2.interceptor.MethodFilterInterceptor.intercept(MethodFilterInterceptor.java:87)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.ParametersInterceptor.doIntercept(ParametersInterceptor.java:195)
-	at com.opensymphony.xwork2.interceptor.MethodFilterInterceptor.intercept(MethodFilterInterceptor.java:87)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.StaticParametersInterceptor.intercept(StaticParametersInterceptor.java:179)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.interceptor.MultiselectInterceptor.intercept(MultiselectInterceptor.java:75)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.interceptor.CheckboxInterceptor.intercept(CheckboxInterceptor.java:94)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.interceptor.FileUploadInterceptor.intercept(FileUploadInterceptor.java:235)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.ModelDrivenInterceptor.intercept(ModelDrivenInterceptor.java:89)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.ScopedModelDrivenInterceptor.intercept(ScopedModelDrivenInterceptor.java:130)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.interceptor.debugging.DebuggingInterceptor.intercept(DebuggingInterceptor.java:267)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.ChainingInterceptor.intercept(ChainingInterceptor.java:126)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.PrepareInterceptor.doIntercept(PrepareInterceptor.java:138)
-	at com.opensymphony.xwork2.interceptor.MethodFilterInterceptor.intercept(MethodFilterInterceptor.java:87)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.I18nInterceptor.intercept(I18nInterceptor.java:165)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.interceptor.ServletConfigInterceptor.intercept(ServletConfigInterceptor.java:164)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.AliasInterceptor.intercept(AliasInterceptor.java:179)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at com.opensymphony.xwork2.interceptor.ExceptionMappingInterceptor.intercept(ExceptionMappingInterceptor.java:176)
-	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
-	at org.apache.struts2.impl.StrutsActionProxy.execute(StrutsActionProxy.java:52)
-	at org.apache.struts2.dispatcher.Dispatcher.serviceAction(Dispatcher.java:488)
-	at org.apache.struts2.dispatcher.ng.ExecuteOperations.executeAction(ExecuteOperations.java:77)
-	at org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.doFilter(StrutsPrepareAndExecuteFilter.java:91)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
-	at cn.nit.util.EncodingFilter.doFilter(EncodingFilter.java:60)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
-	at cn.nit.util.LoginFilter.doFilter(LoginFilter.java:37)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
-	at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:879)
-	at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:617)
-	at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1760)
-	at java.lang.Thread.run(Thread.java:619)
-\--------------------------------------/
-
+2. 表6年份显示那里，输入应当变成disable
 
 3.序号大小排序
 
-4.文件上传下载功能没有.
+4.文件上传下载，应当有删除功能
 
-5.如果浏览器之前不是最大化的，及时后来换成最大化，框架里面的东西不会相应调整大小（有截图）
+5.点击上传文件，如果没有选择文件而点击上传，就会报错
 
-Warning:  Cannot merge cells - top left and bottom right incorrectly specified
+6.角色查询，输入编号直接回车的功能会刷新页面，是不是应该禁止回车？
 
-6.表4-5-2，添加时，录入非法数据会提示录入失败，不够友好。
+如果查询不到结果，最好能提示一下没有查询结果。
+
+7.用户管理，添加用户，输入数据库不存在的教工号，会出现两种提示：（1）该用户已存在；（2）教工号为空或者不存在。
+
+还存在教工号不存在，但是可以成功添加的情况。
+
+8.权限管理，父目录选中后，下面的文件应当默认选中，或者不显示目录内容亦可。
+
+9.用户管理，只有25条记录，但右下角显示有26条记录。
+
+11.打开时不是最大化，之后浏览器最大化，框架本身也无法最大化。
+
+12.表6-1-6，打开时弹出“222”。
+
+13.表6打开速度比较慢。看后台输出，似乎是查询语句过多造成的。
+
+14.表1-7第一栏多了数据导出按钮。
+
+15.IE8、IE9 查询不在toolbar上面
+
+16.表3添加功能，“批量导入”字样修改为“模版导入”。
+
+17.表2排序，表2-10应在表2-9之后
+
+18.导出按钮的位置不统一
+
+19.表3编辑，没有保存功能。
+
+20.录入数据检测是否非法
+（1）数字与字符
+（2）教工号
+（3）开始时间、结束时间的逻辑先后
+
+21.批量导入下面的横线颜色不对
+
+22.表4-5-2，添加时，录入非法数据会提示录入失败，不够友好。
 
 举例说明：如果开始日期比结束日期晚，如7.3开始，7.1结束，点击保存，提示录入失败，后台报错：
 
@@ -410,13 +292,86 @@ com.microsoft.sqlserver.jdbc.SQLServerException: INSERT 语句与 FOREIGN KEY �
 	at java.lang.Thread.run(Thread.java:619)
 
 
-7.表2排序，表2-10应在表2-9之后
 
-8.导出时，表格的名称还是乱码
 
-9.导出按钮的位置不统一
+23.表3-1-2 添加数据保存时，后台报错
 
-10.表3-1-2 添加数据保存时，后台报错
+Method "setSeqNumber" failed for object cn.nit.bean.table3.T33_Bean@1dc85da [java.lang.NoSuchMethodException: cn.nit.bean.table3.T33_Bean.setSeqNumber([Ljava.lang.String;)]
+	at ognl.OgnlRuntime.callAppropriateMethod(OgnlRuntime.java:1265)
+	at ognl.OgnlRuntime.setMethodValue(OgnlRuntime.java:1454)
+	at ognl.ObjectPropertyAccessor.setPossibleProperty(ObjectPropertyAccessor.java:85)
+	at ognl.ObjectPropertyAccessor.setProperty(ObjectPropertyAccessor.java:162)
+	at com.opensymphony.xwork2.ognl.accessor.ObjectAccessor.setProperty(ObjectAccessor.java:28)
+	at ognl.OgnlRuntime.setProperty(OgnlRuntime.java:2225)
+	at ognl.ASTProperty.setValueBody(ASTProperty.java:127)
+	at ognl.SimpleNode.evaluateSetValueBody(SimpleNode.java:220)
+	at ognl.SimpleNode.setValue(SimpleNode.java:301)
+	at ognl.ASTChain.setValueBody(ASTChain.java:227)
+	at ognl.SimpleNode.evaluateSetValueBody(SimpleNode.java:220)
+	at ognl.SimpleNode.setValue(SimpleNode.java:301)
+	at ognl.Ognl.setValue(Ognl.java:737)
+	at com.opensymphony.xwork2.ognl.OgnlUtil.setValue(OgnlUtil.java:198)
+	at com.opensymphony.xwork2.ognl.OgnlValueStack.setValue(OgnlValueStack.java:161)
+	at com.opensymphony.xwork2.ognl.OgnlValueStack.setValue(OgnlValueStack.java:149)
+	at com.opensymphony.xwork2.interceptor.ParametersInterceptor.setParameters(ParametersInterceptor.java:276)
+	at com.opensymphony.xwork2.interceptor.ParametersInterceptor.doIntercept(ParametersInterceptor.java:187)
+	at com.opensymphony.xwork2.interceptor.MethodFilterInterceptor.intercept(MethodFilterInterceptor.java:87)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at com.opensymphony.xwork2.interceptor.ParametersInterceptor.doIntercept(ParametersInterceptor.java:195)
+	at com.opensymphony.xwork2.interceptor.MethodFilterInterceptor.intercept(MethodFilterInterceptor.java:87)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at com.opensymphony.xwork2.interceptor.StaticParametersInterceptor.intercept(StaticParametersInterceptor.java:179)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at org.apache.struts2.interceptor.MultiselectInterceptor.intercept(MultiselectInterceptor.java:75)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at org.apache.struts2.interceptor.CheckboxInterceptor.intercept(CheckboxInterceptor.java:94)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at org.apache.struts2.interceptor.FileUploadInterceptor.intercept(FileUploadInterceptor.java:235)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at com.opensymphony.xwork2.interceptor.ModelDrivenInterceptor.intercept(ModelDrivenInterceptor.java:89)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at com.opensymphony.xwork2.interceptor.ScopedModelDrivenInterceptor.intercept(ScopedModelDrivenInterceptor.java:130)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at org.apache.struts2.interceptor.debugging.DebuggingInterceptor.intercept(DebuggingInterceptor.java:267)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at com.opensymphony.xwork2.interceptor.ChainingInterceptor.intercept(ChainingInterceptor.java:126)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at com.opensymphony.xwork2.interceptor.PrepareInterceptor.doIntercept(PrepareInterceptor.java:138)
+	at com.opensymphony.xwork2.interceptor.MethodFilterInterceptor.intercept(MethodFilterInterceptor.java:87)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at com.opensymphony.xwork2.interceptor.I18nInterceptor.intercept(I18nInterceptor.java:165)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at org.apache.struts2.interceptor.ServletConfigInterceptor.intercept(ServletConfigInterceptor.java:164)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at com.opensymphony.xwork2.interceptor.AliasInterceptor.intercept(AliasInterceptor.java:179)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at com.opensymphony.xwork2.interceptor.ExceptionMappingInterceptor.intercept(ExceptionMappingInterceptor.java:176)
+	at com.opensymphony.xwork2.DefaultActionInvocation.invoke(DefaultActionInvocation.java:237)
+	at org.apache.struts2.impl.StrutsActionProxy.execute(StrutsActionProxy.java:52)
+	at org.apache.struts2.dispatcher.Dispatcher.serviceAction(Dispatcher.java:488)
+	at org.apache.struts2.dispatcher.ng.ExecuteOperations.executeAction(ExecuteOperations.java:77)
+	at org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.doFilter(StrutsPrepareAndExecuteFilter.java:91)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at cn.nit.util.EncodingFilter.doFilter(EncodingFilter.java:60)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at cn.nit.util.LoginFilter.doFilter(LoginFilter.java:37)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:879)
+	at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:617)
+	at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1760)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.NoSuchMethodException: cn.nit.bean.table3.T33_Bean.setSeqNumber([Ljava.lang.String;)
+	at ognl.OgnlRuntime.callAppropriateMethod(OgnlRuntime.java:1206)
+	... 71 more
 
 2014-07-06 16:15:29[WARN]ognl.OgnlException: target is null for setProperty(null, "SeqNumber", [Ljava.lang.String;@cd117a)
 	at ognl.OgnlRuntime.setProperty(OgnlRuntime.java:2219)
@@ -487,20 +442,56 @@ com.microsoft.sqlserver.jdbc.SQLServerException: INSERT 语句与 FOREIGN KEY �
 	at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1760)
 	at java.lang.Thread.run(Thread.java:619)
 
-11.表3编辑功能，动作应当是update，但实际做的动作是insert
+表3-1-1，表3-1-2，表3-1-3，表3-2-2，表3-2-1，打开时后台报错：
+2014-08-22 18:55:28[ERROR]There is no Action mapped for namespace / and action name verifiedData. - [unknown location]
+	at com.opensymphony.xwork2.DefaultActionProxy.prepare(DefaultActionProxy.java:178)
+	at org.apache.struts2.impl.StrutsActionProxy.prepare(StrutsActionProxy.java:61)
+	at org.apache.struts2.impl.StrutsActionProxyFactory.createActionProxy(StrutsActionProxyFactory.java:39)
+	at com.opensymphony.xwork2.DefaultActionProxyFactory.createActionProxy(DefaultActionProxyFactory.java:47)
+	at org.apache.struts2.dispatcher.Dispatcher.serviceAction(Dispatcher.java:478)
+	at org.apache.struts2.dispatcher.ng.ExecuteOperations.executeAction(ExecuteOperations.java:77)
+	at org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.doFilter(StrutsPrepareAndExecuteFilter.java:91)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at cn.nit.util.EncodingFilter.doFilter(EncodingFilter.java:60)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:879)
+	at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:617)
+	at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1760)
+	at java.lang.Thread.run(Thread.java:619)
+2014-08-22 18:55:28[ERROR]There is no Action mapped for namespace / and action name verifiedData. - [unknown location]
+	at com.opensymphony.xwork2.DefaultActionProxy.prepare(DefaultActionProxy.java:178)
+	at org.apache.struts2.impl.StrutsActionProxy.prepare(StrutsActionProxy.java:61)
+	at org.apache.struts2.impl.StrutsActionProxyFactory.createActionProxy(StrutsActionProxyFactory.java:39)
+	at com.opensymphony.xwork2.DefaultActionProxyFactory.createActionProxy(DefaultActionProxyFactory.java:47)
+	at org.apache.struts2.dispatcher.Dispatcher.serviceAction(Dispatcher.java:478)
+	at org.apache.struts2.dispatcher.ng.ExecuteOperations.executeAction(ExecuteOperations.java:77)
+	at org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.doFilter(StrutsPrepareAndExecuteFilter.java:91)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at cn.nit.util.EncodingFilter.doFilter(EncodingFilter.java:60)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:879)
+	at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:617)
+	at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1760)
+	at java.lang.Thread.run(Thread.java:619)
 
-12.表3-1-2、表3-3多了一个数据导出按钮
 
-13.录入数据检测是否非法
-（1）数字与字符
-（2）教工号
-（3）开始时间、结束时间的逻辑先后
-
-14.表4-5-2，添加，下拉列表没有做判断
-
-15.批量导入下面的横线颜色不对
-
-16.表6-2-4 录入失败
+24.表6-2-4 录入失败
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 com.microsoft.sqlserver.jdbc.SQLServerException: INSERT 语句与 FOREIGN KEY 约束"FK_T624_JuniorAdmisInfo_Admission$_DiMajorOne"冲突。该冲突发生于数据库"TDMS"，表"dbo.DiMajorOne", column 'MajorNum'。
@@ -591,11 +582,34 @@ com.microsoft.sqlserver.jdbc.SQLServerException: INSERT 语句与 FOREIGN KEY �
 	at java.lang.Thread.run(Thread.java:619)
 
 
-17.IE8、IE9 
-查询不在toolbar上面
 
-18.表3编辑是单条编辑，不应该出现批量导入部分
 
-19.表3添加功能，“批量导入”字样重复，去掉；“导入”按钮改为“模版导入”。备注栏的位置。
 
-20.表3的查询窗口要靠右对齐
+25.点击数据检索，后台报错
+
+2014-08-22 17:06:22[ERROR]There is no Action mapped for namespace / and action name loadTableName. - [unknown location]
+	at com.opensymphony.xwork2.DefaultActionProxy.prepare(DefaultActionProxy.java:178)
+	at org.apache.struts2.impl.StrutsActionProxy.prepare(StrutsActionProxy.java:61)
+	at org.apache.struts2.impl.StrutsActionProxyFactory.createActionProxy(StrutsActionProxyFactory.java:39)
+	at com.opensymphony.xwork2.DefaultActionProxyFactory.createActionProxy(DefaultActionProxyFactory.java:47)
+	at org.apache.struts2.dispatcher.Dispatcher.serviceAction(Dispatcher.java:478)
+	at org.apache.struts2.dispatcher.ng.ExecuteOperations.executeAction(ExecuteOperations.java:77)
+	at org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.doFilter(StrutsPrepareAndExecuteFilter.java:91)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at cn.nit.util.EncodingFilter.doFilter(EncodingFilter.java:60)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at cn.nit.util.LoginFilter.doFilter(LoginFilter.java:37)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:879)
+	at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:617)
+	at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1760)
+	at java.lang.Thread.run(Thread.java:619)

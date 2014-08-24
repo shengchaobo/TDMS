@@ -204,7 +204,7 @@ public class T654_Excel {
 		flag = T654_services.batchInsert(list);
 
 		if (flag) {
-			return null;
+			return "数据存储成功！";
 		} else {
 			return "数据存储失败，请联系管理员";
 		}

@@ -115,28 +115,6 @@ public class S65_Dao {
 		return list;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * 显示数据
 	 * @param conditions 查询条件
@@ -216,16 +194,17 @@ public class S65_Dao {
 
 
 
-	public static void main(String arg[]){
-//		S65_Dao dao=new S65_Dao();
-
-
-		return InterConference;
-	}
+//	public static void main(String arg[]){
+////		S65_Dao dao=new S65_Dao();
+//
+//
+//		return InterConference;
+//	}
 
 
 	public static void main(String arg[]){
 		S65_Dao dao=new S65_Dao();
+		List<S65_Bean> list  = dao.getStuAward("2014");
 		/**测试getStuAward*/
 //		List<S65_Bean> list = dao.getStuAward("2010");
 //		System.out.println("siza:"+list.size());
@@ -249,9 +228,9 @@ public class S65_Dao {
 //		int patentNum = dao.getPatent("2014");
 //		System.out.println(patentNum);
 
-		/**测试参加会议人数*/
-		int conferStuNum = dao.getInterConference("2010");
-		System.out.println(conferStuNum);
+//		/**测试参加会议人数*/
+//		int conferStuNum = dao.getInterConference("2010");
+//		System.out.println(conferStuNum);
 	}
 
 }

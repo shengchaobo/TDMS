@@ -133,25 +133,40 @@ public class T659_Excel {
 				if (exchangeStuSum == null || exchangeStuSum.equals("")) {
 					return "第" + count + "行，交流学生总数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(exchangeStuSum)){
+					return "第" + count + "行，交流学生总数只能填数字";
+				}
 
 				String fromSchToOverseas = cell[4].getContents();
 				if (fromSchToOverseas == null || fromSchToOverseas.equals("")) {
 					return "第" + count + "行，本校到境外不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(fromSchToOverseas)){
+					return "第" + count + "行，本校到境外数只能填数字";
 				}
 				
 				String fromSchToDomestic = cell[5].getContents();
 				if (fromSchToDomestic == null || fromSchToDomestic.equals("")) {
 					return "第" + count + "行，本校到境内不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(fromSchToDomestic)){
+					return "第" + count + "行，交本校到境内数只能填数字";
+				}
 				
 				String fromDomesticToSch = cell[6].getContents();
 				if (fromDomesticToSch == null || fromDomesticToSch.equals("")) {
 					return "第" + count + "行，境内到本校不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(fromDomesticToSch)){
+					return "第" + count + "行，境内到本校数只能填数字";
+				}
 				
 				String fromOverseasToSch = cell[7].getContents();
 				if (fromOverseasToSch == null || fromOverseasToSch.equals("")) {
 					return "第" + count + "行，境外到本校不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(fromOverseasToSch)){
+					return "第" + count + "行，境外到本校数只能填数字";
 				}
 				
 				count++;
@@ -182,9 +197,19 @@ public class T659_Excel {
 		flag = T659_services.batchInsert(list);
 
 		if (flag) {
-			return null;
+			return "数据存储成功";
 		} else {
 			return "数据存储失败，请联系管理员";
 		}
 	}
+	
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
 }

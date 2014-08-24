@@ -163,7 +163,7 @@ public class T656_Excel {
 		flag = T656_services.batchInsert(list);
 
 		if (flag) {
-			return null;
+			return "数据存储成功！";
 		} else {
 			return "数据存储失败，请联系管理员";
 		}
@@ -205,6 +205,7 @@ public class T656_Excel {
 	        		     jxl.format.Colour.BLACK);
             ws.setRowView(1, 500);
 
+            ws.addCell(new Label(0, 0, sheetName, wcf)); 
             //判断一下表头数组是否有数据  
             if (columns != null && columns.size() > 0) {  
   
@@ -220,7 +221,7 @@ public class T656_Excel {
                      * 其中i为列、0为行、columns[i]为数据、wcf为样式 
                      * 合起来就是说将columns[i]添加到第一行(行、列下标都是从0开始)第i列、样式为什么"色"内容居中 
                      */  
-                    ws.addCell(new Label(i, 0, columns.get(i), wcf));  
+                    ws.addCell(new Label(i, 2, columns.get(i), wcf));  
                 }  
             }
   
@@ -228,7 +229,7 @@ public class T656_Excel {
             if (list != null && list.size() > 0) {  
                     //循环写入表中数据  
                 	BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
-                	int i=1;  
+                	int i=3;  
                 	for(Object obj : list){  
                 		wrapper.setWrappedInstance(obj) ;  
                         //循环输出map中的子集：既列值                         

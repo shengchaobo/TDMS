@@ -64,7 +64,7 @@ public class ExcelUtil {
 			list.add(cell) ;
 
 		}
-
+         System.out.println(list.size());
 		return list ;
 
 	}

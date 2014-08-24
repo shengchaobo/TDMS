@@ -255,6 +255,31 @@ public class T658_Dao {
 		
 		return list ;
 	}
+	
+	public int getInterConference(String year){
+		int InterConference = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select sum(AwardStuNum) AS InterConference from T658_InInterConference_TeaInter$");
+		sql.append(" where convert(varchar(4),T658_InInterConference_TeaInter$.Time,120) =" + year);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				InterConference = rs.getInt("InterConference");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBConnection.close(conn);
+		}
+		
+		return InterConference;
+	}
 
 	public static void main(String args[]) {
 

@@ -151,35 +151,57 @@ public class T621_Excel {
 				if (amisPlanNum == null || amisPlanNum.equals("")) {
 					return "第" + count + "行，招生计划数不能为空";
 				}
+				if(!this.isNumeric(amisPlanNum)){
+					return "第" + count + "行，招生计划数只能填数字";
+				}
 
 				String actulEnrollNum = cell[6].getContents();
 				if (actulEnrollNum == null || actulEnrollNum.equals("")) {
 					return "第" + count + "行，实际录取数不能为空";
+				}
+				if(!this.isNumeric(actulEnrollNum)){
+					return "第" + count + "行，实际录取数只能填数字";
 				}
 
 				String actulRegisterNum = cell[7].getContents();
 				if (actulRegisterNum == null || actulRegisterNum.equals("")) {
 					return "第" + count + "行，实际报到数不能为空";
 				}
+				if(!this.isNumeric(actulRegisterNum)){
+					return "第" + count + "行，实际报到数只能填数字";
+				}
 
 				String autoEnrollNum = cell[8].getContents();
 				if (autoEnrollNum == null || autoEnrollNum.equals("")) {
 					return "第" + count + "行，自主招生数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(autoEnrollNum)){
+					return "第" + count + "行，自主招生数只能填数字";
 				}
 
 				String specialtyEnrollNum = cell[9].getContents();
 				if (specialtyEnrollNum == null || specialtyEnrollNum.equals("")) {
 					return "第" + count + "行，招收特长生数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(specialtyEnrollNum)){
+					return "第" + count + "行，招收特长生数只能填数字";
+				}
 
 				String inProviEnrollNum = cell[10].getContents();
 				if (inProviEnrollNum == null || inProviEnrollNum.equals("")) {
 					return "第" + count + "行，招收本省学生数不能为空";
 				}
+				if(!this.isNumeric(inProviEnrollNum)){
+					return "第" + count + "行，招收本省学生数只能填数字";
+				}
+
 
 				String newMajEnrollNum = cell[11].getContents();
 				if (newMajEnrollNum == null || newMajEnrollNum.equals("")) {
 					return "第" + count + "行，新办专业招生数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(newMajEnrollNum)){
+					return "第" + count + "行，新办专业招生数只能填数字";
 				}
 
 				count++;
@@ -212,9 +234,19 @@ public class T621_Excel {
 		flag = T621_services.batchInsert(list);
 
 		if (flag) {
-			return null;
+			return "数据存储成功！";
 		} else {
 			return "数据存储失败，请联系管理员";
 		}
 	}
+	
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
 }

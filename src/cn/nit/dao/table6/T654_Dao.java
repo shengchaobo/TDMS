@@ -246,6 +246,32 @@ public class T654_Dao {
 		
 		return list ;
 	}
+	
+	public int getPatent(String year){
+		int PatentNum = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select count(*) AS PatentNum from T654_StuAwardPatent_TeaYLC$");
+		sql.append(" where convert(varchar(4),T654_StuAwardPatent_TeaYLC$.Time,120) =" + year);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				PatentNum = rs.getInt("PatentNum");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBConnection.close(conn);
+		}
+		
+		return PatentNum;
+	}
+	
 
 	public static void main(String args[]) {
 

@@ -238,6 +238,31 @@ public class T656_Dao {
 		
 		return list ;
 	}
+	
+	public double getNPassRate(String year){
+		double NPassRate = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select avg(NationNCREPassRate) AS NPassRate from T656_NationNCRE_Info$");
+		sql.append(" where convert(varchar(4),T656_NationNCRE_Info$.Time,120) =" + year);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				NPassRate = rs.getDouble("NPassRate");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBConnection.close(conn);
+		}
+		
+		return NPassRate;
+	}
 
 	public static void main(String args[]) {
 

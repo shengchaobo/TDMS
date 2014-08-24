@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import cn.nit.bean.table5.T513Bean;
 import cn.nit.bean.table6.T616_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
@@ -106,6 +107,50 @@ public class T616_Dao {
 		}
 		
 		return list ;
+	}
+	
+	/**
+	 * 讲数据批量插入616表中
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table6.T616_Bean}>}
+	 * @return true表示插入成功，false表示插入失败
+	 */
+	public boolean batchInsert(List<T616_Bean> list,String year){
+		
+		boolean flag = false ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		StringBuffer sql = new StringBuffer();
+		sql.append("select * from "+tableName);
+		sql.append("  where convert(varchar(4),Time,120)=" + year);
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T616_Bean> templist = null ;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			templist = DAOUtil.getList(rs, T616_Bean.class);
+			if(templist.size() != 0){
+				String delSql = "delete from " + tableName + "  where convert(varchar(4),Time,120)=" + year;
+				int delflag = st.executeUpdate(delSql.toString());
+				if(delflag > 0 ){
+					for(T616_Bean bean:list){
+						bean.setTime(TimeUtil.changeDateY(year));
+					}
+					flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+				}
+			}else{
+				for(T616_Bean bean:list){
+					bean.setTime(TimeUtil.changeDateY(year));
+				}
+				flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return flag ;
+		}
+		
+		return flag ;
 	}
 	
 	

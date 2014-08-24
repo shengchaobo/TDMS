@@ -245,6 +245,56 @@ public class T657_Dao {
 		
 		return list ;
 	}
+	
+	public double getQualifiedRate(String year){
+		double QualifiedRate = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select avg(HabitusQualifiedRate) AS QualifiedRate from T657_HabitusQualified_Sport$");
+		sql.append(" where convert(varchar(4),T657_HabitusQualified_Sport$.Time,120) =" + year);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				QualifiedRate = rs.getDouble("QualifiedRate");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBConnection.close(conn);
+		}
+		
+		return QualifiedRate;
+	}
+	
+	public double getTestReachRate(String year){
+		double TestReachRate = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select avg(HabitusTestReachRate) AS TestReachRate from T657_HabitusQualified_Sport$");
+		sql.append(" where convert(varchar(4),T657_HabitusQualified_Sport$.Time,120) =" + year);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				TestReachRate = rs.getDouble("TestReachRate");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBConnection.close(conn);
+		}
+		
+		return TestReachRate;
+	}
 
 	public static void main(String args[]) {
 

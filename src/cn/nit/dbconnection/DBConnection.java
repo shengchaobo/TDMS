@@ -12,13 +12,10 @@ package cn.nit.dbconnection;
 
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import java.util.ResourceBundle;
-
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSourceFactory;
@@ -135,8 +132,8 @@ public class DBConnection {
 	}
 
 	public static void main(String args[]){
-		InputStream inStream = DBConnection.class.getResourceAsStream("/cn/bjtu/dbconnection/dbConf.properties") ;
-		System.out.println(DBConnection.class.getClass().getResource("/cn/bjtu/dbconnection/dbConf.properties")) ;
+		InputStream inStream = DBConnection.class.getResourceAsStream("/cn/nit/dbconnection/dbConf.properties") ;
+		System.out.println(DBConnection.class.getClass().getResource("/cn/nit/dbconnection/dbConf.properties")) ;
 		DataSource datasource ; 
 		Properties property = new Properties() ;
 

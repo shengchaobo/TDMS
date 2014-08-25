@@ -77,16 +77,16 @@
 
 	function validate() {
 		//获取文本框的值
-		var teaId = $('#TeaID').val();
-		var teaName = $('#TeaName').val();
+		var teaId = $('#TeaName').combobox('getText');
+		var teaName = $('#TeaName').combobox('getValue');
 		var csUnit = $('#UnitID').combobox('getText');
 		var teaEmail = $('#TeaEmail').val();
 		var role = $('#RoleID').combobox('getText');
 		var note = $('#UserNote').val();
 		//根据数据库定义的字段的长度，对其进行判断
-
-		if (teaId == null || teaId.length == 0 ) {
-			alert("教工号不能为空或者教师库中无该用户");
+		alert(teaId);
+		if (teaId == null || teaId.length == 0 || teaId==teaName) {
+			alert("教工号不能为空或者教师库中无该教工号");
 			return false;
 		}
 

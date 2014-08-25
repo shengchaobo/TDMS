@@ -14,7 +14,10 @@ public class DiDepartmentDao {
 	
 	private String tableName = "DiDepartment" ;
 	
-	private String field = "UnitID,UnitName,Class1,Class2,Functions,Leader,TeaID,Note" ;
+	private String key = "UnitId";
+	/**除了住建的其他字段*/
+	private String field1 = "UnitName,Class1,Class2,Functions,Leader,TeaId,Note";
+	private String field = "UnitId,UnitName,Class1,Class2,Functions,Leader,TeaId,Note" ;
 	
 	/**
 	 * 获取DiDepartment字典表的所有数�?
@@ -166,7 +169,7 @@ public class DiDepartmentDao {
 			String field = "UnitName,Class1,Class2,Functions,Leader,TeaID,Note" ;
 			
 			try{
-				flag = DAOUtil.update(deBean, tableName, "UnitID", field, conn) ;
+				flag = DAOUtil.update(deBean, tableName, key, field1, conn) ;
 			}catch(Exception e){
 				e.printStackTrace() ;
 				 return false ;
@@ -250,6 +253,26 @@ public class DiDepartmentDao {
 			}
 			
 			return flag ;
+		}
+		
+		public static void main(String arg[]){
+			
+			DiDepartmentDao dao = new DiDepartmentDao();
+			DiDepartmentBean bean = new DiDepartmentBean();
+			bean.setClass1("行政单位");
+			bean.setClass2("党群部门");
+			bean.setFunctions("其他");
+			bean.setLeader("黄华");
+			bean.setTeaId("200599");
+			bean.setUnitId("1001");
+			bean.setUnitName("党委办公室（院长办公室）");
+			bean.setNote("");
+			boolean flag = dao.update(bean);
+			if(flag){
+				System.out.println("更新成功");
+			}else{
+				System.out.println("更新失败");
+			}
 		}
 		
 	

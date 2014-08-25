@@ -265,7 +265,7 @@ public class T615_Excel {
 		flag = T615_services.batchInsert(list);
 
 		if (flag) {
-			return "数据存储成功！";
+			return null;
 		} else {
 			return "数据存储失败，请联系管理员";
 		}

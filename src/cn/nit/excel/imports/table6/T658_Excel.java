@@ -229,7 +229,7 @@ public class T658_Excel {
 		flag = T658_services.batchInsert(list);
 
 		if (flag) {
-			return "数据存储成功！";
+			return null;
 		} else {
 			return "数据存储失败，请联系管理员";
 		}

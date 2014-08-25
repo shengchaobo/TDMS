@@ -174,7 +174,7 @@ public class T657_Excel {
 		flag = T657_services.batchInsert(list);
 
 		if (flag) {
-			return "数据存储成功！";
+			return null;
 		} else {
 			return "数据存储失败，请联系管理员";
 		}

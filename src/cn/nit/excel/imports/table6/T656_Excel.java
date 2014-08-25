@@ -163,7 +163,7 @@ public class T656_Excel {
 		flag = T656_services.batchInsert(list);
 
 		if (flag) {
-			return "数据存储成功！";
+			return null;
 		} else {
 			return "数据存储失败，请联系管理员";
 		}

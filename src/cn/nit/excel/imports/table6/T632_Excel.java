@@ -322,7 +322,7 @@ public class T632_Excel {
 		flag = T632_services.batchInsert(list);
 
 		if (flag) {
-			return "数据存储成功！";
+			return null;
 		} else {
 			return "数据存储失败，请联系管理员";
 		}

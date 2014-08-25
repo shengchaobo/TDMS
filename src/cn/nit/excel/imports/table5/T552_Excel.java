@@ -116,7 +116,7 @@ public class T552_Excel {
 		T552_Service t552_Sr=new T552_Service();
 		flag=t552_Sr.batchInsert(list);
 		if(flag){
-			return "数据导入成功" ;
+			return null ;
 		}else{
 			return "数据存储失败，请联系管理员" ;
 		}

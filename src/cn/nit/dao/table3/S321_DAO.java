@@ -107,8 +107,28 @@ public class S321_DAO {
 
 	public List<S321_Bean> getData(String year)
 	{
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+
+		List<S321_Bean> list = new ArrayList<S321_Bean>() ;
 		
-	String querysql=" select a.Type AS FieldType,COUNT(b.Type) AS Sum," +
+		String sql = "select * from T322_UndergraMajorInfo_Tea$ where time like '"+ year +"%'";
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			if(!rs.next()){
+				System.out.println("统计数据不全啊  ");
+				return list;
+			}
+			
+		}catch (Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		
+	String querysql=" select a.Type AS FieldType," +
 	" sum(case when b.MajorLevel='50000' then 1 else 0 end) AS Internation, "+
 	" sum(case when b.MajorLevel='50001' then 1 else 0 end) AS Nation, "+
 	" sum(case when b.MajorLevel='50002' then 1 else 0 end) AS Provi, "+
@@ -118,11 +138,8 @@ public class S321_DAO {
 				"left join (select * from T322_UndergraMajorInfo_Tea$) b on a.Type = b.Type where Time like '"+year+"%'group by a.Type";
    
 		//System.out.println(querysql);
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<S321_Bean> list = new ArrayList<S321_Bean>() ;
-		int sum=0,sumInternation=0,sumNation=0,sumProvi=0,sumCity=0,sumSchool=0;
+	
+		int sum=0,num=0,sumInternation=0,sumNation=0,sumProvi=0,sumCity=0,sumSchool=0;
 	
 		try{
 			st = conn.createStatement() ;
@@ -134,18 +151,22 @@ public class S321_DAO {
 				
 			
 
-				sum+=rs.getInt("Sum");
+				
 				sumInternation += rs.getInt("Internation");
 				sumNation += rs.getInt("Nation");
 				sumProvi += rs.getInt("Provi");
 				sumCity += rs.getInt("City");
 				sumSchool  += rs.getInt("School");
-
-
-			
+				num = sumInternation+sumNation+sumProvi+sumCity+sumSchool;
+				sum += num;
+				
+				
+				
+				if(sum != 0){
+					
 				S321_Bean s321_Bean=new S321_Bean();	
 				s321_Bean.setFieldType(fieldType);
-				s321_Bean.setSum(rs.getInt("Sum"));
+				s321_Bean.setSum(num);
 				s321_Bean.setInternation(rs.getInt("Internation"));
 				s321_Bean.setNation(rs.getInt("Nation"));
 				s321_Bean.setProvi(rs.getInt("Provi"));
@@ -154,6 +175,7 @@ public class S321_DAO {
 				s321_Bean.setTime(TimeUtil.changeDateY(year));	
 				
 				list.add(s321_Bean);
+				}
 				}
 			}
 			

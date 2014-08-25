@@ -142,7 +142,7 @@
 
 		$('#dlg').dialog('open').dialog('setTitle', '编辑部门');
 		
-    	$('#UnitID').val(row[0].UnitId) ;
+    	$('#UnitID').val(row[0].unitId) ;
     	$("input#UnitID").attr("readonly",true);
     	$("input#UnitID").css({"color":"#888"});
     	

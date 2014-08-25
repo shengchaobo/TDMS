@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									单位号：
 								</label>
-								<input id="UnitID" type="text" name="de_bean.UnitID"
+								<input id="UnitID" type="text" name="de_bean.unitId"
 									class="easyui-validatebox">
 								<span id="UnitIDSpan"></span>
 							</div>
@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									部门名称：
 								</label>
-								<input id="UnitName" type="text" name="de_bean.UnitName"
+								<input id="UnitName" type="text" name="de_bean.unitName"
 									class="easyui-validatebox">
 								<span id="UnitNameSpan"></span>
 							</div>
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									一级分类：
 								</label>
-								<input id="Class1" type="text" name="de_bean.Class1"
+								<input id="Class1" type="text" name="de_bean.class1"
 									class="easyui-validatebox">
 								<span id="Class1Span"></span>
 							</div>
@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									二级分类：
 								</label>
-								<input id="Class2Name" type="text" name="de_bean.Class2"
+								<input id="Class2Name" type="text" name="de_bean.class2"
 									class="easyui-validatebox">
 								<span id="Class2Span"></span>
 							</div>
@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									单位职能：
 								</label>
-								<input id="Functions" type="text" name="de_bean.Functions"
+								<input id="Functions" type="text" name="de_bean.functions"
 									class="easyui-validatebox">
 								<span id="FunctionsSpan"></span>
 							</div>
@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									负责人：
 								</label>
-								<input id="LeaderName" type="text" name="de_bean.Leader"
+								<input id="LeaderName" type="text" name="de_bean.leader"
 									class="easyui-validatebox">
 								<span id="LeaderSpan"></span>
 							</div>
@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									教工号：
 								</label>
-								<input id="TeaID" type="text" name="de_bean.TeaID"
+								<input id="TeaID" type="text" name="de_bean.teaId"
 									class="easyui-validatebox">
 								<span id="TeaIDSpan"></span>
 							</div>
@@ -152,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 				<tr>
 					<td style="valign:left" colspan="3"><label>备注：</label>
-							<textarea id="Note" name="de_bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+							<textarea id="Note" name="de_bean.note" style="resize:none" cols="50" rows="10"></textarea>
 							<span id="NoteSpan"></span>
 						</td>
 					</tr>	

@@ -187,17 +187,11 @@ public class S65_Action {
 		}else{
 			bean.setInterConference(interCon);
 		}
-		
-
-		
-		
-		
-		
 //		//数据不为空相加
 //		boolean flag = true;
 		String json = null;
 		
-		bean.setTime(TimeUtil.changeDateY(this.getSelectYear()));
+		bean.setTime(null);
 		json = JsonUtil.beanToJson(bean);
 		
 				

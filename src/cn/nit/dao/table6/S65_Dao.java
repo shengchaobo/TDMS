@@ -117,7 +117,7 @@ public class S65_Dao {
 
 	public static void main(String arg[]){
 		S65_Dao dao=new S65_Dao();
-		List<S65_Bean> list  = dao.getStuAward("2014");
+//		List<S65_Bean> list  = dao.getStuAward("2014");
 		/**测试getStuAward*/
 //		List<S65_Bean> list = dao.getStuAward("2010");
 //		System.out.println("siza:"+list.size());

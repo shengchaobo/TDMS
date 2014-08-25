@@ -81,10 +81,9 @@
 		var unitID = $('#UnitID').val();
 		var unitName = $('#UnitName').val();
 		var class1 = $('#Class1').val();
-		var class2 = $('#Class2Name').val();
-		alert(class2);
+		var class2 = $('#Class2').val();
 		var functions = $('#Functions').val();
-		var leader = $('#LeaderName').val();
+		var leader = $('#Leader').val();
 		var teaID = $('#TeaID').val();
 		var note = $('#Note').val();
 		

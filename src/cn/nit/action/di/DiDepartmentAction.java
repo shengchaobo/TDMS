@@ -30,6 +30,14 @@ public class DiDepartmentAction {
 	/**  新建部门的实体类  */
 	private DiDepartmentBean de_bean = new DiDepartmentBean() ;
 
+	public DiDepartmentBean getDe_bean() {
+		return de_bean;
+	}
+
+	public void setDe_bean(DiDepartmentBean deBean) {
+		de_bean = deBean;
+	}
+
 	/**  部门编号 */
 	private String ids ;
 	
@@ -131,6 +139,12 @@ public class DiDepartmentAction {
 	 * 编辑部门
 	 */
 	public void edit(){
+//		System.out.println("编辑编辑编辑");
+//		System.out.println(de_bean.getClass1());
+//		System.out.println(de_bean.getClass1());
+//		System.out.println(de_bean.getClass2());
+//		System.out.println(de_bean.getFunctions());
+//		System.out.println(de_bean.getLeader());
 				
 		boolean flag = deSer.update(de_bean) ;
 		

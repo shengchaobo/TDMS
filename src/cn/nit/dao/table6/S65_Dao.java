@@ -35,7 +35,6 @@ public class S65_Dao {
 //	private String field1="CSType,CSNature";
 
 
-	
 	/**
 	 * 显示数据
 	 * @param conditions 查询条件
@@ -117,8 +116,36 @@ public class S65_Dao {
 
 
 	public static void main(String arg[]){
-//		S65_Dao dao=new S65_Dao();
+		S65_Dao dao=new S65_Dao();
+		List<S65_Bean> list  = dao.getStuAward("2014");
+		/**测试getStuAward*/
+//		List<S65_Bean> list = dao.getStuAward("2010");
+//		System.out.println("siza:"+list.size());
+//		if(list.size()>0){
+//			S65_Bean bean = list.get(0);
+//			System.out.println("zong "+bean.getSumDiscipAward());
+//			System.out.println("zong "+bean.getInterD());
+//			System.out.println("zong "+bean.getNationD());
+//		}else{
+//			System.out.println("list为空");
+//		}
+		/**测试论文数*/
+//		int paperNum = dao.getPaper("2010");
+//		System.out.println(paperNum);
+
+		/**测试作品数*/
+//		int workNum = dao.getPaper("2008");
+//		System.out.println(workNum);
+
+		/**测试专利数*/
+//		int patentNum = dao.getPatent("2014");
+//		System.out.println(patentNum);
+
+//		/**测试参加会议人数*/
+//		int conferStuNum = dao.getInterConference("2010");
+//		System.out.println(conferStuNum);
+
 	}
-	
+
 
 }

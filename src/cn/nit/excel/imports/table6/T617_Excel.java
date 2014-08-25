@@ -154,23 +154,36 @@ public class T617_Excel {
 
 
 				String juniorStuSumNum = cell[6].getContents();
+				System.out.println("juniorStuSumNum:"+juniorStuSumNum);
 				if (juniorStuSumNum == null || juniorStuSumNum.equals("")) {
 					return "第" + count + "行，在校生总人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(juniorStuSumNum)){
+					return "第" + count + "行，在校生总人数只能填数字";
 				}
 
 				String juniorOneStuNum = cell[7].getContents();
 				if (juniorOneStuNum == null || juniorOneStuNum.equals("")) {
 					return "第" + count + "行，一年级生人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(juniorOneStuNum)){
+					return "第" + count + "行，一年级生人数只能填数字";
+				}
 
 				String juniorTwoStuNum = cell[8].getContents();
 				if (juniorTwoStuNum == null || juniorTwoStuNum.equals("")) {
 					return "第" + count + "行，二年级生人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(juniorTwoStuNum)){
+					return "第" + count + "行，二年级生人数只能填数字";
+				}
 
 				String juniorThreeStuNum = cell[9].getContents();
 				if (juniorThreeStuNum == null || juniorThreeStuNum.equals("")) {
 					return "第" + count + "行，三年级生人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(juniorThreeStuNum)){
+					return "第" + count + "行，三年级生人数只能填数字";
 				}
 
 
@@ -205,9 +218,19 @@ public class T617_Excel {
 		flag = T617_services.batchInsert(list);
 
 		if (flag) {
-			return null;
+			return "数据存储成功!";
 		} else {
 			return "数据存储失败，请联系管理员";
 		}
 	}
+	
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
 }

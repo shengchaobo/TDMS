@@ -84,8 +84,9 @@
 		var role = $('#RoleID').combobox('getText');
 		var note = $('#UserNote').val();
 		//根据数据库定义的字段的长度，对其进行判断
+
 		if (teaId == null || teaId.length == 0 ) {
-			alert("教工号不能为空");
+			alert("教工号不能为空或者教师库中无该用户");
 			return false;
 		}
 

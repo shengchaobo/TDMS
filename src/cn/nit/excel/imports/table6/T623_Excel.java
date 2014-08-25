@@ -63,6 +63,7 @@ public class T623_Excel {
 	 */
 	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear) {
 
+		System.out.println("cellList:"+cellList.size());
 		if ((cellList == null) || (cellList.size() < 2)) {
 			return "数据不标准，请重新提交";
 		}
@@ -99,51 +100,75 @@ public class T623_Excel {
 				if (libEnrollNum == null || libEnrollNum.equals("")) {
 					return "第" + count + "行，文科录取数不能为空";
 				}
+				if(!this.isNumeric(libEnrollNum)){
+					return "第" + count + "行，文科录取数只能填写数字";
+				}
 
 				String sciEnrollNum = cell[5].getContents();
 				if (sciEnrollNum == null || sciEnrollNum.equals("")) {
 					return "第" + count + "行，理科录取数不能为空";
+				}
+				if(!this.isNumeric(sciEnrollNum)){
+					return "第" + count + "行，理科录取数只能填写数字";
 				}
 				
 				String sumEnrollNum = cell[6].getContents();
 				if (sumEnrollNum == null || sumEnrollNum.equals("")) {
 					return "第" + count + "行，综合录取数不能为空";
 				}
+				if(!this.isNumeric(sumEnrollNum)){
+					return "第" + count + "行，综合录取数只能填写数字";
+				}
 
 				String libLowestScore = cell[7].getContents();
 				if (libLowestScore == null || libLowestScore.equals("")) {
 					return "第" + count + "行，文化批次最低控制线（分）不能为空";
+				}
+				if(!this.isNumeric(libLowestScore)){
+					return "第" + count + "行，文化批次最低控制线（分）只能填写数字";
 				}
 
 				String sciLowestScore = cell[8].getContents();
 				if (sciLowestScore == null || sciLowestScore.equals("")) {
 					return "第" + count + "行，专业批次最低控制线（分）不能为空";
 				}
+				if(!this.isNumeric(sciLowestScore)){
+					return "第" + count + "行，专业批次最低控制线（分）只能填写数字";
+				}
 				
 				String sumLowestScore = cell[9].getContents();
 				if (sumLowestScore == null || sumLowestScore.equals("")) {
 					return "第" + count + "行，综合批次最低控制线（分）不能为空";
+				}
+				if(!this.isNumeric(sumLowestScore)){
+					return "第" + count + "行，综合批次最低控制线（分）只能填写数字";
 				}
 
 				String libAvgScore = cell[10].getContents();
 				if (libAvgScore == null || libAvgScore.equals("")) {
 					return "第" + count + "行，文科当年录取平均分数（分）不能为空";
 				}
+				if(!this.isNumeric(libAvgScore)){
+					return "第" + count + "行，文科当年录取平均分数（分）只能填写数字";
+				}
 
 				String sciAvgScore = cell[11].getContents();
 				if (sciAvgScore == null || sciAvgScore.equals("")) {
 					return "第" + count + "行，理科当年录取平均分数（分）不能为空";
+				}
+				if(!this.isNumeric(sciAvgScore)){
+					return "第" + count + "行，文理科当年录取平均分数（分）只能填写数字";
 				}
 				
 				String sumAvgScore = cell[12].getContents();
 				if (sumAvgScore == null || sumAvgScore.equals("")) {
 					return "第" + count + "行，综合当年录取平均分数（分）不能为空";
 				}
+				if(!this.isNumeric(sumAvgScore)){
+					return "第" + count + "行，综合当年录取平均分数（分）只能填写数字";
+				}
 				
 				String note = cell[13].getContents();
-		
-
-
 				count++;
 
 				T623_bean = new T623_Bean();
@@ -221,9 +246,19 @@ public class T623_Excel {
 		flag = T623_services.batchInsert(list);
 
 		if (flag) {
-			return null;
+			return "数据存储成功！";
 		} else {
 			return "数据存储失败，请联系管理员";
 		}
 	}
+	
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
 }

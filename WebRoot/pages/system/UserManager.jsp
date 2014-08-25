@@ -75,7 +75,7 @@
 					<div class="fitem">
 					<label>教工号：</label> 
 					<input type="hidden" name="userinfo.TeaID" id="TeaID"/>
-					<input id="TeaName" type="text" name="userinfo.TeaName" class='easyui-combobox'   edit
+					<input id="TeaName" type="text" name="userinfo.TeaName" class='easyui-combobox'  
 								data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 								onSelect:function(){
 								 	 document.getElementById('TeaID').value=$(this).combobox('getText') ;

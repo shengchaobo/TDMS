@@ -80,7 +80,7 @@ public class T615_Excel {
 
 		for (Cell[] cell : cellList) {
 			try {
-				if (count <= 1) {
+				if (count <=3) {
 					count++;
 					continue;
 				}
@@ -265,7 +265,7 @@ public class T615_Excel {
 		flag = T615_services.batchInsert(list);
 
 		if (flag) {
-			return null;
+			return "数据存储成功！";
 		} else {
 			return "数据存储失败，请联系管理员";
 		}

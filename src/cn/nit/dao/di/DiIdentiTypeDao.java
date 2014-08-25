@@ -14,7 +14,7 @@ public class DiIdentiTypeDao {
 	
 	private String tableName = "DiIdentiType" ;
 	
-	private String field = "IndexID,IdentiType" ;
+	private String field = "IndexId,IdentiType" ;
 	
 	/**
 	 * 获取DiIdentiType字典表的所有数据
@@ -124,7 +124,7 @@ public class DiIdentiTypeDao {
 		String field = "IdentiType" ;
 		
 		try{
-			flag = DAOUtil.update(typeBean, tableName, "IndexID", field, conn) ;
+			flag = DAOUtil.update(typeBean, tableName, "IndexId", field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			 return false ;

@@ -48,7 +48,7 @@
 		$("input#UnitID").attr("readonly",false);
 		$("input#UnitID").css({"color":"black"});
 		
-		url = 'pages/diDepartment/insert';
+		url = 'pages/DiDepartment/insert';
 		$('#dlg').dialog('open').dialog('setTitle', '添加部门');
 		$('#departmentManagerForm').form('reset');
 	}
@@ -170,12 +170,12 @@
 				ids += "(";
 				for ( var i = 0; i < row.length; i++) {
 					if (i < (row.length - 1)) {
-						ids += ("'"+row[i].unitID+"'" + ",");
+						ids += ("'"+row[i].unitId+"'" + ",");
 					} else {
-						ids += ("'"+row[i].unitID +"'"+ ")");
+						ids += ("'"+row[i].unitId +"'"+ ")");
 					}
 				}				
-				url = "pages/diDepartment/deleteByIds?ids=" + ids ;
+				url = "pages/DiDepartment/deleteByIds?ids=" + ids ;
 				submitIds();
 			}
 		});

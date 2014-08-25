@@ -1,6 +1,7 @@
 package cn.nit.action.table6;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +22,21 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 import net.sf.json.JSONObject;
 
@@ -78,6 +94,9 @@ public class T632_Action {
 	
 	/**专业名称*/
 	private String majorName;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 
 	/** 逐条插入数据 */
 	public void insert() {
@@ -229,6 +248,7 @@ public class T632_Action {
 	public InputStream getInputStream() {
 
 		InputStream inputStream = null ;
+		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
 		try {
 /*			response.reset();
@@ -236,79 +256,268 @@ public class T632_Action {
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T632_Bean> list = T632_dao.getAllList("1=1", null);
-						
-			String sheetName = this.getExcelName();
 			
-			List<String> columns = new ArrayList<String>();
-			
-		
-			
-			columns.add("序号");
-			columns.add("教学单位");
-			columns.add("单位");
-			columns.add("专业名称");
-			columns.add("专业代码");
-			columns.add("应届就业总人");
-			columns.add("政府机构就业人数");
-			columns.add("事业单位就业人数");
-			columns.add("企业就业人数");
-			columns.add("部队人数");
-			columns.add("灵活就业人数");
-			columns.add("升学人数");
-			columns.add("参加国家地方项目就业人数");
-			columns.add("其他人数");
-			
-			columns.add("应届升学总人");
-			columns.add("免试推荐研究生人");
-			columns.add("考研报名人数");
-			columns.add("考研录取总人");
-			columns.add("考取本校人数");
-			columns.add("考取外校人数");
-			columns.add("出国（境）留学人");
-			
-			columns.add("时间");
-			columns.add("备注");
-			
-
-			Map<String,Integer> maplist = new HashMap<String,Integer>();
-		
-
-			
-			maplist.put("seqNumber", 0);
-			maplist.put("teaUnit", 1);
-			maplist.put("unitId", 2);
-			maplist.put("majorName", 3);
-			maplist.put("majorId", 4);
-			
-			maplist.put("sumEmployNum", 5);
-			maplist.put("govermentNum", 6);
-			maplist.put("pubInstiNum", 7);
-			maplist.put("enterpriseNum", 8);
-			maplist.put("forceNum", 9);
-			maplist.put("flexibleEmploy", 10);
-			maplist.put("goOnHighStudy", 11);
-			maplist.put("nationItemEmploy", 12);
-			maplist.put("otherEmploy", 13);
-			
-			maplist.put("sumGoOnHighStudyNum", 14);
-			maplist.put("recommendGraNum", 15);
-			maplist.put("examGraApplyNum", 16);
-			maplist.put("examGraEnrollNum", 17);
-			maplist.put("examGraInSch", 18);
-			maplist.put("examGraOutSch", 19);
-			maplist.put("abroadNum", 20);
-						
-			maplist.put("time", 21);
-			maplist.put("note", 22);
+			if(list==null){
+				if(list.size()==0){
+					PrintWriter out = null ;
+					response.setContentType("text/html;charset=utf-8") ;
+					out = response.getWriter() ;
+					out.print("后台传入的数据为空") ;
+					System.out.println("后台传入的数据为空");
+					return null;
+				}
+			}
+			if(list!=null){
+				int SumEmployNum=0; int GovermentNum=0; int PubInstiNum=0; int EnterpriseNum=0;
+				int ForceNum = 0; int FlexibleEmploy = 0; int GoOnHighStudy = 0;
+				int NationItemEmploy = 0;int OtherEmploy = 0; int SumGoOnHighStudyNum = 0;
+				int RecommendGraNum = 0; int ExamGraApplyNum = 0; int ExamGraEnrollNum = 0;
+				int ExamGraInSch = 0; int ExamGraOutSch = 0; int AbroadNum = 0;
+				//统计全校合计
+				for(T632_Bean bean : list){
+					SumEmployNum+=bean.getSumEmployNum();
+					GovermentNum+=bean.getGovermentNum();
+					PubInstiNum+=bean.getPubInstiNum();
+					EnterpriseNum+=bean.getEnterpriseNum();
+					ForceNum+=bean.getForceNum();
+					FlexibleEmploy+=bean.getFlexibleEmploy();
+					GoOnHighStudy+=bean.getGoOnHighStudy();
+					NationItemEmploy+=bean.getNationItemEmploy();
+					OtherEmploy+=bean.getOtherEmploy();
+					SumGoOnHighStudyNum+=bean.getSumGoOnHighStudyNum();
+					RecommendGraNum+=bean.getRecommendGraNum();
+					ExamGraApplyNum+=bean.getExamGraApplyNum();
+					ExamGraEnrollNum+=bean.getExamGraEnrollNum();
+					ExamGraInSch+=bean.getExamGraInSch();
+					ExamGraOutSch+=bean.getExamGraOutSch();
+					AbroadNum+=bean.getAbroadNum();
+				}
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-3-2分专业应届本科毕业生就业情况（招就处）", maplist,columns).toByteArray());
+				T632_Bean bean = new T632_Bean();
+				bean.setSumEmployNum(SumEmployNum);
+				bean.setGovermentNum(GovermentNum);
+				bean.setPubInstiNum(PubInstiNum);
+				bean.setEnterpriseNum(EnterpriseNum);
+				bean.setForceNum(ForceNum);
+				bean.setFlexibleEmploy(FlexibleEmploy);
+				
+				bean.setGoOnHighStudy(GoOnHighStudy);
+				bean.setNationItemEmploy(NationItemEmploy);
+				bean.setOtherEmploy(OtherEmploy);
+				bean.setSumGoOnHighStudyNum(SumGoOnHighStudyNum);
+				bean.setRecommendGraNum(RecommendGraNum);
+				bean.setExamGraApplyNum(ExamGraApplyNum);
+				
+				bean.setExamGraEnrollNum(ExamGraEnrollNum);
+				bean.setExamGraInSch(ExamGraInSch);
+				bean.setExamGraOutSch(ExamGraOutSch);
+				bean.setAbroadNum(AbroadNum);
+				bean.setTeaUnit("全校合计：");
+				list.add(0, bean);
+				
+				String sheetName = this.getExcelName();
+				
+			
+				WritableWorkbook wwb;
+				try{
+					
+					 fos = new ByteArrayOutputStream();
+			            wwb = Workbook.createWorkbook(fos);
+			            WritableSheet ws = wwb.createSheet("表6-3-2分专业应届本科毕业生就业情况（招就处）", 0);        // 创建一个工作表
+
+			            //    设置表头的文字格式
+			            
+			            WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+			                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);    
+			            WritableCellFormat wcf = new WritableCellFormat(wf);
+			            wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+			            wcf.setAlignment(Alignment.CENTRE);
+			            wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+				        		     jxl.format.Colour.BLACK);
+			            
+			            //    设置内容单无格的文字格式
+			            WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+				                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+			            WritableCellFormat wcf1 = new WritableCellFormat(wf1);       
+			            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+			            wcf1.setAlignment(Alignment.CENTRE);
+			            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+				        		     jxl.format.Colour.BLACK);
+			            ws.setRowView(1, 500);
+						//第一行存表名
+						ws.addCell(new Label(0, 0, "表6-3-2分专业应届本科毕业生就业情况（招就处）", wcf)); 
+						ws.mergeCells(0, 0, 1, 0);
+						
+						ws.addCell(new Label(0, 2, "", wcf)); 
+						ws.mergeCells(0, 2, 4, 2);
+						ws.addCell(new Label(5, 2, "1.应届毕业生就业基本情况(人)", wcf)); 
+						ws.mergeCells(5, 2, 13, 2);
+						ws.addCell(new Label(14, 2, "2.应届毕业生升学基本情况(人)", wcf)); 
+						ws.mergeCells(14, 2, 20, 2);
+						
+						ws.addCell(new Label(0, 3, "序号", wcf)); ws.mergeCells(0, 3, 0, 4);
+						ws.addCell(new Label(1, 3, "教学单位", wcf)); ws.mergeCells(1, 3, 1, 4);
+						ws.addCell(new Label(2, 3, "单位号", wcf)); ws.mergeCells(2, 3, 2, 4);
+						ws.addCell(new Label(3, 3, "专业名称", wcf)); ws.mergeCells(3, 3, 3, 4);
+						ws.addCell(new Label(4, 3, "专业代码", wcf)); ws.mergeCells(4, 3, 4, 4);
+						ws.addCell(new Label(5, 3, "应届就业总人数", wcf)); ws.mergeCells(5, 3, 5, 4);
+						ws.addCell(new Label(6, 3, "政府机构", wcf)); ws.mergeCells(6, 3, 6, 4);
+						ws.addCell(new Label(7, 3, "事业单位", wcf)); ws.mergeCells(7, 3, 7, 4);
+						ws.addCell(new Label(8, 3, "企业", wcf)); ws.mergeCells(8, 3, 8, 4);
+						ws.addCell(new Label(9, 3, "部队", wcf)); ws.mergeCells(9, 3, 9, 4);
+						ws.addCell(new Label(10, 3, "灵活就业", wcf)); ws.mergeCells(10, 3, 10, 4);
+						ws.addCell(new Label(11, 3, "升学", wcf)); ws.mergeCells(11, 3, 11, 4);
+						ws.addCell(new Label(12, 3, "参加国家地方项目就业", wcf)); ws.mergeCells(12, 3, 12, 4);
+						ws.addCell(new Label(13, 3, "其他", wcf)); ws.mergeCells(13, 3, 13, 4);
+						ws.addCell(new Label(14, 3, "应届升学总人数", wcf)); ws.mergeCells(14, 3, 14, 4);
+						ws.addCell(new Label(15, 3, "免试推荐研究生", wcf)); ws.mergeCells(15, 3, 15, 4);
+						ws.addCell(new Label(16, 3, "考研报名人数", wcf)); ws.mergeCells(16, 3, 16, 4);
+						ws.addCell(new Label(17, 3, "考研录取", wcf)); ws.mergeCells(17, 3, 19, 3);
+						ws.addCell(new Label(20, 3, "出国（境）留学", wcf)); ws.mergeCells(20, 3, 20, 4);
+						ws.addCell(new Label(17, 4, "总人数", wcf));
+						ws.addCell(new Label(18, 4, "考取本校", wcf));
+						ws.addCell(new Label(19, 4, "考取外校", wcf));
+						
+						//向表中写数据
+						int k=5;//从第6行开始写数据、（其中第6行是全校统计）
+						for(int j=0;j<list.size();j++){
+							T632_Bean bean1 =  list.get(j);
+							if(j==0){
+								ws.addCell(new Label(0,5, bean1.getTeaUnit(), wcf));
+								ws.mergeCells(0, 5, 4, 5);
+								ws.addCell(new Label(5, 5, bean1.getSumEmployNum()+"", wcf1));
+								ws.addCell(new Label(6, 5, bean1.getGovermentNum()+"", wcf1));
+								ws.addCell(new Label(7, 5, bean1.getPubInstiNum()+"", wcf1));
+								ws.addCell(new Label(8, 5, bean1.getEnterpriseNum()+"", wcf1));
+								ws.addCell(new Label(9, 5, bean1.getForceNum()+"", wcf1));
+								ws.addCell(new Label(10, 5, bean1.getFlexibleEmploy()+"", wcf1));
+								ws.addCell(new Label(11, 5, bean1.getGoOnHighStudy()+"", wcf1));
+								ws.addCell(new Label(12, 5, bean1.getNationItemEmploy()+"", wcf1));
+								ws.addCell(new Label(13, 5, bean1.getOtherEmploy()+"", wcf1));
+								ws.addCell(new Label(14, 5, bean1.getSumGoOnHighStudyNum()+"", wcf1));
+								ws.addCell(new Label(15, 5, bean1.getRecommendGraNum()+"", wcf1));
+								ws.addCell(new Label(16, 5, bean1.getExamGraApplyNum()+"", wcf1));
+								ws.addCell(new Label(17, 5, bean1.getExamGraEnrollNum()+"", wcf1));
+								ws.addCell(new Label(18, 5, bean1.getExamGraInSch()+"", wcf1));
+								ws.addCell(new Label(19, 5, bean1.getExamGraOutSch()+"", wcf1));
+								ws.addCell(new Label(20, 5, bean1.getAbroadNum()+"", wcf1));
+
+							}else{
+								ws.addCell(new Label(0, k,j+"", wcf1));
+								ws.addCell(new Label(1, k, bean1.getTeaUnit(), wcf1));
+								ws.addCell(new Label(2, k, bean1.getUnitId(), wcf1));
+								ws.addCell(new Label(3, k, bean1.getMajorName(), wcf1));
+								ws.addCell(new Label(4, k, bean1.getMajorId(), wcf1));
+								ws.addCell(new Label(5, k, bean1.getSumEmployNum()+"", wcf1));
+								ws.addCell(new Label(6, k, bean1.getGovermentNum()+"", wcf1));
+								ws.addCell(new Label(7, k, bean1.getPubInstiNum()+"", wcf1));
+								ws.addCell(new Label(8, k, bean1.getEnterpriseNum()+"", wcf1));
+								ws.addCell(new Label(9, k, bean1.getForceNum()+"", wcf1));
+								ws.addCell(new Label(10, k, bean1.getFlexibleEmploy()+"", wcf1));
+								ws.addCell(new Label(11, k, bean1.getGoOnHighStudy()+"", wcf1));
+								ws.addCell(new Label(12, k, bean1.getNationItemEmploy()+"", wcf1));
+								ws.addCell(new Label(13, k, bean1.getOtherEmploy()+"", wcf1));
+								ws.addCell(new Label(14, k, bean1.getSumGoOnHighStudyNum()+"", wcf1));
+								ws.addCell(new Label(15, k, bean1.getRecommendGraNum()+"", wcf1));
+								ws.addCell(new Label(16, k, bean1.getExamGraApplyNum()+"", wcf1));
+								ws.addCell(new Label(17, k, bean1.getExamGraEnrollNum()+"", wcf1));
+								ws.addCell(new Label(18, k, bean1.getExamGraInSch()+"", wcf1));
+								ws.addCell(new Label(19, k, bean1.getExamGraOutSch()+"", wcf1));
+								ws.addCell(new Label(20, k, bean1.getAbroadNum()+"", wcf1));
+							}
+							k++;
+						}
+						    wwb.write();
+				            wwb.close();
+
+				} catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
+				
+			}
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
 		}
 
+		inputStream = new ByteArrayInputStream(fos.toByteArray());
 		return inputStream ;
 	}
+			
+						
+//			String sheetName = this.getExcelName();
+//			
+//			List<String> columns = new ArrayList<String>();
+//			
+//		
+//			
+//			columns.add("序号");
+//			columns.add("教学单位");
+//			columns.add("单位");
+//			columns.add("专业名称");
+//			columns.add("专业代码");
+//			columns.add("应届就业总人");
+//			columns.add("政府机构就业人数");
+//			columns.add("事业单位就业人数");
+//			columns.add("企业就业人数");
+//			columns.add("部队人数");
+//			columns.add("灵活就业人数");
+//			columns.add("升学人数");
+//			columns.add("参加国家地方项目就业人数");
+//			columns.add("其他人数");
+//			
+//			columns.add("应届升学总人");
+//			columns.add("免试推荐研究生人");
+//			columns.add("考研报名人数");
+//			columns.add("考研录取总人");
+//			columns.add("考取本校人数");
+//			columns.add("考取外校人数");
+//			columns.add("出国（境）留学人");
+//			
+//			columns.add("时间");
+//			columns.add("备注");
+//			
+//
+//			Map<String,Integer> maplist = new HashMap<String,Integer>();
+//		
+//
+//			
+//			maplist.put("seqNumber", 0);
+//			maplist.put("teaUnit", 1);
+//			maplist.put("unitId", 2);
+//			maplist.put("majorName", 3);
+//			maplist.put("majorId", 4);
+//			
+//			maplist.put("sumEmployNum", 5);
+//			maplist.put("govermentNum", 6);
+//			maplist.put("pubInstiNum", 7);
+//			maplist.put("enterpriseNum", 8);
+//			maplist.put("forceNum", 9);
+//			maplist.put("flexibleEmploy", 10);
+//			maplist.put("goOnHighStudy", 11);
+//			maplist.put("nationItemEmploy", 12);
+//			maplist.put("otherEmploy", 13);
+//			
+//			maplist.put("sumGoOnHighStudyNum", 14);
+//			maplist.put("recommendGraNum", 15);
+//			maplist.put("examGraApplyNum", 16);
+//			maplist.put("examGraEnrollNum", 17);
+//			maplist.put("examGraInSch", 18);
+//			maplist.put("examGraOutSch", 19);
+//			maplist.put("abroadNum", 20);
+//						
+//			maplist.put("time", 21);
+//			maplist.put("note", 22);
+//				
+//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-3-2分专业应届本科毕业生就业情况（招就处）", maplist,columns).toByteArray());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null ;
+//		}
+//
+//		return inputStream ;
+//	}
 
 	public String execute() throws Exception {
 

@@ -101,6 +101,32 @@ public class S72_DAO {
  		
  	}
 	public List<S72_Bean> getData(String year){
+		
+		Connection conn=DBConnection.instance.getConnection();
+		
+		Statement st= null;
+		ResultSet rs= null;
+		List<S72_Bean> list=new ArrayList<S72_Bean>();
+		
+		String sql1 = "select * from DiDepartment "+
+		 " left join T711_TeaManagerAwardInfo_TeaTea$ on DiDepartment.UnitID = T711_TeaManagerAwardInfo_TeaTea$.UnitID "+
+		 " left join T712_TeaManagerPaperInfo_TeaTea$ on DiDepartment.UnitID = T712_TeaManagerPaperInfo_TeaTea$.UnitID "+
+		 " where convert(varchar(4),T711_TeaManagerAwardInfo_TeaTea$.Time,120) = "  +  year  +  
+		 " and "  +  "convert(varchar(4),T712_TeaManagerPaperInfo_TeaTea$.Time,120) = "  +  year  +
+		 " and DiDepartment.UnitID like '3%'";
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql1);
+			if(!rs.next()){
+				System.out.println("统计数据不全啊  ");
+				return list;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
 
 		String sql="select UnitName AS TeaUnit,DiDepartment.UnitID," + 
 		" count(ItemLevel) AS SumTeaResItem," +
@@ -117,18 +143,15 @@ public class S72_DAO {
 		" sum(case when AwardLevel='50004' then 1 else 0 end) AS SchAward "+
 		" from DiDepartment "+
 		" left join  T721_TeachResItem_Tea$ on DiDepartment.UnitID = T721_TeachResItem_Tea$.UnitID "+
-	    " left join T722_TeachAchieveAward_Tea$ on DiDepartment.UnitID = T722_TeachAchieveAward_Tea$.UnitID "+
 	    " and  convert(varchar(4),T721_TeachResItem_Tea$.Time,120) = "  +  year  +  
+	    " left join T722_TeachAchieveAward_Tea$ on DiDepartment.UnitID = T722_TeachAchieveAward_Tea$.UnitID "+
 	    " and "  +  "convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120) = "  +  year  +  
 	    " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
 		
 		System.out.println(sql);
 		
-		Connection conn=DBConnection.instance.getConnection();
-		
-		Statement st= null;
-		ResultSet rs= null;
-		List<S72_Bean> list=new ArrayList<S72_Bean>();
+
+	
 		int sumTeaResItem=0,interItem=0,nationItem=0,proviItem=0,cityItem=0,schItem=0,sumTeaAward=0,
 				interAward=0,nationAward=0,proviAward=0,cityAward=0,schAward=0;
 		try {
@@ -208,9 +231,27 @@ public class S72_DAO {
 		
 	}
 	public static void main(String arg[]){
-		//S72_DAO s=new S72_DAO();
-		//List<S72_Bean> list=s.getData("2014");
-		//System.out.println(list.size());
+		String sql="select UnitName AS TeaUnit,DiDepartment.UnitID," + 
+		" count(ItemLevel) AS SumTeaResItem," +
+		" sum(case when ItemLevel='50000' then 1 else 0 end) AS InterItem, "+
+		" sum(case when ItemLevel='50001' then 1 else 0 end) AS NationItem, "+
+		" sum(case when ItemLevel='50002' then 1 else 0 end) AS ProviItem, "+
+		" sum(case when ItemLevel='50003' then 1 else 0 end) AS CityItem, "+
+		" sum(case when ItemLevel='50004' then 1 else 0 end) AS SchItem, "+
+		" COUNT(AwardLevel) AS SumTeaAward,"+
+		" sum(case when AwardLevel='50000' then 1 else 0 end) AS InterAward, "+
+		" sum(case when AwardLevel='50001' then 1 else 0 end) AS NationAward, "+
+		" sum(case when AwardLevel='50002' then 1 else 0 end) AS ProviAward, "+
+		" sum(case when AwardLevel='50003' then 1 else 0 end) AS CityAward, "+
+		" sum(case when AwardLevel='50004' then 1 else 0 end) AS SchAward "+
+		" from DiDepartment "+
+		" left join  T721_TeachResItem_Tea$ on DiDepartment.UnitID = T721_TeachResItem_Tea$.UnitID "+
+	    " left join T722_TeachAchieveAward_Tea$ on DiDepartment.UnitID = T722_TeachAchieveAward_Tea$.UnitID "+
+	    " and convert(varchar(4),T721_TeachResItem_Tea$.Time,120) = "  +  " 2009 "  +  
+	    " and "  +  "convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120) = "  +  " 2009 "  +  
+	    " where "  +  "DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
+		
+		System.out.println(sql);
 		
 	}
 

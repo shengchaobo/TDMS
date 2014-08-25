@@ -118,7 +118,8 @@ public class T655_Service {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+         T655_Service ser = new T655_Service();
+         List<T655_Bean>  list = ser.getPageInfoList("1=1", null, "10", "1");
 	}
 
 

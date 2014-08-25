@@ -150,7 +150,7 @@ public class A322_DAO {
 			
 				A322_Bean a322_Bean=new A322_Bean();
 				a322_Bean.setTeaUnit(rs.getString("TeaUnit"));
-				a322_Bean.setUnitID("");
+			
 				a322_Bean.setUnitID(rs.getString("UnitID"));
 				a322_Bean.setFieldNum(fieldNum);
 
@@ -168,6 +168,7 @@ public class A322_DAO {
 			if(list.size()!=0){
 				A322_Bean a322_Bean=new A322_Bean();	
 				a322_Bean.setTeaUnit("合计");
+				a322_Bean.setUnitID("");
 				a322_Bean.setFieldNum(sum);
 				a322_Bean.setInternationRatio(Double.parseDouble(nf.format((double)sumInterNation/sum))*100);
 				a322_Bean.setNationRatio(Double.parseDouble(nf.format((double)sumNation/sum))*100);

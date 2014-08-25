@@ -36,7 +36,6 @@ import net.sf.json.JSONSerializer;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
-
 import cn.nit.bean.table7.S72_Bean;
 import cn.nit.dao.table7.S72_DAO;
 import cn.nit.service.table7.S72_Service;
@@ -60,30 +59,52 @@ public class S72_Action {
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	public void loadInfo(){
+		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		HttpServletResponse response = ServletActionContext.getResponse() ;	
+		List<S72_Bean> list = s72_Service.getYearInfo(this.getSelectYear());
+
+		//System.out.println(this.getSelectYear());
+		//System.out.println(list.size());
 		
-		List<S72_Bean> list=s72_Service.getYearInfo(this.getSelectYear());
-		System.out.println(this.getSelectYear());
-		System.out.println(list.size());
-		JSON json=JSONSerializer.toJSON(list);
-		System.out.println(json);
+		boolean flag = true;
+		JSON json = null;
+		if(list.size()==0){
+			flag = false;
+		}else{
+			 json = JSONSerializer.toJSON(list) ;
+			 System.out.println(json.toString());
+		}
+		
+
+		
 		PrintWriter out = null ;
+		
 		try {
-			//设置输出内容的格式为json
-			response.setContentType("application/json; charset=UTF-8") ;
-			out = response.getWriter() ;
-			//设置数据的内容的编码格式
-			String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
-			out.print(outPrint) ;
-			out.flush() ;
+			
+			if(flag){
+				//设置输出内容的格式为json
+				response.setContentType("application/json; charset=UTF-8") ;
+				
+				out = response.getWriter() ;
+				//设置数据的内容的编码格式
+				String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
+				out.print(outPrint) ;
+			}else{
+				response.setContentType("text/html; charset=UTF-8") ;
+				out = response.getWriter() ;
+				out.print("[{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}]") ;
+				System.out.println("统计数据不全");
+			}
+
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
 			if(out != null){
+				out.flush() ;
 				out.close() ;
 			}
-		}	
+		}
 	}
 
 	public InputStream getInputStream(){

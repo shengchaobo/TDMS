@@ -59,10 +59,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="libAvgScore">文化当年录取平均分数（分）</th>
 				<th field="sciAvgScore">专业当年录取平均分数（分）</th>
 				<th field="sumAvgScore">综合当年录取平均分数（分）</th>		
+				<th field="note">说明</th>
 				<th field="time" formatter="formattime">填写时间</th>
-					<th field="note">备注</th>
 			</tr>
 		</thead>
+		<!-- 
+		<thead>
+			<tr>
+				<th data-options="field:'ck',checkbox:true" rowspan="2">选取</th>
+				<th field="seqNumber" align = "center" rowspan="2">序号</th>
+				<th field="province" align = "center" rowspan="2">省份</th>
+				<th field="artType"  align = "center"rowspan="2">类型</th>
+				<th field="batch" align = "center" rowspan="2">批次</th>
+	
+		       	<th colspan="3" align = "center">1.录取数（个）</th>
+		       	<th colspan="3" align = "center">2.批次最低控制线（分）  </th>
+		       	<th colspan="3" align = "center">3.当年录取平均分数（分）  </th>
+		       <th field="time" formatter="formattime" rowspan="2">填写时间</th>
+				<th field="note" rowspan="2">备注</th>
+		    </tr>
+			<tr>
+				<th field="libEnrollNum" align = "center">文科</th>
+				<th field="sciEnrollNum" align = "center">理科</th>		
+				<th field="sumEnrollNum" align = "center">综合</th>		
+				<th field="libLowestScore" align = "center">文化</th>		
+				<th field="sciLowestScore" align = "center">专业</th>	
+				<th field="sumLowestScore" align = "center">综合</th>			
+				<th field="libAvgScore" align = "center">文化</th>
+				<th field="sciAvgScore" align = "center">专业</th>
+				<th field="sumAvgScore" align = "center">综合</th>		
+			</tr>
+		</thead>
+		 -->
 	</table>
 	
 	<div id="toolbar" style="height:auto">

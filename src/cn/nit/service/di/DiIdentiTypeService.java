@@ -2,6 +2,7 @@ package cn.nit.service.di;
 
 import java.util.List;
 
+import cn.nit.bean.RoleBean;
 import cn.nit.bean.di.DiIdentiTypeBean;
 import cn.nit.dao.di.DiIdentiTypeDao;
 
@@ -27,6 +28,34 @@ public class DiIdentiTypeService {
 	 */
 	public boolean insert(DiIdentiTypeBean identiType){
 		return identiTypeDao.insert(identiType) ;
+	}
+	
+	/**
+	 * 更新身份
+	 * @param userinfo
+	 * @return
+	 */
+	public boolean update(DiIdentiTypeBean identiType){
+		
+		return identiTypeDao.update(identiType) ;
+	}
+	
+	/**
+	 * 根据身份编号删除身份
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteByIds(String ids){
+		return identiTypeDao.deleteByIds(ids) ;
+	}
+	
+	
+	/**
+	 * 判断中是否已包含该角色
+	 */
+	
+	public boolean hasType(String typeID){
+		return identiTypeDao.hasType(typeID);
 	}
 
 }

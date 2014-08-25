@@ -18,12 +18,22 @@
 			//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
 			remoteSort : false,
 			rownumbers : true,
+			async : false,
+			type : "POST",
+			onLoadSuccess: function (rowData) {
+				//alert(rowData.rows[0].data);
+				if(typeof(rowData.rows[0].data) != "undefined"){
+					alert(rowData.rows[0].data);
+				}
+
+			},
 
 			queryParams:{
 				'selectYear': year
 			}
 		});
 		
+
 		
 		//刷新页面
 		 $("#cbYearContrast").combobox({  

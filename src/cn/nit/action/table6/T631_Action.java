@@ -1,6 +1,7 @@
 package cn.nit.action.table6;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,11 +23,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
+
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
 
+import cn.nit.bean.table6.T624_Bean;
 import cn.nit.bean.table6.T631_Bean;
 
 import cn.nit.dao.table6.T631_Dao;
@@ -82,6 +99,7 @@ public class T631_Action {
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
+
 
 	/** 逐条插入数据 */
 	public void insert() {
@@ -220,6 +238,7 @@ public class T631_Action {
 	public InputStream getInputStream() {
 
 		InputStream inputStream = null ;
+		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
 		try {
 /*			response.reset();
@@ -227,42 +246,129 @@ public class T631_Action {
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T631_Bean> list = T631_dao.getAllList("1=1", null);
-						
-			String sheetName = this.getExcelName();
-			
-			List<String> columns = new ArrayList<String>();
-			columns.add("序号");
-			columns.add("教学单位");
-			columns.add("单位");
-			columns.add("专业名称");
-			columns.add("专业代码");
-			columns.add("应届毕业生数");
-			columns.add("应届生中未按时毕业数");
-			columns.add("授予学位");
-			columns.add("时间");
-			columns.add("备注");
-			
-
-			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("seqNumber", 0);
-			maplist.put("teaUnit", 1);
-			maplist.put("unitId", 2);
-			maplist.put("majorName", 3);
-			maplist.put("majorId", 4);
-			maplist.put("thisYearGraduNum", 5);
-			maplist.put("thisYearNotGraduNum", 6);
-			maplist.put("awardDegreeNum", 7);
-			maplist.put("time", 8);
-			maplist.put("note", 9);
+			if(list==null){
+				if(list.size()==0){
+					PrintWriter out = null ;
+					response.setContentType("text/html;charset=utf-8") ;
+					out = response.getWriter() ;
+					out.print("后台传入的数据为空") ;
+					System.out.println("后台传入的数据为空");
+					return null;
+				}
+			}
+			if(list!=null){
+				int ThisYearGraduNum=0; int ThisYearNotGraduNum=0; int AwardDegreeNum=0; 
+				//统计全校合计
+				for(T631_Bean bean : list){
+					ThisYearGraduNum+=bean.getThisYearGraduNum();
+					ThisYearNotGraduNum+=bean.getThisYearNotGraduNum();
+					AwardDegreeNum+=bean.getAwardDegreeNum();
+				}
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-3-1分专业应届本科毕业生毕业情况（教务处）", maplist,columns).toByteArray());
+				T631_Bean bean = new T631_Bean();
+				bean.setThisYearGraduNum(ThisYearGraduNum);
+				bean.setThisYearNotGraduNum(ThisYearNotGraduNum);
+				bean.setAwardDegreeNum(AwardDegreeNum);
+				bean.setTeaUnit("全校合计：");
+				list.add(0, bean);
+				
+				String sheetName = this.getExcelName();
+				
+				List<String> columns = new ArrayList<String>();
+				
+				columns.add("序号");columns.add("教学单位");columns.add("单位号");
+				columns.add("专业名称");columns.add("专业代码");columns.add("应届毕业生数");
+				columns.add("应届生中未按时毕业数");columns.add("授予学位");
+//				columns.add("时间");
+//				columns.add("备注");
+				
+
+				Map<String,Integer> maplist = new HashMap<String,Integer>();
+				
+				maplist.put("seqNumber", 0);maplist.put("teaUnit", 1);maplist.put("unitId", 2);
+				maplist.put("majorName", 3);maplist.put("majorId", 4);maplist.put("thisYearGraduNum", 5);
+				maplist.put("thisYearNotGraduNum", 6);maplist.put("awardDegreeNum", 7);
+//				maplist.put("time", 8);
+//				maplist.put("note", 9);
+				
+				WritableWorkbook wwb;
+				try{
+					
+					 fos = new ByteArrayOutputStream();
+			            wwb = Workbook.createWorkbook(fos);
+			            WritableSheet ws = wwb.createSheet("表6-3-1分专业应届本科毕业生毕业情况（教务处）", 0);        // 创建一个工作表
+
+			            //    设置表头的文字格式
+			            
+			            WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+			                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);    
+			            WritableCellFormat wcf = new WritableCellFormat(wf);
+			            wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+			            wcf.setAlignment(Alignment.CENTRE);
+			            wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+				        		     jxl.format.Colour.BLACK);
+			            
+			            //    设置内容单无格的文字格式
+			            WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+				                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+			            WritableCellFormat wcf1 = new WritableCellFormat(wf1);       
+			            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+			            wcf1.setAlignment(Alignment.CENTRE);
+			            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+				        		     jxl.format.Colour.BLACK);
+			            ws.setRowView(1, 500);
+						//第一行存表名
+						ws.addCell(new Label(0, 0, "表6-3-1分专业应届本科毕业生毕业情况（教务处）", wcf)); 
+						ws.mergeCells(0, 0, 1, 0);
+						
+						//写表头
+						if(columns != null && columns.size() > 0){
+							for(int i =0;i<columns.size();i++){
+								ws.addCell(new Label(i, 2, columns.get(i), wcf));
+							}
+						}
+						
+						//向表中写数据
+						int k=3;//从第4行开始写数据,第3行为全校合计数
+						for(int j=0;j<list.size();j++){
+							T631_Bean bean1 =  list.get(j);
+							if(j==0){
+								ws.addCell(new Label(0,3, bean1.getTeaUnit(), wcf1));
+								ws.mergeCells(0, 3, 4, 3);
+								ws.addCell(new Label(5, 3, bean1.getThisYearGraduNum()+"", wcf1));
+								ws.addCell(new Label(6, 3, bean1.getThisYearNotGraduNum()+"", wcf1));
+								ws.addCell(new Label(7, 3, bean1.getAwardDegreeNum()+"", wcf1));
+								
+							}else{
+								ws.addCell(new Label(0, k,j+"", wcf1));
+								ws.addCell(new Label(1, k, bean1.getTeaUnit(), wcf1));
+								ws.addCell(new Label(2, k, bean1.getUnitId(), wcf1));
+								ws.addCell(new Label(3, k, bean1.getMajorName(), wcf1));
+								ws.addCell(new Label(4, k, bean1.getMajorId(), wcf1));
+								ws.addCell(new Label(5, k, bean1.getThisYearGraduNum()+"", wcf1));
+								ws.addCell(new Label(6, k, bean1.getThisYearNotGraduNum()+"", wcf1));
+								ws.addCell(new Label(7, k, bean1.getAwardDegreeNum()+"", wcf1));
+							}
+							k++;
+						}
+						    wwb.write();
+				            wwb.close();
+
+				} catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
+				
+			}
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
 		}
 
+		inputStream = new ByteArrayInputStream(fos.toByteArray());
 		return inputStream ;
 	}
+						
 
 	public String execute() throws Exception{
 		request.setCharacterEncoding("UTF-8") ;

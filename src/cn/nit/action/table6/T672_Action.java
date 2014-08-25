@@ -1,6 +1,7 @@
 package cn.nit.action.table6;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +22,21 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 import net.sf.json.JSONObject;
 
@@ -90,6 +106,7 @@ import cn.nit.service.table6.T671_Service;
 import cn.nit.service.table6.T672_Service;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 /**
  * 待完成！！！！！！！
@@ -134,6 +151,9 @@ public class T672_Action {
 	
 	/**专业名称*/
 	private String majorName;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 
 	/** 逐条插入数据 */
 	public void insert() {
@@ -270,6 +290,7 @@ public class T672_Action {
 	public InputStream getInputStream() {
 
 		InputStream inputStream = null ;
+		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
 		try {
 /*			response.reset();
@@ -278,55 +299,123 @@ public class T672_Action {
 			
 			List<T672_Bean> list = T672_dao.getAllList("1=1", null);
 						
-			String sheetName = this.getExcelName();
+			if(list==null){
+				if(list.size()==0){
+					PrintWriter out = null ;
+					response.setContentType("text/html;charset=utf-8") ;
+					out = response.getWriter() ;
+					out.print("后台传入的数据为空") ;
+					System.out.println("后台传入的数据为空");
+					return null;
+				}
+			}
 			
-			List<String> columns = new ArrayList<String>();
+			if(list!=null){
 				
-			columns.add("序号");
-			columns.add("学生姓名");
-			columns.add("学号");
-			columns.add("所在教学单位");
-			columns.add("单位号");
-			columns.add("所在专业");
-			columns.add("所在专业代码");
-			columns.add("所在班级");
-			columns.add("双学位所在教学单位");
-			columns.add("单位号");
-			
-			columns.add("双学位专业");
-			columns.add("双学位专业代码");
-			columns.add("起始时间");
-			columns.add("预计毕业时间");
-		
+				String sheetName = this.getExcelName();
+				
+				List<String> columns = new ArrayList<String>();
+				
+				columns.add("序号");columns.add("所属教学单位");columns.add("单位号");
+				columns.add("专业名称");columns.add("专业代码");columns.add("专业方向名称");
+				columns.add("当年是否招生（含方向）");columns.add("当年计划招生数（人）");columns.add("实际录取数（人）");
+				columns.add("实际报到数（人）");columns.add("普通高中起点（人）");columns.add("中职起点（人）");
+				columns.add("其他（人）");
+//				columns.add("时间");columns.add("备注");
+				
 
-			Map<String,Integer> maplist = new HashMap<String,Integer>();
-	
-			maplist.put("seqNumber", 0);
-			maplist.put("stuName", 1);
-			maplist.put("stuId", 2);
-			
-			maplist.put("fromTeaUnit", 3);
-			maplist.put("unitId", 4);
-			
-			maplist.put("fromMaj", 5);
-			maplist.put("majId", 6);
-			maplist.put("fromClass", 7);
-			
-			maplist.put("dualDegreeFromTeaUnit", 8);
-			maplist.put("dualDegreeUnitId", 9);
-			maplist.put("dualDegreeMaj", 10);
-			maplist.put("dualDegreeId", 11);
-			maplist.put("beginTime", 12);
-			maplist.put("graduateTime", 13);
+				Map<String,Integer> maplist = new HashMap<String,Integer>();
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-7-2双学位情况汇总表（教务处）", maplist,columns).toByteArray());
+				maplist.put("seqNumber", 0);maplist.put("teaUnit", 1);maplist.put("unitId", 2);
+				maplist.put("majorName", 3);maplist.put("majorId", 4);maplist.put("majorFieldName", 5);
+				maplist.put("isCurrentYearAdmis", 6);maplist.put("planAdmisNum", 7);maplist.put("actualAdmisNum", 8);
+				maplist.put("actualRegisterNum", 9);maplist.put("genHignSchNum", 10);maplist.put("secondVocationNum", 11);
+				maplist.put("otherNum", 12);
+//				maplist.put("time", 13);maplist.put("note", 14);
+				
+				WritableWorkbook wwb;
+				try{
+					
+					 fos = new ByteArrayOutputStream();
+			            wwb = Workbook.createWorkbook(fos);
+			            WritableSheet ws = wwb.createSheet("表6-7-2双学位情况汇总表（教务处）", 0);        // 创建一个工作表
+
+			            //    设置表头的文字格式
+			            
+			            WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+			                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);    
+			            WritableCellFormat wcf = new WritableCellFormat(wf);
+			            wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+			            wcf.setAlignment(Alignment.CENTRE);
+			            wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+				        		     jxl.format.Colour.BLACK);
+			            
+			            //    设置内容单无格的文字格式
+			            WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+				                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+			            WritableCellFormat wcf1 = new WritableCellFormat(wf1);       
+			            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+			            wcf1.setAlignment(Alignment.CENTRE);
+			            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+				        		     jxl.format.Colour.BLACK);
+			            ws.setRowView(1, 500);
+						//第一行存表名
+						ws.addCell(new Label(0, 0, "表6-7-2双学位情况汇总表（教务处）", wcf)); 
+						ws.mergeCells(0, 0, 1, 0);
+						
+						ws.addCell(new Label(0, 2, "序号", wcf)); ws.mergeCells(0, 2, 0, 3);
+						ws.addCell(new Label(1, 2, "学生姓名", wcf)); ws.mergeCells(1, 2, 1, 3);
+						ws.addCell(new Label(2, 2, "学号", wcf)); ws.mergeCells(2, 2, 2, 3);
+						
+						ws.addCell(new Label(3, 2, "1.学生基本信息", wcf)); ws.mergeCells(3, 2, 7, 2);
+						ws.addCell(new Label(8, 2, "2.学生辅修信息", wcf)); ws.mergeCells(8, 2, 13, 2);
+						
+						ws.addCell(new Label(3, 3, "所在教学单位", wcf));ws.addCell(new Label(4, 3, "单位号", wcf));
+						ws.addCell(new Label(5, 3, "所在专业", wcf));ws.addCell(new Label(6, 3, "所在专业代码", wcf));
+						ws.addCell(new Label(7, 3, "所在班级", wcf));ws.addCell(new Label(8, 3, "双学位所在教学单位", wcf));
+						ws.addCell(new Label(9, 3, "单位号", wcf));ws.addCell(new Label(10, 3, "双学位专业", wcf));
+						ws.addCell(new Label(11, 3, "双学位专业代码", wcf));ws.addCell(new Label(12, 3, "起始时间", wcf));
+						ws.addCell(new Label(13, 3, "预计毕业时间", wcf));
+						
+						//向表中写数据
+						int k=4;//从第4行开始写数据,第3行为全校合计数
+						for(int j=0;j<list.size();j++){
+							T672_Bean bean1 =  list.get(j);
+							
+								ws.addCell(new Label(0, k,(j+1)+"", wcf));
+								ws.addCell(new Label(1, k, bean1.getStuName(), wcf));
+								ws.addCell(new Label(2, k, bean1.getStuId(), wcf));
+								ws.addCell(new Label(3, k, bean1.getFromTeaUnit(), wcf));
+								ws.addCell(new Label(4, k, bean1.getUnitId(), wcf));
+								ws.addCell(new Label(5, k, bean1.getFromMaj(), wcf));
+								ws.addCell(new Label(6, k, bean1.getMajId(), wcf));
+								ws.addCell(new Label(7, k, bean1.getFromClass(), wcf));
+								ws.addCell(new Label(8, k, bean1.getDualDegreeFromTeaUnit(), wcf));
+								ws.addCell(new Label(9, k, bean1.getDualDegreeUnitId(), wcf));
+								ws.addCell(new Label(10, k, bean1.getDualDegreeMaj(), wcf));
+								ws.addCell(new Label(11, k, bean1.getDualDegreeId(), wcf));
+								ws.addCell(new Label(12, k, TimeUtil.changeFormat4(bean1.getBeginTime()), wcf));
+								ws.addCell(new Label(13, k, TimeUtil.changeFormat4(bean1.getGraduateTime()), wcf));
+							k++;
+						}
+						    wwb.write();
+				            wwb.close();
+
+				} catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
+				
+			}
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
 		}
 
+		inputStream = new ByteArrayInputStream(fos.toByteArray());
 		return inputStream ;
 	}
+			
 
 	public String execute() throws Exception {
 

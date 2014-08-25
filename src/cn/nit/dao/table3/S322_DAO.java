@@ -106,6 +106,23 @@ public class S322_DAO {
 
 	public List<S322_Bean> getData(String year)
 	{
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<S322_Bean> list = new ArrayList<S322_Bean>() ;
+		String sql = "select * from T322_UndergraMajorInfo_Tea$ where time like '"+ year +"%'";
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			if(!rs.next()){
+				System.out.println("统计数据不全啊  ");
+				return list;
+			}
+			
+		}catch (Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
 		
 		String querysql=" select DiDepartment.UnitName as TeaUnit,DiDepartment.UnitID as UnitID," +
 		"T322_UndergraMajorInfo_Tea$.MajorName as PassedMajor, "+
@@ -121,10 +138,7 @@ public class S322_DAO {
 					" and "  +  "DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,DiDepartment.UnitName,T322_UndergraMajorInfo_Tea$.MajorName,T322_UndergraMajorInfo_Tea$.MajorID," +
 							" T322_UndergraMajorInfo_Tea$.AppvlTime,T322_UndergraMajorInfo_Tea$.FromTime,T322_UndergraMajorInfo_Tea$.EndTime,T322_UndergraMajorInfo_Tea$.AppvlAuth";
 
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<S322_Bean> list = new ArrayList<S322_Bean>() ;
+
 		System.out.println(querysql);
 		try{
 			st = conn.createStatement() ;

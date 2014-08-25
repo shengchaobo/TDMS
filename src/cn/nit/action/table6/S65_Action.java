@@ -43,6 +43,7 @@ import cn.nit.service.table6.T655_Service;
 import cn.nit.service.table6.T656_Service;
 import cn.nit.service.table6.T657_Service;
 import cn.nit.service.table6.T658_Service;
+import cn.nit.service.table6.T651_Service;
 
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
@@ -60,6 +61,7 @@ public class S65_Action {
 	private T656_Service T656_services = new T656_Service();
 	private T657_Service T657_services = new T657_Service();
 	private T658_Service T658_services = new T658_Service();
+	private T651_Service T651_services = new T651_Service();
 //	private S65_Service S65_services = new S65_Service();
 	
 
@@ -88,6 +90,13 @@ public class S65_Action {
 		
 		boolean flag0 = true; 
 		S65_Bean bean = new S65_Bean();
+		
+		//T651中的统计数据
+		
+		bean = T651_services.getStatic(this.getSelectYear());
+		System.out.println("bean:"+JsonUtil.beanToJson(bean));
+		
+		
 		
 		//T652，统计学生发表论文数		
 		int paperNum = T652_services.getPaper(this.getSelectYear());
@@ -178,15 +187,12 @@ public class S65_Action {
 		}else{
 			bean.setInterConference(interCon);
 		}
-		
-		
-		
-		//数据不为空相加
-		boolean flag = true;
+//		//数据不为空相加
+//		boolean flag = true;
 		String json = null;
 		
-			bean.setTime(null);
-			json = JsonUtil.beanToJson(bean);
+		bean.setTime(null);
+		json = JsonUtil.beanToJson(bean);
 		
 				
 		
@@ -198,12 +204,12 @@ public class S65_Action {
 			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}") ;
 			System.out.println("统计数据不全");
 		}
-		else if(flag == false ){
-			System.out.println("统计数据保存失败");
-			response.setContentType("text/html;charset=UTF-8") ;
-			out = response.getWriter() ;
-			out.println("{\"data\":\"统计数据保存失败\"}"); 
-		}
+//		else if(flag == false ){
+//			System.out.println("统计数据保存失败");
+//			response.setContentType("text/html;charset=UTF-8") ;
+//			out = response.getWriter() ;
+//			out.println("{\"data\":\"统计数据保存失败\"}"); 
+//		}
 		else{
 			try {				
 				System.out.println(json) ;
@@ -354,5 +360,15 @@ public class S65_Action {
 
 	public String getFields() {
 		return fields;
+	}
+	
+	public static void main(String arg[]) throws Exception{
+		T651_Service T651services = new T651_Service();
+		S65_Bean b = T651services.getStatic("2014");
+		//b.setPaperNum(11);
+		String json = JsonUtil.beanToJson(b);
+		System.out.println(json);
+		//S65_Action a = new S65_Action();
+		//a.loadInfo();
 	}
 }

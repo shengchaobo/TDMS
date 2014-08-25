@@ -63,6 +63,7 @@ public class T623_Excel {
 	 */
 	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear) {
 
+		System.out.println("cellList:"+cellList.size());
 		if ((cellList == null) || (cellList.size() < 2)) {
 			return "数据不标准，请重新提交";
 		}
@@ -245,7 +246,7 @@ public class T623_Excel {
 		flag = T623_services.batchInsert(list);
 
 		if (flag) {
-			return "数据存储成功！";
+			return null;
 		} else {
 			return "数据存储失败，请联系管理员";
 		}

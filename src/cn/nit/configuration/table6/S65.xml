@@ -3,7 +3,7 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
-	<package name="S65" namespace="/pages/S65" extends="struts-default">
+	<package name="pages/S65" namespace="/pages/S65" extends="struts-default">
 		    <!-- 显示数据 -->
 	    <action name="loadInfo" class="cn.nit.action.table6.S65_Action" method="loadInfo" />
 	

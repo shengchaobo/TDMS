@@ -121,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="teaUnit" type="hidden" name="T655_bean.teaUnit">										
 						<input id="unitId" type="text" name="T655_bean.unitId" class='easyui-combobox'
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
-							onSelect:function(){
+							onSelect:function(){	
 							 	 document.getElementById('teaUnit').value=$(this).combobox('getText') ;
 							 }">
 					</div>

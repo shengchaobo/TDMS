@@ -65,6 +65,7 @@ $(function(){
 			                    }														
 							},
 			                error: function(XMLResponse) {
+			                alert("kongkongh");
 			                      alert("该年数据为空!!!");
 				                    var i = 0;
 				                    while(i<rows.length){

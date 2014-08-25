@@ -98,6 +98,10 @@ public class T654_Service {
 		// TODO Auto-generated method stub
 		return T654_dao.getAllList().size();
 	}
+	
+	public int getPatent(String year){
+		return T654_dao.getPatent(year);
+	}
 
 
 	/**

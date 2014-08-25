@@ -104,7 +104,10 @@ public class T658_Service {
 		// TODO Auto-generated method stub
 		return T658_dao.getAllList().size();
 	}
-
+	
+	public int getInterConference(String year){
+		return T658_dao.getInterConference(year);
+	}
 
 	/**
 	 * @param args

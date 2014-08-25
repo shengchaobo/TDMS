@@ -85,7 +85,7 @@
 	        
 	        //打开导入窗口
 			   $("#add").click(function(){
-				   alert(123);
+				   
 				   $('#dlg-import').dialog('open').dialog('setTitle','课外活动、讲座情况的导入');
 			   });
 			   
@@ -114,7 +114,7 @@
 			   					$('#edit').propertygrid('loadData', rows);
 		    		 		  	
 		    		 	} else {
-		    		 		alert(123);
+		    		 		
 				    		  $('#dlg-import').dialog('close'); // close the dialog
 				    		   reloadgrid(newValue,true)
 								$('#edit').propertygrid('loadData', rows);
@@ -146,7 +146,7 @@
 	
 		//全局变量，用来暂存当前的url值
 	   var url;
-	   alert(222);
+	   
 		//单条导入
 		function singleImport() {
 			//alert(url);

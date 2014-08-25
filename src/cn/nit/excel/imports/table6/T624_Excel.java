@@ -161,30 +161,48 @@ public class T624_Excel {
 				if (planAdmisNum == null || planAdmisNum.equals("")) {
 					return "第" + count + "行，当年计划招生数不能为空";
 				}
+				if(!this.isNumeric(planAdmisNum)){
+					return "第" + count + "行，当年计划招生数只能填数字";
+				}
 
 				String actualAdmisNum = cell[8].getContents();
 				if (actualAdmisNum == null || actualAdmisNum.equals("")) {
 					return "第" + count + "行，实际录取数不能为空";
+				}
+				if(!this.isNumeric(actualAdmisNum)){
+					return "第" + count + "行，实际录取数只能填数字";
 				}
 
 				String actualRegisterNum = cell[9].getContents();
 				if (actualRegisterNum == null || actualRegisterNum.equals("")) {
 					return "第" + count + "行，实际报到数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(actualRegisterNum)){
+					return "第" + count + "行，实际报到数只能填数字";
+				}
 
 				String genHignSchNum = cell[10].getContents();
 				if (genHignSchNum == null || genHignSchNum.equals("")) {
 					return "第" + count + "行，普通高中起点数不能为空";
+				}
+				if(!this.isNumeric(genHignSchNum)){
+					return "第" + count + "行，普通高中起点数只能填数字";
 				}
 
 				String secondVocationNum = cell[11].getContents();
 				if (secondVocationNum == null || secondVocationNum.equals("")) {
 					return "第" + count + "行，中职起点数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(secondVocationNum)){
+					return "第" + count + "行，中职起点数只能填数字";
+				}
 				
 				String otherNum = cell[11].getContents();
 				if (otherNum == null || otherNum.equals("")) {
 					return "第" + count + "行，其他人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(otherNum)){
+					return "第" + count + "行，其他人数只能填数字";
 				}
 
 				count++;
@@ -228,4 +246,15 @@ public class T624_Excel {
 			return "数据存储失败，请联系管理员";
 		}
 	}
+	
+
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
 }

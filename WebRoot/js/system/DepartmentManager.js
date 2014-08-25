@@ -1,8 +1,8 @@
 	//只是用来展示的数据
 	$(function() {
-		$('#userManager').datagrid( {
-			title : '用户管理',  //可变内容在具体页面定义
-			url: 'pages/UserManager/loadUsers',
+		$('#departmentManager').datagrid( {
+			title : '部门管理',  //可变内容在具体页面定义
+			url: 'pages/DiDepartment/loadDes',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -24,10 +24,10 @@
 					
 	   //导出
 	        $("#export").click(function(){
-	        var tableName = encodeURI('用户列表');
+	        var tableName = encodeURI('部门列表');
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/UserManager/dataExport?excelName="+tableName,
+			    url : "pages/DiDepartment/dataExport?excelName="+tableName,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },
@@ -42,21 +42,22 @@
 	});
 			
 	var url;
-	var req = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/ ;
-	function newUser() {
-		//update隐藏的量在提交之后要恢复
-		$('#TeaName').combobox('readonly',false);
+	function newDepartment() {
 		
-		url = 'pages/UserManager/insert';
-		$('#dlg').dialog('open').dialog('setTitle', '添加用户');
-		$('#userManagerForm').form('reset');
+		//update隐藏的量在提交之后要恢复
+		$("input#UnitID").attr("readonly",false);
+		$("input#UnitID").css({"color":"black"});
+		
+		url = 'pages/diDepartment/insert';
+		$('#dlg').dialog('open').dialog('setTitle', '添加部门');
+		$('#departmentManagerForm').form('reset');
 	}
 
 	function singleImport() {
 		//录入数据的表单提交
-		$('#userManagerForm').form('submit', {
+		$('#departmentManagerForm').form('submit', {
 			url : url,
-			data : $('#userManagerForm').serialize(),
+			data : $('#departmentManagerForm').serialize(),
 			type : "post",
 			dataType : "json",
 			onSubmit : function() {
@@ -69,7 +70,7 @@
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
 					$('#dlg').dialog('close');
-					$('#userManager').datagrid('reload');
+					$('#departmentManager').datagrid('reload');
 				}
 			}
 		});
@@ -77,36 +78,51 @@
 
 	function validate() {
 		//获取文本框的值
-		var teaId = $('#TeaID').val();
-		var teaName = $('#TeaName').val();
-		var csUnit = $('#UnitID').combobox('getText');
-		var teaEmail = $('#TeaEmail').val();
-		var role = $('#RoleID').combobox('getText');
-		var note = $('#UserNote').val();
+		var unitID = $('#UnitID').val();
+		var unitName = $('#UnitName').val();
+		var class1 = $('#Class1').val();
+		var class2 = $('#Class2Name').val();
+		alert(class2);
+		var functions = $('#Functions').val();
+		var leader = $('#LeaderName').val();
+		var teaID = $('#TeaID').val();
+		var note = $('#Note').val();
+		
 		//根据数据库定义的字段的长度，对其进行判断
-
-		if (teaId == null || teaId.length == 0 ) {
-			alert("教工号不能为空或者教师库中无该用户");
+		if (unitID == null || unitID.length == 0 ) {
+			alert("单位号不能为空");
+			return false;
+		}
+		
+		if (unitName == null || unitName.length == 0 ) {
+			alert("部门乐称不能为空");
 			return false;
 		}
 
-		if (csUnit == null || csUnit.length == 0) {
-			alert("教职工单位不能为空");
+		if (class1 == null || class1.length == 0) {
+			alert("一级分类不能为空");
 			return false;
-		} 
-		
-		if (teaEmail == null || teaEmail.length == 0 || teaEmail.match(req) == null
-				|| teaEmail.length > 100) {
-			alert("邮箱输入错误或长度不能为空或长度不超过100");
-			return false;
-		} else {
-			$('#TeaEmailSpan').html("");
 		}
 		
-		if (role == null || role.length == 0) {
-			alert("用户角色不能为空");
+		if (class2 == null || class2.length == 0) {
+			alert("二级分类不能为空");
 			return false;
-		} 
+		}
+		
+		if (functions == null || functions.length == 0) {
+			alert("单位职能不能为空");
+			return false;
+		}
+		
+		if (leader == null || leader.length == 0) {
+			alert("负责人不能为空");
+			return false;
+		}
+		
+		if (teaID == null || teaID.length == 0) {
+			alert("教工号不能为空");
+			return false;
+		}
 		
 		if (note != null && note.length > 1000) {
 			alert("备注长度不超过1000");
@@ -115,30 +131,34 @@
 		return true;
 	}
 
-	function editUser() {
-		var row = $('#userManager').datagrid('getSelections');
+	function editDepartment() {
+		var row = $('#departmentManager').datagrid('getSelections');
 
 		if (row.length != 1) {
 			$.messager.alert('温馨提示', "请选择1条编辑的数据！！！");
 			return;
 		}
-
-		url = 'pages/UserManager/edit';
-
-		$('#dlg').dialog('open').dialog('setTitle', '编辑用户');
-		$('#seqNumber').val(row[0].seqNumber);
-		$('#TeaName').combobox('select', row[0].teaName);
-		$('#TeaName').combobox('readonly',true);
 		
-		$('#UnitID').combobox('select', row[0].unitID);
-		$('#RoleID').combobox('select', row[0].roleID);
-		$('#TeaEmail').val(row[0].teaEmail) ;
-		$('#UserNote').val(row[0].userNote);
+		url = 'pages/DiDepartment/edit';
+
+		$('#dlg').dialog('open').dialog('setTitle', '编辑部门');
+		
+    	$('#UnitID').val(row[0].unitId) ;
+    	$("input#UnitID").attr("readonly",true);
+    	$("input#UnitID").css({"color":"#888"});
+    	
+    	$('#UnitName').val(row[0].unitName);		
+		$('#Class1').val(row[0].class1);
+		$('#Class2Name').val(row[0].class2);
+		$('#Functions').val(row[0].functions);
+		$('#LeaderName').val(row[0].leader);
+		$('#TeaID').val(row[0].teaId);
+		$('#Note').val(row[0].note);
 	}
 
 	function deleteByIds() {
 		//获取选中项
-		var row = $('#userManager').datagrid('getSelections');
+		var row = $('#departmentManager').datagrid('getSelections');
 
 		if (row.length == 0) {
 			$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
@@ -151,12 +171,12 @@
 				ids += "(";
 				for ( var i = 0; i < row.length; i++) {
 					if (i < (row.length - 1)) {
-						ids += ("'"+row[i].teaID+"'" + ",");
+						ids += ("'"+row[i].unitID+"'" + ",");
 					} else {
-						ids += ("'"+row[i].teaID +"'"+ ")");
+						ids += ("'"+row[i].unitID +"'"+ ")");
 					}
 				}				
-				url = "pages/UserManager/deleteByIds?ids=" + ids ;
+				url = "pages/diDepartment/deleteByIds?ids=" + ids ;
 				submitIds();
 			}
 		});
@@ -173,44 +193,17 @@
 				result = eval("(" + result + ")");
 				if (result.state) {
 					alert(result.data);
-					$('#userManager').datagrid('reload');
+					$('#departmentManager').datagrid('reload');
 				}
 			}
 		}).submit();
 	}
 
-	function resetPassword() {
-		//获取选中项
-		var row = $('#userManager').datagrid('getSelections');
-
-		if (row.length == 0) {
-			$.messager.alert('温馨提示', "请选择需要进行密码重置的用户！！！");
-			return;
-		}
-
-		$.messager.confirm('密码重置', '您确定重置选中用户密码?', function(sure) {
-			if (sure) {
-				var ids = "";
-				ids += "(";
-
-				for ( var i = 0; i < row.length; i++) {
-					if (i < (row.length - 1)) {
-						ids += ("'"+row[i].teaID+"'" + ",");
-					} else {
-						ids += ("'"+row[i].teaID +"'"+ ")");
-					}
-				}	
-				url = "pages/UserManager/resetPassword?ids=" + ids ;
-				submitIds();
-			}
-		});
-	}
-	
 	//查询
 	function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 
          var  queryValue = $('#searchID').val();
-         var queryParams = $('#userManager').datagrid('options').queryParams;  
+         var queryParams = $('#departmentManager').datagrid('options').queryParams;  
          queryParams.searchID = queryValue;  
-         $("#userManager").datagrid('reload'); 
+         $("#departmentManager").datagrid('reload'); 
     }	

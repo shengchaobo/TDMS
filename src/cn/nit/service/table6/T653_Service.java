@@ -96,6 +96,10 @@ public class T653_Service {
 		// TODO Auto-generated method stub
 		return T653_dao.getAllList().size();
 	}
+	
+	public int getWork(String year){
+		return T653_dao.getWork(year);
+	}
 
 
 	/**

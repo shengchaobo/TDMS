@@ -118,9 +118,9 @@ public class S72_DAO {
 		" from DiDepartment "+
 		" left join  T721_TeachResItem_Tea$ on DiDepartment.UnitID = T721_TeachResItem_Tea$.UnitID "+
 	    " left join T722_TeachAchieveAward_Tea$ on DiDepartment.UnitID = T722_TeachAchieveAward_Tea$.UnitID "+
-	    " where convert(varchar(4),T721_TeachResItem_Tea$.Time,120) = "  +  year  +  
+	    " and  convert(varchar(4),T721_TeachResItem_Tea$.Time,120) = "  +  year  +  
 	    " and "  +  "convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120) = "  +  year  +  
-	    " and "  +  "DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
+	    " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
 		
 		System.out.println(sql);
 		

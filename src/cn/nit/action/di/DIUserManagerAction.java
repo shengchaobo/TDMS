@@ -37,6 +37,12 @@ public class DIUserManagerAction {
 	
 	private String searchID; //用于查询的教工号
 	
+	/**  新密码  */
+	private String newPsd;
+	
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	UserinfoBean user = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+	
 	/**
 	 * 初始化加载用户
 	 */
@@ -245,6 +251,35 @@ public class DIUserManagerAction {
 	}
 	
 	/**
+	 * 修改密码
+	 */
+	public void alertPassword(){
+		
+		boolean flag = userManagerSer.alertPassword(user.getTeaID(), this.newPsd) ;
+		PrintWriter out = null ;
+		
+		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
+			out = getResponse().getWriter() ;
+			
+			if(flag){
+				out.print("{\"state\":true,data:\"修改密码成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改密码失败!!!\"}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**
 	 * 获取request
 	 * @return
 	 *
@@ -300,5 +335,13 @@ public class DIUserManagerAction {
 
 	public String getSearchID() {
 		return searchID;
+	}
+
+	public void setNewPsd(String newPsd) {
+		this.newPsd = newPsd;
+	}
+
+	public String getNewPsd() {
+		return newPsd;
 	}
 }

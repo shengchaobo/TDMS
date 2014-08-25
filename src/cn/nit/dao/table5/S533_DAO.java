@@ -1,4 +1,4 @@
-package cn.nit.dao.table5;
+﻿package cn.nit.dao.table5;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -108,8 +108,8 @@ public class S533_DAO {
 				        " avg(ExpRatio) AS ExpRatio "+
 				        " from DiDepartment "+
 				        " left join T533_ByMajExpInfo_TeaTea$ on DiDepartment.UnitID = T533_ByMajExpInfo_TeaTea$.UnitID "+
-					    " where convert(varchar(4),T533_ByMajExpInfo_TeaTea$.Time,120) = "  +  year  +  
-					    " and "  +  "DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
+					    " and convert(varchar(4),T533_ByMajExpInfo_TeaTea$.Time,120) = "  +  year  +  
+					    " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;	
@@ -182,6 +182,8 @@ public class S533_DAO {
 	
 	/**转换成保存两位小数的double*/
 	public double toDouble1(double a){
+
+
 		DecimalFormat df = new DecimalFormat("0.00");
 		String str = df.format(a);
 		double d=Double.parseDouble(str);

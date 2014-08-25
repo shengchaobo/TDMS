@@ -80,7 +80,7 @@ public class T615_Excel {
 
 		for (Cell[] cell : cellList) {
 			try {
-				if (count <= 4) {
+				if (count <=3) {
 					count++;
 					continue;
 				}
@@ -148,55 +148,88 @@ public class T615_Excel {
 				if (schLen == null || schLen.equals("")) {
 					return "第" + count + "行，学制不能为空";
 				}
+				if(!this.isNumeric(schLen)){
+					return "第" + count + "行，学制只能填写数字";
+				}
 
 				String schStuSumNum = cell[6].getContents();
 				if (schStuSumNum == null || schStuSumNum.equals("")) {
 					return "第" + count + "行，在校生总人数不能为空";
+				}
+				if(!this.isNumeric(schStuSumNum)){
+					return "第" + count + "行，在校生总人数只能填写数字";
 				}
 
 				String freshmanNum = cell[7].getContents();
 				if (freshmanNum == null || freshmanNum.equals("")) {
 					return "第" + count + "行，一年级生人数不能为空";
 				}
+				if(!this.isNumeric(freshmanNum)){
+					return "第" + count + "行，一年级生人数只能填写数字";
+				}
 
 				String sophomoreNum = cell[8].getContents();
 				if (sophomoreNum == null || sophomoreNum.equals("")) {
 					return "第" + count + "行，二年级生人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(sophomoreNum)){
+					return "第" + count + "行，二年级生人数只能填写数字";
 				}
 
 				String juniorNum = cell[9].getContents();
 				if (juniorNum == null || juniorNum.equals("")) {
 					return "第" + count + "行，三年级生人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(juniorNum)){
+					return "第" + count + "行，三年级生人数只能填写数字";
+				}
 
 				String seniorNum = cell[10].getContents();
 				if (seniorNum == null || seniorNum.equals("")) {
 					return "第" + count + "行，四年级生人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(seniorNum)){
+					return "第" + count + "行，四年级生人数只能填写数字";
 				}
 
 				String otherGradeNum = cell[11].getContents();
 				if (otherGradeNum == null || otherGradeNum.equals("")) {
 					return "第" + count + "行，五年级生及以上人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(otherGradeNum)){
+					return "第" + count + "行，五年级生及以上人数只能填写数字";
+				}
 				
 				String minorNum = cell[11].getContents();
 				if (minorNum == null || minorNum.equals("")) {
 					return "第" + count + "行，辅修学生人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(minorNum)){
+					return "第" + count + "行，辅修学生人数只能填写数字";
 				}
 				
 				String dualDegreeNum = cell[11].getContents();
 				if (dualDegreeNum == null || dualDegreeNum.equals("")) {
 					return "第" + count + "行，双学位学生人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(dualDegreeNum)){
+					return "第" + count + "行，双学位学生人数只能填写数字";
+				}
 				
 				String changeInNum = cell[11].getContents();
 				if (changeInNum == null || changeInNum.equals("")) {
 					return "第" + count + "行，转入人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(changeInNum)){
+					return "第" + count + "行，转入人数只能填写数字";
+				}
 				
 				String changeOutNum = cell[11].getContents();
 				if (changeOutNum == null || changeOutNum.equals("")) {
 					return "第" + count + "行，转出人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(changeOutNum)){
+					return "第" + count + "行，转出人数只能填写数字";
 				}
 
 				count++;
@@ -237,4 +270,14 @@ public class T615_Excel {
 			return "数据存储失败，请联系管理员";
 		}
 	}
+	
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
 }

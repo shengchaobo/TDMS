@@ -413,7 +413,7 @@ public class T512_Excel {
 		T512_Service t512_Sr=new T512_Service();
 		flag=t512_Sr.batchInsert(list);
 		if(flag){
-			return "数据导入成功" ;
+			return null ;
 		}else{
 			return "数据存储失败，请联系管理员" ;
 		}

@@ -102,6 +102,14 @@ public class T657_Service {
 		// TODO Auto-generated method stub
 		return T657_dao.getAllList().size();
 	}
+	
+	public double getQualifiedRate(String year){
+		return T657_dao.getQualifiedRate(year);
+	}
+	
+	public double getTestReachRate(String year){
+		return T657_dao.getTestReachRate(year);
+	}
 
 
 	/**

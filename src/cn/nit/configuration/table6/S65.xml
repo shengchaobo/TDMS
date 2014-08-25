@@ -1,24 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
-	<package name="pages/S452" namespace="/pages/S452" extends="struts-default">
-		<!-- 初始化加载所有领导信息 -->
-	    <action name="loadInfo" class="cn.nit.action.table4.S452_Action" method="loadInfo" />
-    	    	    
-   	    <!-- 数据导出 -->
-	    <action name="dataExport" class="cn.nit.action.table4.S452_Action" method="execute">
+	<package name="pages/S65" namespace="/pages/S65" extends="struts-default">
+		    <!-- 显示数据 -->
+	    <action name="loadInfo" class="cn.nit.action.table6.S65_Action" method="loadInfo" />
+	
+	    <!-- 数据导出 -->
+	    <action name="dataExport" class="cn.nit.action.table6.S65_Action" method="execute">
 	    	<result name="success" type="stream">
 	    		<!-- 指定下载文件的类型，下面表示无限制 -->
 				<param name="contentType">application/octet-stream;charset=UTF-8</param>
 				<!-- 流对象名字 -->
 				<param name="inputName">inputStream</param>
 				<!-- 文件名转码 -->
-				<param name="contentDisposition">attachment;fileName="${excelName}.xls"</param>
+				<param name="contentDisposition">attachment;fileName="S-6-5本科生学习成果统计.xls"</param>
 				<!-- 下载文件缓冲大小 -->
 				<param name="bufferSize">4096</param>
 	    	</result>
-	    </action>	    
+	    </action>
+	    
 	</package>
 </struts>

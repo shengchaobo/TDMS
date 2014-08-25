@@ -153,83 +153,131 @@ public class T632_Excel {
 				if (sumEmployNum == null || sumEmployNum.equals("")) {
 					return "第" + count + "行，应届就业总人数不能为空";
 				}
+				if(!this.isNumeric(sumEmployNum)){
+					return "第" + count + "行，应届就业总人数只能填数字";
+				}
 
 				String govermentNum = cell[6].getContents();
 				if (govermentNum == null || govermentNum.equals("")) {
 					return "第" + count + "行，政府机构就业人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(govermentNum)){
+					return "第" + count + "行，政府机构就业人数只能填数字";
 				}
 
 				String pubInstiNum = cell[7].getContents();
 				if (pubInstiNum == null || pubInstiNum.equals("")) {
 					return "第" + count + "行，事业单位就业人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(pubInstiNum)){
+					return "第" + count + "行，事业单位就业人数只能填数字";
+				}
 				
 				String enterpriseNum = cell[8].getContents();
 				if (enterpriseNum == null || enterpriseNum.equals("")) {
 					return "第" + count + "行，企业就业总人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(enterpriseNum)){
+					return "第" + count + "行，企业就业总人数只能填数字";
 				}
 
 				String forceNum = cell[9].getContents();
 				if (forceNum == null || forceNum.equals("")) {
 					return "第" + count + "行，部队人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(forceNum)){
+					return "第" + count + "行，部队人数只能填数字";
+				}
 
 				String flexibleEmploy = cell[10].getContents();
 				if (flexibleEmploy == null || flexibleEmploy.equals("")) {
 					return "第" + count + "行，灵活就业人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(flexibleEmploy)){
+					return "第" + count + "行，灵活就业人数只能填数字";
+				}
+				
 				
 				String goOnHighStudy = cell[11].getContents();
 				if (goOnHighStudy == null || goOnHighStudy.equals("")) {
 					return "第" + count + "行，升学人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(goOnHighStudy)){
+					return "第" + count + "行，升学人数只能填数字";
 				}
 
 				String nationItemEmploy = cell[12].getContents();
 				if (nationItemEmploy == null || nationItemEmploy.equals("")) {
 					return "第" + count + "行，参加国家地方项目就业人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(nationItemEmploy)){
+					return "第" + count + "行，参加国家地方项目就业人数只能填数字";
+				}
 
 				String otherEmploy = cell[13].getContents();
 				if (otherEmploy == null || otherEmploy.equals("")) {
 					return "第" + count + "行，其他人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(otherEmploy)){
+					return "第" + count + "行，其他人数只能填数字";
 				}
 
 				String sumGoOnHighStudyNum = cell[14].getContents();
 				if (sumGoOnHighStudyNum == null || sumGoOnHighStudyNum.equals("")) {
 					return "第" + count + "行，应届升学总人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(sumGoOnHighStudyNum)){
+					return "第" + count + "行，届升学总人数只能填数字";
+				}
 
 				String recommendGraNum = cell[15].getContents();
 				if (recommendGraNum == null || recommendGraNum.equals("")) {
 					return "第" + count + "行，免试推荐研究生人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(recommendGraNum)){
+					return "第" + count + "行，免试推荐研究生人数只能填数字";
 				}
 
 				String examGraApplyNum = cell[16].getContents();
 				if (examGraApplyNum == null || examGraApplyNum.equals("")) {
 					return "第" + count + "行，考研报名人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(examGraApplyNum)){
+					return "第" + count + "行，考研报名人数只能填数字";
+				}
 
 				String examGraEnrollNum = cell[17].getContents();
 				if (examGraEnrollNum == null || examGraEnrollNum.equals("")) {
 					return "第" + count + "行，考研录取总人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(examGraEnrollNum)){
+					return "第" + count + "行，考研录取总人数只能填数字";
 				}
 
 				String examGraInSch = cell[18].getContents();
 				if (examGraInSch == null || examGraInSch.equals("")) {
 					return "第" + count + "行，考取本校人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(examGraInSch)){
+					return "第" + count + "行，考取本校人数只能填数字";
+				}
 
 				String examGraOutSch = cell[19].getContents();
 				if (examGraOutSch == null || examGraOutSch.equals("")) {
 					return "第" + count + "行，考取外校人数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(examGraOutSch)){
+					return "第" + count + "行，考取外校人数只能填数字";
 				}
 
 				String abroadNum = cell[20].getContents();
 				if (abroadNum == null || abroadNum.equals("")) {
 					return "第" + count + "行，出国（境）留学人数不能为空，没有请添加0";
 				}
+				if(!this.isNumeric(abroadNum)){
+					return "第" + count + "行，出国（境）留学人数只能填数字";
+				}
 				
-
 				count++;
 
 				T632_bean = new T632_Bean();
@@ -279,4 +327,14 @@ public class T632_Excel {
 			return "数据存储失败，请联系管理员";
 		}
 	}
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
+	
 }

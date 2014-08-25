@@ -94,6 +94,10 @@ public class T652_Service {
 		// TODO Auto-generated method stub
 		return T652_dao.getAllList().size();
 	}
+	
+	public int getPaper(String year){
+		return T652_dao.getPaper(year);
+	}
 
 
 	/**

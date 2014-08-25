@@ -153,23 +153,30 @@ public class T631_Excel {
 				if (thisYearGraduNum == null || thisYearGraduNum.equals("")) {
 					return "第" + count + "行，应届毕业生数不能为空";
 				}
+				if(!this.isNumeric(thisYearGraduNum)){
+					return "第" + count + "行，应届毕业生数只能填数字";
+				}
 
 				String thisYearNotGraduNum = cell[6].getContents();
 				if (thisYearNotGraduNum == null || thisYearNotGraduNum.equals("")) {
 					return "第" + count + "行，应届生中未按时毕业数不能为空，没有请添加0";
+				}
+				if(!this.isNumeric(thisYearNotGraduNum)){
+					return "第" + count + "行，应届生中未按时毕业数只能填数字";
 				}
 
 				String awardDegreeNum = cell[7].getContents();
 				if (awardDegreeNum == null || awardDegreeNum.equals("")) {
 					return "第" + count + "行，授予学位数不能为空";
 				}
+				if(!this.isNumeric(awardDegreeNum)){
+					return "第" + count + "行，授予学位数只能填数字";
+				}
 				
 				if(Integer.parseInt(awardDegreeNum) > Integer.parseInt(thisYearGraduNum)){
 					return "授予学位数应当小于等于应届毕业生数";
 				}
-
 				
-
 				count++;
 
 				T631_bean = new T631_Bean();
@@ -202,4 +209,16 @@ public class T631_Excel {
 			return "数据存储失败，请联系管理员";
 		}
 	}
+	
+
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
+	
 }

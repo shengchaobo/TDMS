@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*"   import ="cn.nit.bean.UserinfoBean" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page isELIgnored="false"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -17,15 +19,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-    <title>Basic Layout - jQuery EasyUI Demo</title>
     <link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
     <script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
+     <style type="text/css">  
+	    .blue{background: #bcd4ec;}  
+	</style> 
     <script type="text/javascript">
     		
 			function collapseAll(){
@@ -211,12 +213,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         for (var i = 0; i < closeTabsTitle.length; i++) {
             tabs.tabs("close", closeTabsTitle[i]);
         }
-    } 
+    }
+    
+    //用户show效果
+    $(document).ready(function () {
+		    $("#username").mouseover(function(){
+				document.getElementById("showList").style.display="block";
+			});
+			
+		    $("#showList").mouseleave(function(){
+				document.getElementById("showList").style.display="none";
+			});
+			
+	        $("#showList li").hover(function () {  
+            		$(this).addClass("blue");  
+	        }, function () {  
+	            	$(this).removeClass("blue");  
+	        }); 
+	});
+	
+	//修改密码
+		function alertPsd() {
+			$('#dlg').dialog('open').dialog('setTitle', '修改个人密码');
+		}
+		
+			function singleImport() {
+		//录入数据的表单提交
+		$('#userManagerForm').form('submit', {
+			url : 'pages/UserManager/alertPassword',
+			data : $('#userManagerForm').serialize(),
+			type : "post",
+			dataType : "json",
+			onSubmit : function() {
+				return validate();
+			},
+			//结果返回
+			success : function(result) {
+				//json格式转化
+				var result = eval('(' + result + ')');
+				$.messager.alert('温馨提示', result.data);
+				if (result.state) {
+					$('#dlg').dialog('close');					
+				}
+			}
+		});
+	}
+	
+		function validate() {
+		//获取文本框的值
+		var newPsd = $('#newPsd').val();
+		var comfirmPsd = $('#comfirmPsd').val();
+		//根据数据库定义的字段的长度，对其进行判断
+		if (newPsd != comfirmPsd ) {
+			alert("前后密码不一致!!!");
+			return false;
+		}
+		
+		if( (newPsd == comfirmPsd) && ( newPsd.length == 0)){
+			alert("密码不能为空!!!");
+			return false;
+		}		
+		return true;
+	}
+	
+    
     </script>
+    
+ 
     </head>
     <body style="margin-left:auto;margin-right:auto;align-text:center">
     <div class="easyui-layout" data-options="fit:true">
-	    <div style="height:46px;background:url(images/main02.jpg);width:1364px; overflow: hidden;" data-options="region:'north',split:true">
+	    <div style="height:65px;background:url(images/main02.jpg);width:1364px; overflow: hidden;" data-options="region:'north',split:true">
 	    	<div class="left">
 	    	<table>
 	    	<tr>
@@ -225,8 +292,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</tr></table>
 	    	</div>
 	    	<div class="right">
-				<h5 style="position: relative;"><a href="exit">注销登录</a>&nbsp;&nbsp;&nbsp;</h5>
-			</div>
+	    		<table>
+	    		<tr>
+	    		<td><b>欢迎用户：</b></td>
+	    		<td><a href="javascript:void(0);"  id="username" onclick="return false">${userinfo.teaID}</a>			</td>
+	    		</tr>
+	    		<tr>
+	    			<td></td>
+	    			<td width="80px;">
+	    				<div id="showList"  style="display: none; border:1px solid grey; background-color: white;">
+							<ul>
+								<li><a href="javascript:void(0)"  onclick="return alertPsd()">&nbsp;&nbsp;修改个人密码</a></li>
+								<li><a href="exit" >&nbsp;&nbsp;注销登录</a></li>	
+							</ul>
+						</div>
+	    			</td>
+	    		</tr>
+				</table>
+			</div>	
 	   </div>
 	   <div style="height:30px;background:url(images/main01.jpg);width:1364px;" data-options="region:'south',split:true">
 	    	<div align="center" valign="bottom">
@@ -254,7 +337,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</div>
 			<div id="tabs" class="easyui-tabs" data-options="region:'center',split:true" >
 		    	<div title="首页" >
-		    	   <iframe frameborder=0 width='100%' height='100%' src="./pages/index.jsp"></iframe>
+		    	   <iframe frameborder=0 width='100%' height='100%' src="pages/index.jsp"></iframe>
 				</div>
 		    </div>
 
@@ -291,31 +374,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#treeMenuDlg').dialog('close')">取消</a>
 		</div>
+		
+	<div id="dlg" class="easyui-dialog"
+		style="width:400px;height:200px;padding:10px 20px;" closed="true"
+		data-options="modal:true" buttons="#dlg-buttons">
+		<form id="userManagerForm" method="post">
+			<table>
+				<tr>
+					<td>
+						<div class="fitem">
+							<label>教工号：</label> 
+								<input type="text" name="teaID" id="teaID"   value="${userinfo.teaID}"
+								readonly="readonly"  style="width: 150px;color: grey"/>
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+							<div class="fitem">
+								<label>新密码：</label> 
+								<input type="password" name="newPsd"  
+								style="width: 150px;"   class="easyui-validatebox" id="newPsd" required='true'/>
+								<span id="newPsdSpan"></span>
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+							<div class="fitem">
+								<label>确认密码：</label> 
+								<input type="password" name="comfirmPsd"  
+								style="width: 150px;"  class="easyui-validatebox" id="comfirmPsd" required='true'/>
+								<span id="comfirmPsdSpan"></span>
+							</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<div id="dlg-buttons">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-ok" onclick="singleImport()">保存</a> <a
+			href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+	</div>
+	
     </body>
-    	<style type="text/css">
-			#fm {
-				margin: 0;
-				padding: 10px 30px;
-			}
-			
-			.ftitle {
-				font-size: 14px;
-				font-weight: bold;
-				padding: 5px 0;
-				margin-bottom: 10px;
-				border-bottom: 1px solid #ccc;
-			}
-			
-			.fitem {
-				margin-bottom: 5px;
-			}
-			
-			.fitem label {
-				display: inline-block;
-				width: 80px;
-			}
-			
-			 .left{
+    
+    	<style type="text/css">			
+		 .left{
 
 		 float: left;
 		 
@@ -324,6 +432,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.right{
 		
 		  float:right;
+		  margin-right: 50px;
 		}
+		
+		ul,ol{list-style:none; margin:0px; padding:0px;} 
 		</style>
 </html>

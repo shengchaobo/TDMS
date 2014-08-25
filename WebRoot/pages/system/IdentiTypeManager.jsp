@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>角色管理</title>
+		<title>身份代码管理</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -27,81 +27,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 		<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-		<script type="text/javascript" src="js/system/RoleManager.js"></script>
+		<script type="text/javascript" src="js/system/IdentiTypeManager.js"></script>
 		
 	</head>
 <body style="overflow-y:scroll">
-	<table id="roleManager" class="easyui-datagrid"  style="height: auto;"  >
+	<table id="typeManager" class="easyui-datagrid"  style="height: auto;"  >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="roleID">角色编号</th>
-				<th field="roleName">角色名称</th>
-				<th field="unitName">单位名称</th>
-				<th field="roleDest">角色描述</th>
+				<th field="indexId">身份代码</th>
+				<th field="identiType">身份名称</th>
+
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;height: 24">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-add" plain="true" onclick="newRole()">添加角色</a>
+				iconCls="icon-add" plain="true" onclick="newType()">添加身份</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-edit" plain="true" onclick="editRole()">编辑角色</a> 
+				iconCls="icon-edit" plain="true" onclick="editType()">编辑身份</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除角色</a>
+				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除身份</a>
 		</div>
-		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-		 	角色编号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
-			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
-		</form>
+		
 	</div>
 	<div id="dlg" class="easyui-dialog"
-		style="width:800px;height:500px;padding:10px 20px;" closed="true"
+		style="width:600px;height:150px;padding:10px 20px;" closed="true"
 		data-options="modal:true" buttons="#dlg-buttons">
-		<form id="roleManagerForm" method="post">
+		<form id="typeManagerForm" method="post">
 			<table>
 					<tr>
 						<td>
 							<div class="fitem">
 								<label>
-									角色编号：
+									身份代码：
 								</label>
-								<input id="RoleID" type="text" name="role_bean.RoleID"
+								<input id="IndexID" type="text" name="type_bean.indexId"
 									class="easyui-validatebox">
-								<span id="RoleIDSpan"></span>
+								<span id="IndexIDSpan"></span>
 							</div>
 						</td>
 						<td class="empty"></td>
 						<td>
 							<div class="fitem">
 								<label>
-									角色名称：
+									身份名称：
 								</label>
-								<input id="RoleName" type="text" name="role_bean.RoleName"
+								<input id="IdentiType" type="text" name="type_bean.identiType"
 									class="easyui-validatebox">
-								<span id="RoleNameSpan"></span>
+								<span id="IdentiTypeSpan"></span>
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<td colspan="3">
-							<div class="fitem">
-								<label>
-									角色单位：
-								</label>
-								<input id="UnitName" type="text" name="role_bean.UnitName"
-									class="easyui-validatebox">
-								<span id="UnitNameSpan"></span>
-							</div>
-						</td>
-				</tr>
-				<tr>
-					<td style="valign:left" colspan="3"><label>角色描述：</label>
-							<textarea id="RoleDest" name="role_bean.RoleDest" style="resize:none" cols="50" rows="10"></textarea>
-							<span id="RoleDestSpan"></span>
-						</td>
-					</tr>	
+						
 			</table>
 		</form>
 	</div>

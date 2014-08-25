@@ -214,6 +214,32 @@ public class DiDepartmentAction {
 			}
 		}
 	}
+	
+	public void deleteByIds(){
+		
+		boolean flag = deSer.deleteByIds(ids) ;
+		PrintWriter out = null ;
+		
+		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
+			out = getResponse().getWriter() ;
+			
+			if(flag){
+				out.print("{\"state\":true,data:\"删除成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"删除失败!!!\"}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
 	}

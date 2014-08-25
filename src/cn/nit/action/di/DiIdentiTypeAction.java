@@ -11,6 +11,7 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.RoleBean;
 import cn.nit.bean.di.DiIdentiTypeBean;
 import cn.nit.service.di.DiIdentiTypeService;
 
@@ -144,6 +145,14 @@ public class DiIdentiTypeAction {
 				out.close() ;
 			}
 		}
+	}
+	
+	public void setType_bean(DiIdentiTypeBean type_bean) {
+		this.type_bean = type_bean;
+	}
+
+	public DiIdentiTypeBean getType_bean() {
+		return type_bean;
 	}
 	
 	public HttpServletResponse getResponse(){

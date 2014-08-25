@@ -185,6 +185,7 @@ public class DiDepartmentDao {
 		 */
 		public boolean deleteByIds(String ids){
 			
+			
 			StringBuffer sql = new StringBuffer() ;
 			sql.append("delete from " + tableName) ;
 			sql.append(" where UnitID  in " + ids) ;

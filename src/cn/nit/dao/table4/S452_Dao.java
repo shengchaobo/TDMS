@@ -111,6 +111,30 @@ public class S452_Dao {
 	public List<S452_Bean> getYearInfo(String year)
 	{
 		
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<S452_Bean> list = new ArrayList<S452_Bean>() ;
+		String sql="select * from "+tableName1+" where Time like '"+year+"%'";
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			if(!rs.next()){
+				System.out.println("统计数据不全啊  ");
+				return list;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		
+		
+		
 	String querysql="select "+tableName2+".UnitName as TeaUnit,"+tableName2+".UnitID as UnitID," +
 	"sum(case when "+tableName1+".TrainType = '到行业培训' then 1 else 0 end) as IndustryTrain," +
 	"sum(case when "+tableName1+".TrainType = '攻读博士学位' then 1 else 0 end) as DoctorTrain," +
@@ -127,10 +151,8 @@ public class S452_Dao {
 	" order by "+tableName2+".UnitID";
    
 		System.out.println(querysql);
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<S452_Bean> list = new ArrayList<S452_Bean>() ;
+
+
 		
 		int sum1=0,sum2=0,sum3=0,sum4=0,sum5=0,sum6=0,sum7=0,sum8=0,sum9=0;
 		int num1=0,num2=0,num3=0,num4=0,num5=0,num6=0,num7=0,num8=0,num9=0;

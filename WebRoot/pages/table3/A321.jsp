@@ -67,14 +67,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 						<script type="text/javascript">
 function toPercent(data){
+	if(typeof(data) != "undefined"){
     var strData = parseFloat(data)*100;
     strData = Math.round(strData);
     strData/=100.00;
     var ret = strData.toString()+"%";
     return ret;
+	}
 }
 var data = document.getElementById("retData").value;
-alert(toPercent(data));
+
 </script>
 		
 </html>

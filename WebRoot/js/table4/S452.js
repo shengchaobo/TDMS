@@ -18,21 +18,13 @@
 			//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
 			remoteSort : false,
 			rownumbers : true,
-			onLoadSuccess: function (rowData) {					 
-					var merges2 = [{
-		                  field:'teaUnit',
-		                  index: 0,
-		                  colspan: 1
-		              }           
-		              ];
-
-		            for (var i = 0; i < merges2.length; i++)
-		                $('#showData').datagrid('mergeCells', {
-		                    index: merges2[i].index,
-		                    field: merges2[i].field,
-		                    colspan: merges2[i].colspan,
-		                    rowspan: merges2[i].rowspan
-		                });	
+			async : false,
+			type : "POST",
+			onLoadSuccess: function (rowData) {	
+			if(typeof(rowData.rows[0].data) != "undefined"){
+				alert(rowData.rows[0].data);
+			}
+	
 					},
 
 			queryParams:{

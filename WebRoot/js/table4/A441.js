@@ -2,7 +2,7 @@
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
 				            { "name": "正高级人数", "group": "1.职称结构", "value": "",  "field": "seniorNum","editor":  false},
-					        { "name": "正高级比例", "group": "1.职称结构", "value": "",  "field": "seniorRatio","editor":  false,"formatter":"toPercent"},
+					        { "name": "正高级比例", "group": "1.职称结构", "value": "",  "field": "seniorRatio","editor":  false},
 					        { "name": "副高级人数",  "group": "1.职称结构", "value": "", "field": "subSenior", "editor":  false},
 					        { "name": "副高级比例", "group": "1.职称结构", "value": "", "field": "subSeniorRatio","editor":  false },
 					        { "name": "中级人数", "group": "1.职称结构", "value": "", "field": "middleNum","editor":  false },
@@ -36,7 +36,7 @@
 					        { "name": "外校（境内）人数", "group": "4.学缘结构", "value": "", "field": "outSchInNum","editor":  false },
 					        { "name": "外校（境内）比例", "group": "4.学缘结构", "value": "", "field": "outSchInRatio","editor":  false },
 				            { "name": "外校（境外）人数", "group": "4.学缘结构", "value": "",  "field": "outSchOutNum","editor":  false},
-					        { "name": "外校（境外）比例", "group": "4.学缘结构", "value": "",  "field": "outSchOutRatio","editor":  false},
+					        { "name": "外校（境外）比例", "group": "4.学缘结构", "value": "",  "field": "outSchOutRatio","editor":  false}
 					        
 
 	                   ];
@@ -130,17 +130,7 @@
 		    		})
 			   }
 		       	
-				
-				function toPercent(data){
-				    var strData = parseFloat(data)*100;
-				    strData = Math.round(strData);
-				    strData/=100.00;
-				    var ret = strData.toString()+"%";
-				    return ret;
-				}
-
-			
-						
+		
 				
 			   //导出
 			   $("#export").click(function(){

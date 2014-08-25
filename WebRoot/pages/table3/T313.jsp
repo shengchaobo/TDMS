@@ -78,10 +78,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 <form  id="exportForm"  method="post" style="float: right;">
 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 		</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" url="table5/verifiedData"
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" 
 		toolbar="#toolbar2" pagination="true"
 		 singleSelect="false">
 		<thead data-options="frozen:true">

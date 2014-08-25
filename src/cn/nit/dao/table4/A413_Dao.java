@@ -111,6 +111,25 @@ public class A413_Dao {
 
 	public A413_Bean getYearInfo(String selectYear)
 	{
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql="select * from "+tableName1;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			if(rs.equals(null)){
+				return null;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		
+		
 		int year = Integer.parseInt(selectYear);
 	    String querysql="select " +
 	    	"count(distinct TeaID) as Sum," +
@@ -134,9 +153,7 @@ public class A413_Dao {
 			" from "+tableName1;
    
 		System.out.println(querysql);
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
+
 		A413_Bean bean = new A413_Bean() ;
 		
 		int num,num1,num2,num3,num4,num5,num6,num7,num8,num9,num10,num11,num12,num13,num14,num15,num16,num17,num18,num19;

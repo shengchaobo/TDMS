@@ -2,6 +2,7 @@ package cn.nit.dao.table4;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,10 +120,26 @@ public class S462_Dao {
  		return flag ;
  		
  	}
-	/**得到数据*/
+	/**得到数据
+	 * @throws SQLException */
 
-	public List<S46_Bean> getYearInfo(String year)
+	public List<S46_Bean> getYearInfo(String year) throws SQLException
 	{
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<S46_Bean> list = new ArrayList<S46_Bean>() ;
+		
+		String sql="select * from "+tableName1+" where Time like '"+year+"%'";
+		st = conn.createStatement();
+		rs = st.executeQuery(sql);
+		if(!rs.next()){
+			System.out.println("统计数据不全啊  ");
+			return list;
+		}else{
+			
+
 		
 	String querysql="select "+tableName2+".UnitName as Item," +
 	"sum(case when "+tableName1+".AwardType = '51000' then 1 else 0 end) as FameTeaAward," +
@@ -139,10 +156,8 @@ public class S462_Dao {
 	" order by "+tableName2+".UnitID";
    
 		System.out.println(querysql);
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<S46_Bean> list = new ArrayList<S46_Bean>() ;
+
+	
 		
 		int sum1=0,sum2=0,sum3=0,sum4=0,sum5=0,sum6=0,sum7=0,num8=0;
 		int num1=0,num2=0,num3=0,num4=0,num5=0,num6=0,num7=0,sum8=0;
@@ -209,6 +224,7 @@ public class S462_Dao {
 		}
 		
 		return list ;
+	}
 	}
 	
 	

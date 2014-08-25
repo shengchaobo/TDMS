@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,6 +30,9 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+
+import net.sf.json.JSON;
+import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -90,29 +94,71 @@ public class A321_Action {
 
 
 
-		/**  为界面加载数据  */
-	public void auditingData(){
+//		/**  为界面加载数据  */
+//	public void auditingData(){
+//			
+//
+//
+//		
+//			List<A321_Bean> list = new ArrayList<A321_Bean>();
+//			
+//			list = a321_Service.auditingData(this.getSelectYear()) ;
+//			PrintWriter out = null ;
+//			JSON json=JSONSerializer.toJSON(list) ;
+//			String jsonStr=json.toString();
+//			
+//			try{
+//				getResponse().setContentType("text/html; charset=UTF-8") ;
+//				out = getResponse().getWriter() ;
+//				out.print(list) ;
+//			}catch(Exception e){
+//				e.printStackTrace() ;
+//				return ;
+//			}finally{
+//				if(out != null){
+//					out.close() ;
+//				}
+//			}
+//		}
+	
+	public void auditingData() throws Exception{
+		HttpServletResponse response = ServletActionContext.getResponse() ;		
+		
+		List<A321_Bean> list = a321_Service.auditingData(this.getSelectYear());		
+		boolean flag = true;
+		JSON json = null;
+		if(list.size()==0){
+			flag = false;
+		}else{
+			 json = JSONSerializer.toJSON(list) ;
+			 System.out.println(json.toString());
+		}		
+		PrintWriter out = null ;		
+		try {
 			
-			System.out.println("一定输出来");
-
+			if(flag){
+				//设置输出内容的格式为json
+				response.setContentType("application/json; charset=UTF-8") ;				
+				out = response.getWriter() ;
+				//设置数据的内容的编码格式
+				String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
+				out.print(outPrint) ;
+			}else{
+				response.setContentType("text/html; charset=UTF-8") ;
+				out = response.getWriter() ;
+				out.print("[{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}]") ;
+				System.out.println("统计数据不全");
+			}
 			
-			
-			String result = a321_Service.auditingData(this.getSelectYear()) ;
-			PrintWriter out = null ;
-			
-			try{
-				getResponse().setContentType("text/html; charset=UTF-8") ;
-				out = getResponse().getWriter() ;
-				out.print(result) ;
-			}catch(Exception e){
-				e.printStackTrace() ;
-				return ;
-			}finally{
-				if(out != null){
-					out.close() ;
-				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(out != null){
+				out.flush() ;
+				out.close() ;
 			}
 		}
+	}
 
 
 

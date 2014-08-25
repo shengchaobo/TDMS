@@ -109,16 +109,34 @@ public class S444_Dao {
 	public List<S444_Bean> getYearInfo(String year)
 	{
 		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<S444_Bean> list = new ArrayList<S444_Bean>() ;
+		String sql = "select * from "+tableName1+" where time like '"+year+"%'";
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			if(!rs.next()){
+				System.out.println("统计数据不全啊  ");
+				return list;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		
 	String querysql="select "+tableName2+".ResearchTeam as TeamType,count("+tableName1+".ResField) as TeamNum from "+tableName1+
 	" right join "+tableName2+" on "+tableName2+".IndexID = "+tableName1+".Type "+
 	" and Time like '"+year+"%' group by "+tableName2+".ResearchTeam,"+tableName2+".IndexID " +
 	" order by "+tableName2+".IndexID";
    
 		System.out.println(querysql);
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<S444_Bean> list = new ArrayList<S444_Bean>() ;
+
+
 		
 		int sum=0,teamNum=0;
 		String teamType=null;

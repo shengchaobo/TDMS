@@ -36,42 +36,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body style="overflow-y:scroll">
 	<table id="showData"  style="height: auto">		
-		<thead>
-			<tr>
-				<th data-options="field:'teaUnit',align:'center'" rowspan="2">
-			          教学单位
-				</th>
-				<th data-options="field:'unitID',align:'center'" rowspan="2">
-			          单位号
-				</th>
-				<th data-options="field:'fieldNum',align:'center'" rowspan="2">
-			          本科专业数
-				</th>
-				<th colspan="6">
-				优势专业占专业总数比例（%）
-				</th>
-			</tr>
-			<tr>
-				<th data-options="field:'sum'" formatter="toPercent">
-				合计
-				</th>
-				<th data-options="field:'internationRatio'" formatter="toPercent">
-			          国际级
-				</th>
-				<th  data-options="field:'nationRatio'" formatter="toPercent">
-				国家级
-				</th>
-				<th data-options="field:'proviRatio'" formatter="toPercent">
-				省部级
-				</th>
-				<th data-options="field:'cityRatio'" formatter="toPercent">
-				市级
-				</th>
-				<th  data-options="field:'schoolRatio'" formatter="toPercent">
-				校级
-				</th>
-			</tr>			
-			</thead>
+	<thead>
+	<tr>
+		<th data-options="field:'teaUnit',align:'center'" rowspan="2">
+	          教学单位
+		</th>
+		<th data-options="field:'unitID',align:'center'" rowspan="2">
+	          单位号
+		</th>
+		<th data-options="field:'fieldNum',align:'center'" rowspan="2">
+	          本科专业数
+		</th>
+		<th colspan="6">
+		优势专业占专业总数比例（%）
+		</th>
+	</tr>
+	<tr>
+		<th data-options="field:'sum'" formatter="toPercent">
+		合计
+		</th>
+		<th data-options="field:'internationRatio'" formatter="toPercent">
+	          国际级
+		</th>
+		<th  data-options="field:'nationRatio'" formatter="toPercent">
+		国家级
+		</th>
+		<th data-options="field:'proviRatio'" formatter="toPercent">
+		省部级
+		</th>
+		<th data-options="field:'cityRatio'" formatter="toPercent">
+		市级
+		</th>
+		<th  data-options="field:'schoolRatio'" formatter="toPercent">
+		校级
+		</th>
+	</tr>			
+	</thead>
 	</table>
 					
 			 
@@ -96,17 +96,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	}
 			</script>
 			
-			
-			<script type="text/javascript">
+						<script type="text/javascript">
 function toPercent(data){
+	if(typeof(data) != "undefined"){
     var strData = parseFloat(data)*100;
     strData = Math.round(strData);
     strData/=100.00;
     var ret = strData.toString()+"%";
     return ret;
+	}
 }
 var data = document.getElementById("retData").value;
-alert(toPercent(data));
+
 </script>
 		
 </html>

@@ -127,6 +127,35 @@ public class DiDepartmentAction {
 		}
 	}
 	
+	/**
+	 * 编辑部门
+	 */
+	public void edit(){
+				
+		boolean flag = deSer.update(de_bean) ;
+		
+		PrintWriter out = null ;
+		
+		try{
+			
+			getResponse().setContentType("text/html; charset=UTF-8") ;
+			out = getResponse().getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"更新成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":true,data:\"更新失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
 	
 	/**
 	 * 添加部门
@@ -153,16 +182,16 @@ public class DiDepartmentAction {
 				out.print("{\"state\":true,data:\"该部门已存在!!!\"}") ;
 			}else{
 				if(flag){
-					out.print("{\"state\":true,data:\"部门添加成功!!!\"}") ;
+					out.print("{\"state\":true,data:\"添加成功!!!\"}") ;
 				}else{
-					out.print("{\"state\":false,data:\"部门添加失败!!!\"}") ;
+					out.print("{\"state\":false,data:\"添加失败!!!\"}") ;
 				}
 			}
 
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"部门添加失败!!!\"}") ;
+			out.print("{\"state\":false,data:\"添加失败!!!\"}") ;
 		}finally{
 			out.flush() ;
 			

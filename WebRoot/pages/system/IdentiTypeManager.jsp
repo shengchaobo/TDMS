@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>部门管理</title>
+		<title>角色管理</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -27,133 +27,79 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 		<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-		<script type="text/javascript" src="js/system/DepartmentManager.js"></script>
+		<script type="text/javascript" src="js/system/RoleManager.js"></script>
 		
 	</head>
 <body style="overflow-y:scroll">
-	<table id="departmentManager" class="easyui-datagrid"  style="height: auto;"  >
+	<table id="roleManager" class="easyui-datagrid"  style="height: auto;"  >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="unitId">单位号</th>
-				<th field="unitName">部门名称</th>
-				<th field="class1">一级分类</th>
-				<th field="class2">二级分类</th>
-				<th field="functions">单位职能</th>
-				<th field="leader">负责人</th>
-				<th field="teaId">教工号</th>
-				<th field="note">备注</th>
+				<th field="roleID">角色编号</th>
+				<th field="roleName">角色名称</th>
+				<th field="unitName">单位名称</th>
+				<th field="roleDest">角色描述</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;height: 24">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-add" plain="true" onclick="newDepartment()">添加部门</a>
+				iconCls="icon-add" plain="true" onclick="newRole()">添加角色</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-edit" plain="true" onclick="editDepartment()">编辑部门</a> 
+				iconCls="icon-edit" plain="true" onclick="editRole()">编辑角色</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除部门</a>
+				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除角色</a>
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-		 	单位号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
+		 	角色编号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
 			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
 		</form>
 	</div>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true"
 		data-options="modal:true" buttons="#dlg-buttons">
-		<form id="departmentManagerForm" method="post">
+		<form id="roleManagerForm" method="post">
 			<table>
 					<tr>
 						<td>
 							<div class="fitem">
 								<label>
-									单位号：
+									角色编号：
 								</label>
-								<input id="UnitID" type="text" name="de_bean.unitId"
+								<input id="RoleID" type="text" name="role_bean.RoleID"
 									class="easyui-validatebox">
-								<span id="UnitIDSpan"></span>
+								<span id="RoleIDSpan"></span>
 							</div>
 						</td>
 						<td class="empty"></td>
 						<td>
 							<div class="fitem">
 								<label>
-									部门名称：
+									角色名称：
 								</label>
-								<input id="UnitName" type="text" name="de_bean.unitName"
+								<input id="RoleName" type="text" name="role_bean.RoleName"
+									class="easyui-validatebox">
+								<span id="RoleNameSpan"></span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<div class="fitem">
+								<label>
+									角色单位：
+								</label>
+								<input id="UnitName" type="text" name="role_bean.UnitName"
 									class="easyui-validatebox">
 								<span id="UnitNameSpan"></span>
 							</div>
 						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="fitem">
-								<label>
-									一级分类：
-								</label>
-								<input id="Class1" type="text" name="de_bean.class1"
-									class="easyui-validatebox">
-								<span id="Class1Span"></span>
-							</div>
-						</td>
-						<td class="empty"></td>
-						<td>
-							<div class="fitem">
-								<label>
-									二级分类：
-								</label>
-								<input id="Class2" type="text" name="de_bean.class2"
-									class="easyui-validatebox">
-								<span id="Class2Span"></span>
-							</div>
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							<div class="fitem">
-								<label>
-									单位职能：
-								</label>
-								<input id="Functions" type="text" name="de_bean.functions"
-									class="easyui-validatebox">
-								<span id="FunctionsSpan"></span>
-							</div>
-						</td>
-						<td class="empty"></td>
-						<td>
-							<div class="fitem">
-								<label>
-									负责人：
-								</label>
-								<input id="Leader" type="text" name="de_bean.leader"
-									class="easyui-validatebox">
-								<span id="LeaderSpan"></span>
-							</div>
-						</td>
-					</tr>
-					
-					<tr>
-						<td style="valign:left" colspan="3">
-							<div class="fitem">
-								<label>
-									教工号：
-								</label>
-								<input id="TeaID" type="text" name="de_bean.teaId"
-									class="easyui-validatebox">
-								<span id="TeaIDSpan"></span>
-							</div>
-						</td>
-						
-					</tr>
-					
+				</tr>
 				<tr>
-					<td style="valign:left" colspan="3"><label>备注：</label>
-							<textarea id="Note" name="de_bean.note" style="resize:none" cols="50" rows="10"></textarea>
-							<span id="NoteSpan"></span>
+					<td style="valign:left" colspan="3"><label>角色描述：</label>
+							<textarea id="RoleDest" name="role_bean.RoleDest" style="resize:none" cols="50" rows="10"></textarea>
+							<span id="RoleDestSpan"></span>
 						</td>
 					</tr>	
 			</table>

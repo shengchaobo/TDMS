@@ -94,7 +94,7 @@
 		}
 		
 		if (unitName == null || unitName.length == 0 ) {
-			alert("部门乐称不能为空");
+			alert("部门名称不能为空");
 			return false;
 		}
 
@@ -148,9 +148,9 @@
     	
     	$('#UnitName').val(row[0].unitName);		
 		$('#Class1').val(row[0].class1);
-		$('#Class2Name').val(row[0].class2);
+		$('#Class2').val(row[0].class2);
 		$('#Functions').val(row[0].functions);
-		$('#LeaderName').val(row[0].leader);
+		$('#Leader').val(row[0].leader);
 		$('#TeaID').val(row[0].teaId);
 		$('#Note').val(row[0].note);
 	}

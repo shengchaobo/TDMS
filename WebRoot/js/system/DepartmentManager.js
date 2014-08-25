@@ -2,7 +2,7 @@
 	$(function() {
 		$('#departmentManager').datagrid( {
 			title : '部门管理',  //可变内容在具体页面定义
-			url: 'pages/diDepartment/loadDes',
+			url: 'pages/DiDepartment/loadDes',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -27,7 +27,7 @@
 	        var tableName = encodeURI('部门列表');
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/diDepartment/dataExport?excelName="+tableName,
+			    url : "pages/DiDepartment/dataExport?excelName="+tableName,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },
@@ -139,7 +139,7 @@
 			return;
 		}
 		
-		url = 'pages/diDepartment/edit';
+		url = 'pages/DiDepartment/edit';
 
 		$('#dlg').dialog('open').dialog('setTitle', '编辑部门');
 		

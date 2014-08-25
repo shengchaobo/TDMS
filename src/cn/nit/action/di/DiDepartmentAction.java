@@ -78,7 +78,7 @@ public class DiDepartmentAction {
 		}
 	}
 	
-	public void loadDiDes(){
+	public void loadDepartment(){
 		
 		List<DiDepartmentBean> list = deSer.getList() ;
 		//将数据转换为json格式

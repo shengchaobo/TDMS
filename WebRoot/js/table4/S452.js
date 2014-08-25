@@ -3,8 +3,8 @@
 		
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#showData').datagrid( {
-			title : '高层次人才统计',  //可变内容在具体页面定义
-			url: 'pages/S443/loadInfo',
+			title : '教师培训进修统计',  //可变内容在具体页面定义
+			url: 'pages/S452/loadInfo',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -20,20 +20,18 @@
 			rownumbers : true,
 			async : false,
 			type : "POST",
-			onLoadSuccess: function (rowData) {
-				//alert(rowData.rows[0].data);
-				if(typeof(rowData.rows[0].data) != "undefined"){
-					alert(rowData.rows[0].data);
-				}
-
-			},
+			onLoadSuccess: function (rowData) {	
+			if(typeof(rowData.rows[0].data) != "undefined"){
+				alert(rowData.rows[0].data);
+			}
+	
+					},
 
 			queryParams:{
 				'selectYear': year
 			}
 		});
 		
-
 		
 		//刷新页面
 		 $("#cbYearContrast").combobox({  
@@ -53,11 +51,11 @@
 		
 	   //导出
 	   $("#export").click(function(){
-	        var tableName = encodeURI('S-4-4-3高层次人才统计');
+	        var tableName = encodeURI('S-4-5-2教师培训进修统计');
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/S443/dataExport?excelName="+tableName+'&selectYear='+year,
+			    url : "pages/S452/dataExport?excelName="+tableName+'&selectYear='+year,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },
@@ -70,8 +68,6 @@
 		    }); 
 		});							
 	});
-	
-
 	
 
             	

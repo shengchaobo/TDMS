@@ -3,9 +3,12 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
 	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
-	<package name="department" namespace="/pages/diDepartment" extends="struts-default">
+	<package name="pages/DiDepartment" namespace="/pages/DiDepartment" extends="struts-default">
 		<!-- 加载所有部门 -->
-	    <action name="loadDiDes" class="cn.nit.action.di.DiDepartmentAction" method="loadDiDes" />
+	    <action name="loadDiDepartment" class="cn.nit.action.di.DiDepartmentAction" method="loadDepartment" />
+	    
+	      <!-- 初始化加载科研单位性质 -->
+	    <action name="loadDIDepartmentSci" class="cn.nit.action.di.DiDepartmentAction" method="loadDIDepartmentSci" />
 	    <!-- 初始化所有部门（分页） -->
 		<action name="loadDes" class="cn.nit.action.di.DiDepartmentAction" method="loadDes" />   	   
 		 <action name="insert" class="cn.nit.action.di.DiDepartmentAction" method="insert" />

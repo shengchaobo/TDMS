@@ -20,6 +20,7 @@
 			remoteSort : false,
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
+					
 					 
 					var merges2 = [{
 		                  field:'expCenterName',

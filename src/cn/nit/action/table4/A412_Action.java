@@ -64,28 +64,28 @@ public class A412_Action {
 	
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
-		
+		PrintWriter out = null ;
 		A412_Bean bean=a412_Service.getYearInfo(this.getSelectYear());
-		
-		
 		boolean flag = false;
 		String json = null;
-		if(bean!=null){
+		
+		if(bean == null){
+			response.setContentType("text/html;charset=UTF-8") ;
+			out = response.getWriter() ;
+			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}") ;
+			System.out.println("统计数据不全");
+		}else{			
 			flag = a412_Service.save(bean,this.getSelectYear());
 			bean.setTime(null);
 			json = JsonUtil.beanToJson(bean);
-			System.out.println(json) ;
-		}		
-		PrintWriter out = null ;
+			System.out.println(json) ;			
+		}	
 		if(flag == false ){
 			System.out.println("统计数据保存失败");
 			response.setContentType("text/html;charset=UTF-8") ;
 			out = response.getWriter() ;
 			out.println("{\"data\":\"统计数据保存失败\"}"); 
 		}else{
-
-		
-
 			//System.out.println(json.toString());
 			try {
 				//设置输出内容的格式为json

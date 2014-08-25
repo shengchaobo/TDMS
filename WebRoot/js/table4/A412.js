@@ -1,8 +1,8 @@
 	$(function(){  
-				var selectYear = $("#cbYearContrast").combobox('getValue'); 
+				var selectYear = new Date().getFullYear();
 				var rows = [
 				            { "name": "正高级人数", "group": "1.职称结构", "value": "",  "field": "seniorNum","editor":  false},
-					        { "name": "正高级比例", "group": "1.职称结构", "value": "",  "field": "seniorRatio","editor":  false,"formatter":"toPercent"},
+					        { "name": "正高级比例", "group": "1.职称结构", "value": "",  "field": "seniorRatio","editor":  false},
 					        { "name": "副高级人数",  "group": "1.职称结构", "value": "", "field": "subSenior", "editor":  false},
 					        { "name": "副高级比例", "group": "1.职称结构", "value": "", "field": "subSeniorRatio","editor":  false },
 					        { "name": "中级人数", "group": "1.职称结构", "value": "", "field": "middleNum","editor":  false },
@@ -97,14 +97,7 @@
 
 					$('#edit').propertygrid('loadData', rows);
 			   	
-			   	
-   				//刷新页面
-				 $("#cbYearContrast").combobox({  
-			         onChange:function(newValue, oldValue){  
-						reloadgrid(newValue,true);
-						$('#edit').propertygrid('loadData', rows);
-		             }
-		         }); 
+
 		         
 		       	function reloadgrid (year,flag)  { 
        				  $.ajax( {
@@ -138,13 +131,6 @@
 			   }
 		       	
 				
-				function toPercent(data){
-				    var strData = parseFloat(data)*100;
-				    strData = Math.round(strData);
-				    strData/=100.00;
-				    var ret = strData.toString()+"%";
-				    return ret;
-				}
 
 			
 						
@@ -152,7 +138,7 @@
 			   //导出
 			   $("#export").click(function(){
 			        var tableName = encodeURI('A-4-1-2专任教师队伍结构分析');
-			        var year = $("#cbYearContrast").combobox('getValue'); 
+			        var year = new Date().getFullYear();
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),
 					    url : "pages/A412/dataExport?excelName="+tableName+'&selectYear='+year,

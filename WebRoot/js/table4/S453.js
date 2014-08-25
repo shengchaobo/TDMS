@@ -3,8 +3,8 @@
 		
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#showData').datagrid( {
-			title : '高层次人才统计',  //可变内容在具体页面定义
-			url: 'pages/S443/loadInfo',
+			title : '教师交流统计',  //可变内容在具体页面定义
+			url: 'pages/S453/loadInfo',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -20,20 +20,33 @@
 			rownumbers : true,
 			async : false,
 			type : "POST",
-			onLoadSuccess: function (rowData) {
-				//alert(rowData.rows[0].data);
-				if(typeof(rowData.rows[0].data) != "undefined"){
-					alert(rowData.rows[0].data);
-				}
+			onLoadSuccess: function (rowData) {	
+			if(typeof(rowData.rows[0].data) != "undefined"){
+				alert(rowData.rows[0].data);
+			}
 
-			},
+		
+					var merges2 = [{
+		                  field:'teaUnit',
+		                  index: 0,
+		                  colspan: 1
+		              }           
+		              ];
+
+		            for (var i = 0; i < merges2.length; i++)
+		                $('#showData').datagrid('mergeCells', {
+		                    index: merges2[i].index,
+		                    field: merges2[i].field,
+		                    colspan: merges2[i].colspan,
+		                    rowspan: merges2[i].rowspan
+		                });	
+					},
 
 			queryParams:{
 				'selectYear': year
 			}
 		});
 		
-
 		
 		//刷新页面
 		 $("#cbYearContrast").combobox({  
@@ -53,11 +66,11 @@
 		
 	   //导出
 	   $("#export").click(function(){
-	        var tableName = encodeURI('S-4-4-3高层次人才统计');
+	        var tableName = encodeURI('S-4-5-3教师交流统计');
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),
-			    url : "pages/S443/dataExport?excelName="+tableName+'&selectYear='+year,
+			    url : "pages/S453/dataExport?excelName="+tableName+'&selectYear='+year,
 			    onSubmit : function() {
 			    	return $(this).form('validate');//对数据进行格式化
 			    },
@@ -70,8 +83,6 @@
 		    }); 
 		});							
 	});
-	
-
 	
 
             	

@@ -116,8 +116,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<script type="text/javascript">
 			   function formatRatio(val){
-			        var str = val+"";
-				   var ratio=str+"%";
+				   var ratio;
+				   if(val!=null){
+					   var str = val+"";
+					   ratio=str+"%";
+				   }
+			       
 				   return ratio;
 			   }
 			</script>

@@ -1,6 +1,7 @@
 package cn.nit.service.table5;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.nit.bean.table5.S5101_Bean;
@@ -14,7 +15,7 @@ private S5101_DAO  s5101Dao = new S5101_DAO();
 	
 	public List<S5101POJO> loadInfo(String year){
 		
-		List<S5101POJO> list = null ;//用作信息输出
+		List<S5101POJO> list = new ArrayList<S5101POJO>() ;//用作信息输出
 		List<S5101_Bean> list1 = null ;//用作统计信息、
 		boolean flag = false;
 		
@@ -30,6 +31,7 @@ private S5101_DAO  s5101Dao = new S5101_DAO();
 				list.add(0, pojo);
 			}
 		}
+		
 		return list;
 	}
 	

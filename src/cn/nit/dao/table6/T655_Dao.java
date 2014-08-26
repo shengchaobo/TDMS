@@ -170,7 +170,7 @@ public class T655_Dao {
 			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
 	
 
-		System.out.println(queryPageSql);
+//		System.out.println(queryPageSql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -221,7 +221,7 @@ public class T655_Dao {
 		String sql;
 		
 		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
-	    System.out.println(sql);
+//	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

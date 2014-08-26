@@ -41,6 +41,7 @@ import cn.nit.bean.table6.T652_Bean;
 import cn.nit.bean.table6.T653_Bean;
 import cn.nit.bean.table6.T654_Bean;
 import cn.nit.bean.table6.T655_Bean;
+import cn.nit.bean.table6.T656_Bean;
 import cn.nit.bean.table6.T657_Bean;
 import cn.nit.dao.table6.T611_Dao;
 import cn.nit.dao.table6.T612_Dao;
@@ -266,6 +267,21 @@ public class T657_Action {
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T657_Bean> list = T657_dao.getAllList("1=1", null);
+			
+
+            List<T657_Bean> list1 = new ArrayList<T657_Bean>();
+			
+			for(int i = 0;i<list.size();i++)
+			{
+				T657_Bean bean = list.get(i);
+			    if(bean.getUnitId().equals("0000")){
+			    	System.out.println("合计");
+			    	bean.setTeaUnit("全校合计：");
+			    	list1.add(0, bean);
+			    }else{
+			    	list1.add(bean);
+			    }
+			}
 						
 			String sheetName = this.getExcelName();
 			
@@ -292,7 +308,7 @@ public class T657_Action {
 			maplist.put("time", 5);
 			maplist.put("note", 6);
 				
-			inputStream = new ByteArrayInputStream(T657_Excel.exportExcel(list, "表6-5-7学习成果-体质合格、达标率（体育教学部）", maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(T657_Excel.exportExcel(list1, "表6-5-7学习成果-体质合格、达标率（体育教学部）", maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

@@ -26,6 +26,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.table6.T655_Bean;
 import cn.nit.bean.table6.T656_Bean;
 
 import cn.nit.dao.table6.T656_Dao;
@@ -224,6 +225,20 @@ public class T656_Action {
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T656_Bean> list = T656_dao.getAllList("1=1", null);
+			
+            List<T656_Bean> list1 = new ArrayList<T656_Bean>();
+			
+			for(int i = 0;i<list.size();i++)
+			{
+				T656_Bean bean = list.get(i);
+			    if(bean.getUnitId().equals("0000")){
+			    	System.out.println("合计");
+			    	bean.setTeaUnit("全校合计：");
+			    	list1.add(0, bean);
+			    }else{
+			    	list1.add(bean);
+			    }
+			}
 						
 			String sheetName = this.getExcelName();
 			
@@ -250,7 +265,7 @@ public class T656_Action {
 			maplist.put("time", 5);
 			
 				
-			inputStream = new ByteArrayInputStream(T656_Excel.exportExcel(list, "表6-5-6学习成果-全国计算机等级考试（信息工程学院）", maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(T656_Excel.exportExcel(list1, "表6-5-6学习成果-全国计算机等级考试（信息工程学院）", maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

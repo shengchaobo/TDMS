@@ -22,10 +22,13 @@
 			async : false,
 			type : "POST",
 			onLoadSuccess: function (rowData) {
-				if(typeof(rowData.rows[0].data) != "undefined"){
-					alert(rowData.rows[0].data);
-				}
-				if(count == 0 ) {	 
+
+					 
+			if(typeof(rowData.rows[0].data) != "undefined"){
+				alert(rowData.rows[0].data);
+			}
+			if(count == 0)
+
 					var merges2 = [{
 		                  field:'teaUnit',
 		                  index: 0,

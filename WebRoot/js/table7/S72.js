@@ -1,4 +1,5 @@
-	
+	//全局变量，用来控制字段合并次数
+	var count = 0;	
 
 	//只是用来展示的数据
 	$(function() {
@@ -20,7 +21,7 @@
 			remoteSort : false,
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
-					 
+				 if(count == 0 ) {	 
 					var merges2 = [{
 		                  field:'teaUnit',
 		                  index: 0,
@@ -35,7 +36,14 @@
 		                    colspan: merges2[i].colspan,
 		                    rowspan: merges2[i].rowspan
 		                });	
-					},
+		            
+		            count++;
+				 }
+				 
+				if(typeof(rowData.rows[0].data) != "undefined"){
+					alert(rowData.rows[0].data);
+				}
+				},
 
 			queryParams:{
 				'selectYear': year

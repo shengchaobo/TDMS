@@ -101,6 +101,29 @@ public class S72_DAO {
  		
  	}
 	public List<S72_Bean> getData(String year){
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<S72_Bean> list = new ArrayList<S72_Bean>() ;
+		String sql1 = "select * from DiDepartment "+
+		 " left join T721_TeachResItem_Tea$ on DiDepartment.UnitID = T721_TeachResItem_Tea$.UnitID "+
+		 " left join T722_TeachAchieveAward_Tea$ on DiDepartment.UnitID = T722_TeachAchieveAward_Tea$.UnitID "+
+		 " where convert(varchar(4),T721_TeachResItem_Tea$.Time,120) = "  +  year  +  
+		 " and "  +  "convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120) = "  +  year+
+		 " and DiDepartment.UnitID like '3%'";;
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql1);
+			if(!rs.next()){
+				System.out.println("统计数据不全啊  ");
+				return list;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+
 
 		String sql="select UnitName AS TeaUnit,DiDepartment.UnitID," + 
 		" count(ItemLevel) AS SumTeaResItem," +
@@ -117,18 +140,15 @@ public class S72_DAO {
 		" sum(case when AwardLevel='50004' then 1 else 0 end) AS SchAward "+
 		" from DiDepartment "+
 		" left join  T721_TeachResItem_Tea$ on DiDepartment.UnitID = T721_TeachResItem_Tea$.UnitID "+
+	    " and "  +  "convert(varchar(4),T721_TeachResItem_Tea$.Time,120) = "  +  year  +  
 	    " left join T722_TeachAchieveAward_Tea$ on DiDepartment.UnitID = T722_TeachAchieveAward_Tea$.UnitID "+
-	    " and  convert(varchar(4),T721_TeachResItem_Tea$.Time,120) = "  +  year  +  
 	    " and "  +  "convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120) = "  +  year  +  
 	    " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
+
 		
 		System.out.println(sql);
 		
-		Connection conn=DBConnection.instance.getConnection();
-		
-		Statement st= null;
-		ResultSet rs= null;
-		List<S72_Bean> list=new ArrayList<S72_Bean>();
+	
 		int sumTeaResItem=0,interItem=0,nationItem=0,proviItem=0,cityItem=0,schItem=0,sumTeaAward=0,
 				interAward=0,nationAward=0,proviAward=0,cityAward=0,schAward=0;
 		try {

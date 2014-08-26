@@ -3,6 +3,7 @@ package cn.nit.dao.table6;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,12 +11,14 @@ import net.sf.json.JSON;
 
 
 
+import cn.nit.bean.table6.S65_Bean;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T641_Bean;
 import cn.nit.bean.table6.T651_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
+import cn.nit.util.TimeUtil;
 
 public class T651_Dao {
 
@@ -262,47 +265,86 @@ public class T651_Dao {
 		
 		return list ;
 	}
+	
+	public S65_Bean getStatic(String year){
+		S65_Bean bean = new S65_Bean();
+		StringBuffer sql = new StringBuffer();
+		//本科生学科竞赛
+		sql.append("select sum(case when t.CompetiType = '55000' then 1 else 0 end) AS SumDiscipAward, ");
+		sql.append(" sum(case when t.CompetiType = '55000' and t.AwardLevel ='50000' then 1 else 0 end) AS InterD, ");
+		sql.append(" sum(case when t.CompetiType = '55000' and t.AwardLevel ='50001' then 1 else 0 end) AS NationD, ");
+		sql.append(" sum(case when t.CompetiType = '55000' and t.AwardLevel ='50002' then 1 else 0 end) AS ProviD, ");
+		sql.append(" sum(case when t.CompetiType = '55000' and t.AwardLevel ='50003' then 1 else 0 end) AS CityD, ");
+		sql.append(" sum(case when t.CompetiType = '55000' and t.AwardLevel ='50004' then 1 else 0 end) AS SchD, ");
+		//本科生创新活动
+		sql.append(" sum(case when t.CompetiType = '55001' then 1 else 0 end) AS SumActAward, ");
+		sql.append(" sum(case when t.CompetiType = '55001' and t.AwardLevel ='50000' then 1 else 0 end) AS InterA, ");
+		sql.append(" sum(case when t.CompetiType = '55001' and t.AwardLevel ='50001' then 1 else 0 end) AS NationA, ");
+		sql.append(" sum(case when t.CompetiType = '55001' and t.AwardLevel ='50002' then 1 else 0 end) AS ProviA, ");
+		sql.append(" sum(case when t.CompetiType = '55001' and t.AwardLevel ='50003' then 1 else 0 end) AS CityA, ");
+		sql.append(" sum(case when t.CompetiType = '55001' and t.AwardLevel ='50004' then 1 else 0 end) AS SchA, ");
+		//本科生文艺、体育竞赛
+		sql.append("  sum(case when t.CompetiType = '55002' then 1 else 0 end) AS SumLiterSportAward, ");
+		sql.append(" sum(case when t.CompetiType = '55002' and t.AwardLevel ='50000' then 1 else 0 end) AS InterLS, ");
+		sql.append(" sum(case when t.CompetiType = '55002' and t.AwardLevel ='50001' then 1 else 0 end) AS NationLS, ");
+		sql.append(" sum(case when t.CompetiType = '55002' and t.AwardLevel ='50002' then 1 else 0 end) AS ProviLS, ");
+		sql.append(" sum(case when t.CompetiType = '55002' and t.AwardLevel ='50003' then 1 else 0 end) AS CityLS, ");
+		sql.append(" sum(case when t.CompetiType = '55002' and t.AwardLevel ='50004' then 1 else 0 end) AS SchLS ");
+		sql.append(" from T651_StuCompetiAwardInfo_TeaYLC$ as t, DiAwardLevel as dia,DiContestLevel as dic");
+		sql.append(" where t.AwardLevel =dia.IndexID and t.CompetiType = dic.IndexID  ");
+		sql.append(" and t.Time like '" + year+"%'");
+
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			
+			while(rs.next()){
+				System.out.println(" 计数");
+				
+				int SumDiscipAward = rs.getInt("SumDiscipAward"); bean.setSumDiscipAward(SumDiscipAward);
+				int InterD = rs.getInt("InterD");  bean.setInterD(InterD);
+				System.out.println(InterD);
+				int NationD = rs.getInt("NationD");  bean.setNationD(NationD);
+				System.out.println(NationD);
+				int ProviD = rs.getInt("ProviD");  bean.setProviD(ProviD);
+				System.out.println(ProviD);
+				int CityD = rs.getInt("CityD");  bean.setCityD(CityD);
+				System.out.println(CityD);
+				int SchD = rs.getInt("SchD");  bean.setSchD(SchD);
+	
+				int SumActAward = rs.getInt("SumActAward");  bean.setSumActAward(SumActAward);
+				int InterA = rs.getInt("InterA");  bean.setInterA(InterA);
+				int NationA = rs.getInt("NationA");  bean.setNationA(NationA);
+				int ProviA = rs.getInt("ProviA");   bean.setProviA(ProviA);
+				int CityA = rs.getInt("CityA");  bean.setCityA(CityA);
+				int SchA= rs.getInt("SchA");  bean.setSchA(SchA);
+	
+	
+				int SumLiterSportAward = rs.getInt("SumLiterSportAward");  bean.setSumLiterSportAward( SumLiterSportAward);
+				int InterLS = rs.getInt("InterLS");  bean.setInterLS(InterLS);
+				int NationLS = rs.getInt("NationLS");  bean.setNationLS(NationLS);
+				int ProviLS = rs.getInt("ProviLS");  bean.setSumDiscipAward(SumDiscipAward);
+				int CityLS = rs.getInt("CityLS");  bean.setCityLS(CityLS);
+				int SchLS = rs.getInt("SchLS");  bean.setSchLS(SchLS);
+				
+				bean.setTime(TimeUtil.changeDateY(year));
+				    
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		return bean;
+	}
 
 	public static void main(String args[]) {
 
 		T651_Dao StuCompetiAwardInfoDao = new T651_Dao();
-		T651_Bean StuCompetiAwardInfo = new T651_Bean();
-//		 StuCompetiAwardInfo.setSeqNumber(1);
-
-//	
-//		StuCompetiAwardInfo.setTeaUnit("水利与生态工程学院");
-//		StuCompetiAwardInfo.setUnitId("3001");
-//		StuCompetiAwardInfo.setCompetiType("55000");//本科生学科竞赛
-//		StuCompetiAwardInfo.setCompetiName("第九届全国周培源大学生力学竞赛");
-//		StuCompetiAwardInfo.setAwardItem("第九届全国周培源大学生力学竞赛");
-//		StuCompetiAwardInfo.setAwardLevel("50001");//国家级
-//		StuCompetiAwardInfo.setAwardGrade("三等");
-//		StuCompetiAwardInfo.setAwardFromUnit("教育部高等学校力学基础课程教学指导委员会、中国力学学会、周培源基金会");
-//		StuCompetiAwardInfo.setAwardTime(new Date());
-//		StuCompetiAwardInfo.setAwardStuName("龚立尧2010980000、龚如2010980000");
-//		StuCompetiAwardInfo.setAwardStuNum(2);
-//		StuCompetiAwardInfo.setGuideTeaName("张三200698000、李四200698002");
-//		StuCompetiAwardInfo.setGuideTeaNum(2);
-//		
-//		StuCompetiAwardInfo.setFillUnitID("1029");
-//		
-//				
-//		StuCompetiAwardInfo.setTime(new Date());
-//		StuCompetiAwardInfo.setNote("无");
-////		//		
-//		StuCompetiAwardInfoDao.insert(StuCompetiAwardInfo);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(StuCompetiAwardInfoDao.update(StuCompetiAwardInfo)) ;
-//		 System.out.println(StuCompetiAwardInfoDao.deleteItemsByIds("(8)")) ;
-
-//		System.out.println("success!!");
-		List<T651_Bean> list = StuCompetiAwardInfoDao.getAllList("1=1", null);
-		System.out.println(list.size());
+		S65_Bean bean =  StuCompetiAwardInfoDao.getStatic("2014");
 	}
 
 

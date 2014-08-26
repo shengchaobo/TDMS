@@ -36,9 +36,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="overflow-y:scroll">
 	<table id="showData"  style="height: auto">		
 		<thead>
-			<th field="talentType" >类型</th>
-				<th field="talentNum">人次数</th>
-			</thead>		
+	<th field="talentType" >类型</th>
+	<th field="talentNum">人次数</th>
+			</thead>	
 	</table>
 					
 			 

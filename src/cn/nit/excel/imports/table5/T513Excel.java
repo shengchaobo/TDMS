@@ -217,7 +217,7 @@ public class T513Excel {
 		flag = t513Ser.batchInsert(list,selectYear) ;
 		
 		if(flag){
-			return "数据导入成功" ;
+			return null ;
 		}else{
 			return "数据存储失败，请联系管理员" ;
 		}

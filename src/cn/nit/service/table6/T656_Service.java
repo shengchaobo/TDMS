@@ -87,7 +87,10 @@ public class T656_Service {
 		// TODO Auto-generated method stub
 		return T656_dao.getAllList().size();
 	}
-
+	
+	public double getNPassRate(String year){
+		return T656_dao.getNPassRate(year);
+	}
 
 	/**
 	 * @param args

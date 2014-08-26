@@ -1,6 +1,7 @@
 package cn.nit.action.table6;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +22,21 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 import net.sf.json.JSONObject;
 
@@ -98,6 +114,10 @@ public class T622_Action {
 	
 	/**专业名称*/
 	private String majorName;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+
 
 	/** 逐条插入数据 */
 	public void insert() {
@@ -234,6 +254,7 @@ public class T622_Action {
 	public InputStream getInputStream() {
 
 		InputStream inputStream = null ;
+		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
 		try {
 /*			response.reset();
@@ -241,48 +262,102 @@ public class T622_Action {
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T622_Bean> list = T622_dao.getAllList("1=1", null);
-						
-			String sheetName = this.getExcelName();
-			
-			List<String> columns = new ArrayList<String>();
-
-			columns.add("序号");
-			columns.add("省份");
-			columns.add("批次");
-			columns.add("文科录取数");
-			columns.add("理科录取数");
-			columns.add("文科批次最低控制线（分）");
-			columns.add("理科批次最低控制线（分）");
-			columns.add("文科当年录取平均分数（分）");
-			columns.add("理科当年录取平均分数（分）");
-			columns.add("备注");
-
-			Map<String,Integer> maplist = new HashMap<String,Integer>();
-	
-			maplist.put("seqNumber", 0);
-			maplist.put("province", 1);
-			maplist.put("batch", 2);
-			maplist.put("libEnrollNum", 3);
-			maplist.put("sciEnrollNum", 4);
-			
-			maplist.put("libLowestScore", 5);
-			maplist.put("sciLowestScore", 6);
-			maplist.put("libAvgScore", 7);
-			maplist.put("sciAvgScore", 8);
-			maplist.put("note", 9);
+			if(list==null){
+				if(list.size()==0){
+					PrintWriter out = null ;
+					response.setContentType("text/html;charset=utf-8") ;
+					out = response.getWriter() ;
+					out.print("后台传入的数据为空") ;
+					System.out.println("后台传入的数据为空");
+					return null;
+				}
+			}
+			else if(list!=null){WritableWorkbook wwb;
+			try{
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-2-2近一届文、理科本科生录取标准及人数（招就处）", maplist,columns).toByteArray());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null ;
-		}
+				 fos = new ByteArrayOutputStream();
+		            wwb = Workbook.createWorkbook(fos);
+		            WritableSheet ws = wwb.createSheet("表6-2-2近一届文、理科本科生录取标准及人数（招就处）", 0);        // 创建一个工作表
 
+		            //    设置表头的文字格式
+		            
+		            WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);    
+		            WritableCellFormat wcf = new WritableCellFormat(wf);
+		            wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		            wcf.setAlignment(Alignment.CENTRE);
+		            wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+			        		     jxl.format.Colour.BLACK);
+		            
+		            //    设置内容单无格的文字格式
+		            WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+			                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		            WritableCellFormat wcf1 = new WritableCellFormat(wf1);       
+		            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+		            wcf1.setAlignment(Alignment.CENTRE);
+		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+			        		     jxl.format.Colour.BLACK);
+		            ws.setRowView(1, 500);
+					//第一行存表名
+					ws.addCell(new Label(0, 0, "表6-2-2近一届文、理科本科生录取标准及人数（招就处）", wcf)); 
+					ws.mergeCells(0, 0, 1, 0);
+					//表头
+					ws.addCell(new Label(0, 2, "序号", wcf)); ws.addCell(new Label(1, 2, "省份", wcf)); 
+					ws.addCell(new Label(2, 2, "批次", wcf)); ws.addCell(new Label(9, 2, "说明", wcf));
+					
+					ws.mergeCells(0, 2, 0, 3);ws.mergeCells(1, 2, 1, 3);
+					ws.mergeCells(2, 2, 2, 3);ws.mergeCells(9, 2, 9, 3);
+					
+					ws.addCell(new Label(3, 2, "1.录取数（个）", wcf));
+					ws.addCell(new Label(5, 2, "2.批次最低控制线（分）", wcf));
+					ws.addCell(new Label(7, 2, "3.当年录取平均分数（分）", wcf));
+					
+					ws.mergeCells(3, 2, 4, 2);ws.mergeCells(5, 2, 6, 2);ws.mergeCells(7, 2,8, 2);
+					
+					ws.addCell(new Label(3, 3, "文科", wcf));ws.addCell(new Label(4, 3, "理科", wcf));
+					ws.addCell(new Label(5, 3, "文科", wcf));ws.addCell(new Label(6, 3, "理科", wcf));
+					ws.addCell(new Label(7, 3, "文科", wcf));ws.addCell(new Label(8, 3, "理科", wcf));
+					
+					//向表中写数据
+					int k=4;//从第4行开始写数据,第3行为全校合计数
+					int count = 1;//序号计数
+					for(int j=0;j<list.size();j++){
+						T622_Bean bean =  list.get(j);
+					
+							ws.addCell(new Label(0, k,count+"", wcf));
+							ws.addCell(new Label(1, k, bean.getProvince(), wcf));
+							ws.addCell(new Label(2, k, bean.getBatch(), wcf));
+							ws.addCell(new Label(3, k, bean.getLibEnrollNum()+"", wcf));
+							ws.addCell(new Label(4, k, bean.getSciEnrollNum()+"", wcf));
+							ws.addCell(new Label(5, k, bean.getLibLowestScore()+"", wcf));
+							ws.addCell(new Label(6, k, bean.getSciLowestScore()+"", wcf));
+							ws.addCell(new Label(7, k, bean.getLibAvgScore()+"", wcf));
+							ws.addCell(new Label(8, k, bean.getSciAvgScore()+"", wcf));
+
+							ws.addCell(new Label(9, k, bean.getNote()+"", wcf));
+						
+						k++;
+					}
+					    wwb.write();
+			            wwb.close();
+
+			} catch (IOException e){
+	        } catch (RowsExceededException e){
+	        } catch (WriteException e){}
+		}
+	
+	} catch (Exception e) {
+		e.printStackTrace();
+		return null ;
+	}
+
+		inputStream = new ByteArrayInputStream(fos.toByteArray());
 		return inputStream ;
 	}
 
 	public String execute() throws Exception {
 
-		getResponse().setContentType("application/octet-stream;charset=UTF-8");
+		getResponse().setContentType("application/vnd.ms-excel;charset=UTF-8");
 		return "success";
 	}
 

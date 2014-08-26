@@ -149,7 +149,7 @@ public class T54_Excel {
 //		out = getResponse().getWriter() ;
 		if(flag){
 //			out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
-			return "数据导入成功" ;
+			return null ;
 		}else{
 			return "数据存储失败，请联系管理员" ;
 		}

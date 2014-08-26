@@ -1,4 +1,4 @@
-package cn.nit.action.table7;
+﻿package cn.nit.action.table7;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -37,7 +37,6 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
-
 import cn.nit.bean.table7.S71_Bean;
 import cn.nit.dao.table7.S71_DAO;
 import cn.nit.service.table7.S71_Service;
@@ -66,7 +65,13 @@ public class S71_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<S71_Bean> list=s71_Service.getYearInfo(this.getSelectYear());
+
+		List<S71_Bean> list = s71_Service.getYearInfo(this.getSelectYear());
+
+		//System.out.println(this.getSelectYear());
+		//System.out.println(list.size());
+		
+
 		boolean flag = true;
 		JSON json = null;
 		if(list.size()==0){
@@ -75,6 +80,7 @@ public class S71_Action {
 			 json = JSONSerializer.toJSON(list) ;
 			 System.out.println(json.toString());
 		}
+
 		PrintWriter out = null ;
 		try {
 			//设置输出内容的格式为json
@@ -86,11 +92,15 @@ public class S71_Action {
 			out.print(outPrint) ;
 			} else{
 				response.setContentType("textml; charset=UTF-8") ;
+
 				out = response.getWriter() ;
 				out.print("[{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}]") ;
 				System.out.println("统计数据不全");
 			}
-		}catch (Exception e) {
+
+
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
 			if(out != null){

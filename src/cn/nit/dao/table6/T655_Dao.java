@@ -243,6 +243,81 @@ public class T655_Dao {
 		
 		return list ;
 	}
+	
+	public double getCET4PassRate(String year){
+		double CET4PassRate = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select avg(CET4PassRate) AS CET4PassRate from T655_CET46NCRE_Tea$");
+		sql.append(" where convert(varchar(4),T655_CET46NCRE_Tea$.Time,120) =" + year);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				CET4PassRate = rs.getDouble("CET4PassRate");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBConnection.close(conn);
+		}
+		
+		return CET4PassRate;
+	}
+	
+	public double getCET6PassRate(String year){
+		double CET6PassRate = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select avg(CET6PassRate) AS CET6PassRate from T655_CET46NCRE_Tea$");
+		sql.append(" where convert(varchar(4),T655_CET46NCRE_Tea$.Time,120) =" + year);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				CET6PassRate = rs.getDouble("CET6PassRate");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBConnection.close(conn);
+		}
+		
+		return CET6PassRate;
+	}
+	
+	public double getJPassRate(String year){
+		double JPassRate = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select avg(JiangxiNCREPassRate) AS JPassRate from T655_CET46NCRE_Tea$");
+		sql.append(" where convert(varchar(4),T655_CET46NCRE_Tea$.Time,120) =" + year);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				JPassRate = rs.getDouble("JPassRate");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBConnection.close(conn);
+		}
+		
+		return JPassRate;
+	}
 
 	public static void main(String args[]) {
 

@@ -1,4 +1,4 @@
-package cn.nit.dao.table7;
+﻿package cn.nit.dao.table7;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -131,6 +131,33 @@ public class S71_DAO {
 		}
 
 		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<S71_Bean> list = new ArrayList<S71_Bean>() ;
+		String sql = "select * from DiDepartment "+
+		 " left join T711_TeaManagerAwardInfo_TeaTea$ on DiDepartment.UnitID = T711_TeaManagerAwardInfo_TeaTea$.UnitID "+
+		 " left join T712_TeaManagerPaperInfo_TeaTea$ on DiDepartment.UnitID = T712_TeaManagerPaperInfo_TeaTea$.UnitID "+
+		 " where convert(varchar(4),T711_TeaManagerAwardInfo_TeaTea$.Time,120) = "  +  year  +  
+		 " and "  +  "convert(varchar(4),T712_TeaManagerPaperInfo_TeaTea$.Time,120) = "  +  year+
+		 " and DiDepartment.UnitID like '3%'";;
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			if(!rs.next()){
+				System.out.println("统计数据不全啊  ");
+				return list;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		
+		
+		
 	String querysql=" select UnitName AS TeaUnit,DiDepartment.UnitID, " +
     " Count(AwardLevel) AS SumTeaAward, "+
 	" sum(case when AwardLevel='50000' then 1 else 0 end) AS InterAward, "+
@@ -143,12 +170,13 @@ public class S71_DAO {
     " sum(case when PaperType='教学管理' then 1 else 0 end) AS TeaManagePaper"+
     " from DiDepartment "+
     " left join T711_TeaManagerAwardInfo_TeaTea$ on DiDepartment.UnitID = T711_TeaManagerAwardInfo_TeaTea$.UnitID "+
-    " and "  +  "convert(varchar(4),T711_TeaManagerAwardInfo_TeaTea$.Time,120) = "  +  year  + 
+    " and convert(varchar(4),T711_TeaManagerAwardInfo_TeaTea$.Time,120) = "  +  year  +  
     " left join T712_TeaManagerPaperInfo_TeaTea$ on DiDepartment.UnitID = T712_TeaManagerPaperInfo_TeaTea$.UnitID "+
     " and "  +  "convert(varchar(4),T712_TeaManagerPaperInfo_TeaTea$.Time,120) = "  +  year  +  
     " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
    
-	System.out.println(querysql);
+
+		//System.out.println(querysql);
 		int sumTeaAward=0,interAward=0,nationAward=0,proviAward=0,
 				cityAward=0,schAward=0,sumTeaPaper=0,teaResPaper=0,teaManagePaper=0;
 		try{
@@ -219,8 +247,11 @@ public class S71_DAO {
 
 	
 	public static void main(String arg[]){
-		//S71_DAO t=new S71_DAO();
-	   // List<S71_Bean> list =t.getData("2014");
-		//System.out.println(list.size());
+		String sql = "select * from DiDepartment "+
+		 " left join T711_TeaManagerAwardInfo_TeaTea$ on DiDepartment.UnitID = T711_TeaManagerAwardInfo_TeaTea$.UnitID "+
+		 " left join T712_TeaManagerPaperInfo_TeaTea$ on DiDepartment.UnitID = T712_TeaManagerPaperInfo_TeaTea$.UnitID "+
+		 " where convert(varchar(4),T711_TeaManagerAwardInfo_TeaTea$.Time,120) = "  +  " 2010 "  +  
+		 " and "  +  "convert(varchar(4),T712_TeaManagerPaperInfo_TeaTea$.Time,120) = "  +  " 2010 "  ;
+		System.out.println(sql);
 	}
 }

@@ -100,14 +100,26 @@ public class T655_Service {
 		// TODO Auto-generated method stub
 		return T655_dao.getAllList().size();
 	}
-
+	
+	public double getCET4PassRate(String year){
+		return T655_dao.getCET4PassRate(year);
+	}
+	
+	public double getCET6PassRate(String year){
+		return T655_dao.getCET6PassRate(year);
+	}
+	
+	public double getJPassRate(String year){
+		return T655_dao.getJPassRate(year);
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+         T655_Service ser = new T655_Service();
+         List<T655_Bean>  list = ser.getPageInfoList("1=1", null, "10", "1");
 	}
 
 

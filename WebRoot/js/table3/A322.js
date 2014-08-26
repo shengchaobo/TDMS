@@ -1,6 +1,7 @@
+	
+
 	//只是用来展示的数据
 	$(function() {
-		
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#showData').datagrid( {
 			title : '本科优势专业情况分析',  //可变内容在具体页面定义
@@ -18,22 +19,15 @@
 			//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
 			remoteSort : false,
 			rownumbers : true,
-			onLoadSuccess: function (rowData) {					 
-					var merges2 = [{
-		                  field:'fieldType',
-		                  index: 0,
-		                  colspan: 1
-		              }           
-		              ];
+			async : false,
+			type : "POST",
+			onLoadSuccess: function (rowData) {
+				//alert(rowData.rows[0].data);
+				if(typeof(rowData.rows[0].data) != "undefined"){
+					alert(rowData.rows[0].data);
+				}
 
-		            for (var i = 0; i < merges2.length; i++)
-		                $('#showData').datagrid('mergeCells', {
-		                    index: merges2[i].index,
-		                    field: merges2[i].field,
-		                    colspan: merges2[i].colspan,
-		                    rowspan: merges2[i].rowspan
-		                });	
-					},
+			},
 
 			queryParams:{
 				'selectYear': year
@@ -76,6 +70,8 @@
 		    }); 
 		});							
 	});
+	
+
 	
 
             	

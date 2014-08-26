@@ -40,6 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 	<table id="commomData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T622/loadData" style="height: auto;">
+		 
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -56,11 +57,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="sciLowestScore">理科批次最低控制线（分）</th>		
 				<th field="libAvgScore">文科当年录取平均分数（分）</th>
 				<th field="sciAvgScore">理科当年录取平均分数（分）</th>
+				<th field="note">说明</th>
 				<th field="time" formatter="formattime">填写时间</th>
-				<th field="note">备注</th>
+			</tr>
+		</thead>
+		<!-- 
+		<thead >
+			<tr>
+				<th data-options="field:'ck',checkbox:true" rowspan = "2">选取</th>
+				<th field="seqNumber" rowspan = "2" align="center">序号</th>
+				<th field="province" rowspan = "2" align="center">省份</th>
+				<th field="batch" rowspan = "2" align="center">批次</th>
+				<th colspan ="2" align="center">1.录取数（个）</th>
+				<th colspan ="2" align="center">2.批次最低控制线（分）</th>
+				<th colspan ="2" align="center">3.当年录取平均分数（分）</th>
+				<th field="time" formatter="formattime" rowspan = "2" align="center">填写时间</th>
+				<th field="note" rowspan = "2" align="center">备注</th>
+			</tr>
+		
+			<tr>
+				<th field="libEnrollNum" align="center">文科</th>
+				<th field="sciEnrollNum" align="center">理科</th>			
+				<th field="libLowestScore" align="center">文科</th>		
+				<th field="sciLowestScore" align="center">理科</th>		
+				<th field="libAvgScore" align="center">文科</th>
+				<th field="sciAvgScore" align="center">理科</th>
 				
 			</tr>
 		</thead>
+		 -->
 	</table>
 	
 	<div id="toolbar" style="height:auto">

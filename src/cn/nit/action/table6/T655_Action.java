@@ -160,7 +160,9 @@ public class T655_Action {
 			System.out.println(cond);
 		}
 		List<T655_Bean> list = T655_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
+	
 		String TeaInfoJson = this.toBeJson(list, T655_service.getTotal(cond,null));
+	    System.out.println("TeaInfoJson:"+TeaInfoJson);
 
 		PrintWriter out = null;
 
@@ -190,13 +192,30 @@ public class T655_Action {
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpServletRequest request = ServletActionContext.getRequest();
+		
+//		//讲合计的data放在list的首位（如果有的话）
+//		T655_Bean beanTotal = null;
+//		for(T655_Bean bean:list){
+//			if(bean.getUnitId()=="0000"){
+//				System.out.println("hello");
+//				beanTotal = bean;
+//				beanTotal.setTeaUnit("全校合计：");
+//				list.remove(bean);
+//				break;
+//			}
+//		}
+//		if(beanTotal!=null){
+//			System.out.println("有");
+//			list.add(0, beanTotal);
+//			System.out.println("你好："+beanTotal.getTeaUnit());
+//		}
 
 		JSONObject testjson = new JSONObject();
 		testjson.accumulate("total", total);
 		testjson.accumulate("rows", list);
 
 		String json = testjson.toString();
-		System.out.println(json);
+//		System.out.println(json);
 		return json;
 	}
 
@@ -260,6 +279,7 @@ public class T655_Action {
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T655_Bean> list = T655_dao.getAllList("1=1", null);
+			
 						
 			String sheetName = this.getExcelName();
 			

@@ -248,6 +248,32 @@ public class T652_Dao {
 		
 		return list ;
 	}
+	
+	public int getPaper(String year){
+		int PaperNum = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select count(*) AS PaperNum from T652_StuPublishPaper_TeaYLC$");
+		sql.append(" where convert(varchar(4),T652_StuPublishPaper_TeaYLC$.Time,120) =" + year);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			while(rs.next()){
+				PaperNum = rs.getInt("PaperNum");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			DBConnection.close(conn);
+		}
+		
+		return PaperNum;
+	}
+	
 
 	public static void main(String args[]) {
 

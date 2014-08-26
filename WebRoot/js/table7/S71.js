@@ -1,4 +1,5 @@
-﻿
+﻿     //全局变量，用来控制字段合并次数
+	var count = 0;	
 	//只是用来展示的数据
 	$(function() {
 		var year = $("#cbYearContrast").combobox('getValue'); 
@@ -21,10 +22,10 @@
 			async : false,
 			type : "POST",
 			onLoadSuccess: function (rowData) {
-					 
-			if(typeof(rowData.rows[0].data) != "undefined"){
-				alert(rowData.rows[0].data);
-			}
+				if(typeof(rowData.rows[0].data) != "undefined"){
+					alert(rowData.rows[0].data);
+				}
+				if(count == 0 ) {	 
 					var merges2 = [{
 		                  field:'teaUnit',
 		                  index: 0,
@@ -39,8 +40,13 @@
 		                    colspan: merges2[i].colspan,
 		                    rowspan: merges2[i].rowspan
 		                });	
+		            
+		            count++;
+				 }
+		
+			
 					},
-
+			
 			queryParams:{
 				'selectYear': year
 			}

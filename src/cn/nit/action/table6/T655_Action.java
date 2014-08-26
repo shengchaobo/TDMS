@@ -160,9 +160,26 @@ public class T655_Action {
 			System.out.println(cond);
 		}
 		List<T655_Bean> list = T655_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
+		
+//		//讲合计的data放在list的首位（如果有的话）
+//		T655_Bean beanTotal = null;
+//		for(T655_Bean bean:list){
+//			if(bean.getUnitId()=="0000"){
+//				System.out.println("hello");
+//				beanTotal = bean;
+//				beanTotal.setTeaUnit("全校合计：");
+//				list.remove(bean);
+//				break;
+//			}
+//		}
+//		if(beanTotal!=null){
+//			System.out.println("有");
+//			list.add(0, beanTotal);
+////			System.out.println("你好："+beanTotal.getTeaUnit());
+//		}
 	
 		String TeaInfoJson = this.toBeJson(list, T655_service.getTotal(cond,null));
-	    System.out.println("TeaInfoJson:"+TeaInfoJson);
+//	    System.out.println("TeaInfoJson:"+TeaInfoJson);
 
 		PrintWriter out = null;
 
@@ -278,8 +295,22 @@ public class T655_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
+			System.out.println("+++++++test");
 			List<T655_Bean> list = T655_dao.getAllList("1=1", null);
 			
+			List<T655_Bean> list1 = new ArrayList<T655_Bean>();
+			
+			for(int i = 0;i<list.size();i++)
+			{
+				T655_Bean bean = list.get(i);
+			    if(bean.getUnitId().equals("0000")){
+			    	System.out.println("合计");
+			    	bean.setTeaUnit("全校合计：");
+			    	list1.add(0, bean);
+			    }else{
+			    	list1.add(bean);
+			    }
+			}
 						
 			String sheetName = this.getExcelName();
 			
@@ -314,7 +345,7 @@ public class T655_Action {
 			maplist.put("time", 7);
 			
 				
-			inputStream = new ByteArrayInputStream(T655_Excel.exportExcel(list, "表6-5-5学习成果-英语四六级、省计算机等级考试（教务处）", maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(T655_Excel.exportExcel(list1, "表6-5-5学习成果-英语四六级、省计算机等级考试（教务处）", maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

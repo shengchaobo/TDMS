@@ -63,8 +63,8 @@ public class S72_Action {
 		
 		List<S72_Bean> list = s72_Service.getYearInfo(this.getSelectYear());
 
-		//System.out.println(this.getSelectYear());
-		//System.out.println(list.size());
+//		System.out.println(this.getSelectYear());
+//		System.out.println(list.size());
 		
 		boolean flag = true;
 		JSON json = null;

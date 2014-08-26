@@ -111,27 +111,6 @@ public class S71_DAO {
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<S71_Bean> list = new ArrayList<S71_Bean>() ;
-		String sql1 = "select * from DiDepartment "+
-		 " left join T711_TeaManagerAwardInfo_TeaTea$ on DiDepartment.UnitID = T711_TeaManagerAwardInfo_TeaTea$.UnitID "+
-		 " left join T712_TeaManagerPaperInfo_TeaTea$ on DiDepartment.UnitID = T712_TeaManagerPaperInfo_TeaTea$.UnitID "+
-		 " where convert(varchar(4),T711_TeaManagerAwardInfo_TeaTea$.Time,120) = "  +  year  +  
-		 " and "  +  "convert(varchar(4),T712_TeaManagerPaperInfo_TeaTea$.Time,120) = "  +  year+
-		 " and DiDepartment.UnitID like '3%'";;
-		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql1);
-			if(!rs.next()){
-				System.out.println("统计数据不全啊  ");
-				return list;
-			}
-			
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null;
-		}
-
-		
-		
 		String sql = "select * from DiDepartment "+
 		 " left join T711_TeaManagerAwardInfo_TeaTea$ on DiDepartment.UnitID = T711_TeaManagerAwardInfo_TeaTea$.UnitID "+
 		 " left join T712_TeaManagerPaperInfo_TeaTea$ on DiDepartment.UnitID = T712_TeaManagerPaperInfo_TeaTea$.UnitID "+
@@ -172,7 +151,7 @@ public class S71_DAO {
     " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
    
 
-		//System.out.println(querysql);
+		System.out.println(sql);
 		int sumTeaAward=0,interAward=0,nationAward=0,proviAward=0,
 				cityAward=0,schAward=0,sumTeaPaper=0,teaResPaper=0,teaManagePaper=0;
 		try{

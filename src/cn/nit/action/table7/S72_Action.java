@@ -66,6 +66,7 @@ public class S72_Action {
 		//System.out.println(this.getSelectYear());
 		//System.out.println(list.size());
 		
+
 		boolean flag = true;
 		JSON json = null;
 		if(list.size()==0){
@@ -74,11 +75,9 @@ public class S72_Action {
 			 json = JSONSerializer.toJSON(list) ;
 			 System.out.println(json.toString());
 		}
-		
-		PrintWriter out = null ;
-		
-		try {
 
+		PrintWriter out = null ;
+		try {
 			//设置输出内容的格式为json
 			if(flag){
 			response.setContentType("application/json; charset=UTF-8") ;
@@ -93,6 +92,8 @@ public class S72_Action {
 				out.print("[{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}]") ;
 				System.out.println("统计数据不全");
 			}
+
+
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,7 +102,7 @@ public class S72_Action {
 				out.flush() ;
 				out.close() ;
 			}
-		}
+		}	
 	}
 
 	public InputStream getInputStream(){

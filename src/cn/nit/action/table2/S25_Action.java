@@ -63,8 +63,8 @@ public class S25_Action {
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
 		List<S25_Bean> list=s25_Service.getYearInfo(this.getSelectYear());
-		System.out.println(this.getSelectYear());
-		System.out.println(list.size());
+		//System.out.println(this.getSelectYear());
+		//System.out.println(list.size());
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
 		//System.out.println(json.toString());
@@ -75,12 +75,13 @@ public class S25_Action {
 			//设置数据的内容的编码格式
 			String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
 			out.print(outPrint) ;
-			out.flush() ;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
 			if(out != null){
 				out.close() ;
+				out.flush() ;
 			}
 		}
 	}

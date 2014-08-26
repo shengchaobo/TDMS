@@ -391,7 +391,7 @@ public class T621_Action {
 
 	public String execute() throws Exception {
 
-		getResponse().setContentType("application/octet-stream;charset=UTF-8");
+		getResponse().setContentType("application/vnd.ms-excel;charset=UTF-8");
 		System.out.println("excelName=============" + excelName) ;
 		return "success";
 	}

@@ -366,7 +366,7 @@ public class T623_Action {
 
 	public String execute() throws Exception {
 
-		getResponse().setContentType("application/octet-stream;charset=UTF-8");
+		getResponse().setContentType("application/vnd.ms-excel;charset=UTF-8");
 		return "success";
 	}
 

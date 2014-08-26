@@ -283,7 +283,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
     <body style="margin-left:auto;margin-right:auto;align-text:center">
     <div class="easyui-layout" data-options="fit:true">
-	    <div style="height:65px;background:url(images/main02.jpg);width:1364px; overflow: hidden;" data-options="region:'north',split:true">
+	    <div style="height:75px;background:url(images/main02.jpg);width:1364px; overflow: hidden;" data-options="region:'north',split:true">
 	    	<div class="left">
 	    	<table>
 	    	<tr>
@@ -299,7 +299,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		</tr>
 	    		<tr>
 	    			<td></td>
-	    			<td width="80px;">
+	    			<td width="90px;">
 	    				<div id="showList"  style="display: none; border:1px solid grey; background-color: white;">
 							<ul>
 								<li><a href="javascript:void(0)"  onclick="return alertPsd()">&nbsp;&nbsp;修改个人密码</a></li>

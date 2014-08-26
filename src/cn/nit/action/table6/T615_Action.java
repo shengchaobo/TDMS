@@ -290,8 +290,6 @@ public class T615_Action {
 	}
 
 	public String execute() throws Exception {
-
-		getResponse().setContentType("application/octet-stream;charset=UTF-8");
 		return "success";
 	}
 
@@ -397,7 +395,8 @@ public class T615_Action {
 
 	public String getExcelName() {
 		try {
-			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			excelName=new String(excelName.getBytes(),"ISO-8859-1"); 
+			//this.excelName = URLEncoder.encode(excelName, "UTF-8");
 			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

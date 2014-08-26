@@ -132,10 +132,6 @@ public class S71_DAO {
 
 		
 		
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<S71_Bean> list = new ArrayList<S71_Bean>() ;
 		String sql = "select * from DiDepartment "+
 		 " left join T711_TeaManagerAwardInfo_TeaTea$ on DiDepartment.UnitID = T711_TeaManagerAwardInfo_TeaTea$.UnitID "+
 		 " left join T712_TeaManagerPaperInfo_TeaTea$ on DiDepartment.UnitID = T712_TeaManagerPaperInfo_TeaTea$.UnitID "+

@@ -1,4 +1,4 @@
-﻿	//全局变量，用来控制字段合并次数
+	//全局变量，用来控制字段合并次数
 	var count = 0;	
 
 	//只是用来展示的数据
@@ -20,15 +20,11 @@
 			//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
 			remoteSort : false,
 			rownumbers : true,
-			async : false,
-			type : "POST",
 			onLoadSuccess: function (rowData) {
-
-					 
-			if(typeof(rowData.rows[0].data) != "undefined"){
-				alert(rowData.rows[0].data);
-			}
-					 
+				if(typeof(rowData.rows[0].data) != "undefined"){
+					alert(rowData.rows[0].data);
+				}
+				if(count == 0 ) {	 
 					var merges2 = [{
 		                  field:'teaUnit',
 		                  index: 0,
@@ -47,9 +43,7 @@
 		            count++;
 				 }
 				 
-				if(typeof(rowData.rows[0].data) != "undefined"){
-					alert(rowData.rows[0].data);
-				}
+			
 				},
 
 			queryParams:{

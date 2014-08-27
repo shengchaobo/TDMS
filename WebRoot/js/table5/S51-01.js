@@ -21,7 +21,7 @@
 			async : false,
 			type : "POST",
 			onLoadSuccess: function (rowData) {
-					 
+
 			if(typeof(rowData.rows[0].data) != "undefined"){
 				alert(rowData.rows[0].data);
 			}

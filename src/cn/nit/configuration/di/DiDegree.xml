@@ -6,5 +6,8 @@
 	<package name="pages/DiDegree" namespace="/pages/DiDegree" extends="struts-default">
 		<!-- 初始化加载学位 -->
 	    <action name="loadDiDegree" class="cn.nit.action.di.DiDegreeAction" method="loadDegree" />
+	    <action name="insert" class="cn.nit.action.di.DiDegreeAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiDegreeAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiDegreeAction" method="deleteByIds" />
 	</package>
 </struts>

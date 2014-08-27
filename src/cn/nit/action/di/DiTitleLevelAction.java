@@ -49,7 +49,7 @@ public class DiTitleLevelAction {
 	}
 	
 	
-public void edit(){
+	public void edit(){
 		
 		boolean flag = TitleLevelServices.update(level_bean) ;
 		

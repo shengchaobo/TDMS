@@ -6,5 +6,8 @@
 	<package name="pages/DiTalentType" namespace="/pages/DiTalentType" extends="struts-default">
 		<!-- 初始化加载所有人才类型 -->
 	    <action name="loadDiTalentType" class="cn.nit.action.di.DiTalentTypeAction" method="loadTalentType" />
+	    <action name="insert" class="cn.nit.action.di.DiTalentTypeAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiTalentTypeAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiTalentTypeAction" method="deleteByIds" />
 	</package>
 </struts>

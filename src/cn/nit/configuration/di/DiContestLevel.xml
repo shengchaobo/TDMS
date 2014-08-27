@@ -6,5 +6,8 @@
 	<package name="pages/DiContestLevel" namespace="/pages/DiContestLevel" extends="struts-default">
 		<!-- 初始化加载所有竞赛类型 -->
 	    <action name="loadDiContestLevel" class="cn.nit.action.di.DiContestLevelAction" method="loadContestLevel" />
+	    <action name="insert" class="cn.nit.action.di.DiContestLevelAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiContestLevelAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiContestLevelAction" method="deleteByIds" />
 	</package>
 </struts>

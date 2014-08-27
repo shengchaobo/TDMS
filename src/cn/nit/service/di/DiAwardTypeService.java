@@ -3,6 +3,7 @@ package cn.nit.service.di;
 import java.util.List;
 
 import cn.nit.bean.di.DiAwardTypeBean;
+import cn.nit.bean.di.DiTutorTypeBean;
 import cn.nit.dao.di.DiAwardTypeDao;
 
 public class DiAwardTypeService {
@@ -37,5 +38,33 @@ public class DiAwardTypeService {
 	 */
 	public boolean insert(DiAwardTypeBean award){
 		return awardTypeDao.insert(award) ;
+	}
+	
+	/**
+	 * 更新
+	 * @param userinfo
+	 * @return
+	 */
+	public boolean update(DiAwardTypeBean typebean){
+		
+		return awardTypeDao.update(typebean) ;
+	}
+	
+	/**
+	 * 删除
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteByIds(String ids){
+		return awardTypeDao.deleteByIds(ids) ;
+	}
+	
+	
+	/**
+	 * 判断中是否已包含该数据
+	 */
+	
+	public boolean hasType(String typeID){
+		return awardTypeDao.hasType(typeID);
 	}
 }

@@ -6,5 +6,8 @@
 	<package name="pages/DiCourseAttri" namespace="/pages/DiCourseAttri" extends="struts-default">
 		<!-- 初始化加载所有课程属性 -->
 	    <action name="loadDiCourseAttri" class="cn.nit.action.di.DiCourseAttriAction" method="loadCourseAttri" />
+	    <action name="insert" class="cn.nit.action.di.DiCourseAttriAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiCourseAttriAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiCourseAttriAction" method="deleteByIds" />
 	</package>
 </struts>

@@ -20,14 +20,14 @@ public class DiAwardLevelService {
 	
 	/**
 
-	 * 校级及以�?
+	 * 校级及以�?
 	 * */
 	public List<DiAwardLevelBean> getListPart(){
 		return awardLevelDao.getListPart() ;
 	}
 	
 	/**
-	 * 校级、系�?
+	 * 校级、系�?
 	 * */
 	public List<DiAwardLevelBean> getListPartTwo(){
 		return awardLevelDao.getListPartTwo() ;
@@ -35,7 +35,7 @@ public class DiAwardLevelService {
 	
 	/**
 
-	 * 新增一个学�?
+	 * 新增一个学�?
 	 * @param degree
 	 * @return
 	 *
@@ -43,6 +43,34 @@ public class DiAwardLevelService {
 	 */
 	public boolean insert(DiAwardLevelBean degree){
 		return awardLevelDao.insert(degree) ;
+	}
+	
+	/**
+	 * 更新
+	 * @param userinfo
+	 * @return
+	 */
+	public boolean update(DiAwardLevelBean levelbean){
+		
+		return awardLevelDao.update(levelbean) ;
+	}
+	
+	/**
+	 * 删除
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteByIds(String ids){
+		return awardLevelDao.deleteByIds(ids) ;
+	}
+	
+	
+	/**
+	 * 判断中是否已包含该数据
+	 */
+	
+	public boolean hasLevel(String levelID){
+		return awardLevelDao.hasLevel(levelID);
 	}
 
 

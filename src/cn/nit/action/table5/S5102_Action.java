@@ -97,7 +97,8 @@ public class S5102_Action {
 				//设置数据的内容的编码格式
 				String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
 				out.print(outPrint) ;
-			}else{
+			}
+				else{
 				response.setContentType("text/html; charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print("[{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}]") ;
@@ -108,8 +109,8 @@ public class S5102_Action {
 						e.printStackTrace();
 				}finally{
 					if(out != null){
-				out.close() ;
-				}
+						out.close() ;
+					}
 			}
 //		}
 	
@@ -135,7 +136,7 @@ public class S5102_Action {
 			System.out.println("后台传入的数据为空");
 		}else{
 //			String sheetName = this.getExcelName();
-				String sheetName="S-5-1-1本科课程库信息统计（按教学单位）";	
+				String sheetName=this.excelName;	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();

@@ -64,7 +64,7 @@ public class S5101_Action {
 	 * */
 	public void loadInfo() throws Exception{
 		
-		System.out.println();
+		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
 		List<S5101POJO> list =s5101Ser.loadInfo(this.getSelectYear());
@@ -104,6 +104,7 @@ public class S5101_Action {
 			e.printStackTrace();
 		}finally{
 					if(out != null){
+					out.flush() ;
 				    out.close() ;
 				}
 			}

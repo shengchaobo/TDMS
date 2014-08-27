@@ -1,5 +1,6 @@
 package cn.nit.excel.imports.table7;
 
+import java.sql.Time;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -79,8 +80,8 @@ public class T735_Excel {
 				if((assYear == null) || assYear.equals("")){
 					return "第" + count + "行，考评年份不能为空" ;
 				}
-				if(assYear.length()>50){
-					return "第" + count + "行，考评年份不能超过50个字符" ;
+				if(!TimeUtil.judgeFormat3(assYear)){
+					return "第" + count + "行，考评年份格式不正确！" ;
 				}
                String note = cell[5].getContents();
 				

@@ -100,8 +100,30 @@ public class S532_DAO {
 	
 	
 	public List<S532_Bean> getData(String year){
-		
-	String querysql="select UnitName AS TeaUnit, " +
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<S532_Bean> list = new ArrayList<S532_Bean>() ;
+		String sql = "select * from DiDepartment "+
+				    " left join T532_ExpTeachShowCenter_EQU$ on DiDepartment.UnitID = T532_ExpTeachShowCenter_EQU$.UnitID "+
+				    " where convert(varchar(4),T532_ExpTeachShowCenter_EQU$.Time,120) = "  +  year  +  
+				    " and DiDepartment.UnitID like '3%'";
+				try{
+					st = conn.createStatement();
+					rs = st.executeQuery(sql);
+					if(!rs.next()){
+						System.out.println("统计数据不全啊  ");
+						return list;
+					}
+					
+				}catch(Exception e){
+					e.printStackTrace() ;
+					return null;
+				}
+			System.out.println(sql);	
+				
+				
+	   String querysql="select UnitName AS TeaUnit, " +
 		" sum(case when CenterLevel='50000' then 1 else 0 end) AS InterNum, "+
 		" sum(case when CenterLevel='50001' then 1 else 0 end) AS NationNum, "+
 		" sum(case when CenterLevel='50002' then 1 else 0 end) AS ProviNum, "+
@@ -111,10 +133,7 @@ public class S532_DAO {
 	    " left join T532_ExpTeachShowCenter_EQU$ on DiDepartment.UnitID = T532_ExpTeachShowCenter_EQU$.UnitID "+
 	    " and convert(varchar(4),T532_ExpTeachShowCenter_EQU$.Time,120) = "  +  year  +  
 	    " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<S532_Bean> list = new ArrayList<S532_Bean>() ;
+		
         int interNum=0,nationNum=0,proviNum=0,cityNum=0,schNum=0;
 		try {
 			st = conn.createStatement() ;

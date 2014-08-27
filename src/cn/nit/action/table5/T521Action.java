@@ -222,7 +222,7 @@ public class T521Action {
 			
 			List<T521Bean> list = t521Dao.totalList();
 			
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

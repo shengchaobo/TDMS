@@ -282,7 +282,7 @@ public class T621_Action {
 				bean.setFromTeaUnit("全校合计：");
 				list.add(0, bean);
 				
-				String sheetName = this.getExcelName();
+				String sheetName = this.excelName;
 				
 				List<String> columns = new ArrayList<String>();
 				
@@ -305,7 +305,7 @@ public class T621_Action {
 					
 					 fos = new ByteArrayOutputStream();
 			            wwb = Workbook.createWorkbook(fos);
-			            WritableSheet ws = wwb.createSheet("表6-2-1近一届本科生分专业招生录取情况（招就处）", 0);        // 创建一个工作表
+			            WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 
 			            //    设置表头的文字格式
 			            
@@ -327,7 +327,7 @@ public class T621_Action {
 				        		     jxl.format.Colour.BLACK);
 			            ws.setRowView(1, 500);
 						//第一行存表名
-						ws.addCell(new Label(0, 0, "表6-2-1近一届本科生分专业招生录取情况（招就处）", wcf)); 
+						ws.addCell(new Label(0, 0,sheetName, wcf)); 
 						ws.mergeCells(0, 0, 1, 0);
 						
 						//写表头
@@ -392,7 +392,7 @@ public class T621_Action {
 	public String execute() throws Exception {
 
 		getResponse().setContentType("application/vnd.ms-excel;charset=UTF-8");
-		System.out.println("excelName=============" + excelName) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success";
 	}
 

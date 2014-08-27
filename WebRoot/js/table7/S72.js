@@ -1,5 +1,3 @@
-	//全局变量，用来控制字段合并次数
-	var count = 0;	
 
 	//只是用来展示的数据
 	$(function() {
@@ -23,27 +21,7 @@
 			onLoadSuccess: function (rowData) {
 				if(typeof(rowData.rows[0].data) != "undefined"){
 					alert(rowData.rows[0].data);
-				}
-				if(count == 0 ) {	 
-					var merges2 = [{
-		                  field:'teaUnit',
-		                  index: 0,
-		                  colspan: 2
-		              }           
-		              ];
-
-		            for (var i = 0; i < merges2.length; i++)
-		                $('#showData').datagrid('mergeCells', {
-		                    index: merges2[i].index,
-		                    field: merges2[i].field,
-		                    colspan: merges2[i].colspan,
-		                    rowspan: merges2[i].rowspan
-		                });	
-		            
-		            count++;
-				 }
-		
-			
+				}	
 				},
 
 			queryParams:{

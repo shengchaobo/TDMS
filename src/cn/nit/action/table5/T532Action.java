@@ -219,7 +219,7 @@ public class T532Action {
 			
 			List<T532Bean> list = t532Dao.totalList();
 			
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
@@ -250,6 +250,7 @@ public class T532Action {
 	public String execute() throws Exception{
 
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 	
@@ -342,5 +343,6 @@ public class T532Action {
 			e.printStackTrace();
 		}
 		return excelName;
+	
 	}
 }

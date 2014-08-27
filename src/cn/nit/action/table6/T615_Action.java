@@ -236,7 +236,7 @@ public class T615_Action {
 			
 			List<T615_Bean> list = T615_dao.getAllList("1=1", null);
 						
-			String sheetName = this.getExcelName();
+			//String sheetName = this.getExcelName();
 			
 			List<String> columns = new ArrayList<String>();
 
@@ -280,7 +280,7 @@ public class T615_Action {
 			maplist.put("changeOutNum", 15);
 
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-1-5普通本科分专业（大类）学生数（教务处）", maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, this.excelName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
@@ -395,8 +395,7 @@ public class T615_Action {
 
 	public String getExcelName() {
 		try {
-			excelName=new String(excelName.getBytes(),"ISO-8859-1"); 
-			//this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
 			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

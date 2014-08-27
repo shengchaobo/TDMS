@@ -1,4 +1,4 @@
-package cn.nit.dao.table7;
+﻿package cn.nit.dao.table7;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -107,8 +107,6 @@ public class S71_DAO {
 
 	public List<S71_Bean> getData(String year)
 	{
-		
-		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -152,9 +150,8 @@ public class S71_DAO {
     " and "  +  "convert(varchar(4),T712_TeaManagerPaperInfo_TeaTea$.Time,120) = "  +  year  +  
     " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
    
-		//System.out.println(querysql);
 
-
+		System.out.println(sql);
 		int sumTeaAward=0,interAward=0,nationAward=0,proviAward=0,
 				cityAward=0,schAward=0,sumTeaPaper=0,teaResPaper=0,teaManagePaper=0;
 		try{

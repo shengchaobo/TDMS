@@ -1,8 +1,8 @@
 	//只是用来展示的数据
 	$(function() {
 		$('#typeManager').datagrid( {
-			title : '身份代码管理',  //可变内容在具体页面定义
-			url: 'pages/DiIdentiType/loadDiIdentiType',
+			title : '科研机构管理',  //可变内容在具体页面定义
+			url: 'pages/DiResearchType/loadDiResearchType',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -20,8 +20,7 @@
 			onLoadSuccess: function (rowData) {
 				
 			}
-		});
-				  			
+		});							
 	});
 			
 	var url;
@@ -31,8 +30,8 @@
 		$("input#IndexID").attr("readonly",false);
 		$("input#IndexID").css({"color":"black"});
 		
-		url = 'pages/DiIdentiType/insert';
-		$('#dlg').dialog('open').dialog('setTitle', '添加身份代码');
+		url = 'pages/DiResearchType/insert';
+		$('#dlg').dialog('open').dialog('setTitle', '添加科研机构');
 		$('#typeManagerForm').form('reset');
 	}
 
@@ -62,16 +61,16 @@
 	function validate() {
 		//获取文本框的值
 		var indexID = $('#IndexID').val();
-		var identiType = $('#IdentiType').val();
+		var researchType = $('#ResearchType').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (indexID == null || indexID.length == 0 ) {
-			alert("身份代码不能为空");
+			alert("科研机构代码不能为空");
 			return false;
 		}
 		
-		if (identiType == null || identiType.length == 0 ) {
-			alert("身份名称不能为空");
+		if (researchType == null || researchType.length == 0 ) {
+			alert("科研机构名称不能为空");
 			return false;
 		}
 
@@ -86,15 +85,15 @@
 			return;
 		}
 		
-		url = 'pages/DiIdentiType/edit';
+		url = 'pages/DiResearchType/edit';
 
-		$('#dlg').dialog('open').dialog('setTitle', '编辑身份');
+		$('#dlg').dialog('open').dialog('setTitle', '编辑科研机构');
 		
     	$('#IndexID').val(row[0].indexId) ;
     	$("input#IndexID").attr("readonly",true);
     	$("input#IndexID").css({"color":"#888"});
     	
-    	$('#IdentiType').val(row[0].identiType) ;		
+    	$('#ResearchType').val(row[0].researchType) ;		
 		
 	}
 
@@ -118,7 +117,7 @@
 						ids += ("'"+row[i].indexId +"'"+ ")");
 					}
 				}				
-				url = "pages/DiIdentiType/deleteByIds?ids=" + ids ;
+				url = "pages/DiResearchType/deleteByIds?ids=" + ids ;
 				submitIds();
 			}
 		});

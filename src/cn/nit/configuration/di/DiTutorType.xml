@@ -6,5 +6,8 @@
 	<package name="pages/DiTutorType" namespace="/pages/DiTutorType" extends="struts-default">
 		<!-- 初始化加载所有导师类型 -->
 	    <action name="loadDiTutorType" class="cn.nit.action.di.DiTutorTypeAction" method="loadTutorType" />
+	    <action name="insert" class="cn.nit.action.di.DiTutorTypeAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiTutorTypeAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiTutorTypeAction" method="deleteByIds" />
 	</package>
 </struts>

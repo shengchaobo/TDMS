@@ -1,4 +1,4 @@
-package cn.nit.dao.table7;
+﻿package cn.nit.dao.table7;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -101,6 +101,7 @@ public class S72_DAO {
  		
  	}
 	public List<S72_Bean> getData(String year){
+
 		
 		Connection conn=DBConnection.instance.getConnection();
 		
@@ -114,6 +115,7 @@ public class S72_DAO {
 		 " where convert(varchar(4),T711_TeaManagerAwardInfo_TeaTea$.Time,120) = "  +  year  +  
 		 " and "  +  "convert(varchar(4),T712_TeaManagerPaperInfo_TeaTea$.Time,120) = "  +  year  +
 		 " and DiDepartment.UnitID like '3%'";
+
 		try{
 			st = conn.createStatement();
 			rs = st.executeQuery(sql1);
@@ -126,7 +128,6 @@ public class S72_DAO {
 			e.printStackTrace() ;
 			return null;
 		}
-		
 
 		String sql="select UnitName AS TeaUnit,DiDepartment.UnitID," + 
 		" count(ItemLevel) AS SumTeaResItem," +
@@ -147,9 +148,9 @@ public class S72_DAO {
 	    " left join T722_TeachAchieveAward_Tea$ on DiDepartment.UnitID = T722_TeachAchieveAward_Tea$.UnitID "+
 	    " and "  +  "convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120) = "  +  year  +  
 	    " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
+
 		
 		System.out.println(sql);
-		
 
 	
 		int sumTeaResItem=0,interItem=0,nationItem=0,proviItem=0,cityItem=0,schItem=0,sumTeaAward=0,

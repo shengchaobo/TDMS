@@ -2,6 +2,7 @@ package cn.nit.service.di;
 
 import java.util.List;
 
+import cn.nit.bean.di.DiIdentiTypeBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.dao.di.DiTitleLevelDao;
 
@@ -27,6 +28,34 @@ public class DiTitleLevelService {
 	 */
 	public boolean insert(DiTitleLevelBean identiType){
 		return titleLevelDao.insert(identiType) ;
+	}
+	
+	/**
+	 * 更新
+	 * @param userinfo
+	 * @return
+	 */
+	public boolean update(DiTitleLevelBean levelbean){
+		
+		return titleLevelDao.update(levelbean) ;
+	}
+	
+	/**
+	 * 删除
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteByIds(String ids){
+		return titleLevelDao.deleteByIds(ids) ;
+	}
+	
+	
+	/**
+	 * 判断中是否已包含该数据
+	 */
+	
+	public boolean hasLevel(String levelID){
+		return titleLevelDao.hasLevel(levelID);
 	}
 
 }

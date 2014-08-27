@@ -84,6 +84,7 @@ public class S512_Action {
 		System.out.println("year:"+this.getSelectYear());
 
 		JSON json = JSONSerializer.toJSON(list) ;
+		System.out.println(json);
 		PrintWriter out = null ;
 		boolean flag = false;
 		//System.out.println(json.toString());

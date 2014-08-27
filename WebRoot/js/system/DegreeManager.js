@@ -1,8 +1,8 @@
 	//只是用来展示的数据
 	$(function() {
-		$('#typeManager').datagrid( {
-			title : '身份代码管理',  //可变内容在具体页面定义
-			url: 'pages/DiIdentiType/loadDiIdentiType',
+		$('#degreeManager').datagrid( {
+			title : '学位管理',  //可变内容在具体页面定义
+			url: 'pages/DiDegree/loadDiDegree',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -20,27 +20,26 @@
 			onLoadSuccess: function (rowData) {
 				
 			}
-		});
-				  			
+		});							
 	});
 			
 	var url;
-	function newType() {
+	function newDegree() {
 		
 		//update隐藏的量在提交之后要恢复
 		$("input#IndexID").attr("readonly",false);
 		$("input#IndexID").css({"color":"black"});
 		
-		url = 'pages/DiIdentiType/insert';
-		$('#dlg').dialog('open').dialog('setTitle', '添加身份代码');
-		$('#typeManagerForm').form('reset');
+		url = 'pages/DiDegree/insert';
+		$('#dlg').dialog('open').dialog('setTitle', '添加学位');
+		$('#degreeManagerForm').form('reset');
 	}
 
 	function singleImport() {
 		//录入数据的表单提交
-		$('#typeManagerForm').form('submit', {
+		$('#degreeManagerForm').form('submit', {
 			url : url,
-			data : $('#typeManagerForm').serialize(),
+			data : $('#degreeManagerForm').serialize(),
 			type : "post",
 			dataType : "json",
 			onSubmit : function() {
@@ -53,7 +52,7 @@
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
 					$('#dlg').dialog('close');
-					$('#typeManager').datagrid('reload');
+					$('#degreeManager').datagrid('reload');
 				}
 			}
 		});
@@ -62,45 +61,45 @@
 	function validate() {
 		//获取文本框的值
 		var indexID = $('#IndexID').val();
-		var identiType = $('#IdentiType').val();
+		var degree = $('#Degree').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (indexID == null || indexID.length == 0 ) {
-			alert("身份代码不能为空");
+			alert("学位代码不能为空");
 			return false;
 		}
 		
-		if (identiType == null || identiType.length == 0 ) {
-			alert("身份名称不能为空");
+		if (degree == null || degree.length == 0 ) {
+			alert("学位名称不能为空");
 			return false;
 		}
 
 		return true;
 	}
 
-	function editType() {
-		var row = $('#typeManager').datagrid('getSelections');
+	function editDegree() {
+		var row = $('#degreeManager').datagrid('getSelections');
 
 		if (row.length != 1) {
 			$.messager.alert('温馨提示', "请选择1条编辑的数据！！！");
 			return;
 		}
 		
-		url = 'pages/DiIdentiType/edit';
+		url = 'pages/DiDegree/edit';
 
-		$('#dlg').dialog('open').dialog('setTitle', '编辑身份');
+		$('#dlg').dialog('open').dialog('setTitle', '编辑学位');
 		
     	$('#IndexID').val(row[0].indexId) ;
     	$("input#IndexID").attr("readonly",true);
     	$("input#IndexID").css({"color":"#888"});
     	
-    	$('#IdentiType').val(row[0].identiType) ;		
+    	$('#Degree').val(row[0].degree) ;		
 		
 	}
 
 	function deleteByIds() {
 		//获取选中项
-		var row = $('#typeManager').datagrid('getSelections');
+		var row = $('#degreeManager').datagrid('getSelections');
 
 		if (row.length == 0) {
 			$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
@@ -118,7 +117,7 @@
 						ids += ("'"+row[i].indexId +"'"+ ")");
 					}
 				}				
-				url = "pages/DiIdentiType/deleteByIds?ids=" + ids ;
+				url = "pages/DiDegree/deleteByIds?ids=" + ids ;
 				submitIds();
 			}
 		});
@@ -135,7 +134,7 @@
 				result = eval("(" + result + ")");
 				if (result.state) {
 					alert(result.data);
-					$('#typeManager').datagrid('reload');
+					$('#degreeManager').datagrid('reload');
 				}
 			}
 		}).submit();

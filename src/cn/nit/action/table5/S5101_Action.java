@@ -67,33 +67,46 @@ public class S5101_Action {
 		System.out.println();
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<S5101POJO> list = new ArrayList<S5101POJO>();
-//		List<S512_Bean> list=s512Ser.loadInfo(this.getSelectYear());
-		if(s5101Ser.loadInfo(this.getSelectYear())!=null){
-			list = s5101Ser.loadInfo(this.getSelectYear());
-		}
+		List<S5101POJO> list =s5101Ser.loadInfo(this.getSelectYear());
+//		List<S512_Bean> list=s512Ser.loadInfo(this.getSelectYear();
 		System.out.println("year:"+this.getSelectYear());
-
-		JSON json = JSONSerializer.toJSON(list) ;
+		
+		boolean flag = true;
+		JSON json = null;
+		
+		if(list.size()==0){
+			flag = false;
+		}
+		else{
+			json = JSONSerializer.toJSON(list) ;
+		}
 		PrintWriter out = null ;
 
 		try {
-			//设置输出内容的格式为json
+			
+			if(flag){
+				//设置输出内容的格式为json
 				response.setContentType("application/json; charset=UTF-8") ;
+				
 				out = response.getWriter() ;
 				//设置数据的内容的编码格式
 				String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
 				out.print(outPrint) ;
-				out.flush() ;
-				} catch (Exception e) {
-						e.printStackTrace();
-				}finally{
+			}
+			else{
+				System.out.println("hello");
+				response.setContentType("text/html; charset=UTF-8") ;
+				out = response.getWriter() ;
+				out.print("[{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}]") ;
+				System.out.println("统计数据不全");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
 					if(out != null){
-				out.close() ;
+				    out.close() ;
 				}
 			}
-//		}
-	
 	}
 
 	

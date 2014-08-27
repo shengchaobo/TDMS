@@ -295,10 +295,10 @@ public class T511_Action {
 		try {
 			this.excelName = URLEncoder.encode(excelName, "UTF-8");
 			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
-			} catch (UnsupportedEncodingException e) {
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-			}
-			return excelName;
+		}
+		return excelName;
 	}
 
 	public void setExcelName(String excelName) {

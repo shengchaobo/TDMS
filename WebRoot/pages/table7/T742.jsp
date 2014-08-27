@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>评估年份：</label> 
-					<select class="easyui-combobox"  id="AssessYear" name="teachLevelAssessAC.AssessYear"></select>
+					<input id="AssessYear" type="text" name="teachLevelAssessAC.AssessYear">
 							<span id="AssessYearSpan"></span>
 					</div>
 				</td>
@@ -251,15 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	theOption.innerHTML = currentYear-i + "年";
         	theOption.value = currentYear-i;
         	select.appendChild(theOption);
-    	}
-	var select = document.getElementById("AssessYear");
-    	for (var i = 0; i <= 20; i++) {
-        var theOption = document.createElement("option");
-        	theOption.innerHTML = currentYear-i + "年";
-        	theOption.value = currentYear-i;
-        	select.appendChild(theOption);
-    	}
-	
+    	}	
 	    var url;
 	    
 	     function reloadgrid ()  { 
@@ -354,7 +346,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 			var cSType = $('#CSType').combobox('getText') ;
 			
-			var assessYear = $('#AssessYear').combobox('getText') ;
+			var assessYear = $('#AssessYear').val() ;
 		
 			var assessResult = $('#AssessResult').combobox('getText') ;
 			
@@ -421,7 +413,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#AssessCS').val(row[0].assessCS) ;
 	    	$('#CSID').val(row[0].CSID) ;
 	    	$('#CSType').combobox('select', row[0].CSTypeID) ;
-			$('#AssessYear').combobox('select', row[0].assessYear) ;
+			$('#AssessYear').val(row[0].assessYear) ;
 			$('#AppvlID').val(row[0].appvlID) ;
 			$('#AssessResult').combobox('select', row[0].assessResult) ;
 			$('#Note').val(row[0].note) ;

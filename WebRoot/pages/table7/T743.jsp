@@ -202,7 +202,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>评估年份：</label> 
-					<select class="easyui-combobox"  id="AssessYear" name="courseBuildAssessAC.AssessYear"></select>
+					<input id="AssessYear" type="text" name="courseBuildAssessAC.AssessYear">
 							<span id="AssessYearSpan"></span>
 					</div>
 				</td>
@@ -267,15 +267,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	theOption.value = currentYear-i;
         	select.appendChild(theOption);
     	}
-    	var select = document.getElementById("AssessYear");
-    	for (var i = 0; i <= 10; i++) {
-        var theOption = document.createElement("option");
-        	theOption.innerHTML = currentYear-i + "年";
-        	theOption.value = currentYear-i;
-        	select.appendChild(theOption);
-    	}
-	
-	
 	    var url;
 	     function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 
@@ -369,7 +360,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 			var teaID = $('#CSLeader').combobox('getText');
 					
-			var assessYear = $('#AssessYear').combobox('getText');
+			var assessYear = $('#AssessYear').val();
 		
 			var assessResult = $('#AssessResult').combobox('getText') ;
 			
@@ -442,7 +433,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#CSNature').combobox('select', row[0].CSNatureID) ;
 	    	
 			$('#CSLeader').combobox('select', row[0].CSLeader) ;
-			$('#AssessYear').combobox('select', row[0].assessYear) ;
+			$('#AssessYear').val(row[0].assessYear) ;
 			$('#AppvlID').val(row[0].appvlID) ;
 			$('#AssessResult').combobox('select', row[0].assessResult) ;
 			$('#Note').val(row[0].note) ;

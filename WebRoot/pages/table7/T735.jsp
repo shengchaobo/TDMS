@@ -136,10 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>考评年份：</label> 
-						<select class="easyui-combobox"  id="AssessYear" name="teachManageAssessInfoTea.AssessYear"></select>
-					<!-- 	<input id="AssessYear" type="text" name="teachManageAssessInfoTea.AssessYear"
-							><span id="AssessYearSpan"></span>
-							 -->
+						<input  id="AssessYear" type="text" name="teachManageAssessInfoTea.AssessYear">
 							 <span id="AssessYearSpan"></span>
 					</div>
 				</td>
@@ -174,15 +171,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
-    	for (var i = 0; i <= 10; i++) {
-        var theOption = document.createElement("option");
-        	theOption.innerHTML = currentYear-i + "年";
-        	theOption.value = currentYear-i;
-        	select.appendChild(theOption);
-    	}
-    	
-    	var currentYear = new Date().getFullYear();
-    	var select = document.getElementById("AssessYear");
     	for (var i = 0; i <= 10; i++) {
         var theOption = document.createElement("option");
         	theOption.innerHTML = currentYear-i + "年";
@@ -273,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function validate(){
 			//获取文本框的值
 			var teaUnit =$('#UnitID').combobox('getText') ;
-			var assessYear = $('#AssessYear').combobox('getText') ;
+			var assessYear = $('#AssessYear').val() ;
 			var assessResult = $('#AssessResult').combobox('getText');
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
@@ -317,7 +305,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#seqNumber').val(row[0].seqNumber) ; 	
 	    	$('#UnitID').combobox('select', row[0].unitIDD) ;
-	    	$('#AssessYear').combobox('select', row[0].assessYear) ;
+	    	$('#AssessYear').val(row[0].assessYear) ;
 	    	$('#AssessResult').combobox('select', row[0].assessResult) ;
 			$('#Note').val(row[0].note) ;
 	    }

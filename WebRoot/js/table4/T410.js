@@ -377,19 +377,19 @@
     }
     
     function exports() {
-    	var temp = encodeURI('表4-10教师科研情况.xls');
+    	var temp = encodeURI('表4-10教师科研情况');
 	    $('#exportForm').form('submit', {
-    	data : $('#export').serialize(),
-	    url : "pages/T410/dataExport?excelName="+temp ,
-	    onSubmit : function() {
-	    return $(this).form('validate');//对数据进行格式化
-	    },
-	    success : function(data) {
-	    $.messager.show({
-	    	title : '提示',
-	    	msg : data
-	    });
-	    }
+	    	data : $('#export').serialize(),
+		    url : "pages/T410/dataExport?excelName="+temp ,
+		    onSubmit : function() {
+		    return $(this).form('validate');//对数据进行格式化
+		    },
+		    success : function(data) {
+		    $.messager.show({
+		    	title : '提示',
+		    	msg : data
+		    });
+		    }
 	    }); 
     }
 	

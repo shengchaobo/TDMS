@@ -5,7 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -114,7 +116,7 @@ public class A413_Action {
 			System.out.println("后台传入的数据为空");
 			return null;
 		}else{
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -308,7 +310,7 @@ public class A413_Action {
 	
 	public String execute() throws Exception{
 		request.setCharacterEncoding("UTF-8") ;
-		System.out.println("excelName=============" + excelName) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 
@@ -321,7 +323,13 @@ public class A413_Action {
 	}
 
 	public String getExcelName() {
-		return excelName;
+		 try {
+			 this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			 //this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+			 } catch (UnsupportedEncodingException e) {
+			 e.printStackTrace();
+			 }
+			 return excelName;
 	}
 
 	public void setExcelName(String excelName) {

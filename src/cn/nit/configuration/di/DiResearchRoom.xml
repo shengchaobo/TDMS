@@ -6,5 +6,10 @@
 	<package name="pages/DiResearchRoom" namespace="/pages/DiResearchRoom" extends="struts-default">
 		<!-- 初始化加载所有教研室 -->
 	    <action name="loadDiResearchRoom" class="cn.nit.action.di.DiResearchRoomAction" method="loadResearchRoom" />
+	    <!-- 初始化所有教研室（分页） -->
+		<action name="loadRooms" class="cn.nit.action.di.DiResearchRoomAction" method="loadRooms" />   	   
+		<action name="insert" class="cn.nit.action.di.DiResearchRoomAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiResearchRoomAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiResearchRoomAction" method="deleteByIds" />
 	</package>
 </struts>

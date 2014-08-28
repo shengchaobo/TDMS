@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除教学单位</a>
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-		 	单位号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
+		 	教研室号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
 			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
 		</form>
 	</div>
@@ -76,41 +76,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>
 							<div class="fitem">
 								<label>
+									所属教学单位：
+								</label>
+								<input id="ParentId" type="text" name="room_bean.parentId" class='easyui-combobox' 
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
+							">
+							 <span id="ParentIdSpan"></span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="fitem">
+								<label>
 									教研室名称：
 								</label>
 								<input id="ResearchName" type="text" name="room_bean.researchName"
 									class="easyui-validatebox">
 								<span id="ResearchNameSpan"></span>
 							</div>
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							<div class="fitem">
-								<label>
-									所属教学单位号：
-								</label>
-								<input id="ParentId" type="text" name="room_bean.parentId"
-									class="easyui-validatebox">
-								<span id="ParentIdSpan"></span>
-							</div>
-						</td>
-						<td class="empty"></td>
-						<td>
-							<div class="fitem">
-								<label>
-									所属教学单位：
-								</label>
-								<input id="ParentId" type="text" name="room_bean.parentId" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
-							onSelect:function(){
-							    $('#TeaUnit').val($(this).combobox('getText')) ;
-							 }">
-							</div>
-						</td>
-					</tr>
-						
+						</td>									
+					</tr>				
+				
 			</table>
 		</form>
 	</div>

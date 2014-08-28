@@ -25,6 +25,8 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -125,12 +127,19 @@ public class T659_Action {
 	
 	/**专业名称*/
 	private String majorName;
+	
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
+	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+	String fillUnitID = bean.getUnitID();
 
 	/** 逐条插入数据 */
 	public void insert() {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		
+		T659_bean.setFillUnitID(fillUnitID);
 		boolean flag = T659_service.insert(T659_bean);
 		PrintWriter out = null;
 
@@ -167,7 +176,7 @@ public class T659_Action {
 			cond += " and teaUnit LIKE '" + this.getSearchItem() + "%'";
 			System.out.println(cond);
 		}
-		List<T659_Bean> list = T659_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
+		List<T659_Bean> list = T659_service.getPageInfoList(cond,fillUnitID,this.getRows(), this.getPage());
 		String TeaInfoJson = this.toBeJson(list, T659_service.getTotal(cond,null));
 
 		PrintWriter out = null;
@@ -210,7 +219,9 @@ public class T659_Action {
 
 
 	/** 编辑数据 */
+	
 	public void edit() {
+		T659_bean.setFillUnitID(fillUnitID);
 		boolean flag = T659_service.update(T659_bean);
 		PrintWriter out = null;
 
@@ -283,7 +294,8 @@ public class T659_Action {
 			columns.add("本校到境内");
 			columns.add("境内到本校");
 			columns.add("境外到本校");
-
+			columns.add("填写单位");
+			columns.add("备注");
 
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 		
@@ -298,6 +310,9 @@ public class T659_Action {
 			maplist.put("fromSchToDomestic", 5);
 			maplist.put("fromDomesticToSch", 6);
 			maplist.put("fromOverseasToSch", 7);
+			
+			maplist.put("FillUnitID", 8);
+			maplist.put("Note", 9);
 				
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			

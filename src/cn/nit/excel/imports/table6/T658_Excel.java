@@ -25,6 +25,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiAwardTypeBean;
 import cn.nit.bean.di.DiContestLevelBean;
@@ -81,6 +82,8 @@ public class T658_Excel {
 		T658_Bean T658_bean = null;
 		boolean flag = false;
 		List<T658_Bean> list = new LinkedList<T658_Bean>();
+		
+		UserinfoBean userinfo = (UserinfoBean)request.getSession().getAttribute("userinfo") ;
 
 		DiDepartmentService diDep = new DiDepartmentService();
 		List<DiDepartmentBean> diDepList = diDep.getList();
@@ -213,6 +216,7 @@ public class T658_Excel {
 				T658_bean.setGuideTeaName(guideTeaName);
 				T658_bean.setGuideTeaNum(Integer.parseInt(guideTeaNum));
 				T658_bean.setNote(note);
+				T658_bean.setFillUnitID(userinfo.getTeaID());
 
 				// 插入时间
 				T658_bean.setTime(TimeUtil.changeDateY(selectYear));

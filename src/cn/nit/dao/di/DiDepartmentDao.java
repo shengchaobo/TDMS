@@ -74,6 +74,31 @@ public class DiDepartmentDao {
 				return list ;
 			}
 		
+		/**
+
+		 * 获取学院名称和id
+		 * */
+			public List<DiDepartmentBean> getListAca(){
+					
+					List<DiDepartmentBean> list = null ;
+					StringBuffer sql = new StringBuffer() ;
+					sql.append("select " + field + " from " + tableName) ;
+					sql.append(" where UnitID like '30%'");
+					Connection conn = DBConnection.instance.getConnection() ;
+					Statement st = null ;
+					ResultSet rs = null ;
+					
+					try{
+						st = conn.createStatement() ;
+						rs = st.executeQuery(sql.toString()) ;
+						list = DAOUtil.getList(rs, DiDepartmentBean.class) ;
+					}catch(Exception e){
+						e.printStackTrace() ;
+						return list ;
+					}
+					return list ;
+				}
+		
 		
 		/**
 		 * 加载所有部门

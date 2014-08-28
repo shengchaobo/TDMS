@@ -81,11 +81,6 @@ public class DiResearchRoomService {
 		return researchRoomDao.hasRoom(roomID);
 	}
 
-	  public static void main(String arg[])
-	  {
-		  DiResearchRoomService ser =new DiResearchRoomService();
-		  List<DiResearchRoomBean> list=ser.getList();
-		  System.out.println(list.size());
-	  }
+	 
 
 }

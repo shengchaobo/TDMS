@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>教研室管理</title>
+		<title>本科专业管理</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -27,75 +27,125 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 		<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-		<script type="text/javascript" src="js/system/ResearchRoomManager.js"></script>
+		<script type="text/javascript" src="js/system/MajorTwoManager.js"></script>
 		
 	</head>
 <body style="overflow-y:scroll">
-	<table id="roomManager" class="easyui-datagrid"  style="height: auto;"  >
+	<table id="majorManager" class="easyui-datagrid"  style="height: auto;"  >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="unitId">教研室号</th>
-				<th field="parentId">所属教学单位号</th>
-				
-				<th field="researchName">教研室名称</th>
+				<th field="majorNum">专业代码</th>
+				<th field="majorName">专业名称</th>				
+				<th field="version">版本</th>
+				<th field="duration">年限</th>
+				<th field="direction">门类</th>				
+				<th field="unitId">所属学院代号</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;height: 24">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-add" plain="true" onclick="newRoom()">添加教学单位</a>
+				iconCls="icon-add" plain="true" onclick="newMajor()">添加本科专业</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-edit" plain="true" onclick="editRoom()">编辑教学单位</a> 
+				iconCls="icon-edit" plain="true" onclick="editMajor()">编辑本科专业</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除教学单位</a>
+				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除本科专业</a>
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-		 	教研室号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
+		 	专业代码 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
 			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
 		</form>
 	</div>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true"
 		data-options="modal:true" buttons="#dlg-buttons">
-		<form id="roomManagerForm" method="post">
+		<form id="majorManagerForm" method="post">
 			<table>
 					<tr>
 						<td>
 							<div class="fitem">
 								<label>
-									教研室号：
+									专业代码：
 								</label>
-								<input id="UnitID" type="text" name="room_bean.unitId"
+								<input id="MajorNum" type="text" name="major_bean.majorNum"
 									class="easyui-validatebox">
-								<span id="UnitIDSpan"></span>
+								<span id="MajorNumSpan"></span>
 							</div>
 						</td>
 						<td class="empty"></td>
 						<td>
 							<div class="fitem">
 								<label>
-									所属教学单位：
+									专业名称：
 								</label>
-								<input id="ParentID" type="text" name="room_bean.parentId" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
-							">
-							 <span id="ParentIdSpan"></span>
+								<input id="MajorName" type="text" name="major_bean.majorName"
+									class="easyui-validatebox">
+								<span id="MajorNameSpan"></span>
 							</div>
 						</td>
+						
 					</tr>
 					<tr>
 						<td>
 							<div class="fitem">
 								<label>
-									教研室名称：
+									版本：
 								</label>
-								<input id="ResearchName" type="text" name="room_bean.researchName"
+								<input id="Version" type="text" name="major_bean.version"
 									class="easyui-validatebox">
-								<span id="ResearchNameSpan"></span>
+								<span id="VersionSpan"></span>
 							</div>
-						</td>									
+						</td>
+						<td class="empty"></td>	
+						<td>
+							<div class="fitem">
+								<label>
+									年限：
+								</label>
+								<select class='easyui-combobox' id="Duration" name="major_bean.duration" style="width:80px">
+									<option value="一年">一年</option>
+									<option value="二年">二年</option>
+									<option value="三年">三年</option>
+									<option value="四年">四年</option>
+									<option value="五年">五年</option>
+									<option value="六年">六年</option>
+							 <span id="DurationIdSpan"></span>
+							</div>
+						</td>								
+					</tr>
+					
+					<tr>
+						<td>
+							<div class="fitem">
+								<label>
+									门类：
+								</label>
+								<select class='easyui-combobox' id="Direction" name="major_bean.direction" style="width:80px">
+									<option value="工学">工学</option>
+									<option value="理学">理学</option>
+									<option value="农学">农学</option>
+									<option value="管理学">管理学</option>
+									<option value="经济学">经济学</option>
+									<option value="艺术学">艺术学</option>
+									<option value="文学">文学</option>
+								<span id="DirectionSpan"></span>
+							</div>
+						</td>
+						<td class="empty"></td>
+						<td>
+							<div class="fitem">
+								<label>
+									所属学院：
+								</label>
+								<input id="UnitId" type="text" name="major_bean.unitId" class="easyui-combobox" 
+								data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
+							"/>
+								<span id="UnitIDSpan"></span>
+							</div>
+						</td>
+						
 					</tr>				
 				
 			</table>

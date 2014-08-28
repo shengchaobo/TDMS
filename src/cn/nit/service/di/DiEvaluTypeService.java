@@ -18,20 +18,36 @@ public class DiEvaluTypeService {
 		return EvaluTypeDao.getList() ;
 	}
 	
-	/**
-	 * 新增一个评价类型
-	 * @param 
-	 * @return
-	 *
-	 * @time: 2014-5-14/下午03:05:00
-	 */
-	public boolean insert(DiEvaluTypeBean degree){
-		return EvaluTypeDao.insert(degree) ;
+	public boolean insert(DiEvaluTypeBean typebean){
+		return EvaluTypeDao.insert(typebean) ;
 	}
-     public static void main(String arg[]){
-    	 DiEvaluTypeService ser = new DiEvaluTypeService();
-    	 List<DiEvaluTypeBean> list = ser.getList();
-    	 System.out.println(list.size());
-     }
+	
+	/**
+	 * 更新
+	 * @param userinfo
+	 * @return
+	 */
+	public boolean update(DiEvaluTypeBean typebean){
+		
+		return EvaluTypeDao.update(typebean) ;
+	}
+	
+	/**
+	 * 删除
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteByIds(String ids){
+		return EvaluTypeDao.deleteByIds(ids) ;
+	}
+	
+	
+	/**
+	 * 判断中是否已包含该数据
+	 */
+	
+	public boolean hasType(String typeID){
+		return EvaluTypeDao.hasType(typeID);
+	}
 
 }

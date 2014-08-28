@@ -12,6 +12,7 @@ package cn.nit.service.di;
 
 import java.util.List;
 
+
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.dao.di.DiCourseCategoriesDao;
 
@@ -44,5 +45,33 @@ public class DiCourseCategoriesService {
 	 */
 	public boolean insert(DiCourseCategoriesBean diCourseCategories){
 		return diCourseCategoriesDao.insert(diCourseCategories) ;
+	}
+	
+	/**
+	 * 更新
+	 * @param userinfo
+	 * @return
+	 */
+	public boolean update(DiCourseCategoriesBean catebean){
+		
+		return diCourseCategoriesDao.update(catebean) ;
+	}
+	
+	/**
+	 * 删除
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteByIds(String ids){
+		return diCourseCategoriesDao.deleteByIds(ids) ;
+	}
+	
+	
+	/**
+	 * 判断中是否已包含该数据
+	 */
+	
+	public boolean hasCate(String cateID){
+		return diCourseCategoriesDao.hasCate(cateID);
 	}
 }

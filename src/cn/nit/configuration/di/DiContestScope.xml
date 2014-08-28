@@ -6,5 +6,8 @@
 	<package name="pages/DiContestScope" namespace="/pages/DiContestScope" extends="struts-default">
 		<!-- 初始化加载所有竞赛范围 -->
 	    <action name="loadDiContestScope" class="cn.nit.action.di.DiContestScopeAction" method="loadContestScope" />
+	    <action name="insert" class="cn.nit.action.di.DiContestScopeAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiContestScopeAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiContestScopeAction" method="deleteByIds" />
 	</package>
 </struts>

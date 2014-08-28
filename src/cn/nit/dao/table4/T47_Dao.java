@@ -23,12 +23,13 @@ public class T47_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T47_Bean> totalList(){
+	public List<T47_Bean> totalList(String fillUnitID){
 		
 		String sql = "select " + " " + keyfield + "," +
 		"TeaUnit,UnitId,AwardName," + tableName1 + ".AwardLevel,AwardFromUnit,GainAwardTime,AppvlId,Time,Note,FillUnitID" 
 		+ " from " + tableName +
-		" left join " + tableName1+ " on " + tableName + ".AwardLevel=" + tableName1 + ".IndexID " ;
+		" left join " + tableName1+ " on " + tableName + ".AwardLevel=" + tableName1 + ".IndexID " +
+		" where FillUnitID" + "'" + fillUnitID + "'";;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -247,7 +248,7 @@ public class T47_Dao {
 	
 	public static void main(String args[]){
 		T47_Dao testDao =  new T47_Dao() ;
-		System.out.println(testDao.totalList().size()) ;
+		//System.out.println(testDao.totalList().size()) ;
 	}
 
 }

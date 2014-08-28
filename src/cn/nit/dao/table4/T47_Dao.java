@@ -29,7 +29,7 @@ public class T47_Dao {
 		"TeaUnit,UnitId,AwardName," + tableName1 + ".AwardLevel,AwardFromUnit,GainAwardTime,AppvlId,Time,Note,FillUnitID" 
 		+ " from " + tableName +
 		" left join " + tableName1+ " on " + tableName + ".AwardLevel=" + tableName1 + ".IndexID " +
-		" where FillUnitID" + "'" + fillUnitID + "'";;
+		" where FillUnitID=" + "'" + fillUnitID + "'";;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

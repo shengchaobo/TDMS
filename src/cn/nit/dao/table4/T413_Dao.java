@@ -37,7 +37,7 @@ public class T413_Dao {
 		" left join " + tableName2+ " on " + "TechTitle=" + tableName2 + ".IndexID " +
 		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
 		" left join " + tableName3+ " on " + tableName + ".TutorType=" + tableName3 + ".IndexID " +
-		" where FillUnitID" + "'" + fillUnitID + "'";
+		" where FillUnitID=" + "'" + fillUnitID + "'";
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

@@ -28,7 +28,7 @@ public class T412_Dao {
 	public List<T412_Bean> totalList(String fillUnitID){
 		
 		String sql = "select " + keyfield+ "," +field + " from " + tableName
-						+ " where FillUnitID" + "'" + fillUnitID + "'";
+						+ " where FillUnitID=" + "'" + fillUnitID + "'";
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

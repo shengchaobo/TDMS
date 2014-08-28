@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table3.T322_Bean;
 import cn.nit.dao.table3.T322_DAO;
 import cn.nit.excel.imports.table3.T322Excel;
@@ -66,10 +67,23 @@ private T322_Service t322_Service = new T322_Service() ;
 	
 	private String selectYear;
 	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 
+
+	public void setResponse(HttpServletResponse response) {
+		this.response = response;
+	}
+
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
 
 	public void insert(){
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+		t322_Bean.setFillUnitID(fillUnitID);
 		t322_Bean.setTime(new Date()) ;
 		t322_Bean.setPraCSHour((int)t322_Bean.getPraCredit()*16);
 		t322_Bean.setTotalCSHour(t322_Bean.getRequireCShour()+t322_Bean.getOptionCSHour()+t322_Bean.getPraCSHour());
@@ -102,6 +116,9 @@ private T322_Service t322_Service = new T322_Service() ;
 	
 	/**  为界面加载数据  */
 	public void auditingData(){
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
+
 		
 		
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
@@ -133,7 +150,7 @@ private T322_Service t322_Service = new T322_Service() ;
 			}
 			cond = conditions.toString();
 		}
-		String pages = t322_Service.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		String pages = t322_Service.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 	
 		System.out.println(pages);
 		PrintWriter out = null ;
@@ -212,12 +229,14 @@ private T322_Service t322_Service = new T322_Service() ;
 	
 	/**数据导出*/
 	public InputStream getInputStream(){
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 
 		InputStream inputStream = null ;
 
 		try {
 			
-			List<T322_Bean> list = t322_DAO.totalList();
+			List<T322_Bean> list = t322_DAO.totalList(fillUnitID);
 			
 			String sheetName = this.getExcelName();
 			

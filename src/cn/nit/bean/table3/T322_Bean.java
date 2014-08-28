@@ -8,6 +8,7 @@ public class T322_Bean {
 	
 	private int SeqNumber;
     
+	private String FillUnitID;
 	
 	private String MajorName ;
 	
@@ -111,6 +112,16 @@ public class T322_Bean {
 
 	public void setSeqNumber(int seqNumber) {
 		SeqNumber = seqNumber;
+	}
+
+	
+	
+	public String getFillUnitID() {
+		return FillUnitID;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		FillUnitID = fillUnitID;
 	}
 
 	public String getMajorName() {

@@ -990,7 +990,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return true ;
 		}
 	    function exports() {
-	    	var temp = encodeURI('表3-2-2本科专业信息表.xls');
+	    	var temp = encodeURI('表3-2-2本科专业信息表');
 		    $('#exportForm').form('submit', {
 		    url : "pages/UndergraMajorInfoTea/dataExport?excelName="+temp ,
 		    onSubmit : function() {

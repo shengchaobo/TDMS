@@ -345,7 +345,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 	    function exports() {
-	    	var temp = encodeURI('表3-1-1博士后流动站（人事处）.xls');
+	    	var temp = encodeURI('表3-1-1博士后流动站（人事处）');
 		    $('#exportForm').form('submit', {
 		    url : "pages/PostDocSta/dataExport?excelName="+temp ,
 		    onSubmit : function() {

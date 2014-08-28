@@ -329,7 +329,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 
 	    function exports() {
-	    	var temp = encodeURI('表3-1-2博士点 、硕士点（研究生院）.xls');
+	    	var temp = encodeURI('表3-1-2博士点 、硕士点（研究生院）');
 		    $('#exportForm').form('submit', {
 		    url : "pages/DocAndGraSta/dataExport?excelName="+temp ,
 		    onSubmit : function() {

@@ -157,7 +157,7 @@ public class T513Action {
 			System.out.println("后台传入的数据为空");
 		}else{
 //			String sheetName = this.getExcelName();
-				String sheetName="表5-1-3课堂教学质量评估统计表（评估中心）";	
+				String sheetName=this.excelName;	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();

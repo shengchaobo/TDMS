@@ -100,7 +100,29 @@ public class S533_DAO {
 	
 	
 	public List<S533_Bean> getData(String year){
-		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;	
+		List<S533_Bean> list = new ArrayList<S533_Bean>() ;
+		String sql = "select * from DiDepartment "+
+				 " left join T533_ByMajExpInfo_TeaTea$ on DiDepartment.UnitID = T533_ByMajExpInfo_TeaTea$.UnitID "+
+				    " where convert(varchar(4),T533_ByMajExpInfo_TeaTea$.Time,120) = "  +  year  +  
+				    " and DiDepartment.UnitID like '3%'";
+				try{
+					st = conn.createStatement();
+					rs = st.executeQuery(sql);
+					if(!rs.next()){
+						System.out.println("统计数据不全啊  ");
+						return list;
+					}
+					
+				}catch(Exception e){
+					e.printStackTrace() ;
+					return null;
+				}
+				
+				
+				
 		String querysql=" select UnitName AS TeaUnit,DiDepartment.UnitID, " +
 				        " sum(ExpCSNum) AS HasExpCourseNum, "+
 				        " sum(IndepentExpCSNum) AS ExpCourseNum, "+
@@ -110,10 +132,7 @@ public class S533_DAO {
 				        " left join T533_ByMajExpInfo_TeaTea$ on DiDepartment.UnitID = T533_ByMajExpInfo_TeaTea$.UnitID "+
 					    " and convert(varchar(4),T533_ByMajExpInfo_TeaTea$.Time,120) = "  +  year  +  
 					    " where DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,UnitName;";
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;	
-		List<S533_Bean> list = new ArrayList<S533_Bean>() ;
+		
 		int hasExpCourseNum=0,expCourseNum=0,expTeachNum=0;
 		double expRatio1=0,expRatio=0; 
 		try {
@@ -192,6 +211,7 @@ public class S533_DAO {
 	public static void main(String arg[]){
 		S533_DAO dao = new S533_DAO();
 		List<S533_Bean> list = dao.getData("2014");
+		
 	}
 
 }

@@ -154,8 +154,8 @@ public class T743_Excel {
 				if((assYear == null) || assYear.equals("")){
 					return "第" + count + "行，评估年份不能为空" ;
 				}
-				if(assYear.length()>10){
-					return "第" + count + "行，评估年份不能超过10个字符" ;
+				if(!TimeUtil.judgeFormat3(assYear)){
+					return "第" + count + "行，评估年份格式错误!" ;
 				}
 				String assResult = cell[10].getContents() ;
 				if(assResult == null || assResult.equals("")){

@@ -13,6 +13,7 @@ package cn.nit.service.di;
 import java.util.List;
 
 import cn.nit.bean.di.DiCourseAttriBean;
+import cn.nit.bean.di.DiCourseAttriBean;
 import cn.nit.dao.di.DiCourseAttriDao;
 
 /**
@@ -27,5 +28,37 @@ public class DiCourseAttriService {
 	public List<DiCourseAttriBean> getList(){
 		
 		return DiCourseAttriDao.getList() ;
+	}
+	
+	public boolean insert(DiCourseAttriBean attribean){
+		return DiCourseAttriDao.insert(attribean) ;
+	}
+	
+	/**
+	 * 更新
+	 * @param userinfo
+	 * @return
+	 */
+	public boolean update(DiCourseAttriBean attribean){
+		
+		return DiCourseAttriDao.update(attribean) ;
+	}
+	
+	/**
+	 * 删除
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteByIds(String ids){
+		return DiCourseAttriDao.deleteByIds(ids) ;
+	}
+	
+	
+	/**
+	 * 判断中是否已包含该数据
+	 */
+	
+	public boolean hasAttri(String attriID){
+		return DiCourseAttriDao.hasAttri(attriID);
 	}
 }

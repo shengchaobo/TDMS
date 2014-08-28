@@ -269,7 +269,7 @@ public class T659_Action {
 			
 			List<T659_Bean> list = T659_dao.getAllList("1=1", null);
 						
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			
@@ -299,7 +299,7 @@ public class T659_Action {
 			maplist.put("fromDomesticToSch", 6);
 			maplist.put("fromOverseasToSch", 7);
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-5-9本科生交流情况（教学单位-国际交流与合作处）", maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -137,7 +137,7 @@
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表2-10-1素质教育情况（团委）');
+			        var tableName ='表2-10-1素质教育情况（团委）';
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),

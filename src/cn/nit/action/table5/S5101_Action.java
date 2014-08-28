@@ -64,7 +64,7 @@ public class S5101_Action {
 	 * */
 	public void loadInfo() throws Exception{
 		
-		System.out.println();
+		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
 		List<S5101POJO> list =s5101Ser.loadInfo(this.getSelectYear());
@@ -104,6 +104,7 @@ public class S5101_Action {
 			e.printStackTrace();
 		}finally{
 					if(out != null){
+					out.flush() ;
 				    out.close() ;
 				}
 			}
@@ -129,7 +130,7 @@ public class S5101_Action {
 			System.out.println("后台传入的数据为空");
 		}else{
 //			String sheetName = this.getExcelName();
-				String sheetName="S-5-1-1本科课程库信息统计(按课程性质统计)";	
+				String sheetName= this.excelName;;	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();

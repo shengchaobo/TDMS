@@ -266,7 +266,7 @@ public class T658_Action {
 			
 			List<T658_Bean> list = T658_dao.getAllList("1=1", null);
 						
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();		
 			
@@ -313,7 +313,7 @@ public class T658_Action {
 //			maplist.put("time", 15);
 
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-5-8学习成果—参加国际会议（教学单位-国际交流与合作处）", maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

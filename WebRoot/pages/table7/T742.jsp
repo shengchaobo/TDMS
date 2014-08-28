@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2" style="float: right;">
-	<a href="pages/T742/dataExport?excelName=<%=URLEncoder.encode("表7-4-2教师教学水平评估.xls","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	<a href="pages/T742/dataExport?excelName=<%=URLEncoder.encode("表7-4-2教师教学水平评估","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>评估年份：</label> 
-					<select class="easyui-combobox"  id="AssessYear" name="teachLevelAssessAC.AssessYear"></select>
+					<input id="AssessYear" type="text" name="teachLevelAssessAC.AssessYear">
 							<span id="AssessYearSpan"></span>
 					</div>
 				</td>
@@ -251,15 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	theOption.innerHTML = currentYear-i + "年";
         	theOption.value = currentYear-i;
         	select.appendChild(theOption);
-    	}
-	var select = document.getElementById("AssessYear");
-    	for (var i = 0; i <= 20; i++) {
-        var theOption = document.createElement("option");
-        	theOption.innerHTML = currentYear-i + "年";
-        	theOption.value = currentYear-i;
-        	select.appendChild(theOption);
-    	}
-	
+    	}	
 	    var url;
 	    
 	     function reloadgrid ()  { 
@@ -354,7 +346,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 			var cSType = $('#CSType').combobox('getText') ;
 			
-			var assessYear = $('#AssessYear').combobox('getText') ;
+			var assessYear = $('#AssessYear').val() ;
 		
 			var assessResult = $('#AssessResult').combobox('getText') ;
 			
@@ -421,7 +413,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#AssessCS').val(row[0].assessCS) ;
 	    	$('#CSID').val(row[0].CSID) ;
 	    	$('#CSType').combobox('select', row[0].CSTypeID) ;
-			$('#AssessYear').combobox('select', row[0].assessYear) ;
+			$('#AssessYear').val(row[0].assessYear) ;
 			$('#AppvlID').val(row[0].appvlID) ;
 			$('#AssessResult').combobox('select', row[0].assessResult) ;
 			$('#Note').val(row[0].note) ;

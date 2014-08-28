@@ -19,6 +19,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table4.T441_Bean;
 import cn.nit.dao.table4.T412_Dao;
@@ -87,7 +88,9 @@ public class T441_Action {
 			cond = conditions.toString();
 		}
 		
-		String fillUnitID = null;
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 		
 		List<T441_Bean> list = T441_services.getPagemajorLeaderList(cond, fillUnitID, this.getRows(), this.getPage()) ;
 		String TeaInfoJson = this.toBeJson(list,T441_services.getTotal(cond, fillUnitID));
@@ -141,7 +144,9 @@ public class T441_Action {
 		//插入时间
 		T441_bean.setTime(new Date());
 		//插入教学单位
-		String fillUnitID = null;
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 		T441_bean.setFillUnitID(fillUnitID);
 		boolean flag = T441_services.insert(T441_bean);
 		PrintWriter out = null ;
@@ -223,11 +228,11 @@ public class T441_Action {
 		InputStream inputStream = null ;
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
+			//具体教学单位
+			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+			String fillUnitID = bean.getUnitID();
 			
-			List<T441_Bean> list = T441_dao.totalList();
+			List<T441_Bean> list = T441_dao.totalList(fillUnitID);
 						
 			String sheetName = this.getExcelName();
 			

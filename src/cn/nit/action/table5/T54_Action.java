@@ -180,7 +180,7 @@ public class T54_Action {
 			System.out.println("后台传入的数据为空");
 			return null;
 		}else{
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -248,7 +248,7 @@ public class T54_Action {
 	
 	public String execute() throws Exception{
 		response.setContentType("text/html;charset=utf-8"); 
-		System.out.println("excelName=============" + this.getExcelName()) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 	

@@ -2,6 +2,7 @@
 	//只是用来展示的数据
 	$(function() {
 		var year = $("#cbYearContrast").combobox('getValue'); 
+		alert(year);
 		$('#showData').datagrid( {
 			title : '本科课程库信息统计表',  //可变内容在具体页面定义
 			url: 'pages/S5102/loadInfo',
@@ -19,26 +20,28 @@
 			remoteSort : false,
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
+			
+//			alert(rowData.rows[0].data);
 					 
 			if(typeof(rowData.rows[0].data) != "undefined"){
 				alert(rowData.rows[0].data);
 			}
 			
-					var merges2 = [{
-		                  field:'item',
-		                  index: 0,
-		                  colspan: 1
-		              }           
-		              ];
-
-		            for (var i = 0; i < merges2.length; i++)
-		                $('#showData').datagrid('mergeCells', {
-		                    index: merges2[i].index,
-		                    field: merges2[i].field,
-		                    colspan: merges2[i].colspan,
-		                    rowspan: merges2[i].rowspan
-		                });	
-					},
+//			var merges2 = [{
+//                  field:'item',
+//                  index: 0,
+//                  colspan: 1
+//              }           
+//            ];
+//
+//            for (var i = 0; i < merges2.length; i++)
+//                $('#showData').datagrid('mergeCells', {
+//                    index: merges2[i].index,
+//                    field: merges2[i].field,
+//                    colspan: merges2[i].colspan,
+//                    rowspan: merges2[i].rowspan
+//                });	
+			},
 
 			queryParams:{
 				'selectYear': year
@@ -56,9 +59,8 @@
 		//查询
 		function reloadgrid (year)  { 
 			
-			//alert(year);
 	        //查询参数直接添加在queryParams中 
-//			alert(222);
+			//alert(222);
 	         var queryParams = $('#showData').datagrid('options').queryParams;  
 	         queryParams.selectYear = year;   
 	         $("#showData").datagrid('reload'); 

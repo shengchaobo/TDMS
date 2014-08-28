@@ -36,6 +36,7 @@ import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T48_Bean;
 import cn.nit.bean.table4.T49_Bean;
 import cn.nit.dao.table4.T48_Dao;
@@ -103,7 +104,9 @@ public class T49_Action {
 			cond = conditions.toString();
 		}
 		
-		String fillUnitID = null;
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 		List<T49_Bean> list = T49_services.getPagetextList(cond, fillUnitID, this.getRows(), this.getPage()) ;
 		String TeaInfoJson = this.toBeJson(list,T49_services.getTotal(cond, fillUnitID));
 		//private JSONObject jsonObj;
@@ -155,8 +158,11 @@ public class T49_Action {
 		
 		//插入时间
 		T49_bean.setTime(new Date());
-		//插入教学单位
-		String fillUnitID = null;
+		
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
+		
 		T49_bean.setFillUnitID(fillUnitID);
 		
 		T49_bean.setSumPlanBook(T49_bean.getInterPlanBook()+T49_bean.getNationPlanBook()+T49_bean.getProviPlanBook()+T49_bean.getCityPlanBook()+T49_bean.getSchPlanBook());
@@ -239,10 +245,15 @@ public class T49_Action {
 	}
 	
 	public InputStream getInputStream() throws Exception{
+		
+		
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 			
-		List<T49_Bean> list = T49_dao.totalList();
+		List<T49_Bean> list = T49_dao.totalList(fillUnitID);
 						
-		String sheetName = this.getExcelName();
+		String sheetName = this.excelName;
 			
 		List<String> columns = new ArrayList<String>();
 		columns.add("序号");

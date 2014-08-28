@@ -25,6 +25,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
@@ -139,7 +140,8 @@ public class T252_Excel {
 				//插入时间
 				T252_bean.setTime(TimeUtil.changeDateY(selectYear));
 				
-				String fillUnitID = null;
+				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+				String fillUnitID = bean.getUnitID();
 				T252_bean.setFillUnitID(fillUnitID);
 				list.add(T252_bean);
 								

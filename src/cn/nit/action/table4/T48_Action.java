@@ -19,6 +19,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T47_Bean;
 import cn.nit.bean.table4.T48_Bean;
 import cn.nit.dao.table4.T47_Dao;
@@ -87,7 +88,9 @@ public class T48_Action {
 			cond = conditions.toString();
 		}
 		
-		String fillUnitID = null;
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 		
 		List<T48_Bean> list = T48_services.getPageteamList(cond, fillUnitID, this.getRows(), this.getPage()) ;
 		String TeaInfoJson = this.toBeJson(list,T48_services.getTotal(cond, fillUnitID));
@@ -141,7 +144,9 @@ public class T48_Action {
 		//插入时间
 		T48_bean.setTime(new Date());
 		//插入教学单位
-		String fillUnitID = null;
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 		T48_bean.setFillUnitID(fillUnitID);
 		
 		boolean flag = T48_services.insert(T48_bean);
@@ -224,11 +229,11 @@ public class T48_Action {
 		InputStream inputStream = null ;
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
+			//具体教学单位
+			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+			String fillUnitID = bean.getUnitID();
 			
-			List<T48_Bean> list = T48_dao.totalList();
+			List<T48_Bean> list = T48_dao.totalList(fillUnitID);
 						
 			String sheetName = this.getExcelName();
 			

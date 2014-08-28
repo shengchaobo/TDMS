@@ -23,6 +23,7 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table4.T413_Bean;
 import cn.nit.dao.table4.T411_Dao;
@@ -69,7 +70,10 @@ public class T413_Action {
 			System.out.println(cond);
 		}
 		
-		String fillUnitID = null;
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
+		
 		List<T413_Bean> list = T413_services.getPageTeaInfoList(cond,fillUnitID,this.getRows(),this.getPage()) ;
 		String TeaInfoJson = this.toBeJson(list,T413_services.getTotal(cond,fillUnitID));
 		//private JSONObject jsonObj;
@@ -119,7 +123,9 @@ public class T413_Action {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
 		//插入教学单位
-		String fillUnitID = null;
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 		T413_bean.setFillUnitID(fillUnitID);
 		boolean flag = T413_services.insert(T413_bean);
 		T411_bean.setTeaName(T413_bean.getName());
@@ -204,11 +210,12 @@ public class T413_Action {
 		InputStream inputStream = null ;
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T413_Bean> list = T413_dao.totalList();
+			//具体教学单位
+			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+			String fillUnitID = bean.getUnitID();
+			
+			List<T413_Bean> list = T413_dao.totalList(fillUnitID);
 						
 			String sheetName = this.getExcelName();
 			

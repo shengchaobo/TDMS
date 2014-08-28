@@ -21,10 +21,10 @@ public class T252_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T252_Bean> totalList(){
+	public List<T252_Bean> totalList(String fillUnitID){
 		
 		String sql = "select " + " " + keyfield + "," + field 
-		+ " from " + tableName ;
+		+ " from " + tableName + " where FillUnitID" + "'" + fillUnitID + "'";
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -237,7 +237,7 @@ public class T252_Dao {
 	
 	public static void main(String args[]){
 		T252_Dao testDao =  new T252_Dao() ;
-		System.out.println(testDao.totalList().size()) ;
+		System.out.println("test") ;
 	}
 
 }

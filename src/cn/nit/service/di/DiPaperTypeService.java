@@ -2,6 +2,7 @@ package cn.nit.service.di;
 
 import java.util.List;
 
+import cn.nit.bean.di.DiEvaluTypeBean;
 import cn.nit.bean.di.DiPaperTypeBean;
 import cn.nit.dao.di.DiPaperTypeDao;
 
@@ -30,6 +31,34 @@ public class DiPaperTypeService {
 	 */
 	public boolean insert(DiPaperTypeBean Type){
 		return paperTypeDao.insert(Type) ;
+	}
+	
+	/**
+	 * 更新
+	 * @param userinfo
+	 * @return
+	 */
+	public boolean update(DiPaperTypeBean typebean){
+		
+		return paperTypeDao.update(typebean) ;
+	}
+	
+	/**
+	 * 删除
+	 * @param ids
+	 * @return
+	 */
+	public boolean deleteByIds(String ids){
+		return paperTypeDao.deleteByIds(ids) ;
+	}
+	
+	
+	/**
+	 * 判断中是否已包含该数据
+	 */
+	
+	public boolean hasType(String typeID){
+		return paperTypeDao.hasType(typeID);
 	}
 
 

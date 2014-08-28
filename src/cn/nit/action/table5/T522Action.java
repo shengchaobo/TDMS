@@ -68,12 +68,12 @@ public class T522Action {
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t522Bean.setTime(new Date()) ;
-		System.out.println(t522Bean.getAppvlID());
-		System.out.println(t522Bean.getCSID());
-		System.out.println(t522Bean.getCSName());
-		System.out.println(t522Bean.getCSType());
-		System.out.println(t522Bean.getJoinTeaNum());
-		System.out.println(t522Bean.getLeader());
+//		System.out.println(t522Bean.getAppvlID());
+//		System.out.println(t522Bean.getCSID());
+//		System.out.println(t522Bean.getCSName());
+//		System.out.println(t522Bean.getCSType());
+//		System.out.println(t522Bean.getJoinTeaNum());
+//		System.out.println(t522Bean.getLeader());
 //		t533Bean.setFillUnitID("3001");
 
 //		这还没确定,设置填报者的职工号与部门号
@@ -222,7 +222,7 @@ public class T522Action {
 			
 			List<T521Bean> list = t522Dao.totalList();
 			
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

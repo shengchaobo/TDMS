@@ -211,7 +211,7 @@ public class T534Action {
 			
 			List<T534Bean> list = t534Dao.totalList();
 			
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

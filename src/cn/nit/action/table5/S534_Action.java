@@ -129,7 +129,7 @@ public InputStream getInputStream() throws Exception{
 			System.out.println("后台传入的数据为空");
 		}else{
 //			String sheetName = this.getExcelName();
-				String sheetName="S-5-3-4毕业综合训练情况统计";	
+				String sheetName=this.excelName;	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();

@@ -39,7 +39,7 @@ public class S5101_DAO {
 		 StringBuffer sql =  new StringBuffer();
 		 sql.append("select count(*) AS icount from " +tableName1);
 		 sql.append(" where Time like '"+year+"%'");
-		 
+		
 		 Connection conn = DBConnection.instance.getConnection();
 		 Statement st = null;
 		 ResultSet rs = null;

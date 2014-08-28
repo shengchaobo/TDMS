@@ -6,5 +6,8 @@
 	<package name="pages/DiResearchTeam" namespace="/pages/DiResearchTeam" extends="struts-default">
 		<!-- 初始化加载所有科研团队 -->
 	    <action name="loadDiResearchTeam" class="cn.nit.action.di.DiResearchTeamAction" method="loadResearchTeam" />
+	    <action name="insert" class="cn.nit.action.di.DiResearchTeamAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiResearchTeamAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiResearchTeamAction" method="deleteByIds" />
 	</package>
 </struts>

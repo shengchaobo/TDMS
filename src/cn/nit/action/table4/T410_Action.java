@@ -298,7 +298,7 @@ public class T410_Action {
 			out.print("后台传入的数据为空!!!") ;
 			System.out.println("后台传入的数据为空");
 		}else{
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -434,7 +434,7 @@ public class T410_Action {
 	
 	public String execute() throws Exception{
 		response.setContentType("text/html;charset=utf-8"); 
-		System.out.println("excelName=============" + excelName) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 
@@ -503,7 +503,7 @@ public class T410_Action {
 
 	public String getExcelName() {
 		try {
-			this.excelName = URLDecoder.decode(excelName, "UTF-8");
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
 			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

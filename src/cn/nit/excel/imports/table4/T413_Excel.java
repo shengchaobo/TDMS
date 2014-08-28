@@ -24,6 +24,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDegreeBean;
@@ -275,7 +276,10 @@ public class T413_Excel {
 				T413_bean.setWorkUnitType(workType);
 				T413_bean.setTutorType(tutorID);
 				T413_bean.setRegion(region);
-				String fillUnitID = null; //从user的session中获得，现在没有
+				
+				//插入教学单位
+				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+				String fillUnitID = bean.getUnitID();
 				T413_bean.setFillUnitID(fillUnitID);
 				list1.add(T413_bean);	
 				

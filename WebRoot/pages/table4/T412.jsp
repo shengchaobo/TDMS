@@ -68,21 +68,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</thead>
 	</table>
-	<div id="toolbar" style="height:auto">
-		<div style="float: left;">
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+		<div id="toolbar" style="height: auto">
+			<div style="float: left;">
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-add" plain="true" onclick=newObject();>添加</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-edit" plain="true" onclick=edit();>编辑</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-remove" plain="true" onclick=	deleteByIds();>删除</a>
+			</div>
+			<form method="post" id="searchForm"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<th>
+							编号:
+						</th>
+						<th>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 80px" />
+						</th>
+						<th>
+							起始日期:
+						</th>
+						<th>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 80px" />
+						</th>
+						<th>
+							结束日期:
+						</th>
+						<th>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 80px" />
+						</th>
+						<th>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</th>
+					</tr>
+				</table>
+			</form>
 		</div>
-		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-		 	编号: <input  id="seqNum"   name="seqNum"  class="easyui-box" style="width:80px"/>
-			起始日期: <input id ="startTime"  name ="startTime"   class="easyui-datebox" style="width:80px"/>
-			结束日期: <input id="endTime"  name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid()">查询</a>
-		</form>
-	</div>
-	
-	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+
+		<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -110,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T412/dataExport?excelName=<%=URLEncoder.encode("表4-1-2各专业专任教师队伍名单（教学单位-人事处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href='pages/T412/dataExport?excelName=<%=URLEncoder.encode("表4-1-2各专业专任教师队伍名单（教学单位-人事处）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
@@ -124,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href='pages/T412/downloadModel?saveFile=<%=URLEncoder.encode("表4-1-2各专业专任教师队伍名单.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T412/downloadModel?saveFile=<%=URLEncoder.encode("表4-1-2各专业专任教师队伍名单","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>	
 		<hr></hr>	

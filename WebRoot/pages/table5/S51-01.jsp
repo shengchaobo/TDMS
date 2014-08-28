@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>S512</title>
+<title>S25</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -23,44 +23,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
-	
-	<style type="text/css">
-		#fm {
-			margin: 0;
-			padding: 10px 30px;
-		}
-		
-		.ftitle {
-			font-size: 14px;
-			font-weight: bold;
-			padding: 5px 0;
-			margin-bottom: 10px;
-			border-bottom: 1px solid #ccc;
-		}
-		
-		.fitem {
-			margin-bottom: 5px;
-		}
-		
-		.fitem label {
-			display: inline-block;
-			width: 120px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-	<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript" src="js/table5/S51-01.js"></script>
+	<script type="text/javascript" src="js/table4/S51-01.js"></script>
 
-	
 </head>
 <body style="overflow-y:scroll">
-	<table id="showData"  style="height: auto">	
-		
+	<table id="showData"  style="height: auto">		
 		<thead>
 			<tr>
 			
@@ -92,6 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	</table>
+					
 			 
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">	
@@ -114,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	}
 			</script>
 			
-			<script type="text/javascript">
+								<script type="text/javascript">
 			   function formatRatio(val){
 				   var ratio;
 				   if(val!=null){
@@ -125,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				   return ratio;
 			   }
 			</script>
-		
+
+
 		
 </html>
-

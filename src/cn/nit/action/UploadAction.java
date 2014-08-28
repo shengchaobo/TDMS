@@ -30,6 +30,7 @@ public class UploadAction {
 		
 	public void uploadFile(){
 		
+		
 		PrintWriter out = null ;
 		try{
 			getResponse().setContentType("text/html;charset=UTF-8") ;

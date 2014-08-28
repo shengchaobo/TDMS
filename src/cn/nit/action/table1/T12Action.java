@@ -124,7 +124,7 @@ public class T12Action {
 			
 			List<T12Bean> list = t12Dao.totalList();
 			
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("行政单位名称");columns.add("单位号");columns.add("单位职能");

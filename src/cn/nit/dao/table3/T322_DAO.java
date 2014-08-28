@@ -27,7 +27,7 @@ public class T322_DAO {
 			"MajorDegreeType,MajorAdmisTime,MajorState,StopAdmisTime,IsNewMajor,AppvlYear,BuildAppvlID,MajorLevel,Type," +
 			"Field,Leader,TeaID,CheckTime,CheckAppvlID,SchExp,EduMinistryExp,FirstAppvlTime,AppvlTime," +
 			"AppvlID,AppvlResult,FromTime,EndTime,AppvlAuth,TotalCSHour,RequireCShour,OptionCSHour,InClassCSHour," +
-			"ExpCSHour,PraCSHour,TotalCredit,RequireCredit,OptionCredit,InClassCredit,ExpCredit,PraCredit,OutClassCredit,Time,Note" ;
+			"ExpCSHour,PraCSHour,TotalCredit,RequireCredit,OptionCredit,InClassCredit,ExpCredit,PraCredit,OutClassCredit,FillUnitID,Time,Note" ;
 	
 	/**
 	 * 将数据表311的实体类插入数据库
@@ -89,11 +89,11 @@ public class T322_DAO {
 		sql.append("select count(*)") ;
 		sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ") ;
 		sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");		
-		int total = 0 ;
-		
 		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillDept=" + fillUnitId) ;
+			sql.append(" and t.fillUnitId=" + fillUnitId) ;
 		}
+		int total = 0 ;
+
 		
 		if(conditions != null && !conditions.equals("")){
 			sql.append(conditions) ;
@@ -123,7 +123,7 @@ public class T322_DAO {
 	}
 	
 	
-	public List<T322POJO> auditingData(String conditions, String fillDept, int page, int rows){
+	public List<T322POJO> auditingData(String conditions, String fillUnitId, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T322POJO> list =null ;
@@ -134,8 +134,8 @@ public class T322_DAO {
 			"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit,t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note");
 		sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
 		sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID" );
-		if(fillDept != null && !fillDept.equals("")){
-			sql.append(" and FillDept=" + fillDept) ;
+		if(fillUnitId != null && !fillUnitId.equals("")){
+			sql.append(" and t.fillUnitId=" + fillUnitId) ;
 		}
 		
 		if(conditions != null){
@@ -208,7 +208,7 @@ public class T322_DAO {
 	
 	
 	/**用于数据导出*/
-	public List<T322_Bean> totalList(){
+	public List<T322_Bean> totalList( String fillUnitID){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorVersion,t.MajorField,t.MajorFieldID,t.MajorSetTime,t.MajorAppvlID,t.MajorDurition," +
@@ -217,8 +217,11 @@ public class T322_DAO {
 				"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
 				"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit,t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note");
 			sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
-			sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID" );
-  
+			sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");
+		if(fillUnitID != null && !fillUnitID.equals("")){
+				sql.append(" and t.fillUnitId=" + fillUnitID) ;
+			}
+			
 
 
 		

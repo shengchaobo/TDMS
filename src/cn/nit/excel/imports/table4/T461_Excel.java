@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanWrapperImpl;
 
 import jxl.Cell;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiAwardTypeBean;
 import cn.nit.bean.di.DiDepartmentBean;
@@ -166,13 +167,11 @@ public class T461_Excel {
 				T461_bean.setNote(note);
 				//插入时间
 				T461_bean.setTime(TimeUtil.changeDateY(selectYear));
-				String fillUnitID = null;
-				//char b = fillUnitID.charAt(0);
-				//if( b == '3'){
-				//	T461_bean.setFillUnitID(fillUnitID);
-				//}else{
-					T461_bean.setFillUnitID(fillUnitID);
-			//	}
+				
+				//插入教学单位
+				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+				String fillUnitID = bean.getUnitID();
+				T461_bean.setFillUnitID(fillUnitID);
 				
 				list.add(T461_bean);
 								

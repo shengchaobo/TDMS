@@ -273,7 +273,7 @@ public class T16Action {
 			System.out.println("后台传入的数据为空");
 		}else{
 //			String sheetName = this.getExcelName();
-				String sheetName="表1-6办学指导思想（党院办）";	
+				String sheetName=this.excelName;	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();

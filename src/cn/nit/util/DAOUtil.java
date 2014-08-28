@@ -305,13 +305,13 @@ public class DAOUtil {
 				sql.append(keyFields[i] + "=? and ") ;
 			}
 		}
-		System.out.println(sql.toString());
+//		System.out.println(sql.toString());
 		
 		
 		length = length + keyFields.length ;
 		//System.out.println(sql.toString()) ;
 		BeanWrapper wrapper = new BeanWrapperImpl(obj) ;
-		System.out.println(wrapper);
+//		System.out.println(wrapper);
 		//判断数据插入的条数，0代表数据插入失败
 		//判断数据插入的条数，0代表数据插入失败
 		int flag = 0 ;

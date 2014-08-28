@@ -65,17 +65,20 @@ public class T152Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
+	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+	String fillUnitID = bean.getUnitID();
+	
 	/**  逐条插入数据  */
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t152Bean.setTime(new Date()) ;
-		System.out.println(t152Bean.getTime());
-		//这还没确定,设置填报者的职工号与部门号
-		UserinfoBean userinfo = (UserinfoBean)getSession().getAttribute("userinfo") ;
-		t152Bean.setFillUnitID(userinfo.getTeaID());
-//		System.out.println(t152Bean.getResInsLevel());
-//		System.out.println(t152Bean.getTeaUnit());
-//		System.out.println(t152Bean.getUnitID());
+//		System.out.println(t152Bean.getTime());
+		//c插入教学单位
+		t152Bean.setFillUnitID(fillUnitID);
+		System.out.println("fillUnitID:"+fillUnitID);
 		boolean flag = t152Ser.insert(t152Bean) ;
 		PrintWriter out = null ;
 		
@@ -134,7 +137,7 @@ public class T152Action {
 				cond = conditions.toString();
 			}
 
-			String pages = t152Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t152Ser.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -150,69 +153,23 @@ public class T152Action {
 				}
 			}
 		}
-//
-//	/**  为界面加载数据  */
-//	public void auditingData(){
-//		
-//		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
-//			return ;
-//		}
-//		
-//		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
-//			return ;
-//		}
-//		
-//		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-//		String pages = t152Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			out = getResponse().getWriter() ;
-//			out.print(pages) ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			return ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
-//	
-//	/**  生成查询条件   */
-//	public void auditingConditions(){
-//		
-//		String sqlConditions = t152Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
-//		getSession().setAttribute("auditingConditions", sqlConditions) ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			out = getResponse().getWriter() ;
-//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-//			out.flush() ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
+
 	
 	/**  编辑数据  */
 	public void edit(){
-
+//		System.out.println("hello");
+		System.out.println("year:"+t152Bean.getBeginYear());
+		t152Bean.setFillUnitID(fillUnitID);
+		t152Bean.setTime(new Date());
 		boolean flag = t152Ser.update(t152Bean) ;
 		PrintWriter out = null ;
 		
 		try{
 			out = getResponse().getWriter() ;
 			if(flag){
-				out.print("{\"state\":true,data:\"删除成功!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
-				out.print("{\"state\":true,data:\"删除失败!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
 		}catch(Exception e){
@@ -264,16 +221,16 @@ public class T152Action {
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
-			columns.add("科研机构名称");columns.add("单位号");columns.add("类别");columns.add("共建情况");
+			columns.add("科研机构名称");columns.add("单位号");columns.add("教学单位");columns.add("类别");columns.add("共建情况");
 			columns.add("是否对本科生开放");columns.add("对本科生开放情况（500字以内）");columns.add("所属教学单位");columns.add("教学单位号");
 			columns.add("开设年份");columns.add("专业科研用房面积（平方米）");columns.add("备注");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("ResInsName", 1);maplist.put("ResInsID", 2);maplist.put("Type", 3);maplist.put("BuildCondition", 4);
-			maplist.put("BiOpen", 5);maplist.put("OpenCondition", 6);maplist.put("TeaUnit", 7);maplist.put("UnitID", 8);
-			maplist.put("BeginYear", 9);maplist.put("HouseArea", 10);maplist.put("Note", 11);
+			maplist.put("ResInsName", 1);maplist.put("ResInsID", 2);maplist.put("FillUnitID", 3);maplist.put("Type", 4);maplist.put("BuildCondition", 5);
+			maplist.put("BiOpen", 6);maplist.put("OpenCondition", 7);maplist.put("TeaUnit", 8);maplist.put("UnitID", 9);
+			maplist.put("BeginYear", 10);maplist.put("HouseArea", 11);maplist.put("Note", 12);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(t152Excel.batchExport(list, sheetName, maplist, columns).toByteArray());

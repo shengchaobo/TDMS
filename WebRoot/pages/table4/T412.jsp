@@ -68,21 +68,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</thead>
 	</table>
-	<div id="toolbar" style="height:auto">
-		<div style="float: left;">
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+		<div id="toolbar" style="height: auto">
+			<div style="float: left;">
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-add" plain="true" onclick=newObject();>添加</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-edit" plain="true" onclick=edit();>编辑</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-remove" plain="true" onclick=	deleteByIds();>删除</a>
+			</div>
+			<form method="post" id="searchForm"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<th>
+							编号:
+						</th>
+						<th>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 80px" />
+						</th>
+						<th>
+							起始日期:
+						</th>
+						<th>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 80px" />
+						</th>
+						<th>
+							结束日期:
+						</th>
+						<th>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 80px" />
+						</th>
+						<th>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</th>
+					</tr>
+				</table>
+			</form>
 		</div>
-		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-		 	编号: <input  id="seqNum"   name="seqNum"  class="easyui-box" style="width:80px"/>
-			起始日期: <input id ="startTime"  name ="startTime"   class="easyui-datebox" style="width:80px"/>
-			结束日期: <input id="endTime"  name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid()">查询</a>
-		</form>
-	</div>
-	
-	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+
+		<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>

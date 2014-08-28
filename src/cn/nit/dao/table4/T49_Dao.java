@@ -28,7 +28,7 @@ public class T49_Dao {
 		
 		String sql = "select " + " " + keyfield + "," +
 		field + " from " + tableName +
-		" where FillUnitID" + "'" + fillUnitID + "'";
+		" where FillUnitID=" + "'" + fillUnitID + "'";
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

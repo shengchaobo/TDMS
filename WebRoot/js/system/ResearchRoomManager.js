@@ -2,7 +2,7 @@
 	$(function() {
 		$('#roomManager').datagrid( {
 			title : '教研室管理',  //可变内容在具体页面定义
-			url: 'pages/DiResearchRoom/loadDes',
+			url: 'pages/DiResearchRoom/loadRooms',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -21,24 +21,7 @@
 				
 			}
 		});
-					
-	   //导出
-	        $("#export").click(function(){
-	        var tableName = encodeURI('部门列表');
-		    $('#exportForm').form('submit', {
-		    	data : $('#exportForm').serialize(),
-			    url : "pages/DiResearchRoom/dataExport?excelName="+tableName,
-			    onSubmit : function() {
-			    	return $(this).form('validate');//对数据进行格式化
-			    },
-			    success : function(data) {
-			    	    $.messager.show({
-					    	title : '提示',
-					    	msg : data
-					    });
-			    }
-		    }); 
-		});							
+						
 	});
 			
 	var url;
@@ -49,7 +32,7 @@
 		$("input#UnitID").css({"color":"black"});
 		
 		url = 'pages/DiResearchRoom/insert';
-		$('#dlg').dialog('open').dialog('setTitle', '添加部门');
+		$('#dlg').dialog('open').dialog('setTitle', '添加教研室');
 		$('#roomManagerForm').form('reset');
 	}
 
@@ -79,54 +62,27 @@
 	function validate() {
 		//获取文本框的值
 		var unitID = $('#UnitID').val();
-		var unitName = $('#UnitName').val();
-		var class1 = $('#Class1').val();
-		var class2 = $('#Class2').val();
-		var functions = $('#Functions').val();
-		var leader = $('#Leader').val();
-		var teaID = $('#TeaID').val();
-		var note = $('#Note').val();
+		var parentID = $('#ParentID').combobox('getText');
+		var researchName = $('#ResearchName').val();
+
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (unitID == null || unitID.length == 0 ) {
-			alert("单位号不能为空");
+			alert("教研室号不能为空");
 			return false;
 		}
 		
-		if (unitName == null || unitName.length == 0 ) {
-			alert("部门名称不能为空");
+		if (parentID == null || parentID.length == 0 ) {
+			alert("所属教学单位不能为空");
 			return false;
 		}
 
-		if (class1 == null || class1.length == 0) {
+		if (researchName == null || ResearchName.length == 0) {
 			alert("一级分类不能为空");
 			return false;
 		}
 		
-		if (class2 == null || class2.length == 0) {
-			alert("二级分类不能为空");
-			return false;
-		}
 		
-		if (functions == null || functions.length == 0) {
-			alert("单位职能不能为空");
-			return false;
-		}
-		
-		if (leader == null || leader.length == 0) {
-			alert("负责人不能为空");
-			return false;
-		}
-		
-		if (teaID == null || teaID.length == 0) {
-			alert("教工号不能为空");
-			return false;
-		}
-		
-		if (note != null && note.length > 1000) {
-			alert("备注长度不超过1000");
-			return false;
-		}
 		return true;
 	}
 
@@ -140,19 +96,15 @@
 		
 		url = 'pages/DiResearchRoom/edit';
 
-		$('#dlg').dialog('open').dialog('setTitle', '编辑部门');
+		$('#dlg').dialog('open').dialog('setTitle', '编辑教研室');
 		
     	$('#UnitID').val(row[0].unitId) ;
     	$("input#UnitID").attr("readonly",true);
     	$("input#UnitID").css({"color":"#888"});
     	
-    	$('#UnitName').val(row[0].unitName);		
-		$('#Class1').val(row[0].class1);
-		$('#Class2').val(row[0].class2);
-		$('#Functions').val(row[0].functions);
-		$('#Leader').val(row[0].leader);
-		$('#TeaID').val(row[0].teaId);
-		$('#Note').val(row[0].note);
+    
+		$('#ParentID').combobox('select',row[0].parentId);
+		$('#ResearchName').val(row[0].researchName);	
 	}
 
 	function deleteByIds() {

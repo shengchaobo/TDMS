@@ -32,6 +32,9 @@ public class T322Excel {
 	 */
 	public String batchInsert(List<Cell[]> cellList, HttpServletRequest request, String selectYear){
 
+		
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 		System.out.println("大小");
 		System.out.println(cellList.size());
 		if((cellList == null) || (cellList.size() < 2)){
@@ -582,6 +585,7 @@ public class T322Excel {
 				t322_Bean.setExpCredit(ExpCredit);
 				t322_Bean.setPraCredit(PraCredit);
 				t322_Bean.setOutClassCredit(OutClassCredit);
+				t322_Bean.setFillUnitID(fillUnitID);
 				t322_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t322_Bean);
 				System.out.println("数字");

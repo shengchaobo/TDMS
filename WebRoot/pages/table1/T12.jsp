@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">
-			<a href="pages/T12/dataExport?excelName=表1-2学校行政单位.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
+			<a href='pages/T12/dataExport?excelName=<%=URLEncoder.encode("表1-2学校行政单位","UTF-8")%>' class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>
 			</div>
 			<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>

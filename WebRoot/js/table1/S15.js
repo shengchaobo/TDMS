@@ -169,7 +169,7 @@ $(function(){
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表1-1学校基本信息（党院办）');
+			        var tableName = encodeURI('S-1-5科研机构（科研处）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),

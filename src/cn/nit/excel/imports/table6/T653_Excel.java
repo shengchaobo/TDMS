@@ -25,6 +25,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiAwardTypeBean;
 import cn.nit.bean.di.DiContestLevelBean;
@@ -81,6 +82,8 @@ public class T653_Excel {
 		T653_Bean T653_bean = null;
 		boolean flag = false;
 		List<T653_Bean> list = new LinkedList<T653_Bean>();
+		
+		UserinfoBean userinfo = (UserinfoBean)request.getSession().getAttribute("userinfo") ;
 
 		DiDepartmentService diDep = new DiDepartmentService();
 		List<DiDepartmentBean> diDepList = diDep.getList();
@@ -229,7 +232,7 @@ public class T653_Excel {
 				T653_bean.setAwardLevel(awardLevel);
 				T653_bean.setAwardName(awardName);
 				T653_bean.setAwardFromUnit(awardFromUnit);
-
+				T653_bean.setFillUnitID(userinfo.getTeaID());
 				T653_bean.setNote(note);
 
 				// 插入时间

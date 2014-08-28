@@ -62,7 +62,8 @@
 	function validate() {
 		//获取文本框的值
 		var unitID = $('#UnitID').val();
-		var parentID = $('#ParentID').combobox('getText');
+		var parentID = $('#ParentId').combobox('getText');
+		alert(parentID);
 		var researchName = $('#ResearchName').val();
 
 		
@@ -99,12 +100,15 @@
 		$('#dlg').dialog('open').dialog('setTitle', '编辑教研室');
 		
     	$('#UnitID').val(row[0].unitId) ;
+    	alert(row[0].unitId);
     	$("input#UnitID").attr("readonly",true);
     	$("input#UnitID").css({"color":"#888"});
     	
     
-		$('#ParentID').combobox('select',row[0].parentId);
+		$('#ParentId').combobox('select',row[0].parentId);
+//		alert(row[0].parentId);
 		$('#ResearchName').val(row[0].researchName);	
+		alert(row[0].researchNam);
 	}
 
 	function deleteByIds() {

@@ -170,7 +170,7 @@ public class T651_Dao {
 		return list ;
 	}
 	
-	public List<T651_Bean> queryPageList(String cond, Object object,
+	public List<T651_Bean> queryPageList(String cond, String fillUnitID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
 		String queryPageSql;
@@ -180,8 +180,10 @@ public class T651_Dao {
 		+ " from " + tableName +
 		" left join "+tableName1+" on "+tableName+".competiType="+tableName1+".IndexID "+
 		"left join "+tableName2+" on "+tableName+".AwardLevel="+tableName2+".IndexID " +
-		" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
+		" where " + cond +" and FillUnitID ="+fillUnitID+
+		" and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
 		tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
+		;
 	
 
 		System.out.println(queryPageSql);

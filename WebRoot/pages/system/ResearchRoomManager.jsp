@@ -45,11 +45,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;height: 24">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-add" plain="true" onclick="newRoom()">添加教学单位</a>
+				iconCls="icon-add" plain="true" onclick="newRoom()">添加教研室</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-edit" plain="true" onclick="editRoom()">编辑教学单位</a>
+				iconCls="icon-edit" plain="true" onclick="editRoom()">编辑教研室</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除教学单位</a>
+				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除教研室</a>
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
 		 	教研室号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</label>
 
 								<input id="ParentId" name="room_bean.parentId" class='easyui-combobox'
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
 							">
 							 <span id="ParentIdSpan"></span>
 							</div>

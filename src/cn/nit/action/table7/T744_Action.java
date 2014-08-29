@@ -1,8 +1,10 @@
-package cn.nit.action.table7;
+﻿package cn.nit.action.table7;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -196,10 +198,9 @@ public class T744_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			
 			List<T744POJO> list = t744_Dao.totalList(this.getSelectYear());
-			String sheetName = this.getExcelName();
-			
+			String sheetName = this.excelName;
+
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("教学单位");columns.add("单位号");columns.add("专业名称");columns.add("专业代码");columns.add("学位授予门类");
@@ -224,7 +225,7 @@ public class T744_Action {
 	
 	public String execute() throws Exception{
 		request.setCharacterEncoding("UTF-8") ;
-		System.out.println("excelName=============" + excelName) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 
@@ -283,7 +284,14 @@ public class T744_Action {
 	}
 
 	public String getExcelName() {
-		return excelName;
+		
+		 try {
+			 this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			 //this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+			 } catch (UnsupportedEncodingException e) {
+			 e.printStackTrace();
+			 }
+			 return excelName;
 	}
 
 	public void setExcelName(String excelName) {

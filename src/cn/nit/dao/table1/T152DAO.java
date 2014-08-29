@@ -87,9 +87,9 @@ public class T152DAO {
 		int total = 0 ;
 //		System.out.println(sql.toString());
 		
-//		if(fillUnitId != null && !fillUnitId.equals("")){
-//			sql.append(" and FillUnitID=" + fillUnitId) ;
-//		}
+		if(fillUnitId != null && !fillUnitId.equals("")){
+			sql.append(" and FillUnitID=" + fillUnitId) ;
+		}
 		
 		if(conditions != null && !conditions.equals("")){
 			sql.append(conditions) ;
@@ -108,7 +108,7 @@ public class T152DAO {
 			}
 			
 			while(rs.next()){
-				total = rs.getInt(1) ;
+				total +=1;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -130,9 +130,9 @@ public class T152DAO {
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
 
-//		if(fillUnitId != null && !fillUnitId.equals("")){
-//			sql.append(" and FillUnitID=" + fillUnitId) ;
-//		}
+		if(fillUnitId != null && !fillUnitId.equals("")){
+			sql.append(" and FillUnitID=" + fillUnitId) ;
+		}
 		
 		if(conditions != null){
 			sql.append(conditions) ;
@@ -166,7 +166,7 @@ public class T152DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T152Bean> totalList(){
+	public List<T152Bean> totalList(String filledID){
 		
 //		String Cond = "(TeaFlag is null or TeaFlag != '外聘')";
 //				
@@ -187,6 +187,7 @@ public class T152DAO {
 		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,t.FillUnitID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
+		sql.append(" and t.FillUnitID="+filledID);
 
 		
 		
@@ -254,8 +255,6 @@ public class T152DAO {
 		T152DAO dao=new T152DAO();
 //		int n=dao.totalAuditingData(null, null);
 //		System.out.println(n);
-		List<T152Bean> list=dao.totalList();
-		System.out.println(list.size());
 //		List<T152POJO> list=dao.auditingData(null, null, 1, 1);
 //		System.out.println(list.size());
 ////	

@@ -5,6 +5,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -264,7 +266,7 @@ public class A411_Action {
 			System.out.println("后台传入的数据为空");
 			return null;
 		}else{
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -495,12 +497,18 @@ public class A411_Action {
 	
 	public String execute() throws Exception{
 		response.setContentType("text/html;charset=utf-8"); 
-		System.out.println("excelName=============" + this.getExcelName()) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 	
 	public String getExcelName() {
-		return excelName;
+		 try {
+			 this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			 //this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+			 } catch (UnsupportedEncodingException e) {
+			 e.printStackTrace();
+			 }
+			 return excelName;
 	}
 
 	public void setExcelName(String excelName) {

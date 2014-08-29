@@ -157,13 +157,13 @@ public class T613_Action {
 			System.out.println("后台传入的数据为空");
 			return null;
 		}else{
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();
 		           wwb = Workbook.createWorkbook(fos);
-		           WritableSheet ws = wwb.createSheet("表6-1-3留学生数量基本情况（国际交流与合作处）", 0);        // 创建一个工作表
+		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 		
 		            //    设置单元格的文字格式
 		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
@@ -184,7 +184,7 @@ public class T613_Action {
 		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
 			        		     jxl.format.Colour.BLACK);
 		           
-		           ws.addCell(new Label(0, 0, "表6-1-3留学生数量基本情况（国际交流与合作处）", wcf)); 
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		           ws.mergeCells(0, 0, 1, 0);
 		           
 		           ws.addCell(new Label(0, 2, "分类", wcf)); 
@@ -215,7 +215,7 @@ public class T613_Action {
 	
 	public String execute() throws Exception{
 		response.setContentType("text/html;charset=utf-8"); 
-		System.out.println("excelName=============" + this.getExcelName()) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 	

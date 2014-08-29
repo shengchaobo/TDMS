@@ -160,7 +160,7 @@ public class T652_Dao {
 		return list ;
 	}
 	
-	public List<T652_Bean> queryPageList(String cond, Object object,
+	public List<T652_Bean> queryPageList(String cond, String filledID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
 		String queryPageSql;
@@ -171,7 +171,8 @@ public class T652_Dao {
 //			fieldShow
 			" from " + tableName + 
 			" left join DiAwardLevel on "+tableName+".AwardLevel = DiAwardLevel.IndexID "+
-			" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
+			" where " + cond + " and FillUnitID="+filledID+
+			" and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
 			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
 	
 
@@ -221,11 +222,12 @@ public class T652_Dao {
 		return list ;
 	}
 	
-	public List<T652_Bean> getAllList(String cond, Object object) {
+	public List<T652_Bean> getAllList(String cond, String filledID) {
 		// TODO Auto-generated method stub
 		String sql;
 		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
+		sql = "select " + fieldShow + " from " + tableName +" where " + cond
+			 +" and FillUnitID="+filledID;
 	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;

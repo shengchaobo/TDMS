@@ -557,7 +557,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 
 	    function exports() {
-	    	var temp = encodeURI('表3-3专科专业基本情况（教务处）.xls');
+	    	var temp = encodeURI('表3-3专科专业基本情况（教务处）');
 		    $('#exportForm').form('submit', {
 		    url : "pages/JuniorMajInfo/dataExport?excelName="+temp ,
 		    onSubmit : function() {

@@ -24,6 +24,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDegreeBean;
@@ -156,7 +157,7 @@ public class T441_Excel {
 				
 				count++ ;
 				
-				String fillUnitID = null; //从user的session中获得，现在没有
+				
 				T441_bean = new T441_Bean() ;
 				T441_bean.setFromTeaUnit(unit);
 				T441_bean.setTeaUnitID(unitId);
@@ -164,6 +165,10 @@ public class T441_Excel {
 				T441_bean.setMajorId(majorId);
 				T441_bean.setMajorLeaderName(name);
 				T441_bean.setTeaId(teaId);
+				
+				//插入教学单位
+				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+				String fillUnitID = bean.getUnitID();
 				T441_bean.setFillUnitID(fillUnitID);
 				//插入时间
 				T441_bean.setTime(TimeUtil.changeDateY(selectYear));

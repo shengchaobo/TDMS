@@ -7,7 +7,7 @@
 	    <!-- 显示数据 -->
 	    <action name="auditingData" class="cn.nit.action.table1.T12Action" method="auditingData" />
 	      <!-- 数据查询 -->
-	    <action name="singleSearch" class="cn.nit.action.table1.T12Action" method="auditingConditions"/>
+	    <action name="singleSearch" class="cn.nit.action.table1.T12Action" method="auditingData"/>
 	    
 	      <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table1.T12Action" method="execute">
@@ -17,7 +17,7 @@
 				<!-- 流对象名字 -->
 				<param name="inputName">inputStream</param>
 				<!-- 文件名转码 -->
-				<param name="contentDisposition">attachment;fileName="${excelName}"</param>
+				<param name="contentDisposition">attachment;fileName="${excelName}.xls"</param>
 				<!-- 下载文件缓冲大小 -->
 				<param name="bufferSize">4096</param>
 	    	</result>

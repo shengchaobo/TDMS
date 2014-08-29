@@ -96,7 +96,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href="pages/T152/dataExport?excelName=表1-5-2教学单位科研机构.xls"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	
+		<a href='pages/T152/dataExport?excelName=<%=URLEncoder.encode("表1-5-2教学单位科研机构","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
@@ -123,6 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>科研机构名称：</label> 
 						<input id="seqNumber" type="hidden"name="t152Bean.SeqNumber" value="0"></input>
+					<!--	<input id="fillUnitID" type="hidden"name="t152Bean.fillUnitID" value="0"></input> -->
 						<input type="hidden" name="t152Bean.ResInsName" id="ResInsName"/>
 						<input id="ResInsID" type="text" name="t152Bean.ResInsID" class='easyui-combobox' 
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentSci' ,listHeight:'auto',editable:false,
@@ -146,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>开设年份：</label> 
-						 <input class="easyui-datebox" id="BeginYear" name="t152Bean.BeginYear" >
+						 <input class="easyui-datebox" id="BeginYear" name="t152Bean.BeginYear" editable="false">
 						 <span id="BeginYearSpan"></span>
 					</div>
 				</td>
@@ -169,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <td>
 					<div class="fitem">
 						<label>共建情况：</label> 
-						<select class='easyui-combobox' id='BuildCondition' name='t152Bean.BuildCondition' style="width:50px">
+						<select class='easyui-combobox' id='BuildCondition' name='t152Bean.BuildCondition' style="width:50px" editable="false">
 						   <option value="true">是</option>
 						   <option value="false">否</option> 
 						</select>
@@ -180,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>是否对本科生开放：</label> 
-						<select class='easyui-combobox' id='BiOpen' name='t152Bean.BiOpen' style="width:50px">
+						<select class='easyui-combobox' id='BiOpen' name='t152Bean.BiOpen' style="width:50px" editable="false">
 						   <option value="true">是</option>
 						   <option value="false">否</option> 
 						</select>
@@ -252,6 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
 	
 	function singleSearch(){
+		alert(123);
    	 $('#auditing').form('submit',{
    		 url: 'pages/UndergraCSBaseTea/singleSearch',
    		 type: "post",
@@ -321,19 +324,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('hr').show();
 	    	url = 'pages/T152/insert' ;
 		    $('#dlg').dialog('open').dialog('setTitle','添加教学单位科研机构的信息');
-		    $('#resInsForm').form('reset');
+		    $('#addForm').form('reset');
 	    }
 
 	    function singleImport(){
 		    //录入数据的表单提交
-
-	    	 $('#resInsForm').form('submit',{
+	    	 $('#addForm').form('submit',{
 				    url: url ,
 				    data: $('#resInsForm').serialize(),
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
 				    	return validate();
+				    //	$('#dlg').dialog('reload');
 				    },
 				    //结果返回
 				    success: function(result){
@@ -342,7 +345,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
 			    });
@@ -444,7 +447,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		return ;
 	    	}
 	    	
-	    	url = 'pages/SchResIns/edit' ;
+	    	url = 'pages/T152/edit' ;
 
 	    	$('.title1').hide();
 	       	$('#item1').hide();
@@ -452,9 +455,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改教学单位科研机构的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	//$('#fillUnitID').val(row[0].fillUnitID) ;
+	    	//alert(row[0].fillUnitID);
 	    	$('#ResInsID').combobox('select',row[0].resInsID);
 	    	$('#Type').combobox('select',row[0].typeID);
 	    	$('#BeginYear').datebox('setValue',formattime(row[0].beginYear)) ;
+	    	alert(formattime(row[0].beginYear));
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
 	    	var flag1 = "" + row[0].biOpen ;
 	    	var flag2 = "" + row[0].buildCondition ;

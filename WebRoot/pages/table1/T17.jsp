@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'table.jsp' starting page</title>
+<title>T17</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href="pages/T17/dataExport?excelName=表T-1-7校友会（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+			<a href="pages/T17/dataExport?excelName=表T-1-7校友会（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>	
 			<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
@@ -64,6 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>	
 	</div>
 	
+	<!--  
 	<table id="verfiedData"  class="easyui-datagrid"  url="pages/T17/auditingData" >
 		<thead>
 			<tr>
@@ -78,10 +79,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	
 	<div id="toolbar2" style="float: right;">
-		<a href="pages/T152/dataExport?excelName=表1-7学校校友会.xls"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	
+		<a href='pages/T17/dataExport?excelName=<%=URLEncoder.encode("表1-7学校校友会","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
-	
+	-->
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
@@ -112,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <td>
 					<div class="fitem">
 						<label>建设时间：</label> 
-						 <input id="BuildYear" name="t17Bean.BuildYear"  class="easyui-datebox" >
+						 <input id="BuildYear" name="t17Bean.BuildYear"  class="easyui-datebox" editable="false">
 						 <span id="BuildYearSpan"></span>
 					</div>
 				</td>

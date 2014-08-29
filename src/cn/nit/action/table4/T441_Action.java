@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +21,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table4.T441_Bean;
 import cn.nit.dao.table4.T412_Dao;
@@ -87,7 +90,9 @@ public class T441_Action {
 			cond = conditions.toString();
 		}
 		
-		String fillUnitID = null;
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 		
 		List<T441_Bean> list = T441_services.getPagemajorLeaderList(cond, fillUnitID, this.getRows(), this.getPage()) ;
 		String TeaInfoJson = this.toBeJson(list,T441_services.getTotal(cond, fillUnitID));
@@ -141,7 +146,9 @@ public class T441_Action {
 		//插入时间
 		T441_bean.setTime(new Date());
 		//插入教学单位
-		String fillUnitID = null;
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 		T441_bean.setFillUnitID(fillUnitID);
 		boolean flag = T441_services.insert(T441_bean);
 		PrintWriter out = null ;
@@ -223,13 +230,13 @@ public class T441_Action {
 		InputStream inputStream = null ;
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
+			//具体教学单位
+			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+			String fillUnitID = bean.getUnitID();
 			
-			List<T441_Bean> list = T441_dao.totalList();
+			List<T441_Bean> list = T441_dao.totalList(fillUnitID);
 						
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
@@ -252,7 +259,7 @@ public class T441_Action {
 	
 	public String execute() throws Exception{
 		request.setCharacterEncoding("UTF-8") ;
-		System.out.println("excelName=============" + excelName) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 
@@ -320,6 +327,12 @@ public class T441_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 }

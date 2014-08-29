@@ -144,26 +144,41 @@ public class T411_Action {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
-		boolean flag = T411_services.insert(T411_bean);
-		PrintWriter out = null ;
+		//判断该用教工号是否已存
+		boolean flag0 = T411_services.hasTea(T411_bean.getTeaId());
 		
+		PrintWriter out = null ;
+		boolean flag = false;
+		
+		if(!flag0){
+			flag = T411_services.insert(T411_bean);
+		}
+						
 		try{
 			response.setContentType("text/html; charset=UTF-8") ;
 			out = response.getWriter() ;
-			if(flag){
-				out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
+			
+			
+			if(flag0){
+				out.print("{\"state\":false,data:\"该教工号已存在!!!\"}") ;
 			}else{
-				out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+				if(flag){
+					out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
+				}else{
+					out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+				}
 			}
+
 		}catch(Exception e){
 			e.printStackTrace() ;
 			out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
 		}finally{
 			if(out != null){
+				out.flush() ;
 				out.close() ;
 			}
 		}
-		out.flush() ;
+		
 	}
 	
 	/**  编辑数据  */
@@ -203,7 +218,7 @@ public class T411_Action {
 			
 			List<T411_Bean> list = T411_dao.totalList();
 						
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
@@ -238,7 +253,7 @@ public class T411_Action {
 	
 	public String execute() throws Exception{
 		request.setCharacterEncoding("UTF-8") ;
-		System.out.println("excelName=============" + excelName) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 	
@@ -418,6 +433,12 @@ public class T411_Action {
 	}
 
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

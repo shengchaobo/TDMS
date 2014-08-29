@@ -5,6 +5,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,6 +59,9 @@ public class A15Action {
 
 	/**数据导出年份*/
 	private String selectYear;
+	
+	/**  导出的excelName名 */
+	private String excelName ;
 	
 	
 	public String getSelectYear() {
@@ -204,7 +209,7 @@ public class A15Action {
 			System.out.println("后台传入的数据为空");
 		}else{
 //			String sheetName = this.getExcelName();
-				String sheetName="A-1-5科研机构";	
+				String sheetName=this.excelName;	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();
@@ -299,6 +304,20 @@ public class A15Action {
 		this.a15Bean = a15Bean;
 	}
 	
+	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+
 	public String toStr(double num){
 		double n=num*100;
 		String str1=""+n;

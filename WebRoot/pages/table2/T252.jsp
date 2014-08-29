@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		 <a href='pages/T252/dataExport?excelName=<%=URLEncoder.encode("表2-5-2本科实验、实习、实训场所-教学情况.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
+		 <a href='pages/T252/dataExport?excelName=<%=URLEncoder.encode("表2-5-2本科实验、实习、实训场所-教学情况","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
@@ -164,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属教学单位：</label> 
 						<input type="hidden" name="T252_bean.teaUnit" id="teaUnit"/>
 						<input id="teaUnitID" type="text" name="T252_bean.teaUnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:true,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
 							onSelect:function(){
 							    document.getElementById('teaUnit').value=$(this).combobox('getText') ;
 							 }">

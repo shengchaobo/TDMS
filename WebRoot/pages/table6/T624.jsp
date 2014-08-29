@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T624/dataExport?excelName=<%=URLEncoder.encode("表6-2-4专科招生信息补充表（招就处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href='pages/T624/dataExport?excelName=<%=URLEncoder.encode("表6-2-4专科招生信息补充表（招就处）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
@@ -148,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>专业名称：</label> 
 						<input id="majorName" type="hidden" name="T624_bean.majorName">
 						<input id="majorId" type="text" name="T624_bean.majorId" class='easyui-combobox'
-							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
+							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorOne/loadDiMajorOne',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('majorName').value=$(this).combobox('getText') ;
 							 }"></input>
@@ -205,7 +205,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td class="empty"></td>
 				<td>
 					<div class="fitem">
-						<label>普通高中起点：</label> 
+						<label>普通高中起点（人数）：</label> 
 						<input id="genHignSchNum" name="T624_bean.genHignSchNum" 
 							 class='easyui-validatebox'><span id="genHignSchNumSpan"></span>
 					</div>
@@ -215,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>中职起点：</label> 
+						<label>中职起点（人数）：</label> 
 						<input id="secondVocationNum" name="T624_bean.secondVocationNum" 
 							 class='easyui-validatebox'><span id="secondVocationNumSpan"></span>
 					</div>
@@ -223,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td class="empty"></td>
 				<td>
 					<div class="fitem">
-						<label>其他：</label> 
+						<label>其他（人数）：</label> 
 						<input id="otherNum" name="T624_bean.otherNum" 
 							 class='easyui-validatebox'><span id="otherNumSpan"></span>
 					</div>

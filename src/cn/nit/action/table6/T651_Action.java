@@ -25,6 +25,8 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -104,12 +106,19 @@ public class T651_Action {
 	
 	/**专业名称*/
 	private String majorName;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
+	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+	String fillUnitID = bean.getUnitID();
 
 	/** 逐条插入数据 */
 	public void insert() {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		
+		T651_bean.setFillUnitID(fillUnitID);
 		boolean flag = T651_service.insert(T651_bean);
 		PrintWriter out = null;
 
@@ -148,8 +157,8 @@ public class T651_Action {
 			cond += " and TeaUnit LIKE '" + this.getSearchItem() + "%'";
 			System.out.println("cond:"+cond);
 		}
-		List<T651_Bean> list = T651_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
-		String TeaInfoJson = this.toBeJson(list, T651_service.getTotal(cond,null));
+		List<T651_Bean> list = T651_service.getPageInfoList(cond,fillUnitID,this.getRows(), this.getPage());
+		String TeaInfoJson = this.toBeJson(list, T651_service.getTotal(cond,fillUnitID));
 
 		PrintWriter out = null;
 
@@ -192,6 +201,8 @@ public class T651_Action {
 
 	/** 编辑数据 */
 	public void edit() {
+		T651_bean.setFillUnitID(fillUnitID);
+//		T651_bean.setTime(new Date());
 		boolean flag = T651_service.update(T651_bean);
 		PrintWriter out = null;
 
@@ -248,9 +259,9 @@ public class T651_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T651_Bean> list = T651_dao.getAllList("1=1", null);
+			List<T651_Bean> list = T651_dao.getAllList("1=1", fillUnitID);
 						
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 				
 			List<String> columns = new ArrayList<String>();
 						
@@ -296,7 +307,7 @@ public class T651_Action {
 			maplist.put("time", 15);
 			maplist.put("note", 16);
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-5-1学习成果—本科生竞赛获奖情况（教学单位-团委）", maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

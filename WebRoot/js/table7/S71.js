@@ -26,7 +26,6 @@
 				alert(rowData.rows[0].data);
 
 			}	
-
 			},
 			
 			queryParams:{

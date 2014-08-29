@@ -148,7 +148,7 @@ public class T14Action {
 			
 			List<T14Bean> list = t14Dao.totalList();
 			
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("教学单位名称");columns.add("单位号");

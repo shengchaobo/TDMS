@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'table.jsp' starting page</title>
+<title>T182</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -64,7 +64,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 	</div>
 	<div id="toolbar2"  style="float: right">
-		<a href="pages/T181/dataExport?excelName=表1-8-2签订合作协议机构.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	
+		<a href='pages/T182/dataExport?excelName=<%=URLEncoder.encode("表1-8-2签订合作协议机构（科研处）","UTF-8")%>' class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" class="easyui-datagrid" url="">
@@ -135,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>签订时间：</label> 
-						<input class="easyui-datebox" id="SignedTime" name="t181Bean.SignedTime" >
+						<input class="easyui-datebox" id="SignedTime" name="t181Bean.SignedTime" editable="false">
 					   <span id="SignedTimeSpan"></span>
 					</div>
 				</td>

@@ -170,7 +170,7 @@ public class T651_Dao {
 		return list ;
 	}
 	
-	public List<T651_Bean> queryPageList(String cond, Object object,
+	public List<T651_Bean> queryPageList(String cond, String fillUnitID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
 		String queryPageSql;
@@ -180,8 +180,10 @@ public class T651_Dao {
 		+ " from " + tableName +
 		" left join "+tableName1+" on "+tableName+".competiType="+tableName1+".IndexID "+
 		"left join "+tableName2+" on "+tableName+".AwardLevel="+tableName2+".IndexID " +
-		" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
+		" where " + cond +" and FillUnitID ="+fillUnitID+
+		" and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
 		tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
+		;
 	
 
 		System.out.println(queryPageSql);
@@ -231,9 +233,11 @@ public class T651_Dao {
 		return list ;
 	}
 	
-	public List<T651_Bean> getAllList(String cond, Object object) {
+	public List<T651_Bean> getAllList(String cond, String  filledID) {
 		// TODO Auto-generated method stub
 		String sql;
+		
+		
 		
 		sql = "select SeqNumber,TeaUnit,UnitID,"+tableName1+".ContestLevel as competiType,"+"CompetiName,AwardItem,"
 		+tableName2+".AwardLevel as AwardLevel,"
@@ -241,7 +245,7 @@ public class T651_Dao {
 		+ " from " + tableName +
 		" left join "+tableName1+" on "+tableName+".competiType="+tableName1+".IndexID "+
 		" left join "+tableName2+" on "+tableName+".AwardLevel="+tableName2+".IndexID " +
-				" where " + cond ;
+				" where " + cond +" and FillUnitID="+filledID;
 //		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
 	    System.out.println(sql);
 	

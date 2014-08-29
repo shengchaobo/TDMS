@@ -31,6 +31,14 @@ public class DiDepartmentService {
 	public List<DiDepartmentBean> getListSci(){
 		return departmentDao.getListSci();
 	}
+	
+	/**
+
+	 * 获取学院�?
+	 * */
+	public List<DiDepartmentBean> getListAca(){
+		return departmentDao.getListAca();
+	}
 	/**
 
 	 * 新增一个部门或单位

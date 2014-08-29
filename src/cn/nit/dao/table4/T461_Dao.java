@@ -26,10 +26,13 @@ public class T461_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T461_Bean> totalList(String param){
+	public List<T461_Bean> totalList(String param,String fillUnitID){
 		
 		String cond = null;
-		
+		if(fillUnitID != null){
+			cond = " where FillUnitID=" + "'" + fillUnitID + "' and ";
+		}
+				
 		if(param.equals("1")){
 			cond = "(" + tableName + ".AwardType = '51000'" + ")";
 		}
@@ -324,7 +327,7 @@ public class T461_Dao {
 	
 	public static void main(String args[]){
 		T461_Dao testDao =  new T461_Dao() ;
-		System.out.println(testDao.totalList("1")) ;
+		//System.out.println(testDao.totalList("1")) ;
 	}
 
 

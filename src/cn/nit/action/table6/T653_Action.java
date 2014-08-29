@@ -25,6 +25,8 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -110,12 +112,18 @@ public class T653_Action {
 	
 	/**专业名称*/
 	private String majorName;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
+	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+	String fillUnitID = bean.getUnitID();
 
 	/** 逐条插入数据 */
 	public void insert() {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		
+		T653_bean.setFillUnitID(fillUnitID);
 		boolean flag = T653_service.insert(T653_bean);
 		PrintWriter out = null;
 
@@ -141,6 +149,8 @@ public class T653_Action {
 
 	/** 为界面加载数据 */
 	public void loadData() throws Exception {
+		System.out.println("++++++++");
+		System.out.println(fillUnitID);
 
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
@@ -152,8 +162,9 @@ public class T653_Action {
 			cond += " and teaUnit LIKE '" + this.getSearchItem() + "%'";
 			System.out.println(cond);
 		}
-		List<T653_Bean> list = T653_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
-		String TeaInfoJson = this.toBeJson(list, T653_service.getTotal(cond,null));
+		
+		List<T653_Bean> list = T653_service.getPageInfoList(cond,fillUnitID,this.getRows(), this.getPage());
+		String TeaInfoJson = this.toBeJson(list, T653_service.getTotal(cond,fillUnitID));
 
 		PrintWriter out = null;
 
@@ -196,6 +207,8 @@ public class T653_Action {
 
 	/** 编辑数据 */
 	public void edit() {
+		T653_bean.setFillUnitID(fillUnitID);
+		System.out.println(T653_bean.getAwardLevel());
 		boolean flag = T653_service.update(T653_bean);
 		PrintWriter out = null;
 
@@ -252,9 +265,9 @@ public class T653_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T653_Bean> list = T653_dao.getAllList("1=1", null);
+			List<T653_Bean> list = T653_dao.getAllList("1=1", fillUnitID);
 						
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			
@@ -303,7 +316,7 @@ public class T653_Action {
 			maplist.put("fillUnitID", 16);
 			maplist.put("time", 17);
 				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, "表6-5-3学习成果——学生发表作品（教学单位-团委）", maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

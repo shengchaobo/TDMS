@@ -8,5 +8,8 @@
 	    <action name="loadDiAwardLevel" class="cn.nit.action.di.DiAwardLevelAction" method="loadAwardLevel" />
 	    <action name="loadDIAwardLevelPart" class="cn.nit.action.di.DiAwardLevelAction" method="loadDIAwardLevelPart" />
 	    <action name="loadDIAwardLevelPartTwo" class="cn.nit.action.di.DiAwardLevelAction" method="loadDIAwardLevelPartTwo" />
+	    <action name="insert" class="cn.nit.action.di.DiAwardLevelAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiAwardLevelAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiAwardLevelAction" method="deleteByIds" />
 	</package>
 </struts>

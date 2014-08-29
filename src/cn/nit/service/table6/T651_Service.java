@@ -70,21 +70,21 @@ public class T651_Service {
 		return pageInfo;	
 	}
 	
-	public List<T651_Bean> getPageInfoList(String cond, Object object,
+	public List<T651_Bean> getPageInfoList(String cond, String  filledID,
 			String rows, String page) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
 		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
 		
-		List<T651_Bean> pageInfo = T651_dao.queryPageList(cond, object, pagesize, currentpage);
+		List<T651_Bean> pageInfo = T651_dao.queryPageList(cond, filledID, pagesize, currentpage);
 		
 		return pageInfo;	
 	}
 	
-	public int getTotal(String cond, Object object) {
+	public int getTotal(String cond, String filledID) {
 		// TODO Auto-generated method stub
-		return T651_dao.getAllList(cond, object).size();
+		return T651_dao.getAllList(cond, filledID).size();
 	}
 	
 

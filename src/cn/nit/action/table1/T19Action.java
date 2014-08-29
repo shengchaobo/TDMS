@@ -3,6 +3,8 @@ package cn.nit.action.table1;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,14 +41,7 @@ public class T19Action {
 	/**excel导出名字*/
 	private String excelName; //
 	
-	
-	public String getExcelName() {
-		return excelName;
-	}
 
-	public void setExcelName(String excelName) {
-		this.excelName = excelName;
-	}
 
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
@@ -265,7 +260,7 @@ public class T19Action {
 			
 			List<T19Bean> list = t19Dao.totalList();
 			
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
@@ -361,6 +356,21 @@ public class T19Action {
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+	
+	
+	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
 	}
 
 	

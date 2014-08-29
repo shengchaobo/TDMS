@@ -439,7 +439,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
 
 	    function exports() {
-	    	var temp = encodeURI('表3-2-1大类培养基本情况表（教务处）.xls');
+	    	var temp = encodeURI('表3-2-1大类培养基本情况表（教务处）');
 		    $('#exportForm').form('submit', {
 		    url : "pages/MainTrainBasicInfoTea/dataExport?excelName="+temp ,
 		    onSubmit : function() {

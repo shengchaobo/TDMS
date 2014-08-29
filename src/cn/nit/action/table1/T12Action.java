@@ -43,7 +43,7 @@ public class T12Action {
 	private String excelName; //
 	
 	/**  待审核数据的查询的序列号  */
-	private Integer seqNum ;
+	private String unitID ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -65,6 +65,7 @@ public class T12Action {
 	public void auditingData(){
 			
 			System.out.println("輸出輸出輸出");
+			System.out.println(this.getUnitID());
 			
 			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 				return ;
@@ -77,11 +78,11 @@ public class T12Action {
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
 			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			if(this.getUnitID() == null && this.getStartTime() == null && this.getEndTime() == null){			
 				cond = null;	
 			}else{			
-				if(this.getSeqNum()!=null){
-					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+				if(this.getUnitID()!=null){
+					conditions.append(" and UnitID=" + this.getUnitID()) ;
 				}
 				
 				if(this.getStartTime() != null){
@@ -124,7 +125,7 @@ public class T12Action {
 			
 			List<T12Bean> list = t12Dao.totalList();
 			
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("行政单位名称");columns.add("单位号");columns.add("单位职能");
@@ -174,12 +175,12 @@ public class T12Action {
 	}
 	
 	
-	public Integer getSeqNum() {
-		return seqNum;
+	public String getUnitID() {
+		return unitID;
 	}
 
-	public void setSeqNum(Integer seqNum) {
-		this.seqNum = seqNum;
+	public void setUnitID(String unitID) {
+		this.unitID = unitID;
 	}
 
 	public Date getStartTime() {

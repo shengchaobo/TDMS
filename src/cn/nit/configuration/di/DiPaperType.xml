@@ -6,5 +6,8 @@
 	<package name="pages/DiPaperRoom" namespace="/pages/DiPaperRoom" extends="struts-default">
 		<!-- 初始化加载所有论文类型 -->
 	    <action name="loadDiPaperType" class="cn.nit.action.di.DiPaperTypeAction" method="loadPaperType" />
+	    <action name="insert" class="cn.nit.action.di.DiPaperTypeAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiPaperTypeAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiPaperTypeAction" method="deleteByIds" />
 	</package>
 </struts>

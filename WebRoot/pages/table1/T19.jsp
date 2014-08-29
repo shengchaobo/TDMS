@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'table.jsp' starting page</title>
+<title>T19</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -63,11 +63,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="toolbar2" style="float: right">
-			<a href="pages/T19/dataExport?excelName=表1-9学校获得荣誉（党院办）.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	
+		<a href='pages/T19/dataExport?excelName=<%=URLEncoder.encode("表1-9学校获得荣誉（党院办）","UTF-8")%>' class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 <div></div>
-	<table id="verfiedData"class="easyui-datagrid"  url="table5/verifiedData">
+	<table id="verfiedData"class="easyui-datagrid"  url="">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -134,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 				      <div class="fitem">
 				        <label>获奖时间：</label>
-				        <input class="easyui-datebox" id="RewardTime" name="t19Bean.RewardTime" >
+				        <input class="easyui-datebox" id="RewardTime" name="t19Bean.RewardTime" editable="false">
 						<span id="RewardTimeSpan"></span>
 					</div>
 				</td>

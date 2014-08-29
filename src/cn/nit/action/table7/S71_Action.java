@@ -123,7 +123,7 @@ public class S71_Action {
 				System.out.println("后台传入的数据为空");
 				return null;
 			}
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
@@ -256,7 +256,7 @@ public class S71_Action {
 	}
 	public String execute() throws Exception{
 		request.setCharacterEncoding("UTF-8") ;
-		System.out.println("excelName=============" + excelName) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 

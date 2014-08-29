@@ -25,9 +25,10 @@ public class T412_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T412_Bean> totalList(){
+	public List<T412_Bean> totalList(String fillUnitID){
 		
-		String sql = "select " + keyfield+ "," +field + " from " + tableName;
+		String sql = "select " + keyfield+ "," +field + " from " + tableName
+						+ " where FillUnitID=" + "'" + fillUnitID + "'";
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -238,7 +239,7 @@ public class T412_Dao {
 	
 	public static void main(String args[]){
 		T412_Dao testDao =  new T412_Dao() ;
-		System.out.println(testDao.totalList().size()) ;
+		System.out.println("test") ;
 	}
 
 }

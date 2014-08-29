@@ -312,7 +312,7 @@ public class T655_Action {
 			    }
 			}
 						
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			
@@ -345,7 +345,7 @@ public class T655_Action {
 			maplist.put("time", 7);
 			
 				
-			inputStream = new ByteArrayInputStream(T655_Excel.exportExcel(list1, "表6-5-5学习成果-英语四六级、省计算机等级考试（教务处）", maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(T655_Excel.exportExcel(list1, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

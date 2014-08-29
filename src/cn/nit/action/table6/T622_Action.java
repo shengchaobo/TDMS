@@ -262,6 +262,7 @@ public class T622_Action {
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T622_Bean> list = T622_dao.getAllList("1=1", null);
+			String sheetName = this.excelName;
 			if(list==null){
 				if(list.size()==0){
 					PrintWriter out = null ;
@@ -277,7 +278,7 @@ public class T622_Action {
 				
 				 fos = new ByteArrayOutputStream();
 		            wwb = Workbook.createWorkbook(fos);
-		            WritableSheet ws = wwb.createSheet("表6-2-2近一届文、理科本科生录取标准及人数（招就处）", 0);        // 创建一个工作表
+		            WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 
 		            //    设置表头的文字格式
 		            
@@ -299,7 +300,7 @@ public class T622_Action {
 			        		     jxl.format.Colour.BLACK);
 		            ws.setRowView(1, 500);
 					//第一行存表名
-					ws.addCell(new Label(0, 0, "表6-2-2近一届文、理科本科生录取标准及人数（招就处）", wcf)); 
+					ws.addCell(new Label(0, 0, sheetName, wcf)); 
 					ws.mergeCells(0, 0, 1, 0);
 					//表头
 					ws.addCell(new Label(0, 2, "序号", wcf)); ws.addCell(new Label(1, 2, "省份", wcf)); 

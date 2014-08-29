@@ -157,7 +157,7 @@ public class T616_Action {
 				System.out.println("后台传入的数据为空");
 				return null;
 			}
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			List<String> columns = new ArrayList<String>();
 			columns.add("1.毕（结）业生数（人）");columns.add("2.授予学位数（人）");columns.add("3.招生数（人）");columns.add("4.在校生数（人）");
 			columns.add("小计");columns.add("国外");columns.add("香港");columns.add("澳门");columns.add("台湾");
@@ -177,7 +177,7 @@ public class T616_Action {
 		    try {    
 		            fos = new ByteArrayOutputStream();
 		            wwb = Workbook.createWorkbook(fos);
-		            WritableSheet ws = wwb.createSheet("表6-1-6国外及港澳台学生情况（国际交流与合作处）", 0);        // 创建一个工作表
+		            WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 
 		            //    设置表头的文字格式
 		            
@@ -199,7 +199,7 @@ public class T616_Action {
 			        		     jxl.format.Colour.BLACK);
 		            ws.setRowView(1, 500);
 					//第一行存表名
-					ws.addCell(new Label(0, 0, "表6-1-6国外及港澳台学生情况（国际交流与合作处）", wcf)); 
+					ws.addCell(new Label(0, 0, sheetName, wcf)); 
 					ws.mergeCells(0, 0, 1, 0);
 					
 		            //判断一下表头数组是否有数据    
@@ -301,7 +301,7 @@ public class T616_Action {
 	}
 	public String execute() throws Exception{
 		request.setCharacterEncoding("UTF-8") ;
-		System.out.println("excelName=============" + excelName) ;
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 

@@ -306,21 +306,28 @@ public class T321Excel {
             wwb = Workbook.createWorkbook(fos);
             WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 
-            //    设置单元格表头的文字格式
+            //    设置表头的文字格式
+            
             WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
-                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);    
             WritableCellFormat wcf = new WritableCellFormat(wf);
             wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
             wcf.setAlignment(Alignment.CENTRE);
             wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
-				     jxl.format.Colour.BLACK);
-           ws.setRowView(1, 500);
-              //设置格式
-			 WritableCellFormat normalFormat = new WritableCellFormat();
-			 normalFormat.setBorder(Border.ALL, BorderLineStyle.THIN,
-					     jxl.format.Colour.BLACK);
+	        		     jxl.format.Colour.BLACK);
+            
+            //    设置内容单无格的文字格式
+            WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+	                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+            WritableCellFormat normalFormat = new WritableCellFormat(wf1);       
+            normalFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
+            normalFormat.setAlignment(Alignment.CENTRE);
+            normalFormat.setBorder(Border.ALL, BorderLineStyle.THIN,
+	        		     jxl.format.Colour.BLACK);
+            ws.setRowView(1, 500);
+            
  
-           
+			  ws.addCell(new Label(0, 0, sheetName, wcf)); 
 	         //判断一下表头数组是否有数据  
 	            if (columns != null && columns.size() > 0) {  
 	  
@@ -336,7 +343,7 @@ public class T321Excel {
 	                     * 其中i为列、0为行、columns[i]为数据、wcf为样式 
 	                     * 合起来就是说将columns[i]添加到第一行(行、列下标都是从0开始)第i列、样式为什么"色"内容居中 
 	                     */  
-	                    ws.addCell(new Label(i, 0, columns.get(i), wcf));  
+	                    ws.addCell(new Label(i, 2, columns.get(i), wcf));  
 	                }  
 	            }
                 
@@ -375,13 +382,13 @@ public class T321Excel {
                                 for(String column:maplist.keySet()){
                                 	
                                 	if(column.equals("MajorNameInSch")){
-                                		ws.addCell(new Label(4,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                		ws.addCell(new Label(4,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                                 	}else if(column.equals("MajorID")){
-                                		ws.addCell(new Label(5,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                		ws.addCell(new Label(5,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                                 	}else if(column.equals("UnitName")){
-                                		ws.addCell(new Label(6,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                		ws.addCell(new Label(6,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                                 	}else if(column.equals("UnitID")){
-                                		ws.addCell(new Label(7,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                		ws.addCell(new Label(7,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                                 	}
 
                 				
@@ -397,26 +404,26 @@ public class T321Excel {
                             	
                             	
                             	if(column.equals("SeqNum")){
-                            		ws.addCell(new Label(0,i,""+count,normalFormat));
+                            		ws.addCell(new Label(0,i+2,""+count,normalFormat));
                             		
                             	}else if(column.equals("MainClassName")){
-                            		ws.addCell(new Label(1,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.addCell(new Label(1,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                             		
                       
                             	}else if(column.equals("MainClassID")){
-                            		ws.addCell(new Label(2,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.addCell(new Label(2,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                             	
                             	}else if(column.equals("ByPassTime")){
-                            		ws.addCell(new Label(3,i,(String) wrapper.getPropertyValue(column).toString(),normalFormat));
+                            		ws.addCell(new Label(3,i+2,(String) wrapper.getPropertyValue(column).toString(),normalFormat));
                             	
                             	}else if(column.equals("MajorNameInSch")){
-                            		ws.addCell(new Label(4,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.addCell(new Label(4,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                             	}else if(column.equals("MajorID")){
-                            		ws.addCell(new Label(5,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.addCell(new Label(5,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                             	}else if(column.equals("UnitName")){
-                            		ws.addCell(new Label(6,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.addCell(new Label(6,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                             	}else if(column.equals("UnitID")){
-                            		ws.addCell(new Label(7,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.addCell(new Label(7,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                             	}
                              	                         	
                             }
@@ -432,26 +439,26 @@ public class T321Excel {
 
                             	
                             	if(column.equals("SeqNum")){
-                            		ws.addCell(new Label(0,i,""+count,normalFormat));
-                            		 ws.mergeCells(0, i,0,mergedNum+1);
+                            		ws.addCell(new Label(0,i+2,""+count,normalFormat));
+                            		 ws.mergeCells(0, i+2,0,mergedNum+3);
                             	}else if(column.equals("MainClassName")){
-                            		ws.addCell(new Label(1,i,(String) wrapper.getPropertyValue(column),normalFormat));
-                            		ws.mergeCells(1, i,1,mergedNum+1);
+                            		ws.addCell(new Label(1,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.mergeCells(1, i+2,1,mergedNum+3);
                       
                             	}else if(column.equals("MainClassID")){
-                            		ws.addCell(new Label(2,i,(String) wrapper.getPropertyValue(column),normalFormat));
-                            		ws.mergeCells(2, i,2,mergedNum+1);
+                            		ws.addCell(new Label(2,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.mergeCells(2, i+2,2,mergedNum+3);
                             	}else if(column.equals("ByPassTime")){
-                            		ws.addCell(new Label(3,i,(String) wrapper.getPropertyValue(column).toString(),normalFormat));
-                            		ws.mergeCells(3, i,3,mergedNum+1);
+                            		ws.addCell(new Label(3,i+2,(String) wrapper.getPropertyValue(column).toString(),normalFormat));
+                            		ws.mergeCells(3, i+2,3,mergedNum+3);
                             	}else if(column.equals("MajorNameInSch")){
-                            		ws.addCell(new Label(4,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.addCell(new Label(4,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                             	}else if(column.equals("MajorID")){
-                            		ws.addCell(new Label(5,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.addCell(new Label(5,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                             	}else if(column.equals("UnitName")){
-                            		ws.addCell(new Label(6,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.addCell(new Label(6,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                             	}else if(column.equals("UnitID")){
-                            		ws.addCell(new Label(7,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.addCell(new Label(7,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                             	}
                             	
                             }
@@ -464,13 +471,13 @@ public class T321Excel {
                                 for(String column:maplist.keySet()){
                                 	
                                 	if(column.equals("MajorNameInSch")){
-                                		ws.addCell(new Label(4,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                		ws.addCell(new Label(4,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                                 	}else if(column.equals("MajorID")){
-                                		ws.addCell(new Label(5,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                		ws.addCell(new Label(5,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                                 	}else if(column.equals("UnitName")){
-                                		ws.addCell(new Label(6,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                		ws.addCell(new Label(6,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                                 	}else if(column.equals("UnitID")){
-                                		ws.addCell(new Label(7,i,(String) wrapper.getPropertyValue(column),normalFormat));
+                                		ws.addCell(new Label(7,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
                                 	}
 
                 				

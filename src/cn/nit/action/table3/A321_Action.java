@@ -5,7 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -207,13 +209,13 @@ public class A321_Action {
 				System.out.println("后台传入的数据为空");
 				return null;
 			}else{
-				String sheetName = this.getExcelName();
+				String sheetName = this.excelName;
 							
 			    WritableWorkbook wwb;
 			    try {    
 			           fos = new ByteArrayOutputStream();
 			           wwb = Workbook.createWorkbook(fos);
-			           WritableSheet ws = wwb.createSheet("A3-2-1", 0);        // 创建一个工作表
+			           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 			
 			            //    设置单元格的文字格式
 			           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
@@ -320,6 +322,12 @@ public class A321_Action {
 
 
 		public String getExcelName() {
+			try {
+				this.excelName = URLEncoder.encode(excelName, "UTF-8");
+				//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 			return excelName;
 		}
 

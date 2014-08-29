@@ -105,8 +105,9 @@ public class T522DAO {
 			}
 			
 			while(rs.next()){
-				total = rs.getInt(1) ;
-				System.out.println(total);
+				total+=1;
+//				total = rs.getInt(1) ;
+//				System.out.println(total);
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;

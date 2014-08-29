@@ -149,7 +149,7 @@ public class T13Action {
 			
 			List<T12Bean> list = t13Dao.totalList();
 			
-			String sheetName = this.getExcelName();
+			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("科研单位名称");columns.add("单位号");

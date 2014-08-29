@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -270,7 +272,7 @@ public class T11Action {
 				System.out.println("后台传入的数据为空");
 			}else{
 	//			String sheetName = this.getExcelName();
-					String sheetName="表1-1学校基本信息（党院办）";	
+					String sheetName=this.excelName;	
 			    WritableWorkbook wwb;
 			    try {    
 			           fos = new ByteArrayOutputStream();
@@ -424,6 +426,12 @@ public class T11Action {
 		this.Year = year;
 	}
 	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return excelName;
 	}
 

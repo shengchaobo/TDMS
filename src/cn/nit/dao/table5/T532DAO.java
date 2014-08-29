@@ -103,7 +103,7 @@ public class T532DAO {
 			}
 			
 			while(rs.next()){
-				total = rs.getInt(1) ;
+				total+=1;
 //				System.out.println("total:"+total);
 			}
 		}catch(Exception e){

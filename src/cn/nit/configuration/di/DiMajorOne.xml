@@ -6,5 +6,10 @@
 	<package name="pages/DiMajorOne" namespace="/pages/DiMajorOne" extends="struts-default">
 		<!-- 初始化加载所有专业 -->
 	    <action name="loadDiMajorOne" class="cn.nit.action.di.DiMajorOneAction" method="loadMajorOne" />
+	     <!-- 初始化所有专科专业（分页） -->
+		<action name="loadMajors" class="cn.nit.action.di.DiMajorOneAction" method="loadMajors" />   	   
+		<action name="insert" class="cn.nit.action.di.DiMajorOneAction" method="insert" />
+	    <action name="edit" class="cn.nit.action.di.DiMajorOneAction" method="edit" />
+	    <action name="deleteByIds" class="cn.nit.action.di.DiMajorOneAction" method="deleteByIds" />
 	</package>
 </struts>

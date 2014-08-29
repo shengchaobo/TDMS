@@ -498,7 +498,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 	    function exports() {
-	    	var temp = encodeURI('表3-1-3重点学科（科研处）.xls');
+	    	var temp = encodeURI('表3-1-3重点学科（科研处）');
 		    $('#exportForm').form('submit', {
 		    url : "pages/DiscipRes/dataExport?excelName="+temp ,
 		    onSubmit : function() {

@@ -25,6 +25,8 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -113,12 +115,19 @@ public class T654_Action {
 	
 	/**专业名称*/
 	private String majorName;
+	
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
+	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+	String fillUnitID = bean.getUnitID();
 
 	/** 逐条插入数据 */
 	public void insert() {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		
+		T654_bean.setFillUnitID(fillUnitID);
 		boolean flag = T654_service.insert(T654_bean);
 		PrintWriter out = null;
 
@@ -155,7 +164,7 @@ public class T654_Action {
 			cond += " and teaUnit LIKE '" + this.getSearchItem() + "%'";
 			System.out.println(cond);
 		}
-		List<T654_Bean> list = T654_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
+		List<T654_Bean> list = T654_service.getPageInfoList(cond,fillUnitID,this.getRows(), this.getPage());
 		String TeaInfoJson = this.toBeJson(list, T654_service.getTotal(cond,null));
 
 		PrintWriter out = null;
@@ -199,6 +208,7 @@ public class T654_Action {
 
 	/** 编辑数据 */
 	public void edit() {
+		T654_bean.setFillUnitID(fillUnitID);
 		boolean flag = T654_service.update(T654_bean);
 		PrintWriter out = null;
 

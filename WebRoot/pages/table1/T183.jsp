@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'table.jsp' starting page</title>
+<title>T183</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -63,7 +63,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 	</div>
 	<div id="toolbar2"  style="float: right">
-		<a href="pages/T183/dataExport?excelName=表1-8-3签订合作协议机构.xls" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	
+		<a href='pages/T183/dataExport?excelName=<%=URLEncoder.encode("表1-8-3签订合作协议机构（招就处）","UTF-8")%>' class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	<table id="verfiedData" class="easyui-datagrid"  url="">

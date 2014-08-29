@@ -103,8 +103,9 @@ public class T521DAO {
 			}
 			
 			while(rs.next()){
-				total = rs.getInt(1) ;
-				System.out.println(total);
+//				total = rs.getInt(1) ;
+//				System.out.println(total);
+				total+=1;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;

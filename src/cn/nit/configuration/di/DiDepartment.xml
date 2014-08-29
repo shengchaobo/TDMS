@@ -9,6 +9,8 @@
 	    
 	      <!-- 初始化加载科研单位性质 -->
 	    <action name="loadDIDepartmentSci" class="cn.nit.action.di.DiDepartmentAction" method="loadDIDepartmentSci" />
+	     <!-- 初始化加载学院 -->
+	    <action name="loadDIDepartmentAca" class="cn.nit.action.di.DiDepartmentAction" method="loadDIDepartmentAca" />
 	    <!-- 初始化所有部门（分页） -->
 		<action name="loadDes" class="cn.nit.action.di.DiDepartmentAction" method="loadDes" />   	   
 		 <action name="insert" class="cn.nit.action.di.DiDepartmentAction" method="insert" />

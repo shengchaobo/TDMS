@@ -25,6 +25,8 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -92,11 +94,11 @@ public class T615_Action {
 	
 	/**专业名称*/
 	private String majorName;
+	
 
 	/** 逐条插入数据 */
 	public void insert() {
-		System.out
-				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		
 		boolean flag = T615_service.insert(T615_bean);
 		PrintWriter out = null;

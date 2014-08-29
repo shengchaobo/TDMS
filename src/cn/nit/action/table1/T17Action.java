@@ -282,13 +282,15 @@ public class T17Action {
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
-			columns.add("校友会名称");columns.add("设立时间");columns.add("地点");columns.add("备注");
+			columns.add("校友会名称");columns.add("设立时间");columns.add("地点");
+//			columns.add("填写时间");columns.add("备注");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("ClubName", 1);maplist.put("BuildYear", 2);maplist.put("Place", 3);maplist.put("Time", 4);
-			maplist.put("Note", 5);
+			maplist.put("ClubName", 1);maplist.put("BuildYear", 2);maplist.put("Place", 3);
+//			maplist.put("Time", 4);
+//			maplist.put("Note", 5);
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(t17Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {

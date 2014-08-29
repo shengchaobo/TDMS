@@ -335,7 +335,7 @@ public class T411_Dao {
 	
 	/**
 	 * 判断T411表中是否存在该教职工
-	 * @param diCourseCategories
+	 * @param 
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:23
@@ -343,7 +343,7 @@ public class T411_Dao {
 	public boolean hasPerson(String teaID){
 		
 		Connection conn = DBConnection.instance.getConnection() ;
-		String sql = "select " + teaID + " from " + tableName ;
+		String sql = "select " + teaID + " from " + tableName  + " where TeaID=" + "'" + teaID + "'" ;
 		
 		Statement st = null ;
 		ResultSet rs = null ;

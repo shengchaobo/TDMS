@@ -100,16 +100,16 @@ public class T411_Service {
 	}
 	
 	
-/*	*//**
-	 * 删除数据
+	/**
+	 * 判断用户是否存
 	 * @param 
 	 * @return
-	 *//*
+	 */
+	public boolean hasTea(String teaID){
+		return teaInfoDao.hasPerson(teaID);
+	}
 	
-	public boolean deleteByIds(String ids){
-		
-		return teaInfoDao.deleteByIds(ids) ;
-	}*/
+
 	
 	//根据参数加载43系列的表
 	public List<T431_Bean> getT43List(int flag,String queryWord){

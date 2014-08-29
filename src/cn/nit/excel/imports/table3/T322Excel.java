@@ -221,6 +221,7 @@ public class T322Excel {
 					}
 					for(DiAwardLevelBean diAwardLevelBean : diAwardLevelList){
 						if(diAwardLevelBean.getAwardLevel().equals(MajorLevel)){
+							MajorLevel = diAwardLevelBean.getIndexId();
 								flag = true ;
 								break ;
 							}	
@@ -552,7 +553,11 @@ public class T322Excel {
 				t322_Bean.setMajorDegreeType(MajorDegreeType);
 				t322_Bean.setMajorAdmisTime(TimeUtil.changeDateYM(MajorAdmisTime));
 				t322_Bean.setMajorState(MajorState);
-				t322_Bean.setStopAdmisTime(TimeUtil.changeDateYM(StopAdmisTime));
+				if(StopAdmisTime.equals("")||StopAdmisTime == null){
+					t322_Bean.setStopAdmisTime(null);
+				}else{
+					t322_Bean.setStopAdmisTime(TimeUtil.changeDateYM(StopAdmisTime));
+				}
 				t322_Bean.setIsNewMajor(IsNewMajor);
 				t322_Bean.setAppvlYear(TimeUtil.changeDateYM(AppvlYear));
 				t322_Bean.setBuildAppvlID(BuildAppvlID);
@@ -565,12 +570,29 @@ public class T322Excel {
 				t322_Bean.setCheckAppvlID(CheckAppvlID);
 				t322_Bean.setSchExp(SchExp);
 				t322_Bean.setEduMinistryExp(EduMinistryExp);
-				t322_Bean.setFirstAppvlTime(TimeUtil.changeDateYM(FirstAppvlTime));
-				t322_Bean.setAppvlTime(TimeUtil.changeDateYM(AppvlTime));
+				if(FirstAppvlTime.equals("")||FirstAppvlTime == null){
+					t322_Bean.setFirstAppvlTime(null);
+				}else{
+					t322_Bean.setFirstAppvlTime(TimeUtil.changeDateYM(FirstAppvlTime));
+
+				}
+				if(AppvlTime.equals("")||AppvlTime == null){
+					t322_Bean.setAppvlTime(null);
+				}else{
+					t322_Bean.setAppvlTime(TimeUtil.changeDateYM(AppvlTime));
+				}
 				t322_Bean.setAppvlID(AppvlID);
 				t322_Bean.setAppvlResult(AppvlResult);
-				t322_Bean.setFromTime(TimeUtil.changeDateYM(FromTime));
-				t322_Bean.setEndTime(TimeUtil.changeDateYM(EndTime));
+				if(FromTime.equals("")||FromTime == null){
+					t322_Bean.setFromTime(null);
+				}else{
+					t322_Bean.setFromTime(TimeUtil.changeDateYM(FromTime));
+				}
+				if(EndTime.equals("")||EndTime == null){
+					t322_Bean.setEndTime(null);
+				}else{
+					t322_Bean.setEndTime(TimeUtil.changeDateYM(EndTime));
+				}
 				t322_Bean.setAppvlAuth(AppvlAuth);
 				t322_Bean.setTotalCSHour(TotalCSHour);
 				t322_Bean.setRequireCShour(RequireCShour);

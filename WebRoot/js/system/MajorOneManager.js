@@ -43,7 +43,9 @@
 			data : $('#majorManagerForm').serialize(),
 			type : "post",
 			dataType : "json",
+			
 			onSubmit : function() {
+				
 				return validate();
 			},
 			//结果返回
@@ -58,16 +60,18 @@
 			}
 		});
 	}
+	
 
 	function validate() {
 		//获取文本框的值
+
 		var majorNum = $('#MajorNum').val();
+
 		var majorName = $('#MajorName').val();
 		var duration = $('#Duration').combobox('getText');
-		var direction = $('#Direction').combobox('getText');
+		var direction = $('#Direction').val();
 		var unitId = $('#UnitId').combobox('getText');
 
-		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (majorNum == null || majorNum.length == 0 ) {
 			alert("专业代码不能为空");

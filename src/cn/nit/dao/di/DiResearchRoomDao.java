@@ -231,8 +231,8 @@ public class DiResearchRoomDao {
 	}
 	
 	public static void main(String args[]){
-		DiResearchRoomDao researchRoomDao =  new DiResearchRoomDao() ;
-		System.out.println(researchRoomDao.getList().size()) ;
+		//DiResearchRoomDao researchRoomDao =  new DiResearchRoomDao() ;
+		//System.out.println(researchRoomDao.getList().size()) ;
 	}
 
 }

@@ -87,6 +87,7 @@ public class T624_Excel {
 					continue;
 				}
 				
+				
 				String fromTeaUnit = cell[1].getContents();
 				if (fromTeaUnit == null || fromTeaUnit.equals("")) {
 					return "第" + count + "行，所属教学单位不能为空";
@@ -197,7 +198,7 @@ public class T624_Excel {
 					return "第" + count + "行，中职起点数只能填数字";
 				}
 				
-				String otherNum = cell[11].getContents();
+				String otherNum = cell[12].getContents();
 				if (otherNum == null || otherNum.equals("")) {
 					return "第" + count + "行，其他人数不能为空，没有请添加0";
 				}

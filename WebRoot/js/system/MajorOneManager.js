@@ -1,8 +1,8 @@
 	//只是用来展示的数据
 	$(function() {
-		$('#roomManager').datagrid( {
-			title : '教研室管理',  //可变内容在具体页面定义
-			url: 'pages/DiResearchRoom/loadRooms',
+		$('#majorManager').datagrid( {
+			title : '专科专业管理',  //可变内容在具体页面定义
+			url: 'pages/DiMajorOne/loadMajors',
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -18,32 +18,34 @@
 			rownumbers : true,
 			pagination: true,
 			onLoadSuccess: function (rowData) {
-
+				
 			}
 		});
-
+						
 	});
-
+			
 	var url;
-	function newRoom() {
-
+	function newMajor() {
+		
 		//update隐藏的量在提交之后要恢复
-		$("input#UnitID").attr("readonly",false);
-		$("input#UnitID").css({"color":"black"});
-
-		url = 'pages/DiResearchRoom/insert';
-		$('#dlg').dialog('open').dialog('setTitle', '添加教研室');
-		$('#roomManagerForm').form('reset');
+		$("input#MajorNum").attr("readonly",false);
+		$("input#MajorNum").css({"color":"black"});
+		
+		url = 'pages/DiMajorOne/insert';
+		$('#dlg').dialog('open').dialog('setTitle', '添加专科专业');
+		$('#majorManagerForm').form('reset');
 	}
 
 	function singleImport() {
 		//录入数据的表单提交
-		$('#roomManagerForm').form('submit', {
+		$('#majorManagerForm').form('submit', {
 			url : url,
-			data : $('#roomManagerForm').serialize(),
+			data : $('#majorManagerForm').serialize(),
 			type : "post",
 			dataType : "json",
+			
 			onSubmit : function() {
+				
 				return validate();
 			},
 			//结果返回
@@ -53,64 +55,79 @@
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
 					$('#dlg').dialog('close');
-					$('#roomManager').datagrid('reload');
+					$('#majorManager').datagrid('reload');
 				}
 			}
 		});
 	}
+	
 
 	function validate() {
 		//获取文本框的值
-		var unitID = $('#UnitID').val();
-		var parentID = $('#ParentId').combobox('getText');
-		var researchName = $('#ResearchName').val();
 
+		var majorNum = $('#MajorNum').val();
+
+		var majorName = $('#MajorName').val();
+		var duration = $('#Duration').combobox('getText');
+		var direction = $('#Direction').val();
+		var unitId = $('#UnitId').combobox('getText');
 
 		//根据数据库定义的字段的长度，对其进行判断
-		if (unitID == null || unitID.length == 0 ) {
-			alert("教研室号不能为空");
+		if (majorNum == null || majorNum.length == 0 ) {
+			alert("专业代码不能为空");
+			return false;
+		}
+		
+		if (majorName == null || majorName.length == 0 ) {
+			alert("专业名称不能为空");
+			return false;
+		}
+		
+		if (duration == null || duration.length == 0 ) {
+			alert("年限不能为空");
+			return false;
+		}
+		
+		if (direction == null || direction.length == 0 ) {
+			alert("方向名称不能为空");
 			return false;
 		}
 
-		if (parentID == null || parentID.length == 0 ) {
-			alert("所属教学单位不能为空");
+		if (unitId == null || unitId.length == 0) {
+			alert("所属学院不能为空");
 			return false;
 		}
-
-		if (researchName == null || ResearchName.length == 0) {
-			alert("一级分类不能为空");
-			return false;
-		}
-
-
+		
+		
 		return true;
 	}
 
-	function editRoom() {
-		var row = $('#roomManager').datagrid('getSelections');
+	function editMajor() {
+		var row = $('#majorManager').datagrid('getSelections');
 
 		if (row.length != 1) {
 			$.messager.alert('温馨提示', "请选择1条编辑的数据！！！");
 			return;
 		}
+		
+		url = 'pages/DiMajorOne/edit';
 
-		url = 'pages/DiResearchRoom/edit';
+		$('#dlg').dialog('open').dialog('setTitle', '编辑专科专业');
+		
+    	$('#MajorNum').val(row[0].majorNum) ;
+    	$("input#MajorNum").attr("readonly",true);
+    	$("input#MajorNum").css({"color":"#888"});
 
-		$('#dlg').dialog('open').dialog('setTitle', '编辑教研室');
+    	$('#MajorName').val(row[0].majorName);
+    	$('#Direction').val(row[0].direction);
+		$('#Duration').combobox('select',row[0].duration);
+		$('#UnitId').combobox('select',row[0].unitId);
 
-    	$('#UnitID').val(row[0].unitId) ;
-    	$("input#UnitID").attr("readonly",true);
-    	$("input#UnitID").css({"color":"#888"});
-
-
-
-		$('#ParentId').combobox('select',row[0].parentId);
-		$('#ResearchName').val(row[0].researchName);
 	}
 
 	function deleteByIds() {
 		//获取选中项
-		var row = $('#roomManager').datagrid('getSelections');
+		var row = $('#majorManager').datagrid('getSelections');
 
 		if (row.length == 0) {
 			$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
@@ -123,12 +140,12 @@
 				ids += "(";
 				for ( var i = 0; i < row.length; i++) {
 					if (i < (row.length - 1)) {
-						ids += ("'"+row[i].unitId+"'" + ",");
+						ids += ("'"+row[i].majorNum+"'" + ",");
 					} else {
-						ids += ("'"+row[i].unitId +"'"+ ")");
+						ids += ("'"+row[i].majorNum +"'"+ ")");
 					}
-				}
-				url = "pages/DiResearchRoom/deleteByIds?ids=" + ids ;
+				}				
+				url = "pages/DiMajorOne/deleteByIds?ids=" + ids ;
 				submitIds();
 			}
 		});
@@ -145,17 +162,17 @@
 				result = eval("(" + result + ")");
 				if (result.state) {
 					alert(result.data);
-					$('#roomManager').datagrid('reload');
+					$('#majorManager').datagrid('reload');
 				}
 			}
 		}).submit();
 	}
 
 	//查询
-	function reloadgrid ()  {
-        //查询参数直接添加在queryParams中
+	function reloadgrid ()  { 
+        //查询参数直接添加在queryParams中 
          var  queryValue = $('#searchID').val();
-         var queryParams = $('#roomManager').datagrid('options').queryParams;
-         queryParams.searchID = queryValue;
-         $("#roomManager").datagrid('reload');
-    }
+         var queryParams = $('#majorManager').datagrid('options').queryParams;  
+         queryParams.searchID = queryValue;  
+         $("#majorManager").datagrid('reload'); 
+    }	

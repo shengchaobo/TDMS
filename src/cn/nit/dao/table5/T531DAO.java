@@ -100,7 +100,7 @@ public class T531DAO {
 			}
 			
 			while(rs.next()){
-				total = rs.getInt(1) ;
+				total+=1;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;

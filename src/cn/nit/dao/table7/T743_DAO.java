@@ -132,18 +132,21 @@ public class T743_DAO {
 		 *
 		 * @time: 2014-5-14/下午02:34:42
 		 */
-		public List<T743_Bean> totalList(){
-			
-			String sql = "select " + key+ "," +field + " from " + tableName;
+		public List<T743POJO> totalList(String year){
+            StringBuffer sql=new StringBuffer();			
+			sql.append("select  t.SeqNumber,t.CSName,t.CSID,t.SetCSUnit,t.UnitID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.CSLeader,t.TeaID,t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note");
+		    sql.append(" from "+ tableName +" as t, DiCourseChar csn, DiCourseCategories cst");
+			sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+			     
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;
-			List<T743_Bean> list = null ;
+			List<T743POJO> list = null ;
 			
 			try{
 				st = conn.createStatement() ;
-				rs = st.executeQuery(sql) ;
-				list = DAOUtil.getList(rs, T743_Bean.class) ;
+				rs = st.executeQuery(sql.toString()) ;
+				list = DAOUtil.getList(rs, T743POJO.class) ;
 			}catch(Exception e){
 				e.printStackTrace() ;
 				return null ;

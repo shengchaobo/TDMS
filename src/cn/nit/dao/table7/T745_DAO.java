@@ -136,18 +136,21 @@ public class T745_DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T745_Bean> totalList(){
+	public List<T745POJO> totalList(String year){
+		StringBuffer sql=new StringBuffer();
 		
-		String sql = "select " + key+ "," +field + " from " + tableName;
+		sql.append("select  t.SeqNumber,t.TeaUnit,dbt.UnitID as UnitID,t.UnitID as UnitIDD,t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note");
+		sql.append(" from " + tableName + " as t, DiDepartment  dbt");
+		sql.append(" where dbt.UnitID=t.UnitID ");
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T745_Bean> list = null ;
+		List<T745POJO> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
-			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T745_Bean.class) ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T745POJO.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;

@@ -98,7 +98,6 @@ public class T553_DAO {
  	 */
    
      public List<T553POJO> auditingData(String conditions,String fillUnitId,int page,int rows){
- 		
      	
      	StringBuffer sql=new StringBuffer();
      	
@@ -148,18 +147,21 @@ public class T553_DAO {
  	 *
  	 * @time: 2014-5-14/下午02:34:42
  	 */
- 	public List<T553_Bean> totalList(){
- 		
- 		String sql = "select " + key+ "," +field + " from " + tableName;
+ 	public List<T553POJO> totalList(String year){
+ 		StringBuffer sql=new StringBuffer();
+ 		sql.append("select t.SeqNumber,t.AwardName,t.AwardStuName,t.StuID,t.TeaUnit,t.FromClass,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardTime,t.Time,t.Note");
+     	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
+     	sql.append(" where adl.IndexID=t.AwardLevel") ;
+     	
  		Connection conn = DBConnection.instance.getConnection() ;
  		Statement st = null ;
  		ResultSet rs = null ;
- 		List<T553_Bean> list = null ;
+ 		List<T553POJO> list = null ;
  		System.out.println(sql);
  		try{
  			st = conn.createStatement() ;
- 			rs = st.executeQuery(sql) ;
- 			list = DAOUtil.getList(rs, T553_Bean.class) ;
+ 			rs = st.executeQuery(sql.toString()) ;
+ 			list = DAOUtil.getList(rs, T553POJO.class) ;
  		}catch(Exception e){
  			e.printStackTrace() ;
  			return null ;

@@ -148,18 +148,20 @@ public class T511_DAO {
  	 *
  	 * @time: 2014-5-14/下午02:34:42
  	 */
- 	public List<T511_Bean> totalList(){
- 		
- 		String sql = "select " + key+ "," +field + " from " + tableName;
+ 	public List<T511POJO> totalList(String year){
+ 		StringBuffer sql=new StringBuffer();
+ 		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
+		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
+		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
  		Connection conn = DBConnection.instance.getConnection() ;
  		Statement st = null ;
  		ResultSet rs = null ;
- 		List<T511_Bean> list = null ;
+ 		List<T511POJO> list = null ;
  		System.out.println(sql);
  		try{
  			st = conn.createStatement() ;
- 			rs = st.executeQuery(sql) ;
- 			list = DAOUtil.getList(rs, T511_Bean.class) ;
+ 			rs = st.executeQuery(sql.toString()) ;
+ 			list = DAOUtil.getList(rs, T511POJO.class) ;
  		}catch(Exception e){
  			e.printStackTrace() ;
  			return null ;

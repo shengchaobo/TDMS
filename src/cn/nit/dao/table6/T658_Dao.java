@@ -162,7 +162,7 @@ public class T658_Dao {
 		return list ;
 	}
 	
-	public List<T658_Bean> queryPageList(String cond, Object object,
+	public List<T658_Bean> queryPageList(String cond, String filledID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
 		String queryPageSql;
@@ -173,7 +173,8 @@ public class T658_Dao {
 //			fieldShow
 			+ " from " + tableName + 
 			" left join DiAwardLevel on "+tableName+".ConferenceLevel = DiAwardLevel.IndexID"+
-			" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
+			" where " + cond + " and FillUnitID="+filledID+
+			" and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
 			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
 	
 

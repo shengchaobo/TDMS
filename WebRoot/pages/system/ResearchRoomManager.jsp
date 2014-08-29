@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									所属教学单位：
 								</label>
-								<input id="ParentId" type="text" name="room_bean.parentId" class='easyui-combobox' 
+								<input id="ParentId" name="room_bean.parentId" class='easyui-combobox' 
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
 							">
 							 <span id="ParentIdSpan"></span>

@@ -201,6 +201,8 @@ public class T651_Action {
 
 	/** 编辑数据 */
 	public void edit() {
+		T651_bean.setFillUnitID(fillUnitID);
+//		T651_bean.setTime(new Date());
 		boolean flag = T651_service.update(T651_bean);
 		PrintWriter out = null;
 
@@ -257,7 +259,7 @@ public class T651_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T651_Bean> list = T651_dao.getAllList("1=1", null);
+			List<T651_Bean> list = T651_dao.getAllList("1=1", fillUnitID);
 						
 			String sheetName = this.excelName;
 				

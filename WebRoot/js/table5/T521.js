@@ -54,7 +54,7 @@
     
 	//单条导入
 	function singleImport() {
-		alert(22);
+//		alert(22);
 		// 录入数据的表单提交
 		$('#addForm').form('submit', {
 				url : url,

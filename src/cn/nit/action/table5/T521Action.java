@@ -138,7 +138,8 @@ public class T521Action {
 				cond = conditions.toString();
 			}
 
-
+            System.out.println("page:"+page);
+            System.out.println("rows:"+rows);
 			String pages = t521Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 
 			PrintWriter out = null ;

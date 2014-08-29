@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		
+
 		<link rel="stylesheet" type="text/css"  href="jquery-easyui/themes/default/easyui.css">
 		<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 		<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript" src="js/system/ResearchRoomManager.js"></script>
-		
+
 	</head>
 <body style="overflow-y:scroll">
 	<table id="roomManager" class="easyui-datagrid"  style="height: auto;"  >
@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="unitId">教研室号</th>
 				<th field="parentId">所属教学单位号</th>
-				
+
 				<th field="researchName">教研室名称</th>
 			</tr>
 		</thead>
@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-add" plain="true" onclick="newRoom()">添加教学单位</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-edit" plain="true" onclick="editRoom()">编辑教学单位</a> 
+				iconCls="icon-edit" plain="true" onclick="editRoom()">编辑教学单位</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除教学单位</a>
 		</div>
@@ -78,8 +78,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									所属教学单位：
 								</label>
-								<input id="ParentID" type="text" name="room_bean.parentId" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
+
+								<input id="ParentId" name="room_bean.parentId" class='easyui-combobox'
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
 							">
 							 <span id="ParentIdSpan"></span>
 							</div>
@@ -95,13 +96,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									class="easyui-validatebox">
 								<span id="ResearchNameSpan"></span>
 							</div>
-						</td>									
-					</tr>				
-				
+						</td>
+					</tr>
+
 			</table>
 		</form>
 	</div>
-	
+
 	<div id="dlg-buttons">
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-ok" onclick="singleImport()">保存</a> <a

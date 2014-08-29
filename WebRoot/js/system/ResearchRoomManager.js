@@ -18,19 +18,19 @@
 			rownumbers : true,
 			pagination: true,
 			onLoadSuccess: function (rowData) {
-				
+
 			}
 		});
-						
+
 	});
-			
+
 	var url;
 	function newRoom() {
-		
+
 		//update隐藏的量在提交之后要恢复
 		$("input#UnitID").attr("readonly",false);
 		$("input#UnitID").css({"color":"black"});
-		
+
 		url = 'pages/DiResearchRoom/insert';
 		$('#dlg').dialog('open').dialog('setTitle', '添加教研室');
 		$('#roomManagerForm').form('reset');
@@ -62,16 +62,17 @@
 	function validate() {
 		//获取文本框的值
 		var unitID = $('#UnitID').val();
-		var parentID = $('#ParentID').combobox('getText');
+		var parentID = $('#ParentId').combobox('getText');
+		alert(parentID);
 		var researchName = $('#ResearchName').val();
 
-		
+
 		//根据数据库定义的字段的长度，对其进行判断
 		if (unitID == null || unitID.length == 0 ) {
 			alert("教研室号不能为空");
 			return false;
 		}
-		
+
 		if (parentID == null || parentID.length == 0 ) {
 			alert("所属教学单位不能为空");
 			return false;
@@ -81,8 +82,8 @@
 			alert("一级分类不能为空");
 			return false;
 		}
-		
-		
+
+
 		return true;
 	}
 
@@ -93,17 +94,21 @@
 			$.messager.alert('温馨提示', "请选择1条编辑的数据！！！");
 			return;
 		}
-		
+
 		url = 'pages/DiResearchRoom/edit';
 
 		$('#dlg').dialog('open').dialog('setTitle', '编辑教研室');
-		
+
     	$('#UnitID').val(row[0].unitId) ;
+    	alert(row[0].unitId);
     	$("input#UnitID").attr("readonly",true);
     	$("input#UnitID").css({"color":"#888"});
-    	
-		$('#ParentID').combobox('select',row[0].parentId);
-		$('#ResearchName').val(row[0].researchName);	
+
+
+
+		$('#ParentId').combobox('select',row[0].parentId);
+		$('#ResearchName').val(row[0].researchName);
+		alert(row[0].researchNam);
 	}
 
 	function deleteByIds() {
@@ -125,7 +130,7 @@
 					} else {
 						ids += ("'"+row[i].unitId +"'"+ ")");
 					}
-				}				
+				}
 				url = "pages/DiResearchRoom/deleteByIds?ids=" + ids ;
 				submitIds();
 			}
@@ -150,10 +155,10 @@
 	}
 
 	//查询
-	function reloadgrid ()  { 
-        //查询参数直接添加在queryParams中 
+	function reloadgrid ()  {
+        //查询参数直接添加在queryParams中
          var  queryValue = $('#searchID').val();
-         var queryParams = $('#roomManager').datagrid('options').queryParams;  
-         queryParams.searchID = queryValue;  
-         $("#roomManager").datagrid('reload'); 
-    }	
+         var queryParams = $('#roomManager').datagrid('options').queryParams;
+         queryParams.searchID = queryValue;
+         $("#roomManager").datagrid('reload');
+    }

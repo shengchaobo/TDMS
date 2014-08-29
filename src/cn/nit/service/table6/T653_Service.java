@@ -73,14 +73,14 @@ public class T653_Service {
 		return pageInfo;	
 	}
 	
-	public List<T653_Bean> getPageInfoList(String cond, Object object,
+	public List<T653_Bean> getPageInfoList(String cond, String filledID,
 			String rows, String page) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
 		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
 		
-		List<T653_Bean> pageInfo = T653_dao.queryPageList(cond, object, pagesize, currentpage);
+		List<T653_Bean> pageInfo = T653_dao.queryPageList(cond, filledID, pagesize, currentpage);
 		
 		return pageInfo;	
 	}

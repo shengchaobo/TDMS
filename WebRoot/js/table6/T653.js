@@ -198,8 +198,8 @@ function editItem() {
 	$('#awardStuNum').val(row[0].awardStuNum);
 	$('#guideTeaName').val(row[0].guideTeaName);
 	$('#guideTeaNum').val(row[0].guideTeaNum);
-	
-	$('#isAward').combobox('select', row[0].isAward);
+	var flag1 = "" + row[0].isAward ;
+	$('#isAward').combobox('select', flag1);
 	$('#awardLevel').combobox('select', row[0].awardLevel);
 	$('#awardName').val(row[0].awardName);
 	$('#awardFromUnit').val(row[0].awardFromUnit);	

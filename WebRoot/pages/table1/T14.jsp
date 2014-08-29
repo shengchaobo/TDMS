@@ -52,12 +52,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<a href='pages/T14/dataExport?excelName=<%=URLEncoder.encode("表1-4学校教学单位","UTF-8")%>' class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>
+		<!-- 
 				<form id="auditing" method="post" style="float: right;height: 24px;">
 			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
 				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
 				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
+			 -->
 	</div>
 
 	<div id="dlg" class="easyui-dialog"

@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'table.jsp' starting page</title>
+<title>T182</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -136,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>签订时间：</label> 
-						<input class="easyui-datebox" id="SignedTime" name="t181Bean.SignedTime" >
+						<input class="easyui-datebox" id="SignedTime" name="t181Bean.SignedTime" editable="false">
 					   <span id="SignedTimeSpan"></span>
 					</div>
 				</td>

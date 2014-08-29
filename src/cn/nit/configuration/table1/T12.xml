@@ -7,7 +7,7 @@
 	    <!-- 显示数据 -->
 	    <action name="auditingData" class="cn.nit.action.table1.T12Action" method="auditingData" />
 	      <!-- 数据查询 -->
-	    <action name="singleSearch" class="cn.nit.action.table1.T12Action" method="auditingConditions"/>
+	    <action name="singleSearch" class="cn.nit.action.table1.T12Action" method="auditingData"/>
 	    
 	      <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table1.T12Action" method="execute">

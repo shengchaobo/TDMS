@@ -229,7 +229,7 @@ public class T651_Excel {
 				T651_bean.setAwardStuNum(Integer.parseInt(awardStuNum));
 				T651_bean.setGuideTeaName(guideTeaName);
 				T651_bean.setGuideTeaNum(Integer.parseInt(guideTeaNum));
-				T651_bean.setFillUnitID(userinfo.getTeaID());
+				T651_bean.setFillUnitID(userinfo.getUnitID());
 				T651_bean.setNote(note);
 
 				// 插入时间

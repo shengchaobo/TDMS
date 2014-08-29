@@ -244,7 +244,7 @@ public class T152Excel {
 				
 				count++ ;
 				
-				String fillUnitID=userinfo.getTeaID() ;
+				String fillUnitID=userinfo.getUnitID();
 				Date BeginYear=TimeUtil.changeDateY(BeginYearStr);
 
 				double houseArea=DateUtil.doubleTwo(HouseArea);

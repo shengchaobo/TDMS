@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <td>
 					<div class="fitem">
 						<label>建设时间：</label> 
-						 <input id="BuildYear" name="t17Bean.BuildYear"  class="easyui-datebox" >
+						 <input id="BuildYear" name="t17Bean.BuildYear"  class="easyui-datebox" editable="false">
 						 <span id="BuildYearSpan"></span>
 					</div>
 				</td>

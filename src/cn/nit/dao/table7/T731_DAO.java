@@ -135,18 +135,21 @@ public class T731_DAO {
 		 *
 		 * @time: 2014-5-14/下午02:34:42
 		 */
-		public List<T731_Bean> totalList(){
+		public List<T731POJO> totalList(String year){
+            StringBuffer sql=new StringBuffer();
 			
-			String sql = "select " + key+ "," +field + " from " + tableName;
+			sql.append("select t.SeqNumber,t.AttendClassTerm,t.LeaderName,tbp.TeaID as LeaderID,t.LeaderID as LeaderIDD,t.AttendClassTime,t.LectureTea,t.LectureTeaID,t.LectureCS,t.CSID,t.SetCSUnit,t.UnitID,t.LectureClass,t.Evaluate,t.Time,t.Note");
+			sql.append(" from " + tableName + " as t, T411_TeaBasicInfo_Per$  tbp");
+			sql.append(" where tbp.TeaID=t.LeaderID ");
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;
-			List<T731_Bean> list = null ;
+			List<T731POJO> list = null ;
 		
 			try{
 				st = conn.createStatement() ;
-				rs = st.executeQuery(sql) ;
-				list = DAOUtil.getList(rs, T731_Bean.class) ;
+				rs = st.executeQuery(sql.toString()) ;
+				list = DAOUtil.getList(rs, T731POJO.class) ;
 			}catch(Exception e){
 				e.printStackTrace() ;
 				return null ;

@@ -222,11 +222,12 @@ public class T652_Dao {
 		return list ;
 	}
 	
-	public List<T652_Bean> getAllList(String cond, Object object) {
+	public List<T652_Bean> getAllList(String cond, String filledID) {
 		// TODO Auto-generated method stub
 		String sql;
 		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
+		sql = "select " + fieldShow + " from " + tableName +" where " + cond
+			 +" and FillUnitID="+filledID;
 	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;

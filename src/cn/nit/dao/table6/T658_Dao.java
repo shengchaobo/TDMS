@@ -224,7 +224,7 @@ public class T658_Dao {
 		return list ;
 	}
 	
-	public List<T658_Bean> getAllList(String cond, Object object) {
+	public List<T658_Bean> getAllList(String cond, String fillUnitID) {
 		// TODO Auto-generated method stub
 		String sql;
 		sql = "select SeqNumber,TeaUnit,UnitID,ConferenceName,PaperTitle,HoldTime,HoldPlace,HoldUnit,DiAwardLevel.AwardLevel as ConferenceLevel,AwardStuName" +
@@ -232,7 +232,8 @@ public class T658_Dao {
 //		fieldShow
 		+ " from " + tableName + 
 		" left join DiAwardLevel on "+tableName+".ConferenceLevel = DiAwardLevel.IndexID"+
-		" where "+cond;
+		" where "+cond+" and FillUnitID="+fillUnitID;
+		
 //		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
 	    System.out.println(sql);
 	

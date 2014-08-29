@@ -1,4 +1,4 @@
-package cn.nit.action.table7;
+﻿package cn.nit.action.table7;
 
 
 import java.io.ByteArrayInputStream;
@@ -20,6 +20,7 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table7.T735_Bean;
 import cn.nit.dao.table7.T735_DAO;
+import cn.nit.pojo.table7.T735POJO;
 import cn.nit.service.table7.T735_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -50,7 +51,15 @@ public class T735_Action {
 	
 	/**  下载的excelName  */
 	private String excelName ;
+	/**导出选择年份*/
+	private String selectYear;
 	
+	public String getSelectYear() {
+		return selectYear;
+	}
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
@@ -195,7 +204,8 @@ public class T735_Action {
 		
 		try {
 			
-			List<T735_Bean> list = t735_DAO.totalList();
+
+			List<T735POJO> list = t735_DAO.totalList(this.getSelectYear());
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();

@@ -232,7 +232,7 @@ public class T653_Excel {
 				T653_bean.setAwardLevel(awardLevel);
 				T653_bean.setAwardName(awardName);
 				T653_bean.setAwardFromUnit(awardFromUnit);
-				T653_bean.setFillUnitID(userinfo.getTeaID());
+				T653_bean.setFillUnitID(userinfo.getUnitID());
 				T653_bean.setNote(note);
 
 				// 插入时间

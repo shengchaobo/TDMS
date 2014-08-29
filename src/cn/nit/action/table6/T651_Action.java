@@ -158,7 +158,7 @@ public class T651_Action {
 			System.out.println("cond:"+cond);
 		}
 		List<T651_Bean> list = T651_service.getPageInfoList(cond,fillUnitID,this.getRows(), this.getPage());
-		String TeaInfoJson = this.toBeJson(list, T651_service.getTotal(cond,null));
+		String TeaInfoJson = this.toBeJson(list, T651_service.getTotal(cond,fillUnitID));
 
 		PrintWriter out = null;
 

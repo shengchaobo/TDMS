@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>签订时间：</label> 
-						<input class="easyui-datebox" id="SignedTime" name="t181Bean.SignedTime" >
+						<input class="easyui-datebox" id="SignedTime" name="t181Bean.SignedTime"  editable="false">
 					   <span id="SignedTimeSpan"></span>
 					</div>
 				</td>

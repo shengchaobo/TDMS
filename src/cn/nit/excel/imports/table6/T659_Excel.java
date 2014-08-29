@@ -183,7 +183,7 @@ public class T659_Excel {
 				T659_bean.setFromOverseasToSch(Integer.parseInt(fromOverseasToSch));
 				T659_bean.setFromSchToDomestic(Integer.parseInt(fromSchToDomestic));
 				T659_bean.setFromSchToOverseas(Integer.parseInt(fromSchToOverseas));
-				T659_bean.setFillUnitID(userinfo.getTeaID());
+				T659_bean.setFillUnitID(userinfo.getUnitID());
 
 				// 插入时间
 				T659_bean.setTime(TimeUtil.changeDateY(selectYear));

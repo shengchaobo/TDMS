@@ -216,7 +216,7 @@ public class T658_Excel {
 				T658_bean.setGuideTeaName(guideTeaName);
 				T658_bean.setGuideTeaNum(Integer.parseInt(guideTeaNum));
 				T658_bean.setNote(note);
-				T658_bean.setFillUnitID(userinfo.getTeaID());
+				T658_bean.setFillUnitID(userinfo.getUnitID());
 
 				// 插入时间
 				T658_bean.setTime(TimeUtil.changeDateY(selectYear));

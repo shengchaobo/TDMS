@@ -82,9 +82,9 @@ public class T651_Service {
 		return pageInfo;	
 	}
 	
-	public int getTotal(String cond, Object object) {
+	public int getTotal(String cond, String filledID) {
 		// TODO Auto-generated method stub
-		return T651_dao.getAllList(cond, object).size();
+		return T651_dao.getAllList(cond, filledID).size();
 	}
 	
 

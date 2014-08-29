@@ -104,6 +104,8 @@ public class T152Action {
 	
 	/**  为界面加载数据  */
 	public void auditingData(){
+		
+		System.out.println("fillUnitID:"+fillUnitID);
 			
 //			System.out.println("輸出輸出輸出");
 			
@@ -215,7 +217,7 @@ public class T152Action {
 
 		try {
 			
-			List<T152Bean> list = t152Dao.totalList();
+			List<T152Bean> list = t152Dao.totalList(fillUnitID);
 			
 			String sheetName = this.excelName;
 			

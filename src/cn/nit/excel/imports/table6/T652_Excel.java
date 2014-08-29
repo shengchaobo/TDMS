@@ -232,7 +232,7 @@ public class T652_Excel {
 				T652_bean.setAwardLevel(awardLevel);
 				T652_bean.setAwardName(awardName);
 				T652_bean.setAwardFromUnit(awardFromUnit);
-				T652_bean.setFillUnitID(userinfo.getTeaID());
+				T652_bean.setFillUnitID(userinfo.getUnitID());
 
 				T652_bean.setNote(note);
 

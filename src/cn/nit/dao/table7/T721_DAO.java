@@ -144,18 +144,22 @@ public class T721_DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T721_Bean> totalList(){
+	public List<T721POJO> totalList(String year){
 		
-		String sql = "select " + key+ "," +field + " from " + tableName;
+     StringBuffer sql=new StringBuffer();
+		
+		sql.append("select t.SeqNumber,t.ItemName,t.TeaUnit,t.UnitID,t.Leader,t.TeaID,t.OtherTeaNum,t.OtherTea,adl.AwardLevel as ItemLevel,t.ItemLevel as ItemLevelID,t.ItemSetUpTime,t.ReceptTime,t.ApplvExp,t.SchSupportExp,t.AppvlID,t.Time,t.Note");
+		sql.append(" from "+ tableName +" as t, DiAwardLevel adl");
+		sql.append(" where adl.IndexID=t.ItemLevel ");
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T721_Bean> list = null ;
+		List<T721POJO> list = null ;
 		System.out.println(sql);
 		try{
 			st = conn.createStatement() ;
-			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T721_Bean.class) ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T721POJO.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;

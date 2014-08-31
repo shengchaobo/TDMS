@@ -1,3 +1,4 @@
+
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="java.net.*" %>
 <%
@@ -193,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T49/dataExport?excelName=<%=URLEncoder.encode("表4-9教师出版教材（教学单位-教务处）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
+		<a href="pages/T49/dataExport?excelName=<%=URLEncoder.encode('表4-9教师出版教材（教学单位-教务处）','UTF-8')%>" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	

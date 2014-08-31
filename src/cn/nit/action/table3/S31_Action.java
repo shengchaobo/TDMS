@@ -198,8 +198,6 @@ private S31_Service s31_Service = new S31_Service() ;
 
 
 	public String execute() throws Exception{
-
-		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
 		return "success" ;
 	}
 	

@@ -204,7 +204,6 @@ public class S321_Action {
 
 	
 	public String execute() throws Exception{
-		request.setCharacterEncoding("UTF-8") ;
 		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}

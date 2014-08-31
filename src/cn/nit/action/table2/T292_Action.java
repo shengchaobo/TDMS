@@ -245,7 +245,6 @@ public class T292_Action {
 	}
 	
 	public String execute() throws Exception{
-		response.setContentType("text/html;charset=utf-8"); 
 		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}

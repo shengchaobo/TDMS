@@ -35,7 +35,10 @@
 	//对输入字符串进行验证
 	function validate() {
 		// 获取文本框的值
-		var teaId = $('#teaId').val();
+		
+		
+		var teaId = $('#name').combobox('getText');
+		var teaName = $('#name').combobox('getValue');
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字	
 			
@@ -47,6 +50,11 @@
 			return false;
 		} else if (teaId.length > 50) {
 			alert("教师ID长度不超过50");
+			return false;
+		}
+		//根据数据库定义的字段的长度，对其进行判断
+		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
+			alert("教工号不能为空或者教师库中无该教工号");
 			return false;
 		}
 		

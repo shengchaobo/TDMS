@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属单位：</label> 
 						<input type="hidden" name="T442_bean.fromUnit" id="fromUnit"/>
 						<input id="unitId" type="text" name="T442_bean.unitId" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:true,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							onSelect:function(){
 							    document.getElementById('fromUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -239,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属专业：</label> 
 						<input type="hidden" name="T442_bean.majorName" id="majorName"/>
 						<input id="majorId" type="text" name="T442_bean.majorId" class='easyui-combobox' 
-							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:true,
+							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('MajorName').value=$(this).combobox('getText') ;
 							 }">

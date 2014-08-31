@@ -184,7 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>听课日期：</label> 
 						<input id="AttendClassTime" class="easyui-datebox" style="width:80px" name="schleadInClass.AttendClassTime"
-							><span id="AttendClassTimeSpan"></span>
+							editable="false"><span id="AttendClassTimeSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>	
@@ -225,7 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>开课单位：</label> 
 						<input id="SetCSUnit" type="hidden" name="schleadInClass.SetCSUnit">
 						<input id="UnitID" type="text" name="schleadInClass.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('SetCSUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -245,7 +245,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>综合评价：</label> 
-						<select class='easyui-combobox' id="Evaluate" name="schleadInClass.Evaluate" panelHeight="auto">
+						<select class='easyui-combobox' id="Evaluate" name="schleadInClass.Evaluate" panelHeight="auto" editable="false">
 						<option value="优">优</option>
 						<option value="良">良</option>
 						<option value="中">中</option>
@@ -374,9 +374,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function validate(){
 			//获取文本框的值
 			var attendClassTerm = $('#AttendClassTerm').val();
-			var leaderID = $('#LeaderName').combobox('getText');
+			var leaderId = $('#LeaderName').combobox('getText');
+			var leaderName = $('#LeaderName').combobox('getValue');
+				
 			var attendClassTime = $('#AttendClassTime').datebox('getText');
-			var lectureTeaID = $('#LectureTea').combobox('getText');
+			var lectureTeaId = $('#LectureTea').combobox('getText');
+			var lectureTeaName = $('#LectureTea').combobox('getValue');
 			var lectureCS = $('#LectureCS').val();
 			var cSID = $('#CSID').val();
 			var setCSUnit = $('#UnitID').combobox('getText');
@@ -388,18 +391,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    alert("听课学期不能为空");
 				return false;
 			}
-			if(leaderID == null || leaderID.length==0 || leaderID.length > 50){
-				alert("校领导姓名不能为空或长度不超过50");
+			if (leaderId == null ||  leaderId == ''  || leaderId.length == 0 || leaderId == leaderName) {
+				alert("校领导不能为空或者教师库中无该教工号");
 				return false;
 			}
+			
 			if(attendClassTime == null || attendClassTime.length == 0){
 				alert("听课日期不能为空");
 				return false;
 			}
-			if(lectureTeaID == null || lectureTeaID.length==0){
-			    alert("授课教师不能为空");
-				return false ;
+			
+			if (lectureTeaId == null ||  lectureTeaId == ''  || lectureTeaId.length == 0 || lectureTeaId == lectureTeaName) {
+				alert("教工号不能为空或者教师库中无该教工号");
+				return false;
 			}
+			
 			if(lectureCS == null || lectureCS.length == 0 ){
 			  alert("听课课程不能为空");	
 				return false ;

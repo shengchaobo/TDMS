@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<label>所属教学单位：</label>
 						<input type="hidden" name="teachResItemTea.TeaUnit" id="TeaUnit"/>
 						<input id="UnitID" type="text" name="teachResItemTea.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>立项时间：</label> 
-						<input  id="ItemSetUpTime"  class="easyui-datebox" style="width:80px" name="teachResItemTea.ItemSetUpTime">
+						<input  id="ItemSetUpTime"  class="easyui-datebox" style="width:80px" name="teachResItemTea.ItemSetUpTime" editable="false">
 						
 							<span id="ItemSetUpTimeSpan"></span>
 					</div>
@@ -237,7 +237,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>验收时间：</label> 
 						<input id="ReceptTime"  class="easyui-datebox" style="width:80px"  name="teachResItemTea.ReceptTime"
-							><span id="ReceptTimeSpan"></span>
+							editable="false"><span id="ReceptTimeSpan"></span>
 					</div>
 				</td>
 				</tr>
@@ -390,7 +390,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			//获取文本框的值
 			var itemName = $('#ItemName').val();
 			var teaUnit = $('#UnitID').combobox('getText');
-			var teaID = $('#Leader').combobox('getText');
+			var teaId = $('#Leader').combobox('getText');
+			var teaName = $('#Leader').combobox('getValue');
 			var otherTeaNum = $('#OtherTeaNum').val();
 			var otherTea = $('#OtherTea').val();
 			var itemLevel = $('#ItemLevel').combobox('getText');
@@ -405,9 +406,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			alert("教学单位不能为空或长度不超过100");
 				return false;
 			}
-			if(teaID == null || teaID.length == 0){
+			if(teaId == null || teaId.length == 0){
 			alert("负责人不能为空");
 				return false ;
+			}
+			if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
+				alert("教工号不能为空或者教师库中无该教工号");
+				return false;
 			}
 			if(itemLevel == null || itemLevel.length==0 || itemLevel.length > 20){
 				alert("级别不能为空或长度不超过20");

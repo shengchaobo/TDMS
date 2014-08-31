@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
 						<input type="hidden" name="teachWorkAssessAC.TeaUnit" id="TeaUnit"/>
 						<input id="UnitID" type="text" name="teachWorkAssessAC.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -159,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>评估结果：</label> 
-						<select class='easyui-combobox' id="AssessResult" name="teachWorkAssessAC.AssessResult" panelHeight="auto">
+						<select class='easyui-combobox' id="AssessResult" name="teachWorkAssessAC.AssessResult" panelHeight="auto" editable="false">
 							<option value="校级优秀">校级优秀</option>
 							<option value="校级良好">校级良好</option>
 							<option value="校级合格">校级合格</option>

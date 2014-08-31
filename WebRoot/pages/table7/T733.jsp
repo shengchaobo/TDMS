@@ -163,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>会议日期：</label> 
 						<input id="MeetingDate" class="easyui-datebox" style="width:80px" name="eachUnitTeachResActInfo.MeetingDate"
-							><span id="MeetingDateSpan"></span>
+							editable="false"><span id="MeetingDateSpan"></span>
 					</div>
 				</td>
 				</tr>

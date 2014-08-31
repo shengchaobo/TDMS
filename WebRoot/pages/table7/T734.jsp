@@ -168,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属部门：</label> 
 						<input id="FromDept" type="hidden" name="teachAccidentTea.FromDept" >
 					    <input id="UnitID" type="text" name="teachAccidentTea.UnitID"
-					     class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+					     class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							   document.getElementById('FromDept').value=$(this).combobox('getText') ;
 							 }">
@@ -201,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>处理时间：</label> 
 						<input id="HandingTime" class="easyui-datebox" style="width:80px" name="teachAccidentTea.HandingTime"
-							><span id="HandingTimeSpan"></span>
+							editable="false"><span id="HandingTimeSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>	
@@ -340,7 +340,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var teaID = $('#TeaName').combobox('getText') ;
+			var teaId = $('#TeaName').combobox('getText');
+		    var teaName = $('#TeaName').combobox('getValue');
 			var fromDept = $('#UnitID').combobox('getText') ;
 			var accidentSite = $('#AccidentSite').val() ;
 			var cause = $('#Cause').val() ;
@@ -349,11 +350,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var handingID = $('#HandingID').val() ;
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(teaID == null || teaID.length==0){
-				alert("教工号不能为空");
-				
-				return false ;
-			}
+				if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
+					alert("教工号不能为空或者教师库中无该教工号");
+					return false;
+				}
 			if(fromDept == null || fromDept.length == 0){
 				alert("所属部门不能为空");
 				return false ;

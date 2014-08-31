@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属教学单位：</label> 
 						<input id="TeaUnit" type="hidden" name="teachAbilityAssessAC.TeaUnit" >
 					    <input id="UnitID" type="text" name="teachAbilityAssessAC.UnitID"
-					     class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+					     class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							   document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -221,7 +221,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>评估结果：</label> 
-						<select class='easyui-combobox' id="AccessResult" name="teachAbilityAssessAC.AccessResult" panelHeight="auto">
+						<select class='easyui-combobox' id="AccessResult" name="teachAbilityAssessAC.AccessResult" panelHeight="auto" editable="false">
 							<option value="合格">合格</option>
 							<option value="不合格">不合格</option>
 				
@@ -359,7 +359,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var teaID = $('#TeaName').combobox('getText');
+			var teaId = $('#TeaName').combobox('getText');
+		    var teaName = $('#TeaName').combobox('getValue');
 			
 			var teaUnit = $('#UnitID').combobox('getText');
 			
@@ -376,9 +377,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var appvlID = $('#AppvlID').val() ;
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(teaID == null || teaID.length==0){
-				alert("教工号不能为空");
-				return false ;
+			if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
+				alert("教工号不能为空或者教师库中无该教工号");
+				return false;
 			}
 			if(assessCS == null || assessCS.length == 0){
                 alert("参评课程不能为空");

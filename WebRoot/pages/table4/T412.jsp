@@ -81,31 +81,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				style="float: right; height: 24px;">
 				<table id="test" width="520">
 					<tr>
-						<th>
+						<td>
 							编号:
-						</th>
-						<th>
+						</td>
+						<td>
 							<input id="seqNum" name="seqNum" class="easyui-box"
-								style="width: 80px" />
-						</th>
-						<th>
+								style="width: 40px" />
+						</td>
+						<td>
 							起始日期:
-						</th>
-						<th>
+						</td>
+						<td>
 							<input id="startTime" name="startTime" class="easyui-datebox"
-								style="width: 80px" />
-						</th>
-						<th>
+								style="width: 100px" />
+						</td>
+						<td>
 							结束日期:
-						</th>
-						<th>
+						</td>
+						<td>
 							<input id="endTime" name="endTime" class="easyui-datebox"
-								style="width: 80px" />
-						</th>
-						<th>
+								style="width: 100px" />
+						</td>
+						<td>
 							<a href="javascript:void(0)" class="easyui-linkbutton"
 								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
-						</th>
+						</td>
 					</tr>
 				</table>
 			</form>

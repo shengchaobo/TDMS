@@ -151,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
 						<input type="hidden" name="discipBean.UnitName" id="UnitName"/>
 						<input id="UnitID" type="text" name="discipBean.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
 							 }">

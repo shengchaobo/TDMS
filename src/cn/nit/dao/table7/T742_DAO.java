@@ -92,10 +92,9 @@ public class T742_DAO {
 	public List<T742POJO> auditingData(String conditions,String fillUnitId,int page,int rows){
 		List<T742POJO> list=null;
 		StringBuffer sql=new StringBuffer();
-		
 		sql.append("select  t.SeqNumber,t.TeaName,t.TeaID,t.TeaUnit,t.UnitID,t.AssessCS,t.CSID,cst.CourseCategories as CSType,t.CSType as CSTypeID,t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note");
-		  sql.append(" from "+ tableName +" as t, DiCourseCategories cst");
-		  sql.append(" where cst.IndexID=t.CSType") ;
+		sql.append(" from "+ tableName +" as t, DiCourseCategories cst");
+		sql.append(" where cst.IndexID=t.CSType") ;
 		
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillUnitID=" + fillUnitId) ;
@@ -134,18 +133,20 @@ public class T742_DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T742_Bean> totalList(){
-		
-		String sql = "select " + key+ "," +field + " from " + tableName;
+	public List<T742POJO> totalList(String year){
+		StringBuffer sql=new StringBuffer();
+		sql.append("select  t.SeqNumber,t.TeaName,t.TeaID,t.TeaUnit,t.UnitID,t.AssessCS,t.CSID,cst.CourseCategories as CSType,t.CSType as CSTypeID,t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note");
+		sql.append(" from "+ tableName +" as t, DiCourseCategories cst");
+		sql.append(" where cst.IndexID=t.CSType") ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T742_Bean> list = null ;
+		List<T742POJO> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
-			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T742_Bean.class) ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T742POJO.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;

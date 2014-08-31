@@ -83,11 +83,110 @@ public class T321Excel {
 				    if(count<4){
 				    	count++;
 				    	continue;
-				    }
-				    
-				    
-				    
-                    if(mergedCells[count-1]!=0){
+				    }else if(count == 4){
+					    MainClassName = cell[1].getContents();
+					    
+					    if(MainClassName == null || MainClassName.equals("")){
+					    	return "第" + count + "行，大类名称不能为空" ;
+					    }
+
+						MainClassID = cell[2].getContents() ;
+						
+						if(MainClassID == null || MainClassID.equals("")){
+							return "第" + count + "行，大类代码不能为空" ;
+						}
+
+						ByPassTime=cell[3].getContents();
+						boolean isNum = ByPassTime.matches("[0-9]+"); 
+						if(!isNum){
+							return "第"+count+"行，研究员人数必须为正整数";
+						}
+						
+						
+						try{
+							ByPassTime1=Integer.parseInt(ByPassTime);
+						}catch( NumberFormatException e){
+							e.printStackTrace() ;	
+						}
+						if(ByPassTime1>10||ByPassTime1<1){
+							return "第" + count + "行，分流时间必须在1与10之间" ;
+						}
+						
+						String MajorNameInSch = cell[4].getContents();
+						String MajorID=cell[5].getContents();
+						
+						if(MajorNameInSch == null || MajorNameInSch.equals("")){
+							return "第" + count + "行，包含校内专业名称不能为空";
+						}
+						
+						if(MajorID == null || MajorID.equals("")){
+							return "第" + count + "行，校内专业代码不能为空";
+						}
+
+						for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
+							if(diMajorTwoBean.getMajorNum().equals(MajorID)){
+								if(diMajorTwoBean.getMajorName().equals(MajorNameInSch)){
+									flag = true ;
+									break ;
+								}else{
+									return "第" + count + "行，包含校内专业名称与校内专业代码不对应" ;
+								}
+							}//if
+						}//for
+						
+						if(!flag){
+							return "第" + count + "行，没有与之相匹配的校内专业代码" ;
+						}else{
+							flag = false ;
+						}
+					
+						String UnitName = cell[6].getContents();
+						String UnitID=cell[7].getContents();
+						
+						if(UnitName == null || UnitName.equals("")){
+							return "第" + count + "行，所属单位不能为空";
+						}
+						
+						if(UnitID == null || UnitID.equals("")){
+							return "第" + count + "行，单位号不能为空";
+						}
+
+						for(DiDepartmentBean diDepartBean : diDepartBeanList){
+							if(diDepartBean.getUnitId().equals(UnitID)){
+								if(diDepartBean.getUnitName().equals(UnitName)){
+									flag = true ;
+									break ;
+								}else{
+									return "第" + count + "行，所属单位与单位号不对应" ;
+								}
+							}//if
+						}//for
+						
+						if(!flag){
+							return "第" + count + "行，没有与之相匹配的单位号" ;
+						}else{
+							flag = false ;
+						}
+						
+
+						
+						
+					
+					count++ ;
+					
+					t321_Bean.setMainClassName(MainClassName);
+					t321_Bean.setMainClassID(MainClassID);
+					t321_Bean.setByPassTime(ByPassTime1);
+					t321_Bean.setMajorNameInSch(MajorNameInSch);
+					t321_Bean.setMajorID(MajorID);
+					t321_Bean.setUnitName(UnitName);
+					t321_Bean.setUnitID(UnitID);
+					t321_Bean.setTime(TimeUtil.changeDateY(selectYear));
+					list.add(t321_Bean);
+					System.out.println("数字");
+					System.out.println(count);
+					continue;
+				    }else if(mergedCells[count-1]!=0){
 				    MainClassName = cell[1].getContents();
 				    
 				    if(MainClassName == null || MainClassName.equals("")){
@@ -279,7 +378,9 @@ public class T321Excel {
 		flag = false ;
 		T321_Service t321_Ser = new T321_Service() ;
 		flag = t321_Ser.batchInsert(list) ;
-		
+		for(int i= 0;i<list.size();i++){
+			System.out.println(list.get(i).getMainClassID());
+		}
 		if(flag){
 			return "数据导入成功" ;
 		}else{
@@ -375,8 +476,8 @@ public class T321Excel {
                 	BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
                 	int i=1;  
                 	for(Object obj : list){  
-                		if(mergedCells[i-1]==i-1){
-                			if(i!=1&&mergedCells[i-2]!=i-2){
+                		if(mergedCells[i-1]==i-1){//相等
+                			if(i!=1&&mergedCells[i-2]!=i-2){//相等时，最后一个
                 				wrapper.setWrappedInstance(obj) ;  
                                 //循环输出map中的子集：既列值                         
                                 for(String column:maplist.keySet()){
@@ -396,7 +497,7 @@ public class T321Excel {
                     		
                                 i++;  
                 				
-                			}else {
+                			}else {//相等时，单个
                     		wrapper.setWrappedInstance(obj) ;  
                             //循环输出map中的子集：既列值                         
                             for(String column:maplist.keySet()){
@@ -430,7 +531,7 @@ public class T321Excel {
                             i++;
                             count++;
                 			}
-                		}else if(mergedCells[i-2]==i-2){
+                		}else if(i == 1){
                     		wrapper.setWrappedInstance(obj) ;  
                         	mergedNum=mergedCells[i-1];
                         	 mergedNumCell=mergedNum-i+1;
@@ -464,7 +565,44 @@ public class T321Excel {
                             }
                             count++;
                             i++;
-                		}else{
+                			
+                			
+                		}else if(mergedCells[i-2]==i-2){//不等，第一个
+                		
+                    		wrapper.setWrappedInstance(obj) ;  
+                        	mergedNum=mergedCells[i-1];
+                        	 mergedNumCell=mergedNum-i+1;
+                            //循环输出map中的子集：既列值                         
+                            for(String column:maplist.keySet()){
+
+                            	
+                            	if(column.equals("SeqNum")){
+                            		ws.addCell(new Label(0,i+2,""+count,normalFormat));
+                            		 ws.mergeCells(0, i+2,0,mergedNum+3);
+                            	}else if(column.equals("MainClassName")){
+                            		ws.addCell(new Label(1,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.mergeCells(1, i+2,1,mergedNum+3);
+                      
+                            	}else if(column.equals("MainClassID")){
+                            		ws.addCell(new Label(2,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
+                            		ws.mergeCells(2, i+2,2,mergedNum+3);
+                            	}else if(column.equals("ByPassTime")){
+                            		ws.addCell(new Label(3,i+2,(String) wrapper.getPropertyValue(column).toString(),normalFormat));
+                            		ws.mergeCells(3, i+2,3,mergedNum+3);
+                            	}else if(column.equals("MajorNameInSch")){
+                            		ws.addCell(new Label(4,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
+                            	}else if(column.equals("MajorID")){
+                            		ws.addCell(new Label(5,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
+                            	}else if(column.equals("UnitName")){
+                            		ws.addCell(new Label(6,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
+                            	}else if(column.equals("UnitID")){
+                            		ws.addCell(new Label(7,i+2,(String) wrapper.getPropertyValue(column),normalFormat));
+                            	}
+                            	
+                            }
+                            count++;
+                            i++;
+                		}else{//不等，中间的
                 			
                 				wrapper.setWrappedInstance(obj) ;  
                                 //循环输出map中的子集：既列值                         

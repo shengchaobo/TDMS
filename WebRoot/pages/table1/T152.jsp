@@ -148,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>开设年份：</label> 
-						 <input class="easyui-datebox" id="BeginYear" name="t152Bean.BeginYear" >
+						 <input class="easyui-datebox" id="BeginYear" name="t152Bean.BeginYear" editable="false">
 						 <span id="BeginYearSpan"></span>
 					</div>
 				</td>
@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <td>
 					<div class="fitem">
 						<label>共建情况：</label> 
-						<select class='easyui-combobox' id='BuildCondition' name='t152Bean.BuildCondition' style="width:50px">
+						<select class='easyui-combobox' id='BuildCondition' name='t152Bean.BuildCondition' style="width:50px" editable="false">
 						   <option value="true">是</option>
 						   <option value="false">否</option> 
 						</select>
@@ -182,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>是否对本科生开放：</label> 
-						<select class='easyui-combobox' id='BiOpen' name='t152Bean.BiOpen' style="width:50px">
+						<select class='easyui-combobox' id='BiOpen' name='t152Bean.BiOpen' style="width:50px" editable="false">
 						   <option value="true">是</option>
 						   <option value="false">否</option> 
 						</select>
@@ -254,6 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
 	
 	function singleSearch(){
+		alert(123);
    	 $('#auditing').form('submit',{
    		 url: 'pages/UndergraCSBaseTea/singleSearch',
    		 type: "post",

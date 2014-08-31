@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 <div></div>
-	<table id="verfiedData"class="easyui-datagrid"  url="table5/verifiedData">
+	<table id="verfiedData"class="easyui-datagrid"  url="">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 				      <div class="fitem">
 				        <label>获奖时间：</label>
-				        <input class="easyui-datebox" id="RewardTime" name="t19Bean.RewardTime" >
+				        <input class="easyui-datebox" id="RewardTime" name="t19Bean.RewardTime" editable="false">
 						<span id="RewardTimeSpan"></span>
 					</div>
 				</td>

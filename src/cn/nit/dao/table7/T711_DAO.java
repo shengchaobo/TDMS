@@ -151,18 +151,20 @@ public class T711_DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T711_Bean> totalList(){
-		
-		String sql = "select " + key+ "," +field + " from " + tableName;
+	public List<T711POJO> totalList(String year){
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note");
+    	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
+    	sql.append(" where adl.IndexID=t.AwardLevel") ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T711_Bean> list = null ;
+		List<T711POJO> list = null ;
 		System.out.println(sql);
 		try{
 			st = conn.createStatement() ;
-			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T711_Bean.class) ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T711POJO.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
@@ -254,7 +256,7 @@ public class T711_DAO {
     	T711_DAO t=new T711_DAO();
  
     	
-    	System.out.println(t.totalList().size());
+    	//System.out.println(t.totalList().size());
     	
     }
 

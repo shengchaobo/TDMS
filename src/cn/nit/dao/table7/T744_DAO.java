@@ -94,8 +94,8 @@ public class T744_DAO {
 		StringBuffer sql=new StringBuffer();
 		
 		sql.append("select  t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,mt.MajorNum as MajorID,t.MajorID as MajorIDD,t.DegreeType,t.LeaderName,t.TeaID,t.SetYear,t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note");
-		 sql.append(" from "+ tableName +" as t, DiMajorTwo mt");
-		  sql.append(" where mt.MajorNum=t.MajorID") ;
+		sql.append(" from "+ tableName +" as t, DiMajorTwo mt");
+		sql.append(" where mt.MajorNum=t.MajorID") ;
 		  
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and FillUnitID=" + fillUnitId) ;
@@ -134,18 +134,21 @@ public class T744_DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T744_Bean> totalList(){
+	public List<T744POJO> totalList(String year){
+        StringBuffer sql=new StringBuffer();
 		
-		String sql = "select " + key+ "," +field + " from " + tableName;
+		sql.append("select  t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,mt.MajorNum as MajorID,t.MajorID as MajorIDD,t.DegreeType,t.LeaderName,t.TeaID,t.SetYear,t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note");
+		sql.append(" from "+ tableName +" as t, DiMajorTwo mt");
+		sql.append(" where mt.MajorNum=t.MajorID") ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T744_Bean> list = null ;
+		List<T744POJO> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
-			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T744_Bean.class) ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T744POJO.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;

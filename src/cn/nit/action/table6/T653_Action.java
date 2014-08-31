@@ -164,7 +164,7 @@ public class T653_Action {
 		}
 		
 		List<T653_Bean> list = T653_service.getPageInfoList(cond,fillUnitID,this.getRows(), this.getPage());
-		String TeaInfoJson = this.toBeJson(list, T653_service.getTotal(cond,null));
+		String TeaInfoJson = this.toBeJson(list, T653_service.getTotal(cond,fillUnitID));
 
 		PrintWriter out = null;
 
@@ -265,7 +265,7 @@ public class T653_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T653_Bean> list = T653_dao.getAllList("1=1", null);
+			List<T653_Bean> list = T653_dao.getAllList("1=1", fillUnitID);
 						
 			String sheetName = this.excelName;
 			

@@ -93,9 +93,9 @@ public class T658_Service {
 		return pageInfo;	
 	}
 	
-	public int getTotal(String cond, Object object) {
+	public int getTotal(String cond, String fillUnitID) {
 		// TODO Auto-generated method stub
-		return T658_dao.getAllList(cond, object).size();
+		return T658_dao.getAllList(cond, fillUnitID).size();
 	}
 	
 

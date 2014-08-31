@@ -284,7 +284,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>获准时间：</label> 
-						 <input class="easyui-datebox" id="AppvlTime" name="t522Bean.AppvlTime" >
+						 <input class="easyui-datebox" id="AppvlTime" name="t522Bean.AppvlTime"  editable="false">
 						 <span id="AppvlTimeSpan"></span>
 					</div>
 				</td>
@@ -292,7 +292,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>验收时间：</label> 
-						 <input class="easyui-datebox" id="ReceptTime" name="t522Bean.ReceptTime" >
+						 <input class="easyui-datebox" id="ReceptTime" name="t522Bean.ReceptTime" editable = "false">
 						 <span id="ReceptTimeSpan"></span>
 					</div>
 				</td>
@@ -303,7 +303,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<label>所属教学单位：</label> 
 						<input type="hidden" name="t522Bean.TeaUnit" id="TeaUnit"/>
 						<input id="UnitID" type="text" name="t522Bean.UnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
 							onSelect:function(){
 							    $('#TeaUnit').val($(this).combobox('getText')) ;
 							 }">

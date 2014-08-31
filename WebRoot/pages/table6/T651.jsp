@@ -143,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="seqNumber" type="hidden" name="T651_bean.seqNumber">	
 						<input id="teaUnit" type="hidden" name="T651_bean.teaUnit">										
 						<input id="unitId" type="text" name="T651_bean.unitId" class='easyui-combobox'
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('teaUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -222,7 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>			
 					<div class="fitem">
 						<label>获奖时间：</label> 
-						<input id="awardTime" name="T651_bean.awardTime" class='easyui-datebox'><span id="awardTimeSpan"></span>
+						<input id="awardTime" name="T651_bean.awardTime" class='easyui-datebox' editable="false"><span id="awardTimeSpan"></span>
 						
 					</div>
 				</td>

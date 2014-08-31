@@ -119,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="seqNumber" type="hidden" name="T657_bean.seqNumber">	
 						<input id="teaUnit" type="hidden" name="T657_bean.teaUnit">										
 						<input id="unitId" type="text" name="T657_bean.unitId" class='easyui-combobox'
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('teaUnit').value=$(this).combobox('getText') ;
 							 }">

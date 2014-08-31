@@ -332,7 +332,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<label>开课单位：</label> 
 					<input type="hidden" name="t512_Bean.CSUnit" id="CSUnit"/>
 							<input id="UnitID" name="t512_Bean.UnitID" class='easyui-combobox' 
-								data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
+								data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
 								onSelect:function(){
 								     document.getElementById('CSUnit').value=$(this).combobox('getText') ;
 								 }">

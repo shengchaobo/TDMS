@@ -204,7 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td colspan="3">
 				<div class="fitem">
 				<label>获奖时间：</label> 
-					<input  id="AwardTime"  class="easyui-datebox" style="width:80px" name="t552_Bean.AwardTime">
+					<input  id="AwardTime"  class="easyui-datebox" style="width:80px" name="t552_Bean.AwardTime" editable="false">
 						<span id="AwardTimeSpan"></span>
 				</div></td>
 			</tr>

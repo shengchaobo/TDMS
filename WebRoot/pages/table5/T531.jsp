@@ -198,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <td>
 			    	<div class="fitem">
 						<label>获准时间：</label> 
-						 <input class="easyui-datebox" id="buildTime" name="t531Bean.buildTime" >
+						 <input class="easyui-datebox" id="buildTime" name="t531Bean.buildTime" editable = "false">
 						 <span id="buildTimeSpan"></span>
 					</div>
 			    </td>
@@ -208,7 +208,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 					<label>所属教学单位：</label>
 					<input id="TeaUnit"  name="t531Bean.TeaUnit" class='easyui-combobox'
-						data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false">
+						data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false">
 					<span id="TeaUnitSpan"></span>
 					</div>
 			   </td>

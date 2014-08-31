@@ -235,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>教学单位：</label> 
 						<input type="hidden" name="t534Bean.TeaUnit" id="TeaUnit"/>
 						<input id="UnitID" type="text" name="t534Bean.UnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:true,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							onSelect:function(){
 							    document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -248,7 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>专业名称：</label> 
 						<input type="hidden" name="t534Bean.MajorName" id="MajorName"/>
 						<input id="MajorID" type="text" name="t534Bean.MajorID" class='easyui-combobox' 
-							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:true,
+							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('MajorName').value=$(this).combobox('getText') ;
 							 }">
@@ -261,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<label>教师姓名：</label> 
 				<input type="hidden" name="t534Bean.TeaName" id="TeaName"/>
 				<input id="TeaID" type="text" name="t534Bean.TeaID" class='easyui-combobox' 
-							data-options="valueField:'teaId',textField:'teaName',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+							data-options="valueField:'teaId',textField:'teaName',url:'pages/T411/loadT411',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('TeaName').value=$(this).combobox('getText') ;
 							 }">
@@ -365,7 +365,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 					<label>获评时间:</label>
-					<input id="GainTime" name="t534Bean.GainTime" type="text" class="easyui-datebox">
+					<input id="GainTime" name="t534Bean.GainTime" type="text" class="easyui-datebox" editable="false">
 					<span id="GainTimeSpan"></span>
 					</div>
 				</td>

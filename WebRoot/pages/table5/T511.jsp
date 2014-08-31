@@ -220,7 +220,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
 						<input type="hidden" name="t511_Bean.CSUnit" id="CSUnit"/>
 						<input id="UnitID" name="t511_Bean.UnitID" 
-							  class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							  class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('CSUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -263,7 +263,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>状&nbsp;&nbsp;&nbsp;&nbsp;态：</label> 
-						<select class='easyui-combobox' id="State" name="t511_Bean.State" panelHeight="auto">
+						<select class='easyui-combobox' id="State" name="t511_Bean.State" panelHeight="auto" editable="false">
 							<option value="启用">启用</option>
 							<option value="停用">停用</option>
 						</select>	
@@ -274,7 +274,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>公选课类别：</label> 
-						<select class='easyui-combobox' id="PubCSType" name="t511_Bean.PubCSType" panelHeight="auto">
+						<select class='easyui-combobox' id="PubCSType" name="t511_Bean.PubCSType" panelHeight="auto" editable="false">
 							<option value="理工类">理工类</option>
 							<option value="人文社科类">人文社科类</option>
 							<option value="体育保健类">体育保健类</option>

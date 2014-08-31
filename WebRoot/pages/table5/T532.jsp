@@ -250,7 +250,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<label>所属教学单位：</label> 
 					<input type="hidden" name="t532Bean.FromTeaUnit" id="FromTeaUnit"/>
 						<input id="UnitID" type="text" name="t532Bean.UnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
 							onSelect:function(){
 							    $('#FromTeaUnit').val($(this).combobox('getText')) ;
 							 }">
@@ -264,7 +264,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<label>负责人：</label> 
 					<input type="hidden" name="t532Bean.CenterLeader" id="Leader"/>
 						<input id="TeaID" type="text" name="t532Bean.TeaID" class='easyui-combobox' 
-							data-options="valueField:'teaId',textField:'teaName',url:'pages/T411/loadT411' ,listHeight:'auto',editable:'false',
+							data-options="valueField:'teaId',textField:'teaName',url:'pages/T411/loadT411' ,listHeight:'auto',editable:false,
 							onSelect:function(){
 							    $('#Leader').val($(this).combobox('getText')) ;
 							 }">
@@ -276,7 +276,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   		<div class="fitem">
 			   		<label>职称：</label> 
 				    <input class='easyui-combobox' id="TeaTitle" name="t532Bean.TeaTitle"
-								data-options="valueField:'indexId',textField:'titleName',url:'pages/DiTitleName/loadDiTitleName',listHeight:'auto',editable:'false'">
+								data-options="valueField:'indexId',textField:'titleName',url:'pages/DiTitleName/loadDiTitleName',listHeight:'auto',editable:false">
 					<span id="TeaTitleSpan"></span>
 			   		</div>
 		   		</td>
@@ -285,7 +285,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   			<div class="fitem">
 						<label>设立时间：</label> 
-						 <input class="easyui-datebox" id="BuildTime" name="t532Bean.BuildTime"  type="text">
+						 <input class="easyui-datebox" id="BuildTime" name="t532Bean.BuildTime"  type="text" editable ="false">
 						 <span id="BuildTimeSpan"></span>
 					</div>
 		   		</td>
@@ -302,7 +302,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td>
 		   		<div class="fitem">
 		   		<label>验收时间：</label> 
-				<input class="easyui-datebox" id="ReceptTime" name="t532Bean.ReceptTime" type="text">
+				<input class="easyui-datebox" id="ReceptTime" name="t532Bean.ReceptTime" type="text" editable="false">
 				<span id="ReceptTimeSpan"></span>
 		   		</div>
 		   		</td>

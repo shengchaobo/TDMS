@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="seqNumber" type="hidden" name="T654_bean.seqNumber">	
 						<input id="teaUnit" type="hidden" name="T654_bean.teaUnit">										
 						<input id="unitId" type="text" name="T654_bean.unitId" class='easyui-combobox'
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('teaUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>类别：</label> 
-						<select  class='easyui-combobox' id="patentType" name="T654_bean.patentType" style="width:80px">
+						<select  class='easyui-combobox' id="patentType" name="T654_bean.patentType" style="width:80px" editable="false">
 							<option value="发明">发明</option>
 							<option value="实用新型">实用新型</option>
 							<option value="外观专利">外观专利</option>

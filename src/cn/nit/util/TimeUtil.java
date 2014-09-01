@@ -188,7 +188,5 @@ public class TimeUtil {
 //		System.out.println(changeDateYMD(test));
 	
 		System.out.println(til.changeDateY(year));
-		
-
 	}
 }

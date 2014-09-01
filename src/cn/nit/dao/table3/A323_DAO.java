@@ -72,6 +72,7 @@ public class A323_DAO {
  	 */
  	public boolean save(List<A323_Bean> list,String year){
  		
+		
 		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year;		
 		boolean flag = false;
 		Connection conn = DBConnection.instance.getConnection() ;		
@@ -86,7 +87,7 @@ public class A323_DAO {
 			if(templist.size() != 0){
 				String delSql = "delete from " + tableName + " where convert(varchar(4),Time,120)=" + year;
 				int delflag = st.executeUpdate(delSql.toString());
-				if(delflag > 0){
+				if(delflag > 0 ){
 					flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
 				}
 			}else{
@@ -113,6 +114,21 @@ public class A323_DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
+		List<A323_Bean> list = new ArrayList<A323_Bean>() ;
+		String sql1="select * from "+tableName1+" where Time like '"+year+"%'";
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql1);
+			if(!rs.next()){
+				System.out.println("统计数据不全啊  ");
+				return list;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
 		
 		String sql = " select DiDepartment.UnitName as TeaUnit, count("+tableName1+".MajorName) as majorNum from DiDepartment right join " +
 				""+tableName1+" on DiDepartment.UnitID = "+tableName1+".FillUnitID and Time like '"+year+"%' " +
@@ -140,7 +156,7 @@ public class A323_DAO {
 						" '"+year+"%' and FillUnitID like '3%' order by FillUnitID";
 		System.out.println(querysql);
 
-		List<A323_Bean> list = new ArrayList<A323_Bean>() ;
+
 		int count = 0, count1 = 0,i=0;
 		String unitName = null;
 		NumberFormat nf = NumberFormat.getNumberInstance();
@@ -204,6 +220,7 @@ public class A323_DAO {
 					bean.setExpCredit(Double.parseDouble(nf.format((double)num9/total2))*100);
 					bean.setPraCredit(Double.parseDouble(nf.format((double)num10/total2))*100);
 					bean.setOutClassCredit(Double.parseDouble(nf.format((double)num11/total2))*100);
+					bean.setTime(TimeUtil.changeDateY(year));
 				    list1.add(bean);
 					}
 				}
@@ -223,7 +240,7 @@ public class A323_DAO {
 				    sumAll2 += Total2;
 					A323_Bean bean = new A323_Bean ();
 					bean.setTeaUnit(unitNameList.get(count1));
-					bean.setUnitID(null);
+					bean.setUnitID("");
 					bean.setRequireHour(Double.parseDouble(nf.format((double)Num1/Total1))*100);
 					bean.setOptionHour(Double.parseDouble(nf.format((double)Num2/Total1))*100);
 					bean.setInClassHour(Double.parseDouble(nf.format((double)Num3/Total1))*100);
@@ -236,13 +253,14 @@ public class A323_DAO {
 					bean.setExpCredit(Double.parseDouble(nf.format((double)Num9/Total2))*100);
 					bean.setPraCredit(Double.parseDouble(nf.format((double)Num10/Total2))*100);
 					bean.setOutClassCredit(Double.parseDouble(nf.format((double)Num11/Total2))*100);
+					bean.setTime(TimeUtil.changeDateY(year));
 					list.add(bean);
 					list.addAll(list1);
 					count1++;
 				}
 			A323_Bean bean = new A323_Bean ();
 			bean.setTeaUnit("全校合计");
-			bean.setUnitID(null);
+			bean.setUnitID("");
 			bean.setRequireHour(Double.parseDouble(nf.format((double)sum1/sumAll1))*100);
 			bean.setOptionHour(Double.parseDouble(nf.format((double)sum2/sumAll1))*100);
 			bean.setInClassHour(Double.parseDouble(nf.format((double)sum3/sumAll1))*100);
@@ -255,6 +273,7 @@ public class A323_DAO {
 			bean.setExpCredit(Double.parseDouble(nf.format((double)sum9/sumAll2))*100);
 			bean.setPraCredit(Double.parseDouble(nf.format((double)sum10/sumAll2))*100);
 			bean.setOutClassCredit(Double.parseDouble(nf.format((double)sum11/sumAll2))*100);
+			bean.setTime(TimeUtil.changeDateY(year));
 			list.add(0,bean);
 		
 			A323_DAO a323_Dao = new A323_DAO();

@@ -67,17 +67,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 <form id="auditing" method="post" style="float: right;height: 26px;">
-		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+		 <form method="post" id="auditing"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</div>
 	<div id="toolbar2" style="float: right;">
 	<a href="pages/T743/dataExport?excelName=<%=URLEncoder.encode("表7-4-3课程建设评估","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+	
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
@@ -149,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>开课单位：</label> 
 						<input id="SetCSUnit" type="hidden" name="courseBuildAssessAC.SetCSUnit" >
 					    <input id="UnitID" type="text" name="courseBuildAssessAC.UnitID"
-					     class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+					     class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							   document.getElementById('SetCSUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -210,7 +236,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>评估结果：</label> 
-						<select class='easyui-combobox' id="AssessResult" name="courseBuildAssessAC.AssessResult" panelHeight="auto">
+						<select class='easyui-combobox' id="AssessResult" name="courseBuildAssessAC.AssessResult" panelHeight="auto" editable="false">
 							<option value="校级优秀">校级优秀</option>
 							<option value="校级良好">校级良好</option>
 							<option value="校级合格">校级合格</option>
@@ -357,8 +383,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var cSType = $('#CSType').combobox('getText');
 			
 			var cSNature = $('#CSNature').combobox('getText');
-					
-			var teaID = $('#CSLeader').combobox('getText');
+
+			var teaId = $('#CSLeader').combobox('getText');
+			var teaName = $('#CSLeader').combobox('getValue');	
 					
 			var assessYear = $('#AssessYear').val();
 		
@@ -388,9 +415,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert("课程性质不能为空");
 				return false ;
 			}
-			if(teaID == null || teaID.length == 0){
-				alert("教工号不能为空");
-				return false ;
+			if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
+				alert("教工号不能为空或者教师库中无该教工号");
+				return false;
 			}
 			if(assessYear == null || assessYear.length == 0){
 				alert("评估年份不能为空");

@@ -73,6 +73,7 @@ import cn.nit.service.table6.T654_Service;
 import cn.nit.service.table6.T655_Service;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 /**
  * 待完成！！！！！！！
@@ -90,7 +91,7 @@ public class T655_Action {
 	T655_Dao T655_dao = new T655_Dao();
 
 	/** 待审核数据的查询的序列号 */
-	private int seqNum;
+	private Integer seqNum;
 
 	/** 待审核数据查询的起始时间 */
 	private Date startTime;
@@ -149,59 +150,55 @@ public class T655_Action {
 	/** 为界面加载数据 */
 	public void loadData() throws Exception {
 
-		HttpServletResponse response = ServletActionContext.getResponse();
-		
-		
-		// private JSONObject jsonObj;
-		
-		String cond = "1=1";
-		if(this.getSearchItem()!= null){
-			cond += " and teaUnit LIKE '" + this.getSearchItem() + "%'";
-			System.out.println(cond);
-		}
-		List<T655_Bean> list = T655_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
-		
-//		//讲合计的data放在list的首位（如果有的话）
-//		T655_Bean beanTotal = null;
-//		for(T655_Bean bean:list){
-//			if(bean.getUnitId()=="0000"){
-//				System.out.println("hello");
-//				beanTotal = bean;
-//				beanTotal.setTeaUnit("全校合计：");
-//				list.remove(bean);
-//				break;
-//			}
-//		}
-//		if(beanTotal!=null){
-//			System.out.println("有");
-//			list.add(0, beanTotal);
-////			System.out.println("你好："+beanTotal.getTeaUnit());
-//		}
-	
-		String TeaInfoJson = this.toBeJson(list, T655_service.getTotal(cond,null));
-//	    System.out.println("TeaInfoJson:"+TeaInfoJson);
+		  HttpServletResponse response = ServletActionContext.getResponse() ;	
+			
+			String cond = null;
+			StringBuffer conditions = new StringBuffer();
+			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+				cond = null;	
+			}else{			
+				if(this.getSeqNum()!=null){
+					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+				}
+				
+				if(this.getStartTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+				}
+				
+				if(this.getEndTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+				}
+				cond = conditions.toString();
+			}
+			
+			List<T655_Bean> list = T655_service.getPageInfoList(cond, null, this.getRows(), this.getPage()) ;
+			String TeaInfoJson = this.toBeJson(list,T655_service.getTotal(cond, null));
+			//private JSONObject jsonObj;
+			
+			PrintWriter out = null ;
 
-		PrintWriter out = null;
-
-		if (TeaInfoJson == null) {
-			return;
-		} else {
-			try {
-
-				System.out.println(TeaInfoJson);
-				response.setContentType("application/json;charset=UTF-8");
-				out = response.getWriter();
-				out.print(TeaInfoJson);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (out != null) {
-					out.flush();
-					out.close();
+			if(TeaInfoJson == null){			
+				return ;
+			}else{
+				try {
+					
+					System.out.println(TeaInfoJson) ;
+					response.setContentType("application/json;charset=UTF-8") ;
+					out = response.getWriter() ;
+					out.print(TeaInfoJson) ;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally{
+					if(out != null){
+						out.flush() ;
+						out.close() ;
+					}
 				}
 			}
-		}
 	}
 
 	// 将分页系统的总数以及当前页的list转化一个json传页面显示
@@ -372,11 +369,11 @@ public class T655_Action {
 		return ServletActionContext.getResponse();
 	}
 
-	public int getSeqNum() {
+	public Integer getSeqNum() {
 		return seqNum;
 	}
 
-	public void setSeqNum(int seqNum) {
+	public void setSeqNum(Integer seqNum) {
 		this.seqNum = seqNum;
 	}
 

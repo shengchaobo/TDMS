@@ -80,10 +80,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-		 	编号: <input  id="seqNum"   name="seqNum"  class="easyui-box" style="width:80px"/>
-			起始日期: <input id ="startTime"  name ="startTime"   class="easyui-datebox" style="width:80px"/>
-			结束日期: <input id="endTime"  name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid()">查询</a>
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 		</form>
 	</div>
 	
@@ -131,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar2" style="float: right;">
 		<a href='pages/T442/dataExport?excelName=<%=URLEncoder.encode("表4-4-2研究生导师情况（研究生院）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+	
 	</div>
 	
 	<!--添加弹出框-->
@@ -202,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属单位：</label> 
 						<input type="hidden" name="T442_bean.fromUnit" id="fromUnit"/>
 						<input id="unitId" type="text" name="T442_bean.unitId" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:true,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							onSelect:function(){
 							    document.getElementById('fromUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -214,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属专业：</label> 
 						<input type="hidden" name="T442_bean.majorName" id="majorName"/>
 						<input id="majorId" type="text" name="T442_bean.majorId" class='easyui-combobox' 
-							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:true,
+							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('MajorName').value=$(this).combobox('getText') ;
 							 }">

@@ -77,6 +77,8 @@
 	function validate() {
 		// 获取文本框的值
 		//var time = $('#time').datetimebox('getValue');
+		var teaId = $('#name').combobox('getText');
+		var teaName = $('#name').combobox('getValue');
 		var teaNum = $('#otherTeaNum').val();
 		var tea = $('#otherTeaInfo').val();
 		var note = $('#note').val();
@@ -86,6 +88,12 @@
 			return false;
 		}*/
 		
+		
+		//根据数据库定义的字段的长度，对其进行判断
+		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
+			alert("教工号不能为空或者教师库中无该教工号");
+			return false;
+		}
 		if(teaNum == null || teaNum == 0){
 		     if(tea!=null && tea!=""){
 		    	 alert("当参与教师为0和空时，其他成员应为空");

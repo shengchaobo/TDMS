@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber">序号</th>
+				<th field="seqNumber">编号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
 			</tr>
@@ -65,8 +65,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div style="float: right;">
-		 	教学单位: <input id="searchItem" class="easyui-box" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+		 	<form method="post" id="searchForm"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</div>
 	
@@ -75,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber">序号</th>
+				<th field="seqNumber">编号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
 			</tr>
@@ -92,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar2" style="float: right;">
 		<a href='pages/T655/dataExport?excelName=<%=URLEncoder.encode("表6-5-5学习成果—英语四六级、计算机等级考试","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+		
 	</div>
 	
 	<div id="dlg" class="easyui-dialog"
@@ -120,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="seqNumber" type="hidden" name="T655_bean.seqNumber">	
 						<input id="teaUnit" type="hidden" name="T655_bean.teaUnit">										
 						<input id="unitId" type="text" name="T655_bean.unitId" class='easyui-combobox'
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							onSelect:function(){	
 							 	 document.getElementById('teaUnit').value=$(this).combobox('getText') ;
 							 }">

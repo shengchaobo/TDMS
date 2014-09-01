@@ -277,13 +277,18 @@ public class T631_Dao {
 	public List<T631_Bean> queryPageList(String cond, Object object,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
+		String Cond = "1=1";
+		
+		if(cond != null && !cond.equals("")){
+			Cond = Cond + cond;
+		}
 		String queryPageSql;
 		
 			queryPageSql = "select top " + pagesize + 
 			fieldShow
 			+ " from " + tableName + 
-			" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
+			" where " + Cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
+			tableName + " where " + Cond + " order by SeqNumber)) order by SeqNumber" ;
 	
 
 		System.out.println(queryPageSql);
@@ -310,9 +315,14 @@ public class T631_Dao {
 	
 	public List<T631_Bean> getAllList(String cond, Object object) {
 		// TODO Auto-generated method stub
+		String Cond = "1=1";
+		
+		if(cond != null && !cond.equals("")){
+			Cond = Cond + cond;
+		}
 		String sql;
 		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
+		sql = "select " + fieldShow + " from " + tableName +" where " + Cond;
 	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;

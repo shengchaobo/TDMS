@@ -65,17 +65,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 <form id="auditing" method="post" style="float: right;height: 26px;">
-		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+		  <form method="post" id="auditing"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</div>
 	<div id="toolbar2" style="float: right;">
 	<a href="pages/T734/dataExport?excelName=<%=URLEncoder.encode("表7-3-4教学事故","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+	
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
@@ -142,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属部门：</label> 
 						<input id="FromDept" type="hidden" name="teachAccidentTea.FromDept" >
 					    <input id="UnitID" type="text" name="teachAccidentTea.UnitID"
-					     class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+					     class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							   document.getElementById('FromDept').value=$(this).combobox('getText') ;
 							 }">
@@ -175,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>处理时间：</label> 
 						<input id="HandingTime" class="easyui-datebox" style="width:80px" name="teachAccidentTea.HandingTime"
-							><span id="HandingTimeSpan"></span>
+							editable="false"><span id="HandingTimeSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>	
@@ -314,7 +340,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var teaID = $('#TeaName').combobox('getText') ;
+			var teaId = $('#TeaName').combobox('getText');
+		    var teaName = $('#TeaName').combobox('getValue');
 			var fromDept = $('#UnitID').combobox('getText') ;
 			var accidentSite = $('#AccidentSite').val() ;
 			var cause = $('#Cause').val() ;
@@ -323,11 +350,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var handingID = $('#HandingID').val() ;
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(teaID == null || teaID.length==0){
-				alert("教工号不能为空");
-				
-				return false ;
-			}
+				if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
+					alert("教工号不能为空或者教师库中无该教工号");
+					return false;
+				}
 			if(fromDept == null || fromDept.length == 0){
 				alert("所属部门不能为空");
 				return false ;

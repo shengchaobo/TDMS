@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber">序号</th>
+				<th field="seqNumber">编号</th>
 				<th field="fromTeaUnit">所属教学单位</th>
 				<th field="unitId">单位号</th>
 		     </tr>
@@ -73,8 +73,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 		 <div style="float: right;">
-		 	专业名称: <input id="searchItem" class="easyui-box" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+		 <form method="post" id="searchForm"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</div>
 	
@@ -87,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 			<thead>
 			<tr>
-				<th field="seqNumber">序号</th>
+				<th field="seqNumber">编号</th>
 				<th field="fromTeaUnit">所属教学单位</th>
 				<th field="unitId">单位号</th>
 				<th field="majorName">专业名称</th>
@@ -106,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar2" style="float: right;">
 		<a href='pages/T621/dataExport?excelName=<%=URLEncoder.encode("表6-2-1近一届本科生分专业招生录取情况（招就处）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+		
 	</div>
 	
 	
@@ -136,7 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="seqNumber" type="hidden" name="UndergraAdmiInfo.seqNumber">		
 						<input id="fromTeaUnit" type="hidden" name="UndergraAdmiInfo.fromTeaUnit">										
 						<input id="unitId" type="text" name="UndergraAdmiInfo.unitId" class='easyui-combobox'
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							onSelect:function(){
 							 	 document.getElementById('fromTeaUnit').value=$(this).combobox('getText') ;
 							 }">

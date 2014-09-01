@@ -175,11 +175,14 @@ function editItem() {
 
 function reloadgrid ()  { 
     //查询参数直接添加在queryParams中 
-     var  queryValue = $('#searchItem').val();
-//     alert("搜索的专业为："+ queryValue);
-     var queryParams = $('#commomData').datagrid('options').queryParams;  
-     queryParams.searchItem = queryValue;  
-     $("#commomData").datagrid('reload'); 
+	var  seqNum = $('#seqNum').val();
+    var startTime = $('#startTime').datetimebox('getValue');
+    var endTime = $('#endTime').datetimebox('getValue');
+    var queryParams = $('#commomData').datagrid('options').queryParams;  
+    queryParams.seqNum = seqNum;  
+    queryParams.startTime = startTime;  
+    queryParams.endTime = endTime;  
+    $("#commomData").datagrid('reload'); 
 }
 
 //模板导入

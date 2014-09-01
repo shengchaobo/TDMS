@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body style="overflow-y:scroll">
 	<table id="showData"  style="height: auto">		
-	<thead>
+	<thead data-options="frozen:true">
 	<tr>
 		<th data-options="field:'teaUnit',align:'center'" rowspan="2">
 	         专业名称
@@ -44,6 +44,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<th data-options="field:'unitID',align:'center'" rowspan="2">
 	          专业代码
 		</th>
+		</tr>
+	</thead>
+	<thead>
+	<tr>
 		<th colspan="5">
 		1.各类课程学时结构（%）
 		</th>

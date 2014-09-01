@@ -221,7 +221,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $("#username").mouseover(function(){
 				document.getElementById("showList").style.display="block";
 			});
-			
+						
 		    $("#showList").mouseleave(function(){
 				document.getElementById("showList").style.display="none";
 			});
@@ -238,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#dlg').dialog('open').dialog('setTitle', '修改个人密码');
 		}
 		
-			function singleImport() {
+	function singleImport() {
 		//录入数据的表单提交
 		$('#userManagerForm').form('submit', {
 			url : 'pages/UserManager/alertPassword',

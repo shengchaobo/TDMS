@@ -77,7 +77,7 @@ public class T42_Excel {
 				
 		for(Cell[] cell : cellList){
 			try{
-				if(count<4){
+				if(count<=3){
 					count++;
 					continue;
 				}
@@ -156,14 +156,6 @@ public class T42_Excel {
 				String majTechTitle = cell[9].getContents() ;
 				String forCharge = cell[10].getContents() ;
 				String resume = cell[11].getContents() ;
-
-
-				
-				if(!flag){
-					return "第" + count + "行，教师学缘不存在" ;
-				}else{
-					flag = false ;
-				}
 								
 				count++ ;
 				

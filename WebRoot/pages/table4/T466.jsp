@@ -184,18 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<hr></hr>	
 	   <h3 class="title1">教师荣誉情况逐条导入</h3>
 	   <form id="addForm" method="post">
-		<table><!--
-			<tr>
-				<td style="valign:left" colspan="3">
-					<div class="fitem">
-						<label>请选择导入时间：</label> 
-						<input class="easyui-datebox"  id="time" type="text" 
-						name="T461_bean.time"  required="true"  editable="false" />
-						<span id="timeSpan"></span>
-					</div>
-				</td>
-			</tr>
-			-->
+		<table>
 			<tr>
 				<td>
 					<input type="hidden" name="T461_bean.seqNumber" id="seqNumber"/>

@@ -165,6 +165,12 @@ public class T658_Dao {
 	public List<T658_Bean> queryPageList(String cond, String filledID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
+		String Cond = "1=1";
+		
+		if(cond != null && !cond.equals("")){
+			Cond = Cond + cond;
+		}
+		
 		String queryPageSql;
 		
 			queryPageSql = "select top " + pagesize +
@@ -173,9 +179,9 @@ public class T658_Dao {
 //			fieldShow
 			+ " from " + tableName + 
 			" left join DiAwardLevel on "+tableName+".ConferenceLevel = DiAwardLevel.IndexID"+
-			" where " + cond + " and FillUnitID="+filledID+
+			" where " + Cond + " and FillUnitID="+filledID+
 			" and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
+			tableName + " where " + Cond + " order by SeqNumber)) order by SeqNumber" ;
 	
 
 		System.out.println(queryPageSql);
@@ -226,13 +232,18 @@ public class T658_Dao {
 	
 	public List<T658_Bean> getAllList(String cond, String fillUnitID) {
 		// TODO Auto-generated method stub
+		String Cond = "1=1";
+		
+		if(cond != null && !cond.equals("")){
+			Cond = Cond + cond;
+		}
 		String sql;
 		sql = "select SeqNumber,TeaUnit,UnitID,ConferenceName,PaperTitle,HoldTime,HoldPlace,HoldUnit,DiAwardLevel.AwardLevel as ConferenceLevel,AwardStuName" +
 		",AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID"
 //		fieldShow
 		+ " from " + tableName + 
 		" left join DiAwardLevel on "+tableName+".ConferenceLevel = DiAwardLevel.IndexID"+
-		" where "+cond+" and FillUnitID="+fillUnitID;
+		" where "+Cond+" and FillUnitID="+fillUnitID;
 		
 //		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
 	    System.out.println(sql);

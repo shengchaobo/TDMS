@@ -16,9 +16,8 @@ public class T461_Dao {
 	private String tableName1 = "DiAwardLevel" ;
 	private String tableName2 = "DiAwardType" ;
 	private String field = "Name,TeaId,FromTeaUnit,UnitId,AwardType,AwardLevel,AwardFromUnit," +
-			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note";
+			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID";
 	private String keyfield = "SeqNumber";
-	private String tailfield = "fillUnitID";
 	
 	/**
 	 * 获取字典表的所有数据
@@ -114,7 +113,7 @@ public class T461_Dao {
 		}
 		
 		if(fillunitID != null && !fillunitID.equals("")){
-			Cond = Cond + " and FillUnitID=" + fillunitID;
+			Cond = Cond + " and FillUnitID='" + fillunitID + "' ";
 		}
 				
 		String queryPageSql = "select count(*) " 
@@ -181,7 +180,7 @@ public class T461_Dao {
 		}
 		
 		if(fillunitID != null && !fillunitID.equals("")){
-			cond = cond + " and FillUnitID=" + fillunitID;
+			cond = cond + " and FillUnitID='" + fillunitID + "' ";
 		}
 				
 		String queryPageSql = "select top " + pageSize + " " + keyfield + "," +

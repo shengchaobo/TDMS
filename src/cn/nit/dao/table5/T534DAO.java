@@ -77,7 +77,7 @@ public class T534DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select count(*) ") ;
+		sql.append("select count(*) AS COUNT") ;
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
 		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
 				" and  dtn.IndexID = t.Title");
@@ -104,7 +104,8 @@ public class T534DAO {
 			}
 			
 			while(rs.next()){
-				total+=1;
+				int count = rs.getInt("COUNT");
+				total=count;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -129,9 +130,9 @@ public class T534DAO {
 		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
 				" and  dtn.IndexID = t.Title");
 
-//		if(fillUnitId != null && !fillUnitId.equals("")){
-//			sql.append(" and FillUnitID=" + fillUnitId) ;
-//		}
+		if(fillUnitId != null && !fillUnitId.equals("")){
+			sql.append(" and FillUnitID=" + fillUnitId) ;
+		}
 //		
 		if(conditions != null){
 			sql.append(conditions) ;
@@ -165,7 +166,7 @@ public class T534DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T534Bean> totalList(){
+	public List<T534Bean> totalList(String fillUnitID){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
@@ -174,8 +175,9 @@ public class T534DAO {
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
 		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
 				" and  dtn.IndexID = t.Title");
+		sql.append(" and t.FillUnitID="+fillUnitID);
 
-		
+//		System.out.println(sql.toString());
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -237,6 +239,16 @@ public class T534DAO {
 	}
 	public String getTableName(){
 		return this.tableName ;
+	}
+	
+	public static void main(String arg[]){
+		T534DAO dao = new T534DAO();
+		List<T534Bean> list1= dao.totalList("1012");
+		List<T534POJO> list = dao.auditingData(null, "1012", 1, 10);
+		int n = dao.totalAuditingData(null, "1012");
+		System.out.println(list1.size());
+		System.out.println(list.size());
+		System.out.println(n);
 	}
 
 }

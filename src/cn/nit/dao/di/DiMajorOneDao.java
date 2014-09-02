@@ -189,7 +189,7 @@ public class DiMajorOneDao {
 	 * 判断中是否已包含该部门
 	 */
 	public boolean hasMajor(String majorID){
-		String sql = "select * from " + tableName + " where MajorNum="+ majorID;
+		String sql = "select * from " + tableName + " where MajorNum='"+ majorID + "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

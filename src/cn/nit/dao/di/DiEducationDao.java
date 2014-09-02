@@ -170,7 +170,7 @@ public class DiEducationDao {
 	 * 判断中是否已包含该数据
 	 */
 	public boolean hasEdu(String eduID){
-		String sql = "select * from " + tableName + " where IndexID="+ eduID;
+		String sql = "select * from " + tableName + " where IndexID='"+ eduID + "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

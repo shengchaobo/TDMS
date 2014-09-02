@@ -177,7 +177,7 @@ public class DiCourseAttriDao {
 	 * 判断中是否已包含该数据
 	 */
 	public boolean hasAttri(String degreeID){
-		String sql = "select * from " + tableName + " where IndexID="+ degreeID	;
+		String sql = "select * from " + tableName + " where IndexID='"+ degreeID + "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

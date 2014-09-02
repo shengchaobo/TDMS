@@ -170,7 +170,7 @@ public class DiTitleNameDao {
 	 * 判断中是否已包含该数据
 	 */
 	public boolean hasName(String nameID){
-		String sql = "select * from " + tableName + " where IndexID="+ nameID	;
+		String sql = "select * from " + tableName + " where IndexID='"+ nameID + "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

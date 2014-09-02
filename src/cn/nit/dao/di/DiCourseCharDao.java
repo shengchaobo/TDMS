@@ -177,7 +177,7 @@ public class DiCourseCharDao {
 	 * 判断中是否已包含该数据
 	 */
 	public boolean hasChar(String charID){
-		String sql = "select * from " + tableName + " where IndexID="+ charID	;
+		String sql = "select * from " + tableName + " where IndexID='"+ charID + "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

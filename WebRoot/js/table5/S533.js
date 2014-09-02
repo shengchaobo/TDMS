@@ -20,6 +20,12 @@
 			remoteSort : false,
 			rownumbers : true,
 
+			onLoadSuccess: function (rowData) {
+				
+				if(typeof(rowData.rows[0].data) != "undefined"){
+					alert(rowData.rows[0].data);
+				}
+			},
 			queryParams:{
 				'selectYear': year
 			}

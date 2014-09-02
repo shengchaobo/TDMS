@@ -67,37 +67,52 @@ public class S5302_Action {
 	 * */
 	public void loadInfo() throws Exception{
 		
-		System.out.println();
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		List<S5302POJO> list = new ArrayList<S5302POJO>();
-//		List<S512_Bean> list=s512Ser.loadInfo(this.getSelectYear());
-		if(s5302Ser.loadInfo(this.getSelectYear())!=null){
-			list = s5302Ser.loadInfo(this.getSelectYear());
-		}
-//		System.out.println("year:"+this.getSelectYear());
-//		System.out.println(list.size());
+		if(this.getSelectYear()!=null){
+			
+			List<S5302POJO> list = s5302Ser.loadInfo(this.getSelectYear());
 
-		JSON json = JSONSerializer.toJSON(list) ;
-		PrintWriter out = null ;
-
-		try {
-			//设置输出内容的格式为json
-				response.setContentType("application/json; charset=UTF-8") ;
-				out = response.getWriter() ;
-				//设置数据的内容的编码格式
-				String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
-				out.print(outPrint) ;
-				out.flush() ;
-				} catch (Exception e) {
-						e.printStackTrace();
-				}finally{
-					if(out != null){
-				out.close() ;
-				}
+			boolean flag = true;
+			JSON json = null;
+			
+			if(list==null){
+				flag = false;
+			}else{
+				json = JSONSerializer.toJSON(list) ;
 			}
-//		}
-	
+			System.out.println("year:"+this.getSelectYear());
+
+			
+			PrintWriter out = null ;
+
+			try {
+				if(flag){
+					//设置输出内容的格式为json
+					response.setContentType("application/json; charset=UTF-8") ;
+					
+					out = response.getWriter() ;
+					//设置数据的内容的编码格式
+					String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
+					out.print(outPrint) ;
+				}
+					else{
+					response.setContentType("text/html; charset=UTF-8") ;
+					out = response.getWriter() ;
+					out.print("[{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}]") ;
+					System.out.println("统计数据不全");
+				}
+				
+					} catch (Exception e) {
+							e.printStackTrace();
+					}finally{
+						if(out != null){
+							out.close() ;
+						}
+				}
+		
+		}
+		
 	}
 
 	

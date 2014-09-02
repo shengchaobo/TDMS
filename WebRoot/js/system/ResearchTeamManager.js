@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("研究团队代码不能超过5位");
+			return false;
+		}
+		
 		if (researchTeam == null || researchTeam.length == 0 ) {
 			alert("研究团队名称不能为空");
 			return false;

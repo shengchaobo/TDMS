@@ -72,17 +72,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		  <form id="auditing" method="post" style="float: right;height: 26px;">
-		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:70px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+		  <form method="post" id="auditing"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</div>
 	<div id="toolbar2" style="float: right;">
 		<a href="pages/T712/dataExport?excelName=<%=URLEncoder.encode("表7-1-2教学管理人员发表教学论文情况","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
+	
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
@@ -142,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<input id="TeaUnit" type="hidden" name="teaManagerPaperInfoTeaTea.TeaUnit">
 						<input id="UnitID" type="text" name="teaManagerPaperInfoTeaTea.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -175,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>归口类型：</label> 
-						<select class='easyui-combobox' id="PaperType" name="teaManagerPaperInfoTeaTea.PaperType" panelHeight="auto" >
+						<select class='easyui-combobox' id="PaperType" name="teaManagerPaperInfoTeaTea.PaperType" panelHeight="auto" editable="false">
 						<option value="教学研究">教学研究</option>
 						<option value="教学管理">教学管理</option>
 						</select>
@@ -187,7 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>所属一级学科：</label> 
-						<select class='easyui-combobox' id="FirstSubject" name="teaManagerPaperInfoTeaTea.firstSubject" panelHeight="auto"  >
+						<select class='easyui-combobox' id="FirstSubject" name="teaManagerPaperInfoTeaTea.firstSubject" panelHeight="auto" editable="false" >
 							<option value="01哲学">01哲学</option>
 							<option value="02经济学">02经济学</option>
 							<option value="03法学">03法学</option>
@@ -228,7 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>刊期/日期：</label> 
 						<input id="JonalTime" class="easyui-datebox" style="width:80px" name="teaManagerPaperInfoTeaTea.JonalTime"
-							><span id="JonalTimeSpan"></span>
+							editable="false"><span id="JonalTimeSpan"></span>
 					</div>
 				</td>
 				</tr>
@@ -385,7 +411,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function validate(){
 			//获取文本框的值
 			var teaUnit = $('#UnitID').combobox('getText');
-			var teaID = $('#Name').combobox('getText');
+			var teaId = $('#Name').combobox('getText');
+			var teaName = $('#Name').combobox('getValue');
 			var paperName = $('#PaperName').val();
 			var paperType = $('#PaperType').combobox('getText');
 			var firstSubject = $('#FirstSubject').combobox('getText');
@@ -403,8 +430,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 			}
 			
-			if(teaID == null || teaID.length == 0 || teaID.length > 200){
+			if(teaId == null || teaId.length == 0 || teaId.length > 200){
 			   alert("教工号不能为空或长度不超过200");
+				return false;
+			}
+			if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
+				alert("教工号不能为空或者教师库中无该教工号");
 				return false;
 			}
 			if(paperName == null || paperName.length==0 || paperName.length > 200){

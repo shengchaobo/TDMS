@@ -56,12 +56,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 			<a href="pages/T17/dataExport?excelName=表T-1-7校友会（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>	
-			<form id="auditing" method="post" style="float: right;height: 24px;">
-			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
-			</form>	
+			<form method="post" id="auditing"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
+			</form>
 	</div>
 	
 	<!--  

@@ -62,9 +62,8 @@ public class ExcelUtil {
 		for(int i = 0 ; i < rows ; i++){
 			Cell cell[] = sheet.getRow(i) ;
 			list.add(cell) ;
-
 		}
-         System.out.println(list.size());
+        System.out.println(list.size());
 		return list ;
 
 	}

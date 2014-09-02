@@ -229,7 +229,7 @@ public class T413_Action {
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("unitName", 1);maplist.put("unitId", 1);maplist.put("name", 3);maplist.put("teaId", 4);
+			maplist.put("unitName", 1);maplist.put("unitId", 2);maplist.put("name", 3);maplist.put("teaId", 4);
 			maplist.put("gender", 5);maplist.put("birthday", 6);maplist.put("hireBeginTime", 7);maplist.put("teaState", 8);
 			maplist.put("hireTimeLen", 9);;maplist.put("education", 10);maplist.put("topDegree", 11);
 			maplist.put("techTitle", 12);maplist.put("subjectClass", 13);
@@ -246,7 +246,6 @@ public class T413_Action {
 	}
 	
 	public String execute() throws Exception{
-		request.setCharacterEncoding("UTF-8") ;
 		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}

@@ -241,7 +241,7 @@ public class DiDepartmentDao {
 		 * 判断中是否已包含该部门
 		 */
 		public boolean hasDe(String deID){
-			String sql = "select * from " + tableName + " where UnitID="+ deID	;
+			String sql = "select * from " + tableName + " where UnitID='"+ deID	+ "'";
 			Connection conn = DBConnection.instance.getConnection();
 			Statement st = null;
 			ResultSet rs = null;

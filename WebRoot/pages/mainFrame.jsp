@@ -66,6 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    title: node.text,
 			   	content: '<iframe frameborder=0 width=\'100%\' height=\'100%\' src=\"' + node.attributes.url + '\"?refId=\" + node.id + \" ></iframe>',
 			    closable: true
+			    //fit: true
 			    });
 		    }
 		    
@@ -220,7 +221,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $("#username").mouseover(function(){
 				document.getElementById("showList").style.display="block";
 			});
-			
+						
 		    $("#showList").mouseleave(function(){
 				document.getElementById("showList").style.display="none";
 			});
@@ -237,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#dlg').dialog('open').dialog('setTitle', '修改个人密码');
 		}
 		
-			function singleImport() {
+	function singleImport() {
 		//录入数据的表单提交
 		$('#userManagerForm').form('submit', {
 			url : 'pages/UserManager/alertPassword',
@@ -335,10 +336,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<div id="menu" title="菜单栏"  data-options="region:'west',tools:'#tree-tools',split:true"   style="width:240px;"  >
 	    		<ul id="trees" class="easyui-tree"  data-options="lines:true,border:true" ></ul>
 	    	</div>
-			<div id="tabs" class="easyui-tabs" data-options="region:'center',split:true" >
-		    	<div title="首页" >
-		    	   <iframe frameborder=0 width='100%' height='100%' src="pages/index.jsp"></iframe>
-				</div>
+	    	<div region="center" border="false">
+				<div id="tabs" class="easyui-tabs" data-options="split:true"  fit="true">
+			    	<div title="首页" >
+			    	   <iframe frameborder=0 width='100%' height='100%' src="pages/index.jsp"></iframe>
+					</div>
+			    </div>
 		    </div>
 
 			<div id="tabsMenu" class="easyui-menu" style="width: 120px;">

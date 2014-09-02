@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("课程属性代码不能超过5位");
+			return false;
+		}
+		
 		if (courseAttri == null || courseAttri.length == 0 ) {
 			alert("课程属性名称不能为空");
 			return false;

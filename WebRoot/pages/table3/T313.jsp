@@ -66,11 +66,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 		 <div>
-		 	<form id="auditing" method="post" style="float: right;height: 26px;">
-			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+		 	 <form method="post" id="auditing"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</div>
@@ -151,7 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
 						<input type="hidden" name="discipBean.UnitName" id="UnitName"/>
 						<input id="UnitID" type="text" name="discipBean.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
 							 }">

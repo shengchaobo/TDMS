@@ -262,8 +262,6 @@ private T311_Service postDocStaSer = new T311_Service() ;
 
 
 	public String execute() throws Exception{
-
-		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
 		return "success" ;
 	}
 	

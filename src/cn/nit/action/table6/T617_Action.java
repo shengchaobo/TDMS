@@ -67,6 +67,7 @@ import cn.nit.service.table6.T617_Service;
 import cn.nit.service.table6.T632_Service;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 /**
  * 待完成！！！！！！！
@@ -84,7 +85,7 @@ public class T617_Action {
 	T617_Dao T617_dao = new T617_Dao();
 
 	/** 待审核数据的查询的序列号 */
-	private int seqNum;
+	private Integer seqNum;
 
 	/** 待审核数据查询的起始时间 */
 	private Date startTime;
@@ -146,40 +147,55 @@ public class T617_Action {
 	/** 为界面加载数据 */
 	public void loadData() throws Exception {
 
-		HttpServletResponse response = ServletActionContext.getResponse();
-		
-		
-		// private JSONObject jsonObj;
-		
-		String cond = "1=1";
-		if(this.getSearchItem()!= null){
-			cond += " and MajorName LIKE '" + this.getSearchItem() + "%'";
-			System.out.println(cond);
-		}
-		List<T617_Bean> list = T617_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
-		String TeaInfoJson = this.toBeJson(list, T617_service.getTotal(cond,null));
+		  HttpServletResponse response = ServletActionContext.getResponse() ;	
+			
+			String cond = null;
+			StringBuffer conditions = new StringBuffer();
+			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+				cond = null;	
+			}else{			
+				if(this.getSeqNum()!=null){
+					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+				}
+				
+				if(this.getStartTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+				}
+				
+				if(this.getEndTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+				}
+				cond = conditions.toString();
+			}
+			
+			List<T617_Bean> list = T617_service.getPageInfoList(cond, null, this.getRows(), this.getPage()) ;
+			String TeaInfoJson = this.toBeJson(list,T617_service.getTotal(cond, null));
+			//private JSONObject jsonObj;
+			
+			PrintWriter out = null ;
 
-		PrintWriter out = null;
-
-		if (TeaInfoJson == null) {
-			return;
-		} else {
-			try {
-
-				System.out.println(TeaInfoJson);
-				response.setContentType("application/json;charset=UTF-8");
-				out = response.getWriter();
-				out.print(TeaInfoJson);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (out != null) {
-					out.flush();
-					out.close();
+			if(TeaInfoJson == null){			
+				return ;
+			}else{
+				try {
+					
+					System.out.println(TeaInfoJson) ;
+					response.setContentType("application/json;charset=UTF-8") ;
+					out = response.getWriter() ;
+					out.print(TeaInfoJson) ;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally{
+					if(out != null){
+						out.flush() ;
+						out.close() ;
+					}
 				}
 			}
-		}
 	}
 
 	// 将分页系统的总数以及当前页的list转化一个json传页面显示
@@ -257,7 +273,7 @@ public class T617_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T617_Bean> list = T617_dao.getAllList("1=1", null);
+			List<T617_Bean> list = T617_dao.getAllList("", null);
 			
 			String sheetName = this.excelName;
 			if(list==null){
@@ -353,23 +369,23 @@ public class T617_Action {
 						for(int j=0;j<list.size();j++){
 							T617_Bean bean =  list.get(j);
 							if(j==0){
-								ws.addCell(new Label(0, 4, bean.getTeaUnit(), wcf));
+								ws.addCell(new Label(0, 4, bean.getTeaUnit(), wcf1));
 								ws.mergeCells(0, 4, 5, 4);
-								ws.addCell(new Label(6, 4, bean.getJuniorStuSumNum()+"", wcf));
-								ws.addCell(new Label(7, 4, bean.getJuniorOneStuNum()+"", wcf));
-								ws.addCell(new Label(8, 4, bean.getJuniorTwoStuNum()+"", wcf));
-								ws.addCell(new Label(9, 4, bean.getJuniorThreeStuNum()+"", wcf));
+								ws.addCell(new Label(6, 4, bean.getJuniorStuSumNum()+"", wcf1));
+								ws.addCell(new Label(7, 4, bean.getJuniorOneStuNum()+"", wcf1));
+								ws.addCell(new Label(8, 4, bean.getJuniorTwoStuNum()+"", wcf1));
+								ws.addCell(new Label(9, 4, bean.getJuniorThreeStuNum()+"", wcf1));
 							}else{
-								ws.addCell(new Label(0, k,j+"", wcf));
-								ws.addCell(new Label(1, k, bean.getTeaUnit(), wcf));
-								ws.addCell(new Label(2, k, bean.getUnitId(), wcf));
-								ws.addCell(new Label(3, k, bean.getMajorName(), wcf));
-								ws.addCell(new Label(4, k, bean.getMajorId(), wcf));
-								ws.addCell(new Label(5, k, bean.getMajorFieldName(), wcf));
-								ws.addCell(new Label(6, k, bean.getJuniorStuSumNum()+"", wcf));
-								ws.addCell(new Label(7, k, bean.getJuniorOneStuNum()+"", wcf));
-								ws.addCell(new Label(8, k, bean.getJuniorTwoStuNum()+"", wcf));
-								ws.addCell(new Label(9, k, bean.getJuniorThreeStuNum()+"", wcf));
+								ws.addCell(new Label(0, k,j+"", wcf1));
+								ws.addCell(new Label(1, k, bean.getTeaUnit(), wcf1));
+								ws.addCell(new Label(2, k, bean.getUnitId(), wcf1));
+								ws.addCell(new Label(3, k, bean.getMajorName(), wcf1));
+								ws.addCell(new Label(4, k, bean.getMajorId(), wcf1));
+								ws.addCell(new Label(5, k, bean.getMajorFieldName(), wcf1));
+								ws.addCell(new Label(6, k, bean.getJuniorStuSumNum()+"", wcf1));
+								ws.addCell(new Label(7, k, bean.getJuniorOneStuNum()+"", wcf1));
+								ws.addCell(new Label(8, k, bean.getJuniorTwoStuNum()+"", wcf1));
+								ws.addCell(new Label(9, k, bean.getJuniorThreeStuNum()+"", wcf1));
 							}
 							k++;
 						}
@@ -409,11 +425,11 @@ public class T617_Action {
 		return ServletActionContext.getResponse();
 	}
 
-	public int getSeqNum() {
+	public Integer getSeqNum() {
 		return seqNum;
 	}
 
-	public void setSeqNum(int seqNum) {
+	public void setSeqNum(Integer seqNum) {
 		this.seqNum = seqNum;
 	}
 

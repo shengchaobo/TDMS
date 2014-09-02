@@ -84,17 +84,23 @@
 		var newAddArea = $('#newAddArea').val();
 		var machNum = $('#machNum').val();
 		var expCenterName = $('#expCenterName').val();
+		var unitName = $('#teaUnitID').combobox('getText');
 		
 		
 		if($('#expCenterName').val() == null || $('#expCenterName').val()==""){
 			alert("实验中心名称不能为空");
 			return false;
 	    }
+		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
+			return false;
+	    }
 				
 		if($('#machNum').val() == null || $('#machNum').val()==""){
 			$('#machNum').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(machNum))) {
-			alert("必须为整数");
+			alert("台件数必须为整数");
 			return false;
 	    }
 		
@@ -102,7 +108,7 @@
 			if($('#money').val()==""){
 				$('#money').val(0);
 			}else{
-				alert("必须为数字");
+				alert("金额必须为数字");
 				return false;
 			}
 		}
@@ -111,7 +117,7 @@
 			if($('#area').val()==""){
 				$('#area').val(0);
 			}else{
-				alert("必须为数字");
+				alert("面积必须为数字");
 				return false;
 			}
 		}
@@ -120,7 +126,7 @@
 			if($('#newAddArea').val()==""){
 				$('#newAddArea').val(0);
 			}else{
-				alert("必须为数字");
+				alert("新增面积必须为数字");
 				return false;
 			}
 		}

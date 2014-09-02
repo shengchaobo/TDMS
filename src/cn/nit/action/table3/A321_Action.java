@@ -289,8 +289,6 @@ public class A321_Action {
 
 
 		public String execute() throws Exception{
-
-			getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
 			return "success" ;
 		}
 		public A321_DAO getA321_DAO() {

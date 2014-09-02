@@ -81,31 +81,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				style="float: right; height: 24px;">
 				<table id="test" width="520">
 					<tr>
-						<th>
+						<td>
 							编号:
-						</th>
-						<th>
+						</td>
+						<td>
 							<input id="seqNum" name="seqNum" class="easyui-box"
-								style="width: 80px" />
-						</th>
-						<th>
+								style="width: 40px" />
+						</td>
+						<td>
 							起始日期:
-						</th>
-						<th>
+						</td>
+						<td>
 							<input id="startTime" name="startTime" class="easyui-datebox"
-								style="width: 80px" />
-						</th>
-						<th>
+								style="width: 100px" />
+						</td>
+						<td>
 							结束日期:
-						</th>
-						<th>
+						</td>
+						<td>
 							<input id="endTime" name="endTime" class="easyui-datebox"
-								style="width: 80px" />
-						</th>
-						<th>
+								style="width: 100px" />
+						</td>
+						<td>
 							<a href="javascript:void(0)" class="easyui-linkbutton"
 								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
-						</th>
+						</td>
 					</tr>
 				</table>
 			</form>
@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar2" style="float: right;">
 		<a href='pages/T412/dataExport?excelName=<%=URLEncoder.encode("表4-1-2各专业专任教师队伍名单（教学单位-人事处）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+		
 	</div>
 	
 	<!--添加弹出框-->
@@ -167,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属教学单位：</label> 
 						<input type="hidden" name="T412_bean.fromTeaUnit" id="fromTeaUnit"/>
 						<input id="teaUnitID" type="text" name="T412_bean.teaUnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:true,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							onSelect:function(){
 							    document.getElementById('fromTeaUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -180,9 +180,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属专业：</label> 
 						<input type="hidden" name="T412_bean.majorName" id="majorName"/>
 						<input id="majorID" type="text" name="T412_bean.majorID" class='easyui-combobox' 
-							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:true,
+							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
 							onSelect:function(){
-							 	 document.getElementById('MajorName').value=$(this).combobox('getText') ;
+							 	 document.getElementById('majorName').value=$(this).combobox('getText') ;
 							 }">
 					</div>
 				</td>

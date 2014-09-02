@@ -70,11 +70,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		
 		 <div>
-		 	<form id="auditing" method="post" style="float: right;height: 26px;">
-			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+		 	 <form method="post" id="auditing"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</div>
@@ -139,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="seqNumber" name="t33_Bean.SeqNumber" type="hidden" > </input>
 						<input type="hidden" name="t33_Bean.TeaUnit" id="TeaUnit"/>
 						<input id="UnitID" type="text" name="t33_Bean.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">

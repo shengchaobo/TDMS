@@ -79,7 +79,7 @@ public class T152DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select count(*)") ;
+		sql.append("select count(*) AS COUNT") ;
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiResearchType drt") ;
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
 //		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
@@ -108,7 +108,8 @@ public class T152DAO {
 			}
 			
 			while(rs.next()){
-				total +=1;
+				int count = rs.getInt("COUNT");
+				total=count;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;

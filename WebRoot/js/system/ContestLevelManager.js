@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("竞赛类型代码不能超过5位");
+			return false;
+		}
+		
 		if (contestLevel == null || contestLevel.length == 0 ) {
 			alert("竞赛类型名称不能为空");
 			return false;

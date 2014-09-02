@@ -62,11 +62,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 			</div>
-			<form method="post"  id="auditing"   style="float: right;height: 24px;" >
-			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+			<form method="post" id="auditing"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 			</form>
 	</div>
 	
@@ -98,7 +124,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="toolbar2" style="float: right;">
 	
 		<a href='pages/T152/dataExport?excelName=<%=URLEncoder.encode("表1-5-2教学单位科研机构","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	
 	
@@ -158,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>所属教学单位：</label> 
 						<input type="hidden" name="t152Bean.TeaUnit" id="TeaUnit"/>
 						<input id="UnitID" type="text" name="t152Bean.UnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment' ,listHeight:'auto',editable:false,
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
 							onSelect:function(){
 							    $('#TeaUnit').val($(this).combobox('getText')) ;
 							 }">

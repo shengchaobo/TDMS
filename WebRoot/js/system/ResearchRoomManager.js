@@ -77,8 +77,8 @@
 			return false;
 		}
 
-		if (researchName == null || ResearchName.length == 0) {
-			alert("一级分类不能为空");
+		if (researchName == null || researchName.length == 0) {
+			alert("教研室名不能为空");
 			return false;
 		}
 

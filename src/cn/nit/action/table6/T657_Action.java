@@ -77,6 +77,7 @@ import cn.nit.service.table6.T655_Service;
 import cn.nit.service.table6.T657_Service;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 /**
  * 待完成！！！！！！！
@@ -97,7 +98,7 @@ public class T657_Action {
 	T657_Dao T657_dao = new T657_Dao();
 
 	/** 待审核数据的查询的序列号 */
-	private int seqNum;
+	private Integer seqNum;
 
 	/** 待审核数据查询的起始时间 */
 	private Date startTime;
@@ -156,40 +157,55 @@ public class T657_Action {
 	/** 为界面加载数据 */
 	public void loadData() throws Exception {
 
-		HttpServletResponse response = ServletActionContext.getResponse();
-		
-		
-		// private JSONObject jsonObj;
-		
-		String cond = "1=1";
-		if(this.getSearchItem()!= null){
-			cond += " and teaUnit LIKE '" + this.getSearchItem() + "%'";
-			System.out.println(cond);
-		}
-		List<T657_Bean> list = T657_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
-		String TeaInfoJson = this.toBeJson(list, T657_service.getTotal(cond,null));
+		  HttpServletResponse response = ServletActionContext.getResponse() ;	
+			
+			String cond = null;
+			StringBuffer conditions = new StringBuffer();
+			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+				cond = null;	
+			}else{			
+				if(this.getSeqNum()!=null){
+					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+				}
+				
+				if(this.getStartTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+				}
+				
+				if(this.getEndTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+				}
+				cond = conditions.toString();
+			}
+			
+			List<T657_Bean> list = T657_service.getPageInfoList(cond, null, this.getRows(), this.getPage()) ;
+			String TeaInfoJson = this.toBeJson(list,T657_service.getTotal(cond, null));
+			//private JSONObject jsonObj;
+			
+			PrintWriter out = null ;
 
-		PrintWriter out = null;
-
-		if (TeaInfoJson == null) {
-			return;
-		} else {
-			try {
-
-				System.out.println(TeaInfoJson);
-				response.setContentType("application/json;charset=UTF-8");
-				out = response.getWriter();
-				out.print(TeaInfoJson);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (out != null) {
-					out.flush();
-					out.close();
+			if(TeaInfoJson == null){			
+				return ;
+			}else{
+				try {
+					
+					System.out.println(TeaInfoJson) ;
+					response.setContentType("application/json;charset=UTF-8") ;
+					out = response.getWriter() ;
+					out.print(TeaInfoJson) ;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally{
+					if(out != null){
+						out.flush() ;
+						out.close() ;
+					}
 				}
 			}
-		}
 	}
 
 	// 将分页系统的总数以及当前页的list转化一个json传页面显示
@@ -266,7 +282,7 @@ public class T657_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T657_Bean> list = T657_dao.getAllList("1=1", null);
+			List<T657_Bean> list = T657_dao.getAllList("", null);
 			
 
             List<T657_Bean> list1 = new ArrayList<T657_Bean>();
@@ -335,11 +351,11 @@ public class T657_Action {
 		return ServletActionContext.getResponse();
 	}
 
-	public int getSeqNum() {
+	public Integer getSeqNum() {
 		return seqNum;
 	}
 
-	public void setSeqNum(int seqNum) {
+	public void setSeqNum(Integer seqNum) {
 		this.seqNum = seqNum;
 	}
 

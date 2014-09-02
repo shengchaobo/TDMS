@@ -49,6 +49,7 @@ import cn.nit.dbconnection.DBConnection;
 import cn.nit.service.table6.T624_Service;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 /**
  * 待完成！！！！！！！
@@ -67,7 +68,7 @@ public class T624_Action {
 	private T624_Dao T624_dao = new T624_Dao();
 
 	/** 待审核数据的查询的序列号 */
-	private int seqNum;
+	private Integer seqNum;
 
 	/** 待审核数据查询的起始时间 */
 	private Date startTime;
@@ -143,45 +144,55 @@ public class T624_Action {
 	/** 为界面加载数�?*/
 	public void loadData() throws Exception {
 		
-		
+		  HttpServletResponse response = ServletActionContext.getResponse() ;	
+			
+			String cond = null;
+			StringBuffer conditions = new StringBuffer();
+			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+				cond = null;	
+			}else{			
+				if(this.getSeqNum()!=null){
+					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+				}
+				
+				if(this.getStartTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+				}
+				
+				if(this.getEndTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+				}
+				cond = conditions.toString();
+			}
+			
+			List<T624_Bean> list = T624_service.getPageInfoList(cond, null, this.getRows(), this.getPage()) ;
+			String TeaInfoJson = this.toBeJson(list,T624_service.getTotal(cond, null));
+			//private JSONObject jsonObj;
+			
+			PrintWriter out = null ;
 
-		HttpServletResponse response = ServletActionContext.getResponse();
-	
-	
-		// private JSONObject jsonObj;
-		
-		String cond = "1=1";
-		System.out.println(this.getSearchItem());
-		if(this.getSearchItem()!= null){
-			cond += " and MajorName LIKE '" + this.getSearchItem() + "%'";
-			System.out.println(cond);
-		}
-		List<T624_Bean> list = T624_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
-		String TeaInfoJson = this.toBeJson(list, T624_service.getTotal(cond,null));
-
-		PrintWriter out = null;
-
-		if (TeaInfoJson == null) {
-			return;
-		} else {
-			try {
-
-				System.out.println(TeaInfoJson);
-				response.setContentType("application/json;charset=UTF-8");
-				out = response.getWriter();
-				out.print(TeaInfoJson);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (out != null) {
-					out.flush();
-					out.close();
+			if(TeaInfoJson == null){			
+				return ;
+			}else{
+				try {
+					
+					System.out.println(TeaInfoJson) ;
+					response.setContentType("application/json;charset=UTF-8") ;
+					out = response.getWriter() ;
+					out.print(TeaInfoJson) ;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally{
+					if(out != null){
+						out.flush() ;
+						out.close() ;
+					}
 				}
 			}
-		}
-
-
 	}
 
 	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
@@ -259,7 +270,7 @@ public class T624_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T624_Bean> list = T624_dao.getAllList("1=1", null);
+			List<T624_Bean> list = T624_dao.getAllList("", null);
 			
 			if(list==null){
 				if(list.size()==0){
@@ -357,29 +368,29 @@ public class T624_Action {
 						for(int j=0;j<list.size();j++){
 							T624_Bean bean1 =  list.get(j);
 							if(j==0){
-								ws.addCell(new Label(0,3, bean1.getTeaUnit(), wcf));
+								ws.addCell(new Label(0,3, bean1.getTeaUnit(), wcf1));
 								ws.mergeCells(0, 3, 6, 3);
-								ws.addCell(new Label(7, 3, bean1.getPlanAdmisNum()+"", wcf));
-								ws.addCell(new Label(8, 3, bean1.getActualAdmisNum()+"", wcf));
-								ws.addCell(new Label(9, 3, bean1.getActualRegisterNum()+"", wcf));
-								ws.addCell(new Label(10, 3, bean1.getGenHignSchNum()+"", wcf));
-								ws.addCell(new Label(11, 3, bean1.getSecondVocationNum()+"", wcf));
-								ws.addCell(new Label(12, 3, bean1.getOtherNum()+"", wcf));
+								ws.addCell(new Label(7, 3, bean1.getPlanAdmisNum()+"", wcf1));
+								ws.addCell(new Label(8, 3, bean1.getActualAdmisNum()+"", wcf1));
+								ws.addCell(new Label(9, 3, bean1.getActualRegisterNum()+"", wcf1));
+								ws.addCell(new Label(10, 3, bean1.getGenHignSchNum()+"", wcf1));
+								ws.addCell(new Label(11, 3, bean1.getSecondVocationNum()+"", wcf1));
+								ws.addCell(new Label(12, 3, bean1.getOtherNum()+"", wcf1));
 //								ws.addCell(new Label(13, 3, bean1.getNote()+"", wcf));
 							}else{
-								ws.addCell(new Label(0, k,j+"", wcf));
-								ws.addCell(new Label(1, k, bean1.getTeaUnit(), wcf));
-								ws.addCell(new Label(2, k, bean1.getUnitId(), wcf));
-								ws.addCell(new Label(3, k, bean1.getMajorName(), wcf));
-								ws.addCell(new Label(4, k, bean1.getMajorId(), wcf));
-								ws.addCell(new Label(5, k, bean1.getMajorFieldName(), wcf));
-								ws.addCell(new Label(6, k, this.BooleanToString(bean1.getIsCurrentYearAdmis()), wcf));
-								ws.addCell(new Label(7, k, bean1.getPlanAdmisNum()+"", wcf));
-								ws.addCell(new Label(8, k, bean1.getActualAdmisNum()+"", wcf));
-								ws.addCell(new Label(9, k, bean1.getActualRegisterNum()+"", wcf));
-								ws.addCell(new Label(10, k, bean1.getGenHignSchNum()+"", wcf));
-								ws.addCell(new Label(11, k, bean1.getSecondVocationNum()+"", wcf));
-								ws.addCell(new Label(12, k, bean1.getOtherNum()+"", wcf));
+								ws.addCell(new Label(0, k,j+"", wcf1));
+								ws.addCell(new Label(1, k, bean1.getTeaUnit(), wcf1));
+								ws.addCell(new Label(2, k, bean1.getUnitId(), wcf1));
+								ws.addCell(new Label(3, k, bean1.getMajorName(), wcf1));
+								ws.addCell(new Label(4, k, bean1.getMajorId(), wcf1));
+								ws.addCell(new Label(5, k, bean1.getMajorFieldName(), wcf1));
+								ws.addCell(new Label(6, k, this.BooleanToString(bean1.getIsCurrentYearAdmis()), wcf1));
+								ws.addCell(new Label(7, k, bean1.getPlanAdmisNum()+"", wcf1));
+								ws.addCell(new Label(8, k, bean1.getActualAdmisNum()+"", wcf1));
+								ws.addCell(new Label(9, k, bean1.getActualRegisterNum()+"", wcf1));
+								ws.addCell(new Label(10, k, bean1.getGenHignSchNum()+"", wcf1));
+								ws.addCell(new Label(11, k, bean1.getSecondVocationNum()+"", wcf1));
+								ws.addCell(new Label(12, k, bean1.getOtherNum()+"", wcf1));
 //								ws.addCell(new Label(13, k, bean1.getNote()+"", wcf));
 							}
 							k++;
@@ -436,11 +447,11 @@ public class T624_Action {
 
 
 
-	public int getSeqNum() {
+	public Integer getSeqNum() {
 		return seqNum;
 	}
 
-	public void setSeqNum(int seqNum) {
+	public void setSeqNum(Integer seqNum) {
 		this.seqNum = seqNum;
 	}
 

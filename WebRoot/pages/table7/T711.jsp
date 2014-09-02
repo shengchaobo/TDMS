@@ -68,18 +68,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
 		 <div>
-		 <form id="auditing" method="post" style="float: right;height: 26px;">
-		                       序号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:70px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+		  <form method="post" id="auditing"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 			</form>
 		</div>
 	</div>
 	<div id="toolbar2" style="float: right;">
 	
 		<a href="pages/T711/dataExport?excelName=<%=URLEncoder.encode("表7-1-1教学管理人员获得教学成果奖情况","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+		
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid"  url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
@@ -136,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<input id="TeaUnit" type="hidden" name="t711_Bean.TeaUnit">
 						<input id="UnitID" name="t711_Bean.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
 							 }">
@@ -180,7 +206,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>等级：</label> 
-						<select class='easyui-combobox' id="AwardRank" name="t711_Bean.AwardRank" panelHeight="auto" >
+						<select class='easyui-combobox' id="AwardRank" name="t711_Bean.AwardRank" panelHeight="auto" editable="false">
 							<option value="一等奖">一等奖</option>
 							<option value="二等奖">二等奖</option>
 							<option value="三等奖">三等奖</option>
@@ -193,7 +219,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>获奖时间：</label> 
-						<input  id="AwardTime"  class="easyui-datebox" style="width:80px"  name="t711_Bean.AwardTime">
+						<input  id="AwardTime"  class="easyui-datebox" style="width:80px"  name="t711_Bean.AwardTime" editable="false">
 						
 							<span id="AwardTimeSpan"></span>
 					</div>
@@ -354,8 +380,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
+			
+			
 			var teaUnit = $('#UnitID').combobox('getText');
-			var teaID = $('#Name').combobox('getText');
+			var teaId = $('#Name').combobox('getText');
+			var teaName = $('#Name').combobox('getValue');
 			var awardName = $('#AwardName').val();
 			var awardLevel = $('#AwardLevel').combobox('getText');
 			var awardRank = $('#AwardRank').combobox('getText');
@@ -371,8 +400,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 			}
 			
-			if(teaID == null || teaID.length == 0 || teaID.length > 50){
+			if(teaId == null || teaId.length == 0 || teaId.length > 50){
 			  alert("教工号不能为空或长度不超过50");
+				return false;
+			}
+			//根据数据库定义的字段的长度，对其进行判断
+			if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
+				alert("教工号不能为空或者教师库中无该教工号");
 				return false;
 			}
 			if(awardName == null || awardName.length==0 || awardName.length > 200){

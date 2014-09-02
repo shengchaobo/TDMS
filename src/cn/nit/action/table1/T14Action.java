@@ -60,7 +60,9 @@ public class T14Action {
 	
 	/**每页显示的条数  */
 	private String rows ;
-	/**  逐条插入数据  */
+
+	/**  待审核数据的查询的序列号  */
+	private String unitID ;
 	
 	/**  为界面加载数据  */
 	public void auditingData(){
@@ -76,26 +78,12 @@ public class T14Action {
 			}
 			
 			String cond = null;
-			StringBuffer conditions = new StringBuffer();
 			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
-				cond = null;	
-			}else{			
-				if(this.getSeqNum()!=null){
-					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
-				}
-				
-				if(this.getStartTime() != null){
-					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
-				}
-				
-				if(this.getEndTime() != null){
-					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
-							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-				}
-				cond = conditions.toString();
+			if(this.getUnitID()!= null&&!this.getUnitID().equals("")){
+				cond = " where UnitID LIKE '" + this.getUnitID() + "%'";
+//				System.out.println(cond);
 			}
+
 
 			String pages = t12Ser.auditingData(cond, "30", Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
@@ -172,8 +160,6 @@ public class T14Action {
 	
 
 	public String execute() throws Exception{
-
-		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
 		return "success" ;
 	}
 	
@@ -260,6 +246,14 @@ public class T14Action {
 			e.printStackTrace();
 		}
 		return excelName;
+	}
+
+	public String getUnitID() {
+		return unitID;
+	}
+
+	public void setUnitID(String unitID) {
+		this.unitID = unitID;
 	}
 	
 

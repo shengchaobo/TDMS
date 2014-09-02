@@ -76,8 +76,37 @@
 	//对输入字符串进行验证
 	function validate() {
 		// 获取文本框的值
+		
+		var teaId = $('#tutorName').combobox('getText');
+		var teaName = $('#tutorName').combobox('getValue');
+		var unitName = $('#unitId').combobox('getText');
+		var tutorType = $('#tutorType').combobox('getText');
+		var majorId = $('#majorId').combobox('getText');
+		
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
+		
+		
+		//根据数据库定义的字段的长度，对其进行判断
+		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
+			alert("教工号不能为空或者教师库中无该教工号");
+			return false;
+		}
+
+		if(tutorType == null || tutorType==""){
+			alert("导师类型不能为空");
+			return false;
+	    }
+		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
+			return false;
+	    }
+		
+		if(majorId == null || majorId==""){
+			alert("专业不能为空");
+			return false;
+	    }
 		
 		if (note != null && note.length > 1000) {
 			alert("备注中文字数不超过500");

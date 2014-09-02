@@ -27,6 +27,7 @@ import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T435_Bean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -50,6 +51,7 @@ import cn.nit.service.table6.T615_Service;
 import cn.nit.service.table6.T632_Service;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 /**
  * 待完成！！！！！！！
@@ -67,7 +69,7 @@ public class T615_Action {
 	T615_Dao T615_dao = new T615_Dao();
 
 	/** 待审核数据的查询的序列号 */
-	private int seqNum;
+	private Integer seqNum;
 
 	/** 待审核数据查询的起始时间 */
 	private Date startTime;
@@ -126,37 +128,52 @@ public class T615_Action {
 	/** 为界面加载数据 */
 	public void loadData() throws Exception {
 
-		HttpServletResponse response = ServletActionContext.getResponse();
+HttpServletResponse response = ServletActionContext.getResponse() ;	
 		
+		String cond = null;
+		StringBuffer conditions = new StringBuffer();
 		
-		// private JSONObject jsonObj;
-		
-		String cond = "1=1";
-		if(this.getSearchItem()!= null){
-			cond += " and MajorName LIKE '" + this.getSearchItem() + "%'";
-			System.out.println(cond);
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getSeqNum()!=null){
+				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+			}
+			
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			cond = conditions.toString();
 		}
-		List<T615_Bean> list = T615_service.getPageInfoList(cond,null,this.getRows(), this.getPage());
-		String TeaInfoJson = this.toBeJson(list, T615_service.getTotal(cond,null));
+		
+		List<T615_Bean> list = T615_service.getPageInfoList(cond, null, this.getRows(), this.getPage()) ;
+		String TeaInfoJson = this.toBeJson(list,T615_service.getTotal(cond, null));
+		//private JSONObject jsonObj;
+		
+		PrintWriter out = null ;
 
-		PrintWriter out = null;
-
-		if (TeaInfoJson == null) {
-			return;
-		} else {
+		if(TeaInfoJson == null){			
+			return ;
+		}else{
 			try {
-
-				System.out.println(TeaInfoJson);
-				response.setContentType("application/json;charset=UTF-8");
-				out = response.getWriter();
-				out.print(TeaInfoJson);
+				
+				System.out.println(TeaInfoJson) ;
+				response.setContentType("application/json;charset=UTF-8") ;
+				out = response.getWriter() ;
+				out.print(TeaInfoJson) ;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} finally {
-				if (out != null) {
-					out.flush();
-					out.close();
+			}finally{
+				if(out != null){
+					out.flush() ;
+					out.close() ;
 				}
 			}
 		}
@@ -236,7 +253,7 @@ public class T615_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T615_Bean> list = T615_dao.getAllList("1=1", null);
+			List<T615_Bean> list = T615_dao.getAllList("", null);
 						
 			//String sheetName = this.getExcelName();
 			
@@ -307,11 +324,11 @@ public class T615_Action {
 		return ServletActionContext.getResponse();
 	}
 
-	public int getSeqNum() {
+	public Integer getSeqNum() {
 		return seqNum;
 	}
 
-	public void setSeqNum(int seqNum) {
+	public void setSeqNum(Integer seqNum) {
 		this.seqNum = seqNum;
 	}
 

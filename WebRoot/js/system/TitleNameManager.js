@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("职称代码不能超过5位");
+			return false;
+		}
+		
 		if (titleName == null || titleName.length == 0 ) {
 			alert("职称名称不能为空");
 			return false;

@@ -15,11 +15,10 @@ import javax.persistence.TemporalType;
  * T461FameTeaAwardPer entity. @author MyEclipse Persistence Tools
  */
 
-@Table(name = "T461_FameTeaAward_Per$", schema = "dbo", catalog = "TDMS")
 public class T461_Bean implements java.io.Serializable {
 
 	// Fields
-	private int SeqNumber;
+	private Integer SeqNumber;
 	private String name;
 	private String teaId;
 	private String fromTeaUnit;
@@ -150,20 +149,20 @@ public class T461_Bean implements java.io.Serializable {
 		this.awardLevel = awardLevel;
 	}
 
-	public void setSeqNumber(int seqNumber) {
-		SeqNumber = seqNumber;
-	}
-
-	public int getSeqNumber() {
-		return SeqNumber;
-	}
-
 	public void setFillUnitID(String fillUnitID) {
 		this.fillUnitID = fillUnitID;
 	}
 
 	public String getFillUnitID() {
 		return fillUnitID;
+	}
+
+	public void setSeqNumber(Integer seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public Integer getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

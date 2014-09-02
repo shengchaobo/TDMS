@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("评教类型代码不能超过5位");
+			return false;
+		}
+		
 		if (evaluType == null || evaluType.length == 0 ) {
 			alert("评教类型不能为空");
 			return false;

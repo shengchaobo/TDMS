@@ -85,7 +85,8 @@
 		var class2 = $('#Class2').val();
 		var functions = $('#Functions').val();
 		var leader = $('#Leader').val();
-		var teaID = $('#TeaID').val();
+		var teaId = $('#TeaID').combobox('getText');
+		
 		var note = $('#Note').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
@@ -119,25 +120,18 @@
 			return false;
 		}
 
-		if (teaID == null || teaID.length == 0 ) {
-			
-			alert("教师ID不能为空");
+		if (teaId == null ||  teaId == ''  || teaId.length == 0) {
+			alert("教工号不能为空或者教师库中无该教工号");
 			return false;
-		}
-		else if(!num.test(teaID)){
-			alert("教师ID只能为数字");
-			return false;
-		}
-		else if(teaID.length > 12){
-		 	alert("教师ID长度不超过12");
-		 	return false;
 		}
 		
+				
 		if (note != null && note.length > 1000) {
 			alert("备注长度不超过1000");
 			return false;
 		}
 		return true;
+		alert(teaId);
 	}
 
 	function editDepartment() {
@@ -161,7 +155,7 @@
 		$('#Class2').val(row[0].class2);
 		$('#Functions').val(row[0].functions);
 		$('#Leader').val(row[0].leader);
-		$('#TeaID').val(row[0].teaId);
+		$('#TeaID').combobox('select', row[0].teaId) ;
 		$('#Note').val(row[0].note);
 	}
 

@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("荣誉类型代码不能超过5位");
+			return false;
+		}
+		
 		if (awardType == null || awardType.length == 0 ) {
 			alert("荣誉类型名称不能为空");
 			return false;

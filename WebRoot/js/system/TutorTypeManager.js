@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5) {
+			alert("导师代码不能超过5位");
+			return false;
+		}
+		
 		if (tutorType == null || tutorType.length == 0 ) {
 			alert("导师类别名称不能为空");
 			return false;

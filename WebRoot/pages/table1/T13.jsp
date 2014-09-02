@@ -52,14 +52,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
        <a href='pages/T13/dataExport?excelName=<%=URLEncoder.encode("表1-3学校科研单位","UTF-8")%>' class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
            </div>
-           <!--  
-		 	<form id="auditing" method="post" style="float: right;height: 24px;">
-			 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
-				日期 起始: <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-				结束: <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
-			</form>
-			-->
+          <form method="post"  id="auditing"   style="float: right;height: 24px;"  >
+			<!-- 两个文体输入框，可以避免enter键自动刷新事件 -->
+			<input id="hiddenText" type="text"  style="display:none" />
+		 	单位号 :&nbsp;<input id="unitID"  name=" unitID"  class="easyui-box" style="height:24px" />
+			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
+		</form>
 		</div>
 	</div>
 	<!-- 
@@ -89,10 +87,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 
-         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
-         queryParams.seqNum = $('#seqNum').val(); 
-         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
-    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
+		 var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+         queryParams.unitID = $('#unitID').val();       	 
          $("#unverfiedData").datagrid('reload'); 
     }
 	    

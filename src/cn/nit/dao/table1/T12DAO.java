@@ -42,15 +42,19 @@ public class T12DAO {
 		sql.append(" from " + tableName ) ;
 //		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
 		int total = 0 ;
-		
-		if(fillUnitId != null && !fillUnitId.equals("")){
+		if(conditions==null){
 			sql.append(" where UnitID like '"+fillUnitId+"%'") ;
+		}else{
+			sql.append( conditions);
 		}
-		
-		if(conditions != null && !conditions.equals("")){
-			sql.append(conditions) ;
-		}
-		
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" where UnitID like '"+fillUnitId+"%'") ;
+//		}
+//		
+//		if(conditions != null && !conditions.equals("")){
+//			sql.append(conditions) ;
+//		}
+//		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -86,14 +90,17 @@ public class T12DAO {
 		
 		sql.append("select UnitID,UnitName,Functions,Leader,TeaID,Note") ;
 		sql.append(" from " + tableName ) ;
-
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" where UnitID like '"+fillUnitId+"%'") ;
+		if(conditions==null){
+			sql.append(" where UnitID like '"+fillUnitId+"%'");
+		}
+		else{
+			sql.append( conditions);
 		}
 		
-		if(conditions != null && !conditions.equals("")){
-			sql.append(conditions) ;
-		}
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" where UnitID like '"+fillUnitId+"%'") ;
+//		}
+		
 		
 //		sql.append(" order by SeqNumber desc") ;
 		

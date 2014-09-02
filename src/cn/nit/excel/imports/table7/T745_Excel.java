@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T745_Bean;
 import cn.nit.service.di.DiDepartmentService;
@@ -95,10 +96,7 @@ public class T745_Excel {
 				String note = cell[6].getContents();
 					
 				count++ ;
-
-				String fillUnitID = null;
-				
-				
+				String fillUnitID=null;	
 				T745_Bean.setTeaUnit(unit);
 				T745_Bean.setUnitID(unitId);
 				T745_Bean.setAssessYear(assYear);

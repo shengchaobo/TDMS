@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table7.T745_Bean;
 import cn.nit.dao.table7.T745_DAO;
 import cn.nit.pojo.table7.T745POJO;
@@ -62,15 +63,9 @@ public class T745_Action {
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	public void insert(){
-		
 		teachWorkAssessAC.setTime(new Date());
-		
 		boolean flag=t745_Sr.insert(teachWorkAssessAC);
-		
-		PrintWriter out=null;
-		
-		
-		
+		PrintWriter out=null;	
 		try {
 			getResponse().setContentType("text/html;charset=UTF-8");
 			out=getResponse().getWriter();
@@ -127,7 +122,6 @@ public class T745_Action {
 			}
 			cond = conditions.toString();
 		}
-
 		String pages = t745_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
@@ -203,7 +197,6 @@ public class T745_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			
 			List<T745POJO> list = t745_Dao.totalList(this.getSelectYear());
 			String sheetName = this.excelName;
 

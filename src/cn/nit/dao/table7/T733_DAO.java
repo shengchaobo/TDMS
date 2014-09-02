@@ -58,7 +58,7 @@ public class T733_DAO {
 		
 
 		if(fillUnitId!=null && !fillUnitId.equals("")){
-			sql.append("and FillUnit=" + fillUnitId);	
+			sql.append(" and FillUnitID=" + fillUnitId);	
 		}
 		
 		if(conditions!=null && !conditions.equals("")){

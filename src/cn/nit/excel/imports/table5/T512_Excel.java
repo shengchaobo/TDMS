@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDepartmentBean;
@@ -368,7 +369,10 @@ public class T512_Excel {
 				
 				count++ ;
 
-				String fillUnitID = null;
+				//插入教学单位
+				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+				String fillUnitID = bean.getUnitID();
+				T512_Bean.setFillUnitID(fillUnitID);		
 				T512_Bean.setTerm(term);
 				T512_Bean.setCSUnit(unit);
 				T512_Bean.setUnitID(unitId);

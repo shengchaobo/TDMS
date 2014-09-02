@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T742_Bean;
@@ -148,9 +149,7 @@ public class T742_Excel {
 				 String note = cell[11].getContents();
 					
 					count++ ;
-
-					String fillUnitID = null;
-					
+					String fillUnitID=null;	
 					T742_Bean.setTeaName(teaName);
 					T742_Bean.setTeaID(teaId);
 					T742_Bean.setTeaUnit(unit);

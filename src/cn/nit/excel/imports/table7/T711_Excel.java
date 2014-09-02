@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T711_Bean;
@@ -172,8 +173,10 @@ public class T711_Excel {
 				String note = cell[13].getContents();
 				
 				count++ ;
-
-				String fillUnitID = null;
+				//插入教学单位
+				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+				String fillUnitID = bean.getUnitID();
+				T711_Bean.setFillUnitID(fillUnitID);
 				
 				T711_Bean.setTeaUnit(unit);
 				T711_Bean.setUnitID(unitId);
@@ -190,6 +193,7 @@ public class T711_Excel {
 				T711_Bean.setFillUnitID(fillUnitID);
 				T711_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T711_Bean.setNote(note);
+				
 				list.add(T711_Bean);
 				
 			} catch (Exception e) {

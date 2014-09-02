@@ -58,7 +58,7 @@ public class T732_DAO {
 		
 
 		if(fillUnitId!=null && !fillUnitId.equals("")){
-			sql.append("and FillUnit=" + fillUnitId);	
+			sql.append(" and FillUnitID=" + fillUnitId);	
 		}
 		
 		if(conditions!=null && !conditions.equals("")){
@@ -134,13 +134,13 @@ public class T732_DAO {
 		 *
 		 * @time: 2014-5-14/下午02:34:42
 		 */
-		public List<T732POJO> totalList(String year){
+		public List<T732POJO> totalList(String year,String fillUnitID){
             StringBuffer sql=new StringBuffer();
 			
 			sql.append("select  t.SeqNumber,t.AttendClassTerm,t.LeaderName,t.LeaderTeaID,t.AdminTitle,t.AttendClassTime,t.LectureTea,tbp.TeaID as LectureTeaID,t.LectureTeaID as LectureTeaIDD,t.LectureCS,t.CSID,t.SetCSUnit,t.UnitID,t.LectureClass,t.Evaluate,t.Time,t.Note");
 			sql.append(" from " +  tableName  + " as t, T411_TeaBasicInfo_Per$  tbp");
 			sql.append(" where tbp.TeaID=t.LectureTeaID ");
-			
+			sql.append(" and FillUnitID=" + "'" + fillUnitID + "'");
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;

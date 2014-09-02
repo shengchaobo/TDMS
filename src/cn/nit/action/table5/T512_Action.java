@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table5.T512_Bean;
 import cn.nit.dao.table5.T512_DAO;
 import cn.nit.pojo.table5.T512POJO;
@@ -63,7 +64,10 @@ public class T512_Action {
 	public void insert(){
 		
 		t512_Bean.setTime(new Date());
-		
+		//具体教学单位
+	    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
+		t512_Bean.setFillUnitID(fillUnitID);
 		boolean flag= t512_Sr.insert(t512_Bean);
         PrintWriter out = null ;
 		
@@ -121,8 +125,10 @@ public class T512_Action {
 			}
 			cond = conditions.toString();
 		}
-
-		String pages = t512_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		//具体教学单位
+	    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
+		String pages = t512_Sr.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -196,8 +202,10 @@ public class T512_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			
-			List<T512POJO> list = t512_DAO.totalList(this.getSelectYear());
+			//具体教学单位
+		    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+			String fillUnitID = bean.getUnitID();
+			List<T512POJO> list = t512_DAO.totalList(this.getSelectYear(),fillUnitID);
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();

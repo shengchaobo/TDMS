@@ -3,6 +3,8 @@ package cn.nit.excel.imports.table7;
 import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T733_Bean;
 import cn.nit.service.di.DiDepartmentService;
@@ -107,9 +109,7 @@ public class T733_Excel {
 	            String note = cell[8].getContents();
 				
 				count++ ;
-
-				String fillUnitID = null;
-				
+				String fillUnitID=null;	
 				T733_Bean.setUnitName(unit);
 				T733_Bean.setUnitID(unitId);
 				T733_Bean.setMeetingDate(TimeUtil.changeDateYM(meetDate));

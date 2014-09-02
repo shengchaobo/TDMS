@@ -98,110 +98,124 @@ public class A323_Action {
 	}
 	
 	
-//	public InputStream getInputStream() throws IOException{
-//		
-//
-//		System.out.println(this.getSelectYear());
-//		List<A323_Bean> list = a323_Dao.totalList(this.getSelectYear());
-//		
-//	    ByteArrayOutputStream fos = null;
-//		
-//		if(list.isEmpty()){
-//			PrintWriter out = null ;
-//			response.setContentType("text/html;charset=utf-8") ;
-//			out = response.getWriter() ;
-//			out.print("后台传入的数据为空") ;
-//			System.out.println("后台传入的数据为空");
-//			return null;
-//		}else{
-//			String sheetName = this.excelName;
-//						
-//		    WritableWorkbook wwb;
-//		    try {    
-//		           fos = new ByteArrayOutputStream();
-//		           wwb = Workbook.createWorkbook(fos);
-//		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
-//		
-//		            //    设置单元格的文字格式
-//		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
-//		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
-//		           WritableCellFormat wcf = new WritableCellFormat(wf);
-//		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
-//		           wcf.setAlignment(Alignment.CENTRE);
-//		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
-//		        		     jxl.format.Colour.BLACK);
-//		           ws.setRowView(1, 500);
-//		           
-//		            //    设置内容单无格的文字格式
-//		           WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
-//		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
-//		            WritableCellFormat wcf1 = new WritableCellFormat(wf1);        
-//		            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
-//		            wcf1.setAlignment(Alignment.CENTRE);
-//		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
-//			        		     jxl.format.Colour.BLACK);
-//		           
-//		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
-//		           ws.mergeCells(0, 0, 3, 0);
-//		           
-//		           ws.addCell(new Label(0, 2, "序号", wcf)); 
-//		           ws.addCell(new Label(1, 2, "教学单位", wcf)); 
-//		           ws.addCell(new Label(2, 2, "单位号", wcf)); 
-//		           ws.addCell(new Label(3, 2, "本科专业数（个）", wcf)); 
-//		           ws.addCell(new Label(4, 2, "优势专业占专业总数比例（%）", wcf)); 
-//		           ws.addCell(new Label(4, 3, "合计", wcf)); 
-//		           ws.addCell(new Label(5, 3, "国际级", wcf)); 
-//		           ws.addCell(new Label(6, 3, "国家级", wcf)); 
-//		           ws.addCell(new Label(7, 3, "省部级", wcf)); 
-//		           ws.addCell(new Label(8, 3, "市级", wcf)); 
-//		           ws.addCell(new Label(9, 3, "校级", wcf)); 
-//		           ws.addCell(new Label(0, 4, "全校合计", wcf)); 
-//		           ws.addCell(new Label(3, 4, ""+list.get(0).getFieldNum(), wcf1)); 
-//		           ws.addCell(new Label(4, 4, ""+list.get(0).getSum()+"%", wcf1)); 
-//		           ws.addCell(new Label(5, 4, ""+list.get(0).getInternationRatio()+"%", wcf1)); 
-//		           ws.addCell(new Label(6, 4, ""+list.get(0).getNationRatio()+"%", wcf1)); 
-//		           ws.addCell(new Label(7, 4, ""+list.get(0).getProviRatio()+"%", wcf1)); 
-//		           ws.addCell(new Label(8, 4, ""+list.get(0).getCityRatio()+"%", wcf1)); 
-//		           ws.addCell(new Label(9, 4, ""+list.get(0).getSchoolRatio()+"%", wcf1));  
-//		           
-//		           for(int i=1;i<list.size();i++){
-//		        	   ws.addCell(new Label(0, 4+i,""+i, wcf));
-//		        	   ws.addCell(new Label(1, 4+i,list.get(i).getTeaUnit(), wcf));
-//		        	   ws.addCell(new Label(2, 4+i,""+list.get(i).getUnitID(), wcf1));
-//		        	   ws.addCell(new Label(3, 4+i,""+list.get(i).getFieldNum(), wcf1));
-//		        	   ws.addCell(new Label(4, 4+i,""+list.get(i).getSum()+"%", wcf1));
-//		        	   ws.addCell(new Label(5, 4+i,""+list.get(i).getInternationRatio()+"%", wcf1));
-//		        	   ws.addCell(new Label(6, 4+i,""+list.get(i).getNationRatio()+"%", wcf1));
-//		        	   ws.addCell(new Label(7, 4+i,""+list.get(i).getProviRatio()+"%", wcf1));
-//		        	   ws.addCell(new Label(8, 4+i,""+list.get(i).getCityRatio()+"%", wcf1));
-//		        	   ws.addCell(new Label(9, 4+i,""+list.get(i).getSchoolRatio()+"%", wcf1));
-//		           }
-//		           
-//
-//
-//
-//		           ws.mergeCells(0, 2, 0, 3);
-//		           ws.mergeCells(1, 2, 1, 3);
-//		           ws.mergeCells(2, 2, 2, 3);
-//		           ws.mergeCells(3, 2, 3, 3);
-//		           ws.mergeCells(4, 2, 9, 2);
-//		           ws.mergeCells(0, 4, 2, 4);
-//		           
-//
-// 
-//		             
-//
-//		          wwb.write();
-//		          wwb.close();
-//
-//		        } catch (IOException e){
-//		        } catch (RowsExceededException e){
-//		        } catch (WriteException e){}
-//		        
-//		}
-//		return new ByteArrayInputStream(fos.toByteArray());
-//		
-//	}
+	public InputStream getInputStream() throws IOException{
+		
+
+		System.out.println(this.getSelectYear());
+		List<A323_Bean> list = a323_Dao.totalList(this.getSelectYear());
+		
+	    ByteArrayOutputStream fos = null;
+		
+		if(list.isEmpty()){
+			PrintWriter out = null ;
+			response.setContentType("text/html;charset=utf-8") ;
+			out = response.getWriter() ;
+			out.print("后台传入的数据为空") ;
+			System.out.println("后台传入的数据为空");
+			return null;
+		}else{
+			String sheetName = this.excelName;
+						
+		    WritableWorkbook wwb;
+		    try {    
+		           fos = new ByteArrayOutputStream();
+		           wwb = Workbook.createWorkbook(fos);
+		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+		
+		            //    设置单元格的文字格式
+		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		           WritableCellFormat wcf = new WritableCellFormat(wf);
+		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		           wcf.setAlignment(Alignment.CENTRE);
+		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+		        		     jxl.format.Colour.BLACK);
+		           ws.setRowView(1, 500);
+		           
+		            //    设置内容单无格的文字格式
+		           WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		            WritableCellFormat wcf1 = new WritableCellFormat(wf1);        
+		            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+		            wcf1.setAlignment(Alignment.CENTRE);
+		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+			        		     jxl.format.Colour.BLACK);
+		           
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.mergeCells(0, 0, 3, 0);
+		           
+		           ws.addCell(new Label(0, 2, "序号", wcf)); 
+		           ws.addCell(new Label(1, 2, "专业名称", wcf)); 
+		           ws.addCell(new Label(2, 2, "专业代码", wcf)); 
+		           ws.addCell(new Label(3, 2, "1.各类课程学时结构（%）", wcf)); 
+		           ws.addCell(new Label(8, 2, "2.各类课程学分结构（%）", wcf)); 
+		           ws.addCell(new Label(3, 3, "必修课学时", wcf));
+		           ws.addCell(new Label(4, 3, "选修课学时", wcf)); 
+		           ws.addCell(new Label(5, 3, "理论教学学时", wcf)); 
+		           ws.addCell(new Label(6, 3, "实验教学学时", wcf)); 
+		           ws.addCell(new Label(7, 3, "集中实践教学环节学时", wcf)); 
+		           ws.addCell(new Label(8, 3, "必修课学分", wcf)); 
+		           ws.addCell(new Label(9, 3, "选修课学分", wcf)); 
+		           ws.addCell(new Label(10, 3, "理论教学学分", wcf)); 
+		           ws.addCell(new Label(11, 3, "实验教学学分", wcf)); 
+		           ws.addCell(new Label(12, 3, "集中实践教学环节学分", wcf)); 
+		           ws.addCell(new Label(13, 3, "课外科技活动学分", wcf));	
+		           ws.mergeCells(0, 2, 0, 3);
+		           ws.mergeCells(1, 2, 1, 3);
+		           ws.mergeCells(2, 2, 2, 3);
+		           ws.mergeCells(3, 2, 7, 2);
+		           ws.mergeCells(8, 2, 13, 2);
+		           int i = 0,count = 1;
+		           while(i<list.size()){
+		        	   if(list.get(i).getUnitID().equals("")){
+		        		   count = 1;
+			        	   ws.addCell(new Label(0, 4+i,list.get(i).getTeaUnit(), wcf));
+			        	   ws.addCell(new Label(3, 4+i,list.get(i).getRequireHour()+"%", wcf1));
+			        	   ws.addCell(new Label(4, 4+i,list.get(i).getOptionHour()+"%", wcf1));
+			        	   ws.addCell(new Label(5, 4+i,list.get(i).getInClassHour()+"%", wcf1));
+			        	   ws.addCell(new Label(6, 4+i,list.get(i).getExpHour()+"%", wcf1));
+			        	   ws.addCell(new Label(7, 4+i,list.get(i).getPraHour()+"%", wcf1));
+			        	   ws.addCell(new Label(8, 4+i,list.get(i).getRequireCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(9, 4+i,list.get(i).getOptionCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(10, 4+i,list.get(i).getInClassCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(11, 4+i,list.get(i).getExpCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(12, 4+i,list.get(i).getPraCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(13, 4+i,list.get(i).getOutClassCredit()+"%", wcf1));
+				           ws.mergeCells(0, 4+i, 2, 4+i);
+			        	   i++;
+			        	   
+		        	   }else{
+			        	   ws.addCell(new Label(0, 4+i,count+"", wcf));
+			        	   ws.addCell(new Label(1, 4+i,list.get(i).getTeaUnit(), wcf1));
+			        	   ws.addCell(new Label(2, 4+i,list.get(i).getUnitID()+"", wcf1));
+			        	   ws.addCell(new Label(3, 4+i,list.get(i).getRequireHour()+"%", wcf1));
+			        	   ws.addCell(new Label(4, 4+i,list.get(i).getOptionHour()+"%", wcf1));
+			        	   ws.addCell(new Label(5, 4+i,list.get(i).getInClassHour()+"%", wcf1));
+			        	   ws.addCell(new Label(6, 4+i,list.get(i).getExpHour()+"%", wcf1));
+			        	   ws.addCell(new Label(7, 4+i,list.get(i).getPraHour()+"%", wcf1));
+			        	   ws.addCell(new Label(8, 4+i,list.get(i).getRequireCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(9, 4+i,list.get(i).getOptionCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(10, 4+i,list.get(i).getInClassCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(11, 4+i,list.get(i).getExpCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(12, 4+i,list.get(i).getPraCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(13, 4+i,list.get(i).getOutClassCredit()+"%", wcf1));
+			        	   count++;
+			        	   i++;
+		        	   }
+		           }
+		           	             
+
+		          wwb.write();
+		          wwb.close();
+
+		        } catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
+		        
+		}
+		return new ByteArrayInputStream(fos.toByteArray());
+		
+	}
 	
 
 	

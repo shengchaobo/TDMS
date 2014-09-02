@@ -164,17 +164,23 @@ public class T659_Dao {
 	public List<T659_Bean> queryPageList(String cond, String filledID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
+		
+		String Cond = "1=1";
+		
+		if(cond != null && !cond.equals("")){
+			Cond = Cond + cond;
+		}
 		String queryPageSql;
 		
 			queryPageSql = "select top " + pagesize + 
 			fieldShow
 			+ " from " + tableName + 
-			" where " + cond +" and FillUnitID="+filledID+
+			" where " + Cond +" and FillUnitID="+filledID+
 			" and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
+			tableName + " where " + Cond + " order by SeqNumber)) order by SeqNumber" ;
 	
 
-		System.out.println(queryPageSql);
+//		System.out.println(queryPageSql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -222,11 +228,16 @@ public class T659_Dao {
 	
 	public List<T659_Bean> getAllList(String cond, String fillUnitID) {
 		// TODO Auto-generated method stub
+		String Cond = "1=1";
+		
+		if(cond != null && !cond.equals("")){
+			Cond = Cond + cond;
+		}
 		String sql;
 		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond
+		sql = "select " + fieldShow + " from " + tableName +" where " + Cond
 				+" and FillUnitID="+fillUnitID;
-	    System.out.println(sql);
+//	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

@@ -92,14 +92,14 @@
 		if($('#stuNumEachTime').val() == null || $('#stuNumEachTime').val()==""){
 			$('#stuNumEachTime').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(stuNumEachTime))) {
-			alert("必须为整数");
+			alert("接纳学生数必须为整数");
 			return false;
 	    }
 		
 		if($('#stuNumEachYear').val() == null || $('#stuNumEachYear').val()==""){
 			$('#stuNumEachYear').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(stuNumEachYear))) {
-			alert("必须为整数");
+			alert("接纳学生总数必须为整数");
 			return false;
 	    }
 	

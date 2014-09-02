@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar2" style="float: right;">
 		<a href='pages/T461/dataExport?param=6&&excelName=<%=URLEncoder.encode("表4-6-6教师所获荣誉-其他（教学单位-校数据采集工作组）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+		
 	</div>
 	
 	<!--添加弹出框-->
@@ -184,18 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<hr></hr>	
 	   <h3 class="title1">教师荣誉情况逐条导入</h3>
 	   <form id="addForm" method="post">
-		<table><!--
-			<tr>
-				<td style="valign:left" colspan="3">
-					<div class="fitem">
-						<label>请选择导入时间：</label> 
-						<input class="easyui-datebox"  id="time" type="text" 
-						name="T461_bean.time"  required="true"  editable="false" />
-						<span id="timeSpan"></span>
-					</div>
-				</td>
-			</tr>
-			-->
+		<table>
 			<tr>
 				<td>
 					<input type="hidden" name="T461_bean.seqNumber" id="seqNumber"/>

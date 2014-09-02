@@ -98,9 +98,8 @@ public class T461_Action {
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String fillUnitID = null;
 		
-		if(this.getParam() != "6"){
-			fillUnitID = bean.getUnitID();
-		}
+		fillUnitID = bean.getUnitID();
+
 		
 		List<T461_Bean> list = T461_services.getPagehonorList(cond, fillUnitID, this.getRows(), this.getPage(), this.getParam()) ;
 		String TeaInfoJson = this.toBeJson(list,T461_services.getTotal(cond, fillUnitID, this.getParam()));

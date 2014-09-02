@@ -110,7 +110,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="toolbar2" style="float: right;">
 	
 		<a href='pages/T181/dataExport?excelName=<%=URLEncoder.encode("表1-8-1签订合作协议机构（教务处）","UTF-8")%>' class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="loadDic()">高级检索</a>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog"

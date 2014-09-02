@@ -163,6 +163,12 @@ public class T652_Dao {
 	public List<T652_Bean> queryPageList(String cond, String filledID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
+		
+		String Cond = "1=1";
+		
+		if(cond != null && !cond.equals("")){
+			Cond = Cond + cond;
+		}
 		String queryPageSql;
 		
 			queryPageSql = "select top " + pagesize + 
@@ -171,9 +177,9 @@ public class T652_Dao {
 //			fieldShow
 			" from " + tableName + 
 			" left join DiAwardLevel on "+tableName+".AwardLevel = DiAwardLevel.IndexID "+
-			" where " + cond + " and FillUnitID="+filledID+
+			" where " + Cond + " and FillUnitID="+filledID+
 			" and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
+			tableName + " where " + Cond + " order by SeqNumber)) order by SeqNumber" ;
 	
 
 		System.out.println(queryPageSql);
@@ -224,11 +230,16 @@ public class T652_Dao {
 	
 	public List<T652_Bean> getAllList(String cond, String filledID) {
 		// TODO Auto-generated method stub
+		String Cond = "1=1";
+		
+		if(cond != null && !cond.equals("")){
+			Cond = Cond + cond;
+		}
 		String sql;
 		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond
+		sql = "select " + fieldShow + " from " + tableName +" where " + Cond
 			 +" and FillUnitID="+filledID;
-	    System.out.println(sql);
+//	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -281,42 +292,36 @@ public class T652_Dao {
 
 		T652_Dao StuPublishPaperDao = new T652_Dao();
 		T652_Bean StuPublishPaper = new T652_Bean();
+		List<T652_Bean> list = StuPublishPaperDao.getAllList(null, "1012");
+		
+		System.out.println(list.size());
 //		 StuPublishPaper.setSeqNumber(1);
 		//	
 		//TeaUnit,UnitId,PaperTitle,JonalName,JonalID,JonalDate,AwardStuName,
 		//AwardStuNum,GuideTeaName,GuideTeaNum,IsAward,AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID
 	
-		StuPublishPaper.setTeaUnit("水利与生态工程学院");
-		StuPublishPaper.setUnitId("3001");
-		StuPublishPaper.setPaperTitle("test");
-		StuPublishPaper.setJonalName("test");
-		StuPublishPaper.setJonalId("test");
-		StuPublishPaper.setJonalDate(new Date());
-		StuPublishPaper.setAwardStuName("test");
-		StuPublishPaper.setAwardStuNum(2);
-		StuPublishPaper.setGuideTeaName("test");
-		StuPublishPaper.setGuideTeaNum(2);
-		StuPublishPaper.setIsAward(true);
-		StuPublishPaper.setAwardLevel("50001");
-		StuPublishPaper.setAwardName("test");
-		StuPublishPaper.setAwardFromUnit("test");
-		StuPublishPaper.setFillUnitID("1029");
-		
-				
-		StuPublishPaper.setTime(new Date());
-		StuPublishPaper.setNote("无");
-//		//		
-		StuPublishPaperDao.insert(StuPublishPaper);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(StuPublishPaperDao.update(StuPublishPaper)) ;
-//		 System.out.println(StuPublishPaperDao.deleteItemsByIds("(8)")) ;
+//		StuPublishPaper.setTeaUnit("水利与生态工程学院");
+//		StuPublishPaper.setUnitId("3001");
+//		StuPublishPaper.setPaperTitle("test");
+//		StuPublishPaper.setJonalName("test");
+//		StuPublishPaper.setJonalId("test");
+//		StuPublishPaper.setJonalDate(new Date());
+//		StuPublishPaper.setAwardStuName("test");
+//		StuPublishPaper.setAwardStuNum(2);
+//		StuPublishPaper.setGuideTeaName("test");
+//		StuPublishPaper.setGuideTeaNum(2);
+//		StuPublishPaper.setIsAward(true);
+//		StuPublishPaper.setAwardLevel("50001");
+//		StuPublishPaper.setAwardName("test");
+//		StuPublishPaper.setAwardFromUnit("test");
+//		StuPublishPaper.setFillUnitID("1029");
+//		
+//				
+//		StuPublishPaper.setTime(new Date());
+//		StuPublishPaper.setNote("无");
+////		//		
+//		StuPublishPaperDao.insert(StuPublishPaper);
 
-		System.out.println("success!!");
 	}
 
 

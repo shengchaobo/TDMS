@@ -201,7 +201,7 @@ public class DiRoleDAO {
 	 * 判断中是否已包含该角色
 	 */
 	public boolean hasRole(String roleID){
-		String sql = "select * from " + tableName + " where RoleID="+ roleID	;
+		String sql = "select * from " + tableName + " where RoleID='"+ roleID + "'"	;
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

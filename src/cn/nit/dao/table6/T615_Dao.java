@@ -160,14 +160,24 @@ public class T615_Dao {
 	
 	public List<T615_Bean> queryPageList(String cond, Object object,
 			int pagesize, int currentpage) {
+		
+		String Cond = "1=1";
+		
+		if(cond != null && !cond.equals("")){
+			Cond = Cond + cond;
+		}
+//		
+//		if(fillunitID != null && !fillunitID.equals("")){
+//			Cond = Cond + " and FillUnitID=" + fillunitID;
+//		}
 		// TODO Auto-generated method stub
 		String queryPageSql;
 		
 			queryPageSql = "select top " + pagesize + 
 			fieldShow
 			+ " from " + tableName + 
-			" where " + cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-			tableName + " where " + cond + " order by SeqNumber)) order by SeqNumber" ;
+			" where " + Cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
+			tableName + " where " + Cond + " order by SeqNumber)) order by SeqNumber" ;
 	
 
 		System.out.println(queryPageSql);
@@ -218,9 +228,21 @@ public class T615_Dao {
 	
 	public List<T615_Bean> getAllList(String cond, Object object) {
 		// TODO Auto-generated method stub
+		
+		String Cond = "1=1";
+		
+		int total = 0;
+		if(cond != null && !cond.equals("")){
+			Cond = Cond + cond;
+		}
+		
+//		if(fillunitID != null && !fillunitID.equals("")){
+//			Cond = Cond + " and FillUnitID=" + fillunitID;
+//		}
+				
 		String sql;
 		
-		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
+		sql = "select " + fieldShow + " from " + tableName +" where " + Cond;
 	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -247,40 +269,33 @@ public class T615_Dao {
 	public static void main(String args[]) {
 
 		T615_Dao GenUndergraMajStuNumDao = new T615_Dao();
-		T615_Bean GenUndergraMajStuNum = new T615_Bean();
-//		 GenUndergraMajStuNum.setSeqNumber(1);
-		//		
-		GenUndergraMajStuNum.setMajorName("水利水电工程");
-		GenUndergraMajStuNum.setMajorId("081101");
-		GenUndergraMajStuNum.setFromUnitId("水利与生态工程学院");
-		GenUndergraMajStuNum.setUnitId("3001");
-		
-		GenUndergraMajStuNum.setSchLen(4);
-		GenUndergraMajStuNum.setSchStuSumNum(1388);
-		GenUndergraMajStuNum.setFreshmanNum(309);
-		GenUndergraMajStuNum.setSophomoreNum(318);
-		GenUndergraMajStuNum.setJuniorNum(396);
-		GenUndergraMajStuNum.setSeniorNum(365);
-		GenUndergraMajStuNum.setOtherGradeNum(0);
-		GenUndergraMajStuNum.setMinorNum(30);
-		GenUndergraMajStuNum.setDualDegreeNum(30);
-		GenUndergraMajStuNum.setChangeInNum(3);
-		GenUndergraMajStuNum.setChangeOutNum(0);
-
-		
-		GenUndergraMajStuNum.setTime(new Date());
-		GenUndergraMajStuNum.setNote("无");
+		List<T615_Bean> list = GenUndergraMajStuNumDao.queryPageList(null, null, 10, 1);
+		System.out.println(list.size());
+//		T615_Bean GenUndergraMajStuNum = new T615_Bean();
+////		 GenUndergraMajStuNum.setSeqNumber(1);
 //		//		
-		GenUndergraMajStuNumDao.insert(GenUndergraMajStuNum);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(GenUndergraMajStuNumDao.update(GenUndergraMajStuNum)) ;
-//		 System.out.println(GenUndergraMajStuNumDao.deleteItemsByIds("(8)")) ;
+//		GenUndergraMajStuNum.setMajorName("水利水电工程");
+//		GenUndergraMajStuNum.setMajorId("081101");
+//		GenUndergraMajStuNum.setFromUnitId("水利与生态工程学院");
+//		GenUndergraMajStuNum.setUnitId("3001");
+//		
+//		GenUndergraMajStuNum.setSchLen(4);
+//		GenUndergraMajStuNum.setSchStuSumNum(1388);
+//		GenUndergraMajStuNum.setFreshmanNum(309);
+//		GenUndergraMajStuNum.setSophomoreNum(318);
+//		GenUndergraMajStuNum.setJuniorNum(396);
+//		GenUndergraMajStuNum.setSeniorNum(365);
+//		GenUndergraMajStuNum.setOtherGradeNum(0);
+//		GenUndergraMajStuNum.setMinorNum(30);
+//		GenUndergraMajStuNum.setDualDegreeNum(30);
+//		GenUndergraMajStuNum.setChangeInNum(3);
+//		GenUndergraMajStuNum.setChangeOutNum(0);
+//
+//		
+//		GenUndergraMajStuNum.setTime(new Date());
+//		GenUndergraMajStuNum.setNote("无");
+////		//		
+//		GenUndergraMajStuNumDao.insert(GenUndergraMajStuNum);
 
-		System.out.println("success!!");
 	}
 }

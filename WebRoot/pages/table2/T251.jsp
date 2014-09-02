@@ -180,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar2" style="float: right;">
 		<a href='pages/T251/dataExport?excelName=<%=URLEncoder.encode("表2-5-1本科实验、实习、实训场所-基本情况","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
+		
 	</div>
 	
 	<!--添加弹出框-->
@@ -262,7 +262,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 				<div class="fitem">
 					<label>金额（元）：</label> 
-					<input id="money" type="text" name="T251_bean.machNum"
+					<input id="money" type="text" name="T251_bean.money"
 						class="easyui-validatebox" ><span id="machNumSpan"></span>
 				</div>
 				</td>

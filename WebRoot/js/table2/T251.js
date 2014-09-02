@@ -94,7 +94,7 @@
 		if($('#machNum').val() == null || $('#machNum').val()==""){
 			$('#machNum').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(machNum))) {
-			alert("必须为整数");
+			alert("台件数必须为整数");
 			return false;
 	    }
 		
@@ -102,7 +102,7 @@
 			if($('#money').val()==""){
 				$('#money').val(0);
 			}else{
-				alert("必须为数字");
+				alert("金额必须为数字");
 				return false;
 			}
 		}
@@ -111,7 +111,7 @@
 			if($('#area').val()==""){
 				$('#area').val(0);
 			}else{
-				alert("必须为数字");
+				alert("面积必须为数字");
 				return false;
 			}
 		}
@@ -120,7 +120,7 @@
 			if($('#newAddArea').val()==""){
 				$('#newAddArea').val(0);
 			}else{
-				alert("必须为数字");
+				alert("新增面积必须为数字");
 				return false;
 			}
 		}

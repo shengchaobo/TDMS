@@ -58,81 +58,81 @@
 		if($('#complileBookNum').val() == null || $('#complileBookNum').val()==""){
 			$('#complileBookNum').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(complileBookNum))) {
-			alert("必须为整数");
+			alert("编著教材数必须为整数");
 			return false;
 	    }
 		
 		if($('#writeBookNum').val() == null || $('#writeBookNum').val()==""){
 			$('#writeBookNum').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(writeBookNum))) {
-			alert("必须为整数");
+			alert("编写教材数必须为整数");
 			return false;
 	    }
 		
 		if($('#interPlanBook').val() == null || $('#interPlanBook').val()==""){
 			$('#interPlanBook').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(interPlanBook))) {
-			alert("必须为整数");
+			alert("国际级规划教材必须为整数");
 			return false;
 	    }
 		
 		if($('#nationPlanBook').val() == null || $('#nationPlanBook').val()==""){
 			$('#nationPlanBook').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(nationPlanBook))) {
-			alert("必须为整数");
+			alert("国家级规划教材必须为整数");
 			return false;
 	    }
 		
 		if($('#proviPlanBook').val() == null || $('#proviPlanBook').val()==""){
 			$('#proviPlanBook').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(proviPlanBook))) {
-			alert("必须为整数");
+			alert("省部级规划教材必须为整数");
 			return false;
 	    }
 		
 		if($('#cityPlanBook').val() == null || $('#cityPlanBook').val()==""){
 			$('#cityPlanBook').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(cityPlanBook))) {
-			alert("必须为整数");
+			alert("市级规划教材必须为整数");
 			return false;
 	    }
 		
 		if($('#schPlanBook').val() == null || $('#schPlanBook').val()==""){
 			$('#schPlanBook').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(schPlanBook))) {
-			alert("必须为整数");
+			alert("校级规划教材必须为整数");
 			return false;
 	    }
 		
 		if($('#interAwardBook').val() == null || $('#interAwardBook').val()==""){
 			$('#interAwardBook').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(interAwardBook))) {
-			alert("必须为整数");
+			alert("国际级获奖教材必须为整数");
 			return false;
 	    }
 		
 		if($('#nationAwardBook').val() == null || $('#nationAwardBook').val()==""){
 			$('#nationAwardBook').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(nationAwardBook))) {
-			alert("必须为整数");
+			alert("国家级获奖教材必须为整数");
 			return false;
 	    }
 		if($('#proviAwardBook').val() == null || $('#proviAwardBook').val()==""){
 			$('#proviAwardBook').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(proviAwardBook))) {
-			alert("必须为整数");
+			alert("省部级获奖教材必须为整数");
 			return false;
 	    }
 		if($('#cityAwardBook').val() == null || $('#cityAwardBook').val()==""){
 			$('#cityAwardBook').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(cityAwardBook))) {
-			alert("必须为整数");
+			alert("市级获奖教材必须为整数");
 			return false;
 	    }
 		if($('#schAwardBook').val() == null || $('#schAwardBook').val()==""){
 			$('#schAwardBook').val(0) ;
 		}else  if (!(/(^[0-9]\d*$)/.test(schAwardBook))) {
-			alert("必须为整数");
+			alert("校级获奖教材必须为整数");
 			return false;
 	    }
 		

@@ -262,7 +262,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 				<div class="fitem">
 					<label>金额（元）：</label> 
-					<input id="money" type="text" name="T251_bean.machNum"
+					<input id="money" type="text" name="T251_bean.money"
 						class="easyui-validatebox" ><span id="machNumSpan"></span>
 				</div>
 				</td>

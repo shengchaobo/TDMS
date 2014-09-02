@@ -95,35 +95,35 @@
 		if($('#expClassHour').val() == null || $('#expClassHour').val()==""){
 			$('#expClassHour').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(expClassHour))) {
-			alert("必须为整数");
+			alert("实验教学学时数 必须为整数");
 			return false;
 	    }
 				
 		if($('#stuNum').val() == null || $('#stuNum').val()==""){
 			$('#stuNum').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(stuNum))) {
-			alert("必须为整数");
+			alert("可容纳的学生数必须为整数");
 			return false;
 	    }
 		
 		if($('#expHour').val() == null || $('#expHour').val()==""){
 			$('#expHour').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(expHour))) {
-			alert("必须为整数");
+			alert("实验教学人时数必须为整数");
 			return false;
 	    }
 		
 		if($('#expTimes').val() == null || $('#expTimes').val()==""){
 			$('#expTimes').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(expTimes))) {
-			alert("必须为整数");
+			alert("实验教学人次数必须为整数");
 			return false;
 	    }
 		
 		if($('#practiseItemNum').val() == null || $('#practiseItemNum').val()==""){
 			$('#practiseItemNum').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(practiseItemNum))) {
-			alert("必须为整数");
+			alert("科生实验、实习、实训项目数必须为整数");
 			return false;
 	    }
 		

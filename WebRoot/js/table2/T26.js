@@ -82,6 +82,8 @@
 		var stuNumEachTime = $('#stuNumEachTime').val();
 		var stuNumEachYear = $('#stuNumEachYear').val();	
 		var practiseBase = $('#practiseBase').val();
+		var unitName = $('#teaUnitID').combobox('getText');
+		var signLevel = $('#signLevel').combobox('getText');
 		
 		
 		if($('#practiseBase').val() == null || $('#practiseBase').val()==""){
@@ -89,6 +91,11 @@
 			return false;
 	    }
 		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
+			return false;
+	    }
+			
 		if($('#stuNumEachTime').val() == null || $('#stuNumEachTime').val()==""){
 			$('#stuNumEachTime').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(stuNumEachTime))) {
@@ -100,6 +107,11 @@
 			$('#stuNumEachYear').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(stuNumEachYear))) {
 			alert("接纳学生总数必须为整数");
+			return false;
+	    }
+		
+		if(signLevel == null || signLevel==""){
+			alert("签约级别不能为空");
 			return false;
 	    }
 	

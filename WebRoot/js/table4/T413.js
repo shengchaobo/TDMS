@@ -83,6 +83,11 @@
 		var hireLen = $('#hireTimeLen').val();
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字
+		var unitName = $('#unitId').combobox('getText');
+		var topDegree = $('#topDegree').combobox('getText');
+		var education = $('#education').combobox('getText');
+		var techTitle = $('#techTitle').combobox('getText');
+		var tutorType = $('#tutorType').combobox('getText');
 		
 		// 根据数据库定义的字段的长度，对其进行判断
 		 if (teaName == null || teaName.length == 0 || teaName.length > 100) {
@@ -110,6 +115,32 @@
 			 	alert("教师ID长度不超过50");
 			 	return false;
 		}
+		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
+			return false;
+	    }
+		
+		
+		if(topDegree == null || topDegree==""){
+			alert("最高学位不能为空");
+			return false;
+	    }
+		
+		if(education == null || education==""){
+			alert("学历不能为空");
+			return false;
+	    }
+		
+		if(techTitle == null || techTitle==""){
+			alert("专业技术职称不能为空");
+			return false;
+	    }
+		
+		if(tutorType == null || tutorType==""){
+			alert("导师类型不能为空");
+			return false;
+	    }
 		
 		if (!(/(^[1-9]\d*$)/.test(hireLen))) {
 			$('#hireTimeLen').focus();

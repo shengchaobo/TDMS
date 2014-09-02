@@ -78,10 +78,21 @@
 		// 获取文本框的值
 		var teaId = $('#teaName').combobox('getText');
 		var teaName = $('#teaName').combobox('getValue');
-
+		var unitName = $('#teaUnitID').combobox('getText');
+		var majorID = $('#majorID').combobox('getText');
 		
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
+		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
+			return false;
+	    }
+		
+		if(majorID == null || majorID==""){
+			alert("专业不能为空");
+			return false;
+	    }
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {

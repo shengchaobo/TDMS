@@ -84,10 +84,16 @@
 		var newAddArea = $('#newAddArea').val();
 		var machNum = $('#machNum').val();
 		var expCenterName = $('#expCenterName').val();
+		var unitName = $('#teaUnitID').combobox('getText');
 		
 		
 		if($('#expCenterName').val() == null || $('#expCenterName').val()==""){
 			alert("实验中心名称不能为空");
+			return false;
+	    }
+		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
 			return false;
 	    }
 				

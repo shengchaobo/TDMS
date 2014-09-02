@@ -70,6 +70,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("身份代码不能超过5位");
+			return false;
+		}
+		
 		if (identiType == null || identiType.length == 0 ) {
 			alert("身份名称不能为空");
 			return false;

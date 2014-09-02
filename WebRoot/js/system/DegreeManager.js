@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("学位代码不能超过5位");
+			return false;
+		}
+		
 		if (degree == null || degree.length == 0 ) {
 			alert("学位名称不能为空");
 			return false;

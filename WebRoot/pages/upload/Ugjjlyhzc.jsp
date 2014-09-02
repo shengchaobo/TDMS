@@ -137,7 +137,7 @@
 		<div class="ftitle">请选择文件</div>
 		<div class="fitem">
 
-			<% 
+	<% 
     //取得服务器"/download/file"目录的物理路径 
     String fpath = request.getRealPath("/WEB-INF/uploadList");
     //取得"/download/file"目录的file对象 

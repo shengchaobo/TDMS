@@ -171,7 +171,7 @@ public class DiResearchTeamDao {
 	 * 判断中是否已包含该数据
 	 */
 	public boolean hasTeam(String teamID){
-		String sql = "select * from " + tableName + " where IndexID="+ teamID;
+		String sql = "select * from " + tableName + " where IndexID='"+ teamID + "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

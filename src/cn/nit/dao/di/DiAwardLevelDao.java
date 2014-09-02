@@ -220,7 +220,7 @@ public class DiAwardLevelDao {
 	 * 判断中是否已包含该数据
 	 */
 	public boolean hasLevel(String levelID){
-		String sql = "select * from " + tableName + " where IndexID="+ levelID	;
+		String sql = "select * from " + tableName + " where IndexID='"+ levelID	+ "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

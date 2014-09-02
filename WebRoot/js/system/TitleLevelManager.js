@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("级别代码不能超过5位");
+			return false;
+		}
+		
 		if (titleLevel == null || titleLevel.length == 0 ) {
 			alert("级别名称不能为空");
 			return false;

@@ -170,7 +170,7 @@ public class DiSourceDao {
 	 * 判断中是否已包含该数据
 	 */
 	public boolean hasSource(String sourceID){
-		String sql = "select * from " + tableName + " where IndexID="+ sourceID	;
+		String sql = "select * from " + tableName + " where IndexID='"+ sourceID + "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

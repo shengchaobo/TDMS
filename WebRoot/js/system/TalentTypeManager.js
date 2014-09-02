@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("人才类型代码不能超过5位");
+			return false;
+		}
+		
 		if (talentType == null || talentType.length == 0 ) {
 			alert("人才类型名称不能为空");
 			return false;

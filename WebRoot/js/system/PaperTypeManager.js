@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("发表文章类型代码不能超过5位");
+			return false;
+		}
+		
 		if (paperType == null || paperType.length == 0 ) {
 			alert("发表文章类别不能为空");
 			return false;

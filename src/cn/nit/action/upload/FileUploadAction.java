@@ -11,7 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class FileUploadAction extends ActionSupport {  
     private static final long serialVersionUID = 1L;  
     private String name;  
-  
+    private String inputPath;
     // 上传多个文件的集合文本  
   
     private List<File> upload;  
@@ -28,6 +28,15 @@ public class FileUploadAction extends ActionSupport {
   
        this.name = name;  
     }  
+    
+    public String getInputPath() {  
+        return inputPath;  
+    }  
+
+	public void setInputPath(String inputPath) {  
+	
+	   this.inputPath = inputPath; 
+	} 
   
     public List<File> getUpload() {  
   
@@ -63,9 +72,7 @@ public class FileUploadAction extends ActionSupport {
   
        // 把上传的文件放到指定的路径下  
   
-       String path = ServletActionContext.getServletContext().getRealPath(  
-  
-              "/WEB-INF/uploadList");  
+       String path = ServletActionContext.getServletContext().getRealPath(inputPath);  
   
        // 写到指定的路径中  
   

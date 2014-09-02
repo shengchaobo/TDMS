@@ -56,6 +56,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除部门</a>
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
+			<!-- 两个文体输入框，可以避免enter键自动刷新事件 -->
+			<input id="hiddenText" type="text"  style="display:none" />
 		 	单位号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
 			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
 		</form>
@@ -142,9 +144,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									教工号：
 								</label>
-								<input id="TeaID" type="text" name="de_bean.teaId"
-									class="easyui-validatebox">
-								<span id="TeaIDSpan"></span>
+								<input id="TeaID" type="text" name="de_bean.teaId" class='easyui-combobox' 
+							data-options="valueField:'teaId',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+							">
+								
 							</div>
 						</td>
 						

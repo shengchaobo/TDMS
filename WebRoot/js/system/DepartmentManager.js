@@ -77,6 +77,7 @@
 	}
 
 	function validate() {
+		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
 		//获取文本框的值
 		var unitID = $('#UnitID').val();
 		var unitName = $('#UnitName').val();
@@ -84,7 +85,8 @@
 		var class2 = $('#Class2').val();
 		var functions = $('#Functions').val();
 		var leader = $('#Leader').val();
-		var teaID = $('#TeaID').val();
+		var teaId = $('#TeaID').combobox('getText');
+		
 		var note = $('#Note').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
@@ -117,17 +119,19 @@
 			alert("负责人不能为空");
 			return false;
 		}
-		
-		if (teaID == null || teaID.length == 0) {
-			alert("教工号不能为空");
+
+		if (teaId == null ||  teaId == ''  || teaId.length == 0) {
+			alert("教工号不能为空或者教师库中无该教工号");
 			return false;
 		}
 		
+				
 		if (note != null && note.length > 1000) {
 			alert("备注长度不超过1000");
 			return false;
 		}
 		return true;
+		alert(teaId);
 	}
 
 	function editDepartment() {
@@ -151,7 +155,7 @@
 		$('#Class2').val(row[0].class2);
 		$('#Functions').val(row[0].functions);
 		$('#Leader').val(row[0].leader);
-		$('#TeaID').val(row[0].teaId);
+		$('#TeaID').combobox('select', row[0].teaId) ;
 		$('#Note').val(row[0].note);
 	}
 

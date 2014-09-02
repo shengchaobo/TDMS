@@ -75,18 +75,19 @@ public class T533DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select count(*) ") ;
+		sql.append("select count(*) AS COUNT") ;
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
 		int total = 0 ;
 		
-//		if(fillUnitId != null && !fillUnitId.equals("")){
-//			sql.append(" and FillUnitID=" + fillUnitId) ;
-//		}
+		if(fillUnitId != null && !fillUnitId.equals("")){
+			sql.append(" and FillUnitID=" + fillUnitId) ;
+		}
 //		
 		if(conditions != null && !conditions.equals("")){
 			sql.append(conditions) ;
 		}
+		System.out.println(sql.toString());
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -101,7 +102,8 @@ public class T533DAO {
 			}
 			
 			while(rs.next()){
-				total+=1;
+				int count = rs.getInt("COUNT");
+				total=count;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -124,9 +126,9 @@ public class T533DAO {
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
 
-//		if(fillUnitId != null && !fillUnitId.equals("")){
-//			sql.append(" and FillUnitID=" + fillUnitId) ;
-//		}
+		if(fillUnitId != null && !fillUnitId.equals("")){
+			sql.append(" and FillUnitID=" + fillUnitId) ;
+		}
 //		
 		if(conditions != null){
 			sql.append(conditions) ;
@@ -160,13 +162,14 @@ public class T533DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T533Bean> totalList(){
+	public List<T533Bean> totalList(String fillUnitID){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
 		",t.ExpRatio,t.Time,t.Note,t.FillUnitID");
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
+		sql.append(" and t.FillUnitID='"+fillUnitID+"'");
 
 		
 		
@@ -230,6 +233,15 @@ public class T533DAO {
 	}
 	public String getTableName(){
 		return this.tableName ;
+	}
+	
+	public static void main(String arg[]){
+		T533DAO dao= new T533DAO();
+//		List<T533POJO> list = dao.auditingData(null, "3001", 1, 10);
+		int n = dao.totalAuditingData(null, "3001");
+//		System.out.println(list.size());
+		System.out.println(n);
+		
 	}
 	
 

@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("科研机构代码不能超过5位");
+			return false;
+		}
+		
 		if (researchType == null || researchType.length == 0 ) {
 			alert("科研机构名称不能为空");
 			return false;

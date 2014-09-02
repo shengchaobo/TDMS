@@ -65,7 +65,7 @@ public class T12Action {
 	public void auditingData(){
 			
 			System.out.println("輸出輸出輸出");
-			System.out.println(this.getUnitID());
+//			System.out.println(this.getUnitID());
 			
 			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 				return ;
@@ -74,27 +74,11 @@ public class T12Action {
 			if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
 				return ;
 			}
-			
 			String cond = null;
-			StringBuffer conditions = new StringBuffer();
-			
-			if(this.getUnitID() == null && this.getStartTime() == null && this.getEndTime() == null){			
-				cond = null;	
-			}else{			
-				if(this.getUnitID()!=null){
-					conditions.append(" and UnitID=" + this.getUnitID()) ;
-				}
-				
-				if(this.getStartTime() != null){
-					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
-				}
-				
-				if(this.getEndTime() != null){
-					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
-							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-				}
-				cond = conditions.toString();
+		
+			if(this.getUnitID()!= null&&!this.getUnitID().equals("")){
+				cond = " where UnitID LIKE '" + this.getUnitID() + "%'";
+//				System.out.println(cond);
 			}
 
 			String pages = t12Ser.auditingData(cond, "10", Integer.parseInt(page), Integer.parseInt(rows)) ;

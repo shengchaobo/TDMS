@@ -171,7 +171,7 @@ public class DiIdentiTypeDao {
 	 * 判断中是否已包含该角色
 	 */
 	public boolean hasType(String typeID){
-		String sql = "select * from " + tableName + " where IndexID="+ typeID	;
+		String sql = "select * from " + tableName + " where IndexID='"+ typeID + "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

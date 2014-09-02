@@ -190,7 +190,7 @@ public class DiResearchRoomDao {
 	 * 判断中是否已包含该部门
 	 */
 	public boolean hasRoom(String roomID){
-		String sql = "select * from " + tableName + " where UnitID="+ roomID	;
+		String sql = "select * from " + tableName + " where UnitID='"+ roomID + "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

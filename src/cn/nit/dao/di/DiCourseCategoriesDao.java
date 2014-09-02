@@ -184,7 +184,7 @@ public class DiCourseCategoriesDao {
 	 * 判断中是否已包含该数据
 	 */
 	public boolean hasCate(String cateID){
-		String sql = "select * from " + tableName + " where IndexID="+ cateID	;
+		String sql = "select * from " + tableName + " where IndexID='"+ cateID + "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

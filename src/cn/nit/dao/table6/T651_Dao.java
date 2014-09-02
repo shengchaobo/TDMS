@@ -245,7 +245,7 @@ public class T651_Dao {
 		String Cond = "1=1";
 		
 		if(cond != null && !cond.equals("")){
-			Cond = Cond + cond;
+			Cond = cond;
 		}	
 		
 		sql = "select SeqNumber,TeaUnit,UnitID,"+tableName1+".ContestLevel as competiType,"+"CompetiName,AwardItem,"
@@ -254,7 +254,7 @@ public class T651_Dao {
 		+ " from " + tableName +
 		" left join "+tableName1+" on "+tableName+".competiType="+tableName1+".IndexID "+
 		" left join "+tableName2+" on "+tableName+".AwardLevel="+tableName2+".IndexID " +
-				" where " + Cond +" and FillUnitID="+filledID;
+				" where " + Cond +" and FillUnitID='"+filledID+"'";
 //		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
 	    System.out.println(sql);
 	
@@ -357,7 +357,8 @@ public class T651_Dao {
 	public static void main(String args[]) {
 
 		T651_Dao StuCompetiAwardInfoDao = new T651_Dao();
-		S65_Bean bean =  StuCompetiAwardInfoDao.getStatic("2014");
+		List<T651_Bean> list =  StuCompetiAwardInfoDao.getAllList(null, "1012");
+		System.out.println(list.size());
 	}
 
 

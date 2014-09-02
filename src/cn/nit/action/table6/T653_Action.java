@@ -277,7 +277,7 @@ public class T653_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T653_Bean> list = T653_dao.getAllList("1=1", fillUnitID);
+			List<T653_Bean> list = T653_dao.getAllList("", fillUnitID);
 						
 			String sheetName = this.excelName;
 			

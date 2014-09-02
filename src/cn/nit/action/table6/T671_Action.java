@@ -309,7 +309,7 @@ public class T671_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T671_Bean> list = T671_dao.getAllList("1=1", null);
+			List<T671_Bean> list = T671_dao.getAllList("", null);
 			
 			if(list==null){
 				if(list.size()==0){
@@ -394,20 +394,20 @@ public class T671_Action {
 						for(int j=0;j<list.size();j++){
 							T671_Bean bean1 =  list.get(j);
 							
-								ws.addCell(new Label(0, k,(j+1)+"", wcf));
-								ws.addCell(new Label(1, k, bean1.getStuName(), wcf));
-								ws.addCell(new Label(2, k, bean1.getStuId(), wcf));
-								ws.addCell(new Label(3, k, bean1.getFromTeaUnit(), wcf));
-								ws.addCell(new Label(4, k, bean1.getUnitId(), wcf));
-								ws.addCell(new Label(5, k, bean1.getFromMaj(), wcf));
-								ws.addCell(new Label(6, k, bean1.getMajId(), wcf));
-								ws.addCell(new Label(7, k, bean1.getFromClass(), wcf));
-								ws.addCell(new Label(8, k, bean1.getMinorFromTeaUnit(), wcf));
-								ws.addCell(new Label(9, k, bean1.getMinorUnitId(), wcf));
-								ws.addCell(new Label(10, k, bean1.getMinorMaj(), wcf));
-								ws.addCell(new Label(11, k, bean1.getMinorId(), wcf));
-								ws.addCell(new Label(12, k, TimeUtil.changeFormat4(bean1.getBeginTime()), wcf));
-								ws.addCell(new Label(13, k, TimeUtil.changeFormat4(bean1.getGraduateTime()), wcf));
+								ws.addCell(new Label(0, k,(j+1)+"", wcf1));
+								ws.addCell(new Label(1, k, bean1.getStuName(), wcf1));
+								ws.addCell(new Label(2, k, bean1.getStuId(), wcf1));
+								ws.addCell(new Label(3, k, bean1.getFromTeaUnit(), wcf1));
+								ws.addCell(new Label(4, k, bean1.getUnitId(), wcf1));
+								ws.addCell(new Label(5, k, bean1.getFromMaj(), wcf1));
+								ws.addCell(new Label(6, k, bean1.getMajId(), wcf1));
+								ws.addCell(new Label(7, k, bean1.getFromClass(), wcf1));
+								ws.addCell(new Label(8, k, bean1.getMinorFromTeaUnit(), wcf1));
+								ws.addCell(new Label(9, k, bean1.getMinorUnitId(), wcf1));
+								ws.addCell(new Label(10, k, bean1.getMinorMaj(), wcf1));
+								ws.addCell(new Label(11, k, bean1.getMinorId(), wcf1));
+								ws.addCell(new Label(12, k, TimeUtil.changeFormat4(bean1.getBeginTime()), wcf1));
+								ws.addCell(new Label(13, k, TimeUtil.changeFormat4(bean1.getGraduateTime()), wcf1));
 							k++;
 						}
 						    wwb.write();

@@ -77,6 +77,7 @@
 	}
 
 	function validate() {
+		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
 		//获取文本框的值
 		var unitID = $('#UnitID').val();
 		var unitName = $('#UnitName').val();
@@ -117,10 +118,19 @@
 			alert("负责人不能为空");
 			return false;
 		}
-		
-		if (teaID == null || teaID.length == 0) {
-			alert("教工号不能为空");
+
+		if (teaID == null || teaID.length == 0 ) {
+			
+			alert("教师ID不能为空");
 			return false;
+		}
+		else if(!num.test(teaID)){
+			alert("教师ID只能为数字");
+			return false;
+		}
+		else if(teaID.length > 12){
+		 	alert("教师ID长度不超过12");
+		 	return false;
 		}
 		
 		if (note != null && note.length > 1000) {

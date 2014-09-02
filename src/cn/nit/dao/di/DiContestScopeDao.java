@@ -170,7 +170,7 @@ public class DiContestScopeDao {
 	 * 判断中是否已包含该数据
 	 */
 	public boolean hasScope(String scopeID){
-		String sql = "select * from " + tableName + " where IndexID="+ scopeID	;
+		String sql = "select * from " + tableName + " where IndexID='"+ scopeID	+ "'";
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 		ResultSet rs = null;

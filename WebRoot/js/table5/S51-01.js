@@ -23,6 +23,7 @@
 			onLoadSuccess: function (rowData) {
 
 			if(typeof(rowData.rows[0].data) != "undefined"){
+				alert(123);
 				alert(rowData.rows[0].data);
 			}
 			

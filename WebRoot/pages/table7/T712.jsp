@@ -462,7 +462,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			alert("批文号不能为空") ;
 				return false ;
 			}
-	
+			if (!(/(^[0-9]\d*$)/.test(paperWordNum))) {
+			alert("论文字数必须为整数");
+			return false;
+	         }
+	        if (!(/(^[0-9]\d*$)/.test(joinTeaNum))) {
+			alert("合作教师人数必须为整数");
+			return false;
+	         }
 			if(note.length > 500){
 			alert("备注中文字数不超过500") ;
 				return false ;

@@ -341,11 +341,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert("参会人员情况不能为空或长度不超过200");
 				return false;
 			}
-			if(meetingNum == null || meetingNum.length==0){
-					alert("会议人数不能为空");
-			
-				return false ;
-			}
+			if (!(/(^[0-9]\d*$)/.test(meetingNum)) || meetingNum == null || meetingNum.length == 0) {
+			alert("参会人数不能为空且必须为整数");
+			return false;
+	       }
 			if(meetingTheme == null || meetingTheme.length == 0 ){
 		           	alert("会议主题不能为空");
 			

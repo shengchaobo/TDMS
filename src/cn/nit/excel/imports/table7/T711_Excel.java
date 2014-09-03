@@ -130,8 +130,8 @@ public class T711_Excel {
 				if(ardRank == null || ardRank.equals("")){
 					return "第" + count + "行，等级不能为空" ;
 				}
-				if(!ardRank.equals("一等奖") && !ardRank.equals("二等奖")&& !ardRank.equals("三等奖")&& !ardRank.equals("优秀奖")){
-					return "第" + count + "行，等级格式有误，只能填写“一等奖”或“二等奖”或“三等奖”或“优秀奖”";
+				if(!ardRank.equals("一等奖") && !ardRank.equals("二等奖")&& !ardRank.equals("三等奖")&& !ardRank.equals("优秀奖")&& !ardRank.equals("其他")){
+					return "第" + count + "行，等级格式有误，只能填写“一等奖”或“二等奖”或“三等奖”或“优秀奖”或“其他”";
 				}
 				String ardTime = cell[8].getContents();
 				if(ardTime == null || ardTime.equals("")){

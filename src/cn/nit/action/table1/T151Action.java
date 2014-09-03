@@ -302,7 +302,7 @@ public class T151Action {
 			maplist.put("BeginYear", 9);maplist.put("HouseArea", 10);maplist.put("Note", 11);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t151Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

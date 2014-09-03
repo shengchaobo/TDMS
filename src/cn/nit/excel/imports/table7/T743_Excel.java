@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDepartmentBean;
@@ -94,8 +95,8 @@ public class T743_Excel {
 				if((csType == null) || csType.equals("")){
 					return "第" + count + "行，课程类别不能为空" ;
 				}
-				if(!csType.equals("理论课（含实践）") && !csType.equals("理论课（不含实践）")&& !csType.equals("集中性实践环节")&& !csType.equals("实验课")){
-					return "第" + count + "行，课程类别只能是“理论课（含实践）”或“理论课（不含实践）”或“集中性实践环节”或“实验课”" ;
+				if(!csType.equals("理论课（含实践）") && !csType.equals("理论课（不含实践）")&& !csType.equals("集中性实践环节")&& !csType.equals("实验课")&& !csType.equals("其他")){
+					return "第" + count + "行，课程类别只能是“理论课（含实践）”或“理论课（不含实践）”或“集中性实践环节”或“实验课”或“其他”" ;
 				}
 				String csTypeId=null;
 				for(DiCourseCategoriesBean diCorCateBean : diCourseBeanList){
@@ -174,9 +175,7 @@ public class T743_Excel {
 				String note = cell[12].getContents();
 					
 				count++ ;
-
-				String fillUnitID = null;
-					
+				String fillUnitID=null;	
 				T743_Bean.setCSName(csName);
 				T743_Bean.setCSID(csId);
 				T743_Bean.setSetCSUnit(unit);

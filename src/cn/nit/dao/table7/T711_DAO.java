@@ -56,13 +56,13 @@ public class T711_DAO {
     	int total=0;
     	
     	if(fillUnitId!=null && !fillUnitId.equals("")){
-    		sql.append("and FillUnit=" + fillUnitId);	
+    		sql.append(" and FillUnitID=" + fillUnitId);	
     	}
     	
     	if(conditions!=null && !conditions.equals("")){
     		sql.append(conditions);
     	}
-    	
+    	System.out.println(sql);
     	
     	Connection conn=DBConnection.instance.getConnection();
     	    	
@@ -106,7 +106,7 @@ public class T711_DAO {
     	
     	List<T711POJO> list=null;
     	
-    	sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note");
+    	sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID");
     	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
     	sql.append(" where adl.IndexID=t.AwardLevel") ;
     	
@@ -151,11 +151,12 @@ public class T711_DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T711POJO> totalList(String year){
+	public List<T711POJO> totalList(String year,String fillUnitID){
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note");
+		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID");
     	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
     	sql.append(" where adl.IndexID=t.AwardLevel") ;
+    	sql.append(" and FillUnitID=" + "'" + fillUnitID + "'");
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

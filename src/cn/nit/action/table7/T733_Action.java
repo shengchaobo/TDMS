@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table7.T733_Bean;
 import cn.nit.dao.table7.T733_DAO;
 import cn.nit.pojo.table7.T733POJO;
@@ -122,7 +123,6 @@ public class T733_Action {
 			}
 			cond = conditions.toString();
 		}
-
 		String pages = t733_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		

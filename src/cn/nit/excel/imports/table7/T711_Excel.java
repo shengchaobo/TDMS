@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T711_Bean;
@@ -129,8 +130,8 @@ public class T711_Excel {
 				if(ardRank == null || ardRank.equals("")){
 					return "第" + count + "行，等级不能为空" ;
 				}
-				if(!ardRank.equals("一等奖") && !ardRank.equals("二等奖")&& !ardRank.equals("三等奖")&& !ardRank.equals("优秀奖")){
-					return "第" + count + "行，等级格式有误，只能填写“一等奖”或“二等奖”或“三等奖”或“优秀奖”";
+				if(!ardRank.equals("一等奖") && !ardRank.equals("二等奖")&& !ardRank.equals("三等奖")&& !ardRank.equals("优秀奖")&& !ardRank.equals("其他")){
+					return "第" + count + "行，等级格式有误，只能填写“一等奖”或“二等奖”或“三等奖”或“优秀奖”或“其他”";
 				}
 				String ardTime = cell[8].getContents();
 				if(ardTime == null || ardTime.equals("")){
@@ -172,8 +173,10 @@ public class T711_Excel {
 				String note = cell[13].getContents();
 				
 				count++ ;
-
-				String fillUnitID = null;
+				//插入教学单位
+				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+				String fillUnitID = bean.getUnitID();
+				T711_Bean.setFillUnitID(fillUnitID);
 				
 				T711_Bean.setTeaUnit(unit);
 				T711_Bean.setUnitID(unitId);
@@ -190,6 +193,7 @@ public class T711_Excel {
 				T711_Bean.setFillUnitID(fillUnitID);
 				T711_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T711_Bean.setNote(note);
+				
 				list.add(T711_Bean);
 				
 			} catch (Exception e) {

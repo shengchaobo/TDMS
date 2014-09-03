@@ -22,6 +22,7 @@ import cn.nit.bean.table1.T17Bean;
 import cn.nit.dao.table1.T17DAO;
 import cn.nit.excel.imports.table1.T17Excel;
 import cn.nit.service.table1.T17Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 public class T17Action {
@@ -292,7 +293,7 @@ public class T17Action {
 //			maplist.put("Time", 4);
 //			maplist.put("Note", 5);
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t17Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

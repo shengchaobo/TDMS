@@ -253,7 +253,7 @@ HttpServletResponse response = ServletActionContext.getResponse() ;
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T615_Bean> list = T615_dao.getAllList("1=1", null);
+			List<T615_Bean> list = T615_dao.getAllList("", null);
 						
 			//String sheetName = this.getExcelName();
 			

@@ -234,7 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td class="empty"></td>
 				<td>
 					<div class="fitem">
-						<label>获奖级别：</label> 
+						<label>签约级别：</label> 
 						<input class='easyui-combobox' id="signLevel" name="T26_bean.signLevel" 
 							data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDIAwardLevelPartTwo',listHeight:'auto',editable:false" panelHeight="auto">
 						<span id="signLevelSpan"></span>

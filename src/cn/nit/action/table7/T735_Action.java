@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table7.T735_Bean;
 import cn.nit.dao.table7.T735_DAO;
 import cn.nit.pojo.table7.T735POJO;
@@ -127,7 +128,6 @@ public class T735_Action {
 			}
 			cond = conditions.toString();
 		}
-
 		String pages = t735_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
@@ -203,8 +203,6 @@ public class T735_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			
-
 			List<T735POJO> list = t735_DAO.totalList(this.getSelectYear());
 			String sheetName = this.excelName;
 			

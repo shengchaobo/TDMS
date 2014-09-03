@@ -25,33 +25,33 @@ public class T651_Dao {
 
 	/** 数据库表名 */
 	private String tableName = "T651_StuCompetiAwardInfo_TeaYLC$";
-	
+
 	/**外键表1*/
     private String tableName1="DiContestLevel";
-    
+
     /**外键表2*/
     private String tableName2="DiAwardLevel";
-    
+
 	/** 数据自增长字段的主键，必须为自增长字段 */
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
 	private String field = "TeaUnit,UnitId,CompetiType,CompetiName,AwardItem,AwardLevel,AwardGrade,AwardFromUnit,AwardTime,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID";
 
-	
+
 	private String fieldShow = "SeqNumber,TeaUnit,UnitId,CompetiType,CompetiName,AwardItem,AwardLevel,AwardGrade,AwardFromUnit,AwardTime,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID";
 
 
 
-	
+
 	/* ,FillTeaID,FillUnitID,audit */
 
 	/**
 	 * 将数据表622的实体类插入数据库
-	 * 
+	 *
 	 * @param UndergraAdmiInfo
 	 * @return
-	 * 
+	 *
 	 * @time: 2014-6-12
 	 */
 	public boolean insert(T651_Bean StuCompetiAwardInfo) {
@@ -72,7 +72,7 @@ public class T651_Dao {
 
 	/**
 	 * 讲数据批量插入T511表中
-	 * 
+	 *
 	 * @param list
 	 *            {@linkplain java.util.List<
 	 *            {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}>}
@@ -139,14 +139,14 @@ public class T651_Dao {
 	public String getTableName() {
 		return this.tableName;
 	}
-	
+
 	public List<T651_Bean> queryPageList(int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
-		
-		
-		String queryPageSql = "select top " + pagesize + 
+
+
+		String queryPageSql = "select top " + pagesize +
 		fieldShow
-		+ " from " + tableName + 
+		+ " from " + tableName +
 		" where (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
 		tableName + " order by SeqNumber)) order by SeqNumber" ;
 		System.out.println(queryPageSql);
@@ -154,7 +154,7 @@ public class T651_Dao {
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T651_Bean> list = null ;
-		
+
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(queryPageSql) ;
@@ -165,22 +165,22 @@ public class T651_Dao {
 		}finally{
 			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
 		}
-		
+
 		return list ;
 	}
-	
+
 	public List<T651_Bean> queryPageList(String cond, String fillUnitID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
 		String Cond = "1=1";
-		
+
 		if(cond != null && !cond.equals("")){
 			Cond = Cond + cond;
 		}
 		String queryPageSql;
-		queryPageSql = "select top " + pagesize + 
+		queryPageSql = "select top " + pagesize +
 		" SeqNumber,TeaUnit,UnitID,"+tableName1+".ContestLevel as competiType,"+"CompetiName,AwardItem,"+tableName2+".AwardLevel as AwardLevel,"
 		+" AwardGrade,AwardFromUnit,AwardTime,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID"
 		+ " from " + tableName +
@@ -190,14 +190,14 @@ public class T651_Dao {
 		" and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
 		tableName + " where " + Cond + " order by SeqNumber)) order by SeqNumber" ;
 		;
-	
+
 
 		System.out.println(queryPageSql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T651_Bean> list = null ;
-		
+
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(queryPageSql) ;
@@ -208,12 +208,12 @@ public class T651_Dao {
 		}finally{
 			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
 		}
-		
+
 		return list ;
 	}
-	
+
 	public List<T651_Bean> getAllList() {
 		// TODO Auto-generated method stub
 		String sql = "select " + fieldShow + " from " + tableName ;
@@ -222,7 +222,7 @@ public class T651_Dao {
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T651_Bean> list = null ;
-		
+
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
@@ -233,37 +233,37 @@ public class T651_Dao {
 		}finally{
 			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
 		}
-		
+
 		return list ;
 	}
-	
+
 	public List<T651_Bean> getAllList(String cond, String  filledID) {
 		// TODO Auto-generated method stub
 		String sql;
-		
+
 		String Cond = "1=1";
-		
+
 		if(cond != null && !cond.equals("")){
-			Cond = Cond + cond;
-		}	
-		
+			Cond = cond;
+		}
+
 		sql = "select SeqNumber,TeaUnit,UnitID,"+tableName1+".ContestLevel as competiType,"+"CompetiName,AwardItem,"
 		+tableName2+".AwardLevel as AwardLevel,"
 		+" AwardGrade,AwardFromUnit,AwardTime,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID"
 		+ " from " + tableName +
 		" left join "+tableName1+" on "+tableName+".competiType="+tableName1+".IndexID "+
 		" left join "+tableName2+" on "+tableName+".AwardLevel="+tableName2+".IndexID " +
-				" where " + Cond +" and FillUnitID="+filledID;
+				" where " + Cond +" and FillUnitID='"+filledID+"'";
 //		sql = "select " + fieldShow + " from " + tableName +" where " + cond;
 	    System.out.println(sql);
-	
+
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T651_Bean> list = null ;
-		
+
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
@@ -274,12 +274,12 @@ public class T651_Dao {
 		}finally{
 			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
 		}
-		
+
 		return list ;
 	}
-	
+
 	public S65_Bean getStatic(String year){
 		S65_Bean bean = new S65_Bean();
 		StringBuffer sql = new StringBuffer();
@@ -315,10 +315,10 @@ public class T651_Dao {
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			
+
 			while(rs.next()){
 				System.out.println(" 计数");
-				
+
 				int SumDiscipAward = rs.getInt("SumDiscipAward"); bean.setSumDiscipAward(SumDiscipAward);
 				int InterD = rs.getInt("InterD");  bean.setInterD(InterD);
 				System.out.println(InterD);
@@ -329,24 +329,24 @@ public class T651_Dao {
 				int CityD = rs.getInt("CityD");  bean.setCityD(CityD);
 				System.out.println(CityD);
 				int SchD = rs.getInt("SchD");  bean.setSchD(SchD);
-	
+
 				int SumActAward = rs.getInt("SumActAward");  bean.setSumActAward(SumActAward);
 				int InterA = rs.getInt("InterA");  bean.setInterA(InterA);
 				int NationA = rs.getInt("NationA");  bean.setNationA(NationA);
 				int ProviA = rs.getInt("ProviA");   bean.setProviA(ProviA);
 				int CityA = rs.getInt("CityA");  bean.setCityA(CityA);
 				int SchA= rs.getInt("SchA");  bean.setSchA(SchA);
-	
-	
+
+
 				int SumLiterSportAward = rs.getInt("SumLiterSportAward");  bean.setSumLiterSportAward( SumLiterSportAward);
 				int InterLS = rs.getInt("InterLS");  bean.setInterLS(InterLS);
 				int NationLS = rs.getInt("NationLS");  bean.setNationLS(NationLS);
 				int ProviLS = rs.getInt("ProviLS");  bean.setSumDiscipAward(SumDiscipAward);
 				int CityLS = rs.getInt("CityLS");  bean.setCityLS(CityLS);
 				int SchLS = rs.getInt("SchLS");  bean.setSchLS(SchLS);
-				
+
 				bean.setTime(TimeUtil.changeDateY(year));
-				    
+
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -354,9 +354,9 @@ public class T651_Dao {
 		}
 		return bean;
 	}
-	
+
 	public List<T651_Bean> getYearInfo(String year){
-		
+
 		String sql = "select " + " " + key + "," +
 		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -368,24 +368,26 @@ public class T651_Dao {
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
 			list = DAOUtil.getList(rs, T651_Bean.class) ;
-			
+
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
 		}finally{
 			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
 		}
-		
+
 		return list ;
 	}
 
 	public static void main(String args[]) {
 
-//		T651_Dao StuCompetiAwardInfoDao = new T651_Dao();
-//		System.out.println(StuCompetiAwardInfoDao.getYearInfo("2012").size());
-		//S65_Bean bean =  StuCompetiAwardInfoDao.getStatic("2014");
+
+		T651_Dao StuCompetiAwardInfoDao = new T651_Dao();
+		List<T651_Bean> list =  StuCompetiAwardInfoDao.getAllList(null, "1012");
+		System.out.println(list.size());
+
 	}
 
 

@@ -21,6 +21,7 @@ import cn.nit.bean.table1.T19Bean;
 import cn.nit.dao.table1.T19DAO;
 import cn.nit.excel.imports.table1.T19Excel;
 import cn.nit.service.table1.T19Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 
@@ -274,7 +275,7 @@ public class T19Action {
 			maplist.put("UnitID", 5);maplist.put("RewardTime", 6);maplist.put("Note", 7);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t19Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

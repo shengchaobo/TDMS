@@ -395,11 +395,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				return false ;
 			}
-			if(assessYear == null || assessYear.length == 0){
-			 alert("评估年份不能为空");
-			
-				return false ;
-			}
+			if (!(/(^[0-9]\d*$)/.test(assessYear)) || assessYear == null || assessYear.length == 0) {
+			alert("评估年份不能为空且必须为整数");
+			return false;
+	       }
 			if(accessResult == null || accessResult.length == 0){
 			 alert("评估结果不能为空");
 				

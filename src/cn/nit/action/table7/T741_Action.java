@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table7.T741_Bean;
 import cn.nit.dao.table7.T741_DAO;
 
@@ -121,7 +122,6 @@ public class T741_Action {
 			}
 			cond = conditions.toString();
 		}
-
 		String pages = t741_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
@@ -197,8 +197,8 @@ public class T741_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			
-	                List<T741POJO> list = t741_DAO.totalList(this.getSelectYear());
+	
+	        List<T741POJO> list = t741_DAO.totalList(this.getSelectYear());
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();

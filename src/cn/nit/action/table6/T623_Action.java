@@ -279,7 +279,7 @@ public class T623_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T623_Bean> list = T623_dao.getAllList("1=1", null);
+			List<T623_Bean> list = T623_dao.getAllList("", null);
 			String sheetName = this.excelName;
 			if(list==null){
 				if(list.size()==0){
@@ -345,22 +345,22 @@ public class T623_Action {
 					for(int j=0;j<list.size();j++){
 						T623_Bean bean =  list.get(j);
 					
-							ws.addCell(new Label(0, k,count+"", wcf));
-							ws.addCell(new Label(1, k, bean.getProvince(), wcf));
-							ws.addCell(new Label(2, k, bean.getArtType(), wcf));
-							ws.addCell(new Label(3, k, bean.getBatch(), wcf));
-							ws.addCell(new Label(4, k, bean.getLibEnrollNum()+"", wcf));
-							ws.addCell(new Label(5, k, bean.getSciEnrollNum()+"", wcf));
-							ws.addCell(new Label(6, k, bean.getSumEnrollNum()+"", wcf));
+							ws.addCell(new Label(0, k,count+"", wcf1));
+							ws.addCell(new Label(1, k, bean.getProvince(), wcf1));
+							ws.addCell(new Label(2, k, bean.getArtType(), wcf1));
+							ws.addCell(new Label(3, k, bean.getBatch(), wcf1));
+							ws.addCell(new Label(4, k, bean.getLibEnrollNum()+"", wcf1));
+							ws.addCell(new Label(5, k, bean.getSciEnrollNum()+"", wcf1));
+							ws.addCell(new Label(6, k, bean.getSumEnrollNum()+"", wcf1));
 							
-							ws.addCell(new Label(7, k, bean.getSciEnrollNum()+"", wcf));
-							ws.addCell(new Label(8, k, bean.getLibLowestScore()+"", wcf));
-							ws.addCell(new Label(9, k, bean.getSumLowestScore()+"", wcf));
-							ws.addCell(new Label(10, k, bean.getSciLowestScore()+"", wcf));
-							ws.addCell(new Label(11, k, bean.getLibAvgScore()+"", wcf));
-							ws.addCell(new Label(12, k, bean.getSumAvgScore()+"", wcf));
+							ws.addCell(new Label(7, k, bean.getSciEnrollNum()+"", wcf1));
+							ws.addCell(new Label(8, k, bean.getLibLowestScore()+"", wcf1));
+							ws.addCell(new Label(9, k, bean.getSumLowestScore()+"", wcf1));
+							ws.addCell(new Label(10, k, bean.getSciLowestScore()+"", wcf1));
+							ws.addCell(new Label(11, k, bean.getLibAvgScore()+"", wcf1));
+							ws.addCell(new Label(12, k, bean.getSumAvgScore()+"", wcf1));
 
-							ws.addCell(new Label(13, k, bean.getNote()+"", wcf));
+							ws.addCell(new Label(13, k, bean.getNote()+"", wcf1));
 						
 						k++;
 					}

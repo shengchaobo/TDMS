@@ -293,7 +293,7 @@ public class T655_Action {
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			System.out.println("+++++++test");
-			List<T655_Bean> list = T655_dao.getAllList("1=1", null);
+			List<T655_Bean> list = T655_dao.getAllList("", null);
 			
 			List<T655_Bean> list1 = new ArrayList<T655_Bean>();
 			

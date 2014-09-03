@@ -46,11 +46,15 @@ public class UploadAction {
 			System.out.println(this.getSelectYear());
 			
 			List<Cell[]> list = ExcelUtil.readExcel(uploadFile, 0) ;
-			Class<?> clazz = Class.forName(className) ;
-
-		
-			Method method = clazz.getDeclaredMethod(methodName, List.class, HttpServletRequest.class, String.class) ;
-			String errorMsg = (String)method.invoke(clazz.newInstance(), list, getRequest(),this.getSelectYear()) ;
+			
+			String errorMsg;
+			if(list.size() <= 3){
+				errorMsg = "你导入的是空表";
+			}else{
+				Class<?> clazz = Class.forName(className) ;				
+				Method method = clazz.getDeclaredMethod(methodName, List.class, HttpServletRequest.class, String.class) ;
+				errorMsg = (String)method.invoke(clazz.newInstance(), list, getRequest(),this.getSelectYear()) ;
+			}
 			
 			if(errorMsg == null || errorMsg.equals("")){
 				out.print("{success:true,errorMsg:'数据存储成功'}") ;

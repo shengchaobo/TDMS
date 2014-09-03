@@ -256,7 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>综合评价：</label> 
-						<select class='easyui-combobox' id="Evaluate" name="teaLeadInClassInfo.Evaluate" panelHeight="auto" eidtable="false">
+						<select class='easyui-combobox' id="Evaluate" name="teaLeadInClassInfo.Evaluate" panelHeight="auto" editable=false>
 						<option value="优">优</option>
 						<option value="良">良</option>
 						<option value="中">中</option>

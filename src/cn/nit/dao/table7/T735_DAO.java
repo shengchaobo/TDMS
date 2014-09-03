@@ -57,7 +57,7 @@ public class T735_DAO {
 	
 
 	if(fillUnitId!=null && !fillUnitId.equals("")){
-		sql.append("and FillUnit=" + fillUnitId);	
+		sql.append(" and FillUnitID=" + fillUnitId);	
 	}
 	
 	if(conditions!=null && !conditions.equals("")){
@@ -139,7 +139,6 @@ public class T735_DAO {
 		sql.append("select  t.SeqNumber,t.TeaUnit,dt.UnitID as UnitID,t.UnitID as UnitIDD,t.AssessResult,t.AssessYear,t.Time,t.Note");
 		sql.append(" from "+ tableName +" as t, DiDepartment dt");
 		sql.append(" where dt.UnitID=t.UnitID") ;
-		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

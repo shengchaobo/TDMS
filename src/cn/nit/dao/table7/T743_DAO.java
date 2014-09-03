@@ -56,7 +56,7 @@ public class T743_DAO {
 		
 
 		if(fillUnitId!=null && !fillUnitId.equals("")){
-			sql.append("and FillUnit=" + fillUnitId);	
+			sql.append(" and FillUnitID=" + fillUnitId);	
 		}
 		
 		if(conditions!=null && !conditions.equals("")){
@@ -136,8 +136,7 @@ public class T743_DAO {
             StringBuffer sql=new StringBuffer();			
 			sql.append("select  t.SeqNumber,t.CSName,t.CSID,t.SetCSUnit,t.UnitID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.CSLeader,t.TeaID,t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note");
 		    sql.append(" from "+ tableName +" as t, DiCourseChar csn, DiCourseCategories cst");
-			sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
-			     
+			sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;    
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;

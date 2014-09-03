@@ -62,7 +62,7 @@ public class T712_DAO {
 		
 		
     	if(fillUnitId!=null && !fillUnitId.equals("")){
-    		sql.append("and FillUnit=" + fillUnitId);	
+    		sql.append(" and FillUnitID=" + fillUnitId);	
     	}
     	
     	if(conditions!=null && !conditions.equals("")){
@@ -104,7 +104,7 @@ public class T712_DAO {
 		
 		List<T712POJO> list=null;
 		
-		sql.append("select t.SeqNumber,t.TeaUnit,dt.UnitID as UnitID,t.UnitID as UnitIDD,t.Name,t.TeaID,t.PaperName,t.PaperType,t.FirstSubject,t.JonalName,t.JonalID,t.JonalTime,t.PaperWordNum,t.ConfirmLevel,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note");
+		sql.append("select t.SeqNumber,t.TeaUnit,dt.UnitID as UnitID,t.UnitID as UnitIDD,t.Name,t.TeaID,t.PaperName,t.PaperType,t.FirstSubject,t.JonalName,t.JonalID,t.JonalTime,t.PaperWordNum,t.ConfirmLevel,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID");
     	sql.append(" from " + tableName + " as t, DiDepartment dt");
     	sql.append(" where dt.UnitID=t.UnitID") ;
     	if(fillUnitId != null && !fillUnitId.equals("")){
@@ -144,11 +144,12 @@ public class T712_DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T712POJO> totalList(String year){
+	public List<T712POJO> totalList(String year,String fillUnitID){
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,dt.UnitID as UnitID,t.UnitID as UnitIDD,t.Name,t.TeaID,t.PaperName,t.PaperType,t.FirstSubject,t.JonalName,t.JonalID,t.JonalTime,t.PaperWordNum,t.ConfirmLevel,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note");
     	sql.append(" from " + tableName + " as t, DiDepartment dt");
     	sql.append(" where dt.UnitID=t.UnitID") ;
+    	sql.append(" and FillUnitID=" + "'" + fillUnitID + "'");
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

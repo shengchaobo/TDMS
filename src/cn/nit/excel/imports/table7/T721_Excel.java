@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 
@@ -173,9 +174,7 @@ public class T721_Excel {
 				String note = cell[14].getContents();
 				
 				count++ ;
-
-				String fillUnitID = null;
-				
+				String fillUnitID=null;				
 				T721_Bean.setItemName(itemname);
 				T721_Bean.setTeaUnit(unit);
 				T721_Bean.setUnitID(unitId);

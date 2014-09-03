@@ -82,11 +82,12 @@
 		//var time = $('#time').datetimebox('getValue');
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
-				
-/*		if (time == null || time.length == 0) {
-			alert("导入时间不能为空");
+		var unitName = $('#unitId').combobox('getText');
+			
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
 			return false;
-		}*/
+	    }
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {

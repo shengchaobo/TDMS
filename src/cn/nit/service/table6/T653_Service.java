@@ -100,6 +100,15 @@ public class T653_Service {
 	public int getWork(String year){
 		return T653_dao.getWork(year);
 	}
+	
+	public List<T653_Bean> getYearInfo(String selectYear){
+		
+		List<T653_Bean> list=T653_dao.getYearInfo(selectYear);
+	
+		//System.out.println(list.toString());
+         
+		return list;				
+	}
 
 
 	/**

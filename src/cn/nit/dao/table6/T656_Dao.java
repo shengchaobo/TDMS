@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.sf.json.JSON;
 
+import cn.nit.bean.table6.T651_Bean;
 import cn.nit.bean.table6.T656_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
@@ -272,6 +273,32 @@ public class T656_Dao {
 		}
 		
 		return NPassRate;
+	}
+	
+	public List<T656_Bean> getYearInfo(String year){
+		
+		String sql = "select " + " " + key + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T656_Bean> list = null ;
+		//T651_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T656_Bean.class) ;
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
 	}
 
 	public static void main(String args[]) {

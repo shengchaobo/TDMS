@@ -102,6 +102,15 @@ public class T654_Service {
 	public int getPatent(String year){
 		return T654_dao.getPatent(year);
 	}
+	
+	public List<T654_Bean> getYearInfo(String selectYear){
+		
+		List<T654_Bean> list=T654_dao.getYearInfo(selectYear);
+	
+		//System.out.println(list.toString());
+         
+		return list;				
+	}
 
 
 	/**

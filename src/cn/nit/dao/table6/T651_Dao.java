@@ -11,6 +11,7 @@ import net.sf.json.JSON;
 
 
 
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table6.S65_Bean;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
@@ -353,11 +354,38 @@ public class T651_Dao {
 		}
 		return bean;
 	}
+	
+	public List<T651_Bean> getYearInfo(String year){
+		
+		String sql = "select " + " " + key + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T651_Bean> list = null ;
+		//T651_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T651_Bean.class) ;
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
 
 	public static void main(String args[]) {
 
-		T651_Dao StuCompetiAwardInfoDao = new T651_Dao();
-		S65_Bean bean =  StuCompetiAwardInfoDao.getStatic("2014");
+//		T651_Dao StuCompetiAwardInfoDao = new T651_Dao();
+//		System.out.println(StuCompetiAwardInfoDao.getYearInfo("2012").size());
+		//S65_Bean bean =  StuCompetiAwardInfoDao.getStatic("2014");
 	}
 
 

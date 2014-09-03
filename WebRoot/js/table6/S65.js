@@ -55,7 +55,9 @@ $(function(){
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
+
 				    			 if(typeof(json.data)!="undefined"){
+				    				 	alert(12);
 						  				alert(json.data);
 						  			}
 			                    var i = 0;

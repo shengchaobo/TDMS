@@ -62,6 +62,7 @@
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript"
 			src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/system/test.js"></script>
 	</head>
 	<body style="overflow-y: scroll">
 		
@@ -88,8 +89,11 @@
 					</td>		      							
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
+					    <input id="Fname" name="Fname" type="text"  style="display:none" />
+					    <a href=download2.action?name=" + fname + "&len=" + files[i].length() + "> 
+					    	<script type="text/javascript">
+								document.write(getFname())
+							</script> </a>
 						</div>						
 					</td>
 				<tr>
@@ -104,7 +108,9 @@
 					</td>		      							
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
+					    <script type="text/javascript">
+								document.write(getFname())
+							</script>
 					    
 						</div>						
 					</td>

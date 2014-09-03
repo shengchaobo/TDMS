@@ -13,6 +13,7 @@ import net.sf.json.JSON;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T641_Bean;
+import cn.nit.bean.table6.T651_Bean;
 import cn.nit.bean.table6.T654_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
@@ -284,41 +285,38 @@ public class T654_Dao {
 		return PatentNum;
 	}
 	
+	public List<T654_Bean> getYearInfo(String year){
+		
+		String sql = "select " + " " + key + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T654_Bean> list = null ;
+		//T651_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T654_Bean.class) ;
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
 
 	public static void main(String args[]) {
 
 		T654_Dao StuAwardPatentDao = new T654_Dao();
-		T654_Bean StuAwardPatent = new T654_Bean();
-//		 StuAwardPatent.setSeqNumber(1);
-		//	
-	
-		StuAwardPatent.setTeaUnit("水利与生态工程学院");
-		StuAwardPatent.setUnitId("3001");
-		StuAwardPatent.setJonalName("test");
-		StuAwardPatent.setJonalId("test");
-		StuAwardPatent.setPatentType("test");
-		StuAwardPatent.setAppvlTime(new Date());
-		StuAwardPatent.setAwardStuName("test");
-		StuAwardPatent.setAwardStuNum(2);
-		StuAwardPatent.setGuideTeaName("test");
-		StuAwardPatent.setGuideTeaNum(2);
-		StuAwardPatent.setFillUnitID("1022");
-		
-				
-		StuAwardPatent.setTime(new Date());
-		StuAwardPatent.setNote("无");
-//		//		
-		StuAwardPatentDao.insert(StuAwardPatent);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(StuAwardPatentDao.update(StuAwardPatent)) ;
-//		 System.out.println(StuAwardPatentDao.deleteItemsByIds("(8)")) ;
 
-		System.out.println("success!!");
+
+		System.out.println(StuAwardPatentDao.getYearInfo("2014").size());
 	}
 
 

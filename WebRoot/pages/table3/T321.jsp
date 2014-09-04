@@ -334,13 +334,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(MainClassName == null || MainClassName.length==0 || MainClassName.length > 100){
-				$.messager.alert('提示',"大类名称不能为空或长度不超过100");
+			if(MainClassName == null || MainClassName.length==0){
+				$.messager.alert('提示',"大类名称不能为空");
 				return false;
 			}
 
-			if(MainClassID == null || MainClassID.length == 0 || MainClassID.length > 50){
-				$.messager.alert('提示',"大类代码不能为空或长度不超过50");
+			if(MainClassID == null || MainClassID.length == 0 ){
+				$.messager.alert('提示',"大类代码不能为空");
 				return false;
 			}
 

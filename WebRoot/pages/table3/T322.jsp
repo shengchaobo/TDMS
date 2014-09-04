@@ -756,6 +756,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 		function validate(){
+			var MajorName = $('#MajorID').combobox('getText') ;
 			var MajorField = $('#MajorField').val() ;
 			var MajorFieldID = $('#MajorFieldID').val() ;
 			var MajorSetTime = $('#MajorSetTime').datebox('getValue') ;
@@ -789,7 +790,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var ExpCredit = $('#ExpCredit').val() ;
 			var PraCredit = $('#PraCredit').val() ;
 			var OutClassCredit = $('#OutClassCredit').val() ;
-	
+			var Note = $('#Note').val() ;
 
 		
 			
@@ -799,17 +800,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			
 
-			if(MajorName == null || MajorName.length==0 || MajorName.length > 100){
-				$.messager.alert('提示',"专业名称不能为空或长度不超过100") ;
+			if(MajorName == null || MajorName.length==0 ){
+				$.messager.alert('提示',"专业名称不能为空") ;
 				return false;
 			}
 
-			if(MajorField == null ||MajorField.length == 0 || MajorField.length > 50){
-				$.messager.alert('提示',"专业方向名称不能为空（没有请填无）或长度不超过50");
+			if(MajorField == null ||MajorField.length == 0){
+				$.messager.alert('提示',"专业方向名称不能为空（没有请填无）");
 				return false;
 			}
-			if(MajorFieldID == null ||MajorFieldID.length == 0 || MajorFieldID.length > 50){
-				$.messager.alert('提示',"专业方向号不能为空（没有请填无）或长度不超过50");
+			if(MajorFieldID == null ||MajorFieldID.length == 0 ){
+				$.messager.alert('提示',"专业方向号不能为空（没有请填无）");
 				return false;
 			}
 			if(MajorSetTime == null || MajorSetTime.length == 0){
@@ -817,8 +818,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 			}
 
-			if(MajorAppvlID == null || MajorAppvlID.length==0 || MajorAppvlID.length > 100){
-				$.messager.alert('提示',"批文号不能为空或长度不超过100") ;
+			if(MajorAppvlID == null || MajorAppvlID.length==0 ){
+				$.messager.alert('提示',"批文号不能为空") ;
 				return false;
 			}
 
@@ -843,8 +844,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 			}
 
-			if(BuildAppvlID == null || BuildAppvlID.length==0 || BuildAppvlID.length > 100){
-				$.messager.alert('提示',"建设批文号不能为空或长度不超过100") ;
+			if(BuildAppvlID == null || BuildAppvlID.length==0){
+				$.messager.alert('提示',"建设批文号不能为空") ;
 				return false;
 			}
 
@@ -1009,6 +1010,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			if(OutClassCredit == null || OutClassCredit.length == 0){
 				$.messager.alert('提示',"课外科技活动学分数不能为空") ;
+				return false;
+			}
+
+			if(Note !=null && Note.length > 1000){
+				$.messager.alert('提示',"备注中文字数不超过500") ;
 				return false;
 			}
 

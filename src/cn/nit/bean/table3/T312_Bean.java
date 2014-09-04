@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class T312_Bean {
 
-	private int SeqNumber;
+	private Integer SeqNumber;
 	
 	private String StaName ;
 	
@@ -20,11 +20,11 @@ public class T312_Bean {
 	
 	private String Note;
 	
-	public int getSeqNumber() {
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
 
-	public void setSeqNumber(int SeqNumber) {
+	public void setSeqNumber(Integer SeqNumber) {
 		this.SeqNumber = SeqNumber;
 	}
 

@@ -1,5 +1,7 @@
 package cn.nit.excel.imports.table5;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -154,13 +156,16 @@ public class T522Excel {
 					if(AppvlTime ==null || AppvlTime.equals("")){
 						return "第" + count + "行，获准时间不能为空" ;
 					}
-					if(!TimeUtil.judgeFormat1(AppvlTime)){
-						return "第" + count + "行，获准时间格式不正确，格式为：2012/09" ;
+					if(!this.judgeFormat1(AppvlTime)){
+						return "第" + count + "行，获准时间格式不正确，格式为：2012-09" ;
 					}
 					
 					String ReceptTime=cell[11].getContents();
-					if(ReceptTime !=null && !TimeUtil.judgeFormat1(ReceptTime)){
-						return "第" + count + "行，验收时间格式不正确，格式为：2012/09" ;
+					if(ReceptTime ==null || ReceptTime.equals("")){
+						return "第" + count + "行，验收时间不能为空" ;
+					}
+					if(!this.judgeFormat1(ReceptTime)){
+						return "第" + count + "行，验收时间格式不正确，格式为：2012-09" ;
 					}
 					
 					String FromTeaUnit = cell[12].getContents() ;
@@ -249,6 +254,22 @@ public class T522Excel {
 		}
 		
 	}
+	
+	/**判断字符串格式是否为2013-02*/
+	public static boolean judgeFormat1(String dataString){
+		boolean flag=false;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM") ;
+		Date date=null;
+		try{
+			date = sf.parse(dataString) ;
+			flag = true;
+		}catch(ParseException e){
+			flag=false;
+		}
+		return flag;
+	}
+
+
 	
 	/**判断字符串是否是数字*/
 	public boolean isNumeric(String str){

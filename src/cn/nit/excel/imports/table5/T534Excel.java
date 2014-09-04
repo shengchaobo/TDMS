@@ -2,6 +2,8 @@ package cn.nit.excel.imports.table5;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -321,8 +323,8 @@ public class T534Excel {
 					if(GainTime == null || GainTime.equals("")){
 						return "第" + count + "行，获评时间不能为空" ;
 					}
-					if(!TimeUtil.judgeFormat1(GainTime)){
-						return "第" + count + "行，获评时间格式不正确，应为：2012/09" ;
+					if(!this.judgeFormat1(GainTime)){
+						return "第" + count + "行，获评时间格式不正确，应为：2012-09" ;
 					}
 					String Note=cell[17].getContents();
 					if(Note!=null&&Note.length()>1000){
@@ -374,6 +376,22 @@ public class T534Excel {
 		}
 		
 	}
+	
+	/**判断字符串格式是否为2013-02*/
+	public static boolean judgeFormat1(String dataString){
+		boolean flag=false;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM") ;
+		Date date=null;
+		try{
+			date = sf.parse(dataString) ;
+			flag = true;
+		}catch(ParseException e){
+			flag=false;
+		}
+		return flag;
+	}
+
+
 	
 	/**判断字符串是否是数字*/
 	public boolean isNumeric(String str){

@@ -144,9 +144,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									教工号：
 								</label>
-								<input id="TeaID" type="text" name="de_bean.teaId"
-									class="easyui-validatebox">
-								<span id="TeaIDSpan"></span>
+								<input id="TeaID" type="text" name="de_bean.teaId" class='easyui-combobox' 
+							data-options="valueField:'teaId',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+							">
+								
 							</div>
 						</td>
 						

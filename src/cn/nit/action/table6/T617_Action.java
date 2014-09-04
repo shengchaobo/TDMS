@@ -273,7 +273,7 @@ public class T617_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T617_Bean> list = T617_dao.getAllList("1=1", null);
+			List<T617_Bean> list = T617_dao.getAllList("", null);
 			
 			String sheetName = this.excelName;
 			if(list==null){
@@ -369,23 +369,23 @@ public class T617_Action {
 						for(int j=0;j<list.size();j++){
 							T617_Bean bean =  list.get(j);
 							if(j==0){
-								ws.addCell(new Label(0, 4, bean.getTeaUnit(), wcf));
+								ws.addCell(new Label(0, 4, bean.getTeaUnit(), wcf1));
 								ws.mergeCells(0, 4, 5, 4);
-								ws.addCell(new Label(6, 4, bean.getJuniorStuSumNum()+"", wcf));
-								ws.addCell(new Label(7, 4, bean.getJuniorOneStuNum()+"", wcf));
-								ws.addCell(new Label(8, 4, bean.getJuniorTwoStuNum()+"", wcf));
-								ws.addCell(new Label(9, 4, bean.getJuniorThreeStuNum()+"", wcf));
+								ws.addCell(new Label(6, 4, bean.getJuniorStuSumNum()+"", wcf1));
+								ws.addCell(new Label(7, 4, bean.getJuniorOneStuNum()+"", wcf1));
+								ws.addCell(new Label(8, 4, bean.getJuniorTwoStuNum()+"", wcf1));
+								ws.addCell(new Label(9, 4, bean.getJuniorThreeStuNum()+"", wcf1));
 							}else{
-								ws.addCell(new Label(0, k,j+"", wcf));
-								ws.addCell(new Label(1, k, bean.getTeaUnit(), wcf));
-								ws.addCell(new Label(2, k, bean.getUnitId(), wcf));
-								ws.addCell(new Label(3, k, bean.getMajorName(), wcf));
-								ws.addCell(new Label(4, k, bean.getMajorId(), wcf));
-								ws.addCell(new Label(5, k, bean.getMajorFieldName(), wcf));
-								ws.addCell(new Label(6, k, bean.getJuniorStuSumNum()+"", wcf));
-								ws.addCell(new Label(7, k, bean.getJuniorOneStuNum()+"", wcf));
-								ws.addCell(new Label(8, k, bean.getJuniorTwoStuNum()+"", wcf));
-								ws.addCell(new Label(9, k, bean.getJuniorThreeStuNum()+"", wcf));
+								ws.addCell(new Label(0, k,j+"", wcf1));
+								ws.addCell(new Label(1, k, bean.getTeaUnit(), wcf1));
+								ws.addCell(new Label(2, k, bean.getUnitId(), wcf1));
+								ws.addCell(new Label(3, k, bean.getMajorName(), wcf1));
+								ws.addCell(new Label(4, k, bean.getMajorId(), wcf1));
+								ws.addCell(new Label(5, k, bean.getMajorFieldName(), wcf1));
+								ws.addCell(new Label(6, k, bean.getJuniorStuSumNum()+"", wcf1));
+								ws.addCell(new Label(7, k, bean.getJuniorOneStuNum()+"", wcf1));
+								ws.addCell(new Label(8, k, bean.getJuniorTwoStuNum()+"", wcf1));
+								ws.addCell(new Label(9, k, bean.getJuniorThreeStuNum()+"", wcf1));
 							}
 							k++;
 						}

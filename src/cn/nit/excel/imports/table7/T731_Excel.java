@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T731_Bean;
 import cn.nit.service.di.DiDepartmentService;
@@ -142,9 +143,7 @@ public class T731_Excel {
 				String note = cell[13].getContents();
 				
 				count++ ;
-
-				String fillUnitID = null;
-				
+				String fillUnitID=null;	
 				T731_Bean.setAttendClassTerm(attclTerm);
 				T731_Bean.setLeaderName(leaderName);
 				T731_Bean.setLeaderID(leaderId);

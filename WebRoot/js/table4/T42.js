@@ -81,12 +81,31 @@
 		
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字	\
-		
+		var unitName = $('#unitID').combobox('getText');
+		var topDegree = $('#topDegree').combobox('getText');
+		var education = $('#education').combobox('getText');
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
 			alert("教工号不能为空或者教师库中无该教工号");
 			return false;
 		}
+		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
+			return false;
+	    }
+		
+		
+		if(topDegree == null || topDegree==""){
+			alert("最高学位不能为空");
+			return false;
+	    }
+		
+		if(education == null || education==""){
+			alert("学历不能为空");
+			return false;
+	    }
+		
 		if (note != null && note.length > 1000) {
 			alert("备注中文字数不超过500");
 /*			$('#noteSpan').html(

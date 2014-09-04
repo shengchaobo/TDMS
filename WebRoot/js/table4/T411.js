@@ -84,16 +84,22 @@
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字
 		
+		var idcode = $('#idcode').combobox('getText');
+		var officeName = $('#officeID').combobox('getText');
+		var unitName = $('#unitId').combobox('getText');
+		var TeaResOffice = $('#teaResOfficeID').combobox('getText');
+		var topDegree = $('#topDegree').combobox('getText');
+		var education = $('#education').combobox('getText');
+		var source = $('#source').combobox('getText');
+		var techTitle = $('#majTechTitle').combobox('getText');
+		var teaTitle = $('#teaTitle').combobox('getText');
+		
 		// 根据数据库定义的字段的长度，对其进行判断
 		 if (teaName == null || teaName.length == 0 || teaName.length > 100) {
 			$('#teaName').focus();
 			$('#teaName').select();
 			alert("教师名字不能为空或长度不超过100");
 			return false;
-/*			$('#teaNameSpan').html(
-					"<font style=\"color:red\">教师名字不能为空或长度不超过100</font>");
-					return false;
-			}*/
 		 }
 		 
 		if (teaId == null || teaId.length == 0 ) {
@@ -110,6 +116,53 @@
 			 	alert("教师ID长度不超过50");
 			 	return false;
 		}
+
+		
+		if(idcode == null || idcode==""){
+			alert("身份代码不能为空");
+			return false;
+	    }
+		
+		if(officeName == null || officeName==""){
+			alert("所属部门不能为空");
+			return false;
+	    }
+		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
+			return false;
+	    }
+		
+		if(TeaResOffice == null || TeaResOffice==""){
+			alert("所属教研室不能为空");
+			return false;
+	    }
+		
+		if(education == null || education==""){
+			alert("学历不能为空");
+			return false;
+	    }
+		
+		if(topDegree == null || topDegree==""){
+			alert("最高学位不能为空");
+			return false;
+	    }
+		
+		if(source == null || source==""){
+			alert("学缘不能为空");
+			return false;
+	    }
+
+		
+		if(techTitle == null || techTitle==""){
+			alert("专业技术职称不能为空");
+			return false;
+	    }
+		
+		if(teaTitle == null || teaTitle==""){
+			alert("教学系列职称不能为空");
+			return false;
+	    }
 		
 		if (note != null && note.length > 1000) {
 			alert("备注中文字数不超过500");

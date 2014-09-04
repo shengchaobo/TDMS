@@ -37,15 +37,11 @@ public class T13DAO {
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea") ;
 		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
 		int total = 0 ;
-		
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and t.UnitID=" + fillUnitId) ;
+		if(conditions==null){
+			sql.append(" where UnitID like '"+fillUnitId+"%'") ;
+		}else{
+			sql.append( conditions);
 		}
-		
-		if(conditions != null && !conditions.equals("")){
-			sql.append(conditions) ;
-		}
-		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -82,12 +78,10 @@ public class T13DAO {
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,T411_TeaBasicInfo_Per$ tea") ;
 		sql.append(" where dpt.UnitID=t.UnitID and tea.TeaID=t.TeaID");
 
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and t.UnitID=" + fillUnitId) ;
-		}
-		
-		if(conditions != null){
-			sql.append(conditions) ;
+		if(conditions==null){
+			sql.append(" where UnitID like '"+fillUnitId+"%'") ;
+		}else{
+			sql.append( conditions);
 		}
 		
 //		sql.append(" order by SeqNumber desc") ;

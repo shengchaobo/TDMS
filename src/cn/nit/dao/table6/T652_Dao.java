@@ -13,6 +13,7 @@ import net.sf.json.JSON;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T641_Bean;
+import cn.nit.bean.table6.T651_Bean;
 import cn.nit.bean.table6.T652_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
@@ -287,14 +288,40 @@ public class T652_Dao {
 		return PaperNum;
 	}
 	
+	public List<T652_Bean> getYearInfo(String year){
+		
+		String sql = "select " + " " + key + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T652_Bean> list = null ;
+		T652_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T652_Bean.class) ;
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+	
 
 	public static void main(String args[]) {
 
-		T652_Dao StuPublishPaperDao = new T652_Dao();
-		T652_Bean StuPublishPaper = new T652_Bean();
-		List<T652_Bean> list = StuPublishPaperDao.getAllList(null, "1012");
-		
-		System.out.println(list.size());
+//		T652_Dao StuPublishPaperDao = new T652_Dao();
+//		T652_Bean StuPublishPaper = new T652_Bean();
+//		List<T652_Bean> list = StuPublishPaperDao.getYearInfo("2014");
+//		
+//		System.out.println(list.size());
 //		 StuPublishPaper.setSeqNumber(1);
 		//	
 		//TeaUnit,UnitId,PaperTitle,JonalName,JonalID,JonalDate,AwardStuName,

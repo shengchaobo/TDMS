@@ -84,11 +84,12 @@
 		var team = $('#otherTeamPer').val();
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
+		var type = $('#type').combobox('getText');
 				
-/*		if (time == null || time.length == 0) {
-			alert("导入时间不能为空");
+		if(type == null || type==""){
+			alert("团队类型不能为空");
 			return false;
-		}*/
+	    }
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {

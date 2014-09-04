@@ -9,6 +9,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
+import cn.nit.bean.table4.S443_Bean;
 import cn.nit.bean.table6.S65_Bean;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T624_Bean;
@@ -95,8 +96,17 @@ public class T651_Service {
 	}
 
 	public S65_Bean getStatic(String year){
-		System.out.println("getstatic");
+		//System.out.println("getstatic");
 		return T651_dao.getStatic(year);
+	}
+	
+	public List<T651_Bean> getYearInfo(String selectYear){
+		
+		List<T651_Bean> list=T651_dao.getYearInfo(selectYear);
+	
+		//System.out.println(list.toString());
+         
+		return list;				
 	}
 	/**
 	 * @param args

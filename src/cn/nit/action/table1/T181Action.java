@@ -21,6 +21,7 @@ import cn.nit.bean.table1.T181Bean;
 import cn.nit.dao.table1.T18DAO;
 import cn.nit.excel.imports.table1.T181Excel;
 import cn.nit.service.table1.T181Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 
@@ -289,7 +290,7 @@ public class T181Action {
 			maplist.put("UnitName", 5);maplist.put("UnitID", 6);maplist.put("UnitLevel", 7);maplist.put("Note", 8);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t181Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

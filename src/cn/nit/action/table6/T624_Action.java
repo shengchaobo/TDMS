@@ -270,7 +270,7 @@ public class T624_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T624_Bean> list = T624_dao.getAllList("1=1", null);
+			List<T624_Bean> list = T624_dao.getAllList("", null);
 			
 			if(list==null){
 				if(list.size()==0){
@@ -368,29 +368,29 @@ public class T624_Action {
 						for(int j=0;j<list.size();j++){
 							T624_Bean bean1 =  list.get(j);
 							if(j==0){
-								ws.addCell(new Label(0,3, bean1.getTeaUnit(), wcf));
+								ws.addCell(new Label(0,3, bean1.getTeaUnit(), wcf1));
 								ws.mergeCells(0, 3, 6, 3);
-								ws.addCell(new Label(7, 3, bean1.getPlanAdmisNum()+"", wcf));
-								ws.addCell(new Label(8, 3, bean1.getActualAdmisNum()+"", wcf));
-								ws.addCell(new Label(9, 3, bean1.getActualRegisterNum()+"", wcf));
-								ws.addCell(new Label(10, 3, bean1.getGenHignSchNum()+"", wcf));
-								ws.addCell(new Label(11, 3, bean1.getSecondVocationNum()+"", wcf));
-								ws.addCell(new Label(12, 3, bean1.getOtherNum()+"", wcf));
+								ws.addCell(new Label(7, 3, bean1.getPlanAdmisNum()+"", wcf1));
+								ws.addCell(new Label(8, 3, bean1.getActualAdmisNum()+"", wcf1));
+								ws.addCell(new Label(9, 3, bean1.getActualRegisterNum()+"", wcf1));
+								ws.addCell(new Label(10, 3, bean1.getGenHignSchNum()+"", wcf1));
+								ws.addCell(new Label(11, 3, bean1.getSecondVocationNum()+"", wcf1));
+								ws.addCell(new Label(12, 3, bean1.getOtherNum()+"", wcf1));
 //								ws.addCell(new Label(13, 3, bean1.getNote()+"", wcf));
 							}else{
-								ws.addCell(new Label(0, k,j+"", wcf));
-								ws.addCell(new Label(1, k, bean1.getTeaUnit(), wcf));
-								ws.addCell(new Label(2, k, bean1.getUnitId(), wcf));
-								ws.addCell(new Label(3, k, bean1.getMajorName(), wcf));
-								ws.addCell(new Label(4, k, bean1.getMajorId(), wcf));
-								ws.addCell(new Label(5, k, bean1.getMajorFieldName(), wcf));
-								ws.addCell(new Label(6, k, this.BooleanToString(bean1.getIsCurrentYearAdmis()), wcf));
-								ws.addCell(new Label(7, k, bean1.getPlanAdmisNum()+"", wcf));
-								ws.addCell(new Label(8, k, bean1.getActualAdmisNum()+"", wcf));
-								ws.addCell(new Label(9, k, bean1.getActualRegisterNum()+"", wcf));
-								ws.addCell(new Label(10, k, bean1.getGenHignSchNum()+"", wcf));
-								ws.addCell(new Label(11, k, bean1.getSecondVocationNum()+"", wcf));
-								ws.addCell(new Label(12, k, bean1.getOtherNum()+"", wcf));
+								ws.addCell(new Label(0, k,j+"", wcf1));
+								ws.addCell(new Label(1, k, bean1.getTeaUnit(), wcf1));
+								ws.addCell(new Label(2, k, bean1.getUnitId(), wcf1));
+								ws.addCell(new Label(3, k, bean1.getMajorName(), wcf1));
+								ws.addCell(new Label(4, k, bean1.getMajorId(), wcf1));
+								ws.addCell(new Label(5, k, bean1.getMajorFieldName(), wcf1));
+								ws.addCell(new Label(6, k, this.BooleanToString(bean1.getIsCurrentYearAdmis()), wcf1));
+								ws.addCell(new Label(7, k, bean1.getPlanAdmisNum()+"", wcf1));
+								ws.addCell(new Label(8, k, bean1.getActualAdmisNum()+"", wcf1));
+								ws.addCell(new Label(9, k, bean1.getActualRegisterNum()+"", wcf1));
+								ws.addCell(new Label(10, k, bean1.getGenHignSchNum()+"", wcf1));
+								ws.addCell(new Label(11, k, bean1.getSecondVocationNum()+"", wcf1));
+								ws.addCell(new Label(12, k, bean1.getOtherNum()+"", wcf1));
 //								ws.addCell(new Label(13, k, bean1.getNote()+"", wcf));
 							}
 							k++;

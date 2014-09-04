@@ -287,7 +287,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    //json格式转化
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
-					    if (result.state){ 
+					    if (result.state){
+						    alert(123); 
 						    $('#dlg').dialog('close'); 
 						    $('#unverifiedData').datagrid('reload'); 
 					    }

@@ -258,7 +258,7 @@ public class T631_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T631_Bean> list = T631_dao.getAllList("1=1", null);
+			List<T631_Bean> list = T631_dao.getAllList("", null);
 			if(list==null){
 				if(list.size()==0){
 					PrintWriter out = null ;

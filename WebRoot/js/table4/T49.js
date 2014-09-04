@@ -36,6 +36,7 @@
 	function validate() {
 		// 获取文本框的值
 		//var time = $('#time').datetimebox('getValue');
+		var unitName = $('#unitId').combobox('getText');
 		var complileBookNum =  parseInt($('#complileBookNum').val());
 		var writeBookNum =  parseInt($('#writeBookNum').val());
 		var interPlanBook=  parseInt($('#interPlanBook').val());
@@ -54,6 +55,11 @@
 			alert("导入时间不能为空");
 			return false;
 		}	*/
+		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
+			return false;
+	    }
 
 		if($('#complileBookNum').val() == null || $('#complileBookNum').val()==""){
 			$('#complileBookNum').val(0) ;

@@ -83,12 +83,30 @@
 		var tea = $('#otherTeaInfo').val();
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
+		var unitName = $('#unitId').combobox('getText');
+		var awardLevel = $('#awardLevel').combobox('getText');
+		var awardType = $('#awardType').combobox('getText');
+		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
+			return false;
+	    }
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
 			alert("教工号不能为空或者教师库中无该教工号");
 			return false;
 		}
+		
+		if(awardType == null || awardType==""){
+			alert("获奖类别不能为空");
+			return false;
+	    }
+		
+		if(awardLevel == null || awardLevel==""){
+			alert("获奖级别不能为空");
+			return false;
+	    }
 		if(teaNum == null || teaNum == 0){
 		     if(tea!=null && tea!=""){
 		    	 alert("当参与教师为0和空时，其他成员应为空");

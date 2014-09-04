@@ -104,22 +104,10 @@
 					</td>		      							
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">
 					    
-						</div>						
-					</td>
-				</tr>
-					
-				
-			</tbody>
-		</table>
-		
-		
-		<div id="ddlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true" buttons="#dlg-buttons">
-		<div class="ftitle">请选择文件</div>
-		<div class="fitem">
-
-			<% 
+					    
+	<% 
     //取得服务器"/download/file"目录的物理路径 
     String fpath = request.getRealPath("/WEB-INF/uploadList");
     //取得"/download/file"目录的file对象 
@@ -142,6 +130,23 @@
     }
     }
    %>
+					    
+					    </a>
+					    
+						</div>						
+					</td>
+				</tr>
+					
+				
+			</tbody>
+		</table>
+		
+		
+		<div id="ddlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true" buttons="#dlg-buttons">
+		<div class="ftitle">请选择文件</div>
+		<div class="fitem">
+
+
 		</div>
 	</div>
 	

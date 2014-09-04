@@ -266,6 +266,7 @@ public class T651_Action {
 
 	public InputStream getInputStream() {
 
+		System.out.println("+++++++++++");
 		InputStream inputStream = null ;
 		
 		try {
@@ -273,7 +274,7 @@ public class T651_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T651_Bean> list = T651_dao.getAllList("1=1", fillUnitID);
+			List<T651_Bean> list = T651_dao.getAllList("", fillUnitID);
 						
 			String sheetName = this.excelName;
 				

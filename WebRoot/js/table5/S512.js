@@ -20,6 +20,10 @@
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
 					 
+			if(typeof(rowData.rows[0].data) != "undefined"){
+				alert(rowData.rows[0].data);
+			}
+			
 					var merges2 = [{
 		                  field:'teaUnit',
 		                  index: 0,
@@ -54,7 +58,7 @@
 			
 			//alert(year);
 	        //查询参数直接添加在queryParams中 
-			alert(222);
+		
 	         var queryParams = $('#showData').datagrid('options').queryParams;  
 	         queryParams.selectYear = year;   
 	         $("#showData").datagrid('reload'); 

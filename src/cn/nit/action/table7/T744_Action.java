@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table7.T744_Bean;
 import cn.nit.dao.table7.T744_DAO;
 import cn.nit.pojo.table7.T744POJO;
@@ -62,7 +63,6 @@ public class T744_Action {
 	
 	
 	public void insert(){
-		
 		majBuildAssessAC.setTime(new Date());
 		boolean flag;
 		PrintWriter out=null;
@@ -122,7 +122,6 @@ public class T744_Action {
 			}
 			cond = conditions.toString();
 		}
-
 		String pages = t744_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		

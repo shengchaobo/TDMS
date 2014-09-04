@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table7.T711_Bean;
 import cn.nit.dao.table7.T711_DAO;
 import cn.nit.pojo.table7.T711POJO;
@@ -61,7 +63,10 @@ public class T711_Action {
 	public void insert(){
 		//System.out.println(t711_Bean.getUnitID()) ;
 		t711_Bean.setTime(new Date());
-		
+		//具体教学单位
+	    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
+		t711_Bean.setFillUnitID(fillUnitID);
 		boolean flag= t711_Sr.insert(t711_Bean);
         PrintWriter out = null ;
 		
@@ -122,8 +127,10 @@ public class T711_Action {
 			}
 			cond = conditions.toString();
 		}
-
-		String pages = t711_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		//具体教学单位
+	    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
+		String pages = t711_Sr.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -198,7 +205,10 @@ public class T711_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			List<T711POJO> list = t711_DAO.totalList(this.getSelectYear());
+			//具体教学单位
+			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+			String fillUnitID = bean.getUnitID();
+			List<T711POJO> list = t711_DAO.totalList(this.getSelectYear(),fillUnitID);
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
@@ -210,7 +220,7 @@ public class T711_Action {
 			maplist.put("SeqNum", 0);
 			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("Name", 3);maplist.put("TeaID", 4);maplist.put("AwardName", 5);maplist.put("AwardLevel", 6);
 			maplist.put("AwardRank", 7);maplist.put("AwardTime", 8);maplist.put("AwardFromUnit", 9);maplist.put("AppvlID", 10);maplist.put("JoinTeaNum", 11);maplist.put("OtherJoinTeaInfo", 12);
-			maplist.put("Note", 13);		
+			maplist.put("Note", 13);	
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();

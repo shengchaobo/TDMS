@@ -69,6 +69,11 @@
 			return false;
 		}
 		
+		if (indexID.length > 5 ) {
+			alert("课程性质代码不能超过5位");
+			return false;
+		}
+		
 		if (courseChar == null || courseChar.length == 0 ) {
 			alert("课程性质名称不能为空");
 			return false;

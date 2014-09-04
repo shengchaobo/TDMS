@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T735_Bean;
 import cn.nit.service.di.DiDepartmentService;
@@ -86,9 +87,7 @@ public class T735_Excel {
                String note = cell[5].getContents();
 				
 				count++ ;
-
-				String fillUnitID = null;
-				
+				String fillUnitID=null;	
 				T735_Bean.setTeaUnit(unit);
 				T735_Bean.setUnitID(unitId);
 				T735_Bean.setAssessResult(assResult);

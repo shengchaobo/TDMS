@@ -41,17 +41,13 @@
 		var teaName = $('#name').combobox('getValue');
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字	
-			
-		if (teaId == null || teaId.length == 0) {
-				alert("教师ID不能为空");
-				return false;
-		} else if (!teaId.match(num)) {
-			alert("教师ID不全是数字");
+		var unitName = $('#unitID').combobox('getText');
+		
+		if(unitName == null || unitName==""){
+			alert("所属教学单位不能为空");
 			return false;
-		} else if (teaId.length > 50) {
-			alert("教师ID长度不超过50");
-			return false;
-		}
+	    }
+		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
 			alert("教工号不能为空或者教师库中无该教工号");

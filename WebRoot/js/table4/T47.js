@@ -79,10 +79,21 @@
 		//var time = $('#time').datetimebox('getValue');
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
-/*		if (time == null || time.length == 0) {
-			alert("导入时间不能为空");
+
+		var unitName = $('#unitId').combobox('getText');
+		var awardLevel = $('#awardLevel').combobox('getText');
+		
+		if(unitName == null || unitName==""){
+			alert("获奖单位不能为空");
 			return false;
-		}	*/
+	    }
+		
+		if(awardLevel == null || awardLevel==""){
+			alert("获奖级别不能为空");
+			return false;
+	    }
+		
+
 		
 		if (note != null && note.length > 1000) {
 			alert("备注中文字数不超过500");

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table7.T731_Bean;
 import cn.nit.dao.table7.T731_DAO;
 import cn.nit.pojo.table7.T731POJO;
@@ -60,7 +61,6 @@ public class T731_Action {
 	
 	public void insert(){
 		schleadInClass.setTime(new Date());
-		
 		boolean flag;
 		PrintWriter out=null;	
 		
@@ -121,7 +121,6 @@ public class T731_Action {
 			}
 			cond = conditions.toString();
 		}
-
 		String pages = t731_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
@@ -197,7 +196,6 @@ public class T731_Action {
 		InputStream inputStream = null ;
 		
 		try {
-
 			List<T731POJO> list = t731_Dao.totalList(this.getSelectYear());
 			String sheetName = this.excelName;
 			

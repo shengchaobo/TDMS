@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T712_Bean;
 import cn.nit.service.di.DiDepartmentService;
@@ -160,9 +162,10 @@ public class T712_Excel {
 					}
 					
 					String note = cell[13].getContents();
-					count++ ;
-
-					String fillUnitID = null;
+					//插入教学单位
+					UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+					String fillUnitID = bean.getUnitID();
+					T712_Bean.setFillUnitID(fillUnitID);
 					T712_Bean.setTeaUnit(unit);
 					T712_Bean.setUnitID(unitId);
 					T712_Bean.setName(name);

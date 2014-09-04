@@ -20,7 +20,9 @@
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
 					 
-			
+			if(typeof(rowData.rows[0].data) != "undefined"){
+				alert(rowData.rows[0].data);
+			}
 					var merges2 = [{
 		                  field:'teaUnit',
 		                  index: 0,

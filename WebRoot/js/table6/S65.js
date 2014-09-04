@@ -56,6 +56,7 @@ $(function(){
 				    		dataType : "json",
 				    		success : function(json) {
 				    			 if(typeof(json.data)!="undefined"){
+				    				 	alert(12);
 						  				alert(json.data);
 						  			}
 			                    var i = 0;
@@ -94,6 +95,10 @@ $(function(){
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
+       					  
+	       					if(typeof(json.data)!="undefined"){
+				  				alert(json.data);
+				  			}
 			                    var i = 0;
 			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
@@ -118,7 +123,7 @@ $(function(){
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表6-5本科生学习成果统计情况');
+			        var tableName = encodeURI('表S6-5本科生学习成果统计情况');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),

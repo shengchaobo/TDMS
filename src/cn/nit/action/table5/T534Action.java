@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table5.T534Bean;
 import cn.nit.dao.table5.T534DAO;
 import cn.nit.excel.imports.table5.T534Excel;
@@ -62,11 +63,17 @@ public class T534Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
+	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+	String fillUnitID = bean.getUnitID();
+	
 	/**  逐条插入数据  */
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t534Bean.setTime(new Date()) ;
-
+		t534Bean.setFillUnitID(fillUnitID);
 		//这还没确定,设置填报者的职工号与部门号
 //		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
 //		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
@@ -130,7 +137,7 @@ public class T534Action {
 			}
 
 
-			String pages = t534Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t534Ser.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 
 			PrintWriter out = null ;
 			
@@ -154,6 +161,7 @@ public class T534Action {
 
 		 
 		t534Bean.setTime(new Date()) ;
+		t534Bean.setFillUnitID(fillUnitID);
 		boolean flag = t534Ser.update(t534Bean) ;
 		PrintWriter out = null ;
 		
@@ -209,7 +217,7 @@ public class T534Action {
 
 		try {
 			
-			List<T534Bean> list = t534Dao.totalList();
+			List<T534Bean> list = t534Dao.totalList(fillUnitID);
 			
 			String sheetName = this.excelName;
 			

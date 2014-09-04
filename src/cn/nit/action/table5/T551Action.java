@@ -1,6 +1,8 @@
 package cn.nit.action.table5;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -15,12 +17,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
+
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table5.T551Bean;
 import cn.nit.dao.table5.T551DAO;
 import cn.nit.excel.imports.table5.T551Excel;
 import cn.nit.service.table5.T551Service;
+import cn.nit.util.DateUtil;
 import cn.nit.util.TimeUtil;
 
 public class T551Action {
@@ -200,39 +218,133 @@ public class T551Action {
 		}
 	}
 	
-	/**数据导出*/
-	public InputStream getInputStream(){
+	/**数据导出
+	 * @throws IOException */
+	public InputStream getInputStream() throws IOException{
 		
-//        System.out.println("年份："+this.Year);
-		InputStream inputStream = null ;
 
-		try {
-			
-			List<T551Bean> list = t551Dao.totalList();
-			
-			String sheetName = this.excelName;
-			
-			List<String> columns = new ArrayList<String>();
-			columns.add("序号");
-			columns.add("教学单位");columns.add("单位号");columns.add("专业名称");columns.add("专业代码");
-			columns.add("入校年份");columns.add("本科生党员数（个）");columns.add("考试违纪、作弊及受处分（人次）");
-			columns.add("优良学风班的比例（%）");columns.add("备注");
+		List<T551Bean> list = t551Dao.totalList();
+		ByteArrayOutputStream fos = null;
+		 
+		if(list.size()<1){
+			PrintWriter out = null ;
+			getResponse().setContentType("text/html; charset=UTF-8") ;
+			out = getResponse().getWriter() ;
+			out.print("后台传入的数据为空!!!") ;
+			System.out.println("后台传入的数据为空");
+		}else{
+			String sheetName=this.excelName;	
+		    WritableWorkbook wwb;
+		    //统计合计
+		    T551Bean beanAll = new T551Bean();
+		    beanAll.setTeaUnit("全校合计");
+		    int PartyMemNum=0; int CheatNum=0;double GoodClassRatio=0.0;
+		    for(int i=0;i<list.size();i++){
+		    	T551Bean bean = list.get(i);
+		    	PartyMemNum+=bean.getPartyMemNum();
+		    	CheatNum+=bean.getCheatNum();
+		    	GoodClassRatio+=bean.getGoodClassRatio();
+		    }
+		    GoodClassRatio = GoodClassRatio/list.size();
+		    
+		    beanAll.setPartyMemNum(PartyMemNum);
+		    beanAll.setCheatNum(CheatNum);
+		    beanAll.setGoodClassRatio(DateUtil.doubleTwo(""+GoodClassRatio));
+		    
+		    list.add(0, beanAll);//将合计加入到list的第一个位置
+		    
+		    try {    
+		           fos = new ByteArrayOutputStream();
+		           wwb = Workbook.createWorkbook(fos);
+		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+		
+		            //    设置单元格的文字格式
+		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		           WritableCellFormat wcf = new WritableCellFormat(wf);
+		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		           wcf.setAlignment(Alignment.CENTRE);
+		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+						     jxl.format.Colour.BLACK); 
+		           wcf.setAlignment(jxl.write.Alignment.LEFT);
+		           ws.setRowView(1, 500);
+		           
+		           //设置格式
+				   WritableCellFormat wcf1 = new WritableCellFormat();
+				   wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+						     jxl.format.Colour.BLACK); 
+		           
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.mergeCells(0, 0, 2, 0);
+		             
+		           ws.addCell(new Label(0, 2, "序号", wcf)); 
+		           ws.addCell(new Label(1, 2, "教学单位", wcf));
+		           ws.addCell(new Label(2,2,"单位号",wcf));
+		           ws.addCell(new Label(3,2,"专业名称",wcf));
+		           ws.addCell(new Label(4,2,"专业代码",wcf));
+		           ws.addCell(new Label(5,2," 入校年份",wcf));
+		           ws.addCell(new Label(6,2," 本科生党员数（个）",wcf));
+		           ws.addCell(new Label(7,2," 考试违纪、作弊及受处分（人次）",wcf));
+		           ws.addCell(new Label(8,2,"优良学风班的比例（%）",wcf));
+		           
+		           int j = 4;//第3行写合计，4行开始写数据
+		           for(int i =0;i<list.size();i++){
+		        	   T551Bean bean = list.get(i);
+		        	   if(i==0){
+		        		   ws.addCell(new Label(0,3,bean.getTeaUnit(),wcf));
+		        		   ws.mergeCells(0, 3, 5, 3);
+		        		   ws.addCell(new Label(6,3,""+bean.getPartyMemNum(),wcf1));
+		        		   ws.addCell(new Label(7,3,""+bean.getCheatNum(),wcf1));
+		        		   ws.addCell(new Label(8,3,""+bean.getGoodClassRatio()+"%",wcf1));
+		        	   }else{
+		        		   ws.addCell(new Label(0,j,""+(j-3),wcf1));
+		        		   ws.addCell(new Label(1,j,bean.getTeaUnit(),wcf1));
+		        		   ws.addCell(new Label(2,j,bean.getUnitID(),wcf1));
+		        		   ws.addCell(new Label(3,j,bean.getMajorName(),wcf1));
+		        		   ws.addCell(new Label(4,j,bean.getMajorID(),wcf1));
+		        		   ws.addCell(new Label(5,j,bean.getAdmisSchYear(),wcf1));
+		        		   ws.addCell(new Label(6,j,""+bean.getPartyMemNum(),wcf1));
+		        		   ws.addCell(new Label(7,j,""+bean.getCheatNum(),wcf1));
+		        		   ws.addCell(new Label(8,j,""+bean.getGoodClassRatio()+"%",wcf1));
+		        		   j++;
+		        	   }
+		           }
+		           
+		           
+		          wwb.write();
+		          wwb.close();
 
-			
-			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("SeqNum", 0);
-			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("MajorName", 3);maplist.put("MajorID", 4);
-			maplist.put("AdmisSchYear", 5);maplist.put("PartyMemNum", 6);maplist.put("CheatNum", 7);maplist.put("GoodClassRatio", 8);
-			maplist.put("Note", 9);
-			
-			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t551Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null ;
+		        } catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
 		}
-        System.out.println(inputStream);
-		return inputStream ;
+//
+//		try {
+//			
+//			List<T551Bean> list = t551Dao.totalList();
+//			
+//			String sheetName = this.excelName;
+//			
+//			List<String> columns = new ArrayList<String>();
+//			columns.add("序号");
+//			columns.add("教学单位");columns.add("单位号");columns.add("专业名称");columns.add("专业代码");
+//			columns.add("入校年份");columns.add("本科生党员数（个）");columns.add("考试违纪、作弊及受处分（人次）");
+//			columns.add("优良学风班的比例（%）");columns.add("备注");
+//
+//			
+//			Map<String,Integer> maplist = new HashMap<String,Integer>();
+//			maplist.put("SeqNum", 0);
+//			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("MajorName", 3);maplist.put("MajorID", 4);
+//			maplist.put("AdmisSchYear", 5);maplist.put("PartyMemNum", 6);maplist.put("CheatNum", 7);maplist.put("GoodClassRatio", 8);
+//			maplist.put("Note", 9);
+//			
+//			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+//			inputStream = new ByteArrayInputStream(t551Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null ;
+//		}
+		return 	 new ByteArrayInputStream(fos.toByteArray());
 	}
 	
 

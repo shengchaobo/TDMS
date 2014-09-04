@@ -189,6 +189,8 @@ public class S65_Action {
 			int interCon = T658_services.getInterConference(this.getSelectYear());
 			bean.setInterConference(interCon);
 		}
+		
+		
 //		//数据不为空相加
 //		boolean flag = true;
 		String json = null;
@@ -196,22 +198,16 @@ public class S65_Action {
 		bean.setTime(null);
 		json = JsonUtil.beanToJson(bean);
 		
-				
 		
 		PrintWriter out = null ;
 
 		if(flag == false){
-			response.setContentType("text/html;charset=UTF-8") ;
-			out = response.getWriter() ;
-			out.print("{\"data\":\"无该年数据!!!\"}"); 
+			System.out.println("++++");
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
 			System.out.println("统计数据不全");
 		}
-//		else if(flag == false ){
-//			System.out.println("统计数据保存失败");
-//			response.setContentType("text/html;charset=UTF-8") ;
-//			out = response.getWriter() ;
-//			out.println("{\"data\":\"统计数据保存失败\"}"); 
-//		}
 		else{
 			try {				
 				System.out.println(json) ;
@@ -318,34 +314,34 @@ public class S65_Action {
 		           ws.mergeCells(0, 3, 0, 9);
 		           ws.mergeCells(0, 10, 0, 14);
 		           		           
-		           ws.addCell(new Label(2, 3, bean.getPaperNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 4, bean.getWorkNum().toString(), wcf1));  
-		           ws.addCell(new Label(2, 5, bean.getPatentNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 6, bean.getCET4().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 7, bean.getCET6().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 8, bean.getNCRE().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 9, bean.getJingxiNCRE().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 10, bean.getConQualify().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 11, bean.getConReach().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 12, bean.getInterConference().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 13, bean.getSumDiscipAward().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 14, bean.getInterD().toString(), wcf1));
-		           ws.addCell(new Label(2, 15, bean.getNationD().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 16, bean.getProviD().toString(), wcf1));
-		           ws.addCell(new Label(2, 17, bean.getCityD().toString(), wcf1));
-		           ws.addCell(new Label(2, 18, bean.getSchD().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 19, bean.getSumActAward().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 20, bean.getInterA().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 21, bean.getNationA().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 22, bean.getProviA().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 23, bean.getCityA().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 24, bean.getSchA().toString(), wcf1));
-		           ws.addCell(new Label(2, 25, bean.getSumLiterSportAward().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 26, bean.getInterLS().toString(), wcf1));
-		           ws.addCell(new Label(2, 27, bean.getNationLS().toString(), wcf1));
-		           ws.addCell(new Label(2, 28, bean.getProviLS().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 29, bean.getCityLS().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 30, bean.getSchLS().toString(), wcf1));
+		           ws.addCell(new Label(2, 3, ""+bean.getPaperNum(), wcf1)); 
+		           ws.addCell(new Label(2, 4, ""+bean.getWorkNum(), wcf1));  
+		           ws.addCell(new Label(2, 5, ""+bean.getPatentNum(), wcf1)); 
+		           ws.addCell(new Label(2, 6, ""+bean.getCET4(), wcf1)); 
+		           ws.addCell(new Label(2, 7, ""+bean.getCET6(), wcf1)); 
+		           ws.addCell(new Label(2, 8, ""+bean.getNCRE(), wcf1)); 
+		           ws.addCell(new Label(2, 9, ""+bean.getJingxiNCRE(), wcf1)); 
+		           ws.addCell(new Label(2, 10, ""+bean.getConQualify(), wcf1)); 
+		           ws.addCell(new Label(2, 11, ""+bean.getConReach(), wcf1)); 
+		           ws.addCell(new Label(2, 12, ""+bean.getInterConference(), wcf1)); 
+		           ws.addCell(new Label(2, 13, ""+bean.getSumDiscipAward(), wcf1)); 
+		           ws.addCell(new Label(2, 14, ""+bean.getInterD(), wcf1));
+		           ws.addCell(new Label(2, 15, ""+bean.getNationD(), wcf1)); 
+		           ws.addCell(new Label(2, 16, ""+bean.getProviD(), wcf1));
+		           ws.addCell(new Label(2, 17, ""+bean.getCityD(), wcf1));
+		           ws.addCell(new Label(2, 18, ""+bean.getSchD(), wcf1)); 
+		           ws.addCell(new Label(2, 19, ""+bean.getSumActAward(), wcf1)); 
+		           ws.addCell(new Label(2, 20, ""+bean.getInterA(), wcf1)); 
+		           ws.addCell(new Label(2, 21, ""+bean.getNationA(), wcf1)); 
+		           ws.addCell(new Label(2, 22, ""+bean.getProviA(), wcf1)); 
+		           ws.addCell(new Label(2, 23, ""+bean.getCityA(), wcf1)); 
+		           ws.addCell(new Label(2, 24, ""+bean.getSchA(), wcf1));
+		           ws.addCell(new Label(2, 25, ""+bean.getSumLiterSportAward(), wcf1)); 
+		           ws.addCell(new Label(2, 26, ""+bean.getInterLS(), wcf1));
+		           ws.addCell(new Label(2, 27, ""+bean.getNationLS(), wcf1));
+		           ws.addCell(new Label(2, 28, ""+bean.getProviLS(), wcf1)); 
+		           ws.addCell(new Label(2, 29, ""+bean.getCityLS(), wcf1)); 
+		           ws.addCell(new Label(2, 30, ""+bean.getSchLS(), wcf1));
 		             
 
 		          wwb.write();

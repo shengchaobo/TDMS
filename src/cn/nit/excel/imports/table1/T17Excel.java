@@ -23,6 +23,7 @@ import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiResearchRoomService;
 import cn.nit.service.table1.T17Service;
+import cn.nit.util.DateUtil;
 import cn.nit.util.TimeUtil;
 
 import jxl.Cell;
@@ -93,6 +94,14 @@ public class T17Excel {
 				
 				if((BuildYearStr == null) || BuildYearStr.equals("")){
 					return "第" + count + "行，设立时间不能为空" ;
+				}
+				
+				if(!DateUtil.isNumeric(BuildYearStr))
+				{
+					return "第" + count + "行，设立时间只能为数字" ;
+				} 
+				if (BuildYearStr.length() >5){
+					return "第" + count + "行，设立时间只能为4位" ;
 				}
 				
 				String Place = cell[3].getContents() ;

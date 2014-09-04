@@ -6,7 +6,7 @@ public class T322_Bean {
 	
    
 	
-	private int SeqNumber;
+	private Integer SeqNumber;
     
 	private String FillUnitID;
 	
@@ -106,11 +106,11 @@ public class T322_Bean {
 	
 
 	
-	public int getSeqNumber() {
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
 
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 

@@ -29,6 +29,13 @@ public class T410_Service {
 		return textDao.insert(bean);
 	}
 	
+	
+	/** 检查是否存在该年数据*/
+	public boolean check(String year){
+		return textDao.check(year);
+	}
+	
+	
 	/**
 	 * 更新数据
 	 * @param 

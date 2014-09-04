@@ -324,8 +324,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var UnitID = $('#UnitID').val() ;
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(PostDocStaName == null || PostDocStaName.length==0 || PostDocStaName.length > 100){
-				$.messager.alert('提示',"博士后流动站名称不能为空或长度不超过100") ;
+			if(PostDocStaName == null || PostDocStaName.length==0 ){
+				$.messager.alert('提示',"博士后流动站名称不能为空") ;
 				return false;
 			}
 			if(ResearcherNum == null || ResearcherNum.length == 0){

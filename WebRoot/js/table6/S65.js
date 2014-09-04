@@ -55,8 +55,7 @@ $(function(){
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
-					  			alert(123);
-					           alert(json.data);
+
 				    			 if(typeof(json.data)!="undefined"){
 				    				 	alert(12);
 						  				alert(json.data);
@@ -125,7 +124,7 @@ $(function(){
 				
 			   //导出
 			   $("#export").click(function(){
-			        var tableName = encodeURI('表6-5本科生学习成果统计情况');
+			        var tableName = encodeURI('表S6-5本科生学习成果统计情况');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
 				    	data : $('#exportForm').serialize(),

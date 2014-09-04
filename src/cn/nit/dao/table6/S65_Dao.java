@@ -16,7 +16,7 @@ import cn.nit.util.TimeUtil;
 public class S65_Dao {
 
 	/**  数据库表名  */
-	private String tableName="S65_StuAchievement";
+	private String tableName="S65_StuAchievement$";
 	/**  数据库表名 (本科生竞赛获奖) */
 	private String tableName1="T651_StuCompetiAwardInfo_TeaYLC$";
 

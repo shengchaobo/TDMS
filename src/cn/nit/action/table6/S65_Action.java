@@ -189,10 +189,12 @@ public class S65_Action {
 			int interCon = T658_services.getInterConference(this.getSelectYear());
 			bean.setInterConference(interCon);
 		}
-		
-		
+
+		if(flag == true){
+			S65_services.save(bean, this.getSelectYear());
+		}
+
 //		//数据不为空相加
-//		boolean flag = true;
 		String json = null;
 		
 		bean.setTime(null);
@@ -239,7 +241,7 @@ public class S65_Action {
 			PrintWriter out = null ;
 			response.setContentType("text/html;charset=utf-8") ;
 			out = response.getWriter() ;
-			out.print("[{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}]") ;
+			out.print("该统计表数据不全，请填写相关数据后再进行导出!!!") ;
 			System.out.println("后台传入的数据为空");
 			return null;
 		}else{
@@ -311,8 +313,17 @@ public class S65_Action {
 		           ws.addCell(new Label(1, 30, "校级", wcf)); 
 
 		           ws.mergeCells(0, 2, 1, 2);
-		           ws.mergeCells(0, 3, 0, 9);
-		           ws.mergeCells(0, 10, 0, 14);
+		           ws.mergeCells(0, 3, 1, 3);
+		           ws.mergeCells(0, 4, 1, 4);
+		           ws.mergeCells(0, 5, 1, 5);
+		           ws.mergeCells(0, 6, 0, 7);
+		           ws.mergeCells(0, 8, 0, 9);
+		           ws.mergeCells(0, 10, 1, 10);
+		           ws.mergeCells(0, 11, 1, 11);
+		           ws.mergeCells(0, 12, 1, 12);
+		           ws.mergeCells(0, 13, 0, 18);
+		           ws.mergeCells(0, 19, 0, 24);
+		           ws.mergeCells(0, 25, 0, 30);
 		           		           
 		           ws.addCell(new Label(2, 3, ""+bean.getPaperNum(), wcf1)); 
 		           ws.addCell(new Label(2, 4, ""+bean.getWorkNum(), wcf1));  

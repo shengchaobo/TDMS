@@ -221,9 +221,35 @@ public class T410_Dao {
 		return flag ;
 	}
 	
+	/** 检查是否存在该年数据*/
+	public boolean check(String year){
+		Connection conn = DBConnection.instance.getConnection() ;
+		String sql = "select * from "+tableName+" where time like '"+year+"%'";
+		Statement st = null ;
+		ResultSet rs = null ;
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			if(!rs.next()){
+				return false;
+			}else{
+				return true;
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			return false;
+		}		
+	}
+	
+	
+	
+	
 	public static void main(String args[]){
 		T410_Dao testDao =  new T410_Dao() ;
 		//System.out.println(testDao.totalList().size()) ;
 	}
+
+
+
 
 }

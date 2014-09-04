@@ -303,13 +303,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var UnitName = $('#UnitID').combobox('getText') ;
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(StaName == null || StaName.length==0 || StaName.length > 100){
-				$.messager.alert('提示',"名称不能为空或长度不超过100");
+			if(StaName == null || StaName.length==0 ){
+				$.messager.alert('提示',"名称不能为空");
 				return false;
 			}
 			
-			if(StaID == null || StaID.length == 0 || StaID.length > 50){
-				$.messager.alert('提示',"代码不能为空或长度不超过50");
+			if(StaID == null || StaID.length == 0 ){
+				$.messager.alert('提示',"代码不能为空");
 				return false;
 
 			}

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class A321_Bean {
 	
-	private int SeqNumber;
+	private Integer SeqNumber;
 	
 	private int TotalNum;
 	
@@ -18,11 +18,11 @@ public class A321_Bean {
 	
 	private String Note;
 
-	public int getSeqNumber() {
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
 
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 

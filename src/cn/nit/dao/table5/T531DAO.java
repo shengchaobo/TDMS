@@ -75,7 +75,7 @@ public class T531DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select count(*) ") ;
+		sql.append("select count(*) AS Count") ;
 		sql.append(" from "+tableName );
 		int total = 0 ;
 		
@@ -100,7 +100,7 @@ public class T531DAO {
 			}
 			
 			while(rs.next()){
-				total+=1;
+				total = rs.getInt("Count");
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;

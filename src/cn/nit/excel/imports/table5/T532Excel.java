@@ -1,5 +1,7 @@
 package cn.nit.excel.imports.table5;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -182,8 +184,8 @@ public class T532Excel {
 					if(BuildTime == null || BuildTime.equals("")){
 						return "第" + count + "行，设立时间不能为空" ;
 					}
-					if(!TimeUtil.judgeFormat1(BuildTime)){
-						return "第" + count + "行，时间格式不对，格式应为：2005/02" ;
+					if(!this.judgeFormat1(BuildTime)){
+						return "第" + count + "行，时间格式不对，格式应为：2005-02" ;
 					}
 					
 					String BuildAppvlID=cell[10].getContents();
@@ -197,8 +199,8 @@ public class T532Excel {
 					if(ReceptTime == null || ReceptTime.equals("")){
 						return "第" + count + "行，验收时间不能为空" ;
 					}
-					if(!TimeUtil.judgeFormat1(ReceptTime)){
-						return "第" + count + "行，时间格式不对，格式应为：2005/02/01" ;
+					if(!this.judgeFormat1(ReceptTime)){
+						return "第" + count + "行，时间格式不对，格式应为：2005-02" ;
 					}
 					
 					String ReceptAppvlID=cell[12].getContents();
@@ -297,6 +299,22 @@ public class T532Excel {
 		   return flag;
 		
 	}
+	
+	/**判断字符串格式是否为2013-02*/
+	public static boolean judgeFormat1(String dataString){
+		boolean flag=false;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM") ;
+		Date date=null;
+		try{
+			date = sf.parse(dataString) ;
+			flag = true;
+		}catch(ParseException e){
+			flag=false;
+		}
+		return flag;
+	}
+
+
 	
 	/**将带%的字符串转换成double类型*/
 	public double toDouble(String str){

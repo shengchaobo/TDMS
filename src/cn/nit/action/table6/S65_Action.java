@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +35,9 @@ import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 
 
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table6.S65_Bean;
+import cn.nit.bean.table6.T651_Bean;
 
 
 import cn.nit.service.table6.S65_Service;
@@ -90,128 +93,123 @@ public class S65_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;	
 		
-		boolean flag0 = true; 
+
+		boolean flag = true;
 		S65_Bean bean = new S65_Bean();
 		
 		//T651中的统计数据
+
+		if(T651_services.getYearInfo(this.getSelectYear()).size() == 0){
+			flag = false;
+			System.out.println("T651empty");
+		}else{
+			bean = T651_services.getStatic(this.getSelectYear());
+		}
 		
-		bean = T651_services.getStatic(this.getSelectYear());
-		System.out.println("bean:"+JsonUtil.beanToJson(bean));
+		//System.out.println("bean:"+JsonUtil.beanToJson(bean));
 		
 		
 		
 		//T652，统计学生发表论文数		
-		int paperNum = T652_services.getPaper(this.getSelectYear());
-		if(paperNum == 0){	
-			flag0 = false;
+		
+		if(T652_services.getYearInfo(this.getSelectYear()).size() == 0){	
+			flag = false;
 			System.out.println("T652empty");
 		}else{
+			int paperNum = T652_services.getPaper(this.getSelectYear());
 			bean.setPaperNum(paperNum);
 		}
 		
 		//T653，统计学生发表作品数
-		int workNum = T653_services.getWork(this.getSelectYear());
-		if(workNum == 0){	
-			flag0 = false;
+		
+		if(T653_services.getYearInfo(this.getSelectYear()).size() == 0){	
+			flag = false;
 			System.out.println("T653empty");
 		}else{
+			int workNum = T653_services.getWork(this.getSelectYear());
 			bean.setWorkNum(workNum);
 		}
 		
 		//T654，统计学生专利数
-		int patentNum = T654_services.getPatent(this.getSelectYear());
-		if(patentNum == 0){	
-			flag0 = false;
+		
+		if(T654_services.getYearInfo(this.getSelectYear()).size() == 0){	
+			flag = false;
 			System.out.println("T654empty");
 		}else{
+			int patentNum = T654_services.getPatent(this.getSelectYear());
 			bean.setPatentNum(patentNum);
 		}
 		
-		//T655,英语四级考试累计通过率
-		double cet4 = T655_services.getCET4PassRate(this.getSelectYear());
-		if(cet4 == 0){	
-			flag0 = false;
+		//T655,英语四六级考试累计通过率
+		
+		if(T655_services.getYearInfo(this.getSelectYear()).size() == 0){	
+			flag = false;
 			System.out.println("T655empty");
 		}else{
+			double cet4 = T655_services.getCET4PassRate(this.getSelectYear());
+			double cet6 = T655_services.getCET6PassRate(this.getSelectYear());
+			double jncre = T655_services.getJPassRate(this.getSelectYear());
 			bean.setCET4(cet4);
-		}
-		
-		//T655,英语六级考试累计通过率
-		double cet6 = T655_services.getCET6PassRate(this.getSelectYear());
-		if(cet6 == 0){	
-			flag0 = false;
-			System.out.println("T655empty");
-		}else{
 			bean.setCET6(cet6);
-		}
-		
-		//T656,全国计算机等级考试累计通过率（%）
-		double ncre = T656_services.getNPassRate(this.getSelectYear());
-		if(ncre == 0){	
-			flag0 = false;
-			System.out.println("T656empty");
-		}else{
-			bean.setNCRE(ncre);
-		}
-
-		//T655,英语六级考试累计通过率
-		double jncre = T655_services.getJPassRate(this.getSelectYear());
-		if(jncre == 0){	
-			flag0 = false;
-			System.out.println("T655empty");
-		}else{
 			bean.setJingxiNCRE(jncre);
 		}
 		
-		//T657,体质合格率
-		double conQualify = T657_services.getQualifiedRate(this.getSelectYear());
-		if(conQualify == 0){	
-			flag0 = false;
-			System.out.println("T657empty");
-		}else{
-			bean.setConQualify(conQualify);
-		}
 		
-		//T657,体质测试达标率
-		double conReach = T657_services.getTestReachRate(this.getSelectYear());
-		if(conReach == 0){	
-			flag0 = false;
+		
+		//T656,全国计算机等级考试累计通过率（%）
+		if(T656_services.getYearInfo(this.getSelectYear()).size() == 0){	
+			flag = false;
+			System.out.println("T656empty");
+		}else{
+			double ncre = T656_services.getNPassRate(this.getSelectYear());
+			bean.setNCRE(ncre);
+		}
+
+				
+		//T657,体质合格率、体质测试达标率
+		
+		if(T657_services.getYearInfo(this.getSelectYear()).size() == 0){	
+			flag = false;
 			System.out.println("T657empty");
 		}else{
+			double conQualify = T657_services.getQualifiedRate(this.getSelectYear());
+			double conReach = T657_services.getTestReachRate(this.getSelectYear());
+			bean.setConQualify(conQualify);
 			bean.setConReach(conReach);
 		}
 		
+		
+		
 		//T658,参加国际会议学生人数
-		int interCon = T658_services.getInterConference(this.getSelectYear());
-		if(interCon == 0){	
-			flag0 = false;
+		 
+		if(T658_services.getYearInfo(this.getSelectYear()).size() == 0){	
+			flag = false;
 			System.out.println("T658empty");
 		}else{
+			int interCon = T658_services.getInterConference(this.getSelectYear());
 			bean.setInterConference(interCon);
 		}
+
+		if(flag == true){
+			S65_services.save(bean, this.getSelectYear());
+		}
+
 //		//数据不为空相加
-//		boolean flag = true;
 		String json = null;
 		
 		bean.setTime(null);
 		json = JsonUtil.beanToJson(bean);
 		
-				
 		
 		PrintWriter out = null ;
 
-		if(flag0 == false){
-			response.setContentType("text/html;charset=UTF-8") ;
-			out = response.getWriter() ;
-			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}") ;
+		if(flag == false){
+			System.out.println("++++");
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
 			System.out.println("统计数据不全");
 		}
-//		else if(flag == false ){
-//			System.out.println("统计数据保存失败");
-//			response.setContentType("text/html;charset=UTF-8") ;
-//			out = response.getWriter() ;
-//			out.println("{\"data\":\"统计数据保存失败\"}"); 
-//		}
 		else{
 			try {				
 				System.out.println(json) ;
@@ -239,10 +237,11 @@ public class S65_Action {
 	    ByteArrayOutputStream fos = null;
 		
 		if(bean==null){
+			
 			PrintWriter out = null ;
 			response.setContentType("text/html;charset=utf-8") ;
 			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
+			out.print("该统计表数据不全，请填写相关数据后再进行导出!!!") ;
 			System.out.println("后台传入的数据为空");
 			return null;
 		}else{
@@ -277,25 +276,83 @@ public class S65_Action {
 		           ws.mergeCells(0, 0, 1, 0);
 		           
 		           ws.addCell(new Label(0, 2, "项目", wcf)); 
-		           ws.addCell(new Label(1, 2, "内容", wcf)); 
-		           ws.addCell(new Label(0, 3, "1.教学科研及辅助用房（平方米）", wcf)); 
-		           ws.addCell(new Label(0, 4, "其中：教室", wcf));  
-		           ws.addCell(new Label(0, 5, "图书馆", wcf)); 
-		           ws.addCell(new Label(0, 6, "实验室、实习场所", wcf)); 
-		           ws.addCell(new Label(0, 7, "专用科研用房", wcf)); 
-		           ws.addCell(new Label(0, 8, "体育馆", wcf)); 
-		           ws.addCell(new Label(0, 9, "会堂", wcf)); 
-		           ws.addCell(new Label(0, 10, "2.行政用房（平方米）", wcf)); 
-		           
+		           ws.addCell(new Label(2, 2, "内容", wcf)); 
+		           ws.addCell(new Label(0, 3, "1.学生发表学术论文（篇）", wcf)); 
+		           ws.addCell(new Label(0, 4, "2.学生发表作品数（篇、册）", wcf));
+		           ws.addCell(new Label(0, 5, "3.学生获准专利数（项）", wcf)); 
+		           ws.addCell(new Label(0, 6, "4.英语等级考试", wcf)); 
+		           ws.addCell(new Label(0, 8, "5.计算机等级考试", wcf)); 
+		           ws.addCell(new Label(0, 10, "6.体质合格率（%）", wcf));
+		           ws.addCell(new Label(0, 11, "7.体质测试达标率（%）", wcf)); 
+		           ws.addCell(new Label(0, 12, "8.参加国际会议（人次）", wcf)); 
+		           ws.addCell(new Label(0, 13, "9.学科竞赛获奖（项）", wcf)); 
+		           ws.addCell(new Label(0, 19, "10.本科生创新活动、技能竞赛获奖（项）", wcf)); 
+		           ws.addCell(new Label(0, 25, "11.文艺、体育竞赛获奖（项）", wcf)); 
+
+		           ws.addCell(new Label(1, 6, "英语四级考试累计通过率（%）", wcf)); 
+		           ws.addCell(new Label(1, 7, "英语六级考试累计通过率（%）", wcf)); 
+		           ws.addCell(new Label(1, 8, "全国计算机等级考试累计通过率（%）", wcf)); 
+		           ws.addCell(new Label(1, 9, "江西省计算机等级考试累计通过率（%）", wcf)); 
+		           ws.addCell(new Label(1, 13, "总数", wcf)); 
+		           ws.addCell(new Label(1, 14, "其中：国际级", wcf)); 
+		           ws.addCell(new Label(1, 15, "国家级", wcf)); 
+		           ws.addCell(new Label(1, 16, "省部级", wcf)); 
+		           ws.addCell(new Label(1, 17, "市级", wcf)); 
+		           ws.addCell(new Label(1, 18, "校级", wcf)); 
+		           ws.addCell(new Label(1, 19, "总数", wcf)); 
+		           ws.addCell(new Label(1, 20, "其中：国际级", wcf)); 
+		           ws.addCell(new Label(1, 21, "国家级", wcf)); 
+		           ws.addCell(new Label(1, 22, "省部级", wcf)); 
+		           ws.addCell(new Label(1, 23, "市级", wcf)); 
+		           ws.addCell(new Label(1, 24, "校级", wcf)); 
+		           ws.addCell(new Label(1, 25, "总数", wcf)); 
+		           ws.addCell(new Label(1, 26, "其中：国际级", wcf)); 
+		           ws.addCell(new Label(1, 27, "国家级", wcf)); 
+		           ws.addCell(new Label(1, 28, "省部级", wcf)); 
+		           ws.addCell(new Label(1, 29, "市级", wcf)); 
+		           ws.addCell(new Label(1, 30, "校级", wcf)); 
+
+		           ws.mergeCells(0, 2, 1, 2);
+		           ws.mergeCells(0, 3, 1, 3);
+		           ws.mergeCells(0, 4, 1, 4);
+		           ws.mergeCells(0, 5, 1, 5);
+		           ws.mergeCells(0, 6, 0, 7);
+		           ws.mergeCells(0, 8, 0, 9);
+		           ws.mergeCells(0, 10, 1, 10);
+		           ws.mergeCells(0, 11, 1, 11);
+		           ws.mergeCells(0, 12, 1, 12);
+		           ws.mergeCells(0, 13, 0, 18);
+		           ws.mergeCells(0, 19, 0, 24);
+		           ws.mergeCells(0, 25, 0, 30);
 		           		           
-//		           ws.addCell(new Label(1, 3, bean.getSumTeaArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(1, 4, bean.getClassrmArea().toString(), wcf1));  
-//		           ws.addCell(new Label(1, 5, bean.getLibArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(1, 6, bean.getLabArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(1, 7, bean.getResArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(1, 8, bean.getPhyArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(1, 9, bean.getHallArea().toString(), wcf1)); 
-//		           ws.addCell(new Label(1, 10, bean.getSumAdminArea().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 3, ""+bean.getPaperNum(), wcf1)); 
+		           ws.addCell(new Label(2, 4, ""+bean.getWorkNum(), wcf1));  
+		           ws.addCell(new Label(2, 5, ""+bean.getPatentNum(), wcf1)); 
+		           ws.addCell(new Label(2, 6, ""+bean.getCET4(), wcf1)); 
+		           ws.addCell(new Label(2, 7, ""+bean.getCET6(), wcf1)); 
+		           ws.addCell(new Label(2, 8, ""+bean.getNCRE(), wcf1)); 
+		           ws.addCell(new Label(2, 9, ""+bean.getJingxiNCRE(), wcf1)); 
+		           ws.addCell(new Label(2, 10, ""+bean.getConQualify(), wcf1)); 
+		           ws.addCell(new Label(2, 11, ""+bean.getConReach(), wcf1)); 
+		           ws.addCell(new Label(2, 12, ""+bean.getInterConference(), wcf1)); 
+		           ws.addCell(new Label(2, 13, ""+bean.getSumDiscipAward(), wcf1)); 
+		           ws.addCell(new Label(2, 14, ""+bean.getInterD(), wcf1));
+		           ws.addCell(new Label(2, 15, ""+bean.getNationD(), wcf1)); 
+		           ws.addCell(new Label(2, 16, ""+bean.getProviD(), wcf1));
+		           ws.addCell(new Label(2, 17, ""+bean.getCityD(), wcf1));
+		           ws.addCell(new Label(2, 18, ""+bean.getSchD(), wcf1)); 
+		           ws.addCell(new Label(2, 19, ""+bean.getSumActAward(), wcf1)); 
+		           ws.addCell(new Label(2, 20, ""+bean.getInterA(), wcf1)); 
+		           ws.addCell(new Label(2, 21, ""+bean.getNationA(), wcf1)); 
+		           ws.addCell(new Label(2, 22, ""+bean.getProviA(), wcf1)); 
+		           ws.addCell(new Label(2, 23, ""+bean.getCityA(), wcf1)); 
+		           ws.addCell(new Label(2, 24, ""+bean.getSchA(), wcf1));
+		           ws.addCell(new Label(2, 25, ""+bean.getSumLiterSportAward(), wcf1)); 
+		           ws.addCell(new Label(2, 26, ""+bean.getInterLS(), wcf1));
+		           ws.addCell(new Label(2, 27, ""+bean.getNationLS(), wcf1));
+		           ws.addCell(new Label(2, 28, ""+bean.getProviLS(), wcf1)); 
+		           ws.addCell(new Label(2, 29, ""+bean.getCityLS(), wcf1)); 
+		           ws.addCell(new Label(2, 30, ""+bean.getSchLS(), wcf1));
 		             
 
 		          wwb.write();

@@ -2,6 +2,8 @@ package cn.nit.excel.imports.table1;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -123,8 +125,8 @@ public class T182Excel {
 						return "第" + count + "行，签订协议时间不能为空" ;
 					}
 					
-					if(!TimeUtil.judgeFormat1(SignedTime)&&!TimeUtil.judgeFormat2(SignedTime)){
-						return "第" + count + "行，签订协议时间格式有误（格式如：2013/03或者2013/03/01）" ;
+					if(!this.judgeFormat1(SignedTime)){
+						return "第" + count + "行，签订协议时间格式有误（格式如：2013-03）" ;
 					}
 					
 					String UnitName = cell[5].getContents();
@@ -224,6 +226,20 @@ public class T182Excel {
 		}else{
 			return "数据存储失败，请联系管理员" ;
 		}
+	}
+	
+	/**判断字符串格式是否为2013-02*/
+	public static boolean judgeFormat1(String dataString){
+		boolean flag=false;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM") ;
+		Date date=null;
+		try{
+			date = sf.parse(dataString) ;
+			flag = true;
+		}catch(ParseException e){
+			flag=false;
+		}
+		return flag;
 	}
 	
 	/**

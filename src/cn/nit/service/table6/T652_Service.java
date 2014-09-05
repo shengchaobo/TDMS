@@ -98,6 +98,15 @@ public class T652_Service {
 	public int getPaper(String year){
 		return T652_dao.getPaper(year);
 	}
+	
+	public List<T652_Bean> getYearInfo(String selectYear){
+		
+		List<T652_Bean> list=T652_dao.getYearInfo(selectYear);
+	
+		//System.out.println(list.toString());
+         
+		return list;				
+	}
 
 
 	/**

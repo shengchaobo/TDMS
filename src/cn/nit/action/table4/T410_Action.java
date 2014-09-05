@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -181,34 +182,40 @@ public class T410_Action {
 		
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
-		//插入时间
-		T410_bean.setTime(new Date());
 		
-		T410_bean.setResItemNum(T410_bean.getHresItemNum()+T410_bean.getZresItemNum());
-/*		System.out.println(T410_bean.getHhumanItemFund());
-		System.out.println(T410_bean.getZitemFund());
-		System.out.println(T410_bean.getHitemFund());
-		System.out.println(T410_bean.getSci());*/
-		//T410_bean.setResItemFund(0.0);
-		//T410_bean.setIstp(1);
-		T410_bean.setResAwardNum(T410_bean.getNationResAward()+T410_bean.getProviResAward()+T410_bean.getCityResAward()+T410_bean.getSchResAward());
-		T410_bean.setResItemFund(T410_bean.getHitemFund()+T410_bean.getZitemFund());
-		T410_bean.setPaperNum(T410_bean.getSci()+T410_bean.getSsci()+T410_bean.getEi()+T410_bean.getCscd()+T410_bean.getIstp()+T410_bean.getOtherPaper()+T410_bean.getCssci()+T410_bean.getInlandCoreJnal());
-		T410_bean.setPublicationNum(T410_bean.getTranslation()+T410_bean.getTreatises());
-		T410_bean.setPatentNum(T410_bean.getDesignPatent()+T410_bean.getUtilityPatent()+T410_bean.getInventPatent());
+		//插入之前检查是否存在该年数据
+		Calendar c = Calendar.getInstance();
+		String year = String.valueOf(c.get(Calendar.YEAR)) ;
+		boolean flag0 = T410_services.check(year);
 		
-		System.out.println("test");
-		boolean flag = T410_services.insert(T410_bean);
+		boolean flag = false;
+		if(!flag0){	
+			//插入时间
+			T410_bean.setTime(new Date());		
+			T410_bean.setResItemNum(T410_bean.getHresItemNum()+T410_bean.getZresItemNum());
+			T410_bean.setResAwardNum(T410_bean.getNationResAward()+T410_bean.getProviResAward()+T410_bean.getCityResAward()+T410_bean.getSchResAward());
+			T410_bean.setResItemFund(T410_bean.getHitemFund()+T410_bean.getZitemFund());
+			T410_bean.setPaperNum(T410_bean.getSci()+T410_bean.getSsci()+T410_bean.getEi()+T410_bean.getCscd()+T410_bean.getIstp()+T410_bean.getOtherPaper()+T410_bean.getCssci()+T410_bean.getInlandCoreJnal());
+			T410_bean.setPublicationNum(T410_bean.getTranslation()+T410_bean.getTreatises());
+			T410_bean.setPatentNum(T410_bean.getDesignPatent()+T410_bean.getUtilityPatent()+T410_bean.getInventPatent());
+			flag = T410_services.insert(T410_bean);
+		}
+		
 		PrintWriter out = null ;
 		
 		try{
 			response.setContentType("text/html; charset=UTF-8") ;
 			out = response.getWriter() ;
-			if(flag){
-				out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
+			if(flag0){
+				out.print("{\"state\":false,data:\"已经存在该年数据!!!\"}") ;
 			}else{
-				out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+				if(flag){
+					out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
+				}else{
+					out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+				}
 			}
+
 		}catch(Exception e){
 			e.printStackTrace() ;
 			out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
@@ -219,6 +226,40 @@ public class T410_Action {
 		}
 		out.flush() ;
 	}
+	
+	
+	
+/*	*//** 检查是否存在该年数据
+	 * @throws IOException *//*
+	public void check( ) throws IOException{
+		Calendar c = Calendar.getInstance();
+		String year = String.valueOf(c.get(Calendar.YEAR)) ;
+		System.out.println("时间啊");
+		System.out.println(year);
+		HttpServletResponse response = ServletActionContext.getResponse() ;
+		PrintWriter out = null ;
+		boolean flag = T410_services.check(year);
+		try{			
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;			
+			if(flag){
+				out.print("{\"state\":true,data:\"已经存在该年数据!!!\"}") ;
+			}else{
+				out.print("{\"state\":\false}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":true,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}*/
+	
+	
 	
 	/**  编辑数据  */
 	public void edit(){

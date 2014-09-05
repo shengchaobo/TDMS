@@ -1,4 +1,4 @@
-package cn.nit.action.upload;
+﻿package cn.nit.action.upload;
 
 import java.io.File;  
 import java.io.IOException;  
@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.List;  
 
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FileUtils;  
 import org.apache.struts2.ServletActionContext;  
 import com.opensymphony.xwork2.ActionSupport;  
@@ -41,6 +41,7 @@ public class FileUploadAction extends ActionSupport {
 /*    public String execute() {  
   
        // 把上传的文件放到指定的路径下  
+    	HttpServletRequest request = ServletActionContext.getRequest() ;
   
        String path = ServletActionContext.getServletContext().getRealPath(inputPath);  
   

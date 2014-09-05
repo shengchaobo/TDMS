@@ -2,11 +2,13 @@
    var url;
 
    //弹出添加的界面
-	function newObject() {  	
+	function newObject() {
 		url = 'pages/T410/insert' ;
 		$('#dlg').dialog('open').dialog('setTitle', '添加新的教师科研情况');
 		$('#addForm').form('reset');
-	}	
+	}
+	
+	
     
 	//单条导入
 	function singleImport() {
@@ -392,4 +394,4 @@
 		    }
 	    }); 
     }
-	
+    

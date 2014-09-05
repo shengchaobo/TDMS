@@ -108,6 +108,15 @@ public class T658_Service {
 	public int getInterConference(String year){
 		return T658_dao.getInterConference(year);
 	}
+	
+	public List<T658_Bean> getYearInfo(String selectYear){
+		
+		List<T658_Bean> list=T658_dao.getYearInfo(selectYear);
+	
+		//System.out.println(list.toString());
+         
+		return list;				
+	}
 
 	/**
 	 * @param args

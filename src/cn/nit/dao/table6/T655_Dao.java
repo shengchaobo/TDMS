@@ -13,6 +13,7 @@ import net.sf.json.JSON;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T641_Bean;
+import cn.nit.bean.table6.T651_Bean;
 import cn.nit.bean.table6.T655_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
@@ -328,35 +329,38 @@ public class T655_Dao {
 		
 		return JPassRate;
 	}
+	
+	public List<T655_Bean> getYearInfo(String year){
+		
+		String sql = "select " + " " + key + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T655_Bean> list = null ;
+		//T651_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T655_Bean.class) ;
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
 
 	public static void main(String args[]) {
 
 		T655_Dao CET46AndJiangxiNCREDao = new T655_Dao();
-		T655_Bean CET46AndJiangxiNCRE = new T655_Bean();
-//		 CET46AndJiangxiNCRE.setSeqNumber(1);
-		//	
 		
-		CET46AndJiangxiNCRE.setTeaUnit("水利与生态工程学院");
-		CET46AndJiangxiNCRE.setUnitId("3001");
-		CET46AndJiangxiNCRE.setCET4PassRate(48.511);
-		CET46AndJiangxiNCRE.setCET6PassRate(48.50);
-		CET46AndJiangxiNCRE.setJiangxiNCREPassRate(48.50);
-	
-				
-		CET46AndJiangxiNCRE.setTime(new Date());
-		CET46AndJiangxiNCRE.setNote("无");
-//		//		
-		CET46AndJiangxiNCREDao.insert(CET46AndJiangxiNCRE);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(CET46AndJiangxiNCREDao.update(CET46AndJiangxiNCRE)) ;
-//		 System.out.println(CET46AndJiangxiNCREDao.deleteItemsByIds("(8)")) ;
-
-		System.out.println("success!!");
+		System.out.println(CET46AndJiangxiNCREDao.getYearInfo("2014").size());
 	}
 
 

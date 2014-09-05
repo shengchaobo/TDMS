@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table7.T734_Bean;
 import cn.nit.dao.table7.T734_DAO;
 import cn.nit.pojo.table7.T734POJO;
@@ -63,7 +64,6 @@ public class T734_Action {
 	public void insert(){
 		
 		teachAccidentTea.setTime(new Date());
-		
 		boolean flag;
 		PrintWriter out=null;
 		
@@ -125,7 +125,6 @@ public class T734_Action {
 			}
 			cond = conditions.toString();
 		}
-
 		String pages = t734_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
@@ -200,7 +199,6 @@ public class T734_Action {
 		InputStream inputStream = null ;
 		
 		try {
-
 			List<T734POJO> list = t734_Dao.totalList(this.getSelectYear());
 			String sheetName = this.excelName;
 			

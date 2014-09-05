@@ -60,7 +60,7 @@ public class T745_DAO {
 	
 
 	if(fillUnitId!=null && !fillUnitId.equals("")){
-		sql.append("and FillUnit=" + fillUnitId);	
+		sql.append(" and FillUnitID=" + fillUnitId);	
 	}
 	
 	if(conditions!=null && !conditions.equals("")){
@@ -137,8 +137,7 @@ public class T745_DAO {
 	 * @time: 2014-5-14/下午02:34:42
 	 */
 	public List<T745POJO> totalList(String year){
-		StringBuffer sql=new StringBuffer();
-		
+		StringBuffer sql=new StringBuffer();	
 		sql.append("select  t.SeqNumber,t.TeaUnit,dbt.UnitID as UnitID,t.UnitID as UnitIDD,t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note");
 		sql.append(" from " + tableName + " as t, DiDepartment  dbt");
 		sql.append(" where dbt.UnitID=t.UnitID ");

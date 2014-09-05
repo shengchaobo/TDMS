@@ -110,6 +110,15 @@ public class T657_Service {
 	public double getTestReachRate(String year){
 		return T657_dao.getTestReachRate(year);
 	}
+	
+	public List<T657_Bean> getYearInfo(String selectYear){
+		
+		List<T657_Bean> list=T657_dao.getYearInfo(selectYear);
+	
+		//System.out.println(list.toString());
+         
+		return list;				
+	}
 
 
 	/**

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table7.T722_Bean;
 import cn.nit.dao.table7.T722_DAO;
 import cn.nit.pojo.table7.T722POJO;
@@ -124,7 +125,6 @@ public class T722_Action {
 			}
 			cond = conditions.toString();
 		}
-
 		String pages = t722_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		

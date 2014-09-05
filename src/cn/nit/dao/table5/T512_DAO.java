@@ -55,7 +55,7 @@ public class T512_DAO {
      	int total=0;
      	
      	if(fillUnitId!=null && !fillUnitId.equals("")){
-     		sql.append("and FillUnit=" + fillUnitId);	
+     		sql.append(" and FillUnitID=" + fillUnitId);	
      	}
      	
      	if(conditions!=null && !conditions.equals("")){
@@ -148,11 +148,12 @@ public class T512_DAO {
  	 *
  	 * @time: 2014-5-14/下午02:34:42
  	 */
- 	public List<T512POJO> totalList(String year){
+ 	public List<T512POJO> totalList(String year,String fillUnitID){
  		StringBuffer sql=new StringBuffer();
  		sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.PubCSType,t.IsDoubleCS,t.Credit,t.SumCSHour,t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass,t.ClassID,t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob,t.TeaTitle,t.BookUseInfo,t.IsPlanbook,t.IsAwardbook,t.Time,t.Note") ;
 		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+	 	sql.append(" and FillUnitID=" + "'" + fillUnitID + "'");
  		Connection conn = DBConnection.instance.getConnection() ;
  		Statement st = null ;
  		ResultSet rs = null ;

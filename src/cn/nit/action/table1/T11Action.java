@@ -258,8 +258,8 @@ public class T11Action {
 	
 	public InputStream getInputStream() throws Exception{
 		
-			System.out.println(this.getSelectYear());
-	
+//			System.out.println(this.getSelectYear());
+//	
 			T11Bean bean =t11Dao.forExcel(this.selectYear).get(0);
 			
 		    ByteArrayOutputStream fos = null;

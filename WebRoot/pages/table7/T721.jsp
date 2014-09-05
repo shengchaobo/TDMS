@@ -414,6 +414,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert("教工号不能为空或者教师库中无该教工号");
 				return false;
 			}
+			 if (!(/(^[0-9]\d*$)/.test(otherTeaNum))) {
+			alert("其他参与教师人数必须为整数");
+			return false;
+	         }
 			if(itemLevel == null || itemLevel.length==0 || itemLevel.length > 20){
 				alert("级别不能为空或长度不超过20");
 				return false ;
@@ -426,14 +430,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    alert("验收时间不能为空") ;
 				return false ;
 			}
-			if(applvExp == null || applvExp.length == 0){
-			    alert("批准经费不能为空") ;
-				return false ;
+			if(isNaN(applvExp)){
+			if($('#applvExp').val()==""){
+				$('#applvExp').val(0);
+			}else{
+				alert("批准经费必须为数字");
+				return false;
 			}
-			if(schSupportExp == null || schSupportExp.length == 0){
-			    alert("学校配套经费不能为空") ;
-				return false ;
+		    }
+		    if(isNaN(schSupportExp)){
+			if($('#schSupportExp').val()==""){
+				$('#schSupportExp').val(0);
+			}else{
+				alert("学校配套经费必须为数字");
+				return false;
 			}
+		    }
 			if(appvlID == null || appvlID.length == 0){
 			   alert("批文号不能为空") ;
 				return false ;

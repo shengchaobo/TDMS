@@ -417,13 +417,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var UnitName = $('#UnitID').combobox('getText') ;
 			var Note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(DiscipName == null || DiscipName.length==0 || DiscipName.length > 100){
-				$.messager.alert('提示',"学科名称不能为空或长度不超过100");
+			if(DiscipName == null || DiscipName.length==0 ){
+				$.messager.alert('提示',"学科名称不能为空");
 				return false;
 			}
 			
-			if(DiscipID == null || DiscipID.length == 0 || DiscipID.length > 50){
-				$.messager.alert('提示',"学科代码不能为空或长度不超过50");
+			if(DiscipID == null || DiscipID.length == 0 ){
+				$.messager.alert('提示',"学科代码不能为空");
 				return false;
 			}
 			

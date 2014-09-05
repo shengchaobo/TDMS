@@ -277,7 +277,7 @@ public class T622_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T622_Bean> list = T622_dao.getAllList("1=1", null);
+			List<T622_Bean> list = T622_dao.getAllList("", null);
 			String sheetName = this.excelName;
 			if(list==null){
 				if(list.size()==0){
@@ -341,17 +341,17 @@ public class T622_Action {
 					for(int j=0;j<list.size();j++){
 						T622_Bean bean =  list.get(j);
 					
-							ws.addCell(new Label(0, k,count+"", wcf));
-							ws.addCell(new Label(1, k, bean.getProvince(), wcf));
-							ws.addCell(new Label(2, k, bean.getBatch(), wcf));
-							ws.addCell(new Label(3, k, bean.getLibEnrollNum()+"", wcf));
-							ws.addCell(new Label(4, k, bean.getSciEnrollNum()+"", wcf));
-							ws.addCell(new Label(5, k, bean.getLibLowestScore()+"", wcf));
-							ws.addCell(new Label(6, k, bean.getSciLowestScore()+"", wcf));
-							ws.addCell(new Label(7, k, bean.getLibAvgScore()+"", wcf));
-							ws.addCell(new Label(8, k, bean.getSciAvgScore()+"", wcf));
+							ws.addCell(new Label(0, k,count+"", wcf1));
+							ws.addCell(new Label(1, k, bean.getProvince(), wcf1));
+							ws.addCell(new Label(2, k, bean.getBatch(), wcf1));
+							ws.addCell(new Label(3, k, bean.getLibEnrollNum()+"", wcf1));
+							ws.addCell(new Label(4, k, bean.getSciEnrollNum()+"", wcf1));
+							ws.addCell(new Label(5, k, bean.getLibLowestScore()+"", wcf1));
+							ws.addCell(new Label(6, k, bean.getSciLowestScore()+"", wcf1));
+							ws.addCell(new Label(7, k, bean.getLibAvgScore()+"", wcf1));
+							ws.addCell(new Label(8, k, bean.getSciAvgScore()+"", wcf1));
 
-							ws.addCell(new Label(9, k, bean.getNote()+"", wcf));
+							ws.addCell(new Label(9, k, bean.getNote()+"", wcf1));
 						
 						k++;
 					}

@@ -9,6 +9,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
+import cn.nit.bean.table6.T651_Bean;
 import cn.nit.bean.table6.T656_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table6.T656_Dao;
@@ -90,6 +91,15 @@ public class T656_Service {
 	
 	public double getNPassRate(String year){
 		return T656_dao.getNPassRate(year);
+	}
+	
+	public List<T656_Bean> getYearInfo(String selectYear){
+		
+		List<T656_Bean> list=T656_dao.getYearInfo(selectYear);
+	
+		//System.out.println(list.toString());
+         
+		return list;				
 	}
 
 	/**

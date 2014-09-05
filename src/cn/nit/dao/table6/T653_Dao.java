@@ -13,6 +13,7 @@ import net.sf.json.JSON;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T641_Bean;
+import cn.nit.bean.table6.T651_Bean;
 import cn.nit.bean.table6.T653_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
@@ -263,6 +264,32 @@ public class T653_Dao {
 		return list ;
 	}
 	
+	public List<T653_Bean> getYearInfo(String year){
+		
+		String sql = "select " + " " + key + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T653_Bean> list = null ;
+		//T653_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T653_Bean.class) ;
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+	
 	public int getWork(String year){
 		int WorkNum = 0;
 		StringBuffer sql = new StringBuffer();
@@ -290,7 +317,7 @@ public class T653_Dao {
 
 	public static void main(String args[]) {
 
-		T653_Dao StuPublishWordDao = new T653_Dao();
+//		T653_Dao StuPublishWordDao = new T653_Dao();
 //		T653_Bean StuPublishWord = new T653_Bean();
 ////		 StuPublishWord.setSeqNumber(1);
 //		//	
@@ -327,8 +354,8 @@ public class T653_Dao {
 //		 System.out.println(StuPublishWordDao.deleteItemsByIds("(8)")) ;
 
 //		System.out.println("success!!");
-		List<T653_Bean> list = StuPublishWordDao.getAllList("1=1", null);
-		System.out.println(list.size());
+//		List<T653_Bean> list = StuPublishWordDao.getYearInfo("2014");
+//		System.out.println(list.size());
 	}
 
 

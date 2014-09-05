@@ -3,7 +3,7 @@ package cn.nit.bean.table3;
 import java.util.Date;
 
 public class T33_Bean {
-	private int SeqNumber;
+	private Integer SeqNumber;
 	
 	private String TeaUnit;
 	
@@ -37,11 +37,11 @@ public class T33_Bean {
 	
 	private String Note;
 	
-	public int getSeqNumber() {
+	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
 
-	public void setSeqNumber(int SeqNumber) {
+	public void setSeqNumber(Integer SeqNumber) {
 		this.SeqNumber = SeqNumber;
 	}
 	

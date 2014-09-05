@@ -423,16 +423,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert("教工号不能为空或者教师库中无该教工号");
 				return false;
 			}
-
-			if(setYear == null || setYear.length == 0){
-			alert("设置年份不能为空");
-				return false ;
-			}
-
-			if(assessYear == null || assessYear.length == 0){
-					alert("评估年份不能为空");
-				return false ;
-			}
+            if (!(/(^[0-9]\d*$)/.test(setYear)) || setYear == null || setYear.length == 0) {
+			alert("设置年份不能为空且必须为整数");
+			return false;
+	       }
+			if (!(/(^[0-9]\d*$)/.test(assessYear)) || assessYear == null || assessYear.length == 0) {
+			alert("评估年份不能为空且必须为整数");
+			return false;
+	       }
 			if(assessResult == null || assessResult.length == 0){
 				 alert("评估结果不能为空");
 				return false ;

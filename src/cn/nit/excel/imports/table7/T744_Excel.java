@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.table7.T744_Bean;
@@ -161,9 +162,7 @@ public class T744_Excel {
 				String note = cell[12].getContents();
 					
 				count++ ;
-
-				String fillUnitID = null;
-				
+				String fillUnitID=null;	
 				T744_Bean.setTeaUnit(unit);
 				T744_Bean.setUnitID(unitId);
 				T744_Bean.setMajorName(major);

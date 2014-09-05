@@ -1,6 +1,7 @@
 package cn.nit.action.table6;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +22,21 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 import net.sf.json.JSONObject;
 
@@ -244,68 +260,90 @@ HttpServletResponse response = ServletActionContext.getResponse() ;
 		}
 	}
 
-	public InputStream getInputStream() {
+	public InputStream getInputStream() throws IOException {
 
 		InputStream inputStream = null ;
+		ByteArrayOutputStream fos = null;
 		
-		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T615_Bean> list = T615_dao.getAllList("1=1", null);
-						
-			//String sheetName = this.getExcelName();
-			
-			List<String> columns = new ArrayList<String>();
-
-			columns.add("序号");
-			columns.add("校内专业（大类）名称");
-			columns.add("校内专业（大类）代码");
-			columns.add("所属教学单位");
-			columns.add("单位号");
-			columns.add("学制");
-			columns.add("在校生总人数");
-			columns.add("一年级生人数");
-			columns.add("二年级生人数");
-			columns.add("三年级生人数");
-			columns.add("四年级生人数");
-			columns.add("五年级生及以上人数");
-			columns.add("辅修学生人数");
-			columns.add("双学位学生人数");
-			
-			columns.add("转入人数");
-			columns.add("转出人数");
-
-			Map<String,Integer> maplist = new HashMap<String,Integer>();
+		List<T615_Bean> list = T615_dao.getAllList("", null);
 		
-			maplist.put("seqNumber", 0);
-			maplist.put("majorName", 1);
-			maplist.put("majorId", 2);
-			maplist.put("fromUnitId", 3);
-			maplist.put("unitId", 4);
+		if(list.size()==0){
+			PrintWriter out = null ;
+			getResponse().setContentType("text/html; charset=UTF-8") ;
+			out = getResponse().getWriter() ;
+			out.print("后台传入的数据为空!!!") ;
+			System.out.println("后台传入的数据为空");
+		}else{
+			String sheetName=this.excelName;	
+		    WritableWorkbook wwb;
+		    try {    
+		           fos = new ByteArrayOutputStream();
+		           wwb = Workbook.createWorkbook(fos);
+		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+		
+		            //    设置单元格的文字格式
+		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		           WritableCellFormat wcf = new WritableCellFormat(wf);
+		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		           wcf.setAlignment(Alignment.CENTRE);
+		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+						     jxl.format.Colour.BLACK); 
+		           wcf.setAlignment(jxl.write.Alignment.LEFT);
+		           ws.setRowView(1, 500);
+		           
+		           //设置格式
+				   WritableCellFormat wcf1 = new WritableCellFormat();
+				   wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+						     jxl.format.Colour.BLACK); 
+		           
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.mergeCells(0, 0, 2, 0);
+		             
+		           ws.addCell(new Label(0, 2, "序号", wcf)); 
+		           ws.addCell(new Label(1, 2, "校内专业（大类）名称", wcf));
+		           ws.addCell(new Label(2,2,"校内专业（大类）代码",wcf));
+		           ws.addCell(new Label(3,2,"所属教学单位",wcf));
+		           ws.addCell(new Label(4,2,"单位号",wcf));
+		           ws.addCell(new Label(5,2," 学制",wcf));
+		           
+		           ws.mergeCells(0, 2, 0, 3);  ws.mergeCells(1, 2, 1, 3);
+		           ws.mergeCells(2, 2, 2, 3);  ws.mergeCells(3, 2, 3, 3);
+		           ws.mergeCells(4, 2, 4, 3);  ws.mergeCells(5, 2, 5, 3);
+		           
+		           
 
-			maplist.put("schLen", 5);
-			maplist.put("schStuSumNum", 6);
-			maplist.put("freshmanNum", 7);
-			maplist.put("sophomoreNum", 8);
-			maplist.put("juniorNum", 9);
-			maplist.put("seniorNum", 10);
-			maplist.put("otherGradeNum", 11);
-			maplist.put("minorNum", 12);
-			maplist.put("dualDegreeNum", 13);
-			
-			maplist.put("changeInNum", 14);
-			maplist.put("changeOutNum", 15);
+		           ws.addCell(new Label(6,2," 1.在校学生数",wcf));ws.mergeCells(6, 2, 13, 2);
+		           ws.addCell(new Label(14,2," 2.转专业人数",wcf));ws.mergeCells(14, 2, 15, 2);
+		           
+		           ws.addCell(new Label(6,3,"总计",wcf));ws.addCell(new Label(7,3,"一年级",wcf));
+		           ws.addCell(new Label(8,3,"二年级",wcf));ws.addCell(new Label(9,3,"三年级",wcf));
+		           ws.addCell(new Label(10,3,"四年级",wcf));ws.addCell(new Label(11,3,"五年级及以上",wcf));
+		           ws.addCell(new Label(12,3,"其中：辅修",wcf));ws.addCell(new Label(13,3,"其中：双学位",wcf));
+		           ws.addCell(new Label(14,3,"转入人数",wcf));ws.addCell(new Label(15,3,"转出人数",wcf));
+		           
+		           int j=4;//从第4行开始写数据
+		           for(int i =0;i<list.size();i++){
+		        	   T615_Bean bean = list.get(i);
+		        	   ws.addCell(new Label(0,j,""+(i+1),wcf1));ws.addCell(new Label(1,j,bean.getMajorName(),wcf1));
+			           ws.addCell(new Label(2,j,bean.getMajorId(),wcf1));ws.addCell(new Label(3,j,bean.getFromUnitId(),wcf1));
+			           ws.addCell(new Label(4,j,bean.getUnitId(),wcf1));ws.addCell(new Label(5,j,""+bean.getSchLen(),wcf1));
+		        	   ws.addCell(new Label(6,j,""+bean.getSchStuSumNum(),wcf1));ws.addCell(new Label(7,j,""+bean.getFreshmanNum(),wcf1));
+			           ws.addCell(new Label(8,j,""+bean.getSophomoreNum(),wcf1));ws.addCell(new Label(9,j,""+bean.getJuniorNum(),wcf1));
+			           ws.addCell(new Label(10,j,""+bean.getSeniorNum(),wcf1));ws.addCell(new Label(11,j,""+bean.getOtherGradeNum(),wcf1));
+			           ws.addCell(new Label(12,j,""+bean.getMinorNum(),wcf1));ws.addCell(new Label(13,j,""+bean.getDualDegreeNum(),wcf1));
+			           ws.addCell(new Label(14,j,""+bean.getChangeInNum(),wcf1));ws.addCell(new Label(15,j,""+bean.getChangeOutNum(),wcf1));
+		               j++;
+		           }
+		           
+		          wwb.write();
+		          wwb.close();
 
-				
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, this.excelName, maplist,columns).toByteArray());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null ;
+		        } catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
 		}
-
-		return inputStream ;
+		return new ByteArrayInputStream(fos.toByteArray());
 	}
 
 	public String execute() throws Exception {

@@ -2,6 +2,7 @@ package cn.nit.excel.imports.table6;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -152,6 +153,9 @@ public class T653_Excel {
 				if (jonalDate == null || jonalDate.equals("")) {
 					return "第" + count + "行，刊期不能为空";
 				}
+				if(!this.judgeFormat1(jonalDate)){
+					return "第" + count + "行，刊期格式为：2013-02";
+				}
 				
 				String awardStuName = cell[7].getContents();
 				if (awardStuName == null || awardStuName.equals("")) {
@@ -255,4 +259,21 @@ public class T653_Excel {
 			return "数据存储失败，请联系管理员";
 		}
 	}
+	
+	/**判断字符串格式是否为2013-02*/
+	public static boolean judgeFormat1(String dataString){
+		boolean flag=false;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM") ;
+		Date date=null;
+		try{
+			date = sf.parse(dataString) ;
+			flag = true;
+		}catch(ParseException e){
+			flag=false;
+		}
+		return flag;
+	}
+
+
+	
 }

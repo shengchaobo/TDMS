@@ -450,8 +450,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 			}
 
-			if(MajorFieldName == null || MajorFieldName.length==0 || MajorFieldName.length > 100){
-				$.messager.alert('提示',"专业方向名称不能为空或长度不超过100") ;
+			if(MajorFieldName == null || MajorFieldName.length==0){
+				$.messager.alert('提示',"专业方向名称不能为空") ;
 				return false;
 			}
 
@@ -472,13 +472,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$.messager.alert('提示',"修业年限必须是正整数");
 				return false;
 				}
-			if(MajorLeader == null || MajorLeader.length==0 || MajorLeader.length > 100){
-				$.messager.alert('提示',"专业带头人姓名不能为空或长度不超过100");
+			if(MajorLeader == null || MajorLeader.length==0){
+				$.messager.alert('提示',"专业带头人姓名不能为空");
 				return false;
 			}
 
-			if(MajorChargeMan == null || MajorChargeMan.length==0 || MajorChargeMan.length > 100){
-				$.messager.alert('提示',"专业负责人姓名不能为空或长度不超过100");
+			if(MajorChargeMan == null || MajorChargeMan.length==0){
+				$.messager.alert('提示',"专业负责人姓名不能为空");
 				return false;
 			}
 

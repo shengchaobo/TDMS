@@ -21,6 +21,7 @@ import cn.nit.dao.table1.T18DAO;
 import cn.nit.excel.imports.table1.T181Excel;
 import cn.nit.excel.imports.table1.T182Excel;
 import cn.nit.service.table1.T181Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 
@@ -275,7 +276,7 @@ public class T182Action {
 			maplist.put("Note", 8);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t182Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

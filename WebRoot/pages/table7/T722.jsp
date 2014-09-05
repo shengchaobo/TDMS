@@ -392,6 +392,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert("教工号不能为空或者教师库中无该教工号");
 				return false;
 			}
+			if (!(/(^[0-9]\d*$)/.test(otherTeaNum))) {
+			alert("其他参与教师人数必须为整数");
+			return false;
+	         }
 	
 			if(awardLevel == null || awardLevel.length==0 || awardLevel.length > 20){
 				alert("级别不能为空或长度不超过20");

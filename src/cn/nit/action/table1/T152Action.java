@@ -23,6 +23,7 @@ import cn.nit.bean.table1.T152Bean;
 import cn.nit.dao.table1.T152DAO;
 import cn.nit.excel.imports.table1.T152Excel;
 import cn.nit.service.table1.T152Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 
@@ -235,7 +236,7 @@ public class T152Action {
 			maplist.put("BeginYear", 10);maplist.put("HouseArea", 11);maplist.put("Note", 12);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(t152Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

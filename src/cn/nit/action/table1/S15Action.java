@@ -134,58 +134,9 @@ public class S15Action {
 	/**S15的Dao類*/
 	private S15DAO s15Dao=new S15DAO();
 		
-//		/**
-//		 * 输出json格式数据
-//		 * */
-//		public void autidingdata(){
-//	
-//			System.out.println("=======================");
-//			Date time=new Date();
-//			String date=time.toString();
-//			String year=date.substring(date.length()-4);
-//			String info =s15Ser.autidingdata(year) ;
-//			PrintWriter out = null ;
-//	
-//			try{
-//				getResponse().setContentType("text/html; charset=UTF-8") ;
-//				out = getResponse().getWriter() ;
-//				out.print(info) ;
-//			}catch(Exception e){
-//				e.printStackTrace() ;
-//				return ;
-//			}finally{
-//				if(out != null){
-//					out.close() ;
-//				}
-//			}
-//		}
-		
-//		/**Excel表導出*/
-//		public InputStream getInputStream(){
-//
-//			InputStream inputStream = null ;
-//
-//			try {
-//				
-//				List<S15Bean> list=new ArrayList<S15Bean>(); 
-////	            Date time=new Date();
-////	            String time1=time.toString();
-////	            String year=time1.substring(time1.length()-4, time1.length());
-//	            list=s15Dao.forExcel(this.selectYear);
-//	            inputStream = new ByteArrayInputStream(s15Excel.writeExcel(list).toByteArray());
-//				
-//
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				return null ;
-//			}
-//
-//			return inputStream ;
-//		}
 		
 		public InputStream getInputStream() throws Exception{
 			
-			System.out.println(this.getSelectYear());
 
 			S15Bean bean =s15Dao.forExcel(this.selectYear).get(0);
 			

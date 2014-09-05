@@ -2,6 +2,7 @@ package cn.nit.excel.imports.table6;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -234,10 +235,16 @@ public class T671_Excel {
 				if (beginTime == null || beginTime.equals("")) {
 					return "第" + count + "行，起始时间不能为空";
 				}
+				if(!this.judgeFormat1(beginTime)){
+					return "第" + count + "行，起始时间格式为：2013-02";
+				}
 
 				String graduateTime = cell[13].getContents();
 				if (graduateTime == null || graduateTime.equals("")) {
 					return "第" + count + "行，预计毕业时间不能为空";
+				}
+				if(!this.judgeFormat1(graduateTime)){
+					return "第" + count + "行，预计毕业时间格式为：2013-02";
 				}
 				
 				
@@ -279,4 +286,20 @@ public class T671_Excel {
 			return "数据存储失败，请联系管理员";
 		}
 	}
+	
+	/**判断字符串格式是否为2013-02*/
+	public static boolean judgeFormat1(String dataString){
+		boolean flag=false;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM") ;
+		Date date=null;
+		try{
+			date = sf.parse(dataString) ;
+			flag = true;
+		}catch(ParseException e){
+			flag=false;
+		}
+		return flag;
+	}
+
+
 }

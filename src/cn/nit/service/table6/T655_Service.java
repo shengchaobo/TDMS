@@ -112,6 +112,15 @@ public class T655_Service {
 	public double getJPassRate(String year){
 		return T655_dao.getJPassRate(year);
 	}
+	
+	public List<T655_Bean> getYearInfo(String selectYear){
+		
+		List<T655_Bean> list=T655_dao.getYearInfo(selectYear);
+	
+		//System.out.println(list.toString());
+         
+		return list;				
+	}
 
 	/**
 	 * @param args

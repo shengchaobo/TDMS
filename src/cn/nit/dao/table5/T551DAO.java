@@ -75,7 +75,7 @@ public class T551DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select count(*) ") ;
+		sql.append("select count(*) AS Count") ;
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
 		int total = 0 ;
@@ -101,7 +101,7 @@ public class T551DAO {
 			}
 			
 			while(rs.next()){
-				total+=1;
+				total=rs.getInt("Count");
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;

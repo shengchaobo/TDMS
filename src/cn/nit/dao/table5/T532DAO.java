@@ -77,7 +77,7 @@ public class T532DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select count(*) ") ;
+		sql.append("select count(*) AS Count") ;
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiAwardLevel as dal,DiTitleName as dtn");
 		sql.append(" where did.UnitID = t.UnitID and dal.IndexID = t.CenterLevel and  dtn.IndexID=t.TeaTitle");
 		int total = 0 ;
@@ -103,7 +103,7 @@ public class T532DAO {
 			}
 			
 			while(rs.next()){
-				total+=1;
+				total = rs.getInt("Count");
 //				System.out.println("total:"+total);
 			}
 		}catch(Exception e){

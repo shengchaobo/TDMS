@@ -243,13 +243,14 @@ public class T551Action {
 		    	T551Bean bean = list.get(i);
 		    	PartyMemNum+=bean.getPartyMemNum();
 		    	CheatNum+=bean.getCheatNum();
-		    	GoodClassRatio+=bean.getGoodClassRatio();
+//		    	GoodClassRatio+=bean.getGoodClassRatio();
 		    }
-		    GoodClassRatio = GoodClassRatio/list.size();
+//		    GoodClassRatio = GoodClassRatio/list.size();
 		    
 		    beanAll.setPartyMemNum(PartyMemNum);
 		    beanAll.setCheatNum(CheatNum);
-		    beanAll.setGoodClassRatio(DateUtil.doubleTwo(""+GoodClassRatio));
+		    beanAll.setGoodClassRatio(GoodClassRatio);
+//		    beanAll.setGoodClassRatio(DateUtil.doubleTwo(""+GoodClassRatio));
 		    
 		    list.add(0, beanAll);//将合计加入到list的第一个位置
 		    

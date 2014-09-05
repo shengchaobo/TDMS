@@ -131,10 +131,18 @@ public class T452_Excel {
 				
 				if((beginTime == null) || beginTime.equals("")){
 					return "第" + count + "行，开始时间不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatYM(beginTime)){
+						return "第" + count + "行，开始时间格式不正确" ;
+					}
 				}
 				
 				if((endTime == null) || endTime.equals("")){
 					return "第" + count + "行，结束时间不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatYM(endTime)){
+						return "第" + count + "行，结束时间格式不正确" ;
+					}
 				}
 				
 				String inOrOut = cell[8].getContents() ;

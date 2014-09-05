@@ -144,12 +144,22 @@ public class T413_Excel {
 				String birthday = cell[6].getContents() ;
 				if((birthday == null) || birthday.equals("")){
 					return "第" + count + "行，教师出生日期不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatYM(birthday)){
+						return "第" + count + "行，教师出生日期格式不正确" ;
+					}
 				}
+				
 				
 				String hireBeginTime = cell[7].getContents() ;
 				if((hireBeginTime == null) || hireBeginTime.equals("")){
 					return "第" + count + "行，教师聘任时间不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatYM(hireBeginTime)){
+						return "第" + count + "行，教师聘任时间格式不正确" ;
+					}
 				}
+				
 				
 				String teaState = cell[8].getContents() ;
 				if((teaState == null) || teaState.equals("")){

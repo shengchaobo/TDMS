@@ -119,11 +119,19 @@ public class T411_Excel {
 				String birthday = cell[4].getContents() ;
 				if((birthday == null) || birthday.equals("")){
 					return "第" + count + "行，教师出生日期不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatYM(birthday)){
+						return "第" + count + "行，教师出生日期格式不正确" ;
+					}
 				}
 				
 				String admisTime = cell[5].getContents() ;
 				if((admisTime == null) || admisTime.equals("")){
 					return "第" + count + "行，教师入校时间不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatYM(admisTime)){
+						return "第" + count + "行，教师入校时间格式不正确" ;
+					}
 				}
 				
 				String teaState = cell[6].getContents() ;
@@ -134,6 +142,10 @@ public class T411_Excel {
 				String beginTime = cell[7].getContents() ;
 				if((beginTime == null) || beginTime.equals("")){
 					return "第" + count + "行，教师本科工作开始时间不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatY(beginTime)){
+						return "第" + count + "行，教师本科工作开始时间格式不正确" ;
+					}
 				}
 				
 				String IDCode = cell[8].getContents() ;

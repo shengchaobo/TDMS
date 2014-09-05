@@ -227,5 +227,118 @@ public class T313Excel {
 		}
 		
 	}
+	
+	
+	public static ByteArrayOutputStream exportExcel(List list, String sheetName, Map<String,Integer> maplist) throws Exception{
+		
+        WritableWorkbook wwb;
+        ByteArrayOutputStream fos = null;
+        try {    
+            fos = new ByteArrayOutputStream();
+            wwb = Workbook.createWorkbook(fos);
+            WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+
+            //    设置表头的文字格式
+            
+            WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);    
+            WritableCellFormat wcf = new WritableCellFormat(wf);
+            wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+            wcf.setAlignment(Alignment.CENTRE);
+            wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+	        		     jxl.format.Colour.BLACK);
+            
+            //    设置内容单无格的文字格式
+            WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+	                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+            WritableCellFormat wcf1 = new WritableCellFormat(wf1);       
+            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+            wcf1.setAlignment(Alignment.CENTRE);
+            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+	        		     jxl.format.Colour.BLACK);
+            ws.setRowView(1, 500);
+            
+            
+            ws.addCell(new Label(0, 0, sheetName, wcf)); 
+            
+
+             
+            ws.addCell(new Label(0,2,"序号",wcf));
+            ws.addCell(new Label(1,2,"重点学科名称",wcf));
+            ws.addCell(new Label(2,2,"学科代码",wcf));
+            ws.addCell(new Label(3,2,"所属教学单位",wcf));
+            ws.addCell(new Label(4,2,"单位号",wcf));
+            ws.addCell(new Label(5,2,"学科门类",wcf));
+            ws.addCell(new Label(6,2,"级别",wcf));
+            ws.addCell(new Label(6,3,"国家一级",wcf));
+            ws.addCell(new Label(7,3,"国家二级",wcf));
+            ws.addCell(new Label(8,3,"国家重点（培育）",wcf));
+            ws.addCell(new Label(9,3,"省部一级",wcf));
+            ws.addCell(new Label(10,3,"省部二级",wcf));
+            ws.addCell(new Label(11,3,"市级",wcf));
+            ws.addCell(new Label(12,3,"校级",wcf));
+            
+            ws.mergeCells(6, 2, 12, 2);
+            ws.mergeCells(0, 2, 0, 3);
+            ws.mergeCells(1, 2, 1, 3);
+            ws.mergeCells(2, 2, 2, 3);
+            ws.mergeCells(3, 2, 3, 3);
+            ws.mergeCells(4, 2, 4, 3);
+            ws.mergeCells(5, 2, 5, 3);
+            
+  
+                //判断表中是否有数据  
+            if (list != null && list.size() > 0) {  
+                    //循环写入表中数据  
+                	BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
+                	int i=1;  
+                	for(Object obj : list){  
+                		wrapper.setWrappedInstance(obj) ;  
+                        //循环输出map中的子集：既列值                         
+                        for(String column:maplist.keySet()){
+                        	
+                        	if(column.equals("SeqNum")){
+                        		ws.addCell(new Label(0,i+3,""+i,wcf1)); 
+                        		continue;
+                        	}
+                        	                        	
+        					String type = wrapper.getPropertyType(column).toString() ;
+//        					System.out.println(type +"-test：" + column);
+
+        					//判断插入数据的类型，并赋�?
+        					if(type.endsWith("String")){
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column),wcf1));
+        					}else if(type.endsWith("int")||type.endsWith("Integer")){
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
+        					}else if(type.endsWith("long")||type.endsWith("Long")){
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
+        					}else if(type.endsWith("boolean")||type.endsWith("Boolean")){
+        						if((Boolean)wrapper.getPropertyValue(column)){
+        							ws.addCell(new Label(maplist.get(column).intValue(),i+3,"是",wcf1));
+        						}else{
+        							ws.addCell(new Label(maplist.get(column).intValue(),i+3,"否",wcf1));
+        						}
+        					}else if(type.endsWith("double")||type.endsWith("Double")){
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
+        					}else{
+        						throw new Exception("自行添加对应类型" + type) ;
+        					}                       	                         	
+                    }
+                    i++;
+                }
+            }else{
+            	System.out.println("后台传入的数据为空");
+            }
+
+            wwb.write();
+            wwb.close();
+
+        } catch (IOException e){
+        } catch (RowsExceededException e){
+        } catch (WriteException e){}
+        
+        return fos ;
+    }
+	
 
 }

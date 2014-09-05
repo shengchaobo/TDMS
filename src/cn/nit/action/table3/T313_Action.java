@@ -228,16 +228,13 @@ public void auditingData(){
 		InputStream inputStream = null ;
 
 		try {
+			T313Excel t313_Excel = new T313Excel();
 			
 			List<T313_Bean> list = t313_DAO.totalList();
 			
 			String sheetName = this.excelName;
 			
-			List<String> columns = new ArrayList<String>();
-			columns.add("序号");
-			columns.add("重点学科名称");columns.add("学科代码");columns.add("所属教学单位");
-			columns.add("单位号");columns.add("学科门类");columns.add("国家一级");columns.add("国家二级");columns.add("国家重点");
-			columns.add("省部一级");columns.add("省部二级");columns.add("市级");columns.add("校级");
+
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
@@ -249,7 +246,7 @@ public void auditingData(){
 			
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(t313_Excel.exportExcel(list, sheetName, maplist).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

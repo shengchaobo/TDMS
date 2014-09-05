@@ -171,9 +171,16 @@ public class ExcelUtil {
         						if((java.util.Date)wrapper.getPropertyValue(column) == null){
         							ws.addCell(new Label(maplist.get(column).intValue(),i+2,null,wcf1));
         						}else{
-            						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(column) ;
-            						Date sqlDate = new Date(utilDate.getTime()) ;
-            						ws.addCell(new Label(maplist.get(column).intValue(),i+2,sqlDate.toString(),wcf1));
+        							//判断一个该日期类型是yyyy还是yyyy-mm
+        							if(isDateYear(column)){
+	            						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(column) ;
+	            						Date sqlDate = new Date(utilDate.getTime()) ;
+	            						ws.addCell(new Label(maplist.get(column).intValue(),i+2,sqlDate.toString().substring(0, 4),wcf1));
+        							}else{
+	            						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(column) ;
+	            						Date sqlDate = new Date(utilDate.getTime()) ;
+	            						ws.addCell(new Label(maplist.get(column).intValue(),i+2,sqlDate.toString().substring(0, 7),wcf1));
+        							}
         						}
         					}else if(type.endsWith("long")||type.endsWith("Long")){
         						ws.addCell(new Label(maplist.get(column).intValue(),i+2,(String) wrapper.getPropertyValue(column).toString(),wcf1));
@@ -205,7 +212,17 @@ public class ExcelUtil {
         return fos ;
     }
 	
+	/**
+	 * 判断一个该日期类型是yyyy还是yyyy-mm
+	 * @param column
+	 * @return
+	 */
 	
+	private static boolean isDateYear(String column) {
+		String yearDateList = "BeginYear,BuildYear,RewardTime,SetTime,beginWorkTime,gainTime,gainAwardTime,buildTime,AdmisSchYear,AwardTime";
+		return yearDateList.contains(column);
+	}
+
 	//返回去掉空行的记录数
     public static int getRightRows(Sheet sheet) {
 		int rsCols = sheet.getColumns(); //列数

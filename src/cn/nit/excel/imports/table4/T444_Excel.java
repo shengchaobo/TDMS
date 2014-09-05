@@ -84,6 +84,10 @@ public class T444_Excel {
 				String gainTime = cell[3].getContents() ;
 				if((gainTime == null) || gainTime.equals("")){
 					return "第" + count + "行，获得时间不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatY(gainTime)){
+						return "第" + count + "行，获得时间格式不正确" ;
+					}
 				}
 				
 				String name = cell[4].getContents() ;

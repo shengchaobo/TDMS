@@ -121,8 +121,11 @@ public class T251_Excel {
 				String buildTime = cell[5].getContents() ;
 				
 				if((buildTime == null) || buildTime.equals("")){
-					T251_bean.setBuildTime(null);
 					return "第" + count + "行，创建时间不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatY(buildTime)){
+						return "第" + count + "行，创建时间格式不正确" ;
+					}
 				}
 				
 				String place = cell[6].getContents() ;
@@ -140,11 +143,8 @@ public class T251_Excel {
 				T251_bean.setTeaUnit(unit);
 				T251_bean.setTeaUnitID(unitId);
 				T251_bean.setLabName(labName);
-				if((buildTime == null) || buildTime.equals("")){
-					T251_bean.setBuildTime(null);
-				}else{
-					T251_bean.setBuildTime(TimeUtil.changeDateYM(buildTime));
-				}
+				T251_bean.setBuildTime(TimeUtil.changeDateYM(buildTime));
+
 				
 				T251_bean.setPlace(place);
 				

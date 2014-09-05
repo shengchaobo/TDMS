@@ -33,46 +33,81 @@
 			href="jquery-easyui/demo/demo.css">
 
 		<style type="text/css">
-#fm {
-	margin: 0;
-	padding: 10px 30px;
-}
-
-.ftitle {
-	font-size: 14px;
-	font-weight: bold;
-	padding: 5px 0;
-	margin-bottom: 10px;
-	border-bottom: 1px solid #ccc;
-}
-
-.fitem {
-	margin-bottom: 5px;
-}
-
-.fitem label {
-	display: inline-block;
-	width: 80px;
-}
-</style>
+				#fm {
+					margin: 0;
+					padding: 10px 30px;
+				}
+				
+				.ftitle {
+					font-size: 14px;
+					font-weight: bold;
+					padding: 5px 0;
+					margin-bottom: 10px;
+					border-bottom: 1px solid #ccc;
+				}
+				
+				.fitem {
+					margin-bottom: 5px;
+				}
+				
+				.fitem label {
+					display: inline-block;
+					width: 80px;
+				}
+		</style>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
-		<script type="text/javascript"
-			src="jquery-easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-		<script type="text/javascript"
-			src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	</head>
+	
+	<SCRIPT type="text/javascript">
+	
+			
+			function upload(param){
+			
+				$('#udlg').dialog('open').dialog('setTitle','文件上传');
+				$('#batchForm').form('reset');				
+			}
+			
+			 function batchImport(){
+			 
+				  var fileName = $('#upload').val() ; 	
+				  if(fileName == null || fileName == ""){
+					  $.messager.alert('文件导入', '请选择将要上传的文件!');      
+				   		return false ;
+				  }	
+				  
+			  	 $('#batchForm').form('submit',{
+			  		 url: 'fileupload',
+			  		 type: "post",
+				     dataType: "json",
+			  		 onSubmit: function(){
+			  			 return true;
+			  		 },
+			  		 success: function(result){
+				  		 	var result = eval('('+result+')');
+				  		 	if (result.state){
+				  		 		$('#udlg').dialog('close'); // close the dialog	
+								alert(result.data);
+								html = "<a href='downloadFile?fileName='"+$('#upload').val() +"'>" + $('#upload').val() + "</a><a href='deleteFile?fileName='"+$('#upload').val() +"'>x</a>"					
+								$('#downFile'+'1').html(html);												 
+				  		 	} else {
+								alert(result.data);
+				  		 	}
+				  	 }
+			  	});
+			  }
+	
+	</SCRIPT>
+	
 	<body style="overflow-y: scroll">
-		
-		
+				
 		<hr color="blue" width="100%" />
-		
-		
+			
 		<table id="showInfo" class="doc-table">
-			<tbody>
-
-											
+			<tbody>											
 				<tr>
 					<td rowspan=3 style="width: 160px; background-color: white" align="center">
 						本科生参加国际交流情况
@@ -83,14 +118,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload('1')">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+						<div id="downFile1"></div>						
 					</td>
 				<tr>
 					<td colspan=2 style="width: 200px; background-color: white"
@@ -99,14 +131,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload('2')">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+					    <div id="downFile2"></div>						
 					</td>
 				</tr>
 				
@@ -117,18 +146,13 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload('3')">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile3"></div>
 					</td>
-				</tr>
-					
-				
+				</tr>				
 			</tbody>
 		</table>
 		
@@ -163,38 +187,15 @@
 		</div>
 	</div>
 	
-	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true" buttons="#dlg-buttons">
+	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
 		<div class="ftitle">文件上传</div>
 		<div class="fitem">
-
-			<s:form action="fileupload.action" id="batchForm" method="post" enctype="multipart/form-data">
+			<Form id="batchForm" enctype="multipart/form-data" method="post">
 				<label>请选择文件：</label> 
-				<input class="easyui-validatebox" type="file" name="upload" />
-				<input type="submit" value=" 提交 " />
-			</s:form>
+				<input  type="file"  id="upload" name="uploadFile" />
+				<input type="button" value=" 提交 "  onclick="batchImport()"/>
+			</Form>
 		</div>
-	</div>
-		
-
-		
-		 
+	</div>		 
 	</body>
-
-	<script type="text/javascript">
-	
-function upload(){
-	    	
-	$('#udlg').dialog('open').dialog('setTitle','文件上传');
-		   
-}
-
-
-function downloads(){
-	    	
-	 
-	$('#ddlg').dialog('open').dialog('setTitle','文件下载');
-		   
-}
-
-</script>
 </html>

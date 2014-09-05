@@ -71,11 +71,72 @@ public class TimeUtil {
 		return date ;
 	}
 	
+	
 	/**
 	 * 将{@link java.lang.String}类型转换为{@link java.util.Date}类型
 	 * @param dateString
 	 * @return
 	 */
+	public static Date changeDateYM(String dateString){
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM") ;
+		Date date = null ;
+		try {
+			date = sf.parse(dateString) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return date ;
+		}
+		
+		return date ;
+	}
+	
+	
+	/**
+	 * 判断字符串格式是否为yyyy或yyyy-mm
+	 * @param dataString
+	 * @return
+	 */
+	public static boolean judgeFormatY(String dataString){
+		boolean flag=false;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy") ;
+		
+		try{
+			sf.parse(dataString) ;
+			flag = true;
+		}catch(ParseException e){
+			flag=false;
+		}
+		return flag;
+	}
+	
+	
+	/**
+	 * 判断字符串格式是否为yyyy-mm
+	 * @param dataString
+	 * @return
+	 */
+	public static boolean judgeFormatYM(String dataString){
+		
+		boolean flag=false;
+		
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM") ;
+		
+		try{
+			sf.parse(dataString) ;
+			flag = true;
+		}catch(ParseException e){
+			flag=false;
+		}
+		return flag;
+	}
+	
+	
+	
+/*	*//**
+	 * 将{@link java.lang.String}类型转换为{@link java.util.Date}类型
+	 * @param dateString
+	 * @return
+	 *//*
 	public static Date changeDateYM(String dateString){
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM") ;
 		Date date = null ;
@@ -87,7 +148,7 @@ public class TimeUtil {
 		}
 		
 		return date ;
-	}
+	}*/
 	
 	/**
 	 * 将{@link java.lang.String}类型转换为{@link java.util.Date}类型
@@ -170,23 +231,11 @@ public class TimeUtil {
 		return flag;
 	}
 	
+	
 	public static void main(String arg[])
 	{
 		String year="2013";
 		TimeUtil til=new TimeUtil();
-//		boolean flag=til.judgeFormat3(year);
-//		if(flag){
-//			System.out.println("格式正确！");
-//		}else{
-//			System.out.println("格式错误！");
-//		}
-//		
-//		String test = "1973/02/02";
-//		
-//		System.out.println(changeDateY(test));
-//		System.out.println(changeDateYM(test));
-//		System.out.println(changeDateYMD(test));
-	
 		System.out.println(til.changeDateY(year));
 	}
 }

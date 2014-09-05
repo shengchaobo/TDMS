@@ -106,12 +106,21 @@ public class T42_Excel {
 				String birthday = cell[5].getContents() ;
 				if((birthday == null) || birthday.equals("")){
 					return "第" + count + "行，领导出生日期不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatYM(birthday)){
+						return "第" + count + "行，领导出生日期格式不正确" ;
+					}
 				}
 				
 				String admisTime = cell[6].getContents() ;
 				if((admisTime == null) || admisTime.equals("")){
 					return "第" + count + "行，领导入校时间不能为空" ;
+				}else{
+					if(!TimeUtil.judgeFormatYM(admisTime)){
+						return "第" + count + "行，领导入校时间格式不正确" ;
+					}
 				}
+				
 								
 				String edu = cell[7].getContents() ;
 				

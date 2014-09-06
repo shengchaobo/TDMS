@@ -168,10 +168,11 @@ public class T521DAO {
 	public List<T521Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select SeqNumber,CSType,CSName,CSID,CSLevel,Leader,TeaID,JoinTeaNum,OtherTea,CSUrl,AppvlTime,ReceptTime,TeaUnit," +
-			"UnitID,AppvlID,Time,Note");
-		sql.append(" from "+tableName);
-		sql.append(" where CSType!='网络课程'");
+		sql.append("select t.SeqNumber,t.CSType,t.CSName,t.CSID,dia.AwardLevel as CSLevel,t.Leader,t.TeaID,t.JoinTeaNum,t.OtherTea,t.CSUrl,t.AppvlTime,t.ReceptTime,t.TeaUnit," +
+			"t.UnitID,t.AppvlID,t.Time,t.Note");
+		sql.append(" from "+tableName+" as t,DiAwardLevel as dia");
+		sql.append(" where t.CSType!='网络课程'");
+		sql.append(" and t.CSLevel = dia.IndexID");
 	
 		
 		
@@ -236,6 +237,10 @@ public class T521DAO {
 	public String getTableName(){
 		return this.tableName ;
 	}
-	
+	  public static void main(String arg[]){
+		  T521DAO dao = new T521DAO();
+		  List<T521Bean> list = dao.totalList();
+		  System.out.println(list.size());
+	  }
 
 }

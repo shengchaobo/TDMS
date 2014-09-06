@@ -164,8 +164,9 @@ public class T531DAO {
 	public List<T531Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select SeqNumber,Name,Type,ItemLevel,buildTime,TeaUnit,JoinStuNum,Time,Note");
-		sql.append(" from "+tableName);
+		sql.append("select t.SeqNumber,t.Name,t.Type,t.ItemLevel,t.buildTime,did.UnitName as TeaUnit,t.JoinStuNum,t.Time,t.Note");
+		sql.append(" from "+tableName+" as t,DiDepartment as did");
+		sql.append(" where t.TeaUnit = did.UnitID");
 
 		
 		
@@ -234,7 +235,7 @@ public class T531DAO {
 	
 	public static void main(String arg[]){
 		T531DAO dao=new T531DAO();
-		List<T531POJO> list=dao.auditingData(null, null,1, 1);
+		List<T531Bean> list=dao.totalList();
 		System.out.println(list.size());
 	}
 

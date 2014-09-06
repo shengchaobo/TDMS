@@ -311,7 +311,10 @@ public class T151Action {
 		return inputStream ;
 	}
 	
-
+	public String execute1() throws Exception{
+		return "success" ;
+	}
+	
 	public String execute() throws Exception{
 		return "success" ;
 	}

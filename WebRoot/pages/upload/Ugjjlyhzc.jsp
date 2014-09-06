@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="java.net.*" %>
 <%@ page import="java.io.File" %>
 <%@ taglib uri="/struts-tags" prefix="s"%> 
@@ -60,49 +60,10 @@
 		<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/upload/upload.js"></script>
 	</head>
-	
-	<SCRIPT type="text/javascript">
-	
-			
-			function upload(param){
-			
-				$('#udlg').dialog('open').dialog('setTitle','文件上传');
-				$('#batchForm').form('reset');				
-			}
-			
-			 function batchImport(){
-			 
-				  var fileName = $('#upload').val() ; 	
-				  if(fileName == null || fileName == ""){
-					  $.messager.alert('文件导入', '请选择将要上传的文件!');      
-				   		return false ;
-				  }	
-				  
-			  	 $('#batchForm').form('submit',{
-			  		 url: 'fileupload',
-			  		 type: "post",
-				     dataType: "json",
-			  		 onSubmit: function(){
-			  			 return true;
-			  		 },
-			  		 success: function(result){
-				  		 	var result = eval('('+result+')');
-				  		 	if (result.state){
-				  		 		$('#udlg').dialog('close'); // close the dialog	
-								alert(result.data);
-								html = "<a href='downloadFile?fileName='"+$('#upload').val() +"'>" + $('#upload').val() + "</a><a href='deleteFile?fileName='"+$('#upload').val() +"'>x</a>"					
-								$('#downFile'+'1').html(html);												 
-				  		 	} else {
-								alert(result.data);
-				  		 	}
-				  	 }
-			  	});
-			  }
-	
-	</SCRIPT>
-	
-	<body style="overflow-y: scroll">
+
+	<body style="overflow-y: scroll"  onload="loadAllURL(11,13)">
 				
 		<hr color="blue" width="100%" />
 			
@@ -118,12 +79,13 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload('1')">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload('11')">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-						<div id="downFile1"></div>						
+						<div id="downFile11"></div>						
 					</td>
+				</tr>
 				<tr>
 					<td colspan=2 style="width: 200px; background-color: white"
 						align="left">
@@ -131,11 +93,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload('2')">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload('12')">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div id="downFile2"></div>						
+					    <div id="downFile12"></div>						
 					</td>
 				</tr>
 				
@@ -146,46 +108,15 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload('3')">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload('13')">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-							<div id="downFile3"></div>
+							<div id="downFile13"></div>
 					</td>
 				</tr>				
 			</tbody>
 		</table>
-		
-		
-		<div id="ddlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true" buttons="#dlg-buttons">
-		<div class="ftitle">请选择文件</div>
-		<div class="fitem">
-
-	<% 
-    //取得服务器"/download/file"目录的物理路径 
-    String fpath = request.getRealPath("/WEB-INF/uploadList");
-    //取得"/download/file"目录的file对象 
-    File file = new File(fpath); 
-    //取得file目录下所有文件 
-    File[] files = file.listFiles(); 
-    if(files == null){
-    out.print("还没有上传文件，请先上传文件！");
-    }else{
-  
-   for (int i = 0; i < files.length; i++) { 
-  
-    String fname = files[i].getName();
-  
-    //对文件名进行url编码(UTF-8指明fname原来的编码，UTF-8一般由本地编码GBK代替) 
-     fname = java.net.URLEncoder.encode(fname, "UTF-8"); 
-  
-    out.println("<a href=download2.action?name=" + fname + "&len=" + files[i].length() + ">" 
-     + files[i].getName() + "</a><br>"); 
-    }
-    }
-   %>
-		</div>
-	</div>
 	
 	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
 		<div class="ftitle">文件上传</div>

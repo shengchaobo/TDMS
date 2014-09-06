@@ -51,6 +51,7 @@
    
 	//单条导入
 	function singleImport() {
+		alert
 		// 录入数据的表单提交
 		$('#addForm').form('submit', {
 				url : url,
@@ -81,7 +82,6 @@
 		
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字	\
-		var unitName = $('#unitID').combobox('getText');
 		var topDegree = $('#topDegree').combobox('getText');
 		var education = $('#education').combobox('getText');
 		//根据数据库定义的字段的长度，对其进行判断
@@ -89,13 +89,7 @@
 			alert("教工号不能为空或者教师库中无该教工号");
 			return false;
 		}
-		
-		if(unitName == null || unitName==""){
-			alert("所属教学单位不能为空");
-			return false;
-	    }
-		
-		
+					
 		if(topDegree == null || topDegree==""){
 			alert("最高学位不能为空");
 			return false;

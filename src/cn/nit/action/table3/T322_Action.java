@@ -257,7 +257,7 @@ private T322_Service t322_Service = new T322_Service() ;
 			columns.add("验收批文号");columns.add("学校经费(万元)");columns.add("教育部经费(万元)");columns.add("首次通过认证时间");columns.add("认证时间");columns.add("批文号");
 			columns.add("认证结果");columns.add("有效期(起)");columns.add("有效期(起)");columns.add("认证机构");columns.add("总学时数");columns.add("必修课学时数");
 			columns.add("选修课学时数");columns.add("课内教学学时数");columns.add("实验教学学时数");columns.add("集中性实践教学环节学时数");columns.add("总学分数");columns.add("必修课学分数");
-			columns.add("选修课学分数");columns.add("课内教学学分数");columns.add("实验教学学分数");columns.add("集中实践教学环节学分数");columns.add("课外科技活动学分数");columns.add("备注");
+			columns.add("选修课学分数");columns.add("课内教学学分数");columns.add("实验教学学分数");columns.add("集中实践教学环节学分数");columns.add("课外科技活动学分数");
 
 			
 
@@ -270,9 +270,9 @@ private T322_Service t322_Service = new T322_Service() ;
 			maplist.put("EduMinistryExp", 24);maplist.put("FirstAppvlTime", 25);maplist.put("AppvlTime", 26);maplist.put("AppvlID", 27);maplist.put("AppvlResult", 28);maplist.put("FromTime",29);
 			maplist.put("EndTime", 30);maplist.put("AppvlAuth", 31);maplist.put("TotalCSHour", 32);maplist.put("RequireCShour", 33);maplist.put("OptionCSHour", 34);maplist.put("InClassCSHour", 35);
 			maplist.put("ExpCSHour", 36);maplist.put("PraCSHour", 37);maplist.put("TotalCredit", 38);maplist.put("RequireCredit", 39);maplist.put("OptionCredit", 40);maplist.put("InClassCredit", 41);
-			maplist.put("ExpCredit", 42);maplist.put("PraCredit", 43);maplist.put("OutClassCredit", 44);maplist.put("Note", 45);
+			maplist.put("ExpCredit", 42);maplist.put("PraCredit", 43);maplist.put("OutClassCredit", 44);
 
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(T322Excel.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

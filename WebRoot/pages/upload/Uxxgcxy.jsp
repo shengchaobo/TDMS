@@ -62,13 +62,13 @@
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript"
 			src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/upload/upload.js"></script>
 	</head>
-	<body style="overflow-y: scroll">
+	<body style="overflow-y: scroll" onload="loadAllURL(131,131)">
 		
 		
 		<hr color="blue" width="100%" />
-		
-		
+				
 		<table id="showInfo" class="doc-table">
 			<tbody>
 
@@ -80,82 +80,26 @@
 					</td>									
       				<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(131)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile131"></div>							
 					</td>
 				</tr>
 				
 			</tbody>
 		</table>
-		
-		<div id="ddlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true" buttons="#dlg-buttons">
-		<div class="ftitle">请选择文件</div>
-		<div class="fitem">
-
-			<% 
-    //取得服务器"/download/file"目录的物理路径 
-    String fpath = request.getRealPath("/WEB-INF/uploadList");
-    //取得"/download/file"目录的file对象 
-    File file = new File(fpath); 
-    //取得file目录下所有文件 
-    File[] files = file.listFiles(); 
-    if(files == null){
-    out.print("还没有上传文件，请先上传文件！");
-    }else{
-  
-   for (int i = 0; i < files.length; i++) { 
-  
-    String fname = files[i].getName();
-  
-    //对文件名进行url编码(UTF-8指明fname原来的编码，UTF-8一般由本地编码GBK代替) 
-     fname = java.net.URLEncoder.encode(fname, "UTF-8"); 
-  
-    out.println("<a href=download2.action?name=" + fname + "&len=" + files[i].length() + ">" 
-     + files[i].getName() + "</a><br>"); 
-    }
-    }
-   %>
-		</div>
-	</div>
 	
-	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true" buttons="#dlg-buttons">
+	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
 		<div class="ftitle">文件上传</div>
 		<div class="fitem">
-
-			<s:form action="fileupload.action" id="batchForm" method="post" enctype="multipart/form-data">
+			<Form id="batchForm" enctype="multipart/form-data" method="post">
 				<label>请选择文件：</label> 
-				<input class="easyui-validatebox" type="file" name="upload" />
-				<input type="submit" value=" 提交 " />
-			</s:form>
+				<input  type="file"  id="upload" name="uploadFile" />
+				<input type="button" value=" 提交 "  onclick="batchImport()"/>
+			</Form>
 		</div>
-	</div>
-		
-
-		
-		 
+	</div>			 
 	</body>
-
-	<script type="text/javascript">
-	
-function upload(){
-	    	
-	$('#udlg').dialog('open').dialog('setTitle','文件上传');
-		   
-}
-
-
-function downloads(){
-	    	
-	 
-	$('#ddlg').dialog('open').dialog('setTitle','文件下载');
-		   
-}
-
-</script>
 </html>

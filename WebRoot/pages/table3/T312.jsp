@@ -290,7 +290,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    if (result.state){
 						    alert(123); 
 						    $('#dlg').dialog('close'); 
-						    $('#unverifiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload'); 
 					    }
 				    }
 			    });

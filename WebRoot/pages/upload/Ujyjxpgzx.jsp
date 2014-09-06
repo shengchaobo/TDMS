@@ -62,17 +62,16 @@
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript"
 			src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/upload/upload.js"></script>
 	</head>
-	<body style="overflow-y: scroll">
+	<body style="overflow-y: scroll"  onload="loadAllURL(71,85)">
 		
 		
 		<hr color="blue" width="100%" />
 		
 		
 		<table id="showInfo" class="doc-table">
-			<tbody>
-
-											
+			<tbody>										
 				<tr>
 					<td rowspan=15 style="width: 160px; background-color: white" align="center">
 						学校就业工作情况
@@ -83,15 +82,13 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(71)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile71"></div>								
 					</td>
+				</tr>
 				<tr>
 					<td colspan=2 style="width: 200px; background-color: white"
 						align="left">
@@ -99,14 +96,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(72)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					   <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile72"></div>								
 					</td>
 				</tr>
 				<tr>
@@ -116,14 +110,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(73)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile73"></div>								
 					</td>
 				</tr>
 				<tr>
@@ -133,14 +124,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(74)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile74"></div>							
 					</td>
 				</tr>
 				<tr>
@@ -150,14 +138,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(75)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					   <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile75"></div>						
 					</td>
 				</tr>
 				<tr>
@@ -167,14 +152,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(76)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile76"></div>								
 					</td>
 				</tr>
 				<tr>
@@ -184,14 +166,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(77)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile77"></div>							
 					</td>
 				</tr>
 				<tr>
@@ -201,14 +180,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(78)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile78"></div>							
 					</td>
 				</tr>
 				<tr>
@@ -218,14 +194,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(79)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile79"></div>					
 					</td>
 				</tr>
 				<tr>
@@ -235,14 +208,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(80)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile80"></div>							
 					</td>
 				</tr>
 				<tr>
@@ -252,14 +222,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(81)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile81"></div>					
 					</td>
 				</tr>
 				<tr>
@@ -269,14 +236,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(82)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile82"></div>					
 					</td>
 				</tr>
 				<tr>
@@ -286,14 +250,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(83)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile83"></div>					
 					</td>
 				</tr>
 				<tr>
@@ -303,14 +264,11 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(84)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile84"></div>					
 					</td>
 				</tr>
 				<tr>
@@ -320,83 +278,26 @@
 					</td>
 					<td style="background-color: white">
 					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload()">上传文件</a>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(85)">上传文件</a>
 						</div>						
 					</td>		      							
 					<td style="background-color: white">
-					    <div>
-					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloads()">文件下载</a>
-					    
-						</div>						
+							<div id="downFile85"></div>					
 					</td>
 				</tr>
-					
-				
+									
 			</tbody>
 		</table>
-		
-		<div id="ddlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true" buttons="#dlg-buttons">
-		<div class="ftitle">请选择文件</div>
-		<div class="fitem">
-
-			<% 
-    //取得服务器"/download/file"目录的物理路径 
-    String fpath = request.getRealPath("/WEB-INF/uploadList");
-    //取得"/download/file"目录的file对象 
-    File file = new File(fpath); 
-    //取得file目录下所有文件 
-    File[] files = file.listFiles(); 
-    if(files == null){
-    out.print("还没有上传文件，请先上传文件！");
-    }else{
-  
-   for (int i = 0; i < files.length; i++) { 
-  
-    String fname = files[i].getName();
-  
-    //对文件名进行url编码(UTF-8指明fname原来的编码，UTF-8一般由本地编码GBK代替) 
-     fname = java.net.URLEncoder.encode(fname, "UTF-8"); 
-  
-    out.println("<a href=download2.action?name=" + fname + "&len=" + files[i].length() + ">" 
-     + files[i].getName() + "</a><br>"); 
-    }
-    }
-   %>
-		</div>
-	</div>
-	
-	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true" buttons="#dlg-buttons">
+			
+	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
 		<div class="ftitle">文件上传</div>
 		<div class="fitem">
-
-			<s:form action="fileupload.action" id="batchForm" method="post" enctype="multipart/form-data">
+			<Form id="batchForm" enctype="multipart/form-data" method="post">
 				<label>请选择文件：</label> 
-				<input class="easyui-validatebox" type="file" name="upload" />
-				<input type="submit" value=" 提交 " />
-			</s:form>
+				<input  type="file"  id="upload" name="uploadFile" />
+				<input type="button" value=" 提交 "  onclick="batchImport()"/>
+			</Form>
 		</div>
-	</div>
-		
-
-		
-		 
+	</div>	
 	</body>
-
-	<script type="text/javascript">
-	
-function upload(){
-	    	
-	$('#udlg').dialog('open').dialog('setTitle','文件上传');
-		   
-}
-
-
-function downloads(){
-	    	
-	 
-	$('#ddlg').dialog('open').dialog('setTitle','文件下载');
-		   
-}
-
-</script>
 </html>

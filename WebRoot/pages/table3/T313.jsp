@@ -402,7 +402,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverifiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload'); 
 					    }
 				    }
 			    });

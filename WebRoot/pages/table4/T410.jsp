@@ -133,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'cscd'" >
 						CSCD
 					</th>	
-					<th data-options="field:'ohterPaper'" >
+					<th data-options="field:'otherPaper'" >
 						其他
 					</th>
 					<th data-options="field:'publicationNum'" >

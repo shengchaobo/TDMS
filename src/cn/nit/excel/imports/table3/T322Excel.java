@@ -1,13 +1,33 @@
 package cn.nit.excel.imports.table3;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.BeanWrapperImpl;
+
 import jxl.Cell;
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
@@ -121,8 +141,8 @@ public class T322Excel {
 						return "第" + count + "行，专业设置时间不能为空" ;
 					}
 					
-				    if(!TimeUtil.judgeFormat1(MajorSetTime)){
-						return "第" + count + "行，专业设置时间格式有误（格式如：2013/02）" ;
+				    if(!TimeUtil.judgeFormatYM(MajorSetTime)){
+						return "第" + count + "行，专业设置时间格式有误（格式如：2013-02）" ;
 					}
 				    
 				    String MajorAppvlID = cell[7].getContents();
@@ -160,8 +180,8 @@ public class T322Excel {
 					if(MajorAdmisTime == null || MajorAdmisTime.equals("")){
 						return "第" + count + "行，开始招生时间不能为空" ;
 					}
-				    if(!TimeUtil.judgeFormat1(MajorAdmisTime)){
-						return "第" + count + "行，开始招生时间格式有误（格式如：2013/02）" ;
+				    if(!TimeUtil.judgeFormatYM(MajorAdmisTime)){
+						return "第" + count + "行，开始招生时间格式有误（格式如：2013-02）" ;
 					}
 					String MajorState=cell[11].getContents();
 					if(MajorState == null || MajorState.equals("")){
@@ -171,15 +191,15 @@ public class T322Excel {
 
 					if(MajorState.equals("在招")){
 						if(!StopAdmisTime.isEmpty()){
-							return  "第" + count + "行，在招生状态为'在招'的情况下，停止招生时间应该不填 ";
+							return  "第" + count + "行，在招,停止招生时间应该不填 ";
 						}
 						
 					}else if(MajorState.equals("当年停招")){
 						if(StopAdmisTime.isEmpty()){
-							return  "第" + count + "行，在招生状态为当年停招的情况下，停止招生时间不能为空 ";
+							return  "第" + count + "行，停招，停止招生时间不能为空 ";
 						}else{
-						    if(!TimeUtil.judgeFormat1(StopAdmisTime)){
-								return "第" + count + "行，停止招生时间格式有误（格式如：2013/02）" ;
+						    if(!TimeUtil.judgeFormatYM(StopAdmisTime)){
+								return "第" + count + "行，停止招生时间格式有误（格式如：2013-02）" ;
 							}
 						}
 						
@@ -205,8 +225,8 @@ public class T322Excel {
 						return "第" + count + "行，批准建设年度不能为空" ;
 					}
 					
-				    if(!TimeUtil.judgeFormat1(AppvlYear)){
-						return "第" + count + "行，批准建设年度格式有误（格式如：2013/02）" ;
+				    if(!TimeUtil.judgeFormatYM(AppvlYear)){
+						return "第" + count + "行，批准建设年度格式有误（格式如：2013-02）" ;
 					}
 				    
 				    String BuildAppvlID = cell[15].getContents();
@@ -281,8 +301,8 @@ public class T322Excel {
 						return "第" + count + "行，验收时间不能为空" ;
 					}
 					
-				    if(!TimeUtil.judgeFormat1(CheckTime)){
-						return "第" + count + "行，验收时间格式有误（格式如：2013/02）" ;
+				    if(!TimeUtil.judgeFormatYM(CheckTime)){
+						return "第" + count + "行，验收时间格式有误（格式如：2013-02）" ;
 					}
 					
 				    String CheckAppvlID = cell[22].getContents();
@@ -291,7 +311,7 @@ public class T322Excel {
 				    	return "第" + count + "行，验收批文号不能为空" ;
 				    }
 
-				    Pattern pattern = Pattern.compile("([-\\+]?[1-9]([0-9]*)(\\.[0-9]+)?)|(^0$)"); 
+				    Pattern pattern = Pattern.compile("([-\\+]?[0-9]([0-9]*)(\\.[0-9]+)?)|(^0$)"); 
 				    String SchExp1=cell[23].getContents();
 				    if(SchExp1 == null || SchExp1.equals("")){
 				    	return "第" + count + "行，学校经费(万元)不能为空" ;
@@ -325,15 +345,15 @@ public class T322Excel {
 							return "第" + count + "行，首次通过认证时间不能为空" ;
 						}
 						
-					    if(!TimeUtil.judgeFormat1(FirstAppvlTime)){
-							return "第" + count + "行，首次通过认证时间格式有误（格式如：2013/02）" ;
+					    if(!TimeUtil.judgeFormatYM(FirstAppvlTime)){
+							return "第" + count + "行，首次通过认证时间格式有误（格式如：2013-02）" ;
 						}
 						if(AppvlTime == null || AppvlTime.equals("")){
 							return "第" + count + "行，认证时间不能为空" ;
 						}
 						
-					    if(!TimeUtil.judgeFormat1(AppvlTime)){
-							return "第" + count + "行，认证时间格式有误（格式如：2013/02）" ;
+					    if(!TimeUtil.judgeFormatYM(AppvlTime)){
+							return "第" + count + "行，认证时间格式有误（格式如：2013-02）" ;
 						}
 					    if(AppvlID == null || AppvlID.equals("")){
 					    	return "第" + count + "行，批文号不能为空" ;
@@ -343,15 +363,15 @@ public class T322Excel {
 							return "第" + count + "行，有效期起不能为空" ;
 						}
 						
-					    if(!TimeUtil.judgeFormat1(FromTime)){
-							return "第" + count + "行，有效期起格式有误（格式如：2013/02）" ;
+					    if(!TimeUtil.judgeFormatYM(FromTime)){
+							return "第" + count + "行，有效期起格式有误（格式如：2013-02）" ;
 						}
 						if(EndTime == null || EndTime.equals("")){
 							return "第" + count + "行，有效期止不能为空" ;
 						}
 						
-					    if(!TimeUtil.judgeFormat1(EndTime)){
-							return "第" + count + "行，有效期止格式有误（格式如：2013/02）" ;
+					    if(!TimeUtil.judgeFormatYM(EndTime)){
+							return "第" + count + "行，有效期止格式有误（格式如：2013-02）" ;
 						}
 					    if(AppvlAuth == null || AppvlAuth.equals("")){
 					    	return "第" + count + "行，认证机构不能为空" ;
@@ -362,15 +382,15 @@ public class T322Excel {
 							return "第" + count + "行，首次通过认证时间不能为空" ;
 						}
 						
-					    if(!TimeUtil.judgeFormat1(FirstAppvlTime)){
-							return "第" + count + "行，首次通过认证时间格式有误（格式如：2013/02）" ;
+					    if(!TimeUtil.judgeFormatYM(FirstAppvlTime)){
+							return "第" + count + "行，首次通过认证时间格式有误（格式如：2013-02）" ;
 						}
 						if(AppvlTime == null || AppvlTime.equals("")){
 							return "第" + count + "行，认证时间不能为空" ;
 						}
 						
-					    if(!TimeUtil.judgeFormat1(AppvlTime)){
-							return "第" + count + "行，认证时间格式有误（格式如：2013/02）" ;
+					    if(!TimeUtil.judgeFormatYM(AppvlTime)){
+							return "第" + count + "行，认证时间格式有误（格式如：2013-02）" ;
 						}
 					    if(AppvlID == null || AppvlID.equals("")){
 					    	return "第" + count + "行，批文号不能为空" ;
@@ -393,7 +413,7 @@ public class T322Excel {
 //							return "第" + count + "行，首次通过认证时间不能为空" ;
 //						}
 //						
-//					    if(!TimeUtil.judgeFormat1(FirstAppvlTime)){
+//					    if(!TimeUtil.judgeFormatYM(FirstAppvlTime)){
 //							return "第" + count + "行，首次通过认证时间格式有误（格式如：2013/02）" ;
 //						}
 						if(!(AppvlTime == null || AppvlTime.equals(""))){
@@ -631,4 +651,136 @@ public class T322Excel {
 		}
 
 }
+	
+	
+	
+	public static ByteArrayOutputStream exportExcel(List list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
+		
+        WritableWorkbook wwb;
+        ByteArrayOutputStream fos = null;
+        try {    
+            fos = new ByteArrayOutputStream();
+            wwb = Workbook.createWorkbook(fos);
+            WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+
+            //    设置表头的文字格式
+            
+            WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);    
+            WritableCellFormat wcf = new WritableCellFormat(wf);
+            wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+            wcf.setAlignment(Alignment.CENTRE);
+            wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+	        		     jxl.format.Colour.BLACK);
+            
+            //    设置内容单无格的文字格式
+            WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+	                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+            WritableCellFormat wcf1 = new WritableCellFormat(wf1);       
+            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+            wcf1.setAlignment(Alignment.CENTRE);
+            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+	        		     jxl.format.Colour.BLACK);
+            ws.setRowView(1, 500);
+            
+            
+            ws.addCell(new Label(0, 0, sheetName, wcf)); 
+            
+
+            //判断一下表头数组是否有数据  
+            if (columns != null && columns.size() > 0) {  
+  
+                //循环写入表头  
+                for (int i = 0; i < columns.size(); i++) {  
+  
+                    /* 
+                     * 添加单元格(Cell)内容addCell() 
+                     * 添加Label对象Label() 
+                     * 数据的类型有很多种、在这里你需要什么类型就导入什么类型 
+                     * 如：jxl.write.DateTime 、jxl.write.Number、jxl.write.Label 
+                     * Label(i, 0, columns[i], wcf) 
+                     * 其中i为列、0为行、columns[i]为数据、wcf为样式 
+                     * 合起来就是说将columns[i]添加到第一行(行、列下标都是从0开始)第i列、样式为什么"色"内容居中 
+                     */  
+                    ws.addCell(new Label(i, 3, columns.get(i), wcf));  
+                }  
+            }
+            ws.addCell(new Label(0,2,"",wcf));
+            ws.addCell(new Label(1,2,"1.专业设置情况",wcf));
+            ws.addCell(new Label(14,2,"2.优势专业建设情况",wcf));
+            ws.addCell(new Label(25,2,"3.专业认证（评估）情况",wcf));
+            ws.addCell(new Label(32,2,"1.学时数（学时）",wcf));
+            ws.addCell(new Label(38,2,"2.学分数（学分）",wcf));
+            ws.mergeCells(1, 2, 13, 2);
+            ws.mergeCells(14, 2, 24, 2);
+            ws.mergeCells(25, 2, 31, 2);
+            ws.mergeCells(32, 2, 37, 2);
+            ws.mergeCells(38, 2, 44, 2);
+
+  
+                //判断表中是否有数据  
+            if (list != null && list.size() > 0) {  
+                    //循环写入表中数据  
+                	BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
+                	int i=1;  
+                	for(Object obj : list){  
+                		wrapper.setWrappedInstance(obj) ;  
+                        //循环输出map中的子集：既列值                         
+                        for(String column:maplist.keySet()){
+                        	
+                        	if(column.equals("SeqNum")){
+                        		ws.addCell(new Label(0,i+3,""+i,wcf1)); 
+                        		continue;
+                        	}
+                        	                        	
+        					String type = wrapper.getPropertyType(column).toString() ;
+//        					System.out.println(type +"-test：" + column);
+
+        					//判断插入数据的类型，并赋�?
+        					if(type.endsWith("String")){
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column),wcf1));
+        					}else if(type.endsWith("int")||type.endsWith("Integer")){
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
+        					}else if(type.endsWith("Date")){
+        						if((java.util.Date)wrapper.getPropertyValue(column) == null){
+        							ws.addCell(new Label(maplist.get(column).intValue(),i+3,null,wcf1));
+        						}else{
+            						java.util.Date utilDate = (java.util.Date)wrapper.getPropertyValue(column) ;
+            						Date sqlDate = new Date(utilDate.getTime()) ;
+            						SimpleDateFormat sfEnd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            						SimpleDateFormat sfStart = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",java.util.Locale.ENGLISH) ;
+//            						sfEnd.format(sfStart.parse(sqlDate.toString()));
+            						
+            						ws.addCell(new Label(maplist.get(column).intValue(),i+3,sfEnd.format(sfStart.parse(sqlDate.toString())).toString().substring(0, 7),wcf1));
+        							
+        						}
+        					}else if(type.endsWith("long")||type.endsWith("Long")){
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
+        					}else if(type.endsWith("boolean")||type.endsWith("Boolean")){
+        						if((Boolean)wrapper.getPropertyValue(column)){
+        							ws.addCell(new Label(maplist.get(column).intValue(),i+3,"是",wcf1));
+        						}else{
+        							ws.addCell(new Label(maplist.get(column).intValue(),i+3,"否",wcf1));
+        						}
+        					}else if(type.endsWith("double")||type.endsWith("Double")){
+        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
+        					}else{
+        						throw new Exception("自行添加对应类型" + type) ;
+        					}                       	                         	
+                    }
+                    i++;
+                }
+            }else{
+            	System.out.println("后台传入的数据为空");
+            }
+
+            wwb.write();
+            wwb.close();
+
+        } catch (IOException e){
+        } catch (RowsExceededException e){
+        } catch (WriteException e){}
+        
+        return fos ;
+    }
 }

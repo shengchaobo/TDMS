@@ -106,31 +106,7 @@ public class T54_Action {
 			}
 		}
 	}
-	
-	/**按年份删除数据*/
-	public void deleteByYear(){
-		
-		System.out.println("selectYear=" + this.getSelectYear()) ;
-		boolean flag = T54_services.deleteByYear(this.getSelectYear());
-		PrintWriter out = null ;
-		
-		try{
-			out = getResponse().getWriter() ;
-			
-			if(flag){
-				out.print("{\"mesg\":\"success\"}") ;
-			}else{
-				out.print("{\"mesg\":\"fail\"}") ;
-			}
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+
 	
 	//保存
 	public void save(){

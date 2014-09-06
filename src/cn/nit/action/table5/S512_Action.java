@@ -43,7 +43,6 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.table1.S17Bean;
 import cn.nit.bean.table5.S512_Bean;
 import cn.nit.dao.table5.S512_DAO;
-import cn.nit.excel.imports.table5.S512Excel;
 import cn.nit.service.table5.S512_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -54,8 +53,6 @@ public class S512_Action {
 	
 	/**  表s512的数据库操作类  */
 	private S512_DAO s512Dao = new S512_DAO() ;
-	
-	private S512Excel s512Excel=new S512Excel();
 
 	/**  表s512的Service类  */
 	private S512_Service s512Ser = new S512_Service() ;

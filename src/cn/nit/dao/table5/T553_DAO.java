@@ -49,7 +49,7 @@ public class T553_DAO {
      	
      	
         StringBuffer sql=new StringBuffer();
-     	sql.append("select count(*)");
+     	sql.append("select count(*) AS Count");
      	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
      	sql.append(" where adl.IndexID=t.AwardLevel") ; 	
      	int total=0;
@@ -78,7 +78,7 @@ public class T553_DAO {
  				
  			}
  			while(rs.next()){
- 				total+=1;
+ 				total = rs.getInt("Count");
  			}
  			
  			

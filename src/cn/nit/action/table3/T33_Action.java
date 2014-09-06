@@ -114,7 +114,7 @@ private T33_Service t33_Service = new T33_Service() ;
 	/**  为界面加载数据  */
 public void auditingData(){
 		
- 	System.out.println("愁死我得了");
+ 	//System.out.println("愁死我得了");
 		
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 			return ;
@@ -225,24 +225,17 @@ public void auditingData(){
 			
 			List<T33_Bean> list = t33_DAO.totalList();
 			
-			String sheetName = this.excelName;
-			
-			List<String> columns = new ArrayList<String>();
-			columns.add("序号");
-			columns.add("教学单位");columns.add("单位号");columns.add("专业名称");
-			columns.add("专业代码");columns.add("专业方向名称");columns.add("批准设置时间");
-			columns.add("首次招生时间");columns.add("修业年限");columns.add("特色专业");columns.add("重点专业");
-			columns.add("专业带头人姓名");columns.add("专业带头人是否专职");columns.add("专业负责人姓名");columns.add("专业负责人是否专职");
-			columns.add("备注");
+			String sheetName = this.excelName;			
+
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("MajorName", 3);maplist.put("MajorID", 4);
 			maplist.put("MajorFieldName", 5);maplist.put("AppvlSetTime", 6);maplist.put("FirstAdmisTime", 7);maplist.put("MajorYearLimit", 8);
 			maplist.put("IsSepcialMajor", 9);maplist.put("IsKeyMajor", 10);maplist.put("MajorLeader", 11);maplist.put("LIsFullTime", 12);
-			maplist.put("MajorChargeMan", 13);maplist.put("CIsFullTime", 14);maplist.put("Note",15);
+			maplist.put("MajorChargeMan", 13);maplist.put("CIsFullTime", 14);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
+			inputStream = new ByteArrayInputStream(T33Excel.exportExcel(list, sheetName, maplist).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;

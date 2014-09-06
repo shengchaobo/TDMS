@@ -142,7 +142,7 @@
     	$('#Type').combobox('select', row[0].type) ;
     	$('#ItemLevel').val(row[0].itemLevel) ;
     	$('#buildTime').datebox('setValue',formattime(row[0].buildTime));
-    	$('#TeaUnit').val(row[0].teaUnit);
+    	$('#TeaUnit').combobox('select',row[0].teaUnit);
     	$('#JoinStuNum').val(row[0].joinStuNum);
 		$('#Note').val(row[0].note) ;
 	}

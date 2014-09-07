@@ -140,7 +140,7 @@ public class T311Excel {
 		flag = t311_Ser.batchInsert(list) ;
 
 		if(flag){
-			return "数据导入成功" ;
+			return null ;
 		}else{
 			return "数据存储失败，请联系管理员" ;
 		}

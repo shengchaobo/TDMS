@@ -203,6 +203,7 @@ private T311_Service postDocStaSer = new T311_Service() ;
 		System.out.println("ids=" + ids) ;
 		boolean flag = postDocStaSer.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
+		getResponse().setContentType("text/html; charset=UTF-8") ;
 		
 		try{
 			out = getResponse().getWriter() ;

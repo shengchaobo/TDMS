@@ -185,7 +185,7 @@ public class T711_Excel {
 				T711_Bean.setAwardName(ardName);
 				T711_Bean.setAwardLevel(ardLevelID);
 				T711_Bean.setAwardRank(ardRank);
-				T711_Bean.setAwardTime(TimeUtil.changeDateYM(ardTime));
+				T711_Bean.setAwardTime7(TimeUtil.changeDateYM(ardTime));
 				T711_Bean.setAwardFromUnit(ardFu);
 				T711_Bean.setAppvlID(appID);
 				T711_Bean.setJoinTeaNum(Integer.parseInt(joinTn));

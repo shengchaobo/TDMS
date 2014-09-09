@@ -1,4 +1,4 @@
-package cn.nit.dao.table5;
+﻿package cn.nit.dao.table5;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -49,9 +49,9 @@ public class T512_DAO {
      	
      	
         StringBuffer sql=new StringBuffer();
-     	sql.append("select count(*)");
+     	sql.append("select count(*) AS Count");
      	sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+	sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
      	int total=0;
      	
      	if(fillUnitId!=null && !fillUnitId.equals("")){
@@ -78,7 +78,7 @@ public class T512_DAO {
  				
  			}
  			while(rs.next()){
- 				total+=1;
+ 				total = rs.getInt("Count");
  			}
  			
  			

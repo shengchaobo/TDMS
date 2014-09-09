@@ -49,7 +49,7 @@ public class T511_DAO {
      	
      	
         StringBuffer sql=new StringBuffer();
-     	sql.append("select count(*)");
+     	sql.append("select count(*) AS COUNT");
      	sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
      	int total=0;
@@ -78,7 +78,7 @@ public class T511_DAO {
  				
  			}
  			while(rs.next()){
- 				total+=1;
+ 				total = rs.getInt("COUNT");
  			}
  			
  			

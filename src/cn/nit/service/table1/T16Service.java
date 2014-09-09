@@ -53,31 +53,41 @@ public class T16Service {
 	
 	/**编辑保存*/
 	public Boolean save(String data, String year,	String fields){
+		System.out.println("++++++");
 		T16Bean bean1 = new T16Bean();
 		T16Bean bean2 = new T16Bean();
 		boolean flag = false;
 		String field[] = data.split("a");
+
+		
+		
 		for(String s : field){
 			String fieldName = s;
 			String mapVal[] = s.split("%");
 			if(mapVal[0].equals("contents1")){
-				bean1.setContents(mapVal[1]);
-				String Item = "1.校训";
-				bean1.setItem(Item);
-				bean1.setTime(TimeUtil.changeDateY(year));
-				String dataF = "Contents";
-//				bean1.setItem("1.校训");
-//				bean1.setTime(TimeUtil.changeDateY(year));
-				flag = t16Dao.save(bean1, year, dataF, Item);
+				    String Item = "1.校训";
+				    if(mapVal.length<2){//判断长度，长度唯一，说明content为空，则删除这条
+				    	flag = t16Dao.deleteByItem(year, Item);
+				    }else{//r若content不为空，则保存数据
+				    	bean1.setContents(mapVal[1]);
+						bean1.setItem(Item);
+						bean1.setTime(TimeUtil.changeDateY(year));
+						String dataF = "Contents";
+						flag = t16Dao.save(bean1, year, dataF, Item);
+				    }
+					
 			}else if(mapVal[0].equals("contents2")){
-				bean2.setContents(mapVal[1]);
 				String Item = "2.定位与发展目标";
-				bean2.setItem(Item);
-				bean2.setTime(TimeUtil.changeDateY(year));
-				String dataF = "Contents";
-				flag = t16Dao.save(bean2, year, dataF, Item);
-//				bean2.setItem("2.定位与发展目标");
-//				bean2.setTime(TimeUtil.changeDateY(year));
+				if(mapVal.length<2){
+					flag = t16Dao.deleteByItem(year, Item);
+				}else{
+					bean2.setContents(mapVal[1]);
+//					System.out.println("2mapVal[1]:"+mapVal[1]);
+					bean2.setItem(Item);
+					bean2.setTime(TimeUtil.changeDateY(year));
+					String dataF = "Contents";
+					flag = t16Dao.save(bean2, year, dataF, Item);
+				}
 			}
 		}
 		return flag;

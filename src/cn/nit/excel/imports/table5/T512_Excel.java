@@ -57,7 +57,7 @@ public class T512_Excel {
 			T512_Bean T512_Bean=new T512_Bean();
 			try {
 				
-				if(count<5){
+				if(count<4){
 					count++;
 					continue;
 				}
@@ -66,8 +66,8 @@ public class T512_Excel {
 				if(term == null || term.equals("")){
 					return "第" + count + "行，学期不能为空" ;
 				}
-				if(term.length()>50){
-					return "第" + count + "行，学期不能超过50个字符" ;
+				if(term.length()>200){
+					return "第" + count + "行，学期不能超过200个字符" ;
 				}
 				String unit = cell[2].getContents() ;
 				if((unit == null) || unit.equals("")){
@@ -401,7 +401,6 @@ public class T512_Excel {
 				T512_Bean.setBookUseInfo(bookUseInfo);
 				T512_Bean.setIsPlanbook(IsPlanbook);
 				T512_Bean.setIsAwardbook(IsAwardbook);
-				T512_Bean.setFillUnitID(fillUnitID);
 				T512_Bean.setTime(TimeUtil.changeDateY(selectYear));
 	            
 				list.add(T512_Bean);

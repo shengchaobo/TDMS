@@ -141,7 +141,7 @@ public class T17Excel {
 		flag = t17Ser.batchInsert(list) ;
 		
 		if(flag){
-			return "数据导入成功" ;
+			return null ;
 		}else{
 			return "数据存储失败，请联系管理员" ;
 		}

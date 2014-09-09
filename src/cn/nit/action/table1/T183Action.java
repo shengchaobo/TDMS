@@ -262,7 +262,7 @@ public class T183Action {
 
 		try {
 			
-			List<T181Bean> list = t183Dao.totalList();
+			List<T181Bean> list = t183Dao.totalList("1017");
 			
 			String sheetName = this.excelName;
 			

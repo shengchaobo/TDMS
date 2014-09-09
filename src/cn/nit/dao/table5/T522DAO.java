@@ -239,10 +239,9 @@ public class T522DAO {
 	
 	public static void main(String arg[]){
 		T522DAO dao=new T522DAO();
-		List<T521POJO> list=dao.auditingData(null, null, 1, 1);
-		int n=dao.totalAuditingData(null, null);
+		List<T521Bean> list=dao.totalList();
 		System.out.println(list.size());
-		System.out.println(n);
+		System.out.println(list.get(0).getCSType());
 	}
 
 

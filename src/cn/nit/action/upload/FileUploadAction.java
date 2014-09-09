@@ -35,44 +35,6 @@ public class FileUploadAction extends ActionSupport {
 	public void setUploadFile(File uploadFile) {
 		this.uploadFile = uploadFile;
 	}
-  
-/*    public String execute() {  
-  
-       // 把上传的文件放到指定的路径下  
-    	HttpServletRequest request = ServletActionContext.getRequest() ;
-  
-       String path = ServletActionContext.getServletContext().getRealPath(inputPath);  
-  
-       // 写到指定的路径中  
-  
-       File file = new File(path);  
-  
-       // 如果指定的路径没有就创建  
-  
-       if (!file.exists()) {  
-  
-           file.mkdirs();  
-       }  
-  
-       // 把得到的文件的集合通过循环的方式读取并放在指定的路径下  
-  
-       for (int i = 0; i < upload.size(); i++) {  
-           try {  
-  
-              //list集合通过get(i)的方式来获取索引  
-  
-              FileUtils.copyFile(upload.get(i), new File(file, uploadFileName.get(i)));  
-  
-           } catch (IOException e) {  
-  
-              // TODO Auto-generated catch block  
-  
-              e.printStackTrace();  
-           }  
-       }  
-  
-       return SUCCESS;  
-    }  */
     
     public void upload() throws IOException{
     	
@@ -95,8 +57,7 @@ public class FileUploadAction extends ActionSupport {
 	        	File[] fileList = dirFile.listFiles();	        	
 	        	for(File f:fileList){
 	        		f.delete();
-	        	}
-	        	
+	        	}	        	
 	        	savefile = new File(new File(dir), this.getUploadFileFileName());
 	        }else{
 	        	savefile = new File(new File(dir), this.getUploadFileFileName());	        	 

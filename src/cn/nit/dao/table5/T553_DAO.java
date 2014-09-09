@@ -61,7 +61,7 @@ public class T553_DAO {
      	if(conditions!=null && !conditions.equals("")){
      		sql.append(conditions);
      	}
-     	
+     	System.out.println(sql);
      	
      	Connection conn=DBConnection.instance.getConnection();
      	    	

@@ -90,7 +90,6 @@ public class T511_Action {
 	/**  为界面加载数据  */
 	
 	public void auditingData(){
-		
 
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 			return ;

@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="awardName">奖励名称</th>
 				<th field="awardLevel">级别</th>
 				<th field="awardRank">等级</th>
-				<th field="awardTime" formatter="formattime">获奖时间</th>
+				<th field="awardTime7" formatter="formattime">获奖时间</th>
 				<th field="awardFromUnit">授予单位</th>
 				<th field="appvlID">批文号</th>
 				<th field="joinTeaNum">合作教师人数</th>
@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="awardName">奖励名称</th>
 				<th field="awardLevel">级别</th>
 				<th field="awardRank">等级</th>
-				<th field="awardTime" formatter="formattime">获奖时间</th>
+				<th field="awardTime7" formatter="formattime">获奖时间</th>
 				<th field="awardFromUnit">授予单位</th>
 				<th field="appvlID">批文号</th>
 				<th field="joinTeaNum">合作教师人数</th>
@@ -219,9 +219,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>获奖时间：</label> 
-						<input  id="AwardTime"  class="easyui-datebox" style="width:80px"  name="t711_Bean.AwardTime" editable="false">
+						<input  id="AwardTime7"  class="easyui-datebox" style="width:80px"  name="t711_Bean.awardTime7" editable="false">
 						
-							<span id="AwardTimeSpan"></span>
+							<span id="AwardTime7Span"></span>
 					</div>
 				</td>
 			</tr>
@@ -392,7 +392,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var awardName = $('#AwardName').val();
 			var awardLevel = $('#AwardLevel').combobox('getText');
 			var awardRank = $('#AwardRank').combobox('getText');
-			var awardTime = $('#AwardTime').datebox('getText');
+			var awardTime7 = $('#AwardTime7').datebox('getText');
 			var awardFromUnit = $('#AwardFromUnit').val();
 			var appvlID = $('#AppvlID').val();
 			var joinTeaNum = $('#JoinTeaNum').val();
@@ -425,7 +425,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       alert("级别不能为空");
 				return false ;
 			}
-			if(awardTime == null || awardTime.length == 0){
+			if(awardTime7 == null || awardTime7.length == 0){
 			  alert("获奖时间不能为空");
 				return false ;
 			}
@@ -476,7 +476,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#AppvlID').val(row[0].appvlID) ;
 			$('#JoinTeaNum').val(row[0].joinTeaNum) ;
 			$('#OtherJoinTeaInfo').val(row[0].otherJoinTeaInfo) ;
-			$('#AwardTime').datebox('setValue',formattime(row[0].awardTime)) ;
+			$('#AwardTime7').datebox('setValue',formattime(row[0].awardTime7)) ;
 			$('#Note').val(row[0].note) ;
 	    }
 

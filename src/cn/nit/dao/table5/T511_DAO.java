@@ -8,6 +8,7 @@ import java.util.List;
 import cn.nit.bean.table5.T511_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.T511POJO;
+import cn.nit.pojo.table5.T552POJO;
 import cn.nit.util.DAOUtil;
 
 public class T511_DAO {
@@ -49,9 +50,10 @@ public class T511_DAO {
      	
      	
         StringBuffer sql=new StringBuffer();
-     	sql.append("select count(*)");
-     	sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
+     	sql.append("select count(*) AS Count");
+    	sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+
      	int total=0;
      	
      	if(fillUnitId!=null && !fillUnitId.equals("")){
@@ -78,7 +80,7 @@ public class T511_DAO {
  				
  			}
  			while(rs.next()){
- 				total+=1;
+ 				total = rs.getInt("Count");
  			}
  			
  			
@@ -111,7 +113,7 @@ public class T511_DAO {
      	
      	//System.out.println(123);
      	if(fillUnitId != null && !fillUnitId.equals("")){
- 			sql.append(" and FillUnitID=" + fillUnitId) ;
+ 			sql.append("and FillUnitID=" + fillUnitId) ;
  		}
  		
  		if(conditions != null){
@@ -119,14 +121,14 @@ public class T511_DAO {
  		}
  		
  		sql.append(" order by SeqNumber desc") ;
- 		
+ 		System.out.println(sql);
  		Connection conn=DBConnection.instance.getConnection();
  		
  		Statement st=null;
  	    ResultSet rs=null;
  	    
  	    try {
- 			st=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+ 	    	st=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
  			st.setMaxRows(page * rows);
  			rs=st.executeQuery(sql.toString());
  			rs.absolute((page - 1) * rows);

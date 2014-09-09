@@ -261,7 +261,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 },
 	    		 success: function(result){
 	    		 	var result = eval('('+result+')');
-	    		 	alert(result);
 	    		 	if (!result.success){
 	    		 		$.messager.show({
 	    		 			title: 'Error',
@@ -273,7 +272,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 			msg: result.errorMsg
 				 		});
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#dg').datagrid('reload'); // reload the user data
+			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
 	    		 	}
 	    		 }
 	    		 });

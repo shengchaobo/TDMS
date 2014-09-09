@@ -145,7 +145,7 @@ public class T522Excel {
 					
 					String OtherTeaNum=cell[8].getContents();
 					
-					if(OtherTeaNum != null || OtherTeaNum.length()>200){
+					if(OtherTeaNum != null && OtherTeaNum.length()>200){
 						return "第" + count + "行，其他参与教师字数不能超过100字" ;
 					}
 					
@@ -208,7 +208,7 @@ public class T522Excel {
 					
 					String Note=cell[15].getContents();
 					
-					if(Note != null || Note.length()>1000){
+					if(Note != null&&Note.length()>1000){
 						return "第" + count + "行，备注不能超过500字" ;
 					}
 					

@@ -401,6 +401,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+					 		$.messager.show({
+					 			title: 'Success',
+					 			msg: result.errorMsg
+					 		});
 						    $('#dlg').dialog('close'); 
 						    $('#unverfiedData').datagrid('reload'); 
 					    }

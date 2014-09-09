@@ -34,7 +34,6 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table3.S31_Bean;
 import cn.nit.dao.table3.S31_DAO;
-import cn.nit.excel.imports.table3.S31Excel;
 
 
 
@@ -53,7 +52,7 @@ private S31_Service s31_Service = new S31_Service() ;
 	private S31_DAO  s31_DAO=new S31_DAO();
 
 	
-	private S31Excel s31Excel = new S31Excel() ;
+//	private S31Excel s31Excel = new S31Excel() ;
 	
 
 	/**  哪一年数据  */

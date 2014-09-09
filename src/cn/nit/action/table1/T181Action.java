@@ -224,6 +224,7 @@ public class T181Action {
 		PrintWriter out = null ;
 		
 		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			if(flag){
 				out.print("{\"state\":true,data:\"删除成功!!!\"}") ;

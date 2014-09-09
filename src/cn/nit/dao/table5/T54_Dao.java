@@ -168,72 +168,7 @@ public class T54_Dao {
 		}
 				
 		return flag ;
-	}
-	
-	/**按年份删除数据*/
-	public boolean deleteByYear(String year){
-		
-		int flag = 0 ;
-		StringBuffer sql = new StringBuffer() ;
-		sql.append("delete from " + tableName) ;
-		sql.append(" where Time like '"+year+"%'") ;
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		
-		try{
-			st = conn.createStatement() ;
-			flag = st.executeUpdate(sql.toString()) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return false ;
-		}
-		
-		if(flag == 0){
-			return false ;
-		}else{
-			return true ;
-		}
-	}
-	
-	/**
-	 * 讲数据批量插入551表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
-	 * @return true表示插入成功，false表示插入失败
-	 */
-	public boolean batchInsert(List<T54_Bean> list,String year){
-		
-		boolean flag = false ;
-		Connection conn = DBConnection.instance.getConnection() ;
-		StringBuffer sql = new StringBuffer();
-		sql.append("select * from "+tableName);
-		sql.append(" where Time like '"+year+"%'");
-		
-		Statement st = null;
-		ResultSet rs = null;
-		List<T54_Bean> templist = null ;
-		
-		try{
-			st=conn.createStatement();
-			rs = st.executeQuery(sql.toString());
-			templist = DAOUtil.getList(rs, T54_Bean.class) ;
-			if(templist.size()!=0){
-				String delSql = "delete  from " + tableName + " where convert(varchar(4),Time,120)=" + year;
-				int delflag = st.executeUpdate(delSql.toString());
-				if(delflag>0){
-					flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
-				}
-			}else{
-				flag = DAOUtil.batchInsert(list, tableName, field, conn) ;
-			}
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return flag ;
-		}
-		
-		return flag ;
-	}
-	
-	
+	}	
 	
 	public static void main(String args[]){
 		//T54_Dao testDao =  new T54_Dao() ;

@@ -332,6 +332,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  		 			msg: result.errorMsg
 	  			 }); 
 	  		 	} else {
+			 		$.messager.show({
+			 			title: 'Success',
+			 			msg: result.errorMsg
+			 		});
 			    		 $('#dlg').dialog('close'); // close the dialog
 			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
 	  		 	}

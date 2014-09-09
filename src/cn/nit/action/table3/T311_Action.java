@@ -154,8 +154,6 @@ private T311_Service postDocStaSer = new T311_Service() ;
 			cond = conditions.toString();
 		}
 		String pages = postDocStaSer.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
-	
-		System.out.println(pages);
 		PrintWriter out = null ;
 		
 		
@@ -181,7 +179,7 @@ private T311_Service postDocStaSer = new T311_Service() ;
 
 		boolean flag = postDocStaSer.update(postDocStaBean) ;
 		PrintWriter out = null ;
-		
+		getResponse().setContentType("text/html; charset=UTF-8") ;
 		try{
 			out = getResponse().getWriter() ;
 			if(flag){
@@ -205,6 +203,7 @@ private T311_Service postDocStaSer = new T311_Service() ;
 		System.out.println("ids=" + ids) ;
 		boolean flag = postDocStaSer.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
+		getResponse().setContentType("text/html; charset=UTF-8") ;
 		
 		try{
 			out = getResponse().getWriter() ;

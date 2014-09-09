@@ -42,7 +42,6 @@ import cn.nit.bean.table3.A321_Bean;
 
 
 import cn.nit.dao.table3.A321_DAO;
-import cn.nit.excel.imports.table3.A321Excel;
 
 
 
@@ -61,7 +60,7 @@ public class A321_Action {
 		private A321_DAO a321_DAO=new A321_DAO();
 	
 		
-		private A321Excel a321Excel = new A321Excel() ;
+//		private A321Excel a321Excel = new A321Excel() ;
 		
 		
 		/**  哪一年数据  */
@@ -304,17 +303,17 @@ public class A321_Action {
 
 
 
-
-		public A321Excel getA321Excel() {
-			return a321Excel;
-		}
-
-
-
-
-		public void setA321Excel(A321Excel a321Excel) {
-			this.a321Excel = a321Excel;
-		}
+//
+//		public A321Excel getA321Excel() {
+//			return a321Excel;
+//		}
+//
+//
+//
+//
+//		public void setA321Excel(A321Excel a321Excel) {
+//			this.a321Excel = a321Excel;
+//		}
 
 
 

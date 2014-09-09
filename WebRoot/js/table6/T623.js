@@ -227,6 +227,10 @@ function batchImport(){
 		 			msg: result.errorMsg
 			 });
 		 	} else {
+		 		$.messager.show({
+		 			title: 'Success',
+		 			msg: result.errorMsg
+		 		});
 		    		 $('#dlg').dialog('close'); // close the dialog
 		    		 $('#commomData').datagrid('reload'); // reload the user data
 		 	}

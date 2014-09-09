@@ -261,15 +261,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 },
 	    		 success: function(result){
 	    		 	var result = eval('('+result+')');
-	    		 	alert(result);
 	    		 	if (!result.success){
 	    		 		$.messager.show({
 	    		 			title: 'Error',
 	    		 			msg: result.errorMsg
 	    			 });
 	    		 	} else {
+				 		$.messager.show({
+				 			title: 'Success',
+				 			msg: result.errorMsg
+				 		});
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#dg').datagrid('reload'); // reload the user data
+			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
 	    		 	}
 	    		 }
 	    		 });

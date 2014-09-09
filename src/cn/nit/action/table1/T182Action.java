@@ -209,6 +209,7 @@ public class T182Action {
 		PrintWriter out = null ;
 		
 		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			if(flag){
 				out.print("{\"state\":true,data:\"删除成功!!!\"}") ;
@@ -259,7 +260,7 @@ public class T182Action {
 
 		try {
 			
-			List<T181Bean> list = t182Dao.totalList();
+			List<T181Bean> list = t182Dao.totalList("1013");
 			
 			String sheetName = this.excelName;
 			

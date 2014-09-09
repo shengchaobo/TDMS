@@ -167,8 +167,9 @@ public class T312_Action {
 
 		boolean flag = docAndGraStaSer.update(docAndGraStaBean) ;
 		PrintWriter out = null ;
-		
+
 		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			if(flag){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;

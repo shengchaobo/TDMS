@@ -138,12 +138,12 @@ public class T16Action {
 		PrintWriter out = null ;
 		
 		if(pages == null){
-			System.out.println("no data");
+			
 			response.setContentType("text/html;charset=UTF-8") ;
 			out = response.getWriter() ;
 			out.println( "<script language='javascript'>window.alert('无该年数据');</script>" ); 
 		}else{
-			System.out.println("have data");
+		
 			try {				
 //				System.out.println(json) ;
 				response.setContentType("application/json;charset=UTF-8") ;
@@ -168,13 +168,10 @@ public class T16Action {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
 		String tempData = this.getData();
-		System.out.println(tempData);
-//		System.out.println("tempDate:"+tempData);
-		//System.out.println(tempData);
-				
-//		T16POJO pojo  = this.toBean(tempData, T16POJO.class);
+//		System.out.println("tempData:"+tempData);
+
 //		System.out.println("fields:"+this.getFields());	
-		System.out.println(this.getFields());
+		System.out.println("this.getFields():"+this.getFields());
 		boolean flag = t16Ser.save(tempData,this.getSelectYear(),this.getFields());
 	
 		PrintWriter out = null ;

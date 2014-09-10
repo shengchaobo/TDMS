@@ -64,7 +64,7 @@
 		var awardType = $('#AwardType').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (indexID == null || indexID.length == 0 ) {
+		if (indexID == null || indexID.length == 0 || indexID == "null") {
 			alert("荣誉类型代码不能为空");
 			return false;
 		}
@@ -74,7 +74,7 @@
 			return false;
 		}
 		
-		if (awardType == null || awardType.length == 0 ) {
+		if (awardType == null || awardType.length == 0 || awardType == "null") {
 			alert("荣誉类型名称不能为空");
 			return false;
 		}

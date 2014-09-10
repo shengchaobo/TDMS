@@ -64,7 +64,7 @@
 		var researchTeam = $('#ResearchTeam').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (indexID == null || indexID.length == 0 ) {
+		if (indexID == null || indexID.length == 0 || indexID == "null") {
 			alert("研究团队代码不能为空");
 			return false;
 		}
@@ -74,7 +74,7 @@
 			return false;
 		}
 		
-		if (researchTeam == null || researchTeam.length == 0 ) {
+		if (researchTeam == null || researchTeam.length == 0 || researchTeam == "null") {
 			alert("研究团队名称不能为空");
 			return false;
 		}

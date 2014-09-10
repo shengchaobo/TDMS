@@ -64,7 +64,7 @@
 		var paperType = $('#PaperType').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (indexID == null || indexID.length == 0 ) {
+		if (indexID == null || indexID.length == 0 || indexID == "null") {
 			alert("发表文章类别代码不能为空");
 			return false;
 		}
@@ -74,7 +74,7 @@
 			return false;
 		}
 		
-		if (paperType == null || paperType.length == 0 ) {
+		if (paperType == null || paperType.length == 0 || paperType == "null") {
 			alert("发表文章类别不能为空");
 			return false;
 		}

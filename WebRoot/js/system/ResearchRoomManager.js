@@ -67,17 +67,17 @@
 
 
 		//根据数据库定义的字段的长度，对其进行判断
-		if (unitID == null || unitID.length == 0 ) {
+		if (unitID == null || unitID.length == 0 || unitID == "null") {
 			alert("教研室号不能为空");
 			return false;
 		}
 
-		if (parentID == null || parentID.length == 0 ) {
+		if (parentID == null || parentID.length == 0 || parentID == "null") {
 			alert("所属教学单位不能为空");
 			return false;
 		}
 
-		if (researchName == null || researchName.length == 0) {
+		if (researchName == null || researchName.length == 0 || researchName == "null") {
 			alert("教研室名不能为空");
 			return false;
 		}

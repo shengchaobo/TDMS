@@ -34,7 +34,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/table5/T512.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  url="pages/T512/auditingData"  style="height: auto">
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  url="pages/T512/auditingData"  style="height: auto"
+	toolbar="#toolbar" pagination="true" rownumbers="true"
+		fitColumns="true" singleSelect="false">
 		
 		<thead data-options="frozen:true">
 			<tr>			

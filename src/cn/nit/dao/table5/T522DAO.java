@@ -169,10 +169,12 @@ public class T522DAO {
 	public List<T521Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select SeqNumber,CSType,CSName,CSID,CSLevel,Leader,TeaID,JoinTeaNum,OtherTea,CSUrl,AppvlTime,ReceptTime,TeaUnit," +
-			"UnitID,AppvlID,Time,Note");
-		sql.append(" from "+tableName);
-		sql.append(" where CSType='网络课程'");
+		sql.append("select t.SeqNumber,t.CSType,t.CSName,t.CSID,dia.AwardLevel as CSLevel,t.Leader,t.TeaID,t.JoinTeaNum,t.OtherTea," +
+				"t.CSUrl,t.AppvlTime,t.ReceptTime,t.TeaUnit," +
+			"t.UnitID,t.AppvlID,t.Time,t.Note");
+		sql.append(" from "+tableName+" as t,DiAwardLevel as dia");
+		sql.append(" where t.CSType='网络课程'");
+		sql.append(" and t.CSLevel=dia.IndexID");
 		
 		
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -239,10 +241,9 @@ public class T522DAO {
 	
 	public static void main(String arg[]){
 		T522DAO dao=new T522DAO();
-		List<T521POJO> list=dao.auditingData(null, null, 1, 1);
-		int n=dao.totalAuditingData(null, null);
+		List<T521Bean> list=dao.totalList();
 		System.out.println(list.size());
-		System.out.println(n);
+		System.out.println(list.get(0).getCSType());
 	}
 
 

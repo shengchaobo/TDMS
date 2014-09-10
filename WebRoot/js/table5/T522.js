@@ -89,6 +89,7 @@
 		var teaID = $('#Leader').val();
 		var joinTeaNum = $('#JoinTeaNum').combobox('getText');
 		var appvlTime = $('#AppvlTime').datebox('getValue');
+		var receptTime = $('#ReceptTime').datebox('getValue');
 		var unitID = $('#TeaUnit').val();
 		var note = $('#Note').val();
 		
@@ -118,6 +119,10 @@
 		}
 		if(appvlTime ==null || appvlTime.length == 0){
 			alert("获准时间不能为空");
+			return false;
+		}
+		if(receptTime ==null || receptTime.length == 0){
+			alert("验收时间不能为空");
 			return false;
 		}
 		

@@ -52,6 +52,35 @@ public class T16DAO {
 		return flag ;
 	}
 	
+	/**看是否存在某个Item*/
+	public boolean findItem(String Item){
+		boolean flag = false;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append(" select Item from "+tableName);
+		sql.append(" where Item='"+Item+"'");
+		
+
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString()) ;
+			if(rs.next()){
+				flag = true;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return flag;
+	}
+	
 	/**
 	 * 數據導出
 	 */
@@ -254,6 +283,31 @@ public class T16DAO {
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("delete from " + tableName) ;
 		sql.append(" where Time like '"+year+"%'") ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			flag = st.executeUpdate(sql.toString()) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}
+		
+		if(flag == 0){
+			return false ;
+		}else{
+			return true ;
+		}
+	}
+	
+	/**按年份删除数据*/
+	public boolean deleteByItem(String year,String Item){
+		
+		int flag = 0 ;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("delete from " + tableName) ;
+		sql.append(" where Time like '"+year+"%' and Item='"+Item+"'") ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		

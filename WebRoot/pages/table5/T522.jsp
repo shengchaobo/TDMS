@@ -190,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T521/dataExport?excelName=<%=URLEncoder.encode("表5-2-2网络课程建设情况（网络信息中心）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href='pages/T522/dataExport?excelName=<%=URLEncoder.encode("表5-2-2网络课程建设情况（网络信息中心）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		
 	</div>
 	

@@ -212,9 +212,6 @@ public class T411_Action {
 		InputStream inputStream = null ;
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
 			List<T411_Bean> list = T411_dao.totalList();
 						

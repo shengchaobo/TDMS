@@ -166,13 +166,14 @@ public class T18DAO {
 	}
 	
 	/**用于数据导出*/
-	public List<T181Bean> totalList(){
+	public List<T181Bean> totalList(String unitID){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,FillDept,t.CooperInsName,t.CooperInsType,dal.AwardLevel as CooperInsLevel,t.CooperInsLevel as CooperInsLevelID" +
 				",t.SignedTime,t.UnitName,t.UnitID,dal.AwardLevel as UnitLevel,t.UnitLevel as UnitLevelID,t.Time,t.Note,t.audit" );
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiAwardLevel dal");
 		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.CooperInsLevel");
+		sql.append(" and t.UnitID='"+unitID+"'");
 
 		
 		
@@ -239,9 +240,9 @@ public class T18DAO {
 	{
 		T18DAO dao=new T18DAO();
 //		int n=dao.totalAuditingData(null, null);
-		List<T181Bean> list=dao.totalList();
+//		List<T181Bean> list=dao.totalList();
 //		int n=dao.totalAuditingData(null, "1012");
-		System.out.println(list.size());
+//		System.out.println(list.size());
 //		System.out.println(n);
 		
 	}

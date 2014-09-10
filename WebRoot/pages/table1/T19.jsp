@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>T19</title>
+<title>My JSP 'table.jsp' starting page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -33,11 +33,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 </head>
 <body style="height: 100%'" >
-	<table id="unverfiedData" class="easyui-datagrid" url="pages/T19/auditingData">
+	<table id="unverfiedData"class="easyui-datagrid"  url="pages/T19/auditingData">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" >编号</th>
+				<th field="seqNumber" >序号</th>
 				<th field="rewardName" >奖励名称</th>
 				<th field="rewardLevel" >级别</th>
 				<th field="rewardFromUnit" >授予单位</th>
@@ -54,43 +54,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
-			<form method="post" id="auditing"
-				style="float: right; height: 24px;">
-				<table id="test" width="520">
-					<tr>
-						<td>
-							编号:
-						</td>
-						<td>
-							<input id="seqNum" name="seqNum" class="easyui-box"
-								style="width: 40px" />
-						</td>
-						<td>
-							起始日期:
-						</td>
-						<td>
-							<input id="startTime" name="startTime" class="easyui-datebox"
-								style="width: 100px" />
-						</td>
-						<td>
-							结束日期:
-						</td>
-						<td>
-							<input id="endTime" name="endTime" class="easyui-datebox"
-								style="width: 100px" />
-						</td>
-						<td>
-							<a href="javascript:void(0)" class="easyui-linkbutton"
-								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
-						</td>
-					</tr>
-				</table>
+			<form id="auditing" method="post" style="float: right;height: 24px;">
+		 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
+			日期 起始:  <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
+			结束:  <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
 			</form>
 	</div>
 	
 	<div id="toolbar2" style="float: right">
-	
-		<a href='pages/T19/dataExport?excelName=<%=URLEncoder.encode("表1-9学校获得荣誉（党院办）","UTF-8")%>' class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+			<a href="pages/T19/dataExport?excelName=表1-9学校获得荣誉（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 	</div>
 <div></div>
 	<table id="verfiedData"class="easyui-datagrid"  url="">
@@ -160,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 				      <div class="fitem">
 				        <label>获奖时间：</label>
-				        <input class="easyui-datebox" id="RewardTime" name="t19Bean.RewardTime" editable="false">
+				        <input class="easyui-datebox" id="RewardTime" name="t19Bean.RewardTime" >
 						<span id="RewardTimeSpan"></span>
 					</div>
 				</td>
@@ -235,12 +208,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 			msg: result.errorMsg
 	    			 });
 	    		 	} else {
-				 		$.messager.show({
-				 			title: 'Success',
-				 			msg: result.errorMsg
-				 		});
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
+			    		 $('#dg').datagrid('reload'); // reload the user data
 	    		 	}
 	    		 }
 	    		 });
@@ -446,7 +415,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </script>
 	<script type="text/javascript"> 
 			//日期格式转换 
+			//日期格式转换 
 			function formattime(val) {  
+				
+				if(val == null){
+					return null ;
+				}
+				
 			    var year=parseInt(val.year)+1900;  
 			    var month=(parseInt(val.month)+1);  
 			    month=month>9?month:('0'+month);  

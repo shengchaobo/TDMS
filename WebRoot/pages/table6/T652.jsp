@@ -293,7 +293,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td class="empty"></td>
 				<td>			
 					<div class="fitem">
-						<label>填写单位：</label> 
+						<label>填写单位号：</label> 
 						<input id="fillUnitID" name="T652_bean.fillUnitID" 
 							 class='easyui-validatebox'><span id="fillUnitIDSpan"></span>
 					</div>

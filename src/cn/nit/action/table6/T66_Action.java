@@ -84,7 +84,7 @@ public class T66_Action {
 		
 		
 		if(flag == false){
-			System.out.print("无该年数据!!!");
+//			System.out.print("无该年数据!!!");
 			response.setContentType("text/html;charset=UTF-8") ;
 			out = response.getWriter() ;
 			out.print("{\"data\":\"无该年数据!!!\"}"); 

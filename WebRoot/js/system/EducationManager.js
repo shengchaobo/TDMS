@@ -64,7 +64,7 @@
 		var education = $('#Education').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (indexID == null || indexID.length == 0 ) {
+		if (indexID == null || indexID.length == 0 || indexID == "null") {
 			alert("学历代码不能为空");
 			return false;
 		}
@@ -74,7 +74,7 @@
 			return false;
 		}
 		
-		if (education == null || education.length == 0 ) {
+		if (education == null || education.length == 0 || education == "null" ) {
 			alert("学历名称不能为空");
 			return false;
 		}

@@ -64,7 +64,7 @@
 		var researchType = $('#ResearchType').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (indexID == null || indexID.length == 0 ) {
+		if (indexID == null || indexID.length == 0 || indexID == "null") {
 			alert("科研机构代码不能为空");
 			return false;
 		}
@@ -74,7 +74,7 @@
 			return false;
 		}
 		
-		if (researchType == null || researchType.length == 0 ) {
+		if (researchType == null || researchType.length == 0 || researchType == "null") {
 			alert("科研机构名称不能为空");
 			return false;
 		}

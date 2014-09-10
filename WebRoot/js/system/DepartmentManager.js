@@ -90,32 +90,32 @@
 		var note = $('#Note').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (unitID == null || unitID.length == 0 ) {
+		if (unitID == null || unitID.length == 0 || unitID == "null" ) {
 			alert("单位号不能为空");
 			return false;
 		}
 		
-		if (unitName == null || unitName.length == 0 ) {
+		if (unitName == null || unitName.length == 0 || unitName == "null") {
 			alert("部门名称不能为空");
 			return false;
 		}
 
-		if (class1 == null || class1.length == 0) {
+		if (class1 == null || class1.length == 0 || class1 == "null") {
 			alert("一级分类不能为空");
 			return false;
 		}
 		
-		if (class2 == null || class2.length == 0) {
+		if (class2 == null || class2.length == 0 || class2 == "null") {
 			alert("二级分类不能为空");
 			return false;
 		}
 		
-		if (functions == null || functions.length == 0) {
+		if (functions == null || functions.length == 0 || functions == "null") {
 			alert("单位职能不能为空");
 			return false;
 		}
 		
-		if (leader == null || leader.length == 0) {
+		if (leader == null || leader.length == 0 || leader == "null") {
 			alert("负责人不能为空");
 			return false;
 		}
@@ -131,7 +131,6 @@
 			return false;
 		}
 		return true;
-		alert(teaId);
 	}
 
 	function editDepartment() {

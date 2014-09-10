@@ -210,7 +210,7 @@ public class T658_Excel {
 				T658_bean.setUnitId(unitId);
 				T658_bean.setConferenceName(conferenceName);
 				T658_bean.setPaperTitle(paperTitle);
-				T658_bean.setHoldTime(new SimpleDateFormat("yyyy-MM-dd").parse(holdTime));
+				T658_bean.setHoldTime(TimeUtil.changeDateYM(holdTime));
 				T658_bean.setHoldPlace(holdPlace);
 				T658_bean.setHoldUnit(holdUnit);
 				T658_bean.setConferenceLevel(conferenceLevel);

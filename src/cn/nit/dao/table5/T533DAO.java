@@ -13,7 +13,7 @@ import cn.nit.util.DAOUtil;
 public class T533DAO {
 	
 	/**  数据库表名  */
-	private String tableName = "T533_ByMajExpInfo_TeaTea$" ;
+	private static String tableName = "T533_ByMajExpInfo_TeaTea$" ;
 	
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
@@ -236,11 +236,12 @@ public class T533DAO {
 	}
 	
 	public static void main(String arg[]){
-		T533DAO dao= new T533DAO();
-//		List<T533POJO> list = dao.auditingData(null, "3001", 1, 10);
-		int n = dao.totalAuditingData(null, "3001");
-//		System.out.println(list.size());
-		System.out.println(n);
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
+		",t.ExpRatio,t.Time,t.Note,t.FillUnitID");
+sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
+sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
+		System.out.println(sql.toString());
 		
 	}
 	

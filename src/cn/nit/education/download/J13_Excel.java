@@ -29,7 +29,7 @@ public class J13_Excel {
 		
 		Map<String,Integer> maplist = new HashMap<String,Integer>();
 		maplist.put("SeqNum", 0);
-		maplist.put("UnitName", 1);maplist.put("UnitID", 2);maplist.put("Function", 3);maplist.put("Leader", 4);
+		maplist.put("UnitName", 1);maplist.put("UnitID", 2);maplist.put("Functions", 3);maplist.put("Leader", 4);
 		
 		ByteArrayOutputStream byteArrayOutputStream = null;		
 		try {
@@ -50,6 +50,17 @@ public class J13_Excel {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public static void main(String arg[]){
+		 String path = "D:\\江西项目\\相关表\\ExcelTest";
+		  J13_Excel excel = new J13_Excel();
+		  boolean flag = excel.export_J13(path);
+		  if(flag){
+			  System.out.println("成功！");
+		  }else{
+			  System.out.println("不成功！");
+		  }
 	}
 
 }

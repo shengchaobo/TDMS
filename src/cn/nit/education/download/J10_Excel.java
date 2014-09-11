@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,35 +39,47 @@ import cn.nit.util.TimeUtil;
 
 public class J10_Excel {
 	
-	public static boolean export_J10(String path,String year) throws Exception{
+	public static boolean export_J10(String path) {
 		
 		T11DAO T11_dao = new T11DAO();
 		
+		//获取当前年份
+		Date time = new Date();
+		String currentTime = time.toString();
+		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+		
 		List<T11Bean> list = T11_dao.forExcel(year);
-		T11Bean bean = list.get(0);
+		T11Bean  bean;
+		if(list==null){
+			bean = new T11Bean();
+		}else{
+			bean = list.get(0);
+		}
+		
 		
 		String sheetName = "J-1-0联系方式（时点）";
-		
-		  //    设置单元格的文字格式(标题)
-        WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
-                 UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
-        WritableCellFormat wcf = new WritableCellFormat(wf);
-        wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
-        wcf.setAlignment(Alignment.CENTRE);
-        wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
-				     jxl.format.Colour.BLACK);
-        wcf.setAlignment(jxl.write.Alignment.LEFT);
-//        ws.setRowView(1, 500);
-        
-        //设置表中文字格式
-		WritableCellFormat wcf1 = new WritableCellFormat();
-		wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
-				     jxl.format.Colour.BLACK); 
-       
-		ByteArrayOutputStream  byteArrayOutputStream= null;	
-		WritableWorkbook wwb;
+	
 		
 		try {
+			
+				  //    设置单元格的文字格式(标题)
+		        WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                 UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		        WritableCellFormat wcf = new WritableCellFormat(wf);
+		        wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		        wcf.setAlignment(Alignment.CENTRE);
+		        wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+						     jxl.format.Colour.BLACK);
+		        wcf.setAlignment(jxl.write.Alignment.LEFT);
+	//	        ws.setRowView(1, 500);
+		        
+		        //设置表中文字格式
+				WritableCellFormat wcf1 = new WritableCellFormat();
+				wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+						     jxl.format.Colour.BLACK); 
+		       
+				ByteArrayOutputStream  byteArrayOutputStream= null;	
+				WritableWorkbook wwb;
 			
 			   byteArrayOutputStream = new ByteArrayOutputStream();
 	           wwb = Workbook.createWorkbook(byteArrayOutputStream);
@@ -165,7 +178,13 @@ public class J10_Excel {
 	}
 	
 	public static void main(String arg[]){
-		J10_Excel excel = new J10_Excel();
-		
+		  String path = "D:\\江西项目\\相关表\\ExcelTest";
+		  J10_Excel excel = new J10_Excel();
+		  boolean flag = excel.export_J10(path);
+		  if(flag){
+			  System.out.println("成功！");
+		  }else{
+			  System.out.println("不成功！");
+		  }
 	}
 }

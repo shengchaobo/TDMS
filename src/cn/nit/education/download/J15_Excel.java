@@ -60,15 +60,15 @@ public class J15_Excel {
 	}
 	
 	public static void main(String arg[]){
-		List<String> list = new ArrayList<String>();
-		list.add("a");list.add("b");list.add("c");
-		List<String> list1 = new ArrayList<String>();
-		list1.add("d");list1.add("e");list1.add("f");
-		list.addAll(list1);
-		for(int i = 0;i<list.size();i++){
-			System.out.println(list.get(i));
+		 String path = "D:\\江西项目\\相关表\\ExcelTest";
+		  J15_Excel excel = new J15_Excel();
+		  boolean flag = excel.export_J15(path);
+		  if(flag){
+			  System.out.println("成功！");
+		  }else{
+			  System.out.println("不成功！");
+		  }
 		}
-	}
 
 	
 

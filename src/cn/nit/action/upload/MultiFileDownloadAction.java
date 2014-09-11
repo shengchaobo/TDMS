@@ -12,7 +12,14 @@ import java.util.Date;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.education.download.J10_Excel;
+import cn.nit.education.download.J13_Excel;
+import cn.nit.education.download.J14_Excel;
+import cn.nit.education.download.J15_Excel;
+import cn.nit.education.download.J16_Excel;
+import cn.nit.education.download.J17_Excel;
 import cn.nit.education.download.J411_Excel;
+import cn.nit.education.download.J611_Excel;
 import cn.nit.util.ZipFileUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -138,6 +145,32 @@ public class MultiFileDownloadAction extends ActionSupport {
 		if(!J466_Excel.export_J466(filePath)){
 			return "J466_export has a error!";
 		}*/
+		
+		//1表部分
+		if(!J10_Excel.export_J10(filePath)){
+			return "J10_export has a error!";
+		}
+		if(!J13_Excel.export_J13(filePath)){
+			return "J13_export has a error!";
+		}
+		if(!J14_Excel.export_J14(filePath)){
+			return "J14_export has a error!";
+		}
+		if(!J15_Excel.export_J15(filePath)){
+			return "J15_export has a error!";
+		}
+		if(!J16_Excel.export_J16(filePath)){
+			return "J16_export has a error!";
+		}
+		if(!J17_Excel.export_J17(filePath)){
+			return "J17_export has a error!";
+		}
+		
+		//6表部分
+		if(!J611_Excel.export_J611(filePath)){
+			return "J10_export has a error!";
+		}
+		
 
 		
 		return null;

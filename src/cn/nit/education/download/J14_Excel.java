@@ -18,7 +18,7 @@ import cn.nit.util.ExcelUtil;
 
 public class J14_Excel {
 	
-	public static boolean export_J13(String path){
+	public static boolean export_J14(String path){
 		
 		T13DAO T13dao = new T13DAO();
 		
@@ -32,7 +32,7 @@ public class J14_Excel {
 		
 		Map<String,Integer> maplist = new HashMap<String,Integer>();
 		maplist.put("SeqNum", 0);
-		maplist.put("UnitName", 1);maplist.put("UnitID", 2);maplist.put("Leader", 4);
+		maplist.put("UnitName", 1);maplist.put("UnitID", 2);maplist.put("Leader", 3);
 		
 		ByteArrayOutputStream byteArrayOutputStream = null;		
 		try {
@@ -53,6 +53,17 @@ public class J14_Excel {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public static void main(String arg[]){
+		String path = "D:\\江西项目\\相关表\\ExcelTest";
+		  J14_Excel excel = new J14_Excel();
+		  boolean flag = excel.export_J14(path);
+		  if(flag){
+			  System.out.println("成功！");
+		  }else{
+			  System.out.println("不成功！");
+		  }
 	}
 
 }

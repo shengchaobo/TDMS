@@ -86,23 +86,8 @@ function validate() {
 		return false;
 	}
 	
-	if (awardLevel == null || awardLevel.length == 0) {
-		alert("获奖级别不能为空");
-		return false;
-	}
-	
-	if (awardFromUnit == null || awardFromUnit.length == 0) {
-		alert("授予单位不能为空");
-		return false;
-	}
-	
 	if (awardStuName == null || awardStuName.length == 0) {
 		alert("获奖学生姓名不能为空");
-		return false;
-	}
-	
-	if (guideTeaName == null || guideTeaName.length == 0) {
-		alert("指导教师姓名不能为空");
 		return false;
 	}
 	
@@ -111,11 +96,36 @@ function validate() {
 		return false;
 	}
 	
-	if (!awardStuNum.match(num) || !guideTeaNum.match(num)) {
-	alert("获奖学生数或指导教师部分请填写数字，若无请填写0");
-	return false;
+	if (guideTeaName == null || guideTeaName.length == 0) {
+		alert("指导教师姓名不能为空");
+		return false;
 	}
 	
+	if (!awardStuNum.match(num) || !guideTeaNum.match(num)) {
+		alert("获奖学生数或指导教师部分请填写数字，若无请填写0");
+		return false;
+		}
+		
+	
+	if (awardLevel == null || awardLevel.length == 0) {
+		alert("获奖级别不能为空");
+		return false;
+	}
+	if (awardName == null || awardName.length == 0) {
+		alert("获奖名称不能为空");
+		return false;
+	}
+	
+	if (awardFromUnit == null || awardFromUnit.length == 0) {
+		alert("授予单位不能为空");
+		return false;
+	}
+	
+	if (fillUnitID == null || fillUnitID.length == 0) {
+		alert("填写单位号不能为空");
+		return false;
+	}
+
 	if (time == null || time.length == 0) {
 	
 		alert("请选择时间");

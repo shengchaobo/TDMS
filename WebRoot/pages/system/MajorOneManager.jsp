@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
 			<!-- 两个文体输入框，可以避免enter键自动刷新事件 -->
 			<input id="hiddenText" type="text"  style="display:none" />
-		 	专业代码 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
+		 	专业名称 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
 			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
 		</form>
 	</div>

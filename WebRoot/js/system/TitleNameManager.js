@@ -64,7 +64,7 @@
 		var titleName = $('#TitleName').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (indexID == null || indexID.length == 0 ) {
+		if (indexID == null || indexID.length == 0 || indexID == "null") {
 			alert("职称代码不能为空");
 			return false;
 		}
@@ -74,7 +74,7 @@
 			return false;
 		}
 		
-		if (titleName == null || titleName.length == 0 ) {
+		if (titleName == null || titleName.length == 0 || titleName == "null") {
 			alert("职称名称不能为空");
 			return false;
 		}

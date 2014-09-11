@@ -64,7 +64,7 @@
 		var talentType = $('#TalentType').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (indexID == null || indexID.length == 0 ) {
+		if (indexID == null || indexID.length == 0 || indexID == "null") {
 			alert("人才代码不能为空");
 			return false;
 		}
@@ -74,7 +74,7 @@
 			return false;
 		}
 		
-		if (talentType == null || talentType.length == 0 ) {
+		if (talentType == null || talentType.length == 0 || talentType == "null") {
 			alert("人才类型名称不能为空");
 			return false;
 		}

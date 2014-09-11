@@ -70,32 +70,32 @@
 
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (majorNum == null || majorNum.length == 0 ) {
+		if (majorNum == null || majorNum.length == 0 || majorNum == "null") {
 			alert("专业代码不能为空");
 			return false;
 		}
 		
-		if (majorName == null || majorName.length == 0 ) {
+		if (majorName == null || majorName.length == 0 || majorName == "null") {
 			alert("专业名称不能为空");
 			return false;
 		}
 
-		if (version == null || version.length == 0) {
+		if (version == null || version.length == 0 || version == "null") {
 			alert("版本不能为空");
 			return false;
 		}
 		
-		if (duration == null || duration.length == 0 ) {
+		if (duration == null || duration.length == 0 || duration == "null") {
 			alert("年限不能为空");
 			return false;
 		}
 		
-		if (direction == null || direction.length == 0 ) {
+		if (direction == null || direction.length == 0 || direction == "null") {
 			alert("门类不能为空");
 			return false;
 		}
 
-		if (unitId == null || unitId.length == 0) {
+		if (unitId == null || unitId.length == 0 || unitId == "null") {
 			alert("所属学院不能为空");
 			return false;
 		}

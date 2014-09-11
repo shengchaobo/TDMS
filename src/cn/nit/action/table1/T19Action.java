@@ -136,6 +136,7 @@ public class T19Action {
 			try{
 				getResponse().setContentType("text/html; charset=UTF-8") ;
 				out = getResponse().getWriter() ;
+				System.out.println("pages:"+pages);
 				out.print(pages) ;
 			}catch(Exception e){
 				e.printStackTrace() ;

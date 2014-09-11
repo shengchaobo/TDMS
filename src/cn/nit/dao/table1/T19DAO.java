@@ -75,7 +75,7 @@ public class T19DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select count(*)") ;
+		sql.append("select count(*) AS COUNT") ;
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiAwardLevel drl") ;
 		sql.append(" where dpt.UnitID=t.UnitID and drl.IndexID=t.RewardLevel");
 		int total = 0 ;
@@ -101,7 +101,7 @@ public class T19DAO {
 			}
 			
 			while(rs.next()){
-				total = rs.getInt(1) ;
+				total = rs.getInt("COUNT") ;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -223,8 +223,9 @@ public class T19DAO {
 	public static void main(String arg[]){
 		T19DAO dao=new T19DAO();
 //		int n=dao.totalAuditingData(null, null);
-		List<T19Bean> list=dao.totalList();
+		List<T19POJO> list=dao.auditingData(null, null, 1, 10);
 		System.out.println(list.size());
+		System.out.println(dao.totalAuditingData(null, null));
 	}
 	
 

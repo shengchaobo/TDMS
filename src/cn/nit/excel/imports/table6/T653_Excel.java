@@ -227,7 +227,7 @@ public class T653_Excel {
 				T653_bean.setWorkName(workName);
 				T653_bean.setJonalName(jonalName);
 				T653_bean.setJonalId(jonalId);
-				T653_bean.setJonalDate(new SimpleDateFormat("yyyy-MM-dd").parse(jonalDate));
+				T653_bean.setJonalDate(TimeUtil.changeDateYM(jonalDate));
 				T653_bean.setAwardStuName(awardStuName);
 				T653_bean.setAwardStuNum(Integer.parseInt(awardStuNum));
 				T653_bean.setGuideTeaName(guideTeaName);

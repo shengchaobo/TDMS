@@ -34,6 +34,7 @@ import cn.nit.bean.table4.T411_Bean;
 import cn.nit.dao.table1.T11DAO;
 import cn.nit.dao.table4.T411_Dao;
 import cn.nit.util.ExcelUtil;
+import cn.nit.util.TimeUtil;
 
 public class J10_Excel {
 	
@@ -75,32 +76,74 @@ public class J10_Excel {
 	           
 	           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 	           ws.mergeCells(0, 0, 4, 0);
-	           
-	           //表头
-	           ws.addCell(new Label(0, 2, "学校地址", wcf)); 
-	           ws.addCell(new Label(0, 3, "学校办公电话", wcf)); 
-	           ws.addCell(new Label(0, 4, "学校办公传真电话", wcf)); 
-	           ws.addCell(new Label(0, 5, "学校填报负责人", wcf)); 
-	           ws.addCell(new Label(1, 5, "姓名", wcf)); 
-	           ws.addCell(new Label(1, 6, "联系电话", wcf)); 
-	           ws.addCell(new Label(1, 7, "联系电子邮箱", wcf)); 
+	             
+	           //写入表头
+	           ws.addCell(new Label(0, 2, "联系方式", wcf)); 
+	           ws.addCell(new Label(0, 8, "学校概况", wcf)); 
+	           ws.addCell(new Label(0, 19, "校区地址", wcf));  
+	           ws.addCell(new Label(1, 2, "1.学校地址", wcf)); 
+	           ws.addCell(new Label(1, 3, "2.学校办公电话号码", wcf)); 
+	           ws.addCell(new Label(1, 4, "3.学校办公传真号码", wcf)); 
+	           ws.addCell(new Label(1, 5, "4.学校填报负责人", wcf)); 
+	           ws.addCell(new Label(1, 8, "5.学校名称", wcf)); 
+	           ws.addCell(new Label(1, 9, "6.代码", wcf)); 
+	           ws.addCell(new Label(1, 10, "7.英文名称", wcf)); 
+	           ws.addCell(new Label(1, 11, "8.办学类型", wcf)); 
+	           ws.addCell(new Label(1, 12, "9.学校性质", wcf)); 
+	           ws.addCell(new Label(1, 13, "10.举办者", wcf)); 
+	           ws.addCell(new Label(1, 14, "11.主管部门", wcf)); 
+	           ws.addCell(new Label(1, 15, "12.学校网址", wcf)); 
+	           ws.addCell(new Label(1, 16, "13.招生批次", wcf)); 
+	           ws.addCell(new Label(1, 17, "14.开办本科教育年份", wcf));
+	           ws.addCell(new Label(1, 18, "15.多媒体反映", wcf)); 
+	           ws.addCell(new Label(1, 19, "16.校区名称", wcf));
+	           ws.addCell(new Label(2,5,"姓名",wcf));
+	           ws.addCell(new Label(2,6,"联系电话",wcf));
+	           ws.addCell(new Label(2,7,"联系电子邮箱",wcf));
+	           ws.addCell(new Label(2,19,"瑶湖校区",wcf));
+	           ws.addCell(new Label(2,20,"彭桥校区",wcf));
 	           
 	           //合并表头
-	           ws.mergeCells(0, 5, 0, 7);
-	           
-	           //写入数据
-	           
-	           ws.addCell(new Label(1, 2, bean.getSchAddress(), wcf1)); 
-	           ws.addCell(new Label(1, 3, bean.getSchTel(), wcf1)); 
-	           ws.addCell(new Label(1, 4,bean.getSchFax(), wcf1)); 
-	           ws.addCell(new Label(2, 5, bean.getSchFillerName(), wcf1)); 
-	           ws.addCell(new Label(2, 6, bean.getSchFillerTel(), wcf1)); 
-	           ws.addCell(new Label(2, 7, bean.getSchFillerEmail(), wcf1));
-	           
-	           //合并表内容
+	           ws.mergeCells(0, 2, 0, 7);
+	           ws.mergeCells(0, 8, 0, 18);
+	           ws.mergeCells(0, 19, 0, 20);
 	           ws.mergeCells(1, 2, 2, 2);
 	           ws.mergeCells(1, 3, 2, 3);
 	           ws.mergeCells(1, 4, 2, 4);
+	           ws.mergeCells(1, 5, 1, 7);
+	           ws.mergeCells(1, 19, 1, 20);
+	           ws.mergeCells(1, 8, 2, 8);
+	           ws.mergeCells(1, 9, 2, 9);
+	           ws.mergeCells(1, 10, 2, 10);
+	           ws.mergeCells(1, 11, 2, 11);
+	           ws.mergeCells(1, 12, 2, 12);
+	           ws.mergeCells(1, 13, 2, 13);
+	           ws.mergeCells(1, 14, 2, 14);
+	           ws.mergeCells(1, 15, 2, 15);
+	           ws.mergeCells(1, 16, 2, 16);
+	           ws.mergeCells(1, 17, 2, 17);
+	           ws.mergeCells(1, 18, 2, 18);
+	           
+	           //写入数据
+	           ws.addCell(new Label(3, 2, bean.getSchAddress().toString(), wcf1)); 
+	           ws.addCell(new Label(3, 3, bean.getSchTel().toString(), wcf1));
+	           ws.addCell(new Label(3, 4, bean.getSchFax().toString(), wcf1));
+	           ws.addCell(new Label(3, 5, bean.getSchFillerName().toString(), wcf1));
+	           ws.addCell(new Label(3, 6, bean.getSchFillerTel().toString(), wcf1));
+	           ws.addCell(new Label(3, 7, bean.getSchFillerEmail().toString(), wcf1)); 
+	           ws.addCell(new Label(3, 8, bean.getSchName().toString(), wcf1));
+	           ws.addCell(new Label(3, 9, bean.getSchID().toString(), wcf1));
+	           ws.addCell(new Label(3, 10, bean.getSchEnName().toString(), wcf1));
+	           ws.addCell(new Label(3, 11, bean.getSchType().toString(), wcf1));
+	           ws.addCell(new Label(3, 12, bean.getSchQuality().toString(), wcf1));
+	           ws.addCell(new Label(3, 13, bean.getSchBuilder().toString(), wcf1));
+	           ws.addCell(new Label(3, 14, bean.getMajDept().toString(), wcf1));
+	           ws.addCell(new Label(3, 15, bean.getSchUrl().toString(), wcf1));
+	           ws.addCell(new Label(3, 16, bean.getAdmissonBatch().toString(), wcf1));
+	           ws.addCell(new Label(3, 17, TimeUtil.changeFormat5(bean.getSch_BeginTime()), wcf1));
+	           ws.addCell(new Label(3, 18, bean.getMediaUrl().toString(), wcf1));
+	           ws.addCell(new Label(3, 19, bean.getYaohuSchAdd().toString(), wcf1));
+	           ws.addCell(new Label(3, 20, bean.getPengHuSchAdd().toString(), wcf1));
 	           wwb.write();
 		       wwb.close();
 								

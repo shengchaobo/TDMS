@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import cn.nit.bean.table1.T12Bean;
 import cn.nit.bean.table1.T14Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T14POJO;
@@ -112,10 +113,10 @@ public class T14DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T14Bean> totalList(){
+	public List<T12Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select UnitName,UnitID, Leader,TeaID,Note" );
+		sql.append("select UnitName,UnitID, Leader,Functions,TeaID,Note" );
 		sql.append(" from "+tableName );
 		sql.append(" where UnitID like '30%'");
 //		System.out.println(sql.toString());
@@ -126,12 +127,12 @@ public class T14DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T14Bean> list = null ;
+		List<T12Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T14Bean.class) ;
+			list = DAOUtil.getList(rs, T12Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -165,7 +166,7 @@ public class T14DAO {
 	
 	public static void main(String arg[]){
 		T14DAO dao = new T14DAO();
-		List<T14Bean> list=dao.totalList();
+		List<T12Bean> list=dao.totalList();
 		System.out.println(list.size());
 	}
 

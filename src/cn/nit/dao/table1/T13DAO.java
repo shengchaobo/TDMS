@@ -105,6 +105,34 @@ public class T13DAO {
 		return list ;
 	}
 	
+	
+	public List<T12Bean> totalListAll(){
+		
+		StringBuffer sql=new StringBuffer();
+		sql.append("select UnitName,UnitID,Leader,Functions,TeaID,Note" );
+		sql.append(" from "+tableName);
+		sql.append(" where UnitID not like '10%'");
+//		System.out.println(sql.toString());
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T12Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T12Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
 	/**
 	 * 获得的总数（用于导出）T13
 	 * @return
@@ -114,7 +142,7 @@ public class T13DAO {
 	public List<T12Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select UnitName,UnitID,Functions,Leader,TeaID,Note" );
+		sql.append("select UnitName,UnitID,Leader,Functions,TeaID,Note" );
 		sql.append(" from "+tableName );
 		sql.append(" where UnitID like '20%'");
 //		System.out.println(sql.toString());
@@ -164,7 +192,7 @@ public class T13DAO {
 	
 	public static void  main(String arg[]){
 		T13DAO dao=new T13DAO();
-		List<T12Bean> list=dao.totalList();
+		List<T12Bean> list=dao.totalListAll();
 		System.out.println(list.size());
 	} 
 

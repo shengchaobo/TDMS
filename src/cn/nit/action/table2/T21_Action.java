@@ -14,6 +14,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jxl.CellView;
 import jxl.Workbook;
 import jxl.format.Alignment;
 import jxl.format.Border;
@@ -175,6 +176,7 @@ public class T21_Action {
 		        		     jxl.format.Colour.BLACK);
 		           ws.setRowView(1, 500);
 		           
+		           
 		            //    设置内容单无格的文字格式
 		           WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
 		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
@@ -183,7 +185,14 @@ public class T21_Action {
 		            wcf1.setAlignment(Alignment.CENTRE);
 		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
 			        		     jxl.format.Colour.BLACK);
-		           
+		            
+/*		            for(int i=1;i< ws.getColumns(); i++){
+		            	System.out.println(ws.getColumns());
+			            CellView cellView = new CellView();  
+			            cellView.setAutosize(true); //设置自动大小    
+			            ws.setColumnView(1, cellView);//根据内容自动设置列宽    			            
+		            }*/
+
 		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		           ws.mergeCells(0, 0, 1, 0);
 		           

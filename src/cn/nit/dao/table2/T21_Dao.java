@@ -75,10 +75,110 @@ public class T21_Dao {
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());
-				flag = DAOUtil.update(bean, tableName, keyfield, fields, conn) ;
+				String tempfields = fields + ",SumArea,NotSchProArea,SumCoverArea,NotSchProCovArea";
+				
+				
+				double notSchProArea = tempBean.getNotSchProArea();				
+				double notSchProCovArea = tempBean.getNotSchProCovArea();
+				
+				
+				if(bean.getOnlyUseArea()!=null){
+					if(tempBean.getOnlyUseArea()==null){
+						notSchProArea = notSchProArea + bean.getOnlyUseArea();
+					}else{
+						notSchProArea = notSchProArea + bean.getOnlyUseArea() - tempBean.getOnlyUseArea();
+					}
+					
+				}
+				if(bean.getCoUseArea()!=null){
+					if(tempBean.getCoUseArea()==null){
+						notSchProArea = notSchProArea + bean.getCoUseArea();
+					}else{
+						notSchProArea = notSchProArea + bean.getCoUseArea() - tempBean.getCoUseArea();
+					}					
+				}
+				bean.setNotSchProArea(notSchProArea);
+				
+				double sumArea = tempBean.getSumArea();
+				sumArea = sumArea + notSchProArea - tempBean.getNotSchProArea();				
+				if(bean.getSchProArea()!=null){
+					if(tempBean.getSchProArea()==null){
+						sumArea = sumArea + bean.getSchProArea();
+					}else{				
+						sumArea = sumArea + bean.getSchProArea() - tempBean.getSchProArea();
+					}
+				}
+				bean.setSumArea(sumArea);
+				
+				
+				if(bean.getOnlyUseCovArea()!=null){
+					if(tempBean.getOnlyUseCovArea()==null){
+						notSchProCovArea = notSchProCovArea + bean.getOnlyUseCovArea();
+					}else{
+						notSchProCovArea = notSchProCovArea + bean.getOnlyUseCovArea() - tempBean.getOnlyUseCovArea();
+					}
+					
+				}				
+				if(bean.getCoUseCovArea()!=null){
+					if(tempBean.getCoUseCovArea()==null){
+						notSchProCovArea = notSchProCovArea + bean.getCoUseCovArea();
+					}else{
+						notSchProCovArea = notSchProCovArea + bean.getCoUseCovArea() - tempBean.getCoUseCovArea();
+					}					
+				}
+				bean.setNotSchProCovArea(notSchProCovArea);
+				
+				double sumCoverArea = tempBean.getSumCoverArea();
+				sumCoverArea = sumCoverArea + notSchProCovArea - tempBean.getNotSchProCovArea();
+				if(bean.getSchProCovArea()!=null){
+					if(tempBean.getSchProCovArea()==null){
+						sumCoverArea = sumCoverArea + bean.getSchProCovArea();
+					}else{			
+						sumCoverArea = sumCoverArea + bean.getSchProCovArea() - tempBean.getSchProCovArea();
+					}
+				}
+				bean.setSumCoverArea(sumCoverArea);
+				
+				flag = DAOUtil.update(bean, tableName, keyfield, tempfields, conn) ;
 			}else{
 				bean.setTime(TimeUtil.changeDateY(year));
-				String tempfields = fields + ",Time";
+				
+				double sumArea = 0;
+				double notSchProArea = 0;
+				double sumCoverArea = 0;
+				double notSchProCovArea = 0;
+				
+				
+				if(bean.getOnlyUseArea()!=null){
+					notSchProArea = notSchProArea + bean.getOnlyUseArea();
+				}
+				if(bean.getCoUseArea()!=null){
+					notSchProArea = notSchProArea + bean.getCoUseArea();
+				}
+				bean.setNotSchProArea(notSchProArea);
+				
+				sumArea = sumArea + notSchProArea;				
+				if(bean.getSchProArea()!=null){
+					sumArea = sumArea + bean.getSchProArea();
+				}
+				bean.setSumArea(sumArea);
+				
+				
+				if(bean.getOnlyUseCovArea()!=null){
+					notSchProCovArea = notSchProCovArea + bean.getOnlyUseCovArea();
+				}				
+				if(bean.getCoUseCovArea()!=null){
+					notSchProCovArea = notSchProCovArea + bean.getCoUseCovArea();
+				}
+				bean.setNotSchProCovArea(notSchProCovArea);
+				
+				sumCoverArea = sumCoverArea + notSchProCovArea;
+				if(bean.getSchProCovArea()!=null){
+					sumCoverArea = sumCoverArea + bean.getSchProCovArea();
+				}	
+				bean.setSumCoverArea(sumCoverArea);
+				
+				String tempfields = fields + ",SumArea,NotSchProArea,SumCoverArea,NotSchProCovArea,Time";
 				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
 			}
 		}catch(Exception e){

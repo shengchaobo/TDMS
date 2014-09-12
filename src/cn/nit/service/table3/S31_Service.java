@@ -48,16 +48,18 @@ public class S31_Service {
 		
 		
 		int postdocStation = T311_services.getStationNum(year);
-		int staNameNum1 = T312_services.getStaNameNum(year,"硕士点");
-		int staNameNum2 = T312_services.getStaNameNum(year,"博士点");
+		int staNameNum1 = T312_services.getStaNameNum(year,"博士学位授权一级学科点");
+		int staNameNum2 = T312_services.getStaNameNum(year,"博士学位授权二级学科点");
+		int staNameNum3 = T312_services.getStaNameNum(year,"硕士学位授权一级学科点");
+		int staNameNum4 = T312_services.getStaNameNum(year,"硕士学位授权二级学科点");
 		int majorNum = T322_services.getMajorNum(year,0);
 		int newMajorNum = T322_services.getMajorNum(year,1);
 		int majorNum1 = T33_services.getMajorNum(year);
 		
 
 		s31_Bean.setPostdocStation(postdocStation);
-		s31_Bean.setDocStation(staNameNum2);
-		s31_Bean.setMasterStation(staNameNum1);
+		s31_Bean.setDocStation(staNameNum1+staNameNum2);
+		s31_Bean.setMasterStation(staNameNum3+staNameNum4);
 		s31_Bean.setSumMajor(majorNum);
 		s31_Bean.setNewMajor(newMajorNum);
 		s31_Bean.setJuniorMajor(majorNum1);

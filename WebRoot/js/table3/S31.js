@@ -8,7 +8,7 @@
 		        	{"name": "3.硕士点（个）", "group": "", "value": "",  "field": "masterStation","editor": false },
 		        	{"name": "4.本科专业总数（个）", "group": "", "value": "",  "field": "sumMajor","editor": false },
 		        	{"name": "4.本科专业其中：新专业（个）", "group": "", "value": "",  "field": "newMajor","editor": false },
-		        	{"name": "5.专科专业（各）", "group": "", "value": "",  "field": "juniorMajor","editor": false }				        
+		        	{"name": "5.专科专业（个）", "group": "", "value": "",  "field": "juniorMajor","editor": false }				        
 		        
 		    ];
 		    							

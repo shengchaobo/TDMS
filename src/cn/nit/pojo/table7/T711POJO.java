@@ -22,7 +22,7 @@ public class T711POJO {
 		
 		private String AwardRank ;
 		
-		private Date AwardTime ;
+		private Date AwardTime7 ;
 		
 		private String AwardFromUnit ;
 		
@@ -115,12 +115,12 @@ public class T711POJO {
 			AwardRank = awardRank;
 		}
 
-		public Date getAwardTime() {
-			return AwardTime;
+		public Date getAwardTime7() {
+			return AwardTime7;
 		}
 
-		public void setAwardTime(Date awardTime) {
-			AwardTime=awardTime;
+		public void setAwardTime7(Date awardTime7) {
+			AwardTime7=awardTime7;
 			
 		}
 

@@ -49,6 +49,38 @@ public class T26_Dao {
 		return list ;
 	}
 	
+	/**
+	 * 获得当年所有数据
+	 * @return
+	 */
+	public List<T26_Bean> getYearInfo(String year){
+		
+		String sql = "select SeqNumber,PractiseBase,TeaUnit,TeaUnitID,Address,ForMajor,StuNumEachTime,StuNumEachYear," +
+				"AwardLevel AS SignLevel,BaseLevel,Time,Note"
+		+ " from " + tableName +
+		" left join " + tableName1+ " on " + "SignLevel=" + tableName1 + ".IndexID " +
+		" where convert(varchar(4),Time,120)=" + year;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T26_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T26_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+	
 	
 	/**
 	 * 分 页查询总数

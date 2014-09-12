@@ -221,7 +221,7 @@ public class T292_Action {
 		           ws.addCell(new Label(3, 3, bean.getUndergraTeaExpTotal().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 4, bean.getDayTeaExp().toString(), wcf1));  
 		           ws.addCell(new Label(3, 5, bean.getTeaReformExp().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 6, bean.getMajorExp().toString(), wcf1)); 
+		           ws.addCell(new Label(3, 6, bean.getCourseExp().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 7, bean.getMajorExp().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 8, bean.getTextbookExp().toString(), wcf1));  
 		           ws.addCell(new Label(3, 9, bean.getPraTeaExpTotal().toString(), wcf1));

@@ -37,9 +37,9 @@ import cn.nit.dao.table4.T411_Dao;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class J10_Excel {
+public class J11_Excel {
 	
-	public static boolean export_J10(String path) {
+	public static boolean export_J11(String path) {
 		
 		T11DAO T11_dao = new T11DAO();
 		
@@ -179,8 +179,8 @@ public class J10_Excel {
 	
 	public static void main(String arg[]){
 		  String path = "D:\\江西项目\\相关表\\ExcelTest";
-		  J10_Excel excel = new J10_Excel();
-		  boolean flag = excel.export_J10(path);
+		  J11_Excel excel = new J11_Excel();
+		  boolean flag = excel.export_J11(path);
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

@@ -16,19 +16,7 @@ public class T313POJO {
 	
 	private String DiscipType;
 	
-	private boolean NationLevelOne;
-	
-	private boolean NationLevelTwo;
-	
-	private boolean NationLevelKey;
-	
-	private boolean ProvinceLevelOne;
-	
-	private boolean ProvinceLevelTwo;
-	
-	private boolean CityLevel;
-	
-	private boolean SchLevel;
+	private String Level;
 	
 	private Date Time;
 	
@@ -81,63 +69,19 @@ public class T313POJO {
 	public void setDiscipType(String DiscipType) {
 		this.DiscipType = DiscipType;
 	}
-
-	public boolean getNationLevelOne() {
-		return NationLevelOne;
-	}
-
-	public void setNationLevelOne(boolean NationLevelOne) {
-		this.NationLevelOne = NationLevelOne;
-	}
 	
-	public boolean getNationLevelTwo() {
-		return NationLevelTwo;
+	
+
+
+	
+	public String getLevel() {
+		return Level;
 	}
 
-	public void setNationLevelTwo(boolean NationLevelTwo) {
-		this.NationLevelTwo = NationLevelTwo;
-	}
-	
-	public boolean getNationLevelKey() {
-		return NationLevelKey;
+	public void setLevel(String Level) {
+		this.Level = Level;
 	}
 
-	public void setNationLevelKey(boolean NationLevelKey) {
-		this.NationLevelKey = NationLevelKey;
-	}
-	
-	public boolean getProvinceLevelOne() {
-		return ProvinceLevelOne;
-	}
-
-	public void setProvinceLevelOne(boolean ProvinceLevelOne) {
-		this.ProvinceLevelOne = ProvinceLevelOne;
-	}
-	
-	public boolean getProvinceLevelTwo() {
-		return ProvinceLevelTwo;
-	}
-
-	public void setProvinceLevelTwo(boolean ProvinceLevelTwo) {
-		this.ProvinceLevelTwo = ProvinceLevelTwo;
-	}
-	
-	public boolean getCityLevel() {
-		return CityLevel;
-	}
-
-	public void setCityLevel(boolean CityLevel) {
-		this.CityLevel = CityLevel;
-	}
-	
-	public boolean getSchLevel() {
-		return SchLevel;
-	}
-
-	public void setSchLevel(boolean SchLevel) {
-		this.SchLevel = SchLevel;
-	}
-	
 	public Date getTime(){
 		return Time;
 	}

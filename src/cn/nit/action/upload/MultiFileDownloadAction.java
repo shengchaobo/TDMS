@@ -22,7 +22,7 @@ import cn.nit.education.download.J2102_Excel;
 import cn.nit.education.download.J211_Excel;
 import cn.nit.education.download.J21_Excel;
 import cn.nit.education.download.J22_Excel;
-import cn.nit.education.download.J10_Excel;
+import cn.nit.education.download.J11_Excel;
 import cn.nit.education.download.J13_Excel;
 import cn.nit.education.download.J14_Excel;
 import cn.nit.education.download.J15_Excel;
@@ -39,6 +39,17 @@ import cn.nit.education.download.J28_Excel;
 import cn.nit.education.download.J29_Excel;
 import cn.nit.education.download.J411_Excel;
 import cn.nit.education.download.J611_Excel;
+import cn.nit.education.download.J612_Excel;
+import cn.nit.education.download.J613_Excel;
+import cn.nit.education.download.J614_Excel;
+import cn.nit.education.download.J615_Excel;
+import cn.nit.education.download.J616_Excel;
+import cn.nit.education.download.J617_Excel;
+import cn.nit.education.download.J618_Excel;
+import cn.nit.education.download.J619_Excel;
+import cn.nit.education.download.J621_Excel;
+import cn.nit.education.download.J622_Excel;
+import cn.nit.education.download.J63_Excel;
 import cn.nit.util.ZipFileUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -127,27 +138,27 @@ public class MultiFileDownloadAction extends ActionSupport {
 		
 		// TODO Auto-generated method stub
 		//1字头
-/*		if(!J11_Excel.export_J11(filePath)){
+		if(!J11_Excel.export_J11(filePath)){
 			return "J11_export has a error!";
-		}*/		
-/*		if(!J12_Excel.export_J12(filePath)){
+		}	
+/*	    if(!J12_Excel.export_J12(filePath)){
 			return "J12_export has a error!";
 		}*/
-/*		if(!J13_Excel.export_J13(filePath)){
+		if(!J13_Excel.export_J13(filePath)){
 			return "J13_export has a error!";
-		}*/
-/*		if(!J14_Excel.export_J14(filePath)){
+		}
+		if(!J14_Excel.export_J14(filePath)){
 			return "J14_export has a error!";
-		}*/
-/*		if(!J15_Excel.export_J15(filePath)){
+		}
+		if(!J15_Excel.export_J15(filePath)){
 			return "J15_export has a error!";
-		}*/
-/*		if(!J16_Excel.export_J16(filePath)){
+		}
+		if(!J16_Excel.export_J16(filePath)){
 			return "J16_export has a error!";
-		}*/
-/*		if(!J17_Excel.export_J17(filePath)){
+		}
+		if(!J17_Excel.export_J17(filePath)){
 			return "J17_export has a error!";
-		}*/
+		}
 		
 		//2字头
 		if(!J21_Excel.export_J21(filePath)){
@@ -259,6 +270,7 @@ public class MultiFileDownloadAction extends ActionSupport {
 		if(!J466_Excel.export_J466(filePath)){
 			return "J466_export has a error!";
 		}*/
+
 		
 		
 		//5字头
@@ -289,44 +301,45 @@ public class MultiFileDownloadAction extends ActionSupport {
 /*		if(!J54_Excel.export_J54(filePath)){
 			return "J54_export has a error!";
 		}*/
+
 		
 		//6字头
-/*		if(!J611_Excel.export_J611(filePath)){
+		if(!J611_Excel.export_J611(filePath)){
 			return "J611_export has a error!";
-		}*/
-/*		if(!J612_Excel.export_J612(filePath)){
+		}
+		if(!J612_Excel.export_J612(filePath)){
 			return "J612_export has a error!";
-		}*/
-/*		if(!J613_Excel.export_J613(filePath)){
+		}
+		if(!J613_Excel.export_J613(filePath)){
 			return "J613_export has a error!";
-		}*/
-/*		if(!J614_Excel.export_J614(filePath)){
+		}
+		if(!J614_Excel.export_J614(filePath)){
 			return "J614_export has a error!";
-		}*/
-/*		if(!J615_Excel.export_J615(filePath)){
+		}
+		if(!J615_Excel.export_J615(filePath)){
 			return "J615_export has a error!";
-		}*/
-/*		if(!J616_Excel.export_J616(filePath)){
+		}
+		if(!J616_Excel.export_J616(filePath)){
 			return "J616_export has a error!";
-		}*/
-/*		if(!J617_Excel.export_J617(filePath)){
+		}
+		if(!J617_Excel.export_J617(filePath)){
 			return "J617_export has a error!";
-		}*/
-/*		if(!J618_Excel.export_J618(filePath)){
+		}
+		if(!J618_Excel.export_J618(filePath)){
 			return "J618_export has a error!";
-		}*/
-/*		if(!J619_Excel.export_J619(filePath)){
+		}
+		if(!J619_Excel.export_J619(filePath)){
 			return "J619_export has a error!";
-		}*/
-/*		if(!J621_Excel.export_J621(filePath)){
+		}
+		if(!J621_Excel.export_J621(filePath)){
 			return "J621_export has a error!";
-		}*/
-/*		if(!J622_Excel.export_J622(filePath)){
+		}
+		if(!J622_Excel.export_J622(filePath)){
 			return "J622_export has a error!";
-		}*/
-/*		if(!J63_Excel.export_J63(filePath)){
+		}
+		if(!J63_Excel.export_J63(filePath)){
 			return "J63_export has a error!";
-		}*/
+		}
 		
 		//7字头
 /*		if(!J71_Excel.export_J71(filePath)){

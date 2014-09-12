@@ -240,6 +240,35 @@ public class T312_DAO {
 	}
 	
 	
+	/**用于教育部数据导出*/
+	public List<T312_Bean> totalList(String year){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.StaName,t.StaID,t.UnitName,t.UnitID, t.StaType," +
+		"t.Time,t.Note");
+        sql.append(" from "+tableName + " as t,DiDepartment dpt");
+        sql.append(" where   dpt.UnitID=t.UnitID and t.Time like '"+year+"%'" );
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T312_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T312_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
+	
 	public int getStaNameNum(String year,String staType){
 		int count = 0;
 		StringBuffer sql=new StringBuffer();

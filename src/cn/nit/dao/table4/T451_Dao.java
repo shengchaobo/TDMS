@@ -47,6 +47,36 @@ public class T451_Dao {
 	}
 	
 	/**
+	 * 用于教育部表导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T451_Bean> totalList(String year){
+		
+		String sql = "select " + " " + keyfield + "," + field + " from " + tableName+" where Time like '"+year+"%'";
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T451_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T451_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+	
+	/**
 	 * 分 页查询总数
 	 * 
 	 */

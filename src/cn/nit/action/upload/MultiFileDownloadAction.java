@@ -34,6 +34,7 @@ import cn.nit.education.download.J615_Excel;
 import cn.nit.education.download.J616_Excel;
 import cn.nit.education.download.J617_Excel;
 import cn.nit.education.download.J618_Excel;
+import cn.nit.education.download.J619_Excel;
 import cn.nit.education.download.J621_Excel;
 import cn.nit.education.download.J622_Excel;
 import cn.nit.education.download.J63_Excel;
@@ -315,9 +316,9 @@ public class MultiFileDownloadAction extends ActionSupport {
 		if(!J618_Excel.export_J618(filePath)){
 			return "J618_export has a error!";
 		}
-/*		if(!J619_Excel.export_J619(filePath)){
+		if(!J619_Excel.export_J619(filePath)){
 			return "J619_export has a error!";
-		}*/
+		}
 		if(!J621_Excel.export_J621(filePath)){
 			return "J621_export has a error!";
 		}

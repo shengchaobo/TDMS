@@ -28,11 +28,11 @@ public class ToBeanUtil {
 		BeanWrapper wrapper = null ;
 		try{	
 			String fields[] = data.split(",");
-			System.out.println(fields.length);
+/*			System.out.println(fields.length);
 			for(int i=0;i<fields.length;i++){
 				System.out.print(i+":");
 				System.out.println(fields[i]);
-			}
+			}*/
 			
 			Class clazz = null ;
 			//初始化实体类

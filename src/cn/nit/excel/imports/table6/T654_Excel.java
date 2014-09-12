@@ -189,7 +189,7 @@ public class T654_Excel {
 				T654_bean.setJonalName(jonalName);
 				T654_bean.setPatentType(patentType);
 				T654_bean.setJonalId(jonalId);
-				T654_bean.setAppvlTime(new SimpleDateFormat("yyyy-MM-dd").parse(appvlTime));
+				T654_bean.setAppvlTime(TimeUtil.changeDateYM(appvlTime));
 				T654_bean.setAwardStuName(awardStuName);
 				T654_bean.setAwardStuNum(Integer.parseInt(awardStuNum));
 				T654_bean.setGuideTeaName(guideTeaName);

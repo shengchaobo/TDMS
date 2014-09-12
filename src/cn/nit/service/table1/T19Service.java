@@ -37,6 +37,7 @@ public class T19Service {
 	public String auditingData(String conditions, String fillUnitId, int page, int rows){
 			
 	    int total = t19Dao.totalAuditingData(conditions, fillUnitId) ;
+	    System.out.println("total:"+total);
 		List<T19POJO> list = t19Dao.auditingData(conditions, fillUnitId, page, rows) ;
 		Pagition pages = new Pagition(total, list) ;
 

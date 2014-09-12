@@ -64,7 +64,7 @@ public class DiDepartmentAction {
 		
 		String cond = null;
 		if(this.getSearchID()!= null){
-			cond = " and UnitID LIKE '" + this.getSearchID() + "%'";
+			cond = " and UnitName LIKE '" + this.getSearchID() + "%'";
 			System.out.println(cond);
 		}
 		

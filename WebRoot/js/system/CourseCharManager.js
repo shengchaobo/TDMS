@@ -64,7 +64,7 @@
 		var courseChar = $('#CourseChar').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (indexID == null || indexID.length == 0 ) {
+		if (indexID == null || indexID.length == 0 || indexID == "null") {
 			alert("课程性质代码不能为空");
 			return false;
 		}
@@ -74,7 +74,7 @@
 			return false;
 		}
 		
-		if (courseChar == null || courseChar.length == 0 ) {
+		if (courseChar == null || courseChar.length == 0 || courseChar == "null") {
 			alert("课程性质名称不能为空");
 			return false;
 		}

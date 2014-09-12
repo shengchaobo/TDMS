@@ -134,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">导入</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T655/downloadModel?saveFile=<%=URLEncoder.encode("表6-5-5学习成果—英语四六级、计算机等级考试.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>英语四级考试累计通过率（%）：</label> 
-						<input id="CET4PassRate" name="T655_bean.CET4PassRate" class='easyui-numberbox' min='0' precision='2'>
+						<input id="CET4PassRate" name="T655_bean.CET4PassRate" class='easyui-numberbox' min='0' max='100' precision='2'>
 						<span id="CET4PassRateSpan"style="color:blue">%</span>
 					</div>
 				</td>
@@ -170,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>英语六级考试累计通过率（%）：</label> 
-						<input id="CET6PassRate" name="T655_bean.CET6PassRate" class='easyui-numberbox' min='0' precision='2'>
+						<input id="CET6PassRate" name="T655_bean.CET6PassRate" class='easyui-numberbox' min='0'  max='100' precision='2'>
 						<span id="CET6PassRateSpan" style="color:blue">%</span>
 					</div>
 				</td>
@@ -178,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>江西省高校计算机等级考试累计通过率（%）：</label> 
-						<input id="jiangxiNCREPassRate" name="T655_bean.jiangxiNCREPassRate" class='easyui-numberbox' min='0' precision='2'>
+						<input id="jiangxiNCREPassRate" name="T655_bean.jiangxiNCREPassRate" class='easyui-numberbox' min='0' max='100' precision='2'>
 						<span id="jiangxiNCREPassRateSpan" style="color:blue">%</span>
 					</div>
 				</td>

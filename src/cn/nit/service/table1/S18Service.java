@@ -31,7 +31,7 @@ public class S18Service {
 	   	int seq=s18Dao.getSeqNumber(year);
 
 	   	if(seq!=-1){// seq!=-1,说明数据库中有这条数据
-	   		System.out.println("原始数据条数:"+s18Dao.countOri(year));
+//	   		System.out.println("原始数据条数:"+s18Dao.countOri(year));
 	   		if(s18Dao.countOri(year)>0){//有统计数据
 	   			s18bean = this.getStatic(year);
 	   			s18bean.setSeqNumber(seq);
@@ -114,10 +114,10 @@ public class S18Service {
 	   		}
 	   	}
 	   	totalCount=num1+num2+num3;
-	   	System.out.println("totalCount"+totalCount);
-	   	System.out.println("num1"+num1);
-	   	System.out.println("num2"+num2);
-	   	System.out.println("num3"+num3);
+//	   	System.out.println("totalCount"+totalCount);
+//	   	System.out.println("num1"+num1);
+//	   	System.out.println("num2"+num2);
+//	   	System.out.println("num3"+num3);
 	   	s18Bean.setAcademicNum(num1);
 	   	s18Bean.setIndustryNum(num2);
 	   	s18Bean.setLocalGoverNum(num3);

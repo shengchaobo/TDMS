@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.table1.T12Bean;
 import cn.nit.bean.table1.T14Bean;
 import cn.nit.dao.table1.T14DAO;
 import cn.nit.excel.imports.table1.T14Excel;
@@ -134,7 +136,7 @@ public class T14Action {
 
 		try {
 			
-			List<T14Bean> list = t14Dao.totalList();
+			List<T12Bean> list = t14Dao.totalList();
 			
 			String sheetName = this.excelName;
 			

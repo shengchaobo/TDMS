@@ -79,7 +79,7 @@ public class DiMajorTwoAction {
 		
 		String cond = null;
 		if(this.getSearchID()!= null){
-			cond = " and MajorNum LIKE '" + this.getSearchID() + "%'";
+			cond = " and MajorName LIKE '" + this.getSearchID() + "%'";
 			System.out.println(cond);
 		}
 		

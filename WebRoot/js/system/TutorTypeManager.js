@@ -64,7 +64,7 @@
 		var tutorType = $('#TutorType').val();
 		
 		//根据数据库定义的字段的长度，对其进行判断
-		if (indexID == null || indexID.length == 0 ) {
+		if (indexID == null || indexID.length == 0 || indexID == "null") {
 			alert("导师代码不能为空");
 			return false;
 		}
@@ -74,7 +74,7 @@
 			return false;
 		}
 		
-		if (tutorType == null || tutorType.length == 0 ) {
+		if (tutorType == null || tutorType.length == 0 || tutorType == "null") {
 			alert("导师类别名称不能为空");
 			return false;
 		}

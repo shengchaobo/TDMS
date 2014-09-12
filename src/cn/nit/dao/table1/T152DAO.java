@@ -161,6 +161,33 @@ public class T152DAO {
 		return list ;
 	}
 	
+	//教育部导出
+	public List<T151Bean> totalListAll(){
+		
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
+		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
+		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
+
+		
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T151Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T151Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
 	/**
 	 * 获得的总数（用于导出）
 	 * @return
@@ -254,6 +281,8 @@ public class T152DAO {
 	public static void main(String args[])
 	{
 		T152DAO dao=new T152DAO();
+		List<T151Bean> list = dao.totalListAll();
+		System.out.println(list.size());
 //		int n=dao.totalAuditingData(null, null);
 //		System.out.println(n);
 //		List<T152POJO> list=dao.auditingData(null, null, 1, 1);

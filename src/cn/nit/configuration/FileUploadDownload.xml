@@ -24,11 +24,7 @@
         </action>
 		
 		<action name="deleteFile" class="cn.nit.action.upload.DelFileAction"  method="deleteFile">
-		<param name="inputPath">/WEB-INF/uploadList</param><!--	
-		<result name="delete1"  type="redirect">
-				/pages/upload/Ugjjlyhzc.jsp
-		</result>
-        --></action>
+		<param name="inputPath">/WEB-INF/uploadList</param></action>
 		
 		<action name="downloadFile" class="cn.nit.action.upload.DownloadAction">
 			<param name="inputPath">/WEB-INF/uploadList</param>	
@@ -38,6 +34,20 @@
                 <param name="inputName">downloadFile</param>
       				<!-- 下载文件缓冲大小 -->
 				<param name="bufferSize">4096</param>
+            </result>
+        </action>
+        
+   		<action name="MultidownloadFile" class="cn.nit.action.upload.MultiFileDownloadAction">
+			<param name="filePath">/WEB-INF/educationFile</param>	
+            <result name="success" type="stream">
+            	<param name="contentType">application/octet-stream;charset=UTF-8</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="inputName">downloadMultiFile</param>
+      				<!-- 下载文件缓冲大小 -->
+				<param name="bufferSize">4096</param>
+            </result>
+             <result name="error"  type="redirect">
+						/pages/error.jsp
             </result>
         </action>
 	</package>

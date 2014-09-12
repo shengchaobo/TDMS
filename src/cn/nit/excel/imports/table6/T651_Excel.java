@@ -228,7 +228,7 @@ public class T651_Excel {
 				T651_bean.setAwardLevel(awardLevel);//国家级
 				T651_bean.setAwardGrade(awardGrade);
 				T651_bean.setAwardFromUnit(awardFromUnit);
-				T651_bean.setAwardTime(new SimpleDateFormat("yyyy-MM-dd").parse(awardTime));
+				T651_bean.setAwardTime(TimeUtil.changeDateYM(awardTime));
 				T651_bean.setAwardStuName(awardStuName);
 				T651_bean.setAwardStuNum(Integer.parseInt(awardStuNum));
 				T651_bean.setGuideTeaName(guideTeaName);

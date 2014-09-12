@@ -51,19 +51,23 @@
 			   	});			  	
 			  }
 			  
-			  function deleteFile(fileNum){		  
-    		   	$.ajax({
-			   		type : "post",
-			   		url : "deleteFile?fileNum=" +fileNum,
-			   		async : true,
-			   		dataType :"json",
-			   		success : function(result) {
-				  		 	if (result.state){				  		 	
-								alert(result.data);								
-								window.location.reload();											 
-				  		 	} else {
-								alert(result.data);
-				  		 	}		
-					}
-			   	});				  
+			  function deleteFile(fileNum){	
+					$.messager.confirm('文件删除', '您确定删除?', function(sure) {
+						if (sure) {
+			    		   	$.ajax({
+						   		type : "post",
+						   		url : "deleteFile?fileNum=" +fileNum,
+						   		async : true,
+						   		dataType :"json",
+						   		success : function(result) {
+							  		 	if (result.state){				  		 	
+											alert(result.data);								
+											window.location.reload();											 
+							  		 	} else {
+											alert(result.data);
+							  		 	}		
+								}
+						   	});
+						}
+				   	});				  
 			  }

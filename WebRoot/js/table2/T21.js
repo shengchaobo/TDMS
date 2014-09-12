@@ -1,13 +1,7 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "总占地面积", "group": "1.占地面积(平方米)", "value": "",  "field": "sumArea","editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
+				        { "name": "总占地面积", "group": "1.占地面积(平方米)", "value": "",  "field": "sumArea","editor": false },
 				        { "name": "学校产权", "group": "1.占地面积(平方米)", "value": "", "field": "schProArea", "editor":  {
 				    		"type":"numberbox",
 				    		"options":{
@@ -22,13 +16,7 @@
 				        	 	"precision": 2
 				    		}
 				        } },
-				        { "name": "非学校产权", "value": "", "group": "1.占地面积(平方米)", "field": "notSchProArea", "editor":  {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
+				        { "name": "非学校产权", "value": "", "group": "1.占地面积(平方米)", "field": "notSchProArea", "editor": false },
 				        { "name": "其中：绿化用地", "group": "1.占地面积(平方米)", "value": "", "field": "greenAreaNotInSch", "editor":  {
 				    		"type":"numberbox",
 				    		"options":{
@@ -50,13 +38,7 @@
 				        	 	"precision": 2
 				    		}
 				        } },
-				       	{ "name": "总建筑面积", "group": "2.总建筑面积(平方米)", "value": "", "field": "sumCoverArea" ,"editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
+				       	{ "name": "总建筑面积", "group": "2.总建筑面积(平方米)", "value": "", "field": "sumCoverArea" ,"editor": false},
 				       	{ "name": "学校产权", "group": "2.总建筑面积(平方米)", "value": "", "field": "schProCovArea","editor": {
 				    		"type":"numberbox",
 				    		"options":{
@@ -65,13 +47,7 @@
 
 				    		}
 				        } },
-				       	{ "name": "非学校产权", "group": "2.总建筑面积(平方米)",  "value": "", "field": "notSchProCovArea", "editor": {
-				    		"type":"numberbox",
-				    		"options":{
-				        	 	"min":  0,
-				        	 	"precision": 2
-				    		}
-				        } },
+				       	{ "name": "非学校产权", "group": "2.总建筑面积(平方米)",  "value": "", "field": "notSchProCovArea", "editor": false},
 				       	{ "name": "其中：独立使用", "group": "2.总建筑面积(平方米)",  "value": "", "field": "onlyUseCovArea", "editor": {
 				    		"type":"numberbox",
 				    		"options":{

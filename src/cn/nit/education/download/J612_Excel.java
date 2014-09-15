@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,12 @@ public class J612_Excel {
 	
 		T615_Dao T615_dao = new T615_Dao();
 	
-		List<T615_Bean> list = T615_dao.getAllList("", null);
+		//获取当前年份
+		Date time = new Date();
+		String currentTime = time.toString();
+		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+		
+		List<T615_Bean> list = T615_dao.getAllList(year);
 		
 		String sheetName = "J-6-1-2普通本科分专业（大类）学生数（时点）";
 		

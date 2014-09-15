@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +22,13 @@ public class J15_Excel {
 		T151DAO T151dao = new T151DAO();
 		T152DAO T152dao = new T152DAO();
 		
-		List<T151Bean> list = T151dao.totalList();
-		List<T151Bean> list1 = T152dao.totalListAll();
+		//获取当前年份
+		Date time = new Date();
+		String currentTime = time.toString();
+		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+		
+		List<T151Bean> list = T151dao.totalList(year);
+		List<T151Bean> list1 = T152dao.totalListAll(year);
 		
 		list.addAll(list1);
 

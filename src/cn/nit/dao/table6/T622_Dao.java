@@ -254,36 +254,49 @@ public class T622_Dao {
 		
 		return list ;
 	}
+	
+	
+	/**用于教育部数据导出*/
+	public List<T622_Bean> getAllList(String year) {
+		// TODO Auto-generated method stub
+//		String Cond = "1=1";
+//		
+//		if(cond != null && !cond.equals("")){
+//			Cond = Cond + cond;
+//		}	
+		String sql;
+		
+		sql = "select " + fieldShow + " from " + tableName +" where Time like '"+year+"%'" ;
+	    System.out.println(sql);
+	
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T622_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T622_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+
 
 	public static void main(String args[]) {
 
 		T622_Dao LibAndSciAdmiNumDao = new T622_Dao();
-		T622_Bean LibAndSciAdmiNum = new T622_Bean();
-//		 LibAndSciAdmiNum.setSeqNumber(1);
-		//		
-		LibAndSciAdmiNum.setProvince("北京");
-		LibAndSciAdmiNum.setBatch("提前批招生");
-		LibAndSciAdmiNum.setLibEnrollNum(30);
-		LibAndSciAdmiNum.setSciEnrollNum(60);
-		LibAndSciAdmiNum.setLibLowestScore(100);
-		LibAndSciAdmiNum.setSciLowestScore(200);
-		LibAndSciAdmiNum.setLibAvgScore(380);
-		LibAndSciAdmiNum.setSciAvgScore(380);
-				
-		LibAndSciAdmiNum.setTime(new Date());
-		LibAndSciAdmiNum.setNote("无");
-//		//		
-		LibAndSciAdmiNumDao.insert(LibAndSciAdmiNum);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(LibAndSciAdmiNumDao.update(LibAndSciAdmiNum)) ;
-//		 System.out.println(LibAndSciAdmiNumDao.deleteItemsByIds("(8)")) ;
+        List<T622_Bean> list = LibAndSciAdmiNumDao.getAllList("2014");
 
-		System.out.println("success!!");
+		System.out.println(list.size());
 	}
 
 

@@ -17,7 +17,7 @@ public class T711_DAO {
 	
 	private String key="SeqNumber";
 	
-	private String field="TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillTeaID,FillUnitID,audit";
+	private String field="TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime7,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillTeaID,FillUnitID,audit";
 
 
     public boolean insert(T711_Bean teaManagerAwardInfo)
@@ -106,7 +106,7 @@ public class T711_DAO {
     	
     	List<T711POJO> list=null;
     	
-    	sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID");
+    	sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime7,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID");
     	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
     	sql.append(" where adl.IndexID=t.AwardLevel") ;
     	
@@ -153,7 +153,7 @@ public class T711_DAO {
 	 */
 	public List<T711POJO> totalList(String year,String fillUnitID){
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID");
+		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime7,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID");
     	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
     	sql.append(" where adl.IndexID=t.AwardLevel") ;
     	sql.append(" and FillUnitID=" + "'" + fillUnitID + "'");
@@ -210,7 +210,7 @@ public class T711_DAO {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		
-		String tempfield = "TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillUnitID";
+		String tempfield = "TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime7,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillUnitID";
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 		}catch(Exception e){

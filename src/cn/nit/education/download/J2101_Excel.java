@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cn.nit.bean.table2.T291_Bean;
+import cn.nit.service.table2.T291_Service;
+
 import jxl.Workbook;
 import jxl.format.Alignment;
 import jxl.format.Border;
@@ -21,20 +24,19 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
-import cn.nit.bean.table2.S22_Bean;
-import cn.nit.service.table2.S22_Service;
 
-public class J22_Excel {
+
+public class J2101_Excel {
 	
-	public static boolean export_J22(String path){
-		S22_Service S22_services = new S22_Service();
+	public static boolean export_J2101(String path){
+		T291_Service T291_services = new T291_Service();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 		String year = dateFormat.format(new Date());
-		S22_Bean bean = S22_services.getYearInfo(year);
+		T291_Bean bean = T291_services.getYearInfo(year);
 		
 	    ByteArrayOutputStream fos = null;
 		
-	    String sheetName = "J-2-2教学行政用房（时点）";
+	    String sheetName = "J-2-10-1教育经费概况（自然年） ";
 					
 	    WritableWorkbook wwb;
 	    try {    
@@ -74,24 +76,15 @@ public class J22_Excel {
 	           
 	           ws.addCell(new Label(0, 2, "项目", wcf)); 
 	           ws.addCell(new Label(1, 2, "内容", wcf)); 
-	           ws.addCell(new Label(0, 3, "1.教学科研及辅助用房（平方米）", wcf)); 
-	           ws.addCell(new Label(0, 4, "其中：教室", wcf));  
-	           ws.addCell(new Label(0, 5, "图书馆", wcf)); 
-	           ws.addCell(new Label(0, 6, "实验室、实习场所", wcf)); 
-	           ws.addCell(new Label(0, 7, "专用科研用房", wcf)); 
-	           ws.addCell(new Label(0, 8, "体育馆", wcf)); 
-	           ws.addCell(new Label(0, 9, "会堂", wcf)); 
-	           ws.addCell(new Label(0, 10, "2.行政用房（平方米）", wcf)); 
+	           ws.addCell(new Label(0, 3, "1.学校教育经费总额（万元）", wcf)); 
+	           ws.addCell(new Label(0, 4, "2.教学经费预算总额（万元）", wcf)); 
+	           ws.addCell(new Label(0, 5, "3.教学改革与建设专项经费总额（万元）", wcf)); 
 	           		           
 	           if(bean!=null){
-		           ws.addCell(new Label(1, 3, bean.getSumTeaArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 4, bean.getClassrmArea().toString(), wcf1));  
-		           ws.addCell(new Label(1, 5, bean.getLibArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 6, bean.getLabArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 7, bean.getResArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 8, bean.getPhyArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 9, bean.getHallArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 10, bean.getSumAdminArea().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 3, bean.getSumTeaExp().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 4, bean.getTeaExpBudget().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 5, bean.getSpecialExp().toString(), wcf1)); 
+		              
 	           }	             
 	          wwb.write();
 	          wwb.close();
@@ -106,7 +99,7 @@ public class J22_Excel {
 	        
 			try {
 								
-				File file = new File(path,"J-2-2教学行政用房.xls");
+				File file = new File(path,"J-2-10-1教育经费概况.xls");
 				FileOutputStream fileOutputStream  = new FileOutputStream(file);
 				
 				//写到文件中

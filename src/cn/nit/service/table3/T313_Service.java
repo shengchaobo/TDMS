@@ -40,7 +40,7 @@ public class T313_Service {
 	public String auditingData(String conditions, String fillDept, int page, int rows){
 		
 	    int total = discipDAO.totalAuditingData(conditions, fillDept) ;
-		List<T313POJO> list = discipDAO.auditingData(conditions, fillDept, page, rows) ;
+		List<T313_Bean> list = discipDAO.auditingData(conditions, fillDept, page, rows) ;
 		Pagition pages = new Pagition(total, list) ;
 //		System.out.println("total:"+total);
 //		System.out.println("list:"+list.size());

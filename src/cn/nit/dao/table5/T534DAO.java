@@ -196,6 +196,36 @@ public class T534DAO {
 		return list ;
 	}
 	
+	public List<T534Bean> totalListY(String year){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
+				"dea.Education as Education,dde.Degree as Degree, dtn.TitleName as Title," +
+				"t.IsExcellent, t.TrainIssueNum, t.SocialNum,t.GuideStuNum,t.GainBestNum,t.GainTime,t.Time,t.Note,t.FillUnitID");
+		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
+		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
+				" and  dtn.IndexID = t.Title");
+		sql.append(" and   Time like '"+year+"%'");
+
+//		System.out.println(sql.toString());
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T534Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T534Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
 	//更新！
 	public boolean update(T534Bean t534Bean){
 			

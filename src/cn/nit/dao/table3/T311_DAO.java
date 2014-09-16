@@ -210,10 +210,34 @@ public class T311_DAO {
 		sql.append("select SeqNumber,PostDocStaName,SetTime,ResearcherNum, UnitName," +
 		"UnitID,Note,Time");
         sql.append(" from "+tableName);
-
-
+	
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T311_Bean> list = null ;
 		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T311_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
 		
+		return list ;
+	}
+	
+	
+	
+	/**用于教育部数据导出*/
+	public List<T311_Bean> totalList(String year){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select SeqNumber,PostDocStaName,SetTime,ResearcherNum, UnitName," +
+		"UnitID,Note,Time");
+        sql.append(" from "+tableName+" where Time like '"+year+"%'");
+	
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

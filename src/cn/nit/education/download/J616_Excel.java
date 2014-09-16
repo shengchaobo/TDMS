@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,13 @@ public class J616_Excel {
 	 public static boolean export_J616(String path){
 			
 			T621_Dao T621_dao = new T621_Dao();
+			
+			//获取当前年份
+			Date time = new Date();
+			String currentTime = time.toString();
+			String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
-			List<T621_Bean> list = T621_dao.getAllList("", null);
+			List<T621_Bean> list = T621_dao.getAllList(year);
 			
 			String sheetName = "J-6-1-6各专业招生报到情况（时点）";
 			

@@ -9,6 +9,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import cn.nit.bean.table6.T631_Bean;
 import cn.nit.dbconnection.DBConnection;
+import cn.nit.pojo.table6.T631POJO;
 import cn.nit.util.DAOUtil;
 
 public class T631_Dao {
@@ -250,18 +251,30 @@ public class T631_Dao {
 		return list ;
 	}
 	
-	public List<T631_Bean> getAllList() {
+	
+	/**教育部导出（需要T631，T632连接）*/
+	public List<T631POJO> getAllList(String year) {
 		// TODO Auto-generated method stub
-		String sql = "select " + fieldShow + " from " + tableName ;
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("select "+tableName+".TeaUnit,"+tableName+".UnitID,"+tableName+".MajorName,"+tableName+".MajorID,"+
+				tableName+".ThisYearGraduNum,"+tableName+".ThisYearNotGraduNum,"+tableName+".AwardDegreeNum,T632_GraStuEmployInfo_Admission$.SumEmployNum");
+		sql.append(" from "+tableName+" left join T632_GraStuEmployInfo_Admission$ on "+tableName+".MajorID = T632_GraStuEmployInfo_Admission$.MajorID");
+		sql.append(" where "+tableName+".MajorID = T632_GraStuEmployInfo_Admission$.MajorID");
+		sql.append(" and "+tableName+".Time like '"+year+"%' and T632_GraStuEmployInfo_Admission$.Time like '"+year+"%'");
+//		sql.append(" and a.Time like '"+year+"%' and b.Time like '"+year+"%'");
+		
+		System.out.println(sql.toString());
+//		String sql = "select " + fieldShow + " from " + tableName ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T631_Bean> list = null ;
+		List<T631POJO> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
-			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T631_Bean.class) ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T631POJO.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
@@ -372,8 +385,8 @@ public class T631_Dao {
 		// ;
 		// // System.out.println(UndergraAdmiInfoDao.update(UndergraAdmiInfo)) ;
 //		 System.out.println(JuniorAdmisInfoDao.deleteItemsByIds("(8)")) ;
-
-		System.out.println("success!!");
+			List<T631POJO> list = UndergarGraduateInfoDao.getAllList("2014");
+		System.out.println(list.size());
 	}
 
 

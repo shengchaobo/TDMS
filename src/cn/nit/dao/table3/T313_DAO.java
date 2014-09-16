@@ -3,6 +3,7 @@ package cn.nit.dao.table3;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -117,10 +118,10 @@ public class T313_DAO {
 	}
 	
 	
-	public List<T313POJO> auditingData(String conditions, String fillDept, int page, int rows){
+	public List<T313_Bean> auditingData(String conditions, String fillDept, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T313POJO> list =null ;
+		List<T313_Bean> list =null ;
 		sql.append("select t.SeqNumber,t.DiscipName,t.DiscipID,t.UnitName," +
 				"t.UnitID,t.DiscipType,t.NationLevelOne,t.NationLevelTwo,t.NationLevelKey,t.ProvinceLevelOne,"+
 				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time");
@@ -152,7 +153,7 @@ public class T313_DAO {
 			st.setMaxRows(page * rows) ;
 			rs = st.executeQuery(sql.toString()) ;
 			rs.absolute((page - 1) * rows) ;//将光标移动到此 ResultSet 对象的给定行编号
-			list = DAOUtil.getList(rs, T313POJO.class) ;
+			list = DAOUtil.getList(rs, T313_Bean.class) ;
 		
 			
 		}catch(Exception e){
@@ -190,6 +191,68 @@ public class T313_DAO {
 		
 		return list ;
 	}
+	
+	/**用于教育部数据导出*/
+	public List<T313POJO> totalList(String year){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.DiscipName,t.DiscipID,t.UnitName," +
+				"t.UnitID,t.DiscipType,t.NationLevelOne,t.NationLevelTwo,t.NationLevelKey,t.ProvinceLevelOne,"+
+				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time");
+		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
+		sql.append(" where   dpt.UnitID=t.UnitID and t.Time like '"+year+"%'");
+			
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T313POJO> list = new ArrayList <T313POJO> ();
+
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			while (rs.next()){
+				T313POJO pojo =new T313POJO();
+				StringBuffer level = new StringBuffer();
+				pojo.setDiscipName(rs.getString("DiscipName"));
+				pojo.setDiscipID(rs.getString("DiscipID"));
+				pojo.setUnitName(rs.getString("UnitName"));
+				pojo.setUnitID(rs.getString("UnitID"));
+				pojo.setDiscipType(rs.getString("DiscipType"));
+				if(rs.getBoolean("NationLevelOne")){
+					level.append("国家一级，");		
+				}
+				if(rs.getBoolean("NationLevelTwo")){
+					level.append("国家二级，");		
+				}
+				if(rs.getBoolean("NationLevelKey")){
+					level.append("国家重点（培育），");		
+				}
+				if(rs.getBoolean("ProvinceLevelOne")){
+					level.append("省部一级，");		
+				}
+				if(rs.getBoolean("ProvinceLevelTwo")){
+					level.append("省部二级，");		
+				}
+				if(rs.getBoolean("CityLevel")){
+					level.append("市级，");		
+				}
+				if(rs.getBoolean("SchLevel")){
+					level.append("校级，");		
+				}
+				String level1 = level.toString();
+				level1 = level1.substring(0,level.length()-1);
+				pojo.setLevel(level1.toString());
+				list.add(pojo);
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}	
+		return list ;
+	}
+	
+
 	
 	
 	

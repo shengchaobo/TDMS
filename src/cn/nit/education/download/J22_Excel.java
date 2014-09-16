@@ -21,16 +21,16 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
-import cn.nit.bean.table2.T22_Bean;
-import cn.nit.service.table2.T22_Service;
+import cn.nit.bean.table2.S22_Bean;
+import cn.nit.service.table2.S22_Service;
 
 public class J22_Excel {
 	
 	public static boolean export_J22(String path){
-		T22_Service T22_services = new T22_Service();
+		S22_Service S22_services = new S22_Service();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 		String year = dateFormat.format(new Date());
-		T22_Bean bean = T22_services.getYearInfo(year);
+		S22_Bean bean = S22_services.getYearInfo(year);
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -73,51 +73,25 @@ public class J22_Excel {
 	           ws.mergeCells(0, 0, 1, 0);
 	           
 	           ws.addCell(new Label(0, 2, "项目", wcf)); 
-	           ws.addCell(new Label(1, 2, "面积‌‌（平方米）", wcf)); 
-	           ws.addCell(new Label(2, 2, "数量（个", wcf)); 
-	           ws.addCell(new Label(0, 3, "1.行政办公用房", wcf)); 
-	           ws.addCell(new Label(0, 4, "2.图书馆", wcf));  
-	           ws.addCell(new Label(0, 5, "3.图书馆阅览室座位数", wcf)); 
-	           ws.addCell(new Label(0, 6, "4.博物馆", wcf)); 
-	           ws.addCell(new Label(0, 7, "5.校史馆", wcf)); 
-	           ws.addCell(new Label(0, 8, "6.体育馆", wcf)); 
-	           ws.addCell(new Label(0, 9, "7.运动场", wcf)); 
-	           ws.addCell(new Label(0, 10, "8.学生活动中心", wcf)); 
-	           ws.addCell(new Label(0, 11, "9.会堂", wcf)); 
-	           ws.addCell(new Label(0, 12, "10.学生食堂", wcf)); 
-	           ws.addCell(new Label(0, 13, "11.学生宿舍", wcf)); 
-	           ws.addCell(new Label(0, 14, "12.其他", wcf)); 
-	
-	           ws.mergeCells(0, 2, 1, 2);
-	           ws.mergeCells(0, 3, 0, 9);
-	           ws.mergeCells(0, 10, 0, 14);
+	           ws.addCell(new Label(1, 2, "内容", wcf)); 
+	           ws.addCell(new Label(0, 3, "1.教学科研及辅助用房（平方米）", wcf)); 
+	           ws.addCell(new Label(0, 4, "其中：教室", wcf));  
+	           ws.addCell(new Label(0, 5, "图书馆", wcf)); 
+	           ws.addCell(new Label(0, 6, "实验室、实习场所", wcf)); 
+	           ws.addCell(new Label(0, 7, "专用科研用房", wcf)); 
+	           ws.addCell(new Label(0, 8, "体育馆", wcf)); 
+	           ws.addCell(new Label(0, 9, "会堂", wcf)); 
+	           ws.addCell(new Label(0, 10, "2.行政用房（平方米）", wcf)); 
 	           		           
 	           if(bean!=null){
-		           ws.addCell(new Label(1, 3, bean.getAdmOfficeArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 4, bean.getLibArea().toString(), wcf1));  
-		           ws.addCell(new Label(1, 5, "/", wcf1)); 
-		           ws.addCell(new Label(1, 6, bean.getMuseumArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 7, bean.getSchHisHallArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 8, bean.getGymArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 9, bean.getSportArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 10, bean.getStuCenterArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 11, bean.getHallArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 12, bean.getStuCanteenArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 13, bean.getStuDormiArea().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 14, bean.getOtherArea().toString(), wcf1)); 
-
-		           ws.addCell(new Label(2, 3, "/", wcf1)); 
-		           ws.addCell(new Label(2, 4, bean.getLibNum().toString(), wcf1));  
-		           ws.addCell(new Label(2, 5, bean.getLibRoomSitNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 6, bean.getMuseumNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 7, bean.getSchHisHallNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 8, bean.getGymNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 9, bean.getSportNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 10, bean.getStuCenterNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 11, bean.getHallNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 12, bean.getStuCanteenNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 13, bean.getStuDormiNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 14, bean.getOtherNum().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 3, bean.getSumTeaArea().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 4, bean.getClassrmArea().toString(), wcf1));  
+		           ws.addCell(new Label(1, 5, bean.getLibArea().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 6, bean.getLabArea().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 7, bean.getResArea().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 8, bean.getPhyArea().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 9, bean.getHallArea().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 10, bean.getSumAdminArea().toString(), wcf1)); 
 	           }	             
 	          wwb.write();
 	          wwb.close();

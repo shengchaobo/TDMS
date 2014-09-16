@@ -346,6 +346,41 @@ public class T621_Dao {
 		
 		return list ;
 	}
+	
+	/**用于教育部导出*/
+	public List<T621_Bean> getAllList(String year) {
+
+//		String Cond = "1=1";
+//		
+//		if(cond != null && !cond.equals("")){
+//			Cond = Cond + cond;
+//		}
+		// TODO Auto-generated method stub
+		String sql;
+		
+		sql = "select " + fieldShow + " from " + tableName +" where Time like '"+year+"%'"; 
+	    System.out.println(sql);
+	
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T621_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T621_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
 
 	public static void main(String args[]) {
 
@@ -375,9 +410,9 @@ public class T621_Dao {
 		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
 		// ;
 		// // System.out.println(UndergraAdmiInfoDao.update(UndergraAdmiInfo)) ;
-		 System.out.println(UndergraAdmiInfoDao.deleteItemsByIds("(8)")) ;
-
-		System.out.println("success!!");
+//		 System.out.println(UndergraAdmiInfoDao.deleteItemsByIds("(8)")) ;
+		List<T621_Bean> list = UndergraAdmiInfoDao.getAllList("2014");
+		System.out.println(list.size());
 	}
 
 

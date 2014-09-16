@@ -59,6 +59,40 @@ public class T413_Dao {
 		return list ;
 	}
 	
+	
+	//教育部导出
+	public List<T413_Bean> totalList(){
+		
+		String sql = "select " + 
+		"Name,TeaId,Gender,Birthday,HireBeginTime,TeaState,HireTimeLen,UnitId,"+
+		"UnitName," + tableName4 + ".Education,Degree AS TopDegree,TitleLevel AS TechTitle,SubjectClass,WorkUnitType," + tableName3 + ".TutorType,Region,Note,FillUnitID"
+		+ " from " + tableName + 
+		" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
+		" left join " + tableName2+ " on " + "TechTitle=" + tableName2 + ".IndexID " +
+		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
+		" left join " + tableName3+ " on " + tableName + ".TutorType=" + tableName3 + ".IndexID " ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T413_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T413_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+	
+	
 	/**
 	 * 获得分页查询的总数
 	 * @return

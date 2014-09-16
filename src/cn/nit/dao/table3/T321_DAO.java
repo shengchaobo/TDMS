@@ -217,6 +217,34 @@ public class T321_DAO {
 	}
 	
 	
+	/**用于教育部数据导出*/
+	public List<T321_Bean> totalList(String year){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.MainClassName,t.MainClassID,t.ByPassTime," +
+				"t.MajorNameInSch,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.UnitName,t.UnitID,"+
+				"t.Note,t.Time");
+		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ");
+		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID and t.Time like '"+year+"%'");
+		sql.append(" order by cast(MainClassID as int)") ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T321_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T321_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
+	
 	
 	
 	public boolean update(T321_Bean t321_Bean){

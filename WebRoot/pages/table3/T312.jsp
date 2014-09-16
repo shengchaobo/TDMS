@@ -104,11 +104,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 		<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="SeqNumber" >编号</th>
+				<th field="StaName" >名称</th>
 			</tr>
 			</thead>
 			<thead>
-				<tr>
-				<th field="StaName" >名称</th>
+				<tr>			
 				<th field="StaID" >代码</th>
 				<th field="UnitName" >所属单位</th>
 				<th field="UnitID" >单位号</th>
@@ -141,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>名称：</label> 
-						<input id="SeqNumber" name="postDocStaBean.SeqNumber" type="hidden" > </input>
+						<input id="SeqNumber" name="docAndGraStaBean.SeqNumber" type="hidden" > </input>
 						<input id="StaName" type="text" name="docAndGraStaBean.StaName"
 							class="easyui-validatebox" ><span id="StaNameSpan"></span>
 					</div>
@@ -174,8 +174,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>类型：</label> 
 						<select class='easyui-combobox' id="StaType" name="docAndGraStaBean.StaType" editable=false panelHeight="auto">
-							<option value="硕士点">硕士点</option>
-							<option value="博士点">博士点</option>
+							<option value="博士学位授权一级学科点">博士学位授权一级学科点</option>
+							<option value="博士学位授权二级学科点">博士学位授权二级学科点</option>
+							<option value="硕士学位授权一级学科点">硕士学位授权一级学科点</option>
+							<option value="硕士学位授权二级学科点">硕士学位授权二级学科点</option>
 						</select>
 						<span id="StaTypeSpan"></span>
 					</div>

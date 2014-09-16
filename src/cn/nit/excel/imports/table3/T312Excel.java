@@ -124,8 +124,8 @@ public class T312Excel {
 				    if(StaType == null || StaType.equals("")){
 				    	return "第" + count + "行，类型不能为空" ;
 				    }
-				    if(!StaType.equals("硕士点")&&!StaType.equals("博士点")){
-				    	return "第"+count+"行，类型应该为硕士点或博士点";
+				    if(!StaType.equals("博士学位授权一级学科点")&&!StaType.equals("博士学位授权二级学科点")&&!StaType.equals("硕士学位授权一级学科点")&&!StaType.equals("硕士学位授权二级学科点")){
+				    	return "第"+count+"行，类型填写有误";
 				    }
 
 				

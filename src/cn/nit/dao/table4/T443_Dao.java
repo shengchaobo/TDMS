@@ -50,6 +50,39 @@ public class T443_Dao {
 	}
 	
 	/**
+	 * 用于教育部导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T443_Bean> totalList(String year){
+		
+		String sql = "select " + " SeqNumber,Name,TeaId,TalentType AS Type,ResField,GainTime,Time,Note"
+		+ " from " + tableName +
+		" left join " + tableName2+ " on " + "Type=" + tableName2 + ".IndexID where Time like '"+year+"%'";
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T443_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T443_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+	
+	
+	/**
 	 * 分 页查询总数
 	 * 
 	 */

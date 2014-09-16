@@ -187,6 +187,37 @@ public class T531DAO {
 		return list ;
 	}
 	
+	
+	/**
+	 * 获得的总数（用于教育部导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T531Bean> totalList(String year){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.Name,t.Type,t.ItemLevel,t.buildTime,did.UnitName as TeaUnit,t.JoinStuNum,t.Time,t.Note");
+		sql.append(" from "+tableName+" as t,DiDepartment as did");
+		sql.append(" where t.TeaUnit = did.UnitID");
+		sql.append(" and t.Time like '"+year+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T531Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T531Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
 	//更新！
 	public boolean update(T531Bean t531Bean){
 			
@@ -236,7 +267,9 @@ public class T531DAO {
 	public static void main(String arg[]){
 		T531DAO dao=new T531DAO();
 		List<T531Bean> list=dao.totalList();
+		List<T531Bean> list1=dao.totalList("2014");
 		System.out.println(list.size());
+		System.out.println(list1.size());
 	}
 
 }

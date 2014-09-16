@@ -229,6 +229,7 @@ public class T652_Dao {
 		return list ;
 	}
 	
+	
 	public List<T652_Bean> getAllList(String cond, String filledID) {
 		// TODO Auto-generated method stub
 		String Cond = "1=1";
@@ -236,10 +237,16 @@ public class T652_Dao {
 		if(cond != null && !cond.equals("")){
 			Cond = Cond + cond;
 		}
-		String sql;
+		String sql; 
 		
-		sql = "select " + fieldShow + " from " + tableName +" where " + Cond
-			 +" and FillUnitID="+filledID;
+		sql = "select t.SeqNumber,t.TeaUnit,t.UnitId,t.PaperTitle,t.JonalName,t.JonalId,t.JonalDate,t.AwardStuName," +
+				"t.AwardStuNum,t.GuideTeaName,t.GuideTeaNum,t.IsAward,dia.AwardLevel,t.AwardName,t.AwardFromUnit," +
+				"t.Time,t.Note,t.FillUnitID from "+tableName+" as t,DiAwardLevel as dia "
+				+" where t.AwardLevel = dia.IndexID "
+				+" and t.FillUnitID="+filledID;
+		
+//		sql = "select " + fieldShow + " from " + tableName +" where " + Cond
+//			 +" and FillUnitID="+filledID;
 //	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -317,7 +324,9 @@ public class T652_Dao {
 
 	public static void main(String args[]) {
 
-//		T652_Dao StuPublishPaperDao = new T652_Dao();
+		T652_Dao StuPublishPaperDao = new T652_Dao();
+		List<T652_Bean> list = StuPublishPaperDao.getAllList(null, "1012");
+		System.out.println(list.size());
 //		T652_Bean StuPublishPaper = new T652_Bean();
 //		List<T652_Bean> list = StuPublishPaperDao.getYearInfo("2014");
 //		

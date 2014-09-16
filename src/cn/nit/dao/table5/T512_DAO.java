@@ -175,6 +175,34 @@ public class T512_DAO {
  		return list ;
  	}
      
+ 	/**用于教育部导出*/
+	public List<T512POJO> totalList(String year){
+ 		StringBuffer sql=new StringBuffer();
+ 		sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.PubCSType,t.IsDoubleCS,t.Credit,t.SumCSHour,t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass,t.ClassID,t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob,t.TeaTitle,t.BookUseInfo,t.IsPlanbook,t.IsAwardbook,t.Time,t.Note") ;
+		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
+		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+		sql.append(" and t.Time like '"+year+"%'");
+//	 	sql.append(" and FillUnitID=" + "'" + fillUnitID + "'");
+ 		Connection conn = DBConnection.instance.getConnection() ;
+ 		Statement st = null ;
+ 		ResultSet rs = null ;
+ 		List<T512POJO> list = null ;
+ 		System.out.println(sql);
+ 		try{
+ 			st = conn.createStatement() ;
+ 			rs = st.executeQuery(sql.toString()) ;
+ 			list = DAOUtil.getList(rs, T512POJO.class) ;
+ 		}catch(Exception e){
+ 			e.printStackTrace() ;
+ 			return null ;
+ 		}finally{
+ 			DBConnection.close(conn);
+ 			DBConnection.close(rs);
+ 			DBConnection.close(st);			
+ 		}
+ 		
+ 		return list ;
+ 	}
      public boolean update(T512_Bean t512_Bean){
      	boolean flag=false;
      	
@@ -251,7 +279,11 @@ public class T512_DAO {
      
      
      
-     
+     public static void main(String arg[]){
+    	 T512_DAO dao = new T512_DAO();
+    	 List<T512POJO> list = dao.totalList("2014");
+    	 System.out.println(list.size());
+     }
      
      
      

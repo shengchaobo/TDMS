@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import cn.nit.bean.table1.T12Bean;
 import cn.nit.bean.table6.T631_Bean;
 import cn.nit.dao.table1.T13DAO;
 import cn.nit.dao.table6.T631_Dao;
+import cn.nit.pojo.table6.T631POJO;
 import cn.nit.util.ExcelUtil;
 
 public class J619_Excel {
@@ -21,20 +23,25 @@ public static boolean export_J619(String path){
 		
 		T631_Dao T631_dao = new T631_Dao();
 		
-		List<T631_Bean> list = T631_dao.getAllList("", null);
+		//获取当前年份
+		Date time = new Date();
+		String currentTime = time.toString();
+		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+		
+		List<T631POJO> list = T631_dao.getAllList(year);
 
 		String sheetName = "J-6-1-9应届本科毕业生分专业毕业就业情况（时点）    ";
 		
 		List<String> columns = new ArrayList<String>();
 		columns.add("序号");
 		columns.add("校内专业（大类）代码");columns.add("校内专业（大类）名称");columns.add("应届毕业生数");
-		columns.add("应届生中未按时毕业数");columns.add("授予学位数");
+		columns.add("应届生中未按时毕业数");columns.add("授予学位数");columns.add("应届就业人数");
 //		columns.add("应届就业人数");
 		
 		Map<String,Integer> maplist = new HashMap<String,Integer>();
 		maplist.put("SeqNum", 0);
-		maplist.put("majorId", 1);maplist.put("MajorName", 2);maplist.put("ThisYearGraduNum", 3);
-		maplist.put("ThisYearNotGraduNum", 4);maplist.put("AwardDegreeNum", 5);
+		maplist.put("MajorID", 1);maplist.put("MajorName", 2);maplist.put("ThisYearGraduNum", 3);
+		maplist.put("ThisYearNotGraduNum", 4);maplist.put("AwardDegreeNum", 5);maplist.put("SumEmployNum", 6);
 //		maplist.put("SumEmployNum", 6);
 		
 		ByteArrayOutputStream byteArrayOutputStream = null;		

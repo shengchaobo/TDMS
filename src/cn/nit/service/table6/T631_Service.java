@@ -60,7 +60,7 @@ public class T631_Service {
 
 	public int getTotal() {
 		// TODO Auto-generated method stub
-		return T631_dao.getAllList().size();
+		return T631_dao.getAllList(null,null).size();
 	}
 
 	public List<T631_Bean> getPageInfoList(String cond, Object object,

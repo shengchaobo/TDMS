@@ -190,6 +190,32 @@ public class T533DAO {
 		return list ;
 	}
 	
+	/**教育部导出*/
+	public List<T533Bean> totalListEdu(String year){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
+		",t.ExpRatio,t.Time,t.Note,t.FillUnitID");
+		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
+		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
+		sql.append(" and t.Time like '"+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T533Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T533Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
 	//更新！
 	public boolean update(T533Bean t533Bean){
 			
@@ -236,12 +262,16 @@ public class T533DAO {
 	}
 	
 	public static void main(String arg[]){
-		StringBuffer sql = new StringBuffer() ;
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
-		",t.ExpRatio,t.Time,t.Note,t.FillUnitID");
-sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
-sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
-		System.out.println(sql.toString());
+//		StringBuffer sql = new StringBuffer() ;
+//		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
+//		",t.ExpRatio,t.Time,t.Note,t.FillUnitID");
+//		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
+//		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
+//		System.out.println(sql.toString());
+		
+		T533DAO dao =  new T533DAO();
+		List<T533Bean> list = dao.totalListEdu("2014");
+		System.out.println(list.size());
 		
 	}
 	

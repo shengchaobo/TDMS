@@ -26,6 +26,7 @@ public class T293_Bean implements
 	private Double undergraTuition;
 	private Double eduReformFund;
 	private Double sumOtherIncome;
+	private Double juniorAllocateFund;
 	private Double otherAllocateFund;
 	private Double otherNationFund;
 	private Double otherLocalFund;
@@ -216,6 +217,14 @@ public class T293_Bean implements
 
 	public Double getSumIncome() {
 		return sumIncome;
+	}
+
+	public void setJuniorAllocateFund(Double juniorAllocateFund) {
+		this.juniorAllocateFund = juniorAllocateFund;
+	}
+
+	public Double getJuniorAllocateFund() {
+		return juniorAllocateFund;
 	}
 
 }

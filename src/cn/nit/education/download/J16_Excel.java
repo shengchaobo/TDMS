@@ -88,11 +88,11 @@ public class J16_Excel {
 	        	   pojo = new T16POJO();
 	           }
 	           
-		        		   //写入数据
-		        		   ws.addCell(new Label(1, 3, pojo.getContents1(), wcf1)); 
-		        		   ws.mergeCells(1, 3, 3, 3);
-		        		   ws.addCell(new Label(1, 4, pojo.getContents2(), wcf1)); 
-		        		   ws.mergeCells(1, 4, 3, 4);
+    		   //写入数据
+    		   ws.addCell(new Label(1, 3, pojo.getContents1(), wcf1)); 
+    		   ws.mergeCells(1, 3, 3, 3);
+    		   ws.addCell(new Label(1, 4, pojo.getContents2(), wcf1)); 
+    		   ws.mergeCells(1, 4, 3, 4);
 	        
 	           wwb.write();
 		       wwb.close();

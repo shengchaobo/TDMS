@@ -14,7 +14,7 @@ public class T27_Dao {
 	
 	private String tableName = "T27_SchNetwork_NIC$" ;
 	private String field = "MainBW,ExitBW,AccessPOINum,ClassrmNum,ClassrmNum,DormiNum,OfficeNum,SumMemSpace,AvgTeaMemSpace," +
-			"AvgStuMemSpace,WebTeahingUrl,Time,Note";
+			"AvgStuMemSpace,WebTeahingUrl,TeaManageUrl,Time,Note";
 	private String keyfield = "SeqNumber";
 	
 	/**

@@ -140,7 +140,7 @@ public class J2102_Excel {
 	           if(bean2!=null){	        	   
 		           ws.addCell(new Label(3, 13, bean2.getNationFund().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 14, bean2.getLocalFund().toString(), wcf1));  
-		           ws.addCell(new Label(3, 15, "待定", wcf1)); 
+		           ws.addCell(new Label(3, 15, bean2.getJuniorAllocateFund().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 16, bean2.getUndergraTuition().toString().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 17, bean2.getJuniorTuition().toString(), wcf1));
 		           ws.addCell(new Label(3, 18, bean2.getEduReformFund().toString(), wcf1));

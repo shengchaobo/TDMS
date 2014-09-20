@@ -14,7 +14,7 @@ public class T293_Dao {
 	
 	private String tableName = "T293_UndergraTeaIncome_Finance$" ;
 	private String field = "SumIncome,SumUndergraIncome,AllocateFund,NationFund,LocalFund,UndergraTuition,EduReformFund," +
-			"SumOtherIncome,OtherAllocateFund,OtherNationFund,OtherLocalFund,OtherTuition,GraTuition,JuniorTuition," +
+			"SumOtherIncome,JuniorAllocateFund,OtherAllocateFund,OtherNationFund,OtherLocalFund,OtherTuition,GraTuition,JuniorTuition," +
 			"NetTeaTuition,Donation,OtherIncome,Time,Note";
 	private String keyfield = "SeqNumber";
 	
@@ -104,7 +104,7 @@ public class T293_Dao {
 				
 				
 //				统计本科生收入总计
-				sumUndergraIncome = allocateFund;				
+				sumUndergraIncome = sumUndergraIncome + allocateFund - tempBean.getAllocateFund();				
 				if(bean.getEduReformFund()!= null){
 					if(tempBean.getEduReformFund() == null){
 						sumUndergraIncome = sumUndergraIncome + bean.getEduReformFund();
@@ -121,7 +121,7 @@ public class T293_Dao {
 				}
 				bean.setSumUndergraIncome(sumUndergraIncome);
 				
-//				其他拨款总数					
+//				其他拨款总数				
 				if(bean.getOtherNationFund()!= null){
 					if(tempBean.getOtherNationFund() == null){
 						otherAllocateFund = otherAllocateFund + bean.getOtherNationFund();
@@ -163,14 +163,21 @@ public class T293_Dao {
 				bean.setOtherTuition(otherTuition);
 				
 //				其他收入总额
-				sumOtherIncome = otherTuition + otherAllocateFund;
-				if(bean.getDonation()!= null){
+				sumOtherIncome = sumOtherIncome + otherTuition + otherAllocateFund - tempBean.getOtherTuition() - tempBean.getOtherAllocateFund();
+				if(bean.getJuniorAllocateFund()!= null){
+					if(tempBean.getJuniorAllocateFund() == null){
+						sumOtherIncome = sumOtherIncome + bean.getJuniorAllocateFund();
+					}else{
+						sumOtherIncome = sumOtherIncome + (bean.getJuniorAllocateFund()-tempBean.getJuniorAllocateFund());
+					}	
+				}	
+/*				if(bean.getDonation()!= null){
 					if(tempBean.getDonation() == null){
 						sumOtherIncome = sumOtherIncome + bean.getDonation();
 					}else{
 						sumOtherIncome = sumOtherIncome + (bean.getDonation()-tempBean.getDonation());
 					}
-				}
+				}*/
 				if(bean.getOtherIncome()!= null){
 					if(tempBean.getOtherIncome() == null){
 						sumOtherIncome = sumOtherIncome + bean.getOtherIncome();
@@ -237,9 +244,12 @@ public class T293_Dao {
 				
 //				其他收入总额
 				sumOtherIncome = otherTuition + otherAllocateFund;
-				if(bean.getDonation()!= null){
-					sumOtherIncome = sumOtherIncome + bean.getDonation();
+				if(bean.getJuniorAllocateFund()!= null){
+					sumOtherIncome = sumOtherIncome + bean.getJuniorAllocateFund();
 				}
+/*				if(bean.getDonation()!= null){
+					sumOtherIncome = sumOtherIncome + bean.getDonation();
+				}*/
 				if(bean.getOtherIncome()!= null){
 					sumOtherIncome = sumOtherIncome + bean.getOtherIncome();
 				}

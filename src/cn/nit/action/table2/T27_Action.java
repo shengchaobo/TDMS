@@ -195,6 +195,7 @@ public class T27_Action {
 		           ws.addCell(new Label(0, 6, "4.通达情况", wcf));  
 		           ws.addCell(new Label(0, 9, "5.网络存储空间", wcf)); 
 		           ws.addCell(new Label(0, 12, "6.网络教学平台", wcf));
+		           ws.addCell(new Label(0, 13, "7.教学管理信息系统", wcf));
 		           ws.addCell(new Label(1, 6, "教室数（间）", wcf)); 
 		           ws.addCell(new Label(1, 7, "学生宿舍数（间）", wcf)); 
 		           ws.addCell(new Label(1, 8, "教学、科研与管理办公室数（间）", wcf)); 
@@ -202,7 +203,7 @@ public class T27_Action {
 		           ws.addCell(new Label(1, 10, "教职工平均存储空间（MB）", wcf)); 
 		           ws.addCell(new Label(1, 11, "学生平均存储空间（MB）", wcf)); 
 		           ws.addCell(new Label(1, 12, "链接地址", wcf)); 
-		       
+		           ws.addCell(new Label(1, 13, "链接地址", wcf)); 
 
 		           ws.mergeCells(0, 2, 1, 2);
 		           ws.mergeCells(0, 3, 1, 3);
@@ -221,7 +222,7 @@ public class T27_Action {
 		           ws.addCell(new Label(2, 10, bean.getAvgTeaMemSpace().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 11, bean.getAvgStuMemSpace().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 12, bean.getWebTeahingUrl().toString(), wcf1)); 
-		        
+		           ws.addCell(new Label(2, 12, bean.getTeaManageUrl().toString(), wcf1)); 
 		             
 
 		          wwb.write();

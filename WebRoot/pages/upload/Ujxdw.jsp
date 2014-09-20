@@ -64,7 +64,7 @@
 			src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 		<script type="text/javascript" src="js/upload/upload.js"></script>
 	</head>
-	<body style="overflow-y: scroll"  onload="loadAllURL(50,60)">
+	<body style="overflow-y: scroll"  onload="loadAllURL(51,61)">
 				
 		<hr color="blue" width="100%" />
 				
@@ -227,7 +227,25 @@
 					<td style="background-color: white">
 							<div id="downFile60"></div>						
 					</td>
-				</tr>			
+				</tr>
+				<tr>
+				   <td  align="center"
+						style="width: 160px;">
+						社会服务
+					</td>
+					<td  colspan=2 style="width: 200px; background-color: white"
+						align="left">
+						11.教学单位社会服务情况一览表
+					</td>
+					<td style="background-color: white">
+					    <div>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(61)">上传文件</a>
+						</div>						
+					</td>
+					<td style="background-color: white">
+							<div id="downFile61"></div>						
+					</td>
+				</tr>				
 			</tbody>
 		</table>
 			

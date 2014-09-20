@@ -10,23 +10,23 @@ public class S71_Bean {
      
      private String UnitID;
      
-     private int SumTeaAward;
+     private Integer SumTeaAward;
      
-     private int InterAward;
+     private Integer InterAward;
      
-     private int NationAward;
+     private Integer NationAward;
      
-     private int ProviAward;
+     private Integer ProviAward;
      
-     private int CityAward;
+     private Integer CityAward;
      
-     private int SchAward;
+     private Integer SchAward;
      
-     private int SumTeaPaper;
+     private Integer SumTeaPaper;
      
-     private int TeaResPaper;
+     private Integer TeaResPaper;
      
-     private int TeaManagePaper;
+     private Integer TeaManagePaper;
      
      private Date Time;
      
@@ -57,75 +57,77 @@ public class S71_Bean {
 		UnitID = unitID;
 	}
 
-	public int getSumTeaAward() {
+	public Integer getSumTeaAward() {
 		return SumTeaAward;
 	}
 
-	public void setSumTeaAward(int sumTeaAward) {
+	public void setSumTeaAward(Integer sumTeaAward) {
 		SumTeaAward = sumTeaAward;
 	}
 
-	public int getInterAward() {
+	
+
+	public Integer getInterAward() {
 		return InterAward;
 	}
 
-	public void setInterAward(int interAward) {
+	public void setInterAward(Integer interAward) {
 		InterAward = interAward;
 	}
 
-	public int getNationAward() {
+	public Integer getNationAward() {
 		return NationAward;
 	}
 
-	public void setNationAward(int nationAward) {
+	public void setNationAward(Integer nationAward) {
 		NationAward = nationAward;
 	}
 
-	public int getProviAward() {
+	public Integer getProviAward() {
 		return ProviAward;
 	}
 
-	public void setProviAward(int proviAward) {
+	public void setProviAward(Integer proviAward) {
 		ProviAward = proviAward;
 	}
 
-	public int getCityAward() {
+	public Integer getCityAward() {
 		return CityAward;
 	}
 
-	public void setCityAward(int cityAward) {
+	public void setCityAward(Integer cityAward) {
 		CityAward = cityAward;
 	}
 
-	public int getSchAward() {
+	public Integer getSchAward() {
 		return SchAward;
 	}
 
-	public void setSchAward(int schAward) {
+	public void setSchAward(Integer schAward) {
 		SchAward = schAward;
 	}
 
-	public int getSumTeaPaper() {
+	public Integer getSumTeaPaper() {
 		return SumTeaPaper;
 	}
 
-	public void setSumTeaPaper(int sumTeaPaper) {
+	public void setSumTeaPaper(Integer sumTeaPaper) {
 		SumTeaPaper = sumTeaPaper;
 	}
 
-	public int getTeaResPaper() {
+	public Integer getTeaResPaper() {
 		return TeaResPaper;
 	}
 
-	public void setTeaResPaper(int teaResPaper) {
+	public void setTeaResPaper(Integer teaResPaper) {
 		TeaResPaper = teaResPaper;
 	}
 
-	public int getTeaManagePaper() {
+	public Integer getTeaManagePaper() {
 		return TeaManagePaper;
 	}
 
-	public void setTeaManagePaper(int teaManagePaper) {
+	public void setTeaManagePaper(Integer teaManagePaper) {
 		TeaManagePaper = teaManagePaper;
 	}
 

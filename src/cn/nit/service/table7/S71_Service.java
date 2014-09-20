@@ -12,11 +12,10 @@ public class S71_Service {
 	public List<S71_Bean> getYearInfo(String selectYear){
 		
 		List<S71_Bean> list=s71_dao.getData(selectYear);
-	
-		//System.out.println(list.toString());
-         
-		return list;
-		
-		
+		return list;		
+	}
+	public S71_Bean getYearIf(String selectYear){
+		S71_Bean bean= s71_dao.getYearInfo(selectYear);
+		return bean;
 	}
 }

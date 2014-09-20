@@ -33,6 +33,13 @@
 					    		}
 					        } },
 					        { "name": "收入总计", "group": "3.其他教育事业收入（万元）", "value": "", "field": "sumOtherIncome", "editor": false},
+					       	{ "name": "专科生生均拨款总额", "group": "3.其他教育事业收入（万元）", "value": "", "field": "juniorAllocateFund" ,"editor": {
+					    		"type":"numberbox",
+					    		"options":{
+					        	 	"min":  0,
+					        	 	"precision": 2
+					    		}
+					        } },
 					        { "name": "经常性预算内教育事业费拨款总数", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherAllocateFund", "editor": false },
 					       	{ "name": "经常性预算内教育事业费国家拨款", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherNationFund" ,"editor": {
 					    		"type":"numberbox",

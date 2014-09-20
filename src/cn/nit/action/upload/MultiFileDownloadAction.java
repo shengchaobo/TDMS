@@ -50,6 +50,9 @@ import cn.nit.education.download.J619_Excel;
 import cn.nit.education.download.J621_Excel;
 import cn.nit.education.download.J622_Excel;
 import cn.nit.education.download.J63_Excel;
+import cn.nit.education.download.J71_Excel;
+import cn.nit.education.download.J731_Excel;
+import cn.nit.education.download.J732_Excel;
 import cn.nit.util.ZipFileUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -342,18 +345,18 @@ public class MultiFileDownloadAction extends ActionSupport {
 		}
 		
 		//7字头
-/*		if(!J71_Excel.export_J71(filePath)){
+	   if(!J71_Excel.export_J71(filePath)){
 			return "J71_export has a error!";
-		}*/
+		}
 /*		if(!J72_Excel.export_J72(filePath)){
 			return "J72_export has a error!";
 		}*/
-/*		if(!J731_Excel.export_J731(filePath)){
+	    if(!J731_Excel.export_J731(filePath)){
 			return "J731_export has a error!";
-		}*/
-/*		if(!J732_Excel.export_J732(filePath)){
+		}
+	    if(!J732_Excel.export_J732(filePath)){
 			return "J73_export has a error!";
-		}*/
+		}
 /*		if(!J74_Excel.export_J74(filePath)){
 			return "J74_export has a error!";
 		}*/

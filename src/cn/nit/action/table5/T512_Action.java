@@ -60,6 +60,8 @@ public class T512_Action {
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
+	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+	String fillUnitID = bean.getUnitID();
 	
 	public void insert(){
 		
@@ -148,6 +150,8 @@ public class T512_Action {
 
 	/**  编辑数据  */
 	public void edit(){
+		
+		t512_Bean.setFillUnitID(fillUnitID);
 		t512_Bean.setTime(new Date());
 		boolean flag=t512_Sr.update(t512_Bean);
 		
@@ -214,7 +218,8 @@ public class T512_Action {
 			columns.add("课程名称");columns.add("课程编号");columns.add("课程类别");columns.add("课程性质");columns.add("公选课类别");
 			columns.add("是否双语授课");columns.add("学分");columns.add("总学时");columns.add("理论学时");columns.add("实践学时");
 			columns.add("考核方式");columns.add("实习、设计时间");columns.add("授课年级");columns.add("授课班级");columns.add("开课班号");
-			columns.add("合班情况");columns.add("学生人数");columns.add("任课教师");columns.add("是否符合岗位资格");columns.add("教师职称");
+			columns.add("合班情况");columns.add("学生人数");columns.add("任课教师");columns.add("教工号");
+             columns.add("是否符合岗位资格");columns.add("教师职称");
 			columns.add("使用情况");columns.add("是否规划教材");columns.add("是否获奖教材");
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
@@ -224,7 +229,8 @@ public class T512_Action {
 			maplist.put("IsDoubleCS", 11);maplist.put("Credit", 12);maplist.put("SumCSHour", 13);maplist.put("TheoryCSHour", 14);
 			maplist.put("PraCSHour", 15);maplist.put("ExamWay", 16);maplist.put("PlanTime", 17);maplist.put("CSGrade", 18);
 			maplist.put("CSClass", 19);maplist.put("ClassID", 20);maplist.put("ClassInfo",21);maplist.put("StuNum", 22);
-			maplist.put("CSTea", 23);maplist.put("IsAccordJob", 24);maplist.put("TeaTitle", 25);maplist.put("BookUseInfo", 26);maplist.put("IsPlanbook", 27);maplist.put("IsAwardbook", 28);
+			maplist.put("CSTea", 23);	maplist.put("TeaID", 24);
+			maplist.put("IsAccordJob", 25);maplist.put("TeaTitle", 26);maplist.put("BookUseInfo", 27);maplist.put("IsPlanbook", 28);maplist.put("IsAwardbook", 29);
 			
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {

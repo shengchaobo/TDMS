@@ -7,6 +7,8 @@ public class T532POJO {
 	private int SeqNumber;
 	private String CenterName;
 	private String FromSubject;
+	private String SubjectID;
+	
 	private String CenterLevel;
 	private String CenterLevelID;
 	private String FromTeaUnit;
@@ -137,6 +139,13 @@ public class T532POJO {
 	}
 	public void setTeaTitleID(String teaTitleID) {
 		TeaTitleID = teaTitleID;
+	}
+	
+	public String getSubjectID() {
+		return SubjectID;
+	}
+	public void setSubjectID(String subjectID) {
+		SubjectID = subjectID;
 	}
 	
 }

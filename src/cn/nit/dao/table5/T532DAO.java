@@ -21,7 +21,7 @@ public class T532DAO {
 	
 	/**  数据库表中除了自增长字段的所有字段  */
 	private String field = "CenterName,FromSubject,CenterLevel,FromTeaUnit,UnitID,CenterLeader,TeaID,TeaTitle,BuildTime," +
-			"BuildAppvlID,ReceptTime,ReceptAppvlID,ValidTime,Fund,Time,Note";
+			"BuildAppvlID,ReceptTime,ReceptAppvlID,ValidTime,Fund,Time,Note,SubjectID";
 	
 	
 	
@@ -123,7 +123,7 @@ public class T532DAO {
 		StringBuffer sql = new StringBuffer() ;
 		List<T532POJO> list = null ;
 		sql.append("select t.SeqNumber,t.CenterName,t.FromSubject,dal.AwardLevel CenterLevel,t.CenterLevel as CenterLevelID,t.FromTeaUnit,t.UnitID,t.CenterLeader," +
-				"t.TeaID,dtn.TitleName as TeaTitle,t.TeaTitle as TeaTitleID,t.BuildTime,t.BuildAppvlID,t.ReceptTime,t.ReceptAppvlID,t.ValidTime,t.Fund,t.Time,t.Note") ;
+				"t.TeaID,dtn.TitleName as TeaTitle,t.TeaTitle as TeaTitleID,t.BuildTime,t.BuildAppvlID,t.ReceptTime,t.ReceptAppvlID,t.ValidTime,t.Fund,t.Time,t.Note,t.SubjectID") ;
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiAwardLevel as dal,DiTitleName as dtn");
 		sql.append(" where did.UnitID = t.UnitID and dal.IndexID = t.CenterLevel and  dtn.IndexID=t.TeaTitle");
 
@@ -167,7 +167,7 @@ public class T532DAO {
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.CenterName,t.FromSubject,dal.AwardLevel CenterLevel,t.CenterLevel as CenterLevelID,t.FromTeaUnit,t.UnitID,t.CenterLeader," +
-		"t.TeaID,dtn.TitleName as TeaTitle,t.TeaTitle as TeaTitleID,t.BuildTime,t.BuildAppvlID,t.ReceptTime,t.ReceptAppvlID,t.ValidTime,t.Fund,t.Time,t.Note") ;
+		"t.TeaID,dtn.TitleName as TeaTitle,t.TeaTitle as TeaTitleID,t.BuildTime,t.BuildAppvlID,t.ReceptTime,t.ReceptAppvlID,t.ValidTime,t.Fund,t.Time,t.Note,t.SubjectID") ;
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiAwardLevel as dal,DiTitleName as dtn");
 		sql.append(" where did.UnitID = t.UnitID and dal.IndexID = t.CenterLevel and  dtn.IndexID=t.TeaTitle");
 

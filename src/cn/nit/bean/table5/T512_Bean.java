@@ -28,6 +28,8 @@ public class T512_Bean {
 	private String ClassInfo;
 	private int StuNum;
 	private String CSTea;
+	private String TeaID;
+	
 	private boolean IsAccordJob;
 	private String TeaTitle;
 	private String BookUseInfo;
@@ -237,6 +239,13 @@ public class T512_Bean {
 	}
 	public void setFillUnitID(String fillUnitID) {
 		FillUnitID = fillUnitID;
+	}
+	
+	public String getTeaID() {
+		return TeaID;
+	}
+	public void setTeaID(String teaID) {
+		TeaID = teaID;
 	}
 	
 	

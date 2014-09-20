@@ -193,6 +193,35 @@ public class T521DAO {
 		return list ;
 	}
 	
+	
+	/**用于教育部导出*/
+	public List<T521Bean> totalList(String year){
+
+		StringBuffer sql=new StringBuffer();
+		sql.append("select t.SeqNumber,t.CSType,t.CSName,t.CSID,dia.AwardLevel as CSLevel,t.Leader,t.TeaID,t.JoinTeaNum,t.OtherTea,t.CSUrl,t.AppvlTime,t.ReceptTime,t.TeaUnit," +
+			"t.UnitID,t.AppvlID,t.Time,t.Note");
+		sql.append(" from "+tableName+" as t,DiAwardLevel as dia");
+		sql.append(" where t.CSType!='网络课程'");
+		sql.append(" and t.CSLevel = dia.IndexID");
+		sql.append(" and t.Time like '"+year+"%'");
+	
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T521Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T521Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
 	//更新！
 	public boolean update(T521Bean t521Bean){
 			

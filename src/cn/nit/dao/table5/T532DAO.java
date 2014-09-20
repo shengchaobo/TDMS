@@ -190,6 +190,33 @@ public class T532DAO {
 		return list ;
 	}
 	
+//	public List<T532Bean> totalList(){
+//
+//		StringBuffer sql=new StringBuffer();
+//		sql.append("select t.SeqNumber,t.CenterName,t.FromSubject,dal.AwardLevel CenterLevel,t.CenterLevel as CenterLevelID,t.FromTeaUnit,t.UnitID,t.CenterLeader," +
+//		"t.TeaID,dtn.TitleName as TeaTitle,t.TeaTitle as TeaTitleID,t.BuildTime,t.BuildAppvlID,t.ReceptTime,t.ReceptAppvlID,t.ValidTime,t.Fund,t.Time,t.Note") ;
+//		sql.append(" from "+tableName+" as t,DiDepartment as did,DiAwardLevel as dal,DiTitleName as dtn");
+//		sql.append(" where did.UnitID = t.UnitID and dal.IndexID = t.CenterLevel and  dtn.IndexID=t.TeaTitle");
+//
+//		
+//		
+//		Connection conn = DBConnection.instance.getConnection() ;
+//		Statement st = null ;
+//		ResultSet rs = null ;
+//		List<T532Bean> list = null ;
+//		
+//		try{
+//			st = conn.createStatement() ;
+//			rs = st.executeQuery(sql.toString()) ;
+//			list = DAOUtil.getList(rs, T532Bean.class) ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return null;
+//		}
+//		
+//		return list ;
+//	}
+	
 	//更新！
 	public boolean update(T532Bean t532Bean){
 			

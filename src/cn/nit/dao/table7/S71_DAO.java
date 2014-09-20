@@ -11,6 +11,7 @@ import java.util.List;
 import cn.nit.bean.table7.S71_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
+import cn.nit.util.JsonUtil;
 import cn.nit.util.TimeUtil;
 
 public class S71_DAO {
@@ -61,7 +62,6 @@ public class S71_DAO {
 		
 		return list ;
 	}
-	
   /**
  	 * 模板导入
  	 * @param diCourseCategories
@@ -103,7 +103,7 @@ public class S71_DAO {
  		return flag ;
  		
  	}
-	/**得到数据*/
+	
 
 	public List<S71_Bean> getData(String year)
 	{
@@ -218,15 +218,23 @@ public class S71_DAO {
 		
 		return list ;
 	}
-	
+	/**得到合计数据*/
+ 	public S71_Bean getYearInfo(String year){
+ 		S71_DAO s71_DAO=new S71_DAO();
+ 		List<S71_Bean> list=s71_DAO.getData(year);
+ 		S71_Bean bean=null;
+ 		if(list.size()!=0){
+ 			bean=list.get(0);
+ 		}
+ 		return bean;
+ 	}
 
 	
 	public static void main(String arg[]){
-		String sql = "select * from DiDepartment "+
-		 " left join T711_TeaManagerAwardInfo_TeaTea$ on DiDepartment.UnitID = T711_TeaManagerAwardInfo_TeaTea$.UnitID "+
-		 " left join T712_TeaManagerPaperInfo_TeaTea$ on DiDepartment.UnitID = T712_TeaManagerPaperInfo_TeaTea$.UnitID "+
-		 " where convert(varchar(4),T711_TeaManagerAwardInfo_TeaTea$.Time,120) = "  +  " 2010 "  +  
-		 " and "  +  "convert(varchar(4),T712_TeaManagerPaperInfo_TeaTea$.Time,120) = "  +  " 2010 "  ;
-		System.out.println(sql);
+//		S71_DAO s71_dao=new S71_DAO();
+//		S71_Bean bean =s71_dao.getYearInfo("2014");
+//		String json=null;
+//		json=JsonUtil.beanToJson(bean);	
+//		System.out.println(json);
 	}
 }

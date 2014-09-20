@@ -15,9 +15,9 @@ public class T22_Service {
 	
 	public T22_Bean getYearInfo(String selectYear){
 				
-		T22_Bean bean = infoDao.getYearInfo(selectYear);
+		T22_Bean list = infoDao.getYearInfo(selectYear);
 		
-		return bean;		
+		return list;		
 	}
 	
 	

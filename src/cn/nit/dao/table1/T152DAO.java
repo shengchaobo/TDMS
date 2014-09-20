@@ -162,14 +162,14 @@ public class T152DAO {
 	}
 	
 	//教育部导出
-	public List<T151Bean> totalListAll(){
+	public List<T151Bean> totalListAll(String year){
 		
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
+		sql.append(" and t.Time like '"+year+"%'");
 
-		
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -281,7 +281,7 @@ public class T152DAO {
 	public static void main(String args[])
 	{
 		T152DAO dao=new T152DAO();
-		List<T151Bean> list = dao.totalListAll();
+		List<T151Bean> list = dao.totalListAll("2013");
 		System.out.println(list.size());
 //		int n=dao.totalAuditingData(null, null);
 //		System.out.println(n);

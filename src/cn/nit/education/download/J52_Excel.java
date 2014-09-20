@@ -4,46 +4,45 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.nit.bean.table6.T621_Bean;
-import cn.nit.dao.table6.T621_Dao;
+
+import cn.nit.bean.table5.T521Bean;
+import cn.nit.dao.table5.T521DAO;
 import cn.nit.util.ExcelUtil;
 
-public class J616_Excel {
+public class J52_Excel {
 	
-	 public static boolean export_J616(String path){
+	 public static boolean export_J52(String path){
 			
-			T621_Dao T621_dao = new T621_Dao();
+			T521DAO T521_dao = new T521DAO();
 			
-			//获取当前年份
-			Date time = new Date();
-			String currentTime = time.toString();
-			String year = currentTime.substring(currentTime.length()-4, currentTime.length());
-		
-			List<T621_Bean> list = T621_dao.getAllList(year);
+			//年份
+			Calendar a = Calendar.getInstance();
+			String year = String.valueOf(a.get(Calendar.YEAR));
 			
-			String sheetName = "J-6-1-6各专业招生报到情况（时点）";
+			List<T521Bean> list = T521_dao.totalList(year);
+					
+			String sheetName = "J-5-2课程建设情况（时点）";
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
-			columns.add("校内专业（大类）名称");columns.add("校内专业（大类）代码");
-			columns.add("招生计划数（人）");columns.add("实际录取数（人）");columns.add("实际报到数（人）");
-		
+			columns.add("项目名称");columns.add("类型");columns.add("级别");columns.add("获准时间");
+
+			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("majorName", 1);maplist.put("majorId", 2);
-			maplist.put("AmisPlanNum", 3);maplist.put("ActulEnrollNum", 4);maplist.put("ActulRegisterNum", 5);
+			maplist.put("CSName", 1);maplist.put("CSType", 2);maplist.put("CSLevel", 3);maplist.put("AppvlTime", 4);
 			
 			ByteArrayOutputStream byteArrayOutputStream = null;		
 			try {
 									
 				byteArrayOutputStream = ExcelUtil.exportExcel(list, sheetName, maplist,columns);
 
-				File file = new File(path,"J-6-1-6各专业招生报到情况（时点）.xls");
+				File file = new File(path,"J-5-2课程建设情况（时点）.xls");
 				FileOutputStream fileOutputStream  = new FileOutputStream(file);
 				
 				//写到文件中
@@ -58,17 +57,17 @@ public class J616_Excel {
 				return false;
 			}
 		}
-		
+	  
 		public static void main(String arg[]){
 			 String path = "D:\\江西项目\\相关表\\ExcelTest";
-			  J616_Excel excel = new J616_Excel();
-			  boolean flag = excel.export_J616(path);
+			  J52_Excel excel = new J52_Excel();
+			  boolean flag = excel.export_J52(path);
 			  if(flag){
 				  System.out.println("成功！");
 			  }else{
 				  System.out.println("不成功！");
 			  }
-			}
-
+		}
+		
 
 }

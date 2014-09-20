@@ -265,11 +265,53 @@ public class T615_Dao {
 		
 		return list ;
 	}
+	
+	/**用于教育部导出，参数添加年份*/
+	public List<T615_Bean> getAllList(String year) {
+		// TODO Auto-generated method stub
+//		
+//		String Cond = "1=1";
+//		
+//		int total = 0;
+//		if(cond != null && !cond.equals("")){
+//			Cond = Cond + cond;
+//		}
+//		
+//		if(fillunitID != null && !fillunitID.equals("")){
+//			Cond = Cond + " and FillUnitID=" + fillunitID;
+//		}
+				
+		String sql;
+		
+		sql = "select " + fieldShow + " from " + tableName +" where Time like '"+year+"%'" ;
+	    System.out.println(sql);
+	
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T615_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T615_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
 
 	public static void main(String args[]) {
 
 		T615_Dao GenUndergraMajStuNumDao = new T615_Dao();
-		List<T615_Bean> list = GenUndergraMajStuNumDao.queryPageList(null, null, 10, 1);
+//		List<T615_Bean> list = GenUndergraMajStuNumDao.queryPageList(null, null, 10, 1);
+		List<T615_Bean> list = GenUndergraMajStuNumDao.getAllList("2014");
 		System.out.println(list.size());
 //		T615_Bean GenUndergraMajStuNum = new T615_Bean();
 ////		 GenUndergraMajStuNum.setSeqNumber(1);

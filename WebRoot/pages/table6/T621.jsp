@@ -59,6 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="specialtyEnrollNum">招收特长生数</th>
 				<th field="inProviEnrollNum">招收本省学生数</th>
 				<th field="newMajEnrollNum">新办专业招生数</th>
+				<th field="avgScore">招生录取平均分（分）</th>
 				<th field="time" formatter="formattime">时间</th>
 				<th field="note">备注</th>
 			</tr>
@@ -129,6 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="specialtyEnrollNum">招收特长生数</th>
 				<th field="inProviEnrollNum">招收本省学生数</th>
 				<th field="newMajEnrollNum">新办专业招生数</th>
+				<th field="avgScore">招生录取平均分（分）</th>
 				<th field="time" formatter="formattime">时间</th>
 				<th field="note">备注</th>
 			</tr>
@@ -248,6 +250,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td class="empty"></td>
 				<td>
 					<div class="fitem">
+						<label>招生录取平均分（分）：</label> 
+						<input id="avgScore" name="UndergraAdmiInfo.avgScore" 
+							 class='easyui-numberbox'  precision="2" min="0" max="100"><span id="avgScoreSpan"></span>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<div class="fitem">
 						<label>填写时间：</label> 
 						<input class="easyui-datebox"  id="time" type="text" 
 						name="UndergraAdmiInfo.time"  editable="false" />
@@ -255,6 +267,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 			</tr>
+				
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
 					<textarea id="note" name="UndergraAdmiInfo.note" style="resize:none" cols="50" rows="10"></textarea>

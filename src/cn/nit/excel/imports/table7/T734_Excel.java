@@ -99,8 +99,8 @@ public class T734_Excel {
 				if((handTime == null) || handTime.equals("")){
 					return "第" + count + "行，处理时间不能为空" ;
 				}
-				if(!TimeUtil.judgeFormat1(handTime)){
-					return "第" + count + "行，处理时间格式不正确，格式为：2012/09" ;
+				if(!TimeUtil.judgeFormatYM(handTime)){
+					return "第" + count + "行，处理时间格式不正确，格式为：2012-09" ;
 				}
 				
 				String accLevel = cell[8].getContents() ;

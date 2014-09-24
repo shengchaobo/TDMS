@@ -51,8 +51,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>	
 		<thead>
 			<tr>
-				<th field="jonalName">专利名称</th>
-				<th field="jonalId">专利号</th>
+				<th field="jonalName">项目名称</th>
+				<th field="jonalId">项目编号</th>
 				<th field="patentType">类别</th>
 				<th field="appvlTime" formatter="formattime">获批时间</th>				
 				<th field="awardStuName">学生姓名学号</th>
@@ -120,8 +120,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>	
 		<thead>
 			<tr>
-				<th field="jonalName">专利名称</th>
-				<th field="jonalId">专利号</th>
+				<th field="jonalName">项目名称</th>
+				<th field="jonalId">项目编号</th>
 				<th field="patentType">类别</th>
 				<th field="appvlTime" formatter="formattime">获批时间</th>				
 				<th field="awardStuName">学生姓名学号</th>
@@ -136,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T654/dataExport?excelName=<%=URLEncoder.encode("表6-5-4学习成果—学生获准专利（教学单位-团委）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<a href='pages/T654/dataExport?excelName=<%=URLEncoder.encode("表6-5-4学习成果——学生获准专利/软件著作权（教学单位-团委）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		
 	</div>
 	
@@ -174,7 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td class="empty"></td>
 				<td>
 					<div class="fitem">
-						<label>专利名称：</label> 
+						<label>项目名称：</label> 
 						<input id="jonalName" name="T654_bean.jonalName" class='easyui-validatebox'>
 						<span id="jonalNameSpan"></span>
 					</div>
@@ -183,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>专利号：</label> 
+						<label>项目编号：</label> 
 						<input id="jonalId" name="T654_bean.jonalId" class='easyui-validatebox'><span id="jonalIdSpan" ></span>
 					</div>
 				</td>
@@ -195,6 +195,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<option value="发明">发明</option>
 							<option value="实用新型">实用新型</option>
 							<option value="外观专利">外观专利</option>
+							<option value="实用新型">软件著作权</option>
+							<option value="外观专利">其他</option>
 						<span id="patentTypeSpan"></span>
 					</div>
 				</td>	

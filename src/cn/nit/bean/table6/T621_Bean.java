@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 public class T621_Bean implements java.io.Serializable {
 
 	// Fields
-	private int seqNumber;
+	private Integer seqNumber;
 	private String fromTeaUnit;
 	private String unitId;
 	private String majorName;
@@ -31,14 +31,15 @@ public class T621_Bean implements java.io.Serializable {
 	private Integer specialtyEnrollNum;
 	private Integer inProviEnrollNum;
 	private Integer newMajEnrollNum;
+	private double avgScore;
 	private Date time;
 	private String note;
 	
 	
-	public int getSeqNumber() {
+	public Integer getSeqNumber() {
 		return seqNumber;
 	}
-	public void setSeqNumber(int seqNumber) {
+	public void setSeqNumber(Integer seqNumber) {
 		this.seqNumber = seqNumber;
 	}
 	public String getFromTeaUnit() {
@@ -119,6 +120,14 @@ public class T621_Bean implements java.io.Serializable {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	
+	
+	public double getAvgScore() {
+		return avgScore;
+	}
+	public void setAvgScore(double avgScore) {
+		this.avgScore = avgScore;
 	}
 
 

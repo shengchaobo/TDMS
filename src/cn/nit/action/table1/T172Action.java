@@ -17,27 +17,25 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T17Bean;
-import cn.nit.dao.table1.T17DAO;
-import cn.nit.excel.imports.table1.T17Excel;
-import cn.nit.service.table1.T17Service;
+import cn.nit.bean.table1.T172Bean;
+import cn.nit.dao.table1.T172DAO;
+import cn.nit.service.table1.T172Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class T17Action {
+public class T172Action {
 	
-	/**  表17的Service类  */
-	private T17Service t17Ser = new T17Service() ;
+	/**  表172的Service类  */
+	private T172Service t172Ser = new T172Service() ;
 	
-	/**  表17的Bean实体类  */
-	private T17Bean t17Bean = new T17Bean() ;
+	/**  表172的Bean实体类  */
+	private T172Bean t172Bean = new T172Bean() ;
 	
 	/**  表17的数据库操作类  */
-	private T17DAO t17Dao = new T17DAO() ;
+	private T172DAO t172Dao = new T172DAO() ;
 	
-	/**  表17的Excel实体类  */
-	private T17Excel t17Excel = new T17Excel() ;
+//	/**  表17的Excel实体类  */
+//	private T17Excel t17Excel = new T17Excel() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -79,14 +77,9 @@ public class T17Action {
 	/**  逐条插入数据  */
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t17Bean.setTime(new Date()) ;
-//		String cuYear=(this.BuildYear).toString();
-//		String year=cuYear.substring(cuYear.length()-4, cuYear.length()) ;
-//		t17Bean.setBuildYear(year);
-		//这还没确定,设置填报者的职工号与部门号
-//		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
-//		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
-		boolean flag = t17Ser.insert(t17Bean) ;
+//		t172Bean.setTime(new Date()) ;
+
+		boolean flag = t172Ser.insert(t172Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -144,7 +137,7 @@ public class T17Action {
 				cond = conditions.toString();
 			}
 
-			String pages = t17Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t172Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -160,70 +153,23 @@ public class T17Action {
 				}
 			}
 		}
-//
 
-//	/**  为界面加载数据  */
-//	public void auditingData(){
-//		
-//		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
-//			return ;
-//		}
-//		
-//		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
-//			return ;
-//		}
-//		
-//		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-//		String pages = t17Ser.auditingData(null, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
-////		System.out.println(pages);
-//		PrintWriter out = null ;
-//		try{
-//			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			out = getResponse().getWriter() ;
-//			out.print(pages) ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			return ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
-//	
-//	/**  生成查询条件 （查询数据）  */
-//	public void auditingConditions(){
-//		
-//		String sqlConditions = t17Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
-//		getSession().setAttribute("auditingConditions", sqlConditions) ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			out = getResponse().getWriter() ;
-//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-//			out.flush() ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
 	
 	/**  编辑数据  */
 	public void editSch(){
 
 		System.out.println("编辑数据！");
-		t17Bean.setTime(new Date());
-//		System.out.println(t17Bean.getTime());
-//		System.out.println(t17Bean.getSeqNumber());
-//		System.out.println(t17Bean.getClubName());
-//		System.out.println(t17Bean.getNote());
-//		System.out.println(t17Bean.getPlace());
-//		System.out.println(t17Bean.getBuildYear());
-		boolean flag = t17Ser.update(t17Bean) ;
+		System.out.println(t172Bean.getActName());
+		System.out.println(t172Bean.getSeqNumber());
+		System.out.println(t172Bean.getActPlace());
+		System.out.println(t172Bean.getActType());
+		System.out.println(t172Bean.getFriName());
+		System.out.println(t172Bean.getNote());
+		System.out.println(t172Bean.getUnitID());
+		System.out.println(t172Bean.getUnitName());
+		System.out.println(t172Bean.getActTime());
+		boolean flag = t172Ser.update(t172Bean) ;
+		
 		PrintWriter out = null ;
 		
 		try{
@@ -248,7 +194,7 @@ public class T17Action {
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
-		boolean flag = t17Ser.deleteCoursesByIds(ids) ;
+		boolean flag = t172Ser.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -278,21 +224,22 @@ public class T17Action {
 
 		try {
 			
-			List<T17Bean> list = t17Dao.totalList();
+			List<T172Bean> list = t172Dao.totalList();
 			
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
-			columns.add("校友会名称");columns.add("设立时间");columns.add("地点");
-//			columns.add("填写时间");columns.add("备注");
+			columns.add("校友姓名");columns.add("交流活动名称");columns.add("交流活动类型");
+			columns.add("交流时间");columns.add("交流地点");columns.add("协办单位");
+			columns.add("单位号");columns.add("备注");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("ClubName", 1);maplist.put("BuildYear", 2);maplist.put("Place", 3);
-//			maplist.put("Time", 4);
-//			maplist.put("Note", 5);
+			maplist.put("FriName", 1);maplist.put("ActName", 2);maplist.put("ActType", 3);
+			maplist.put("ActTime", 4);maplist.put("ActPlace", 5);maplist.put("UnitName", 6);
+			maplist.put("UnitID", 7);maplist.put("Note", 8);
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
@@ -321,12 +268,12 @@ public class T17Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-	public T17Bean getT17Bean() {
-		return t17Bean;
+	public T172Bean getT172Bean() {
+		return t172Bean;
 	}
 
-	public void setT17Bean(T17Bean t17Bean) {
-		this.t17Bean = t17Bean;
+	public void setT172Bean(T172Bean t172Bean) {
+		this.t172Bean = t172Bean;
 	}
 
 	

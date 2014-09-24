@@ -27,6 +27,7 @@ public class T27_Bean implements java.io.Serializable {
 	private Double avgTeaMemSpace;
 	private Double avgStuMemSpace;
 	private String webTeahingUrl;
+	private String teaManageUrl;
 	private Date time;
 	private String note;
 
@@ -181,6 +182,14 @@ public class T27_Bean implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setTeaManageUrl(String teaManageUrl) {
+		this.teaManageUrl = teaManageUrl;
+	}
+
+	public String getTeaManageUrl() {
+		return teaManageUrl;
 	}
 
 }

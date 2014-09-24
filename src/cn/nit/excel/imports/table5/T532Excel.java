@@ -79,8 +79,20 @@ public class T532Excel {
 					if(FromSubject == null || FromSubject.equals("")){
 						return "第" + count + "行，所属学科不能为空" ;
 					}
+					if(FromSubject.length()>100){
+						return "第" + count + "行，所属学科不能超过50个字" ;
+					}
 					
-					String CenterLevel = cell[3].getContents() ;
+					String SubjectID = cell[3].getContents() ;
+					
+					if(SubjectID == null ||SubjectID.equals("")){
+						return "第" + count + "行，学科号不能为空" ;
+					}
+					if(SubjectID.length()>100){
+						return "第" + count + "行，学科号长度不能超过100个字符" ;
+					}
+					
+					String CenterLevel = cell[4].getContents() ;
 					
 					if(CenterLevel == null || CenterLevel.equals("")){
 						return "第" + count + "行，级别不能为空" ;
@@ -99,8 +111,8 @@ public class T532Excel {
 						return "第" + count + "行，没有相对应的级别" ;
 					}
 					
-					String FromTeaUnit = cell[4].getContents() ;
-					String UnitID = cell[5].getContents() ;
+					String FromTeaUnit = cell[5].getContents() ;
+					String UnitID = cell[6].getContents() ;
 					
 					if(FromTeaUnit == null || FromTeaUnit.equals("")){
 						return "第" + count + "行，所属教学单位不能为空" ;
@@ -131,8 +143,8 @@ public class T532Excel {
 						flag = false ;
 					}
 					
-					String CenterLeader = cell[6].getContents() ;
-					String TeaID = cell[7].getContents() ;
+					String CenterLeader = cell[7].getContents() ;
+					String TeaID = cell[8].getContents() ;
 					
 					if(CenterLeader == null || CenterLeader.equals("")){
 						return "第" + count + "行，中心主任不能为空" ;
@@ -163,7 +175,7 @@ public class T532Excel {
 						flag = false ;
 					}
 		
-					String TeaTitle = cell[8].getContents() ;
+					String TeaTitle = cell[9].getContents() ;
 					
 					if(TeaTitle == null || TeaTitle.equals("")){
 						return "第" + count + "行，职称不能为空" ;
@@ -179,7 +191,7 @@ public class T532Excel {
 						return "第" + count + "行，没有相对应的职称" ;
 					}
 					
-					String BuildTime = cell[9].getContents();
+					String BuildTime = cell[10].getContents();
 					
 					if(BuildTime == null || BuildTime.equals("")){
 						return "第" + count + "行，设立时间不能为空" ;
@@ -188,13 +200,13 @@ public class T532Excel {
 						return "第" + count + "行，时间格式不对，格式应为：2005-02" ;
 					}
 					
-					String BuildAppvlID=cell[10].getContents();
+					String BuildAppvlID=cell[11].getContents();
 					
 					if(BuildAppvlID == null || BuildAppvlID.equals("")){
 						return "第" + count + "行，建设批文号不能为空" ;
 					}
 					
-					String ReceptTime = cell[11].getContents();
+					String ReceptTime = cell[12].getContents();
 					
 					if(ReceptTime == null || ReceptTime.equals("")){
 						return "第" + count + "行，验收时间不能为空" ;
@@ -203,13 +215,13 @@ public class T532Excel {
 						return "第" + count + "行，时间格式不对，格式应为：2005-02" ;
 					}
 					
-					String ReceptAppvlID=cell[12].getContents();
+					String ReceptAppvlID=cell[13].getContents();
 					
 					if(ReceptAppvlID == null || ReceptAppvlID.equals("")){
 						return "第" + count + "行，验收批文号不能为空" ;
 					}
 					
-					String ValidTime=cell[13].getContents();
+					String ValidTime=cell[14].getContents();
 					
 					if(ValidTime == null || ValidTime.equals("")){
 						return "第" + count + "行，有效期（年）不能为空" ;
@@ -218,7 +230,7 @@ public class T532Excel {
 						return "第" + count + "行，有效期（年）只能填数字" ;
 					}
 					
-					String Fund=cell[14].getContents();
+					String Fund=cell[15].getContents();
 					
 					if(Fund == null || Fund.equals("")){
 						return "第" + count + "行，经费(万元)不能为空" ;
@@ -227,7 +239,7 @@ public class T532Excel {
 						return "第" + count + "行，经费(万元)只能填数字" ;
 					}
 					
-					String Note=cell[15].getContents();
+					String Note=cell[16].getContents();
 					System.out.println("Note:"+Note);
 					if(Note!= null && Note.length()>1000){
 						return "第" + count + "行，备注字数不能超过500字" ;
@@ -240,6 +252,7 @@ public class T532Excel {
 				t532Bean.setCenterLevel(CenterLevel);
 				t532Bean.setCenterName(CenterName);
 				t532Bean.setFromSubject(FromSubject);
+				t532Bean.setSubjectID(SubjectID);
 				t532Bean.setFromTeaUnit(FromTeaUnit);
 				t532Bean.setFund(Double.parseDouble(Fund));
 				t532Bean.setNote(Note);

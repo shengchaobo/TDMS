@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>T17</title>
+<title>T172</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -37,14 +37,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData"  class="easyui-datagrid"  url="pages/T17/auditingData" >
+	<table id="unverfiedData"  class="easyui-datagrid"  url="pages/T172/auditingData" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber" >编号</th>
-				<th field="clubName">校友会名称</th>
-				<th field="buildYear"  formatter="formattime">建设时间</th>
-				<th field="place" >地点</th>
+				<th field="friName">校友姓名</th>
+				<th field="actName">交流活动名称</th>
+				<th field="actType">交流活动类型</th>
+				<th field="actTime"  formatter="formattime">交流时间</th>
+				<th field="actPlace">交流地点</th>
+				<th field="unitName">协办单位</th>
+				<th field="unitID">单位号</th>
 				<th field="note">备注</th>
 			</tr>
 		</thead>
@@ -54,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href="pages/T17/dataExport?excelName=表T-1-7校友会（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+			<a href="pages/T172/dataExport?excelName=表1-7-2校友返校交流情况（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>	
 			<form method="post" id="auditing"
 				style="float: right; height: 24px;">
@@ -113,55 +117,88 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="title1">校友会记录批量导入</h3>
+		<h3 class="title1">校友返校交流情况批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href='pages/T17/downloadModel?saveFile=<%=URLEncoder.encode("表1-7-1校友会（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T172/downloadModel?saveFile=<%=URLEncoder.encode("表1-7-2校友返校交流情况（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>
 		<hr></hr>
-		<h3 class="title1">校友会逐条导入</h3>
+		<h3 class="title1">校友返校交流情况逐条导入</h3>
 		
-		<form id="t17form" method="post">
+		<form id="t172form" method="post">
 		<table>
 			<tr>
 			   <td>
 					<div class="fitem">
-						<label>校友会名称：</label> 
-						<input id="seqNumber" type="hidden"name="t17Bean.SeqNumber" value="0"></input>
-						<input id="ClubName" name="t17Bean.ClubName" class="easyui-validatebox" required="true">
-						<span id="ClubNameSpan"></span>
+						<label>校友姓名：</label> 
+						<input id="seqNumber" type="hidden" name="t172Bean.SeqNumber" value="0"></input>
+						<input id="FriName" name="t172Bean.FriName" class="easyui-validatebox" required="true">
+						<span id="FriNameSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>
-			    <td>
+				 <td>
 					<div class="fitem">
-						<label>建设时间：</label> 
-						 <input id="BuildYear" name="t17Bean.BuildYear"  class="easyui-datebox" editable="false">
-						 <span id="BuildYearSpan"></span>
+						<label>交流活动名称：</label> 
+						<input id="ActName" name="t172Bean.ActName" class="easyui-validatebox" required="true">
+						<span id="ActNameSpan"></span>
 					</div>
 				</td>
 			</tr>
-		 
+
+			<tr>
+			   <td>
+					<div class="fitem">
+						<label>交流活动类型：</label> 
+						<input id="ActType" name="t172Bean.ActType" class="easyui-validatebox" required="true">
+						<span id="ActTypeSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				  <td>
+					<div class="fitem">
+						<label>交流时间：</label> 
+						 <input id="ActTime" name="t172Bean.ActTime"  class="easyui-datebox" editable="false">
+						 <span id="ActTimeSpan"></span>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+			   <td>
+					<div class="fitem">
+						<label>交流地点：</label> 
+						<input id="ActPlace" name="t172Bean.ActPlace" class="easyui-validatebox" required="true">
+						<span id="ActPlaceSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				  <td>
+					<div class="fitem">
+						<label>协办单位：</label> 
+						 <input id="UnitName" name="t172Bean.UnitName"  class="easyui-validatebox" editable="false">
+						 <span id="UnitNameSpan"></span>
+					</div>
+				</td>
+			</tr>					
+			
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点：</label> 
-						<select class='easyui-combobox' id='Place' name='t17Bean.Place' style="width:100px" editable="false">
-						   <option value="境内" >境内</option>
-						   <option value="境外">境外</option> 
-						</select>
-						<span id="PlaceSpan"></span>
+						<label>单位号：</label> 
+						<input id="UnitID" name="t172Bean.UnitID"  class="easyui-validatebox" editable="false">
+						 <span id="UnitIDSpan"></span>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3">
 				<label>备注：</label>
-					<textarea id="Note" name="t17Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
+					<textarea id="Note" name="t172Bean.Note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="NoteSpan"></span>
 				</td>
 			</tr>
@@ -198,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	function singleSearch(){
    	 $('#auditing').form('submit',{
-   		 url: 'pages/T17/singleSearch',
+   		 url: 'pages/T172/singleSearch',
    		 type: "post",
 	     dataType: "json",
    		 success: function(result){
@@ -217,7 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
-	    		 url: 'pages/T17/uploadFile',
+	    		 url: 'pages/T172/uploadFile',
 	    		 type: "post",
 		         dataType: "json",
 	    		 onSubmit: function(){
@@ -267,21 +304,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	$('.title1').show();
 	    	$('#item1').show();
 	    	$('hr').show();
-	    	url = 'pages/T17/insert' ;
-		    $('#dlg').dialog('open').dialog('setTitle','添加校友会的信息');
-		    $('#t17form').form('reset');
+	    	url = 'pages/T172/insert' ;
+		    $('#dlg').dialog('open').dialog('setTitle','添加校友返校交流情况的信息');
+		    $('#t172form').form('reset');
 	    }
 
 	    function singleImport(){
 		    //录入数据的表单提交
-
-	    	 $('#t17form').form('submit',{
+	    	 $('#t172form').form('submit',{
 				    url: url,
-				    data: $('#t17form').serialize(),
+				    data: $('#t172form').serialize(),
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
-				    	return validate();
+			    	return validate();
+				    	
 				    },
 				    //结果返回
 				    success: function(result){
@@ -298,22 +335,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var clubName = $('#ClubName').val() ;
-			var place = $('#Place').val() ;
+			var FriName = $('#FriName').val() ;
+			var ActName = $('#ActName').val() ;
+			var ActType = $('#ActType').val() ;
+			var ActTime = $('#ActTime').datebox('getValue');
+			var ActPlace = $('#ActPlace').val() ;
+			var UnitName = $('#UnitName').val() ;
+			var UnitID = $('#UnitID').val() ;
 			var note = $('#Note').val() ;
 			//根据数据库定义的字段的长度，对其进行判断
-			if(clubName == null || clubName.length==0 || clubName.length> 200){
-				$('#ClubName').focus();
-				$('#ClubName').select();
-				alert("校友会名称不能为空或字数不能超过100");
+			if(FriName == null || FriName.length==0 || FriName.length> 200){
+				$('#FriName').focus();
+				$('#FriName').select();
+				alert("校友姓名不能为空或字数不能超过100");
 				//$('#ClubNameSpan').html("<font style=\"color:red\">校友会名称不能为空或长度不超过100</font>") ;
 				return false ;
 			}
 			
-			if(place == null || place.length == 0){
-				$('#Place').focus();
-				$('#Place').select();
-				alert("地点不能为空");
+			if(ActName == null ||ActName.length == 0 || ActName.length> 200){
+				$('#ActName').focus();
+				$('#ActName').select();
+				alert("交流活动名称不能为空或字数不能超过100");
+				//$('#PlaceSpan').html("<font style=\"color:red\">地点不能为空</font>") ;
+				return false ;
+			}
+			if(ActType == null ||ActType.length == 0 || ActType.length> 100){
+				$('#ActType').focus();
+				$('#ActType').select();
+				alert("交流活动类型不能为空或字数不能超过50");
+				//$('#PlaceSpan').html("<font style=\"color:red\">地点不能为空</font>") ;
+				return false ;
+			}
+			if(ActTime == null ||ActTime.length == 0){
+				$('#ActTime').focus();
+				$('#ActTime').select();
+				alert("交流时间不能为空");
+				//$('#PlaceSpan').html("<font style=\"color:red\">地点不能为空</font>") ;
+				return false ;
+			}
+			if(ActPlace == null ||ActPlace.length == 0 || ActPlace.length> 200){
+				$('#ActPlace').focus();
+				$('#ActPlace').select();
+				alert("交流地点不能为空或字数不能超过100");
+				//$('#PlaceSpan').html("<font style=\"color:red\">地点不能为空</font>") ;
+				return false ;
+			}
+			if(UnitName == null ||UnitName.length == 0 || UnitName.length> 200){
+				$('#UnitName').focus();
+				$('#UnitName').select();
+				alert("协办单位不能为空或字数不能超过100");
+				//$('#PlaceSpan').html("<font style=\"color:red\">地点不能为空</font>") ;
+				return false ;
+			}
+			if(UnitID == null ||UnitID.length == 0 || ActType.length> 50){
+				$('#UnitID').focus();
+				$('#UnitID').select();
+				alert("协办单位编号不能为空或字数不能超过50");
 				//$('#PlaceSpan').html("<font style=\"color:red\">地点不能为空</font>") ;
 				return false ;
 			}
@@ -337,16 +414,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		return ;
 	    	}
 	    	
-	    	url = 'pages/T17/edit' ;
+	    	url = 'pages/T172/edit' ;
 	    	$('.title1').hide();
 	       	$('#item1').hide();
 	       	$('hr').hide();
 	    	
-	    	$('#dlg').dialog('open').dialog('setTitle','修改校友会的信息');
+	    	$('#dlg').dialog('open').dialog('setTitle','修改校友返校交流情况的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
-	    	$('#ClubName').val(row[0].clubName);
-	    	$('#BuildYear').datebox('setValue',formattime(row[0].buildYear)) ;
-	    	$('#Place').combobox('select',row[0].place) ;
+	    	$('#FriName').val(row[0].friName) ;
+	    	$('#ActName').val(row[0].actName);
+	    	$('#ActType').val(row[0].actType);
+	    	$('#ActTime').datebox('setValue',formattime(row[0].actTime)) ;
+	    	$('#ActPlace').val(row[0].actPlace) ;
+	    	$('#UnitName').val(row[0].unitName);
+	    	$('#UnitID').val(row[0].unitID);
 			$('#Note').val(row[0].note) ;
 	    }
 	    
@@ -371,7 +452,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 			ids += (row[i].seqNumber + ")") ;
 				 		}
 				 	}
-				 	
 				 	deleteCourses(ids) ;
 				 	
 				 }
@@ -381,7 +461,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function deleteCourses(ids){
 	    	$.ajax({ 
 	    		type: "POST", 
-	    		url: "pages/T17/deleteByIds?ids=" + ids, 
+	    		url: "pages/T172/deleteByIds?ids=" + ids, 
 	    		async:"true",
 	    		dataType: "text",
 	    		success: function(result){

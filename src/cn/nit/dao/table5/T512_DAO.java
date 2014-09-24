@@ -16,7 +16,9 @@ public class T512_DAO {
 	
 	private String key="SeqNumber";
 	
-	private String field="Term,CSUnit,UnitID,CSMajorName,CSMajorID,CSName,CSID,CSType,CSNature,PubCSType,IsDoubleCS,Credit,SumCSHour,TheoryCSHour,PraCSHour,ExamWay,PlanTime,CSGrade,CSClass,ClassID,ClassInfo,StuNum,CSTea,IsAccordJob,TeaTitle,BookUseInfo,IsPlanbook,IsAwardbook,Time,Note,FillTeaID,FillUnitID";
+	private String field="Term,CSUnit,UnitID,CSMajorName,CSMajorID,CSName,CSID,CSType,CSNature,PubCSType,IsDoubleCS,Credit,SumCSHour," +
+			"TheoryCSHour,PraCSHour,ExamWay,PlanTime,CSGrade,CSClass,ClassID,ClassInfo,StuNum,CSTea,IsAccordJob,TeaTitle,BookUseInfo,IsPlanbook," +
+			"IsAwardbook,Time,Note,FillTeaID,FillUnitID,TeaID";
 	
 
     public boolean insert(T512_Bean t512_bean)
@@ -104,7 +106,10 @@ public class T512_DAO {
      	
      	List<T512POJO> list=null;
      	
-    	sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.PubCSType,t.IsDoubleCS,t.Credit,t.SumCSHour,t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass,t.ClassID,t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob,t.TeaTitle,t.BookUseInfo,t.IsPlanbook,t.IsAwardbook,t.Time,t.Note") ;
+    	sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID,cst.CourseCategories as CSType," +
+    			"t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.PubCSType,t.IsDoubleCS,t.Credit,t.SumCSHour," +
+    			"t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass,t.ClassID,t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob," +
+    			"t.TeaTitle,t.BookUseInfo,t.IsPlanbook,t.IsAwardbook,t.Time,t.Note,t.TeaID") ;
 		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
      	
@@ -150,7 +155,10 @@ public class T512_DAO {
  	 */
  	public List<T512POJO> totalList(String year,String fillUnitID){
  		StringBuffer sql=new StringBuffer();
- 		sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.PubCSType,t.IsDoubleCS,t.Credit,t.SumCSHour,t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass,t.ClassID,t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob,t.TeaTitle,t.BookUseInfo,t.IsPlanbook,t.IsAwardbook,t.Time,t.Note") ;
+ 		sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID," +
+ 				"cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID," +
+ 				"t.PubCSType,t.IsDoubleCS,t.Credit,t.SumCSHour,t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass," +
+ 				"t.ClassID,t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob,t.TeaTitle,t.BookUseInfo,t.IsPlanbook,t.IsAwardbook,t.Time,t.Note,t.TeaID") ;
 		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 	 	sql.append(" and FillUnitID=" + "'" + fillUnitID + "'");
@@ -178,7 +186,10 @@ public class T512_DAO {
  	/**用于教育部导出*/
 	public List<T512POJO> totalList(String year){
  		StringBuffer sql=new StringBuffer();
- 		sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.PubCSType,t.IsDoubleCS,t.Credit,t.SumCSHour,t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass,t.ClassID,t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob,t.TeaTitle,t.BookUseInfo,t.IsPlanbook,t.IsAwardbook,t.Time,t.Note") ;
+ 		sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID," +
+ 				"cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.PubCSType," +
+ 				"t.IsDoubleCS,t.Credit,t.SumCSHour,t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass,t.ClassID," +
+ 				"t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob,t.TeaTitle,t.BookUseInfo,t.IsPlanbook,t.IsAwardbook,t.Time,t.Note,t.TeaID") ;
 		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		sql.append(" and t.Time like '"+year+"%'");
@@ -234,7 +245,9 @@ public class T512_DAO {
  		boolean flag = false ;
  		Connection conn = DBConnection.instance.getConnection() ;
  		
- 		String tempfield = "Term,CSUnit,UnitID,CSMajorName,CSMajorID,CSName,CSID,CSType,CSNature,PubCSType,IsDoubleCS,Credit,SumCSHour,TheoryCSHour,PraCSHour,ExamWay,PlanTime,CSGrade,CSClass,ClassID,ClassInfo,StuNum,CSTea,IsAccordJob,TeaTitle,BookUseInfo,IsPlanbook,IsAwardbook,Time,Note,FillUnitID";
+ 		String tempfield = "Term,CSUnit,UnitID,CSMajorName,CSMajorID,CSName,CSID,CSType,CSNature,PubCSType,IsDoubleCS,Credit," +
+ 				"SumCSHour,TheoryCSHour,PraCSHour,ExamWay,PlanTime,CSGrade,CSClass,ClassID,ClassInfo,StuNum,CSTea,IsAccordJob,TeaTitle," +
+ 				"BookUseInfo,IsPlanbook,IsAwardbook,Time,Note,FillUnitID,TeaID";
  		try{
  			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
  		}catch(Exception e){

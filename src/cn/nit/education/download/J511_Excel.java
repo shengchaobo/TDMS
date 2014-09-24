@@ -38,9 +38,9 @@ public class J511_Excel {
 		
 		Map<String,Integer> maplist = new HashMap<String,Integer>();
 		maplist.put("SeqNum", 0);
-		maplist.put("CSMajorID", 1);maplist.put("CSName", 2);maplist.put("CSName", 3);maplist.put("CSType", 4);
+		maplist.put("CSMajorID", 1);maplist.put("CSName", 2);maplist.put("CSID", 3);maplist.put("CSType", 4);
 		maplist.put("IsDoubleCS", 5);maplist.put("ExamWay", 6);maplist.put("SumCSHour", 7);maplist.put("CSUnit", 8);
-		maplist.put("UnitID", 9);maplist.put("CSTea", 10);maplist.put("", 11);maplist.put("StuNum", 12);
+		maplist.put("UnitID", 9);maplist.put("CSTea", 10);maplist.put("TeaID", 11);maplist.put("StuNum", 12);
 		maplist.put("BookUseInfo", 13);maplist.put("IsPlanbook", 14);
 		
 		ByteArrayOutputStream byteArrayOutputStream = null;		

@@ -12,17 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.BeanWrapperImpl;
 
-import cn.nit.bean.di.DiCourseCategoriesBean;
-import cn.nit.bean.di.DiCourseCharBean;
-import cn.nit.bean.di.DiDepartmentBean;
-import cn.nit.bean.di.DiResearchRoomBean;
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T17Bean;
-import cn.nit.service.di.DiCourseCategoriesService;
-import cn.nit.service.di.DiCourseCharService;
-import cn.nit.service.di.DiDepartmentService;
-import cn.nit.service.di.DiResearchRoomService;
-import cn.nit.service.table1.T17Service;
+import cn.nit.bean.table1.T172Bean;
+import cn.nit.service.table1.T172Service;
 import cn.nit.util.DateUtil;
 import cn.nit.util.TimeUtil;
 
@@ -42,7 +33,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
-public class T17Excel {
+public class T172Excel {
 	
 	/**
 	 * 批量导入
@@ -57,18 +48,9 @@ public class T17Excel {
 		}
 		
 		int count = 1 ;
-		T17Bean t17Bean = null ;
+		T172Bean t172Bean = null ;
 		boolean flag = false ;
-		List<T17Bean> list = new LinkedList<T17Bean>() ;
-//		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
-//		DiDepartmentService diDepartSer = new DiDepartmentService() ;
-//		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
-//		DiCourseCategoriesService diCSCateSer = new DiCourseCategoriesService() ;
-//		List<DiCourseCategoriesBean> diCSCateBeanList = diCSCateSer.getList() ;
-//		DiCourseCharService diCSCharSer = new DiCourseCharService() ;
-//		List<DiCourseCharBean> diCSCharBeanList = diCSCharSer.getList() ;
-//		DiResearchRoomService diResearchRoomSer = new DiResearchRoomService() ;
-//		List<DiResearchRoomBean> diResearchRoomBeanList = diResearchRoomSer.getList() ;
+		List<T172Bean> list = new LinkedList<T172Bean>() ;
 		
 		for(Cell[] cell : cellList){
 			 int n=cellList.indexOf(cell);
@@ -77,56 +59,89 @@ public class T17Excel {
 					continue;
 				}
 			 else
-			 {
-				 
+			 { 
 			
 			try{
-				String ClubName = cell[1].getContents() ;
-				if(ClubName == null || ClubName.equals("")){
-					return "第" + count + "行，校友会名称不能为空" ;
+				String FriName = cell[1].getContents() ;
+				if(FriName == null || FriName.equals("")){
+					return "第" + count + "行，校友名称不能为空" ;
 				}
 				
-				if(ClubName.length() > 100){
-					return "第" + count + "行，校友会名称字数不超过100个字" ;
+				if(FriName.length() > 200){
+					return "第" + count + "行，校友名称字数不超过100个字" ;
 				}
 				
-				String BuildYearStr = cell[2].getContents() ;
+				String ActName = cell[2].getContents() ;
 				
-				if((BuildYearStr == null) || BuildYearStr.equals("")){
-					return "第" + count + "行，设立时间不能为空" ;
+				if((ActName == null) || ActName.equals("")){
+					return "第" + count + "行，交流活动名称不能为空" ;
 				}
 				
-				if(!DateUtil.isNumeric(BuildYearStr))
-				{
-					return "第" + count + "行，设立时间只能为数字" ;
-				} 
-				if (BuildYearStr.length() >5){
-					return "第" + count + "行，设立时间只能为4位" ;
+				if((ActName.length()>200)){
+					return "第" + count + "行，交流活动名称不能超过100字" ;
 				}
 				
-				String Place = cell[3].getContents() ;
-				if(Place == null || Place.equals("")){
-					return "第" + count + "行，地点不能为空" ;
+				String ActType = cell[3].getContents() ;
+				
+				if((ActType == null) || ActType.equals("")){
+					return "第" + count + "行，交流类型不能为空" ;
 				}
-//				if(!Place.equals("境外")||!Place.equals("境内")){
-//					return "第" + count + "行，地点只能为“境内”或“境外”" ;
-//				}
-//				String note = cell[4].getContents() ;
-//				
-//				if(note.length() > 1000){
-//					return "第" + count + "行，备注不能超过500个汉字" ;
-//				}
+				
+				if((ActType.length()>100)){
+					return "第" + count + "行，交流活动类型不能超过50字" ;
+				}			
+				
+				String ActTime = cell[4].getContents() ;
+			    if(ActTime ==null || ActTime.equals("")){
+			    	return "第" + count + "行，交流时间不能为空" ;
+			    }
+			    if(!TimeUtil.judgeFormatYM(ActTime)){
+			    	return "第" + count + "行，交流时间格式应为：2014-05" ;
+			    }
+				
+				String ActPlace = cell[5].getContents() ;
+				if(ActPlace == null || ActPlace.equals("")){
+					return "第" + count + "行，交流地点不能为空" ;
+				}
+				if(ActPlace.length()>200){
+					return "第" + count + "行，交流地点字数不能超过100字" ;
+				}
+				
+				String UnitName = cell[6].getContents() ;
+				if(UnitName == null || UnitName.equals("")){
+					return "第" + count + "行协作单位不能为空" ;
+				}
+				if(UnitName.length()>200){
+					return "第" + count + "行，协作单位字数不能超过100字" ;
+				}
+				
+				String UnitID = cell[7].getContents() ;
+				if(UnitID == null || UnitID.equals("")){
+					return "第" + count + "行，单位号不能为空" ;
+				}
+				if(UnitID.length()>50){
+					return "第" + count + "行，单位号字数不能超过50个字符" ;
+				}
+
+				String note = cell[8].getContents() ;
+				
+				if(note.length() > 1000){
+					return "第" + count + "行，备注不能超过500个汉字" ;
+				}
 //				
 				count++ ;
 				
-				Date BuildYear=TimeUtil.changeDateY(BuildYearStr);
-				t17Bean = new T17Bean();
-				t17Bean.setClubName(ClubName);
-				t17Bean.setBuildYear(BuildYear);
-				t17Bean.setPlace(Place);
-//				t17Bean.setNote(note);
-				t17Bean.setTime(TimeUtil.changeDateY(selectYear)) ;
-				list.add(t17Bean);
+				Date actTime=TimeUtil.changeDateYM(ActTime);
+				t172Bean = new T172Bean();
+				t172Bean.setActName(ActName);
+				t172Bean.setActPlace(ActPlace);
+				t172Bean.setActTime(actTime);
+				t172Bean.setNote(note);
+				t172Bean.setActType(ActType) ;
+				t172Bean.setFriName(FriName) ;
+				t172Bean.setUnitID(UnitID) ;
+				t172Bean.setUnitName(UnitName);
+				list.add(t172Bean);
 				
 			}
 			catch(Exception e){
@@ -137,8 +152,8 @@ public class T17Excel {
 		}
 		
 		flag = false ;
-		T17Service t17Ser = new T17Service() ;
-		flag = t17Ser.batchInsert(list) ;
+		T172Service t172Ser = new T172Service() ;
+		flag = t172Ser.batchInsert(list) ;
 		
 		if(flag){
 			return null ;
@@ -154,7 +169,7 @@ public class T17Excel {
 	 * @return
 	 * @throws Exception 
 	 */
-	public static ByteArrayOutputStream batchExport(List<T17Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
+	public static ByteArrayOutputStream batchExport(List<T172Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
 		
         WritableWorkbook wwb;
         ByteArrayOutputStream fos = null;

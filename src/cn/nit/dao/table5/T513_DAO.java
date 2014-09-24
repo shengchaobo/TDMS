@@ -42,7 +42,7 @@ public class T513_DAO {
 		sql.append("select t.SeqNumber,die.EvaluType as Item,t.Item as ItemID,t.Category,t.ShouldASCSNum,t.HavedASCSNum,t.CoverRatio,t.ExcellentNum,t.ExcellentRatio" +
 		",t.GoodNum,t.GoodRatio,t.AvgNum,t.AvgRatio,t.PoorNum,t.PoorRatio,t.Time,t.Note");
 		sql.append(" from "+tableName+" as t,DiEvaluType as die ");
-		sql.append(" where die.IndexID = t.Item  ");
+		sql.append(" where die.IndexID = t.Item ");
 		sql.append(" and Time ='"+year+"'");
 		
 		Connection conn = DBConnection.instance.getConnection() ;

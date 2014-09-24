@@ -84,6 +84,7 @@
 		// 获取文本框的值
 		var centerName = $('#CenterName').val();
 		var fromSubject = $('#FromSubject').val();
+		var subjectID = $('#SubjectID').val();
 		var centerLevel = $('#CenterLevel').combobox('getText');
 		var unitID = $('#FromTeaUnit').val();
 		var teaID = $('#Leader').val();
@@ -102,6 +103,10 @@
 		}
 		if(fromSubject == null|| fromSubject.length == 0){
 			alert("所属学科不能为空");
+			return false;
+		}
+		if(subjectID == null|| subjectID.length == 0){
+			alert("学科代码不能为空");
 			return false;
 		}
 		if(centerLevel == null|| centerLevel.length == 0){
@@ -180,6 +185,7 @@
     	$('#seqNumber').val(row[0].seqNumber) ;
     	$('#CenterName').val(row[0].centerName) ;
     	$('#FromSubject').val(row[0].fromSubject) ;
+    	$('#SubjectID').val(row[0].subjectID) ;
     	$('#CenterLevel').combobox('select', row[0].centerLevelID) ;
     	$('#UnitID').combobox('select', row[0].unitID) ;
     	$('#TeaID').combobox('select', row[0].teaID) ;

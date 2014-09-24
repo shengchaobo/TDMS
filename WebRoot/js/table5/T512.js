@@ -85,6 +85,8 @@
 			
 			var cSTea = $('#CSTea').val();
 			
+			var teaID= $('#TeaID').val();
+			
 			var note = $('#Note').val();
 			
 			var  num = /^\d+$/;  //用于判断字符串是否全是数字		
@@ -171,6 +173,10 @@
 				alert("任课老师不能为空");
 				return false;
 			}
+			if(teaID == null || teaID.length ==0){
+				alert("教工号不能为空");
+				return false;
+			}
 			if (note != null && note.length > 1000) {
 				alert("备注中文字数不超过500");
 	/*			$('#noteSpan').html(
@@ -254,6 +260,7 @@
 	    	$('#ClassInfo').val(row[0].classInfo);
 	    	$('#StuNum').val(row[0].stuNum);
 	    	$('#CSTea').val(row[0].CSTea);
+	    	$('#TeaID').val(row[0].teaID);
 	    	$('#IsAccordJob').combobox('setText', formatBoolean(row[0].isAccordJob)) ;
 	    	$('#TeaTitle').combobox('setText', row[0].teaTitle) ;
 	    	$('#BookUseInfo').combobox('setText', row[0].bookUseInfo) ;

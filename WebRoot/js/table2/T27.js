@@ -40,7 +40,8 @@
 				        	 	"precision": 2
 				    		}
 				        } },
-				       	{ "name": "6.网络教学平台", "group": "",  "value": "", "field": "webTeahingUrl", "editor": "text" }
+				       	{ "name": "链接地址", "group": "6.网络教学平台",  "value": "", "field": "webTeahingUrl", "editor": "text" },
+				        { "name": "链接地址", "group": "7.网络教学平台",  "value": "", "field": "teaManageUrl", "editor": "text" }
 				    ];
 				    							
 				$('#edit').propertygrid({

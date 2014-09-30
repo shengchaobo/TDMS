@@ -199,7 +199,7 @@ public class T513Excel {
 				t513Bean.setPoorNum(Integer.parseInt(PoorNum));
 				t513Bean.setPoorRatio(this.toDouble(PoorRatio));
 				t513Bean.setShouldASCSNum(Integer.parseInt(ShouldASCSNum));
-				t513Bean.setTime(selectYear);
+				t513Bean.setTime(TimeUtil.changeDateY(selectYear));
 				
 				list.add(t513Bean);
 				

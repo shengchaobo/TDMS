@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.nit.bean.table5.T513Bean;
@@ -43,7 +44,7 @@ public class T513_DAO {
 		",t.GoodNum,t.GoodRatio,t.AvgNum,t.AvgRatio,t.PoorNum,t.PoorRatio,t.Time,t.Note");
 		sql.append(" from "+tableName+" as t,DiEvaluType as die ");
 		sql.append(" where die.IndexID = t.Item ");
-		sql.append(" and Time ='"+year+"'");
+		sql.append(" and Time like '"+year+"%'");
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -55,6 +56,7 @@ public class T513_DAO {
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
 			list= DAOUtil.getList(rs, T513POJO.class) ;
+			Date time = TimeUtil.changeDateY(year);
 			System.out.println("daolist:"+list.size());
 			
 			//如果当前年表中没有单位列数据，先将单位列数据插入到表中
@@ -64,35 +66,35 @@ public class T513_DAO {
 			    	switch (i){
 			    		 case 0:bean.setItem("54000");
 			    		 		bean.setCategory("理论课");
-			    		 		bean.setTime(year);
+			    		 		bean.setTime(time);
 			    		 		break;
 			    		 case 1:bean.setItem("54000");
 		    		 		bean.setCategory("实践教学");
-		    		 		bean.setTime(year);
+		    		 		bean.setTime(time);
 		    		 		break;
 			    		 case 2:bean.setItem("54001");
 		    		 		bean.setCategory("理论课");
-		    		 		bean.setTime(year);
+		    		 		bean.setTime(time);
 		    		 		break;
 			    		 case 3:bean.setItem("54001");
 		    		 		bean.setCategory("实践教学");
-		    		 		bean.setTime(year);
+		    		 		bean.setTime(time);
 		    		 		break;
 			    		 case 4:bean.setItem("54002");
 		    		 		bean.setCategory("理论课");
-		    		 		bean.setTime(year);
+		    		 		bean.setTime(time);
 		    		 		break;
 			    		 case 5:bean.setItem("54002");
 		    		 		bean.setCategory("实践教学");
-		    		 		bean.setTime(year);
+		    		 		bean.setTime(time);
 		    		 		break;
 			    		 case 6:bean.setItem("54003");
 		    		 		bean.setCategory("理论课");
-		    		 		bean.setTime(year);
+		    		 		bean.setTime(time);
 		    		 		break;
 			    		 case 7:bean.setItem("54003");
 		    		 		bean.setCategory("实践教学");
-		    		 		bean.setTime(year);
+		    		 		bean.setTime(time);
 		    		 		break;		
 			    	}
 			    	list1.add(bean);

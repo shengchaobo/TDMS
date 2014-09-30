@@ -139,15 +139,15 @@ public class T721_Excel {
 				if(ISUTime == null || ISUTime.equals("")){
 					return "第" + count + "行，立项时间不能为空" ;
 				}
-				if(!TimeUtil.judgeFormat1(ISUTime)){
-					return "第" + count + "行，立项时间格式不正确，格式为：2012/09" ;
+				if(!TimeUtil.judgeFormatYM(ISUTime)){
+					return "第" + count + "行，立项时间格式不正确，格式为：2012-09" ;
 				}
 				String recTime = cell[10].getContents();
 				if(recTime == null || recTime.equals("")){
 					return "第" + count + "行，验收时间不能为空" ;
 				}
-				if(!TimeUtil.judgeFormat1(recTime)){
-					return "第" + count + "行，验收时间格式不正确，格式为：2012/09" ;
+				if(!TimeUtil.judgeFormatYM(recTime)){
+					return "第" + count + "行，验收时间格式不正确，格式为：2012-09" ;
 				}
 				String appExp = cell[11].getContents();
 				if(appExp == null || appExp.equals("")){

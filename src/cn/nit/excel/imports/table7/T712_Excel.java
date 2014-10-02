@@ -128,8 +128,8 @@ public class T712_Excel {
 					if(JnTime == null || JnTime.equals("")){
 						return "第" + count + "行，刊期/日期不能为空" ;
 					}
-					if(!TimeUtil.judgeFormat2(JnTime)){
-						return "第" + count + "行，刊期/日期格式不正确，格式为：2012/09/01" ;
+					if(!TimeUtil.judgeFormatYM(JnTime)){
+						return "第" + count + "行，刊期/日期格式不正确，格式为：2012-09" ;
 					}
 					String PWNum = cell[11].getContents();
 					if(PWNum == null || PWNum.equals("")){
@@ -175,7 +175,7 @@ public class T712_Excel {
 					T712_Bean.setFirstSubject(FSub);
 					T712_Bean.setJonalName(JnName);
 					T712_Bean.setJonalID(JnID);
-					T712_Bean.setJonalTime(TimeUtil.changeDateYMD(JnTime));
+					T712_Bean.setJonalTime(TimeUtil.changeDateYM(JnTime));
 					T712_Bean.setPaperWordNum(Integer.parseInt(PWNum));
 					T712_Bean.setConfirmLevel(CfLevel);
 					T712_Bean.setJoinTeaNum(Integer.parseInt(joinTn));

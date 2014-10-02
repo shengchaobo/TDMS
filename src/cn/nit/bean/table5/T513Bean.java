@@ -1,5 +1,7 @@
 package cn.nit.bean.table5;
 
+import java.util.Date;
+
 public class T513Bean {
 	
 	private Integer SeqNumber;
@@ -16,7 +18,8 @@ public class T513Bean {
 	private double AvgRatio;
 	private int PoorNum;
 	private double PoorRatio;
-	private String Time;
+	private Date Time;
+	
 	private String Note;
 	
 	
@@ -105,10 +108,12 @@ public class T513Bean {
 	public void setPoorRatio(double poorRatio) {
 		PoorRatio = poorRatio;
 	}
-	public String getTime() {
+
+	
+	public Date getTime() {
 		return Time;
 	}
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		Time = time;
 	}
 	public String getNote() {

@@ -105,6 +105,7 @@ public class T621_Action {
 	public void insert() {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("avgScore:"+UndergraAdmiInfo.getAvgScore());
 		
 		boolean flag = UndergraAdmiInfoSer.insert(UndergraAdmiInfo);
 		PrintWriter out = null;
@@ -275,7 +276,7 @@ public class T621_Action {
 			}
 			if(list!=null){
 				int AmisPlanNum=0; int ActulEnrollNum=0; int ActulRegisterNum=0; int AutoEnrollNum=0;
-				int SpecialtyEnrollNum = 0; int InProviEnrollNum = 0; int NewMajEnrollNum = 0;
+				int SpecialtyEnrollNum = 0; int InProviEnrollNum = 0; int NewMajEnrollNum = 0; double avrscore = 0;
 				//统计全校合计
 				for(T621_Bean bean : list){
 					AmisPlanNum+=bean.getAmisPlanNum();
@@ -295,6 +296,7 @@ public class T621_Action {
 				bean.setInProviEnrollNum(InProviEnrollNum);
 				bean.setNewMajEnrollNum(NewMajEnrollNum);
 				bean.setSpecialtyEnrollNum(SpecialtyEnrollNum);
+				bean.setAvgScore(avrscore);
 				bean.setFromTeaUnit("全校合计：");
 				list.add(0, bean);
 				
@@ -305,7 +307,7 @@ public class T621_Action {
 				columns.add("序号");columns.add("所属教学单");columns.add("单位");columns.add("专业名称");
 				columns.add("专业代码");columns.add("招生计划");columns.add("实际录取");columns.add("实际报到");
 				columns.add("自主招生");columns.add("招收特长生数");columns.add("招收本省学生");columns.add("新办专业招生");
-//				columns.add("时间");columns.add("备注");
+				columns.add("招生录取平均分（分）");
 				
 
 				Map<String,Integer> maplist = new HashMap<String,Integer>();
@@ -314,7 +316,7 @@ public class T621_Action {
 				maplist.put("majorName", 3);maplist.put("majorId", 4);maplist.put("amisPlanNum", 5);
 				maplist.put("actulEnrollNum", 6);maplist.put("actulRegisterNum", 7);maplist.put("autoEnrollNum", 8);
 				maplist.put("specialtyEnrollNum", 9);maplist.put("inProviEnrollNum", 10);maplist.put("newMajEnrollNum", 11);
-//				maplist.put("time", 12);maplist.put("note", 13);
+				maplist.put("AvgScore", 12);
 				
 				WritableWorkbook wwb;
 				try{
@@ -367,6 +369,7 @@ public class T621_Action {
 								ws.addCell(new Label(9, 3, bean1.getSpecialtyEnrollNum()+"", wcf1));
 								ws.addCell(new Label(10, 3, bean1.getInProviEnrollNum()+"", wcf1));
 								ws.addCell(new Label(11, 3, bean1.getNewMajEnrollNum()+"", wcf1));
+								ws.addCell(new Label(11, 3, "", wcf1));
 //								ws.addCell(new Label(12, 3, bean1.getTime()+"", wcf));
 //								ws.addCell(new Label(13, 3, bean1.getNote()+"", wcf));
 							}else{
@@ -382,6 +385,7 @@ public class T621_Action {
 								ws.addCell(new Label(9, k, bean1.getSpecialtyEnrollNum()+"", wcf1));
 								ws.addCell(new Label(10, k, bean1.getInProviEnrollNum()+"", wcf1));
 								ws.addCell(new Label(11, k, bean1.getNewMajEnrollNum()+"", wcf1));
+								ws.addCell(new Label(11, k, bean1.getAvgScore()+"", wcf1));
 //								ws.addCell(new Label(12, k, bean1.getTime()+"", wcf));
 //								ws.addCell(new Label(13, k, bean1.getNote()+"", wcf));
 							}

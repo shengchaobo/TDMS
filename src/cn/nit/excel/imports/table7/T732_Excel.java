@@ -70,8 +70,8 @@ public class T732_Excel {
 				if((attclTime == null) || attclTime.equals("")){
 					return "第" + count + "行，听课日期不能为空" ;
 				}
-				if(!TimeUtil.judgeFormat2(attclTime)){
-					return "第" + count + "行，听课日期格式不正确，格式为：2012/09/01" ;
+				if(!TimeUtil.judgeFormatYM(attclTime)){
+					return "第" + count + "行，听课日期格式不正确，格式为：2012-09" ;
 				}
 				String lecTea = cell[6].getContents() ;
 				if((lecTea == null) || lecTea.equals("")){
@@ -159,7 +159,7 @@ public class T732_Excel {
 				T732_Bean.setLeaderName(leaderName);
 				T732_Bean.setLeaderTeaID(leaderId);
 				T732_Bean.setAdminTitle(adTitle);
-				T732_Bean.setAttendClassTime(TimeUtil.changeDateYMD(attclTime));
+				T732_Bean.setAttendClassTime(TimeUtil.changeDateYM(attclTime));
 				T732_Bean.setLectureTea(lecTea);
 				T732_Bean.setLectureTeaID(lecTeaId);
 				T732_Bean.setLectureCS(lecCS);

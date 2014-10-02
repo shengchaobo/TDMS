@@ -137,8 +137,8 @@ public class T711_Excel {
 				if(ardTime == null || ardTime.equals("")){
 					return "第" + count + "行，获奖时间不能为空" ;
 				}
-				if(!TimeUtil.judgeFormat1(ardTime)){
-					return "第" + count + "行，获准时间格式不正确，格式为：2012/09" ;
+				if(!TimeUtil.judgeFormatYM(ardTime)){
+					return "第" + count + "行，获准时间格式不正确，格式为：2012-09" ;
 				}
 				String ardFu = cell[9].getContents();
 				if(ardFu == null || ardFu.equals("")){

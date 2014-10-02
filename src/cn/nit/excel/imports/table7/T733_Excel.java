@@ -75,8 +75,8 @@ public class T733_Excel {
 				if(meetDate == null || meetDate.equals("")){
 					return "第" + count + "行，会议日期不能为空" ;
 				}
-				if(!TimeUtil.judgeFormat1(meetDate)){
-					return "第" + count + "行，听课日期格式不正确，格式为：2012/09" ;
+				if(!TimeUtil.judgeFormatYM(meetDate)){
+					return "第" + count + "行，听课日期格式不正确，格式为：2012-09" ;
 				}
 				String meetmeinfo = cell[4].getContents() ;
 				if((meetmeinfo == null) || meetmeinfo.equals("")){

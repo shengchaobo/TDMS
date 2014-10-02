@@ -16,7 +16,7 @@ import cn.nit.util.ExcelUtil;
 
 public class J532_Excel {
 	
-	 public static boolean export_J531(String path){
+	 public static boolean export_J532(String path){
 			
 			T532DAO T532_dao = new T532DAO();
 			
@@ -24,7 +24,7 @@ public class J532_Excel {
 			Calendar a = Calendar.getInstance();
 			String year = String.valueOf(a.get(Calendar.YEAR));
 			
-//			List<T532Bean> list = T532_dao.totalList(year);
+			List<T532Bean> list = T532_dao.totalList(year);
 					
 			String sheetName = "J-5-3-2实验教学示范中心（时点）";
 			
@@ -36,13 +36,13 @@ public class J532_Excel {
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("Name", 1);maplist.put("Type", 2);maplist.put("BuildTime", 3);maplist.put("CenterLevel", 4);
+			maplist.put("CenterName", 1);maplist.put("FromSubject", 2);maplist.put("SubjectID", 3);maplist.put("CenterLevel", 4);
 			maplist.put("BuildTime", 5);
 			
 			ByteArrayOutputStream byteArrayOutputStream = null;		
 			try {
 									
-//				byteArrayOutputStream = ExcelUtil.exportExcel(list, sheetName, maplist,columns);
+				byteArrayOutputStream = ExcelUtil.exportExcel(list, sheetName, maplist,columns);
 
 				File file = new File(path,"J-5-3-2实验教学示范中心（时点）.xls");
 				FileOutputStream fileOutputStream  = new FileOutputStream(file);
@@ -62,8 +62,8 @@ public class J532_Excel {
 	  
 		public static void main(String arg[]){
 			 String path = "D:\\江西项目\\相关表\\ExcelTest";
-			  J531_Excel excel = new J531_Excel();
-			  boolean flag = excel.export_J531(path);
+			  J532_Excel excel = new J532_Excel();
+			  boolean flag = excel.export_J532(path);
 			  if(flag){
 				  System.out.println("成功！");
 			  }else{

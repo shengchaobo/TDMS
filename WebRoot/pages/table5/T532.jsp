@@ -52,6 +52,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'fromSubject'">
 						所属学科
 					</th>
+					<th data-options="field:'subjectID'">
+						学科代码
+					</th>
 					<th data-options="field:'centerLevel'">
 						级别
 				        </th>
@@ -152,6 +155,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'fromSubject'">
 						所属学科
 					</th>
+					<th data-options="field:'subjectID'">
+						学科代码
+					</th>
 					<th data-options="field:'centerLevel'">
 						级别
 					</th>
@@ -226,12 +232,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		   <span id="CenterNameSpan"></span>
 		   		   </div>
 		   		</td>
-		   		<td class="empty"></td>
+		   </tr>
+		   <tr>
 		   		<td>
 		   			<div class="fitem">
 		   			<label>所属学科:</label>
 		   			 <input id="FromSubject" name="t532Bean.FromSubject" type="text" class="easyui-validatebox">
 		   		   <span id="FromSubjectSpan"></span>
+		   			</div>
+		   		</td>
+		   		<td class="empty"></td>
+		   		<td>
+		   			<div class="fitem">
+		   			<label>学科代码:</label>
+		   			 <input id="SubjectID" name="t532Bean.SubjectID" type="text" class="easyui-validatebox">
+		   		   <span id="SubjectIDSpan"></span>
 		   			</div>
 		   		</td>
 		   </tr>

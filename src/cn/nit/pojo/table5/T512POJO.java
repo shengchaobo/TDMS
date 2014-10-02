@@ -28,6 +28,8 @@ public class T512POJO {
 	private String ClassInfo;
 	private int StuNum;
 	private String CSTea;
+	private String TeaID;
+	
 	private boolean IsAccordJob;
 	private String TeaTitle;
 	private String BookUseInfo;
@@ -237,6 +239,11 @@ public class T512POJO {
 		Note = note;
 	}
 	
-	
+	public String getTeaID() {
+		return TeaID;
+	}
+	public void setTeaID(String teaID) {
+		TeaID = teaID;
+	}
 	
 }

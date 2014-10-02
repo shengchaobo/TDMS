@@ -298,10 +298,18 @@ public class T512_Excel {
 					return "第" + count + "行，任课教师不能为空" ;
 				}
 				if(cSTea.length()>200){
-					return "第" + count + "行，任课教师所填字符不能超过200（一个汉字等于两个字符）" ;
+					return "第" + count + "行，任课教师所填字符不能超过100字" ;
 				}
 				
-				String isAccordJob = cell[24].getContents() ;
+				String teaID = cell[24].getContents() ;
+				if((teaID == null) || teaID.equals("")){
+					return "第" + count + "行，任课教师教工号不能为空" ;
+				}
+				if(teaID.length()>50){
+					return "第" + count + "行，任课教师教工号不能超过50个字符" ;
+				}
+				
+				String isAccordJob = cell[25].getContents() ;
 				Boolean IsAccordJob = false;
 				isAccordJob = isAccordJob.trim();
 				if((isAccordJob == null) || isAccordJob.equals("")){
@@ -317,7 +325,7 @@ public class T512_Excel {
 					return "第" + count + "行， 是否符合岗位资格填写格式有误，只能填写“是”或者“否”" ;
 				}
 				
-				String teaTitle = cell[25].getContents() ;
+				String teaTitle = cell[26].getContents() ;
 				if((teaTitle == null) || teaTitle.equals("")){
 					return "第" + count + "行，教师职称不能为空" ;
 				}
@@ -325,7 +333,7 @@ public class T512_Excel {
 					return "第" + count + "行，教师职称格式有误，只能填写“正高级”或“副高级”或“中级”或“初级”或“未定级”";
 				}
 				
-				String bookUseInfo = cell[26].getContents() ;
+				String bookUseInfo = cell[27].getContents() ;
 				if((bookUseInfo == null) || bookUseInfo.equals("")){
 					return "第" + count + "行，使用情况不能为空" ;
 				}
@@ -333,7 +341,7 @@ public class T512_Excel {
 					return "第" + count + "行，使用情况填写格式有误，只能填写“先用”或“自编”" ;
 				}
 				
-				String isPlanbook = cell[27].getContents() ;
+				String isPlanbook = cell[28].getContents() ;
 				boolean IsPlanbook = false;
 				isPlanbook =isPlanbook.trim();
 				if((isPlanbook == null) || isPlanbook.equals("")){
@@ -351,7 +359,7 @@ public class T512_Excel {
 				}
 				
 				
-				String isAwardbook = cell[28].getContents() ;
+				String isAwardbook = cell[29].getContents() ;
 				boolean IsAwardbook = false;
 				isAwardbook = isAwardbook.trim();
 				if((isAwardbook == null) || isAwardbook.equals("")){
@@ -396,6 +404,7 @@ public class T512_Excel {
 				T512_Bean.setClassInfo(classInfo);
 				T512_Bean.setStuNum(Integer.parseInt(stuNum));
 				T512_Bean.setCSTea(cSTea);
+				T512_Bean.setCSTea(teaID);
 				T512_Bean.setIsAccordJob(IsAccordJob);
 				T512_Bean.setTeaTitle(teaTitle);
 				T512_Bean.setBookUseInfo(bookUseInfo);

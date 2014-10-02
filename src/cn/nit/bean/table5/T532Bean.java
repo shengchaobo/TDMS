@@ -7,6 +7,7 @@ public class T532Bean {
 	private Integer SeqNumber;
 	private String CenterName;
 	private String FromSubject;
+	private String SubjectID;
 	private String CenterLevel;
 	private String FromTeaUnit;
 	private String UnitID;
@@ -24,6 +25,12 @@ public class T532Bean {
 
 	
 	
+	public String getSubjectID() {
+		return SubjectID;
+	}
+	public void setSubjectID(String subjectID) {
+		SubjectID = subjectID;
+	}
 	public Integer getSeqNumber() {
 		return SeqNumber;
 	}

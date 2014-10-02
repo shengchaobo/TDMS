@@ -3,27 +3,26 @@ package cn.nit.dao.table1;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.List;
 
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T17Bean;
+import cn.nit.bean.table1.T172Bean;
 import cn.nit.dbconnection.DBConnection;
 
-import cn.nit.pojo.table1.T17POJO;
 import cn.nit.util.DAOUtil;
 
 
 /**表1-7数据库操作类*/
-public class T17DAO {
+public class T172DAO {
 	
 	/**  数据库表名  */
-	private String tableName = "T171_SchFriClub_PartyOffice$" ;
+	private String tableName = "T172_SchFriCom_PartyOffice" ;
 	
 	/**  数据自增长字段的主键，必须为自增长字段  */
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "ClubName,BuildYear,Place,Time,Note" ;
+	private String field = "FriName,ActName,ActType,ActTime,ActPlace,UnitName,UnitID,Note" ;
 	
 	/**
 	 * 将数据表1-7的实体类插入数据库
@@ -32,13 +31,13 @@ public class T17DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T17Bean t17Bean){
+	public boolean insert(T172Bean t172Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			flag = DAOUtil.insert(t17Bean, tableName, field, conn) ;
+			flag = DAOUtil.insert(t172Bean, tableName, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -49,11 +48,11 @@ public class T17DAO {
 	}
 	
 	/**
-	 * 讲数据批量插入17表中
+	 * 讲数据批量插入172表中
 	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T17Bean> list){
+	public boolean batchInsert(List<T172Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -118,10 +117,10 @@ public class T17DAO {
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
 	 */
-	public List<T17POJO> auditingData(String conditions, String fillUnitId, int page, int rows){
+	public List<T172Bean> auditingData(String conditions, String fillUnitId, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T17POJO> list = null ;
+		List<T172Bean> list = null ;
 		sql.append("select * from "+tableName);
 //		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
 //		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
@@ -147,7 +146,7 @@ public class T17DAO {
 			st.setMaxRows(page * rows) ;
 			rs = st.executeQuery(sql.toString()) ;
 			rs.absolute((page - 1) * rows) ;
-			list = DAOUtil.getList(rs, T17POJO.class) ;
+			list = DAOUtil.getList(rs, T172Bean.class) ;
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -163,20 +162,20 @@ public class T17DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T17Bean> totalList(){
+	public List<T172Bean> totalList(){
 		
 		StringBuffer sql=new StringBuffer();
-		sql.append("select SeqNumber,ClubName,BuildYear,Place,Time,Note from "+ tableName);
+		sql.append("select SeqNumber,FriName,ActName,ActType,ActTime,ActPlace,UnitName,UnitID,Note from "+ tableName);
 
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T17Bean> list = null ;
+		List<T172Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T17Bean.class) ;
+			list = DAOUtil.getList(rs, T172Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -186,12 +185,12 @@ public class T17DAO {
 	}
 	
 	
-	public boolean update(T17Bean t17Bean){
+	public boolean update(T172Bean t172Bean){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			flag = DAOUtil.update(t17Bean, tableName, key, field, conn) ;
+			flag = DAOUtil.update(t172Bean, tableName, key, field, conn) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
@@ -230,11 +229,27 @@ public class T17DAO {
 	
 	public static void  main(String arg[])
 	{
-		T17DAO dao=new T17DAO();
+		T172DAO dao=new T172DAO();
 //		int n=dao.totalAuditingData(null, null);
 //		System.out.println(n);
-		List<T17Bean> list=dao.totalList();
-		System.out.println(list.size());
+//		List<T172Bean> list=dao.totalList();
+//		System.out.println(list.size());
+		T172Bean bean = new T172Bean();
+		bean.setSeqNumber(1);
+		bean.setActName("test");
+		bean.setActPlace("test");
+		bean.setActTime(new Date());
+		bean.setActType("hotpot");
+		bean.setFriName("nikchun");
+		bean.setUnitID("12222");
+		bean.setUnitName("土建");
+		boolean flag = dao.update(bean);
+		if(flag){
+			System.out.println("更新完毕");
+		}else{
+			System.out.println("更新出错");
+		}
+		
 	}
 
 }

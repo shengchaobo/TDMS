@@ -109,6 +109,7 @@
     <include file="cn/nit/configuration/table1/T14.xml"/>
       <!-- T19 -->
     <include file="cn/nit/configuration/table1/T19.xml"/>
+     <include file="cn/nit/configuration/table1/T172.xml"/>
     
      <!-- table2 -->
      <include file="cn/nit/configuration/table2/S22.xml"/>

@@ -23,10 +23,10 @@ public class T621_Dao {
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
-	private String field = "FromTeaUnit,UnitId,MajorName,MajorId,AmisPlanNum,ActulEnrollNum,ActulRegisterNum,AutoEnrollNum,SpecialtyEnrollNum,InProviEnrollNum,NewMajEnrollNum,Time,Note";
+	private String field = "FromTeaUnit,UnitId,MajorName,MajorId,AmisPlanNum,ActulEnrollNum,ActulRegisterNum,AutoEnrollNum,SpecialtyEnrollNum,InProviEnrollNum,NewMajEnrollNum,Time,Note,AvgScore";
 
 	
-	private String fieldShow = "SeqNumber,FromTeaUnit,UnitId,MajorName,MajorId,AmisPlanNum,ActulEnrollNum,ActulRegisterNum,AutoEnrollNum,SpecialtyEnrollNum,InProviEnrollNum,NewMajEnrollNum,Time,Note";
+	private String fieldShow = "SeqNumber,FromTeaUnit,UnitId,MajorName,MajorId,AmisPlanNum,ActulEnrollNum,ActulRegisterNum,AutoEnrollNum,SpecialtyEnrollNum,InProviEnrollNum,NewMajEnrollNum,Time,Note,AvgScore";
 
 	/* ,FillTeaID,FillUnitID,audit */
 

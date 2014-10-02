@@ -223,7 +223,8 @@ public class T532Action {
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
-			columns.add("中心名称");columns.add("所属学科");columns.add("级别");columns.add("所属教学单位");
+			columns.add("中心名称");columns.add("所属学科");columns.add("学科代码");
+			columns.add("级别");columns.add("所属教学单位");
 			columns.add("单位号");columns.add("中心主任");
 			columns.add("教工号");columns.add("职称");columns.add("设立时间");columns.add("建设批文号");
 			columns.add("验收时间");columns.add("验收批文号");
@@ -231,11 +232,12 @@ public class T532Action {
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("CenterName", 1);maplist.put("FromSubject", 2);maplist.put("CenterLevel", 3);maplist.put("FromTeaUnit", 4);
-			maplist.put("UnitID", 5);maplist.put("CenterLeader", 6);
-			maplist.put("TeaID", 7);maplist.put("TeaTitle", 8);maplist.put("BuildTime", 9);maplist.put("BuildAppvlID", 10);
-			maplist.put("ReceptTime", 11);maplist.put("ReceptAppvlID", 12);
-			maplist.put("ValidTime", 13);maplist.put("Fund", 14);maplist.put("Note", 15);
+			maplist.put("CenterName", 1);maplist.put("FromSubject", 2);maplist.put("SubjectID", 3);
+			maplist.put("CenterLevel", 4);maplist.put("FromTeaUnit", 5);
+			maplist.put("UnitID", 6);maplist.put("CenterLeader", 7);
+			maplist.put("TeaID", 8);maplist.put("TeaTitle", 9);maplist.put("BuildTime", 10);maplist.put("BuildAppvlID", 11);
+			maplist.put("ReceptTime", 12);maplist.put("ReceptAppvlID", 13);
+			maplist.put("ValidTime", 14);maplist.put("Fund", 15);maplist.put("Note", 16);
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {

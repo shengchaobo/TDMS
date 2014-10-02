@@ -5,7 +5,7 @@ function newItem() {
 	$('.title1').show();
 	$('#item1').show();
 	$('hr').show();
-	$('#dlg').dialog('open').dialog('setTitle', '学习成果—学生获准专利');
+	$('#dlg').dialog('open').dialog('setTitle', '学习成果——学生获准专利/软件著作权');
 	$('#addItemForm').form('reset');
 }
 // 单条录入时的表单提交
@@ -61,12 +61,12 @@ function validate() {
 	}
 	
 	if (jonalName == null || jonalName.length == 0) {
-		alert("专利名称不能为空");
+		alert("项目名称不能为空");
 		return false;
 	}
 	
 	if (jonalId == null || jonalId.length == 0) {
-		alert("专利号不能为空");
+		alert("项目编号不能为空");
 		return false;
 	}
 	
@@ -171,7 +171,7 @@ function editItem() {
 	$('#item1').hide();
 	$('hr').hide();
 	
-	$('#dlg').dialog('open').dialog('setTitle', '学习成果—学生获准专利情况');
+	$('#dlg').dialog('open').dialog('setTitle', '学习成果——学生获准专利/软件著作权情况');
 	$('#seqNumber').val(row[0].seqNumber);
 	$('#unitId').combobox('select', row[0].unitId);
 	$('#patentType').combobox('select', row[0].patentType);

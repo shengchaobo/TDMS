@@ -46,6 +46,8 @@ function validate() {
 	var specialtyEnrollNum = $('#specialtyEnrollNum').val();
 	var inProviEnrollNum = $('#inProviEnrollNum').val();
 	var newMajEnrollNum = $('#newMajEnrollNum').val();
+	var avgScore = $('#avgScore').numberbox('getValue');
+	alert(avgScore);
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
 
@@ -76,6 +78,11 @@ function validate() {
 			|| !autoEnrollNum.match(num) || !specialtyEnrollNum.match(num)
 			|| !inProviEnrollNum.match(num)|| !newMajEnrollNum.match(num)) {
 		alert("请填写数字，若无请填写0");
+		return false;
+	}
+	
+	if (avgScore == null || avgScore.length == 0) {
+		alert("请填写数字，若无 请填写0");
 		return false;
 	}
 
@@ -164,6 +171,7 @@ function editItem() {
 	$('#specialtyEnrollNum').val(row[0].specialtyEnrollNum);
 	$('#inProviEnrollNum').val(row[0].inProviEnrollNum);
 	$('#newMajEnrollNum').val(row[0].newMajEnrollNum);
+	$('#avgScore').val(row[0].avgScore);
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);
 	

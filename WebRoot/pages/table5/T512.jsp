@@ -127,6 +127,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'CSTea',align:'center'">
 			        任课教师
 				</th>
+				<th data-options="field:'teaID',align:'center'">
+			       教工号
+				</th>
 				<th data-options="field:'isAccordJob',align:'center'" formatter="formatBoolean">
 			         是否符合岗位资格
 				</th>
@@ -277,6 +280,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</th>
 				<th data-options="field:'CSTea',align:'center'">
 			        任课教师
+				</th>
+				<th data-options="field:'TeaID',align:'center'">
+			       教工号
 				</th>
 				<th data-options="field:'isAccordJob',align:'center'">
 			         是否符合岗位资格
@@ -539,6 +545,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<div class="fitem">
+					<label>教工号：</label> 
+					<input id="TeaID" type="text" name="t512_Bean.TeaID"
+					>
+					<span id="TeaIDSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				<td>
+					<div class="fitem">
 					<label>是否符合岗位资格：</label> 
 					<select class='easyui-combobox' style="width:50px" id="IsAccordJob" name="t512_Bean.IsAccordJob"  panelHeight="auto" editable="false" >
 							<option value="true" selected = "selected">是</option>
@@ -546,7 +561,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</select><span id="IsAccordJobSpan"></span>
 					</div>
 				</td>
-		<td class="empty"></td>
+				
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 					<label>教师职称：</label> 

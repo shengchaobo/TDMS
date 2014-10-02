@@ -64,6 +64,7 @@
 	<include file="cn/nit/configuration/table4/T48.xml"/>
 	<include file="cn/nit/configuration/table4/T49.xml"/>
 	<include file="cn/nit/configuration/table4/T410.xml"/>
+	<include file="cn/nit/configuration/table4/T4_11.xml"/>
     <include file="cn/nit/configuration/table4/A411.xml"/>
     <include file="cn/nit/configuration/table4/A412.xml"/>
     <include file="cn/nit/configuration/table4/A413.xml"/>

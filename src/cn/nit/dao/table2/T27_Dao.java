@@ -14,7 +14,7 @@ public class T27_Dao {
 	
 	private String tableName = "T27_SchNetwork_NIC$" ;
 	private String field = "MainBW,ExitBW,AccessPOINum,ClassrmNum,ClassrmNum,DormiNum,OfficeNum,SumMemSpace,AvgTeaMemSpace," +
-			"AvgStuMemSpace,WebTeahingUrl,TeaManageUrl,Time,Note";
+			"AvgStuMemSpace,WebTeahingUrl,Time,Note";
 	private String keyfield = "SeqNumber";
 	
 	/**
@@ -91,6 +91,31 @@ public class T27_Dao {
 		}
 				
 		return flag ;
+	}
+	
+	public String getString(String year,String s){
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+	    String querysql="select "+s+" from "+tableName+" where Time like '"+year+"%'";
+		String result = null;
+	
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(querysql) ;
+			while(rs.next()){
+			result = rs.getString(1);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return result ;
+		
+		
 	}
 	
 	

@@ -270,15 +270,28 @@ public class T312_DAO {
 	
 	
 	public int getStaNameNum(String year,String staType){
-		int count = 0;
-		StringBuffer sql=new StringBuffer();
-		sql.append("SELECT COUNT(DISTINCT StaName)");
-        sql.append(" from "+tableName+" where Time like '"+year+"%'");
-        sql.append(" and StaType="+"'" + staType +"'");
-        System.out.println(sql.toString());
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
+		StringBuffer sql1 = new StringBuffer();
+		sql1.append("select * from "+tableName+" where Time like '"+year+"%'");
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql1.toString());
+			while(!rs.next()) return -1;
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+		
+		
+		int count = 0;
+		StringBuffer sql=new StringBuffer();
+		sql.append("SELECT COUNT(DISTINCT StaID)");
+        sql.append(" from "+tableName+" where Time like '"+year+"%'");
+        sql.append(" and StaType="+"'" + staType +"'");
+        System.out.println(sql.toString());
+
 		
 		try{
 			st = conn.createStatement() ;

@@ -34,7 +34,7 @@ public class S31_DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "PostdocStation,DocStation,MasterStation,SumMajor,NewMajor,JuniorMajor,Time,Note" ;
+	private String field = "PostdocStation,DocStationOne,DocStationTwo,MasterStationOne,MasterStationTwo,SumMajor,NewMajor,JuniorMajor,Time,Note" ;
 
 	/**
 	 * 将数据表311的实体类插入数据库

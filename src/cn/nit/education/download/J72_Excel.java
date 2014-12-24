@@ -4,10 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,25 +25,24 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
-
-import cn.nit.bean.table2.T21_Bean;
-import cn.nit.dao.table4.J461_Dao;
-import cn.nit.pojo.table4.J461POJO;
-import cn.nit.service.table2.T21_Service;
+import cn.nit.dao.table2.T27_Dao;
+import cn.nit.dao.table5.S52_DAO;
 import cn.nit.util.ExcelUtil;
 
-public class J461_Excel {	
+public class J72_Excel {
 	
-	public static boolean export_J461(String path){
+	public static boolean export_J72(String path){
 		
-		J461_Dao J461_dao = new J461_Dao();
+		T27_Dao T27_dao = new T27_Dao();
+		S52_DAO S52_dao = new S52_DAO();
 		Calendar a = Calendar.getInstance();
 		String year = String.valueOf(a.get(Calendar.YEAR));
-		J461POJO pojo = J461_dao.totalList(year);
-		
+		String webTeahingUrl = T27_dao.getString(year,"WebTeahingUrl");
+		String teaManageUrl = T27_dao.getString(year,"TeaManageUrl");
+		int num = S52_dao.getNum(year,"网络课程");
 	    ByteArrayOutputStream fos = null;
 		
-	    String sheetName = "J-4-6-1教师所获荣誉概况（时点）";
+	    String sheetName = "J-7-2本科教学信息化（时点）";
 					
 	    WritableWorkbook wwb;
 	    try {    
@@ -81,39 +78,29 @@ public class J461_Excel {
 		            }*/
 
 	           ws.addCell(new Label(0, 0, sheetName, wcf)); 
-	           ws.mergeCells(0, 0, 1, 0);
-	           
-	           ws.addCell(new Label(0, 2, "教学名师（人）", wcf)); 
-	           ws.addCell(new Label(3, 2, "教学团队（个）", wcf)); 
-	           ws.addCell(new Label(6, 2, "全国师德先进个人累计数（人）", wcf)); 
-	           ws.addCell(new Label(0, 3, "累计数", wcf)); 
-	           ws.addCell(new Label(1, 3, "其中", wcf)); 
-	           ws.addCell(new Label(3, 3, "累计数", wcf));  
-	           ws.addCell(new Label(4, 3, "其中", wcf)); 
-	           ws.addCell(new Label(1, 4, "国家级", wcf)); 
-	           ws.addCell(new Label(2, 4, "省部级", wcf)); 
-	           ws.addCell(new Label(4, 4, "国家级", wcf)); 
-	           ws.addCell(new Label(5, 4, "省部级", wcf)); 
-
-	           ws.mergeCells(0, 2, 2, 2);
-	           ws.mergeCells(3, 2, 5, 2);
-	           ws.mergeCells(6, 2, 6, 4);
-	           
-	           ws.mergeCells(0, 3, 0, 4);
-	           ws.mergeCells(1, 3, 2, 3);
-	           ws.mergeCells(3, 3, 3, 4);
-	           ws.mergeCells(4, 3, 5, 3);
-	           		           
-	           if(pojo!=null){
-		           ws.addCell(new Label(0, 5, pojo.getSum1()+"", wcf1)); 
-		           ws.addCell(new Label(1, 5, pojo.getCountry1()+"", wcf1));  
-		           ws.addCell(new Label(2, 5, pojo.getProvi1()+"", wcf1)); 
-		           ws.addCell(new Label(3, 5, pojo.getSum2()+"", wcf1)); 
-		           ws.addCell(new Label(4, 5, pojo.getCountry2()+"", wcf1)); 
-		           ws.addCell(new Label(5, 5, pojo.getProvi2()+"", wcf1)); 
-		           ws.addCell(new Label(6, 5, pojo.getSum3()+"", wcf1)); 
-
-	           }	             
+	           ws.mergeCells(0, 0, 2, 0);
+	           ws.addCell(new Label(0, 2, "项目", wcf)); 
+	           ws.addCell(new Label(1, 2, "内容", wcf)); 
+	           ws.mergeCells(1, 2, 2, 2);
+	           ws.addCell(new Label(0, 3, "教学管理信息系统", wcf)); 
+	           ws.addCell(new Label(0, 4, "网络教学平台", wcf)); 
+	           ws.addCell(new Label(0, 5, "网络课程数量", wcf)); 
+	           if(teaManageUrl == null){
+	        	   ws.addCell(new Label(1, 3,"无", wcf1)); 
+	           }else{
+	        	   ws.addCell(new Label(1, 3, "有", wcf1)); 
+	           }
+		       ws.addCell(new Label(2, 3, teaManageUrl, wcf1));
+		       if(webTeahingUrl == null){
+		    	   ws.addCell(new Label(1, 4,"无", wcf1));
+		       }else{
+		    	   ws.addCell(new Label(1, 4, "有", wcf1));
+		       }
+		       
+		       ws.addCell(new Label(2, 4, webTeahingUrl, wcf1));
+		       ws.addCell(new Label(1, 5, String.valueOf(num), wcf1));
+		       ws.mergeCells(1, 5, 2, 5);
+             
 	          wwb.write();
 	          wwb.close();
 
@@ -127,7 +114,7 @@ public class J461_Excel {
 	        
 			try {
 								
-				File file = new File(path,"J-4-6-1教师所获荣誉概况.xls");
+				File file = new File(path,"J-7-2本科教学信息化.xls");
 				FileOutputStream fileOutputStream  = new FileOutputStream(file);
 				
 				//写到文件中
@@ -147,7 +134,7 @@ public class J461_Excel {
 	
 	public static void main(String args[]){
 		String path = "E:/test";
-		boolean flag = J461_Excel.export_J461(path);
+		boolean flag = J72_Excel.export_J72(path);
 		if(flag){
 		System.out.println("成功");
 		}else{

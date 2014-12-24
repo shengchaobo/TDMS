@@ -245,6 +245,33 @@ public class S52_DAO {
  		
  	}
 	
+	
+	public int getNum(String year,String s){
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+	    String querysql="select SumCSNum from "+tableName+" where Time like '"+year+"%' and CSType = '"+s+"'";
+		int result = 0;
+	
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(querysql) ;
+			while(rs.next()){
+			result = rs.getInt(1);
+			}
+	
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0;
+		}
+		
+		return result ;
+		
+		
+	}
+	
 	public static void main(String arg[]){
 		S52_DAO dao = new S52_DAO();
 //		List<S52_Bean> list = dao.getOriData("2014");

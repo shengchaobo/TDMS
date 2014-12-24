@@ -37,7 +37,7 @@ public class A321_DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "TotalNum,DisClass,FieldNum,ArtRatio,Time,Note" ;
+	private String field = "TotalNum,DisClass,FieldNum,Ratio,Time,Note" ;
 	
 
 	
@@ -169,7 +169,7 @@ public class A321_DAO {
 				bean.setDisClass("合计");
 				bean.setFieldNum(total);
 				bean.setTotalNum(total);
-				bean.setArtRatio(100);
+				bean.setRatio(100);
 				bean.setTime(TimeUtil.changeDateY(year));
 				list.add(0,bean);
 				
@@ -179,7 +179,7 @@ public class A321_DAO {
 					num = list.get(i).getFieldNum();
 					ratio = Double.parseDouble(nf.format((double)num*100/total));
 					list.get(i).setTotalNum(total);
-					list.get(i).setArtRatio(ratio);
+					list.get(i).setRatio(ratio);
 					
 					}
 				
@@ -198,7 +198,7 @@ public class A321_DAO {
 	public List<A321_Bean> totalList(String year){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select SeqNumber,TotalNum,DisClass,FieldNum,ArtRatio,Time,Note");
+		sql.append("select SeqNumber,TotalNum,DisClass,FieldNum,Ratio,Time,Note");
         sql.append(" from "+tableName+ " where Time like '"+year+"%'");
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

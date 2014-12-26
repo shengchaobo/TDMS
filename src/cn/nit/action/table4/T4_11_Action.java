@@ -39,26 +39,24 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
 import cn.nit.bean.UserinfoBean;
-import cn.nit.bean.table4.T48_Bean;
-import cn.nit.bean.table4.T49_Bean;
-import cn.nit.dao.table4.T48_Dao;
-import cn.nit.dao.table4.T49_Dao;
-import cn.nit.service.table4.T49_Service;
+import cn.nit.bean.table4.T4_11_Bean;
+import cn.nit.dao.table4.T4_11_Dao;
+import cn.nit.service.table4.T4_11_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 
-public class T49_Action {
+public class T4_11_Action {
 	
 	private String rows; //每页显示的记录数
 	
 	private String page; //当前第几页
 	
-	private T49_Service T49_services = new T49_Service();
+	private T4_11_Service T4_11_services = new T4_11_Service();
 	
-	private T49_Bean T49_bean = new T49_Bean();
+	private T4_11_Bean T4_11_bean = new T4_11_Bean();
 	
-	private T49_Dao T49_dao = new T49_Dao();
+	private T4_11_Dao T4_11_dao = new T4_11_Dao();
 	
 	/**  待审核数据的要删除的序列集  */
 	private String ids; //删除的id
@@ -80,7 +78,7 @@ public class T49_Action {
 	
 	
 	//查询出所有
-	public void loadTextInfo() throws Exception{
+	public void loadSerInfo() throws Exception{
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;	
 		
@@ -109,8 +107,8 @@ public class T49_Action {
 		//具体教学单位
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String fillUnitID = bean.getUnitID();
-		List<T49_Bean> list = T49_services.getPagetextList(cond, fillUnitID, this.getRows(), this.getPage()) ;
-		String TeaInfoJson = this.toBeJson(list,T49_services.getTotal(cond, fillUnitID));
+		List<T4_11_Bean> list = T4_11_services.getPagetextList(cond, fillUnitID, this.getRows(), this.getPage()) ;
+		String TeaInfoJson = this.toBeJson(list,T4_11_services.getTotal(cond, fillUnitID));
 		//private JSONObject jsonObj;
 		
 		PrintWriter out = null ;
@@ -137,7 +135,7 @@ public class T49_Action {
 	}
 
     //将分页系统的总数以及当前页的list转化一个json传页面显示
-	private String toBeJson(List<T49_Bean> list, int total) throws Exception{
+	private String toBeJson(List<T4_11_Bean> list, int total) throws Exception{
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -159,17 +157,15 @@ public class T49_Action {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
 		//插入时间
-		T49_bean.setTime(new Date());
+		T4_11_bean.setTime(new Date());
 		
 		//具体教学单位
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String fillUnitID = bean.getUnitID();
 		
-		T49_bean.setFillUnitID(fillUnitID);
-		
-		T49_bean.setSumPlanBook(T49_bean.getInterPlanBook()+T49_bean.getNationPlanBook()+T49_bean.getProviPlanBook()+T49_bean.getCityPlanBook()+T49_bean.getSchPlanBook());
-		T49_bean.setSumAwardBook(T49_bean.getInterAwardBook()+T49_bean.getNationAwardBook()+T49_bean.getProviAwardBook()+T49_bean.getCityAwardBook()+T49_bean.getSchAwardBook());	
-		boolean flag = T49_services.insert(T49_bean);
+		T4_11_bean.setFillUnitID(fillUnitID);
+			
+		boolean flag = T4_11_services.insert(T4_11_bean);
 		PrintWriter out = null ;
 		
 		try{
@@ -194,9 +190,7 @@ public class T49_Action {
 	/**  编辑数据  */
 	public void edit(){
 		
-		T49_bean.setSumPlanBook(T49_bean.getInterPlanBook()+T49_bean.getNationPlanBook()+T49_bean.getProviPlanBook()+T49_bean.getCityPlanBook()+T49_bean.getSchPlanBook());
-		T49_bean.setSumAwardBook(T49_bean.getInterAwardBook()+T49_bean.getNationAwardBook()+T49_bean.getProviAwardBook()+T49_bean.getCityAwardBook()+T49_bean.getSchAwardBook());
-		boolean flag = T49_services.update(T49_bean) ;
+		boolean flag = T4_11_services.update(T4_11_bean) ;
 		PrintWriter out = null ;
 	
 		try{
@@ -221,7 +215,7 @@ public class T49_Action {
 	/**  根据数据的id删除数据  */
 	public void deleteByIds(){
 		System.out.println("ids=" + this.getIds()) ;
-		boolean flag = T49_services.deleteByIds(ids) ;
+		boolean flag = T4_11_services.deleteByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -253,25 +247,20 @@ public class T49_Action {
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String fillUnitID = bean.getUnitID();
 			
-		List<T49_Bean> list = T49_dao.totalList(fillUnitID);
+		List<T4_11_Bean> list = T4_11_dao.totalList(fillUnitID);
 						
 		String sheetName = this.excelName;
 			
 		List<String> columns = new ArrayList<String>();
 		columns.add("序号");
-		columns.add("教学单位");columns.add("单位号");columns.add("教师编著教材数");columns.add("教师编写教材数");
-		columns.add("小计");columns.add("国际级");columns.add("国家级");columns.add("省部级");
-		columns.add("市级");columns.add("校级");
-		columns.add("小计");columns.add("国际级");columns.add("国家级");columns.add("省部级");
-		columns.add("市级");columns.add("校级");
+		columns.add("教学单位");columns.add("单位号");columns.add("专利转让数量");columns.add("科技成果转化数量");
+		columns.add("技术咨询采用次数");columns.add("兼任协（学）会职务人次数");columns.add("受聘学科竞赛评委/裁判人次数");
+		columns.add("备注");
 			
 		Map<String,Integer> maplist = new HashMap<String,Integer>();
 		maplist.put("SeqNum", 0);
-		maplist.put("teaUnit", 1);maplist.put("unitId", 2);maplist.put("complileBookNum", 3);maplist.put("writeBookNum", 4);
-		maplist.put("sumPlanBook", 5);maplist.put("interPlanBook", 6);maplist.put("nationPlanBook", 7);maplist.put("proviPlanBook", 8);
-		maplist.put("cityPlanBook", 9);maplist.put("schPlanBook", 10);
-		maplist.put("sumAwardBook", 11);maplist.put("interAwardBook", 12);maplist.put("nationAwardBook", 13);maplist.put("proviAwardBook", 14);
-		maplist.put("cityAwardBook", 15);maplist.put("schAwardBook", 16);
+		maplist.put("unitName", 1);maplist.put("unitId", 2);maplist.put("patentNum", 3);maplist.put("achieNum", 4);
+		maplist.put("consNum", 5);maplist.put("partJobNum", 6);maplist.put("judgeNum", 7);maplist.put("note", 8);
 			
 	    WritableWorkbook wwb;
 	    ByteArrayOutputStream fos = null;
@@ -316,24 +305,29 @@ public class T49_Action {
 	                     * 其中i为列、0为行、columns[i]为数据、wcf为样式 
 	                     * 合起来就是说将columns[i]添加到第一行(行、列下标都是从0开始)第i列、样式为什么"色"内容居中 
 	                     */  
-	            	   if(i<5){
+	            	   if(i<3){
 	            		   ws.addCell(new Label(i, 2, columns.get(i), wcf)); 
 	            		   ws.mergeCells(i, 2, i, 3);
 	            	   }
 	                    	                    
-	                   if(i>=5){
-	                	   if(i==5){
-	                		   ws.addCell(new Label(i, 2, "其中规划教材", wcf));
-	                		   ws.mergeCells(5, 2, 10, 2);
+	                   if(i>=3&&i<8){
+	                	   if(i==3){
+	                		   ws.addCell(new Label(i, 2, "1.成果转化", wcf));
+	                		   ws.mergeCells(3, 2, 4, 2);
 	                	   }
 	                	   
 	                	   ws.addCell(new Label(i, 3, columns.get(i), wcf)); 	
 	                	   
-	                	   if(i==11){
-	                		   ws.addCell(new Label(i, 2, "其中获奖教材", wcf));
-	                		   ws.mergeCells(11, 2, 16, 2);
-	                	   }
+	                	   if(i==5){
+	                		   ws.addCell(new Label(i, 2, "2.社会工作", wcf));
+	                		   ws.mergeCells(5, 2, 7, 2);
+	                	   }	                	   
 	                   }
+	                   
+	            	   if(i==8){
+	            		   ws.addCell(new Label(i, 2, columns.get(i), wcf)); 
+	            		   ws.mergeCells(i, 2, i, 3);
+	            	   }
 	                   	                   
 	                }
 	               	
@@ -424,12 +418,12 @@ public class T49_Action {
 		this.page = page;
 	}
 	
-	public T49_Bean getT49_bean() {
-		return T49_bean;
+	public T4_11_Bean getT4_11_bean() {
+		return T4_11_bean;
 	}
 
-	public void setT49_bean(T49_Bean T49Bean) {
-		T49_bean = T49Bean;
+	public void setT4_11_bean(T4_11_Bean T4_11Bean) {
+		T4_11_bean = T4_11Bean;
 	}
 
 	public void setIds(String ids) {

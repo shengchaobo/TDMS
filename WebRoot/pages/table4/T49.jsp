@@ -40,12 +40,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T49/loadTextInfo"  style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
-				    <th data-options="field:'ck',checkbox:true" colspan="2">选取</th>
-				    <th  data-options="field:'seqNumber'" >编号</th>
-					<th data-options="field:'teaUnit'" colspan="2">
+				    <th data-options="field:'ck',checkbox:true" rowspan="2">选取</th>
+				    <th  data-options="field:'seqNumber'" rowspan="2">编号</th>
+					<th data-options="field:'teaUnit'" rowspan="2">
 					 	教学单位
 					</th>
-					<th data-options="field:'unitId'" colspan="2"> 
+					<th data-options="field:'unitId'" rowspan="2"> 
 						单位号
 					</th>
 		     </tr>

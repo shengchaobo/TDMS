@@ -58,6 +58,7 @@
 		<class>cn.nit.bean.Role</class>
 		<class>cn.nit.bean.Users</class>
 		<class>cn.nit.bean.DiUserRole</class>
+		<class>cn.nit.bean.table4.T411TeaServInfoTea</class>
 		<properties>
 			<property name="toplink.jdbc.driver"
 				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />

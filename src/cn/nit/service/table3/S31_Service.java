@@ -29,7 +29,6 @@ public class S31_Service {
 	/**  表311的数据库操作类  */
 	private S31_DAO s31_DAO = new S31_DAO() ;
 	private S31_Bean s31_Bean=new S31_Bean();
-	private S31POJO s31POJO=new S31POJO();
 	
 
    	String str=null;
@@ -58,8 +57,10 @@ public class S31_Service {
 		
 
 		s31_Bean.setPostdocStation(postdocStation);
-		s31_Bean.setDocStation(staNameNum1+staNameNum2);
-		s31_Bean.setMasterStation(staNameNum3+staNameNum4);
+		s31_Bean.setDocStationOne(staNameNum1);
+		s31_Bean.setDocStationTwo(staNameNum2);
+		s31_Bean.setMasterStationOne(staNameNum3);
+		s31_Bean.setMasterStationTwo(staNameNum4);
 		s31_Bean.setSumMajor(majorNum);
 		s31_Bean.setNewMajor(newMajorNum);
 		s31_Bean.setJuniorMajor(majorNum1);

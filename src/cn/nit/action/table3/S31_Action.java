@@ -85,7 +85,7 @@ private S31_Service s31_Service = new S31_Service() ;
 		
 		PrintWriter out = null ;
 
-		if(bean.getDocStation()==0||bean.getJuniorMajor()==0||bean.getMasterStation()==0||bean.getNewMajor()==0||bean.getPostdocStation()==0||bean.getSumMajor()==0){
+		if(bean.getDocStationOne()==-1||bean.getJuniorMajor()==-1||bean.getPostdocStation()==-1||bean.getSumMajor()==-1){
 			response.setContentType("text/html;charset=UTF-8") ;
 			out = response.getWriter() ;
 			out.println( "{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计。\"}"); 
@@ -118,7 +118,7 @@ private S31_Service s31_Service = new S31_Service() ;
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean.getDocStation()==0&&bean.getJuniorMajor()==0&&bean.getMasterStation()==0&&bean.getNewMajor()==0&&bean.getPostdocStation()==0&&bean.getSumMajor()==0){
+		if(bean==null){
 			PrintWriter out = null ;
 			response.setContentType("text/html;charset=utf-8") ;
 			out = response.getWriter() ;
@@ -159,27 +159,34 @@ private S31_Service s31_Service = new S31_Service() ;
 		           ws.addCell(new Label(0, 2, "项目", wcf)); 
 		           ws.addCell(new Label(2, 2, "内容", wcf)); 
 		           ws.addCell(new Label(0, 3, "1.博士后流动站（个）", wcf)); 
-		           ws.addCell(new Label(0, 4, "2.博士点（个）", wcf)); 
-		           ws.addCell(new Label(0, 5, "3.硕士点（个）", wcf)); 
-		           ws.addCell(new Label(0, 6, "4.本科专业（个）", wcf));  
-		           ws.addCell(new Label(0, 8, "5.专科专业（各）", wcf)); 
-		           ws.addCell(new Label(1, 6, "总数", wcf)); 
-		           ws.addCell(new Label(1, 7, "其中：新专业", wcf)); 
+		           ws.addCell(new Label(0, 4, "2.博士学位授权一级学科点", wcf)); 
+		           ws.addCell(new Label(0, 5, "3.博士学位授权二级学科点（不含一级覆盖）", wcf)); 
+		           ws.addCell(new Label(0, 6, "4.硕士学位授权一级学科点", wcf)); 
+		           ws.addCell(new Label(0, 7, "5.硕士学位授权二级学科点（不含一级覆盖）", wcf)); 
+		           ws.addCell(new Label(0, 8, "6.本科专业（个）", wcf));  
+		           ws.addCell(new Label(0, 10, "7.专科专业（各）", wcf)); 
+		           ws.addCell(new Label(1, 8, "总数", wcf)); 
+		           ws.addCell(new Label(1, 9, "其中：新专业", wcf)); 
 
 
 		           ws.mergeCells(0, 2, 1, 2);
 		           ws.mergeCells(0, 3, 1, 3);
 		           ws.mergeCells(0, 4, 1, 4);
 		           ws.mergeCells(0, 5, 1, 5);
-		           ws.mergeCells(0, 8, 1, 8);
+		           ws.mergeCells(0, 6, 1, 6);
+		           ws.mergeCells(0, 7, 1, 7);
+		           ws.mergeCells(0, 10, 1, 10);
+		           ws.mergeCells(0, 8, 0, 9);
 		           
 		           
 		           ws.addCell(new Label(2, 3, ""+bean.getPostdocStation(), wcf1)); 
-		           ws.addCell(new Label(2, 4, ""+bean.getDocStation(), wcf1));  
-		           ws.addCell(new Label(2, 5, ""+bean.getMasterStation(), wcf1)); 
-		           ws.addCell(new Label(2, 6, ""+bean.getSumMajor(), wcf1)); 
-		           ws.addCell(new Label(2, 7, ""+bean.getNewMajor(), wcf1)); 
-		           ws.addCell(new Label(2, 8, ""+bean.getJuniorMajor(), wcf1)); 
+		           ws.addCell(new Label(2, 4, ""+bean.getDocStationOne(), wcf1));  
+		           ws.addCell(new Label(2, 5, ""+bean.getDocStationTwo(), wcf1)); 
+		           ws.addCell(new Label(2, 6, ""+bean.getMasterStationOne(), wcf1)); 
+		           ws.addCell(new Label(2, 7, ""+bean.getMasterStationTwo(), wcf1)); 
+		           ws.addCell(new Label(2, 8, ""+bean.getSumMajor(), wcf1));
+		           ws.addCell(new Label(2, 9, ""+bean.getNewMajor(), wcf1)); 
+		           ws.addCell(new Label(2, 10, ""+bean.getJuniorMajor(), wcf1)); 
  
 		             
 

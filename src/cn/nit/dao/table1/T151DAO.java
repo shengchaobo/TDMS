@@ -135,7 +135,7 @@ public class T151DAO {
 			sql.append(conditions) ;
 		}
 		
-		sql.append(" order by SeqNumber desc") ;
+//		sql.append(" order by SeqNumber desc") ;
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

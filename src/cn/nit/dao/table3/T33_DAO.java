@@ -249,7 +249,7 @@ public class T33_DAO {
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
 			if(rs == null){
-				return count ;
+				return -1 ;
 			}
 			
 			while(rs.next()){

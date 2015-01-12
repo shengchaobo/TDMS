@@ -12,6 +12,10 @@ public class T322POJO {
 	
 	private String MajorVersion ;
 	
+	private String SchMajorName;
+	
+	private String SchMajorID;
+	
 	private String MajorField ;
 	
 	private String MajorFieldID ;
@@ -70,6 +74,10 @@ public class T322POJO {
 	private Date EndTime;
 	
 	private String AppvlAuth;
+	
+	private String MajorFeature;
+	
+	private String MajorPurpose;
 	
 	private int TotalCSHour;
 	
@@ -133,6 +141,24 @@ public class T322POJO {
 		this.MajorVersion = MajorVersion;
 	}
 	
+	
+	
+	public String getSchMajorName() {
+		return SchMajorName;
+	}
+
+	public void setSchMajorName(String schMajorName) {
+		SchMajorName = schMajorName;
+	}
+
+	public String getSchMajorID() {
+		return SchMajorID;
+	}
+
+	public void setSchMajorID(String schMajorID) {
+		SchMajorID = schMajorID;
+	}
+
 	public String getMajorField() {
 		return MajorField;
 	}
@@ -360,6 +386,22 @@ public class T322POJO {
 		this.AppvlAuth = AppvlAuth;
 	}
 	
+	public String getMajorFeature() {
+		return MajorFeature;
+	}
+
+	public void setMajorFeature(String majorFeature) {
+		MajorFeature = majorFeature;
+	}
+
+	public String getMajorPurpose() {
+		return MajorPurpose;
+	}
+
+	public void setMajorPurpose(String majorPurpose) {
+		MajorPurpose = majorPurpose;
+	}
+
 	public int getTotalCSHour() {
 		return TotalCSHour;
 	}

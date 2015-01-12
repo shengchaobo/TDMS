@@ -12,7 +12,7 @@ public class A321_Bean {
 	
 	private int FieldNum;
 	
-	private double ArtRatio;
+	private double Ratio;
 	
 	private Date Time;
 	
@@ -50,12 +50,13 @@ public class A321_Bean {
 		FieldNum = fieldNum;
 	}
 
-	public double getArtRatio() {
-		return ArtRatio;
+
+	public double getRatio() {
+		return Ratio;
 	}
 
-	public void setArtRatio(double artRatio) {
-		ArtRatio = artRatio;
+	public void setRatio(double ratio) {
+		Ratio = ratio;
 	}
 
 	public Date getTime() {

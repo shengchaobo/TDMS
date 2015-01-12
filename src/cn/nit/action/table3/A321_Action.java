@@ -250,7 +250,7 @@ public class A321_Action {
 			        	   ws.addCell(new Label(1, 5+i,list.get(i).getDisClass(), wcf));
 			        	   ws.addCell(new Label(2, 5+i,""+list.get(i).getFieldNum(), wcf1));
 			        	   
-			        	   ws.addCell(new Label(3, 5+i,list.get(i).getArtRatio()+"%", wcf1));
+			        	   ws.addCell(new Label(3, 5+i,list.get(i).getRatio()+"%", wcf1));
 			           }
 			           
 

@@ -4,13 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import jxl.Workbook;
 import jxl.format.Alignment;
@@ -26,26 +20,22 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import cn.nit.bean.table4.T410_Bean;
+import cn.nit.dao.table4.T410_Dao;
 
-
-import cn.nit.bean.table2.T21_Bean;
-import cn.nit.dao.table4.J461_Dao;
-import cn.nit.pojo.table4.J461POJO;
-import cn.nit.service.table2.T21_Service;
-import cn.nit.util.ExcelUtil;
-
-public class J461_Excel {	
+public class J463_Excel {
 	
-	public static boolean export_J461(String path){
+	
+	public static boolean export_J463(String path){
 		
-		J461_Dao J461_dao = new J461_Dao();
+		T410_Dao T410_dao = new T410_Dao();
 		Calendar a = Calendar.getInstance();
 		String year = String.valueOf(a.get(Calendar.YEAR));
-		J461POJO pojo = J461_dao.totalList(year);
+		T410_Bean bean = T410_dao.totalList(year);
 		
 	    ByteArrayOutputStream fos = null;
 		
-	    String sheetName = "J-4-6-1教师所获荣誉概况（时点）";
+	    String sheetName = "J-4-6-3教师最近一届科研成果奖数（时点）";
 					
 	    WritableWorkbook wwb;
 	    try {    
@@ -82,37 +72,19 @@ public class J461_Excel {
 
 	           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 	           ws.mergeCells(0, 0, 1, 0);
-	           
-	           ws.addCell(new Label(0, 2, "教学名师（人）", wcf)); 
-	           ws.addCell(new Label(3, 2, "教学团队（个）", wcf)); 
-	           ws.addCell(new Label(6, 2, "全国师德先进个人累计数（人）", wcf)); 
-	           ws.addCell(new Label(0, 3, "累计数", wcf)); 
-	           ws.addCell(new Label(1, 3, "其中", wcf)); 
-	           ws.addCell(new Label(3, 3, "累计数", wcf));  
-	           ws.addCell(new Label(4, 3, "其中", wcf)); 
+	           ws.addCell(new Label(0, 2, "总数（项） ", wcf)); 
 	           ws.addCell(new Label(1, 4, "国家级", wcf)); 
-	           ws.addCell(new Label(2, 4, "省部级", wcf)); 
-	           ws.addCell(new Label(4, 4, "国家级", wcf)); 
-	           ws.addCell(new Label(5, 4, "省部级", wcf)); 
+	           ws.addCell(new Label(1, 5, "省部级", wcf)); 
+	           ws.addCell(new Label(0, 4, "其中", wcf)); 
 
-	           ws.mergeCells(0, 2, 2, 2);
-	           ws.mergeCells(3, 2, 5, 2);
-	           ws.mergeCells(6, 2, 6, 4);
-	           
-	           ws.mergeCells(0, 3, 0, 4);
-	           ws.mergeCells(1, 3, 2, 3);
-	           ws.mergeCells(3, 3, 3, 4);
-	           ws.mergeCells(4, 3, 5, 3);
+	           ws.mergeCells(0, 2, 1, 3);
+	           ws.mergeCells(2, 2, 2, 3);
+	           ws.mergeCells(0, 4, 0, 5);	           
 	           		           
-	           if(pojo!=null){
-		           ws.addCell(new Label(0, 5, pojo.getSum1()+"", wcf1)); 
-		           ws.addCell(new Label(1, 5, pojo.getCountry1()+"", wcf1));  
-		           ws.addCell(new Label(2, 5, pojo.getProvi1()+"", wcf1)); 
-		           ws.addCell(new Label(3, 5, pojo.getSum2()+"", wcf1)); 
-		           ws.addCell(new Label(4, 5, pojo.getCountry2()+"", wcf1)); 
-		           ws.addCell(new Label(5, 5, pojo.getProvi2()+"", wcf1)); 
-		           ws.addCell(new Label(6, 5, pojo.getSum3()+"", wcf1)); 
-
+	           if(bean!=null){
+		           ws.addCell(new Label(2, 2, bean.getResAwardNum().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 4, bean.getNationResAward().toString(), wcf1));
+		           ws.addCell(new Label(2, 5, bean.getProviResAward().toString(), wcf1));
 	           }	             
 	          wwb.write();
 	          wwb.close();
@@ -127,7 +99,7 @@ public class J461_Excel {
 	        
 			try {
 								
-				File file = new File(path,"J-4-6-1教师所获荣誉概况.xls");
+				File file = new File(path,"J-4-6-3教师最近一届科研成果奖数.xls");
 				FileOutputStream fileOutputStream  = new FileOutputStream(file);
 				
 				//写到文件中
@@ -147,12 +119,13 @@ public class J461_Excel {
 	
 	public static void main(String args[]){
 		String path = "E:/test";
-		boolean flag = J461_Excel.export_J461(path);
+		boolean flag = J463_Excel.export_J463(path);
 		if(flag){
 		System.out.println("成功");
 		}else{
 			System.out.println("失败");
 		}
 	}
+
 
 }

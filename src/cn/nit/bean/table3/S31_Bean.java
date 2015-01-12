@@ -7,9 +7,13 @@ public class S31_Bean {
 	
 	private int PostdocStation;
 	
-	private int DocStation;
+	private int DocStationOne;
 	
-	private int MasterStation;
+	private int DocStationTwo;
+	
+	private int MasterStationOne;
+	
+	private int MasterStationTwo;
 	
 	private int SumMajor;
 	
@@ -37,22 +41,40 @@ public class S31_Bean {
 		this.PostdocStation = PostdocStation;
 	}
 	
-	public int getDocStation() {
-		return DocStation;
+
+	
+	public int getDocStationOne() {
+		return DocStationOne;
 	}
 
-	public void setDocStation(int DocStation) {
-		this.DocStation = DocStation;
-	}
-	
-	public int getMasterStation() {
-		return MasterStation;
+	public void setDocStationOne(int docStationOne) {
+		DocStationOne = docStationOne;
 	}
 
-	public void setMasterStation(int MasterStation) {
-		this.MasterStation = MasterStation;
+	public int getDocStationTwo() {
+		return DocStationTwo;
 	}
-	
+
+	public void setDocStationTwo(int docStationTwo) {
+		DocStationTwo = docStationTwo;
+	}
+
+	public int getMasterStationOne() {
+		return MasterStationOne;
+	}
+
+	public void setMasterStationOne(int masterStationOne) {
+		MasterStationOne = masterStationOne;
+	}
+
+	public int getMasterStationTwo() {
+		return MasterStationTwo;
+	}
+
+	public void setMasterStationTwo(int masterStationTwo) {
+		MasterStationTwo = masterStationTwo;
+	}
+
 	public int getSumMajor() {
 		return SumMajor;
 	}

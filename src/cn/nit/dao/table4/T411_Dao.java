@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.nit.bean.table3.S31_Bean;
+import cn.nit.bean.table4.J413_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table4.T431_Bean;
 import cn.nit.dbconnection.DBConnection;
@@ -17,13 +18,15 @@ import cn.nit.util.TimeUtil;
 
 public class T411_Dao {
 	
-	private String tableName = "T411_TeaBasicInfo_Per$" ;
+	private static String tableName = "T411_TeaBasicInfo_Per$" ;
 	private String tableName1 = "DiDegree" ;
-	private String tableName4 = "DiEducation" ;
-	private String tableName2 = "DiTitleLevel" ;
+	private static String tableName4 = "DiEducation" ;
+	private static String tableName2 = "DiTitleLevel" ;
 	private String tableName3 = "DiTitleName" ;
 	private String tableName5 = "DiSource" ;
-	private String tableName6 = "DiIdentiType" ;
+	private static String tableName6 = "DiIdentiType" ;
+	private static String tableName7 = "T442_GraTutorInfo_Gra$";
+	private static String tableName8 = "DiEducation";
 	private String field = "TeaId,TeaName,Gender,Birthday,AdmisTime,TeaState," +
 			"BeginWorkTime,idcode,FromOffice,OfficeID,FromUnit,UnitId," +
 			"FromTeaResOffice,TeaResOfficeID,Education,TopDegree,GraSch,Major," +
@@ -101,6 +104,88 @@ public class T411_Dao {
 		}
 		
 		return list ;
+	}
+	
+	
+	/**
+	 * 获得的总数（用于教育部导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T411_Bean> totalList1(){
+		
+				
+		String queryPageSql = "select TeaId,TeaName,Gender,Birthday,AdmisTime,TeaState," +
+		"BeginWorkTime,IdentiType AS IDCode,FromOffice,OfficeID,FromUnit,unitID," +
+		"FromTeaResOffice,TeaResOfficeID," + tableName4 + ".Education,Degree AS TopDegree,GraSch,Major," +
+		"AdminLevel," + tableName5 + ".Source,TitleLevel AS MajTechTitle,TitleName AS TeaTitle,NotTeaTitle,SubjectClass," +
+		"DoubleTea,Industry,Engineer,TeaBase,TeaFlag,Note"
+		+ " from " + tableName + 
+		" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
+		" left join " + tableName2+ " on " + "MajTechTitle=" + tableName2 + ".IndexID " +
+		" left join " + tableName3+ " on " + "TeaTitle=" + tableName3 + ".IndexID " +
+		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
+		" left join " + tableName5+ " on " + tableName + ".Source=" + tableName5 + ".IndexID " +
+		" left join " + tableName6+ " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
+		" where "+tableName+".IDCode = '40001' or "+tableName+".IDCode = '40002' or "+tableName+".IDCode = '40005' " +
+		"or "+tableName+".IDCode = '40006'"  ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T411_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			list = DAOUtil.getList(rs, T411_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
+	
+	//教育部表查询
+	
+	public List<J413_Bean> getTotalList(String year){
+		
+		
+		String queryPageSql = "select "+tableName+".teaName as teaName,"+tableName+".teaId as teaId,"+tableName+".Gender as gender," +
+		tableName+".Birthday as birthday,"+tableName+".AdmisTime as admisTime,"+tableName+".TeaState as teaState," +
+		"IdentiType AS IDCode,"+tableName+".unitId as unitId,"+tableName+".fromUnit as fromUnit," +
+		tableName4+".Education as education,t.Education AS topDegree," +
+		tableName2+".TitleLevel as majTechTitle,"+tableName+".subjectClass as subjectClass,tt.TutorType AS tutorType " +
+		" from " + tableName + 
+		" left join (select TeaID,Time,DiTutorType.tutorType from " + tableName7+ " left join DiTutorType on "+tableName7+".TutorType = IndexID) as tt on " +tableName+ ".TeaID = tt.TeaID " +
+		" left join " + tableName2+ " on " + "MajTechTitle=" + tableName2 + ".IndexID " +
+		" left join " + tableName6+ " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
+		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
+		" left join " + tableName8+ " as t on " + tableName + ".TopDegree = t.IndexID " +
+		" where ("+tableName+".IDCode = '40001' or "+tableName+".IDCode = '40002' or "+tableName+".IDCode = '40003' or " +
+		tableName+".IDCode = '40004' or "+tableName+".IDCode = '40005' or "+tableName+".IDCode = '40006' or " +
+		tableName+".IDCode = '40007' or "+tableName+".IDCode = '40008' or "+tableName+".IDCode = '40010' ) " +
+		"and Time like '"+year+"%'" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<J413_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			list = DAOUtil.getList(rs, J413_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+		
 	}
 	
 	
@@ -676,13 +761,23 @@ public class T411_Dao {
 	}
 	
 	public static void main(String args[]){
-		T411_Dao testDao =  new T411_Dao() ;
-		System.out.println(testDao.hasPerson("2014000001")) ;
-		
-		String a = testDao.field;
-		String b = "Education,";
-		String c = a.replaceAll(b,"");
-		System.out.println(c);
+		String queryPageSql = "select "+tableName+".teaName as teaName,"+tableName+".teaId as teaId,"+tableName+".Gender as gender," +
+		tableName+".Birthday as birthday,"+tableName+".AdmisTime as admisTime,"+tableName+".TeaState as teaState," +
+		"IdentiType AS IDCode,"+tableName+".unitId as unitId,"+tableName+".fromUnit as fromUnit," +
+		tableName4+".Education as education,t.Education AS topDegree," +
+		tableName2+".TitleLevel as majTechTitle,"+tableName+".subjectClass as subjectClass,tt.TutorType AS tutorType " +
+		" from " + tableName + 
+		" left join (select TeaID,Time,DiTutorType.tutorType from " + tableName7+ " left join DiTutorType on "+tableName7+".TutorType = IndexID) as tt on " +tableName+ ".TeaID = tt.TeaID " +
+		" left join " + tableName2+ " on " + "MajTechTitle=" + tableName2 + ".IndexID " +
+		" left join " + tableName6+ " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
+		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
+		" left join " + tableName8+ " as t on " + tableName + ".TopDegree = t.IndexID " +
+		" where "+tableName+".IDCode = '40001' or "+tableName+".IDCode = '40002' or "+tableName+".IDCode = '40003' or " +
+		tableName+".IDCode = '40004' or "+tableName+".IDCode = '40005' or "+tableName+".IDCode = '40006' or " +
+		tableName+".IDCode = '40007' or "+tableName+".IDCode = '40008' or "+tableName+".IDCode = '400010' " +
+		"and Time like '"+2014+"%'" ;
+		System.out.println(queryPageSql);
 	}
+	
 
 }

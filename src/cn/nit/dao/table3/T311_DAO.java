@@ -261,20 +261,31 @@ public class T311_DAO {
 	 */
 	
 	public int getStationNum(String year){
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+//		StringBuffer sql1 = new StringBuffer();
+//		sql1.append("select * from "+tableName+" where Time like'"+year+"%'");
+//		try{
+//			st = conn.createStatement();
+//			rs = st.executeQuery(sql1.toString());
+//			if(!rs.next()) return -1;
+//		}catch(Exception e){
+//			e.printStackTrace();
+//			return 0;
+//		}
 		int count = 0;
 		StringBuffer sql=new StringBuffer();
 		sql.append("SELECT COUNT(DISTINCT PostDocStaName)");
         sql.append(" from "+tableName+" where Time like '"+year+"%'");
 		
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
+
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
 			if(rs == null){
-				return count ;
+				return -1 ;
 			}
 			
 			while(rs.next()){

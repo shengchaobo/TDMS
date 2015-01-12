@@ -1,19 +1,13 @@
-package cn.nit.action.table3;
-
+package cn.nit.education.download;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import jxl.Workbook;
 import jxl.format.Alignment;
@@ -29,104 +23,26 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
-
-import org.apache.struts2.ServletActionContext;
-
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table3.S31_Bean;
 import cn.nit.dao.table3.S31_DAO;
+import cn.nit.service.table2.T21_Service;
 
-
-
-
-import cn.nit.pojo.table3.S31POJO;
-import cn.nit.service.table3.S31_Service;
-import cn.nit.util.JsonUtil;
-
-
-public class S31_Action {
+public class J311_Excel {
 	
-private S31_Service s31_Service = new S31_Service() ;
-	
-	private S31_Bean s31_Bean = new S31_Bean() ;
-	
-	private S31_DAO  s31_DAO=new S31_DAO();
-
-	
-//	private S31Excel s31Excel = new S31Excel() ;
-	
-
-	/**  哪一年数据  */
-	private String selectYear; //删除的id
-	
-	/**  导出的excelName名 */
-	private String excelName ;
-	
-	/**  前台获数据 */
-	private String data ;
-	
-	//save的字段
-	private String fields;
-	
-
-	
-	HttpServletResponse response = ServletActionContext.getResponse() ;
-	HttpServletRequest request = ServletActionContext.getRequest() ;
-	
-	//查询出所有
-	public void loadInfo() throws Exception{
+	public static boolean export_J311(String path){
 		
-		HttpServletResponse response = ServletActionContext.getResponse() ;		
-		
-		S31_Bean bean = s31_Service.getYearInfo(this.getSelectYear()) ;
-		
-		//private JSONObject jsonObj;
-		bean.setTime(null);
-		String json = JsonUtil.beanToJson(bean);
-		
-		PrintWriter out = null ;
-
-		if(bean.getDocStationOne()==-1||bean.getJuniorMajor()==-1||bean.getPostdocStation()==-1||bean.getSumMajor()==-1){
-			response.setContentType("text/html;charset=UTF-8") ;
-			out = response.getWriter() ;
-			out.println( "{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计。\"}"); 
-		}else{
-			try {	
-				System.out.println(json) ;
-				response.setContentType("application/json;charset=UTF-8") ;
-				out = response.getWriter() ;
-				out.print(json) ;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}finally{
-				if(out != null){
-					out.flush() ;
-					out.close() ;
-				}
-			}
-		}
-	}
-
-	
-	
-	
-	
-	public InputStream getInputStream() throws IOException{
 		
 
-		System.out.println(this.getSelectYear());
-		S31_Bean bean = s31_DAO.exportData(this.getSelectYear());
+		S31_DAO s31_Dao = new S31_DAO();
+		SimpleDateFormat  dateFormat = new SimpleDateFormat ("yyyy");
+		String year = dateFormat.format(new Date());
+		S31_Bean bean = s31_Dao.exportData(year);
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+
+	    String sheetName = "J-3-1-1学科建设（时点）";
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -197,129 +113,34 @@ private S31_Service s31_Service = new S31_Service() ;
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
-		return new ByteArrayInputStream(fos.toByteArray());
 		
-	}
-
-
-	public String execute() throws Exception{
-		return "success" ;
+				try {
+					
+					File file = new File(path,"J-3-1-1学科建设.xls");
+					FileOutputStream fileOutputStream  = new FileOutputStream(file);
+					
+					//写到文件中
+					fileOutputStream.write(fos.toByteArray());
+					
+					fos.close();
+					fileOutputStream.close();
+					
+					return true;
+				} catch (Exception e) {	
+					e.printStackTrace();
+					return false;
+				}
+		        		
 	}
 	
-	public HttpServletRequest getRequest(){
-		return ServletActionContext.getRequest() ;
-	}
-	
-	public HttpSession getSession(){
-		return getRequest().getSession() ;
-	}
-	
-	public HttpServletResponse getResponse(){
-		return ServletActionContext.getResponse() ;
-	}	
-	
-	public S31_Service getS31_Service() {
-		return s31_Service;
-	}
-
-
-
-
-	public void setS31_Service(S31_Service s31Service) {
-		s31_Service = s31Service;
-	}
-
-
-
-
-	public S31_Bean getS31_Bean() {
-		return s31_Bean;
-	}
-
-
-
-
-	public void setS31_Bean(S31_Bean s31Bean) {
-		s31_Bean = s31Bean;
-	}
-
-
-
-
 	public static void main(String args[]){
-		String match = "[\\d]+" ;
-		System.out.println("23gfhf4".matches(match)) ;
-	}
-
-
-
-
-
-	public void setSelectYear(String selectYear) {
-		this.selectYear = selectYear;
-	}
-
-
-
-
-
-	public String getSelectYear() {
-		return selectYear;
-	}
-
-
-
-
-
-	public void setExcelName(String excelName) {
-		this.excelName = excelName;
-	}
-
-
-
-
-
-	public String getExcelName() {
-		try {
-			this.excelName = URLEncoder.encode(excelName, "UTF-8");
-			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		String path = "E:/test";
+		boolean flag = J311_Excel.export_J311(path);
+		if(flag){
+		System.out.println("成功");
+		}else{
+			System.out.println("失败");
 		}
-		return excelName;
-	}
-
-
-
-
-
-	public void setData(String data) {
-		this.data = data;
-	}
-
-
-
-
-
-	public String getData() {
-		return data;
-	}
-
-
-
-
-
-	public void setFields(String fields) {
-		this.fields = fields;
-	}
-
-
-
-
-
-	public String getFields() {
-		return fields;
 	}
 
 }

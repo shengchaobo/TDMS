@@ -3,12 +3,16 @@ package cn.nit.dao.table4;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
+import cn.nit.bean.table3.S321_Bean;
 import cn.nit.bean.table4.T48_Bean;
 import cn.nit.bean.table4.T49_Bean;
+import cn.nit.dao.table3.S321_DAO;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
+import cn.nit.util.TimeUtil;
 
 public class T49_Dao {
 	
@@ -212,6 +216,35 @@ public class T49_Dao {
 		}
 		
 		return flag ;
+	}
+	
+	
+	public int getNum(String year,String s){
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+
+		
+	    String querysql="select "+s+" from "+tableName+" where Time like '"+year+"%'";
+	
+		int sum=0;
+	
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(querysql) ;
+			while(rs.next()){
+				sum += rs.getInt(s);
+			}
+	
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0;
+		}
+		
+		return sum ;
+		
+		
 	}
 	
 	public static void main(String args[]){

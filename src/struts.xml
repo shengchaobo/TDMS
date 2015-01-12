@@ -231,6 +231,12 @@
     <include file="cn/nit/configuration/table7/T744.xml"/>
     <include file="cn/nit/configuration/table7/T745.xml"/>
     
+    
+    
+    <!-- 审核模块-->
+    <include file = "cn/nit/configuration/checkInfo.xml"/>
+    
+    
     <!-- 文件上传下载 -->
     <include file = "cn/nit/configuration/FileUploadDownload.xml"/>
 

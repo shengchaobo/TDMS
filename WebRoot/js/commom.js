@@ -73,8 +73,7 @@ $(function() {
 	$('#verfiedData').datagrid( {
 		title : '审核通过数据',
 		iconCls : 'icon-ok',
-		//width : '50%',
-		height: '300px',
+		width : '100%',
 		pageSize : 10,//默认选择的分页是每页5行数据
 		pageList : [ 5, 10, 15, 20 ],//可以选择的分页集合
 		nowrap : true,//设置为true，当数据长度超出列宽时将会自动截取
@@ -92,6 +91,27 @@ $(function() {
 		rownumbers : true
 	//行数
 	});
+});
+
+$(function() {
+		$('#checkData').datagrid({  
+			title : '待审核数据', //可变内容在具体页面定义
+			iconCls : 'icon-ok',
+			width : '100%',
+			//height: '50%',
+			pageSize : 10,//默认选择的分页是每页5行数据
+			pageList : [ 5, 10, 15, 20 ],//可以选择的分页集合
+			nowrap : true,//设置为true，当数据长度超出列宽时将会自动截取
+			striped : true,//设置为true将交替显示行背景。
+			collapsible : true,//显示可折叠按钮
+			toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
+			loadMsg : '数据装载中......',
+			singleSelect : false,//为true时只能选择单行
+			fitColumns : false,//允许表格自动缩放，以适应父容器
+			remoteSort : false,
+			pagination : true,//分页
+			rownumbers : true
+		});
 });
 
 function formattime(val) {  
@@ -124,4 +144,72 @@ function formatBoolean(val) {
     }
 }  
 
+function formatCheckState(val) {  
+    if(val == 1){
+	    return '待审核状态' ;
+    }else if(val == 4){
+    	return '审核不通过' ;
+    }else{
+    	return null;
+    }
+}
+
+//审核功能中调用审核信息
+function myMarquee(tableID){
+	    $.ajax({
+		    type:"POST", 
+		    url: "loadCheckInfo?tableName=" + tableID, 
+	   		async : "true",
+	   		dataType : "text",
+		    success:function(result){  						    	 
+		    	 var result = eval('(' + result + ')');         
+		       document.getElementById("marquee").innerHTML	 = result.data ;
+		    }
+	});
+}
+
+function rowformater(value,row,index)
+{
+		return "<a href='javascript:passCheck(" + row.seqNumber+")'>审核通过</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href ='javascript:openDig("+ row.seqNumber+")'>审核不通过</a>";
+}
+
+//打开填写框
+function openDig(seqNumber) {
+    document.getElementById("dataID").value = seqNumber ;   	    
+		$('#dlg').dialog('open').dialog('setTitle', '填写审核不通过理由');
+}
+
+//审核不通过
+function addCheckInfo(){
+   seqNum = document.getElementById("dataID").value;
+			$('#addReasonForm').form('submit', {
+			url : 'addCheckInfo',
+			data : $('#addReasonForm').serialize(),
+			type : "post",
+			dataType : "json",
+			onSubmit : function() {
+				return validate();
+			},
+			//结果返回
+			success : function(result) {
+				//json格式转化
+				var result = eval('(' + result + ')');
+				$.messager.alert('温馨提示', result.data);
+				if (result.state) {
+					$('#dlg').dialog('close');	
+					noPassCheck(seqNum)
+				}
+			}
+	});    
+}
+
+function validate() {
+//获取文本框的值
+var reason = $('#noPassReason').val();		
+if( (reason == null) || (reason == '') ||  (reason.length == 0)){
+	alert("理由不能为空!!!");
+	return false;
+}		
+return true;
+}
 

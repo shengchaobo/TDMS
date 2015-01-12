@@ -108,6 +108,7 @@ public class T443_Excel {
 				T443_bean.setResField(resField);
 				//插入时间
 				T443_bean.setTime(TimeUtil.changeDateY(selectYear));
+				T443_bean.setCheckState(1);
 				list.add(T443_bean);
 								
 			}catch(Exception e){

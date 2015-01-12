@@ -27,6 +27,7 @@ public class T443_Bean implements java.io.Serializable {
 	private Date gainTime;
 	private Date time;
 	private String note;
+	private int checkState;
 
 	@Column(name = "Name")
 	public String getName() {
@@ -97,6 +98,14 @@ public class T443_Bean implements java.io.Serializable {
 
 	public int getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

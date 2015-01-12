@@ -38,6 +38,12 @@
 
 	    <!-- 更新相应教职工 -->
 	    <action name="edit" class="cn.nit.action.table4.T443_Action"  method="edit" />
+	    
+  	    <!-- 修改审核状态 -->
+	    <action name="updateCheck" class="cn.nit.action.table4.T443_Action"  method="updateCheck" />
+	    
+  	    <!-- 审核通过全部 -->
+	    <action name="checkAll" class="cn.nit.action.table4.T443_Action"  method="checkAll" />
 	    	    
    	    <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table4.T443_Action" method="execute">

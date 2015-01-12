@@ -72,6 +72,8 @@ public class UploadAction {
 		}
 	}
 	
+	
+	
 	public File getUploadFile() {
 		return uploadFile;
 	}
@@ -80,10 +82,6 @@ public class UploadAction {
 	public void setUploadFile(File uploadFile) {
 		this.uploadFile = uploadFile;
 	}
-	
-	
-
-
 
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;

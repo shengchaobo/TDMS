@@ -9,7 +9,7 @@
     	$('#item1').show();
     	$('hr').show();
     	
-		url = 'pages/T443/insert' 
+		url = 'pages/T443/insert';
 		$('#dlg').dialog('open').dialog('setTitle', '添加新的高层次人才教师');
 		$('#addForm').form('reset');
 	}
@@ -36,20 +36,20 @@
 	  		 },
 	  		 success: function(result){
 	  		 	var result = eval('('+result+')');
-	  		 	if (!result.success){
-	  		 		$.messager.show({
-	  		 			title: 'Error',
-	  		 			msg: result.errorMsg
-	  			 });
-	  		 	} else {
-				 		$.messager.show({
-				 			title: 'Success',
-				 			msg: result.errorMsg
-				 		});
-			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
-	  		 	}
-	  		 }
+		  		 	if (!result.success){
+		  		 		$.messager.show({
+		  		 			title: 'Error',
+		  		 			msg: result.errorMsg
+		  			 });
+		  		 	} else {
+					 		$.messager.show({
+					 			title: 'Success',
+					 			msg: result.errorMsg
+					 		});
+				    		 $('#dlg').dialog('close'); // close the dialog
+				    		 $('#unverfiedData').datagrid('reload'); // reload the user data
+		  		 	}
+		  		 }
 	  		 });
 	   }
     
@@ -57,7 +57,7 @@
 	function singleImport() {
 		// 录入数据的表单提交
 		$('#addForm').form('submit', {
-			url : url,
+			    url : url,
 				data : $('#addForm').serialize(),
 				type : "post",
 				dataType : "json",
@@ -70,26 +70,27 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						location.reload() ;
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
-			});
+	   });
 	}
 
 	//对输入字符串进行验证
 	function validate() {
 		// 获取文本框的值
 		var teaId = $('#name').combobox('getText');
-		var teaName = $('#name').combobox('getValue');
-		
+		var teaName = $('#name').combobox('getValue');		
 		var note = $('#note').val();
-		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
-		
+		var  num = /^\d+$/;  //用于判断字符串是否全是数字				
 		var type = $('#type').combobox('getText');
-		
-
-		
+				
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
 			alert("教工号不能为空或者教师库中无该教工号");
@@ -170,8 +171,8 @@
 				}
 	   	});
 	   }
-	   
-	   function deletes(ids) {
+
+    function deletes(ids) {
 	   	$.ajax( {
 	   		type : "POST",
 	   		url : "pages/T443/deleteByIds?ids=" + ids,
@@ -185,3 +186,8 @@
 			}
 	   	}).submit();
 	   }
+    
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
+    }

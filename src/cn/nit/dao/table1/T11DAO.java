@@ -211,7 +211,8 @@ public class T11DAO {
 			rs = st.executeQuery(sql.toString()) ;
 //			rs.absolute((page - 1) * rows) ;
 			list = DAOUtil.getList(rs, T11Bean.class) ;
-			
+			System.out.println("数据库条数："+list.size());
+		
 			
 		}catch(Exception e){
 			e.printStackTrace() ;

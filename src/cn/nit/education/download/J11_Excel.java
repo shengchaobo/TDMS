@@ -51,8 +51,13 @@ public class J11_Excel {
 		List<T11Bean> list = T11_dao.forExcel(year);
 		T11Bean  bean;
 		if(list==null){
+			System.out.println("无列表");
+			bean = new T11Bean();
+		}else if(list.size()==0){
+			System.out.println("无列表");
 			bean = new T11Bean();
 		}else{
+			System.out.println("有列表");
 			bean = list.get(0);
 		}
 		
@@ -138,25 +143,50 @@ public class J11_Excel {
 	           ws.mergeCells(1, 18, 2, 18);
 	           
 	           //写入数据
-	           ws.addCell(new Label(3, 2, bean.getSchAddress().toString(), wcf1)); 
-	           ws.addCell(new Label(3, 3, bean.getSchTel().toString(), wcf1));
-	           ws.addCell(new Label(3, 4, bean.getSchFax().toString(), wcf1));
-	           ws.addCell(new Label(3, 5, bean.getSchFillerName().toString(), wcf1));
-	           ws.addCell(new Label(3, 6, bean.getSchFillerTel().toString(), wcf1));
-	           ws.addCell(new Label(3, 7, bean.getSchFillerEmail().toString(), wcf1)); 
-	           ws.addCell(new Label(3, 8, bean.getSchName().toString(), wcf1));
-	           ws.addCell(new Label(3, 9, bean.getSchID().toString(), wcf1));
-	           ws.addCell(new Label(3, 10, bean.getSchEnName().toString(), wcf1));
-	           ws.addCell(new Label(3, 11, bean.getSchType().toString(), wcf1));
-	           ws.addCell(new Label(3, 12, bean.getSchQuality().toString(), wcf1));
-	           ws.addCell(new Label(3, 13, bean.getSchBuilder().toString(), wcf1));
-	           ws.addCell(new Label(3, 14, bean.getMajDept().toString(), wcf1));
-	           ws.addCell(new Label(3, 15, bean.getSchUrl().toString(), wcf1));
-	           ws.addCell(new Label(3, 16, bean.getAdmissonBatch().toString(), wcf1));
-	           ws.addCell(new Label(3, 17, TimeUtil.changeFormat5(bean.getSch_BeginTime()), wcf1));
-	           ws.addCell(new Label(3, 18, bean.getMediaUrl().toString(), wcf1));
-	           ws.addCell(new Label(3, 19, bean.getYaohuSchAdd().toString(), wcf1));
-	           ws.addCell(new Label(3, 20, bean.getPengHuSchAdd().toString(), wcf1));
+	           ws.addCell(new Label(3, 2, bean.getSchAddress(), wcf1)); 
+	           ws.addCell(new Label(3, 3, bean.getSchTel(), wcf1));
+	           ws.addCell(new Label(3, 4, bean.getSchFax(), wcf1));
+	           ws.addCell(new Label(3, 5, bean.getSchFillerName(), wcf1));
+	           ws.addCell(new Label(3, 6, bean.getSchFillerTel(), wcf1));
+	           ws.addCell(new Label(3, 7, bean.getSchFillerEmail(), wcf1)); 
+	           ws.addCell(new Label(3, 8, bean.getSchName(), wcf1));
+	           ws.addCell(new Label(3, 9, bean.getSchID(), wcf1));
+	           ws.addCell(new Label(3, 10, bean.getSchEnName(), wcf1));
+	           ws.addCell(new Label(3, 11, bean.getSchType(), wcf1));
+	           ws.addCell(new Label(3, 12, bean.getSchQuality(), wcf1));
+	           ws.addCell(new Label(3, 13, bean.getSchBuilder(), wcf1));
+	           ws.addCell(new Label(3, 14, bean.getMajDept(), wcf1));
+	           ws.addCell(new Label(3, 15, bean.getSchUrl(), wcf1));
+	           ws.addCell(new Label(3, 16, bean.getAdmissonBatch(), wcf1));
+	           if(bean.getSch_BeginTime()==null){
+	        	   ws.addCell(new Label(3, 17,"", wcf1));
+	           }else{
+	        	   ws.addCell(new Label(3, 17, TimeUtil.changeFormat5(bean.getSch_BeginTime()), wcf1));  
+	           }
+	           ws.addCell(new Label(3, 18, bean.getMediaUrl(), wcf1));
+	           ws.addCell(new Label(3, 19, bean.getYaohuSchAdd(), wcf1));
+	           ws.addCell(new Label(3, 20, bean.getPengHuSchAdd(), wcf1));
+	           
+//	           //写入数据
+//	           ws.addCell(new Label(3, 2, bean.getSchAddress().toString(), wcf1)); 
+//	           ws.addCell(new Label(3, 3, bean.getSchTel().toString(), wcf1));
+//	           ws.addCell(new Label(3, 4, bean.getSchFax().toString(), wcf1));
+//	           ws.addCell(new Label(3, 5, bean.getSchFillerName().toString(), wcf1));
+//	           ws.addCell(new Label(3, 6, bean.getSchFillerTel().toString(), wcf1));
+//	           ws.addCell(new Label(3, 7, bean.getSchFillerEmail().toString(), wcf1)); 
+//	           ws.addCell(new Label(3, 8, bean.getSchName().toString(), wcf1));
+//	           ws.addCell(new Label(3, 9, bean.getSchID().toString(), wcf1));
+//	           ws.addCell(new Label(3, 10, bean.getSchEnName().toString(), wcf1));
+//	           ws.addCell(new Label(3, 11, bean.getSchType().toString(), wcf1));
+//	           ws.addCell(new Label(3, 12, bean.getSchQuality().toString(), wcf1));
+//	           ws.addCell(new Label(3, 13, bean.getSchBuilder().toString(), wcf1));
+//	           ws.addCell(new Label(3, 14, bean.getMajDept().toString(), wcf1));
+//	           ws.addCell(new Label(3, 15, bean.getSchUrl().toString(), wcf1));
+//	           ws.addCell(new Label(3, 16, bean.getAdmissonBatch().toString(), wcf1));
+//	           ws.addCell(new Label(3, 17, TimeUtil.changeFormat5(bean.getSch_BeginTime()), wcf1));
+//	           ws.addCell(new Label(3, 18, bean.getMediaUrl().toString(), wcf1));
+//	           ws.addCell(new Label(3, 19, bean.getYaohuSchAdd().toString(), wcf1));
+//	           ws.addCell(new Label(3, 20, bean.getPengHuSchAdd().toString(), wcf1));
 	           wwb.write();
 		       wwb.close();
 								
@@ -178,7 +208,7 @@ public class J11_Excel {
 	}
 	
 	public static void main(String arg[]){
-		  String path = "D:\\江西项目\\相关表\\ExcelTest";
+		  String path = "D:\\江西项目";
 		  J11_Excel excel = new J11_Excel();
 		  boolean flag = excel.export_J11(path);
 		  if(flag){

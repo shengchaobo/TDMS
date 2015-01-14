@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ page language="java" import="cn.nit.constants.Constants" %>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 
 <%@ page import="java.net.*" %>
 <%

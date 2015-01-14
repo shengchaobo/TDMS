@@ -25,7 +25,6 @@
 			width : '100%',
 			iconCls: 'icon-ok',
 			rownumbers: true,
-			animate: true,
 			collapsible: true,
 			fitColumns: true,
 			url: 'pages/RightManager/loadRight?roleID='+roleID,

@@ -116,36 +116,12 @@ public class T412_Excel {
 				String major = cell[3].getContents() ;
 				String majorId = cell[4].getContents() ;
 				
-				if(major == null || major.equals("")){
-					return "第" + count + "行，专业名称不能为空" ;
-				}
-				
-				if(unitId == null || unitId.equals("")){
-					return "第" + count + "行，专业代码不能为空" ;
-				}			
-				
-				for(DiMajorTwoBean diMajorBean : diMajorBeanList){
-					if(diMajorBean.getMajorNum().equals(majorId)){
-						if(diMajorBean.getMajorName().equals(major)){
-							flag = true ;
-							break ;
-						}else{
-							return "第" + count + "行，专业名称与专业代码不对应" ;
-						}
-					}//if
-				}//for
-				
-				if(!flag){
-					return "第" + count + "行，没有与之相匹配的专业代码" ;
-				}else{
-					flag = false ;
-				}
 				
 				String name = cell[5].getContents() ;
 				String teaId = cell[6].getContents() ;
 				
 				if(name == null || name.equals("")){
-					return "第" + count + "行，名称不能为空" ;
+					return "第" + count + "行，教工名称不能为空" ;
 				}
 				
 				if((teaId == null) || teaId.equals("")){

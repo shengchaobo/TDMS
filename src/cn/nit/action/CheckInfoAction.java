@@ -2,26 +2,32 @@ package cn.nit.action;
 
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.CheckInfo;
+import cn.nit.bean.UserinfoBean;
+import cn.nit.constants.Constants;
 import cn.nit.service.CheckService;
 
 public class CheckInfoAction {
 	
 	private String tableName;
+	private int checkType;
+	
 	private CheckInfo checkInfo = new CheckInfo();
 	
 	private CheckService check_services = new CheckService();
-	
-	public void loadInfo(){
 		
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		HttpServletResponse response = ServletActionContext.getResponse();
-			
-		String checkInfo  = check_services.loadInfo(this.getTableName());
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
+	public void loadInfo(){		
+		//System.out.println(this.getCheckType());
+		String checkInfo  = check_services.loadInfo(this.getTableName(),this.getCheckType());
 		
 		PrintWriter out = null ;
 		
@@ -46,8 +52,14 @@ public class CheckInfoAction {
 	
 	public void addInfo(){
 		
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		HttpServletResponse response = ServletActionContext.getResponse();
+		//System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+		//System.out.println(checkInfo.getCheckType());
+		if(checkInfo.getCheckType() == Constants.CTypeTwo){
+			//具体教学单位
+			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+			String fillUnitID = bean.getUnitID();
+			checkInfo.setFillUnitID(fillUnitID);
+		}
 			
 		boolean flag  = check_services.addInfo(checkInfo);
 		
@@ -86,5 +98,13 @@ public class CheckInfoAction {
 
 	public String getTableName() {
 		return tableName;
+	}
+
+	public void setCheckType(int checkType) {
+		this.checkType = checkType;
+	}
+
+	public int getCheckType() {
+		return checkType;
 	}
 }

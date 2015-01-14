@@ -34,7 +34,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript"></script>
 </head>
 
-<body style="height: 100%'" >
+<body style="height: 100%'"   onload = "myMarquee('T21')">
+  <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="2"  width="900"  height="20" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
+  
  <table id="edit" class="easyui-propertygrid"  ></table>
  <div id="toolbar" style="height:30px;">
 		<div style="float: left;">	

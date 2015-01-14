@@ -1,10 +1,5 @@
 package cn.nit.bean;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
@@ -17,6 +12,9 @@ public class CheckInfo implements java.io.Serializable {
 	private String tableID;
 	private int checkID;
 	private String checkInfo;
+	private int checkType;
+	private String fillUnitID;
+	
 	public String getTableID() {
 		return tableID;
 	}
@@ -35,6 +33,18 @@ public class CheckInfo implements java.io.Serializable {
 	}
 	public int getCheckID() {
 		return checkID;
+	}
+	public void setCheckType(int checkType) {
+		this.checkType = checkType;
+	}
+	public int getCheckType() {
+		return checkType;
+	}
+	public void setFillUnitID(String fillUnitID) {
+		this.fillUnitID = fillUnitID;
+	}
+	public String getFillUnitID() {
+		return fillUnitID;
 	}
 
 

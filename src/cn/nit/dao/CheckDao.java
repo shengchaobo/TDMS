@@ -6,14 +6,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+
 import cn.nit.bean.CheckInfo;
+import cn.nit.bean.UserinfoBean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 
 public class CheckDao {
 	
 	private String tableName = "CheckInfo" ;
-	private String field = "TableID,CheckID,CheckInfo";
+	private String field = "TableID,CheckID,CheckInfo,CheckType,FillUnitID";
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 
 	/**
 	 * 获取该表所有的审核信息
@@ -21,9 +31,18 @@ public class CheckDao {
 	 * @param roleId
 	 * @return
 	 */
-	public List<CheckInfo> loadInfo(String name){
+	public List<CheckInfo> loadInfo(String name, int checkType){
 		
-		String sql = "select * from " + tableName + " where TableID='" + name + "' order by CheckID" ;		
+		String sql = null;
+		if(checkType != Constants.CTypeTwo){
+			sql = "select * from " + tableName + " where TableID='" + name + "' order by CheckID" ;	
+		}else {			
+			//具体教学单位
+			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+			String fillUnitID = bean.getUnitID();
+			sql = "select * from " + tableName + " where TableID='" + name + "' and FillUnitID=" + fillUnitID + " order by CheckID" ;	
+		}
+		System.out.println(sql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

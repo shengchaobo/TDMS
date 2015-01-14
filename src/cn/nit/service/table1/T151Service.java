@@ -70,6 +70,15 @@ import cn.nit.util.TimeUtil;
 			return t151Dao.deleteCoursesByIds(ids) ;
 		}
 		
+		/**
+		 * 更新该条数据审核状态
+		 * @param 
+		 * @return
+		 */
+		public boolean updateCheck(int seqNum, int checkState){
+			return t151Dao.updateCheck(seqNum,checkState) ;
+		}
+		
 		/**批量导入*/
 		public boolean batchInsert(List<T151Bean> list){
 			

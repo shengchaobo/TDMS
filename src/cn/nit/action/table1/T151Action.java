@@ -47,6 +47,9 @@ public class T151Action {
 	/**excel导出名字*/
 	private String excelName; //
 	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+	
 	/**导出数据说要的年份*/
 	private String Year;//
 	
@@ -251,6 +254,32 @@ public class T151Action {
 		}
 	}
 	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = t151Ser.updateCheck(this.getSeqNum(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
@@ -380,6 +409,14 @@ public class T151Action {
 
 	public void setPage(String page) {
 		this.page = page;
+	}
+	
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
 	}
 	
 	public String getYear() {

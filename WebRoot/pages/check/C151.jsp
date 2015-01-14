@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T443/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T512/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  

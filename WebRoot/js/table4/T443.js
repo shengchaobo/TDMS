@@ -71,7 +71,7 @@
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
 					if(result.tag==2){
-						$('#dlg').dialog('close');
+						$('#dlg').dialog('close');//滚动显示未通过的信息变更，需要刷新整个页面
 						location.reload() ;
 					}else{
 						$('#dlg').dialog('close');

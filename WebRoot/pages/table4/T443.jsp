@@ -35,16 +35,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/commom.js"></script>
 	<script type="text/javascript" src="js/table4/T443.js"></script>
 </head>
-
-<body style="height: 100%'"  onload="myMarquee('T443')">
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%'"  onload="myMarquee('T443','<%=request.getAttribute("CHECKTYPE") %>')">
   <div  id="floatDiv">
         <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
         <marquee id="marquee"  scrollAmount="2"  width="900"  height="20" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
         </marquee>       
   </div>
-  <br/>
-  <% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
-  <% request.setAttribute("PASS",Constants.PASS_CHECK); %> 
+  <br/> 
+
 	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T443/loadTalentInfo?checkNum=<%=request.getAttribute("NOCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			

@@ -3,6 +3,7 @@ package cn.nit.service;
 import java.util.List;
 
 import cn.nit.bean.CheckInfo;
+import cn.nit.constants.Constants;
 import cn.nit.dao.CheckDao;
 
 public class CheckService {
@@ -10,9 +11,9 @@ public class CheckService {
 	private CheckDao checkDao = new CheckDao();
 	
 	//取得某个表的审核信息
-	public String loadInfo(String tableName){
+	public String loadInfo(String tableName, int checkType){
 		
-		List<CheckInfo> checkInfo = checkDao.loadInfo(tableName);
+		List<CheckInfo> checkInfo = checkDao.loadInfo(tableName,checkType);
 		
 		StringBuffer infoList = new StringBuffer() ;
 		
@@ -20,10 +21,16 @@ public class CheckService {
 			return null ;
 		}
 		
-		//"[{\"id\":0,\"text\":\"查询\",\"state\":\"closed\",\"attributes\":{\"url\":\"test\"}},{\"id\":1,\"text\":\"填报\",\"state\":\"closed\",\"attributes\":{\"url\":\"test\"}}]"
-		for(CheckInfo info : checkInfo){
-			infoList.append("编号为"+ info.getCheckID()+ "：  " + info.getCheckInfo() + "<br>") ;
+		if(checkType!=Constants.CTypeThree){
+			for(CheckInfo info : checkInfo){
+				infoList.append("编号为"+ info.getCheckID()+ "：  " + info.getCheckInfo().replace("\r\n", "") + "<br>") ;
+			}
+		}else{
+			for(CheckInfo info : checkInfo){
+				infoList.append("第"+ info.getCheckID()+ "年数据：  " + info.getCheckInfo().replace("\r\n", "") + "<br>") ;
+			}
 		}
+
 		
 		return infoList.toString();
 	}

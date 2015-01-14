@@ -182,7 +182,7 @@ public class TreeManagerDAO extends Dao{
 	public List<Trees> getTreesList(){
 		
 		StringBuffer sql = new StringBuffer("select *") ;
-		sql.append(" from " + tableName + " order by treeName");
+		sql.append(" from " + tableName + " where treeName!='审核通过数据' and treeName!='审核未通过数据' order by treeName");
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

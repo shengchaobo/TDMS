@@ -175,30 +175,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 				<td class="empty"></td>
-				<td>
-					<div class="fitem">
-						<label>所属专业：</label> 
-						<input type="hidden" name="T412_bean.majorName" id="majorName"/>
-						<input id="majorID" type="text" name="T412_bean.majorID" class='easyui-combobox' 
-							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
-							onSelect:function(){
-							 	 document.getElementById('majorName').value=$(this).combobox('getText') ;
-							 }">
-					</div>
+				<td colspan="3">
+						<div class="fitem">
+						<label>教工号：</label> 
+						<input type="hidden" name="T412_bean.teaId" id="teaId"/>
+						<input id="teaName" type="text" name="T412_bean.teaName" class='easyui-combobox' 
+									data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+									onSelect:function(){
+									 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
+									 }">
+						<span id="teaIdSpan"></span>
+						</div>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="3">
-				<div class="fitem">
-				<label>教工号：</label> 
-				<input type="hidden" name="T412_bean.teaId" id="teaId"/>
-				<input id="teaName" type="text" name="T412_bean.teaName" class='easyui-combobox' 
-							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
-							onSelect:function(){
-							 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
-							 }">
-				<span id="teaIdSpan"></span>
-				</div></td>
+			<tr>			
+				<td>
+ 					<div class="fitem">
+					<label>专业名称：</label> 
+					<input id="majorName" type="text"  name="T412_bean.majorName"
+							class="easyui-validatebox" ><span id="majorNameSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>
+				<td>
+ 					<div class="fitem">
+					<label>专业代码：</label> 
+					<input id="majorID" type="text"  name="T412_bean.majorID"
+							class="easyui-validatebox" ><span id="majorIDSpan"></span>
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>

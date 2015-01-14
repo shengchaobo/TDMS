@@ -84,6 +84,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
    //全部审核通过
   function checkAll(){
+  			
+  			event.returnValue = confirm("您确认使用一键审核通过？");
+  			
 		    $.ajax({
 				    type:"POST", 
 				    url: "pages/T443/checkAll", 
@@ -103,9 +106,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
     }
 	</script>
-
 </head>
 
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
 <body style="height: 100%'">
   <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T443/loadTalentInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
@@ -142,10 +145,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<div id="dlg" class="easyui-dialog"
-		style="width:400px;height:250px;padding:10px 20px;" closed="true"
+		style="width:400px;height:270px;padding:10px 20px;" closed="true"
 		data-options="modal:true" buttons="#dlg-buttons">
 		<form id="addReasonForm" method="post">
-			<table>
+			<table>			
+				<tr>
+					<td>
+						<div class="fitem">
+							<label>审核类型：</label> 
+								<input type="text" name="checkInfo.checkType"  id="checkType"   value="<%=request.getAttribute("CHECKTYPE") %>"
+								readonly="readonly"  style="width: 150px;color: grey"/>
+							</div>
+					</td>
+				</tr>
 				<tr>
 					<td>
 						<div class="fitem">

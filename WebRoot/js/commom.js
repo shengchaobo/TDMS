@@ -155,14 +155,14 @@ function formatCheckState(val) {
 }
 
 //审核功能中调用审核信息
-function myMarquee(tableID){
+function myMarquee(tableID,checkType){
 	    $.ajax({
 		    type:"POST", 
-		    url: "loadCheckInfo?tableName=" + tableID, 
+		    url: "loadCheckInfo?tableName=" + tableID + "&checkType=" + checkType, 
 	   		async : "true",
 	   		dataType : "text",
 		    success:function(result){  						    	 
-		    	 var result = eval('(' + result + ')');         
+		       var result = eval('(' + result + ')'); 
 		       document.getElementById("marquee").innerHTML	 = result.data ;
 		    }
 	});

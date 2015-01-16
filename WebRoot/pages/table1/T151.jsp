@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
+
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -32,14 +34,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="js/commom.js"></script>
 
 </head>
-<body style="height: 100%">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  url="pages/SchResIns/auditingData"
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+
+<body style="height: 100%"   onload="myMarquee('T151','<%=request.getAttribute("CHECKTYPE")%>')">
+   <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="2"  width="900"  height="20" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
+
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  url="pages/SchResIns/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false">
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th field="resInsName" >科研机构名称</th>
 				<th field="resInsID" >单位号</th>
 		     </tr>
@@ -97,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</table>
 			</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url="">
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url="pages/SchResIns/auditingData?checkNum=<%=request.getAttribute("PASS")%>">
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -120,9 +135,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	</table>
-	<div id="toolbar2" style="float: right;">
-		<a href='pages/SchResIns/dataExport?excelName=<%=URLEncoder.encode("表1-5-1校级以上科研机构（科研处）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	<div id="toolbar2" >
+		<form action='pages/SchResIns/dataExport?excelName=<%=URLEncoder.encode("表1-5-1校级以上科研机构（科研处）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
+	<!--  <a href='pages/SchResIns/dataExport?excelName=<%=URLEncoder.encode("表1-5-1校级以上科研机构（科研处）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> -->
 	</div>
+	
+	
+	<!-- 弹出框填写信息 -->
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
@@ -295,6 +319,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		// });
  //  }
 	
+
 	    function batchImport(){
 	    	 $('#batchForm').form('submit',{
 	    		 url: 'pages/SchResIns/uploadFile',
@@ -544,6 +569,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    loadDictionary() ;
 		    
 	    }
+
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }
 	    
 	    </script>
 
@@ -591,6 +621,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript">
 	    	var currentYear = new Date().getFullYear();
 	    	var select = document.getElementById("cbYearContrast");
+	    	for (var i = 0; i <= 10; i++) {
+	        var theOption = document.createElement("option");
+	        	theOption.innerHTML = currentYear-i + "年";
+	        	theOption.value = currentYear-i;
+	        	select.appendChild(theOption);
+	    	}
+	</script>
+	
+	<script type="text/javascript">
+	    	var currentYear = new Date().getFullYear();
+	    	var select = document.getElementById("cbYearContrast1");
 	    	for (var i = 0; i <= 10; i++) {
 	        var theOption = document.createElement("option");
 	        	theOption.innerHTML = currentYear-i + "年";

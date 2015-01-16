@@ -71,18 +71,18 @@ public class J71_Excel {
 	           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		       ws.mergeCells(0, 0, 3, 0);
 		       
-		       ws.addCell(new Label(0, 3, "项目", wcf)); 
-			   ws.addCell(new Label(2, 3, "内容", wcf)); 
+		       ws.addCell(new Label(0, 2, "项目", wcf)); 
+			   ws.addCell(new Label(3, 2, "内容", wcf)); 
 			   ws.addCell(new Label(0, 3, "1.教学管理人员成果", wcf)); 
 			   ws.addCell(new Label(1, 3, "教学成果奖（项）", wcf)); 
 			   ws.addCell(new Label(1, 7, "教学论文（篇）", wcf));  
 			   ws.addCell(new Label(2, 3, "总数", wcf)); 
 			   ws.addCell(new Label(2, 4, "其中：国家级", wcf)); 
-			   ws.addCell(new Label(1, 5, "    省部级", wcf)); 
-			   ws.addCell(new Label(1, 6, "    校级", wcf)); 
-			   ws.addCell(new Label(1, 7, "总数", wcf)); 
-			   ws.addCell(new Label(1, 8, "其中：教学研究", wcf)); 
-			   ws.addCell(new Label(1, 9, "    教学管理", wcf)); 
+			   ws.addCell(new Label(2, 5, "    省部级", wcf)); 
+			   ws.addCell(new Label(2, 6, "    校级", wcf)); 
+			   ws.addCell(new Label(2, 7, "总数", wcf)); 
+			   ws.addCell(new Label(2, 8, "其中：教学研究", wcf)); 
+			   ws.addCell(new Label(2, 9, "    教学管理", wcf)); 
 			   
 			   ws.mergeCells(0, 2, 2, 2);
 			   ws.mergeCells(0, 3, 0, 9);
@@ -109,7 +109,7 @@ public class J71_Excel {
 	        }
 		try {
 			
-			File file = new File(path,"J-7-1教学管理人员培训及成果（时点）");
+			File file = new File(path,"J-7-1教学管理人员培训及成果（时点）.xls");
 			FileOutputStream fileOutputStream  = new FileOutputStream(file);
 			
 			//写到文件中
@@ -123,6 +123,17 @@ public class J71_Excel {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public static void main(String arg[]){
+		String path = "E:\\江西项目\\测试表\\一键导出";
+		 J71_Excel excel= new J71_Excel();
+		 boolean flag = excel.export_J71(path);
+		 if(flag){
+			 System.out.println("导出成功");
+		 }else{
+			 System.out.println("导出不成功");
+		 }
 	}
 
 }

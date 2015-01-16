@@ -33,6 +33,7 @@ import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchTypeBean;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table4.T411_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiResearchTypeService;
 import cn.nit.service.table1.T151Service;
@@ -258,6 +259,7 @@ public class T151Excel {
 				t151Bean.setTime(TimeUtil.changeDateY(selectYear));
 				t151Bean.setType(Type);
 				t151Bean.setUnitID(UnitID);
+				t151Bean.setCheckState(Constants.WAIT_CHECK);
 				list.add(t151Bean);
 							
 			}

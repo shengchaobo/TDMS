@@ -90,9 +90,9 @@ public class T151DAO {
 //			sql.append(" and FillUnitID=" + fillUnitId) ;
 //		}
 //		
-//		if(conditions != null && !conditions.equals("")){
-//			sql.append(conditions) ;
-//		}
+		if(conditions != null && !conditions.equals("")){
+			sql.append(conditions) ;
+		}
 //		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -161,43 +161,44 @@ public class T151DAO {
 	}
 	
 
-	/**
-	 * 获得的总数（用于导出）
-	 * @return
-	 *
-	 * @time: 2014-5-14/下午02:34:42
-	 */
-	public List<T151Bean> totalList(){
-
-		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, " +
-				"t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
-		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
-//		sql.append(" where t.Time like '"+Year+"%' ");
-		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
-//		System.out.println(sql.toString());
-
-		
-		
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<T151Bean> list = null ;
-		
-		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T151Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null;
-		}
-		
-		return list ;
-	}
+//	/**
+//	 * 获得的总数（用于导出,只有审核通过的才能导出）
+//	 * @return
+//	 *
+//	 * @time: 2014-5-14/下午02:34:42
+//	 */
+//	public List<T151Bean> totalList(){
+//
+//		StringBuffer sql=new StringBuffer();
+//		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, " +
+//				"t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note,t.CheckState" );
+//		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
+////		sql.append(" where t.Time like '"+Year+"%' ");
+//		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
+//		sql.append(" and t.CheckState="+Constants.PASS_CHECK);
+////		System.out.println(sql.toString());
+//
+//		
+//		
+//		Connection conn = DBConnection.instance.getConnection() ;
+//		Statement st = null ;
+//		ResultSet rs = null ;
+//		List<T151Bean> list = null ;
+//		
+//		try{
+//			st = conn.createStatement() ;
+//			rs = st.executeQuery(sql.toString()) ;
+//			list = DAOUtil.getList(rs, T151Bean.class) ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return null;
+//		}
+//		
+//		return list ;
+//	}
 	
 	/**
-	 * 获得的总数（用于教育部导出，参数有年份）
+	 * 获得的总数（用于教育部导出，参数有年份,只有审核通过的才能被导出）
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:42
@@ -206,7 +207,7 @@ public class T151DAO {
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, " +
-				"t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
+				"t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note,t.CheckState" );
 		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
 //		sql.append(" where t.Time like '"+Year+"%' ");
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
@@ -356,6 +357,34 @@ public class T151DAO {
 			return flag ;
 		}
 	
+	//设置审核的状态为1：即未审核状态
+	public boolean updatCheck()
+	{
+		int flag = 0;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try
+		{
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false; 
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	//删除
 	public boolean deleteCoursesByIds(String ids){
 		
@@ -390,9 +419,11 @@ public class T151DAO {
 //		int n=dao.totalAuditingData(null, null);
 //		System.out.println(n);
 		List<T151Bean> list=dao.totalList("2014");
-		List<T151Bean> list1=dao.totalList();
+//		List<T151Bean> list1=dao.totalList();
 		System.out.println(list.size());
-		System.out.println(list1.size());
+//		System.out.println(list1.size());
+//		boolean flag = dao.updatCheck();
+//		System.out.println(flag);
 //		T151Bean a=list.get(0);
 //		System.out.println(a.getType());
 ////	

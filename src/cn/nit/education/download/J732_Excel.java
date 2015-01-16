@@ -33,7 +33,7 @@ public class J732_Excel {
 			
 			byteArrayOutputStream = ExcelUtil.exportExcel(list, sheetName, maplist,columns);
 
-			File file = new File(path,"J-7-3-2教学成果奖（时点）");
+			File file = new File(path,"J-7-3-2教学成果奖（时点）.xls");
 			FileOutputStream fileOutputStream  = new FileOutputStream(file);
 			
 			//写到文件中
@@ -50,4 +50,17 @@ public class J732_Excel {
 		
 	}
 
+	
+	public static void main(String arg[]){
+		
+		String path = "E:\\江西项目\\测试表\\一键导出";
+		 J732_Excel excel= new J732_Excel();
+		 boolean flag = excel.export_J732(path);
+		 if(flag){
+			 System.out.println("导出成功");
+		 }else{
+			 System.out.println("导出不成功");
+		 }
+		
+	}
 }

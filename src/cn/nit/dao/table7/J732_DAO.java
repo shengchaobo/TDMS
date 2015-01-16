@@ -11,13 +11,13 @@ import cn.nit.pojo.table7.J732POJO;
 import cn.nit.util.DAOUtil;
 
 public class J732_DAO {
-	String tableName="T722_TeachAchieveAward_Tea";
+	String tableName="T722_TeachAchieveAward_Tea$";
 	String field="AwardName,Leader,TeaID,AwardLevel,AwardTime,AwardFromUnit";
 	
 	public List<J732POJO> getYearInfo(String year){
 		
-		String sql="select" + field + "from" + tableName + 
-				 "where convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120)=" + year;
+		String sql="select " + field + " from " + tableName + 
+				 " where convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120)=" + year;
 		Connection conn =DBConnection.instance.getConnection();
 		Statement st=null;
 		ResultSet rs=null;

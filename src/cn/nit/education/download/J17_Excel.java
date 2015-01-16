@@ -135,7 +135,7 @@ public static boolean export_J17(String path){
 		}
 	}
 	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
+		 String path = "E:\\江西项目\\测试表\\一键导出";
 		  J17_Excel excel = new J17_Excel();
 		  boolean flag = excel.export_J17(path);
 		  if(flag){

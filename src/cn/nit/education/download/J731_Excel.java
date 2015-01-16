@@ -32,7 +32,7 @@ public class J731_Excel {
 			
 			byteArrayOutputStream = ExcelUtil.exportExcel(list, sheetName, maplist,columns);
 
-			File file = new File(path,"J-7-3-1教育教学研究与改革项目（自然年）");
+			File file = new File(path,"J-7-3-1教育教学研究与改革项目（自然年）.xls");
 			FileOutputStream fileOutputStream  = new FileOutputStream(file);
 			
 			//写到文件中
@@ -48,4 +48,17 @@ public class J731_Excel {
 		}
 	} 
 
+	public static void main(String arg[]){
+		 String path = "E:\\江西项目\\测试表\\一键导出";
+		 J731_Excel excel= new J731_Excel();
+		 boolean flag = excel.export_J731(path);
+		 if(flag){
+			 System.out.println("导出成功");
+		 }else{
+			 System.out.println("导出不成功");
+		 }
+		
+	}
+	
+	
 }

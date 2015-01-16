@@ -72,9 +72,8 @@
 				if (result.state) {
 					if(result.tag==2){
 						$('#dlg').dialog('close');
-						myMarquee('T443', CTypeOne)
+						myMarquee('T443', CTypeOne);
 						$('#unverfiedData').datagrid('reload'); // reload the user data
-
 					}else{
 						$('#dlg').dialog('close');
 						$('#unverfiedData').datagrid('reload'); // reload the user data

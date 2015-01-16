@@ -71,18 +71,18 @@ public class J71_Excel {
 	           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 		       ws.mergeCells(0, 0, 3, 0);
 		       
-		       ws.addCell(new Label(0, 3, "项目", wcf)); 
-			   ws.addCell(new Label(2, 3, "内容", wcf)); 
+		       ws.addCell(new Label(0, 2, "项目", wcf)); 
+			   ws.addCell(new Label(3, 2, "内容", wcf)); 
 			   ws.addCell(new Label(0, 3, "1.教学管理人员成果", wcf)); 
 			   ws.addCell(new Label(1, 3, "教学成果奖（项）", wcf)); 
 			   ws.addCell(new Label(1, 7, "教学论文（篇）", wcf));  
 			   ws.addCell(new Label(2, 3, "总数", wcf)); 
 			   ws.addCell(new Label(2, 4, "其中：国家级", wcf)); 
-			   ws.addCell(new Label(1, 5, "    省部级", wcf)); 
-			   ws.addCell(new Label(1, 6, "    校级", wcf)); 
-			   ws.addCell(new Label(1, 7, "总数", wcf)); 
-			   ws.addCell(new Label(1, 8, "其中：教学研究", wcf)); 
-			   ws.addCell(new Label(1, 9, "    教学管理", wcf)); 
+			   ws.addCell(new Label(2, 5, "    省部级", wcf)); 
+			   ws.addCell(new Label(2, 6, "    校级", wcf)); 
+			   ws.addCell(new Label(2, 7, "总数", wcf)); 
+			   ws.addCell(new Label(2, 8, "其中：教学研究", wcf)); 
+			   ws.addCell(new Label(2, 9, "    教学管理", wcf)); 
 			   
 			   ws.mergeCells(0, 2, 2, 2);
 			   ws.mergeCells(0, 3, 0, 9);

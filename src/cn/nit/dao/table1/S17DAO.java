@@ -19,7 +19,7 @@ public class S17DAO {
 	private String tableName = "S17_SchFriClubNum$" ;
 	
 	/**待统计数据库表名*/
-	private String tableName1="T17_SchFriClub_PartyOffice$";
+	private String tableName1="T171_SchFriClub_PartyOffice$";
 	/**需要的字段*/
 	private String field2="SeqNumber,Place";
 	

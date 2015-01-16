@@ -79,6 +79,27 @@ import cn.nit.util.TimeUtil;
 			return t151Dao.updateCheck(seqNum,checkState) ;
 		}
 		
+		/**
+		 * 全部审核通过
+		 * @param 
+		 * @return
+		 */
+		public boolean checkAll(){
+			return t151Dao.checkAll() ;
+		}
+		
+
+		/**
+		 * 得到该条数据审核状态
+		 * @param 
+		 * @return
+		 */
+		public int getCheckState(int seqNumber){
+			return t151Dao.getCheckState(seqNumber) ;
+		}
+		
+
+		
 		/**批量导入*/
 		public boolean batchInsert(List<T151Bean> list){
 			

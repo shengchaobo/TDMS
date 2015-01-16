@@ -34,6 +34,9 @@ public static boolean export_J63(String path) {
 		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		T66_Bean bean = T66_dao.getYearInfo(year);
+		if(bean==null){
+			bean = new T66_Bean();
+		}
 		
 		String sheetName = "J-6-3学生社团（时点）";
 		
@@ -92,18 +95,18 @@ public static boolean export_J63(String path) {
 	           ws.mergeCells(0, 9, 0, 14);
 	           		           
 	           //写入数据
-	           ws.addCell(new Label(2, 3, bean.getStuClubSum().toString(), wcf1));
-	           ws.addCell(new Label(2, 4,bean.getStuClubSciNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 5,bean.getStuClubHumanNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 6, bean.getStuClubSportNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 7, bean.getStuClubArtNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 8,bean.getOtherStuClub().toString(), wcf1));
-	           ws.addCell(new Label(2, 9, bean.getJoinStuSum().toString(), wcf1));
-	           ws.addCell(new Label(2, 10, bean.getJoinClubSciNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 11, bean.getJoinClubHumanNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 12, bean.getJoinClubSportNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 13, bean.getJoinClubArtNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 14, bean.getJoinOtherClub().toString(), wcf1)); 
+	           ws.addCell(new Label(2, 3, bean.getStuClubSum()+"", wcf1));
+	           ws.addCell(new Label(2, 4,bean.getStuClubSciNum()+"", wcf1));
+	           ws.addCell(new Label(2, 5,bean.getStuClubHumanNum()+"", wcf1));
+	           ws.addCell(new Label(2, 6, bean.getStuClubSportNum()+"", wcf1));
+	           ws.addCell(new Label(2, 7, bean.getStuClubArtNum()+"", wcf1));
+	           ws.addCell(new Label(2, 8,bean.getOtherStuClub()+"", wcf1));
+	           ws.addCell(new Label(2, 9, bean.getJoinStuSum()+"", wcf1));
+	           ws.addCell(new Label(2, 10, bean.getJoinClubSciNum()+"", wcf1));
+	           ws.addCell(new Label(2, 11, bean.getJoinClubHumanNum()+"", wcf1));
+	           ws.addCell(new Label(2, 12, bean.getJoinClubSportNum()+"", wcf1));
+	           ws.addCell(new Label(2, 13, bean.getJoinClubArtNum()+"", wcf1));
+	           ws.addCell(new Label(2, 14, bean.getJoinOtherClub()+"", wcf1)); 
 	          
 	           wwb.write();
 		       wwb.close();
@@ -126,7 +129,7 @@ public static boolean export_J63(String path) {
 }
 
 public static void main(String arg[]){
-	 String path = "D:\\江西项目\\相关表\\ExcelTest";
+	 String path = "E:\\江西项目\\测试表\\一键导出";
 	  J63_Excel excel = new J63_Excel();
 	  boolean flag = excel.export_J63(path);
 	  if(flag){

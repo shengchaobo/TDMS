@@ -20,12 +20,13 @@ public class J731_DAO {
 	 * @return
 	 */
 	public List<J731POJO> getYearInfo(String year){
-		String sql="select" +  field  + "from" + tableName +
-				    "where convert(varchar(4),T721_TeachResItem_Tea$.Time,120)=" + year;
+		String sql="select " +  field  + " from " + tableName +
+				    " where convert(varchar(4),T721_TeachResItem_Tea$.Time,120)=" + year;
 		Connection conn=DBConnection.instance.getConnection();
 		Statement st=null;
 		ResultSet rs=null;
 		List<J731POJO> list=null;
+		System.out.println(sql);
 		
 		try {
 			st=conn.createStatement();

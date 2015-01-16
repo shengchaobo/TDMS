@@ -109,7 +109,7 @@ public class J71_Excel {
 	        }
 		try {
 			
-			File file = new File(path,"J-7-1教学管理人员培训及成果（时点）");
+			File file = new File(path,"J-7-1教学管理人员培训及成果（时点）.xls");
 			FileOutputStream fileOutputStream  = new FileOutputStream(file);
 			
 			//写到文件中
@@ -123,6 +123,17 @@ public class J71_Excel {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public static void main(String arg[]){
+		String path = "E:\\江西项目\\测试表\\一键导出";
+		 J71_Excel excel= new J71_Excel();
+		 boolean flag = excel.export_J71(path);
+		 if(flag){
+			 System.out.println("导出成功");
+		 }else{
+			 System.out.println("导出不成功");
+		 }
 	}
 
 }

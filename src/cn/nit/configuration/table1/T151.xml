@@ -6,9 +6,12 @@
 	<package name="schResIns" namespace="/pages/SchResIns" extends="struts-default">
 		<!-- 添加获奖 -->
 	    <action name="insert" class="cn.nit.action.table1.T151Action" method="insert" />
+	    <!-- 数据显示 -->
 	    <action name="auditingData" class="cn.nit.action.table1.T151Action" method="auditingData" />
 	     <!-- 编辑数据 -->
 	    <action name="edit" class="cn.nit.action.table1.T151Action" method="edit" />
+	     <!-- 修改审核状态 -->
+	    <action name="updateCheck" class="cn.nit.action.table1.T151Action"  method="updateCheck" />
 	     <!-- 删除数据 -->
 	    <action name="deleteByIds" class="cn.nit.action.table1.T151Action" method="deleteCoursesByIds" />
 	     <!-- 数据查询 -->

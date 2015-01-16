@@ -18,6 +18,8 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import cn.nit.bean.table1.S17Bean;
+import cn.nit.bean.table1.S18Bean;
 import cn.nit.bean.table6.T641_Bean;
 import cn.nit.dao.table6.T641_Dao;
 
@@ -32,7 +34,13 @@ public class J617_Excel {
 		String currentTime = time.toString();
 		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
-		T641_Bean bean  = T641_dao.getYearInfo(year);
+		T641_Bean  bean = T641_dao.getYearInfo(year);
+		if(bean == null){
+			bean = new T641_Bean();
+		}
+		
+//		T641_Bean bean  = T641_dao.getYearInfo(year);
+		System.out.println(bean.getSumAidFund());
 	//	T16POJO pojo = list.get(0);
 		
 		String sheetName = "J-6-1-7本科生奖贷补（自然年）";
@@ -83,23 +91,28 @@ public class J617_Excel {
 	           ws.addCell(new Label(0, 10, "7.临时困难补助", wcf)); 
 
 	           		           
-	           ws.addCell(new Label(1, 3, bean.getSumAidFund().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 4, bean.getGovAidFund().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 5, bean.getSocialAidFund().toString(), wcf1));
-	           ws.addCell(new Label(1, 6, bean.getSchAidFund().toString(), wcf1));
-	           ws.addCell(new Label(1, 7, bean.getNationAidFund().toString(), wcf1));
-	           ws.addCell(new Label(1, 8, bean.getWorkStudyFund().toString(), wcf1));
-	           ws.addCell(new Label(1, 9, bean.getTuitionWaiberFund().toString(), wcf1));
-	           ws.addCell(new Label(1, 10, bean.getTempFund().toString(), wcf1));
+	           System.out.println("你好");
+	           if(bean.getSumAidFund()==null){
+	        	   System.out.println("为空");
+	           }
+//	           System.out.println(bean.getSumAidFund());
+	           ws.addCell(new Label(1, 3, bean.getSumAidFund()+"", wcf1)); 
+	           ws.addCell(new Label(1, 4, bean.getGovAidFund()+"", wcf1)); 
+	           ws.addCell(new Label(1, 5, bean.getSocialAidFund()+"", wcf1));
+	           ws.addCell(new Label(1, 6, bean.getSchAidFund()+"", wcf1));
+	           ws.addCell(new Label(1, 7, bean.getNationAidFund()+"", wcf1));
+	           ws.addCell(new Label(1, 8, bean.getWorkStudyFund()+"", wcf1));
+	           ws.addCell(new Label(1, 9, bean.getTuitionWaiberFund()+"", wcf1));
+	           ws.addCell(new Label(1, 10, bean.getTempFund()+"", wcf1));
 	           
-	           ws.addCell(new Label(2, 3, bean.getSumAidNum().toString(), wcf1)); 
-	           ws.addCell(new Label(2, 4, bean.getGovAidNum().toString(), wcf1)); 
-	           ws.addCell(new Label(2, 5, bean.getSocialAidNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 6, bean.getSchAidNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 7, bean.getNationAidNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 8, bean.getWorkStudyNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 9, bean.getTuitionWaiberNum().toString(), wcf1));
-	           ws.addCell(new Label(2, 10, bean.getTempNum().toString(), wcf1));
+	           ws.addCell(new Label(2, 3, bean.getSumAidNum()+"", wcf1)); 
+	           ws.addCell(new Label(2, 4, bean.getGovAidNum()+"", wcf1)); 
+	           ws.addCell(new Label(2, 5, bean.getSocialAidNum()+"", wcf1));
+	           ws.addCell(new Label(2, 6, bean.getSchAidNum()+"", wcf1));
+	           ws.addCell(new Label(2, 7, bean.getNationAidNum()+"", wcf1));
+	           ws.addCell(new Label(2, 8, bean.getWorkStudyNum()+"", wcf1));
+	           ws.addCell(new Label(2, 9, bean.getTuitionWaiberNum()+"", wcf1));
+	           ws.addCell(new Label(2, 10, bean.getTempNum()+"", wcf1));
 	           
 	          
 	           wwb.write();
@@ -123,7 +136,7 @@ public class J617_Excel {
 }
 
 public static void main(String arg[]){
-	 String path = "D:\\江西项目\\相关表\\ExcelTest";
+	 String path = "E:\\江西项目\\测试表\\一键导出";
 	  J617_Excel excel = new J617_Excel();
 	  boolean flag = excel.export_J617(path);
 	  if(flag){

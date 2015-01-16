@@ -21,8 +21,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table4.T411_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T151DAO;
 import cn.nit.excel.imports.table1.T151Excel;
+import cn.nit.service.CheckService;
 import cn.nit.service.table1.T151Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -50,6 +52,9 @@ public class T151Action {
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
 	
+	/**取得某个表的审核信息*/
+	private CheckService check_services = new CheckService();
+	
 	/**导出数据说要的年份*/
 	private String Year;//
 	
@@ -72,10 +77,14 @@ public class T151Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+	/**  导出时间  */
+	private String selectYear ;
+	
 	/**  逐条插入数据  */
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t151Bean.setTime(new Date()) ;
+		t151Bean.setCheckState(Constants.WAIT_CHECK);
 //		System.out.println(t151Bean.getResInsID());
 //		System.out.println(t151Bean.getResInsName());
 		//这还没确定,设置填报者的职工号与部门号
@@ -108,7 +117,7 @@ public class T151Action {
 	/**  为界面加载数据  */
 	public void auditingData(){
 			
-//			System.out.println("輸出輸出輸出");
+			System.out.println("輸出輸出輸出");
 			
 			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 				return ;
@@ -121,9 +130,10 @@ public class T151Action {
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
 			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){			
 				cond = null;	
-			}else{			
+			}else{		
+				//查询条件判断
 				if(this.getSeqNum()!=null){
 					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
 				}
@@ -137,6 +147,20 @@ public class T151Action {
 					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
+				
+				System.out.println("审核状态："+this.getCheckNum());
+				
+				//审核状态判断
+				if(this.getCheckNum() == Constants.WAIT_CHECK ){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
+					conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
+				}
+				
 				cond = conditions.toString();
 			}
 
@@ -230,19 +254,49 @@ public class T151Action {
 //		 System.out.println(t151Bean.getUnitID());
 //		 System.out.println(t151Bean.getBeginYear());
 ////		 System.out.println(t151Bean.getTime());
+		
+		boolean flag = false;
+		int tag = 0;
+		//获得该条审数据审核状态
+		int state = t151Ser.getCheckState(t151Bean.getSeqNumber());
 		 
-		t151Bean.setTime(new Date()) ;
-		boolean flag = t151Ser.update(t151Bean) ;
+		//如果是待审核，直接修改
+		if(state == Constants.WAIT_CHECK){
+			t151Bean.setCheckState(Constants.WAIT_CHECK);
+			flag = t151Ser.update(t151Bean) ;
+			if(flag) tag = 1;
+		}
+		
+		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+		if(state == Constants.NOPASS_CHECK){
+			t151Bean.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = t151Ser.update(t151Bean) ;
+			boolean flag2 = check_services.delete("T151",t151Bean.getSeqNumber());
+			if(flag1&&flag2){
+				flag = true;
+				tag = 2;
+			}
+		}
+		
 		PrintWriter out = null ;
 		
 		try{
 			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
-			if(flag){
+			if(tag == 1){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
-			}else{
+			}
+			else if(tag == 2){
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;	
+			}
+			else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
+//			if(flag){
+//				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+//			}else{
+//				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
+//			}
 			out.flush() ;
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -280,6 +334,33 @@ public class T151Action {
 		}
 	}
 	
+	/**  全部审核通过  */
+	public void checkAll(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = t151Ser.checkAll();
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"一键审核成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+
+	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
@@ -309,14 +390,17 @@ public class T151Action {
 	/**数据导出*/
 	public InputStream getInputStream(){
 		
-//        System.out.println("年份："+this.Year);
+		System.out.println("数据导出");
+        System.out.println("年份："+this.selectYear);
 		InputStream inputStream = null ;
 
 		try {
 			
-			List<T151Bean> list = t151Dao.totalList();
+			List<T151Bean> list = t151Dao.totalList(this.selectYear);
+			System.out.println("数据条数："+list.size());
 			
-			String sheetName = this.excelName;
+//			String sheetName = this.excelName;
+			String sheetName = "表1-5-1校级以上科研机构（科研处）";
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
@@ -425,6 +509,14 @@ public class T151Action {
 
 	public void setYear(String year) {
 		this.Year = year;
+	}
+	
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
 	}
 
 	public String getRows() {

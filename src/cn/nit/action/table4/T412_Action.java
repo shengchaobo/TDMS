@@ -344,7 +344,7 @@ public class T412_Action {
 			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 			String fillUnitID = bean.getUnitID();
 			
-			List<T412_Bean> list = T412_dao.totalList(fillUnitID);
+			List<T412_Bean> list = T412_dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 						
 			String sheetName = this.excelName;
 			

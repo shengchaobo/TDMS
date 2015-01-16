@@ -8,5 +8,6 @@
 	<package name="check" namespace="/" extends="struts-default">		        
    		<action name="loadCheckInfo" class="cn.nit.action.CheckInfoAction"   method="loadInfo"></action>
    		<action name="addCheckInfo" class="cn.nit.action.CheckInfoAction"   method="addInfo"></action>
+   		<action name="loadCheckState" class="cn.nit.action.CheckInfoAction"   method="loadCheckState"></action>
 	</package>
 </struts>

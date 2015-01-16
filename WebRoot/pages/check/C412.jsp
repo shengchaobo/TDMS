@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page language="java" import="cn.nit.constants.Constants"%>
-
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -12,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>T443</title>
+<title>T412_AllMajTeaInfo_TeaPer</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -33,7 +32,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript">
+	<script type="text/javascript" src="js/table4/T412.js"></script>
+	
+	<script type="text/javascript">	
 	 //审核通过
   function passCheck(seqNumber){
     		//alert(seqNumber);
@@ -41,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T443/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T412/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -65,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T443/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T412/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -89,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T443/checkAll", 
+				    url: "pages/T412/checkAll", 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -108,39 +109,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
 </head>
 
-<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
-<body style="height: 100%'">
-	<table  id="checkData"  class="easyui-datagrid"  url="pages/T443/loadTalentInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
+<body style="height: 100%" >  
+	<table  id="checkData"  class="easyui-datagrid"  url="pages/T412/loadMajorTea?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
-		  </tr>
+		 </tr>
 		</thead>
 		<thead>
 				<tr>		
-					<th  data-options="field:'seqNumber'" >编号</th>
-					<th data-options="field:'name'">姓名</th>
-					<th data-options="field:'teaId'">教工号</th>			
-					<th data-options="field:'type'">
-						人才类型
+					<th  data-options="field:'seqNumber'" >编号</th>			
+					<th data-options="field:'fromTeaUnit'">
+						所属教学单位
 					</th>
-					<th data-options="field:'resField'">
-						研究方向
+					<th data-options="field:'teaUnitID'">
+						教学单位号
 					</th>
-					<th data-options="field:'gainTime'"  formatter="formattime">
-						获得时间
+					<th data-options="field:'majorName'">
+						专业名称
+					</th>
+					<th data-options="field:'majorID'">
+						专业代码
+					</th>
+					<th data-options="field:'teaId'">
+						教工号
+					</th>
+					<th data-options="field:'teaName'">
+						姓名
 					</th>
 					<th data-options="field:'note'">
 						备注
 					</th>
+					 <th data-options="field:'fillUnitID',hidden:true">
+						填报教学单位
+					</th>
 				</tr>
 			</thead>
 	</table>
-	
+		
   <div id="toolbar"  style="float: right;">
 			<a href='javascript:checkAll()'   class="easyui-linkbutton" iconCls="icon-download" plain="true"  >
-					一键审核通过
+					一键全审核通过
 			</a>
 	</div>
 	
@@ -162,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 						<div class="fitem">
 							<label>被审核表ID：</label> 
-								<input type="text" name="checkInfo.tableID" id="tableName"   value="T443"
+								<input type="text" name="checkInfo.tableID" id="tableName"   value="T412"
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>
@@ -172,6 +183,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="fitem">
 								<label>该条数据编号：</label> 
 								<input type="text" name="checkInfo.checkID" id="dataID" 
+								readonly="readonly"  style="width: 150px;color: grey"/>
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+							<div class="fitem">
+								<label>填写者的教学单位号：</label> 
+								<input type="text" name="checkInfo.fillUnitID"  id="unitID" 
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>
@@ -195,4 +215,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
 </body>
+	<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+    	
+     var select1 = document.getElementById("cbYearContrast1");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select1.appendChild(theOption);
+    	}
+	</script>
 </html>

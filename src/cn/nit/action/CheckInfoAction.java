@@ -25,6 +25,7 @@ public class CheckInfoAction {
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
+	//加载谋个表审核未通过信息
 	public void loadInfo(){		
 		//System.out.println(this.getCheckType());
 		String checkInfo  = check_services.loadInfo(this.getTableName(),this.getCheckType());
@@ -50,17 +51,9 @@ public class CheckInfoAction {
 		}
 	}
 	
+	//添加一条未通过记录
 	public void addInfo(){
-		
-		//System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		//System.out.println(checkInfo.getCheckType());
-		if(checkInfo.getCheckType() == Constants.CTypeTwo){
-			//具体教学单位
-			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-			String fillUnitID = bean.getUnitID();
-			checkInfo.setFillUnitID(fillUnitID);
-		}
-			
+					
 		boolean flag  = check_services.addInfo(checkInfo);
 		
 		PrintWriter out = null ;
@@ -83,6 +76,30 @@ public class CheckInfoAction {
 			}
 		}
 	}
+	
+	//加载全部审核状态
+	public void loadCheckState(){
+		
+		int typeOne = Constants.WAIT_CHECK;
+		int typeTwo = Constants.PASS_CHECK;
+		int typeThree = Constants.NOPASS_CHECK;
+		
+		PrintWriter out = null ;
+		System.out.println("test");
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			out.print("{\"state\":true,\"typeOne\":" + typeOne + ",\"typeTwo\":" + typeTwo + ",\"typeThree\":" + typeThree + "}") ;
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
 
 	public void setCheckInfo(CheckInfo checkInfo) {
 		this.checkInfo = checkInfo;

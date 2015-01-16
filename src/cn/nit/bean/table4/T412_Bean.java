@@ -29,6 +29,7 @@ public class T412_Bean implements java.io.Serializable {
 	private Date time;
 	private String note;
 	private String fillUnitID;
+	private int checkState;
 
 
 	@Column(name = "FromTeaUnit")
@@ -116,6 +117,14 @@ public class T412_Bean implements java.io.Serializable {
 
 	public Integer getSeqNumber() {
 		return seqNumber;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

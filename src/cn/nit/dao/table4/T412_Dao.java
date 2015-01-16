@@ -9,13 +9,14 @@ import java.util.List;
 
 import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table4.T42_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 
 public class T412_Dao {
 	
 	private String tableName = "T412_AllMajTeaInfo_TeaPer$" ;
-	private String field = "FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName,Time,Note,FillUnitID";
+	private String field = "FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName,Time,Note,FillUnitID,CheckState";
 	private String keyfield = "SeqNumber";
 	
 	
@@ -115,7 +116,7 @@ public class T412_Dao {
 		}
 				
 		String queryPageSql = "select top " + pageSize + " " +  keyfield+ "," +
-		"FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName,Time,Note,FillUnitID"
+		"FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName,Time,Note,FillUnitID,CheckState"
 		+ " from " + tableName + 
 		" where " + Cond + " and (SeqNumber not in (select top " + pageSize * (showPage-1) + " SeqNumber from "+
 		tableName  + " where " + Cond +  "  order by SeqNumber)) order by SeqNumber" ;
@@ -166,7 +167,7 @@ public class T412_Dao {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		
-		String tempfield = "FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName,Time,FillUnitID";
+		String tempfield = "FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName,Time,FillUnitID,CheckState";
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 		}catch(Exception e){
@@ -222,7 +223,7 @@ public class T412_Dao {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			String updatefield = "FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName,Note";
+			String updatefield = "FromTeaUnit,TeaUnitID,MajorID,MajorName,TeaId,TeaName,Note,CheckState";
 					
 			flag = DAOUtil.update(bean, tableName, keyfield, updatefield, conn) ;
 		}catch(Exception e){
@@ -235,6 +236,111 @@ public class T412_Dao {
 		return flag ;
 	}
 
+	
+	/**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 	
 	public static void main(String args[]){

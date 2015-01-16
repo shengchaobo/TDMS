@@ -38,6 +38,7 @@ import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table4.T42_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDegreeService;
@@ -146,6 +147,8 @@ public class T412_Excel {
 				//插入时间
 				//T412_bean.setTime(new Date());
 				T412_bean.setTime(TimeUtil.changeDateY(selectYear));
+				//插入审核状态
+				T412_bean.setCheckState(Constants.WAIT_CHECK);
 				list.add(T412_bean);
 								
 			}catch(Exception e){

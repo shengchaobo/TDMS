@@ -158,6 +158,7 @@ public class T443_Action {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
 		T443_bean.setTime(new Date());	
+		//插入审核状态
 		T443_bean.setCheckState(Constants.WAIT_CHECK);
 		boolean flag = T443_services.insert(T443_bean);
 		PrintWriter out = null ;

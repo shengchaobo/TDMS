@@ -1,6 +1,6 @@
-	$(function(){  
-				var selectYear = $("#cbYearContrast").combobox('getValue'); 
-				var rows = [
+$(function(){  	
+			var selectYear = $("#cbYearContrast").combobox('getValue');    		   
+			var rows = [
 				        { "name": "总占地面积", "group": "1.占地面积(平方米)", "value": "",  "field": "sumArea","editor": false },
 				        { "name": "学校产权", "group": "1.占地面积(平方米)", "value": "", "field": "schProArea", "editor":  {
 				    		"type":"numberbox",
@@ -65,7 +65,7 @@
 				    ];
 				    							
 				$('#edit').propertygrid({
-						title : '占地与建筑面积',
+						//title : '占地与建筑面积',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 				        width: '60%',
 				        height: 'auto',
@@ -76,7 +76,7 @@
 				                { field: 'value', title: '内容', width: 100, resizable: false}
 				        ]]
 				 });
-				 				 
+				
 				  $.ajax( {
 				    		type : "POST",
 				    		contentType: "application/json;utf-8",
@@ -86,12 +86,28 @@
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
-				    			}
-			                    var i = 0;
+				    				$("#edit").propertygrid({title:'占地与建筑面积'});		 
+				    			}else{	
+				    				if(json.checkState==WAITCHECK){
+				    					$("#edit").propertygrid({title:'占地与建筑面积（<font color=red>待审核</font>）'});
+				    					//document.getElementById("export").style.display ="none";
+				    					$("#export").hide();
+				    				}
+				    				else if(json.checkState==PASSCHECK){
+				    					$("#edit").propertygrid({title:'占地与建筑面积（<font color=red>审核通过</font>）'});					    				
+				    					$("#cancel").hide();
+				    					$("#save").hide();
+				    				}				    				
+				    				else if(json.checkState==NOPASSCHECK){
+				    					$("#edit").propertygrid({title:'占地与建筑面积（<font color=red>审核未通过</font>）'});	
+				    					$("#export").hide();
+				    				}						    				    				
+				    			}		
+			                    var i = 0;		                    
 			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
 			                    	i= i+1;
-			                    }														
+			                    }	
 							},
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
@@ -102,18 +118,18 @@
 				                    }			                      
 			                }
 		    		})
-
-					$('#edit').propertygrid('loadData', rows);
+		    		
+				$('#edit').propertygrid('loadData', rows);
 			   	
 			   	
    				//刷新页面
 				 $("#cbYearContrast").combobox({  
-			         onChange:function(newValue, oldValue){  
+			           onChange:function(newValue, oldValue){  
 						reloadgrid(newValue,true);
 						$('#edit').propertygrid('loadData', rows);
 		             }
 		         }); 
-		         
+
 		       	function reloadgrid (year,flag)  { 
        				  $.ajax( {
 				    		type : "POST",
@@ -124,12 +140,34 @@
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
-				    			}	
-			                    var i = 0;
+				    				$("#edit").propertygrid({title:'占地与建筑面积'});		 
+				    			}else{	
+				    				//alert(json.checkState);
+				    				if(json.checkState==WAITCHECK){
+				    					$("#edit").propertygrid({title:'占地与建筑面积（<font color=red>待审核</font>）'});	
+				    					//document.getElementById("export").style.display ="none";
+				    					$("#export").hide();
+				    					$("#cancel").show();
+				    					$("#save").show();
+				    				}
+				    				else if(json.checkState==PASSCHECK){
+				    					$("#edit").propertygrid({title:'占地与建筑面积（<font color=red>审核通过</font>）'});		
+				    					$("#cancel").hide();
+				    					$("#save").hide();
+				    					$("#export").show();
+				    				}				    				
+				    				else if(json.checkState==NOPASSCHECK){
+				    					$("#edit").propertygrid({title:'占地与建筑面积（<font color=red>审核未通过</font>）'});		
+				    					$("#export").hide();
+				    					$("#cancel").show();
+				    					$("#save").show();
+				    				}						    				    				
+				    			}		
+			                    var i = 0;		                    
 			                    while(i<rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
-			                    	i=i+1;
-			                    }								
+			                    	i= i+1;
+			                    }	
 							},
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
@@ -183,7 +221,8 @@
 										alert("保存失败");
 										flag = false;
 				                }
-			    		})		    		
+			    		})		
+			    		myMarquee('T21', CTypeThree)
 						reloadgrid (year,flag) 	;
      					$('#edit').propertygrid('loadData', rows);						 					 
 				});		
@@ -196,8 +235,7 @@
 				});	
 				
 			   //导出
-			   $("#export").click(function(){
-				   
+			   $("#export").click(function(){				   
 			        var tableName = encodeURI('表2-1占地与建筑面积（后勤处）');
 			        var year = $("#cbYearContrast").combobox('getValue'); 
 				    $('#exportForm').form('submit', {
@@ -212,6 +250,6 @@
 							    	msg : data
 							    });
 					    }
-				    }); 
-				});							    	
+				   }); 
+			});							    	
 		}); 

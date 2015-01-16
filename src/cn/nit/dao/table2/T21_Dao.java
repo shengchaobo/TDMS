@@ -3,9 +3,12 @@ package cn.nit.dao.table2;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.List;
 
 import cn.nit.bean.table2.T21_Bean;
+import cn.nit.constants.Constants;
+import cn.nit.dao.CheckDao;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.TimeUtil;
@@ -14,8 +17,10 @@ public class T21_Dao {
 	
 	private String tableName = "T21_OccupyAndCoverArea_Log$" ;
 	private String field = "SumArea,SchProArea,GreenArea,NotSchProArea,GreenAreaNotInSch,OnlyUseArea,CoUseArea,SumCoverArea,SchProCovArea," +
-			"NotSchProCovArea,OnlyUseCovArea,CoUseCovArea,Time,Note";
+			"NotSchProCovArea,OnlyUseCovArea,CoUseCovArea,Time,Note,CheckState";
 	private String keyfield = "SeqNumber";
+	
+	CheckDao checkDao = new CheckDao();
 	
 	/**
 	 * 获取字典表的所有数据
@@ -75,9 +80,19 @@ public class T21_Dao {
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());
-				String tempfields = fields + ",SumArea,NotSchProArea,SumCoverArea,NotSchProCovArea";
-				
-				
+				String tempfields = "";
+				if(tempBean.getCheckState() == Constants.WAIT_CHECK){
+					tempfields = fields + ",SumArea,NotSchProArea,SumCoverArea,NotSchProCovArea";
+				}
+				if(tempBean.getCheckState() == Constants.NOPASS_CHECK){
+					tempfields = fields + ",SumArea,NotSchProArea,SumCoverArea,NotSchProCovArea,CheckState";
+					bean.setCheckState(Constants.WAIT_CHECK);
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(tempBean.getTime());
+					int year1 = cal.get(Calendar.YEAR); 
+					checkDao.delete("T21", year1 ) ;
+				}
+												
 				double notSchProArea = tempBean.getNotSchProArea();				
 				double notSchProCovArea = tempBean.getNotSchProCovArea();
 				
@@ -142,6 +157,7 @@ public class T21_Dao {
 				flag = DAOUtil.update(bean, tableName, keyfield, tempfields, conn) ;
 			}else{
 				bean.setTime(TimeUtil.changeDateY(year));
+				bean.setCheckState(Constants.WAIT_CHECK);
 				
 				double sumArea = 0;
 				double notSchProArea = 0;
@@ -178,7 +194,7 @@ public class T21_Dao {
 				}	
 				bean.setSumCoverArea(sumCoverArea);
 				
-				String tempfields = fields + ",SumArea,NotSchProArea,SumCoverArea,NotSchProCovArea,Time";
+				String tempfields = fields + ",SumArea,NotSchProArea,SumCoverArea,NotSchProCovArea,Time,CheckState";
 				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
 			}
 		}catch(Exception e){
@@ -194,6 +210,38 @@ public class T21_Dao {
 	}
 	
 	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(String year, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where convert(varchar(4),Time,120)=" + year;			
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 	public static void main(String args[]){
 		//T21_Dao testDao =  new T21_Dao() ;

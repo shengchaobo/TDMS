@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <% request.setAttribute("PASS",Constants.PASS_CHECK); %>
 <body style="height: 100%'"  onload="myMarquee('T443','<%=request.getAttribute("CHECKTYPE") %>')">
   <div  id="floatDiv">
-        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
         <marquee id="marquee"  scrollAmount="2"  width="900"  height="20" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
         </marquee>       
   </div>

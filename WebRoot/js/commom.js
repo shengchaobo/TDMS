@@ -114,6 +114,7 @@ $(function() {
 		});
 });
 
+
 function formattime(val) {  
     if(val == null){
 	    return null ;
@@ -144,11 +145,23 @@ function formatBoolean(val) {
     }
 }  
 
+
+//三种审核状态
+var WAITCHECK = 1;     //待审核
+var PASSCHECK = 2;     //审核通过  
+var NOPASSCHECK = 4;   //审核未通过
+
+//三种审核方式
+var CTypeOne = 1;     //普通多条审核
+var CTypeTwo = 2;     //教学单位类审核
+var CTypeThree = 3;   //单表审核
+
+
 function formatCheckState(val) {  
-    if(val == 1){
+    if(val == WAITCHECK){
 	    return '待审核状态' ;
-    }else if(val == 4){
-    	return '审核不通过' ;
+    }else if(val == NOPASSCHECK){
+    	return '审核未通过' ;
     }else{
     	return null;
     }
@@ -170,25 +183,37 @@ function myMarquee(tableID,checkType){
 
 function rowformater(value,row,index)
 {
-		return "<a href='javascript:passCheck(" + row.seqNumber+")'>审核通过</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href ='javascript:openDig("+ row.seqNumber+")'>审核不通过</a>";
+		return "<a href='javascript:passCheck(" + row.seqNumber+")'>审核通过</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href ='javascript:openDig("+ row.seqNumber+ "," + row.fillUnitID +")'>审核不通过</a>";
 }
 
 //打开填写框
-function openDig(seqNumber) {
-    document.getElementById("dataID").value = seqNumber ;   	    
-		$('#dlg').dialog('open').dialog('setTitle', '填写审核不通过理由');
+function openDig(seqNumber, fillUnitID) {
+	if(typeof(seqNumber)!="undefined"){
+		if(typeof(fillUnitID)!="undefined"){
+			alert(fillUnitID);
+			document.getElementById("dataID").value = seqNumber ; 
+			document.getElementById("unitID").value = fillUnitID ; 
+		}else{
+			document.getElementById("dataID").value = seqNumber ; 
+		}
+		
+	}else{
+		var year = $("#cbYearContrast").combobox('getValue'); 
+		document.getElementById("dataID").value = year ; 
+	}
+	$('#dlg').dialog('open').dialog('setTitle', '填写审核不通过理由');
 }
 
 //审核不通过
 function addCheckInfo(){
-   seqNum = document.getElementById("dataID").value;
+            dataID = document.getElementById("dataID").value;
 			$('#addReasonForm').form('submit', {
 			url : 'addCheckInfo',
 			data : $('#addReasonForm').serialize(),
 			type : "post",
 			dataType : "json",
 			onSubmit : function() {
-				return validate();
+				return true;
 			},
 			//结果返回
 			success : function(result) {
@@ -197,19 +222,21 @@ function addCheckInfo(){
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
 					$('#dlg').dialog('close');	
-					noPassCheck(seqNum)
+					noPassCheck(dataID)
 				}
 			}
 	});    
 }
 
 function validate() {
-//获取文本框的值
-var reason = $('#noPassReason').val();		
-if( (reason == null) || (reason == '') ||  (reason.length == 0)){
-	alert("理由不能为空!!!");
-	return false;
-}		
-return true;
+	//获取文本框的值
+	alert("test");
+	var reason = $('#noPassReason').val();		
+	if( (reason == null) || (reason == '') ||  (reason.length == 0)){
+		alert("理由不能为空!!!");
+		return false;
+	}		
+	return true;
 }
+
 

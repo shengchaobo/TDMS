@@ -15,6 +15,7 @@ import cn.nit.bean.di.DiTalentTypeBean;
 import cn.nit.bean.di.DiTutorTypeBean;
 import cn.nit.bean.table4.T442_Bean;
 import cn.nit.bean.table4.T443_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
 import cn.nit.service.di.DiTalentTypeService;
@@ -108,7 +109,8 @@ public class T443_Excel {
 				T443_bean.setResField(resField);
 				//插入时间
 				T443_bean.setTime(TimeUtil.changeDateY(selectYear));
-				T443_bean.setCheckState(1);
+				//插入审核状态
+				T443_bean.setCheckState(Constants.WAIT_CHECK);
 				list.add(T443_bean);
 								
 			}catch(Exception e){

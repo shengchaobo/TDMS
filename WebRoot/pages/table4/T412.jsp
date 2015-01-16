@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="height: 100%'"  onload="myMarquee('T412','<%=request.getAttribute("CHECKTYPE") %>')">
   <div  id="floatDiv">
         <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
-        <marquee id="marquee"  scrollAmount="1"  width="900"  height="20" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
         </marquee>       
   </div>
   <br/> 

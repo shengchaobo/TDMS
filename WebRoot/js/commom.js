@@ -188,6 +188,7 @@ function rowformater(value,row,index)
 
 //打开填写框
 function openDig(seqNumber, fillUnitID) {
+	
 	if(typeof(seqNumber)!="undefined"){
 		if(typeof(fillUnitID)!="undefined"){
 			document.getElementById("dataID").value = seqNumber ; 
@@ -200,12 +201,15 @@ function openDig(seqNumber, fillUnitID) {
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		document.getElementById("dataID").value = year ; 
 	}
+	//清空理由框
+	var text = "";
+	document.getElementById("noPassReason").value = text;
 	$('#dlg').dialog('open').dialog('setTitle', '填写审核不通过理由');
 }
 
 //审核不通过
 function addCheckInfo(){
-            dataID = document.getElementById("dataID").value;
+            dataID = document.getElementById("dataID").value;          
 			$('#addReasonForm').form('submit', {
 			url : 'addCheckInfo',
 			data : $('#addReasonForm').serialize(),

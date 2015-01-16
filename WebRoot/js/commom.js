@@ -190,7 +190,6 @@ function rowformater(value,row,index)
 function openDig(seqNumber, fillUnitID) {
 	if(typeof(seqNumber)!="undefined"){
 		if(typeof(fillUnitID)!="undefined"){
-			alert(fillUnitID);
 			document.getElementById("dataID").value = seqNumber ; 
 			document.getElementById("unitID").value = fillUnitID ; 
 		}else{
@@ -230,7 +229,6 @@ function addCheckInfo(){
 
 function validate() {
 	//获取文本框的值
-	alert("test");
 	var reason = $('#noPassReason').val();		
 	if( (reason == null) || (reason == '') ||  (reason.length == 0)){
 		alert("理由不能为空!!!");

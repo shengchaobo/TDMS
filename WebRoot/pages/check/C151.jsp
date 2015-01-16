@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T443/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T512/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -84,9 +84,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
    //全部审核通过
   function checkAll(){
-  			
-  			event.returnValue = confirm("全部数据审核通过，确认吗？");
-  			
 		    $.ajax({
 				    type:"POST", 
 				    url: "pages/T443/checkAll", 
@@ -106,11 +103,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
     }
 	</script>
+
 </head>
 
-<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
-<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 <body style="height: 100%'">
+  <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T443/loadTalentInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
@@ -140,24 +137,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   <div id="toolbar"  style="float: right;">
 			<a href='javascript:checkAll()'   class="easyui-linkbutton" iconCls="icon-download" plain="true"  >
-					一键审核通过
+					一键全审核通过
 			</a>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog"
-		style="width:400px;height:270px;padding:10px 20px;" closed="true"
+		style="width:400px;height:250px;padding:10px 20px;" closed="true"
 		data-options="modal:true" buttons="#dlg-buttons">
 		<form id="addReasonForm" method="post">
-			<table>			
-				<tr>
-					<td>
-						<div class="fitem">
-							<label>审核类型：</label> 
-								<input type="text" name="checkInfo.checkType"  id="checkType"   value="<%=request.getAttribute("CHECKTYPE") %>"
-								readonly="readonly"  style="width: 150px;color: grey"/>
-							</div>
-					</td>
-				</tr>
+			<table>
 				<tr>
 					<td>
 						<div class="fitem">

@@ -1,4 +1,4 @@
-	//全局变量，用来暂存当前的url值
+﻿	//全局变量，用来暂存当前的url值
    var url;
 
 	//弹出添加的界面
@@ -74,6 +74,7 @@
 						$('#dlg').dialog('close');
 						myMarquee('T443', CTypeOne)
 						$('#unverfiedData').datagrid('reload'); // reload the user data
+
 					}else{
 						$('#dlg').dialog('close');
 						$('#unverfiedData').datagrid('reload'); // reload the user data

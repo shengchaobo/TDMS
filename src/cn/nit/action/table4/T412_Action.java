@@ -28,6 +28,7 @@ import cn.nit.constants.Constants;
 import cn.nit.dao.table4.T412_Dao;
 import cn.nit.dao.table4.T42_Dao;
 import cn.nit.service.CheckService;
+import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table4.T412_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -72,6 +73,8 @@ public class T412_Action {
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
 	
 	//查询出所有专业教师
 	public void loadMajorTea() throws Exception{
@@ -180,6 +183,11 @@ public class T412_Action {
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String fillUnitID = bean.getUnitID();
 		T412_bean.setFillUnitID(fillUnitID);
+		
+		String unitName = deSer.getName(fillUnitID);
+		T412_bean.setFromTeaUnit(unitName);
+		T412_bean.setTeaUnitID(fillUnitID);
+		
 		boolean flag = T412_services.insert(T412_bean);
 		PrintWriter out = null ;
 		

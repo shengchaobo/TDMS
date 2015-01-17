@@ -59,6 +59,9 @@ public class T22_Action {
 	//save的字段
 	private String fields;
 	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+	
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
@@ -140,6 +143,34 @@ public class T22_Action {
 			}
 		}
 		out.flush() ;
+	}
+	
+	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = T22_services.updateCheck(this.getSelectYear(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
 	}
 		
 	public InputStream getInputStream() throws Exception{
@@ -299,5 +330,17 @@ public class T22_Action {
 
 	public String getFields() {
 		return fields;
+	}
+
+
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+
+
+	public int getCheckNum() {
+		return checkNum;
 	}
 }

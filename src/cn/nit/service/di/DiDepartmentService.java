@@ -96,6 +96,18 @@ public class DiDepartmentService {
 	public boolean hasDe(String unitID){
 		return departmentDao.hasDe(unitID);
 	}
+	
+	
+	/**
+	 * 根据部分ID获得部门名字
+	 * @param userinfo
+	 * @return
+	 */
+	public String getName(String unitID){
+		
+		return departmentDao.getName(unitID) ;
+	}
+	
 	public static void main(String args[]){
 		DiDepartmentService d =  new DiDepartmentService() ;
 		System.out.println(d.loadDes(null, 10, 3));

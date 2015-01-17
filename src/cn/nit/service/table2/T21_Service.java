@@ -35,5 +35,4 @@ public class T21_Service {
 		return infoDao.updateCheck(selectYear,checkState) ;
 	}
 	
-
 }

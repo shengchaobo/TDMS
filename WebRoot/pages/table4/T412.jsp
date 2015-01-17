@@ -177,20 +177,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   <form id="addForm" method="post">
 		<table>
 			<tr>
-				<td>
-					<input type="hidden" name="T412_bean.SeqNumber"  id="seqNumber"/>
-					<div class="fitem">
-						<label>所属教学单位：</label> 
-						<input type="hidden" name="T412_bean.fromTeaUnit" id="fromTeaUnit"/>
-						<input id="teaUnitID" type="text" name="T412_bean.teaUnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
-							onSelect:function(){
-							    document.getElementById('fromTeaUnit').value=$(this).combobox('getText') ;
-							 }">
-						 <span id="teaUnitIDSpan"></span>
-					</div>
-				</td>
-				<td class="empty"></td>
 				<td colspan="3">
 						<div class="fitem">
 						<label>教工号：</label> 

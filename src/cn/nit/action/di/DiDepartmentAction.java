@@ -136,7 +136,7 @@ public class DiDepartmentAction {
 	}
 	
 	//查出学院
-		public void loadDIDepartmentAca() throws Exception{
+	public void loadDIDepartmentAca() throws Exception{
 			
 			List<DiDepartmentBean> list = deSer.getListAca() ;
 			//将数据转换为json格式
@@ -164,12 +164,6 @@ public class DiDepartmentAction {
 	 * 编辑部门
 	 */
 	public void edit(){
-//		System.out.println("编辑编辑编辑");
-//		System.out.println(de_bean.getClass1());
-//		System.out.println(de_bean.getClass1());
-//		System.out.println(de_bean.getClass2());
-//		System.out.println(de_bean.getFunctions());
-//		System.out.println(de_bean.getLeader());
 				
 		boolean flag = deSer.update(de_bean) ;
 		

@@ -281,6 +281,43 @@ public class DiDepartmentDao {
 			return flag ;
 		}
 		
+		
+		/**
+		 * 根据部门ID获得部门名字
+		 * @param conditions
+		 * @return
+		 */
+		public String getName(String unitID){
+			
+			StringBuffer sql = new StringBuffer() ;
+			sql.append("select UnitName") ;
+			sql.append(" from " + tableName) ;
+			sql.append(" where UnitID='" + unitID +"';") ;
+			
+			String unitName = null;
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			
+			try{
+				st = conn.createStatement() ;
+				rs = st.executeQuery(sql.toString()) ;
+				
+				while(rs.next()){
+					unitName = rs.getString(1) ;
+				}
+			}catch(Exception e){
+				e.printStackTrace() ;
+			}finally{
+				DBConnection.close(rs) ;
+				DBConnection.close(st) ;
+				DBConnection.close(conn) ;
+			}
+			
+			return unitName;
+		}
+		
+		
 		public static void main(String arg[]){
 			
 			DiDepartmentDao dao = new DiDepartmentDao();

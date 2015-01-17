@@ -225,7 +225,7 @@ public class T21_Dao {
 		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where convert(varchar(4),Time,120)=" + year;			
-		System.out.println(sql);
+		//System.out.println(sql);
 		try{			
 			st = conn.createStatement();
 			flag = st.executeUpdate(sql);					

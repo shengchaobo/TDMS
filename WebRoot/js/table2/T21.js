@@ -86,21 +86,29 @@ $(function(){
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
-				    				$("#edit").propertygrid({title:'占地与建筑面积'});		 
+				    				$("#edit").propertygrid({title:'占地与建筑面积'});	
+			    					$("#cancel").show();
+			    					$("#save").show();
+				    				$("#export").hide();
 				    			}else{	
 				    				if(json.checkState==WAITCHECK){
 				    					$("#edit").propertygrid({title:'占地与建筑面积（<font color=red>待审核</font>）'});
 				    					//document.getElementById("export").style.display ="none";
 				    					$("#export").hide();
+				    					$("#cancel").show();
+				    					$("#save").show();
 				    				}
 				    				else if(json.checkState==PASSCHECK){
 				    					$("#edit").propertygrid({title:'占地与建筑面积（<font color=red>审核通过</font>）'});					    				
 				    					$("#cancel").hide();
 				    					$("#save").hide();
+				    					$("#export").show();
 				    				}				    				
 				    				else if(json.checkState==NOPASSCHECK){
 				    					$("#edit").propertygrid({title:'占地与建筑面积（<font color=red>审核未通过</font>）'});	
-				    					$("#export").hide();
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
 				    				}						    				    				
 				    			}		
 			                    var i = 0;		                    
@@ -140,7 +148,10 @@ $(function(){
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
-				    				$("#edit").propertygrid({title:'占地与建筑面积'});		 
+				    				$("#edit").propertygrid({title:'占地与建筑面积'});	
+			    					$("#export").hide();
+			    					$("#cancel").show();
+			    					$("#save").show();
 				    			}else{	
 				    				//alert(json.checkState);
 				    				if(json.checkState==WAITCHECK){

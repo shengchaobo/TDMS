@@ -24,6 +24,7 @@ public class T242_Bean implements java.io.Serializable {
 	private Integer digResVisit;
 	private Date time;
 	private String note;
+	private int CheckState;
 
 	// Constructors
 	@Id
@@ -98,6 +99,14 @@ public class T242_Bean implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public int getCheckState() {
+		return CheckState;
 	}
 
 }

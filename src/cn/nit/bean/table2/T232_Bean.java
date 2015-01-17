@@ -20,6 +20,7 @@ public class T232_Bean implements java.io.Serializable {
 	private Integer computerNum;
 	private Date time;
 	private String note;
+	private int checkState;
 
 	// Property accessors
 	@Id
@@ -64,6 +65,14 @@ public class T232_Bean implements java.io.Serializable {
 
 	public Integer getComputerNum() {
 		return computerNum;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

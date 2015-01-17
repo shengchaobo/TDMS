@@ -29,6 +29,7 @@ public class T241_Bean implements java.io.Serializable {
 	private Integer otherDatabase;
 	private Date time;
 	private String note;
+	private int CheckState;
 
 	// Property accessors
 	@Id
@@ -147,6 +148,14 @@ public class T241_Bean implements java.io.Serializable {
 
 	public void setOtherDatabase(Integer otherDatabase) {
 		this.otherDatabase = otherDatabase;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public int getCheckState() {
+		return CheckState;
 	}
 
 }

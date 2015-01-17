@@ -44,6 +44,7 @@
     <include file="cn/nit/configuration/di/DiCourseCategories.xml"/>
     <include file="cn/nit/configuration/di/DiCourseAttri.xml"/>
     <include file="cn/nit/configuration/di/DiContestScope.xml"/>
+     <include file="cn/nit/configuration/di/DiTableMessage.xml"/>
     
     
      <!-- table4 -->

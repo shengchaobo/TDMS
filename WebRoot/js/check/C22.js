@@ -195,28 +195,29 @@
 					$("#edit").propertygrid( {
 						title : '用房面积'
 					});
+				} 
+				else {
+							//alert(json.checkState);
+					if (json.checkState == WAITCHECK) {
+						$("#edit").propertygrid( {
+							title : '用房面积（<font color=red>待审核</font>）'
+						});
+						//document.getElementById("export").style.display ="none";
+					$("#pass").show();
+					$("#nopass").show();
+				} else if (json.checkState == PASSCHECK) {
+					$("#edit").propertygrid( {
+						title : '用房面积（<font color=red>已审核通过</font>）'
+					});
+					$("#pass").hide();
+					$("#nopass").hide();
 				} else {
-					//alert(json.checkState);
-			if (json.checkState == WAITCHECK) {
-				$("#edit").propertygrid( {
-					title : '用房面积（<font color=red>待审核</font>）'
-				});
-				//document.getElementById("export").style.display ="none";
-			$("#pass").show();
-			$("#nopass").show();
-		} else if (json.checkState == PASSCHECK) {
-			$("#edit").propertygrid( {
-				title : '用房面积（<font color=red>已审核通过</font>）'
-			});
-			$("#pass").hide();
-			$("#nopass").hide();
-		} else {
-			$("#edit").propertygrid( {
-				title : '用房面积（<font color=red>已审核未通过</font>）'
-			});
-			$("#pass").hide();
-			$("#nopass").hide();
-		}
+					$("#edit").propertygrid( {
+						title : '用房面积（<font color=red>已审核未通过</font>）'
+					});
+					$("#pass").hide();
+					$("#nopass").hide();
+				}
 	}
     var i = 0;
     while(i<rows.length){
@@ -248,7 +249,6 @@
 
 	//审核通过
 	$("#pass").click(function() {
-		alert("test");
 		var year = $("#cbYearContrast").combobox('getValue');
 		var checkNum = PASSCHECK;
 		//alert(checkNum);
@@ -271,7 +271,6 @@
 				}
 			});
 		});
-
 })
 
 function reloadgrid(year, flag) {
@@ -282,16 +281,16 @@ function reloadgrid(year, flag) {
 		async : false,
 		dataType : "json",
 		success : function(json) {
-						if (typeof (json.data) != "undefined") {
+			if (typeof (json.data) != "undefined") {
 							alert(json.data);
 							$("#edit").propertygrid( {
-								title : '占地与建筑面积'
+								title : '用房面积'
 							});
 						} else {
 							//alert(json.checkState);
 					if (json.checkState == WAITCHECK) {
 						$("#edit").propertygrid( {
-							title : '占地与建筑面积（<font color=red>待审核</font>）'
+							title : '用房面积（<font color=red>待审核</font>）'
 						});
 						//document.getElementById("export").style.display ="none";
 					$("#pass").show();

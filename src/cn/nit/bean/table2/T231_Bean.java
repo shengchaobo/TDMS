@@ -25,6 +25,7 @@ public class T231_Bean implements java.io.Serializable {
 	private Integer mediaSitNum;
 	private Date time;
 	private String note;
+	private int CheckState;
 
 	// Property accessors
 	@Id
@@ -110,6 +111,14 @@ public class T231_Bean implements java.io.Serializable {
 
 	public Double getClassrmArea() {
 		return classrmArea;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public int getCheckState() {
+		return CheckState;
 	}
 
 }

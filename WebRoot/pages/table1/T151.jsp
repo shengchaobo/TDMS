@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="height: 100%"   onload="myMarquee('T151','<%=request.getAttribute("CHECKTYPE")%>')">
    <div  id="floatDiv">
         <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
-        <marquee id="marquee"  scrollAmount="2"  width="900"  height="20" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
         </marquee>       
   </div>
   <br/>
@@ -171,6 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>科研机构名称：</label> 
 						<input id="seqNumber" type="hidden" name="t151Bean.SeqNumber" value="0"></input>
+						<input id="Time" type="hidden" name="t151Bean.Time" value="0"></input>
 						<input type="hidden" name="t151Bean.ResInsName" id="ResInsName"/>
 						<input id="ResInsID" type="text" name="t151Bean.ResInsID" class='easyui-combobox' 
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentSci' ,listHeight:'auto',editable:false,
@@ -395,10 +396,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T151', CTypeOne);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
 						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
@@ -506,9 +515,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改校级以上科研机构的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
+	    	//alert(formattime(row[0].time));
 	    	$('#ResInsID').combobox('select',row[0].resInsID);
 	    	$('#Type').combobox('select',row[0].typeID);
 	    	$('#BeginYear').datebox('setValue',formattime(row[0].beginYear)) ;
+	    	
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
 	    	var flag1 = "" + row[0].biOpen ;
 	    	var flag2 = "" + row[0].buildCondition ;

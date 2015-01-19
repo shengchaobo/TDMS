@@ -28,7 +28,10 @@ public class CheckInfoAction {
 	//加载谋个表审核未通过信息
 	public void loadInfo(){		
 		//System.out.println(this.getCheckType());
+		System.out.println("表名："+this.getTableName());
+		System.out.println("类型"+this.getCheckType());
 		String checkInfo  = check_services.loadInfo(this.getTableName(),this.getCheckType());
+		System.out.println("checkInfo:"+checkInfo);
 		
 		PrintWriter out = null ;
 		

@@ -56,13 +56,13 @@ import cn.nit.util.TimeUtil;
 			return t151Dao.update(t151Bean) ;
 		}
 		
-		private void setAudit(T151Bean t151Bean){
-			
-			String audit = DIResourceDAO.getAudit(t151Dao.getTableName()) ;
-			
-			String audits[] = audit.split(",") ;
-//			t151Bean.setAudit(audits[0]) ;
-		}
+//		private void setAudit(T151Bean t151Bean){
+//			
+//			String audit = DIResourceDAO.getAudit(t151Dao.getTableName()) ;
+//			
+//			String audits[] = audit.split(",") ;
+////			t151Bean.setAudit(audits[0]) ;
+//		}
 		
 		/**按id删除数据*/
 		public boolean deleteCoursesByIds(String ids){

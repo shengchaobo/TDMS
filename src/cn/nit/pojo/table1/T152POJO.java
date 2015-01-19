@@ -9,6 +9,8 @@ public class T152POJO {
 	private String ResInsName;//科研机构名称
 	/**单位号*/
 	private String ResInsID;//单位号
+	/**填报单位*/
+	private String FillUnitID;//填报单位号
 	/**类别*/
 	private String Type;//类别
 	private String TypeID;
@@ -26,6 +28,9 @@ public class T152POJO {
 	private Date BeginYear;//开设年份
 	/**面积*/
 	private double HouseArea;//面积
+	/**审核状态*/
+	private int CheckState;
+	
 	private Date Time;
 	private String Note;
 	
@@ -47,7 +52,13 @@ public class T152POJO {
 	public void setResInsID(String resInsID) {
 		ResInsID = resInsID;
 	}
-//	public String getResInsLevel() {
+public String getFillUnitID() {
+		return FillUnitID;
+	}
+	public void setFillUnitID(String fillUnitID) {
+		FillUnitID = fillUnitID;
+	}
+	//	public String getResInsLevel() {
 //		return ResInsLevel;
 //	}
 //	public void setResInsLevel(String resInsLevel) {
@@ -106,6 +117,12 @@ public class T152POJO {
 	}
 	public void setHouseArea(double houseArea) {
 		HouseArea = houseArea;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

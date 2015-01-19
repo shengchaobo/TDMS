@@ -23,6 +23,7 @@ public class T611_Bean implements java.io.Serializable {
 	private Integer undergraThisYearNum;
 	private Integer juniorLastYearNum;
 	private Integer juniorThisYearNum;
+	private int CheckState;
 	private Date time;
 	private String note;
 	
@@ -73,6 +74,12 @@ public class T611_Bean implements java.io.Serializable {
 	}
 	public void setJuniorThisYearNum(Integer juniorThisYearNum) {
 		this.juniorThisYearNum = juniorThisYearNum;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return time;

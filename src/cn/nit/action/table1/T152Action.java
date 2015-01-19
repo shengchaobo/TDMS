@@ -20,8 +20,11 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T152Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T152DAO;
 import cn.nit.excel.imports.table1.T152Excel;
+import cn.nit.service.CheckService;
+import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table1.T152Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -41,8 +44,14 @@ public class T152Action {
 	/**  表152的Excel实体类  */
 	private T152Excel t152Excel=new T152Excel();
 	
+	/**取得某个表的审核信息*/
+	private CheckService check_services = new CheckService();
+	
 	/**excel导出名字*/
 	private String excelName; //
+	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
 	
 	public void setExcelName(String excelName) {
 		this.excelName = excelName;
@@ -57,6 +66,9 @@ public class T152Action {
 	/**  待审核数据查询的结束时间  */
 	private Date endTime ;
 	
+	/**  导出时间  */
+	private String selectYear ;
+	
 	/**  数据的SeqNumber编号  */
 	private String ids ;
 	
@@ -69,6 +81,10 @@ public class T152Action {
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
+	
+	//正在登陆的用户信息
 	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 	String fillUnitID = bean.getUnitID();
 	
@@ -76,9 +92,13 @@ public class T152Action {
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t152Bean.setTime(new Date()) ;
+		t152Bean.setCheckState(Constants.WAIT_CHECK);
 //		System.out.println(t152Bean.getTime());
 		//c插入教学单位
+		String UnitName = deSer.getName(fillUnitID);
 		t152Bean.setFillUnitID(fillUnitID);
+		t152Bean.setUnitID(fillUnitID);
+		t152Bean.setTeaUnit(UnitName);
 		System.out.println("fillUnitID:"+fillUnitID);
 		boolean flag = t152Ser.insert(t152Bean) ;
 		PrintWriter out = null ;
@@ -106,7 +126,9 @@ public class T152Action {
 	/**  为界面加载数据  */
 	public void auditingData(){
 		
-		System.out.println("fillUnitID:"+fillUnitID);
+//		System.out.println("加载数据");
+//		System.out.println("fillUnitID:"+fillUnitID);
+//		System.out.println("审核状态："+this.getCheckNum());
 			
 //			System.out.println("輸出輸出輸出");
 			
@@ -121,9 +143,9 @@ public class T152Action {
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
 			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){	
 				cond = null;	
-			}else{			
+			}else{	
 				if(this.getSeqNum()!=null){
 					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
 				}
@@ -137,10 +159,33 @@ public class T152Action {
 					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
+				
+				//审核状态判断
+				if(this.getCheckNum() == Constants.WAIT_CHECK ){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
+					conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
+				}
+				
 				cond = conditions.toString();
+//				System.out.println("条件："+cond);
+			}
+			
+			//具体教学单位
+			String fillUnitID;
+			String tempUnitID = bean.getUnitID().substring(0,1);
+			if("3".equals(tempUnitID)){
+				fillUnitID = bean.getUnitID();//是教学单位
+			}else{
+				fillUnitID = null;
 			}
 
 			String pages = t152Ser.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
+//			System.out.println("pages:"+pages);
 			PrintWriter out = null ;
 			
 			try{
@@ -162,16 +207,47 @@ public class T152Action {
 	public void edit(){
 //		System.out.println("hello");
 		System.out.println("year:"+t152Bean.getBeginYear());
-		t152Bean.setFillUnitID(fillUnitID);
-		t152Bean.setTime(new Date());
-		boolean flag = t152Ser.update(t152Bean) ;
+		
+		boolean flag = false;
+		
+		int tag = 0;
+		//获得该条审数据审核状态
+		int state = t152Ser.getCheckState(t152Bean.getSeqNumber());
+		
+		//如果是待审核，直接修改
+		if(state == Constants.WAIT_CHECK){
+			t152Bean.setCheckState(Constants.WAIT_CHECK);
+			//t152Bean.setFillUnitID(fillUnitID);
+			//t152Bean.setTime(new Date());
+			flag = t152Ser.update(t152Bean) ;
+			if(flag) tag = 1;
+		}
+		
+
+		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+		if(state == Constants.NOPASS_CHECK){
+			t152Bean.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = t152Ser.update(t152Bean) ;
+			boolean flag2 = check_services.delete("T152",t152Bean.getSeqNumber());
+			if(flag1&&flag2){
+				flag = true;
+				tag = 2;
+			}
+		}
+		
+//		t152Bean.setFillUnitID(fillUnitID);
+//		t152Bean.setTime(new Date());
+//		boolean flag = t152Ser.update(t152Bean) ;
 		PrintWriter out = null ;
 		
 		try{
 			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
-			if(flag){
+			if(tag == 1){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+			}
+			else if(tag == 2){
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;	
 			}else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
@@ -179,6 +255,59 @@ public class T152Action {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = t152Ser.updateCheck(this.getSeqNum(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  全部审核通过  */
+	public void checkAll(){
+		System.out.println("全部审核通过");
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = t152Ser.checkAll();
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"一键审核成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
@@ -212,14 +341,14 @@ public class T152Action {
 		}
 	}
  
-	
+	/**导出数据：只有审核通过的才能导出*/
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
 
 		try {
 			
-			List<T152Bean> list = t152Dao.totalList(fillUnitID);
+			List<T152Bean> list = t152Dao.totalList(fillUnitID,this.selectYear,Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -276,9 +405,6 @@ public class T152Action {
 		this.t152Bean = t152Bean;
 	}
 
-	
-	
-	
 	public Integer getSeqNum() {
 		return seqNum;
 	}
@@ -325,6 +451,22 @@ public class T152Action {
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+	
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+	
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
 	}
 
 	public String getExcelName() {

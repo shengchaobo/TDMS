@@ -213,7 +213,7 @@ public class T151DAO {
 		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
 		sql.append(" and CheckState="+Constants.PASS_CHECK);
 		sql.append(" and t.Time like '"+year+"%'");
-		System.out.println(sql.toString());
+//		System.out.println(sql.toString());
 
 		
 		

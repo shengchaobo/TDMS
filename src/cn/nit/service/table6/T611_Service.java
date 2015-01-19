@@ -25,5 +25,15 @@ public class T611_Service {
 	public Boolean save(T611_Bean bean, String year, String fields){
 		return infoDao.save(bean,year,fields);
 	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(String selectYear, int checkState){
+		return infoDao.updateCheck(selectYear,checkState) ;
+	}
+
 
 }

@@ -38,6 +38,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table2.T252_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
@@ -139,6 +140,9 @@ public class T252_Excel {
 				T252_bean.setPractiseItemNum(Integer.parseInt(practiseItemNum));
 				//插入时间
 				T252_bean.setTime(TimeUtil.changeDateY(selectYear));
+				
+				//插入审核状态
+				T252_bean.setCheckState(Constants.WAIT_CHECK);
 				
 				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 				String fillUnitID = bean.getUnitID();

@@ -70,11 +70,17 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						myMarquee('T252', CTypeTwo)
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
-			});
+		});
 	}
 
 	//对输入字符串进行验证
@@ -88,17 +94,10 @@
 		var expHour = $('#expHour').val();
 		var expTimes = $('#expTimes').val();
 		var practiseItemNum = $('#practiseItemNum').val();
-		var expCenterName = $('#expCenterName').val();
-		var unitName = $('#teaUnitID').combobox('getText');
-		
+		var expCenterName = $('#expCenterName').val();		
 		
 		if($('#expCenterName').val() == null || $('#expCenterName').val()==""){
 			alert("实验中心名称不能为空");
-			return false;
-	    }
-		
-		if(unitName == null || unitName==""){
-			alert("所属教学单位不能为空");
 			return false;
 	    }
 		
@@ -164,7 +163,8 @@
    	$('#dlg').dialog('open').dialog('setTitle','修改实验、实习、实训场所的信息');
    	$('#seqNumber').val(row[0].seqNumber) ;
    	$('#expCenterName').val(row[0].expCenterName) ;
-  	$('#teaUnitID').combobox('select', row[0].teaUnitID) ;
+   	$('#teaUnitID').val(row[0].teaUnitID) ;
+	$('#teaUnit').val(row[0].teaUnit) ;
   	$('#labName').val(row[0].labName) ;
 	$('#expClassHour').val(row[0].expClassHour) ;
 	$('#stuNum').val(row[0].stuNum) ;	
@@ -220,10 +220,16 @@
    		success : function(result) {
 			result = eval("(" + result + ")");
 			if (result.state) {
-				$('#unverfiedData').datagrid('reload');
+				alert(result.data);
+				myMarquee('T252', CTypeTwo);
+				$('#unverfiedData').datagrid('reload'); // reload the user data
 			}
 		}
    	}).submit();
    }
 
+   //提交导出表单
+   function submitForm(){
+   	  document.getElementById('exportForm').submit();
+   }
 	

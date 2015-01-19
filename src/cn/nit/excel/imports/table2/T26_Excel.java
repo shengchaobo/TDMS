@@ -37,6 +37,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table2.T26_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
@@ -159,6 +160,9 @@ public class T26_Excel {
 				T26_bean.setBaseLevel(baseLevel);
 				//插入时间
 				T26_bean.setTime(TimeUtil.changeDateY(selectYear));
+				//插入审核状态
+				T26_bean.setCheckState(Constants.WAIT_CHECK);
+				
 				list.add(T26_bean);
 								
 			}catch(Exception e){

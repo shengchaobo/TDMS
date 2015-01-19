@@ -48,6 +48,9 @@ public class T412_Action {
 	
 	private CheckService check_services = new CheckService();
 	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
+	
 	/**  待审核数据的要删除的序列集  */
 	private String ids; //删除的id
 	
@@ -73,8 +76,7 @@ public class T412_Action {
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
-	/**  部门管理Service类  */
-	private DiDepartmentService deSer = new DiDepartmentService() ;
+
 	
 	//查询出所有专业教师
 	public void loadMajorTea() throws Exception{
@@ -218,9 +220,10 @@ public class T412_Action {
 		int tag = 0;
 		//获得该条数据审核状态
 		int state = T412_services.getCheckState(T412_bean.getSeqNumber());
-		
+		System.out.println("test"+state);
 		//如果审核状态是待审核，则直接修改
 		if(state == Constants.WAIT_CHECK){
+			System.out.println("test"+state);
 			T412_bean.setCheckState(Constants.WAIT_CHECK);
 			flag = T412_services.update(T412_bean) ;
 			if(flag) tag = 1;

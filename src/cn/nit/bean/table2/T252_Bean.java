@@ -32,6 +32,7 @@ public class T252_Bean implements java.io.Serializable {
 	private Date time;
 	private String note;
 	private String fillUnitID;
+	private int CheckState;
 
 
 	// Property accessors
@@ -151,6 +152,14 @@ public class T252_Bean implements java.io.Serializable {
 
 	public String getTeaUnitID() {
 		return teaUnitID;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public int getCheckState() {
+		return CheckState;
 	}
 
 }

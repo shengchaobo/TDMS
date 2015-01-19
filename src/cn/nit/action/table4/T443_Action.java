@@ -265,6 +265,7 @@ public class T443_Action {
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
 		boolean flag = T443_services.checkAll();
+		
 		PrintWriter out = null ;
 		
 		try{
@@ -289,7 +290,12 @@ public class T443_Action {
 	/**  根据数据的id删除数据  */
 	public void deleteByIds(){
 		System.out.println("ids=" + this.getIds()) ;
+		
 		boolean flag = T443_services.deleteByIds(ids) ;
+		
+		//删除审核不通过信息
+		check_services.delete("T443", ids);
+		
 		PrintWriter out = null ;
 		
 		try{			

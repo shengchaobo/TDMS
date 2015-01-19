@@ -193,7 +193,8 @@
 
 			if (result.state) {
 				alert(result.data);
-				$('#unverfiedData').datagrid('reload');
+				myMarquee('T412', CTypeTwo);
+				$('#unverfiedData').datagrid('reload'); // reload the user data
 			}
 		}
     	}).submit();

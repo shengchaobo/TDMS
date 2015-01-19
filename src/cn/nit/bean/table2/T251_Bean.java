@@ -34,6 +34,7 @@ public class T251_Bean implements java.io.Serializable {
 	private String forMajor;
 	private Date time;
 	private String note;
+	private int CheckState;
 
 
 
@@ -170,6 +171,14 @@ public class T251_Bean implements java.io.Serializable {
 
 	public double getNewAddArea() {
 		return newAddArea;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public int getCheckState() {
+		return CheckState;
 	}
 
 }

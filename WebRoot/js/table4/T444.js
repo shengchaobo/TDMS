@@ -194,6 +194,7 @@
 	   		success : function(result) {
 				result = eval("(" + result + ")");
 				if (result.state) {
+					alert(result.data);
 					$('#unverfiedData').datagrid('reload');
 				}
 			}

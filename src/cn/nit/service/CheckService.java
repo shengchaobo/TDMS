@@ -45,6 +45,19 @@ public class CheckService {
 		return checkDao.delete(tableID, checkID) ;
 	}
 	
+	
+	
+	/**
+	 * 删除相应多条数据的checkInfo
+	 * @param 
+	 * @return
+	 */
+	
+	public boolean delete(String tableID, String checkIDs){		
+		return checkDao.delete(tableID, checkIDs) ;
+	}
+	
+	
 	/**
 	 * 添加相应某条数据的checkInfo
 	 * @param 

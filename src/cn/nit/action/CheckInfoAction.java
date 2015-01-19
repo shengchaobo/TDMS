@@ -102,7 +102,7 @@ public class CheckInfoAction {
 			}
 		}
 	}
-	
+		
 
 	public void setCheckInfo(CheckInfo checkInfo) {
 		this.checkInfo = checkInfo;

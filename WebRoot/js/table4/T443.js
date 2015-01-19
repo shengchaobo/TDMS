@@ -182,7 +182,9 @@
 	   		success : function(result) {
 				result = eval("(" + result + ")");
 				if (result.state) {
-					$('#unverfiedData').datagrid('reload');
+					alert(result.data);
+					myMarquee('T443', CTypeOne);
+					$('#unverfiedData').datagrid('reload'); // reload the user data
 				}
 			}
 	   	}).submit();

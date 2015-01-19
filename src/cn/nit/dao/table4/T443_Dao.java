@@ -29,7 +29,7 @@ public class T443_Dao {
 		+ " from " + tableName +
 		" left join " + tableName2+ " on " + "Type=" + tableName2 + ".IndexID " +
 		" where CheckState=" + checkState + " and Time like '"+year+"%'";
-		System.out.println(sql);
+		//System.out.println(sql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -105,7 +105,7 @@ public class T443_Dao {
 		String queryPageSql = "select count(*) " 
 		+ " from " + tableName + 
 		" where " + Cond ;
-		System.out.println(queryPageSql);
+		//System.out.println(queryPageSql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -228,7 +228,7 @@ public class T443_Dao {
 		StringBuffer sql = new StringBuffer();
 		sql.append("delete from " + tableName);
 		sql.append(" where " + keyfield + " in " + ids);
-		System.out.println(sql.toString());
+		//System.out.println(sql.toString());
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 

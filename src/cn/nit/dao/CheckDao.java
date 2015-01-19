@@ -76,7 +76,39 @@ public class CheckDao {
 		StringBuffer sql = new StringBuffer();
 		sql.append("delete from " + tableName);
 		sql.append(" where TableID='" + tableID + "' and CheckID=" + checkID + ";" );
-		System.out.println(sql.toString());
+		//System.out.println(sql.toString());
+		Connection conn = DBConnection.instance.getConnection();
+		Statement st = null;
+
+		try {
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 删除多条数据
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean delete(String tableID, String checkIDs) {
+
+		int flag = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append("delete from " + tableName);
+		sql.append(" where TableID='" + tableID + "' and  CheckID in " + checkIDs);
+		//System.out.println(sql.toString());
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 

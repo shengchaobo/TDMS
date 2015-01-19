@@ -265,6 +265,10 @@ public class T412_Action {
 	public void deleteByIds(){
 		System.out.println("ids=" + this.getIds()) ;
 		boolean flag = T412_services.deleteByIds(ids) ;
+		
+		//删除审核不通过信息
+		check_services.delete("T412", ids);
+		
 		PrintWriter out = null ;
 		
 		try{

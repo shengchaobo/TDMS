@@ -41,6 +41,7 @@ public class T152Service {
 			public String auditingData(String conditions, String fillUnitId, int page, int rows){
 					
 			    int total = t152Dao.totalAuditingData(conditions, fillUnitId) ;
+			    
 				List<T152POJO> list = t152Dao.auditingData(conditions, fillUnitId, page, rows) ;
 				Pagition pages = new Pagition(total, list) ;
 				System.out.println("total:"+total);
@@ -99,6 +100,33 @@ public class T152Service {
 			public boolean deleteCoursesByIds(String ids){
 				
 				return t152Dao.deleteCoursesByIds(ids) ;
+			}
+			
+			/**
+			 * 更新该条数据审核状态
+			 * @param 
+			 * @return
+			 */
+			public boolean updateCheck(int seqNum, int checkState){
+				return t152Dao.updateCheck(seqNum,checkState) ;
+			}
+			
+			/**
+			 * 全部审核通过
+			 * @param 
+			 * @return
+			 */
+			public boolean checkAll(){
+				return t152Dao.checkAll() ;
+			}
+			
+			/**
+			 * 得到该条数据审核状态
+			 * @param 
+			 * @return
+			 */
+			public int getCheckState(int seqNumber){
+				return t152Dao.getCheckState(seqNumber) ;
 			}
 			
 			/**批量导入*/

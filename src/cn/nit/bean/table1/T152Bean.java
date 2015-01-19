@@ -16,6 +16,8 @@ public class T152Bean {
 	private String UnitID;//教学单位
 	private Date BeginYear;//开设年份
 	private double HouseArea;//面积
+	private int CheckState;//审核状态
+	
 	private Date Time;
 	private String Note;
 	
@@ -91,6 +93,12 @@ public class T152Bean {
 	}
 	public void setHouseArea(double houseArea) {
 		HouseArea = houseArea;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

@@ -33,6 +33,30 @@
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
+				    				$("#edit").propertygrid({title:'本专科学生数量基本情况'});		
+			    					$("#cancel").show();
+			    					$("#save").show();
+				    				$("#export").hide();
+				    			}else{
+				    				if(json.checkState==WAITCHECK){
+				    					$("#edit").propertygrid({title:'本专科学生数量基本情况（<font color=red>待审核</font>）'});
+				    					//document.getElementById("export").style.display ="none";
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}
+				    				else if(json.checkState==PASSCHECK){
+				    					$("#edit").propertygrid({title:'本专科学生数量基本情况（<font color=red>审核通过</font>）'});					    				
+				    					$("#cancel").hide();
+				    					$("#save").hide();
+				    					$("#export").show();
+				    				}				    				
+				    				else if(json.checkState==NOPASSCHECK){
+				    					$("#edit").propertygrid({title:'本专科学生数量基本情况（<font color=red>审核未通过</font>）'});	
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}						
 				    			}
 			                    var i = 0;
 			                    while(i < rows.length){
@@ -71,6 +95,31 @@
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
+				    				$("#edit").propertygrid({title:'本专科学生数量基本情况'});		
+			    					$("#cancel").show();
+			    					$("#save").show();
+				    				$("#export").hide();
+				    			}else{
+				    				
+				    				if(json.checkState==WAITCHECK){
+				    					$("#edit").propertygrid({title:'本专科学生数量基本情况（<font color=red>待审核</font>）'});
+				    					//document.getElementById("export").style.display ="none";
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}
+				    				else if(json.checkState==PASSCHECK){
+				    					$("#edit").propertygrid({title:'本专科学生数量基本情况（<font color=red>审核通过</font>）'});					    				
+				    					$("#cancel").hide();
+				    					$("#save").hide();
+				    					$("#export").show();
+				    				}				    				
+				    				else if(json.checkState==NOPASSCHECK){
+				    					$("#edit").propertygrid({title:'本专科学生数量基本情况（<font color=red>审核未通过</font>）'});	
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}				
 				    			}
 			                    var i = 0;
 			                    while(i < rows.length){
@@ -130,7 +179,8 @@
 										alert("保存失败");
 										flag = false;
 				                }
-			    		})		    		
+			    		})	
+			    		myMarquee('T611', CTypeThree)
 						reloadgrid (year,flag) 	;
      					$('#edit').propertygrid('loadData', rows);						 					 
 				});		

@@ -188,7 +188,6 @@ function rowformater(value,row,index)
 
 //打开填写框
 function openDig(seqNumber, fillUnitID) {
-	
 	if(typeof(seqNumber)!="undefined"){
 		if(typeof(fillUnitID)!="undefined"){
 			document.getElementById("dataID").value = seqNumber ; 

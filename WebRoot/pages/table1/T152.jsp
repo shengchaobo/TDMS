@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
+
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -32,12 +34,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" class="easyui-datagrid"  url="pages/T152/auditingData" >
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+
+<body style="height: 100%"   onload="myMarquee('T152','<%=request.getAttribute("CHECKTYPE")%>')">
+
+<div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  </br>
+  
+	<table id="unverfiedData" class="easyui-datagrid"  url="pages/T152/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>" style="height: auto"  > 
 		<thead data-options="frozen:true">
 					<tr>			
 					<th data-options="field:'ck',checkbox:true">选取</th>
 					<th field="seqNumber">编号</th>
+					<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 					<th field="resInsName" >科研机构名称</th>
 					<th field="resInsID" >单位号</th>
 		   	  		</tr>
@@ -97,33 +113,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	
-	<table id="verfiedData" class="easyui-datagrid"  url="">
+	<table id="verfiedData" class="easyui-datagrid"  url="pages/T152/auditingData?checkNum=<%=request.getAttribute("PASS")%>"  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
-				<th field="ResInsName" >科研机构名称</th>
-				<th field="ResInsID" >单位号</th>
+				<th field="resInsName" >科研机构名称</th>
+				<th field="resInsID" >单位号</th>
 		     </tr>
 		</thead>
 		<thead>
 			<tr>
 				
-				<th field="Type" >类别</th>
-				<th field="BuildCondition" >共建情况</th>
-				<th field="BiOpen"  >是否对本科生开放</th>
-				<th field="OpenCondition"  >对本科生开放情况（500字以内）</th>
-				<th field="TeaUnit" >所属教学单位</th>
-				<th field="UnitID" width=10>教学单位号</th>
-				<th field="BeginYear"  fit="true">开设年份</th>
-				<th field="HouseArea" >专业科研用房面积（平方米）</th>
-				<th field="Note" >备注</th>
+				<th field="type" >类别</th>
+				<th field="buildCondition" formatter="booleanstr">共建情况</th>
+				<th field="biOpen"  formatter="booleanstr">是否对本科生开放</th>
+				<th field="openCondition"  >对本科生开放情况（500字以内）</th>
+				<th field="teaUnit" >所属教学单位</th>
+				<th field="unitID" >教学单位号</th>
+				<th field="beginYear"  fit="true" formatter="formattime">开设年份</th>
+				<th field="houseArea" >专业科研用房面积（平方米）</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
+	<form action='pages/T152/dataExport?excelName=<%=URLEncoder.encode("表1-5-2教学单位科研机构","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	
-		<a href='pages/T152/dataExport?excelName=<%=URLEncoder.encode("表1-5-2教学单位科研机构","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		<!--  <a href='pages/T152/dataExport?excelName=<%=URLEncoder.encode("表1-5-2教学单位科研机构","UTF-8")%>' 
+		 class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+		 -->
 	</div>
 	
 	
@@ -149,6 +173,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>科研机构名称：</label> 
 						<input id="seqNumber" type="hidden"name="t152Bean.SeqNumber" value="0"></input>
+						<input id="Time" type="hidden"name="t152Bean.Time" value="0"></input>
+						<input id="TeaUnit" type="hidden"name="t152Bean.TeaUnit" value="0"></input>
+						<input id="UnitID" type="hidden"name="t152Bean.UnitID" value="0"></input>
+						<input id="FillUnitID" type="hidden"name="t152Bean.FillUnitID" value="0"></input>
 					<!--	<input id="fillUnitID" type="hidden"name="t152Bean.fillUnitID" value="0"></input> -->
 						<input type="hidden" name="t152Bean.ResInsName" id="ResInsName"/>
 						<input id="ResInsID" type="text" name="t152Bean.ResInsID" class='easyui-combobox' 
@@ -178,6 +206,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 				<td class="empty"></td>
+				<td style="valign:left" colspan="3">
+					<div class="fitem">
+						<label>专业科研用房面积（平方米）：</label> 
+						<input id="HouseArea" type="text" name="t152Bean.HouseArea" 
+						class="easyui-numberbox"  data-options="min:1,precision:2" required="true">
+						   <span id="HouseAreaSpan"></span>
+					</div>
+				</td>
+				<!--  
 				<td>
 					<div class="fitem">
 						<label>所属教学单位：</label> 
@@ -191,6 +228,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <span id="TeaUnitSpan"></span>
 					</div>
 				</td>
+				-->
 			</tr>
 			<tr>
 			    <td>
@@ -215,18 +253,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 			</tr>
-			
-			<tr>
-				<td style="valign:left" colspan="3">
-					<div class="fitem">
-						<label>专业科研用房面积（平方米）：</label> 
-						<input id="HouseArea" type="text" name="t152Bean.HouseArea" 
-						class="easyui-numberbox"  data-options="min:1,precision:2" required="true">
-						   <span id="HouseAreaSpan"></span>
-					</div>
-				</td>
-			</tr>
-			
 		    <tr>
 				<td style="valign:left" colspan="3">
 					<div class="fitem">
@@ -279,7 +305,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
 	
 	function singleSearch(){
-		alert(123);
+		//alert(123);
    	 $('#auditing').form('submit',{
    		 url: 'pages/UndergraCSBaseTea/singleSearch',
    		 type: "post",
@@ -373,10 +399,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T152', CTypeTwo);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
 						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
@@ -386,7 +420,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var resInsName = $('#ResInsName').val();
 			var type = $('#Type').combobox('getText') ;
 			var beginYear= $('#BeginYear').datebox('getValue') ;
-			var teaUnit = $('#TeaUnit').val();
+			//var teaUnit = $('#TeaUnit').val();
 			var buildCondition = $('#BuildCondition').combobox('getText');
 			var biOpen = $('#BiOpen').combobox('getText');
 			var houseArea=$('#HouseArea').val();
@@ -416,15 +450,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                // $('#BeginYearSpan').html("<font style=\"color:red\">开设年份不能为空</font>") ;
                 return false;
 			}
-
-			if(teaUnit == null || teaUnit.length == 0){
-				$('#TeaUnit').focus();
-				$('#TeaUnit').select();
-				alert("教学单位不能为空");
+         
+			//if(teaUnit == null || teaUnit.length == 0){
+			//	$('#TeaUnit').focus();
+			//	$('#TeaUnit').select();
+			//	alert("教学单位不能为空");
                // $('#TeaUnitSpan').html("<font style=\"color:red\">教学单位不能为空</font>") ;
-                return false;
-			}
-
+             //   return false;
+			//}
+         
 			if(buildCondition == null || buildCondition.length == 0){
 				$('#BuildCondition').focus();
 				$('#BuildCondition').select();
@@ -470,7 +504,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//编辑数据
 	    function edit(){
 	    	var row = $('#unverfiedData').datagrid('getSelections');
-	    	
 	    	if(row.length != 1){
 	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
 	    		return ;
@@ -484,13 +517,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改教学单位科研机构的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
-	    	//$('#fillUnitID').val(row[0].fillUnitID) ;
-	    	//alert(row[0].fillUnitID);
+	    	$('#Time').val(formattime(row[0].time)) ;
+	    	$('#FillUnitID').val((row[0].fillUnitID)) ;
+	    
 	    	$('#ResInsID').combobox('select',row[0].resInsID);
 	    	$('#Type').combobox('select',row[0].typeID);
 	    	$('#BeginYear').datebox('setValue',formattime(row[0].beginYear)) ;
-	    	alert(formattime(row[0].beginYear));
-	    	$('#UnitID').combobox('select',row[0].unitID) ;
+	    	//alert(formattime(row[0].beginYear));
+	    	$('#UnitID').val(row[0].unitID) ;
+	    	$('#TeaUnit').val(row[0].teaUnit) ;
 	    	var flag1 = "" + row[0].biOpen ;
 	    	var flag2 = "" + row[0].buildCondition ;
 	    	$('#BuildCondition').combobox('select', flag2) ;
@@ -551,6 +586,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    loadDictionary() ;
 		    
 	    }
+
+
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }
 	    </script>
 
 	<script type="text/javascript"> 
@@ -578,6 +619,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    }  
 			</script>
 			
+				<!--导入数据年份选择 -->
 			<script type="text/javascript"> 
 		    function booleanstr(val) { 	 
 		    	if(val == null){
@@ -595,6 +637,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        }  
 			</script>
 			
+			<!--导出表年份选择 -->
 			<script type="text/javascript">
 		    	var currentYear = new Date().getFullYear();
 		    	var select = document.getElementById("cbYearContrast");
@@ -605,5 +648,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        	select.appendChild(theOption);
 		    	}
 			</script>
+			
+			<script type="text/javascript">
+		    	var currentYear = new Date().getFullYear();
+		    	var select = document.getElementById("cbYearContrast1");
+		    	for (var i = 0; i <= 10; i++) {
+		        var theOption = document.createElement("option");
+		        	theOption.innerHTML = currentYear-i + "年";
+		        	theOption.value = currentYear-i;
+		        	select.appendChild(theOption);
+		    	}
+			</script>
+			
+			
 
 </html>

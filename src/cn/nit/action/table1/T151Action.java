@@ -117,7 +117,7 @@ public class T151Action {
 	/**  为界面加载数据  */
 	public void auditingData(){
 			
-			System.out.println("輸出輸出輸出");
+//			System.out.println("輸出輸出輸出");
 			
 			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 				return ;
@@ -148,7 +148,7 @@ public class T151Action {
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
 				
-				System.out.println("审核状态："+this.getCheckNum());
+//				System.out.println("审核状态："+this.getCheckNum());
 				
 				//审核状态判断
 				if(this.getCheckNum() == Constants.WAIT_CHECK ){

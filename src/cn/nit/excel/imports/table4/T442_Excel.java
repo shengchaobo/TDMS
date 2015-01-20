@@ -13,6 +13,7 @@ import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.di.DiTutorTypeBean;
 import cn.nit.bean.table4.T442_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
 import cn.nit.service.di.DiTutorTypeService;
@@ -162,6 +163,8 @@ public class T442_Excel {
 				T442_bean.setUnitId(unitId);
 				//插入时间
 				T442_bean.setTime(TimeUtil.changeDateY(selectYear));
+				//插入审核状态
+				T442_bean.setCheckState(Constants.WAIT_CHECK);
 				list.add(T442_bean);
 								
 			}catch(Exception e){

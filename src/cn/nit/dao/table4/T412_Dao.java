@@ -193,7 +193,7 @@ public class T412_Dao {
 		StringBuffer sql = new StringBuffer();
 		sql.append("delete from " + tableName);
 		sql.append(" where " + keyfield + " in " + ids);
-		System.out.println(sql.toString());
+		//System.out.println(sql.toString());
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;
 

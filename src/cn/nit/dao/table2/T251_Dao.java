@@ -28,7 +28,7 @@ public class T251_Dao {
 		
 		String sql = "select " + " " + keyfield + "," + field 
 		+ " from " + tableName +  
-		" where CheckState=" + checkState + " and Time like '"+year+"%'";;
+		" where CheckState=" + checkState + " and Time like '"+year+"%'";
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>T412_AllMajTeaInfo_TeaPer</title>
+<title>T252</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T412/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T252/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T412/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T252/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			if(confirm("全部数据审核通过，该操作不可恢复，确认吗？")){ 					
 				    $.ajax({
 						    type:"POST", 
-						    url: "pages/T412/checkAll", 
+						    url: "pages/T252/checkAll", 
 					   		async : "true",
 					   		dataType : "text",
 						    success:function(result){  
@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 <body style="height: 100%" >  
-	<table  id="checkData"  class="easyui-datagrid"  url="pages/T412/loadMajorTea?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
+	<table  id="checkData"  class="easyui-datagrid"  url="pages/T252/loadExpInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
@@ -119,31 +119,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 		<thead>
 				<tr>		
-					<th  data-options="field:'seqNumber'" >编号</th>			
-					<th data-options="field:'fromTeaUnit'">
+					<th  data-options="field:'seqNumber'" >编号</th>
+					<th data-options="field:'expCenterName'">
+					  实验中心名称
+					</th>
+					<th data-options="field:'teaUnit'">
 						所属教学单位
 					</th>
 					<th data-options="field:'teaUnitID'">
 						教学单位号
 					</th>
-					<th data-options="field:'majorName'">
-						专业名称
+					<th data-options="field:'labName'">
+						下属实验室名称
 					</th>
-					<th data-options="field:'majorID'">
-						专业代码
+					<th data-options="field:'expClassHour'">
+						每次实验教学学时数
+					</th>	
+					<th data-options="field:'stuNum'">
+						每次可容纳的学生数（个）
 					</th>
-					<th data-options="field:'teaId'">
-						教工号
-					</th>
-					<th data-options="field:'teaName'">
-						姓名
-					</th>
-					<th data-options="field:'note'">
-						备注
-					</th>
-					 <th data-options="field:'fillUnitID',hidden:true">
-						填报教学单位
-					</th>
+					<th data-options="field:'expHour'">
+						学年度承担的实验教学人时数（人时）
+					</th>		
+					<th data-options="field:'expTimes'">
+						学年度承担的实验教学人次数（人次）
+					</th>	
+					<th data-options="field:'practiseItemNum'">
+						本科生实验、实习、实训项目数（个）
+					</th>										
 				</tr>
 			</thead>
 	</table>
@@ -172,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 						<div class="fitem">
 							<label>被审核表ID：</label> 
-								<input type="text" name="checkInfo.tableID" id="tableName"   value="T412"
+								<input type="text" name="checkInfo.tableID" id="tableName"   value="T252"
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>

@@ -227,6 +227,7 @@
    		success : function(result) {
 			result = eval("(" + result + ")");
 			if (result.state) {
+				alert(result.data);
 				myMarquee('T251', CTypeOne);
 				$('#unverfiedData').datagrid('reload'); // reload the user data
 			}

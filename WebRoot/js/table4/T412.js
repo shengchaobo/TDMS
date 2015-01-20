@@ -80,7 +80,7 @@
 					}
 				}
 			}
-			});
+		});
 	}
 
 	//对输入字符串进行验证
@@ -100,10 +100,10 @@
 			return false;
 	    }*/
 		
-/*		if(majorID == null || majorID==""){
+		if(majorID == null || majorID==""){
 			alert("专业不能为空");
 			return false;
-	    }*/
+	    }
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
@@ -136,9 +136,11 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改专任教师的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#teaUnitID').combobox('select', row[0].teaUnitID) ;
+    	alert(row[0].seqNumber);
+    	$('#teaUnitID').val(row[0].teaUnitID) ;
+    	$('#fromTeaUnit').val(row[0].fromTeaUnit) ;
     	$('#teaName').combobox('select', row[0].teaName) ;
-    	$('#majorName').val( row[0].majorName) ;
+    	$('#majorName').val(row[0].majorName) ;
     	$('#majorID').val( row[0].majorID) ;
 		$('#note').val(row[0].note) ;
 	}

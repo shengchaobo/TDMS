@@ -135,6 +135,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'fromTeaUnit'">
 						所属教学单位
 					</th>
+					<th data-options="field:'teaUnitID'">
+						教学单位号
+					</th>
 					<th data-options="field:'majorName'">
 						专业名称
 					</th>
@@ -177,10 +180,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   <form id="addForm" method="post">
 		<table>
 			<tr>
-				<td colspan="3">
+				<td>
 						<div class="fitem">
 						<label>教工号：</label> 
 						<input type="hidden" name="T412_bean.teaId" id="teaId"/>
+						<input type="hidden" name="T412_bean.SeqNumber" id="seqNumber"/>
 						<input id="teaName" type="text" name="T412_bean.teaName" class='easyui-combobox' 
 									data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 									onSelect:function(){
@@ -188,6 +192,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									 }">
 						<span id="teaIdSpan"></span>
 						</div>
+				</td>
+				<td class="empty"></td>
+				<td>
+					<div class="fitem">
+						<input type="hidden" id="fromTeaUnit"  name="T412_bean.fromTeaUnit" />
+						<input type="hidden"  id="teaUnitID" name="T412_bean.teaUnitID" />
+					</div>
 				</td>
 			</tr>
 			<tr>			

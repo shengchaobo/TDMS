@@ -31,6 +31,7 @@ public class T26_Bean implements java.io.Serializable {
 	private Integer stuNumEachYear;
 	private Date time;
 	private String note;
+	private int CheckState;
 
 	// Property accessors
 	@Id
@@ -138,6 +139,14 @@ public class T26_Bean implements java.io.Serializable {
 
 	public String getBaseLevel() {
 		return baseLevel;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public int getCheckState() {
+		return CheckState;
 	}
 
 }

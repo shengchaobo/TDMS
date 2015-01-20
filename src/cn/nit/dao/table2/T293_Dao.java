@@ -3,9 +3,12 @@ package cn.nit.dao.table2;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.List;
 
 import cn.nit.bean.table2.T293_Bean;
+import cn.nit.constants.Constants;
+import cn.nit.dao.CheckDao;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.TimeUtil;
@@ -15,8 +18,10 @@ public class T293_Dao {
 	private String tableName = "T293_UndergraTeaIncome_Finance$" ;
 	private String field = "SumIncome,SumUndergraIncome,AllocateFund,NationFund,LocalFund,UndergraTuition,EduReformFund," +
 			"SumOtherIncome,JuniorAllocateFund,OtherAllocateFund,OtherNationFund,OtherLocalFund,OtherTuition,GraTuition,JuniorTuition," +
-			"NetTeaTuition,Donation,OtherIncome,Time,Note";
+			"NetTeaTuition,Donation,OtherIncome,Time,Note,CheckState";
 	private String keyfield = "SeqNumber";
+	
+	CheckDao checkDao = new CheckDao();
 	
 	/**
 	 * 获取字典表的所有数据
@@ -76,7 +81,6 @@ public class T293_Dao {
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());
-				String tempfields = fields + ",SumIncome,SumUndergraIncome,AllocateFund,SumOtherIncome,OtherAllocateFund,OtherTuition";
 				
 				double sumIncome = tempBean.getSumIncome();
 				double sumUndergraIncome = tempBean.getSumUndergraIncome();
@@ -191,9 +195,23 @@ public class T293_Dao {
 				sumIncome = sumUndergraIncome + sumOtherIncome;
 				bean.setSumIncome(sumIncome);			
 				
-				flag = DAOUtil.update(bean, tableName, keyfield, tempfields, conn) ;
+				String tempfields ="";
+				if(tempBean.getCheckState() == Constants.WAIT_CHECK){
+					tempfields = fields + ",SumIncome,SumUndergraIncome,AllocateFund,SumOtherIncome,OtherAllocateFund,OtherTuition";
+					flag = DAOUtil.update(bean, tableName, keyfield, fields, conn) ;
+				}
+				if(tempBean.getCheckState() == Constants.NOPASS_CHECK){
+					tempfields = fields + ",SumIncome,SumUndergraIncome,AllocateFund,SumOtherIncome,OtherAllocateFund,OtherTuition,CheckState";
+					bean.setCheckState(Constants.WAIT_CHECK);
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(tempBean.getTime());
+					int year1 = cal.get(Calendar.YEAR); 
+					checkDao.delete("T293", year1 ) ;
+					flag = DAOUtil.update(bean, tableName, keyfield, tempfields, conn) ;
+				}
 			}else{
 				bean.setTime(TimeUtil.changeDateY(year));
+				bean.setCheckState(Constants.WAIT_CHECK);
 				double sumIncome = 0;
 				double sumUndergraIncome = 0;
 				double allocateFund = 0;
@@ -259,7 +277,7 @@ public class T293_Dao {
 				sumIncome = sumUndergraIncome + sumOtherIncome;
 				bean.setSumIncome(sumIncome);
 				
-				String tempfields = fields + ",SumIncome,SumUndergraIncome,AllocateFund,SumOtherIncome,OtherAllocateFund,OtherTuition,Time";
+				String tempfields = fields + ",SumIncome,SumUndergraIncome,AllocateFund,SumOtherIncome,OtherAllocateFund,OtherTuition,Time,CheckState";
 				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
 			}
 		}catch(Exception e){
@@ -274,6 +292,38 @@ public class T293_Dao {
 		return flag ;
 	}
 	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(String year, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where convert(varchar(4),Time,120)=" + year;			
+		//System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 	/**
 	 * 更新捐赠收入

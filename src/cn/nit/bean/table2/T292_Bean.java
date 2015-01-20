@@ -34,6 +34,7 @@ public class T292_Bean implements
 	private Double otherTeaExp;
 	private Date time;
 	private String note;
+	private int checkState;
 
 	@Id
 	@Column(name = "SeqNumber", unique = true, nullable = false)
@@ -188,6 +189,14 @@ public class T292_Bean implements
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

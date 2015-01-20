@@ -24,6 +24,7 @@ public class T2102_Bean implements
 	private Integer stuNum;
 	private Date time;
 	private String note;
+	private int checkState;
 
 	// Property accessors
 	@Id
@@ -89,6 +90,14 @@ public class T2102_Bean implements
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

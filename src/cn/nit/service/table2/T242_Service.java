@@ -22,7 +22,7 @@ public class T242_Service {
 	
 	
 	//保存
-	public Boolean save(T242_Bean bean, String year,	String fields){
+	public Boolean save(T242_Bean bean, String year,String fields){
 		return infoDao.save(bean,year,fields);
 	}
 	

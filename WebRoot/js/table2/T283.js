@@ -26,7 +26,7 @@
 				    ];
 				    							
 				$('#edit').propertygrid({
-						title : '固定资产总值-图书（万元）',
+						//title : '固定资产总值-图书（万元）',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 				        width: '60%',
 				        height: 'auto',
@@ -47,6 +47,30 @@
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
+				    				$("#edit").propertygrid({title:'固定资产总值-图书（万元）'});		
+			    					$("#cancel").show();
+			    					$("#save").show();
+				    				$("#export").hide();
+				    			}else{	
+				    				if(json.checkState==WAITCHECK){
+				    					$("#edit").propertygrid({title:'固定资产总值-图书（万元）（<font color=red>待审核</font>）'});
+				    					//document.getElementById("export").style.display ="none";
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}
+				    				else if(json.checkState==PASSCHECK){
+				    					$("#edit").propertygrid({title:'固定资产总值-图书（万元）（<font color=red>审核通过</font>）'});					    				
+				    					$("#cancel").hide();
+				    					$("#save").hide();
+				    					$("#export").show();
+				    				}				    				
+				    				else if(json.checkState==NOPASSCHECK){
+				    					$("#edit").propertygrid({title:'固定资产总值-图书（万元）（<font color=red>审核未通过</font>）'});	
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}
 				    			}
 			                    var i = 0;
 			                    while(i<rows.length){
@@ -85,6 +109,30 @@
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
+				    				$("#edit").propertygrid({title:'固定资产总值-图书（万元）'});		
+			    					$("#cancel").show();
+			    					$("#save").show();
+				    				$("#export").hide();
+				    			}else{	
+				    				if(json.checkState==WAITCHECK){
+				    					$("#edit").propertygrid({title:'固定资产总值-图书（万元）（<font color=red>待审核</font>）'});
+				    					//document.getElementById("export").style.display ="none";
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}
+				    				else if(json.checkState==PASSCHECK){
+				    					$("#edit").propertygrid({title:'固定资产总值-图书（万元）（<font color=red>审核通过</font>）'});					    				
+				    					$("#cancel").hide();
+				    					$("#save").hide();
+				    					$("#export").show();
+				    				}				    				
+				    				else if(json.checkState==NOPASSCHECK){
+				    					$("#edit").propertygrid({title:'固定资产总值-图书（万元）（<font color=red>审核未通过</font>）'});	
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}
 				    			}
 			                    var i = 0;
 			                    while(i<rows.length){
@@ -144,7 +192,8 @@
 										alert("保存失败");
 										flag = false;
 				                }
-			    		})		    		
+			    		})		
+			    		myMarquee('T283', CTypeThree)
 						reloadgrid (year,flag) 	;
      					$('#edit').propertygrid('loadData', rows);						 					 
 				});		

@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>T282</title>
+<title>C284</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -24,6 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="jquery-easyui/demo/demo.css">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
@@ -31,31 +32,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript" src="js/table2/T282.js"></script>
+	<script type="text/javascript" src="js/check/C284.js"></script>
 </head>
-
 <% request.setAttribute("CHECKTYPE",Constants.CTypeThree); %>
-<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
-<% request.setAttribute("NOPASS",Constants.NOPASS_CHECK); %>
-<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
-<body style="height: 100%'"   onload = "myMarquee('T282','<%=request.getAttribute("CHECKTYPE") %>')">
-  <div  id="floatDiv">
-        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
-        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
-        </marquee>       
-  </div>
-  <br/>
-  
+<body style="height: 100%"> 
  <table id="edit" class="easyui-propertygrid"  ></table>
  <div id="toolbar" style="height:30px;">
 		<div style="float: left;">	
-			<a href="javascript:void(0)" id="save" class="easyui-linkbutton" iconCls="icon-save" plain="true"  onclick="getSave()">保存</a>
-			<a href="javascript:void(0)" id="cancel" class="easyui-linkbutton" iconCls="icon-cancel" plain="true"  >取消</a>
-			<a href="javascript:void(0)" id="export" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
+			<a href="javascript:void(0)" id="pass"  class="easyui-linkbutton" iconCls="icon-save" plain="true" >审核通过</a>
+			<a href="javascript:openDig()" id="nopass"  class="easyui-linkbutton" iconCls="icon-save" plain="true">审核未通过</a>
 		</div>
 	 	 <form  id="exportForm"  style="float: right;"  method="post" >
 			显示： <select class="easyui-combobox" id="cbYearContrast" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false ></select>
-	 	</form>	
+	  </form>	
+	</div>
+	
+	<div id="dlg" class="easyui-dialog"
+		style="width:400px;height:270px;padding:10px 20px;" closed="true"
+		data-options="modal:true" buttons="#dlg-buttons">
+		<form id="addReasonForm" method="post">
+			<table>			
+				<tr>
+					<td>
+						<div class="fitem">
+							<label>审核类型：</label> 
+								<input type="text" name="checkInfo.checkType"  id="checkType"   value="<%=request.getAttribute("CHECKTYPE") %>"
+								readonly="readonly"  style="width: 150px;color: grey"/>
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="fitem">
+							<label>被审核表ID：</label> 
+								<input type="text" name="checkInfo.tableID" id="tableName"   value="T284"
+								readonly="readonly"  style="width: 150px;color: grey"/>
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+							<div class="fitem">
+								<label>该条数据年限：</label> 
+								<input type="text" name="checkInfo.checkID" id="dataID" 
+								readonly="readonly"  style="width: 150px;color: grey"/>
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+							<div class="fitem">
+								<label>审核不通过理由描述：</label> 
+								<textarea id="noPassReason" name="checkInfo.checkInfo" style="resize:none" cols="30" rows="5"></textarea>
+							</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<div id="dlg-buttons">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-ok" onclick="addCheckInfo()">保存</a> <a
+			href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
 </body>
 	<script type="text/javascript">

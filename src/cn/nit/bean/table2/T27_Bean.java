@@ -30,6 +30,7 @@ public class T27_Bean implements java.io.Serializable {
 	private String teaManageUrl;
 	private Date time;
 	private String note;
+	private int CheckState;
 
 	// Constructors
 
@@ -190,6 +191,14 @@ public class T27_Bean implements java.io.Serializable {
 
 	public String getTeaManageUrl() {
 		return teaManageUrl;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public int getCheckState() {
+		return CheckState;
 	}
 
 }

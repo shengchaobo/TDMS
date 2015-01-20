@@ -24,6 +24,7 @@ public class T54_Bean implements
 	private Integer nationActItem;
 	private Integer proviActItem;
 	private Integer schActItem;
+	private int CheckState;
 	private Date time;
 	private String note;
 
@@ -107,6 +108,14 @@ public class T54_Bean implements
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	public void setTime(Date time) {

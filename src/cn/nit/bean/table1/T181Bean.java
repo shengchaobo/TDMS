@@ -22,10 +22,12 @@ public class T181Bean {
 	private String UnitID;//
 	/**我方单位级别*/
 	private String UnitLevel;//
+	/**审核状态*/
+	private int CheckState;//
+	
 	/**备注*/
 	private String Note;
-	private String audit;
-	private Date time;
+	private Date Time;
 	
 	public int getSeqNumber() {
 		return SeqNumber;
@@ -87,18 +89,18 @@ public class T181Bean {
 	public void setNote(String note) {
 		Note = note;
 	}
+
 	public Date getTime() {
-		return time;
+		return Time;
 	}
 	public void setTime(Date time) {
-		this.time = time;
+		Time = time;
 	}
-	public String getAudit() {
-		return audit;
+	public int getCheckState() {
+		return CheckState;
 	}
-	public void setAudit(String audit) {
-		this.audit = audit;
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
-
 
 }

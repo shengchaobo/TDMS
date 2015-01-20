@@ -7,6 +7,7 @@ import java.util.List;
 
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T17Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 
 import cn.nit.pojo.table1.T17POJO;
@@ -23,7 +24,7 @@ public class T17DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "ClubName,BuildYear,Place,Time,Note" ;
+	private String field = "ClubName,BuildYear,Place,CheckState,Time,Note" ;
 	
 	/**
 	 * 将数据表1-7的实体类插入数据库
@@ -88,7 +89,7 @@ public class T17DAO {
 //		}
 //		
 		if(conditions != null && !conditions.equals("")){
-			sql.append(" where "+conditions) ;
+			sql.append(" where 1=1 "+conditions) ;
 		}
 		
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -132,7 +133,7 @@ public class T17DAO {
 //		}
 		
 		if(conditions != null){
-			sql.append(" where "+conditions) ;
+			sql.append(" where 1=1 "+conditions) ;
 		}
 		
 //		sql.append(" order by SeqNumber desc") ;
@@ -163,11 +164,13 @@ public class T17DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T17Bean> totalList(){
+	public List<T17Bean> totalList(String year,int checkState){
 		
 		StringBuffer sql=new StringBuffer();
-		sql.append("select SeqNumber,ClubName,BuildYear,Place,Time,Note from "+ tableName);
+		sql.append("select SeqNumber,ClubName,BuildYear,Place,CheckState,Time,Note from "+ tableName);
+		sql.append(" where Time like '"+year+"%' and CheckState = "+checkState);
 
+		System.out.println(sql.toString());
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -177,6 +180,7 @@ public class T17DAO {
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
 			list = DAOUtil.getList(rs, T17Bean.class) ;
+			System.out.println(list.size());
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -184,6 +188,112 @@ public class T17DAO {
 		
 		return list ;
 	}
+	
+	/**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	
 	
 	public boolean update(T17Bean t17Bean){
@@ -228,13 +338,47 @@ public class T17DAO {
 		return this.tableName ;
 	}
 	
+	/**
+	 * 测试用，将所有数据审核状态设置为1
+	 * */
+	public boolean updateCheck()
+	{
+		int flag = 0;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try
+		{
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false; 
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
 	public static void  main(String arg[])
 	{
 		T17DAO dao=new T17DAO();
 //		int n=dao.totalAuditingData(null, null);
 //		System.out.println(n);
-		List<T17Bean> list=dao.totalList();
+//		boolean flag = dao.updateCheck();
+//		System.out.println(flag);
+		List<T17Bean> list = dao.totalList("2014", 2);
 		System.out.println(list.size());
+		
 	}
 
 }

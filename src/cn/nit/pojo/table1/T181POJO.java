@@ -7,8 +7,16 @@ import java.util.Date;
 	
      
 		private int SeqNumber;
-		/**填表部门*/
+		
+		public String getFillDept() {
+			return FillDept;
+		}
+		public void setFillDept(String fillDept) {
+			FillDept = fillDept;
+		}
 		private String CooperInsName;
+		/**填表部门*/
+		private String FillDept;
 		/**合作机构类型*/
 		private String CooperInsType;//
 		/**合作机构级别*/
@@ -24,6 +32,8 @@ import java.util.Date;
 		/**我方单位级别*/
 		private String UnitLevel;//
 		private String UnitLevelID;
+		/**审核*/
+		private int CheckState;
 		/**备注*/
 		private String Note;
 		public Date getTime() {
@@ -96,6 +106,12 @@ import java.util.Date;
 		}
 		public void setUnitLevel(String unitLevel) {
 			UnitLevel = unitLevel;
+		}
+		public int getCheckState() {
+			return CheckState;
+		}
+		public void setCheckState(int checkState) {
+			CheckState = checkState;
 		}
 		public String getNote() {
 			return Note;

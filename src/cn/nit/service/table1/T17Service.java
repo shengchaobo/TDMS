@@ -56,14 +56,7 @@ public class T17Service {
 //	    this.setAudit(t151Bean) ;
 		return t17Dao.update(t17Bean) ;
 	}
-	
-//	private void setAudit(T17Bean t17Bean){
-//		
-//		String audit = DIResourceDAO.getAudit(t17Dao.getTableName()) ;
-//		
-//		String audits[] = audit.split(",") ;
-//		t17Bean.setAudit(audits[0]) ;
-//	}
+
 	
 	/**导入数据*/
 	public boolean batchInsert(List<T17Bean> list){
@@ -78,36 +71,33 @@ public class T17Service {
 	}
 	
 	/**
-	 * 生成查条件
-	 * @param seqNum
-	 * @param startDate
-	 * @param endDate
+	 * 得到该条数据审核状态
+	 * @param 
 	 * @return
 	 */
-	public String gernateAuditingConditions(int seqNum, Date startTime, Date endTime){
-		
-		if(seqNum == 0 && startTime == null && endTime == null){
-			return null ;
-		}
-		
-		StringBuffer sql = new StringBuffer() ;
-		
-		if(seqNum != 0){
-			sql.append(" and SeqNumber=" + seqNum) ;
-		}
-		
-		if(startTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(startTime) + "')as datetime)") ;
-		}
-		
-		if(endTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(endTime) + "')as datetime)") ;
-		}
-		
-		return sql.toString() ;
+	public int getCheckState(int seqNumber){
+		return t17Dao.getCheckState(seqNumber) ;
 	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return t17Dao.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return t17Dao.checkAll() ;
+	}
+	
 	
 	public static void main(String arh[]) throws ParseException
 	{

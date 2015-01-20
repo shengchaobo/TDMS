@@ -363,8 +363,11 @@ public class T151Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
+//		System.out.println("ids=" + ids) ;
 		boolean flag = t151Ser.deleteCoursesByIds(ids) ;
+		
+		//删除审核不通过信息
+		check_services.delete("T151", ids);
 		PrintWriter out = null ;
 		
 		try{

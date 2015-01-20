@@ -55,13 +55,7 @@ public class T19Service {
 		return t19Dao.update(t19Bean) ;
 	}
 	
-//	private void setAudit(T19Bean t19Bean){
-//		
-//		String audit = DIResourceDAO.getAudit(t19Dao.getTableName()) ;
-//		
-//		String audits[] = audit.split(",") ;
-//		t19Bean.setAudit(audits[0]) ;
-//	}
+
 //	
 	/**按id删除数据*/
 	public boolean deleteCoursesByIds(String ids){
@@ -75,35 +69,31 @@ public class T19Service {
 		return t19Dao.batchInsert(list) ;
 	}
 	/**
-	 * 生成查条件
-	 * @param seqNum
-	 * @param startDate
-	 * @param endDate
+	 * 得到该条数据审核状态
+	 * @param 
 	 * @return
 	 */
-	public String gernateAuditingConditions(int seqNum, Date startTime, Date endTime){
-		
-		if(seqNum == 0 && startTime == null && endTime == null){
-			return null ;
-		}
-		
-		StringBuffer sql = new StringBuffer() ;
-		
-		if(seqNum != 0){
-			sql.append(" and SeqNumber=" + seqNum) ;
-		}
-		
-		if(startTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(startTime) + "')as datetime)") ;
-		}
-		
-		if(endTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(endTime) + "')as datetime)") ;
-		}
-		
-		return sql.toString() ;
+	public int getCheckState(int seqNumber){
+		return t19Dao.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return t19Dao.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return t19Dao.checkAll() ;
 	}
      public static void  main(String arg[]){
     	 T19Service ser=new T19Service();

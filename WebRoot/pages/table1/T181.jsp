@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
+
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -33,12 +35,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="js/commom.js"></script>
 	
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" class="easyui-datagrid"  url="pages/T181/auditingData">
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="overflow-y:scroll"  onload="myMarquee('T181','<%=request.getAttribute("CHECKTYPE") %>')">
+<div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/> 
+
+	<table id="unverfiedData" class="easyui-datagrid"  url="pages/T181/auditingData?checkNum=<%=request.getAttribute("NOCHECK") %>" style="height: auto">
 		<thead>
 			<tr>
 				  <th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber"  >编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th field="cooperInsName"  >合作机构名称</th>
 				<th field="cooperInsType"  >合作机构类型</th>
 				<th field="cooperInsLevel"  >合作机构级别</th>
@@ -91,25 +105,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 	</div>
 	
-	<table id="verfiedData" class="easyui-datagrid" url="">
+	<table id="verfiedData" class="easyui-datagrid" url="pages/T181/auditingData?checkNum=<%=request.getAttribute("PASS") %>"  style="height: auto;">
 		<thead>
 			<tr>
-			<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber" >编号</th>
-				<th field="CooperInsName">合作机构名称</th>
-				<th field="CooperInsType" >合作机构类型</th>
-				<th field="CooperInsLevel">合作机构级别</th>
-				<th field="SignedTime" >签订协议时间</th>
-				<th field="UnitName" >我方单位</th>
-				<th field="UnitID">单位号</th>
-				<th field="UnitLevel" >我方单位级别</th>
+				<th field="cooperInsName" >合作机构名称</th>
+				<th field="cooperInsType" >合作机构类型</th>
+				<th field="cooperInsLevel" >合作机构级别</th>
+				<th field="signedTime" fit="true" formatter="formattime">签订协议时间</th>
+				<th field="unitName" >我方单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="unitLevel" >我方单位级别</th>
 				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-	
-		<a href='pages/T181/dataExport?excelName=<%=URLEncoder.encode("表1-8-1签订合作协议机构（教务处）","UTF-8")%>' class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	<form action='pages/T181/dataExport?excelName=<%=URLEncoder.encode("表1-8-1签订合作协议机构（教务处）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog"
@@ -134,6 +151,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>合作机构名称：</label> 
 						<input id="seqNumber" name="t181Bean.SeqNumber", type="hidden" value="0"></input>
+						<input id="Time" name="t181Bean.Time", type="hidden" value="0"></input>
+							<input id="FillDept" name="t181Bean.FillDept", type="hidden" value="0"></input>
 						<!--  <input id="FillDept" name="t181Bean.FillDept", type="hidden" value="0"></input>-->
 						<input id="CooperInsName" type="text" name="t181Bean.CooperInsName"
 							class="easyui-validatebox" required="true"><span id="CooperInsNameSpan"></span>
@@ -317,16 +336,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    onSubmit: function(){
 				    	return validate();
 				    },
-				    //结果返回
+				  //结果返回
 				    success: function(result){
 					    //json格式转化
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T181', CTypeOne);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
@@ -412,6 +439,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	       	$('hr').hide();
 	    	$('#dlg').dialog('open').dialog('setTitle','修改签订合作协议机构的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
+	    	$('#FillDept').val(row[0].fillDept) ;
 	    	$('#CooperInsName').val(row[0].cooperInsName);
 	    	$('#CooperInsType').combobox('select',row[0].cooperInsType);
 	    	$('#CooperInsLevel').combobox('select',row[0].cooperInsLevelID) ;
@@ -459,11 +488,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			result = eval("(" + result + ")");
 
 					if(result.state){
-						alert(result.data) ;
+						alert(result.data);
+						myMarquee('T181', CTypeOne);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
 	    	}).submit();
+	    }
+
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
 	    }
 	    </script>
 
@@ -495,6 +530,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<script type="text/javascript">
 		    	var currentYear = new Date().getFullYear();
 		    	var select = document.getElementById("cbYearContrast");
+		    	for (var i = 0; i <= 10; i++) {
+		        var theOption = document.createElement("option");
+		        	theOption.innerHTML = currentYear-i + "年";
+		        	theOption.value = currentYear-i;
+		        	select.appendChild(theOption);
+		    	}
+			</script>
+			
+			<script type="text/javascript">
+		    	var currentYear = new Date().getFullYear();
+		    	var select = document.getElementById("cbYearContrast1");
 		    	for (var i = 0; i <= 10; i++) {
 		        var theOption = document.createElement("option");
 		        	theOption.innerHTML = currentYear-i + "年";

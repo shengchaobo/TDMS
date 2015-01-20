@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
+
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -32,12 +34,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="js/commom.js"></script>
 		
 </head>
-<body style="height: 100%'" >
-	<table id="unverfiedData"class="easyui-datagrid"  url="pages/T19/auditingData">
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%'"  onload="myMarquee('T19','<%=request.getAttribute("CHECKTYPE") %>')">
+<div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/> 
+
+	<table id="unverfiedData"class="easyui-datagrid"  url="pages/T19/auditingData?checkNum=<%=request.getAttribute("NOCHECK") %>"  style="height: auto">
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" >序号</th>
+				<th field="seqNumber" >编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th field="rewardName" >奖励名称</th>
 				<th field="rewardLevel" >级别</th>
 				<th field="rewardFromUnit" >授予单位</th>
@@ -54,33 +68,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
-			<form id="auditing" method="post" style="float: right;height: 24px;">
-		 	编号: <input id="seqNum" name="seqNum" class="easyui-numberbox" style="width:80px"/>
-			日期 起始:  <input id="startTime" name="startTime" class="easyui-datebox" style="width:80px"/>
-			结束:  <input id="endTime" name="endTime" class="easyui-datebox" style="width:80px"/>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid()">查询</a>
+		<form method="post" id="searchForm"
+				style="float: right; height: 24px;">
+				<table id="test" width="520">
+					<tr>
+						<td>
+							编号:
+						</td>
+						<td>
+							<input id="seqNum" name="seqNum" class="easyui-box"
+								style="width: 40px" />
+						</td>
+						<td>
+							起始日期:
+						</td>
+						<td>
+							<input id="startTime" name="startTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							结束日期:
+						</td>
+						<td>
+							<input id="endTime" name="endTime" class="easyui-datebox"
+								style="width: 100px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 			</form>
 	</div>
 	
-	<div id="toolbar2" style="float: right">
-			<a href="pages/T19/dataExport?excelName=表1-9学校获得荣誉（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-	</div>
-<div></div>
-	<table id="verfiedData"class="easyui-datagrid"  url="">
+	<table id="verfiedData"class="easyui-datagrid"  url="pages/T19/auditingData?checkNum=<%=request.getAttribute("PASS") %>">
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" >序号</th>
+				<th field="seqNumber" >编号</th>
 				<th field="rewardName" >奖励名称</th>
 				<th field="rewardLevel" >级别</th>
 				<th field="rewardFromUnit" >授予单位</th>
 				<th field="unitName" >获奖单位</th>
 				<th field="unitID" >单位号</th>
-				<th field="rewardTime" >获奖时间</th>
+				<th field="rewardTime" formatter="formattime">获奖时间</th>
 				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
+	
+	<div id="toolbar2" style="float: right">
+	
+	<form action='pages/T19/dataExport?excelName=<%=URLEncoder.encode("表1-9学校获得荣誉（党院办）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
+	</div>
 	
 	
 	<div id="dlg" class="easyui-dialog"
@@ -106,6 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>荣誉名称：</label> 
 						<input id="seqNumber" type="hidden" name="t19Bean.SeqNumber" value="0"></input>
+							<input id="Time" type="hidden" name="t19Bean.Time" value="0"></input>
 						<input id="RewardName" type="text" name="t19Bean.RewardName"
 							class="easyui-validatebox" required="true"><span id="RewardNameSpan"></span>
 					</div>
@@ -260,10 +306,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T19', CTypeOne);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
-						    $('#unverifiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
@@ -366,6 +420,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						if(result.state){
 							alert(result.data) ;
+							myMarquee('T19', CTypeOne);
 							 $('#unverfiedData').datagrid('reload') ;
 						}
 		    		}
@@ -388,6 +443,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	
 		    	$('#dlg').dialog('open').dialog('setTitle','修改学校荣誉的信息');
 		    	$('#seqNumber').val(row[0].seqNumber) ;
+		    	$('#Time').val(formattime(row[0].time)) ;
+		    	alert(formattime(row[0].time));
 		    	$('#RewardName').val(row[0].rewardName);
 		    	$('#RewardFromUnit').val(row[0].rewardFromUnit);
 		    	$('#RewardLevel').combobox('select', row[0].rewardLevelID) ;
@@ -401,6 +458,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $('#dicDlg').dialog('open').dialog('setTitle','高级查询');
 		    loadDictionary() ;
 		    
+	    }
+
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
 	    }
 	   
 	</script>
@@ -441,6 +503,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<script type="text/javascript">
 		    	var currentYear = new Date().getFullYear();
 		    	var select = document.getElementById("cbYearContrast");
+		    	for (var i = 0; i <= 10; i++) {
+		        var theOption = document.createElement("option");
+		        	theOption.innerHTML = currentYear-i + "年";
+		        	theOption.value = currentYear-i;
+		        	select.appendChild(theOption);
+		    	}
+			</script>
+			<script type="text/javascript">
+		    	var currentYear = new Date().getFullYear();
+		    	var select = document.getElementById("cbYearContrast1");
 		    	for (var i = 0; i <= 10; i++) {
 		        var theOption = document.createElement("option");
 		        	theOption.innerHTML = currentYear-i + "年";

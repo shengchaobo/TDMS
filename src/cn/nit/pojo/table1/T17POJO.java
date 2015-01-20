@@ -9,6 +9,7 @@ public class T17POJO {
 	private String ClubName ;//校友会名称
 	private Date BuildYear;//设立时间
 	private String Place;//地点
+	private int CheckState;//审核
 	private Date Time;
 	private String Note;
 	
@@ -35,6 +36,12 @@ public class T17POJO {
 	}
 	public void setPlace(String place) {
 		Place = place;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

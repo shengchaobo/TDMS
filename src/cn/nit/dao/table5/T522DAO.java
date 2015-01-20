@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import cn.nit.bean.table5.T521Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 
 import cn.nit.pojo.table5.T521POJO;
@@ -22,7 +23,7 @@ public class T522DAO {
 	
 	/**  数据库表中除了自增长字段的所有字段  */
 	private String field = "CSType,CSName,CSID,CSLevel,Leader,TeaID,JoinTeaNum,OtherTea,CSUrl,AppvlTime,ReceptTime,TeaUnit," +
-			"UnitID,AppvlID,Time,Note";
+			"UnitID,AppvlID,Time,Note,CheckState";
 	
 	
 	
@@ -79,9 +80,9 @@ public class T522DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select t.SeqNumber,t.CSType,t.CSName,t.CSID,t.CSLevel,t.Leader,t.TeaID,t.JoinTeaNum,t.OtherTea,t.CSUrl," +
-		"t.AppvlTime,t.ReceptTime,t.TeaUnit,t.UnitID,t.AppvlID,t.Time,t.Note") ;
+		"t.AppvlTime,t.ReceptTime,t.TeaUnit,t.UnitID,t.AppvlID,t.Time,t.Note,t.CheckState") ;
 		sql.append(" from "+tableName+" as t,DiAwardLevel dal,DiDepartment ddm" );
-		sql.append(" where t.CSType='网络课程' and dal.IndexID=t.CSLevel and ddm.UnitID=t.UnitID");
+		sql.append(" where t.CSType='网络课程' and dal.IndexID=t.CSLevel and ddm.UnitID=t.UnitID ");
 		int total = 0 ;
 		
 //		if(fillUnitId != null && !fillUnitId.equals("")){
@@ -126,9 +127,9 @@ public class T522DAO {
 		StringBuffer sql = new StringBuffer() ;
 		List<T521POJO> list = null ;
 		sql.append("select t.SeqNumber,t.CSType,t.CSName,t.CSID,dal.AwardLevel as CSLevel,t.CSLevel as CSLevelID,t.Leader,t.TeaID,t.JoinTeaNum,t.OtherTea,t.CSUrl," +
-		"t.AppvlTime,t.ReceptTime,t.TeaUnit,t.UnitID,t.AppvlID,t.Time,t.Note") ;
+		"t.AppvlTime,t.ReceptTime,t.TeaUnit,t.UnitID,t.AppvlID,t.Time,t.Note,t.CheckState") ;
 		sql.append(" from "+tableName+" as t,DiAwardLevel dal,DiDepartment ddm" );
-		sql.append(" where t.CSType='网络课程' and dal.IndexID=t.CSLevel and ddm.UnitID=t.UnitID");
+		sql.append(" where t.CSType='网络课程' and dal.IndexID=t.CSLevel and ddm.UnitID=t.UnitID ");
 
 //		if(fillUnitId != null && !fillUnitId.equals("")){
 //			sql.append(" and FillUnitID=" + fillUnitId) ;
@@ -166,16 +167,17 @@ public class T522DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T521Bean> totalList(){
+	public List<T521Bean> totalList(String year,int checkState){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.CSType,t.CSName,t.CSID,dia.AwardLevel as CSLevel,t.Leader,t.TeaID,t.JoinTeaNum,t.OtherTea," +
 				"t.CSUrl,t.AppvlTime,t.ReceptTime,t.TeaUnit," +
-			"t.UnitID,t.AppvlID,t.Time,t.Note");
+			"t.UnitID,t.AppvlID,t.Time,t.Note,t.CheckState ");
 		sql.append(" from "+tableName+" as t,DiAwardLevel as dia");
 		sql.append(" where t.CSType='网络课程'");
 		sql.append(" and t.CSLevel=dia.IndexID");
-		
+		sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		 
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -235,15 +237,147 @@ public class T522DAO {
 			return true ;
 		}
 	}
+	
+	/**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public String getTableName(){
 		return this.tableName ;
 	}
+	//设置审核的状态为1：即未审核状态
+	public boolean updatCheck()
+	{
+		int flag = 0;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try
+		{
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false; 
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	
 	public static void main(String arg[]){
 		T522DAO dao=new T522DAO();
-		List<T521Bean> list=dao.totalList();
-		System.out.println(list.size());
-		System.out.println(list.get(0).getCSType());
+//		boolean flag = dao.
 	}
 
 

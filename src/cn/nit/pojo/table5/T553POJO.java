@@ -20,6 +20,7 @@ public class T553POJO {
 	private String AwardLevelID;
 	
 	private Date  AwardTime;
+	private int CheckState;
 	
 	private Date Time;
 	
@@ -103,6 +104,14 @@ public class T553POJO {
 
 	public void setTime(Date time) {
 		Time = time;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	public String getNote() {

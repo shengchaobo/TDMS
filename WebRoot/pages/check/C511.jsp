@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>T152</title>
+<title>C511</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T152/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T511/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -60,12 +60,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
     //审核不通过
   function noPassCheck(seqNumber){
+	  alert(123);
    	    
      		var checkNum = <%=Constants.NOPASS_CHECK %>  
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T152/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T511/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -84,58 +85,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
    //全部审核通过
   function checkAll(){
-  			if(confirm("全部数据审核通过，确认吗？")){
-  			alert(222);
-		    $.ajax({
-				    type:"POST", 
-				    url: "pages/T152/checkAll", 
-			   		async : "true",
-			   		dataType : "text",
-				    success:function(result){  
-				         result = eval("(" + result + ")");						    	 
-					  		 if (!result.state){
-								  		 	$.messager.show({
-								  		 			title: 'Error',
-								  		 			msg: result.data
-								  			 });
-						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data
-						  		}
-				    }
-				});
+  		  if(confirm("全部数据审核通过，该操作不可恢复，确认吗？")){ 		  	
+			    $.ajax({
+					    type:"POST", 
+					    url: "pages/T511/checkAll", 
+				   		async : "true",
+				   		dataType : "text",
+					    success:function(result){  
+					         result = eval("(" + result + ")");						    	 
+						  		 if (!result.state){
+									  		 	$.messager.show({
+									  		 			title: 'Error',
+									  		 			msg: result.data
+									  			 });
+							  		} else {
+									    		 $('#checkData').datagrid('reload'); // reload the user data
+							  		}
+					    }
+					});
+				}
     }
-   }
 	</script>
 </head>
 
-<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
-
 <body style="height: 100%'">
-	<table  id="checkData"  class="easyui-datagrid"  url="pages/T152/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
+	<table  id="checkData"  class="easyui-datagrid"  url="pages/T511/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
-				
 		  </tr>
 		</thead>
 		<thead>
-			<tr>
-			 <th data-options="field:'seqNumber'">编号</th>
-				<th data-options="field:'resInsName'" >科研机构名称</th>
-				<th data-options="field:'resInsID'" >单位号</th>		
-				<th data-options="field:'type'" >类别</th>
-				<th data-options="field:'buildCondition'" formatter="booleanstr" >共建情况</th>
-				<th data-options="field:'biOpen'"  formatter="booleanstr" >是否对本科生开放</th>
-				<th data-options="field:'openCondition'" >对本科生开放情况（500字以内）</th>
-				<th data-options="field:'teaUnit'">所属教学单位</th>
-				<th data-options="field:'unitID'" >教学单位号</th>
-				<th data-options="field:'beginYear'" fit="true" formatter="formattime">开设年份</th>
-				<th data-options="field:'houseArea'" >专业科研用房面积（平方米）</th>
-				<!-- <th field="fillUnitID">填报单位</th> -->
-				<th data-options="field:'fillUnitID',hidden:true">填报教学单位</th>
-				<th data-options="field:'note'" >备注</th>
-			</tr>
+				<tr>	
+				<th data-options="field:'seqNumber'">
+						编号
+					</th>	
+					<th data-options="field:'CSName'">
+						课程名称
+					</th>
+					<th data-options="field:'CSID'">
+						课程编号
+					</th>
+					<th data-options="field:'CSUnit'">
+						开课单位
+					</th>
+					<th data-options="field:'unitID'">
+						单位号
+					</th>
+					<th data-options="field:'fromTeaResOffice'">
+						所属教研室
+					</th>
+					<th data-options="field:'teaResOfficeID'">
+						教研室号
+					</th>
+					<th data-options="field:'CSType'">
+						课程类别
+					</th>
+					<th data-options="field:'CSNature'">
+						课程性质
+					</th>
+					<th data-options="field:'state'">
+						状态
+					</th>
+					<th data-options="field:'pubCSType'" >
+						公选课类别
+					</th>
+					<th data-options="field:'note'">
+						备注
+					</th>
+				</tr>
 			</thead>
 	</table>
 	
@@ -163,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 						<div class="fitem">
 							<label>被审核表ID：</label> 
-								<input type="text" name="checkInfo.tableID" id="tableName"   value="T152"
+								<input type="text" name="checkInfo.tableID" id="tableName"   value="T511"
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>
@@ -173,15 +193,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="fitem">
 								<label>该条数据编号：</label> 
 								<input type="text" name="checkInfo.checkID" id="dataID" 
-								readonly="readonly"  style="width: 150px;color: grey"/>
-							</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-							<div class="fitem">
-								<label>填写者的教学单位号：</label> 
-								<input type="text" name="checkInfo.fillUnitID"  id="unitID" 
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>
@@ -204,52 +215,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
-	<script type="text/javascript"> 
-			//日期格式转换 
-			function formattime(val) {  
-				
-				if(val == null){
-					return null ;
-				}
-				
-			    var year=parseInt(val.year)+1900;  
-			    var month=(parseInt(val.month)+1);  
-			    month=month>9?month:('0'+month);  
-			    var date=parseInt(val.date);  
-			    date=date>9?date:('0'+date);  
-			    var hours=parseInt(val.hours);  
-			    hours=hours>9?hours:('0'+hours);  
-			    var minutes=parseInt(val.minutes);  
-			    minutes=minutes>9?minutes:('0'+minutes);  
-			    var seconds=parseInt(val.seconds);  
-			    seconds=seconds>9?seconds:('0'+seconds);  
-			    var time=year+'-'+month+'-'+date ;  
-			    //alert(time) ;
-			        return time;  
-			    }  
-			</script>
-			<script type="text/javascript"> 
-		    function booleanstr(val) { 	 
-		    	if(val == null){
-					return null ;
-				}
-				var bo1=""+val;//吧boolean型转换成str类型再判断
-				var boo;
-				if( bo1 == "false") {
-					boo="否" ;
-				}else if (bo1 == "true"){
-
-					boo="是" ;
-				}
-				return boo;
-	        }  
-
-		    function rowformater(value,row,index)
-		    {
-		    	return "<a href='javascript:passCheck(" + row.seqNumber+")'>审核通过</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href ='javascript:openDig("+ row.seqNumber+ "," + row.fillUnitID +")'>审核不通过</a>";
-		    }
-			</script>
-			
-	
 </body>
 </html>

@@ -64,16 +64,24 @@
 				onSubmit : function() {
 					return validate();
 				},
-				// 结果返回
-				success : function(result) {
-				// json格式转化
-				var result = eval('(' + result + ')');
-				$.messager.alert('温馨提示', result.data);
-				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
-				}
-			}
+				  //结果返回
+			    success: function(result){
+				    //json格式转化
+				    var result = eval('('+result+')');
+				    $.messager.alert('温馨提示', result.data) ;
+				    if (result.state){ 
+					    if(result.tag==2){
+					    	$('#dlg').dialog('close');
+							myMarquee('T522', CTypeOne);
+							$('#unverfiedData').datagrid('reload'); // reload the user data
+
+						}else{
+							
+					    $('#dlg').dialog('close'); 
+					    $('#unverfiedData').datagrid('reload');  
+				    }
+			    }
+			   }
 			});
 	}
 
@@ -156,7 +164,8 @@
        	$('hr').hide();
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改网络课程建设的信息');
-    	$('#seqNumber').val(row[0].seqNumber) 
+    	$('#seqNumber').val(row[0].seqNumber) ;
+    	$('#Time').val(formattime(row[0].time)); 
     	$('#CStype').combobox('select', row[0].CSType);
     	$('#CSLevel').combobox('select', row[0].CSLevelID);
     	$('#CSName').val(row[0].CSName);
@@ -222,10 +231,16 @@
 
 			if (result.state) {
 				alert(result.data);
+				myMarquee('T522', CTypeOne);
 				$('#unverfiedData').datagrid('reload');
 			}
 		}
     	}).submit();
+    }
+    
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
     }
     
     function formattime(val) {  

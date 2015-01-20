@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
+
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -34,14 +36,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/commom.js"></script>
 	<script type="text/javascript" src="js/table5/T552.js"></script>
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T552/auditingData"
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="overflow-y:scroll"   onload="myMarquee('T552','<%=request.getAttribute("CHECKTYPE") %>')">
+<div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/> 
+
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T552/auditingData?checkNum=<%=request.getAttribute("NOCHECK") %>"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead data-options="frozen:true">
 		<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 		     </tr>
 		</thead>
 		<thead>
@@ -108,16 +122,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2" style="float: right;">
-		<a href="pages/T552/dataExport?excelName=<%=URLEncoder.encode("表5-5-2优秀本科班级","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		
-	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
+	
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url="pages/T552/auditingData?checkNum=<%=request.getAttribute("PASS") %>"
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false">
 		<thead data-options="frozen:true">
-		<tr>			
-				<th data-options="field:'ck',checkbox:true">选取</th>
+		<tr>
 				<th  data-options="field:'seqNumber'" >编号</th>
 		     </tr>
 		</thead>
@@ -144,6 +154,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</thead>
 	</table>
+	
+	<div id="toolbar2" style="float: right;">
+	<form action='pages/T552/dataExport?excelName=<%=URLEncoder.encode("表5-5-2优秀本科班级","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
+	</div>
+	
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
@@ -167,6 +187,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<input type="hidden" name="t552_Bean.SeqNumber"  id="seqNumber"/>
+						<input type="hidden" name="t552_Bean.Time"  id="Time"/>
 					<div class="fitem">
 						<label>获奖名称：</label> 
 						<input id="AwardName" type="text" name="t552_Bean.AwardName"
@@ -236,6 +257,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+
+	
+	    </script>
+	    
+	    <script type="text/javascript">
+	
+	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast1");
     	for (var i = 0; i <= 10; i++) {
         var theOption = document.createElement("option");
         	theOption.innerHTML = currentYear-i + "年";

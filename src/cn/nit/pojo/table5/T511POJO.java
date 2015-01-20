@@ -18,6 +18,7 @@ public class T511POJO {
 	private String CSNatureID;
 	private String State;
 	private String PubCSType;
+	private int CheckState;
 	private Date Time;
 	private String Note;
 	
@@ -102,6 +103,12 @@ public class T511POJO {
 	}
 	public void setPubCSType(String pubCSType) {
 		PubCSType = pubCSType;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

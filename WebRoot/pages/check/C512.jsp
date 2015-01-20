@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>T152</title>
+<title>C512</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T152/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T512/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T152/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T512/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			alert(222);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T152/checkAll", 
+				    url: "pages/T512/checkAll", 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 
 <body style="height: 100%'">
-	<table  id="checkData"  class="easyui-datagrid"  url="pages/T152/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
+	<table  id="checkData"  class="easyui-datagrid"  url="pages/T512/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
@@ -121,21 +121,106 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 		<thead>
 			<tr>
-			 <th data-options="field:'seqNumber'">编号</th>
-				<th data-options="field:'resInsName'" >科研机构名称</th>
-				<th data-options="field:'resInsID'" >单位号</th>		
-				<th data-options="field:'type'" >类别</th>
-				<th data-options="field:'buildCondition'" formatter="booleanstr" >共建情况</th>
-				<th data-options="field:'biOpen'"  formatter="booleanstr" >是否对本科生开放</th>
-				<th data-options="field:'openCondition'" >对本科生开放情况（500字以内）</th>
-				<th data-options="field:'teaUnit'">所属教学单位</th>
-				<th data-options="field:'unitID'" >教学单位号</th>
-				<th data-options="field:'beginYear'" fit="true" formatter="formattime">开设年份</th>
-				<th data-options="field:'houseArea'" >专业科研用房面积（平方米）</th>
-				<!-- <th field="fillUnitID">填报单位</th> -->
-				<th data-options="field:'fillUnitID',hidden:true">填报教学单位</th>
-				<th data-options="field:'note'" >备注</th>
+			<th data-options="field:'seqNumber'" rowspan="2">编号</th>
+			<th data-options="field:'term',align:'center'" rowspan="2">
+			          学期
+				</th>
+				<th data-options="field:'CSUnit',align:'center'" rowspan="2">
+				开课单位
+				</th>
+				<th data-options="field:'unitID',align:'center'" rowspan="2">
+				单位号
+				</th>
+				<th data-options="field:'CSMajorName',align:'center'" rowspan="2">
+				上课专业名称
+				</th>
+				<th data-options="field:'CSMajorID',align:'center'" rowspan="2">
+				上课专业代码
+				</th>
+				<th colspan="12">
+			      1.本科课程情况   
+				</th>
+				<th colspan="8">
+			      2.本科授课情况   
+				</th>
+				<th colspan="3">
+			      3.使用教材   
+				</th>
 			</tr>
+			<tr>
+				<th data-options="field:'CSName',align:'center'">
+				课程名称
+				</th>
+				<th data-options="field:'CSID',align:'center'">
+				课程编号
+				</th>
+				<th data-options="field:'CSType',align:'center'">
+				课程类别
+				</th>
+				<th data-options="field:'CSNature',align:'center' ">
+				课程性质
+				</th>
+				<th data-options="field:'pubCSType',align:'center'">
+				公选课类别
+				</th>
+				<th data-options="field:'isDoubleCS',align:'center'" formatter="formatBoolean">
+			          是否双语授课
+				</th>
+				<th data-options="field:'credit',align:'center'">
+				学分
+				</th>
+				<th data-options="field:'sumCSHour',align:'center'">
+				总学时
+				</th>
+				<th data-options="field:'theoryCSHour',align:'center' ">
+				理论学时
+				</th>
+				<th data-options="field:'praCSHour',align:'center'">
+				实践学时
+				</th>
+				<th data-options="field:'examWay',align:'center' ">
+				考核方式
+				</th>
+				<th data-options="field:'planTime',align:'center'">
+				实习、设计时间
+				</th>
+				<th data-options="field:'CSGrade',align:'center'">
+				授课年级
+				</th>
+				<th data-options="field:'CSClass',align:'center'">
+				授课班级
+				</th>
+				<th data-options="field:'classID',align:'center'">
+				开课班号
+				</th>
+				<th data-options="field:'classInfo',align:'center' ">
+				合班情况
+				</th>
+				<th data-options="field:'stuNum',align:'center'">
+				学生人数
+				</th>
+				<th data-options="field:'CSTea',align:'center'">
+			        任课教师
+				</th>
+				<th data-options="field:'teaID',align:'center'">
+			       教工号
+				</th>
+				<th data-options="field:'isAccordJob',align:'center'" formatter="formatBoolean">
+			         是否符合岗位资格
+				</th>
+				<th data-options="field:'teaTitle',align:'center'">
+			        教师职称
+				</th>
+				<th data-options="field:'bookUseInfo',align:'center'">
+				使用情况
+				</th>
+				<th data-options="field:'isPlanbook',align:'center'" formatter="formatBoolean">
+			         是否规划教材
+				</th>
+				<th data-options="field:'isAwardbook',align:'center'" formatter="formatBoolean">
+				是否获奖教材
+				</th>
+			</tr>		
 			</thead>
 	</table>
 	
@@ -163,7 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 						<div class="fitem">
 							<label>被审核表ID：</label> 
-								<input type="text" name="checkInfo.tableID" id="tableName"   value="T152"
+								<input type="text" name="checkInfo.tableID" id="tableName"   value="T512"
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>

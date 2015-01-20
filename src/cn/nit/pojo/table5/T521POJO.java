@@ -21,6 +21,7 @@ public class T521POJO {
 	private String TeaUnit;
 	private String UnitID;
 	private String AppvlID;
+	private int CheckState;
 	private Date Time;
 	private String Note;
 	public int getSeqNumber() {
@@ -100,6 +101,12 @@ public class T521POJO {
 	}
 	public void setTeaUnit(String teaUnit) {
 		TeaUnit = teaUnit;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public String getUnitID() {
 		return UnitID;

@@ -13,6 +13,7 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table5.T521Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table4.T411_Service;
@@ -50,7 +51,7 @@ public class T521Excel {
 	    List<T411_Bean> t411List=t411Ser.getList();
 		
 		for(Cell[] cell : cellList){
-			T521Bean t522Bean = new  T521Bean();
+			T521Bean t521Bean = new  T521Bean();
 			int n=cellList.indexOf(cell);
 			if(count<4){
 				count++;
@@ -217,24 +218,26 @@ public class T521Excel {
 					
 				count++ ;
 				
-				t522Bean.setAppvlID(AppvlID);
-				t522Bean.setAppvlTime(TimeUtil.changeDateYM(AppvlTime));
-				t522Bean.setCSID(CSID);
-				t522Bean.setCSLevel(CSLevel);
-				t522Bean.setCSName(CSName);
-				t522Bean.setCSType(CSType);
-				t522Bean.setCSUrl(CSUrl);
-				t522Bean.setJoinTeaNum(Integer.parseInt(JoinTeaNum));
-				t522Bean.setLeader(Leader);
-				t522Bean.setNote(Note);
-				t522Bean.setOtherTea(OtherTeaNum);
-				t522Bean.setReceptTime(TimeUtil.changeDateYM(ReceptTime));
-				t522Bean.setTeaID(TeaID);
-				t522Bean.setTeaUnit(FromTeaUnit);
-				t522Bean.setTime(Time);
-				t522Bean.setUnitID(UnitID);
+				t521Bean.setAppvlID(AppvlID);
+				t521Bean.setAppvlTime(TimeUtil.changeDateYM(AppvlTime));
+				t521Bean.setCSID(CSID);
+				t521Bean.setCSLevel(CSLevel);
+				t521Bean.setCSName(CSName);
+				t521Bean.setCSType(CSType);
+				t521Bean.setCSUrl(CSUrl);
+				t521Bean.setJoinTeaNum(Integer.parseInt(JoinTeaNum));
+				t521Bean.setLeader(Leader);
+				t521Bean.setNote(Note);
+				t521Bean.setOtherTea(OtherTeaNum);
+				t521Bean.setReceptTime(TimeUtil.changeDateYM(ReceptTime));
+				t521Bean.setTeaID(TeaID);
+				t521Bean.setTeaUnit(FromTeaUnit);
+				t521Bean.setCheckState(Constants.WAIT_CHECK);
+				t521Bean.setTime(Time);
+				t521Bean.setNote(Note);
+				t521Bean.setUnitID(UnitID);
 			
-				list.add(t522Bean);
+				list.add(t521Bean);
 				
 							
 			}

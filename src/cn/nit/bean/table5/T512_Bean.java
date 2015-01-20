@@ -39,6 +39,7 @@ public class T512_Bean {
 	private String Note;
 	private String FillTeaID;
 	private String FillUnitID;
+	private int  CheckState;
 	
 
 	public Integer getSeqNumber() {
@@ -127,6 +128,12 @@ public class T512_Bean {
 	}
 	public int getTheoryCSHour() {
 		return TheoryCSHour;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public void setTheoryCSHour(int theoryCSHour) {
 		TheoryCSHour = theoryCSHour;

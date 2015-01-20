@@ -57,36 +57,31 @@ public class T511_Service {
 		
 	}
 	/**
-	 * 生成查条件
-	 * @param seqNum
-	 * @param startDate
-	 * @param endDate
+	 * 得到该条数据审核状态
+	 * @param 
 	 * @return
 	 */
+	public int getCheckState(int seqNumber){
+		return t511_Dao.getCheckState(seqNumber) ;
+	}
 	
-	public String generateauditingConditions(int seqNum,Date startTime,Date endTime){
-		if(seqNum == 0 && startTime == null && endTime == null){
-			return null ;
-		}
-		
-		StringBuffer sql = new StringBuffer() ;
-		
-		if(seqNum != 0){
-			sql.append(" and SeqNumber=" + seqNum) ;
-		}
-		
-		if(startTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(startTime) + "')as datetime)") ;
-		}
-		
-		if(endTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(endTime) + "')as datetime)") ;
-		}
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return t511_Dao.updateCheck(seqNum,checkState) ;
+	}
 	
-	return sql.toString();
-			
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return t511_Dao.checkAll() ;
 	}
 	
 	/**按id删除数据*/

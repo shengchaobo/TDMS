@@ -20,6 +20,7 @@ public class T532Bean {
 	private String ReceptAppvlID;
 	private int ValidTime;
 	private double Fund;
+	private int CheckState;
 	private Date Time;
 	private String Note;
 
@@ -120,6 +121,12 @@ public class T532Bean {
 	}
 	public void setFund(double fund) {
 		Fund = fund;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

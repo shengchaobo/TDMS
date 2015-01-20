@@ -20,6 +20,8 @@ public class T552POJO {
 	
 	private Date Time;
 	
+	private int CheckState;
+	
 	private String Note;
 
 	public int getSeqNumber() {
@@ -84,6 +86,14 @@ public class T552POJO {
 
 	public void setTime(Date time) {
 		Time = time;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	public String getNote() {

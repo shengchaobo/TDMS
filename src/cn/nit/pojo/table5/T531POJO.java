@@ -13,6 +13,7 @@ public class T531POJO {
 	private String TeaUnitID;
 	
 	private int JoinStuNum;
+	private int CheckState;
 	private String Note;
 	private Date Time;
 	
@@ -69,6 +70,12 @@ public class T531POJO {
 	}
 	public void setNote(String note) {
 		Note = note;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

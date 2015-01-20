@@ -14,6 +14,7 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table5.T521Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table4.T411_Service;
@@ -230,6 +231,8 @@ public class T522Excel {
 				t522Bean.setTeaID(TeaID);
 				t522Bean.setTeaUnit(FromTeaUnit);
 				t522Bean.setTime(Time);
+				t522Bean.setCheckState(Constants.WAIT_CHECK);
+				t522Bean.setNote(Note);
 				t522Bean.setUnitID(UnitID);
 			
 				list.add(t522Bean);

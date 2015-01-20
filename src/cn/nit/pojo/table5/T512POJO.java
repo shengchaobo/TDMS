@@ -1,5 +1,7 @@
 package cn.nit.pojo.table5;
 
+import java.util.Date;
+
 public class T512POJO {
 	
 	private Integer SeqNumber;
@@ -35,7 +37,10 @@ public class T512POJO {
 	private String BookUseInfo;
 	private boolean IsPlanbook;
 	private boolean IsAwardbook;
-	private String Time;
+	private int CheckState;
+	private String FillUnitID;
+	private String FillTeaID;
+	private Date Time;
 	private String Note;
 	
 	public Integer getSeqNumber() {
@@ -226,12 +231,7 @@ public class T512POJO {
 	public void setIsAwardbook(boolean isAwardbook) {
 		IsAwardbook = isAwardbook;
 	}
-	public String getTime() {
-		return Time;
-	}
-	public void setTime(String time) {
-		Time = time;
-	}
+	
 	public String getNote() {
 		return Note;
 	}
@@ -244,6 +244,30 @@ public class T512POJO {
 	}
 	public void setTeaID(String teaID) {
 		TeaID = teaID;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+	public String getFillUnitID() {
+		return FillUnitID;
+	}
+	public void setFillUnitID(String fillUnitID) {
+		FillUnitID = fillUnitID;
+	}
+	public String getFillTeaID() {
+		return FillTeaID;
+	}
+	public void setFillTeaID(String fillTeaID) {
+		FillTeaID = fillTeaID;
+	}
+	public Date getTime() {
+		return Time;
+	}
+	public void setTime(Date time) {
+		Time = time;
 	}
 	
 }

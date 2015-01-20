@@ -13,6 +13,11 @@
 	    <action name="deleteByIds" class="cn.nit.action.table5.T521Action" method="deleteCoursesByIds" />
 	     <!-- 数据查询 -->
 	    <action name="singleSearch" class="cn.nit.action.table5.T521Action" method="auditingConditions"/>
+	     <!-- 修改审核状态 -->
+	    <action name="updateCheck" class="cn.nit.action.table5.T521Action"  method="updateCheck" />
+	    
+  	    <!-- 审核通过全部 -->
+	    <action name="checkAll" class="cn.nit.action.table5.T521Action"  method="checkAll" />
 	    
 	     <!-- 文件批量上传 -->
 	    <action name="uploadFile" class="cn.nit.action.UploadAction" method="uploadFile">

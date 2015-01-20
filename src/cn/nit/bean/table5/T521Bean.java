@@ -20,6 +20,7 @@ public class T521Bean {
 	private String TeaUnit;
 	private String UnitID;
 	private String AppvlID;
+	private int CheckState;
 	private Date Time;
 	private String Note;
 
@@ -118,6 +119,12 @@ public class T521Bean {
 	}
 	public void setTime(Date time) {
 		Time = time;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public String getNote() {
 		return Note;

@@ -10,6 +10,7 @@ import jxl.Cell;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.table5.T531Bean;
+import cn.nit.constants.Constants;
 
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
@@ -134,6 +135,7 @@ public class T531Excel {
 				t531Bean.setTeaUnit(TeaUnit);
 				t531Bean.setTime(Time);
 				t531Bean.setType(Type);
+				t531Bean.setCheckState(Constants.WAIT_CHECK);
 				list.add(t531Bean);
 				
 							

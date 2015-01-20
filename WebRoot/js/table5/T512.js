@@ -28,6 +28,7 @@
 	    
 	    function singleImport(){
 		    //录入数据的表单提交
+	    	alert(123);
 	    	 $('#t512Form').form('submit',{
 				    url: url ,
 				    data: $('#t512Form').serialize(),
@@ -36,16 +37,22 @@
 				    onSubmit: function(){
 				    	return validate();
 				    },
-				    //结果返回
-				    success: function(result){
-					    //json格式转化
-					    var result = eval('('+result+')');
-					    $.messager.alert('温馨提示', result.data) ;
-					    if (result.state){ 
-						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
-					    }
-				    }
+				 // 结果返回
+					success : function(result) {
+					// json格式转化
+					var result = eval('(' + result + ')');
+					$.messager.alert('温馨提示', result.data);
+					if (result.state) {
+						if(result.tag==2){
+							$('#dlg').dialog('close');
+							myMarquee('T512', CTypeTwo);
+							$('#unverfiedData').datagrid('reload'); // reload the user data
+						}else{
+							$('#dlg').dialog('close');
+							$('#unverfiedData').datagrid('reload'); // reload the user data
+						}
+					}
+				}
 			    });
 		}
 
@@ -53,7 +60,7 @@
 			// 获取文本框的值
 			var term = $('#Term').val();		
 			
-			var cSUnit = $('#UnitID').combobox('getText');
+			//var cSUnit = $('#UnitID').combobox('getText');
 			
 			var cSMajorName = $('#CSMajorID').combobox('getText');
 			
@@ -94,9 +101,9 @@
 			if(term ==null || term.length==0){
 				alert("学期不能为空");
 			}
-			if(cSUnit == null || cSUnit.length==0){
-				alert("开课单位不能为空");
-			}
+			//if(cSUnit == null || cSUnit.length==0){
+				//alert("开课单位不能为空");
+			//}
 			if(cSMajorName == null || cSMajorName.length==0){
 				alert("上课专业名称不能为空");
 				return false;
@@ -239,8 +246,14 @@
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改开课、授课情况');
 	       	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
+	    	alert(formattime(row[0].time));
+	    	$('#FillUnitID').val(row[0].fillUnitID) ;
+	    	$('#FillTeaID').val(row[0].fillTeaID) ;
+	    	$('#CSUnit').val(row[0].CSUnit) ;
+	    	$('#UnitID').val(row[0].unitID) ;
 	      	$('#Term').val(row[0].term) ;
-	      	$('#UnitID').combobox('select',row[0].unitID) ;
+	      	//$('#UnitID').combobox('select',row[0].unitID) ;
 	    	$('#CSMajorID').combobox('select', row[0].CSMajorID) ;
 	    	$('#CSName').val(row[0].CSName) ;
 	    	$('#CSID').val(row[0].CSID) ;
@@ -308,10 +321,15 @@
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T512', CTypeTwo);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
 	    	}).submit();
 	    }
+	        //提交导出表单
+	        function submitForm(){
+	        	  document.getElementById('exportForm').submit();
+	        }
 	
 	    	    

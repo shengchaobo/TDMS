@@ -64,16 +64,24 @@
 				onSubmit : function() {
 					return validate();
 				},
-				// 结果返回
-				success : function(result) {
-				// json格式转化
-				var result = eval('(' + result + ')');
-				$.messager.alert('温馨提示', result.data);
-				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
-				}
-			}
+				 //结果返回
+			    success: function(result){
+				    //json格式转化
+				    var result = eval('('+result+')');
+				    $.messager.alert('温馨提示', result.data) ;
+				    if (result.state){ 
+					    if(result.tag==2){
+					    	$('#dlg').dialog('close');
+							myMarquee('T531', CTypeOne);
+							$('#unverfiedData').datagrid('reload'); // reload the user data
+
+						}else{
+							
+					    $('#dlg').dialog('close'); 
+					    $('#unverfiedData').datagrid('reload');  
+				    }
+			    }
+			   }
 			});
 	}
 
@@ -121,7 +129,7 @@
 				"<font style=\"color:red\">备注中文字数不超过500</font>");*/
 				return false;
 		}
-		alert(123);
+		//alert(123);
 		return true;
 	 }
 
@@ -142,6 +150,7 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改创新实验的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
+    	$('#Time').val(formattime(row[0].time)) ;
     	$('#Name').val(row[0].name) ;
     	$('#Type').combobox('select', row[0].type) ;
     	$('#ItemLevel').val(row[0].itemLevel) ;
@@ -201,10 +210,16 @@
 
 			if (result.state) {
 				alert(result.data);
+				myMarquee('T531', CTypeOne);
 				$('#unverfiedData').datagrid('reload');
 			}
 		}
     	}).submit();
+    }
+    
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
     }
 
     function formattime(val) {  

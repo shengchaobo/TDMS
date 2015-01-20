@@ -17,8 +17,8 @@ public class T511_Bean {
 	private String PubCSType;
 	private Date Time;
 	private String Note;
-	private String FillTeaID;
-	private String FillUnitID;
+	private int CheckState;
+
 	
 	
 	public Integer getSeqNumber() {
@@ -99,17 +99,12 @@ public class T511_Bean {
 	public void setNote(String note) {
 		Note = note;
 	}
-	public String getFillTeaID() {
-		return FillTeaID;
+	public int getCheckState() {
+		return CheckState;
 	}
-	public void setFillTeaID(String fillTeaID) {
-		FillTeaID = fillTeaID;
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
-	public String getFillUnitID() {
-		return FillUnitID;
-	}
-	public void setFillUnitID(String fillUnitID) {
-		FillUnitID = fillUnitID;
-	}
+
 	
 }

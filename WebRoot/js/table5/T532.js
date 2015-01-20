@@ -64,16 +64,24 @@
 				onSubmit : function() {
 					return validate();
 				},
-				// 结果返回
-				success : function(result) {
-				// json格式转化
-				var result = eval('(' + result + ')');
-				$.messager.alert('温馨提示', result.data);
-				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
-				}
-			}
+				 //结果返回
+			    success: function(result){
+				    //json格式转化
+				    var result = eval('('+result+')');
+				    $.messager.alert('温馨提示', result.data) ;
+				    if (result.state){ 
+					    if(result.tag==2){
+					    	$('#dlg').dialog('close');
+					    	myMarquee('T532', CTypeOne);
+							$('#unverfiedData').datagrid('reload'); // reload the user data
+
+						}else{
+							
+					    $('#dlg').dialog('close'); 
+					    $('#unverfiedData').datagrid('reload');  
+				    }
+			    }
+			   }
 			});
 	}
 
@@ -183,6 +191,7 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改实验教学示范中心的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
+    	$('#Time').val(formattime(row[0].time)) ;
     	$('#CenterName').val(row[0].centerName) ;
     	$('#FromSubject').val(row[0].fromSubject) ;
     	$('#SubjectID').val(row[0].subjectID) ;
@@ -249,10 +258,16 @@
 
 			if (result.state) {
 				alert(result.data);
+				myMarquee('T532', CTypeOne);
 				$('#unverfiedData').datagrid('reload');
 			}
 		}
     	}).submit();
+    }
+    
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
     }
     
     function formattime(val) {  

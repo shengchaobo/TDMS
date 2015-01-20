@@ -292,11 +292,6 @@ public class T151Action {
 			else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
-//			if(flag){
-//				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
-//			}else{
-//				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
-//			}
 			out.flush() ;
 		}catch(Exception e){
 			e.printStackTrace() ;

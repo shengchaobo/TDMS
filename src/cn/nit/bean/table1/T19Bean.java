@@ -11,6 +11,7 @@ public class T19Bean {
 	private String UnitName;//获奖单位
 	private String UnitID;//单位号
 	private Date RewardTime;//获奖时间
+	private int CheckState;//审核状态
 	private String Note;
 	private Date Time;
 	public int getSeqNumber() {
@@ -60,6 +61,12 @@ public class T19Bean {
 	}
 	public void setNote(String note) {
 		Note = note;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

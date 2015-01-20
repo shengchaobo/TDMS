@@ -31,6 +31,7 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table1.T181Bean;
 import cn.nit.bean.table1.T19Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table1.T19Service;
@@ -177,6 +178,7 @@ public class T19Excel {
 				t19Bean.setUnitID(UnitID);
 				t19Bean.setUnitName(UnitName);
 				t19Bean.setRewardTime(rewardTime);
+				t19Bean.setCheckState(Constants.WAIT_CHECK);
 				list.add(t19Bean);			
 			}
 			catch(Exception e){

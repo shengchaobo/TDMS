@@ -33,6 +33,7 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T181Bean;
+import cn.nit.constants.Constants;
 
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
@@ -197,7 +198,7 @@ public class T181Excel {
 				
 				count++ ;
 				
-				String FillDept=userinfo.getTeaID();
+				String FillDept=userinfo.getUnitID();
 				Date signedTime=TimeUtil.changeDateY(SignedTime);
 				
 				t181Bean.setCooperInsLevel(CooperInsLevel);
@@ -210,6 +211,7 @@ public class T181Excel {
 				t181Bean.setUnitID(UnitID);
 				t181Bean.setUnitLevel(UnitLevel);
 				t181Bean.setUnitName(UnitName);
+				t181Bean.setCheckState(Constants.WAIT_CHECK);
 				
 				list.add(t181Bean);			
 			}

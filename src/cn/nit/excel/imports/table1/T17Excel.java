@@ -18,6 +18,7 @@ import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchRoomBean;
 import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T17Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDepartmentService;
@@ -126,6 +127,7 @@ public class T17Excel {
 				t17Bean.setPlace(Place);
 //				t17Bean.setNote(note);
 				t17Bean.setTime(TimeUtil.changeDateY(selectYear)) ;
+				t17Bean.setCheckState(Constants.WAIT_CHECK) ;
 				list.add(t17Bean);
 				
 			}

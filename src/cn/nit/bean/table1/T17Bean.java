@@ -9,6 +9,7 @@ public class T17Bean {
 	private String ClubName ;//校友会名称
 	private Date BuildYear;//设立时间
 	private String Place;//地点
+	private int CheckState;//审核状态
 	private Date Time;
 	private String Note;
 	
@@ -36,6 +37,12 @@ public class T17Bean {
 	}
 	public void setBuildYear(Date BuildYear) {
 		this.BuildYear = BuildYear;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

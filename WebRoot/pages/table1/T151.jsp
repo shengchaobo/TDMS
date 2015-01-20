@@ -570,6 +570,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T151', CTypeOne);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}

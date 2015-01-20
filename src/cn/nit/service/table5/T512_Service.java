@@ -56,43 +56,39 @@ public class T512_Service {
 		return json.toString();
 		
 	}
-	/**
-	 * 生成查条件
-	 * @param seqNum
-	 * @param startDate
-	 * @param endDate
-	 * @return
-	 */
 	
-	public String generateauditingConditions(int seqNum,Date startTime,Date endTime){
-		if(seqNum == 0 && startTime == null && endTime == null){
-			return null ;
-		}
-		
-		StringBuffer sql = new StringBuffer() ;
-		
-		if(seqNum != 0){
-			sql.append(" and SeqNumber=" + seqNum) ;
-		}
-		
-		if(startTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(startTime) + "')as datetime)") ;
-		}
-		
-		if(endTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(endTime) + "')as datetime)") ;
-		}
-	
-	return sql.toString();
-			
-	}
 	
 	/**按id删除数据*/
 	public boolean deleteCoursesByIds(String ids){
 		
 		return t512_Dao.deleteCoursesByIds(ids) ;
+	}
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return t512_Dao.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return t512_Dao.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return t512_Dao.checkAll() ;
 	}
 	
   

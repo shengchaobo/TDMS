@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchRoomBean;
 import cn.nit.bean.table5.T511_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDepartmentService;
@@ -37,6 +39,7 @@ public class T511_Excel {
 	
 		boolean flag=false;
 	    List<T511_Bean> list=new LinkedList<T511_Bean>();
+	    UserinfoBean userinfo = (UserinfoBean)request.getSession().getAttribute("userinfo") ;
 	
 	    DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -177,8 +180,8 @@ public class T511_Excel {
 				
 				count++ ;
 
-				String fillUnitID = null;
-			
+//				String fillUnitID = userinfo.getUnitID();//填报单位
+//				String fillTeaID = userinfo.getTeaID();//填报人
 				
 				T511_Bean.setCSName(csName);
 				T511_Bean.setCSID(csID);
@@ -190,7 +193,7 @@ public class T511_Excel {
 				T511_Bean.setCSNature(csNatureId);
 				T511_Bean.setState(state);
 				T511_Bean.setPubCSType(pubcs);
-				T511_Bean.setFillUnitID(fillUnitID);
+				T511_Bean.setCheckState(Constants.WAIT_CHECK);
 				T511_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T511_Bean.setNote(note);
 				list.add(T511_Bean);

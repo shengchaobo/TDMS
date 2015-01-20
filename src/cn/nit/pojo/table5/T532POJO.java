@@ -25,6 +25,7 @@ public class T532POJO {
 	private int ValidTime;
 	private double Fund;
 	private Date Time;
+	private int CheckState;
 	private String Note;
 	public int getSeqNumber() {
 		return SeqNumber;
@@ -115,6 +116,12 @@ public class T532POJO {
 	}
 	public void setFund(double fund) {
 		Fund = fund;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

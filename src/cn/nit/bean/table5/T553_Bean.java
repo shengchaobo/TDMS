@@ -28,7 +28,8 @@ public class T553_Bean {
 		
 	private String FillUnitID ;
 				
-	/**  审核单位ID号  */
+	private int CheckState;
+	
     private String audit ;
 
 	
@@ -127,6 +128,14 @@ public class T553_Bean {
 
 	public void setFillUnitID(String fillUnitID) {
 		FillUnitID = fillUnitID;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	public String getAudit() {

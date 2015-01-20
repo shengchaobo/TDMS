@@ -20,6 +20,8 @@ public class T552_Bean {
 	
 	private String Note;
 	
+	private int CheckState;
+	
 	private String FillTeaID ;
 	
 	private String FillUnitID ;
@@ -83,6 +85,14 @@ public class T552_Bean {
 
 	public void setTime(Date time) {
 		Time = time;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	public String getNote() {

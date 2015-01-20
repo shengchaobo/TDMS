@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import cn.nit.bean.table5.T511_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.T511POJO;
 import cn.nit.pojo.table5.T552POJO;
@@ -17,7 +18,8 @@ public class T511_DAO {
 	
 	private String key="SeqNumber";
 	
-	private String field="CSName,CSID,CSUnit,UnitID,FromTeaResOffice,TeaResOfficeID,CSType,CSNature,State,PubCSType,Time,Note,FillTeaID,FillUnitID";
+	private String field="CSName,CSID,CSUnit,UnitID,FromTeaResOffice,TeaResOfficeID," +
+			"CheckState,CSType,CSNature,State,PubCSType,Time,Note";
 	
 
     public boolean insert(T511_Bean t511_bean)
@@ -52,7 +54,7 @@ public class T511_DAO {
         StringBuffer sql=new StringBuffer();
      	sql.append("select count(*) AS Count");
     	sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-	sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+    	sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 
      	int total=0;
      	
@@ -108,7 +110,9 @@ public class T511_DAO {
      	
      	List<T511POJO> list=null;
      	
-    	sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
+    	sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice," +
+    			"t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature," +
+    			"t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note,t.CheckState") ;
 		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
      	
@@ -122,7 +126,7 @@ public class T511_DAO {
  			sql.append(conditions) ;
  		}
  		
- 		sql.append(" order by SeqNumber desc") ;
+ 		//sql.append(" order by SeqNumber desc") ;
  		System.out.println(sql);
  		Connection conn=DBConnection.instance.getConnection();
  		
@@ -147,16 +151,19 @@ public class T511_DAO {
      	
      }
      /**
- 	 * 获取字典表的所有数据
+ 	 * 数据导出
  	 * @return
  	 *
  	 * @time: 2014-5-14/下午02:34:42
  	 */
- 	public List<T511POJO> totalList(String year){
+ 	public List<T511POJO> totalList(String year,int checkState){
  		StringBuffer sql=new StringBuffer();
- 		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
+ 		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice," +
+ 				"t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature," +
+ 				"t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note,t.CheckState") ;
 		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
 		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+		sql.append(" and t.Time like '"+year+"%' and t.CheckState = "+checkState);
  		Connection conn = DBConnection.instance.getConnection() ;
  		Statement st = null ;
  		ResultSet rs = null ;
@@ -209,7 +216,8 @@ public class T511_DAO {
  		boolean flag = false ;
  		Connection conn = DBConnection.instance.getConnection() ;
  		
- 		String tempfield = "CSName,CSID,CSUnit,UnitID,FromTeaResOffice,TeaResOfficeID,CSType,CSNature,State,PubCSType,Time,Note,FillUnitID";
+ 		String tempfield = "CSName,CSID,CSUnit,UnitID,FromTeaResOffice,TeaResOfficeID,CSType," +
+ 				"CSNature,State,PubCSType,Time,Note,CheckState";
  		try{
  			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
  		}catch(Exception e){
@@ -243,6 +251,112 @@ public class T511_DAO {
  			return true ;
  		}
  	}
+     
+     /**
+ 	 * 找到该条数据的审核状态
+ 	 * @param diCourseCategories
+ 	 * @return
+ 	 *
+ 	 * @time: 2014-5-14/下午02:34:23
+ 	 */	
+ 	public int getCheckState(int seqNumber){
+ 				
+ 		String queryPageSql = "select CheckState " 
+ 		+ " from " + tableName + 
+ 		" where SeqNumber='" + seqNumber + "';" ;
+ 		
+ 		Connection conn = DBConnection.instance.getConnection() ;
+ 		Statement st = null ;
+ 		ResultSet rs = null ;
+ 		
+ 		int state = 1;
+ 		
+ 		try{
+ 			st = conn.createStatement() ;
+ 			rs = st.executeQuery(queryPageSql) ;
+ 			
+ 			while(rs.next()){
+ 				state = rs.getInt(1) ;
+ 			}
+ 		}catch(Exception e){
+ 			e.printStackTrace() ;
+ 			return 0 ;
+ 		}finally{
+ 			DBConnection.close(conn);
+ 			DBConnection.close(rs);
+ 			DBConnection.close(st);			
+ 		}
+ 		
+ 		return state ;
+ 	}
+ 	
+ 	/**
+ 	 * 更新某条数据的审核状态
+ 	 * @param diCourseCategories
+ 	 * @return
+ 	 *
+ 	 * @time: 2014-5-14/下午02:34:23
+ 	 */	
+ 	public boolean updateCheck(int seq, int checkState){
+ 		
+ 		int flag ;
+ 		Connection conn = DBConnection.instance.getConnection() ;
+ 		Statement st = null ;
+ 		ResultSet rs = null ;
+ 		String sql = "update " + tableName + " set CheckState=" + checkState +
+ 		" where SeqNumber='" + seq + "';" ;		
+ 		System.out.println(sql);
+ 		try{			
+ 			st = conn.createStatement();
+ 			flag = st.executeUpdate(sql);					
+ 		}catch(Exception e){
+ 			e.printStackTrace() ;
+ 			return false;
+ 		}finally{
+ 			DBConnection.close(conn) ;
+ 		}
+ 		
+ 		if (flag == 0) {
+ 			return false;
+ 		} else {
+ 			return true;
+ 		}
+ 	}
+ 	
+ 	/**
+ 	 * 全部审核通过
+ 	 * @param diCourseCategories
+ 	 * @return
+ 	 *
+ 	 * @time: 2014-5-14/下午02:34:23
+ 	 */	
+ 	public boolean checkAll(){
+ 		
+ 		int flag ;
+ 		Connection conn = DBConnection.instance.getConnection() ;
+ 		Statement st = null ;
+ 		ResultSet rs = null ;
+ 		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+ 		" where CheckState=" + Constants.WAIT_CHECK ;		
+ 		
+ 		System.out.println(sql);
+ 		try{			
+ 			st = conn.createStatement();
+ 			flag = st.executeUpdate(sql);					
+ 		}catch(Exception e){
+ 			e.printStackTrace() ;
+ 			return false;
+ 		}finally{
+ 			DBConnection.close(conn) ;
+ 		}
+ 		
+ 		if (flag == 0) {
+ 			return false;
+ 		} else {
+ 			return true;
+ 		}
+ 	}
+ 	
 
 	public String getTableName() {
 		return tableName;
@@ -253,11 +367,39 @@ public class T511_DAO {
 	}
      
      
-     
-     
-     
-     
-     
+	//设置审核的状态为1：即未审核状态
+	public boolean updatCheck()
+	{
+		int flag = 0;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try
+		{
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false; 
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public static void main(String args[]){
+		T511_DAO dao = new T511_DAO();
+//		boolean flag = dao.updatFill();
+//		System.out.println(flag);
+	} 
      
 }
 

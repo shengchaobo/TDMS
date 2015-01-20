@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>T152</title>
+<title>C552</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T152/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T552/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T152/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T552/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -84,11 +84,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
    //全部审核通过
   function checkAll(){
-  			if(confirm("全部数据审核通过，确认吗？")){
-  			alert(222);
+              if(confirm("全部数据审核通过，确认吗？")){
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T152/checkAll", 
+				    url: "pages/T552/checkAll", 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -103,53 +102,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  		}
 				    }
 				});
-    }
+     }
    }
 	</script>
+
 </head>
 
-<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
-<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
-
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
 <body style="height: 100%'">
-	<table  id="checkData"  class="easyui-datagrid"  url="pages/T152/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
+  <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+	<table  id="checkData"  class="easyui-datagrid"  url="pages/T552/auditingData?checkNum=<%=request.getAttribute("WAITCHECK")%>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
 				
 		  </tr>
 		</thead>
-		<thead>
+
+		<thead> 
 			<tr>
-			 <th data-options="field:'seqNumber'">编号</th>
-				<th data-options="field:'resInsName'" >科研机构名称</th>
-				<th data-options="field:'resInsID'" >单位号</th>		
-				<th data-options="field:'type'" >类别</th>
-				<th data-options="field:'buildCondition'" formatter="booleanstr" >共建情况</th>
-				<th data-options="field:'biOpen'"  formatter="booleanstr" >是否对本科生开放</th>
-				<th data-options="field:'openCondition'" >对本科生开放情况（500字以内）</th>
-				<th data-options="field:'teaUnit'">所属教学单位</th>
-				<th data-options="field:'unitID'" >教学单位号</th>
-				<th data-options="field:'beginYear'" fit="true" formatter="formattime">开设年份</th>
-				<th data-options="field:'houseArea'" >专业科研用房面积（平方米）</th>
-				<!-- <th field="fillUnitID">填报单位</th> -->
-				<th data-options="field:'fillUnitID',hidden:true">填报教学单位</th>
-				<th data-options="field:'note'" >备注</th>
+			<th field="seqNumber">编号</th>
+				<th data-options="field:'awardName'">
+						获奖名称
+					</th>
+					<th data-options="field:'awardClass'">
+						获奖班级
+					</th>
+					<th data-options="field:'teaUnit'">
+						所在教学单位
+					</th>
+					<th data-options="field:'awardLevel'">
+						级别
+					</th>
+					<th data-options="field:'awardTime'" formatter="formattime">
+						获奖时间
+					</th>
+					<th data-options="field:'note'">
+						备注
+					</th>
 			</tr>
-			</thead>
+		</thead>
 	</table>
 	
   <div id="toolbar"  style="float: right;">
 			<a href='javascript:checkAll()'   class="easyui-linkbutton" iconCls="icon-download" plain="true"  >
-					一键审核通过
+					一键全审核通过
 			</a>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog"
-		style="width:400px;height:270px;padding:10px 20px;" closed="true"
+		style="width:400px;height:250px;padding:10px 20px;" closed="true"
 		data-options="modal:true" buttons="#dlg-buttons">
 		<form id="addReasonForm" method="post">
-			<table>			
+			<table>
 				<tr>
 					<td>
 						<div class="fitem">
@@ -163,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 						<div class="fitem">
 							<label>被审核表ID：</label> 
-								<input type="text" name="checkInfo.tableID" id="tableName"   value="T152"
+								<input type="text" name="checkInfo.tableID" id="tableName"   value="T552"
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>
@@ -173,15 +178,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="fitem">
 								<label>该条数据编号：</label> 
 								<input type="text" name="checkInfo.checkID" id="dataID" 
-								readonly="readonly"  style="width: 150px;color: grey"/>
-							</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-							<div class="fitem">
-								<label>填写者的教学单位号：</label> 
-								<input type="text" name="checkInfo.fillUnitID"  id="unitID" 
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>
@@ -204,6 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
+	
 	<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
@@ -250,6 +247,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    }
 			</script>
 			
+	
 	
 </body>
 </html>

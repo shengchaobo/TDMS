@@ -11,6 +11,7 @@ public class T531Bean {
 	private Date buildTime;
 	private String TeaUnit;
 	private int JoinStuNum;
+	private int CheckState;
 	private String Note;
 	private Date Time;
 
@@ -62,6 +63,12 @@ public class T531Bean {
 	}
 	public void setNote(String note) {
 		Note = note;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

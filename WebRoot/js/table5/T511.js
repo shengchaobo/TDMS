@@ -76,16 +76,24 @@
 				    onSubmit: function(){
 				    	return validate();
 				    },
-				    //结果返回
+				  //结果返回
 				    success: function(result){
 					    //json格式转化
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T511', CTypeOne);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
@@ -164,6 +172,7 @@
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','添加本科教学课程库');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
 	    	$('#CSID').val(row[0].CSID) ;
 	    	$('#CSName').val(row[0].CSName) ;
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
@@ -214,10 +223,17 @@
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T511', CTypeOne);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
 	    	}).submit();
 	    }
+	        
+	        //提交导出表单
+		    function submitForm(){
+		    	  document.getElementById('exportForm').submit();
+		    }
+		    
 	
 	    	    

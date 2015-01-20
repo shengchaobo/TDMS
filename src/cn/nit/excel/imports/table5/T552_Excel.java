@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.table5.T552_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.table5.T552_Service;
 import cn.nit.util.TimeUtil;
@@ -100,7 +101,7 @@ public class T552_Excel {
 				T552_Bean.setFillUnitID(fillUnitID);
 				T552_Bean.setAwardTime(TimeUtil.changeDateY(awardTime));
 				T552_Bean.setTime(TimeUtil.changeDateY(selectYear));
-				
+				T552_Bean.setCheckState(Constants.WAIT_CHECK);
 				list.add(T552_Bean);
 				
 				

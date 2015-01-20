@@ -115,20 +115,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
-				<th field="seqNumber">编号</th>
-				<th field="resInsName" >科研机构名称</th>
-				<th field="resInsID" >单位号</th>
 		  </tr>
 		</thead>
-		<!-- <thead data-options="frozen:true">
-			<tr>			
-				<th field="seqNumber">编号</th>
-				<th field="resInsName" >科研机构名称</th>
-				<th field="resInsID" >单位号</th>
-		</tr>
-		 </thead> -->
+		
 		<thead> 
 			<tr>
+			 <th field="seqNumber">编号</th>
+				<th field="resInsName" >科研机构名称</th>
+				<th field="resInsID" >单位号</th>
 				<th field="type" >类别</th>
 				<th field="buildCondition"  formatter="booleanstr">共建情况</th>
 				<th field="biOpen"   formatter="booleanstr">是否对本科生开放</th>

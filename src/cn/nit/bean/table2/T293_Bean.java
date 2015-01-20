@@ -38,6 +38,7 @@ public class T293_Bean implements
 	private Double otherIncome;
 	private Date time;
 	private String note;
+	private int checkState;
 
 	@Column(name = "SeqNumber", unique = true, nullable = false)
 	public Integer getSeqNumber() {
@@ -225,6 +226,14 @@ public class T293_Bean implements
 
 	public Double getJuniorAllocateFund() {
 		return juniorAllocateFund;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

@@ -102,7 +102,7 @@
 				    ];
 				    							
 				$('#edit').propertygrid({
-						title : '本科教育经费支出情况',
+						//title : '本科教育经费支出情况',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
 				        width: '60%',
 				        height: 'auto',
@@ -123,6 +123,30 @@
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
+				    				$("#edit").propertygrid({title:'本科教育经费支出情况'});		
+			    					$("#cancel").show();
+			    					$("#save").show();
+				    				$("#export").hide();
+				    			}else{	
+				    				if(json.checkState==WAITCHECK){
+				    					$("#edit").propertygrid({title:'本科教育经费支出情况（<font color=red>待审核</font>）'});
+				    					//document.getElementById("export").style.display ="none";
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}
+				    				else if(json.checkState==PASSCHECK){
+				    					$("#edit").propertygrid({title:'本科教育经费支出情况（<font color=red>审核通过</font>）'});					    				
+				    					$("#cancel").hide();
+				    					$("#save").hide();
+				    					$("#export").show();
+				    				}				    				
+				    				else if(json.checkState==NOPASSCHECK){
+				    					$("#edit").propertygrid({title:'本科教育经费支出情况（<font color=red>审核未通过</font>）'});	
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}
 				    			}
 			                    var i = 0;
 			                    while(i<rows.length){
@@ -161,6 +185,30 @@
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
+				    				$("#edit").propertygrid({title:'本科教育经费支出情况'});		
+			    					$("#cancel").show();
+			    					$("#save").show();
+				    				$("#export").hide();
+				    			}else{	
+				    				if(json.checkState==WAITCHECK){
+				    					$("#edit").propertygrid({title:'本科教育经费支出情况（<font color=red>待审核</font>）'});
+				    					//document.getElementById("export").style.display ="none";
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}
+				    				else if(json.checkState==PASSCHECK){
+				    					$("#edit").propertygrid({title:'本科教育经费支出情况（<font color=red>审核通过</font>）'});					    				
+				    					$("#cancel").hide();
+				    					$("#save").hide();
+				    					$("#export").show();
+				    				}				    				
+				    				else if(json.checkState==NOPASSCHECK){
+				    					$("#edit").propertygrid({title:'本科教育经费支出情况（<font color=red>审核未通过</font>）'});	
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}
 				    			}
 			                    var i = 0;
 			                    while(i<rows.length){
@@ -220,7 +268,8 @@
 										alert("保存失败");
 										flag = false;
 				                }
-			    		})		    		
+			    		})	
+			    		myMarquee('T292', CTypeThree)
 						reloadgrid (year,flag) 	;
      					$('#edit').propertygrid('loadData', rows);						 					 
 				});		

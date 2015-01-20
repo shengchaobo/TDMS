@@ -20,6 +20,7 @@ public class T2103_Bean implements java.io.Serializable {
 	private Integer stuProfTrainNum;
 	private Date time;
 	private String note;
+	private int checkState;
 
 	// Property accessors
 	@Id
@@ -58,6 +59,14 @@ public class T2103_Bean implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

@@ -24,7 +24,8 @@ public class T282_Bean implements java.io.Serializable {
 	private Double otherAsset;
 	private Date time;
 	private String note;
-
+	private int CheckState;
+	
 	// Constructors
 
 	/** default constructor */
@@ -123,6 +124,14 @@ public class T282_Bean implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public int getCheckState() {
+		return CheckState;
 	}
 
 }

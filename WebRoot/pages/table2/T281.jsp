@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -31,10 +32,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
 	<script type="text/javascript" src="js/table2/T281.js"></script>
-	<script type="text/javascript"></script>
 </head>
 
-<body style="height: 100%'" >
+<% request.setAttribute("CHECKTYPE",Constants.CTypeThree); %>
+<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("NOPASS",Constants.NOPASS_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%'"   onload = "myMarquee('T281','<%=request.getAttribute("CHECKTYPE") %>')">
+  <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
+  
  <table id="edit" class="easyui-propertygrid"  ></table>
  <div id="toolbar" style="height:30px;">
 		<div style="float: left;">	
@@ -43,9 +54,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" id="export" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		</div>
 	 	 <form  id="exportForm"  style="float: right;"  method="post" >
-			显示： <select class="easyui-combobox" id="cbYearContrast" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false></select>
+			显示： <select class="easyui-combobox" id="cbYearContrast" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false ></select>
 	 	</form>	
-</div>
+	</div>
 </body>
 	<script type="text/javascript">
     	var currentYear = new Date().getFullYear();

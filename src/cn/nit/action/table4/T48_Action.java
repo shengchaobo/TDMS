@@ -24,8 +24,11 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T47_Bean;
 import cn.nit.bean.table4.T48_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table4.T47_Dao;
 import cn.nit.dao.table4.T48_Dao;
+import cn.nit.service.CheckService;
+import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table4.T48_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -38,6 +41,11 @@ public class T48_Action {
 	private String page; //当前第几页
 	
 	private T48_Service T48_services = new T48_Service();
+	
+	private CheckService check_services = new CheckService();
+	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
 	
 	private T48_Bean T48_bean = new T48_Bean();
 
@@ -58,6 +66,12 @@ public class T48_Action {
 	/**  下载的excelName  */
 	private String excelName ;
 	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+	
+	/**  导出时间  */
+	private String selectYear ;
+	
 
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;	
@@ -71,7 +85,7 @@ public class T48_Action {
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
 		
-		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){								
 			cond = null;	
 		}else{			
 			if(this.getSeqNum()!=null){
@@ -87,12 +101,30 @@ public class T48_Action {
 				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 			}
+			
+			//审核状态判断
+			if(this.getCheckNum() == Constants.WAIT_CHECK ){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
+				conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
+			}
+			
 			cond = conditions.toString();
 		}
 		
 		//具体教学单位
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-		String fillUnitID = bean.getUnitID();
+		String fillUnitID;
+		String tempUnitID = bean.getUnitID().substring(0,1);
+		if("3".equals(tempUnitID)){
+			fillUnitID = bean.getUnitID();
+		}else{
+			fillUnitID = null;
+		}
 		
 		List<T48_Bean> list = T48_services.getPageteamList(cond, fillUnitID, this.getRows(), this.getPage()) ;
 		String TeaInfoJson = this.toBeJson(list,T48_services.getTotal(cond, fillUnitID));
@@ -145,11 +177,16 @@ public class T48_Action {
 		
 		//插入时间
 		T48_bean.setTime(new Date());
+		//插入审核状态
+		T48_bean.setCheckState(Constants.WAIT_CHECK);
 		//插入教学单位
-		//具体教学单位
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String fillUnitID = bean.getUnitID();
 		T48_bean.setFillUnitID(fillUnitID);
+		
+		String unitName = deSer.getName(fillUnitID);
+		T48_bean.setTeaUnit(unitName);
+		T48_bean.setUnitId(fillUnitID);
 		
 		boolean flag = T48_services.insert(T48_bean);
 		PrintWriter out = null ;
@@ -176,15 +213,42 @@ public class T48_Action {
 	/**  编辑数据  */
 	public void edit(){
 
-		boolean flag = T48_services.update(T48_bean) ;
+		boolean flag = false;
+		
+		int tag = 0;
+		//获得该条数据审核状态
+		int state = T48_services.getCheckState(T48_bean.getSeqNumber());
+
+		//如果审核状态是待审核，则直接修改
+		if(state == Constants.WAIT_CHECK){
+			System.out.println("test"+state);
+			T48_bean.setCheckState(Constants.WAIT_CHECK);
+			flag = T48_services.update(T48_bean) ;
+			if(flag) tag = 1;
+		}
+		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+		if(state == Constants.NOPASS_CHECK){
+			T48_bean.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = T48_services.update(T48_bean) ;
+			boolean flag2 = check_services.delete("T48",T48_bean.getSeqNumber());
+			if(flag1&&flag2){
+				flag = true;
+				tag = 2;
+			}
+		}
+		
 		PrintWriter out = null ;
 	
 		try{
 			response.setContentType("text/html; charset=UTF-8") ;
 			out = response.getWriter() ;
-			if(flag){
+			if(tag == 1){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
-			}else{
+			}
+			else if(tag == 2){
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+			}
+			else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
@@ -197,11 +261,66 @@ public class T48_Action {
 			}
 		}
 	}
+	
+	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = T48_services.updateCheck(this.getSeqNum(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  全部审核通过  */
+	public void checkAll(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = T48_services.checkAll();
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"一键审核成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
 
 	/**  根据数据的id删除数据  */
 	public void deleteByIds(){
 		System.out.println("ids=" + this.getIds()) ;
 		boolean flag = T48_services.deleteByIds(ids) ;
+		//删除审核不通过信息
+		check_services.delete("T48", ids);
 		PrintWriter out = null ;
 		
 		try{
@@ -235,7 +354,7 @@ public class T48_Action {
 			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 			String fillUnitID = bean.getUnitID();
 			
-			List<T48_Bean> list = T48_dao.totalList(fillUnitID);
+			List<T48_Bean> list = T48_dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 						
 			String sheetName = this.excelName;
 			
@@ -337,5 +456,21 @@ public class T48_Action {
 			e.printStackTrace();
 		}
 		return excelName;
+	}
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
 	}
 }

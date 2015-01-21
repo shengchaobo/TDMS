@@ -217,7 +217,6 @@ public class T453_Action {
 		int tag = 0;
 		//获得该条数据审核状态
 		int state = T453_services.getCheckState(T453_bean.getSeqNumber());
-		System.out.println("test"+state);
 		//如果审核状态是待审核，则直接修改
 		if(state == Constants.WAIT_CHECK){
 			System.out.println("test"+state);

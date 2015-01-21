@@ -443,6 +443,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#FillDept').val(row[0].fillDept) ;
 	    	$('#CooperInsName').val(row[0].cooperInsName);
 	    	$('#CooperInsType').combobox('select',row[0].cooperInsType);
+	    	//alert($('#CooperInsType').combobox('select',row[0].cooperInsType));
 	    	$('#CooperInsLevel').combobox('select',row[0].cooperInsLevelID) ;
 	    	$('#SignedTime').datebox('setValue',formattime(row[0].signedTime)) ;
 	    	$('#UnitID').combobox('select',row[0].unitID);

@@ -21,12 +21,18 @@ function singleImport() {
 		},
 		// 结果返回
 		success : function(result) {
-			// json格式转化
+		// json格式转化
 		var result = eval('(' + result + ')');
 		$.messager.alert('温馨提示', result.data);
 		if (result.state) {
-			$('#dlg').dialog('close');
-			$('#commomData').datagrid('reload');
+			if(result.tag==2){
+				$('#dlg').dialog('close');
+				myMarquee('T651', CTypeTwo)
+				$('#unverfiedData').datagrid('reload'); // reload the user data
+			}else{
+				$('#dlg').dialog('close');
+				$('#unverfiedData').datagrid('reload'); // reload the user data
+			}
 		}
 	}
 	});
@@ -37,7 +43,7 @@ function validate() {
 	// 获取文本框的值
 	
 	var  num = /^\d+$/;  //用于判断字符串是否全是数字
-	var unitId = $('#unitId').combobox('getText');
+	//var unitId = $('#unitId').combobox('getText');
 //	var teaUnit = $('#teaUnit').combobox('getText');
 	
 	var competiType = $('#competiType').combobox('getText');
@@ -48,9 +54,9 @@ function validate() {
 	var awardTime = $('#awardTime').datetimebox('getValue');
 	var awardFromUnit = $('#awardFromUnit').val();
 	var awardStuName = $('#awardStuName').val();
-	var awardStuNum = $('#awardStuNum').val();
+	var awardStuNum =  $('#awardStuNum').numberbox('getValue');
 	var guideTeaName = $('#guideTeaName').val();
-	var guideTeaNum = $('#guideTeaNum').val();
+	var guideTeaNum =  $('#guideTeaNum').numberbox('getValue');
 	
 	var fillUnitID = $('#fillUnitID').val();
 	var time = $('#time').datetimebox('getValue');
@@ -60,10 +66,10 @@ function validate() {
 
 	// 根据数据库定义的字段的长度，对其进行判断
 
-	if (unitId == null || unitId.length == 0) {
-		alert("教学单位不能为空");
-		return false;
-	}
+	//if (unitId == null || unitId.length == 0) {
+	//	alert("教学单位不能为空");
+	//	return false;
+	//}
 
 	if (competiType == null || competiType.length == 0) {
 		alert("竞赛类型不能为空");
@@ -122,7 +128,7 @@ function validate() {
 //删除选中的行
 function deleteByIds() {
 	// 获取选中项
-	var row = $('#commomData').datagrid('getSelections');
+	var row = $('#unverfiedData').datagrid('getSelections');
 	if (row.length == 0) {
 		$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
 		return;
@@ -157,14 +163,15 @@ function deletes(ids) {
 
 			if (result.state) {
 				alert(result.data);
-				$('#commomData').datagrid('reload');
+				myMarquee('T651', CTypeTwo);
+				$('#unverfiedData').datagrid('reload');
 			}
 		}
 	}).submit();
 }
 
 function editItem() {
-	var row = $('#commomData').datagrid('getSelections');
+	var row = $('#unverfiedData').datagrid('getSelections');
 
 	if (row.length != 1) {
 		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！");
@@ -180,34 +187,55 @@ function editItem() {
 	
 	$('#dlg').dialog('open').dialog('setTitle', '学习成果—本科生竞赛获奖情况');
 	$('#seqNumber').val(row[0].seqNumber);
-	$('#unitId').combobox('select', row[0].unitId);
-	$('#competiType').combobox('select', row[0].competiType);
-	$('#competiName').val(row[0].competiName);
-	$('#awardItem').val(row[0].awardItem);
-	$('#awardLevel').combobox('select', row[0].awardLevel);
-	$('#awardGrade').val(row[0].awardGrade);
-	$('#awardTime').datebox("setValue", formattime(row[0].awardTime)) ;
-	$('#awardFromUnit').val(row[0].awardFromUnit);
-	$('#awardStuName').val(row[0].awardStuName);
-	$('#awardStuNum').val(row[0].awardStuNum);
-	$('#guideTeaName').val(row[0].guideTeaName);
-	$('#guideTeaNum').val(row[0].guideTeaNum);
+	//alert(row[0].seqNumber);
+	$('#teaUnit').val(row[0].teaUnit);
+	//alert(row[0].teaUnit);
+	$('#unitId').val(row[0].unitId);
+	//alert(row[0].unitId);
 	$('#fillUnitID').val(row[0].fillUnitID);
-
+	//alert(row[0].fillUnitID);
+	//$('#unitId').combobox('select', row[0].unitId);
+	$('#competiType').combobox('setText', row[0].competiType);
+	//alert(row[0].competiType);
+	$('#competiName').val(row[0].competiName);
+	//alert(row[0].competiName);
+	$('#awardItem').val(row[0].awardItem);
+	//alert(row[0].awardItem);
+	$('#awardLevel').combobox('setText', row[0].awardLevel);
+	//alert(row[0].awardLevel);
+	$('#awardGrade').val(row[0].awardGrade);
+	//alert(row[0].awardGrade);
+	$('#awardTime').datebox("setValue", formattime(row[0].awardTime)) ;
+	//alert(formattime(row[0].awardTime));
+	$('#awardFromUnit').val(row[0].awardFromUnit);
+	//alert(row[0].awardFromUnit);
+	$('#awardStuName').val(row[0].awardStuName);
+	//alert(row[0].awardStuName);
+	$('#awardStuNum').numberbox('setValue',row[0].awardStuNum) ;
+	//$('#awardStuNum').numberbox('setValue',row[0].awardStuNum) ;
+	//alert(row[0].awardStuNum);
+	//$('#awardStuNum').val(row[0].awardStuNum);
+	$('#guideTeaName').val(row[0].guideTeaName);
+	//alert(row[0].guideTeaName);
+	$('#guideTeaNum').numberbox('setValue',row[0].guideTeaNum) ;
+	//alert(row[0].row[0].guideTeaNum);
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
+	//$('#time').datebox("setValue", formattime(row[0].time)) ;
+	//alert(formattime(row[0].time));
 	$('#note').val(row[0].note);
+	//alert(row[0].note);
 }
 
 function reloadgrid ()  { 
     //查询参数直接添加在queryParams中 
-	 var  seqNum = $('#seqNum').val();
+	 var seqNum = $('#seqNum').val();
      var startTime = $('#startTime').datetimebox('getValue');
      var endTime = $('#endTime').datetimebox('getValue');
-     var queryParams = $('#commomData').datagrid('options').queryParams;  
+     var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
      queryParams.seqNum = seqNum;  
      queryParams.startTime = startTime;  
      queryParams.endTime = endTime;  
-     $("#commomData").datagrid('reload'); 
+     $("#unverfiedData").datagrid('reload'); 
 }	
 
 //模板导入
@@ -244,8 +272,14 @@ function batchImport(){
 		 			msg: result.errorMsg
 		 		});
 		    		 $('#dlg').dialog('close'); // close the dialog
-		    		 $('#commomData').datagrid('reload'); // reload the user data
+		    		 $('#unverfiedData').datagrid('reload'); // reload the user data
 		 	}
 		 }
 		 });
  }
+
+//提交导出表单
+function submitForm(){
+	  document.getElementById('exportForm').submit();
+}
+

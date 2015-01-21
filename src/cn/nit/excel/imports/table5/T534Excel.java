@@ -29,6 +29,7 @@ import jxl.write.biff.RowsExceededException;
 
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDegreeBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiEducationBean;
@@ -36,6 +37,7 @@ import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table5.T534Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDegreeService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiEducationService;
@@ -352,7 +354,12 @@ public class T534Excel {
 				t534Bean.setTitle(Title);
 				t534Bean.setTrainIssueNum(Integer.parseInt(TrainIssueNum));
 				t534Bean.setUnitID(UnitID);
-				t534Bean.setTime(Time);
+				//插入教学单位
+				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+				String fillUnitID = bean.getUnitID();
+				t534Bean.setFillUnitID(fillUnitID);
+				t534Bean.setCheckState(Constants.WAIT_CHECK);
+				t534Bean.setTime(TimeUtil.changeDateY(selectYear));
 				t534Bean.setGuideStuNum(Integer.parseInt(GuideStuNum));
 				list.add(t534Bean);
 				

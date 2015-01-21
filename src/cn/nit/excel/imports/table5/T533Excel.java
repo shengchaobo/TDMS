@@ -30,9 +30,11 @@ import jxl.write.biff.RowsExceededException;
 
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.table5.T533Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
 import cn.nit.service.table5.T533Service;
@@ -184,7 +186,7 @@ public class T533Excel {
 					
 				
 				count++ ;
-				String fillUnitID="3001";
+//				String fillUnitID="3001";
 				t533Bean.setDesignExpCSNum(Integer.parseInt(DesignExpCSNum));
 				t533Bean.setExpCSNum(Integer.parseInt(ExpCSNum));
 				t533Bean.setExpRatio(this.toDouble(ExpRatio));
@@ -193,8 +195,13 @@ public class T533Excel {
 				t533Bean.setMajorName(MajorName);
 				t533Bean.setTeaUnit(TeaUnit);
 				t533Bean.setUnitID(UnitID);
+				//插入教学单位
+				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+				String fillUnitID = bean.getUnitID();
 				t533Bean.setFillUnitID(fillUnitID);
-				t533Bean.setTime(Time);
+				t533Bean.setCheckState(Constants.WAIT_CHECK);
+				//t533Bean.setTime(new Date());
+				t533Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t533Bean);
 				
 							

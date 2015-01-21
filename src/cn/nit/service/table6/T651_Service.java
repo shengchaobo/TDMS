@@ -61,15 +61,15 @@ public class T651_Service {
 	}
 	
 	
-	public List<T651_Bean> getPageInfoList(String rows, String page) {
-		// TODO Auto-generated method stub
-		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
-		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
-		
-		List<T651_Bean> pageInfo = T651_dao.queryPageList(pagesize, currentpage);
-		
-		return pageInfo;	
-	}
+//	public List<T651_Bean> getPageInfoList(String rows, String page) {
+//		// TODO Auto-generated method stub
+//		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
+//		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
+//		
+//		List<T651_Bean> pageInfo = T651_dao.queryPageList(pagesize, currentpage);
+//		
+//		return pageInfo;	
+//	}
 	
 	public List<T651_Bean> getPageInfoList(String cond, String  filledID,
 			String rows, String page) {
@@ -85,15 +85,15 @@ public class T651_Service {
 	
 	public int getTotal(String cond, String filledID) {
 		// TODO Auto-generated method stub
-		return T651_dao.getAllList(cond, filledID).size();
+		return T651_dao.totalQueryPageList(cond, filledID);
 	}
 	
 
 
-	public int getTotal() {
-		// TODO Auto-generated method stub
-		return T651_dao.getAllList().size();
-	}
+//	public int getTotal() {
+//		// TODO Auto-generated method stub
+//		return T651_dao.getAllList().size();
+//	}
 
 	public S65_Bean getStatic(String year){
 		//System.out.println("getstatic");
@@ -107,6 +107,34 @@ public class T651_Service {
 		//System.out.println(list.toString());
          
 		return list;				
+	}
+	
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return T651_dao.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return T651_dao.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return T651_dao.checkAll() ;
 	}
 	/**
 	 * @param args

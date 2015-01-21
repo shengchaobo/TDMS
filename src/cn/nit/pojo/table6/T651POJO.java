@@ -22,6 +22,8 @@ public class T651POJO {
 	private Date Time;
 	private String Note;
 	private String FillUnitID;
+	private int CheckState;
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}
@@ -123,6 +125,12 @@ public class T651POJO {
 	}
 	public void setFillUnitID(String fillUnitID) {
 		FillUnitID = fillUnitID;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	
 	

@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
+
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -35,12 +37,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/table5/T534.js"></script>
 </head>
 
-<body style="height: 100%'" >
-	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T534/auditingData"  style="height: auto"  >
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%'" onload="myMarquee('T534','<%=request.getAttribute("CHECKTYPE") %>')">
+  <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/> 
+
+	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T534/auditingData?checkNum=<%=request.getAttribute("NOCHECK") %>"  
+	  style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th data-options="field:'teaUnit'">
 						教学单位
 					</th>
@@ -141,15 +156,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 	</div>
 	
-	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+	<table id="verfiedData"  class="easyui-datagrid"  url="pages/T534/auditingData?checkNum=<%=request.getAttribute("PASS") %>"  style="height: auto;" >
 		<thead data-options="frozen:true">
-			<tr>			
-				<th data-options="field:'ck',checkbox:true">选取</th>
+			<tr>
 				<th  data-options="field:'seqNumber'" >编号</th>
-				<th data-options="field:'TeaUnit'">
+				<th data-options="field:'teaUnit'">
 						教学单位
 					</th>
-					<th data-options="field:'UnitID'">
+					<th data-options="field:'unitID'">
 						单位号
 					</th>
 		     </tr>
@@ -157,46 +171,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 				<tr>					
 					
-					<th data-options="field:'MajorName'">
+					<th data-options="field:'majorName'">
 						专业名称
 					</th>
 					<th data-options="field:'majorID'">
 						专业代码
 					</th>
-					<th data-options="field:'TeaName'">
+					<th data-options="field:'teaName'">
 						教师姓名
 					</th>
-					<th data-options="field:'TeaID'">
+					<th data-options="field:'teaID'">
 						教工号
 					</th>
-					<th data-options="field:'IsOutEmploy'">
+					<th data-options="field:'isOutEmploy'" formatter="formatBoolean">
 						是否外聘
 					</th>
-					<th data-options="field:'Education'">
+					<th data-options="field:'education'">
 						学历
 					</th>
-					<th data-options="field:'Degree'">
+					<th data-options="field:'degree'">
 						学位
 					</th>
-					<th data-options="field:'Title'">
+					<th data-options="field:'title'">
 						职称
 					</th>
-					<th data-options="field:'IsExcellent'">
+					<th data-options="field:'isExcellent'" formatter="formatBoolean">
 						是否获评校级优秀指导教师
 					</th>
-					<th data-options="field:'TrainIssueNum'">
+					<th data-options="field:'trainIssueNum'">
 						指导毕业综合训练课题数量
 					</th>
-					<th data-options="field:'SociaPraFinishNum'">
+					<th data-options="field:'sociaPraFinishNum'">
 						其中在实验、实习、工程实践和社会调查等社会实践中完成数
 					</th>
-					<th data-options="field:'GuideStuNum'">
+					<th data-options="field:'guideStuNum'">
 						指导学生人数
 					</th>
-					<th data-options="field:'GainBestGraDesinNum'">
+					<th data-options="field:'gainBestGraDesinNum'">
 						其中：学生获优秀毕业设计人数
 					</th>
-					<th data-options="field:'GainTime'">
+					<th data-options="field:'gainTime'">
 						获评时间
 					</th>
 					
@@ -207,8 +221,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T534/dataExport?excelName=<%=URLEncoder.encode("表5-3-4分专业毕业综合训练情况（教学单位-教务处）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		
+	
+	<form action='pages/T534/dataExport?excelName=<%=URLEncoder.encode("表5-3-4分专业毕业综合训练情况（教学单位-教务处）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	</div>
 	
 	<!--添加弹出框-->
@@ -229,8 +248,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   <form id="addForm" method="post">
 		<table>
 			<tr>
-				<td>
-					<input type="hidden" name="t534Bean.SeqNumber"  id="seqNumber"/>
+				<!-- <td>
+					
 					<div class="fitem">
 						<label>教学单位：</label> 
 						<input type="hidden" name="t534Bean.TeaUnit" id="TeaUnit"/>
@@ -241,9 +260,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 }">
 						 <span id="teaUnitIDSpan"></span>
 					</div>
-				</td>
-				<td class="empty"></td>
+				</td> -->
+				
 				<td>
+				  <input type="hidden" name="t534Bean.SeqNumber"  id="seqNumber"/>
+					<input type="hidden" name="t534Bean.Time"  id="Time"/>
+					<input type="hidden" name="t534Bean.FillUnitID"  id="FillUnitID"/>
+					<input type="hidden" name="t534Bean.TeaUnit"  id="TeaUnit"/>
+					<input type="hidden" name="t534Bean.UnitID"  id="UnitID"/>
 					<div class="fitem">
 						<label>专业名称：</label> 
 						<input type="hidden" name="t534Bean.MajorName" id="MajorName"/>
@@ -254,8 +278,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 }">
 					</div>
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>
 				<td colspan="3">
 				<div class="fitem">
 				<label>教师姓名：</label> 
@@ -272,7 +295,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>是否外聘：</label> 
-						<select class='easyui-combobox' style="width:50px"  id="IsOutEmploy" name="t534bean.IsOutEmploy"  panelHeight="auto" editable="false" >
+						<select class='easyui-combobox' style="width:50px"  id="IsOutEmploy" name="t534Bean.IsOutEmploy"  panelHeight="auto" editable="false" >
 							<option value="true" selected = "selected">是</option>
 							<option value="false">否</option>
 						</select>	
@@ -390,6 +413,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
     	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
+	<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast1");
     	for (var i = 0; i <= 10; i++) {
         var theOption = document.createElement("option");
         	theOption.innerHTML = currentYear-i + "年";

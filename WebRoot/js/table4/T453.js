@@ -70,8 +70,14 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						myMarquee('T453', CTypeTwo)
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
 			});
@@ -86,12 +92,12 @@
 		//var time = $('#time').datetimebox('getValue');
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
-		var unitName = $('#unitId').combobox('getText');
+		//var unitName = $('#unitId').combobox('getText');
 			
-		if(unitName == null || unitName==""){
+/*		if(unitName == null || unitName==""){
 			alert("所属教学单位不能为空");
 			return false;
-	    }
+	    }*/
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
@@ -123,7 +129,8 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改教师培训进修的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#unitId').combobox('select', row[0].unitId) ;
+    	$('#unitId').val(row[0].unitId) ;
+    	$('#teaUnitName').val(row[0].teaUnitName) ;
     	$('#name').combobox('select', row[0].name) ;
     	$('#communType').combobox('select', row[0].communType) ;
     	$('#beginTime').datebox("setValue", formattime(row[0].beginTime)); 
@@ -184,8 +191,14 @@
 
 			if (result.state) {
 				alert(result.data);
-				$('#unverfiedData').datagrid('reload');
+				myMarquee('T453', CTypeTwo);
+				$('#unverfiedData').datagrid('reload'); // reload the user data
 			}
 		}
     	}).submit();
+    }
+    
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
     }

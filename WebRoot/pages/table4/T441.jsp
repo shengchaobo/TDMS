@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
 				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
-		     </tr>
+		  </tr>
 		</thead>
 		<thead>
 				<tr>					

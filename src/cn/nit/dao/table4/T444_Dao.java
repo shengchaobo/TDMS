@@ -65,7 +65,7 @@ public class T444_Dao {
 		"ResField,ResearchTeam AS Type,GainTime,Leader,TeaId,OtherTeamNum,OtherTeamPer,Time,Note,CheckState"		
 		+ " from " + tableName + 
 		" left join " + tableName2+ " on " + "Type=" + tableName2 + ".IndexId where Time like '"+year+"%'" +
-		" and CheckState=" + Constants.PASS_CHECK + " and Time like '"+year+"%'";
+		" and CheckState=" + Constants.PASS_CHECK ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

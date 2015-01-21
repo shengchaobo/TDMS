@@ -39,6 +39,7 @@ import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table4.T42_Bean;
 import cn.nit.bean.table4.T441_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDegreeService;
@@ -172,6 +173,8 @@ public class T441_Excel {
 				T441_bean.setFillUnitID(fillUnitID);
 				//插入时间
 				T441_bean.setTime(TimeUtil.changeDateY(selectYear));
+				//插入审核状态
+				T441_bean.setCheckState(Constants.WAIT_CHECK);
 				list.add(T441_bean);
 								
 			}catch(Exception e){

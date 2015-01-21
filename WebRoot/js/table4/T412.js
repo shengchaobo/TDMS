@@ -136,7 +136,6 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改专任教师的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	alert(row[0].seqNumber);
     	$('#teaUnitID').val(row[0].teaUnitID) ;
     	$('#fromTeaUnit').val(row[0].fromTeaUnit) ;
     	$('#teaName').combobox('select', row[0].teaName) ;

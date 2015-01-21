@@ -17,6 +17,7 @@ import cn.nit.bean.di.DiTutorTypeBean;
 import cn.nit.bean.table4.T442_Bean;
 import cn.nit.bean.table4.T443_Bean;
 import cn.nit.bean.table4.T444_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
 import cn.nit.service.di.DiResearchTeamService;
@@ -119,6 +120,8 @@ public class T444_Excel {
 				T444_bean.setOtherTeamPer(otherTeamPer);
 				//插入时间
 				T444_bean.setTime(TimeUtil.changeDateY(selectYear));
+				//插入审核状态
+				T444_bean.setCheckState(Constants.WAIT_CHECK);
 				list.add(T444_bean);
 								
 			}catch(Exception e){

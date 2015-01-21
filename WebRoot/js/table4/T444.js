@@ -70,8 +70,14 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						myMarquee('T444', CTypeOne);
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
 			});
@@ -195,8 +201,14 @@
 				result = eval("(" + result + ")");
 				if (result.state) {
 					alert(result.data);
-					$('#unverfiedData').datagrid('reload');
+					myMarquee('T444', CTypeOne);
+					$('#unverfiedData').datagrid('reload'); // reload the user data
 				}
 			}
 	   	}).submit();
 	   }
+	   
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }

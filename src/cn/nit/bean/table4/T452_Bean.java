@@ -33,6 +33,7 @@ public class T452_Bean implements java.io.Serializable {
 	private Date time;
 	private String note;
 	private String fillUnitID;
+	private int checkState;
 
 	@Column(name = "TeaUnitName")
 	public String getTeaUnitName() {
@@ -155,6 +156,14 @@ public class T452_Bean implements java.io.Serializable {
 
 	public Integer getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

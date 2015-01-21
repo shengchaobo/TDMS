@@ -30,6 +30,7 @@ public class T442_Bean implements java.io.Serializable {
 	private String unitId;
 	private Date time;
 	private String note;
+	private int CheckState;
 
 	public String getTeaId() {
 		return teaId;
@@ -133,6 +134,14 @@ public class T442_Bean implements java.io.Serializable {
 
 	public int getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public int getCheckState() {
+		return CheckState;
 	}
 
 }

@@ -22,6 +22,7 @@ public class T451_Bean implements java.io.Serializable {
 	private Integer trainPerTimes;
 	private Date time;
 	private String note;
+	private int CheckState;
 
 	@Column(name = "OrgName")
 	public String getOrgName() {
@@ -91,6 +92,14 @@ public class T451_Bean implements java.io.Serializable {
 
 	public Date getTime() {
 		return time;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public int getCheckState() {
+		return CheckState;
 	}
 
 }

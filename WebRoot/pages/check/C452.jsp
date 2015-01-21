@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page language="java" import="cn.nit.constants.Constants"%>
-
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -12,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>C443</title>
+<title>C452</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -33,7 +32,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
-	<script type="text/javascript">
+	
+	<script type="text/javascript">	
 	 //审核通过
   function passCheck(seqNumber){
     		//alert(seqNumber);
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T443/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T452/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T443/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T452/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -84,62 +84,78 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
    //全部审核通过
   function checkAll(){
-  		  if(confirm("全部数据审核通过，该操作不可恢复，确认吗？")){ 		  	
-			    $.ajax({
-					    type:"POST", 
-					    url: "pages/T443/checkAll", 
-				   		async : "true",
-				   		dataType : "text",
-					    success:function(result){  
-					         result = eval("(" + result + ")");						    	 
-						  		 if (!result.state){
-									  		 	$.messager.show({
-									  		 			title: 'Error',
-									  		 			msg: result.data
-									  			 });
-							  		} else {
-									    		 $('#checkData').datagrid('reload'); // reload the user data
-							  		}
-					    }
-					});
+  			
+  			if(confirm("全部数据审核通过，该操作不可恢复，确认吗？")){ 					
+				    $.ajax({
+						    type:"POST", 
+						    url: "pages/T452/checkAll", 
+					   		async : "true",
+					   		dataType : "text",
+						    success:function(result){  
+						         result = eval("(" + result + ")");					    	 
+							  		 if (!result.state){
+										  		 	$.messager.show({
+										  		 			title: 'Error',
+										  		 			msg: result.data
+										  			 });
+								  		} else {
+										    		 $('#checkData').datagrid('reload'); // reload the user data
+								  		}
+						    }
+						});
 				}
     }
 	</script>
 </head>
 
-<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
-<body style="height: 100%'">
-	<table  id="checkData"  class="easyui-datagrid"  url="pages/T443/loadTalentInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
+<body style="height: 100%" >  
+	<table  id="checkData"  class="easyui-datagrid"  url="pages/T452/loadTrainInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
-		  </tr>
+		 </tr>
 		</thead>
 		<thead>
 				<tr>		
-					<th  data-options="field:'seqNumber'" >编号</th>
-					<th data-options="field:'name'">姓名</th>
-					<th data-options="field:'teaId'">教工号你好</th>			
-					<th data-options="field:'type'">
-						人才类型
+					<th  data-options="field:'seqNumber'" >编号</th>			
+					<th  data-options="field:'name'" >姓名</th>
+				  <th  data-options="field:'teaId'" >教工号</th>			
+					<th data-options="field:'teaUnitName'">
+					 	 教学单位
 					</th>
-					<th data-options="field:'resField'">
-						研究方向
+					<th data-options="field:'unitId'">
+						教学单位号
+					</th>				
+					<th data-options="field:'trainType'">
+						培训类型
 					</th>
-					<th data-options="field:'gainTime'"  formatter="formattime">
-						获得时间
+					<th data-options="field:'beginTime'"  formatter="formattime">
+						开始时间
 					</th>
+					<th data-options="field:'endTime'"  formatter="formattime">
+						结束时间
+					</th>
+					<th data-options="field:'inOrOut'">
+						境内/境外培训
+					</th>
+					<th data-options="field:'trainUnit'">
+						培训单位
+					</th>
+					<th data-options="field:'trainMajor'">
+						培训专业（课程）
+				</th>
 					<th data-options="field:'note'">
 						备注
 					</th>
 				</tr>
 			</thead>
 	</table>
-	
+		
   <div id="toolbar"  style="float: right;">
 			<a href='javascript:checkAll()'   class="easyui-linkbutton" iconCls="icon-download" plain="true"  >
-					一键审核通过
+					一键全审核通过
 			</a>
 	</div>
 	
@@ -161,7 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 						<div class="fitem">
 							<label>被审核表ID：</label> 
-								<input type="text" name="checkInfo.tableID" id="tableName"   value="T443"
+								<input type="text" name="checkInfo.tableID" id="tableName"   value="T452"
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>
@@ -171,6 +187,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="fitem">
 								<label>该条数据编号：</label> 
 								<input type="text" name="checkInfo.checkID" id="dataID" 
+								readonly="readonly"  style="width: 150px;color: grey"/>
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+							<div class="fitem">
+								<label>填写者的教学单位号：</label> 
+								<input type="text" name="checkInfo.fillUnitID"  id="unitID" 
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>

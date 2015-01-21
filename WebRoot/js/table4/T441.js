@@ -70,8 +70,14 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						myMarquee('T441', CTypeTwo)
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
 			});
@@ -83,16 +89,16 @@
 		//var time = $('#time').datetimebox('getValue');
 		var teaId = $('#majorLeaderName').combobox('getText');
 		var teaName = $('#majorLeaderName').combobox('getValue');
-		var unitName = $('#teaUnitID').combobox('getText');
+		//var unitName = $('#teaUnitID').combobox('getText');
 		var majorId = $('#majorId').combobox('getText');
 		
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
 		
-		if(unitName == null || unitName==""){
+/*		if(unitName == null || unitName==""){
 			alert("所属教学单位不能为空");
 			return false;
-	    }
+	    }*/
 		
 		if(majorId == null || majorId==""){
 			alert("专业不能为空");
@@ -132,7 +138,8 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改专任教师的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#teaUnitID').combobox('select', row[0].teaUnitID) ;
+    	$('#teaUnitID').val(row[0].teaUnitID) ;
+    	$('#fromTeaUnit').val(row[0].fromTeaUnit) ;
     	$('#majorLeaderName').combobox('select', row[0].majorLeaderName) ;
     	$('#majorId').combobox('select', row[0].majorId) ;
 		$('#note').val(row[0].note) ;
@@ -188,8 +195,14 @@
 
 			if (result.state) {
 				alert(result.data);
-				$('#unverfiedData').datagrid('reload');
+				myMarquee('T441', CTypeTwo);
+				$('#unverfiedData').datagrid('reload'); // reload the user data
 			}
 		}
     	}).submit();
+    }
+    
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
     }

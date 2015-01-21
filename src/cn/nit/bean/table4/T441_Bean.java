@@ -28,6 +28,7 @@ public class T441_Bean implements java.io.Serializable {
 	private Date time;
 	private String note;
 	private String fillUnitID;
+	private int checkState;
 
 	public String getTeaUnitID() {
 		return teaUnitID;
@@ -113,6 +114,14 @@ public class T441_Bean implements java.io.Serializable {
 
 	public String getFillUnitID() {
 		return fillUnitID;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

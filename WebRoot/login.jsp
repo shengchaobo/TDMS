@@ -11,7 +11,7 @@
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>江西教学基本状态数据库系统登录界面</title>
+		<title>南昌工程学院教学基本状态数据库系统登录界面</title>
 
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">

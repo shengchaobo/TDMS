@@ -64,7 +64,7 @@
 	    }	
 		
 	   //导出
-	        $("#export").click(function(){
+	    $("#export").click(function(){
 	        var tableName = encodeURI('表2-8-5教学、科研仪器设备（设备处）');
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {

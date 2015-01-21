@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>C443</title>
+<title>C451</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T443/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T451/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T443/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T451/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -87,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		  if(confirm("全部数据审核通过，该操作不可恢复，确认吗？")){ 		  	
 			    $.ajax({
 					    type:"POST", 
-					    url: "pages/T443/checkAll", 
+					    url: "pages/T451/checkAll", 
 				   		async : "true",
 				   		dataType : "text",
 					    success:function(result){  
@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 <body style="height: 100%'">
-	<table  id="checkData"  class="easyui-datagrid"  url="pages/T443/loadTalentInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
+	<table  id="checkData"  class="easyui-datagrid"  url="pages/T451/loadOrgInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
@@ -119,16 +119,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 				<tr>		
 					<th  data-options="field:'seqNumber'" >编号</th>
-					<th data-options="field:'name'">姓名</th>
-					<th data-options="field:'teaId'">教工号你好</th>			
-					<th data-options="field:'type'">
-						人才类型
+					<th data-options="field:'orgName'">
+						机构名称
+				</th>
+				<th data-options="field:'unitId'">
+						机构单位号
+				</th>
+					<th data-options="field:'orgType'">
+						机构类型
 					</th>
-					<th data-options="field:'resField'">
-						研究方向
+					<th data-options="field:'trainTimes'">
+						培训次数
 					</th>
-					<th data-options="field:'gainTime'"  formatter="formattime">
-						获得时间
+					<th data-options="field:'trainPerTimes'">
+						培训人数
 					</th>
 					<th data-options="field:'note'">
 						备注
@@ -161,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 						<div class="fitem">
 							<label>被审核表ID：</label> 
-								<input type="text" name="checkInfo.tableID" id="tableName"   value="T443"
+								<input type="text" name="checkInfo.tableID" id="tableName"   value="T451"
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>

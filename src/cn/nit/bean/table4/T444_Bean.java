@@ -28,6 +28,7 @@ public class T444_Bean implements java.io.Serializable {
 	private String otherTeamPer;
 	private Date time;
 	private String note;
+	private int checkState;
 
 	@Column(name = "ResField")
 	public String getResField() {
@@ -116,6 +117,14 @@ public class T444_Bean implements java.io.Serializable {
 
 	public int getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

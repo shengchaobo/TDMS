@@ -19,8 +19,11 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table5.T533Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T533DAO;
 import cn.nit.excel.imports.table5.T533Excel;
+import cn.nit.service.CheckService;
+import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table5.T533Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -34,6 +37,8 @@ public class T533Action {
 
 	/**  表533的Service类  */
 	private T533Service t533Ser = new T533Service() ;
+	
+	private CheckService check_services = new CheckService();
 	
 	/**  表533的Bean实体类  */
 	private T533Bean t533Bean = new T533Bean() ;
@@ -63,8 +68,19 @@ public class T533Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+	
+	/**  导出时间  */
+	private String selectYear ;
+	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
+	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
 	
 	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 	String fillUnitID = bean.getUnitID();
@@ -73,6 +89,10 @@ public class T533Action {
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t533Bean.setTime(new Date()) ;
+		t533Bean.setCheckState(Constants.WAIT_CHECK);
+		String teaUnit = deSer.getName(fillUnitID);
+		t533Bean.setTeaUnit(teaUnit);
+		t533Bean.setUnitID(fillUnitID);
 		t533Bean.setFillUnitID(fillUnitID);
 
 //		这还没确定,设置填报者的职工号与部门号
@@ -118,7 +138,7 @@ public class T533Action {
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
 			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){			
 				cond = null;	
 			}else{			
 				if(this.getSeqNum()!=null){
@@ -134,11 +154,29 @@ public class T533Action {
 					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
+				
+				//审核状态判断
+				if(this.getCheckNum() == Constants.WAIT_CHECK ){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
+					conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
+				}
+				
 				cond = conditions.toString();
 			}
+			
+			//判断登入用户是否为教学单位
+			String tempfield1 = bean.getUnitID().substring(0, 1);
+			String tempfield = bean.getUnitID();
+			if(!"3".equals(tempfield1)){//如不是教学单位，填报单位设置为空
+				tempfield = null;
+			}
 
-
-			String pages = t533Ser.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t533Ser.auditingData(cond, tempfield, Integer.parseInt(page), Integer.parseInt(rows)) ;
 
 			PrintWriter out = null ;
 			
@@ -160,18 +198,40 @@ public class T533Action {
 	/**  编辑数据  */
 	public void edit(){
 
-		 
-		t533Bean.setTime(new Date()) ;
-		t533Bean.setFillUnitID(fillUnitID);
+		 boolean flag = false;
+		 int tag = 0;
+		//获得该条数据审核状态
+			int state = t533Ser.getCheckState(t533Bean.getSeqNumber());
+			System.out.println("test"+state);
+			//如果审核状态是待审核，则直接修改
+			if(state == Constants.WAIT_CHECK){
+				System.out.println("test"+state);
+				t533Bean.setCheckState(Constants.WAIT_CHECK);
+				flag = t533Ser.update(t533Bean) ;
+				if(flag) tag = 1;
+			}
+			//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+			if(state == Constants.NOPASS_CHECK){
+				t533Bean.setCheckState(Constants.WAIT_CHECK);
+				boolean flag1 = t533Ser.update(t533Bean) ;
+				boolean flag2 = check_services.delete("T533",t533Bean.getSeqNumber());
+				if(flag1&&flag2){
+					flag = true;
+					tag = 2;
+				}
+			}
 		
-		boolean flag = t533Ser.update(t533Bean) ;
 		PrintWriter out = null ;
 		
 		try{
 			out = getResponse().getWriter() ;
-			if(flag){
+			if(tag == 1){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
-			}else{
+			}
+			else if(tag == 2){
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+			}
+			else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
@@ -189,6 +249,8 @@ public class T533Action {
 	public void deleteCoursesByIds(){
 //		System.out.println("ids=" + ids) ;
 		boolean flag = t533Ser.deleteCoursesByIds(ids) ;
+		//删除审核不通过信息
+		check_services.delete("T533", ids);
 		PrintWriter out = null ;
 		
 		try{
@@ -211,6 +273,58 @@ public class T533Action {
 		}
 	}
 	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = t533Ser.updateCheck(this.getSeqNum(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  全部审核通过  */
+	public void checkAll(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = t533Ser.checkAll();
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"一键审核成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
 	/**数据导出*/
 	public InputStream getInputStream(){
 		
@@ -219,7 +333,7 @@ public class T533Action {
 
 		try {
 			
-			List<T533Bean> list = t533Dao.totalList(fillUnitID);
+			List<T533Bean> list = t533Dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -320,6 +434,22 @@ public class T533Action {
 
 	public void setYear(String year) {
 		this.Year = year;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
+	}
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
 	}
 
 	public String getRows() {

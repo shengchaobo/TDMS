@@ -43,6 +43,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table6.T651_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiAwardTypeService;
 import cn.nit.service.di.DiContestLevelService;
@@ -234,6 +235,7 @@ public class T651_Excel {
 				T651_bean.setGuideTeaName(guideTeaName);
 				T651_bean.setGuideTeaNum(Integer.parseInt(guideTeaNum));
 				T651_bean.setFillUnitID(userinfo.getUnitID());
+				T651_bean.setCheckState(Constants.WAIT_CHECK);
 				T651_bean.setNote(note);
 
 				// 插入时间

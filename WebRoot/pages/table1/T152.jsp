@@ -48,7 +48,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div>
   </br>
   
-	<table id="unverfiedData" class="easyui-datagrid"  url="pages/T152/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>" style="height: auto"  > 
+	<table id="unverfiedData" class="easyui-datagrid"  
+	url="pages/T152/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>" style="height: auto"  > 
 		<thead data-options="frozen:true">
 					<tr>			
 					<th data-options="field:'ck',checkbox:true">选取</th>

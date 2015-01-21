@@ -22,6 +22,7 @@ public class T534Bean {
 	private int GainBestNum;
 	private Date GainTime;
 	private Date Time;
+	private int CheckState;
 	private String FillUnitID;
 	private String Note;
 	
@@ -62,12 +63,8 @@ public class T534Bean {
 	public void setTeaID(String teaID) {
 		TeaID = teaID;
 	}
-	public boolean isIsOutEmploy() {
-		return IsOutEmploy;
-	}
-	public void setIsOutEmploy(boolean isOutEmploy) {
-		IsOutEmploy = isOutEmploy;
-	}
+	
+	
 	public String getEducation() {
 		return Education;
 	}
@@ -140,11 +137,23 @@ public class T534Bean {
 	public void setNote(String note) {
 		Note = note;
 	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
 	public void setSeqNumber(Integer seqNumber) {
 		SeqNumber = seqNumber;
 	}
 	public Integer getSeqNumber() {
 		return SeqNumber;
+	}
+	public boolean getIsOutEmploy() {
+		return IsOutEmploy;
+	}
+	public void setIsOutEmploy(boolean isOutEmploy) {
+		IsOutEmploy = isOutEmploy;
 	}
 
 

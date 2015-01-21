@@ -55,7 +55,7 @@
     
 	//单条导入
 	function singleImport() {
-		alert(123);
+		//alert(123);
 		// 录入数据的表单提交
 		$('#addForm').form('submit', {
 				url : url,
@@ -71,8 +71,14 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						myMarquee('T534', CTypeTwo)
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
 			});
@@ -83,9 +89,11 @@
 		
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
 		// 获取文本框的值
-		var unitID = $('#TeaUnit').val();
+		//var unitID = $('#TeaUnit').val();
 		var majorID = $('#MajorName').val();
 		var teaName = $('#TeaName').val();
+		//var isOutEmploy = $('#IsOutEmploy').combobox('getValue');
+		//alert(isOutEmploy);
 		var education = $('#Education').combobox('getText');
 		var degree = $('#Degree').combobox('getText');
 		var title = $('#Title').combobox('getText');
@@ -95,10 +103,10 @@
 		var gainTime = $('#GainTime').datebox('getValue');
 		var note = $('#Note').val();
 		
-		if(unitID == null || unitID.length == 0){
-			alert("教学单位不能为空");
-			return false;
-		}
+		//if(unitID == null || unitID.length == 0){
+		//	alert("教学单位不能为空");
+		//	return false;
+		//}
 		if(majorID == null || majorID.length == 0){
 			alert("专业名称不能为空");
 			return false;
@@ -173,7 +181,12 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改分专业毕业综合情况的信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#UnitID').combobox('select', row[0].unitID) ;
+    	$('#Time').val(formattime(row[0].time)) ;
+    	$('#FillUnitID').val(row[0].fillUnitID) ;
+    	//alert(row[0].fillUnitID);
+    	$('#TeaUnit').val(row[0].teaUnit) ;
+    	$('#UnitID').val(row[0].unitID) ;
+    	//$('#UnitID').combobox('select', row[0].unitID) ;
     	$('#MajorID').combobox('select', row[0].majorID) ;
     	$('#TeaID').combobox('select', row[0].teaID) ;
     	$('#IsOutEmploy').combobox('select', row[0].isOutEmploy) ;
@@ -239,6 +252,7 @@
 
 			if (result.state) {
 				alert(result.data);
+				myMarquee('T534', CTypeTwo);
 				$('#unverfiedData').datagrid('reload');
 			}
 		}
@@ -272,7 +286,12 @@
         }else{
         	return null;
         }
-    }  
-
+    } 
+    
+  //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
+    }
+	
 
 	

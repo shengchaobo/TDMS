@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import cn.nit.bean.table5.T533Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.T533POJO;
 import cn.nit.util.DAOUtil;
@@ -19,7 +20,8 @@ public class T533DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "TeaUnit,UnitID,MajorName,MajorID,ExpCSNum,IndepentExpCSNum,DesignExpCSNum,ExpRatio,Time,Note,FillUnitID";
+	private String field = "TeaUnit,UnitID,MajorName,MajorID,ExpCSNum," +
+			"IndepentExpCSNum,DesignExpCSNum,ExpRatio,Time,Note,FillUnitID,CheckState";
 	
 	
 	
@@ -113,6 +115,7 @@ public class T533DAO {
 	}
 	
 	/**
+	 * 用于显示
 	 * @param conditions 查询条件
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
@@ -122,7 +125,7 @@ public class T533DAO {
 		StringBuffer sql = new StringBuffer() ;
 		List<T533POJO> list = null ;
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
-				",t.ExpRatio,t.Time,t.Note,t.FillUnitID");
+				",t.ExpRatio,t.Time,t.Note,t.FillUnitID,t.CheckState");
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
 
@@ -131,7 +134,7 @@ public class T533DAO {
 		}
 //		
 		if(conditions != null){
-			sql.append(conditions) ;
+			sql.append( conditions) ;
 		}
 		
 //		sql.append(" order by SeqNumber desc") ;
@@ -155,6 +158,111 @@ public class T533DAO {
 		return list ;
 	}
 	
+	/**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 
 	/**
 	 * 获得的总数（用于导出）
@@ -162,14 +270,15 @@ public class T533DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T533Bean> totalList(String fillUnitID){
+	public List<T533Bean> totalList(String fillUnitID,String year, int checkState){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
-		",t.ExpRatio,t.Time,t.Note,t.FillUnitID");
+		",t.ExpRatio,t.Time,t.Note,t.FillUnitID,t.CheckState");
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
 		sql.append(" and t.FillUnitID='"+fillUnitID+"'");
+		sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
 
 		
 		
@@ -195,10 +304,10 @@ public class T533DAO {
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
-		",t.ExpRatio,t.Time,t.Note,t.FillUnitID");
+		",t.ExpRatio,t.Time,t.Note,t.FillUnitID,t.CheckState");
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
-		sql.append(" and t.Time like '"+"%'");
+		sql.append(" and t.Time like '"+year+"%' and t.CheckState ="+Constants.WAIT_CHECK);
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -261,6 +370,34 @@ public class T533DAO {
 		return this.tableName ;
 	}
 	
+	//设置审核的状态为1：即未审核状态
+	public boolean updatCheck()
+	{
+		int flag = 0;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try
+		{
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false; 
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public static void main(String arg[]){
 //		StringBuffer sql = new StringBuffer() ;
 //		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
@@ -270,8 +407,8 @@ public class T533DAO {
 //		System.out.println(sql.toString());
 		
 		T533DAO dao =  new T533DAO();
-		List<T533Bean> list = dao.totalListEdu("2014");
-		System.out.println(list.size());
+		boolean flag = dao.updatCheck();
+		System.out.println(flag);
 		
 	}
 	

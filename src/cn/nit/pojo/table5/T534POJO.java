@@ -26,6 +26,7 @@ public class T534POJO {
 	private int GainBestNum;
 	private Date GainTime;
 	private Date Time;
+	private int CheckState;
 	private String FillUnitID;
 	private String Note;
 	public int getSeqNumber() {
@@ -70,7 +71,7 @@ public class T534POJO {
 	public void setTeaID(String teaID) {
 		TeaID = teaID;
 	}
-	public boolean isIsOutEmploy() {
+	public boolean getIsOutEmploy() {
 		return IsOutEmploy;
 	}
 	public void setIsOutEmploy(boolean isOutEmploy) {
@@ -102,6 +103,12 @@ public class T534POJO {
 	}
 	public boolean isIsExcellent() {
 		return IsExcellent;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public void setIsExcellent(boolean isExcellent) {
 		IsExcellent = isExcellent;

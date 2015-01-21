@@ -14,6 +14,7 @@ public class T533Bean {
 	private int DesignExpCSNum;
 	private double ExpRatio;
 	private String FillUnitID;
+	private int CheckState;
 	private String Note;
 	private Date Time;
 
@@ -84,6 +85,12 @@ public class T533Bean {
 	}
 	public void setNote(String note) {
 		Note = note;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Date getTime() {
 		return Time;

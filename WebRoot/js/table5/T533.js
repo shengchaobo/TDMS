@@ -63,6 +63,7 @@
 				dataType : "json",
 				onSubmit : function() {
 					return validate();
+					alert(validate());
 				},
 				// 结果返回
 				success : function(result) {
@@ -70,8 +71,14 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						myMarquee('T533', CTypeTwo)
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
 			});
@@ -81,7 +88,7 @@
 	function validate() {
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
 		// 获取文本框的值
-		var unitID = $('#TeaUnit').val();
+		//var unitID = $('#TeaUnit').val();
 		var majorID = $('#MajorName').val();
 		var expCSNum = $('#ExpCSNum').numberbox('getValue');
 		var indepentExpCSNum = $('#IndepentExpCSNum').numberbox('getValue');
@@ -89,10 +96,10 @@
 		var expRatio = $('#ExpRatio').val();
 		var note = $('#Note').val();
 		
-		if(unitID == null || unitID.length == 0){
-			alert("教学单位不能为空");
-		    return false;
-		}
+		//if(unitID == null || unitID.length == 0){
+		//	alert("教学单位不能为空");
+		//    return false;
+		//}
 		if(majorID == null || majorID.length == 0){
 			alert("专业名称不能为空");
 		    return false;
@@ -131,6 +138,7 @@
 				"<font style=\"color:red\">备注中文字数不超过500</font>");*/
 				return false;
 		}
+		//alert(123);
 		return true;
 	 }
 
@@ -150,10 +158,15 @@
        	$('hr').hide();
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改分专业实验情况的信息');
-    	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#UnitID').combobox('select', row[0].unitID) ;
+    	$('#SeqNumber').val(row[0].seqNumber) ;
+    	$('#Time').val(formattime(row[0].time)) ;
+    	$('#FillUnitID').val(row[0].fillUnitID) ;
+    	$('#TeaUnit').val(row[0].teaUnit) ;
+    	$('#UnitID').val(row[0].unitID) ;
+    	//$('#UnitID').combobox('select', row[0].unitID) ;
     	$('#MajorID').combobox('select', row[0].majorID) ;
-    	$('#ExpCSNum').val(row[0].expCSNum) ;
+    	$('#ExpCSNum').numberbox('setValue',row[0].expCSNum) ;
+    	//alert(row[0].expCSNum);
     	$('#IndepentExpCSNum').numberbox('setValue',row[0].indepentExpCSNum);
     	$('#DesignExpCSNum').numberbox('setValue',row[0].designExpCSNum);
     	$('#ExpRatio').val(row[0].expRatio) ;
@@ -209,11 +222,16 @@
 			result = eval("(" + result + ")");
 
 			if (result.state) {
-				alert(result.data);
+				alert(result.data);	
+				myMarquee('T533', CTypeTwo);
 				$('#unverfiedData').datagrid('reload');
 			}
 		}
     	}).submit();
+    }
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
     }
 
 

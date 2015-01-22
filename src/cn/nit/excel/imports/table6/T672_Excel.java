@@ -39,6 +39,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table6.T672_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDegreeService;
@@ -269,7 +270,7 @@ public class T672_Excel {
 				T672_bean.setDualDegreeId(dualDegreeId);
 				T672_bean.setBeginTime(new SimpleDateFormat("yyyy-MM-dd").parse(beginTime));
 				T672_bean.setGraduateTime(new SimpleDateFormat("yyyy-MM-dd").parse(graduateTime));
-
+				T672_bean.setCheckState(Constants.WAIT_CHECK);
 				// 插入时间
 				T672_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T672_bean);

@@ -36,6 +36,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table6.T622_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDegreeService;
@@ -155,6 +156,7 @@ public class T622_Excel {
 				T622_bean.setLibAvgScore(Integer.parseInt(libAvgScore));
 				T622_bean.setSciAvgScore(Integer.parseInt(sciAvgScore));
 				T622_bean.setNote(note);
+				T622_bean.setCheckState(Constants.WAIT_CHECK);
 				// 插入时间
 				T622_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T622_bean);

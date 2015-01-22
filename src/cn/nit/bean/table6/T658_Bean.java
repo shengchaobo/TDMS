@@ -35,6 +35,7 @@ public class T658_Bean implements java.io.Serializable {
 	private Date time;
 	private String note;
 	private String fillUnitID;
+	private int CheckState;
 	
 	public int getSeqNumber() {
 		return seqNumber;
@@ -125,6 +126,12 @@ public class T658_Bean implements java.io.Serializable {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public String getFillUnitID() {
 		return fillUnitID;

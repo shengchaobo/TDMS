@@ -43,6 +43,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table6.T658_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiAwardTypeService;
 import cn.nit.service.di.DiContestLevelService;
@@ -221,7 +222,8 @@ public class T658_Excel {
 				T658_bean.setGuideTeaNum(Integer.parseInt(guideTeaNum));
 				T658_bean.setNote(note);
 				T658_bean.setFillUnitID(userinfo.getUnitID());
-
+				T658_bean.setCheckState(Constants.WAIT_CHECK);
+				
 				// 插入时间
 				T658_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T658_bean);

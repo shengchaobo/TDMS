@@ -15,6 +15,7 @@ import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T641_Bean;
 import cn.nit.bean.table6.T651_Bean;
 import cn.nit.bean.table6.T652_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 
@@ -27,10 +28,14 @@ public class T652_Dao {
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
-	private String field = "TeaUnit,UnitId,PaperTitle,JonalName,JonalId,JonalDate,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,IsAward,AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID";
+	private String field = "TeaUnit,UnitId,PaperTitle,JonalName,JonalId,JonalDate,AwardStuName," +
+			"AwardStuNum,GuideTeaName,GuideTeaNum,IsAward," +
+			"AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID,CheckState";
 
 	
-	private String fieldShow = "SeqNumber,TeaUnit,UnitId,PaperTitle,JonalName,JonalId,JonalDate,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,IsAward,AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID";
+	private String fieldShow = "SeqNumber,TeaUnit,UnitId,PaperTitle,JonalName,JonalId," +
+			"JonalDate,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,IsAward," +
+			"AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID,CheckState";
 
 
 	
@@ -89,8 +94,20 @@ public class T652_Dao {
 		boolean flag = false;
 		Connection conn = DBConnection.instance.getConnection();
 		try {
+			
+			String updatefield = "TeaUnit,UnitId,PaperTitle,JonalName,JonalId,JonalDate,AwardStuName," +
+			"AwardStuNum,GuideTeaName,GuideTeaNum,IsAward," +
+			"AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID,CheckState";
+			
+			String temp1 = updatefield;
+			
+			if(StuPublishPaper.getAwardLevel().trim().equals("")){
+				String a = "AwardLevel,";
+			    temp1 = updatefield.replaceAll(a , "");
+			}
+			
 			flag = DAOUtil
-					.update(StuPublishPaper, tableName, key, field, conn);
+					.update(StuPublishPaper, tableName, key, temp1, conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
@@ -130,37 +147,6 @@ public class T652_Dao {
 		return this.tableName;
 	}
 	
-	public List<T652_Bean> queryPageList(int pagesize, int currentpage) {
-		// TODO Auto-generated method stub
-		
-		
-		String queryPageSql = "select top " + pagesize + 
-		fieldShow
-		+ " from " + tableName + 
-		" where (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
-		tableName + " order by SeqNumber)) order by SeqNumber" ;
-		System.out.println(queryPageSql);
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
-		List<T652_Bean> list = null ;
-		
-		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(queryPageSql) ;
-			list = DAOUtil.getList(rs, T652_Bean.class) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return null ;
-		}finally{
-			DBConnection.close(conn);
-			DBConnection.close(rs);
-			DBConnection.close(st);			
-		}
-		
-		return list ;
-	}
-	
 	public List<T652_Bean> queryPageList(String cond, String filledID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
@@ -170,16 +156,21 @@ public class T652_Dao {
 		if(cond != null && !cond.equals("")){
 			Cond = Cond + cond;
 		}
+		
+		if(filledID != null && !filledID.equals("")){
+			Cond = Cond + " and FillUnitID=" + filledID;
+		}
+			
+		
 		String queryPageSql;
 		
 			queryPageSql = "select top " + pagesize + 
 			"SeqNumber,TeaUnit,UnitID,PaperTitle,JonalName,JonalID,JonalDate,AwardStuName,AwardStuNum,GuideTeaName," +
-			"GuideTeaNum,IsAward,DiAwardLevel.AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID "+
+			"GuideTeaNum,IsAward,DiAwardLevel.AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID,CheckState"+
 //			fieldShow
 			" from " + tableName + 
 			" left join DiAwardLevel on "+tableName+".AwardLevel = DiAwardLevel.IndexID "+
-			" where " + Cond + " and FillUnitID="+filledID+
-			" and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
+			" where " + Cond + " and (SeqNumber not in (select top " + pagesize * (currentpage-1) + " SeqNumber from "+
 			tableName + " where " + Cond + " order by SeqNumber)) order by SeqNumber" ;
 	
 
@@ -229,7 +220,7 @@ public class T652_Dao {
 		return list ;
 	}
 	
-	
+	/**显示总条数*/
 	public List<T652_Bean> getAllList(String cond, String filledID) {
 		// TODO Auto-generated method stub
 		String Cond = "1=1";
@@ -237,13 +228,16 @@ public class T652_Dao {
 		if(cond != null && !cond.equals("")){
 			Cond = Cond + cond;
 		}
+		if(filledID != null && !filledID.equals("")){
+			Cond = Cond + " and FillUnitID=" + filledID;
+		}
+		
 		String sql; 
 		
 		sql = "select t.SeqNumber,t.TeaUnit,t.UnitId,t.PaperTitle,t.JonalName,t.JonalId,t.JonalDate,t.AwardStuName," +
 				"t.AwardStuNum,t.GuideTeaName,t.GuideTeaNum,t.IsAward,dia.AwardLevel,t.AwardName,t.AwardFromUnit," +
-				"t.Time,t.Note,t.FillUnitID from "+tableName+" as t,DiAwardLevel as dia "
-				+" where t.AwardLevel = dia.IndexID "
-				+" and t.FillUnitID="+filledID;
+				"t.Time,t.Note,t.FillUnitID,t.CheckState from "+tableName+" as t,DiAwardLevel as dia "
+				+" where t.AwardLevel = dia.IndexID and "+Cond;
 		
 //		sql = "select " + fieldShow + " from " + tableName +" where " + Cond
 //			 +" and FillUnitID="+filledID;
@@ -270,6 +264,40 @@ public class T652_Dao {
 		return list ;
 	}
 	
+	
+	/**
+	 * 用与审核完导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T652_Bean> totalList(String fillUnitID, String year, int checkState){
+		
+		String sql = "select " + key+ "," +field + " from " + tableName
+						+ " where FillUnitID=" + "'" + fillUnitID + "'" 
+						+ " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T652_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T652_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+	
+	
 	public int getPaper(String year){
 		int PaperNum = 0;
 		StringBuffer sql = new StringBuffer();
@@ -293,6 +321,111 @@ public class T652_Dao {
 		}
 		
 		return PaperNum;
+	}
+	
+	/**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	public List<T652_Bean> getYearInfo(String year){

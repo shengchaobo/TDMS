@@ -187,43 +187,22 @@ function editItem() {
 	
 	$('#dlg').dialog('open').dialog('setTitle', '学习成果—本科生竞赛获奖情况');
 	$('#seqNumber').val(row[0].seqNumber);
-	//alert(row[0].seqNumber);
 	$('#teaUnit').val(row[0].teaUnit);
-	//alert(row[0].teaUnit);
 	$('#unitId').val(row[0].unitId);
-	//alert(row[0].unitId);
 	$('#fillUnitID').val(row[0].fillUnitID);
-	//alert(row[0].fillUnitID);
-	//$('#unitId').combobox('select', row[0].unitId);
 	$('#competiType').combobox('setText', row[0].competiType);
-	//alert(row[0].competiType);
 	$('#competiName').val(row[0].competiName);
-	//alert(row[0].competiName);
 	$('#awardItem').val(row[0].awardItem);
-	//alert(row[0].awardItem);
 	$('#awardLevel').combobox('setText', row[0].awardLevel);
-	//alert(row[0].awardLevel);
 	$('#awardGrade').val(row[0].awardGrade);
-	//alert(row[0].awardGrade);
 	$('#awardTime').datebox("setValue", formattime(row[0].awardTime)) ;
-	//alert(formattime(row[0].awardTime));
 	$('#awardFromUnit').val(row[0].awardFromUnit);
-	//alert(row[0].awardFromUnit);
 	$('#awardStuName').val(row[0].awardStuName);
-	//alert(row[0].awardStuName);
 	$('#awardStuNum').numberbox('setValue',row[0].awardStuNum) ;
-	//$('#awardStuNum').numberbox('setValue',row[0].awardStuNum) ;
-	//alert(row[0].awardStuNum);
-	//$('#awardStuNum').val(row[0].awardStuNum);
 	$('#guideTeaName').val(row[0].guideTeaName);
-	//alert(row[0].guideTeaName);
 	$('#guideTeaNum').numberbox('setValue',row[0].guideTeaNum) ;
-	//alert(row[0].row[0].guideTeaNum);
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
-	//$('#time').datebox("setValue", formattime(row[0].time)) ;
-	//alert(formattime(row[0].time));
 	$('#note').val(row[0].note);
-	//alert(row[0].note);
 }
 
 function reloadgrid ()  { 

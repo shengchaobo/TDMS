@@ -70,8 +70,14 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						myMarquee('T47', CTypeTwo)
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
 			});
@@ -84,13 +90,13 @@
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
 
-		var unitName = $('#unitId').combobox('getText');
+		//var unitName = $('#unitId').combobox('getText');
 		var awardLevel = $('#awardLevel').combobox('getText');
 		
-		if(unitName == null || unitName==""){
-			alert("获奖单位不能为空");
+/*		if(unitName == null || unitName==""){
+			alert("教学单位不能为空");
 			return false;
-	    }
+	    }*/
 		
 		if(awardLevel == null || awardLevel==""){
 			alert("获奖级别不能为空");
@@ -123,7 +129,8 @@
 	   	
 	   	$('#dlg').dialog('open').dialog('setTitle','修改教学单位获奖荣誉的信息');
 	   	$('#seqNumber').val(row[0].seqNumber) ;
-	  	$('#unitId').combobox('select', row[0].unitId) ;
+    	$('#unitId').val(row[0].unitId) ;
+    	$('#teaUnit').val(row[0].teaUnit) ;
 		$('#awardName').val(row[0].awardName) ;
 		$('#awardLevel').combobox('setText', row[0].awardLevel) ;		
 	  	$('#awardFromUnit').val(row[0].awardFromUnit) ;
@@ -178,10 +185,15 @@
 	   		success : function(result) {
 				result = eval("(" + result + ")");
 				if (result.state) {
-					$('#unverfiedData').datagrid('reload');
+					alert(result.data);
+					myMarquee('T47', CTypeTwo);
+					$('#unverfiedData').datagrid('reload'); // reload the user data
 				}
 			}
-	   	}).submit();
-	   }
-
-		
+	    	}).submit();
+	    }
+	    
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }

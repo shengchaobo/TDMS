@@ -70,8 +70,14 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						myMarquee('T48', CTypeTwo)
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
 			});
@@ -88,7 +94,7 @@
 		var group = $('#groupInfo').val();
 		var note = $('#note').val();
 		var  num = /^\d+$/;  
-		var unitName = $('#unitId').combobox('getText');
+		//var unitName = $('#unitId').combobox('getText');
 		var teamLevel = $('#teamLevel').combobox('getText');
 		
 		if(teamLevel == null || teamLevel==""){
@@ -96,10 +102,10 @@
 			return false;
 	    }
 		
-		if(unitName == null || unitName==""){
+/*		if(unitName == null || unitName==""){
 			alert("所属教学单位不能为空");
 			return false;
-	    }
+	    }*/
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
@@ -151,7 +157,8 @@
 	   	
 	   	$('#dlg').dialog('open').dialog('setTitle','修改团队的信息');
 	   	$('#seqNumber').val(row[0].seqNumber) ;
-	  	$('#unitId').combobox('select', row[0].unitId) ;
+    	$('#unitId').val(row[0].unitId) ;
+    	$('#teaUnit').val(row[0].teaUnit) ;
 	  	$('#leader').combobox('select', row[0].leader) ;
 		$('#teamName').val(row[0].teamName) ;
 		$('#teamLevel').combobox('setText', row[0].teamLevel) ;		
@@ -208,10 +215,15 @@
 	   		success : function(result) {
 				result = eval("(" + result + ")");
 				if (result.state) {
-					$('#unverfiedData').datagrid('reload');
+					alert(result.data);
+					myMarquee('T48', CTypeTwo);
+					$('#unverfiedData').datagrid('reload'); // reload the user data
 				}
 			}
-	   	}).submit();
-	   }
-
-		
+	    	}).submit();
+	    }
+	    
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }

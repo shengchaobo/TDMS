@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 public class T48_Bean implements java.io.Serializable {
 
 	// Fields
-	private String SeqNumber;
+	private int SeqNumber;
 	private String teaUnit;
 	private String unitId;
 	private String teamName;
@@ -33,6 +33,7 @@ public class T48_Bean implements java.io.Serializable {
 	private Date time;
 	private String note;
 	private String fillUnitID;
+	private int checkState;
 	
 	@Column(name = "TeaUnit")
 	public String getTeaUnit() {
@@ -141,20 +142,28 @@ public class T48_Bean implements java.io.Serializable {
 		return teamLevel;
 	}
 
-	public void setSeqNumber(String seqNumber) {
-		SeqNumber = seqNumber;
-	}
-
-	public String getSeqNumber() {
-		return SeqNumber;
-	}
-
 	public void setFillUnitID(String fillUnitID) {
 		this.fillUnitID = fillUnitID;
 	}
 
 	public String getFillUnitID() {
 		return fillUnitID;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
+	}
+
+	public int getSeqNumber() {
+		return SeqNumber;
 	}
 
 }

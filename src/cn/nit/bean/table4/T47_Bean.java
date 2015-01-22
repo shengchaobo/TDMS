@@ -30,6 +30,7 @@ public class T47_Bean implements java.io.Serializable {
 	private Date time;
 	private String note;
 	private String fillUnitID;
+	private int checkState;
 
 	@Column(name = "TeaUnit")
 	public String getTeaUnit() {
@@ -126,6 +127,14 @@ public class T47_Bean implements java.io.Serializable {
 
 	public String getFillUnitID() {
 		return fillUnitID;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

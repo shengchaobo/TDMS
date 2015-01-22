@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -34,12 +35,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/table4/T48.js"></script>
 </head>
 
-<body style="height: 100%'" >
-	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T48/loadTeamInfo"  style="height: auto"  >
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%'"  onload="myMarquee('T48','<%=request.getAttribute("CHECKTYPE") %>')">
+  <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/> 
+	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T48/loadTeamInfo?checkNum=<%=request.getAttribute("NOCHECK") %>"  style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>				
 				 <th data-options="field:'teamName'">
 						团队名称
 				</th>
@@ -120,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 	</div>
 	
-	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+	<table id="verfiedData"  class="easyui-datagrid"  url="pages/T48/loadTeamInfo?checkNum=<%=request.getAttribute("PASS") %>"  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -166,8 +177,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T48/dataExport?excelName=<%=URLEncoder.encode("表4-8教学团队（教学单位-教务处）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
-		
+			<form action='pages/T48/dataExport?excelName=<%=URLEncoder.encode("表4-8教学团队（教学单位-教务处）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>			
 	</div>
 	
 	<!--添加弹出框-->
@@ -197,7 +212,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 			</tr>
-			--><tr>
+			-->
+			<tr>
 				<td>
 					<input type="hidden" name="T48_bean.seqNumber" id="seqNumber"/>
  					<div class="fitem">
@@ -217,30 +233,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<td colspan="3">
+					<input type="hidden" name="T48_bean.teaUnit" id="teaUnit"/>
+					<input type="hidden"  name="T48_bean.unitId"   id="unitId" />
 					<div class="fitem">
-						<label>所属教学单位：</label> 
-						<input type="hidden" name="T48_bean.teaUnit" id="teaUnit"/>
-						<input id="unitId" type="text" name="T48_bean.unitId" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
-							onSelect:function(){
-							    document.getElementById('teaUnit').value=$(this).combobox('getText') ;
-							 }">
-						 <span id="unitIdSpan"></span>
+					<label>负责人教工号：</label> 
+					<input type="hidden" name="T48_bean.teaId" id="teaId"/>
+					<input id="leader" type="text" name="T48_bean.leader" class='easyui-combobox' 
+								data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+								onSelect:function(){
+								 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
+								 }">
+					<span id="teaIdSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
-				<td>
-				<div class="fitem">
-				<label>负责人教工号：</label> 
-				<input type="hidden" name="T48_bean.teaId" id="teaId"/>
-				<input id="leader" type="text" name="T48_bean.leader" class='easyui-combobox' 
-							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
-							onSelect:function(){
-							 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
-							 }">
-				<span id="teaIdSpan"></span>
-				</div></td>
 			</tr>			
 			<tr>
 				<td >
@@ -303,6 +309,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	theOption.innerHTML = currentYear-i + "年";
         	theOption.value = currentYear-i;
         	select.appendChild(theOption);
+    	}
+    	
+ 	     var select1 = document.getElementById("cbYearContrast1");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select1.appendChild(theOption);
     	}
 	</script>
 </html>

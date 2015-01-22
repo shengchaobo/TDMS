@@ -135,8 +135,7 @@ public class T441_Action {
 		if(TeaInfoJson == null){			
 			return ;
 		}else{
-			try {
-				
+			try {				
 				System.out.println(TeaInfoJson) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
@@ -218,7 +217,6 @@ public class T441_Action {
 		int tag = 0;
 		//获得该条数据审核状态
 		int state = T441_services.getCheckState(T441_bean.getSeqNumber());
-		System.out.println("test"+state);
 		//如果审核状态是待审核，则直接修改
 		if(state == Constants.WAIT_CHECK){
 			System.out.println("test"+state);

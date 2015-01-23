@@ -47,6 +47,8 @@ public class T411_Action {
 	
 	private String queryword; //查询字段
 	
+	private int param;
+	
 
 	private T411_Service T411_services = new T411_Service();
 	
@@ -380,6 +382,34 @@ public class T411_Action {
 			}
 		}
 	}
+	
+	public InputStream getInputStream1() throws UnsupportedEncodingException{
+
+		InputStream inputStream1 = null ;
+		
+		try {
+			
+			List<T431_Bean> list = T411_dao.getList(this.getParam());
+						
+			String sheetName = this.excelName;
+			
+			List<String> columns = new ArrayList<String>();
+			columns.add("序号");
+			columns.add("姓名");columns.add("教工号");columns.add("所属部门");columns.add("单位号");columns.add("身份代码");
+
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("name", 1);maplist.put("teaId", 2);maplist.put("fromDept", 3);maplist.put("unitId", 4);maplist.put("staffType", 5);			
+			
+			inputStream1 = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream1 ;
+	}
 
 	public String getRows() {
 		return rows;
@@ -444,5 +474,13 @@ public class T411_Action {
 
 	public String getQueryword() {
 		return queryword;
+	}
+
+	public void setParam(int param) {
+		this.param = param;
+	}
+
+	public int getParam() {
+		return param;
 	}
 }

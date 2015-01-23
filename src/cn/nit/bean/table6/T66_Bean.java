@@ -31,6 +31,8 @@ public class T66_Bean implements java.io.Serializable {
 	private Integer joinOtherClub;
 	private Date time;
 	private String note;
+	private int CheckState;
+	
 	
 	public int getSeqNumber() {
 		return seqNumber;
@@ -115,6 +117,12 @@ public class T66_Bean implements java.io.Serializable {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public void setJoinClubHumanNum(Integer joinClubHumanNum) {
 		this.joinClubHumanNum = joinClubHumanNum;

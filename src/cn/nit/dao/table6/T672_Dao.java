@@ -14,6 +14,7 @@ import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T641_Bean;
 import cn.nit.bean.table6.T672_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 
@@ -26,15 +27,52 @@ public class T672_Dao {
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
-	private String field = "StuName,StuId,FromTeaUnit,UnitId,FromMaj,MajId,FromClass,DualDegreeFromTeaUnit,DualDegreeUnitId,DualDegreeMaj,DualDegreeId,BeginTime,GraduateTime,Time,Note";
+	private String field = "StuName,StuId,FromTeaUnit,UnitId," +
+			"FromMaj,MajId,FromClass,DualDegreeFromTeaUnit,DualDegreeUnitId," +
+			"DualDegreeMaj,DualDegreeId,BeginTime,GraduateTime,Time,Note,CheckState";
 
 	
-	private String fieldShow = "SeqNumber,StuName,StuId,FromTeaUnit,UnitId,FromMaj,MajId,FromClass,DualDegreeFromTeaUnit,DualDegreeUnitId,DualDegreeMaj,DualDegreeId,BeginTime,GraduateTime,Time,Note";
+	private String fieldShow = "SeqNumber,StuName,StuId,FromTeaUnit,UnitId,FromMaj," +
+			"MajId,FromClass,DualDegreeFromTeaUnit,DualDegreeUnitId,DualDegreeMaj," +
+			"DualDegreeId,BeginTime,GraduateTime,Time,Note,CheckState";
 
 	
 	
 	/* ,FillTeaID,FillUnitID,audit */
 
+	
+	/**
+	 *用与审核数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T672_Bean> totalList(String year, int checkState){
+		
+		String sql = "select " + fieldShow + " from " + tableName +
+		" where CheckState=" + checkState + " and Time like '"+year+"%'";
+		//System.out.println(sql);
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T672_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T672_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+	
 	/**
 	 * 将数据表622的实体类插入数据库
 	 * 
@@ -88,8 +126,7 @@ public class T672_Dao {
 		boolean flag = false;
 		Connection conn = DBConnection.instance.getConnection();
 		try {
-			flag = DAOUtil
-					.update(DualDegreeInfo, tableName, key, field, conn);
+			flag = DAOUtil.update(DualDegreeInfo, tableName, key, field, conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
@@ -160,7 +197,7 @@ public class T672_Dao {
 		return list ;
 	}
 	
-	public List<T672_Bean> queryPageList(String cond, Object object,
+	public List<T672_Bean> queryPageList(String cond, String  fillunitID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
 		
@@ -169,6 +206,11 @@ public class T672_Dao {
 		if(cond != null && !cond.equals("")){
 			Cond = Cond + cond;
 		}
+		
+		if(fillunitID != null && !fillunitID.equals("")){
+			Cond = Cond + " and FillUnitID=" + fillunitID;
+		}
+		
 		String queryPageSql;
 		
 			queryPageSql = "select top " + pagesize + 
@@ -224,12 +266,17 @@ public class T672_Dao {
 		return list ;
 	}
 	
-	public List<T672_Bean> getAllList(String cond, Object object) {
+	/**用于显示总数*/
+	public List<T672_Bean> getAllList(String cond, String fillunitID) {
 		// TODO Auto-generated method stub
 		String Cond = "1=1";
 		
 		if(cond != null && !cond.equals("")){
 			Cond = Cond + cond;
+		}
+		
+		if(fillunitID != null && !fillunitID.equals("")){
+			Cond = Cond + " and FillUnitID=" + fillunitID;
 		}
 		String sql;
 		
@@ -257,41 +304,144 @@ public class T672_Dao {
 		return list ;
 	}
 
+	
+	/**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	//设置审核的状态为1：即未审核状态
+	public boolean updatCheck()
+	{
+		int flag = 0;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try
+		{
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false; 
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public static void main(String args[]) {
 
 		T672_Dao DualDegreeInfoDao = new T672_Dao();
-		T672_Bean DualDegreeInfo = new T672_Bean();
-//		 DualDegreeInfo.setSeqNumber(1);
-		//	
-		
-		DualDegreeInfo.setStuName("小明");
-		DualDegreeInfo.setStuId("2011010123");
-		DualDegreeInfo.setFromTeaUnit("水利与生态工程学院");
-		DualDegreeInfo.setUnitId("3001");
-		DualDegreeInfo.setFromMaj("水利水电工程");
-		DualDegreeInfo.setMajId("081101");
-		DualDegreeInfo.setFromClass("10水利");
-		DualDegreeInfo.setDualDegreeFromTeaUnit("水利与生态工程学院");
-		DualDegreeInfo.setDualDegreeUnitId("3001");
-		DualDegreeInfo.setDualDegreeMaj("水利水电工程");
-		DualDegreeInfo.setDualDegreeId("081101");
-		DualDegreeInfo.setBeginTime(new Date());
-		DualDegreeInfo.setGraduateTime(new Date());
-				
-		DualDegreeInfo.setTime(new Date());
-		DualDegreeInfo.setNote("无");
-//		//		
-		DualDegreeInfoDao.insert(DualDegreeInfo);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(DualDegreeInfoDao.update(DualDegreeInfo)) ;
-//		 System.out.println(DualDegreeInfoDao.deleteItemsByIds("(8)")) ;
-
-		System.out.println("success!!");
+		boolean flag = DualDegreeInfoDao.updatCheck();
+		System.out.println(flag);
 	}
 
 

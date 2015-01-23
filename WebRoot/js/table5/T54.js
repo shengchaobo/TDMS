@@ -181,7 +181,7 @@
 										flag = false;
 				                }
 			    		})	
-			    		myMarquee('T54', CTypeThree)
+			    		myMarquee('T54', CTypeThree);
 						reloadgrid (year,flag) 	;
      					$('#edit').propertygrid('loadData', rows);						 					 
 				});		

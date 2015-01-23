@@ -43,6 +43,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table6.T652_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiAwardTypeService;
 import cn.nit.service.di.DiContestLevelService;
@@ -237,6 +238,7 @@ public class T652_Excel {
 				T652_bean.setAwardName(awardName);
 				T652_bean.setAwardFromUnit(awardFromUnit);
 				T652_bean.setFillUnitID(userinfo.getUnitID());
+				T652_bean.setCheckState(Constants.WAIT_CHECK);
 
 				T652_bean.setNote(note);
 

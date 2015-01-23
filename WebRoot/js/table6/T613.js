@@ -16,8 +16,8 @@
 				        showGroup: true,
 				        scrollbarSize: 0,
 				        columns: [[
-				                { field: 'name', title: '', width: 100, resizable: true },
-				                { field: 'value', title: '', width: 100, resizable: false }
+				                { field: 'name', title: '项目', width: 100, resizable: true },
+				                { field: 'value', title: '内容', width: 100, resizable: false }
 				        ]]
 				 });
 				
@@ -30,11 +30,35 @@
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
-				    			}
+				    				$("#edit").propertygrid({title:'留学生数量基本情况'});	
+			    					$("#cancel").show();
+			    					$("#save").show();
+				    				$("#export").hide();
+				    			}else{	
+				    				if(json.checkState==WAITCHECK){
+				    					$("#edit").propertygrid({title:'留学生数量基本情况（<font color=red>待审核</font>）'});
+				    					//document.getElementById("export").style.display ="none";
+				    					$("#export").hide();
+				    					$("#cancel").show();
+				    					$("#save").show();
+				    				}
+				    				else if(json.checkState==PASSCHECK){
+				    					$("#edit").propertygrid({title:'留学生数量基本情况（<font color=red>审核通过</font>）'});					    				
+				    					$("#cancel").hide();
+				    					$("#save").hide();
+				    					$("#export").show();
+				    				}				    				
+				    				else if(json.checkState==NOPASSCHECK){
+				    					$("#edit").propertygrid({title:'留学生数量基本情况（<font color=red>审核未通过</font>）'});	
+				    					$("#cancel").show();
+				    					$("#save").show();
+					    				$("#export").hide();
+				    				}						    				    				
+				    			}	
 			                    var i = 0;
 			                    while(i < rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
-			                    	i= i+ 1;
+			                    	i= i+1;
 			                    }														
 							},
 			                error: function(XMLResponse) {
@@ -42,7 +66,7 @@
 				                    var i = 0;
 				                    while(i < rows.length){
 				                    	rows[i].value = "";	
-				                    	i= i+ 1;
+				                    	i= i+1;
 				                    }			                      
 			                }
 		    		})
@@ -68,11 +92,36 @@
 				    		success : function(json) {
 				    			if(typeof(json.data)!="undefined"){
 				    				alert(json.data);
-				    			}
+				    				$("#edit").propertygrid({title:'留学生数量基本情况'});	
+			    					$("#export").hide();
+			    					$("#cancel").show();
+			    					$("#save").show();
+				    			}else{	
+				    				//alert(json.checkState);
+				    				if(json.checkState==WAITCHECK){
+				    					$("#edit").propertygrid({title:'留学生数量基本情况（<font color=red>待审核</font>）'});	
+				    					//document.getElementById("export").style.display ="none";
+				    					$("#export").hide();
+				    					$("#cancel").show();
+				    					$("#save").show();
+				    				}
+				    				else if(json.checkState==PASSCHECK){
+				    					$("#edit").propertygrid({title:'留学生数量基本情况（<font color=red>审核通过</font>）'});		
+				    					$("#cancel").hide();
+				    					$("#save").hide();
+				    					$("#export").show();
+				    				}				    				
+				    				else if(json.checkState==NOPASSCHECK){
+				    					$("#edit").propertygrid({title:'留学生数量基本情况（<font color=red>审核未通过</font>）'});		
+				    					$("#export").hide();
+				    					$("#cancel").show();
+				    					$("#save").show();
+				    				}						    				    				
+				    			}		
 			                    var i = 0;
 			                    while(i < rows.length){
 			                    	rows[i].value = eval('json.'+rows[i].field);	
-			                    	i=i+1;
+			                    	i= i+1;
 			                    }								
 							},
 			                error: function(XMLResponse) {
@@ -127,7 +176,8 @@
 										alert("保存失败");
 										flag = false;
 				                }
-			    		})		    		
+			    		})	
+			    		myMarquee('T613', CTypeThree);
 						reloadgrid (year,flag) 	;
      					$('#edit').propertygrid('loadData', rows);						 					 
 				});		

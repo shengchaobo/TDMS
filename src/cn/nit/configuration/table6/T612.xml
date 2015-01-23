@@ -6,6 +6,8 @@
 	<package name="pages/T612" namespace="/pages/T612" extends="struts-default">
 		<!-- 初始化加载所有领导信息 -->
 	    <action name="loadInfo" class="cn.nit.action.table6.T612_Action" method="loadInfo" />
+	     <!-- 更新审核信息 -->
+	    <action name="updateCheck"  class="cn.nit.action.table6.T612_Action" method="updateCheck" ></action>	    
    		<!-- 插入新的领导信息 -->
 	    <action name="save"  class="cn.nit.action.table6.T612_Action" method="save" ></action>	    	    	    
    	    <!-- 数据导出 -->

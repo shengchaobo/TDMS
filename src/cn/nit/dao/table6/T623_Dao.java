@@ -13,6 +13,7 @@ import net.sf.json.JSON;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T623_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 
@@ -25,13 +26,50 @@ public class T623_Dao {
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
-	private String field = "Province,ArtType,Batch,LibEnrollNum,SciEnrollNum,SumEnrollNum,LibLowestScore,SciLowestScore,SumLowestScore,LibAvgScore,SciAvgScore,SumAvgScore,Time,Note";
+	private String field = "Province,ArtType,Batch,LibEnrollNum," +
+			"SciEnrollNum,SumEnrollNum,LibLowestScore,SciLowestScore," +
+			"SumLowestScore,LibAvgScore,SciAvgScore,SumAvgScore,Time,Note,CheckState";
 
 	
-	private String fieldShow = "SeqNumber,Province,ArtType,Batch,LibEnrollNum,SciEnrollNum,SumEnrollNum,LibLowestScore,SciLowestScore,SumLowestScore,LibAvgScore,SciAvgScore,SumAvgScore,Time,Note";
+	private String fieldShow = "SeqNumber,Province,ArtType,Batch,LibEnrollNum," +
+			"SciEnrollNum,SumEnrollNum,LibLowestScore,SciLowestScore,SumLowestScore," +
+			"LibAvgScore,SciAvgScore,SumAvgScore,Time,Note,CheckState";
 
 	/* ,FillTeaID,FillUnitID,audit */
 
+	
+	/**
+	 * 用于审核数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T623_Bean> totalList(String year, int checkState){
+		
+		String sql = "select " + fieldShow + " from " + tableName  +
+		" where CheckState=" + checkState + " and Time like '"+year+"%'";
+		//System.out.println(sql);
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T623_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T623_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list ;
+	}
+	
 	/**
 	 * 将数据表623的实体类插入数据库
 	 * 
@@ -157,14 +195,19 @@ public class T623_Dao {
 		return list ;
 	}
 	
-	public List<T623_Bean> queryPageList(String cond, Object object,
+	/**分页显示*/
+	public List<T623_Bean> queryPageList(String cond, String fillUnitID,
 			int pagesize, int currentpage) {
 		// TODO Auto-generated method stub
 		String Cond = "1=1";
 		
 		if(cond != null && !cond.equals("")){
 			Cond = Cond + cond;
-		}		
+		}	
+		if(fillUnitID != null && !fillUnitID.equals("")){
+			Cond = Cond + " and FillUnitID=" + fillUnitID;
+		}
+		
 		String queryPageSql;
 		
 			queryPageSql = "select top " + pagesize + 
@@ -220,14 +263,19 @@ public class T623_Dao {
 		return list ;
 	}
 	
-	public List<T623_Bean> getAllList(String cond, Object object) {
+	/**分页显示数据总数*/
+	public List<T623_Bean> getAllList(String cond, String  fillunitID) {
 		// TODO Auto-generated method stub
 		
 		String Cond = "1=1";
 		
 		if(cond != null && !cond.equals("")){
 			Cond = Cond + cond;
-		}	
+		}
+		
+		if(fillunitID != null && !fillunitID.equals("")){
+			Cond = Cond + " and FillUnitID=" + fillunitID;
+		}
 		String sql;
 		
 		sql = "select " + fieldShow + " from " + tableName +" where " + Cond;
@@ -253,42 +301,145 @@ public class T623_Dao {
 		
 		return list ;
 	}
+	
+	/**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	//设置审核的状态为1：即未审核状态
+	public boolean updatCheck()
+	{
+		int flag = 0;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try
+		{
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false; 
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 	public static void main(String args[]) {
 
 		T623_Dao ArtStuAmdiNumDao = new T623_Dao();
-		T623_Bean ArtStuAmdiNum = new T623_Bean();
-//		 ArtStuAmdiNum.setSeqNumber(1);
-		//		
-		ArtStuAmdiNum.setProvince("北京");
-		ArtStuAmdiNum.setArtType("美术类");
-		ArtStuAmdiNum.setBatch("提前批招生");
-		ArtStuAmdiNum.setLibEnrollNum(5);
-		ArtStuAmdiNum.setSciEnrollNum(9);
-		ArtStuAmdiNum.setSumEnrollNum(0);
-		
-		ArtStuAmdiNum.setLibLowestScore(220);
-		ArtStuAmdiNum.setSciLowestScore(409);
-		ArtStuAmdiNum.setSumLowestScore(0);
-		
-		ArtStuAmdiNum.setLibAvgScore(220);
-		ArtStuAmdiNum.setSciAvgScore(409);
-		ArtStuAmdiNum.setSumAvgScore(0);
-				
-		ArtStuAmdiNum.setTime(new Date());
-		ArtStuAmdiNum.setNote("无");
-//		//		
-		ArtStuAmdiNumDao.insert(ArtStuAmdiNum);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(ArtStuAmdiNumDao.update(ArtStuAmdiNum)) ;
-//		 System.out.println(ArtStuAmdiNumDao.deleteItemsByIds("(8)")) ;
-
-		System.out.println("success!!");
+		boolean flag= ArtStuAmdiNumDao.updatCheck();
+		System.out.println(flag);
 	}
 
 

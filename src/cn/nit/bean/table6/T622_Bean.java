@@ -26,6 +26,8 @@ public class T622_Bean implements java.io.Serializable {
 	private Integer sciAvgScore;
 	private Date time;
 	private String note;
+	private int CheckState;
+	
 	
 	public int getSeqNumber() {
 		return seqNumber;
@@ -86,6 +88,12 @@ public class T622_Bean implements java.io.Serializable {
 	}
 	public void setTime(Date time) {
 		this.time = time;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public String getNote() {
 		return note;

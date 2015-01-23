@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
+
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -33,8 +35,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/table6/T612.js"></script>
 	<script type="text/javascript"></script>
 </head>
-
-<body style="height: 100%'" >
+<% request.setAttribute("CHECKTYPE",Constants.CTypeThree); %>
+<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("NOPASS",Constants.NOPASS_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%'"   onload = "myMarquee('T612','<%=request.getAttribute("CHECKTYPE") %>')">
+  <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
  <table id="edit" class="easyui-propertygrid"  ></table>
  <div id="toolbar" style="height:30px;">
 		<div style="float: left;">	

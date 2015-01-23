@@ -36,6 +36,7 @@ public class T652_Bean implements java.io.Serializable {
 	private String awardFromUnit;
 	private Date time;
 	private String note;
+	private int CheckState;
 	private String fillUnitID;
 	
 	public int getSeqNumber() {
@@ -145,6 +146,12 @@ public class T652_Bean implements java.io.Serializable {
 	}
 	public void setFillUnitID(String fillUnitID) {
 		this.fillUnitID = fillUnitID;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	

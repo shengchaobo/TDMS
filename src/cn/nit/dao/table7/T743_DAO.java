@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import cn.nit.bean.table7.T743_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table7.T743POJO;
 import cn.nit.util.DAOUtil;
@@ -16,7 +17,9 @@ public class T743_DAO {
 	
 	private String key="SeqNumber";
 	
-	private String field="CSName,CSID,SetCSUnit,UnitID,CSType,CSNature,CSLeader,TeaID,AssessYear,AssessResult,AppvlID,Time,Note,FillTeaID,FillUnitID,audit";
+	private String field="CSName,CSID,SetCSUnit,UnitID,CSType," +
+			"CSNature,CSLeader,TeaID,AssessYear,AssessResult," +
+			"AppvlID,Time,Note,FillTeaID,FillUnitID,audit,CheckState";
 
 	public boolean insert(T743_Bean t743_B){
 		boolean flag=false;
@@ -92,7 +95,11 @@ public class T743_DAO {
 			List<T743POJO> list=null;
 			StringBuffer sql=new StringBuffer();
 			
-			sql.append("select  t.SeqNumber,t.CSName,t.CSID,t.SetCSUnit,t.UnitID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.CSLeader,t.TeaID,t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note");
+			sql.append("select  t.SeqNumber,t.CSName,t.CSID,t.SetCSUnit," +
+					"t.UnitID,cst.CourseCategories as CSType," +
+					"t.CSType as CSTypeID,csn.CourseChar as CSNature," +
+					"t.CSNature as CSNatureID,t.CSLeader,t.TeaID," +
+					"t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note,t.CheckState");
 		    sql.append(" from "+ tableName +" as t, DiCourseChar csn, DiCourseCategories cst");
 			sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 			  
@@ -104,7 +111,7 @@ public class T743_DAO {
 				sql.append(conditions) ;
 			}
 			
-			sql.append(" order by SeqNumber desc") ;
+			//sql.append(" order by SeqNumber desc") ;
 			
 			Connection conn=DBConnection.instance.getConnection();
 			
@@ -127,16 +134,22 @@ public class T743_DAO {
 			return list;	
 		}
 		/**
-		 * 获取字典表的所有数据
+		 * 获取字典表的所有数据（导出）
+		 *
 		 * @return
 		 *
 		 * @time: 2014-5-14/下午02:34:42
 		 */
-		public List<T743POJO> totalList(String year){
+		public List<T743POJO> totalList(String year,int checkState){
             StringBuffer sql=new StringBuffer();			
-			sql.append("select  t.SeqNumber,t.CSName,t.CSID,t.SetCSUnit,t.UnitID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.CSLeader,t.TeaID,t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note");
+			sql.append("select  t.SeqNumber,t.CSName,t.CSID," +
+					"t.SetCSUnit,t.UnitID,cst.CourseCategories as CSType," +
+					"t.CSType as CSTypeID,csn.CourseChar as CSNature," +
+					"t.CSNature as CSNatureID,t.CSLeader,t.TeaID," +
+					"t.AssessYear,t.AssessResult,t.AppvlID,t.Time,t.Note,t.CheckState");
 		    sql.append(" from "+ tableName +" as t, DiCourseChar csn, DiCourseCategories cst");
-			sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;    
+			sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+			sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;
@@ -187,7 +200,9 @@ public class T743_DAO {
 				boolean flag = false ;
 				Connection conn = DBConnection.instance.getConnection() ;
 				
-				String tempfield = "CSName,CSID,SetCSUnit,UnitID,CSType,CSNature,CSLeader,TeaID,AssessYear,AssessResult,AppvlID,Time,Note,FillUnitID";
+				String tempfield = "CSName,CSID,SetCSUnit,UnitID,CSType," +
+						"CSNature,CSLeader,TeaID,AssessYear,AssessResult," +
+						"AppvlID,Time,Note,FillUnitID,CheckState";
 				try{
 					flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 				}catch(Exception e){
@@ -226,6 +241,144 @@ public class T743_DAO {
 
 		}
 
+		
+		/**
+		 * 找到该条数据的审核状态
+		 * @param diCourseCategories
+		 * @return
+		 *
+		 * @time: 2014-5-14/下午02:34:23
+		 */	
+		public int getCheckState(int seqNumber){
+					
+			String queryPageSql = "select CheckState " 
+			+ " from " + tableName + 
+			" where SeqNumber='" + seqNumber + "';" ;
+			
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			
+			int state = 1;
+			
+			try{
+				st = conn.createStatement() ;
+				rs = st.executeQuery(queryPageSql) ;
+				
+				while(rs.next()){
+					state = rs.getInt(1) ;
+				}
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return 0 ;
+			}finally{
+				DBConnection.close(conn);
+				DBConnection.close(rs);
+				DBConnection.close(st);			
+			}
+			
+			return state ;
+		}
+		
+		/**
+		 * 更新某条数据的审核状态
+		 * @param diCourseCategories
+		 * @return
+		 *
+		 * @time: 2014-5-14/下午02:34:23
+		 */	
+		public boolean updateCheck(int seq, int checkState){
+			
+			int flag ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			String sql = "update " + tableName + " set CheckState=" + checkState +
+			" where SeqNumber='" + seq + "';" ;		
+			System.out.println(sql);
+			try{			
+				st = conn.createStatement();
+				flag = st.executeUpdate(sql);					
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return false;
+			}finally{
+				DBConnection.close(conn) ;
+			}
+			
+			if (flag == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		/**
+		 * 全部审核通过
+		 * @param diCourseCategories
+		 * @return
+		 *
+		 * @time: 2014-5-14/下午02:34:23
+		 */	
+		public boolean checkAll(){
+			
+			int flag ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+			" where CheckState=" + Constants.WAIT_CHECK ;		
+			
+			System.out.println(sql);
+			try{			
+				st = conn.createStatement();
+				flag = st.executeUpdate(sql);					
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return false;
+			}finally{
+				DBConnection.close(conn) ;
+			}
+			
+			if (flag == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		//设置审核的状态为1：即未审核状态
+		public boolean updatCheck()
+		{
+			int flag = 0;
+			StringBuffer sql = new StringBuffer() ;
+			sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//			sql.append(" where " + key + " in " + ids) ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			
+			try
+			{
+				st = conn.createStatement();
+				flag = st.executeUpdate(sql.toString());			
+			}catch(Exception e){
+				e.printStackTrace();
+				return false; 
+			}finally{
+				DBConnection.close(conn) ;
+			}
+			
+			if (flag == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		public static void main(String args[]){
+			T743_DAO dao = new T743_DAO();
+			boolean flag = dao.updatCheck();
+			System.out.println(flag);
+		}
 
 		public String getTableName() {
 			return tableName;

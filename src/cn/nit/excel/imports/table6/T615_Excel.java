@@ -36,6 +36,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table6.T615_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDegreeService;
@@ -251,6 +252,7 @@ public class T615_Excel {
 				T615_bean.setDualDegreeNum(Integer.parseInt(dualDegreeNum));
 				T615_bean.setChangeInNum(Integer.parseInt(changeInNum));
 				T615_bean.setChangeOutNum(Integer.parseInt(changeOutNum));
+				T615_bean.setCheckState(Constants.WAIT_CHECK);
 				T615_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T615_bean);
 

@@ -41,6 +41,7 @@ public class T652_Service {
 		return T652_dao.insert(T652_bean);
 	}
 	
+	/**批量导出*/
 	public boolean batchInsert(List<T652_Bean> list){
 		
 		return T652_dao.batchInsert(list);
@@ -61,15 +62,34 @@ public class T652_Service {
 	}
 	
 	
-	public List<T652_Bean> getPageInfoList(String rows, String page) {
-		// TODO Auto-generated method stub
-		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
-		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
-		
-		List<T652_Bean> pageInfo = T652_dao.queryPageList(pagesize, currentpage);
-		
-		return pageInfo;	
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return T652_dao.getCheckState(seqNumber) ;
 	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return T652_dao.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return T652_dao.checkAll() ;
+	}
+
 	
 	public List<T652_Bean> getPageInfoList(String cond, String filledID,
 			String rows, String page) {
@@ -83,6 +103,7 @@ public class T652_Service {
 		return pageInfo;	
 	}
 	
+	//总数
 	public int getTotal(String cond, String  filledID) {
 		// TODO Auto-generated method stub
 		return T652_dao.getAllList(cond, filledID).size();

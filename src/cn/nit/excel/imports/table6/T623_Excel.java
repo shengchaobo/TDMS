@@ -36,6 +36,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table6.T623_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDegreeService;
@@ -231,6 +232,7 @@ public class T623_Excel {
 				}
 
 				T623_bean.setNote(note);
+				T623_bean.setCheckState(Constants.WAIT_CHECK);
 				// 插入时间
 				T623_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T623_bean);

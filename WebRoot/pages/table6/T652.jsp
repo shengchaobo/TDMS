@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
+
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -36,15 +38,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/commom.js"></script>
 	<script type="text/javascript" src="js/table6/T652.js"></script>
 </head>
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
 
+<body style="height: 100%'"  onload="myMarquee('T652','<%=request.getAttribute("CHECKTYPE") %>')">
+ <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/> 
 
-<body>
-	<table id="commomData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T652/loadData" style="height: auto;">
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" 
+	url="pages/T652/loadData?checkNum=<%=request.getAttribute("NOCHECK") %>" style="height: auto;">
 	
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
 			</tr>
@@ -64,8 +77,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="awardName">奖项名称</th>
 				<th field="awardFromUnit">颁发单位</th>
 				<th field="note">备注</th>
+				<!--  
 				<th field="fillUnitID">填写单位</th>	
 				<th field="time" formatter="formattime">时间</th>
+				-->
 			</tr>
 		</thead>
 	</table>
@@ -112,10 +127,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 		<!--审核通过数据-->
-	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+	<table id="verfiedData"  class="easyui-datagrid"  
+	url="pages/T652/loadData?checkNum=<%=request.getAttribute("PASS") %>"  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
@@ -136,14 +151,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="awardName">奖项名称</th>
 				<th field="awardFromUnit">颁发单位</th>
 				<th field="note">备注</th>
+				<!--  
 				<th field="fillUnitID">填写单位</th>	
 				<th field="time" formatter="formattime">时间</th>
+				-->
 			</tr>
 		</thead>
 	</table>
+	
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T652/dataExport?excelName=<%=URLEncoder.encode("表6-5-2学习成果—学生发表论文（教学单位-团委）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		
+	<form action='pages/T652/dataExport?excelName=<%=URLEncoder.encode("表6-5-2学习成果—学生发表论文（教学单位-团委）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog"
@@ -167,43 +189,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<div class="fitem">
-						<label>教学单位：</label> 
-						<input id="seqNumber" type="hidden" name="T652_bean.seqNumber">	
-						<input id="teaUnit" type="hidden" name="T652_bean.teaUnit">										
-						<input id="unitId" type="text" name="T652_bean.unitId" class='easyui-combobox'
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
-							onSelect:function(){
-							 	 document.getElementById('teaUnit').value=$(this).combobox('getText') ;
-							 }">
-					</div>
-				</td>
-				<td class="empty"></td>
-				<td>
-					<div class="fitem">
+					<input id="seqNumber" type="hidden" name="T652_bean.seqNumber" value="0" />	
+							<input id="FillUnitID" type="hidden" name="T652_bean.fillUnitID" value="0" />
+							<input id="teaUnit" type="hidden" name="T652_bean.teaUnit" value="0" />
+							<input id="unitId" type="hidden" name="T652_bean.unitId" value="0" />	
 						<label>学术论文题目：</label> 
 						<input id="paperTitle" name="T652_bean.paperTitle" class='easyui-validatebox'>
 						<span id="paperTitleSpan"></span>
 					</div>
 				</td>
-			</tr>
-			
-			<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>刊物名称：</label> 
 						<input id="jonalName" name="T652_bean.jonalName" class='easyui-validatebox'><span id="jonalNameSpan" ></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+			</tr>
+			
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>刊号：</label> 
 						<input id="jonalId" name="T652_bean.jonalId" class='easyui-validatebox'><span id="jonalIdSpan"></span>
 					</div>
 				</td>
-			</tr>
-			
-			<tr>
+				<td class="empty"></td>
 				<td>			
 					<div class="fitem">
 						<label>刊期：</label> 
@@ -211,7 +222,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-datebox'  type="text" editable="false"><span id="jonalDateSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+			</tr>
+			
+			<tr>
 				<td>			
 					<div class="fitem">
 						<label>学生姓名学号：</label> 
@@ -219,16 +232,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 					</div>
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>
 				<td>			
 					<div class="fitem">
 						<label>参与学生人数：</label> 
-						<input id="awardStuNum" name="T652_bean.awardStuNum" 
-							 class='easyui-validatebox'><span id="awardStuNumSpan"></span>
+						<input id="awardStuNum" name="T652_bean.awardStuNum" class="easyui-numberbox" type="text" data-options="min:0">
+					<span id="awardStuNumSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+			</tr>
+			<tr>
 				<td>			
 					<div class="fitem">
 						<label>指导教师：</label> 
@@ -236,16 +249,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 					</div>
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>
 				<td>			
 					<div class="fitem">
-						<label>指导教师人数：</label> 
-						<input id="guideTeaNum" name="T652_bean.guideTeaNum" 
-							 class='easyui-validatebox'><span id="guideTeaNumSpan"></span>
+						<label>指导教师人数：</label>
+						<input id="guideTeaNum" name="T652_bean.guideTeaNum" class="easyui-numberbox" type="text" data-options="min:0"> 
+						<span id="guideTeaNumSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+			</tr>
+			<tr>
 				<td>			
 					<div class="fitem">
 						<label>是否获奖：</label> 
@@ -255,24 +268,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</select>	<span id="isAwardSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>获奖级别：</label> 
-						<select id="awardLevel" type="text" name="T652_bean.awardLevel" class='easyui-combobox'  panelHeight="auto" editable="false">
-							<option value="50000">国际级</option>
-							<option value="50001">国家级</option>
-							<option value="50002">省部级</option>
-							<option value="50003">市级</option>
-							<option value="50004">校级</option>
-							<option value="50005">系级</option>
-							<option value="50006">其他</option>
-						</select>
+						<input class='easyui-combobox' id="awardLevel" name="T652_bean.awardLevel" 
+							data-options="valueField:'indexId',textField:'awardLevel',url:'pages/DiAwardLevel/loadDiAwardLevel',listHeight:'auto',editable:false">
 						<span id="awardLevelSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+			</tr>
+			<tr>
 				<td>			
 					<div class="fitem">
 						<label>奖项名称：</label> 
@@ -280,9 +286,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="awardNameSpan"></span>
 					</div>
 				</td>
-
-			</tr>
-			<tr>
+				<td class="empty"></td>
+				
 				<td>			
 					<div class="fitem">
 						<label>颁发单位：</label> 
@@ -290,16 +295,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="awardFromUnitSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
-				<td>			
-					<div class="fitem">
-						<label>填写单位号：</label> 
-						<input id="fillUnitID" name="T652_bean.fillUnitID" 
-							 class='easyui-validatebox'><span id="fillUnitIDSpan"></span>
-					</div>
-				</td>
-			</tr>	
-
+			</tr>
 			<tr>
 				<td>
 					<div class="fitem">
@@ -332,6 +328,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
     	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+	</script>
+	<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast1");
     	for (var i = 0; i <= 10; i++) {
         var theOption = document.createElement("option");
         	theOption.innerHTML = currentYear-i + "年";

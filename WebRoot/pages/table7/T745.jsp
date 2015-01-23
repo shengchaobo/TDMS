@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -31,21 +32,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript" src="js/commom.js"></script>
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  url="pages/T745/auditingData"
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+
+<body style="height: 100%"   onload="myMarquee('T745','<%=request.getAttribute("CHECKTYPE")%>')">
+
+ <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
+  
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid"  style="height: auto" 
+	 url="pages/T745/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="teaUnit" width="10%">教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="assessYear" width="10%">评估年份</th>
-				<th field="assessResult" width="10%">评估结果</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="note" width="20%">备注</th>
+				<th field="seqNumber" >编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
+				<th field="teaUnit" >教学单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="assessYear" >评估年份</th>
+				<th field="assessResult" >评估结果</th>
+				<th field="appvlID">批文号</th>
+				<th field="note" >备注</th>
 				
 			</tr>
 		</thead>
@@ -92,22 +109,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2" style="float: right;">
-    <a href="pages/T745/dataExport?excelName=<%=URLEncoder.encode("表7-4-5院（系）教学工作状态评估","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	<form action='pages/T745/dataExport?excelName=<%=URLEncoder.encode("表7-4-5院（系）教学工作状态评估","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid"  style="height: auto" 
+	url="pages/T745/auditingData?checkNum=<%=request.getAttribute("PASS")%>"
+
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false">
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" width="10%">编号</th>
-				<th field="teaUnit" width="10%">教学单位</th>
-				<th field="unitID" width="10%">单位号</th>
-				<th field="assessYear" width="10%">评估年份</th>
-				<th field="assessResult" width="10%">评估结果</th>
-				<th field="appvlID" width="10%">批文号</th>
-				<th field="note" width="20%">备注</th>
+				<th field="seqNumber">编号</th>
+				<th field="teaUnit" >教学单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="assessYear" >评估年份</th>
+				<th field="assessResult" >评估结果</th>
+				<th field="appvlID" >批文号</th>
+				<th field="note" >备注</th>
 				
 			</tr>
 		</thead>
@@ -136,6 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>教学单位：</label> 
 						<input id="seqNumber" name="teachWorkAssessAC.SeqNumber" type="hidden" value="0">
+						<input id="Time" name="teachWorkAssessAC.Time" type="hidden" value="0">
 						<!-- 下边的onselect方法是为了后台既要教学单位名称，有需要教学单位编号，而我们只有一个下拉框包含了这两条信息 -->
 						<input type="hidden" name="teachWorkAssessAC.TeaUnit" id="TeaUnit"/>
 						<input id="UnitID" type="text" name="teachWorkAssessAC.UnitID" 
@@ -289,10 +313,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T745', CTypeOne);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
@@ -348,6 +380,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('hr').hide();
 	    	$('#dlg').dialog('open').dialog('setTitle','修改院（系）教学工作状态评估情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
 	    	$('#UnitID').combobox('select', row[0].unitIDD) ;
 	    	
 			$('#AssessYear').val(row[0].assessYear) ;
@@ -396,6 +429,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T745', CTypeOne);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
@@ -425,9 +459,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    url = 'updateUser';
 		    }
 	    }
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }
+	    
 	    
 	    </script>
-<script type="text/javascript"> 
+	<script type="text/javascript"> 
 			//日期格式转换 
 			function formattime(val) {  
 			    if(val == null){
@@ -449,7 +488,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
-	
+	<script type="text/javascript">
+	    	var currentYear = new Date().getFullYear();
+	    	var select = document.getElementById("cbYearContrast1");
+	    	for (var i = 0; i <= 10; i++) {
+	        var theOption = document.createElement("option");
+	        	theOption.innerHTML = currentYear-i + "年";
+	        	theOption.value = currentYear-i;
+	        	select.appendChild(theOption);
+	    	}
+	</script>
 
 </html>
 

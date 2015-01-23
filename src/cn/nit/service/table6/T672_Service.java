@@ -89,23 +89,53 @@ public class T672_Service {
 		return pageInfo;	
 	}
 	
-	public List<T672_Bean> getPageInfoList(String cond, Object object,
+	/**用与分页显示*/
+	public List<T672_Bean> getPageInfoList(String cond, String  fillUnitID,
 			String rows, String page) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
 		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
 		
-		List<T672_Bean> pageInfo = T672_dao.queryPageList(cond, object, pagesize, currentpage);
+		List<T672_Bean> pageInfo = T672_dao.queryPageList(cond, fillUnitID, pagesize, currentpage);
 		
 		return pageInfo;	
 	}
 	
-	public int getTotal(String cond, Object object) {
+	/**用与分页显示总数*/
+	public int getTotal(String cond, String fillUnitID) {
 		// TODO Auto-generated method stub
-		return T672_dao.getAllList(cond, object).size();
+		return T672_dao.getAllList(cond, fillUnitID).size();
 	}
 	
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return T672_dao.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return T672_dao.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return T672_dao.checkAll() ;
+	}
+
 
 
 	public int getTotal() {

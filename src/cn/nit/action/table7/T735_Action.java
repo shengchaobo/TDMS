@@ -20,8 +20,10 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table7.T735_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table7.T735_DAO;
 import cn.nit.pojo.table7.T735POJO;
+import cn.nit.service.CheckService;
 import cn.nit.service.table7.T735_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -31,6 +33,7 @@ public class T735_Action {
 	T735_Bean teachManageAssessInfoTea=new T735_Bean();
 	
 	T735_DAO t735_DAO=new T735_DAO();
+	private CheckService check_services = new CheckService();
 	
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
@@ -55,6 +58,10 @@ public class T735_Action {
 	/**导出选择年份*/
 	private String selectYear;
 	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+	
+	
 	public String getSelectYear() {
 		return selectYear;
 	}
@@ -66,6 +73,7 @@ public class T735_Action {
 	
 	
 	public void insert(){
+		teachManageAssessInfoTea.setCheckState(Constants.WAIT_CHECK);
 		teachManageAssessInfoTea.setTime(new Date());
 		boolean flag;
 		PrintWriter out=null;
@@ -110,7 +118,7 @@ public class T735_Action {
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
 		
-		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){			
 			cond = null;	
 		}else{			
 			if(this.getSeqNum()!=null){
@@ -126,6 +134,18 @@ public class T735_Action {
 				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 			}
+			
+			//审核状态判断
+			if(this.getCheckNum() == Constants.WAIT_CHECK ){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
+				conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
+			}
+			
 			cond = conditions.toString();
 		}
 		String pages = t735_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
@@ -148,17 +168,42 @@ public class T735_Action {
 	}
 	/**  编辑数据  */
 	public void edit(){
-		teachManageAssessInfoTea.setTime(new Date());
-		boolean flag=t735_Sr.update(teachManageAssessInfoTea);
+		
+		
+		boolean flag = false;
+		int tag =0;
+		//获得该条数据审核状态
+		int state = t735_Sr.getCheckState(teachManageAssessInfoTea.getSeqNumber());
+		
+		//如果审核状态是待审核，则直接修改
+		if(state == Constants.WAIT_CHECK){
+			teachManageAssessInfoTea.setCheckState(Constants.WAIT_CHECK);
+			flag = t735_Sr.update(teachManageAssessInfoTea) ;
+			if(flag) tag = 1;
+		}
+		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+		if(state == Constants.NOPASS_CHECK){
+			teachManageAssessInfoTea.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = t735_Sr.update(teachManageAssessInfoTea) ;
+			boolean flag2 = check_services.delete("T735",teachManageAssessInfoTea.getSeqNumber());
+			if(flag1&&flag2){
+				flag = true;
+				tag = 2;
+			}
+		}
 		
 		PrintWriter out=null;
 		
 		try {
 			out=getResponse().getWriter();
-			if(flag){
-				out.print("{\"state\":true,data:\"编辑成功!!!\"}") ;
-			}else{
-				out.print("{\"state\":true,data:\"编辑失败!!!\"}") ;
+			if(tag == 1){
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+			}
+			else if(tag == 2){
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+			}
+			else{
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
 		} catch (Exception e) {
@@ -171,11 +216,68 @@ public class T735_Action {
 			}
 		}
 	}
+	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = t735_Sr.updateCheck(this.getSeqNum(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  全部审核通过  */
+	public void checkAll(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = t735_Sr.checkAll();
+		
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"一键审核成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
 
 	/**  根据数据的id删除数据  */
 	public void deleteByIds(){
 		System.out.println("ids=" + ids) ;
 		boolean flag = t735_Sr.deleteByIds(ids) ;
+		
+
+		//删除审核不通过信息
+		check_services.delete("T735", ids);
 		PrintWriter out = null ;
 		
 		try{
@@ -203,7 +305,7 @@ public class T735_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			List<T735POJO> list = t735_DAO.totalList(this.getSelectYear());
+			List<T735POJO> list = t735_DAO.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
@@ -322,6 +424,12 @@ public class T735_Action {
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+	public int getCheckNum() {
+		return checkNum;
+	}
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
 	}
 	public String getExcelName() {
 		

@@ -63,15 +63,15 @@ public class T653_Service {
 	}
 	
 	
-	public List<T653_Bean> getPageInfoList(String rows, String page) {
-		// TODO Auto-generated method stub
-		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
-		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
-		
-		List<T653_Bean> pageInfo = T653_dao.queryPageList(pagesize, currentpage);
-		
-		return pageInfo;	
-	}
+//	public List<T653_Bean> getPageInfoList(String rows, String page) {
+//		// TODO Auto-generated method stub
+//		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
+//		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
+//		
+//		List<T653_Bean> pageInfo = T653_dao.queryPageList(pagesize, currentpage);
+//		
+//		return pageInfo;	
+//	}
 	
 	public List<T653_Bean> getPageInfoList(String cond, String filledID,
 			String rows, String page) {
@@ -85,6 +85,8 @@ public class T653_Service {
 		return pageInfo;	
 	}
 	
+	
+	//符合显示的数据总条数
 	public int getTotal(String cond, String filledID) {
 		// TODO Auto-generated method stub
 		return T653_dao.getAllList(cond, filledID).size();
@@ -108,6 +110,34 @@ public class T653_Service {
 		//System.out.println(list.toString());
          
 		return list;				
+	}
+	
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return T653_dao.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return T653_dao.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return T653_dao.checkAll() ;
 	}
 
 

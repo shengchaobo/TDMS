@@ -41,6 +41,7 @@ import cn.nit.bean.table6.T641_Bean;
 import cn.nit.bean.table6.T651_Bean;
 import cn.nit.bean.table6.T652_Bean;
 import cn.nit.bean.table6.T653_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T611_Dao;
 import cn.nit.dao.table6.T612_Dao;
 import cn.nit.dao.table6.T613_Dao;
@@ -54,6 +55,8 @@ import cn.nit.dao.table6.T651_Dao;
 import cn.nit.dao.table6.T652_Dao;
 import cn.nit.dao.table6.T653_Dao;
 import cn.nit.dbconnection.DBConnection;
+import cn.nit.service.CheckService;
+import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table6.T611_Service;
 import cn.nit.service.table6.T612_Service;
 import cn.nit.service.table6.T613_Service;
@@ -84,6 +87,11 @@ public class T653_Action {
 	T653_Bean T653_bean = new T653_Bean();
 	
 	T653_Dao T653_dao = new T653_Dao();
+	
+	private CheckService check_services = new CheckService();
+	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
 
 	/** 待审核数据的查询的序列号 */
 	private Integer seqNum;
@@ -114,6 +122,12 @@ public class T653_Action {
 	/**专业名称*/
 	private String majorName;
 	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+	
+	/**  导出时间  */
+	private String selectYear ;
+	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
@@ -124,7 +138,12 @@ public class T653_Action {
 	public void insert() {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		T653_bean.setCheckState(Constants.WAIT_CHECK);
 		T653_bean.setFillUnitID(fillUnitID);
+		String teaUnit = deSer.getName(fillUnitID);
+		T653_bean.setUnitId(bean.getUnitID());
+		System.out.println(bean.getUnitID());
+		T653_bean.setTeaUnit(teaUnit);
 		boolean flag = T653_service.insert(T653_bean);
 		PrintWriter out = null;
 
@@ -155,7 +174,7 @@ public class T653_Action {
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
 			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum()==0){			
 				cond = null;	
 			}else{			
 				if(this.getSeqNum()!=null){
@@ -171,11 +190,29 @@ public class T653_Action {
 					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
+				
+				//审核状态判断
+				if(this.getCheckNum() == Constants.WAIT_CHECK ){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
+					conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
+				}
 				cond = conditions.toString();
 			}
 			
-			List<T653_Bean> list = T653_service.getPageInfoList(cond, fillUnitID, this.getRows(), this.getPage()) ;
-			String TeaInfoJson = this.toBeJson(list,T653_service.getTotal(cond, fillUnitID));
+			String tempUnitID1 = bean.getUnitID().substring(0,1);
+			String tempUnitID = bean.getUnitID();
+			//如果不是教学单位
+			if(!"3".equals(tempUnitID1)){
+				tempUnitID = null;
+			}
+			
+			List<T653_Bean> list = T653_service.getPageInfoList(cond, tempUnitID, this.getRows(), this.getPage()) ;
+			String TeaInfoJson = this.toBeJson(list,T653_service.getTotal(cond, tempUnitID));
 			//private JSONObject jsonObj;
 			
 			PrintWriter out = null ;
@@ -219,17 +256,42 @@ public class T653_Action {
 
 	/** 编辑数据 */
 	public void edit() {
-		T653_bean.setFillUnitID(fillUnitID);
-		System.out.println(T653_bean.getAwardLevel());
-		boolean flag = T653_service.update(T653_bean);
+		
+		boolean flag = false;
+		int tag = 0;
+		//获得该条数据审核状态
+		int state = T653_service.getCheckState(T653_bean.getSeqNumber());
+		System.out.println("test"+state);
+		//如果审核状态是待审核，则直接修改
+		if(state == Constants.WAIT_CHECK){
+			System.out.println("test"+state);
+			T653_bean.setCheckState(Constants.WAIT_CHECK);
+			flag = T653_service.update(T653_bean) ;
+			if(flag) tag = 1;
+		}
+		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+		if(state == Constants.NOPASS_CHECK){
+			T653_bean.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = T653_service.update(T653_bean) ;
+			boolean flag2 = check_services.delete("T653",T653_bean.getSeqNumber());
+			if(flag1&&flag2){
+				flag = true;
+				tag = 2;
+			}
+		}
+		//boolean flag = T653_service.update(T653_bean);
 		PrintWriter out = null;
 
 		try {
 			out = getResponse().getWriter();
-			if (flag) {
-				out.print("{\"state\":true,data:\"编辑成功!!!\"}");
-			} else {
-				out.print("{\"state\":true,data:\"编辑失败!!!\"}");
+			if(tag == 1){
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+			}
+			else if(tag == 2){
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+			}
+			else{
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush();
 		} catch (Exception e) {
@@ -244,8 +306,12 @@ public class T653_Action {
 
 	/** 根据数据的id删除数据 */
 	public void deleteByIds() {
+		
 		System.out.println("ids=" +this.getIds());
 		boolean flag = T653_service.deleteItemsByIds(ids);
+		
+		//删除审核不通过信息
+		check_services.delete("T653", ids);
 		PrintWriter out = null;
 
 		try {
@@ -267,6 +333,59 @@ public class T653_Action {
 			}
 		}
 	}
+	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = T653_service.updateCheck(this.getSeqNum(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  全部审核通过  */
+	public void checkAll(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = T653_service.checkAll();
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"一键审核成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
 
 	public InputStream getInputStream() {
 
@@ -277,7 +396,7 @@ public class T653_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T653_Bean> list = T653_dao.getAllList("", fillUnitID);
+			List<T653_Bean> list = T653_dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 						
 			String sheetName = this.excelName;
 			
@@ -301,7 +420,7 @@ public class T653_Action {
 			
 			columns.add("颁发单位");
 			columns.add("备注");
-			columns.add("填写单位");
+			//columns.add("填写单位");
 			columns.add("时间");
 				
 
@@ -325,8 +444,8 @@ public class T653_Action {
 			maplist.put("awardFromUnit", 14);
 			
 			maplist.put("note", 15);
-			maplist.put("fillUnitID", 16);
-			maplist.put("time", 17);
+			//maplist.put("fillUnitID", 16);
+			maplist.put("time", 16);
 				
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
@@ -336,6 +455,8 @@ public class T653_Action {
 
 		return inputStream ;
 	}
+	
+	
 
 	public String execute() throws Exception {
 
@@ -455,6 +576,22 @@ public class T653_Action {
 
 	public void setExcelName(String excelName) {
 		this.excelName = excelName;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
+	}
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
 	}
 
 	public static void main(String args[]) {

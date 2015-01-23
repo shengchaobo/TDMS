@@ -36,6 +36,7 @@ public class T641_Bean implements
 	private Integer tempNum;
 	private Date time;
 	private String note;
+	private int CheckState;
 
 	// Property accessors
 	@Id
@@ -200,6 +201,14 @@ public class T641_Bean implements
 
 	public void setTempFund(Double tempFund) {
 		this.tempFund = tempFund;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	@Column(name = "TempNum")

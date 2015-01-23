@@ -81,6 +81,8 @@ public class T658_Service {
 		return pageInfo;	
 	}
 	
+	
+	/**分页显示*/
 	public List<T658_Bean> getPageInfoList(String cond, String filledID,
 			String rows, String page) {
 		// TODO Auto-generated method stub
@@ -93,12 +95,39 @@ public class T658_Service {
 		return pageInfo;	
 	}
 	
+	/**显示的总条数*/
 	public int getTotal(String cond, String fillUnitID) {
 		// TODO Auto-generated method stub
 		return T658_dao.getAllList(cond, fillUnitID).size();
 	}
 	
-
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return T658_dao.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return T658_dao.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return T658_dao.checkAll() ;
+	}
 
 	public int getTotal() {
 		// TODO Auto-generated method stub

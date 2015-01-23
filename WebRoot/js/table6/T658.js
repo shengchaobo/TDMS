@@ -21,12 +21,18 @@ function singleImport() {
 		},
 		// 结果返回
 		success : function(result) {
-			// json格式转化
+		// json格式转化
 		var result = eval('(' + result + ')');
 		$.messager.alert('温馨提示', result.data);
 		if (result.state) {
-			$('#dlg').dialog('close');
-			$('#commomData').datagrid('reload');
+			if(result.tag==2){
+				$('#dlg').dialog('close');
+				myMarquee('T658', CTypeTwo);
+				$('#unverfiedData').datagrid('reload'); // reload the user data
+			}else{
+				$('#dlg').dialog('close');
+				$('#unverfiedData').datagrid('reload'); // reload the user data
+			}
 		}
 	}
 	});
@@ -38,7 +44,7 @@ function validate() {
 	
 	var  num = /^\d+$/;  //用于判断字符串是否全是数字
 	
-	var unitId = $('#unitId').combobox('getText');
+	//var unitId = $('#unitId').combobox('getText');
 	var conferenceName = $('#conferenceName').val();
 	var paperTitle = $('#paperTitle').val();
 	var holdTime = $('#holdTime').datetimebox('getValue');
@@ -47,20 +53,20 @@ function validate() {
 	var conferenceLevel = $('#conferenceLevel').combobox('getText');
 	
 	var awardStuName = $('#awardStuName').val();
-	var awardStuNum = $('#awardStuNum').val();
+	var awardStuNum =  $('#guideTeaNum').numberbox('getValue');
 	var guideTeaName = $('#guideTeaName').val();
-	var guideTeaNum = $('#guideTeaNum').val();
+	var guideTeaNum =  $('#guideTeaNum').numberbox('getValue');
 	
-	var fillUnitID = $('#fillUnitID').val();
+	//var fillUnitID = $('#fillUnitID').val();
 	var time = $('#time').datetimebox('getValue');
 	var note = $('#note').val();
 
 	// 根据数据库定义的字段的长度，对其进行判断
 
-	if (unitId == null || unitId.length == 0) {
-		alert("教学单位不能为空");
-		return false;
-	}
+	//if (unitId == null || unitId.length == 0) {
+		//alert("教学单位不能为空");
+		//return false;
+	//}
 	
 	if (conferenceName == null || conferenceName.length == 0) {
 		alert("会议名称不能为空");
@@ -124,7 +130,7 @@ function validate() {
 //删除选中的行
 function deleteByIds() {
 	// 获取选中项
-	var row = $('#commomData').datagrid('getSelections');
+	var row = $('#unverfiedData').datagrid('getSelections');
 	if (row.length == 0) {
 		$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
 		return;
@@ -159,14 +165,15 @@ function deletes(ids) {
 
 			if (result.state) {
 				alert(result.data);
-				$('#commomData').datagrid('reload');
+				myMarquee('T658', CTypeTwo);
+				$('#unverfiedData').datagrid('reload');
 			}
 		}
 	}).submit();
 }
 
 function editItem() {
-	var row = $('#commomData').datagrid('getSelections');
+	var row = $('#unverfiedData').datagrid('getSelections');
 
 	if (row.length != 1) {
 		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！");
@@ -181,22 +188,24 @@ function editItem() {
 	
 	$('#dlg').dialog('open').dialog('setTitle', '学习成果—参加国际会议');
 	$('#seqNumber').val(row[0].seqNumber);
-	$('#unitId').combobox('select', row[0].unitId);
+	$('#fillUnitID').val(row[0].fillUnitID);
+	$('#unitId').val(row[0].unitId);
+	$('#teaUnit').val(row[0].teaUnit);
 	
 	$('#holdPlace').val(row[0].holdPlace);
 	$('#holdUnit').val(row[0].holdUnit);
 	$('#holdTime').datebox("setValue", formattime(row[0].holdTime)) ;
-	$('#conferenceLevel').combobox('select', row[0].conferenceLevel);
+	$('#conferenceLevel').combobox('setText', row[0].conferenceLevel);
 
 	$('#awardStuName').val(row[0].awardStuName);
-	$('#awardStuNum').val(row[0].awardStuNum);
+	$('#awardStuNum').numberbox('setValue',row[0].awardStuNum) ;
 	$('#guideTeaName').val(row[0].guideTeaName);
-	$('#guideTeaNum').val(row[0].guideTeaNum);
+	$('#guideTeaNum').numberbox('setValue',row[0].guideTeaNum) ;
 
 	$('#conferenceName').val(row[0].conferenceName);
 	$('#paperTitle').val(row[0].paperTitle);
 	
-	$('#fillUnitID').val(row[0].fillUnitID);
+	
 	$('#time').datebox("setValue", formattime(row[0].time)) ;
 	$('#note').val(row[0].note);
 }
@@ -206,11 +215,11 @@ function reloadgrid ()  {
 	 var  seqNum = $('#seqNum').val();
      var startTime = $('#startTime').datetimebox('getValue');
      var endTime = $('#endTime').datetimebox('getValue');
-     var queryParams = $('#commomData').datagrid('options').queryParams;  
+     var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
      queryParams.seqNum = seqNum;  
      queryParams.startTime = startTime;  
      queryParams.endTime = endTime;  
-     $("#commomData").datagrid('reload'); 
+     $("#unverfiedData").datagrid('reload'); 
 }	
 
 //模板导入
@@ -247,8 +256,13 @@ function batchImport(){
 		 			msg: result.errorMsg
 		 		});
 		    		 $('#dlg').dialog('close'); // close the dialog
-		    		 $('#commomData').datagrid('reload'); // reload the user data
+		    		 $('#unverfiedData').datagrid('reload'); // reload the user data
 		 	}
 		 }
 		 });
  }
+
+//提交导出表单
+function submitForm(){
+	  document.getElementById('exportForm').submit();
+}

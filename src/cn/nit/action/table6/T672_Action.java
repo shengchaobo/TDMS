@@ -63,6 +63,7 @@ import cn.nit.bean.table6.T659_Bean;
 import cn.nit.bean.table6.T66_Bean;
 import cn.nit.bean.table6.T671_Bean;
 import cn.nit.bean.table6.T672_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T611_Dao;
 import cn.nit.dao.table6.T612_Dao;
 import cn.nit.dao.table6.T613_Dao;
@@ -84,6 +85,7 @@ import cn.nit.dao.table6.T66_Dao;
 import cn.nit.dao.table6.T671_Dao;
 import cn.nit.dao.table6.T672_Dao;
 import cn.nit.dbconnection.DBConnection;
+import cn.nit.service.CheckService;
 import cn.nit.service.table6.T611_Service;
 import cn.nit.service.table6.T612_Service;
 import cn.nit.service.table6.T613_Service;
@@ -123,6 +125,8 @@ public class T672_Action {
 	
 	T672_Dao T672_dao = new T672_Dao();
 
+	private CheckService check_services = new CheckService();
+
 	/** 待审核数据的查询的序列号 */
 	private Integer seqNum;
 
@@ -152,6 +156,12 @@ public class T672_Action {
 	/**专业名称*/
 	private String majorName;
 	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+	
+	/**  导出时间  */
+	private String selectYear ;
+	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 
@@ -159,7 +169,7 @@ public class T672_Action {
 	public void insert() {
 		System.out
 				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		
+		T672_bean.setCheckState(Constants.WAIT_CHECK);
 		boolean flag = T672_service.insert(T672_bean);
 		PrintWriter out = null;
 
@@ -191,7 +201,7 @@ public class T672_Action {
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
 			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){			
 				cond = null;	
 			}else{			
 				if(this.getSeqNum()!=null){
@@ -207,6 +217,17 @@ public class T672_Action {
 					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
+				//审核状态判断
+				if(this.getCheckNum() == Constants.WAIT_CHECK ){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
+					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
+					conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
+				}
+				
 				cond = conditions.toString();
 			}
 			
@@ -255,15 +276,57 @@ public class T672_Action {
 
 	/** 编辑数据 */
 	public void edit() {
-		boolean flag = T672_service.update(T672_bean);
+		System.out.println("====================");
+//		System.out.println(T672_bean.getCheckState());
+//		System.out.println(T672_bean.getDualDegreeFromTeaUnit());
+//		System.out.println(T672_bean.getDualDegreeId());
+//		System.out.println(T672_bean.getDualDegreeMaj());
+//		System.out.println(T672_bean.getDualDegreeUnitId());
+//		System.out.println(T672_bean.getFromClass());
+//		System.out.println(T672_bean.getFromMaj());
+//		System.out.println(T672_bean.getFromTeaUnit());
+//		System.out.println(T672_bean.getMajId());
+//		System.out.println(T672_bean.getNote());
+//		System.out.println(T672_bean.getSeqNumber());
+//		System.out.println(T672_bean.getStuId());
+//		System.out.println(T672_bean.getUnitId());
+//		System.out.println(T672_bean.getBeginTime());
+//		
+//		System.out.println(T672_bean.getGraduateTime());
+//		System.out.println(T672_bean.getTime());
+		boolean flag = false;
+		int tag =0;
+		//获得该条数据审核状态
+		int state = T672_service.getCheckState(T672_bean.getSeqNumber());
+		
+		//如果审核状态是待审核，则直接修改
+		if(state == Constants.WAIT_CHECK){
+			T672_bean.setCheckState(Constants.WAIT_CHECK);
+			flag = T672_service.update(T672_bean) ;
+			if(flag) tag = 1;
+		}
+		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+		if(state == Constants.NOPASS_CHECK){
+			T672_bean.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = T672_service.update(T672_bean) ;
+			boolean flag2 = check_services.delete("T672",T672_bean.getSeqNumber());
+			if(flag1&&flag2){
+				flag = true;
+				tag = 2;
+			}
+		}
 		PrintWriter out = null;
 
 		try {
 			out = getResponse().getWriter();
-			if (flag) {
-				out.print("{\"state\":true,data:\"编辑成功!!!\"}");
-			} else {
-				out.print("{\"state\":true,data:\"编辑失败!!!\"}");
+			if(tag == 1){
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+			}
+			else if(tag == 2){
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+			}
+			else{
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush();
 		} catch (Exception e) {
@@ -275,11 +338,67 @@ public class T672_Action {
 			}
 		}
 	}
+	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = T672_service.updateCheck(this.getSeqNum(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  全部审核通过  */
+	public void checkAll(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = T672_service.checkAll();
+		
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"一键审核成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+
 
 	/** 根据数据的id删除数据 */
 	public void deleteByIds() {
 		System.out.println("ids=" +this.getIds());
 		boolean flag = T672_service.deleteItemsByIds(ids);
+		//删除审核不通过信息
+		check_services.delete("T672", ids);
 		PrintWriter out = null;
 
 		try {
@@ -312,7 +431,7 @@ public class T672_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T672_Bean> list = T672_dao.getAllList("", null);
+			List<T672_Bean> list = T672_dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 						
 			if(list==null){
 				if(list.size()==0){
@@ -550,6 +669,22 @@ public class T672_Action {
 
 	public void setExcelName(String excelName) {
 		this.excelName = excelName;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
+	}
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
 	}
 
 	public static void main(String args[]) {

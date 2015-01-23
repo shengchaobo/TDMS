@@ -21,12 +21,18 @@ function singleImport() {
 		},
 		// 结果返回
 		success : function(result) {
-			// json格式转化
+		// json格式转化
 		var result = eval('(' + result + ')');
 		$.messager.alert('温馨提示', result.data);
 		if (result.state) {
-			$('#dlg').dialog('close');
-			$('#commomData').datagrid('reload');
+			if(result.tag==2){
+				$('#dlg').dialog('close');
+				myMarquee('T671', CTypeOne);
+				$('#unverfiedData').datagrid('reload'); // reload the user data
+			}else{
+				$('#dlg').dialog('close');
+				$('#unverfiedData').datagrid('reload'); // reload the user data
+			}
 		}
 	}
 	});
@@ -104,7 +110,7 @@ function validate() {
 //删除选中的行
 function deleteByIds() {
 	// 获取选中项
-	var row = $('#commomData').datagrid('getSelections');
+	var row = $('#unverfiedData').datagrid('getSelections');
 	if (row.length == 0) {
 		$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
 		return;
@@ -139,14 +145,15 @@ function deletes(ids) {
 
 			if (result.state) {
 				alert(result.data);
-				$('#commomData').datagrid('reload');
+				myMarquee('T671', CTypeOne);
+				$('#unverfiedData').datagrid('reload');
 			}
 		}
 	}).submit();
 }
 
 function editItem() {
-	var row = $('#commomData').datagrid('getSelections');
+	var row = $('#unverfiedData').datagrid('getSelections');
 
 	if (row.length != 1) {
 		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！");
@@ -179,11 +186,11 @@ function reloadgrid ()  {
 	 var  seqNum = $('#seqNum').val();
      var startTime = $('#startTime').datetimebox('getValue');
      var endTime = $('#endTime').datetimebox('getValue');
-     var queryParams = $('#commomData').datagrid('options').queryParams;  
+     var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
      queryParams.seqNum = seqNum;  
      queryParams.startTime = startTime;  
      queryParams.endTime = endTime;  
-     $("#commomData").datagrid('reload'); 
+     $("#unverfiedData").datagrid('reload'); 
 }	
 
 //模板导入
@@ -220,8 +227,13 @@ function batchImport(){
 		 			msg: result.errorMsg
 		 		});
 		    		 $('#dlg').dialog('close'); // close the dialog
-		    		 $('#commomData').datagrid('reload'); // reload the user data
+		    		 $('#unverfiedData').datagrid('reload'); // reload the user data
 		 	}
 		 }
 		 });
  }
+
+//提交导出表单
+function submitForm(){
+	  document.getElementById('exportForm').submit();
+}

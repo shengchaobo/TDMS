@@ -39,6 +39,7 @@ import cn.nit.bean.di.DiSourceBean;
 import cn.nit.bean.di.DiTitleLevelBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table6.T671_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDegreeService;
@@ -265,7 +266,7 @@ public class T671_Excel {
 				T671_bean.setMinorId(minorId);
 				T671_bean.setBeginTime(new SimpleDateFormat("yyyy-MM-dd").parse(beginTime));
 				T671_bean.setGraduateTime(new SimpleDateFormat("yyyy-MM-dd").parse(graduateTime));
-
+				T671_bean.setCheckState(Constants.WAIT_CHECK);
 				// 插入时间
 				T671_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T671_bean);

@@ -36,6 +36,10 @@ public class T711POJO {
 		
 		private String Note ;
 		
+		private int CheckState;
+		
+		private int FillUnitID;
+		
 	
 		
 		
@@ -162,6 +166,22 @@ public class T711POJO {
 
 		public void setTime(Date time) {
 			this.time = time;
+		}
+
+		public int getCheckState() {
+			return CheckState;
+		}
+
+		public void setCheckState(int checkState) {
+			CheckState = checkState;
+		}
+
+		public int getFillUnitID() {
+			return FillUnitID;
+		}
+
+		public void setFillUnitID(int fillUnitID) {
+			FillUnitID = fillUnitID;
 		}
 
 		public String getNote() {

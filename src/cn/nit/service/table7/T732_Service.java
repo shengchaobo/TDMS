@@ -52,6 +52,36 @@ public class T732_Service {
 		return json.toString();
 	
 	}
+	
+	
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return t732_DAO.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return t732_DAO.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return t732_DAO.checkAll() ;
+	}
+
 	/**
 	 * 生成查条件
 	 * @param seqNum

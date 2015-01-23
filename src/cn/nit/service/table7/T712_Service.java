@@ -43,6 +43,37 @@ public class T712_Service {
 		
 		return json.toString();
 	}
+	
+	
+	
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return t712_dao.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return t712_dao.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return t712_dao.checkAll() ;
+	}
+
 	/**
 	 * 生成查条件
 	 * @param seqNum

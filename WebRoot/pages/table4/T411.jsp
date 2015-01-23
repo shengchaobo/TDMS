@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'teaId'" >教工号</th>
 				<th  data-options="field:'teaName'" >姓名</th>				
-		     </tr>
+		   </tr>
 		</thead>
 		<thead>
 				<tr>

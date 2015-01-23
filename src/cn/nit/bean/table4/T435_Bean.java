@@ -28,6 +28,7 @@ public class T435_Bean implements
 	private String staffType;
 	private Date time;
 	private String note;
+	private int checkState;
 
 	@Column(name = "Name", nullable = false)
 	public String getName() {
@@ -96,6 +97,14 @@ public class T435_Bean implements
 
 	public int getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

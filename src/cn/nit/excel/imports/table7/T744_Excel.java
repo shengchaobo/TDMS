@@ -9,6 +9,7 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.table7.T744_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
 import cn.nit.service.table7.T744_Service;
@@ -175,6 +176,7 @@ public class T744_Excel {
 				T744_Bean.setAssessResult(assResult);
 				T744_Bean.setAppvlID(appID);
 				T744_Bean.setFillUnitID(fillUnitID);
+				T744_Bean.setCheckState(Constants.WAIT_CHECK);
 				T744_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T744_Bean.setNote(note);
 				

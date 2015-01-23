@@ -13,6 +13,11 @@
 	    <action name="edit" class="cn.nit.action.table7.T734_Action" method="edit" />
 	     <!-- 删除数据 -->
 	    <action name="deleteByIds" class="cn.nit.action.table7.T734_Action" method="deleteByIds" />
+	     <!-- 修改审核状态 -->
+	    <action name="updateCheck" class="cn.nit.action.table7.T734_Action"  method="updateCheck" />
+	    
+  	    <!-- 审核通过全部 -->
+	    <action name="checkAll" class="cn.nit.action.table7.T734_Action"  method="checkAll" />
 	    
 	      <!-- 文件批量上传 -->
 	    <action name="uploadFile" class="cn.nit.action.UploadAction" method="uploadFile">
@@ -37,9 +42,9 @@
 				<param name="bufferSize">4096</param>
 	    	</result>
 	        </action>
-	        
-	         
-	     <!-- 数据导出 -->
+	        	
+	    
+	      <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table7.T734_Action" method="execute">
 	    	<result name="success" type="stream">
 	    		<!-- 指定下载文件的类型，下面表示无限制 -->

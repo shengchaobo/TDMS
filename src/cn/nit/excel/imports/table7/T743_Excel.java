@@ -10,6 +10,7 @@ import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T743_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDepartmentService;
@@ -187,6 +188,7 @@ public class T743_Excel {
 				T743_Bean.setAssessYear(assYear);
 				T743_Bean.setAssessResult(assResult);
 				T743_Bean.setAppvlID(appID);
+				T743_Bean.setCheckState(Constants.WAIT_CHECK);
 				T743_Bean.setFillUnitID(fillUnitID);
 				T743_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T743_Bean.setNote(note);

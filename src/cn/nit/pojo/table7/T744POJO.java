@@ -33,6 +33,8 @@ private int SeqNumber;
 	private Date Time;
 	
 	private String Note;
+	
+	private int CheckState;
 
 	public int getSeqNumber() {
 		return SeqNumber;
@@ -144,6 +146,14 @@ private int SeqNumber;
 
 	public void setTime(Date time) {
 		Time = time;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	public String getNote() {

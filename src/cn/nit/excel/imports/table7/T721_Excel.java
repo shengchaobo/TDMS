@@ -10,6 +10,7 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 
 import cn.nit.bean.table7.T721_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table7.T721_Service;
@@ -189,6 +190,7 @@ public class T721_Excel {
 				T721_Bean.setSchSupportExp(Double.parseDouble(schExp));
 				T721_Bean.setAppvlID(appID);
 				T721_Bean.setFillUnitID(fillUnitID);
+				T721_Bean.setCheckState(Constants.WAIT_CHECK);
 				T721_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T721_Bean.setNote(note);
 				list.add(T721_Bean);

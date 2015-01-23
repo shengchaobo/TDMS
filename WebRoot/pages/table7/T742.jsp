@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -31,16 +32,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+	<script type="text/javascript" src="js/commom.js"></script>
 
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T742/auditingData"
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%"   onload="myMarquee('T742','<%=request.getAttribute("CHECKTYPE")%>')">
+   <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" 
+	url="pages/T742/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="false" singleSelect="false" >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
+					<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th field="teaName">教师姓名</th>
 				<th field="teaID">教工号</th>
 		     </tr>
@@ -102,15 +116,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2" style="float: right;">
-	<a href="pages/T742/dataExport?excelName=<%=URLEncoder.encode("表7-4-2教师教学水平评估","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 	
+	<form action='pages/T742/dataExport?excelName=<%=URLEncoder.encode("表7-4-2教师教学水平评估","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" 
+	url="pages/T742/auditingData?checkNum=<%=request.getAttribute("PASS")%>"
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="false" singleSelect="false">
 	<thead data-options="frozen:true">
-			<tr>			
-				<th data-options="field:'ck',checkbox:true">选取</th>
+			<tr>
 				<th field="seqNumber">编号</th>
 				<th field="teaName">教师姓名</th>
 				<th field="teaID">教工号</th>
@@ -155,6 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>教工号：</label> 
 						<input id="seqNumber" name="teachLevelAssessAC.SeqNumber" type="hidden" value="0">
+						<input id="Time" name="teachLevelAssessAC.Time" type="hidden" value="0">
 						<input id="TeaID" type="hidden" name="teachLevelAssessAC.TeaID" >
 					    <input id="TeaName" type="text" name="teachLevelAssessAC.TeaName"
 					     class='easyui-combobox' data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
@@ -351,16 +371,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	return validate();
 				    	
 				    },
-				    //结果返回
-				    success: function(result){
-					    //json格式转化
-					    var result = eval('('+result+')');
-					    $.messager.alert('温馨提示', result.data) ;
-					    if (result.state){ 
-						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
-					    }
-				    }
+				 // 结果返回
+					success : function(result) {
+					// json格式转化
+					var result = eval('(' + result + ')');
+					$.messager.alert('温馨提示', result.data);
+					if (result.state) {
+						if(result.tag==2){
+							$('#dlg').dialog('close');
+							myMarquee('T742', CTypeOne);
+							$('#unverfiedData').datagrid('reload'); // reload the user data
+						}else{
+							$('#dlg').dialog('close');
+							$('#unverfiedData').datagrid('reload'); // reload the user data
+						}
+					}
+				}
 			    });
 		}
 
@@ -438,6 +464,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改教师教学水平评估情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
 	    	$('#TeaName').combobox('select', row[0].teaName) ;
 	    	$('#UnitID').combobox('select', row[0].unitID) ;
 	    	$('#AssessCS').val(row[0].assessCS) ;
@@ -489,6 +516,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T742', CTypeOne);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
@@ -518,6 +546,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    url = 'updateUser';
 		    }
 	    }
+
+	  //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }
 	    
 	    </script>
 
@@ -543,6 +576,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+			<script type="text/javascript">
+	    	var currentYear = new Date().getFullYear();
+	    	var select = document.getElementById("cbYearContrast1");
+	    	for (var i = 0; i <= 10; i++) {
+	        var theOption = document.createElement("option");
+	        	theOption.innerHTML = currentYear-i + "年";
+	        	theOption.value = currentYear-i;
+	        	select.appendChild(theOption);
+	    	}
+	</script>
 
 </html>
 

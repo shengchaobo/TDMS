@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T745_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table7.T745_Service;
 import cn.nit.util.TimeUtil;
@@ -103,6 +104,7 @@ public class T745_Excel {
 				T745_Bean.setAssessResult(assResult);
 				T745_Bean.setAppvlID(appID);
 				T745_Bean.setFillUnitID(fillUnitID);
+				T745_Bean.setCheckState(Constants.WAIT_CHECK);
 				T745_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T745_Bean.setNote(note);
 				

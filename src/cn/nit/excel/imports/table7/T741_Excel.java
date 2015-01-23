@@ -9,6 +9,7 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T741_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table7.T741_Service;
@@ -161,6 +162,7 @@ public class T741_Excel {
 					T741_Bean.setAccessResult(accResult);
 					T741_Bean.setAppvlID(appID);
 					T741_Bean.setFillUnitID(fillUnitID);
+					T741_Bean.setCheckState(Constants.WAIT_CHECK);
 					T741_Bean.setTime(TimeUtil.changeDateY(selectYear));
 					T741_Bean.setNote(note);
 					

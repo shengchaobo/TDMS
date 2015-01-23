@@ -9,6 +9,7 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T722_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table7.T722_Service;
@@ -173,6 +174,7 @@ public class T722_Excel {
 					T722_Bean.setAwardFromUnit(ardfUnit);
 					T722_Bean.setAppvlID(appID);
 					T722_Bean.setFillUnitID(fillUnitID);
+					T722_Bean.setCheckState(Constants.WAIT_CHECK);
 					T722_Bean.setTime(TimeUtil.changeDateY(selectYear));
 					T722_Bean.setNote(note);
 					

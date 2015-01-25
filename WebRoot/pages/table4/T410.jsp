@@ -219,7 +219,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>			
 				  <th data-options="field:'ck',checkbox:true" rowspan="2">选取</th>
 				  <th  data-options="field:'seqNumber'" >编号</th>
-		     </tr>
+		   </tr>
 		</thead>
 		<thead>
 				<tr>

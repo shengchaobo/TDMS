@@ -183,6 +183,7 @@ function myMarquee(tableID,checkType){
 
 function rowformater(value,row,index)
 {
+		if(row.fillUnitID == "")   row.fillUnitID = "undefined";
 		return "<a href='javascript:passCheck(" + row.seqNumber+")'>审核通过</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href ='javascript:openDig("+ row.seqNumber+ "," + row.fillUnitID +")'>审核不通过</a>";
 }
 
@@ -194,8 +195,7 @@ function openDig(seqNumber, fillUnitID) {
 			document.getElementById("unitID").value = fillUnitID ; 
 		}else{
 			document.getElementById("dataID").value = seqNumber ; 
-		}
-		
+		}		
 	}else{
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		document.getElementById("dataID").value = year ; 

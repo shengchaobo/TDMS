@@ -7,6 +7,7 @@ import java.util.List;
 
 import cn.nit.bean.table4.T42_Bean;
 import cn.nit.bean.table4.T461_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 
@@ -16,7 +17,7 @@ public class T461_Dao {
 	private String tableName1 = "DiAwardLevel" ;
 	private String tableName2 = "DiAwardType" ;
 	private String field = "Name,TeaId,FromTeaUnit,UnitId,AwardType,AwardLevel,AwardFromUnit," +
-			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID";
+			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID,CheckState";
 	private String keyfield = "SeqNumber";
 	
 	/**
@@ -25,11 +26,11 @@ public class T461_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T461_Bean> totalList(String param,String fillUnitID){
+	public List<T461_Bean> totalList(String param,String fillUnitID, String year, int checkState){
 		
 		String cond = null;
 		if(fillUnitID != null){
-			cond = " where FillUnitID=" + "'" + fillUnitID + "' and ";
+			cond = " FillUnitID=" + "'" + fillUnitID + "' and ";
 		}
 				
 		if(param.equals("1")){
@@ -53,11 +54,12 @@ public class T461_Dao {
 		
 		String sql = "select " +
 			"SeqNumber,Name,TeaId,FromTeaUnit,UnitId,DiAwardType.AwardType,DiAwardLevel.AwardLevel,AwardFromUnit," +
-			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID"
+			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID,CheckState"
 			+ " from " + tableName + 
 			" left join " + tableName1+ " on " + tableName + ".AwardLevel=" + tableName1 + ".IndexID " +
 			" left join " + tableName2+ " on " + tableName + ".AwardType=" + tableName2 + ".IndexID " + 
-			" where " + cond ;;
+			" where " + cond +
+			" and CheckState=" + checkState + " and Time like '"+year+"%'";;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -185,7 +187,7 @@ public class T461_Dao {
 				
 		String queryPageSql = "select top " + pageSize + " " + keyfield + "," +
 		"Name,TeaId,FromTeaUnit,UnitId,DiAwardType.AwardType,DiAwardLevel.AwardLevel,AwardFromUnit," +
-		"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID"
+		"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID,CheckState"
 		+ " from " + tableName + 
 		" left join " + tableName1+ " on " + tableName + ".AwardLevel=" + tableName1 + ".IndexID " +
 		" left join " + tableName2+ " on " + tableName + ".AwardType=" + tableName2 + ".IndexID " +
@@ -240,7 +242,7 @@ public class T461_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;
 		
 		String tempfield = "Name,TeaId,FromTeaUnit,UnitId,AwardType,AwardLevel,AwardFromUnit," +
-		"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID";
+		"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Time,Note,FillUnitID,CheckState";
 		
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
@@ -298,7 +300,7 @@ public class T461_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
 			String updatefield = "Name,TeaId,FromTeaUnit,UnitId,AwardType,AwardLevel,AwardFromUnit," +
-			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Note";
+			"GainAwardTime,AppvlId,OtherTeaNum,OtherTeaInfo,Note,CheckState";
 			
 			String temp1 = updatefield;
 			
@@ -322,6 +324,131 @@ public class T461_Dao {
 		}
 		
 		return flag ;
+	}
+	
+	/**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(String param){
+		
+		String cond = null;
+				
+		if(param.equals("1")){
+			cond = "(" + tableName + ".AwardType = '51000'" + ")";
+		}
+		else if(param.equals("2")){
+			cond = "(" + tableName + ".AwardType = '51001' or " + tableName + ".AwardType = '51002'" + ")";;
+		}
+		else if(param.equals("3")){
+			cond = "(" + tableName + ".AwardType = '51003'" + ")";
+		}
+		else if(param.equals("4")){
+			cond = "(" + tableName + ".AwardType = '51004' or " + tableName + ".AwardType = '51005'" + ")";;
+		}
+		else if(param.equals("5")){
+			cond = "(" + tableName + ".AwardType = '51006'" + ")";;
+		}
+		else if(param.equals("6")){
+			cond = "(" + tableName + ".AwardType = '51007'" + ")";;
+		}
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where " + cond + "and CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	public static void main(String args[]){

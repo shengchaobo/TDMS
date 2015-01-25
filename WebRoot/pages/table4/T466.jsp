@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -34,8 +35,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/table4/T461.js"></script>
 </head>
 
-<body style="height: 100%'" >
-	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T461/loadHonorInfo?param=6"  style="height: auto"  >
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%'"  onload="myMarquee('T466','<%=request.getAttribute("CHECKTYPE") %>')">
+  <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
+	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T461/loadHonorInfo?checkNum=<%=request.getAttribute("NOCHECK") %>&param=6"  style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -81,9 +91,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject('6')">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit('6')">编辑</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds('6')">删除</a>
 		</div>
 		<form method="post" id="searchForm"
 				style="float: right; height: 24px;">
@@ -119,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 	</div>
 	
-	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+	<table id="verfiedData"  class="easyui-datagrid"  url="pages/T461/loadHonorInfo?checkNum=<%=request.getAttribute("PASS") %>&param=6"  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -164,8 +174,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T461/dataExport?param=6&&excelName=<%=URLEncoder.encode("表4-6-6教师所获荣誉-其他（教学单位-校数据采集工作组）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
-		
+			<form action='pages/T461/dataExport?param=6&excelName=<%=URLEncoder.encode("表4-6-6教师所获荣誉-其他（教学单位-校数据采集工作组）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>				
 	</div>
 	
 	<!--添加弹出框-->
@@ -188,29 +202,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<input type="hidden" name="T461_bean.seqNumber" id="seqNumber"/>
+					<input type="hidden" name="T461_bean.fromTeaUnit" id="fromTeaUnit"/>
+					<input type="hidden"  name="T461_bean.unitId"  id="unitId" />
 					<div class="fitem">
-						<label>所属教学单位：</label> 
-						<input type="hidden" name="T461_bean.fromTeaUnit" id="fromTeaUnit"/>
-						<input id="unitId" type="text" name="T461_bean.unitId" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
-							onSelect:function(){
-							    document.getElementById('fromTeaUnit').value=$(this).combobox('getText') ;
-							 }">
-						 <span id="unitIdSpan"></span>
+					<label>获奖教师教工号：</label> 
+					<input type="hidden" name="T461_bean.teaId" id="teaId"/>
+					<input id="name" type="text" name="T461_bean.name" class='easyui-combobox' 
+								data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+								onSelect:function(){
+								 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
+								 }">
+					<span id="teaIdSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
-				<td>
-				<div class="fitem">
-				<label>获奖教师教工号：</label> 
-				<input type="hidden" name="T461_bean.teaId" id="teaId"/>
-				<input id="name" type="text" name="T461_bean.name" class='easyui-combobox' 
-							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
-							onSelect:function(){
-							 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
-							 }">
-				<span id="teaIdSpan"></span>
-				</div></td>
 			</tr>			
 			<tr>
 				<td>
@@ -300,6 +304,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	theOption.innerHTML = currentYear-i + "年";
         	theOption.value = currentYear-i;
         	select.appendChild(theOption);
+    	}
+    	
+ 	     var select1 = document.getElementById("cbYearContrast1");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select1.appendChild(theOption);
     	}
 	</script>
 </html>

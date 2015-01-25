@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T712_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table7.T712_Service;
 import cn.nit.util.TimeUtil;
@@ -181,6 +182,7 @@ public class T712_Excel {
 					T712_Bean.setJoinTeaNum(Integer.parseInt(joinTn));
 					T712_Bean.setOtherJoinTeaInfo(otherJTI);
 					T712_Bean.setFillUnitID(fillUnitID);
+					T712_Bean.setCheckState(Constants.WAIT_CHECK);
 					T712_Bean.setTime(TimeUtil.changeDateY(selectYear));
 					T712_Bean.setNote(note);
 					list.add(T712_Bean);

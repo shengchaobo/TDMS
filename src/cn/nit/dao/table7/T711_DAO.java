@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import cn.nit.bean.table7.T711_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table7.T711POJO;
 import cn.nit.util.DAOUtil;
@@ -17,7 +18,9 @@ public class T711_DAO {
 	
 	private String key="SeqNumber";
 	
-	private String field="TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime7,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillTeaID,FillUnitID,audit";
+	private String field="TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel," +
+			"AwardRank,AwardTime7,AwardFromUnit,AppvlID,JoinTeaNum," +
+			"OtherJoinTeaInfo,Time,Note,FillTeaID,FillUnitID,audit,CheckState";
 
 
     public boolean insert(T711_Bean teaManagerAwardInfo)
@@ -106,21 +109,25 @@ public class T711_DAO {
     	
     	List<T711POJO> list=null;
     	
-    	sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime7,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID");
+    	sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID," +
+    			"t.AwardName,adl.AwardLevel as AwardLevel," +
+    			"t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime7," +
+    			"t.AwardFromUnit,t.AppvlID,t.JoinTeaNum," +
+    			"t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID,t.CheckState");
     	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
     	sql.append(" where adl.IndexID=t.AwardLevel") ;
     	
     	
     	//System.out.println(123);
     	if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
+			sql.append(" and t.FillUnitID=" + fillUnitId) ;
 		}
 		
 		if(conditions != null){
 			sql.append(conditions) ;
 		}
 		
-		sql.append(" order by SeqNumber desc") ;
+		//sql.append(" order by SeqNumber desc") ;
 		
 		Connection conn=DBConnection.instance.getConnection();
 		
@@ -146,17 +153,21 @@ public class T711_DAO {
     }
     
     /**
-	 * 获取字典表的所有数据
+	 * 获取字典表的所有数据(导出)
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T711POJO> totalList(String year,String fillUnitID){
+	public List<T711POJO> totalList(String fillUnitID,String year,int checkState){
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name,t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel,t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime7,t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID");
+		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name," +
+				"t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel," +
+				"t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime7," +
+				"t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID,t.CheckState");
     	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
     	sql.append(" where adl.IndexID=t.AwardLevel") ;
-    	sql.append(" and FillUnitID=" + "'" + fillUnitID + "'");
+    	sql.append(" and t.FillUnitID=" + "'" + fillUnitID + "'");
+    	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -210,7 +221,8 @@ public class T711_DAO {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		
-		String tempfield = "TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel,AwardRank,AwardTime7,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillUnitID";
+		String tempfield = "TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel," +
+				"AwardRank,AwardTime7,AwardFromUnit,AppvlID,JoinTeaNum,OtherJoinTeaInfo,Time,Note,FillUnitID,CheckState";
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 		}catch(Exception e){
@@ -245,6 +257,140 @@ public class T711_DAO {
 		}
 	}
     
+    /**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	//设置审核的状态为1：即未审核状态
+	public boolean updatCheck()
+	{
+		int flag = 0;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try
+		{
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false; 
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+    
  public String getTableName() {
 	return tableName;
 }
@@ -254,10 +400,9 @@ public class T711_DAO {
 }
 
 	public static void main(String args[]){
-    	T711_DAO t=new T711_DAO();
- 
-    	
-    	//System.out.println(t.totalList().size());
+    	T711_DAO dao=new T711_DAO();
+    	boolean flag = dao.updatCheck();
+    	System.out.println(flag);
     	
     }
 

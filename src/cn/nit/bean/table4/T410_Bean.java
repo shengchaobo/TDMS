@@ -50,6 +50,7 @@ public class T410_Bean implements java.io.Serializable {
 	private Integer designPatent;
 	private Date time;
 	private String note;
+	private int checkState;
 
 	@Column(name = "ResItemNum")
 	public Integer getResItemNum() {
@@ -353,6 +354,14 @@ public class T410_Bean implements java.io.Serializable {
 
 	public Integer getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 

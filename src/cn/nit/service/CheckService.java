@@ -31,7 +31,7 @@ public class CheckService {
 			}
 		}
 
-		System.out.println("infoList.toString()："+infoList.toString());
+		//System.out.println("infoList.toString()："+infoList.toString());
 		return infoList.toString();
 	}
 	

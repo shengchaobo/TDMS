@@ -76,6 +76,35 @@ public class T33_Service {
 	public int getMajorNum(String year){
 		return t33_DAO.getMajorNum(year);
 	}
+	
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return t33_DAO.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return t33_DAO.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return t33_DAO.checkAll() ;
+	}
+
 
 	
 	public static void main(String args[]){

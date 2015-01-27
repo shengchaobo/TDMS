@@ -30,6 +30,7 @@ import org.springframework.beans.BeanWrapperImpl;
 
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table3.T313_Service;
@@ -201,6 +202,7 @@ public class T313Excel {
 				t313_Bean.setProvinceLevelTwo(ProvinceLevelTwo1);
 				t313_Bean.setCityLevel(CityLevel1);
 				t313_Bean.setSchLevel(SchLevel1);
+				t313_Bean.setCheckState(Constants.WAIT_CHECK);
 //				t313_Bean.setTime(time);
 				t313_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t313_Bean);

@@ -34,6 +34,7 @@ import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.table3.T322_Bean;
 import cn.nit.bean.table4.T411_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
@@ -628,6 +629,7 @@ public class T322Excel {
 				t322_Bean.setPraCredit(PraCredit);
 				t322_Bean.setOutClassCredit(OutClassCredit);
 				t322_Bean.setFillUnitID(fillUnitID);
+				t322_Bean.setCheckState(Constants.WAIT_CHECK);
 				t322_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t322_Bean);
 				System.out.println("数字");

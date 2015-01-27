@@ -64,9 +64,9 @@ public class DAOUtil {
 			pst = conn.prepareStatement(sql.toString()) ;
 
 			for(int i = 0; i < length; i++){
-
+				System.out.println("field:"+fields[i]+"test");
 				String type = wrapper.getPropertyType(fields[i]).toString() ;
-
+				System.out.println("field:"+fields[i]+",type:"+type);
 
 				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){

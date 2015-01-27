@@ -50,6 +50,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除荣誉类型</a>
 		</div>
+		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
+			<!-- 两个文体输入框，可以避免enter键自动刷新事件 -->
+			<input id="hiddenText" type="text"  style="display:none" />
+		</form>
 		
 	</div>
 	<div id="dlg" class="easyui-dialog"

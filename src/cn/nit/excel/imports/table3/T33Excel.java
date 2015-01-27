@@ -33,6 +33,7 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorOneBean;
 import cn.nit.bean.table3.T33_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorOneService;
@@ -258,6 +259,7 @@ public class T33Excel {
 				t33_Bean.setMajorChargeMan(MajorChargeMan);
 				t33_Bean.setCIsFullTime(CIsFullTime1);
 //				t33_Bean.setTime(time);
+				t33_Bean.setCheckState(Constants.WAIT_CHECK);
 				t33_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t33_Bean);
 				System.out.println("数字");

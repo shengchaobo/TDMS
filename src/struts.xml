@@ -19,6 +19,8 @@
     <include file="cn/nit/configuration/system/RoleManager.xml" />
      <!-- 权限管理 -->
     <include file="cn/nit/configuration/system/RightManager.xml" />
+    <!-- 数据库备份与恢复 -->
+    <include file="cn/nit/configuration/system/DatabaseManager.xml" />
     
      <!-- Di（所有字典表）-->
     <include file="cn/nit/configuration/di/DiDepartment.xml"/>

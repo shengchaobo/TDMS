@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -32,12 +33,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript" src="js/commom.js"></script>
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" class="easyui-datagrid" url="pages/MainTrainBasicInfoTea/auditingData" >
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+
+<body style="overflow-y:scroll"  onload="myMarquee('T321','<%=request.getAttribute("CHECKTYPE")%>')">
+   <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
+
+
+
+	<table id="unverfiedData" class="easyui-datagrid" 
+	url="pages/MainTrainBasicInfoTea/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>" >
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true" >选取</th>
 				<th field="seqNumber" >编号</th>
+					<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th field="mainClassName" >大类名称</th>
 				</tr>
 				</thead>
@@ -95,30 +112,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-	 <form  id="exportForm"  method="post" style="float: right;">
-
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
-		</form>
+	
+	<form action='pages/MainTrainBasicInfoTea/dataExport?excelName=<%=URLEncoder.encode("表3-2-1大类培养基本情况表（教务处）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" 
+	
+	
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" 
+	url="pages/MainTrainBasicInfoTea/auditingData?checkNum=<%=request.getAttribute("PASS")%>"
+	style="height: auto" 
 		toolbar="#toolbar2" pagination="true" 
 		 singleSelect="false">
 		<thead data-options="frozen:true">
 			<tr>
-				<th data-options="field:'ck',checkbox:true" >选取</th>
-				<th field="SeqNumber" >编号</th>
-				<th field="MainClassName" >大类名称</th>
+				<th field="seqNumber" >编号</th>
+				<th field="mainClassName" >大类名称</th>
 				</tr>
 				</thead>
 				<thead>
 				<tr>
-				<th field="MainClassID" >大类代码</th>
-				<th field="ByPassTime" >分流时间</th>
-				<th field="MajorNameInSch" ">包含校内专业名称</th>
-				<th field="MajorID" >校内专业代码</th>
-				<th field="UnitName" >所属单位</th>
-				<th field="UnitID" >单位号</th>
-				<th field="Note" >备注</th>
+				<th field="mainClassID" >大类代码</th>
+				<th field="byPassTime" >分流时间</th>
+				<th field="majorNameInSch" ">包含校内专业名称</th>
+				<th field="majorID" >校内专业代码</th>
+				<th field="unitName" >所属单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -128,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<h3 class="title1">大类培养基本情况批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
@@ -145,6 +168,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>大类名称：</label> 
+							<input id="seqNumber" type="hidden" name="t321_Bean.SeqNumber" value="0"></input>
+						<input id="Time" type="hidden" name="t321_Bean.Time" value="0"></input>
 						<input id="MainClassName" type="text" name="t321_Bean.MainClassName"
 							class="easyui-validatebox" ><span id="MainClassNameSpan"></span>
 					</div>
@@ -181,7 +206,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>包含校内专业名称：</label> 
-					<input id="SeqNumber" name="t321_Bean.SeqNumber" type="hidden" > </input>
 						<input type="hidden" name="t321_Bean.MajorNameInSch" id="MajorNameInSch"/>
 						<input id="MajorID" type="text" name="t321_Bean.MajorID" 
 							 class='easyui-combobox' data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
@@ -322,10 +346,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T321', CTypeOne);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
@@ -384,12 +416,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('hr').hide();
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改重点学科');
-	    	$('#SeqNumber').val(row[0].seqNumber) ;
+	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	//alert(row[0].seqNumber);
+	    	$('#Time').val(formattime(row[0].time)) ;
+	    	//alert(formattime(row[0].time));
 	        $('#MainClassName').val(row[0].mainClassName);
+	       // alert(row[0].mainClassName);
 	        $('#MainClassID').val(row[0].mainClassID);
+	       // alert(row[0].mainClassID);
 	        $('#ByPassTime').combobox('select',row[0].byPassTime) ;
+	       // alert(row[0].seqNumber);
 	        $('#MajorID').combobox('select',row[0].majorID);
+	      //  alert(row[0].majorID);
 	        $('#UnitID').combobox('select',row[0].unitID);
+	       // alert(row[0].unitID);
 
 			$('#Note').val(row[0].note);
 		
@@ -462,6 +502,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T321', CTypeOne);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
@@ -491,90 +532,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    
 	    }
 	    
-	    function loadDictionary(){
-	    	
-	    	$.ajax({ 
-	    		type: "POST", 
-	    		url: "table3/loadDic", 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			data = eval("(" + data + ")");
-	    			alert(data[0].id) ;
-	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
-	    			$(data).each(function(index) {
-	    				var val = data[index];
-	    				if(index%4 == 0 && index != 0){
-	    					str += "</tr><tr>" ;
-	    				}
-	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
-	    			}); 
-	    			//alert(str);
-	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
-	    			document.getElementById("dicTables").innerHTML = str;
-	    			$.parser.parse('#dicTables');
-	    		}
-	    	}).submit();
-	    }
-	    	
-	    function loadData(){
-	 
-	    	//flag判断
-	    	
-	    	var flag = false ;
-	    	var checkboxes = document.getElementsByName("checkboxex");
-	    	var tables = "<div class=\"ftitle\">自定义查询条件</div><form method=\"post\" action=\"table3/dictorySearch\" id=\"dicsDataForm\"><table width=\"100%\" border=\"1\">" ;
-	    	tables += "<tr><td>查询名称</td><td>运算符</td><td>查询内容</td><td>逻辑关系</td></tr>" ;
-	    	for(i=0; i<checkboxes.length; i++){
-	    		if(checkboxes[i].checked){
-	    			flag = true ;
-	    			tables += ("<tr><td style=\"width:50%px\">" + hideId(checkboxes[i].id,i)  + checkboxes[i].value + "</td><td>" + selectOperateData(i) + "</td><td>" + selectDataHtml(checkboxes[i].id,i) +"</td><td>" + selectLogicData(i) + "</td></tr>") ;
-	    		}
-	    	}
-	    	if(flag){
-	    		tables += "<tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-search\" onclick=\"submitDicForm()\">查询</a></td></tr>" ;
-	    	}
-	    	tables += "</table></form>" ;
-	    	alert(tables) ;
-	    	document.getElementById("dices").innerHTML = tables ;
-	    	$.parser.parse('#dices');
-	    	
-	    }
-	    
-	    function hideId(val,index){
-	    	var hiddenId = "<input type='hidden' name='dictorySearch[" + index + "].id' value='" + val + "'/>" ;
-	    	
-	    	return hiddenId ;
-	    }
-	    
-	    //自动加载要查询的数据
-	    function selectDataHtml(val,index){
-	    	
-	    	var selectsHtml = "<select class=\"easyui-combogrid\" style=\"width:50%px\" name=\"dictorySearch[" + index + "].dicData\" data-options=\"panelWidth: 500, multiple: true,required:true,"
-	    	 + " idField: 'dicData',textField: 'dicData',"
-	    	 + "url: 'table3/loadDictionary?dicId=" + val + "',"
-	    	 + "method: 'post',"
-	    	 + "columns: [[{field:'ck',checkbox:true},{field:'itemid',title:'数据',width:80},{field:'dicData',title:'数据',width:80}]],"
-	    	 + "fitColumns: true \"> </select>" ;
-	    	 
-	    	 return selectsHtml ;
-	    }
-	    
-	    //生成运算关系combo
-	    function selectOperateData(index){
-	    	
-	    	var operateHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].operator\"> <option value=\"equals\">等于</option><option value=\"between\">之间</option><option value=\"side\">两边</option></select>" ;
-	    	
-	    	return operateHtml ;
-	    }
-	    
-	  //生成逻辑关系combo
-	    function selectLogicData(index){
-	    	
-	    	var logicHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].logic\"> <option value=\"and\">并且</option><option value=\"or\">或者</option></select>" ;
-	    	
-	    	return logicHtml ;
-	    }
 	  
 	  function submitDicForm(){
 		  $.ajax({ 
@@ -588,6 +545,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		}
 	    	}).submit();
 	  }
+
+
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }
 	    
 	    </script>
 
@@ -634,6 +597,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	theOption.value = currentYear-i;
         	select.appendChild(theOption);
     	}
+	</script>
+	
+	<script type="text/javascript">
+	    	var currentYear = new Date().getFullYear();
+	    	var select = document.getElementById("cbYearContrast");
+	    	for (var i = 0; i <= 10; i++) {
+	        var theOption = document.createElement("option");
+	        	theOption.innerHTML = currentYear-i + "年";
+	        	theOption.value = currentYear-i;
+	        	select.appendChild(theOption);
+	    	}
+	</script>
+	
+	<script type="text/javascript">
+	    	var currentYear = new Date().getFullYear();
+	    	var select = document.getElementById("cbYearContrast1");
+	    	for (var i = 0; i <= 10; i++) {
+	        var theOption = document.createElement("option");
+	        	theOption.innerHTML = currentYear-i + "年";
+	        	theOption.value = currentYear-i;
+	        	select.appendChild(theOption);
+	    	}
 	</script>
 
 </html>

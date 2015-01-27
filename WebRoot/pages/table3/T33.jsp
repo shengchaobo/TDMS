@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -33,12 +34,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript" src="js/commom.js"></script>
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" class="easyui-datagrid"  url="pages/JuniorMajInfo/auditingData" >
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="overflow-y:scroll" onload="myMarquee('T33','<%=request.getAttribute("CHECKTYPE")%>')">
+   <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
+
+	<table id="unverfiedData" class="easyui-datagrid"  
+	url="pages/JuniorMajInfo/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>" >
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber" >编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th field="teaUnit" >教学单位</th>
 				<th field="unitID" >单位号</th>
 				<th field="majorName" >专业名称</th>
@@ -105,37 +119,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-	 <form  id="exportForm"  method="post" style="float: right;">
-
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
-		</form>
+	
+	<form action='pages/JuniorMajInfo/dataExport?excelName=<%=URLEncoder.encode("表3-3专科专业基本情况（教务处）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	</div>
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" 
+	url="pages/JuniorMajInfo/auditingData?checkNum=<%=request.getAttribute("PASS")%>" 
 		toolbar="#toolbar2" pagination="true" 
 		 singleSelect="false">
 		<thead data-options="frozen:true">
 			<tr>
-				<th data-options="field:'ck',checkbox:true" >选取</th>
-				<th field="SeqNumber" >编号</th>
+				<th field="seqNumber" >编号</th>
 				</tr>
 				</thead>
 				<thead>
 				<tr>
-				<th field="TeaUnit" >教学单位</th>
-				<th field="UnitID" >单位号</th>
-				<th field="MajorName" >专业名称</th>
-				<th field="MajorID" >专业代码</th>
-				<th field="MajorFieldName" >专业方向名称</th>
-				<th field="AppvlSetTime"  formatter="formattime">批准设置时间</th>
-				<th field="FirstAdmisTime"  formatter="formattime">首次招生时间</th>
-				<th field="MajorYearLimit" >修业年限</th>
-				<th field="IsSepcialMajor" >特色专业</th>
-				<th field="IsKeyMajor" >重点专业</th>
-				<th field="MajorLeader" >专业带头人姓名</th>
-				<th field="LIsFullTime" >专业带头人是否专职</th>
-				<th field="MajorChargeMan" >专业负责人姓名</th>
-				<th field="CIsFullTime" >专业负责人是否专职</th>
-				<th field="Note" >备注</th>
+				<th field="teaUnit" >教学单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="majorName" >专业名称</th>
+				<th field="majorID" >专业代码</th>
+				<th field="majorFieldName" >专业方向名称</th>
+				<th field="appvlSetTime"  formatter="formattime">批准设置时间</th>
+				<th field="firstAdmisTime"  formatter="formattime">首次招生时间</th>
+				<th field="majorYearLimit" >修业年限</th>
+				<th field="isSepcialMajor"  formatter="booleanstr">特色专业</th>
+				<th field="isKeyMajor"  formatter="booleanstr">重点专业</th>
+				<th field="majorLeader" >专业带头人姓名</th>
+				<th field="LIsFullTime"  formatter="booleanstr">专业带头人是否专职</th>
+				<th field="majorChargeMan" >专业负责人姓名</th>
+				<th field="CIsFullTime"  formatter="booleanstr">专业负责人是否专职</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -145,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<h3 class="title1">专科专业批量导入</h3>
 		<div class="fitem"  id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
@@ -162,7 +179,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 					<div class="fitem">
 						<label>教学单位：</label> 
-						<input id="seqNumber" name="t33_Bean.SeqNumber" type="hidden" > </input>
+						<input id="seqNumber" name="t33_Bean.SeqNumber" type="hidden" value="0"> </input>
+							<input id="Time" name="t33_Bean.Time" type="hidden" value="0"> </input>
 						<input type="hidden" name="t33_Bean.TeaUnit" id="TeaUnit"/>
 						<input id="UnitID" type="text" name="t33_Bean.UnitID" 
 							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
@@ -303,16 +321,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		
 		
-		
-
-		
-		
-		
-		
-		
-		
-		
-		
+	
 	
 	<div id="dicDlg" class="easyui-dialog" style="width:500px;padding:10px 20px" closed="true">
 		<div class="ftitle">高级检索</div>
@@ -424,10 +433,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T33', CTypeOne);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
@@ -547,6 +564,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T33', CTypeOne);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
@@ -570,6 +588,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改专科专业');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
 	    	$('#UnitID').combobox('select',row[0].unitID) ;
 	    	$('#MajorID').combobox('select',row[0].majorID) ;
 	    	$('#MajorFieldName').val(row[0].majorFieldName) ;	
@@ -602,110 +621,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    }); 
 	    }
 	    
-	    
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }
+
+
 	    
 	    function loadDic(){
 		    $('#dicDlg').dialog('open').dialog('setTitle','高级查询');
 		    loadDictionary() ;
 		    
 	    }
-	    
-	    function loadDictionary(){
-	    	
-	    	$.ajax({ 
-	    		type: "POST", 
-	    		url: "table5/loadDic", 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			data = eval("(" + data + ")");
-	    			alert(data[0].id) ;
-	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
-	    			$(data).each(function(index) {
-	    				var val = data[index];
-	    				if(index%4 == 0 && index != 0){
-	    					str += "</tr><tr>" ;
-	    				}
-	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
-	    			}); 
-	    			//alert(str);
-	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
-	    			document.getElementById("dicTables").innerHTML = str;
-	    			$.parser.parse('#dicTables');
-	    		}
-	    	}).submit();
-	    }
-	    	
-	    function loadData(){
-	    	
-	    	//flag判断
-	    	var flag = false ;
-	    	var checkboxes = document.getElementsByName("checkboxex");
-	    	var tables = "<div class=\"ftitle\">自定义查询条件</div><form method=\"post\" action=\"table5/dictorySearch\" id=\"dicsDataForm\"><table width=\"100%\" border=\"1\">" ;
-	    	tables += "<tr><td>查询名称</td><td>运算符</td><td>查询内容</td><td>逻辑关系</td></tr>" ;
-	    	for(i=0; i<checkboxes.length; i++){
-	    		if(checkboxes[i].checked){
-	    			flag = true ;
-	    			tables += ("<tr><td style=\"width:50%px\">" + hideId(checkboxes[i].id,i)  + checkboxes[i].value + "</td><td>" + selectOperateData(i) + "</td><td>" + selectDataHtml(checkboxes[i].id,i) +"</td><td>" + selectLogicData(i) + "</td></tr>") ;
-	    		}
-	    	}
-	    	if(flag){
-	    		tables += "<tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-search\" onclick=\"submitDicForm()\">查询</a></td></tr>" ;
-	    	}
-	    	tables += "</table></form>" ;
-	    	alert(tables) ;
-	    	document.getElementById("dices").innerHTML = tables ;
-	    	$.parser.parse('#dices');
-	    	
-	    }
-	    
-	    function hideId(val,index){
-	    	var hiddenId = "<input type='hidden' name='dictorySearch[" + index + "].id' value='" + val + "'/>" ;
-	    	
-	    	return hiddenId ;
-	    }
-	    
-	    //自动加载要查询的数据
-	    function selectDataHtml(val,index){
-	    	
-	    	var selectsHtml = "<select class=\"easyui-combogrid\" style=\"width:50%px\" name=\"dictorySearch[" + index + "].dicData\" data-options=\"panelWidth: 500, multiple: true,required:true,"
-	    	 + " idField: 'dicData',textField: 'dicData',"
-	    	 + "url: 'table5/loadDictionary?dicId=" + val + "',"
-	    	 + "method: 'post',"
-	    	 + "columns: [[{field:'ck',checkbox:true},{field:'itemid',title:'数据',width:80},{field:'dicData',title:'数据',width:80}]],"
-	    	 + "fitColumns: true \"> </select>" ;
-	    	 
-	    	 return selectsHtml ;
-	    }
-	    
-	    //生成运算关系combo
-	    function selectOperateData(index){
-	    	
-	    	var operateHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].operator\"> <option value=\"equals\">等于</option><option value=\"between\">之间</option><option value=\"side\">两边</option></select>" ;
-	    	
-	    	return operateHtml ;
-	    }
-	    
-	  //生成逻辑关系combo
-	    function selectLogicData(index){
-	    	
-	    	var logicHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].logic\"> <option value=\"and\">并且</option><option value=\"or\">或者</option></select>" ;
-	    	
-	    	return logicHtml ;
-	    }
-	  
-	  function submitDicForm(){
-		  $.ajax({ 
-	    		type: "POST", 
-	    		url: "table3/dictorySearch",
-	    		data: $('#dicsDataForm').serialize(), 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			alert(123) ;
-	    		}
-	    	}).submit();
-	  }
 	    
 	    </script>
 

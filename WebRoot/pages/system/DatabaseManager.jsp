@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>学历管理</title>
+		<title>数据库备份与恢复</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -27,28 +27,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 		<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-		<script type="text/javascript" src="js/system/EducationManager.js"></script>
+		<script type="text/javascript" src="js/system/DatabaseManager.js"></script>
+		
 		
 	</head>
 <body style="overflow-y:scroll">
-	<table id="eduManager" class="easyui-datagrid"  style="height: auto;"  >
-		<thead>
-			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="indexId">学历代码</th>
-				<th field="education">学历名称</th>
-
-			</tr>
-		</thead>
-	</table>
+	
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;height: 24">
-			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-add" plain="true" onclick="newEdu()">添加学历</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-edit" plain="true" onclick="editEdu()">编辑学历</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除学历</a>
+			<a href='pages/DatabaseManager/backup' class="easyui-linkbutton"
+				iconCls="icon-download" plain="true">数据备份</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="upload()">数据恢复</a>
+			 
+
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
 			<!-- 两个文体输入框，可以避免enter键自动刷新事件 -->
@@ -56,44 +47,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 		
 	</div>
-	<div id="dlg" class="easyui-dialog"
-		style="width:600px;height:150px;padding:10px 20px;" closed="true"
-		data-options="modal:true" buttons="#dlg-buttons">
-		<form id="eduManagerForm" method="post">
-			<table>
-					<tr>
-						<td>
-							<div class="fitem">
-								<label>
-									学历代码：
-								</label>
-								<input id="IndexID" type="text" name="edu_bean.indexId"
-									class="easyui-validatebox">
-								<span id="IndexIDSpan"></span>
-							</div>
-						</td>
-						<td class="empty"></td>
-						<td>
-							<div class="fitem">
-								<label>
-									学历名称：
-								</label>
-								<input id="Education" type="text" name="edu_bean.education"
-									class="easyui-validatebox">
-								<span id="EducationSpan"></span>
-							</div>
-						</td>
-					</tr>
-						
-			</table>
-		</form>
+	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
+			<div class="fitem">
+			<Form id="batchForm" enctype="multipart/form-data" method="post">
+				<label>请选择备份文件：</label> 
+				<input  type="file"  id="upload" name="uploadFile" />
+				<input type="button" value=" 提交 "  onclick="batchImport()"/>
+			</Form>
+		</div>
 	</div>
 	
-	<div id="dlg-buttons">
-		<a href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="icon-ok" onclick="singleImport()">保存</a> <a
-			href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
-	</div>
+	
+	
 </body>
 </html>

@@ -14,6 +14,8 @@ public class T321_Bean {
 	private String UnitID;
 	private Date Time;
 	private String Note;
+	private int CheckState;
+	
 	
 	public Integer getSeqNumber() {
 		return SeqNumber;
@@ -83,6 +85,14 @@ public class T321_Bean {
 		return Time;
 	}
 	
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
 	public void setTime(Date Time){
 		this.Time=Time;
 	}

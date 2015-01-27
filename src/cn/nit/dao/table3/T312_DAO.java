@@ -10,6 +10,7 @@ import java.util.List;
 
 import cn.nit.bean.table3.T311_Bean;
 import cn.nit.bean.table3.T312_Bean;
+import cn.nit.constants.Constants;
 
 import cn.nit.dbconnection.DBConnection;
 
@@ -27,7 +28,7 @@ public class T312_DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "StaName,StaID,UnitName,UnitID,StaType,Time,Note" ;
+	private String field = "StaName,StaID,UnitName,UnitID,StaType,Time,Note,CheckState" ;
 	
 	/**
 	 * 将数据表312的实体类插入数据库
@@ -128,7 +129,7 @@ public class T312_DAO {
 		StringBuffer sql = new StringBuffer() ;
 		List<T312POJO> list =null ;
 		sql.append("select t.SeqNumber,t.StaName,t.StaID,t.UnitName,t.UnitID, t.StaType," +
-				"t.Time,t.Note");
+				"t.Time,t.Note,t.CheckState");
 		sql.append(" from "+tableName + " as t,DiDepartment dpt");
 		sql.append(" where   dpt.UnitID=t.UnitID " );
 //		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
@@ -145,7 +146,7 @@ public class T312_DAO {
 			sql.append(conditions) ;
 		}
 		
-		sql.append(" order by SeqNumber desc") ;
+		//sql.append(" order by SeqNumber desc") ;
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -212,13 +213,14 @@ public class T312_DAO {
 	
 	
 	/**用于数据导出*/
-	public List<T312_Bean> totalList(){
+	public List<T312_Bean> totalList(String year,int checkState){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.StaName,t.StaID,t.UnitName,t.UnitID, t.StaType," +
-		"t.Time,t.Note");
+		"t.Time,t.Note,t.CheckState");
         sql.append(" from "+tableName + " as t,DiDepartment dpt");
         sql.append(" where   dpt.UnitID=t.UnitID" );
+        sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
 
 		
 		
@@ -245,12 +247,11 @@ public class T312_DAO {
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.StaName,t.StaID,t.UnitName,t.UnitID, t.StaType," +
-		"t.Time,t.Note");
+		"t.Time,t.Note,t.CheckState");
         sql.append(" from "+tableName + " as t,DiDepartment dpt");
         sql.append(" where   dpt.UnitID=t.UnitID and t.Time like '"+year+"%'" );
+        sql.append(" and t.CheckState ="+Constants.WAIT_CHECK);
 
-		
-		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -317,7 +318,138 @@ public class T312_DAO {
 	public String getTableName(){
 		return this.tableName ;
 	}
+	/**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
 	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	//设置审核的状态为1：即未审核状态
+	public boolean updatCheck()
+	{
+		int flag = 0;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try
+		{
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false; 
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 
 
@@ -325,10 +457,8 @@ public class T312_DAO {
 	public static void main(String args[]){
 		
 		T312_DAO dao=new T312_DAO();
-		int n=dao.totalAuditingData(null, null);
-//		List<T312POJO> list=dao.auditingData(null, null, 1, 5);
-		System.out.println(
-				n);
+		boolean flag = dao.updatCheck();
+				System.out.println(flag);
 		
 	}
 

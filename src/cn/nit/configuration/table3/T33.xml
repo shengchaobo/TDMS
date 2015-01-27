@@ -18,6 +18,12 @@
 	    	     <!-- 数据查询 -->
 	    <action name="singleSearch" class="cn.nit.action.table3.T33_Action" method="auditingConditions"/>
 	    
+	      <!-- 修改审核状态 -->
+	    <action name="updateCheck" class="cn.nit.action.table3.T33_Action"  method="updateCheck" />
+	    
+  	    <!-- 审核通过全部 -->
+	    <action name="checkAll" class="cn.nit.action.table3.T33_Action"  method="checkAll" />
+	    
 	    
 	    <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table3.T33_Action" method="execute">

@@ -20,6 +20,8 @@ public class T312_Bean {
 	
 	private String Note;
 	
+	private int CheckState;
+	
 	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
@@ -76,6 +78,14 @@ public class T312_Bean {
 		this.Time = Time;
 	}
 	
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
 	public String getNote() {
 		return Note;
 	}

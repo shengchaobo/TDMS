@@ -11,6 +11,7 @@ import java.util.Map;
 
 import cn.nit.bean.table3.T322_Bean;
 import cn.nit.dao.table3.T322_DAO;
+import cn.nit.pojo.table3.T322POJO;
 import cn.nit.util.ExcelUtil;
 
 public class J323_Excel {
@@ -22,7 +23,7 @@ public class J323_Excel {
 		T322_DAO T322_dao = new T322_DAO();
 		Calendar a = Calendar.getInstance();
 		String year = String.valueOf(a.get(Calendar.YEAR));
-		List<T322_Bean> list = T322_dao.totalList1(year);
+		List<T322POJO> list = T322_dao.totalList1(year);
 				
 		String sheetName = "J-3-2-3优势专业情况（时点）";
 		

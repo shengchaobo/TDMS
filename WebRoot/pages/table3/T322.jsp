@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'T311.jsp' starting page</title>
+    <title>My JSP 'T322.jsp' starting page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -61,6 +61,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>	
 				<th field="majorVersion" >代码版本</th>
+				<th field="schMajorName" >校内专业名称</th>
+				<th field="schMajorID" >校内专业代码</th>
 				<th field="majorField" >专业方向名称</th>
 				<th field="majorFieldID" >专业方向号</th>
 				<th field="majorSetTime"  formatter="formattime">专业设置时间</th>
@@ -71,6 +73,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="majorState" >招生状态</th>
 				<th field="stopAdmisTime"  formatter="formattime">停止招生时间</th>
 				<th field="isNewMajor" formatter="booleanstr" >是否新办专业</th>
+				<th field="majorFeature">专业特色简述</th>
+				<th field="majorPurpose">专业培养目标简述</th>
 				<th field="appvlYear"  formatter="formattime">批准建设年度</th>
 				<th field="buildAppvlID" >建设批文号</th>
 				<th field="majorLevel" >级别</th>
@@ -172,6 +176,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>	
 				<th field="majorVersion" >代码版本</th>
+				<th field="schMajorName" >校内专业名称</th>
+				<th field="schMajorID" >校内专业代码</th>
 				<th field="majorField" >专业方向名称</th>
 				<th field="majorFieldID" >专业方向号</th>
 				<th field="majorSetTime"  formatter="formattime">专业设置时间</th>
@@ -182,6 +188,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="majorState" >招生状态</th>
 				<th field="stopAdmisTime"  formatter="formattime">停止招生时间</th>
 				<th field="isNewMajor" formatter="booleanstr" >是否新办专业</th>
+				<th field="majorFeature">专业特色简述</th>
+				<th field="majorPurpose">专业培养目标简述</th>
 				<th field="appvlYear"  formatter="formattime">批准建设年度</th>
 				<th field="buildAppvlID" >建设批文号</th>
 				<th field="majorLevel" >级别</th>
@@ -256,12 +264,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>版本代码：</label> 
-						<select class='easyui-combobox' id="MajorVersion" name="t322_Bean.MajorVersion" editable=false panelHeight="auto">					
+						<select class='easyui-combobox' id="MajorVersion" name="t322_Bean.MajorVersion" editable=false panelHeight="auto" style="width:60px">					
 							<option value="2012">2012</option>
 							<option value="1998">1998</option>
 							<option value="99">99</option>
 						</select>
 							<span id="MajorVersionSpan"></span>
+					</div>
+				</td>	
+			</tr>
+			
+		<tr>
+			<td>
+					<div class="fitem">
+						<label>校内专业名称：</label> 
+						<input id="SchMajorName" type="text" name="t322_Bean.SchMajorName"
+							class="easyui-validatebox" ><span id="SchMajorNameSpan"></span>
+					</div>	
+					</td>	
+						<td class="empty"></td>
+				<td>
+					<div class="fitem">
+						<label>校内专业代码：</label> 
+						<input id="SchMajorID" type="text" name="t322_Bean.SchMajorID"
+							class="easyui-validatebox" ><span id="SchMajorIDSpan"></span>
 					</div>
 				</td>	
 			</tr>
@@ -307,7 +333,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>学制：</label> 
-						<select class='easyui-combobox' id="MajorDurition" name="t322_Bean.MajorDurition" editable=false>					
+						<select class='easyui-combobox' id="MajorDurition" name="t322_Bean.MajorDurition" editable=false style="width:60px">					
 							<option value="4">4</option>
 							<option value="5">5</option>
 						</select>
@@ -380,6 +406,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="IsNewMajorSpan"></span>
 					</div>
 				</td>				
+			</tr>
+		<tr>
+			<td style="valign:left" colspan="3"><label>专业特色简述：</label>
+					<textarea id="MajorFeature" name="t322_Bean.MajorFeature" style="resize:none" cols="50" rows="10"></textarea>
+					<span id="MajorFeatureSpan"></span>
+				</td>
+			</tr>
+			<tr>
+			<td style="valign:left" colspan="3"><label>专业特色简述：</label>
+					<textarea id="MajorPurpose" name="t322_Bean.MajorPurpose" style="resize:none" cols="50" rows="10"></textarea>
+					<span id="MajorPurposeSpan"></span>
+				</td>
 			</tr>
 		 <tr>
 			<td>
@@ -788,6 +826,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 		function validate(){
+			var SchMajorName =  $('#SchMajorName').val() ;
+			var SchMajorID =  $('#SchMajorID').val() ;
+			var MajorFeature =  $('#MajorFeature').val() ;
+			var MajorPurpose =  $('#MajorPurpose').val() ;
 			var MajorName = $('#MajorID').combobox('getText') ;
 			var MajorField = $('#MajorField').val() ;
 			var MajorFieldID = $('#MajorFieldID').val() ;
@@ -835,6 +877,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$.messager.alert('提示',"专业方向名称不能为空（没有请填无）");
 				return false;
 			}
+
+
+			if(SchMajorName == null || SchMajorName.length==0 ){
+				$.messager.alert('提示',"校内专业名称不能为空") ;
+				return false;
+			}
+
+			if(SchMajorID == null ||SchMajorID.length == 0){
+				$.messager.alert('提示',"校内专业代码不能为空");
+				return false;
+			}
+			
+
+			
 			if(MajorFieldID == null ||MajorFieldID.length == 0 ){
 				$.messager.alert('提示',"专业方向号不能为空（没有请填无）");
 				return false;
@@ -901,6 +957,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 			}else if(isNaN(SchExp)){
 				$.messager.alert('提示',"学校经费(万元)必须是数字") ;
+				return false;
+			}
+
+			if(MajorFeature !=null && MajorFeature.length > 1000){
+				$.messager.alert('提示',"专业特色简述字数不超过500") ;
+				return false;
+			}	
+			if(MajorPurpose !=null && MajorPurpose.length > 1000){
+				$.messager.alert('提示',"专业培养目标简述字数不超过500") ;
 				return false;
 			}
 
@@ -1124,6 +1189,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#Time').val(formattime(row[0].time)) ;
 	    	$('#FillUnitID').val(row[0].fillUnitID) ;
 
+	    	$('#SchMajorName').val(row[0].schMajorName) ;
+	    	$('#SchMajorID').val(row[0].schMajorID) ;
 	    	$('#MajorID').combobox('select',row[0].majorID) ;
 	    	$('#MajorVersion').combobox('select',row[0].majorVersion) ;
 	        $('#MajorField').val(row[0].majorField);
@@ -1136,6 +1203,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#MajorState').combobox('select',row[0].majorState) ;
 	    	$('#StopAdmisTime').datebox('setValue',formattime(row[0].stopAdmisTime)) ;
 	    	$('#IsNewMajor').combobox('select',row[0].isNewMajor) ;
+	    	$('#MajorFeature').val(row[0].majorFeature) ;
+	    	$('#MajorPurpose').val(row[0].majorPurpose) ;
 	    	$('#AppvlYear').datebox('setValue',formattime(row[0].appvlYear)) ;
 	        $('#BuildAppvlID').val(row[0].buildAppvlID);
 	    	$('#MajorLevel').combobox('select',row[0].majorLevelID) ;

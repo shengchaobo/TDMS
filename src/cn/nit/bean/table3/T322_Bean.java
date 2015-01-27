@@ -104,6 +104,12 @@ public class T322_Bean {
 	
 	private int CheckState;
 	
+	private String MajorFeature;
+	private String MajorPurpose;
+	private String SchMajorName;
+	private String SchMajorID;
+	
+	
 	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
@@ -500,6 +506,38 @@ public class T322_Bean {
 
 	public void setTime(Date time) {
 		Time = time;
+	}
+
+	public String getMajorFeature() {
+		return MajorFeature;
+	}
+
+	public void setMajorFeature(String majorFeature) {
+		MajorFeature = majorFeature;
+	}
+
+	public String getMajorPurpose() {
+		return MajorPurpose;
+	}
+
+	public void setMajorPurpose(String majorPurpose) {
+		MajorPurpose = majorPurpose;
+	}
+
+	public String getSchMajorName() {
+		return SchMajorName;
+	}
+
+	public void setSchMajorName(String schMajorName) {
+		SchMajorName = schMajorName;
+	}
+
+	public String getSchMajorID() {
+		return SchMajorID;
+	}
+
+	public void setSchMajorID(String schMajorID) {
+		SchMajorID = schMajorID;
 	}
 
 

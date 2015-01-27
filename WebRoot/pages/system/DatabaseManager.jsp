@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 		<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript" src="js/system/DatabaseManager.js"></script>
 		
 		
 	</head>
@@ -36,7 +37,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="float: left;height: 24">
 			<a href='pages/DatabaseManager/backup' class="easyui-linkbutton"
 				iconCls="icon-download" plain="true">数据备份</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="recover('11')">数据恢复</a> 
+			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="upload()">数据恢复</a>
+			 
 
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
@@ -46,10 +48,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	</div>
 	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
-		<div class="ftitle">数据恢复</div>
-		<div class="fitem">
+			<div class="fitem">
 			<Form id="batchForm" enctype="multipart/form-data" method="post">
-				<label>请选备份文件：</label> 
+				<label>请选择备份文件：</label> 
 				<input  type="file"  id="upload" name="uploadFile" />
 				<input type="button" value=" 提交 "  onclick="batchImport()"/>
 			</Form>

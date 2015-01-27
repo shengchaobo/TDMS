@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +34,8 @@ public class DiDatabaseAction {
 	private FileInputStream inputStream;
 	
 	private String inputPath;
+	
+	private String downLoadName;
 	
     public String getInputPath(){
 		return inputPath;
@@ -69,13 +73,15 @@ public class DiDatabaseAction {
 	        if(dirFile.exists()){
 	        	File[] fileList = dirFile.listFiles();	        	
 	          	for(File f:fileList){
-	          		         
+	          		if(f.getName() == "TDMS.bak"){
+	          		this.setDownLoadName(f.getName());         
 	                try {
 	                	 inputStream = new FileInputStream(f);
 	                } catch (FileNotFoundException e) {
 	                 // TODO Auto-generated catch block
 	                     e.printStackTrace();
 	                }
+	          		}
 	          	}
 	        	
 	        }
@@ -83,9 +89,26 @@ public class DiDatabaseAction {
 		return inputStream ;
 	}
 	
+	
+	
 
 	public String execute() throws Exception{
 		return "success" ;
+	}
+	
+	public void setDownLoadName(String downLoadName) {
+		this.downLoadName = downLoadName;
+	}
+
+	public String getDownLoadName() {
+		
+		try {
+			this.downLoadName = URLEncoder.encode(downLoadName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return downLoadName;
 	}
     
 

@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.nit.bean.Trees;
@@ -35,6 +36,7 @@ public class TreeManagerDAO extends Dao{
 	 */
 	public List<Trees> getTrees(int parentId){
 		
+		List<Trees> temp = new ArrayList<Trees>();
 		String sql = "select " + getFields() + " from " + tableName + " where parentId=" + parentId + " order by treeName" ;		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -43,7 +45,24 @@ public class TreeManagerDAO extends Dao{
 		try {
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
-			return DAOUtil.getList(rs, Trees.class) ;
+			temp = DAOUtil.getList(rs, Trees.class) ;
+			
+			//保证2和4系列表的顺序
+			if(parentId == 1014) {
+				Trees tree1 = temp.remove(0);
+				Trees tree2 = temp.remove(0);
+				Trees tree3 = temp.remove(0);
+				temp.add(19,tree1);
+				temp.add(20,tree2);
+				temp.add(21,tree3);
+			}
+			else if(parentId == 1025){
+				Trees tree = temp.remove(0);
+				Trees tree1 = temp.remove(1);
+				temp.add(25,tree);
+				temp.add(26,tree1);
+			}
+			return temp ;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

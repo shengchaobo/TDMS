@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -33,12 +34,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript" src="js/commom.js"></script>
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData"  class="easyui-datagrid"   url="pages/PostDocSta/auditingData" >
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+
+<body style="overflow-y:scroll"  onload="myMarquee('T311','<%=request.getAttribute("CHECKTYPE")%>')">
+   <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
+
+	<table id="unverfiedData"  class="easyui-datagrid"  
+	 url="pages/PostDocSta/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>" >
 		<thead data-options="frozen:true">
 		<tr>
 				<th data-options="field:'ck',checkbox:true" >选取</th>
 				<th field="seqNumber" >编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				</tr>
 		</thead>
 			<thead>
@@ -97,29 +111,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-	 <form  id="exportForm"  method="post" style="float: right;">
-			
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 	
-	</form> 
+	<form action='pages/PostDocSta/dataExport?excelName=<%=URLEncoder.encode("表3-1-1博士后流动站（人事处）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="width:100%px;height:250px" 
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" 
+	 url="pages/PostDocSta/auditingData?checkNum=<%=request.getAttribute("PASS")%>"
 		toolbar="#toolbar2" pagination="true" 
 		 singleSelect="false">
 		<thead data-options="frozen:true">
 		<tr>
 				<th data-options="field:'ck',checkbox:true" >选取</th>
-				<th field="SeqNumber" >编号</th>
+				<th field="seqNumber" >编号</th>
 		</tr>
 		</thead>
 			<thead>
 			<tr>
-				<th field="PostDocStaName" >博士后流动站名称</th>
-				<th field="SetTime"  formatter="formattime">设置时间</th>
-				<th field="ResearcherNum">研究员人数</th>
-				<th field="UnitName">所属单位</th>
-				<th field="UnitID">单位号</th>
-				<th field="Note">备注</th>
+				<th field="postDocStaName" >博士后流动站名称</th>
+				<th field="setTime"  formatter="formattime">设置时间</th>
+				<th field="researcherNum">研究员人数</th>
+				<th field="unitName">所属单位</th>
+				<th field="unitID">单位号</th>
+				<th field="note">备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -129,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<h3 class="title1">博士后流动站批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
@@ -146,7 +163,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>博士后流动站名称：</label> 
-						<input id="seqNumber" name="postDocStaBean.SeqNumber" type="hidden" > 
+						<input id="seqNumber" name="postDocStaBean.SeqNumber" type="hidden" value="0"/> 
+							<input id="Time" name="postDocStaBean.Time" type="hidden" value="0" /> 
 						<input id="PostDocStaName" type="text" name="postDocStaBean.PostDocStaName"
 							class="easyui-validatebox" ><span id="PostDocStaNameSpan"></span>
 					</div>
@@ -311,11 +329,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T311', CTypeOne);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
-						
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
@@ -432,6 +457,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T311', CTypeOne);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
@@ -453,6 +479,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('hr').hide();
 	    	$('#dlg').dialog('open').dialog('setTitle','修改博士后流动站');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
 	        $('#PostDocStaName').val(row[0].postDocStaName);
 	    	$('#SetTime').datebox('setValue',formattime(row[0].setTime)) ;
 	    	$('#ResearcherNum').val(row[0].researcherNum) ;
@@ -460,6 +487,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#UnitID').val(row[0].unitID) ;
 			$('#Note').val(row[0].note);
 		
+	    }
+
+
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
 	    }
 	    
 	    

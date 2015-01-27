@@ -102,9 +102,7 @@ public class T322_Bean {
 	
 	private String Note;
 	
-	
-	
-
+	private int CheckState;
 	
 	public Integer getSeqNumber() {
 		return SeqNumber;
@@ -478,20 +476,30 @@ public class T322_Bean {
 	public void setOutClassCredit(double OutClassCredit) {
 		this.OutClassCredit = OutClassCredit;
 	}
-	public Date getTime(){
-		return Time;
-	}
+
 	
-	public void setTime(Date Time){
-		this.Time=Time;
+	public int getCheckState() {
+		return CheckState;
 	}
-	
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
 	public String getNote(){
 		return Note;
 	}
 	
 	public void setNote(String Note){
 		this.Note=Note;
+	}
+
+	public Date getTime() {
+		return Time;
+	}
+
+	public void setTime(Date time) {
+		Time = time;
 	}
 
 

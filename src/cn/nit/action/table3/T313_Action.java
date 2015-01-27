@@ -17,9 +17,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.constants.Constants;
 import cn.nit.dao.table3.T313_DAO;
 import cn.nit.excel.imports.table3.T313Excel;
 import cn.nit.bean.table3.T313_Bean;
+import cn.nit.service.CheckService;
 import cn.nit.service.table3.T313_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -34,11 +36,13 @@ private T313_Service discipSer = new T313_Service() ;
 	
 	private T313_DAO t313_DAO=new T313_DAO();
 	
-
+	private CheckService check_services = new CheckService();
 	private T313Excel t313Excel = new T313Excel() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
 	
 	public String getExcelName() {
 		try {
@@ -78,6 +82,7 @@ private T313_Service discipSer = new T313_Service() ;
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		discipBean.setTime(new Date()) ;
+		discipBean.setCheckState(Constants.WAIT_CHECK);
 		//这还没确定,设置填报者的职工号与部门号
 		//UserInfo userinfo = (UserInfo)getSession().getAttribute("userinfo") ;
 		//discipBean.setFillTeaID(userinfo.getTeaID()) ;
@@ -121,7 +126,7 @@ public void auditingData(){
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
 		
-		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){			
 			cond = null;	
 		}else{			
 			if(this.getSeqNum()!=null){
@@ -136,6 +141,17 @@ public void auditingData(){
 			if(this.getEndTime() != null){
 				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			
+			//审核状态判断
+			if(this.getCheckNum() == Constants.WAIT_CHECK ){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
+				conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
 			}
 			cond = conditions.toString();
 		}
@@ -171,18 +187,40 @@ public void auditingData(){
 	/**  编辑数据  */
 	public void edit(){
 
-//		System.out.println("插入数据");
-		discipBean.setTime(new Date());
-
-		boolean flag = discipSer.update(discipBean) ;
+		boolean flag = false;
+		
+		int tag = 0;
+		//获得该条数据审核状态
+		int state = discipSer.getCheckState(discipBean.getSeqNumber());
+		
+		//如果审核状态是待审核，则直接修改
+		if(state == Constants.WAIT_CHECK){
+			discipBean.setCheckState(Constants.WAIT_CHECK);
+			flag = discipSer.update(discipBean) ;
+			if(flag) tag = 1;
+		}
+		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+		if(state == Constants.NOPASS_CHECK){
+			discipBean.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = discipSer.update(discipBean) ;
+			boolean flag2 = check_services.delete("T313",discipBean.getSeqNumber());
+			if(flag1&&flag2){
+				flag = true;
+				tag = 2;
+			}
+		}
 		PrintWriter out = null ;
 		
 		try{
 			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
-			if(flag){
+			if(tag == 1){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
-			}else{
+			}
+			else if(tag == 2){
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+			}
+			else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
@@ -196,10 +234,66 @@ public void auditingData(){
 		}
 	}
 	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = discipSer.updateCheck(this.getSeqNum(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  全部审核通过  */
+	public void checkAll(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = discipSer.checkAll();
+		
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"一键审核成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+
+	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
 		boolean flag = discipSer.deleteCoursesByIds(ids) ;
+		//删除审核不通过信息
+		check_services.delete("T313", ids);
 		PrintWriter out = null ;
 		
 		try{
@@ -231,7 +325,7 @@ public void auditingData(){
 		try {
 			T313Excel t313_Excel = new T313Excel();
 			
-			List<T313_Bean> list = t313_DAO.totalList();
+			List<T313_Bean> list = t313_DAO.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -345,6 +439,14 @@ public void auditingData(){
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
+	}
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
 	}
 
 	public static void main(String args[]){

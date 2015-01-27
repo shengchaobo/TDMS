@@ -12,6 +12,13 @@
 	    <action name="edit" class="cn.nit.action.table3.T311_Action" method="edit" />	    
 	     <!-- 删除数据 -->
 	    <action name="deleteCoursesByIds" class="cn.nit.action.table3.T311_Action" method="deleteCoursesByIds" />
+	    
+	      
+  	    <!-- 修改审核状态 -->
+	    <action name="updateCheck" class="cn.nit.action.table3.T311_Action"  method="updateCheck" />
+	    
+  	    <!-- 审核通过全部 -->
+	    <action name="checkAll" class="cn.nit.action.table3.T311_Action"  method="checkAll" />
 	   
 	   	<!-- 文件批量上传 -->
 	    <action name="uploadFile" class="cn.nit.action.UploadAction" method="uploadFile">

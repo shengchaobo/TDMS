@@ -19,8 +19,11 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table3.T322_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table3.T322_DAO;
 import cn.nit.excel.imports.table3.T322Excel;
+import cn.nit.service.CheckService;
+import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table3.T322_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -28,7 +31,8 @@ import cn.nit.util.TimeUtil;
 
 
 public class T322_Action {
-private T322_Service t322_Service = new T322_Service() ;
+	
+	private T322_Service t322_Service = new T322_Service() ;
 	
 	private T322_Bean t322_Bean = new T322_Bean() ;
 	
@@ -37,6 +41,11 @@ private T322_Service t322_Service = new T322_Service() ;
 	
 
 	private T322Excel t322Excel = new T322Excel() ;
+	
+	private CheckService check_services = new CheckService();
+	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -75,6 +84,10 @@ private T322_Service t322_Service = new T322_Service() ;
 	
 	private String selectYear;
 	
+	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 
@@ -92,7 +105,10 @@ private T322_Service t322_Service = new T322_Service() ;
 		String fillUnitID = bean.getUnitID();
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t322_Bean.setFillUnitID(fillUnitID);
-		t322_Bean.setTime(new Date()) ;
+		/**设置数据审核状态*/
+		t322_Bean.setCheckState(Constants.WAIT_CHECK);
+		t322_Bean.setTime(new Date());
+		System.out.println(t322_Bean.getTime());
 		t322_Bean.setPraCSHour((int)t322_Bean.getPraCredit()*16);
 		t322_Bean.setTotalCSHour(t322_Bean.getRequireCShour()+t322_Bean.getOptionCSHour()+t322_Bean.getPraCSHour());
 		t322_Bean.setTotalCredit(t322_Bean.getRequireCredit()+t322_Bean.getOptionCredit()+t322_Bean.getPraCredit()+t322_Bean.getOutClassCredit());
@@ -124,10 +140,7 @@ private T322_Service t322_Service = new T322_Service() ;
 	
 	/**  为界面加载数据  */
 	public void auditingData(){
-		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-		String fillUnitID = bean.getUnitID();
-
-		
+	
 		
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 			return ;
@@ -140,7 +153,7 @@ private T322_Service t322_Service = new T322_Service() ;
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
 		
-		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){			
 			cond = null;	
 		}else{			
 			if(this.getSeqNum()!=null){
@@ -156,8 +169,31 @@ private T322_Service t322_Service = new T322_Service() ;
 				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 			}
+			
+			//审核状态判断
+			if(this.getCheckNum() == Constants.WAIT_CHECK ){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
+				conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
+			}
 			cond = conditions.toString();
 		}
+		
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID;
+		String tempUnitID = bean.getUnitID().substring(0,1);
+		
+		if("3".equals(tempUnitID)){
+			fillUnitID = bean.getUnitID();
+		}else{
+			fillUnitID = null;
+		}
+		
 		String pages = t322_Service.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 	
 		System.out.println(pages);
@@ -180,23 +216,48 @@ private T322_Service t322_Service = new T322_Service() ;
 		
 	/**  编辑数据  */
 	public void edit(){
-
-		t322_Bean.setTime(new Date());
 		
-		
-		t322_Bean.setPraCSHour((int)t322_Bean.getPraCredit()*16);
-		t322_Bean.setTotalCSHour(t322_Bean.getRequireCShour()+t322_Bean.getOptionCSHour()+t322_Bean.getPraCSHour());
-		t322_Bean.setTotalCredit(t322_Bean.getRequireCredit()+t322_Bean.getOptionCredit()+t322_Bean.getPraCredit()+t322_Bean.getOutClassCredit());
-		boolean flag = t322_Service.update(t322_Bean) ;
+		boolean flag = false;
+		int tag = 0;
+		//获得该条数据审核状态
+		int state = t322_Service.getCheckState(t322_Bean.getSeqNumber());
+		System.out.println("test"+state);
+		//如果审核状态是待审核，则直接修改
+		if(state == Constants.WAIT_CHECK){
+			System.out.println("test"+state);
+			t322_Bean.setCheckState(Constants.WAIT_CHECK);
+			t322_Bean.setPraCSHour((int)t322_Bean.getPraCredit()*16);
+			t322_Bean.setTotalCSHour(t322_Bean.getRequireCShour()+t322_Bean.getOptionCSHour()+t322_Bean.getPraCSHour());
+			t322_Bean.setTotalCredit(t322_Bean.getRequireCredit()+t322_Bean.getOptionCredit()+t322_Bean.getPraCredit()+t322_Bean.getOutClassCredit());
+			flag = t322_Service.update(t322_Bean) ;
+			if(flag) tag = 1;
+		}
+		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+		if(state == Constants.NOPASS_CHECK){
+			t322_Bean.setCheckState(Constants.WAIT_CHECK);
+			t322_Bean.setPraCSHour((int)t322_Bean.getPraCredit()*16);
+			t322_Bean.setTotalCSHour(t322_Bean.getRequireCShour()+t322_Bean.getOptionCSHour()+t322_Bean.getPraCSHour());
+			t322_Bean.setTotalCredit(t322_Bean.getRequireCredit()+t322_Bean.getOptionCredit()+t322_Bean.getPraCredit()+t322_Bean.getOutClassCredit());
+			boolean flag1 = t322_Service.update(t322_Bean) ;
+			boolean flag2 = check_services.delete("T322",t322_Bean.getSeqNumber());
+			if(flag1&&flag2){
+				flag = true;
+				tag = 2;
+			}
+		}
 
 		PrintWriter out = null ;
 		
 		try{
 			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
-			if(flag){
+			if(tag == 1){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
-			}else{
+			}
+			else if(tag == 2){
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+			}
+			else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
@@ -214,6 +275,9 @@ private T322_Service t322_Service = new T322_Service() ;
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
 		boolean flag = t322_Service.deleteCoursesByIds(ids) ;
+		
+		//删除审核不通过信息
+		check_services.delete("T322", ids);
 		PrintWriter out = null ;
 		
 		try{
@@ -236,6 +300,58 @@ private T322_Service t322_Service = new T322_Service() ;
 		}
 	}
 	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = t322_Service.updateCheck(this.getSeqNum(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  全部审核通过  */
+	public void checkAll(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = t322_Service.checkAll();
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"一键审核成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
 	/**数据导出*/
 	public InputStream getInputStream(){
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
@@ -245,7 +361,7 @@ private T322_Service t322_Service = new T322_Service() ;
 
 		try {
 			
-			List<T322_Bean> list = t322_DAO.totalList(fillUnitID);
+			List<T322_Bean> list = t322_DAO.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -379,6 +495,14 @@ private T322_Service t322_Service = new T322_Service() ;
 
 	public void setRows(String rows) {
 		this.rows = rows;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
+	}
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
 	}
 
 	public String getSelectYear() {

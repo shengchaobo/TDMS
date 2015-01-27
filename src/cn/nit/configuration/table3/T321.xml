@@ -18,6 +18,11 @@
 	    <!-- 数据查询 -->
 	    <action name="singleSearch" class="cn.nit.action.table3.T321_Action" method="auditingConditions"/>
 	    
+	      <!-- 修改审核状态 -->
+	    <action name="updateCheck" class="cn.nit.action.table3.T321_Action"  method="updateCheck" />
+	    
+  	    <!-- 审核通过全部 -->
+	    <action name="checkAll" class="cn.nit.action.table3.T321_Action"  method="checkAll" />
 	  	<!-- 模板下载 -->
 	    <action name="downloadModel" class="cn.nit.action.DownloadModelAction" method="execute">
 	    <!-- 模板路径 -->

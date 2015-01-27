@@ -64,9 +64,9 @@ public class DAOUtil {
 			pst = conn.prepareStatement(sql.toString()) ;
 
 			for(int i = 0; i < length; i++){
-
+				System.out.println("field:"+fields[i]+"test");
 				String type = wrapper.getPropertyType(fields[i]).toString() ;
-
+				System.out.println("field:"+fields[i]+",type:"+type);
 
 				//判断插入数据的类型，并赋�?
 				if(type.endsWith("String")){
@@ -327,8 +327,8 @@ public class DAOUtil {
 				if(j < fields.length){
 					//System.out.println(wrapper.getPropertyType(fields[j])) ;
 					type = wrapper.getPropertyType(fields[j]).toString() ;
-					System.out.println("fields[j]:"+fields[j]);
-					System.out.println("type:"+type);
+					//System.out.println("fields[j]:"+fields[j]);
+					//System.out.println("type:"+type);
 					vField = fields[j] ;
 				}else{
 					//System.out.println(wrapper.getPropertyType(keyFields[j - fields.length])) ;

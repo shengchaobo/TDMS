@@ -43,8 +43,6 @@ public class T322POJO {
 	private String MajorLevel;
 	private String MajorLevelID;
 	
-	
-
 	private String Type;
 	
 	private String Field;
@@ -104,6 +102,9 @@ public class T322POJO {
 	private double PraCredit;
 	
 	private double OutClassCredit;
+	
+	private int CheckState;
+	private String FillUnitID;
 	
 	private Date Time;
 	
@@ -521,6 +522,22 @@ public class T322POJO {
 		this.Note=Note;
 	}
 	
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
+	public String getFillUnitID() {
+		return FillUnitID;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		FillUnitID = fillUnitID;
+	}
+
 	public String getMajorLevelID() {
 		return MajorLevelID;
 	}

@@ -32,6 +32,7 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.table3.T321_Bean;
+import cn.nit.constants.Constants;
 
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
@@ -284,6 +285,7 @@ public class T321Excel {
 				t321_Bean.setMajorID(MajorID);
 				t321_Bean.setUnitName(UnitName);
 				t321_Bean.setUnitID(UnitID);
+				t321_Bean.setCheckState(Constants.WAIT_CHECK);
 				t321_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t321_Bean);
 				System.out.println("数字");

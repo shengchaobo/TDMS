@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -32,12 +33,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript" src="js/commom.js"></script>
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData"  class="easyui-datagrid"  url="pages/DiscipRes/auditingData" >
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="overflow-y:scroll"  onload="myMarquee('T313','<%=request.getAttribute("CHECKTYPE")%>')">
+  <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/>
+
+	<table id="unverfiedData"  class="easyui-datagrid"  
+	url="pages/DiscipRes/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>" >
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber" >编号</th>
+				<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th field="discipName" >重点学科名称</th>
 				</tr>
 				</thead>
@@ -101,12 +115,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-	 <form  id="exportForm"  method="post" style="float: right;">
-
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
-		</form>
+	
+	<form action='pages/DiscipRes/dataExport?excelName=<%=URLEncoder.encode("表3-1-3重点学科（科研处）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto;" 
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style="height: auto" 
+	url="pages/DiscipRes/auditingData?checkNum=<%=request.getAttribute("PASS")%>"
 		toolbar="#toolbar2" pagination="true"
 		 singleSelect="false">
 		<thead data-options="frozen:true">
@@ -139,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<h3 class="title1">重点学科库批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
@@ -157,6 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>重点学科名称：</label> 
 						<input id="SeqNumber" name="discipBean.SeqNumber" type="hidden" > </input>
+						<input id="Time" name="discipBean.Time" type="hidden"  value ="0"> </input>
 						<input id="DiscipName" type="text" name="discipBean.DiscipName"
 							class="easyui-validatebox" ><span id="DiscipNameSpan"></span>
 					</div>
@@ -405,10 +424,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T313', CTypeOne);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		
 		}
@@ -481,6 +508,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改重点学科');
 	    	$('#SeqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
 	        $('#DiscipName').val(row[0].discipName);
 	        $('#DiscipID').val(row[0].discipID);
 	        $('#UnitID').combobox('select',row[0].unitID) ;
@@ -554,6 +582,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T313', CTypeOne);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
@@ -570,40 +599,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 	    
-	    function hideId(val,index){
-	    	var hiddenId = "<input type='hidden' name='dictorySearch[" + index + "].id' value='" + val + "'/>" ;
-	    	
-	    	return hiddenId ;
-	    }
-	    
-	    //自动加载要查询的数据
-	    function selectDataHtml(val,index){
-	    	
-	    	var selectsHtml = "<select class=\"easyui-combogrid\" style=\"width:50%px\" name=\"dictorySearch[" + index + "].dicData\" data-options=\"panelWidth: 500, multiple: true,required:true,"
-	    	 + " idField: 'dicData',textField: 'dicData',"
-	    	 + "url: 'table5/loadDictionary?dicId=" + val + "',"
-	    	 + "method: 'post',"
-	    	 + "columns: [[{field:'ck',checkbox:true},{field:'itemid',title:'数据',width:80},{field:'dicData',title:'数据',width:80}]],"
-	    	 + "fitColumns: true \"> </select>" ;
-	    	 
-	    	 return selectsHtml ;
-	    }
-	    
-	    //生成运算关系combo
-	    function selectOperateData(index){
-	    	
-	    	var operateHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].operator\"> <option value=\"equals\">等于</option><option value=\"between\">之间</option><option value=\"side\">两边</option></select>" ;
-	    	
-	    	return operateHtml ;
-	    }
-	    
-	  //生成逻辑关系combo
-	    function selectLogicData(index){
-	    	
-	    	var logicHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].logic\"> <option value=\"and\">并且</option><option value=\"or\">或者</option></select>" ;
-	    	
-	    	return logicHtml ;
-	    }
+	   
 	  
 	  function submitDicForm(){
 		  $.ajax({ 
@@ -617,7 +613,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		}
 	    	}).submit();
 	  }
-	    
+
+
+	  //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }
 	    </script>
 
 	<script type="text/javascript"> 

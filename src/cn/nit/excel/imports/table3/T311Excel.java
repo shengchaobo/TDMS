@@ -30,6 +30,7 @@ import org.springframework.beans.BeanWrapperImpl;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table3.T311_Bean;
+import cn.nit.constants.Constants;
 
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
@@ -124,6 +125,7 @@ public class T311Excel {
 				t311_Bean.setResearcherNum(Integer.parseInt(ResearcherNum));
 				t311_Bean.setUnitName(UnitName);
 				t311_Bean.setUnitID(UnitID);
+				t311_Bean.setCheckState(Constants.WAIT_CHECK);
 				t311_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t311_Bean);
 				System.out.println("数字");

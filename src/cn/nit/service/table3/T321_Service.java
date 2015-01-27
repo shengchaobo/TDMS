@@ -16,11 +16,6 @@ import cn.nit.util.Pagition;
 import cn.nit.util.TimeUtil;
 
 
-
-
-
-
-
 public class T321_Service {
 	
 	/**  表511的数据库操作类  */
@@ -74,6 +69,34 @@ public class T321_Service {
 		return t321_DAO.deleteCoursesByIds(ids) ;
 	}
 	
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return t321_DAO.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return t321_DAO.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return t321_DAO.checkAll() ;
+	}
+
 
 
 

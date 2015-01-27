@@ -47,11 +47,11 @@ public class T311_Service {
 		
 	    int total = postDocStaDao.totalAuditingData(conditions, fillDept) ;
 		List<T311POJO> list = postDocStaDao.auditingData(conditions, fillDept, page, rows) ;
-		System.out.println("替换");
-		System.out.println(list.get(0).getUnitName());	
-		System.out.println("怎么样");
+		//System.out.println("替换");
+		//System.out.println(list.get(0).getUnitName());	
+		//System.out.println("怎么样");
 		Pagition pages = new Pagition(total, list) ;
-		System.out.println("total:"+total);
+		//System.out.println("total:"+total);
 
 	
 		JSON json = JSONSerializer.toJSON(pages) ;
@@ -77,6 +77,35 @@ public class T311_Service {
 		
 		return postDocStaDao.deleteCoursesByIds(ids) ;
 	}
+	
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return postDocStaDao.getCheckState(seqNumber) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return postDocStaDao.updateCheck(seqNum,checkState) ;
+	}
+	
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return postDocStaDao.checkAll() ;
+	}
+
 	
 	/**
 	 * 统计博士流动站的数量

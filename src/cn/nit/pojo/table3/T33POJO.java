@@ -38,6 +38,8 @@ public class T33POJO {
 	
 	private String Note;
 	
+	private int CheckState;
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}
@@ -166,6 +168,14 @@ public class T33POJO {
 		this.Time=Time;
 	}
 	
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
 	public String getNote(){
 		return Note;
 	}

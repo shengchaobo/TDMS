@@ -31,6 +31,7 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table3.T312_Bean;
+import cn.nit.constants.Constants;
 
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
@@ -141,6 +142,7 @@ public class T312Excel {
 				t312_Bean.setUnitID(UnitID);
 				t312_Bean.setStaType(StaType);
 //				t312_Bean.setTime(time);
+				t312_Bean.setCheckState(Constants.WAIT_CHECK);
 				t312_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(t312_Bean);
 				System.out.println("数字");

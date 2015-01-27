@@ -20,6 +20,8 @@ public class T312POJO {
 	
 	private String Note;
 	
+	private int CheckState;
+	
 	public int getSeqNumber() {
 		return SeqNumber;
 	}
@@ -76,6 +78,14 @@ public class T312POJO {
 		this.Time = Time;
 	}
 	
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
 	public String getNote() {
 		return Note;
 	}

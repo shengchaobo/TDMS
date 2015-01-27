@@ -34,6 +34,8 @@ public class T313_Bean {
 	
 	private String Note;
 	
+	private int CheckState;
+	
 	public Integer getSeqNumber() {
 		return SeqNumber;
 	}
@@ -138,6 +140,14 @@ public class T313_Bean {
 		this.SchLevel = SchLevel;
 	}
 	
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
+
 	public Date getTime(){
 		return Time;
 	}

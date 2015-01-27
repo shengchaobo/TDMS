@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
+
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -33,12 +35,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 		<script type="text/javascript" src="js/commom.js"></script>
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" class="easyui-datagrid"  url="pages/UndergraMajorInfoTea/auditingData" >
+
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="overflow-y:scroll"  onload="myMarquee('T322','<%=request.getAttribute("CHECKTYPE")%>')">
+<div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  </br>
+
+	<table id="unverfiedData" class="easyui-datagrid"  
+	url="pages/UndergraMajorInfoTea/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>" style="height: auto" >
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true" >选取</th>
 				<th field="seqNumber" >编号</th>
+					<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th field="majorName" >专业名称</th>
 				<th field="majorID" >专业代码</th>
 			</tr>
@@ -135,67 +150,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-	 <form  id="exportForm"  method="post" style="float: right;">
-
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
-		</form>
+	<form action='pages/UndergraMajorInfoTea/dataExport?excelName=<%=URLEncoder.encode("表3-2-2本科专业基本情况（教学单位-教务处）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style=style="height: auto;" 
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" style=style="height: auto" 
+	url="pages/UndergraMajorInfoTea/auditingData?checkNum=<%=request.getAttribute("PASS")%>"
 		toolbar="#toolbar2" pagination="true"
 	 singleSelect="false">
 		<thead data-options="frozen:true">
 			<tr>
 				<th data-options="field:'ck',checkbox:true" >选取</th>
-				<th field="SeqNumber" >编号</th>
-				<th field="MajorName" >专业名称</th>
-				<th field="MajorID" >专业代码</th>
+				<th field="seqNumber" >编号</th>
+				<th field="majorName" >专业名称</th>
+				<th field="majorID" >专业代码</th>
 			</tr>
 		</thead>
 		<thead>
 			<tr>	
-				<th field="MajorVersion" >代码版本</th>
-				<th field="MajorField" >专业方向名称</th>
-				<th field="MajorFieldID" >专业方向号</th>
-				<th field="MajorSetTime"  formatter="formattime">专业设置时间</th>
-				<th field="MajorAppvlID"  >批文号</th>
-				<th field="MajorDurition" >学制</th>
-				<th field="MajorDegreeType" >学位授予门类</th>
-				<th field="MajorAdmisTime"  formatter="formattime">开始招生时间</th>
-				<th field="MajorState" >招生状态</th>
-				<th field="StopAdmisTime"  formatter="formattime">停止招生时间</th>
-				<th field="IsNewMajor" formatter="booleanstr" >是否新办专业</th>
-				<th field="AppvlYear"  formatter="formattime">批准建设年度</th>
-				<th field="BuildAppvlID" >建设批文号</th>
-				<th field="MajorLevel" >级别</th>
-				<th field="Type" >类型</th>
-				<th field="Field" >领域方向</th>
-				<th field="Leader"  >建设负责人</th>
-				<th field="TeaID" >教工号</th>
-				<th field="CheckTime"  formatter="formattime">验收时间</th>
-				<th field="CheckAppvlID" >验收批文号</th>
-				<th field="SchExp" >学校经费（万元）</th>
-				<th field="EduMinistryExp" >教育部经费（万元）</th>
-				<th field="FirstAppvlTime"  formatter="formattime">首次通过认证时间</th>
-				<th field="AppvlTime"  formatter="formattime">认证时间</th>
-				<th field="AppvlID" >批文号</th>
-				<th field="AppvlResult" >认证结果</th>
-				<th field="FromTime"  formatter="formattime">有效期（起）</th>
-				<th field="EndTime"  formatter="formattime">有效期（止）</th>
-				<th field="AppvlAuth"  >认证机构</th>
-				<th field="TotalCSHour" >总学时数</th>
-				<th field="RequireCShour" >必修课学时数</th>
-				<th field="OptionCSHour" >选修课学时数</th>
-				<th field="InClassCSHour" >课内教学学时数</th>
-				<th field="ExpCSHour" >实验教学学时数</th>
-				<th field="PraCSHour" >集中性实践教学环节学时数</th>
-				<th field="TotalCredit" >总学分数</th>
-				<th field="RequireCredit" >必修课学分数</th>
-				<th field="OptionCredit" >选修课学分数</th>
-				<th field="InClassCredit" >课内教学学分数</th>
-				<th field="ExpCredit" >实验教学学分数</th>
-				<th field="PraCredit" >集中实践教学环节学分数</th>
-				<th field="OutClassCredit" >课外科技活动学分数</th>
-				<th field="Note" >备注</th>
+				<th field="majorVersion" >代码版本</th>
+				<th field="majorField" >专业方向名称</th>
+				<th field="majorFieldID" >专业方向号</th>
+				<th field="majorSetTime"  formatter="formattime">专业设置时间</th>
+				<th field="majorAppvlID"  >批文号</th>
+				<th field="majorDurition" >学制</th>
+				<th field="majorDegreeType" >学位授予门类</th>
+				<th field="majorAdmisTime"  formatter="formattime">开始招生时间</th>
+				<th field="majorState" >招生状态</th>
+				<th field="stopAdmisTime"  formatter="formattime">停止招生时间</th>
+				<th field="isNewMajor" formatter="booleanstr" >是否新办专业</th>
+				<th field="appvlYear"  formatter="formattime">批准建设年度</th>
+				<th field="buildAppvlID" >建设批文号</th>
+				<th field="majorLevel" >级别</th>
+				<th field="type" >类型</th>
+				<th field="field" >领域方向</th>
+				<th field="leader"  >建设负责人</th>
+				<th field="teaID" >教工号</th>
+				<th field="checkTime"  formatter="formattime">验收时间</th>
+				<th field="checkAppvlID" >验收批文号</th>
+				<th field="schExp" >学校经费（万元）</th>
+				<th field="eduMinistryExp" >教育部经费（万元）</th>
+				<th field="firstAppvlTime"  formatter="formattime">首次通过认证时间</th>
+				<th field="appvlTime"  formatter="formattime">认证时间</th>
+				<th field="appvlID" >批文号</th>
+				<th field="appvlResult" >认证结果</th>
+				<th field="fromTime"  formatter="formattime">有效期（起）</th>
+				<th field="endTime"  formatter="formattime">有效期（止）</th>
+				<th field="appvlAuth"  >认证机构</th>
+				<th field="totalCSHour" >总学时数</th>
+				<th field="requireCShour" >必修课学时数</th>
+				<th field="optionCSHour" >选修课学时数</th>
+				<th field="inClassCSHour" >课内教学学时数</th>
+				<th field="expCSHour" >实验教学学时数</th>
+				<th field="praCSHour" >集中性实践教学环节学时数</th>
+				<th field="totalCredit" >总学分数</th>
+				<th field="requireCredit" >必修课学分数</th>
+				<th field="optionCredit" >选修课学分数</th>
+				<th field="inClassCredit" >课内教学学分数</th>
+				<th field="expCredit" >实验教学学分数</th>
+				<th field="praCredit" >集中实践教学环节学分数</th>
+				<th field="outClassCredit" >课外科技活动学分数</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>
@@ -205,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<h3 class="title1">本科专业批量导入</h3>
 		<div class="fitem" id="item1">
 			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<select class="easyui-combobox"  id="cbYearContrast1" name="selectYear" editable=false></select>
+				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
 					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
@@ -223,6 +241,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>专业名称：</label> 
 						<input id="SeqNumber" name="t322_Bean.SeqNumber" type="hidden" value="0"></input>
+						<input id="Time" name="t322_Bean.Time" type="hidden" value="0"></input>
+						<input id="FillUnitID" name="t322_Bean.FillUnitID" type="hidden" value="0"></input>
 						<input type="hidden" name="t322_Bean.MajorName" id="MajorName"/>
 						<input id="MajorID" type="text" name="t322_Bean.MajorID" 
 							 class='easyui-combobox' data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
@@ -743,6 +763,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            type: "post",
 		            dataType: "json",
 				    onSubmit: function(){
+				   // alert(123);
 				    	return validate();
 				    },
 				    //结果返回
@@ -751,11 +772,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T322', CTypeTwo);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
-						
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
@@ -785,9 +813,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var EndTime = $('#EndTime').datebox('getValue') ;
 			var AppvlAuth = $('#AppvlAuth').val() ;
 			var RequireCShour = $('#RequireCShour').val() ;
+			var RequireCShour = $('#RequireCShour').val() ;
+			var OptionCSHour = $('#OptionCSHour').val() ;
 			var InClassCSHour = $('#InClassCSHour').val() ;
-			var OptionCredit = $('#OptionCredit').val() ;
 			var ExpCSHour = $('#ExpCSHour').val() ;
+			var OptionCredit = $('#OptionCredit').val() ;
 			var RequireCredit = $('#RequireCredit').val() ;
 			var OptionCredit = $('#OptionCredit').val() ;
 			var InClassCredit = $('#InClassCredit').val() ;
@@ -795,14 +825,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var PraCredit = $('#PraCredit').val() ;
 			var OutClassCredit = $('#OutClassCredit').val() ;
 			var Note = $('#Note').val() ;
-
-		
-			
-			
-			
-			
-
-			
 
 			if(MajorName == null || MajorName.length==0 ){
 				$.messager.alert('提示',"专业名称不能为空") ;
@@ -945,8 +967,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$.messager.alert('提示',"认证机构不能为空") ;
 					return false;
 				}
-				
-				
 			}
 			if(AppvlResult == rs3){
 				if(FirstAppvlTime == null || FirstAppvlTime.length == 0){
@@ -973,13 +993,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$.messager.alert('提示',"认证机构必须为空") ;
 					return false;
 				}
-				
 
 			}
 			if(RequireCShour == null || RequireCShour.length == 0){
 				$.messager.alert('提示',"必修课学时数不能为空") ;
 				return false;
 			}
+			
 			if(OptionCSHour == null || OptionCSHour.length == 0){
 				$.messager.alert('提示',"选修课学时数不能为空") ;
 				return false;
@@ -1016,15 +1036,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$.messager.alert('提示',"课外科技活动学分数不能为空") ;
 				return false;
 			}
-
 			if(Note !=null && Note.length > 1000){
 				$.messager.alert('提示',"备注中文字数不超过500") ;
 				return false;
 			}
-
-			
 			return true ;
 		}
+		
 	    function exports() {
 	    	var temp = encodeURI('表3-2-2本科专业信息表');
 		    $('#exportForm').form('submit', {
@@ -1080,6 +1098,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T322', CTypeTwo);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
@@ -1102,6 +1121,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改本科专业');
 	    	$('#SeqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
+	    	$('#FillUnitID').val(row[0].fillUnitID) ;
 
 	    	$('#MajorID').combobox('select',row[0].majorID) ;
 	    	$('#MajorVersion').combobox('select',row[0].majorVersion) ;
@@ -1153,7 +1174,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	    }
 	    
-	    
+
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }
 	    
 	    </script>
 

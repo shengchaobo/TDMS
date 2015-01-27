@@ -9,6 +9,7 @@ import java.util.List;
 
 
 import cn.nit.bean.table3.T322_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 
 
@@ -27,7 +28,8 @@ public class T322_DAO {
 			"MajorDegreeType,MajorAdmisTime,MajorState,StopAdmisTime,IsNewMajor,AppvlYear,BuildAppvlID,MajorLevel,Type," +
 			"Field,Leader,TeaID,CheckTime,CheckAppvlID,SchExp,EduMinistryExp,FirstAppvlTime,AppvlTime," +
 			"AppvlID,AppvlResult,FromTime,EndTime,AppvlAuth,MajorFeature,MajorPurpose,TotalCSHour,RequireCShour,OptionCSHour,InClassCSHour," +
-			"ExpCSHour,PraCSHour,TotalCredit,RequireCredit,OptionCredit,InClassCredit,ExpCredit,PraCredit,OutClassCredit,FillUnitID,Time,Note" ;
+			"ExpCSHour,PraCSHour,TotalCredit,RequireCredit,OptionCredit,InClassCredit," +
+			"ExpCredit,PraCredit,OutClassCredit,FillUnitID,Time,Note,CheckState";
 	
 	/**
 	 * 将数据表311的实体类插入数据库
@@ -86,14 +88,13 @@ public class T322_DAO {
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
 		StringBuffer sql = new StringBuffer() ;
+		int total = 0 ;
 		sql.append("select count(*)") ;
 		sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ") ;
 		sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");		
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and t.fillUnitId=" + fillUnitId) ;
 		}
-		int total = 0 ;
-
 		
 		if(conditions != null && !conditions.equals("")){
 			sql.append(conditions) ;
@@ -130,19 +131,21 @@ public class T322_DAO {
 		sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorVersion,t.SchMajorName,t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime,t.MajorAppvlID,t.MajorDurition," +
 			"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.MajorLevel as MajorLevelID,t.Type," +
 			"t.Field,t.Leader,t.TeaID,t.CheckTime,t.CheckAppvlID,t.SchExp,t.EduMinistryExp,t.FirstAppvlTime,t.AppvlTime," +
-			"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.MajorFeature,t.MajorPurpose,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
-			"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit,t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note");
+			"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.MajorFeature," +
+			"t.MajorPurpose,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
+			"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit,t.InClassCredit," +
+			"t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note,t.fillUnitID,t.CheckState");
 		sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
 		sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID" );
 		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and t.fillUnitId=" + fillUnitId) ;
+			sql.append(" and t.fillUnitID=" + fillUnitId) ;
 		}
 		
 		if(conditions != null){
 			sql.append(conditions) ;
 		}
 		
-		sql.append(" order by SeqNumber desc") ;
+		//sql.append(" order by SeqNumber desc") ;
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -208,23 +211,25 @@ public class T322_DAO {
 	
 	
 	/**用于数据导出*/
-	public List<T322_Bean> totalList( String fillUnitID){
+	public List<T322_Bean> totalList( String fillUnitID, String year, int checkState){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorVersion,t.SchMajorName,t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime,t.MajorAppvlID,t.MajorDurition," +
+		sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID," +
+				"t.MajorVersion,t.SchMajorName,t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime," +
+				"t.MajorAppvlID,t.MajorDurition," +
 				"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.MajorLevel as MajorLevelID,t.Type," +
 				"t.Field,t.Leader,t.TeaID,t.CheckTime,t.CheckAppvlID,t.SchExp,t.EduMinistryExp,t.FirstAppvlTime,t.AppvlTime," +
 				"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.MajorFeature,t.MajorPurpose,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
-				"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit,t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note,t.FillUnitID ");
+				"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit," +
+				"t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note,t.FillUnitID,t.CheckState ");
 			sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
 			sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");
-		if(fillUnitID != null && !fillUnitID.equals("")){
-				sql.append(" and t.fillUnitId=" + fillUnitID) ;
-			}
-			
+			sql.append(" and t.FillUnitID="+fillUnitID+" and t.Time like '"+year+"%'");
+			sql.append(" and t.CheckState="+checkState);
+//		if(fillUnitID != null && !fillUnitID.equals("")){
+//				sql.append(" and t.fillUnitId=" + fillUnitID) ;
+//			}
 
-
-		
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -312,6 +317,111 @@ public class T322_DAO {
 		
 		return count ;
 		
+	}
+	
+	/**
+	 * 找到该条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public int getCheckState(int seqNumber){
+				
+		String queryPageSql = "select CheckState " 
+		+ " from " + tableName + 
+		" where SeqNumber='" + seqNumber + "';" ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		int state = 1;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			
+			while(rs.next()){
+				state = rs.getInt(1) ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return 0 ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return state ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(int seq, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where SeqNumber='" + seq + "';" ;		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * 全部审核通过
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean checkAll(){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+		" where CheckState=" + Constants.WAIT_CHECK ;		
+		
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	

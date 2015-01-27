@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>C441</title>
+<title>C462</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T441/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T461/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//alert(checkNum);
 		    $.ajax({
 				    type:"POST", 
-				    url: "pages/T441/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
+				    url: "pages/T461/updateCheck?seqNum=" + seqNumber +"&checkNum=" + checkNum, 
 			   		async : "true",
 			   		dataType : "text",
 				    success:function(result){  
@@ -83,12 +83,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
     
    //全部审核通过
-  function checkAll(){
+  function checkAll(param){
   			
   			if(confirm("全部数据审核通过，该操作不可恢复，确认吗？")){ 					
 				    $.ajax({
 						    type:"POST", 
-						    url: "pages/T441/checkAll", 
+						    url: "pages/T461/checkAll?param="+param, 
 					   		async : "true",
 					   		dataType : "text",
 						    success:function(result){  
@@ -108,10 +108,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
 </head>
 
-<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
+<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 <body style="height: 100%" >  
-	<table  id="checkData"  class="easyui-datagrid"  url="pages/T441/loadLeaderInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
+	<table  id="checkData"  class="easyui-datagrid"  url="pages/T461/loadHonorInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>&param=2"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
@@ -119,24 +119,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 		<thead>
 				<tr>		
-					<th  data-options="field:'seqNumber'" >编号</th>			
+					<th  data-options="field:'seqNumber'" >编号</th>	
+					<th  data-options="field:'name'" >姓名</th>
+				  <th  data-options="field:'teaId'" >教工号</th>		
 					<th data-options="field:'fromTeaUnit'">
-						所属教学单位
+					 	 教学单位
 					</th>
-					<th data-options="field:'teaUnitID'">
+					<th data-options="field:'unitId'">
 						教学单位号
 					</th>
-					<th data-options="field:'majorName'">
-						专业名称
+					<th data-options="field:'awardType'">
+						获奖类别
+					</th>				
+					<th data-options="field:'awardLevel'">
+						获奖级别
 					</th>
-					<th data-options="field:'majorId'">
-						专业代码
+					<th data-options="field:'awardFromUnit'">
+						授予单位
 					</th>
-					<th data-options="field:'majorLeaderName'">
-						专业带头人姓名
+					<th data-options="field:'gainAwardTime'"  formatter="formattime">
+						获奖时间
 					</th>
-					 <th data-options="field:'teaId'">
-						教工号
+					<th data-options="field:'appvlId'">
+						批文号
+					</th>
+					<th data-options="field:'otherTeaNum'">
+						其他参与教师人数
+					</th>
+					<th data-options="field:'otherTeaInfo'">
+						其他成员
 					</th>
 					<th data-options="field:'note'">
 						备注
@@ -146,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 		
   <div id="toolbar"  style="float: right;">
-			<a href='javascript:checkAll()'  class="easyui-linkbutton" iconCls="icon-download" plain="true"  >
+			<a href="javascript:checkAll('2')" class="easyui-linkbutton" iconCls="icon-download" plain="true"  >
 					一键全审核通过
 			</a>
 	</div>
@@ -169,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>
 						<div class="fitem">
 							<label>被审核表ID：</label> 
-								<input type="text" name="checkInfo.tableID" id="tableName"   value="T441"
+								<input type="text" name="checkInfo.tableID" id="tableName"   value="T462"
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>
@@ -179,15 +190,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="fitem">
 								<label>该条数据编号：</label> 
 								<input type="text" name="checkInfo.checkID" id="dataID" 
-								readonly="readonly"  style="width: 150px;color: grey"/>
-							</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-							<div class="fitem">
-								<label>填写者的教学单位号：</label> 
-								<input type="text" name="checkInfo.fillUnitID"  id="unitID" 
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>

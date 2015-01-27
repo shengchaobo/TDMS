@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="database" namespace="/pages/DatabaseManager" extends="struts-default">
+	    
+	    
+	      <!-- 数据备份 -->
+
+	    <action name="backup" class="cn.nit.action.di.DiDatabaseAction" method="execute">
+	    	<param name="inputPath">/WEB-INF</param>	
+	   	 	<result name="success" type="stream">
+	    		<!-- 指定下载文件的类型，下面表示无限制 -->
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<!-- 流对象名字 -->
+				<param name="inputName">inputStream</param>
+				<!-- 文件名转码 -->
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<!-- 下载文件缓冲大小 -->
+				<param name="bufferSize">4096</param>
+	   	 	</result>
+        </action>	
+        
+	    
+	    
+	</package>
+</struts>

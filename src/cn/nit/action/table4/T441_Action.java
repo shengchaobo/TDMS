@@ -85,7 +85,7 @@ public class T441_Action {
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
 		
-		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null&& this.getCheckNum() == 0){					
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){					
 			cond = null;	
 		}else{			
 			if(this.getSeqNum()!=null){

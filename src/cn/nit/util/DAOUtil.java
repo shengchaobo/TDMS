@@ -327,8 +327,8 @@ public class DAOUtil {
 				if(j < fields.length){
 					//System.out.println(wrapper.getPropertyType(fields[j])) ;
 					type = wrapper.getPropertyType(fields[j]).toString() ;
-					System.out.println("fields[j]:"+fields[j]);
-					System.out.println("type:"+type);
+					//System.out.println("fields[j]:"+fields[j]);
+					//System.out.println("type:"+type);
 					vField = fields[j] ;
 				}else{
 					//System.out.println(wrapper.getPropertyType(keyFields[j - fields.length])) ;

@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import cn.nit.bean.table7.T741_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table7.T741POJO;
 import cn.nit.util.DAOUtil;
@@ -16,7 +17,9 @@ public class T741_DAO {
 	
 	private String key="SeqNumber";
 	
-	private String field="TeaName,TeaID,TeaUnit,UnitID,AssessCS,CSID,CSType,AssessYear,AccessResult,AppvlID,Time,Note,FillTeaID,FillUnitID,audit";
+	private String field="TeaName,TeaID,TeaUnit,UnitID,AssessCS," +
+			"CSID,CSType,AssessYear,AccessResult,AppvlID,Time,Note," +
+			"FillTeaID,FillUnitID,audit,CheckState";
 
 	
 	public boolean insert(T741_Bean teachability){
@@ -93,7 +96,9 @@ public class T741_DAO {
 		public List<T741POJO> auditingData(String conditions,String fillUnitId,int page,int rows){
 			List<T741POJO> list=null;
 			StringBuffer sql=new StringBuffer();		
-			sql.append("select  t.SeqNumber,t.TeaName,t.TeaID,t.TeaUnit,t.UnitID,t.AssessCS,t.CSID,cst.CourseCategories as CSType,t.CSType as CSTypeID,t.AssessYear,t.AccessResult,t.AppvlID,t.Time,t.Note");
+			sql.append("select  t.SeqNumber,t.TeaName,t.TeaID,t.TeaUnit," +
+					"t.UnitID,t.AssessCS,t.CSID,cst.CourseCategories as CSType," +
+					"t.CSType as CSTypeID,t.AssessYear,t.AccessResult,t.AppvlID,t.Time,t.Note,t.CheckState");
 			sql.append(" from "+ tableName +" as t, DiCourseCategories cst");
 		    sql.append(" where cst.IndexID=t.CSType") ;
 			
@@ -105,7 +110,7 @@ public class T741_DAO {
 				sql.append(conditions) ;
 			}
 			
-			sql.append(" order by SeqNumber desc") ;
+			//sql.append(" order by SeqNumber desc") ;
 			
 			Connection conn=DBConnection.instance.getConnection();
 			
@@ -129,16 +134,19 @@ public class T741_DAO {
 		}
 		
 		/**
-		 * 获取字典表的所有数据
+		 * 获取字典表的所有数据(用于导出)
 		 * @return
 		 *
 		 * @time: 2014-5-14/下午02:34:42
 		 */
-		public List<T741POJO> totalList(String year){
+		public List<T741POJO> totalList(String year,int checkState){
 			StringBuffer sql=new StringBuffer();		
-			sql.append("select  t.SeqNumber,t.TeaName,t.TeaID,t.TeaUnit,t.UnitID,t.AssessCS,t.CSID,cst.CourseCategories as CSType,t.CSType as CSTypeID,t.AssessYear,t.AccessResult,t.AppvlID,t.Time,t.Note");
+			sql.append("select  t.SeqNumber,t.TeaName,t.TeaID,t.TeaUnit," +
+					"t.UnitID,t.AssessCS,t.CSID,cst.CourseCategories as CSType," +
+					"t.CSType as CSTypeID,t.AssessYear,t.AccessResult,t.AppvlID,t.Time,t.Note,t.CheckState");
 			sql.append(" from "+ tableName +" as t, DiCourseCategories cst");
 		    sql.append(" where cst.IndexID=t.CSType") ;
+		    sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;
@@ -190,7 +198,8 @@ public class T741_DAO {
 				boolean flag = false ;
 				Connection conn = DBConnection.instance.getConnection() ;
 				
-				String tempfield = "TeaName,TeaID,TeaUnit,UnitID,AssessCS,CSID,CSType,AssessYear,AccessResult,AppvlID,Time,Note,FillUnitID";
+				String tempfield = "TeaName,TeaID,TeaUnit,UnitID,AssessCS,CSID," +
+						"CSType,AssessYear,AccessResult,AppvlID,Time,Note,FillUnitID,CheckState";
 				try{
 					flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 				}catch(Exception e){
@@ -228,6 +237,139 @@ public class T741_DAO {
 
 		}
 
+		
+		/**
+		 * 找到该条数据的审核状态
+		 * @param diCourseCategories
+		 * @return
+		 *
+		 * @time: 2014-5-14/下午02:34:23
+		 */	
+		public int getCheckState(int seqNumber){
+					
+			String queryPageSql = "select CheckState " 
+			+ " from " + tableName + 
+			" where SeqNumber='" + seqNumber + "';" ;
+			
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			
+			int state = 1;
+			
+			try{
+				st = conn.createStatement() ;
+				rs = st.executeQuery(queryPageSql) ;
+				
+				while(rs.next()){
+					state = rs.getInt(1) ;
+				}
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return 0 ;
+			}finally{
+				DBConnection.close(conn);
+				DBConnection.close(rs);
+				DBConnection.close(st);			
+			}
+			
+			return state ;
+		}
+		
+		/**
+		 * 更新某条数据的审核状态
+		 * @param diCourseCategories
+		 * @return
+		 *
+		 * @time: 2014-5-14/下午02:34:23
+		 */	
+		public boolean updateCheck(int seq, int checkState){
+			
+			int flag ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			String sql = "update " + tableName + " set CheckState=" + checkState +
+			" where SeqNumber='" + seq + "';" ;		
+			System.out.println(sql);
+			try{			
+				st = conn.createStatement();
+				flag = st.executeUpdate(sql);					
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return false;
+			}finally{
+				DBConnection.close(conn) ;
+			}
+			
+			if (flag == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		/**
+		 * 全部审核通过
+		 * @param diCourseCategories
+		 * @return
+		 *
+		 * @time: 2014-5-14/下午02:34:23
+		 */	
+		public boolean checkAll(){
+			
+			int flag ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			ResultSet rs = null ;
+			String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
+			" where CheckState=" + Constants.WAIT_CHECK ;		
+			
+			System.out.println(sql);
+			try{			
+				st = conn.createStatement();
+				flag = st.executeUpdate(sql);					
+			}catch(Exception e){
+				e.printStackTrace() ;
+				return false;
+			}finally{
+				DBConnection.close(conn) ;
+			}
+			
+			if (flag == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		//设置审核的状态为1：即未审核状态
+		public boolean updatCheck()
+		{
+			int flag = 0;
+			StringBuffer sql = new StringBuffer() ;
+			sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//			sql.append(" where " + key + " in " + ids) ;
+			Connection conn = DBConnection.instance.getConnection() ;
+			Statement st = null ;
+			
+			try
+			{
+				st = conn.createStatement();
+				flag = st.executeUpdate(sql.toString());			
+			}catch(Exception e){
+				e.printStackTrace();
+				return false; 
+			}finally{
+				DBConnection.close(conn) ;
+			}
+			
+			if (flag == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
 
 		public String getTableName() {
 			return tableName;
@@ -238,7 +380,11 @@ public class T741_DAO {
 			this.tableName = tableName;
 		}
 
-
+		public static void main(String args[]){
+			T741_DAO dao = new T741_DAO();
+			boolean flag = dao.updatCheck();
+			System.out.println(flag);
+		}
 
 
 }

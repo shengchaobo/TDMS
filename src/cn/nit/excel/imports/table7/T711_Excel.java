@@ -10,6 +10,7 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table7.T711_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table7.T711_Service;
@@ -191,6 +192,7 @@ public class T711_Excel {
 				T711_Bean.setJoinTeaNum(Integer.parseInt(joinTn));
 				T711_Bean.setOtherJoinTeaInfo(otherJTI);
 				T711_Bean.setFillUnitID(fillUnitID);
+				T711_Bean.setCheckState(Constants.WAIT_CHECK);
 				T711_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T711_Bean.setNote(note);
 				

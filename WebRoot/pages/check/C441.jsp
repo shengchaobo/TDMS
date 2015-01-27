@@ -146,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</table>
 		
   <div id="toolbar"  style="float: right;">
-			<a href='javascript:checkAll()'   class="easyui-linkbutton" iconCls="icon-download" plain="true"  >
+			<a href='javascript:checkAll()'  class="easyui-linkbutton" iconCls="icon-download" plain="true"  >
 					一键全审核通过
 			</a>
 	</div>

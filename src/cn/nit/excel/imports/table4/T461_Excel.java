@@ -17,6 +17,7 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiAwardTypeBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table4.T461_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiAwardTypeService;
 import cn.nit.service.di.DiDepartmentService;
@@ -173,9 +174,15 @@ public class T461_Excel {
 				T461_bean.setTime(TimeUtil.changeDateY(selectYear));
 				
 				//插入教学单位
-				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-				String fillUnitID = bean.getUnitID();
-				T461_bean.setFillUnitID(fillUnitID);
+				if(awardTypeID.equals("51007")){
+					UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+					String fillUnitID = bean.getUnitID();
+					T461_bean.setFillUnitID(fillUnitID);
+				}
+
+				
+				//插入审核状态
+				T461_bean.setCheckState(Constants.WAIT_CHECK);
 				
 				list.add(T461_bean);
 								

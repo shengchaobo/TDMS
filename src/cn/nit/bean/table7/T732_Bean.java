@@ -40,6 +40,8 @@ public class T732_Bean {
 	private String FillTeaID ;
 	
     private String FillUnitID ;
+    
+    private int CheckState;
 		
 		/**  审核单位ID号  */
 	private String audit ;
@@ -188,6 +190,14 @@ public class T732_Bean {
 
 	public void setFillUnitID(String fillUnitID) {
 		FillUnitID = fillUnitID;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	public String getAudit() {

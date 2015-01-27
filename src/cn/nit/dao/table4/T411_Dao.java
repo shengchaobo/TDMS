@@ -108,6 +108,54 @@ public class T411_Dao {
 	
 	
 	/**
+	 * 获得431到436的导出（用于431到436导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T431_Bean> getList(int param){
+		
+		String cond = null;
+		
+		if (param == 1){
+			cond = "(IDCode = '40003' or IDcode = '40004')";
+		}
+		else if(param == 2){
+			cond = "(IDCode = '40001' or IDcode = '40002')";
+		}
+		else if(param == 3){
+			cond = "(IDCode = '40005' or IDcode = '40006')";
+		}		
+		else if(param == 4){
+			cond = "(IDCode = '40007' or IDcode = '40008')";
+		}else{
+			cond = "(IDCode = '40010')";
+		}
+				
+		String queryPageSql = "select TeaId,TeaName AS Name,IdentiType AS staffType,FromOffice AS FromDept,OfficeID AS UnitId"
+		+ " from " + tableName + 
+		" left join " + tableName6+ " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
+		" where " + cond ;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T431_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			list = DAOUtil.getList(rs, T431_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
+	
+	/**
 	 * 获得的总数（用于教育部导出）
 	 * @return
 	 *

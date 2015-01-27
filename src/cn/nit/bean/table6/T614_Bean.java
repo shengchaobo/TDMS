@@ -34,6 +34,7 @@ public class T614_Bean implements java.io.Serializable {
 	private Integer selfStudyThisYearNum;
 	private Date time;
 	private String note;
+	private int CheckState;
 	
 	public int getSeqNumber() {
 		return seqNumber;
@@ -118,6 +119,12 @@ public class T614_Bean implements java.io.Serializable {
 	}
 	public void setSelfStudyLastYearNum(Integer selfStudyLastYearNum) {
 		this.selfStudyLastYearNum = selfStudyLastYearNum;
+	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	public Integer getSelfStudyThisYearNum() {
 		return selfStudyThisYearNum;

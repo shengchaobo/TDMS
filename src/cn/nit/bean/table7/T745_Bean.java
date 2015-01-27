@@ -26,6 +26,7 @@ public class T745_Bean {
 		
 	/**  审核单位ID号  */
 	private String audit ;
+	private int CheckState;
 
 	
 
@@ -107,6 +108,14 @@ public class T745_Bean {
 
 	public void setFillUnitID(String fillUnitID) {
 		FillUnitID = fillUnitID;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	public String getAudit() {

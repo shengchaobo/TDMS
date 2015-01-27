@@ -21,6 +21,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 import cn.nit.bean.table4.T410_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table4.T410_Dao;
 
 public class J463_Excel {
@@ -31,7 +32,7 @@ public class J463_Excel {
 		T410_Dao T410_dao = new T410_Dao();
 		Calendar a = Calendar.getInstance();
 		String year = String.valueOf(a.get(Calendar.YEAR));
-		T410_Bean bean = T410_dao.totalList(year);
+		T410_Bean bean = T410_dao.totalList(year, Constants.PASS_CHECK);
 		
 	    ByteArrayOutputStream fos = null;
 		

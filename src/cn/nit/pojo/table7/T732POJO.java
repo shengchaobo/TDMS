@@ -38,6 +38,9 @@ public class T732POJO {
 	private Date Time;
 	
 	private String Note;
+	
+	private String FillUnitID;
+	private int CheckState;
 
 	public int getSeqNumber() {
 		return SeqNumber;
@@ -166,6 +169,22 @@ public class T732POJO {
 
 	public void setTime(Date time) {
 		Time = time;
+	}
+
+	public String getFillUnitID() {
+		return FillUnitID;
+	}
+
+	public void setFillUnitID(String fillUnitID) {
+		FillUnitID = fillUnitID;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 
 	public String getNote() {

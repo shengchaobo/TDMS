@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -31,16 +32,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript" src="js/commom.js"></script>
 
 </head>
-<body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T712/auditingData"
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%"   onload="myMarquee('T712','<%=request.getAttribute("CHECKTYPE")%>')">
+<div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核不通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  </br>
+
+	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" 
+	url="pages/T712/auditingData?checkNum=<%=request.getAttribute("NOCHECK")%>"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="false" singleSelect="false" >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
+					<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
 				<th field="name">姓名</th>
 				<th field="teaID">教工号</th>
 		     </tr>
@@ -107,15 +121,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2" style="float: right;">
-		<a href="pages/T712/dataExport?excelName=<%=URLEncoder.encode("表7-1-2教学管理人员发表教学论文情况","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	
+	<form action='pages/T712/dataExport?excelName=<%=URLEncoder.encode("表7-1-2教学管理人员发表教学论文情况","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 	
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
+	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" 
+	url="pages/T712/auditingData?checkNum=<%=request.getAttribute("PASS")%>"
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="false" singleSelect="false">
 		<thead data-options="frozen:true">
-			<tr>			
-				<th data-options="field:'ck',checkbox:true">选取</th>
+			<tr>
 				<th field="seqNumber">编号</th>
 				<th field="name">姓名</th>
 				<th field="teaID">教工号</th>
@@ -161,24 +181,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table>
 		
 		<tr>
-			<td>
-			<input id="seqNumber" name="teaManagerPaperInfoTeaTea.SeqNumber" type="hidden" value="0">
-					<div class="fitem">
-						<label>教学单位：</label> 
-						
-						<input id="TeaUnit" type="hidden" name="teaManagerPaperInfoTeaTea.TeaUnit">
-						<input id="UnitID" type="text" name="teaManagerPaperInfoTeaTea.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
-							 onSelect:function(){
-							 	document.getElementById('TeaUnit').value=$(this).combobox('getText') ;
-							 }">
-							<span id="TeaUnitSpan"></span>
-					</div>
-				</td>
-				<td class="empty"></td>	
-			    <td>
+			 <td>
 					<div class="fitem">
 						<label>教工号：</label> 
+						<input id="seqNumber" name="teaManagerPaperInfoTeaTea.SeqNumber" type="hidden" value="0">
+						<input id="Time" name="teaManagerPaperInfoTeaTea.Time" type="hidden" value="0">
+						<input id="FillUnitID" name="teaManagerPaperInfoTeaTea.FillUnitID" type="hidden" value="0">
+						<input id="TeaUnit" name="teaManagerPaperInfoTeaTea.TeaUnit" type="hidden" value="0">
+						<input id="UnitID" name="teaManagerPaperInfoTeaTea.UnitID" type="hidden" value="0">
 						<input id="TeaID" type="hidden" name="teaManagerPaperInfoTeaTea.TeaID">
 						<input id="Name" type="text" name="teaManagerPaperInfoTeaTea.Name" class='easyui-combobox'
 						data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
@@ -188,16 +198,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="TeaIDSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
-				<td>
+				<td class="empty"></td>	
+			   <td>
 					<div class="fitem">
 						<label>论文名称：</label> 
 						<input id="PaperName" type="text" name="teaManagerPaperInfoTeaTea.PaperName"
 							><span id="PaperNameSpan"></span>
 					</div>
 				</td>
-			<td class="empty"></td>
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>归口类型：</label> 
@@ -208,8 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="PaperTypeSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+			<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>所属一级学科：</label> 
@@ -231,7 +240,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="FirstSubjectSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>刊物/会议名称：</label> 
@@ -240,8 +250,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="JonalNameSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>刊号：</label> 
@@ -249,7 +258,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="JonalIDSpan"></span>
 					</div>
 				</td>
-			<td class="empty"></td>
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>刊期/日期：</label> 
@@ -257,8 +267,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							editable="false"><span id="JonalTimeSpan"></span>
 					</div>
 				</td>
-				</tr>
-				<tr>
+			<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>论文字数：</label> 
@@ -266,7 +275,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="PaperWordNumSpan"></span>
 					</div>
 				</td>
-			<td class="empty"></td>
+				</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>认定等级：</label> 
@@ -274,8 +284,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="ConfirmLevelSpan"></span>
 					</div>
 				</td>
-				</tr>
-				<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>合作教师人数：</label> 
@@ -283,7 +292,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="JoinTeaNumSpan"></span>
 					</div>
 				</td>
-			<td class="empty"></td>
+				</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>其他合作教师：</label> 
@@ -405,16 +415,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    var result = eval('('+result+')');
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
+						    if(result.tag==2){
+						    	$('#dlg').dialog('close');
+								myMarquee('T712', CTypeTwo);
+								$('#unverfiedData').datagrid('reload'); // reload the user data
+
+							}else{
+								
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#unverfiedData').datagrid('reload');  
 					    }
 				    }
+				   }
 			    });
 		}
 
 		function validate(){
 			//获取文本框的值
-			var teaUnit = $('#UnitID').combobox('getText');
+			//var teaUnit = $('#UnitID').combobox('getText');
 			var teaId = $('#Name').combobox('getText');
 			var teaName = $('#Name').combobox('getValue');
 			var paperName = $('#PaperName').val();
@@ -429,10 +447,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var otherjoinTeaInfo = $('#OtherJoinTeaInfo').val();
 			var note = $('#Note').val();
 			//根据数据库定义的字段的长度，对其进行判断
-			if(teaUnit == null || teaUnit.length==0 || teaUnit.length > 100){
-			   alert("教学单位不能为空或长度不超过100");	
-				return false;
-			}
+			//if(teaUnit == null || teaUnit.length==0 || teaUnit.length > 100){
+			  /// alert("教学单位不能为空或长度不超过100");	
+				//return false;
+			//}
 			
 			if(teaId == null || teaId.length == 0 || teaId.length > 200){
 			   alert("教工号不能为空或长度不超过200");
@@ -497,7 +515,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#dlg').dialog('open').dialog('setTitle','修改教学管理人员发表教学论文情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	//alert(row[0].seqNumber);
-	    	$('#UnitID').combobox('select', row[0].unitIDD) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
+	    	$('#FillUnitID').val(row[0].fillUnitID) ;
+	    	$('#UnitID').val(row[0].unitID) ;
+	    	$('#TeaUnit').val(row[0].teaUnit) ;
+	    	//$('#UnitID').combobox('select', row[0].unitIDD) ;
 	    	$('#Name').combobox('select', row[0].name) ;
 	    	$('#PaperName').val(row[0].paperName) ;
 	    	$('#PaperType').val(row[0].paperType) ;
@@ -553,6 +575,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
+						myMarquee('T712', CTypeTwo);
 						 $('#unverfiedData').datagrid('reload') ;
 					}
 	    		}
@@ -581,7 +604,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    url = 'updateUser';
 		    }
 	    }
-	
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }
 	    </script>
 
 <script type="text/javascript"> 
@@ -605,6 +631,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    //alert(time) ;
 			        return time;  
 			    }  
+			</script>
+				<!--导出表年份选择 -->
+			<script type="text/javascript">
+		    	var currentYear = new Date().getFullYear();
+		    	var select = document.getElementById("cbYearContrast");
+		    	for (var i = 0; i <= 10; i++) {
+		        var theOption = document.createElement("option");
+		        	theOption.innerHTML = currentYear-i + "年";
+		        	theOption.value = currentYear-i;
+		        	select.appendChild(theOption);
+		    	}
+			</script>
+			
+			<script type="text/javascript">
+		    	var currentYear = new Date().getFullYear();
+		    	var select = document.getElementById("cbYearContrast1");
+		    	for (var i = 0; i <= 10; i++) {
+		        var theOption = document.createElement("option");
+		        	theOption.innerHTML = currentYear-i + "年";
+		        	theOption.value = currentYear-i;
+		        	select.appendChild(theOption);
+		    	}
 			</script>
 
 	

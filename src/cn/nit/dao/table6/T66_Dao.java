@@ -3,6 +3,7 @@ package cn.nit.dao.table6;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T641_Bean;
 import cn.nit.bean.table6.T66_Bean;
+import cn.nit.constants.Constants;
+import cn.nit.dao.CheckDao;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.TimeUtil;
@@ -25,8 +28,12 @@ public class T66_Dao {
 	private String key = "SeqNumber";
 
 	/** 数据库表中除了自增长字段的所有字段 */
-	private String field = "StuClubSum,StuClubSciNum,StuClubHumanNum,StuClubSportNum,StuClubArtNum,OtherStuClub,JoinStuSum,JoinClubSciNum,JoinClubHumanNum,JoinClubSportNum,JoinClubArtNum,JoinOtherClub,Time,Note";	
+	private String field = "StuClubSum,StuClubSciNum,StuClubHumanNum,StuClubSportNum," +
+			"StuClubArtNum,OtherStuClub,JoinStuSum,JoinClubSciNum,JoinClubHumanNum," +
+			"JoinClubSportNum,JoinClubArtNum,JoinOtherClub,Time,Note,CheckState";	
 
+	CheckDao checkDao = new CheckDao();
+	
 	/**
 	 * 获取字典表的所有数据
 	 * @return
@@ -85,7 +92,18 @@ public class T66_Dao {
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());
-				String tempfields = fields + ",StuClubSum,JoinStuSum";
+				String tempfields = "";
+				if(tempBean.getCheckState() == Constants.WAIT_CHECK){
+					tempfields = fields +  ",StuClubSum,JoinStuSum";
+				}
+				if(tempBean.getCheckState() == Constants.NOPASS_CHECK){
+					tempfields = fields + ",StuClubSum,JoinStuSum,CheckState";
+					bean.setCheckState(Constants.WAIT_CHECK);
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(tempBean.getTime());
+					int year1 = cal.get(Calendar.YEAR); 
+					checkDao.delete("T66", year1 ) ;
+				}
 				
 				int stuClubSum = tempBean.getStuClubSum();
 				int joinStuSum = tempBean.getJoinStuSum();
@@ -169,6 +187,7 @@ public class T66_Dao {
 				flag = DAOUtil.update(bean, tableName, key, tempfields, conn) ;
 			}else{
 				bean.setTime(TimeUtil.changeDateY(year));
+				bean.setCheckState(Constants.WAIT_CHECK);
 				int stuClubSum =0;
 				int joinStuSum = 0;
 				
@@ -210,7 +229,7 @@ public class T66_Dao {
 				}
 				bean.setJoinStuSum(joinStuSum);	
 				
-				String tempfields = fields + ",StuClubSum,JoinStuSum,Time";
+				String tempfields = fields + ",StuClubSum,JoinStuSum,Time,CheckState";
 				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
 			}
 		}catch(Exception e){
@@ -225,10 +244,72 @@ public class T66_Dao {
 		return flag ;
 	}
 	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(String year, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where convert(varchar(4),Time,120)=" + year;			
+		//System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	//设置审核的状态为1：即未审核状态
+	public boolean updatCheck()
+	{
+		int flag = 0;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update " + tableName+" set CheckState ="+Constants.WAIT_CHECK) ;
+//		sql.append(" where " + key + " in " + ids) ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try
+		{
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql.toString());			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false; 
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 	
 	public static void main(String args[]){
-		//T66_Dao testDao =  new T66_Dao() ;
+		T66_Dao testDao =  new T66_Dao() ;
+		boolean flag = testDao.updatCheck();
+		System.out.println(flag);
 	}
 
 }

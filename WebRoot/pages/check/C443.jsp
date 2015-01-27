@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tr>		
 					<th  data-options="field:'seqNumber'" >编号</th>
 					<th data-options="field:'name'">姓名</th>
-					<th data-options="field:'teaId'">教工号你好</th>			
+					<th data-options="field:'teaId'">教工号</th>			
 					<th data-options="field:'type'">
 						人才类型
 					</th>

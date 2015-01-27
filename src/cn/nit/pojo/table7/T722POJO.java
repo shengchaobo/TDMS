@@ -33,6 +33,8 @@ public class T722POJO {
 	private Date Time;
 	 
 	private String Note;
+	
+	private  int CheckState;
 
 	public int getSeqNumber() {
 		return SeqNumber;
@@ -153,6 +155,14 @@ public class T722POJO {
 
 	public void setNote(String note) {
 		Note = note;
+	}
+
+	public int getCheckState() {
+		return CheckState;
+	}
+
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
 	}
 	
 	

@@ -2,14 +2,14 @@
    var url;
 
 	//弹出添加的界面
-	function newObject() {
+	function newObject(param) {
 		
 		//update隐藏的量在提交之后要恢复
 		$('.title1').show();
     	$('#item1').show();
     	$('hr').show();
     	
-		url = 'pages/T461/insert' 
+		url = 'pages/T461/insert?param='+param; 
 		$('#dlg').dialog('open').dialog('setTitle', '添加新的教师获奖荣誉');
 		$('#addForm').form('reset');
 	}
@@ -70,8 +70,19 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						var tableID = result.tableID;
+						if(tableID == 'T466'){
+							myMarquee('T466', CTypeTwo)
+						}else{
+							myMarquee(tableID, CTypeOne)
+						}						
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
 			});
@@ -87,14 +98,14 @@
 		var tea = $('#otherTeaInfo').val();
 		var note = $('#note').val();
 		var  num = /^\d+$/;  //用于判断字符串是否全是数字		
-		var unitName = $('#unitId').combobox('getText');
+		//var unitName = $('#unitId').combobox('getText');
 		var awardLevel = $('#awardLevel').combobox('getText');
 		var awardType = $('#awardType').combobox('getText');
 		
-		if(unitName == null || unitName==""){
+/*		if(unitName == null || unitName==""){
 			alert("所属教学单位不能为空");
 			return false;
-	    }
+	    }*/
 		
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
@@ -133,7 +144,7 @@
 		return true;
 	 }
 
-	function edit() {
+	function edit(param) {
 		
 	   	var row = $('#unverfiedData').datagrid('getSelections');
 	   	
@@ -142,7 +153,7 @@
 	   		return ;
 	   	}
 	   	
-	   	url = 'pages/T461/edit' ;
+	   	url = 'pages/T461/edit?param='+param;
 	   
 	   	$('.title1').hide();
 	   	$('#item1').hide();
@@ -151,7 +162,12 @@
 	   	$('#dlg').dialog('open').dialog('setTitle','修改教师获奖荣誉的信息');
 	   	$('#seqNumber').val(row[0].seqNumber) ;
 	  	$('#name').combobox('select', row[0].name) ;
-	  	$('#unitId').combobox('select', row[0].unitId) ;
+	  	if(param == '6'){
+	    	$('#unitId').val(row[0].unitId) ;
+	    	$('#fromTeaUnit').val(row[0].fromTeaUnit) ;
+	  	}else{
+	  		$('#unitId').combobox('select', row[0].unitId) ;
+	  	}
 		$('#awardType').combobox('setText', row[0].awardType) ;
 		$('#awardLevel').combobox('setText', row[0].awardLevel) ;		
 	  	$('#awardFromUnit').val(row[0].awardFromUnit) ;
@@ -176,7 +192,7 @@
 	    }	
 		
 		//删除选中的行
-	   function deleteByIds() {
+	   function deleteByIds(param) {
 		// 获取选中项
 	   	var row = $('#unverfiedData').datagrid('getSelections');
 	   	if (row.length == 0) {
@@ -194,24 +210,33 @@
 						ids += (row[i].seqNumber + ")");
 					}
 				}
-				deletes(ids);
+				deletes(ids,param);
 				}
 	   	});
 	   }
 	   
-	   function deletes(ids) {
+	   function deletes(ids,param) {
 	   	$.ajax( {
 	   		type : "POST",
-	   		url : "pages/T461/deleteByIds?ids=" + ids,
+	   		url : "pages/T461/deleteByIds?ids=" + ids + "&param=" + param,
 	   		async : "true",
 	   		dataType : "text",
 	   		success : function(result) {
 				result = eval("(" + result + ")");
 				if (result.state) {
-					$('#unverfiedData').datagrid('reload');
+					alert(result.data);
+					if(param == '6'){
+						myMarquee('T466', CTypeTwo)
+					}else{
+						myMarquee("T46" + param, CTypeOne)
+					}	
+					$('#unverfiedData').datagrid('reload'); // reload the user data
 				}
 			}
 	   	}).submit();
 	   }
 
-		
+	    //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }	

@@ -36,6 +36,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.table1.T11Bean;
 import cn.nit.bean.table1.T16Bean;
 import cn.nit.dao.table1.T16DAO;
 import cn.nit.excel.imports.table1.T16Excel;
@@ -94,35 +95,35 @@ public class T16Action {
 //	/**每页显示的条数  */
 //	private String rows ;
 //	
-	/**  逐条插入数据  */
-	public void insert(){
-//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t16Bean.setTime(new Date()) ;
-		//这还没确定,设置填报者的职工号与部门号
-//		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
-//		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
-		boolean flag = t16Ser.insert(t16Bean) ;
-		PrintWriter out = null ;
-		
-		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			getResponse().setHeader("Content-type", "text/html");  
-			out = getResponse().getWriter() ;
-			if(flag){
-				out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
-			}else{
-				out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
-			}
-		}catch(Exception e){
-			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-		out.flush() ;
-	}
+//	/**  逐条插入数据  */
+//	public void insert(){
+////		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+//		t16Bean.setTime(new Date()) ;
+//		//这还没确定,设置填报者的职工号与部门号
+////		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
+////		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
+//		boolean flag = t16Ser.insert(t16Bean) ;
+//		PrintWriter out = null ;
+//		
+//		try{
+//			getResponse().setContentType("text/html; charset=UTF-8") ;
+////			getResponse().setHeader("Content-type", "text/html");  
+//			out = getResponse().getWriter() ;
+//			if(flag){
+//				out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
+//			}else{
+//				out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+//			}
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//		out.flush() ;
+//	}
 
 	/**  为界面加载数据  
 	 * @throws Exception */
@@ -133,19 +134,23 @@ public class T16Action {
 //		String str=currentTi.toString();
 //		String Year=str.substring(str.length()-4, str.length()) ;
 		HttpServletResponse response = ServletActionContext.getResponse() ;	
+		System.out.println(this.getSelectYear());
 		String pages = t16Ser.auditingData(this.getSelectYear()) ;
+		boolean flag = false;
+		if(pages!=null){
+			flag= true;
+		}
 //		System.out.println("pages="+pages);
 		PrintWriter out = null ;
 		
-		if(pages == null){
-			
+		if(flag == false){
+			System.out.print("无该年数据!!!");
 			response.setContentType("text/html;charset=UTF-8") ;
 			out = response.getWriter() ;
-			out.println( "<script language='javascript'>window.alert('无该年数据');</script>" ); 
+			out.print("{\"data\":\"无该年数据!!!\"}"); 
 		}else{
-		
-			try {				
-//				System.out.println(json) ;
+			try {
+				System.out.println(pages) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(pages) ;
@@ -187,6 +192,48 @@ public class T16Action {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			out.print("{\"state\":false,data:\"保存失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+		out.flush() ;
+	}
+	
+	
+	//复制往年数据
+	public void copy(){
+		System.out.println("ccccccccccccccccccccccccccccccccccc");
+		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		//得到需要复制的年份的数据
+		List<T16Bean> list = t16Ser.getBean() ;
+		Date newYear = TimeUtil.changeDateY(this.getSelectYear());
+		//System.out.println("year:"+this.getSelectYear());
+		//System.out.println(newYear);
+		//设置时间
+		T16Bean bean1 = list.get(0);
+		bean1.setTime(newYear);
+		T16Bean bean2 = list.get(1);
+		bean2.setTime(newYear);
+		List<T16Bean> newlist= new ArrayList<T16Bean>();
+		newlist.add(bean1);newlist.add(bean2);
+		//插入
+		boolean flag = t16Ser.insert(newlist);
+		//System.out.println(flag);
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"mesg\":\"success\"}") ;
+			}else{
+				out.print("{\"mesg\":\"fail\"}") ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"导入失败!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;

@@ -80,6 +80,9 @@ public class T11Action {
 	//save的字段
 	private String fields;
 	
+	/** 接收年份*/
+	private String copyYear ;
+	
 
 	public String getFields() {
 		return fields;
@@ -107,29 +110,35 @@ public class T11Action {
 	//查询出所有
 	public void loadInfo() throws Exception{
 		System.out.println("nnnnnnnn");
+		//System.out.println(this.getSelectYear());
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
-		
-		T11POJO pojo = t11Ser.loadData(this.getSelectYear()) ;
+		System.out.println(this.getSelectYear());
+		String pages = t11Ser.loadData(this.getSelectYear()) ;
+		System.out.println("pages:"+pages);
+		boolean flag = false;
+		if(pages!=null){
+			flag=true;
+		}
+		//T11POJO pojo = t11Ser.loadData(this.getSelectYear()) ;
 		
 		//private JSONObject jsonObj;
-		pojo.setTime(null);
-		String json = JsonUtil.beanToJson(pojo);
-		
+//		pojo.setTime(null);
+//		String json = JsonUtil.beanToJson(pojo);
+//		System.out.println("json:"+json);
 		PrintWriter out = null ;
 
-		if(pojo == null){
-			System.out.println("no data");
+		if(flag == false){
+			System.out.println("无该年数据!!!");
 			response.setContentType("text/html;charset=UTF-8") ;
 			out = response.getWriter() ;
-			out.println( "<script language='javascript'>window.alert('无该年数据');</script>" ); 
+			out.print("{\"data\":\"无该年数据!!!\"}"); 
 		}else{
-			System.out.println("have data");
-			try {				
-//				System.out.println(json) ;
+			try {
+				System.out.println(pages) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
-				out.print(json) ;
+				out.print(pages) ;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -141,6 +150,7 @@ public class T11Action {
 			}
 		}
 	}
+	
 	
 
 	//保存
@@ -175,32 +185,6 @@ public class T11Action {
 		}
 		out.flush() ;
 	}
-
-	/**  为界面加载数据  */
-	public void auditingData(){
-		
-		Date date=new Date();
-		String cuYear=date.toString();
-		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
-		
-		T11POJO pojo = t11Ser.auditingData(year) ;
-		String json = JsonUtil.beanToJson(pojo);
-		
-		PrintWriter out = null ;
-		
-		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print(json) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
 	
 
 	/**  编辑数据  */
@@ -231,6 +215,40 @@ public class T11Action {
 				out.close() ;
 			}
 		}
+	}
+	
+	//复制往年数据
+	public void copy(){
+		System.out.println("ccccccccccccccccccccccccccccccccccc");
+		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		//得到需要复制的年份的数据
+		T11Bean bean = t11Ser.getBean() ;
+		Date newYear = TimeUtil.changeDateY(this.getSelectYear());
+		//System.out.println("year:"+this.getSelectYear());
+		//System.out.println(newYear);
+		bean.setTime(newYear);
+		boolean flag = t11Ser.insert(bean);
+		//System.out.println(flag);
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"mesg\":\"success\"}") ;
+			}else{
+				out.print("{\"mesg\":\"fail\"}") ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"导入失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+		out.flush() ;
 	}
 
 //	/**利用模板導入*/
@@ -439,6 +457,16 @@ public class T11Action {
 		this.excelName = excelName;
 	}
 	
+	public String getCopyYear() {
+		return copyYear;
+	}
+
+
+	public void setCopyYear(String copyYear) {
+		this.copyYear = copyYear;
+	}
+
+
 	public static void main(String args[]){
 		String match = "[\\d]+" ;
 		System.out.println("23gfhf4".matches(match)) ;

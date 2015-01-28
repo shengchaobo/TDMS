@@ -27,9 +27,17 @@ public class T16Service {
 	 *
 	 * @time: 2014-5-14/上午10:52:05
 	 */
-	public boolean insert(T16Bean t16Bean){
-		
-		return t16Dao.insert(t16Bean) ;
+	public boolean insert(List<T16Bean> list){
+		System.out.println("++++++");
+		T16Bean bean1 =list.get(0);
+		T16Bean bean2 = list.get(1);
+		boolean flag = false;
+		boolean flag1 = t16Dao.insert(bean1);
+		boolean flag2 = t16Dao.insert(bean2);
+		if(flag1&&flag2){
+			flag=true;
+		}
+		return flag;
 	}
 	
 	/**
@@ -50,7 +58,7 @@ public class T16Service {
 		}
 		return str;
   }
-	
+
 	/**编辑保存*/
 	public Boolean save(String data, String year,	String fields){
 		System.out.println("++++++");
@@ -91,6 +99,11 @@ public class T16Service {
 			}
 		}
 		return flag;
+	}
+	
+	/**得到最近年份的数据*/
+	public List<T16Bean> getBean(){
+		return t16Dao.getBean();
 	}
 	
 	public List<T16POJO> forExcel(String year){

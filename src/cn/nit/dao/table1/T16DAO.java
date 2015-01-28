@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import cn.nit.bean.table1.T151Bean;
 import cn.nit.bean.table1.T16Bean;
 import cn.nit.dbconnection.DBConnection;
 
@@ -128,6 +129,35 @@ public class T16DAO {
 		
 		return list ;
 	}
+	
+	
+	/**取出最近年份的数据*/
+	public List<T16Bean> getBean(){
+		StringBuffer sql = new StringBuffer() ;
+		List<T16Bean> list = new  ArrayList<T16Bean>();
+		
+		sql.append("select top 2 * from "+tableName) ;
+		sql.append(" order by Time desc") ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T16Bean.class) ;
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return list;
+	} 
 	
 	/**
 	 * 保存数据
@@ -335,19 +365,18 @@ public class T16DAO {
 	public static void main(String arg[])
 	{
 		T16DAO dao=new T16DAO();
-		List<T16POJO> list = dao.forExcel("2013");
-		if(list == null){
-			System.out.println("空");
-		}else{
-			T16POJO pojo = list.get(0);
-			System.out.println(pojo.getContents1());
-			System.out.println(pojo.getItem1());
-			System.out.println(pojo.getContents2());
-			System.out.println(pojo.getItem2());
-		}
-		
-		
-      
+//		List<T16POJO> list = dao.forExcel("2013");
+//		if(list == null){
+//			System.out.println("空");
+//		}else{
+//			T16POJO pojo = list.get(0);
+//			System.out.println(pojo.getContents1());
+//			System.out.println(pojo.getItem1());
+//			System.out.println(pojo.getContents2());
+//			System.out.println(pojo.getItem2());
+//		}
+		List<T16Bean> list = dao.getBean();
+		System.out.println(list.size());
 
 	}
 

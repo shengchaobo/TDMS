@@ -20,7 +20,8 @@ $(function(){
 				        { "name": "14 办学本科教育年份", "group": "学校概况", "value": "", "field": "sch_BeginTime", "editor": {
 				        	"type":"numberbox",
 				        	"options":{
-				            	"min":0,
+				            	"min":1000,
+				            	"max":9999,
 				            	"precision":0
 				            }		
 				        } },
@@ -49,11 +50,26 @@ $(function(){
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
-			                    var i = 0;
-			                    while(i<rows.length){
-			                    	rows[i].value = eval('json.'+rows[i].field);	
-			                    	i= i+1;
-			                    }														
+							  if(typeof(json.data)!="undefined"){
+								  if(confirm("该年数据为空，是否导入最近往年数据？"))
+								  {
+									  copy();
+								  }else
+								  {
+									  var i = 0;
+					                    while(i<rows.length){
+					                    	rows[i].value = eval('json.'+rows[i].field);	
+					                    	i=i+1;
+					                    }	 
+								  }
+					  			}else{
+					  				 var i = 0;
+					                    while(i<rows.length){
+					                    	rows[i].value = eval('json.'+rows[i].field);	
+					                    	i=i+1;
+					                    }	
+					  			}
+			                   											
 							},
 			                error: function(XMLResponse) {
 //								alert(XMLResponse.responseText);
@@ -85,11 +101,26 @@ $(function(){
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
-			                    var i = 0;
-			                    while(i<rows.length){
-			                    	rows[i].value = eval('json.'+rows[i].field);	
-			                    	i=i+1;
-			                    }								
+		       					if(typeof(json.data)!="undefined")
+			  					{
+			  						if(confirm("该年数据为空，是否导入最近往年数据？")){
+					  					copy();
+					  					//var flag = true;
+					  				}else{
+					  				  var i = 0;
+					                    while(i<rows.length){
+					                    	rows[i].value = eval('json.'+rows[i].field);	
+					                    	i= i+1;
+					                    }
+					  				}
+			  					}else
+			  					{
+			  						 var i = 0;
+					                    while(i<rows.length){
+					                    	rows[i].value = eval('json.'+rows[i].field);	
+					                    	i= i+1;
+					                    	}
+			  						}										
 							},
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
@@ -154,6 +185,35 @@ $(function(){
 				     reloadgrid (year,false) 
 				     $('#edit').propertygrid('loadData', rows);
 				});	
+			   
+			 //复制
+			   function copy(){		
+				   var year = $("#cbYearContrast").combobox('getValue'); 
+					var flag = true;
+				  // alert(selectYear);
+			 				    $.ajax({
+			 				    	type:"POST", 
+								    url: "pages/T11/copy?selectYear="+year, 
+							   		async : false,
+							   		dataType : "json",
+							   		success : function(json) {
+					    				//if(json.mesg == 'success'){
+					    					//alert("导入成功");
+					    				//}
+					    				if(json.mesg == 'fail'){
+					    					alert("导入失败");
+					    					flag = false;
+					    				}
+					    				//reloadgrid (year,flag) 	;
+								},
+				                error: function(XMLResponse) {
+										alert("导入失败");
+										flag = false;
+				                }
+			 				});
+			 				   reloadgrid (year,flag) 	;
+			     }
+
 				
 			   //导出
 			   $("#export").click(function(){

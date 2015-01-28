@@ -9,6 +9,9 @@
 	    <action name="loadInfo" class="cn.nit.action.table1.T11Action" method="loadInfo" />
 	     <!-- 编辑数据 -->
 	    <action name="save" class="cn.nit.action.table1.T11Action" method="save" />
+	     <!-- 复制数据 -->
+	    <action name="copy" class="cn.nit.action.table1.T11Action" method="copy" />
+	     <!-- 删除数据 -->
 	     <!-- 删除数据 -->
 	    <action name="deleteByIds" class="cn.nit.action.table1.T11Action" method="deleteCoursesByIds" />
 	     <!-- 数据查询 -->

@@ -29,13 +29,22 @@ $(function(){
 				    		dataType : "json",
 				    		success : function(json) {
 					  			if(typeof(json.data)!="undefined"){
-					  				alert(json.data);
-					  			}
-			                    var i = 0;
-			                    while(i<rows.length){
-			                    	rows[i].value = eval('json.'+rows[i].field);	
-			                    	i= i+1;
-			                    }														
+					  				if(confirm("该年数据为空，是否导入最近往年数据？")){
+					  					copy();
+					  				}else{
+					  					 var i = 0;
+						                    while(i<rows.length){
+						                    	rows[i].value = eval('json.'+rows[i].field);	
+						                    	i=i+1;
+						                    }	
+					  				}
+					  			}else{
+					  			  var i = 0;
+				                    while(i<rows.length){
+				                    	rows[i].value = eval('json.'+rows[i].field);	
+				                    	i= i+1;
+				                    }		
+					  			}											
 							},
 			                error: function(XMLResponse) {
 			                      alert("该年数据为空!!!");
@@ -67,13 +76,24 @@ $(function(){
 				    		dataType : "json",
 				    		success : function(json) {
 					  			if(typeof(json.data)!="undefined"){
-					  				alert(json.data);
+					  				
+					  				if(confirm("该年数据为空，是否导入最近往年数据？")){
+					  					copy();
+					  				}else{
+					  					 var i = 0;
+						                    while(i<rows.length){
+						                    	rows[i].value = eval('json.'+rows[i].field);	
+						                    	i=i+1;
+						                    }	 
+					  				}
+					  			}else{
+					  			  var i = 0;
+				                    while(i<rows.length){
+				                    	rows[i].value = eval('json.'+rows[i].field);	
+				                    	i=i+1;
+				                    }	
 					  			}
-			                    var i = 0;
-			                    while(i<rows.length){
-			                    	rows[i].value = eval('json.'+rows[i].field);	
-			                    	i=i+1;
-			                    }								
+			                  							
 							},
 			                error: function(XMLResponse) {
 			                   // alert(XMLResponse.responseText
@@ -89,6 +109,34 @@ $(function(){
 		    		})
 			   }	
 
+		       	
+		        //复制
+				   function copy(){		
+					   var year = $("#cbYearContrast").combobox('getValue'); 
+						var flag = true;
+					  // alert(selectYear);
+				 				    $.ajax({
+				 				    	type:"POST", 
+									    url: "pages/T16/copy?selectYear="+year, 
+								   		async : false,
+								   		dataType : "json",
+								   		success : function(json) {
+						    				//if(json.mesg == 'success'){
+						    					//alert("导入成功");
+						    				//}
+						    				if(json.mesg == 'fail'){
+						    					alert("导入失败");
+						    					flag = false;
+						    				}
+						    				//reloadgrid (year,flag) 	;
+									},
+					                error: function(XMLResponse) {
+											alert("导入失败");
+											flag = false;
+					                }
+				 				});
+				 				   reloadgrid (year,flag) 	;
+				     }
 			   //保存
 			   $("#save").click(function(){
 					var  s= '';

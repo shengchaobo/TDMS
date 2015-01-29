@@ -24,7 +24,7 @@ public class T285_Dao {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "TeaUnit,UnitID,SumEquNum,AboveTenEquNum,SumEquAsset,NewAddAsset,AboveTenEquAsset,Time,Note" ;
+	private String field = "TeaUnit,UnitID,SumEquNum,AboveTenEquNum,SumEquAsset,NewAddAsset,AboveTenEquAsset,Time,Note,checkState" ;
 
 	
     /**
@@ -41,16 +41,16 @@ public class T285_Dao {
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T285_Bean> list = null ;
-		//System.out.println(sql);
+		System.out.println(sql);
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
 			list = DAOUtil.getList(rs, T285_Bean.class) ;
 			
 			//如果当前年表中没有单位列数据，先将单位列数据插入到表中
-			if(list.size()==0){
+			if(list.size() == 0){
 				String sql1 = "select " + key + "," + "UnitName AS TeaUnit,DiDepartment.UnitID,SumEquNum,AboveTenEquNum," +
-						"SumEquAsset,NewAddAsset,AboveTenEquAsset,Time," + tableName + ".Note" +
+						"SumEquAsset,NewAddAsset,AboveTenEquAsset,Time,checkState," + tableName + ".Note" +
 						" from DiDepartment" +
 						" left join " + tableName + " on DiDepartment.UnitID = " + tableName + ".UnitID " +
 						" and convert(varchar(4),Time,120)=" + "'" + year + "'" +
@@ -204,6 +204,39 @@ public class T285_Dao {
 		}
 		
 		return bean ;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(String year, String unitName, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where TeaUnit='" + unitName + "' and convert(varchar(4),Time,120)=" + year;			
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	public static void main(String arg[]){

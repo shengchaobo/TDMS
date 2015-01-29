@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div>
   <br/>
   
- <table id="edit" class="easyui-propertygrid"  ></table>
+ <table id="edit" class="easyui-propertygrid" ></table>
  <div id="toolbar" style="height:30px;">
 		<div style="float: left;">	
 			<a href="javascript:void(0)" id="save" class="easyui-linkbutton" iconCls="icon-save" plain="true"  onclick="getSave()">保存</a>

@@ -39,13 +39,17 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
 import cn.nit.bean.table2.T285_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table2.T285_Dao;
+import cn.nit.service.CheckService;
 import cn.nit.service.table2.T285_Service;
 import cn.nit.util.JsonUtil;
 
 public class T285_Action {
 	
 	private T285_Service T285_Service = new T285_Service();
+	
+	private CheckService check_services = new CheckService();
 	
 	private T285_Bean T285_bean = new T285_Bean();
 	
@@ -56,6 +60,9 @@ public class T285_Action {
 
 	/**  导出的excelName名 */
 	private String excelName ;
+	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
 
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
@@ -93,10 +100,21 @@ public class T285_Action {
 	/**  编辑数据  */
 	public void edit(){
 
+		int tag = 1;
 		T285_Bean oldBean = T285_Service.findBySeqNum(T285_bean.getSeqNumber());
 		String teaUnitName = "全校合计：";
 		T285_Bean sumBean = T285_Service.findSumBean(teaUnitName,this.getSelectYear());
-		
+		//首次编辑待审核
+		if(sumBean.getCheckState() == 0){
+			sumBean.setCheckState(Constants.WAIT_CHECK);
+		}
+		//审核不通过再编辑待审核
+		else if(sumBean.getCheckState() == Constants.NOPASS_CHECK){
+			sumBean.setCheckState(Constants.WAIT_CHECK);
+			int year = Integer.parseInt(this.getSelectYear());
+			check_services.delete("T285", year);
+			tag = 2;
+		}
 		sumBean.setSumEquNum(sumBean.getSumEquNum()+(T285_bean.getSumEquNum()-oldBean.getSumEquNum()));
 		sumBean.setAboveTenEquNum(sumBean.getAboveTenEquNum()+(T285_bean.getAboveTenEquNum()-oldBean.getAboveTenEquNum()));
 		sumBean.setSumEquAsset(sumBean.getSumEquAsset()+(T285_bean.getSumEquAsset()-oldBean.getSumEquAsset()));
@@ -104,23 +122,59 @@ public class T285_Action {
 		sumBean.setAboveTenEquAsset(sumBean.getAboveTenEquAsset()+(T285_bean.getAboveTenEquAsset()-oldBean.getAboveTenEquAsset()));
 		
 		T285_bean.setTime(oldBean.getTime());
-		boolean flag = T285_Service.update(T285_bean) ;		
-		boolean flag0 = T285_Service.update(sumBean) ;
+		boolean flag0 = T285_Service.update(T285_bean) ;		
+		boolean flag1 = T285_Service.update(sumBean) ;
 		
 		PrintWriter out = null ;
 	
 		try{
 			response.setContentType("text/html; charset=UTF-8") ;
 			out = response.getWriter() ;
-			if(flag&&flag0){
-				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
-			}else{
-				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
+			if(tag == 1){
+				if(flag0&&flag1){
+					out.print("{\"state\":true,data:\"编辑成功!!!\"}") ;
+				}else{
+					out.print("{\"state\":true,data:\"编辑成功!!!\"}") ;
+				}				
+			}
+			else if(tag == 2){
+				if(flag0&&flag1){
+					out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+				}else{
+					out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+				}		
 			}
 			out.flush() ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		
+		HttpServletResponse response = ServletActionContext.getResponse();
+		String UnitName = "全校合计：";
+		boolean flag = T285_Service.updateCheck(this.getSelectYear(), UnitName, this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
@@ -240,7 +294,7 @@ public class T285_Action {
 		        						}
 		        						if(((String) wrapper.getPropertyValue(column)).equals("全校合计：")){
 		        							ws.addCell(new Label(maplist.get(column).intValue()-1,i+3,(String) wrapper.getPropertyValue(column),wcf1));
-		        							ws.mergeCells(0,i+3,3,i+3);
+		        							ws.mergeCells(0,i+3,2,i+3);
 		        						}else{
 		        							ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column),wcf1));
 		        						}
@@ -314,6 +368,14 @@ public class T285_Action {
 	public static void main(String arg[]){
 		T285_Action s=new T285_Action();
 		 		
+	}
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
 	}
 	
 	

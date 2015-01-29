@@ -285,7 +285,6 @@ error : function(XMLResponse) {
 				}
 			});
 		});
-
 })
 
 function reloadgrid(year, flag) {

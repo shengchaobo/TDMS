@@ -25,6 +25,7 @@ public class T285_Bean implements java.io.Serializable {
     private Double aboveTenEquAsset;
 	private Date time;
 	private String note;
+	private int checkState;
 	
 	// Property accessors
 	@Id
@@ -107,6 +108,14 @@ public class T285_Bean implements java.io.Serializable {
 
 	public String getNote() {
 		return note;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

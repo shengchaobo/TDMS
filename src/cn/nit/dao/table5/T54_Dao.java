@@ -24,6 +24,45 @@ public class T54_Dao {
 	
 	CheckDao checkDao = new CheckDao();
 	
+	
+	/**
+	 * 用于教育部导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public T54_Bean totalList(String year){
+		
+		String sql = "select " + " " + keyfield + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year+
+		" and CheckState ="+Constants.PASS_CHECK;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T54_Bean> list = null ;
+		T54_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T54_Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return bean ;
+	}
+		
+	
+	
+	
 	/**
 	 * 获取字典表的所有数据
 	 * @return
@@ -250,8 +289,10 @@ public class T54_Dao {
 	
 	public static void main(String args[]){
 		T54_Dao testDao =  new T54_Dao() ;
-		boolean flag = testDao.updatCheck();
-		System.out.println(flag);
+		T54_Bean bean = testDao.totalList("2016");
+		if(bean==null){
+			System.out.println("为空");
+		}
 	}
 
 }

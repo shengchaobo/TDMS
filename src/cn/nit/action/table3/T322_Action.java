@@ -22,6 +22,7 @@ import cn.nit.bean.table3.T322_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table3.T322_DAO;
 import cn.nit.excel.imports.table3.T322Excel;
+import cn.nit.pojo.table3.T322POJO;
 import cn.nit.service.CheckService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table3.T322_Service;
@@ -357,19 +358,23 @@ public class T322_Action {
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String fillUnitID = bean.getUnitID();
 
+
 		InputStream inputStream = null ;
 
 		try {
 			
-			List<T322_Bean> list = t322_DAO.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+			List<T322POJO> list = t322_DAO.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("专业名称");columns.add("专业代码");columns.add("代码版本");
+			columns.add("校内专业名称");columns.add("校内专业代码");
 			columns.add("专业方向名称");columns.add("专业方向号");columns.add("专业设置时间");columns.add("批文号");columns.add("学制");columns.add("学位授予门类");
-			columns.add("开始招生时间");columns.add("招生状态");columns.add("停止招生时间");columns.add("是否新办专业");columns.add("批准建设年度");columns.add("建设批文号");
+			columns.add("开始招生时间");columns.add("招生状态");columns.add("停止招生时间");columns.add("是否新办专业");
+			columns.add("专业特色简述");columns.add("专业培养目标简述");
+			columns.add("批准建设年度");columns.add("建设批文号");
 			columns.add("级别");columns.add("类型");columns.add("领域、方向");columns.add("建设负责人");columns.add("教工号");columns.add("验收时间");
 			columns.add("验收批文号");columns.add("学校经费(万元)");columns.add("教育部经费(万元)");columns.add("首次通过认证时间");columns.add("认证时间");columns.add("批文号");
 			columns.add("认证结果");columns.add("有效期(起)");columns.add("有效期(起)");columns.add("认证机构");columns.add("总学时数");columns.add("必修课学时数");
@@ -380,14 +385,20 @@ public class T322_Action {
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("SeqNum", 0);maplist.put("MajorName", 1);maplist.put("MajorID", 2);maplist.put("MajorVersion", 3);maplist.put("MajorField", 4);maplist.put("MajorFieldID", 5);
-			maplist.put("MajorSetTime", 6);maplist.put("MajorAppvlID", 7);maplist.put("MajorDurition", 8);maplist.put("MajorDegreeType", 9);maplist.put("MajorAdmisTime", 10);maplist.put("MajorState", 11);
-			maplist.put("StopAdmisTime", 12);maplist.put("IsNewMajor", 13);maplist.put("AppvlYear", 14);maplist.put("BuildAppvlID", 15);maplist.put("MajorLevel", 16);maplist.put("Type", 17);
-			maplist.put("Field", 18);maplist.put("Leader", 19);maplist.put("TeaID", 20);maplist.put("CheckTime", 21);maplist.put("CheckAppvlID", 22);maplist.put("SchExp",23);
-			maplist.put("EduMinistryExp", 24);maplist.put("FirstAppvlTime", 25);maplist.put("AppvlTime", 26);maplist.put("AppvlID", 27);maplist.put("AppvlResult", 28);maplist.put("FromTime",29);
-			maplist.put("EndTime", 30);maplist.put("AppvlAuth", 31);maplist.put("TotalCSHour", 32);maplist.put("RequireCShour", 33);maplist.put("OptionCSHour", 34);maplist.put("InClassCSHour", 35);
-			maplist.put("ExpCSHour", 36);maplist.put("PraCSHour", 37);maplist.put("TotalCredit", 38);maplist.put("RequireCredit", 39);maplist.put("OptionCredit", 40);maplist.put("InClassCredit", 41);
-			maplist.put("ExpCredit", 42);maplist.put("PraCredit", 43);maplist.put("OutClassCredit", 44);
+			maplist.put("SeqNum", 0);maplist.put("MajorName", 1);maplist.put("MajorID", 2);
+			maplist.put("SchMajorName", 3);maplist.put("SchMajorID", 4);
+			maplist.put("MajorVersion", 5);maplist.put("MajorField", 6);maplist.put("MajorFieldID", 7);
+			maplist.put("MajorSetTime", 8);maplist.put("MajorAppvlID", 9);maplist.put("MajorDurition", 10);
+			maplist.put("MajorDegreeType", 11);maplist.put("MajorAdmisTime", 12);maplist.put("MajorState", 13);
+			maplist.put("StopAdmisTime", 14);maplist.put("IsNewMajor", 15);
+			maplist.put("MajorFeature", 16);maplist.put("MajorPurpose", 17);
+			maplist.put("AppvlYear", 18);maplist.put("BuildAppvlID", 19);maplist.put("MajorLevel", 20);maplist.put("Type", 21);
+			maplist.put("Field", 22);maplist.put("Leader", 23);maplist.put("TeaID", 24);maplist.put("CheckTime", 25);
+			maplist.put("CheckAppvlID", 26);maplist.put("SchExp",27);
+			maplist.put("EduMinistryExp", 28);maplist.put("FirstAppvlTime", 29);maplist.put("AppvlTime", 30);maplist.put("AppvlID", 31);maplist.put("AppvlResult", 32);maplist.put("FromTime",33);
+			maplist.put("EndTime", 34);maplist.put("AppvlAuth", 35);maplist.put("TotalCSHour", 36);maplist.put("RequireCShour", 37);maplist.put("OptionCSHour", 38);maplist.put("InClassCSHour", 39);
+			maplist.put("ExpCSHour", 40);maplist.put("PraCSHour", 41);maplist.put("TotalCredit", 42);maplist.put("RequireCredit", 43);maplist.put("OptionCredit", 44);maplist.put("InClassCredit", 45);
+			maplist.put("ExpCredit", 46);maplist.put("PraCredit", 47);maplist.put("OutClassCredit", 48);
 
 			inputStream = new ByteArrayInputStream(T322Excel.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {

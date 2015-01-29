@@ -10,6 +10,8 @@
 	    <action name="loadInfo" class="cn.nit.action.table1.T16Action" method="loadInfo" />
 	     <!-- 编辑数据 -->
 	    <action name="save" class="cn.nit.action.table1.T16Action" method="save" />
+	        <!-- 编辑数据 -->
+	    <action name="copy" class="cn.nit.action.table1.T16Action" method="copy" />
 	    <!-- 删除数据 -->
 	    <action name="deleteByYear" class="cn.nit.action.table1.T16Action" method="deleteByYear" />
 	      <!-- 数据查询 -->

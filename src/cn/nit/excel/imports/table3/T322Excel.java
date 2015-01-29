@@ -127,8 +127,18 @@ public class T322Excel {
 						
 					}
 					
-					String MajorField=cell[4].getContents();
-					String MajorFieldID=cell[5].getContents();
+					String SchMajorName=cell[4].getContents();
+					String SchMajorID=cell[5].getContents();
+					if(SchMajorName == null || SchMajorName.equals("")||SchMajorName.length()>200){
+						return "第" + count + "行，校内专业名称不能为空且字数不能超过100";
+					} 
+					
+					if(SchMajorID == null || SchMajorID.equals("")||SchMajorID.length()>50){
+						return "第" + count + "行，校内专业代码不能为空且字符数不能超过50";
+					}
+					
+					String MajorField=cell[6].getContents();
+					String MajorFieldID=cell[7].getContents();
 					if(MajorField == null || MajorField.equals("")){
 						return "第" + count + "行，专业方向名称没有请填无";
 					}
@@ -136,7 +146,7 @@ public class T322Excel {
 						return "第" + count + "行，专业方向号没有请填无";
 					}
 					
-					String MajorSetTime = cell[6].getContents() ;
+					String MajorSetTime = cell[8].getContents() ;
 					
 					if(MajorSetTime == null || MajorSetTime.equals("")){
 						return "第" + count + "行，专业设置时间不能为空" ;
@@ -146,13 +156,13 @@ public class T322Excel {
 						return "第" + count + "行，专业设置时间格式有误（格式如：2013-02）" ;
 					}
 				    
-				    String MajorAppvlID = cell[7].getContents();
+				    String MajorAppvlID = cell[9].getContents();
 				    
 				    if(MajorAppvlID == null || MajorAppvlID.equals("")){
 				    	return "第" + count + "行，批文号不能为空" ;
 				    }
 
-					String MajorDurition1 = cell[8].getContents();
+					String MajorDurition1 = cell[10].getContents();
 					if(MajorDurition1 == null || MajorDurition1.equals("")){
 				    	return "第" + count + "行，学制不能为空" ;
 				    }
@@ -169,7 +179,7 @@ public class T322Excel {
 
 					
 					
-					String MajorDegreeType=cell[9].getContents();
+					String MajorDegreeType=cell[11].getContents();
 					if(MajorDegreeType == null || MajorDegreeType.equals("")){
 				    	return "第" + count + "行，学位授予每类不能为空" ;
 				    }
@@ -177,18 +187,18 @@ public class T322Excel {
 						return "第" + count + "行，学位授予门类输入有误" ;
 					}
 					
-					String MajorAdmisTime = cell[10].getContents() ;
+					String MajorAdmisTime = cell[12].getContents() ;
 					if(MajorAdmisTime == null || MajorAdmisTime.equals("")){
 						return "第" + count + "行，开始招生时间不能为空" ;
 					}
 				    if(!TimeUtil.judgeFormatYM(MajorAdmisTime)){
 						return "第" + count + "行，开始招生时间格式有误（格式如：2013-02）" ;
 					}
-					String MajorState=cell[11].getContents();
+					String MajorState=cell[13].getContents();
 					if(MajorState == null || MajorState.equals("")){
 						return "第" + count + "行，招生状态不能为空" ;
 					}
-					String StopAdmisTime=cell[12].getContents();
+					String StopAdmisTime=cell[14].getContents();
 
 					if(MajorState.equals("在招")){
 						if(!StopAdmisTime.isEmpty()){
@@ -211,7 +221,7 @@ public class T322Excel {
 
 					
 					boolean IsNewMajor;
-					String IsNewMajor1=cell[13].getContents();
+					String IsNewMajor1=cell[15].getContents();
 				    if(IsNewMajor1.equals("是")){
 				    	IsNewMajor=true;
 				    }else if(IsNewMajor1.equals("否")){
@@ -220,7 +230,19 @@ public class T322Excel {
 				    	return  "第" + count + "行，是否新办专业必须为是或否 ";
 				    }
 				    
-					String AppvlYear = cell[14].getContents() ;
+				    String MajorFeature=cell[16].getContents();
+				    String MajorPurpose=cell[17].getContents();
+				    
+				    if(MajorFeature == null || MajorFeature.equals("")||MajorFeature.length()>1000){
+						return "第" + count + "行，专业特色不能为空且字数不能超过500";
+					} 
+					
+					if(MajorPurpose == null || MajorPurpose.equals("")||MajorPurpose.length()>100){
+						return "第" + count + "行，专业培养目标不能为空且字符数不能超过500";
+					}
+				    
+				    
+					String AppvlYear = cell[18].getContents() ;
 					
 					if(AppvlYear == null || AppvlYear.equals("")){
 						return "第" + count + "行，批准建设年度不能为空" ;
@@ -230,13 +252,13 @@ public class T322Excel {
 						return "第" + count + "行，批准建设年度格式有误（格式如：2013-02）" ;
 					}
 				    
-				    String BuildAppvlID = cell[15].getContents();
+				    String BuildAppvlID = cell[19].getContents();
 				    
 				    if(BuildAppvlID == null || BuildAppvlID.equals("")){
 				    	return "第" + count + "行，建设批文号不能为空" ;
 				    }
 
-				    String MajorLevel=cell[16].getContents();
+				    String MajorLevel=cell[20].getContents();
 					if(MajorLevel == null || MajorLevel.equals("")){
 						return "第" + count + "行，级别不能为空";
 					}
@@ -256,19 +278,19 @@ public class T322Excel {
 					
 					
 					
-					String Type=cell[17].getContents();
+					String Type=cell[21].getContents();
 					if(!(Type.equals("特色专业")||Type.equals("品牌专业")||Type.equals("名牌专业")||Type.equals("示范专业")||Type.equals("重点建设专业")||Type.equals("地方优势专业"))){
 						return "第" + count + "行，所填类型有误" ;
 					}
 					
-				    String Field = cell[18].getContents();
+				    String Field = cell[22].getContents();
 				    
 				    if(Field == null || Field.equals("")){
 				    	return "第" + count + "行，领域、方向不能为空" ;
 				    }
 
-					String Leader = cell[19].getContents();
-					String TeaID=cell[20].getContents();
+					String Leader = cell[23].getContents();
+					String TeaID=cell[24].getContents();
 					
 					if(Leader == null || Leader.equals("")){
 						return "第" + count + "行，建设负责人不能为空";
@@ -296,7 +318,7 @@ public class T322Excel {
 						flag=false;
 					}
 					
-					String CheckTime = cell[21].getContents() ;
+					String CheckTime = cell[25].getContents() ;
 					
 					if(CheckTime == null || CheckTime.equals("")){
 						return "第" + count + "行，验收时间不能为空" ;
@@ -306,21 +328,21 @@ public class T322Excel {
 						return "第" + count + "行，验收时间格式有误（格式如：2013-02）" ;
 					}
 					
-				    String CheckAppvlID = cell[22].getContents();
+				    String CheckAppvlID = cell[26].getContents();
 				    
 				    if(CheckAppvlID == null || CheckAppvlID.equals("")){
 				    	return "第" + count + "行，验收批文号不能为空" ;
 				    }
 
 				    Pattern pattern = Pattern.compile("([-\\+]?[0-9]([0-9]*)(\\.[0-9]+)?)|(^0$)"); 
-				    String SchExp1=cell[23].getContents();
+				    String SchExp1=cell[27].getContents();
 				    if(SchExp1 == null || SchExp1.equals("")){
 				    	return "第" + count + "行，学校经费(万元)不能为空" ;
 				    }else if(!pattern.matcher(SchExp1).matches()){
 				    	return "第" + count + "行，学校经费(万元)应该填数字" ;
 				    }
 				    double SchExp = Double.parseDouble(SchExp1);
-				    String EduMinistryExp1 = cell[24].getContents();
+				    String EduMinistryExp1 = cell[28].getContents();
 				    if(EduMinistryExp1 == null || EduMinistryExp1.equals("")){
 				    	return "第" + count + "行，教育部经费(万元)不能为空" ;
 				    }else if(!pattern.matcher(EduMinistryExp1).matches()){
@@ -329,13 +351,13 @@ public class T322Excel {
 				    double EduMinistryExp=Double.parseDouble(EduMinistryExp1);
 				    
 				
-					String FirstAppvlTime = cell[25].getContents() ;
-					String AppvlTime = cell[26].getContents() ;
-				    String AppvlID = cell[27].getContents();
-					String AppvlResult=cell[28].getContents();
-					String FromTime = cell[29].getContents() ;
-					String EndTime = cell[30].getContents() ;
-				    String AppvlAuth = cell[31].getContents();
+					String FirstAppvlTime = cell[29].getContents() ;
+					String AppvlTime = cell[30].getContents() ;
+				    String AppvlID = cell[31].getContents();
+					String AppvlResult=cell[32].getContents();
+					String FromTime = cell[33].getContents() ;
+					String EndTime = cell[34].getContents() ;
+				    String AppvlAuth = cell[35].getContents();
 				    
 					if(AppvlResult == null || AppvlResult.equals("")){
 						return "第" + count + "行，认证结果不能为空" ;
@@ -442,7 +464,7 @@ public class T322Excel {
 				    }
 				    
 
-				    String TotalCSHour1 = cell[32].getContents();
+				    String TotalCSHour1 = cell[36].getContents();
 				    
 				    if(TotalCSHour1 == null || TotalCSHour1.equals("")){
 				    	return "第" + count + "行，总学时数不能为空" ;
@@ -451,7 +473,7 @@ public class T322Excel {
 				    }
 				    int TotalCSHour=Integer.parseInt(TotalCSHour1);
 				    
-				    String RequireCShour1 = cell[33].getContents();
+				    String RequireCShour1 = cell[37].getContents();
 				 
 				    if(RequireCShour1 == null || RequireCShour1.equals("")){
 				    	return "第" + count + "行，没有必修课学时数请填0" ;
@@ -460,7 +482,7 @@ public class T322Excel {
 				    }
 				    int RequireCShour=Integer.parseInt(RequireCShour1);
 				    
-				    String OptionCSHour1 = cell[34].getContents();
+				    String OptionCSHour1 = cell[38].getContents();
 			
 				    if(OptionCSHour1 == null || OptionCSHour1.equals("")){
 				    	return "第" + count + "行，没有选修课学时数请填0" ;
@@ -469,7 +491,7 @@ public class T322Excel {
 				    }
 				    int OptionCSHour=Integer.parseInt(OptionCSHour1);
 				    
-				    String InClassCSHour1 = cell[35].getContents();
+				    String InClassCSHour1 = cell[39].getContents();
 				  
 				    if(InClassCSHour1 == null || InClassCSHour1.equals("")){
 				    	return "第" + count + "行，没有课内教学学时数请填0" ;
@@ -478,7 +500,7 @@ public class T322Excel {
 				    }
 				    int InClassCSHour=Integer.parseInt(InClassCSHour1);
 				    
-				    String ExpCSHour1 = cell[36].getContents();
+				    String ExpCSHour1 = cell[40].getContents();
 				   
 				    if(ExpCSHour1 == null || ExpCSHour1.equals("")){
 				    	return "第" + count + "行，没有实验教学学时数请填0" ;
@@ -487,7 +509,7 @@ public class T322Excel {
 				    }
 				    int ExpCSHour=Integer.parseInt(ExpCSHour1);
 				    
-				    String PraCSHour1 = cell[37].getContents();
+				    String PraCSHour1 = cell[41].getContents();
 				   
 				    if(PraCSHour1 == null || PraCSHour1.equals("")){
 				    	return "第" + count + "行，没有集中性实践教学环节学时数请填0" ;
@@ -496,7 +518,7 @@ public class T322Excel {
 				    }
 				    int PraCSHour=Integer.parseInt(PraCSHour1);
 
-				    String TotalCredit1 = cell[38].getContents();
+				    String TotalCredit1 = cell[42].getContents();
 				    if(TotalCredit1 == null || TotalCredit1.equals("")){
 				    	return "第" + count + "行，总学分数不能为空" ;
 				    }else if(!pattern.matcher(TotalCredit1).matches()){
@@ -504,7 +526,7 @@ public class T322Excel {
 				    }
 				    double TotalCredit=Double.parseDouble(TotalCredit1);
 				    
-				    String RequireCredit1 = cell[39].getContents();
+				    String RequireCredit1 = cell[43].getContents();
 				    if(RequireCredit1 == null || RequireCredit1.equals("")){
 				    	return "第" + count + "行，没有必修课学分数请填0" ;
 				    }else if(!pattern.matcher(RequireCredit1).matches()){
@@ -512,7 +534,7 @@ public class T322Excel {
 				    }
 				    double RequireCredit=Double.parseDouble(RequireCredit1);
 				    
-				    String OptionCredit1 = cell[40].getContents();
+				    String OptionCredit1 = cell[44].getContents();
 				    if(OptionCredit1 == null || OptionCredit1.equals("")){
 				    	return "第" + count + "行，没有选修课学分数请填0" ;
 				    }else if(!pattern.matcher(OptionCredit1).matches()){
@@ -520,7 +542,7 @@ public class T322Excel {
 				    }
 				    double OptionCredit=Double.parseDouble(OptionCredit1);
 				    
-				    String InClassCredit1 = cell[41].getContents();
+				    String InClassCredit1 = cell[45].getContents();
 				    if(InClassCredit1 == null || InClassCredit1.equals("")){
 				    	return "第" + count + "行，没有课内教学学分数请填0" ;
 				    }else if(!pattern.matcher(InClassCredit1).matches()){
@@ -528,7 +550,7 @@ public class T322Excel {
 				    }
 				    double InClassCredit=Double.parseDouble(InClassCredit1);
 				    
-				    String ExpCredit1 = cell[42].getContents();				   
+				    String ExpCredit1 = cell[46].getContents();				   
 				    if(ExpCredit1 == null || ExpCredit1.equals("")){
 				    	return "第" + count + "行，没有实验教学学分数请填0" ;
 				    }else if(!pattern.matcher(ExpCredit1).matches()){
@@ -536,7 +558,7 @@ public class T322Excel {
 				    }
 				    double ExpCredit=Double.parseDouble(ExpCredit1);
 				    
-				    String PraCredit1 = cell[43].getContents();
+				    String PraCredit1 = cell[47].getContents();
 				    if(PraCredit1 == null || PraCredit1.equals("")){
 				    	return "第" + count + "行，没有集中实践教学环节学分数请填0" ;
 				    }else if(!pattern.matcher(PraCredit1).matches()){
@@ -544,7 +566,7 @@ public class T322Excel {
 				    }
 				    double PraCredit=Double.parseDouble(PraCredit1);
 				    
-				    String OutClassCredit1 = cell[44].getContents();
+				    String OutClassCredit1 = cell[48].getContents();
 				    if(OutClassCredit1 == null || OutClassCredit1.equals("")){
 				    	return "第" + count + "行，没有课外科技活动学分数请填0" ;
 				    }else if(!pattern.matcher(OutClassCredit1).matches()){
@@ -563,6 +585,11 @@ public class T322Excel {
 				
 				count++ ;
 				
+				
+				t322_Bean.setSchMajorID(SchMajorID);
+				t322_Bean.setSchMajorName(SchMajorName);
+				t322_Bean.setMajorFeature(MajorFeature);
+				t322_Bean.setMajorPurpose(MajorPurpose);
 				t322_Bean.setMajorName(MajorName);
 				t322_Bean.setMajorID(MajorID);
 				t322_Bean.setMajorVersion(MajorVersion);
@@ -709,15 +736,15 @@ public class T322Excel {
             }
             ws.addCell(new Label(0,2,"",wcf));
             ws.addCell(new Label(1,2,"1.专业设置情况",wcf));
-            ws.addCell(new Label(14,2,"2.优势专业建设情况",wcf));
-            ws.addCell(new Label(25,2,"3.专业认证（评估）情况",wcf));
-            ws.addCell(new Label(32,2,"1.学时数（学时）",wcf));
-            ws.addCell(new Label(38,2,"2.学分数（学分）",wcf));
-            ws.mergeCells(1, 2, 13, 2);
-            ws.mergeCells(14, 2, 24, 2);
-            ws.mergeCells(25, 2, 31, 2);
-            ws.mergeCells(32, 2, 37, 2);
-            ws.mergeCells(38, 2, 44, 2);
+            ws.addCell(new Label(18,2,"2.优势专业建设情况",wcf));
+            ws.addCell(new Label(29,2,"3.专业认证（评估）情况",wcf));
+            ws.addCell(new Label(36,2,"1.学时数（学时）",wcf));
+            ws.addCell(new Label(42,2,"2.学分数（学分）",wcf));
+            ws.mergeCells(1, 2, 17, 2);
+            ws.mergeCells(18, 2, 28, 2);
+            ws.mergeCells(29, 2, 35, 2);
+            ws.mergeCells(36, 2, 41, 2);
+            ws.mergeCells(42, 2, 48, 2);
 
   
                 //判断表中是否有数据  

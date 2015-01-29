@@ -10,6 +10,8 @@ public class T322POJO {
 	
 	private  String  MajorID ;
 	
+	private String MajorIDID;
+	
 	private String MajorVersion ;
 	
 	private String SchMajorName;
@@ -544,6 +546,14 @@ public class T322POJO {
 
 	public void setMajorLevelID(String majorLevelID) {
 		MajorLevelID = majorLevelID;
+	}
+
+	public String getMajorIDID() {
+		return MajorIDID;
+	}
+
+	public void setMajorIDID(String majorIDID) {
+		MajorIDID = majorIDID;
 	}
 
 }

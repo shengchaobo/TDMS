@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import cn.nit.bean.table1.T11Bean;
 import cn.nit.bean.table1.T152Bean;
+import cn.nit.bean.table1.T16Bean;
 import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T11POJO;
@@ -73,6 +75,61 @@ public class T11DAO {
 		return flag ;
 	}
 	
+	//是否存在某年数据
+    public int countDate(String year){
+   	 int n= 0;
+   	 StringBuffer sql = new StringBuffer();
+   	 sql.append("select count(*) AS Count from "+tableName+ "");
+   	 sql.append("  where Time like '"+year+"%'");
+   	 
+   		Connection conn = DBConnection.instance.getConnection() ;
+   		Statement st = null ;
+   		ResultSet rs = null ;
+   		try{
+   			st = conn.createStatement();
+   			rs = st.executeQuery(sql.toString());
+   			while(rs.next()){
+   				n = rs.getInt("Count");
+   			}
+   		}catch(Exception e){
+   			e.printStackTrace() ;
+   			return n ;
+   		}
+   	 return n;
+    }
+    
+    /**
+     * 取出最近年份的数据
+     * */
+
+	public T11Bean getBean(){
+		StringBuffer sql = new StringBuffer() ;
+		List<T11Bean> list = new  ArrayList<T11Bean>();
+		T11Bean bean = new T11Bean();
+		
+		sql.append("select top 1 * from "+tableName) ;
+		sql.append(" order by Time desc") ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T11Bean.class) ;
+			bean = list.get(0);
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}finally{
+			DBConnection.close(conn);
+			DBConnection.close(rs);
+			DBConnection.close(st);			
+		}
+		
+		return bean;
+	} 
 	/**
 	 * @param conditions 查询条件
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
@@ -292,7 +349,8 @@ public class T11DAO {
     public static void main(String arg[])
     {
     	T11DAO dao=new T11DAO();
-//    	T11Bean bean=dao.auditingData("2014");
+    	T11Bean bean=dao.getBean();
+    	System.out.println(bean.getAdmissonBatch());
 //    	System.out.println(bean.getMajDept());
     }
 

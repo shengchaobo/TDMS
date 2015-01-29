@@ -221,9 +221,10 @@ public class T321_DAO {
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.MainClassName,t.MainClassID,t.ByPassTime," +
 				"t.MajorNameInSch,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.UnitName,t.UnitID,"+
-				"t.Note,t.Time");
+				"t.Note,t.Time,t.CheckState");
 		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ");
-		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID and t.Time like '"+year+"%'");
+		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID " +
+				"and t.CheckState="+Constants.PASS_CHECK+"and t.Time like '"+year+"%'");
 		sql.append(" order by cast(MainClassID as int)") ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

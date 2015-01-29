@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>C412</title>
+<title>C322</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 <body style="height: 100%" >  
-	<table  id="checkData"  class="easyui-datagrid"  url="pages/UndergraMajorInfoTea/loadMajorTea?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
+	<table  id="checkData"  class="easyui-datagrid"  url="pages/UndergraMajorInfoTea/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
@@ -123,6 +123,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="majorName" >专业名称</th>
 				<th field="majorID" >专业代码</th>
 					<th field="majorVersion" >代码版本</th>
+					<th field="schMajorName" >校内专业名称</th>
+				<th field="schMajorID" >校内专业代码</th>
 				<th field="majorField" >专业方向名称</th>
 				<th field="majorFieldID" >专业方向号</th>
 				<th field="majorSetTime"  formatter="formattime">专业设置时间</th>
@@ -133,6 +135,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="majorState" >招生状态</th>
 				<th field="stopAdmisTime"  formatter="formattime">停止招生时间</th>
 				<th field="isNewMajor" formatter="booleanstr" >是否新办专业</th>
+				<th field="majorFeature">专业特色简述</th>
+				<th field="majorPurpose">专业培养目标简述</th>
 				<th field="appvlYear"  formatter="formattime">批准建设年度</th>
 				<th field="buildAppvlID" >建设批文号</th>
 				<th field="majorLevel" >级别</th>
@@ -237,5 +241,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
+	
+	<script type="text/javascript"> 
+			//日期格式转换 
+			function formattime(val) {  
+				
+				if(val == null){
+					return null ;
+				}
+				
+			    var year=parseInt(val.year)+1900;  
+			    var month=(parseInt(val.month)+1);  
+			    month=month>9?month:('0'+month);  
+			    var date=parseInt(val.date);  
+			    date=date>9?date:('0'+date);  
+			    var hours=parseInt(val.hours);  
+			    hours=hours>9?hours:('0'+hours);  
+			    var minutes=parseInt(val.minutes);  
+			    minutes=minutes>9?minutes:('0'+minutes);  
+			    var seconds=parseInt(val.seconds);  
+			    seconds=seconds>9?seconds:('0'+seconds);  
+			    var time=year+'-'+month+'-'+date ;  
+			    //alert(time) ;
+			        return time;  
+			    }  
+			</script>
+			<script type="text/javascript"> 
+		    function booleanstr(val) { 	 
+		    	if(val == null){
+					return null ;
+				}
+				var bo1=""+val;//吧boolean型转换成str类型再判断
+				var boo;
+				if( bo1 == "false") {
+					boo="否" ;
+				}else if (bo1 == "true"){
+
+					boo="是" ;
+				}
+				return boo;
+	        }  
+
+		    function rowformater(value,row,index)
+		    {
+		    	return "<a href='javascript:passCheck(" + row.seqNumber+")'>审核通过</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href ='javascript:openDig("+ row.seqNumber+ "," + row.fillUnitID +")'>审核不通过</a>";
+		    }
+			</script>
 </body>
 </html>

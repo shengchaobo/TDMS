@@ -205,7 +205,7 @@ public class T313_DAO {
 				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time,t.CheckState");
 		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
 		sql.append(" where   dpt.UnitID=t.UnitID and t.Time like '"+year+"%'");
-		sql.append(" and t.CheckState="+Constants.WAIT_CHECK);
+		sql.append(" and t.CheckState="+Constants.PASS_CHECK);
 			
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

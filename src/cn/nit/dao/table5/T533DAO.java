@@ -307,7 +307,7 @@ public class T533DAO {
 		",t.ExpRatio,t.Time,t.Note,t.FillUnitID,t.CheckState");
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
 		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
-		sql.append(" and t.Time like '"+year+"%' and t.CheckState ="+Constants.WAIT_CHECK);
+		sql.append(" and t.Time like '"+year+"%' and t.CheckState ="+Constants.PASS_CHECK);
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

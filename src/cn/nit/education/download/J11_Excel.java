@@ -158,11 +158,12 @@ public class J11_Excel {
 	           ws.addCell(new Label(3, 14, bean.getMajDept(), wcf1));
 	           ws.addCell(new Label(3, 15, bean.getSchUrl(), wcf1));
 	           ws.addCell(new Label(3, 16, bean.getAdmissonBatch(), wcf1));
-	           if(bean.getSch_BeginTime()==null){
-	        	   ws.addCell(new Label(3, 17,"", wcf1));
-	           }else{
-	        	   ws.addCell(new Label(3, 17, TimeUtil.changeFormat5(bean.getSch_BeginTime()), wcf1));  
-	           }
+	           ws.addCell(new Label(3, 17, bean.getSch_BeginTime(),wcf1));
+//	           if(bean.getSch_BeginTime()==null){
+//	        	   ws.addCell(new Label(3, 17,"", wcf1));
+//	           }else{
+//	        	   ws.addCell(new Label(3, 17, TimeUtil.changeFormat5(bean.getSch_BeginTime()), wcf1));  
+//	           }
 	           ws.addCell(new Label(3, 18, bean.getMediaUrl(), wcf1));
 	           ws.addCell(new Label(3, 19, bean.getYaohuSchAdd(), wcf1));
 	           ws.addCell(new Label(3, 20, bean.getPengHuSchAdd(), wcf1));

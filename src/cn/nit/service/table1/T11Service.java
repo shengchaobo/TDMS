@@ -33,43 +33,87 @@ public class T11Service {
 	}
 	
 	/**
-	 * 数据录入
+	 *取出数据
 	 * */
-	public T11POJO loadData(String year){
+	public String loadData(String Year){
 			
-		T11Bean bean = t11Dao.loadData(year) ;
-		T11POJO t11Pojo=new T11POJO();
-		t11Pojo.setAdmissonBatch(bean.getAdmissonBatch());
-		t11Pojo.setMajDept(bean.getMajDept());
-		t11Pojo.setMediaUrl(bean.getMediaUrl());
-		t11Pojo.setNote(bean.getNote());
-		t11Pojo.setPengHuSchAdd(bean.getPengHuSchAdd());
-		t11Pojo.setSch_BeginTime(TimeUtil.changeFormat5(bean.getSch_BeginTime()));
-		t11Pojo.setSchAddress(bean.getSchAddress());
-		t11Pojo.setSchBuilder(bean.getSchBuilder());
-		t11Pojo.setSchEnName(bean.getSchEnName());
-		t11Pojo.setSchFax(bean.getSchFax());
-		t11Pojo.setSchFillerEmail(bean.getSchFillerEmail());
-		t11Pojo.setSchFillerName(bean.getSchFillerName());
-		t11Pojo.setSchFillerTel(bean.getSchFillerTel());
-		t11Pojo.setSchID(bean.getSchID());
-		t11Pojo.setSchName(bean.getSchName());
-		t11Pojo.setSchQuality(bean.getSchQuality());
-		t11Pojo.setSchTel(bean.getSchTel());
-		t11Pojo.setSchType(bean.getSchType());
-		t11Pojo.setSchUrl(bean.getSchUrl());
-		t11Pojo.setYaohuSchAdd(bean.getYaohuSchAdd());
-		t11Pojo.setTime(bean.getTime());
-		t11Pojo.setSeqNumber(bean.getSeqNumber());
-//		System.out.println(t11Pojo.);
-//		System.out.println("total:"+total);
-//		System.out.println("list:"+list.size());
-//		JSON json = JSONSerializer.toJSON(bean) ;
-			
-//		System.out.println(json.toString()) ;
-			
-		return t11Pojo;
+		String str = null;
+		int n = t11Dao.countDate(Year);
+		if(n>0){
+			T11Bean t11Bean = t11Dao.loadData(Year);
+			//T11POJO t11pojo = this.pojoToBean(t11Bean);
+			JSON json = JSONSerializer.toJSON(t11Bean) ;
+			str = json.toString() ;
 		}
+		else if(n==0){
+			str = null;
+		}
+		return str;
+  }
+	/**
+//	 *取出数据
+//	 * */
+//	public String loadData(String Year){
+//			
+//		String str = null;
+//		int n = t11Dao.countDate(Year);
+//		if(n>0){
+//			T11Bean t11Bean = t11Dao.loadData(Year);
+//			T11POJO t11pojo = this.pojoToBean(t11Bean);
+////			System.out.println(list.size());
+////			T11Bean t11Bean=list.get(0);
+//			JSON json = JSONSerializer.toJSON(t11pojo) ;
+//			str = json.toString() ;
+//		}
+//		else if(n==0){
+//			str = null;
+//		}
+//		return str;
+//  }
+	
+//	/**
+//	 * 数据录入
+//	 * */
+//	public T11POJO loadData(String year){
+//			
+//		String str = null;
+//		int n = t11Dao.countDate(year);
+//		
+//		T11Bean bean = t11Dao.loadData(year) ;
+//		T11POJO t11Pojo=new T11POJO();
+//		t11Pojo.setAdmissonBatch(bean.getAdmissonBatch());
+//		t11Pojo.setMajDept(bean.getMajDept());
+//		t11Pojo.setMediaUrl(bean.getMediaUrl());
+//		t11Pojo.setNote(bean.getNote());
+//		t11Pojo.setPengHuSchAdd(bean.getPengHuSchAdd());
+//		t11Pojo.setSch_BeginTime(TimeUtil.changeFormat5(bean.getSch_BeginTime()));
+//		t11Pojo.setSchAddress(bean.getSchAddress());
+//		t11Pojo.setSchBuilder(bean.getSchBuilder());
+//		t11Pojo.setSchEnName(bean.getSchEnName());
+//		t11Pojo.setSchFax(bean.getSchFax());
+//		t11Pojo.setSchFillerEmail(bean.getSchFillerEmail());
+//		t11Pojo.setSchFillerName(bean.getSchFillerName());
+//		t11Pojo.setSchFillerTel(bean.getSchFillerTel());
+//		t11Pojo.setSchID(bean.getSchID());
+//		t11Pojo.setSchName(bean.getSchName());
+//		t11Pojo.setSchQuality(bean.getSchQuality());
+//		t11Pojo.setSchTel(bean.getSchTel());
+//		t11Pojo.setSchType(bean.getSchType());
+//		t11Pojo.setSchUrl(bean.getSchUrl());
+//		t11Pojo.setYaohuSchAdd(bean.getYaohuSchAdd());
+//		t11Pojo.setTime(bean.getTime());
+//		t11Pojo.setSeqNumber(bean.getSeqNumber());
+////		System.out.println(t11Pojo.);
+////		System.out.println("total:"+total);
+////		System.out.println("list:"+list.size());
+////		JSON json = JSONSerializer.toJSON(bean) ;
+//			
+////		System.out.println(json.toString()) ;
+//			
+//		return t11Pojo;
+//		}
+//	
+	
 	
 	/**
 	 * 科研处
@@ -118,48 +162,48 @@ public class T11Service {
 		return t11Dao.deleteCoursesByIds(ids) ;
 	}
 	
-	/**
-	 * 生成查条件
-	 * @param seqNum
-	 * @param startDate
-	 * @param endDate
-	 * @return
-	 */
-	public String gernateAuditingConditions(int seqNum, Date startTime, Date endTime){
-		
-		if(seqNum == 0 && startTime == null && endTime == null){
-			return null ;
-		}
-		
-		StringBuffer sql = new StringBuffer() ;
-		
-		if(seqNum != 0){
-			sql.append(" and SeqNumber=" + seqNum) ;
-		}
-		
-		if(startTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(startTime) + "')as datetime)") ;
-		}
-		
-		if(endTime != null){
-			sql.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-					+ TimeUtil.changeFormat4(endTime) + "')as datetime)") ;
-		}
-		
-		return sql.toString() ;
+	public T11Bean getBean(){
+		return t11Dao.getBean();
 	}
-	
 	/**批量导入*/
 	public boolean batchInsert(List<T11Bean> list){
 		return t11Dao.batchInsert(list) ;
+	}
+	
+ public T11POJO pojoToBean(T11Bean bean){
+		 
+		 T11POJO t11Pojo=new T11POJO();
+			t11Pojo.setAdmissonBatch(bean.getAdmissonBatch());
+			t11Pojo.setMajDept(bean.getMajDept());
+			t11Pojo.setMediaUrl(bean.getMediaUrl());
+			t11Pojo.setNote(bean.getNote());
+			t11Pojo.setPengHuSchAdd(bean.getPengHuSchAdd());
+			t11Pojo.setSch_BeginTime(bean.getSch_BeginTime());
+			t11Pojo.setSchAddress(bean.getSchAddress());
+			t11Pojo.setSchBuilder(bean.getSchBuilder());
+			t11Pojo.setSchEnName(bean.getSchEnName());
+			t11Pojo.setSchFax(bean.getSchFax());
+			t11Pojo.setSchFillerEmail(bean.getSchFillerEmail());
+			t11Pojo.setSchFillerName(bean.getSchFillerName());
+			t11Pojo.setSchFillerTel(bean.getSchFillerTel());
+			t11Pojo.setSchID(bean.getSchID());
+			t11Pojo.setSchName(bean.getSchName());
+			t11Pojo.setSchQuality(bean.getSchQuality());
+			t11Pojo.setSchTel(bean.getSchTel());
+			t11Pojo.setSchType(bean.getSchType());
+			t11Pojo.setSchUrl(bean.getSchUrl());
+			t11Pojo.setYaohuSchAdd(bean.getYaohuSchAdd());
+			t11Pojo.setTime(bean.getTime());
+			t11Pojo.setSeqNumber(bean.getSeqNumber());
+		return t11Pojo;
 	}
    
 	
 	public static void main(String arg[])
 	{
-		T11Service ser=new T11Service();
-//        T11Bean bean=ser.loadData("2014");
+//		T11Service ser=new T11Service();
+//        String bean=ser.auditingData("2014");
+//        System.out.println(bean);
 //        if(bean == null){
 //        	System.out.println("无数据！");
 //        }else{

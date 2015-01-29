@@ -328,11 +328,14 @@ public class T11Excel {
 							  if(Sch_BeginTime.equals("")||Sch_BeginTime==null){
 									 return "第" + count + "开办本科教育年份不能为空" ;
 								 }
-							  if(!TimeUtil.judgeFormat3(Sch_BeginTime)){
-									 return "第" + count + "行，开办本科教育年份格式为：2014" ;
-								 }
-							    Date Year=TimeUtil.changeDateY(Sch_BeginTime);
-								 t11Bean.setSch_BeginTime(Year);
+							  if(!this.isNumeric(Sch_BeginTime)){
+								  return "第" + count + "开办本科教育年份只能填数字" ;
+							  }
+//							  if(!TimeUtil.judgeFormat3(Sch_BeginTime)){
+//									 return "第" + count + "行，开办本科教育年份格式为：2014" ;
+//								 }
+//							    Date Year=TimeUtil.changeDateY(Sch_BeginTime);
+								 t11Bean.setSch_BeginTime(Sch_BeginTime);
 								 break;
 								 
 				  case 17: String MediaUrl=cell[3].getContents();
@@ -423,9 +426,10 @@ public class T11Excel {
     	listStr.add(t11Bean.getSchID());listStr.add(t11Bean.getSchEnName());listStr.add(t11Bean.getSchType());
     	listStr.add(t11Bean.getSchQuality());listStr.add(t11Bean.getSchBuilder());listStr.add(t11Bean.getMajDept());
     	listStr.add(t11Bean.getSchUrl());listStr.add(t11Bean.getAdmissonBatch());
-    	String beginYear=TimeUtil.changeFormat5(t11Bean.getSch_BeginTime());
+    	listStr.add(t11Bean.getSch_BeginTime());
+    	//String beginYear=TimeUtil.changeFormat5(t11Bean.getSch_BeginTime());
 //    	String year=beginYear.substring(0, 4);
-    	listStr.add(beginYear);listStr.add(t11Bean.getMediaUrl());listStr.add(t11Bean.getYaohuSchAdd());
+    	listStr.add(t11Bean.getMediaUrl());listStr.add(t11Bean.getYaohuSchAdd());
     	listStr.add(t11Bean.getPengHuSchAdd());
     	return listStr;
     }
@@ -439,7 +443,18 @@ public class T11Excel {
           
         tem=matcher.matches();
         return tem;  
-    }  
+    } 
+    
+	/**判断字符串是否是数字*/
+	public boolean isNumeric(String str){
+		  for (int i = str.length();--i>=0;){   
+		   if (!Character.isDigit(str.charAt(i))){
+		    return false;
+		   }
+		  }
+		  return true;
+		 }
+	
     
     public static void main(String arg[]){
          T11Excel t11Excel=new T11Excel();

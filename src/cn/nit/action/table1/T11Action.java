@@ -193,7 +193,7 @@ public class T11Action {
 		t11Bean.setTime(new Date()) ;
 		System.out.println(this.Year);
 		Date ti=TimeUtil.changeDateY(this.Year);
-		t11Bean.setSch_BeginTime(ti);
+		//t11Bean.setSch_BeginTime(ti);
 //		System.out.println(t11Bean.getTime());
 		boolean flag = t11Ser.update(t11Bean) ;
 		PrintWriter out = null ;
@@ -387,7 +387,7 @@ public class T11Action {
 			           ws.addCell(new Label(3, 14, bean.getMajDept().toString(), wcf1));
 			           ws.addCell(new Label(3, 15, bean.getSchUrl().toString(), wcf1));
 			           ws.addCell(new Label(3, 16, bean.getAdmissonBatch().toString(), wcf1));
-			           ws.addCell(new Label(3, 17, TimeUtil.changeFormat5(bean.getSch_BeginTime()), wcf1));
+			           ws.addCell(new Label(3, 17, bean.getSch_BeginTime(), wcf1));
 			           ws.addCell(new Label(3, 18, bean.getMediaUrl().toString(), wcf1));
 			           ws.addCell(new Label(3, 19, bean.getYaohuSchAdd().toString(), wcf1));
 			           ws.addCell(new Label(3, 20, bean.getPengHuSchAdd().toString(), wcf1));

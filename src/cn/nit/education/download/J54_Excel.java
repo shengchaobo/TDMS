@@ -22,6 +22,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 import cn.nit.bean.table5.T54_Bean;
+import cn.nit.dao.table5.T54_Dao;
 import cn.nit.service.table5.T54_Service;
 import cn.nit.util.ExcelUtil;
 
@@ -30,9 +31,10 @@ public class J54_Excel {
 	public static boolean export_J54(String path){
 		
 		T54_Service T54_services = new T54_Service();
+		T54_Dao T54_dao = new T54_Dao();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 		String year = dateFormat.format(new Date());
-		T54_Bean bean = T54_services.getYearInfo(year);
+		T54_Bean bean = T54_dao.totalList(year);
 		
 	    ByteArrayOutputStream fos = null;
 		

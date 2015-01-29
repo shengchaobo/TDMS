@@ -211,7 +211,7 @@ public class T534DAO {
 		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
 		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
 				" and  dtn.IndexID = t.Title");
-		sql.append(" and   Time like '"+year+"%' and t.CheckState="+Constants.WAIT_CHECK);
+		sql.append(" and   Time like '"+year+"%' and t.CheckState="+Constants.PASS_CHECK);
 
 //		System.out.println(sql.toString());
 		

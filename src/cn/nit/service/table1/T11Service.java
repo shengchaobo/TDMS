@@ -35,15 +35,13 @@ public class T11Service {
 	/**
 	 *取出数据
 	 * */
-	public String loadData1(String Year){
+	public String loadData(String Year){
 			
 		String str = null;
 		int n = t11Dao.countDate(Year);
 		if(n>0){
 			T11Bean t11Bean = t11Dao.loadData(Year);
 			//T11POJO t11pojo = this.pojoToBean(t11Bean);
-//			System.out.println(list.size());
-//			T11Bean t11Bean=list.get(0);
 			JSON json = JSONSerializer.toJSON(t11Bean) ;
 			str = json.toString() ;
 		}
@@ -53,25 +51,25 @@ public class T11Service {
 		return str;
   }
 	/**
-	 *取出数据
-	 * */
-	public String loadData(String Year){
-			
-		String str = null;
-		int n = t11Dao.countDate(Year);
-		if(n>0){
-			T11Bean t11Bean = t11Dao.loadData(Year);
-			T11POJO t11pojo = this.pojoToBean(t11Bean);
-//			System.out.println(list.size());
-//			T11Bean t11Bean=list.get(0);
-			JSON json = JSONSerializer.toJSON(t11pojo) ;
-			str = json.toString() ;
-		}
-		else if(n==0){
-			str = null;
-		}
-		return str;
-  }
+//	 *取出数据
+//	 * */
+//	public String loadData(String Year){
+//			
+//		String str = null;
+//		int n = t11Dao.countDate(Year);
+//		if(n>0){
+//			T11Bean t11Bean = t11Dao.loadData(Year);
+//			T11POJO t11pojo = this.pojoToBean(t11Bean);
+////			System.out.println(list.size());
+////			T11Bean t11Bean=list.get(0);
+//			JSON json = JSONSerializer.toJSON(t11pojo) ;
+//			str = json.toString() ;
+//		}
+//		else if(n==0){
+//			str = null;
+//		}
+//		return str;
+//  }
 	
 //	/**
 //	 * 数据录入
@@ -180,7 +178,7 @@ public class T11Service {
 			t11Pojo.setMediaUrl(bean.getMediaUrl());
 			t11Pojo.setNote(bean.getNote());
 			t11Pojo.setPengHuSchAdd(bean.getPengHuSchAdd());
-			t11Pojo.setSch_BeginTime(TimeUtil.changeFormat5(bean.getSch_BeginTime()));
+			t11Pojo.setSch_BeginTime(bean.getSch_BeginTime());
 			t11Pojo.setSchAddress(bean.getSchAddress());
 			t11Pojo.setSchBuilder(bean.getSchBuilder());
 			t11Pojo.setSchEnName(bean.getSchEnName());

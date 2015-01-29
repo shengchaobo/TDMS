@@ -6,18 +6,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table7.J732POJO;
 import cn.nit.util.DAOUtil;
 
 public class J732_DAO {
 	String tableName="T722_TeachAchieveAward_Tea$";
-	String field="AwardName,Leader,TeaID,AwardLevel,AwardTime,AwardFromUnit";
+	String field="AwardName,Leader,TeaID,AwardLevel,AwardTime,AwardFromUnit,,CheckState";
 	
 	public List<J732POJO> getYearInfo(String year){
 		
 		String sql="select " + field + " from " + tableName + 
-				 " where convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120)=" + year;
+				 " where convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120)=" + year+" and CheckState="+Constants.PASS_CHECK;
 		Connection conn =DBConnection.instance.getConnection();
 		Statement st=null;
 		ResultSet rs=null;

@@ -17,6 +17,35 @@ $(function(){
 				        { "name": "11 主管部门", "group": "学校概况", "value": "", "field": "majDept", "editor": "text" },
 				        { "name": "12 学校网址", "group": "学校概况", "value": "", "field": "schUrl", "editor": "text" },
 				        { "name": "13 招生批次", "group": "学校概况", "value": "", "field": "admissonBatch", "editor": "text" },
+//				        {"name": "14 办学本科教育年份", "group": "学校概况","value":"","field": "sch_BeginTime",
+//				        	formatter:function(value,row,index){
+//				        		alert(123);
+//								if(val == null){
+//									return null ;
+//								}
+//								
+//							    var year=parseInt(val.year)+1900;  
+//							    var month=(parseInt(val.month)+1);  
+//							    month=month>9?month:('0'+month);  
+//							    var date=parseInt(val.date);  
+//							    date=date>9?date:('0'+date);  
+//							    var hours=parseInt(val.hours);  
+//							    hours=hours>9?hours:('0'+hours);  
+//							    var minutes=parseInt(val.minutes);  
+//							    minutes=minutes>9?minutes:('0'+minutes);  
+//							    var seconds=parseInt(val.seconds);  
+//							    seconds=seconds>9?seconds:('0'+seconds);  
+//							    var time=year+'-'+month+'-'+date ;  
+//							    //alert(time) ;
+//							        return time;  
+//				        	},
+//				        	
+//				        	"editor":{
+//				        	"type":"datebox",
+//				        	"options":{"required":true}
+//				        		}
+//				        },
+				       // { "name": "14办学本科教育年份", "group": "学校概况", "value": "", "field": "sch_BeginTime","editor":"datebox"},
 				        { "name": "14 办学本科教育年份", "group": "学校概况", "value": "", "field": "sch_BeginTime", "editor": {
 				        	"type":"numberbox",
 				        	"options":{
@@ -33,7 +62,7 @@ $(function(){
 				$('#edit').propertygrid({
 						title : '学校基本信息',
 						toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
-				        width: '60%',
+				        width: '40%',
 				        height: 'auto',
 				        showGroup: true,
 				        scrollbarSize: 0,
@@ -214,6 +243,30 @@ $(function(){
 			 				   reloadgrid (year,flag) 	;
 			     }
 
+			   
+			 //日期格式转换 
+				function formattime(val) {  
+					alert(123);
+					if(val == null){
+						return null ;
+					}
+					
+				    var year=parseInt(val.year)+1900;  
+				    var month=(parseInt(val.month)+1);  
+				    month=month>9?month:('0'+month);  
+				    var date=parseInt(val.date);  
+				    date=date>9?date:('0'+date);  
+				    var hours=parseInt(val.hours);  
+				    hours=hours>9?hours:('0'+hours);  
+				    var minutes=parseInt(val.minutes);  
+				    minutes=minutes>9?minutes:('0'+minutes);  
+				    var seconds=parseInt(val.seconds);  
+				    seconds=seconds>9?seconds:('0'+seconds);  
+				    var time=year+'-'+month+'-'+date ;  
+				    //alert(time) ;
+				        return time;  
+				    }  
+				
 				
 			   //导出
 			   $("#export").click(function(){

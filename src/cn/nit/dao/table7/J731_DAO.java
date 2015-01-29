@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table7.J731POJO;
 import cn.nit.util.DAOUtil;
@@ -13,7 +14,7 @@ import cn.nit.util.DAOUtil;
 public class J731_DAO {
 	String tableName="T721_TeachResItem_Tea$";
 	
-	String field="ItemName,Leader,TeaID,ItemLevel,ItemSetUpTime,ReceptTime,ApplvExp,OtherTeaNum";
+	String field="ItemName,Leader,TeaID,ItemLevel,ItemSetUpTime,ReceptTime,ApplvExp,OtherTeaNum,CheckState";
 		
 	/**
 	 * 获得当年所有数据
@@ -21,7 +22,7 @@ public class J731_DAO {
 	 */
 	public List<J731POJO> getYearInfo(String year){
 		String sql="select " +  field  + " from " + tableName +
-				    " where convert(varchar(4),T721_TeachResItem_Tea$.Time,120)=" + year;
+				    " where convert(varchar(4),T721_TeachResItem_Tea$.Time,120)=" + year+" and CheckState="+Constants.PASS_CHECK;
 		Connection conn=DBConnection.instance.getConnection();
 		Statement st=null;
 		ResultSet rs=null;

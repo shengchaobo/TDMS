@@ -27,6 +27,7 @@ public class T4_11_Bean implements java.io.Serializable {
 	private String note;
 	private String fillUnitID;
 	private Date time;
+	private int checkState;
 
 	// Property accessors
 	@Id
@@ -127,6 +128,14 @@ public class T4_11_Bean implements java.io.Serializable {
 
 	public String getFillUnitID() {
 		return fillUnitID;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

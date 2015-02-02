@@ -64,8 +64,14 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						myMarquee('T4_11', CTypeTwo)
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
 			});
@@ -75,7 +81,6 @@
 	function validate() {
 		// 获取文本框的值
 		//var time = $('#time').datetimebox('getValue');
-		var unitName = $('#unitId').combobox('getText');
 		var patentNum =  parseInt($('#patentNum').val());
 		var achieNum =  parseInt($('#achieNum').val());
 		var consNum=  parseInt($('#consNum').val());
@@ -89,10 +94,10 @@
 			return false;
 		}	*/
 		
-		if(unitName == null || unitName==""){
+/*		if(unitName == null || unitName==""){
 			alert("教学单位不能为空");
 			return false;
-	    }
+	    }*/
 
 		if($('#patentNum').val() == null || $('#patentNum').val()==""){
 			$('#patentNum').val(0) ;
@@ -149,7 +154,8 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改教学单位社会服务情况');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#unitId').combobox('select', row[0].unitId) ;
+    	$('#unitName').val(row[0].unitName) ;
+    	$('#unitId').val(row[0].unitId) ;
 		$('#patentNum').val(row[0].patentNum);
 		$('#achieNum').val(row[0].achieNum);
 		$('#consNum').val(row[0].consNum);
@@ -208,10 +214,14 @@
 
 			if (result.state) {
 				alert(result.data);
-				$('#unverfiedData').datagrid('reload');
+				myMarquee('T4_11', CTypeTwo);
+				$('#unverfiedData').datagrid('reload'); // reload the user data
 			}
 		}
     	}).submit();
     }
-
-	
+    
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
+    }

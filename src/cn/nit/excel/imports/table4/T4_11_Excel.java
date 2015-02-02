@@ -17,6 +17,7 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiAwardTypeBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table4.T4_11_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiAwardTypeService;
 import cn.nit.service.di.DiDepartmentService;
@@ -104,6 +105,9 @@ public class T4_11_Excel {
 				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 				String fillUnitID = bean.getUnitID();
 				T4_11_bean.setFillUnitID(fillUnitID);
+				
+				//插入审核状态
+				T4_11_bean.setCheckState(Constants.WAIT_CHECK);
 
 				list.add(T4_11_bean);
 								

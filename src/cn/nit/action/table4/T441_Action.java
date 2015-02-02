@@ -219,7 +219,6 @@ public class T441_Action {
 		int state = T441_services.getCheckState(T441_bean.getSeqNumber());
 		//如果审核状态是待审核，则直接修改
 		if(state == Constants.WAIT_CHECK){
-			System.out.println("test"+state);
 			T441_bean.setCheckState(Constants.WAIT_CHECK);
 			flag = T441_services.update(T441_bean) ;
 			if(flag) tag = 1;

@@ -1,5 +1,5 @@
-
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -33,21 +33,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 	<script type="text/javascript" src="js/commom.js"></script>
 	<script type="text/javascript" src="js/table4/T4_11.js"></script>
-	<script type="text/javascript"></script>
 </head>
 
-<body style="height: 100%'" >
-	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T4_11/loadSerInfo"  style="height: auto"  >
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
+<% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%'"  onload="myMarquee('T4_11','<%=request.getAttribute("CHECKTYPE") %>')">
+  <div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+  <br/> 
+	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T4_11/loadSerInfo?checkNum=<%=request.getAttribute("NOCHECK") %>"  style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				    <th data-options="field:'ck',checkbox:true" rowspan="2">选取</th>
 				    <th  data-options="field:'seqNumber'"  rowspan="2">编号</th>
-					<th data-options="field:'unitName'" rowspan="2">
-					 	教学单位
-					</th>
-					<th data-options="field:'unitId'" rowspan="2"> 
-						单位号
-					</th>
+    				<th  data-options="field:'checkState'"   formatter="formatCheckState"  rowspan="2">审核状态</th>
+					  <th data-options="field:'unitName'" rowspan="2">
+					 	 			教学单位
+						</th>
+						<th data-options="field:'unitId'" rowspan="2"> 
+									单位号
+						</th>
 		     </tr>
 		</thead>
 		<thead>
@@ -121,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 	</div>
 	
-	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
+	<table id="verfiedData"  class="easyui-datagrid"  url="pages/T4_11/loadSerInfo?checkNum=<%=request.getAttribute("PASS") %>"  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>			
 				    <th data-options="field:'ck',checkbox:true" rowspan="2">选取</th>
@@ -166,7 +175,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-		<a href='pages/T4_11/dataExport?excelName=<%=URLEncoder.encode("表4-11教学单位社会服务情况（教学单位）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
+			<form action='pages/T4_11/dataExport?excelName=<%=URLEncoder.encode("表4-11教学单位社会服务情况（教学单位）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>	
 	</div>
 	
 	<!--添加弹出框-->
@@ -185,24 +199,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<hr></hr>	
 		 <h3 class="title1">教学单位社会服务情况逐条导入</h3>
 	   <form id="addForm" method="post">
-		<table>
-			<tr>
-				<td colspan="3">
-					<input type="hidden" name="T4_11_bean.seqNumber" id="seqNumber"/>
-					<div class="fitem">
-						<label>教学单位：</label> 
-						<input type="hidden" name="T4_11_bean.unitName" id="unitName"/>
-						<input id="unitId" type="text" name="T4_11_bean.unitId" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
-							onSelect:function(){
-							    document.getElementById('unitName').value=$(this).combobox('getText') ;
-							 }">
-						 <span id="unitIdSpan"></span>
-					</div>
-				</td>
-			</tr>			
+		<table>	
 			<tr>
 				<td>
+					<input type="hidden" name="T4_11_bean.SeqNumber"  id="seqNumber"/>
+					<input type="hidden"  name="T4_11_bean.unitName" id="unitName"/>
+					<input type="hidden"  name="T4_11_bean.unitId"  id="unitId" >
  					<div class="fitem">
 					<label>专利转让数量：</label> 
 					<input id="patentNum" type="text" name="T4_11_bean.patentNum"
@@ -269,6 +271,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	theOption.innerHTML = currentYear-i + "年";
         	theOption.value = currentYear-i;
         	select.appendChild(theOption);
+    	}
+    	
+    	var select1 = document.getElementById("cbYearContrast1");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select1.appendChild(theOption);
     	}
 	</script>
 </html>

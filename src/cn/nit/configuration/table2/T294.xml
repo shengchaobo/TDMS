@@ -13,6 +13,8 @@
 	    <action name="deleteByIds" class="cn.nit.action.table2.T294_Action"  method="deleteByIds" />
 	    <!-- 更新相应信息 -->
 	    <action name="edit" class="cn.nit.action.table2.T294_Action"  method="edit" />
+  	 		 <!-- 修改审核状态 -->
+	    <action name="updateCheck" class="cn.nit.action.table2.T294_Action"  method="updateCheck" />
 	    
 	   <!-- 数据导出 -->
 	    <action name="dataExport" class="cn.nit.action.table2.T294_Action" method="execute">

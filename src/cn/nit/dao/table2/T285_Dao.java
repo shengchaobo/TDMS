@@ -218,7 +218,6 @@ public class T285_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where TeaUnit='" + unitName + "' and convert(varchar(4),Time,120)=" + year;			
 		System.out.println(sql);

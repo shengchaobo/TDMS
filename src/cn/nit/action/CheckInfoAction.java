@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.CheckInfo;
-import cn.nit.bean.UserinfoBean;
 import cn.nit.constants.Constants;
 import cn.nit.service.CheckService;
 

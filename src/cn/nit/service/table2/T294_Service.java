@@ -2,6 +2,7 @@ package cn.nit.service.table2;
 
 import java.util.List;
 
+import cn.nit.bean.table2.T285_Bean;
 import cn.nit.bean.table2.T294_Bean;
 import cn.nit.dao.table2.T294_Dao;
 
@@ -24,7 +25,7 @@ public class T294_Service {
 	 * @param 
 	 * @return
 	 */
-	public boolean update(T294_Bean bean, String year){
+	public int update(T294_Bean bean, String year){
 		return T294_Dao.update(bean, year) ;
 	}
 	
@@ -46,5 +47,14 @@ public class T294_Service {
 	 */
 	public double getYearSumDona(String year){
 		return T294_Dao.getYearSumDona(year);
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(String selectYear, String unitName, int checkState){
+		return T294_Dao.updateCheck(selectYear, unitName, checkState) ;
 	}
 }

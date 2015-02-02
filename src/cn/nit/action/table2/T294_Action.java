@@ -38,14 +38,19 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.table2.T285_Bean;
 import cn.nit.bean.table2.T294_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table2.T294_Dao;
+import cn.nit.service.CheckService;
 import cn.nit.service.table2.T294_Service;
 import cn.nit.util.JsonUtil;
 
 public class T294_Action {
 	
 	private T294_Service T294_Service = new T294_Service();
+	
+	private CheckService check_services = new CheckService();
 	
 	private T294_Bean T294_bean = new T294_Bean();
 	
@@ -59,6 +64,9 @@ public class T294_Action {
 	
 	/**  待审核数据的要删除的序列集  */
 	private String ids; //删除的id
+	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
 	
 
 	public String getIds() {
@@ -77,8 +85,6 @@ public class T294_Action {
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
 		List<T294_Bean> list=T294_Service.getYearInfo(this.getSelectYear());
-		//System.out.println(this.getSelectYear());
-		//System.out.println(list.size());
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
 		//System.out.println(json.toString());
@@ -133,19 +139,26 @@ public class T294_Action {
 	
 	/**  编辑数据  */
 	public void edit(){
-
-		boolean flag = T294_Service.update(T294_bean,this.getSelectYear()) ;
+		
+		int flag = T294_Service.update(T294_bean,this.getSelectYear()) ;
+		if(flag == 2){
+			int year = Integer.parseInt(this.getSelectYear());
+			check_services.delete("T294", year);
+		}
+		
 		PrintWriter out = null ;
 	
 		try{
 			response.setContentType("text/html; charset=UTF-8") ;
 			out = response.getWriter() ;
-			if(flag){
+			if(flag == 2){
+				//out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+			}else if(flag == 1){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
-			}
-			out.flush() ;
+			}			
 		}catch(Exception e){
 			e.printStackTrace() ;
 			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
@@ -154,17 +167,19 @@ public class T294_Action {
 				out.close() ;
 			}
 		}
+		out.flush() ;
 	}
 
 	/**  根据数据的id删除数据  */
 	public void deleteByIds(){
 		System.out.println("ids=" + this.getIds()) ;
 		boolean flag = T294_Service.deleteByIds(ids, this.getSelectYear()) ;
+		//删除审核不通过信息
+		int year = Integer.parseInt(this.getSelectYear());
+		check_services.delete("T294", year);
 		PrintWriter out = null ;
 		
-		try{
-			
-			
+		try{			
 			response.setContentType("application/json; charset=UTF-8") ;
 			out = response.getWriter() ;			
 			if(flag){
@@ -177,6 +192,33 @@ public class T294_Action {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		
+		HttpServletResponse response = ServletActionContext.getResponse();
+		String UnitName = "捐赠金额总计";
+		boolean flag = T294_Service.updateCheck(this.getSelectYear(), UnitName, this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
@@ -351,6 +393,14 @@ public class T294_Action {
 	public static void main(String arg[]){
 		T294_Action s=new T294_Action();
 		 		
+	}
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
 	}
 	
 	

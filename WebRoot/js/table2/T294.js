@@ -4,9 +4,9 @@
 	//只是用来展示的数据
 	$(function() {
 		var year = $("#cbYearContrast").combobox('getValue'); 
-		$('#showData').datagrid( {
-			title : '社会捐赠情况',  //可变内容在具体页面定义
-			url: 'pages/T294/loadInfo',
+		$('#newData').datagrid( {
+			//title : '社会捐赠情况',  //可变内容在具体页面定义
+			url: 'pages/T294/loadInfo?selectYear=' +year,
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -22,37 +22,41 @@
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
 					if(rowData.rows.length == 0){
-						alert("无该年数据！！！");
+						alert("该年数据为空");
+    					$("#newData").datagrid({title:'社会捐赠情况'});
+    					$("#newObject").show();
+    					$("#edit").show();
+    					$("#delete").show();
 					}else{
-						 if(count == 0 ) {			
-							var merges2 = [
-							  {
-				                  field:'donaName',
-				                  index: 0,
-				                  colspan: 2
-				              },
-							  {
-				                  field:'donaMoney',
-				                  index: 0,
-				                  colspan: 2
-				              }   
-				              ];
-	
-				            for (var i = 0; i < merges2.length; i++)
-				                $('#showData').datagrid('mergeCells', {
-				                    index: merges2[i].index,
-				                    field: merges2[i].field,
-				                    colspan: merges2[i].colspan,
-				                    rowspan: merges2[i].rowspan
-				             });	
-				            
-				            count++;
-						 }
-					}
-					},
-
-			queryParams:{
-				'selectYear': year
+					       if(count == 0 ) {				    	  				            
+					            count++;
+					            //alert(rowData.rows[0].checkState);
+								//设置表格状态
+								if(rowData.rows[0].checkState!=0){  		
+				    				if(rowData.rows[0].checkState==WAITCHECK){
+				    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>待审核</font>）'});
+				    					$("#newObject").show();
+				    					$("#edit").show();
+				    					$("#delete").show();
+					    				$("#export").hide();
+				    				}
+				    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
+				    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>审核通过</font>）'});
+				    					$("#newObject").hide();
+				    					$("#edit").hide();
+				    					$("#delete").hide();
+					    				$("#export").show();
+				    				}				    				
+				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
+				    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>审核未通过</font>）'});
+				    					$("#newObject").hide();
+				    					$("#edit").show();
+				    					$("#delete").show();
+					    				$("#export").hide();
+				    				}
+								}
+				        }
+				}
 			}
 		});
 		
@@ -60,21 +64,63 @@
 		//刷新页面
 		 $("#cbYearContrast").combobox({  
 	        onChange:function(newValue, oldValue){  
-				reloadgrid(newValue);
+				$('#newData').datagrid( {
+					//title : '社会捐赠情况',  //可变内容在具体页面定义
+					url: 'pages/T294/loadInfo?selectYear=' + newValue,
+					iconCls : 'icon-ok',
+					width : '100%',
+					//height: '100%',
+					nowrap : true,//设置为true，当数据长度超出列宽时将会自动截取
+					striped : true,//设置为true将交替显示行背景。
+					collapsible : true,//显示可折叠按钮
+					toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
+					singleSelect : false,//为true时只能选择单行
+					fitColumns : true,//允许表格自动缩放，以适应父容器
+					//sortName : 'xh',//当数据表格初始化时以哪一列来排序
+					//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
+					remoteSort : false,
+					rownumbers : true,
+					onLoadSuccess: function (rowData) {
+							if(rowData.rows.length == 0){
+								alert("该年数据为空");
+		    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况");
+		    					$("#newObject").show();
+		    					$("#edit").show();
+		    					$("#delete").show();
+		    					$("#export").hide();
+							}else{
+								//设置表格状态
+								if(rowData.rows[0].checkState!=0){  								
+				    				if(rowData.rows[0].checkState==WAITCHECK){
+				    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>待审核</font>）");
+				    					$("#newObject").show();
+				    					$("#edit").show();
+				    					$("#delete").show();
+					    				$("#export").hide();
+				    				}
+				    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
+				    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>审核通过</font>）");
+				    					$("#newObject").hide();
+				    					$("#edit").hide();
+				    					$("#delete").hide();
+					    				$("#export").show();
+				    				}				    				
+				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
+				    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>审核未通过</font>）");
+				    					$("#newObject").hide();
+				    					$("#edit").show();
+				    					$("#delete").show();
+					    				$("#export").hide();
+				    				}
+								}
+						}
+					}
+				});
 	        }
 	    }); 
-		 
-		//查询
-		function reloadgrid (year)  { 
-			//alert(year);
-	        //查询参数直接添加在queryParams中 
-	         var queryParams = $('#showData').datagrid('options').queryParams;  
-	         queryParams.selectYear = year;   
-	         $("#showData").datagrid('reload'); 
-	    }	
 		
 	   //导出
-	        $("#export").click(function(){
+	   $("#export").click(function(){
 	        var tableName = encodeURI('表2-9-4社会捐赠情况（计财处）');
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {
@@ -121,20 +167,26 @@
 						return validate();
 					},
 					// 结果返回
-					success : function(result) {
+					success : function(result) {						
 					// json格式转化
 					var result = eval('(' + result + ')');
 					$.messager.alert('温馨提示', result.data);
 					if (result.state) {
-						$('#dlg').dialog('close');
-						$('#showData').datagrid('reload');
+						if(result.tag==2){
+							$('#dlg').dialog('close');
+							myMarquee('T294', CTypeThree);
+							$('#newData').datagrid('reload'); // reload the user data
+						}else{
+							$('#dlg').dialog('close');
+							$('#newData').datagrid('reload'); // reload the user data
+						}
 					}
 				}
-				});
-		}
+			});
+	}
 
-		//对输入字符串进行验证
-		function validate() {
+	//对输入字符串进行验证
+	function validate() {
 			
 			// 获取文本框的值
 			var note = $('#note').val();
@@ -144,11 +196,10 @@
 				return false;
 			}
 			return true;
-		 }
+	}
 
 	function edit() {
-			
-	   	var row = $('#showData').datagrid('getSelections');
+	   	var row = $('#newData').datagrid('getSelections');
 	   	
 	   	if(row.length != 1){
 	   		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
@@ -178,7 +229,7 @@
 		   
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		// 获取选中项
-	   	var row = $('#showData').datagrid('getSelections');
+	   	var row = $('#newData').datagrid('getSelections');
 	   	if (row.length == 0) {
 	   		$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
 			return;
@@ -216,7 +267,9 @@
 	   		success : function(result) {
 				result = eval("(" + result + ")");
 				if (result.state) {
-					$('#showData').datagrid('reload');
+					alert(result.data);
+					myMarquee('T294', CTypeThree);
+					$('#newData').datagrid('reload'); // reload the user data
 				}
 			}
 	   	}).submit();

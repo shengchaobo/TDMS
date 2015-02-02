@@ -6,7 +6,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.nit.bean.table2.T285_Bean;
 import cn.nit.bean.table2.T294_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.TimeUtil;
@@ -25,7 +27,7 @@ public class T294_Dao {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "DonaName,Type,DonaMoney,Time,Note" ;
+	private String field = "DonaName,Type,DonaMoney,Time,Note,CheckState" ;
 
 	
     /**
@@ -123,6 +125,7 @@ public class T294_Dao {
 				T294_Bean.setDonaMoney(bean.getDonaMoney());
 				T294_Bean.setTime(TimeUtil.changeDateY(year));
 				T294_Bean.setNote("");
+				T294_Bean.setCheckState(Constants.WAIT_CHECK);
 				flag1 = DAOUtil.insert(T294_Bean, tableName, field, conn);
 				//重新打开数据库连接
 				Connection conn1 = DBConnection.instance.getConnection() ;	
@@ -162,7 +165,7 @@ public class T294_Dao {
 	public boolean deleteByIds(String ids, String year) {
 
 		int flag = 0;
-		boolean flag1 ;
+		boolean flag1 = false ;
 		StringBuffer sql = new StringBuffer();
 		sql.append("delete from " + tableName);
 		sql.append(" where " + key + " in " + ids);
@@ -170,16 +173,12 @@ public class T294_Dao {
 		
 		String sql0 = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year + " and DonaName=" + "'捐赠金额总计'" + ";";		
 		String sql1 = "select sum(DonaMoney) AS SumDelMoney from " + tableName + " where " + key + " in " + ids;
+		
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null ;
 		ResultSet rs0 = null ;
 		ResultSet rs1 = null ;
 		List<T294_Bean> templist = null ;
-		
-		System.out.println(sql.toString());
-		System.out.println(year);
-		System.out.println(sql0);
-		System.out.println(sql1);
 		
 		try {
 			st = conn.createStatement();
@@ -193,7 +192,21 @@ public class T294_Dao {
 				bean.setDonaMoney(bean.getDonaMoney()-sumDelMoney);
 			}
 			
-			flag1 = DAOUtil.update(bean, tableName, key, "DonaMoney", conn);
+			if(bean.getDonaMoney() == 0){
+				String sql2 = "delete from " + tableName + " where SeqNumber=" + bean.getSeqNumber();		
+				int flag3 = st.executeUpdate(sql2);
+				if(flag3 > 0){
+					flag1 = true;
+				}else{
+					flag1 = false;
+				}
+			}else{
+				if(bean.getCheckState() == Constants.NOPASS_CHECK){
+					bean.setCheckState(Constants.WAIT_CHECK);
+				}				
+				flag1 = DAOUtil.update(bean, tableName, key, "DonaMoney,CheckState", conn);
+			}
+
 			if(flag1){
 				//重新打开数据库连接
 				Connection conn1 = DBConnection.instance.getConnection() ;	
@@ -223,51 +236,65 @@ public class T294_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:23
 	 */	
-	public boolean update(T294_Bean bean, String year){
+	public int update(T294_Bean bean, String year){
 		
 		String sql0 = "select * from " + tableName + " where SeqNumber=" + bean.getSeqNumber();
 		String sql1 = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year + " and DonaName=" + "'捐赠金额总计'" + ";";		
-		boolean flag = false;
-		boolean flag0;
-		boolean flag1;
+		int flag = 0;
+		boolean flag0 = false;
+		boolean flag1 = false;
 		Connection conn = DBConnection.instance.getConnection() ;		
 		Statement st = null ;
 		ResultSet rs = null ;
+		Statement st1 = null ;
+		ResultSet rs1 = null ;
 		List<T294_Bean> templist = null ;
+		List<T294_Bean> templist1 = null ;
 		String updatefield = "Type,DonaMoney,Note";	
-		System.out.println(sql0);
-		System.out.println(sql1);
+		String updatefield1 = "Type,DonaMoney,Note,CheckState";	
 		
 		try{
+			//求编辑的那条数据
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql0) ;
-			templist = DAOUtil.getList(rs, T294_Bean.class) ;
-			
+			templist = DAOUtil.getList(rs, T294_Bean.class) ;			
 			T294_Bean tempBean = templist.get(0);
-			if(tempBean.getDonaMoney().equals(bean.getDonaMoney())){
-				flag = DAOUtil.update(bean, tableName, key, updatefield, conn) ;
-			}else{
-				st = conn.createStatement() ;
-				rs = st.executeQuery(sql1) ;
-				templist = DAOUtil.getList(rs, T294_Bean.class) ;
-				T294_Bean tempBean1 = templist.get(0);
+
+			//求捐赠总计bean			
+			st1 = conn.createStatement() ;
+			rs1 = st1.executeQuery(sql1) ;
+			templist1 = DAOUtil.getList(rs1, T294_Bean.class) ;
+			T294_Bean tempBean1 = templist1.get(0);
+			
+			if(tempBean1.getCheckState() == Constants.NOPASS_CHECK){
 				tempBean1.setDonaMoney(tempBean1.getDonaMoney()+(bean.getDonaMoney()-tempBean.getDonaMoney()));
-				flag0 = DAOUtil.update(tempBean1, tableName, key, updatefield, conn) ;
+				tempBean1.setCheckState(Constants.WAIT_CHECK);
+				flag0 = DAOUtil.update(bean, tableName, key, updatefield, conn) ;
 				//重新打开数据库连接
 				Connection conn1 = DBConnection.instance.getConnection() ;	
-				flag1 = DAOUtil.update(bean, tableName, key, updatefield, conn1) ;
-				if(flag0==true&&flag1==true){
-					flag = true;
+				flag1 = DAOUtil.update(tempBean1, tableName, key, updatefield1, conn1) ;					
+				
+				if(flag0&&flag1){
+					flag = 2;
 				}
-			}													
+			}else{
+				tempBean1.setDonaMoney(tempBean1.getDonaMoney()+(bean.getDonaMoney()-tempBean.getDonaMoney()));
+				flag0 = DAOUtil.update(bean, tableName, key, updatefield, conn) ;
+				//重新打开数据库连接
+				Connection conn1 = DBConnection.instance.getConnection() ;	
+				flag1 = DAOUtil.update(tempBean1, tableName, key, updatefield1, conn1) ;	
+				if(flag0&&flag1){
+					flag = 1;
+				}
+			}
+													
 		}catch(Exception e){
 			e.printStackTrace() ;
-			return false;
+			return 0;
 		}finally{
 			DBConnection.close(conn) ;
 		}
-		
-		return flag ;
+		return flag;
 	}
 	
 
@@ -293,6 +320,38 @@ public class T294_Dao {
 			DBConnection.close(conn) ;
 		}
 		return donaMoney;
+	}
+	
+	/**
+	 * 更新某条数据的审核状态
+	 * @param diCourseCategories
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:23
+	 */	
+	public boolean updateCheck(String year, String unitName, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where DonaName='" + unitName + "' and convert(varchar(4),Time,120)=" + year;			
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	public static void main(String arg[]){

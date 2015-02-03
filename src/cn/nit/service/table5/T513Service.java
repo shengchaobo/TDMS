@@ -57,15 +57,16 @@ public class T513Service {
 						list.add(5, pojo);
 					}
 				}
-			}else if (pojo.getItemID().equals("54003")){
-				if(pojo.getCategory()!=null){
-					if(pojo.getCategory().equals("理论课")){
-						list.add(6, pojo);
-					}else if(pojo.getCategory().equals("实践教学")){
-						list.add(7, pojo);
-					}
-				}
 			}
+//			else if (pojo.getItemID().equals("54003")){
+//				if(pojo.getCategory()!=null){
+//					if(pojo.getCategory().equals("理论课")){
+//						list.add(6, pojo);
+//					}else if(pojo.getCategory().equals("实践教学")){
+//						list.add(7, pojo);
+//					}
+//				}
+//			}
 		}
 		return list;
 	}

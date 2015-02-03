@@ -133,7 +133,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="guideTeaName">指导教师</th>
 				<th field="guideTeaNum">指导教师人数</th>
 				<th field="note">备注</th>
-				<th field="time" formatter="formattime">时间</th>
 				<th data-options="field:'fillUnitID',hidden:true">填报教学单位</th>
 				</tr>
 			</thead>

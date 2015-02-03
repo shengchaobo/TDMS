@@ -133,7 +133,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false">
 		<thead data-options="frozen:true">
-		<tr>			
+		<tr>	
+		<th data-options="field:'ck',checkbox:true">选取</th>		
 				<th  data-options="field:'seqNumber'" >编号</th>
 		     </tr>
 		</thead>

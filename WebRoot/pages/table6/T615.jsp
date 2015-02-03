@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="dualDegreeNum">双学位学生人数</th>
 				<th field="changeInNum">转入人数</th>
 				<th field="changeOutNum">转出人数</th>
-				<th field="time" formatter="formattime">时间</th>
+				<!--  <th field="time" formatter="formattime">时间</th>-->
 				<th field="note">备注</th>
 			</tr>
 		</thead>
@@ -126,6 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	url="pages/T615/loadData?checkNum=<%=request.getAttribute("PASS") %>" style="height: auto;" >
 		<thead   data-options="frozen:true">
 			<tr>
+			<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
 				<th field="majorName">校内专业（大类）名称</th>
 				<th field="majorId">校内专业（大类）代码</th>

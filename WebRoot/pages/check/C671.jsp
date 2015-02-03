@@ -135,7 +135,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th field="graduateTime" formatter="formattime">预计毕业时间</th>
 					
 					<th field="note">备注</th>
-					<th field="time" formatter="formattime">填写时间</th>
 				</tr>
 			</thead>
 	</table>

@@ -43,8 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th  data-options="field:'seqNumber'" hidden="true">编号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
-				<th field="habitusQualifiedRate" formatter="formatRatio">1.体质合格率（%）</th>
-				<th field="habitusTestReachRate" formatter="formatRatio"> 2.体质测试达标率（%）</th>
+				<th field="habitusQualifiedRate">1.体质合格率（%）</th>
+				<th field="habitusTestReachRate" > 2.体质测试达标率（%）</th>
 				<th field="note">备注</th>
 			</tr>		
 	</thead>

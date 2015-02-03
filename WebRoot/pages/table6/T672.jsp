@@ -76,7 +76,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="graduateTime" formatter="formattime">预计毕业时间</th>
 				
 				<th field="note">备注</th>
-				<th field="time" formatter="formattime">填写时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -127,6 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	url="pages/T672/loadData?checkNum=<%=request.getAttribute("PASS") %>"  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>
+			<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
 				<th field="stuName">学生姓名</th>
 				<th field="stuId">学号</th>

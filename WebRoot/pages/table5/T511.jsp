@@ -139,7 +139,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url="pages/T511/auditingData?checkNum=<%=request.getAttribute("PASS") %>">
 		<thead data-options="frozen:true">
-		<tr>			
+		<tr>		
+		<th data-options="field:'ck',checkbox:true">选取</th>	
 				<th  data-options="field:'seqNumber'" >编号</th>
 		     </tr>
 		</thead>

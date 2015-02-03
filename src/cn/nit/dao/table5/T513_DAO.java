@@ -43,7 +43,7 @@ public class T513_DAO {
 		sql.append("select t.SeqNumber,die.EvaluType as Item,t.Item as ItemID,t.Category,t.ShouldASCSNum,t.HavedASCSNum,t.CoverRatio,t.ExcellentNum,t.ExcellentRatio" +
 		",t.GoodNum,t.GoodRatio,t.AvgNum,t.AvgRatio,t.PoorNum,t.PoorRatio,t.Time,t.Note");
 		sql.append(" from "+tableName+" as t,DiEvaluType as die ");
-		sql.append(" where die.IndexID = t.Item ");
+		sql.append(" where die.IndexID = t.Item  and die.IndexID!='54003'");
 		sql.append(" and Time like '"+year+"%'");
 		
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -87,15 +87,15 @@ public class T513_DAO {
 			    		 case 5:bean.setItem("54002");
 		    		 		bean.setCategory("实践教学");
 		    		 		bean.setTime(time);
-		    		 		break;
-			    		 case 6:bean.setItem("54003");
-		    		 		bean.setCategory("理论课");
-		    		 		bean.setTime(time);
-		    		 		break;
-			    		 case 7:bean.setItem("54003");
-		    		 		bean.setCategory("实践教学");
-		    		 		bean.setTime(time);
-		    		 		break;		
+//		    		 		break;
+//			    		 case 6:bean.setItem("54003");
+//		    		 		bean.setCategory("理论课");
+//		    		 		bean.setTime(time);
+//		    		 		break;
+//			    		 case 7:bean.setItem("54003");
+//		    		 		bean.setCategory("实践教学");
+//		    		 		bean.setTime(time);
+//		    		 		break;		
 			    	}
 			    	list1.add(bean);
 			    }
@@ -419,30 +419,31 @@ public class T513_DAO {
 		return this.tableName ;
 	}
 	
-	public boolean delete(){
-		boolean flag = false;
-		StringBuffer sql = new StringBuffer();
-		sql.append("delete from "+tableName);
-		
+	
+	public boolean deleteAll(){
+		int flag = 0;
+		String sql ="delete from "+tableName;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-//		ResultSet rs = null;
+		ResultSet rs = null ;
 		try{
 			st = conn.createStatement();
-			int delflag = st.executeUpdate(sql.toString());
-			if(delflag>0){
-				flag = true;
-			}
+			flag = st.executeUpdate(sql);
+			
 		}catch(SQLException e){
-			e.printStackTrace();
-		}
-		return flag;
-		
+			e.printStackTrace() ;
+			return false ;
+		}	
+		if(flag == 0){
+			return false ;
+		}else{
+			return true ;
+		}	
 	}
 	
 	public static void main(String arg[]){
 		T513_DAO dao = new T513_DAO();
-		if(dao.delete()){
+		if(dao.deleteAll()){
 			System.out.println("删除完毕");
 		}
 //		List<T513POJO> list = dao.getYearInfo("2012");

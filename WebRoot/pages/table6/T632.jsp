@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="examGraOutSch">考取外校人数</th>
 				<th field="abroadNum">出国（境）留学人数</th>
 								
-				<th field="time" formatter="formattime">时间</th>
+			
 				<th field="note">备注</th>
 			</tr>
 		</thead>

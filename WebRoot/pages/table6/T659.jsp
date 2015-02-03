@@ -58,7 +58,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 				<th field="fillUnitID">填写单位</th>	
 				<th field="note">备注</th>
-				<th field="time" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>

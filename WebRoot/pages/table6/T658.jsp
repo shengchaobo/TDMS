@@ -73,7 +73,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="guideTeaName">指导教师</th>
 				<th field="guideTeaNum">指导教师人数</th>
 				<th field="note">备注</th>
-				<th field="time" formatter="formattime">时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -124,6 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	url="pages/T658/loadData?checkNum=<%=request.getAttribute("PASS") %>"   style="height: auto;" >
 			<thead data-options="frozen:true">
 			<tr>
+			<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>

@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="inProviEnrollNum">招收本省学生数</th>
 				<th field="newMajEnrollNum">新办专业招生数</th>
 				<th field="avgScore">招生录取平均分（分）</th>
-				<th field="time" formatter="formattime">时间</th>
+				
 				<th field="note">备注</th>
 			</tr>
 		</thead>

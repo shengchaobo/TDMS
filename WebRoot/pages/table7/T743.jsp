@@ -130,6 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		fitColumns="false" singleSelect="false">
 		<thead data-options="frozen:true">
 			<tr>
+			<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
 				<th field="CSName" >课程名称</th>
 				<th field="CSID" >课程编号</th>

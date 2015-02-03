@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="libAvgScore">文科当年录取平均分数（分）</th>
 				<th field="sciAvgScore">理科当年录取平均分数（分）</th>
 				<th field="note">说明</th>
-				<th field="time" formatter="formattime">填写时间</th>
+				
 				</tr>
 			</thead>
 	</table>

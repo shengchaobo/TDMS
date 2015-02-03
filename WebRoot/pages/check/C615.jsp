@@ -119,7 +119,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 				<tr>		
 					<th  data-options="field:'seqNumber'" >编号</th>
-					<th field="seqNumber">编号</th>
 				<th field="majorName">校内专业（大类）名称</th>
 				<th field="majorId">校内专业（大类）代码</th>
 				<th field="fromUnitId">所属教学单位</th>
@@ -135,7 +134,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="dualDegreeNum">双学位学生人数</th>
 				<th field="changeInNum">转入人数</th>
 				<th field="changeOutNum">转出人数</th>
-				<th field="time" formatter="formattime">时间</th>
 				<th field="note">备注</th>
 				</tr>
 			</thead>

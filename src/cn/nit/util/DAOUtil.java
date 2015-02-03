@@ -305,13 +305,12 @@ public class DAOUtil {
 				sql.append(keyFields[i] + "=? and ") ;
 			}
 		}
-//		System.out.println(sql.toString());
 		
 		
 		length = length + keyFields.length ;
 		//System.out.println(sql.toString()) ;
 		BeanWrapper wrapper = new BeanWrapperImpl(obj) ;
-//		System.out.println(wrapper);
+		//System.out.println(wrapper);
 		//判断数据插入的条数，0代表数据插入失败
 		//判断数据插入的条数，0代表数据插入失败
 		int flag = 0 ;
@@ -319,16 +318,16 @@ public class DAOUtil {
 		PreparedStatement pst = null ;
 		try{
 			pst = conn.prepareStatement(sql.toString()) ;
-
 			for(; j < length; j++){
+				//System.out.println("j:"+j);
 				String type = null ;
 				String vField = null ;
 				
 				if(j < fields.length){
-					//System.out.println(wrapper.getPropertyType(fields[j])) ;
 					type = wrapper.getPropertyType(fields[j]).toString() ;
-					//System.out.println("fields[j]:"+fields[j]);
-					//System.out.println("type:"+type);
+					
+//					System.out.println("fields[j]:"+fields[j]);
+//					System.out.println("type:"+type);
 					vField = fields[j] ;
 				}else{
 					//System.out.println(wrapper.getPropertyType(keyFields[j - fields.length])) ;

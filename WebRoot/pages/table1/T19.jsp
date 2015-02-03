@@ -105,6 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table id="verfiedData"class="easyui-datagrid"  url="pages/T19/auditingData?checkNum=<%=request.getAttribute("PASS") %>">
 		<thead>
 			<tr>
+			<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber" >编号</th>
 				<th field="rewardName" >奖励名称</th>
 				<th field="rewardLevel" >级别</th>

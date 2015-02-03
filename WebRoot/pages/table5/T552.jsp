@@ -128,6 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		fitColumns="true" singleSelect="false">
 		<thead data-options="frozen:true">
 		<tr>
+		<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>
 		     </tr>
 		</thead>

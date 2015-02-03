@@ -69,8 +69,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="sciLowestScore">理科批次最低控制线（分）</th>		
 				<th field="libAvgScore">文科当年录取平均分数（分）</th>
 				<th field="sciAvgScore">理科当年录取平均分数（分）</th>
-				<th field="note">说明</th>
-				<th field="time" formatter="formattime">填写时间</th>
+				<th field="note">备注</th>
+				
 			</tr>
 		</thead>
 		
@@ -124,6 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	url="pages/T622/loadData?checkNum=<%=request.getAttribute("PASS") %>"  style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>
+			<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
 				<th field="province">省份</th>
 				<th field="batch">批次</th>

@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="thisYearGraduNum">应届毕业生数</th>
 				<th field="thisYearNotGraduNum">应届生中未按时毕业数</th>
 				<th field="awardDegreeNum">授予学位数</th>
-				<th field="time" formatter="formattime">时间</th>
+				
 				<th field="note">备注</th>
 			</tr>
 		</thead>

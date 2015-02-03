@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -30,7 +31,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+	<script type="text/javascript" src="js/commom.js"></script>
 	<script type="text/javascript" src="js/table6/T616.js"></script>
+	
+	
+	<% request.setAttribute("CHECKTYPE",Constants.CTypeThree); %>
+<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("NOPASS",Constants.NOPASS_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
 
 </head>
 <body style="overflow-y:scroll">

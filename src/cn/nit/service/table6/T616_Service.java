@@ -49,4 +49,13 @@ public class T616_Service {
 		return T616_Dao.batchInsert(list,year) ;
 	}
 	
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(String selectYear, String unitName, int checkState){
+		return T616_Dao.updateCheck(selectYear, unitName, checkState) ;
+	}
 }

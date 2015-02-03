@@ -39,15 +39,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<table id="newData"  style="height: auto" >		
 		<thead>
 			<tr>
-				<th data-options="field:'ck',checkbox:true"  rowspan="2">选取</th>
-				<th  data-options="field:'seqNumber'" rowspan="2" hidden="true">编号</th>
-			</tr>
-			<tr>
+				<th data-options="field:'ck',checkbox:true" >选取</th>
+				<th field="seqNumber">编号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
-				<th field="CET4PassRate" formatter="formatRatio">1.英语四级考试累计通过率（%）</th>
-				<th field="CET6PassRate" formatter="formatRatio">2.英语六级考试累计通过率（%）</th>
-				<th field="jiangxiNCREPassRate"  formatter="formatRatio">3.江西省高校计算机等级考试累计通过率（%）</th>			
+				<th field="CET4PassRate" >1.英语四级考试累计通过率（%）</th>
+				<th field="CET6PassRate" >2.英语六级考试累计通过率（%）</th>
+				<th field="jiangxiNCREPassRate" >3.江西省高校计算机等级考试累计通过率（%）</th>			
 				<th field="note">备注</th>
 			</tr>			
 	</thead>

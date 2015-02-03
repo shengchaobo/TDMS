@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="genHignSchNum">普通高中起点</th>
 				<th field="secondVocationNum">中职起点</th>
 				<th field="otherNum">其他</th>
-				<th field="time" formatter="formattime">时间</th>
+				
 				<th field="note">备注</th>
 			</tr>
 		</thead>

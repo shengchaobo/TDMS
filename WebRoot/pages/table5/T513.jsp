@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th  data-options="field:'havedASCSNum'" rowspan=2>
 				已评课程门次数
 				</th>
-				<th data-options="field:'coverRatio'" rowspan=2 formatter = "formatRatio">
+				<th data-options="field:'coverRatio'" rowspan=2 >
 				覆盖比例（%）
 				</th>
 				<th colspan=2>
@@ -73,26 +73,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <th  data-options="field:'excellentNum'">
 				门次数
 				</th>
-				<th  data-options="field:'excellentRatio'" formatter = "formatRatio">
-				比例
+				<th  data-options="field:'excellentRatio'" >
+				比例(%)
 				</th>
 				  <th  data-options="field:'goodNum'">
 				门次数
 				</th>
-				<th  data-options="field:'goodRatio'" formatter = "formatRatio">
-				比例
+				<th  data-options="field:'goodRatio'" >
+				比例(%)
 				</th>
 				  <th  data-options="field:'avgNum'">
 				门次数
 				</th>
-				<th  data-options="field:'avgRatio'" formatter = "formatRatio">
-				比例
+				<th  data-options="field:'avgRatio'" >
+				比例(%)
 				</th>
 				  <th  data-options="field:'poorNum'">
 				门次数
 				</th>
-				<th  data-options="field:'poorRatio'" formatter = "formatRatio">
-				比例
+				<th  data-options="field:'poorRatio'" >
+				比例(%)
 				</th>
 			
 			</tr>		

@@ -59,7 +59,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="juniorTwoStuNum">二年级生人数</th>
 				<th field="juniorThreeStuNum">三年级生人数</th>
 
-				<th field="time" formatter="formattime">时间</th>
 				<th field="note">备注</th>
 			</tr>
 		</thead>

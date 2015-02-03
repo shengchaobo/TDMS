@@ -133,6 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table id="verfiedData"  class="easyui-datagrid"  url="pages/T533/auditingData?checkNum=<%=request.getAttribute("PASS") %>"  style="height: auto;" >
 		<thead>		
 				<tr>	
+				<th data-options="field:'ck',checkbox:true">选取</th>
 				<th  data-options="field:'seqNumber'" >编号</th>				
 					<th data-options="field:'teaUnit'">
 						教学单位

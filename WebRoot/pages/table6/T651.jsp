@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="guideTeaNum">指导教师数</th>
 				<!-- 
 				<th field="fillUnitID">填写单位</th>	 -->
-				<th field="time" formatter="formattime">时间</th>
+			
 				<th field="note">备注</th>
 			</tr>
 		</thead>
@@ -130,6 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table id="verfiedData"  class="easyui-datagrid" url="pages/T651/loadData?checkNum=<%=request.getAttribute("PASS") %>" style="height: auto;" >
 		<thead data-options="frozen:true">
 			<tr>
+			<th data-options="field:'ck',checkbox:true">选取</th>
 				<th field="seqNumber">编号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>

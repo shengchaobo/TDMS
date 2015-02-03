@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>	
 		<thead>
 			<tr>
-				<th field="nationNCREPassRate" formatter="formatRatio">全国高校计算机等级考试累计通过率（%）</th>				
+				<th field="nationNCREPassRate" >全国高校计算机等级考试累计通过率（%）</th>				
 				<th field="note">备注</th>
 				<!-- <th field="time" formatter="formattime">时间</th> -->
 			</tr>

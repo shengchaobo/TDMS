@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th field="seqNumber">编号</th>
 				<th field="teaUnit">教学单位</th>
 				<th field="unitId">单位号</th>
-				<th field="nationNCREPassRate" formatter="formatRatio">全国高校计算机等级考试累计通过率（%）</th>				
+				<th field="nationNCREPassRate" >全国高校计算机等级考试累计通过率（%）</th>				
 				<th field="note">备注</th>
 			</tr>	
 	</thead>

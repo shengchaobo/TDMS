@@ -26,23 +26,43 @@
 							//设置表格状态
 							if(rowData.rows[0].checkState!=0){  								
 			    				if(rowData.rows[0].checkState==WAITCHECK){
-			    					$("#newData").datagrid({title:'教学、科研仪器设备（<font color=red>待审核</font>）'});
+			    					if(count==0){
+			    						count++;
+				    					$("#newData").datagrid({title:'教学、科研仪器设备（<font color=red>待审核</font>）'});
+			    					}else{
+				    					$("#newData").datagrid("getPanel").panel("setTitle","教学、科研仪器设备（<font color=red>待审核</font>）");
+			    					}
 			    					$("#pass").show();
 			    					$("#nopass").show();
 			    				}
 			    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
-			    					$("#newData").datagrid({title:'教学、科研仪器设备（<font color=red>审核通过</font>）'});
+			    					if(count==0){
+			    						count++;
+				    					$("#newData").datagrid({title:'教学、科研仪器设备（<font color=red>审核通过</font>）'});
+			    					}else{
+				    					$("#newData").datagrid("getPanel").panel("setTitle","教学、科研仪器设备（<font color=red>审核通过</font>）")
+			    					}
 			    					$("#pass").hide();
 			    					$("#nopass").hide();
 			    				}				    				
 			    				else if(rowData.rows[0].checkState==NOPASSCHECK){
-			    					$("#newData").datagrid({title:'教学、科研仪器设备（<font color=red>审核未通过</font>）'});
+			    					if(count==0){
+			    						count++;
+				    					$("#newData").datagrid({title:'教学、科研仪器设备（<font color=red>审核未通过</font>）'});
+			    					}else{
+				    					$("#newData").datagrid("getPanel").panel("setTitle","教学、科研仪器设备（<font color=red>审核未通过</font>）");
+			    					}
 			    					$("#pass").hide();
 			    					$("#nopass").hide();
 			    				}
 							}else{
 								alert("该年数据为空");
-		    					$("#newData").datagrid({title:'教学、科研仪器设备'});
+		    					if(count==0){
+		    						count++;
+		        					$("#newData").datagrid({title:'教学、科研仪器设备'});
+		    					}else{
+			    					$("#newData").datagrid("getPanel").panel("setTitle","教学、科研仪器设备");
+		    					}
 		    					$("#pass").hide();
 		    					$("#nopass").hide();
 							}

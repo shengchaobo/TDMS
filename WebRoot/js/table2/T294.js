@@ -5,7 +5,7 @@
 	$(function() {
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#newData').datagrid( {
-			//title : '社会捐赠情况',  //可变内容在具体页面定义
+			title : '',  //可变内容在具体页面定义
 			url: 'pages/T294/loadInfo?selectYear=' +year,
 			iconCls : 'icon-ok',
 			width : '100%',
@@ -20,35 +20,53 @@
 			//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
 			remoteSort : false,
 			rownumbers : true,
-			onLoadSuccess: function (rowData) {
+			onLoadSuccess: function (rowData) {	    	  				            
 					if(rowData.rows.length == 0){
 						alert("该年数据为空");
-    					$("#newData").datagrid({title:'社会捐赠情况'});
+						if(count == 0){
+							count++;
+							$("#newData").datagrid({title:'社会捐赠情况'});						
+						}else{
+	    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况");
+						}   					
     					$("#newObject").show();
     					$("#edit").show();
     					$("#delete").show();
 					}else{
-					       if(count == 0 ) {				    	  				            
-					            count++;
 					            //alert(rowData.rows[0].checkState);
 								//设置表格状态
 								if(rowData.rows[0].checkState!=0){  		
 				    				if(rowData.rows[0].checkState==WAITCHECK){
-				    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>待审核</font>）'});
+										if(count == 0){
+											count++;
+					    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>待审核</font>）'});											
+										}else{
+					    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>待审核</font>）");
+										}
 				    					$("#newObject").show();
 				    					$("#edit").show();
 				    					$("#delete").show();
 					    				$("#export").hide();
 				    				}
-				    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
-				    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>审核通过</font>）'});
+				    				else if(rowData.rows[0].checkState==PASSCHECK){	
+										if(count == 0){
+											count++;
+					    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>审核通过</font>）'});											
+										}else{
+					    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>审核通过</font>）");
+										}
 				    					$("#newObject").hide();
 				    					$("#edit").hide();
 				    					$("#delete").hide();
 					    				$("#export").show();
 				    				}				    				
 				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
-				    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>审核未通过</font>）'});
+										if(count == 0){
+											count++;
+					    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>审核未通过</font>）'});											
+										}else{
+					    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>审核未通过</font>）");
+										}
 				    					$("#newObject").hide();
 				    					$("#edit").show();
 				    					$("#delete").show();
@@ -56,7 +74,6 @@
 				    				}
 								}
 				        }
-				}
 			}
 		});
 		

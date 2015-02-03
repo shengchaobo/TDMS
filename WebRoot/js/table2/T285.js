@@ -73,7 +73,7 @@
 								//设置表格状态
 								if(rowData.rows[0].checkState!=0){  
 				    				if(rowData.rows[0].checkState==WAITCHECK){
-				    					$("#newData").datagrid("getPanel").panel("setTitle","教学、科研仪器设备（<font color=red>待审核</font>）")
+				    					$("#newData").datagrid("getPanel").panel("setTitle","教学、科研仪器设备（<font color=red>待审核</font>）");
 				    					//$("#newData").datagrid('setTitle','教学、科研仪器设备（<font color=red>待审核</font>）');
 				    					$("#edit").show();
 					    				$("#export").hide();

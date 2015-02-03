@@ -25,8 +25,14 @@
 				var result = eval('(' + result + ')');
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
-					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					if(result.tag==2){
+						$('#dlg').dialog('close');
+						myMarquee('T49', CTypeTwo)
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}else{
+						$('#dlg').dialog('close');
+						$('#unverfiedData').datagrid('reload'); // reload the user data
+					}
 				}
 			}
 			});
@@ -36,7 +42,6 @@
 	function validate() {
 		// 获取文本框的值
 		//var time = $('#time').datetimebox('getValue');
-		var unitName = $('#unitId').combobox('getText');
 		var complileBookNum =  parseInt($('#complileBookNum').val());
 		var writeBookNum =  parseInt($('#writeBookNum').val());
 		var interPlanBook=  parseInt($('#interPlanBook').val());
@@ -56,11 +61,11 @@
 			return false;
 		}	*/
 		
-		if(unitName == null || unitName==""){
+/*		if(unitName == null || unitName==""){
 			alert("所属教学单位不能为空");
 			return false;
 	    }
-
+*/
 		if($('#complileBookNum').val() == null || $('#complileBookNum').val()==""){
 			$('#complileBookNum').val(0) ;
 		}else if (!(/(^[0-9]\d*$)/.test(complileBookNum))) {
@@ -169,7 +174,8 @@
     	
     	$('#dlg').dialog('open').dialog('setTitle','修改教学单位教材出版信息');
     	$('#seqNumber').val(row[0].seqNumber) ;
-    	$('#unitId').combobox('select', row[0].unitId) ;
+    	$('#teaUnit').val(row[0].teaUnit) ;
+    	$('#unitId').val(row[0].unitId) ;
 		$('#complileBookNum').val(row[0].complileBookNum);
 		$('#writeBookNum').val(row[0].writeBookNum);
 		$('#interPlanBook').val(row[0].interPlanBook);
@@ -232,13 +238,17 @@
     		dataType : "text",
     		success : function(result) {
 			result = eval("(" + result + ")");
-
 			if (result.state) {
 				alert(result.data);
-				$('#unverfiedData').datagrid('reload');
+				myMarquee('T49', CTypeTwo);
+				$('#unverfiedData').datagrid('reload'); // reload the user data
 			}
 		}
     	}).submit();
     }
-
+    
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
+    }
 	

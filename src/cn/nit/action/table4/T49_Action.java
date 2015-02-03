@@ -41,8 +41,11 @@ import org.springframework.beans.BeanWrapperImpl;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T48_Bean;
 import cn.nit.bean.table4.T49_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table4.T48_Dao;
 import cn.nit.dao.table4.T49_Dao;
+import cn.nit.service.CheckService;
+import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table4.T49_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -55,6 +58,11 @@ public class T49_Action {
 	private String page; //当前第几页
 	
 	private T49_Service T49_services = new T49_Service();
+	
+	private CheckService check_services = new CheckService();
+	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
 	
 	private T49_Bean T49_bean = new T49_Bean();
 	
@@ -74,6 +82,12 @@ public class T49_Action {
 	
 	/**  下载的excelName  */
 	private String excelName ;
+	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+	
+	/**  导出时间  */
+	private String selectYear ;
 
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
@@ -87,7 +101,7 @@ public class T49_Action {
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
 		
-		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null&& this.getCheckNum() == 0){							
 			cond = null;	
 		}else{			
 			if(this.getSeqNum()!=null){
@@ -103,12 +117,31 @@ public class T49_Action {
 				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 			}
+			
+			//审核状态判断
+			if(this.getCheckNum() == Constants.WAIT_CHECK ){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
+				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
+				conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
+			}
+			
 			cond = conditions.toString();
 		}
 		
 		//具体教学单位
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-		String fillUnitID = bean.getUnitID();
+		String fillUnitID;
+		String tempUnitID = bean.getUnitID().substring(0,1);
+		if("3".equals(tempUnitID)){
+			fillUnitID = bean.getUnitID();
+		}else{
+			fillUnitID = null;
+		}
+		
 		List<T49_Bean> list = T49_services.getPagetextList(cond, fillUnitID, this.getRows(), this.getPage()) ;
 		String TeaInfoJson = this.toBeJson(list,T49_services.getTotal(cond, fillUnitID));
 		//private JSONObject jsonObj;
@@ -161,11 +194,16 @@ public class T49_Action {
 		//插入时间
 		T49_bean.setTime(new Date());
 		
-		//具体教学单位
+		//插入审核状态
+		T49_bean.setCheckState(Constants.WAIT_CHECK);
+		//插入教学单位
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String fillUnitID = bean.getUnitID();
-		
 		T49_bean.setFillUnitID(fillUnitID);
+		
+		String unitName = deSer.getName(fillUnitID);
+		T49_bean.setTeaUnit(unitName);
+		T49_bean.setUnitId(fillUnitID);
 		
 		T49_bean.setSumPlanBook(T49_bean.getInterPlanBook()+T49_bean.getNationPlanBook()+T49_bean.getProviPlanBook()+T49_bean.getCityPlanBook()+T49_bean.getSchPlanBook());
 		T49_bean.setSumAwardBook(T49_bean.getInterAwardBook()+T49_bean.getNationAwardBook()+T49_bean.getProviAwardBook()+T49_bean.getCityAwardBook()+T49_bean.getSchAwardBook());	
@@ -196,15 +234,41 @@ public class T49_Action {
 		
 		T49_bean.setSumPlanBook(T49_bean.getInterPlanBook()+T49_bean.getNationPlanBook()+T49_bean.getProviPlanBook()+T49_bean.getCityPlanBook()+T49_bean.getSchPlanBook());
 		T49_bean.setSumAwardBook(T49_bean.getInterAwardBook()+T49_bean.getNationAwardBook()+T49_bean.getProviAwardBook()+T49_bean.getCityAwardBook()+T49_bean.getSchAwardBook());
-		boolean flag = T49_services.update(T49_bean) ;
+			
+		boolean flag = false;
+		
+		int tag = 0;
+		//获得该条数据审核状态
+		int state = T49_services.getCheckState(T49_bean.getSeqNumber());
+		//如果审核状态是待审核，则直接修改
+		if(state == Constants.WAIT_CHECK){
+			T49_bean.setCheckState(Constants.WAIT_CHECK);
+			flag = T49_services.update(T49_bean) ;
+			if(flag) tag = 1;
+		}
+		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+		if(state == Constants.NOPASS_CHECK){
+			T49_bean.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = T49_services.update(T49_bean) ;
+			boolean flag2 = check_services.delete("T49",T49_bean.getSeqNumber());
+			if(flag1&&flag2){
+				flag = true;
+				tag = 2;
+			}
+		}
+		
 		PrintWriter out = null ;
 	
 		try{
 			response.setContentType("text/html; charset=UTF-8") ;
 			out = response.getWriter() ;
-			if(flag){
+			if(tag == 1){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
-			}else{
+			}
+			else if(tag == 2){
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+			}
+			else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
@@ -222,6 +286,8 @@ public class T49_Action {
 	public void deleteByIds(){
 		System.out.println("ids=" + this.getIds()) ;
 		boolean flag = T49_services.deleteByIds(ids) ;
+		//删除审核不通过信息
+		check_services.delete("T49", ids);
 		PrintWriter out = null ;
 		
 		try{
@@ -246,6 +312,59 @@ public class T49_Action {
 		}
 	}
 	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = T49_services.updateCheck(this.getSeqNum(),this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**  全部审核通过  */
+	public void checkAll(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+	
+		boolean flag = T49_services.checkAll();
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"一键审核成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+			}
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"一键审核失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	
 	public InputStream getInputStream() throws Exception{
 		
 		
@@ -253,7 +372,7 @@ public class T49_Action {
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String fillUnitID = bean.getUnitID();
 			
-		List<T49_Bean> list = T49_dao.totalList(fillUnitID);
+		List<T49_Bean> list = T49_dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 						
 		String sheetName = this.excelName;
 			
@@ -476,5 +595,21 @@ public class T49_Action {
 			e.printStackTrace();
 		}
 		return excelName;
+	}
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
 	}
 }

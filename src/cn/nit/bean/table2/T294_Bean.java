@@ -24,6 +24,7 @@ public class T294_Bean implements
 	private Double donaMoney;
 	private Date time;
 	private String note;
+	private int checkState;
 
 	// Property accessors
 	@Id
@@ -80,6 +81,14 @@ public class T294_Bean implements
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public void setCheckState(int checkState) {
+		this.checkState = checkState;
+	}
+
+	public int getCheckState() {
+		return checkState;
 	}
 
 }

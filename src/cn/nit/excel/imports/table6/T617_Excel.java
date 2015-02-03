@@ -215,7 +215,7 @@ public class T617_Excel {
 
 		flag = false;
 		T617_Service T617_services = new T617_Service();
-		flag = T617_services.batchInsert(list);
+		//flag = T617_services.batchInsert(list);
 
 		if (flag) {
 			return null;

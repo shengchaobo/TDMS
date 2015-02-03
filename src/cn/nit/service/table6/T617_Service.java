@@ -33,36 +33,56 @@ public class T617_Service {
 	/**  表614的数据库操作类  */
 	private T617_Dao T617_Dao = new T617_Dao() ;
 	
-	/**
-	 * 表614的service的插入操作
-	 * @param T614_Bean
-	 * @return
-	 *
-	 * @time: 2014-6-12
-	 */
-	public boolean insert(T617_Bean  T617_Bean){
-		
-		return T617_Dao.insert(T617_Bean);
+	
+	
+	public List<T617_Bean> getYearInfo(String selectYear){
+		List<T617_Bean> list = T617_Dao.getYearInfo(selectYear);
+		return list;
 	}
 	
-	public boolean batchInsert(List<T617_Bean> list){
-		
-		return T617_Dao.batchInsert(list);
+	//插入一个bean
+	public Boolean insert(T617_Bean bean, String year){
+		return T617_Dao.insert(bean, year);
 	}
 	
 	/**
 	 * 更新数据
-	 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
+	 * @param 
 	 * @return
 	 */
-	public boolean update(T617_Bean T617_Bean){
-		return T617_Dao.update(T617_Bean) ;
+	public int update(T617_Bean bean, String year){
+		return T617_Dao.update(bean, year) ;
 	}
 	
-	public boolean deleteItemsByIds(String ids){
+	
+	/**
+	 * 删除数据
+	 * @param 
+	 * @return
+	 */
+	
+	public boolean deleteByIds(String ids, String year){
 		
-		return T617_Dao.deleteItemsByIds(ids) ;
+		return T617_Dao.deleteByIds(ids, year) ;
 	}
+
+	/**
+	 * 获得某年的捐赠总计
+	 * 
+	 */
+	public double getYearSumDona(String year){
+		return T617_Dao.getYearSumDona(year);
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(String selectYear, String unitName, int checkState){
+		return T617_Dao.updateCheck(selectYear, unitName, checkState) ;
+	}
+	
 	
 	
 	public List<T617_Bean> getPageInfoList(String rows, String page) {

@@ -38,7 +38,6 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
-import cn.nit.bean.table2.T285_Bean;
 import cn.nit.bean.table6.T616_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T616_Dao;
@@ -101,9 +100,10 @@ public class T616_Action {
 	/**  编辑数据  */
 	public void edit(){
 
+		
 		int tag = 1;
 		T616_Bean oldBean = T616_Service.findBySeqNum(T616_bean.getSeqNumber());
-		String stuType = "总计：";
+		String stuType = "总计";
 		T616_Bean sumBean = T616_Service.findSumBean(stuType,this.getSelectYear());
 		//首次编辑待审核
 		if(sumBean.getCheckState() == 0){
@@ -113,7 +113,7 @@ public class T616_Action {
 		else if(sumBean.getCheckState() == Constants.NOPASS_CHECK){
 			sumBean.setCheckState(Constants.WAIT_CHECK);
 			int year = Integer.parseInt(this.getSelectYear());
-			check_services.delete("T285", year);
+			check_services.delete("T616", year);
 			tag = 2;
 		}
 		sumBean.setSumGraNum(sumBean.getSumGraNum()+(T616_bean.getSumGraNum()-oldBean.getSumGraNum()));
@@ -231,7 +231,7 @@ public class T616_Action {
 	public void updateCheck(){
 		
 		HttpServletResponse response = ServletActionContext.getResponse();
-		String UnitName = "总计：";
+		String UnitName = "总计";
 		boolean flag = T616_Service.updateCheck(this.getSelectYear(), UnitName, this.getCheckNum());
 		PrintWriter out = null ;
 		
@@ -372,7 +372,10 @@ public class T616_Action {
 		            ws.setRowView(1, 500);
 					//第一行存表名
 					ws.addCell(new Label(0, 0, sheetName, wcf)); 
+					ws.addCell(new Label(0,2,"",wcf));
 					ws.mergeCells(0, 0, 1, 0);
+					ws.mergeCells(0, 2, 0, 3);
+				
 					
 		            //判断一下表头数组是否有数据    
 		            if (columns != null && columns.size() > 0) {  

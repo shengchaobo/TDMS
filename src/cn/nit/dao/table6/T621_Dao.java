@@ -266,7 +266,7 @@ public class T621_Dao {
 				if(bean.getCheckState() == Constants.NOPASS_CHECK){
 					bean.setCheckState(Constants.WAIT_CHECK);
 				}				
-				flag1 = DAOUtil.update(bean, tableName, key, "AmisPlanNum,ActulEnrollNum,ActulRegisterNum,AutoEnrollNum,SpecialtyEnrollNum,InProviEnrollNum,NewMajEnrollNum,CheckState", conn);
+				flag1 = DAOUtil.update(bean, tableName, key, "AmisPlanNum,ActulEnrollNum,ActulRegisterNum,AutoEnrollNum,SpecialtyEnrollNum,InProviEnrollNum,NewMajEnrollNum,AvgScore,CheckState", conn);
 			}
 
 			if(flag1){

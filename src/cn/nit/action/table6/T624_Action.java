@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -38,14 +39,15 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import net.sf.json.JSON;
 import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T624_Bean;
 import cn.nit.dao.table6.T624_Dao;
-import cn.nit.dao.table6.T631_Dao;
 import cn.nit.dbconnection.DBConnection;
+import cn.nit.service.CheckService;
 import cn.nit.service.table6.T624_Service;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
@@ -60,22 +62,71 @@ public class T624_Action {
 
 	/** �?24的Service�?*/
 	private T624_Service T624_service = new T624_Service();
+	
+	private CheckService check_services = new CheckService();
+
 
 	/** �?24的Bean实体�?*/
 	T624_Bean T624_bean = new T624_Bean();
 
 	
 	private T624_Dao T624_dao = new T624_Dao();
-
-	/** 待审核数据的查询的序列号 */
-	private Integer seqNum;
-
-	/** 待审核数据查询的起始时间 */
-	private Date startTime;
-
-	/** 待审核数据查询的结束时间 */
-	private Date endTime;
 	
+	
+	/**  哪一年数据  */
+	private String selectYear;
+
+	/**  导出的excelName名 */
+	private String excelName ;
+	
+	/**  待审核数据的要删除的序列集  */
+	private String ids; //删除的id
+	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+
+
+	
+	public CheckService getCheck_services() {
+		return check_services;
+	}
+
+	public void setCheck_services(CheckService checkServices) {
+		check_services = checkServices;
+	}
+
+	public T624_Dao getT624_dao() {
+		return T624_dao;
+	}
+
+	public void setT624_dao(T624_Dao t624Dao) {
+		T624_dao = t624Dao;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public int getCheckNum() {
+		return checkNum;
+	}
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
+	}
+
+	public void setResponse(HttpServletResponse response) {
+		this.response = response;
+	}
+
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
 	public String getExcelName() {
 		try {
 			this.excelName = URLEncoder.encode(excelName, "UTF-8");
@@ -90,175 +141,279 @@ public class T624_Action {
 		this.excelName = excelName;
 	}
 
-	private String excelName; //excel导出名字
-	
-	//待查询的专业名称
-	private String searchItem;
 
-	/** 数据的SeqNumber编号 */
-	private String ids;
-
-	/** 当前查询的是第几*/
-	private String page;
-
-	/** 每页显示的条*/
-	private String rows;
-	
-	/**所属教学单*/
-	private String fromTeaUnit;
-	
-	/**专业名称*/
-	private String majorName;
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 
+	
 	/** 逐条插入数据 */
-	public void insert() {
-		System.out
-				.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	public void loadInfo() {
 		
-		boolean flag = T624_service.insert(T624_bean);
-		PrintWriter out = null;
+		System.out.println("haha");
+	
+		List<T624_Bean> list=T624_service.getYearInfo(this.getSelectYear());
+		JSON json = JSONSerializer.toJSON(list) ;
+		PrintWriter out = null ;
 
 		try {
-			getResponse().setContentType("text/html; charset=UTF-8");
-			// getResponse().setHeader("Content-type", "text/html");
-			out = getResponse().getWriter();
-			if (flag) {
-				out.print("{\"state\":true,data:\"录入成功!!!\"}");
-			} else {
-				out.print("{\"state\":false,data:\"录入失败!!!\"}");
-			}
+			//设置输出内容的格式为json
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			//设置数据的内容的编码格式
+			String outPrint = URLDecoder.decode(json.toString(), "UTF-8") ;
+			out.print(outPrint) ;
+			out.flush() ;
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("{\"state\":false,data:\"录入失败!!!\"}");
-		} finally {
-			if (out != null) {
-				out.close();
+		}finally{
+			if(out != null){
+				out.close() ;
 			}
 		}
-		out.flush();
 	}
-
-	/** 为界面加载数�?*/
-	public void loadData() throws Exception {
+	
+	
+	//插入一个新的信息
+	public void insert(){
 		
-		  HttpServletResponse response = ServletActionContext.getResponse() ;	
-			
-			String cond = null;
-			StringBuffer conditions = new StringBuffer();
-			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
-				cond = null;	
-			}else{			
-				if(this.getSeqNum()!=null){
-					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
-				}
-				
-				if(this.getStartTime() != null){
-					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
-				}
-				
-				if(this.getEndTime() != null){
-					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
-							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-				}
-				cond = conditions.toString();
-			}
-			
-			List<T624_Bean> list = T624_service.getPageInfoList(cond, null, this.getRows(), this.getPage()) ;
-			String TeaInfoJson = this.toBeJson(list,T624_service.getTotal(cond, null));
-			//private JSONObject jsonObj;
-			
-			PrintWriter out = null ;
-
-			if(TeaInfoJson == null){			
-				return ;
-			}else{
-				try {
-					
-					System.out.println(TeaInfoJson) ;
-					response.setContentType("application/json;charset=UTF-8") ;
-					out = response.getWriter() ;
-					out.print(TeaInfoJson) ;
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally{
-					if(out != null){
-						out.flush() ;
-						out.close() ;
-					}
-				}
-			}
-	}
-
-	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
-	private String toBeJson(List<T624_Bean> list, int total) throws Exception {
-		// TODO Auto-generated method stub
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
-		HttpServletRequest request = ServletActionContext.getRequest();
-
-		JSONObject testjson = new JSONObject();
-		testjson.accumulate("total", total);
-		testjson.accumulate("rows", list);
-
-		String json = testjson.toString();
-		System.out.println(json);
-		return json;
-	}
-
-	/** 编辑数据 */
-	public void edit() {
-
-		boolean flag = T624_service.update(T624_bean);
-		PrintWriter out = null;
-
-		try {
-			out = getResponse().getWriter();
-			if (flag) {
-				out.print("{\"state\":true,data:\"编辑成功!!!\"}");
-			} else {
-				out.print("{\"state\":true,data:\"编辑失败!!!\"}");
+		
+		//插入时间
+		String year = this.getSelectYear();
+		boolean flag = T624_service.insert(T624_bean, year);
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
 			}
-			out.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
-		} finally {
-			if (out != null) {
-				out.close();
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+		out.flush() ;
+	}
+	
+	/**  编辑数据  */
+	public void edit(){
+		int flag = T624_service.update(T624_bean,this.getSelectYear()) ;
+		if(flag == 2){
+			int year = Integer.parseInt(this.getSelectYear());
+			check_services.delete("T624", year);
+		}
+		
+		PrintWriter out = null ;
+	
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag == 2){
+				//out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
+			}else if(flag == 1){
+				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
+			}			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+		out.flush() ;
+	}
+	
+	
+	/**  根据数据的id删除数据  */
+	public void deleteByIds(){
+		System.out.println("ids=" + this.getIds()) ;
+		boolean flag = T624_service.deleteByIds(ids, this.getSelectYear()) ;
+		//删除审核不通过信息
+		int year = Integer.parseInt(this.getSelectYear());
+		check_services.delete("T624", year);
+		PrintWriter out = null ;
+		
+		try{			
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;			
+			if(flag){
+				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
 			}
 		}
 	}
-
-	/** 根据数据的id删除数据 */
-	public void deleteByIds() {
-		System.out.println("ids=" +this.getIds());
-		boolean flag = T624_service.deleteItemsByIds(ids);
-		PrintWriter out = null;
-
-		try {
-			out = getResponse().getWriter();
-
-			if (flag) {
-				out.print("{\"state\":true,data:\"数据删除成功!!!\"}");
-			} else {
-				out.print("{\"state\":false,data:\"数据删除失败!!!\"}");
+	
+	
+	/**  修改某条数据的审核状态  */
+	public void updateCheck(){
+		
+		HttpServletResponse response = ServletActionContext.getResponse();
+		String TeaUnit = "全校合计";
+		boolean flag = T624_service.updateCheck(this.getSelectYear(), TeaUnit, this.getCheckNum());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("text/html; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"state\":true,data:\"修改审核状态成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
 			}
-
-			out.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
-		} finally {
-			if (out != null) {
-				out.close();
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"修改审核状态失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
 			}
 		}
 	}
+	
+	
+//
+//	/** 为界面加载数�?*/
+//	public void loadData() throws Exception {
+//		
+//		  HttpServletResponse response = ServletActionContext.getResponse() ;	
+//			
+//			String cond = null;
+//			StringBuffer conditions = new StringBuffer();
+//			
+//			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+//				cond = null;	
+//			}else{			
+//				if(this.getSeqNum()!=null){
+//					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+//				}
+//				
+//				if(this.getStartTime() != null){
+//					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+//							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+//				}
+//				
+//				if(this.getEndTime() != null){
+//					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+//							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+//				}
+//				cond = conditions.toString();
+//			}
+//			
+//			List<T624_Bean> list = T624_service.getPageInfoList(cond, null, this.getRows(), this.getPage()) ;
+//			String TeaInfoJson = this.toBeJson(list,T624_service.getTotal(cond, null));
+//			//private JSONObject jsonObj;
+//			
+//			PrintWriter out = null ;
+//
+//			if(TeaInfoJson == null){			
+//				return ;
+//			}else{
+//				try {
+//					
+//					System.out.println(TeaInfoJson) ;
+//					response.setContentType("application/json;charset=UTF-8") ;
+//					out = response.getWriter() ;
+//					out.print(TeaInfoJson) ;
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}finally{
+//					if(out != null){
+//						out.flush() ;
+//						out.close() ;
+//					}
+//				}
+//			}
+//	}
+
+//	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
+//	private String toBeJson(List<T624_Bean> list, int total) throws Exception {
+//		// TODO Auto-generated method stub
+//		HttpServletResponse response = ServletActionContext.getResponse();
+//		HttpServletRequest request = ServletActionContext.getRequest();
+//
+//		JSONObject testjson = new JSONObject();
+//		testjson.accumulate("total", total);
+//		testjson.accumulate("rows", list);
+//
+//		String json = testjson.toString();
+//		System.out.println(json);
+//		return json;
+//	}
+
+//	/** 编辑数据 */
+//	public void edit() {
+//
+//		boolean flag = T624_service.update(T624_bean);
+//		PrintWriter out = null;
+//
+//		try {
+//			out = getResponse().getWriter();
+//			if (flag) {
+//				out.print("{\"state\":true,data:\"编辑成功!!!\"}");
+//			} else {
+//				out.print("{\"state\":true,data:\"编辑失败!!!\"}");
+//			}
+//			out.flush();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
+//		} finally {
+//			if (out != null) {
+//				out.close();
+//			}
+//		}
+//	}
+
+//	/** 根据数据的id删除数据 */
+//	public void deleteByIds() {
+//		System.out.println("ids=" +this.getIds());
+//		boolean flag = T624_service.deleteItemsByIds(ids);
+//		PrintWriter out = null;
+//
+//		try {
+//			out = getResponse().getWriter();
+//
+//			if (flag) {
+//				out.print("{\"state\":true,data:\"数据删除成功!!!\"}");
+//			} else {
+//				out.print("{\"state\":false,data:\"数据删除失败!!!\"}");
+//			}
+//
+//			out.flush();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
+//		} finally {
+//			if (out != null) {
+//				out.close();
+//			}
+//		}
+//	}
 
 	public InputStream getInputStream() {
 
@@ -447,30 +602,6 @@ public class T624_Action {
 
 
 
-	public Integer getSeqNum() {
-		return seqNum;
-	}
-
-	public void setSeqNum(Integer seqNum) {
-		this.seqNum = seqNum;
-	}
-
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
 	public String getIds() {
 		return ids;
 	}
@@ -479,37 +610,7 @@ public class T624_Action {
 		this.ids = ids;
 	}
 
-	public String getPage() {
-		return page;
-	}
 
-	public void setPage(String page) {
-		this.page = page;
-	}
-
-	public String getRows() {
-		return rows;
-	}
-
-	public void setRows(String rows) {
-		this.rows = rows;
-	}
-
-	public String getFromTeaUnit() {
-		return fromTeaUnit;
-	}
-
-	public void setFromTeaUnit(String fromTeaUnit) {
-		this.fromTeaUnit = fromTeaUnit;
-	}
-
-	public String getMajorName() {
-		return majorName;
-	}
-
-	public void setMajorName(String majorName) {
-		this.majorName = majorName;
-	}
 
 
 	public T624_Service getT624_service() {
@@ -528,13 +629,7 @@ public class T624_Action {
 		T624_bean = t624Bean;
 	}
 
-	public String getSearchItem() {
-		return searchItem;
-	}
 
-	public void setSearchItem(String searchItem) {
-		this.searchItem = searchItem;
-	}
 
 	public static void main(String args[]) {
 		String match = "[\\d]+";

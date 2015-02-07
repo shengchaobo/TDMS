@@ -272,7 +272,8 @@ public class T617_Dao {
 	 * @time: 2014-5-14/下午02:34:23
 	 */	
 	public int update(T617_Bean bean, String year){
-		
+		System.out.println("haha"+bean.getTeaUnit());
+		System.out.println("haha"+bean.getUnitId());
 		String sql0 = "select * from " + tableName + " where SeqNumber=" + bean.getSeqNumber();
 		String sql1 = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year + " and TeaUnit=" + "'全校合计'" + ";";		
 		int flag = 0;
@@ -287,7 +288,7 @@ public class T617_Dao {
 		List<T617_Bean> templist1 = null ;
 //		"TeaUnit,UnitId,MajorName,MajorId,MajorFieldName," +
 //		"JuniorStuSumNum,JuniorOneStuNum,JuniorTwoStuNum,JuniorThreeStuNum,Time,Note,CheckState";
-		String updatefield = "MajorName,MajorId,MajorFieldName,JuniorStuSumNum,JuniorOneStuNum,JuniorTwoStuNum,JuniorThreeStuNum,Note";	
+		String updatefield = "TeaUnit,UnitId,MajorName,MajorId,MajorFieldName,JuniorStuSumNum,JuniorOneStuNum,JuniorTwoStuNum,JuniorThreeStuNum,Note";	
 		String updatefield1 = "MajorName,MajorId,MajorFieldName,JuniorStuSumNum,JuniorOneStuNum,JuniorTwoStuNum,JuniorThreeStuNum,Note,CheckState";	
 		
 		try{

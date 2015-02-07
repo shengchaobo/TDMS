@@ -50,6 +50,7 @@ public class T621_Dao {
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
 			list = DAOUtil.getList(rs, T621_Bean.class) ;
+			System.out.println("该年长度"+list.size());
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;

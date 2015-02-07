@@ -23,32 +23,48 @@
 			onLoadSuccess: function (rowData) {
 					if(rowData.rows.length == 0){
 						alert("该年数据为空");
-    					$("#newData").datagrid({title:'近一届本科生分专业招生录取情况'});
+						if(count == 0){
+							count++;
+							$("#newData").datagrid({title:'近一届本科生分专业招生录取情况'});						
+						}else{
+	    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况");
+						}   
     					$("#pass").hide();
     					$("#nopass").hide();
 					}else{
-					       if(count == 0 ) {				    	  				            
-					            count++;
-					            //alert(rowData.rows[0].checkState);
-								//设置表格状态
-								if(rowData.rows[0].checkState!=0){  		
-				    				if(rowData.rows[0].checkState==WAITCHECK){
-				    					$("#newData").datagrid({title:'近一届本科生分专业招生录取情况（<font color=red>待审核</font>）'});
-				    					$("#pass").show();
-				    					$("#nopass").show();
-				    				}
-				    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
-				    					$("#newData").datagrid({title:'近一届本科生分专业招生录取情况（<font color=red>审核通过</font>）'});
-				    					$("#pass").hide();
-				    					$("#nopass").hide();
-				    				}				    				
-				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
-				    					$("#newData").datagrid({title:'近一届本科生分专业招生录取情况（<font color=red>审核未通过</font>）'});
-				    					$("#pass").hide();
-				    					$("#nopass").hide();
-				    				}
+			            //alert(rowData.rows[0].checkState);
+						//设置表格状态
+						if(rowData.rows[0].checkState!=0){  		
+		    				if(rowData.rows[0].checkState==WAITCHECK){
+								if(count == 0){
+									count++;
+			    					$("#newData").datagrid({title:'近一届本科生分专业招生录取情况（<font color=red>待审核</font>）'});											
+								}else{
+			    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>待审核</font>）");
 								}
-				        }
+								$("#pass").show();
+		    					$("#nopass").show();
+		    				}
+		    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
+								if(count == 0){
+									count++;
+			    					$("#newData").datagrid({title:'近一届本科生分专业招生录取情况（<font color=red>审核通过</font>）'});											
+								}else{
+			    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>审核通过</font>）");
+								}
+								$("#pass").hide();
+		    					$("#nopass").hide();
+		    				}				    				
+		    				else if(rowData.rows[0].checkState==NOPASSCHECK){
+								if(count == 0){
+									count++;
+			    					$("#newData").datagrid({title:'近一届本科生分专业招生录取情况（<font color=red>审核未通过</font>）'});											
+								}else{
+			    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>审核未通过</font>）");
+								}				    					$("#pass").hide();
+		    					$("#nopass").hide();
+		    				}
+						}
 				}
 			}
 		});
@@ -80,7 +96,6 @@
 		    					$("#nopass").hide();
 							}else{
 								//设置表格状态
-								//alert(rowData.rows[0].checkState);
 								if(rowData.rows[0].checkState!=0){  								
 				    				if(rowData.rows[0].checkState==WAITCHECK){
 				    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>待审核</font>）");
@@ -123,7 +138,6 @@
 							msg : result.data
 						});
 					} else {
-						alert(111);
 						$('#newData').datagrid('reload'); // reload the user data
 					}
 				}
@@ -149,7 +163,6 @@
 						msg : result.data
 					});
 				} else {
-					alert(222);
 					$('#newData').datagrid('reload'); // reload the user data
 				}
 			}

@@ -192,16 +192,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			</tr>
 			<tr>
-				<td>
-					<div class="fitem">
-						<label>时间：</label> 
-						<input class="easyui-datebox"  id="time" type="text" 
-						name="T624_bean.time"  editable="false" />
-						<span id="timeSpan"></span>
-					</div>
-				</td>
-			</tr>
-			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
 					<textarea id="note" name="T624_bean.note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="noteSpan"></span>

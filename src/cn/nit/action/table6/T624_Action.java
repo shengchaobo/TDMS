@@ -147,7 +147,7 @@ public class T624_Action {
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 
 	
-	/** 逐条插入数据 */
+
 	public void loadInfo() {
 		
 		System.out.println("haha");

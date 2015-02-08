@@ -162,10 +162,7 @@
 
 		//弹出添加的界面
 		function newObject() {	   
-			
-			$("input#donaName").attr("readonly",false);
-			$("input#donaName").css({"color":"black"});
-			
+
 			var year = $("#cbYearContrast").combobox('getValue'); 
 			url = 'pages/T624/insert?selectYear='+year; 
 			$('#dlg').dialog('open').dialog('setTitle', '新增一条专科招生信息补充信息');
@@ -174,6 +171,7 @@
 		
 		//单条导入
 		function singleImport() {
+	
 			// 录入数据的表单提交
 			$('#addForm').form('submit', {
 					url : url,
@@ -216,7 +214,6 @@
 		var genHignSchNum = $('#genHignSchNum').val();
 		var secondVocationNum = $('#secondVocationNum').val();
 		var otherNum = $('#otherNum').val();
-		var time = $('#time').datetimebox('getValue');
 		var note = $('#note').val();
 
 		// 根据数据库定义的字段的长度，对其进行判断
@@ -250,13 +247,6 @@
 		return false;
 	}
 
-		if (time == null || time.length == 0) {
-			$('#time').focus();
-			$('#time').select();
-			alert("请选择填写时间");
-			return false;
-		}
-
 		if (note != null && note.length > 1000) {
 			alert("备注中文字数不超过500");
 			return false;
@@ -272,7 +262,7 @@
 	   		return ;
 	   	}
 	   	//alert(row[0].donaName);
-	   	if(row[0].teaUnit=="全校总计"){
+	   	if(row[0].teaUnit=="全校合计"){
 	   		$.messager.alert('温馨提示', "捐赠金额总计不可修改！！！") ;
 	   		return;
 	   	}
@@ -292,7 +282,6 @@
 		$('#genHignSchNum').val(row[0].genHignSchNum);
 		$('#secondVocationNum').val(row[0].secondVocationNum);
 		$('#otherNum').val(row[0].otherNum);
-		$('#time').datebox("setValue", formattime(row[0].time)) ;
 		$('#note').val(row[0].note);
 		}
 	

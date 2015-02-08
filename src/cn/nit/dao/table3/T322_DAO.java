@@ -429,6 +429,146 @@ public class T322_DAO {
 	}
 	
 	
+	/**
+	 * 在招专业总数
+	 * @param year
+	 * @return
+	 */
+	public int getTotalFieldNum(String year){
+		 int count = 0;
+		 StringBuffer sql =  new StringBuffer();
+		 sql.append("select count(MajorState) AS MajorState from " +tableName);
+		 sql.append(" where MajorState='在招' and Time like '"+year+"%'");
+		 
+		 Connection conn = DBConnection.instance.getConnection();
+		 Statement st = null;
+		 ResultSet rs = null;
+		 try{
+			 st = conn.createStatement();
+			 rs = st.executeQuery(sql.toString());
+			 while(rs.next()){
+				 count = rs.getInt("MajorState");
+			 }
+			 System.out.println("cout=" + count);
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return count;
+		 }
+		 return count;		 
+	}
+	
+	
+	/**
+	 * 集中实践环节教学总学分数
+	 * @param year
+	 * @return
+	 */
+	public int getSumPraCredit(String year){
+		 int count = 0;
+		 StringBuffer sql =  new StringBuffer();
+		 sql.append("select sum(PraCredit) AS PraCredit from " +tableName);
+		 sql.append(" where Time like '"+year+"%'");
+		 
+		 Connection conn = DBConnection.instance.getConnection();
+		 Statement st = null;
+		 ResultSet rs = null;
+		 try{
+			 st = conn.createStatement();
+			 rs = st.executeQuery(sql.toString());
+			 while(rs.next()){
+				 count = rs.getInt("PraCredit");
+			 }
+			 System.out.println("cout=" + count);
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return count;
+		 }
+		 return count;		 
+	}
+	
+	/**
+	 * 实验教学总学分数
+	 * @param year
+	 * @return
+	 */
+	public int getSumExpCredit(String year){
+		 int count = 0;
+		 StringBuffer sql =  new StringBuffer();
+		 sql.append("select sum(OptionCredit) AS OptionCredit from " +tableName);
+		 sql.append(" where Time like '"+year+"%'");
+		 
+		 Connection conn = DBConnection.instance.getConnection();
+		 Statement st = null;
+		 ResultSet rs = null;
+		 try{
+			 st = conn.createStatement();
+			 rs = st.executeQuery(sql.toString());
+			 while(rs.next()){
+				 count = rs.getInt("OptionCredit");
+			 }
+			 System.out.println("cout=" + count);
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return count;
+		 }
+		 return count;		 
+	}
+	
+	/**
+	 * 课外科技活动总学分数
+	 * @param year
+	 * @return
+	 */
+	public int getSumOutClassCredit(String year){
+		 int count = 0;
+		 StringBuffer sql =  new StringBuffer();
+		 sql.append("select sum(OutClassCredit) AS OutClassCredit from " +tableName);
+		 sql.append(" where Time like '"+year+"%'");
+		 
+		 Connection conn = DBConnection.instance.getConnection();
+		 Statement st = null;
+		 ResultSet rs = null;
+		 try{
+			 st = conn.createStatement();
+			 rs = st.executeQuery(sql.toString());
+			 while(rs.next()){
+				 count = rs.getInt("OutClassCredit");
+			 }
+			 System.out.println("cout=" + count);
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return count;
+		 }
+		 return count;		 
+	}
+	
+	/**
+	 * 选修课学总学分数
+	 * @param year
+	 * @return
+	 */
+	public int getSumOptionCredit(String year){
+		 int count = 0;
+		 StringBuffer sql =  new StringBuffer();
+		 sql.append("select sum(ExpCredit) AS ExpCredit from " +tableName);
+		 sql.append(" where Time like '"+year+"%'");
+		 
+		 Connection conn = DBConnection.instance.getConnection();
+		 Statement st = null;
+		 ResultSet rs = null;
+		 try{
+			 st = conn.createStatement();
+			 rs = st.executeQuery(sql.toString());
+			 while(rs.next()){
+				 count = rs.getInt("ExpCredit");
+			 }
+			 System.out.println("cout=" + count);
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return count;
+		 }
+		 return count;		 
+	}
 
 	
 	

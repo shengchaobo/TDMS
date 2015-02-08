@@ -103,8 +103,6 @@ public class A411_Bean implements java.io.Serializable  {
 	
 	private double otherTeaRatio;
 	
-	private Date time;
-	
 	private String note;
 
 	public int getSeqNumber() {
@@ -497,14 +495,6 @@ public class A411_Bean implements java.io.Serializable  {
 
 	public void setOtherTeaRatio(double otherTeaRatio) {
 		this.otherTeaRatio = otherTeaRatio;
-	}
-
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
 	}
 
 	public String getNote() {

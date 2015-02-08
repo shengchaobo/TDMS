@@ -43,5 +43,13 @@ public class T413_Service {
 	public boolean update(T413_Bean bean){
 		return teaInfoDao.update(bean) ;
 	}
+	
+	/**
+	 * 外聘教师数
+	 * @return
+	 */
+	public int getOutHireTeaNum(){
+		return teaInfoDao.getOutHireTeaNum();
+	}
 
 }

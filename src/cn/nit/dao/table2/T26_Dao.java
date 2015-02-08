@@ -160,7 +160,7 @@ public class T26_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T26_Bean> list = null ;
+		List<T26_Bean> list = null ;		
 		
 		try{
 			st = conn.createStatement() ;

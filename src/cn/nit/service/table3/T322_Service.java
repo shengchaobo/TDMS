@@ -97,6 +97,52 @@ public class T322_Service {
 	}
 
 	
+	/**
+	 * 在招专业总数
+	 * @param year
+	 * @return
+	 */
+	public int getTotalFieldNum(String year){
+		return t322_Dao.getTotalFieldNum(year);
+	}
+	
+	
+	/**
+	 * 集中实践环节教学总学分数
+	 * @param year
+	 * @return
+	 */
+	public int getSumPraCredit(String year){
+		return t322_Dao.getSumPraCredit(year);
+	}
+	
+	/**
+	 * 实验教学总学分数
+	 * @param year
+	 * @return
+	 */
+	public int getSumExpCredit(String year){
+		return t322_Dao.getSumExpCredit(year);
+	}
+	
+	/**
+	 * 选修课学总学分数
+	 * @param year
+	 * @return
+	 */
+	public int getSumOptionCredit(String year){
+		return t322_Dao.getSumOptionCredit(year);
+	}
+	
+	/**
+	 * 课外科技活动总学分数
+	 * @param year
+	 * @return
+	 */
+	public int getSumOutClassCredit(String year){
+		return t322_Dao.getSumOutClassCredit(year);
+	}
+
 
 	
 	public static void main(String args[]){

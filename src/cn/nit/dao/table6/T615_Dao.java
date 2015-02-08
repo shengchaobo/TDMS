@@ -479,6 +479,91 @@ public class T615_Dao {
 			return true;
 		}
 	}
+	
+	/**
+	 * 转专业：转入人数
+	 * @param year
+	 * @return
+	 */
+	public int getInNum(String year){
+		 int count = 0;
+		 StringBuffer sql =  new StringBuffer();
+		 sql.append("select sum(ChangeMajInNum) AS InNum from " +tableName);
+		 sql.append(" where Time like '"+year+"%'");
+		 
+		 Connection conn = DBConnection.instance.getConnection();
+		 Statement st = null;
+		 ResultSet rs = null;
+		 try{
+			 st = conn.createStatement();
+			 rs = st.executeQuery(sql.toString());
+			 while(rs.next()){
+				 count = rs.getInt("InNum");
+			 }
+			 System.out.println("cout=" + count);
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return count;
+		 }
+		 return count;		 
+	}
+	
+	
+	/**
+	 * 转专业：转出人数
+	 * @param year
+	 * @return
+	 */
+	public int getOutNum(String year){
+		 int count = 0;
+		 StringBuffer sql =  new StringBuffer();
+		 sql.append("select sum(ChangeMajOutNum) AS OutNum from " +tableName);
+		 sql.append(" where Time like '"+year+"%'");
+		 
+		 Connection conn = DBConnection.instance.getConnection();
+		 Statement st = null;
+		 ResultSet rs = null;
+		 try{
+			 st = conn.createStatement();
+			 rs = st.executeQuery(sql.toString());
+			 while(rs.next()){
+				 count = rs.getInt("OutNum");
+			 }
+			 System.out.println("cout=" + count);
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return count;
+		 }
+		 return count;		 
+	}
+	
+	/**
+	 * 辅修专业人数
+	 * @param year
+	 * @return
+	 */
+	public int getMinorNum(String year){
+		 int count = 0;
+		 StringBuffer sql =  new StringBuffer();
+		 sql.append("select sum(MinorNum) AS MinorNum from " +tableName);
+		 sql.append(" where Time like '"+year+"%'");
+		 
+		 Connection conn = DBConnection.instance.getConnection();
+		 Statement st = null;
+		 ResultSet rs = null;
+		 try{
+			 st = conn.createStatement();
+			 rs = st.executeQuery(sql.toString());
+			 while(rs.next()){
+				 count = rs.getInt("MinorNum");
+			 }
+			 System.out.println("cout=" + count);
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return count;
+		 }
+		 return count;		 
+	}
 
 	public static void main(String args[]) {
 

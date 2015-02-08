@@ -11,17 +11,17 @@ public class A411_Service {
 	
 	//根据年参数取得相应年数据
 	
-	public A411_Bean getYearInfo(String selectYear){
+	public A411_Bean getInfo(){
 				
-		A411_Bean bean = a411_Dao.getYearInfo(selectYear);
+		A411_Bean bean = a411_Dao.getInfo();
 		
 		return bean;		
 	}
 	
 	
 	//保存
-	public Boolean save(A411_Bean bean, String year){
-		return a411_Dao.save(bean,year);
+	public Boolean save(A411_Bean bean){
+		return a411_Dao.save(bean);
 	}
 
 

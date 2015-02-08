@@ -488,7 +488,7 @@ public class T615_Dao {
 	public int getInNum(String year){
 		 int count = 0;
 		 StringBuffer sql =  new StringBuffer();
-		 sql.append("select sum(ChangeMajInNum) AS InNum from " +tableName);
+		 sql.append("select sum(ChangeInNum) AS InNum from " +tableName);
 		 sql.append(" where Time like '"+year+"%'");
 		 
 		 Connection conn = DBConnection.instance.getConnection();
@@ -517,7 +517,7 @@ public class T615_Dao {
 	public int getOutNum(String year){
 		 int count = 0;
 		 StringBuffer sql =  new StringBuffer();
-		 sql.append("select sum(ChangeMajOutNum) AS OutNum from " +tableName);
+		 sql.append("select sum(ChangeOutNum) AS OutNum from " +tableName);
 		 sql.append(" where Time like '"+year+"%'");
 		 
 		 Connection conn = DBConnection.instance.getConnection();

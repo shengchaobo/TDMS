@@ -28,8 +28,17 @@ public class T631_Bean implements java.io.Serializable {
 	private Integer thisYearNotGraduNum;
 	private Integer awardDegreeNum;
 	private Date time;
+	private Integer CheckState;
 	private String note;
 	
+	
+	
+	public Integer getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(Integer checkState) {
+		CheckState = checkState;
+	}
 	public int getSeqNumber() {
 		return seqNumber;
 	}

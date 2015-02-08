@@ -569,6 +569,34 @@ public class T322_DAO {
 		 }
 		 return count;		 
 	}
+	
+	/**
+	 * 总学分数
+	 * @param year
+	 * @return
+	 */
+	public int getSumTotalCredit(String year){
+		 int count = 0;
+		 StringBuffer sql =  new StringBuffer();
+		 sql.append("select sum(TotalCredit) AS TotalCredit from " +tableName);
+		 sql.append(" where Time like '"+year+"%'");
+		 
+		 Connection conn = DBConnection.instance.getConnection();
+		 Statement st = null;
+		 ResultSet rs = null;
+		 try{
+			 st = conn.createStatement();
+			 rs = st.executeQuery(sql.toString());
+			 while(rs.next()){
+				 count = rs.getInt("TotalCredit");
+			 }
+			 System.out.println("cout=" + count);
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return count;
+		 }
+		 return count;		 
+	}
 
 	
 	

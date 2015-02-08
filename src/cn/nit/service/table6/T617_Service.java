@@ -118,6 +118,11 @@ public class T617_Service {
 		// TODO Auto-generated method stub
 		return T617_Dao.getAllList().size();
 	}
+	
+	public boolean batchInsert(List<T617_Bean> list){
+		
+		return T617_Dao.batchInsert(list);
+	}
 
 
 	/**

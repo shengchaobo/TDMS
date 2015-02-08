@@ -34,8 +34,19 @@ public class T621_Bean implements java.io.Serializable {
 	private double avgScore;
 	private Date time;
 	private String note;
+	private Integer checkState;
 	
 	
+	
+	
+	
+	
+	public Integer getCheckState() {
+		return checkState;
+	}
+	public void setCheckState(Integer checkState) {
+		this.checkState = checkState;
+	}
 	public Integer getSeqNumber() {
 		return seqNumber;
 	}

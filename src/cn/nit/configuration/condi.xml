@@ -5,7 +5,7 @@
 <struts>
 	<package name="condi" namespace="/" extends="struts-default">
 		<!-- 初始化加载所有领导信息 -->
-	    <action name="loadCondiInfo" class="cn.nit.action.CondiAction" method="loadInfo" />
+	    <action name="loadCondiInfo" class="cn.nit.action.CondiAction" method="loadCondiInfo" />
     	    	    
    	    <!-- 数据导出 -->
 	    <action name="condiDataExport" class="cn.nit.action.CondiAction" method="execute">

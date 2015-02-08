@@ -34,7 +34,14 @@ public class T624_Bean implements java.io.Serializable {
 	private Integer otherNum;
 	private Date time;
 	private String note;
+	private Integer CheckState;
 	
+	public Integer getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(Integer checkState) {
+		CheckState = checkState;
+	}
 	public int getSeqNumber() {
 		return seqNumber;
 	}

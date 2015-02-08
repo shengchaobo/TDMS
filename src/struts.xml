@@ -239,6 +239,9 @@
     <!-- 审核模块-->
     <include file = "cn/nit/configuration/checkInfo.xml"/>
     
+     <!-- 办学条件-->
+    <include file = "cn/nit/configuration/condi.xml"/>
+    
     
     <!-- 文件上传下载 -->
     <include file = "cn/nit/configuration/FileUploadDownload.xml"/>

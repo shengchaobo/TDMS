@@ -143,6 +143,15 @@ public class T322_Service {
 		return t322_Dao.getSumOutClassCredit(year);
 	}
 
+	
+	/**
+	 * 总学分数
+	 * @param year
+	 * @return
+	 */
+	public int getSumTotalCredit(String year){
+		return t322_Dao.getSumTotalCredit(year);
+	}
 
 	
 	public static void main(String args[]){

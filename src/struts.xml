@@ -13,6 +13,12 @@
     <include file="cn/nit/configuration/login.xml" />
     <!-- 功能菜单管理 -->
     <include file="cn/nit/configuration/system/treeManager.xml"/>
+     <!-- 全局搜索结果 -->
+    <include file="cn/nit/configuration/system/QueryResult.xml"/>
+    <!-- 查询功能管理 -->
+     <include file="cn/nit/configuration/system/FieldName.xml"/>
+     <!-- 查询结果页面管理 -->
+     <include file="cn/nit/configuration/system/ColumnResult.xml"/>
     <!-- 用户管理 -->
     <include file="cn/nit/configuration/system/UserManager.xml" />
     <!-- 角色管理 -->

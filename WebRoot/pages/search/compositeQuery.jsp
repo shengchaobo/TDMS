@@ -1,8 +1,11 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -60,11 +63,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script> 
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
-
+	<script type="text/javascript" src="js/system/FieldName.js"></script>
+	
 </head>
 
 <body marginwidth="0" topmargin="0" leftmargin="0" marginheight="0">
-<form method="post" id="actForm" name="actForm" action="">
+
   <input id="functionName" type="hidden" name="functionName" />
 			<DIV ID=Title_bar>
 				<DIV ID=Title_bar_Head>
@@ -82,16 +86,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<center>
   	<DIV CLASS=ItemBlock_Title1>		 
     <label>选择所要查询的表：</label>
-    <input id="Tmess" type="hidden" name="diTableMessageBean.Tmess">
+    <input id="Tname" type="hidden" name="diTableMessageBean.Tname">
     <input id="Tid" name="diTableMessageBean.Tid" 
 							 class='easyui-combobox' data-options="valueField:'tid',textField:'tname',url:'pages/DiTableMessage/loadTableMessage',listHeight:'auto',editable:true,
 							 onSelect:function(){
-							 	document.getElementById('Tmess').value=$(this).combobox('getText') ;
+							 	document.getElementById('Tname').value=$(this).combobox('getText') ;
 							 }">
-     <input type="button"  value="执行查询" onClick="getCondition()" class="mybutton">
-  </DIV> 
+							 &nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="Query()">执行查询</a> 
+   </DIV> 
     <DIV CLASS=ItemBlockBorder>
     <DIV CLASS=ItemBlock>
+    
+    <form method="post" id="QueryForm" >
    <TABLE WIDTH="70%" BORDER=0 CELLSPACING=0 CELLPADDING=0 >
 	    <TR ALIGN=center VALIGN=middle ID=TableTitle>
         <td  width="10%">左括号</td>
@@ -106,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <tbody ID="TableData">
   <tr height="18" class="serach_list" id="d0">
   <TD>
-		      <select class="leftJoin" style="width: 87px;">
+		      <select class='easyui-combobox' id="leftJoin" name="QueryConditionsBean.leftJoin" style="width: 87px;">
 								<option value="">无</option>
 								<option value="(">(</option>
 								<option value="((">((</option>
@@ -114,18 +121,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  </select>
   </TD>
   <TD>
-  <select class="fieldName" onchange="refresh_type(this);"
-							style="width: 166px;">
-								<option value="">选择</option>
-								<option value="jsjbh,c">计算机编号</option>
-								<option value="jsjmc,c">计算机名称</option>
-								<option value="cgrq,d">创建日期</option>
-								<option value="jq,n">价钱</option>
-								<option value="bm,c">部门</option>
+ <select  id="fieldName" name="QueryConditionsBean.FieldName" class='easyui-combobox' style="width: 166px;">						
  </select>
  </TD>
  <TD>
- <select class="logicRelation" style="width: 84px;">
+ <select id="logicRelation" name="QueryConditionsBean.LogicRelation" class='easyui-combobox' style="width: 84px;">
 								<option value="">选择</option>
 								<option value="=">=</option>
 								<option value="&gt;=">&gt;=</option>
@@ -142,10 +142,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </TD>
 
 <TD>
-	<input maxlength="100"  class="paramValue" style="width: 170px;" type="text" onfocus="formatM(this);"/>
+<input maxlength="100"  id="paramValue" name="QueryConditionsBean.ParamValue" style="width: 170px;" type="text" onfocus="formatM(this);"/>
 </TD>
 <TD>
-<select class="rightJoin" style="width: 84px;">
+<select id="rightJoin" name="QueryConditionsBean.RightJoin" class='easyui-combobox' style="width: 84px;">
 							    <option value="">无</option>
 							    <option value=")">)</option>
 							    <option value="))">))</option>
@@ -153,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </select>
 </TD>
 <TD>
-						<select class="joinRelation" style="width: 80px;" >
+<select id="joinRelation" name="QueryConditionsBean.JoinRelation" class='easyui-combobox' style="width: 80px;" >
 								<option value="">选择</option>
 								<option value="and">并且</option>
 								<option value="or">或者</option>
@@ -163,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <br>
 <tr height="18" class="serach_list" id="d0">
   <TD>
-		      <select class="leftJoin" style="width: 87px;">
+		      <select id="leftJoin1" name="QueryConditionsBean.LeftJoin1" class='easyui-combobox' style="width: 87px;">
 								<option value="">无</option>
 								<option value="(">(</option>
 								<option value="((">((</option>
@@ -171,18 +171,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  </select>
   </TD>
   <TD>
-  <select class="fieldName" onchange="refresh_type(this);"
-							style="width: 166px;">
-								<option value="">选择</option>
-								<option value="jsjbh,c">计算机编号</option>
-								<option value="jsjmc,c">计算机名称</option>
-								<option value="cgrq,d">创建日期</option>
-								<option value="jq,n">价钱</option>
-								<option value="bm,c">部门</option>
+  <select id="fieldName1" name="QueryConditionsBean.FieldName1" class='easyui-combobox' style="width: 166px;">						
  </select>
  </TD>
  <TD>
- <select class="logicRelation" style="width: 84px;">
+ <select id="logicRelation1" name="QueryConditionsBean.LogicRelation1" class='easyui-combobox' style="width: 84px;">
 								<option value="">选择</option>
 								<option value="=">=</option>
 								<option value="&gt;=">&gt;=</option>
@@ -199,40 +192,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </TD>
 
 <TD>
-	<input maxlength="100"  class="paramValue" style="width: 170px;" type="text" onfocus="formatM(this);"/>
+	<input maxlength="100"  id="paramValue1" name="QueryConditionsBean.ParamValue1" style="width: 170px;" type="text" onfocus="formatM(this);"/>
 </TD>
 <TD>
-<select class="rightJoin" style="width: 84px;">
+<select id="rightJoin1" name="QueryConditionsBean.RightJoin1" class='easyui-combobox' style="width: 84px;">
 							    <option value="">无</option>
 							    <option value=")">)</option>
 							    <option value="))">))</option>
 							    <option value=")))">)))</option>
 </select>
 </TD>
-<TD>
-						<select class="joinRelation" style="width: 80px;" >
-								<option value="">选择</option>
-								<option value="and">并且</option>
-								<option value="or">或者</option>
-						</select>
-</TD>
+
 </tr>
 </tbody>
-
+</form>
  </div>
  </DIV>
-
-<div id="FixHeadContainer" style="HEIGHT: 295px;overflow=auto;">
-<table width="100%">
-<tr>
-<td>
-</td>
-</tr>
-</table>
-</div>
+<div id="divDatagrid"></div>
 </center>
 </DIV>
-</form>
+
+
 
 </body>
 </html>

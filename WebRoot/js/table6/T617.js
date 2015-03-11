@@ -1,4 +1,4 @@
-	//全局变量，用来控制字段合并次数
+﻿	//全局变量，用来控制字段合并次数
 	var count = 0;	
 	
 	//只是用来展示的数据
@@ -24,7 +24,7 @@
 			  if(count == 0 ) {				    	  				            
 		    	   count++;
 					if(rowData.rows.length == 0){
-					
+
 						alert("该年数据为空");
     					$("#newData").datagrid({title:'专科在校生信息补充表'});
     					$("#newObject").show();

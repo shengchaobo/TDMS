@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 public class T632_Bean implements java.io.Serializable {
 
 	// Fields
-	private int seqNumber;
+	private Integer seqNumber;
 	private String majorId;
 	private String unitId;
 	private String teaUnit;
@@ -42,6 +42,7 @@ public class T632_Bean implements java.io.Serializable {
 	private Integer abroadNum;
 	private Date time;
 	private String note;
+	private Integer CheckState;
 	
 	/**
 	 * 		GraStuEmployInfo.setSumGoOnHighStudyNum(GraStuEmployInfo.getRecommendGraNum()+GraStuEmployInfo.getExamGraInSch()+GraStuEmployInfo.getExamGraOutSch()+GraStuEmployInfo.getAbroadNum());//统计生成-应届升学总人数
@@ -52,14 +53,15 @@ public class T632_Bean implements java.io.Serializable {
 				+GraStuEmployInfo.getFlexibleEmploy()+GraStuEmployInfo.getNationItemEmploy()+GraStuEmployInfo.getOtherEmploy()+GraStuEmployInfo.getGoOnHighStudy());//统计生成-应届就业总人数
 	 * */
 	
-	public int getSeqNumber() {
-		return seqNumber;
-	}
-	public void setSeqNumber(int seqNumber) {
-		this.seqNumber = seqNumber;
-	}
+
 	public String getMajorId() {
 		return majorId;
+	}
+	public Integer getSeqNumber() {
+		return seqNumber;
+	}
+	public void setSeqNumber(Integer seqNumber) {
+		this.seqNumber = seqNumber;
 	}
 	public void setMajorId(String majorId) {
 		this.majorId = majorId;
@@ -204,6 +206,12 @@ public class T632_Bean implements java.io.Serializable {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public Integer getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(Integer checkState) {
+		CheckState = checkState;
 	}
 
 	

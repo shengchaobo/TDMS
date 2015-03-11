@@ -1,4 +1,4 @@
-	//全局变量，用来控制字段合并次数
+﻿	//全局变量，用来控制字段合并次数
 	var count = 0;	
 
 	//只是用来展示的数据
@@ -6,7 +6,7 @@
 		var year = $("#cbYearContrast").combobox('getValue'); 
 		$('#newData').datagrid( {
 			//title : '社会捐赠情况',  //可变内容在具体页面定义
-			url: 'pages/T294/loadInfo?selectYear=' +year,
+			url: 'pages/T621/loadInfo?selectYear=' +year,
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -25,9 +25,9 @@
 						alert("该年数据为空");
 						if(count == 0){
 							count++;
-							$("#newData").datagrid({title:'社会捐赠情况'});						
+							$("#newData").datagrid({title:'近一届本科生分专业招生录取情况'});						
 						}else{
-	    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况");
+	    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况");
 						}   
     					$("#pass").hide();
     					$("#nopass").hide();
@@ -38,9 +38,9 @@
 		    				if(rowData.rows[0].checkState==WAITCHECK){
 								if(count == 0){
 									count++;
-			    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>待审核</font>）'});											
+			    					$("#newData").datagrid({title:'近一届本科生分专业招生录取情况（<font color=red>待审核</font>）'});											
 								}else{
-			    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>待审核</font>）");
+			    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>待审核</font>）");
 								}
 								$("#pass").show();
 		    					$("#nopass").show();
@@ -48,9 +48,9 @@
 		    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
 								if(count == 0){
 									count++;
-			    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>审核通过</font>）'});											
+			    					$("#newData").datagrid({title:'近一届本科生分专业招生录取情况（<font color=red>审核通过</font>）'});											
 								}else{
-			    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>审核通过</font>）");
+			    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>审核通过</font>）");
 								}
 								$("#pass").hide();
 		    					$("#nopass").hide();
@@ -58,9 +58,9 @@
 		    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 								if(count == 0){
 									count++;
-			    					$("#newData").datagrid({title:'社会捐赠情况（<font color=red>审核未通过</font>）'});											
+			    					$("#newData").datagrid({title:'近一届本科生分专业招生录取情况（<font color=red>审核未通过</font>）'});											
 								}else{
-			    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>审核未通过</font>）");
+			    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>审核未通过</font>）");
 								}				    					$("#pass").hide();
 		    					$("#nopass").hide();
 		    				}
@@ -74,7 +74,7 @@
 	        onChange:function(newValue, oldValue){  
 				$('#newData').datagrid( {
 					//title : '社会捐赠情况',  //可变内容在具体页面定义
-					url: 'pages/T294/loadInfo?selectYear=' + newValue,
+					url: 'pages/T621/loadInfo?selectYear=' + newValue,
 					iconCls : 'icon-ok',
 					width : '100%',
 					//height: '100%',
@@ -91,24 +91,24 @@
 					onLoadSuccess: function (rowData) {
 							if(rowData.rows.length == 0){
 								alert("该年数据为空");
-		    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况");
+		    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况");
 		    					$("#pass").hide();
 		    					$("#nopass").hide();
 							}else{
 								//设置表格状态
 								if(rowData.rows[0].checkState!=0){  								
 				    				if(rowData.rows[0].checkState==WAITCHECK){
-				    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>待审核</font>）");
+				    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>待审核</font>）");
 				    					$("#pass").show();
 				    					$("#nopass").show();
 				    				}
 				    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
-				    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>审核通过</font>）");
+				    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>审核通过</font>）");
 				    					$("#pass").hide();
 				    					$("#nopass").hide();
 				    				}				    				
 				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
-				    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>审核未通过</font>）");
+				    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>审核未通过</font>）");
 				    					$("#pass").hide();
 				    					$("#nopass").hide();
 				    				}
@@ -126,7 +126,7 @@
 		//alert(checkNum);
 			$.ajax( {
 				type : "POST",
-				url : "pages/T294/updateCheck?selectYear=" + year + "&checkNum="
+				url : "pages/T621/updateCheck?selectYear=" + year + "&checkNum="
 						+ PASSCHECK,
 				async : "true",
 				dataType : "text",
@@ -151,7 +151,7 @@
 		//alert(checkNum);
 		$.ajax({
 			type : "POST",
-			url : "pages/T294/updateCheck?selectYear=" + year + "&checkNum="
+			url : "pages/T621/updateCheck?selectYear=" + year + "&checkNum="
 					+ NOPASSCHECK,
 			async : "true",
 			dataType : "text",

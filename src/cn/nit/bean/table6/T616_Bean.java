@@ -37,11 +37,20 @@ public class T616_Bean implements java.io.Serializable {
     private Integer inSchHongNum;
     private Integer inSchAoNum;
     private Integer inSchTaiNum;
+    private Integer checkState;
     
     
 	private Date time;
 	private String note;
 	
+	public Integer getCheckState() {
+		return checkState;
+	}
+
+	public void setCheckState(Integer checkState) {
+		this.checkState = checkState;
+	}
+
 	// Property accessors
 	@Id
 	@Column(name = "SeqNumber", unique = true, nullable = false)

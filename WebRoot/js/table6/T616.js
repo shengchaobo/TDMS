@@ -1,13 +1,12 @@
 	//全局变量，用来控制字段合并次数
-	var count = 0;	
-
+	var count = 0;
 
 	//只是用来展示的数据
 	$(function() {
-		var year = $("#cbYearContrast").combobox('getValue'); 
-		$('#showData').datagrid( {
-			title : '国外及港澳台学生情况（国际交流与合作处）',  //可变内容在具体页面定义
-			url: 'pages/T616/loadInfo',
+		year = $("#cbYearContrast").combobox('getValue'); 
+		$('#newData').datagrid({
+			//title : '',  //可变内容在具体页面定义
+			url: 'pages/T616/loadInfo?selectYear=' + year,
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
@@ -15,57 +14,112 @@
 			striped : true,//设置为true将交替显示行背景。
 			collapsible : true,//显示可折叠按钮
 			toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
-			singleSelect : true,//为true时只能选择单行
+			singleSelect : false,//为true时只能选择单行
 			fitColumns : true,//允许表格自动缩放，以适应父容器
 			//sortName : 'xh',//当数据表格初始化时以哪一列来排序
 			//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
 			remoteSort : false,
 			rownumbers : true,
-			onLoadSuccess: function (rowData) {
-					if(count==0){
-						
-						var merges2 = [
-						  {
-			                  field:'stuType',
-			                  index: 0,
-			                  colspan: 1
-			              }
-			              ];
-
-			            for (var i = 0; i < merges2.length; i++)
-			                $('#showData').datagrid('mergeCells', {
-			                    index: merges2[i].index,
-			                    field: merges2[i].field,
-			                    colspan: merges2[i].colspan
-			                });	
-			         count++;   
+			onLoadSuccess: function (rowData) {		    	  				        
+					//设置表格状态
+					if(rowData.rows[0].checkState!=0){  								
+	    				if(rowData.rows[0].checkState==WAITCHECK){
+	    					if(count==0){
+	    						count++;
+		    					$("#newData").datagrid({title:'国外及港澳台学生情况（<font color=red>待审核</font>）'});
+	    					}else{
+		    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>待审核</font>）");
+	    					}
+	    					$("#edit").show();
+		    				$("#export").hide();
+	    				}
+	    				else if(rowData.rows[0].checkState==PASSCHECK){	
+	    					if(count==0){
+	    						count++;
+		    					$("#newData").datagrid({title:'国外及港澳台学生情况（<font color=red>审核通过</font>）'});
+	    					}else{
+		    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>审核通过</font>）")
+	    					}
+	    					$("#edit").hide();
+	    					$("#export").show();
+	    				}				    				
+	    				else if(rowData.rows[0].checkState==NOPASSCHECK){
+	    					if(count==0){
+	    						count++;
+		    					$("#newData").datagrid({title:'国外及港澳台学生情况（<font color=red>审核未通过</font>）'});
+	    					}else{
+		    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>审核未通过</font>）");
+	    					}
+	    					$("#edit").show();
+		    				$("#export").hide();
+	    				}
+					}else{
+						alert("该年数据为空");
+    					if(count==0){
+    						count++;
+        					$("#newData").datagrid({title:'国外及港澳台学生情况'});
+    					}else{
+	    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况");
+    					}
+    					$("#edit").show();
 					}
-					},
-
-			queryParams:{
-				'selectYear': year
 			}
 		});
 		
 		
-		//刷新页面
-		 $("#cbYearContrast").combobox({  
+	//刷新页面
+	 $("#cbYearContrast").combobox({  
 	        onChange:function(newValue, oldValue){  
-				reloadgrid(newValue);
-	        }
-	    }); 
+				$('#newData').datagrid( {
+					//title : '',  //可变内容在具体页面定义
+					url: 'pages/T616/loadInfo?selectYear=' + newValue,
+					iconCls : 'icon-ok',
+					width : '100%',
+					//height: '100%',
+					nowrap : true,//设置为true，当数据长度超出列宽时将会自动截取
+					striped : true,//设置为true将交替显示行背景。
+					collapsible : true,//显示可折叠按钮
+					toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
+					singleSelect : false,//为true时只能选择单行
+					fitColumns : true,//允许表格自动缩放，以适应父容器
+					//sortName : 'xh',//当数据表格初始化时以哪一列来排序
+					//sortOrder : 'desc',//定义排序顺序，可以是'asc'或者'desc'（正序或者倒序）。
+					remoteSort : false,
+					rownumbers : true,
+					onLoadSuccess: function (rowData) {					            
+								//设置表格状态
+								if(rowData.rows[0].checkState!=0){  
+				    				if(rowData.rows[0].checkState==WAITCHECK){
+				    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>待审核</font>）");
+				    					//$("#newData").datagrid('setTitle','教学、科研仪器设备（<font color=red>待审核</font>）');
+				    					$("#edit").show();
+					    				$("#export").hide();
+				    				}
+				    				else if(rowData.rows[0].checkState==PASSCHECK){			
+				    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>审核通过</font>）")
+				    					//$("#newData").datagrid('setTitle','教学、科研仪器设备（<font color=red>审核通过</font>）');
+				    					$("#edit").hide();
+				    					$("#export").show();
+				    				}				    				
+				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
+				    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>审核未通过</font>）");
+				    					//$("#newData").datagrid('setTitle','教学、科研仪器设备（<font color=red>审核未通过</font>）');
+				    					$("#edit").show();
+					    				$("#export").hide();
+				    				}
+								}else{
+									alert("该年数据为空");
+			    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况");
+			    					//$("#newData").datagrid('setTitle','教学、科研仪器设备');
+			    					$("#edit").show();
+								}							
+					}
+				});
+	       }
+	   }); 
 		 
-		//查询
-		function reloadgrid (year)  { 
-			//alert(year);
-	        //查询参数直接添加在queryParams中 
-	         var queryParams = $('#showData').datagrid('options').queryParams;  
-	         queryParams.selectYear = year;   
-	         $("#showData").datagrid('reload'); 
-	    }	
-		
 	   //导出
-	        $("#export").click(function(){
+	    $("#export").click(function(){
 	        var tableName = encodeURI('表6-1-6国外及港澳台学生情况（国际交流与合作处）');
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {
@@ -81,74 +135,14 @@
 					    });
 			    }
 		    }); 
-		});	
-	        
-	        //打开导入窗口
-			   $("#add").click(function(){
-				   
-				   $('#dlg-import').dialog('open').dialog('setTitle','课外活动、讲座情况的导入');
-			   });
-			   
-			   //导入
-			 $("#import").click(function(){
-				 var year =  $("#cbYearContrast1").combobox('getValue'); 
-//				 alert(year);
-				 $('#batchForm').form('submit',{
-		    		 url: 'pages/T616/uploadFile',
-		    		 type: "post",
-			         dataType: "json",
-		    		 onSubmit: function(){
-					       return check() ;
-						   },
-		    		 success: function(result){
-		    		 	var result = eval('('+result+')');
-//		    		 	alert(result);
-		    		 	if (!result.success){
-		    		 		$.messager.show({
-		    		 			title: 'Error',
-		    		 			msg: result.errorMsg
-		    			 });
-		    		 		  $('#dlg-import').dialog('close');
-		    		 			$('#cbYearContrast').combobox('select',year);
-		    		 		  	reloadgrid (year,true) 
-			   					$('#edit').propertygrid('loadData', rows);
-		    		 		  	
-		    		 	} else {
-		    		 		
-				    		  $('#dlg-import').dialog('close'); // close the dialog
-				    		   reloadgrid(newValue,true)
-								$('#edit').propertygrid('loadData', rows);
-		    		 	}
-		    		 }
-		    		 });
-			 });
-			 
-			 function check(){
-			    	var fileName = $('#uploadFile').val() ;
-			    	
-			    	if(fileName == null || fileName == ""){
-				    	$.messager.alert("操作提示","请选择一个Excel文件！");
-			    		return false ;
-			    	}
-			    	
-			    	var pos = fileName.lastIndexOf(".") ;
-			    	var suffixName = fileName.substring(pos, fileName.length) ;
-			    	
-			    	if(suffixName == ".xls"){
-			    		return true ;
-			    	}else{
-			    		$.messager.alert("操作提示","文件格式错误，请选择后缀为“.xls”的文件！");
-			    		return false ;
-			    	}
-			    } 
-			     
+		});							
 	});
 	
-		//全局变量，用来暂存当前的url值
-	   var url;
-	   
-		//单条导入
-		function singleImport() {
+	//全局变量，用来暂存当前的url值
+	 var url;
+	
+	//单条导入
+	function singleImport() {
 			//alert(url);
 			// 录入数据的表单提交
 			$('#addForm').form('submit', {
@@ -165,29 +159,36 @@
 					var result = eval('(' + result + ')');
 					$.messager.alert('温馨提示', result.data);
 					if (result.state) {
-						$('#dlg').dialog('close');
-						$('#showData').datagrid('reload');
+						if(result.tag==2){
+							$('#dlg').dialog('close');
+							myMarquee('T616', CTypeThree);
+							$('#newData').datagrid('reload'); // reload the user data
+						}else{
+							$('#dlg').dialog('close');
+							$('#newData').datagrid('reload'); // reload the user data
+						}
 					}
 				}
 				});
 		}
 
 	function edit() {
-	   	var row = $('#showData').datagrid('getSelections');
+			
+	   	var row = $('#newData').datagrid('getSelections');
 	   	
 	   	if(row.length != 1){
 	   		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
 	   		return ;
 	   	}
-	   	
-	   	if(row[0].stuType=="总计"){
+	   	//alert(row[0].donaName);
+	   	if(row[0].teaUnit=="全校合计："){
 	   		$.messager.alert('温馨提示', "合计信息不可编辑！！！") ;
 	   		return;
 	   	}
 	   	
 	   	var year = $("#cbYearContrast").combobox('getValue'); 
 	   	url = 'pages/T616/edit?selectYear='+year; 
-	   	     	
+	     	
 	   	$('#dlg').dialog('open').dialog('setTitle','编辑所选学生人数');
 	   	$('#seqNumber').val(row[0].seqNumber) ;
     	$('#stuType').val(row[0].stuType) ;
@@ -214,6 +215,5 @@
 	  	$('#inSchHongNum').numberbox('setValue',row[0].inSchHongNum); 
 	  	$('#inSchAoNum').numberbox('setValue',row[0].inSchAoNum); 
 	  	$('#inSchTaiNum').numberbox('setValue',row[0].inSchTaiNum); 
-	  	
 	  	
 		}

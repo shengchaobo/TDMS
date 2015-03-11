@@ -26,7 +26,7 @@ public class T616_Dao {
 	
 	/**  数据库表中除了自增长字段的所有字段  */
 	private String field = "StuType,SumGraNum,GraOutNum,GraHongNum,GraAoNum,GraTaiNum,SumDegreeNum,DegreeOutNum,DegreeHongNum,DegreeAoNum,DegreeTaiNum,SumAdmisNum," +
-			"AdmisHongNum,AdmisAoNum,AdmisOutNum,AdmisTaiNum,SumInSchNum,InSchHongNum,InSchAoNum,InSchTaiNum,InSchOutNum,Time,Note" ;
+			"AdmisHongNum,AdmisAoNum,AdmisOutNum,AdmisTaiNum,SumInSchNum,InSchHongNum,InSchAoNum,InSchTaiNum,InSchOutNum,Time,Note,checkState" ;
 
 	
     /**
@@ -51,11 +51,7 @@ public class T616_Dao {
 			
 			//如果当前年表中没有学位列数据，先将学位列数据插入到表中
 			if(list.size()==0){
-				String sql1 = "select " + key + "," + field + " from " + tableName 
-						+ " where convert(varchar(4),Time,120)=" + year;
-				System.out.println(sql1);
-				rs = st.executeQuery(sql1) ;
-				list = DAOUtil.getList(rs, T616_Bean.class) ;
+
 				
 				//System.out.println(list);
 				
@@ -269,6 +265,31 @@ public class T616_Dao {
 		}
 		
 		return bean ;
+	}
+	
+	public boolean updateCheck(String year, String StuType, int checkState){
+		
+		int flag ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		String sql = "update " + tableName + " set CheckState=" + checkState +
+		" where stuType='" + StuType + "' and convert(varchar(4),Time,120)=" + year;			
+		System.out.println(sql);
+		try{			
+			st = conn.createStatement();
+			flag = st.executeUpdate(sql);					
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false;
+		}finally{
+			DBConnection.close(conn) ;
+		}
+		
+		if (flag == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	public static void main(String arg[]){

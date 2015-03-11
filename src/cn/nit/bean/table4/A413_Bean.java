@@ -83,8 +83,6 @@ public class A413_Bean {
 	
 	private double notTutorRatio;
 	
-	private Date time;
-	
 	private String note;
 
 	public int getSeqNumber() {
@@ -399,14 +397,6 @@ public class A413_Bean {
 
 	public void setNotTutorRatio(double notTutorRatio) {
 		this.notTutorRatio = notTutorRatio;
-	}
-
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
 	}
 
 	public String getNote() {

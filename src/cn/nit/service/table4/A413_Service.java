@@ -9,9 +9,9 @@ public class A413_Service {
 	
 	private A413_Dao a413_dao= new A413_Dao();
 	
-	public A413_Bean getYearInfo(String selectYear){
+	public A413_Bean getYearInfo(int year){
 		
-		A413_Bean bean=a413_dao.getYearInfo(selectYear);
+		A413_Bean bean=a413_dao.getYearInfo(year);
 	
 		//System.out.println(list.toString());
          
@@ -19,13 +19,13 @@ public class A413_Service {
 	}
 	
 	//保存
-	public Boolean save(A413_Bean bean, String year){
-		return a413_dao.save(bean,year);
+	public Boolean save(A413_Bean bean){
+		return a413_dao.save(bean);
 	}
 	
 	
-	public A413_Bean getData(String year){
-		return a413_dao.getData(year);
+	public A413_Bean getData(){
+		return a413_dao.getData();
 	}
 
 }

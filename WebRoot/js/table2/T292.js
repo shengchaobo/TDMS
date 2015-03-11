@@ -64,7 +64,7 @@
 				        	 	"precision": 2
 				    		}
 				        } },
-				       	{ "name": "实践教学支出（其中实验经费支出）", "group": "2.其中本科教育经费支出（万元）",  "value": "", "field": "praTeaExp","editor": {
+				       	{ "name": "实践教学支出（其中实习经费支出）", "group": "2.其中本科教育经费支出（万元）",  "value": "", "field": "praTeaExp","editor": {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,

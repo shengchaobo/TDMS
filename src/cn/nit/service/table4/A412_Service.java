@@ -10,22 +10,20 @@ import cn.nit.dao.table4.A412_Dao;
 public class A412_Service {
 	private A412_Dao a412_dao= new A412_Dao();
 	
-	public A412_Bean getYearInfo(String selectYear){
+	public A412_Bean getYearInfo(int year){
 		
-		A412_Bean bean=a412_dao.getYearInfo(selectYear);
-	
-		//System.out.println(list.toString());
+		A412_Bean bean=a412_dao.getYearInfo(year);
          
 		return bean;				
 	}
 	
 	//保存
-	public Boolean save(A412_Bean bean, String year){
-		return a412_dao.save(bean,year);
+	public Boolean save(A412_Bean bean){
+		return a412_dao.save(bean);
 	}
 	
-	public A412_Bean getData(String year){
-		return a412_dao.getData(year);
+	public A412_Bean getData(){
+		return a412_dao.getData();
 	}
 
 }

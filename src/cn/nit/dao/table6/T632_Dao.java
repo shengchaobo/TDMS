@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSON;
+import cn.nit.bean.table5.S512_Bean;
 import cn.nit.bean.table6.T632_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
@@ -657,6 +658,38 @@ public class T632_Dao {
 		}
 		
 		return list ;
+	}
+	
+	/**
+	 * @param 查询某年的合计信息
+	 * @return
+	 */
+	public T632_Bean getYearInfo(String year,String teaUnit){
+		
+		StringBuffer sql = new StringBuffer() ;
+		List<T632_Bean> list = null ;
+		sql.append("select * from "+ tableName);
+		sql.append(" where TeaUnit='" + teaUnit + "' and Time like '"+year+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement();
+			rs = st.executeQuery(sql.toString());
+			list = DAOUtil.getList(rs, T632_Bean.class) ;
+			if(list.size()!=0){
+				T632_Bean bean = list.get(0);
+				return bean;
+			}else{
+				return null;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}
 	}
 
 

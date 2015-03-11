@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,9 +52,6 @@ public class A412_Action {
 	private A412_Bean a412_Bean=new A412_Bean();
 	
 	private A412_Dao a412_Dao=new A412_Dao();
-	
-	/**  哪一年数据  */
-	private String selectYear;
 
 	/**  导出的excelName名 */
 	private String excelName ;
@@ -67,7 +65,9 @@ public class A412_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		PrintWriter out = null ;
-		A412_Bean bean=a412_Service.getYearInfo(this.getSelectYear());
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		A412_Bean bean=a412_Service.getYearInfo(year);
 		boolean flag = false;
 		String json = null;
 		
@@ -77,7 +77,7 @@ public class A412_Action {
 			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}") ;
 			System.out.println("统计数据不全");
 		}else{			
-			flag = a412_Service.save(bean,this.getSelectYear());
+			flag = a412_Service.save(bean);
 			bean.setTime(null);
 			json = JsonUtil.beanToJson(bean);
 			System.out.println(json) ;			
@@ -112,8 +112,7 @@ public class A412_Action {
 
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		A412_Bean bean = a412_Service.getData(this.getSelectYear());
+		A412_Bean bean = a412_Service.getData();
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -318,14 +317,6 @@ public class A412_Action {
 	public String execute() throws Exception{
 		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
-	}
-
-	public String getSelectYear() {
-		return selectYear;
-	}
-
-	public void setSelectYear(String selectYear) {
-		this.selectYear = selectYear;
 	}
 
 	public String getExcelName() {

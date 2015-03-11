@@ -278,6 +278,33 @@ public class T413_Dao {
 		return flag ;
 	}
 	
+	/**
+	 * 外聘教师数
+	 * @return
+	 */
+	public int getOutHireTeaNum(){
+		 int count = 0;
+		 StringBuffer sql =  new StringBuffer();
+		 sql.append("select count(TeaState) AS TeaState from " +tableName);
+		 sql.append(" where TeaState='在聘'");
+		 
+		 Connection conn = DBConnection.instance.getConnection();
+		 Statement st = null;
+		 ResultSet rs = null;
+		 try{
+			 st = conn.createStatement();
+			 rs = st.executeQuery(sql.toString());
+			 while(rs.next()){
+				 count = rs.getInt("TeaState");
+			 }
+			 System.out.println("cout=" + count);
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 return count;
+		 }
+		 return count;		 
+	}
+	
 	public static void main(String args[]){
 		T413_Dao testDao =  new T413_Dao() ;
 		//System.out.println(testDao.totalList().size()) ;

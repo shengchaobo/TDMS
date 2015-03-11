@@ -34,6 +34,15 @@ public class S512_Service {
 		return list;
 	}
 	
+	/**
+	 * 找出某年的总计信息
+	 * */
+	public S512_Bean getYearInfo(String year, String teaUnit){
+		return s512Dao.getYearInfo(year,teaUnit);
+	}
+	
+	
+	
 	public static void main(String arg[]){
 		S512_Service ser =  new S512_Service();
 		List<S512_Bean> list = ser.loadInfo("2010");

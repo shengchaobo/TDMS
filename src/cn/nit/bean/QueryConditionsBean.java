@@ -8,6 +8,8 @@ public class QueryConditionsBean {
 	
 	private String LogicRelation;
 	
+	private String LeftJoin01;
+	
 	private String ParamValue;
 	
 	private String RightJoin;
@@ -19,6 +21,8 @@ public class QueryConditionsBean {
 	private String FieldName1;
 	
 	private String LogicRelation1;
+	
+	private String LeftJoin11;
 	
 	private String ParamValue1;
 	
@@ -110,6 +114,22 @@ public class QueryConditionsBean {
 
 	public void setLogicRelation1(String logicRelation1) {
 		LogicRelation1 = logicRelation1;
+	}
+
+	public void setLeftJoin11(String leftJoin11) {
+		LeftJoin11 = leftJoin11;
+	}
+
+	public String getLeftJoin11() {
+		return LeftJoin11;
+	}
+
+	public void setLeftJoin01(String leftJoin01) {
+		LeftJoin01 = leftJoin01;
+	}
+
+	public String getLeftJoin01() {
+		return LeftJoin01;
 	}
 	
 	

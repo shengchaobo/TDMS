@@ -5,6 +5,10 @@ public class DiTableMessageBean {
 	private String Tname;
 	
 	private String Tid;
+	
+	private int Ttag;
+	
+	private String Tparent;
 
 	public String getTname() {
 		return Tname;
@@ -22,7 +26,19 @@ public class DiTableMessageBean {
 		Tid = tid;
 	}
 
-	
-	
-	
+	public void setTtag(int ttag) {
+		Ttag = ttag;
+	}
+
+	public int getTtag() {
+		return Ttag;
+	}
+
+	public void setTparent(String tparent) {
+		Tparent = tparent;
+	}
+
+	public String getTparent() {
+		return Tparent;
+	}	
 }

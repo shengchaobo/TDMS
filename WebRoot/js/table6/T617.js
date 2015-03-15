@@ -1,4 +1,4 @@
-	//全局变量，用来控制字段合并次数
+﻿	//全局变量，用来控制字段合并次数
 	var count = 0;	
 	
 	//只是用来展示的数据
@@ -21,18 +21,18 @@
 			remoteSort : false,
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
-			if(rowData.rows.length == 0){
-				alert("该年数据为空");
-				if(count == 0){
-					count++;
-					$("#newData").datagrid({title:'专科在校生信息补充表'});						
-				}else{
-					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表");
-				}   					
-				$("#newObject").show();
-				$("#edit").show();
-				$("#delete").show();
-			}else{
+			  if(count == 0 ) {				    	  				            
+		    	   count++;
+					if(rowData.rows.length == 0){
+
+						alert("该年数据为空");
+    					$("#newData").datagrid({title:'专科在校生信息补充表'});
+    					$("#newObject").show();
+    					$("#edit").show();
+    					$("#delete").show();
+					}else{
+
+
 					     
 					           // alert(rowData.rows[0].checkState);
 								//设置表格状态
@@ -99,8 +99,9 @@
 					rownumbers : true,
 					onLoadSuccess: function (rowData) {
 					
-					        alert(rowData.rows[0].checkState);
+				
 							if(rowData.rows.length == 0){
+							
 								alert("该年数据为空");
 		    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表");
 		    					$("#newObject").show();
@@ -108,7 +109,7 @@
 		    					$("#delete").show();
 		    					$("#export").hide();
 							}else{
-								alert(rowData.rows[0].checkState);
+							
 								//设置表格状态
 								if(rowData.rows[0].checkState!=0){  								
 				    				if(rowData.rows[0].checkState==WAITCHECK){

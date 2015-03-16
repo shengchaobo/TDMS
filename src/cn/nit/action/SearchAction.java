@@ -16,13 +16,14 @@ import net.sf.json.JSONArray;
 import cn.nit.action.di.DiTableMessageAction;
 import cn.nit.bean.ColumnInfoBean;
 import cn.nit.bean.QueryConditionsBean;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiTableMessageBean;
 import cn.nit.service.QueryService;
 import cn.nit.service.di.DiTableMessageService;
 
 public class SearchAction {
 
-	ColumnInfoBean columnInfoBean = new ColumnInfoBean();
+
 	HttpServletRequest request = ServletActionContext.getRequest();
 	HttpServletResponse response = ServletActionContext.getResponse();
 	QueryService queryService = new QueryService();
@@ -34,16 +35,17 @@ public class SearchAction {
 
 	//查询表单表头信息
 	public void loadColumnResult() throws IOException {
-		List<ColumnInfoBean> list = new ArrayList<ColumnInfoBean>();
 		
+		List<ColumnInfoBean> list = new ArrayList<ColumnInfoBean>();
 		List<DiTableMessageBean> fieldList = tableService.getFieldlist(this.getTableName());
 		for(DiTableMessageBean bean:fieldList){
+			ColumnInfoBean columnInfoBean = new ColumnInfoBean();
 			columnInfoBean.setTitle(bean.getTname());
 			columnInfoBean.setField(bean.getTid());
 			columnInfoBean.setAlign("center");
 			columnInfoBean.setWidth(120);
+			list.add(columnInfoBean);
 		}		
-		list.add(columnInfoBean);
 		
 		List tmList = new ArrayList();//必须再套一层
 		tmList.add(list);
@@ -54,9 +56,23 @@ public class SearchAction {
 	
 	//查询表单内数据
     public void loadQueryResult(){
+    	
     	System.out.println(this.getQuerySql());
+    	
+    	String query;
+    	
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID;
+		String tempUnitID = bean.getUnitID().substring(0,1);
+		if("3".equals(tempUnitID)){
+			fillUnitID = bean.getUnitID();
+			query = this.getQuerySql() + (" and FillUnitID=" + fillUnitID);
+		}else{
+			query = this.getQuerySql();
+		}
 
-		String pages = queryService.getTableData(this.getQuerySql());
+		String pages = queryService.getTableData(query);
 	    PrintWriter out = null ;
 		
 		try{

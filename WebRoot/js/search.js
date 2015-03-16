@@ -32,6 +32,7 @@ function Query() {
     var   fieldName = $('#fieldName').combobox('getValue') ;
     var   logicRelation  = $('#logicRelation').combobox('getValue') ;
     var   paramValue= ($('#paramValue').val());
+    paramValue = encodeURI(paramValue,"UTF-8");
     var   rightJoin  = $('#rightJoin').combobox('getValue') ;  
     var   joinRelation  = $('#joinRelation').combobox('getValue') ;    
     var   leftJoin1 = $('#leftJoin1').combobox('getValue') ;
@@ -39,6 +40,7 @@ function Query() {
     var   fieldName1 = $('#fieldName1').combobox('getValue') ;   
     var   logicRelation1  = $('#logicRelation1').combobox('getValue') ;  
     var   paramValue1= ($('#paramValue1').val());
+    paramValue1 = encodeURI(paramValue1,"UTF-8");
     var   rightJoin1  = $('#rightJoin1').combobox('getValue') ;
     var   tempStr;
     var   paramValueTemp;
@@ -130,6 +132,8 @@ function Query() {
     	paramValue = "%25" + tempStr +"%25";
     	//仅用于显示
     	paramValueTemp = "%" + tempStr +"%";
+    }else{
+    	paramValueTemp = paramValue;
     }
     if(joinRelation==""){
     	var querySql =  "select * from " + tablename+" where "+ leftJoin+fieldName+" " +logicRelation+" " +leftJoin01+paramValue+rightJoin+" ";
@@ -145,6 +149,8 @@ function Query() {
         	paramValue1 = "%25" + tempStr +"%25";
         	//仅用于显示
         	paramValueTemp1 = "%" + tempStr +"%";
+        }else{
+        	paramValueTemp1 = paramValue1;
         }       
     	var querySql =  "select * from " + tablename+" where "+ leftJoin+fieldName+" " +logicRelation+" " +leftJoin01+paramValue+rightJoin+" " +joinRelation
     	+" " + leftJoin1+fieldName1+" " +logicRelation1+" " +leftJoin11+paramValue1+rightJoin1;
@@ -166,16 +172,13 @@ function Query() {
 		         dataType:'json',
 		         data:{},
 		         success:function(data){//获取表头数据成功后，使用easyUi的datagrid去生成表格
+		        	 //alert(data.length);
                     $('#totalTb').datagrid({ 	
                         url: 'pages/search/loadQueryResult?querySql=' + querySql,
-                        fitColumns: true,
                         singleSelect:true,
                         idField:"appId",
-                        columns:data,//外层ajax请求的表头json
                         queryParams:{},
-                        onSelect:function(rowIndex, rowData){
-                            alert(rowData.appId);
-                        }//end of onSelect:function
+                        columns:data
                     });		        	 
 		         }
 		    });

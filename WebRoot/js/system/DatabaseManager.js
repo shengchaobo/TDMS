@@ -1,6 +1,6 @@
 var url;
 			function upload(){
-				if(confirm("恢复数据将替换数据库中的数据，确认吗？")){
+				if(confirm("恢复数据将替换数据库中的数据，确认将继续选择备份文件。")){
 				$('#udlg').dialog('open').dialog('setTitle','数据恢复');
 				$('#batchForm').form('reset');	
 				url = "fileupload";}			

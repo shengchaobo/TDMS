@@ -9,21 +9,15 @@ import cn.nit.bean.QueryConditionsBean;
 import cn.nit.dao.QueryResultDAO;
 import cn.nit.util.Pagition;
 
-public class QueryResultService {
+public class QueryService {
 
 	QueryResultDAO queryResultDAO=new QueryResultDAO();
-	public <T> String auditingData(String tablename,QueryConditionsBean queryConditionsBean){
+	
+	public <T> String getTableData(String querySql){
 		
-		List<T> list=queryResultDAO.auditingData(tablename,queryConditionsBean);
+		List<T> list=queryResultDAO.getTableData(querySql);
         JSON json=JSONSerializer.toJSON(list);
 		System.out.println(json.toString());
-
 		return json.toString();
 	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

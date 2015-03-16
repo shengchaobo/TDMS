@@ -5,6 +5,7 @@ public class ColumnInfoBean {
 	private String title;
 	private int width;
 	private String align;
+	
 	public String getField() {
 		return field;
 	}
@@ -29,8 +30,4 @@ public class ColumnInfoBean {
 	public void setAlign(String align) {
 		this.align = align;
 	}
-	
-	
-	
-
 }

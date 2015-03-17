@@ -210,8 +210,7 @@ public class A411_Action {
 		boolean flag = false;
 		String json = null;
 		if(flag0 == true){
-			flag = a411_service.save(bean,this.getSelectYear());
-			bean.setTime(null);
+			flag = a411_service.save(bean);
 			json = JsonUtil.beanToJson(bean);
 			System.out.println(json) ;
 		}
@@ -253,8 +252,7 @@ public class A411_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		A411_Bean bean = a411_service.getYearInfo(this.getSelectYear());
+		A411_Bean bean = a411_service.getInfo();
 		
 	    ByteArrayOutputStream fos = null;
 		

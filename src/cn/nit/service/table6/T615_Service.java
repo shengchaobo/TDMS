@@ -118,22 +118,35 @@ public class T615_Service {
 		return T615_Dao.checkAll() ;
 	}
 
-
-
 	public int getTotal() {
 		// TODO Auto-generated method stub
 		return T615_Dao.getAllList().size();
 	}
-
-
+	
 	/**
-	 * @param args
+	 * 转专业：转入人数
+	 * @param year
+	 * @return
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public int getInNum(String year){
+		return T615_Dao.getInNum(year);
 	}
 
-
-
+	/**
+	 * 转专业：转出人数
+	 * @param year
+	 * @return
+	 */
+	public int getOutNum(String year){
+		return T615_Dao.getOutNum(year);
+	}
+	
+	/**
+	 * 辅修专业人数
+	 * @param year
+	 * @return
+	 */
+	public int getMinorNum(String year){
+		return T615_Dao.getMinorNum(year);
+	}
 }

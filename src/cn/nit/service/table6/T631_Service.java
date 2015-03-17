@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import cn.nit.bean.table6.T631_Bean;
+import cn.nit.bean.table6.T632_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table6.T631_Dao;
 import cn.nit.util.Pagition;
@@ -92,6 +93,13 @@ public class T631_Service {
 	public int getTotal(String cond, Object object) {
 		// TODO Auto-generated method stub
 		return T631_dao.getAllList(cond, object).size();
+	}
+	
+	/**
+	 * 找出某年的总计信息
+	 * */
+	public T631_Bean getYearInfo(String year, String teaUnit){
+		return T631_dao.getYearInfo(year,teaUnit);
 	}
 
 	/**

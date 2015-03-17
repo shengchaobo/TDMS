@@ -6,5 +6,6 @@
 	<package name="pages/DiTableMessage" namespace="/pages/DiTableMessage" extends="struts-default">
 		<!-- 初始化加载所有学位 -->
 	    <action name="loadTableMessage" class="cn.nit.action.di.DiTableMessageAction" method="loadTableMessage" />
+	    <action name="loadTableField" class="cn.nit.action.di.DiTableMessageAction" method="loadTableField" />
 	</package>
 </struts>

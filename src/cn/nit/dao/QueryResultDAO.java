@@ -6,21 +6,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.bean.QueryConditionsBean;
+
 import cn.nit.dbconnection.DBConnection;
-import cn.nit.bean.table7.T711_Bean;
 import cn.nit.util.DAOUtil;
 
 public class QueryResultDAO {
-    private QueryConditionsBean queryConditionsBean=new QueryConditionsBean();
-    
-    
+
 	@SuppressWarnings("unchecked")
-	public  <T> List<T> auditingData(String tablename,QueryConditionsBean tt){
-		QueryResultDAO q=new QueryResultDAO();
-		String bean=q.getPojo(tablename);	
+	public  <T> List<T> getTableData(String querySql){
+
+		String bean = querySql.substring(14,18);
 		System.out.println(bean);
-		String tableN=null;
+		
+		String tableN = null;
 		if(bean.charAt(1)=='1'){
 			 tableN="table1";
 		}
@@ -43,26 +41,16 @@ public class QueryResultDAO {
 			 tableN="table7";
 		}
 		
-		
-		System.out.println(tt.getParamValue());
-		StringBuffer sql=new StringBuffer();
 		List<T> list= new ArrayList<T>();
-		sql.append("select * ");
-		sql.append("  from   " +"  "+ tablename);
-		sql.append("  where  "   +" "+ tt.getLeftJoin() +" "+ tt.getFieldName() + " "+  tt.getLogicRelation() +  " "+ "'" + tt.getParamValue() + "'" +" "+ tt.getRightJoin() + 
-				" "+   tt.getJoinRelation() + " "+  tt.getLeftJoin1() +" "+  tt.getFieldName1() +" "+  tt.getLogicRelation1() + " "+ "'" + tt.getParamValue1() + "'" + " "+ tt.getRightJoin1());
-		
-		System.out.println(sql.toString());
+
 		Statement st=null;
 		ResultSet rs=null;
 		
 		Connection conn=DBConnection.instance.getConnection();
 		try {
-			st=conn.createStatement();		
-			System.out.println(123);
-			rs=st.executeQuery(sql.toString());
-			System.out.println(456);	    
-			list=(List<T>) DAOUtil.getList(rs,Class.forName("cn.nit.bean."+tableN+"."+ bean));
+			st = conn.createStatement();		
+			rs = st.executeQuery(querySql);    
+			list = (List<T>) DAOUtil.getList(rs,Class.forName("cn.nit.bean."+tableN+"."+ bean+"_Bean"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,7 +58,8 @@ public class QueryResultDAO {
 		return list;
 	}
 	
-	public String getPojo(String tablename){
+	
+/*	public String getPojo(String tablename){
 		String po=null;
 		StringBuffer sql=new StringBuffer();
 		sql.append("select distinct OPPojo");
@@ -93,16 +82,9 @@ public class QueryResultDAO {
 			e.printStackTrace();
 		}
 		return po;
-	}
+	}*/
    
-	public QueryConditionsBean getQueryConditionsBean() {
-		return queryConditionsBean;
-	}
 
-
-	public void setQueryConditionsBean(QueryConditionsBean queryConditionsBean) {
-		this.queryConditionsBean = queryConditionsBean;
-	}
 
 
 	public static void main(String[] args) {

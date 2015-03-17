@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,9 +43,6 @@ public class A413_Action {
 	private A413_Bean a413_Bean=new A413_Bean();
 	
 	private A413_Dao a413_Dao=new A413_Dao();
-	
-	/**  哪一年数据  */
-	private String selectYear;
 
 	/**  导出的excelName名 */
 	private String excelName ;
@@ -58,7 +56,10 @@ public class A413_Action {
 	public void loadInfo() throws Exception{
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		PrintWriter out = null ;
-		A413_Bean bean=a413_Service.getYearInfo(this.getSelectYear());
+		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		A413_Bean bean=a413_Service.getYearInfo(year);
 		boolean flag = false;
 		String json = null;
 		
@@ -68,8 +69,7 @@ public class A413_Action {
 			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}") ;
 			System.out.println("统计数据不全");
 		}else{			
-			flag = a413_Service.save(bean,this.getSelectYear());
-			bean.setTime(null);
+			flag = a413_Service.save(bean);
 			json = JsonUtil.beanToJson(bean);
 			System.out.println(json) ;			
 		}	
@@ -102,9 +102,8 @@ public class A413_Action {
 	
 
 	public InputStream getInputStream() throws Exception{
-
-		System.out.println(this.getSelectYear());
-		A413_Bean bean = a413_Service.getData(this.getSelectYear());
+		
+		A413_Bean bean = a413_Service.getData();
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -255,12 +254,7 @@ public class A413_Action {
 		           ws.addCell(new Label(6, 14, bean.getMasterTutorRatio()+"%", wcf1));
 		           ws.addCell(new Label(7, 14, bean.getNotTutorNum()+"", wcf1));  
 		           ws.addCell(new Label(8, 14, bean.getNotTutorRatio()+"%", wcf1));
-
-
-		           
-		           
-
-		           
+		         		          		           
 		           ws.mergeCells(1, 2, 8, 2);
 		           ws.mergeCells(0, 3, 0, 5);
 		           ws.mergeCells(1, 3, 2, 3);
@@ -288,14 +282,7 @@ public class A413_Action {
 		           ws.mergeCells(3, 12, 4, 12);
 		           ws.mergeCells(5, 12, 6, 12);
 		           ws.mergeCells(7, 12, 8, 12);
-		           
-
-		           
-
-		           		           
-
-		             
-
+		         		          		           		      		             
 		          wwb.write();
 		          wwb.close();
 
@@ -311,14 +298,6 @@ public class A413_Action {
 	public String execute() throws Exception{
 		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
-	}
-
-	public String getSelectYear() {
-		return selectYear;
-	}
-
-	public void setSelectYear(String selectYear) {
-		this.selectYear = selectYear;
 	}
 
 	public String getExcelName() {

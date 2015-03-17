@@ -20,13 +20,13 @@ public class A411_Dao {
 			"BachelorRatio,NotDegreeNum,NotDegreeRatio,Below35Num,Below35Ratio,In36To45Num,In36To45Ratio,In46To55Num,In46To55Ratio,Above56Num,Above56Ratio," +
 			"ThisSchNum,ThisSchRatio,OutSchInNum,OutSchInRatio,OutSchOutNum,OutSchOutRatio,DuTeaNum,DuTeaRatio,IndustryNum," +
 			"IndustryRatio,EngineerNum,EngineerRatio,FullTimeTeaNum,FullTimeRatio,TeaManageNum,TeaManageRatio,StuManageNum,StuManageRatio," +
-			"TeaMonitorNum,TeaMonitorRatio,ExpTeaNum,ExpTeaRatio,OtherTeaNum,OtherTeaRatio,Time,Note";
+			"TeaMonitorNum,TeaMonitorRatio,ExpTeaNum,ExpTeaRatio,OtherTeaNum,OtherTeaRatio,Note";
 	private String key = "SeqNumber";
 	
 	
 	//保存
-	public boolean save(A411_Bean a411_bean, String year){
-		String sql="select * from " + tableName + " where Time like '"+year+"%'";	
+	public boolean save(A411_Bean a411_bean){
+		String sql="select * from " + tableName;	
 		boolean flag=false;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null;
@@ -40,10 +40,8 @@ public class A411_Dao {
 			if(list.size()!=0){
 				bean=list.get(0);
 				a411_bean.setSeqNumber(bean.getSeqNumber());
-				a411_bean.setTime(TimeUtil.changeDateY(year));
 				flag=DAOUtil.update(a411_bean, tableName, key, field, conn);
 			}else{
-				a411_bean.setTime(TimeUtil.changeDateY(year));
 				flag=DAOUtil.insert(a411_bean, tableName, field, conn);
 				
 			}
@@ -59,10 +57,10 @@ public class A411_Dao {
 		
 	}
 	
-	public A411_Bean getYearInfo(String year){
+	public A411_Bean getInfo(){
 		
 		String sql = "select " + " " + key + "," +
-		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		field + " from " + tableName;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

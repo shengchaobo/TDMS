@@ -41,8 +41,8 @@ public class A412_Dao {
  	 * @time: 2014-5-14/下午02:34:23
  	 */
 
-	public boolean save(A412_Bean a412_bean, String year){
-		String sql="select * from " + tableName + " where Time like '"+year+"%'";	
+	public boolean save(A412_Bean a412_bean){
+		String sql="select * from " + tableName;	
 		boolean flag=false;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null;
@@ -56,12 +56,9 @@ public class A412_Dao {
 			if(list.size()!=0){
 				bean=list.get(0);
 				a412_bean.setSeqNumber(bean.getSeqNumber());
-				a412_bean.setTime(TimeUtil.changeDateY(year));
 				flag=DAOUtil.update(a412_bean, tableName, key, field, conn);
 			}else{
-				a412_bean.setTime(TimeUtil.changeDateY(year));
-				flag=DAOUtil.insert(a412_bean, tableName, field, conn);
-				
+				flag=DAOUtil.insert(a412_bean, tableName, field, conn);				
 			}
 		}catch (Exception e){
 			e.printStackTrace() ;
@@ -76,9 +73,9 @@ public class A412_Dao {
 	}
 	
 	
-	public A412_Bean getData(String year){
+	public A412_Bean getData(){
 		
-		String sql="select * from "+tableName+" where convert(varchar(4),Time,120)=" + year;
+		String sql="select * from "+tableName;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -109,7 +106,7 @@ public class A412_Dao {
  	
 
 
-	public A412_Bean getYearInfo(String selectYear)
+	public A412_Bean getYearInfo(int year)
 	{
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
@@ -128,8 +125,6 @@ public class A412_Dao {
 			return null;
 		}
 		
-		
-		int year = Integer.parseInt(selectYear);
 	    String querysql="select " +
 	    	"count(distinct teaId) as Sum," +
 			"sum (case when majTechTitle = '41000' then 1 else 0 end) as SeniorNum," +

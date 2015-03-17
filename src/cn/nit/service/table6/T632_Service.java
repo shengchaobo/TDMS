@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
+import cn.nit.bean.table5.S512_Bean;
 import cn.nit.bean.table6.T632_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table6.T632_Dao;
@@ -108,6 +109,13 @@ public class T632_Service {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	/**
+	 * 找出某年的总计信息
+	 * */
+	public T632_Bean getYearInfo(String year, String teaUnit){
+		return T632_dao.getYearInfo(year,teaUnit);
 	}
 
 

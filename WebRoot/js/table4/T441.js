@@ -54,8 +54,8 @@
 		   }
     
 	//单条导入
-	function singleImport() {
-		// 录入数据的表单提交
+	function singleImport() {	 
+		// 表单提交
 		$('#addForm').form('submit', {
 			url : url,
 				data : $('#addForm').serialize(),
@@ -185,7 +185,7 @@
     }
     
     function deletes(ids) {
-    	$.ajax( {
+    	$.ajax({
     		type : "POST",
     		url : "pages/T441/deleteByIds?ids=" + ids,
     		async : "true",

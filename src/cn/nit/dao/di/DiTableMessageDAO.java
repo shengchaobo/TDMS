@@ -15,7 +15,7 @@ public class DiTableMessageDAO {
 	
 	private String tablename="DiTableMessage";
 	
-	private String field="Tname,Tid,Ttag,Tparent";
+	private String field="Tname,Tid,Ttag,Tparent,TFieldFlag";
 	
 	/**
 	 * 获取所有的表名

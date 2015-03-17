@@ -9,6 +9,8 @@ public class DiTableMessageBean {
 	private int Ttag;
 	
 	private String Tparent;
+	
+	private int TFieldFlag;
 
 	public String getTname() {
 		return Tname;
@@ -40,5 +42,13 @@ public class DiTableMessageBean {
 
 	public String getTparent() {
 		return Tparent;
+	}
+
+	public void setTFieldFlag(int tFieldFlag) {
+		TFieldFlag = tFieldFlag;
+	}
+
+	public int getTFieldFlag() {
+		return TFieldFlag;
 	}	
 }

@@ -7,8 +7,8 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.bean.table1.S15Bean;
-import cn.nit.bean.table1.T11Bean;
+import cn.nit.bean.table1.S15_Bean;
+import cn.nit.bean.table1.T11_Bean;
 import cn.nit.util.TimeUtil;
 
 import jxl.Workbook;
@@ -26,7 +26,7 @@ public class S15Excel {
      *  
      * 这个是读取模板写入数据 导出
      * **/  
-	public  ByteArrayOutputStream writeExcel(List<S15Bean> list)
+	public  ByteArrayOutputStream writeExcel(List<S15_Bean> list)
 	{
 		
 		 ByteArrayOutputStream fos = null;
@@ -86,9 +86,9 @@ public class S15Excel {
 	}
 	
 	 /**将list<BEAN>转换成list<String>*/
-    public List<String> changeTo(List<S15Bean> list){
+    public List<String> changeTo(List<S15_Bean> list){
     	List<String> listStr=new ArrayList<String>();
-    	S15Bean s15Bean=list.get(0);
+    	S15_Bean s15Bean=list.get(0);
     	//总计
     	String totalNum=""+s15Bean.getSumResNum();
     	listStr.add(totalNum);

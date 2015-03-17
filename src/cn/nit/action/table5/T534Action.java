@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
-import cn.nit.bean.table5.T534Bean;
+import cn.nit.bean.table5.T534_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T534DAO;
 import cn.nit.excel.imports.table5.T534Excel;
@@ -44,7 +44,7 @@ public class T534Action {
 	private DiDepartmentService deSer = new DiDepartmentService() ;
 	
 	/**  表534的Bean实体类  */
-	private T534Bean t534Bean = new T534Bean() ;
+	private T534_Bean t534Bean = new T534_Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -330,7 +330,7 @@ public class T534Action {
 
 		try {
 			
-			List<T534Bean> list = t534Dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+			List<T534_Bean> list = t534Dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -383,11 +383,11 @@ public class T534Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-	public T534Bean getT534Bean() {
+	public T534_Bean getT534Bean() {
 		return t534Bean;
 	}
 
-	public void setT534Bean(T534Bean t534Bean) {
+	public void setT534Bean(T534_Bean t534Bean) {
 		this.t534Bean = t534Bean;
 	}
 

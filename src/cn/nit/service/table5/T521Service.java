@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-import cn.nit.bean.table5.T521Bean;
+import cn.nit.bean.table5.T521_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table5.T521DAO;
 
@@ -26,7 +26,7 @@ public class T521Service {
 	 *
 	 * @time: 2014-5-14/上午10:52:05
 	 */
-	public boolean insert(T521Bean t521Bean){
+	public boolean insert(T521_Bean t521Bean){
 		
 		return t521Dao.insert(t521Bean) ;
 	}
@@ -43,10 +43,10 @@ public class T521Service {
 	
 	/**
 	 * 更新数据
-	 * @param t522Bean {@link cn.nit.bean.table1.T151Bean}实体类
+	 * @param t522Bean {@link cn.nit.bean.table1.T151_Bean}实体类
 	 * @return
 	 */
-	public boolean update(T521Bean t521Bean){
+	public boolean update(T521_Bean t521Bean){
 //	    this.setAudit(t151Bean) ;
 		return t521Dao.update(t521Bean) ;
 	}
@@ -87,7 +87,7 @@ public class T521Service {
 	}
 	
 	/**批量导入*/
-	public boolean batchInsert(List<T521Bean> list){
+	public boolean batchInsert(List<T521_Bean> list){
 		
 		return t521Dao.batchInsert(list) ;
 	}

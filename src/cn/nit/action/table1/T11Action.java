@@ -36,8 +36,8 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table1.T11Bean;
-import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.T11_Bean;
+import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table4.T410_Bean;
 import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dao.table1.T11DAO;
@@ -63,7 +63,7 @@ public class T11Action {
 	private T11DAO t11Dao = new T11DAO() ;
 	
 	/**  表11的Bean实体类  */
-	private T11Bean t11Bean = new T11Bean() ;
+	private T11_Bean t11Bean = new T11_Bean() ;
 	
 	/**  表11的Excel实体类  */
 	private T11Excel t11Excel = new T11Excel() ;
@@ -162,7 +162,7 @@ public class T11Action {
 		String tempData = this.getData();
 		//System.out.println(tempData);
 				
-		T11Bean bean  = ToBeanUtil.toBean(tempData, T11Bean.class);
+		T11_Bean bean  = ToBeanUtil.toBean(tempData, T11_Bean.class);
 										
 		boolean flag = t11Ser.save(bean,this.getSelectYear(),this.getFields());
 		PrintWriter out = null ;
@@ -223,7 +223,7 @@ public class T11Action {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
 		//得到需要复制的年份的数据
-		T11Bean bean = t11Ser.getBean() ;
+		T11_Bean bean = t11Ser.getBean() ;
 		Date newYear = TimeUtil.changeDateY(this.getSelectYear());
 		//System.out.println("year:"+this.getSelectYear());
 		//System.out.println(newYear);
@@ -279,7 +279,7 @@ public class T11Action {
 		
 //			System.out.println(this.getSelectYear());
 //	
-			T11Bean bean =t11Dao.forExcel(this.selectYear).get(0);
+			T11_Bean bean =t11Dao.forExcel(this.selectYear).get(0);
 			
 		    ByteArrayOutputStream fos = null;
 		
@@ -421,11 +421,11 @@ public class T11Action {
 	}
 
 
-	public T11Bean getT11Bean() {
+	public T11_Bean getT11Bean() {
 		return t11Bean;
 	}
 
-	public void setT11Bean(T11Bean t11Bean) {
+	public void setT11Bean(T11_Bean t11Bean) {
 		this.t11Bean = t11Bean;
 	}
 	public String getSelectYear() {

@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import cn.nit.bean.table1.S17Bean;
-import cn.nit.bean.table1.T17Bean;
+import cn.nit.bean.table1.S17_Bean;
+import cn.nit.bean.table1.T17_Bean;
 import cn.nit.dao.table1.S17DAO;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.S17POJO;
@@ -34,11 +34,11 @@ public class S17Service {
 		/**
 		 * 数据显示
 		 * */
-		public S17Bean loadData(String year){
+		public S17_Bean loadData(String year){
 			
 			boolean flag=false;
-			S17Bean s17bean=null;//用作统计信息
-			S17Bean bean=null;//输出
+			S17_Bean s17bean=null;//用作统计信息
+			S17_Bean bean=null;//输出
 		   	int seq=s17Dao.getSeqNumber(year);
 		   	
 		   	if(seq!=-1){// seq!=-1,说明数据库中有这条数据
@@ -65,7 +65,7 @@ public class S17Service {
 		}
 		
 		//保存
-		public Boolean save(S17Bean bean, String year,	String fields){
+		public Boolean save(S17_Bean bean, String year,	String fields){
 			return s17Dao.save(bean,year,fields);
 		}
 
@@ -95,11 +95,11 @@ public class S17Service {
 //	}
    
 	/**得到统计信息*/
-   public S17Bean getStatic(String year)
+   public S17_Bean getStatic(String year)
    {
 //	   System.out.println("hello");
-	   S17Bean s17Bean=new S17Bean();
-	   	List<T17Bean> list=s17Dao.getOriData(year);
+	   S17_Bean s17Bean=new S17_Bean();
+	   	List<T17_Bean> list=s17Dao.getOriData(year);
 	   	/**境内个数*/
 	   	int num1=0;
 	   	/**境外个数*/
@@ -108,7 +108,7 @@ public class S17Service {
 	   	int totalCount=0;
 	   	for(int i=0;i<list.size();i++)
 	   	{
-	   		T17Bean t17Bean=new T17Bean();
+	   		T17_Bean t17Bean=new T17_Bean();
 	   		t17Bean=list.get(i);
 	   		String place=t17Bean.getPlace();
 	   		if(place.equals("境内"))
@@ -132,7 +132,7 @@ public class S17Service {
    
    public static void main(String arg[]){
 	   S17Service ser=new S17Service();
-	   S17Bean bean=ser.loadData("2011");
+	   S17_Bean bean=ser.loadData("2011");
 	   if(bean!=null){
 		   System.out.println("有数据");
 	   }else {

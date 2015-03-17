@@ -6,8 +6,8 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
-import cn.nit.bean.table1.T17Bean;
-import cn.nit.bean.table1.T181Bean;
+import cn.nit.bean.table1.T17_Bean;
+import cn.nit.bean.table1.T181_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T18DAO;
 
@@ -33,7 +33,7 @@ import cn.nit.util.TimeUtil;
 			 *
 			 * @time: 2014-5-14/上午10:52:05
 			 */
-			public boolean insert(T181Bean t181Bean){
+			public boolean insert(T181_Bean t181Bean){
 				
 				return t181Dao.insert(t181Bean) ;
 			}
@@ -60,7 +60,7 @@ import cn.nit.util.TimeUtil;
 			 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
 			 * @return
 			 */
-			public boolean update(T181Bean t181Bean){
+			public boolean update(T181_Bean t181Bean){
 //			    this.setAudit(t151Bean) ;
 				return t181Dao.update(t181Bean) ;
 			}
@@ -74,7 +74,7 @@ import cn.nit.util.TimeUtil;
 			}
 			
 			/**导入数据*/
-			public boolean batchInsert(List<T181Bean> list){
+			public boolean batchInsert(List<T181_Bean> list){
 					
 					return t181Dao.batchInsert(list) ;
 				}

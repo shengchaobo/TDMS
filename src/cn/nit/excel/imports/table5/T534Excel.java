@@ -36,7 +36,7 @@ import cn.nit.bean.di.DiEducationBean;
 import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table4.T411_Bean;
-import cn.nit.bean.table5.T534Bean;
+import cn.nit.bean.table5.T534_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDegreeService;
 import cn.nit.service.di.DiDepartmentService;
@@ -67,7 +67,7 @@ public class T534Excel {
 		boolean flag = false ;
 		boolean IsExcellent=false;
 		boolean IsOutEmploy=false;
-		List<T534Bean> list = new LinkedList<T534Bean>() ;
+		List<T534_Bean> list = new LinkedList<T534_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -83,7 +83,7 @@ public class T534Excel {
 		List<DiTitleNameBean> diTitelList=diTitleSer.getList();
 		
 		for(Cell[] cell : cellList){
-			T534Bean t534Bean = new  T534Bean();
+			T534_Bean t534Bean = new  T534_Bean();
 			int n=cellList.indexOf(cell);
 			if(count<4){//忽略合计的哪一行
 				count++;

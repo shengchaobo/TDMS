@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table5.T532Bean;
+import cn.nit.bean.table5.T532_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T532DAO;
 import cn.nit.excel.imports.table5.T532Excel;
@@ -41,7 +41,7 @@ public class T532Action {
 	private CheckService check_services = new CheckService();
 	
 	/**  表532的Bean实体类  */
-	private T532Bean t532Bean = new T532Bean() ;
+	private T532_Bean t532Bean = new T532_Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -317,7 +317,7 @@ public class T532Action {
 
 		try {
 			System.out.println(this.getSelectYear());
-			List<T532Bean> list = t532Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T532_Bean> list = t532Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -368,11 +368,11 @@ public class T532Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-	public T532Bean getT532Bean() {
+	public T532_Bean getT532Bean() {
 		return t532Bean;
 	}
 
-	public void setT532Bean(T532Bean t532Bean) {
+	public void setT532Bean(T532_Bean t532Bean) {
 		this.t532Bean = t532Bean;
 	}
 

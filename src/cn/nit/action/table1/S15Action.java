@@ -32,8 +32,8 @@ import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table1.A15Bean;
-import cn.nit.bean.table1.S15Bean;
+import cn.nit.bean.table1.A15_Bean;
+import cn.nit.bean.table1.S15_Bean;
 import cn.nit.dao.table1.S15DAO;
 import cn.nit.excel.imports.table1.S15Excel;
 import cn.nit.pojo.table1.A15POJO;
@@ -46,7 +46,7 @@ public class S15Action {
 	private S15Service s15Ser=new S15Service();
 	
 	/**S15的Bean類*/
-	private S15Bean s15Bean=new S15Bean();
+	private S15_Bean s15Bean=new S15_Bean();
 	
 	/**S15的Excel類*/
 	private S15Excel s15Excel=new S15Excel();
@@ -94,7 +94,7 @@ public class S15Action {
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		S15Bean bean = s15Ser.loadData(this.getSelectYear()) ;
+		S15_Bean bean = s15Ser.loadData(this.getSelectYear()) ;
 			
 		String json=null;
 		boolean flag = false; 
@@ -138,7 +138,7 @@ public class S15Action {
 		public InputStream getInputStream() throws Exception{
 			
 
-			S15Bean bean =s15Dao.forExcel(this.selectYear).get(0);
+			S15_Bean bean =s15Dao.forExcel(this.selectYear).get(0);
 			
 		    ByteArrayOutputStream fos = null;
 		

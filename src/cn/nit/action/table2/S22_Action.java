@@ -33,7 +33,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table1.S15Bean;
+import cn.nit.bean.table1.S15_Bean;
 import cn.nit.bean.table2.S22_Bean;
 import cn.nit.bean.table2.T22_Bean;
 import cn.nit.bean.table2.T231_Bean;
@@ -105,7 +105,7 @@ public class S22_Action {
 		bean.setLabArea(trainArea);
 		System.out.println("trainArea:" + trainArea);
 		
-		S15Bean bean15 = S15_services.loadData(this.getSelectYear()) ;
+		S15_Bean bean15 = S15_services.loadData(this.getSelectYear()) ;
 		if(bean15 == null){	
 			flag0 = false;
 			System.out.println("bean15empty");

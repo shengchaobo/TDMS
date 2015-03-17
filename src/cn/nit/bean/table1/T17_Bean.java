@@ -2,7 +2,7 @@ package cn.nit.bean.table1;
 
 import java.util.Date;
 
-public class T17Bean {
+public class T17_Bean {
 	
 	/**校友会（党员办）*/
 	private int SeqNumber;//序号

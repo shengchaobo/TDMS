@@ -5,8 +5,8 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-import cn.nit.bean.table1.T12Bean;
-import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.T12_Bean;
+import cn.nit.bean.table1.T151_Bean;
 import cn.nit.dao.table1.T12DAO;
 import cn.nit.pojo.table1.T12POJO;
 import cn.nit.pojo.table1.T151POJO;
@@ -44,7 +44,7 @@ public class T12Service {
 	}
 	
 	/**批量导入*/
-	public boolean batchInsert(List<T12Bean> list){
+	public boolean batchInsert(List<T12_Bean> list){
 		
 		return t12Dao.batchInsert(list) ;
 	}

@@ -2,7 +2,7 @@ package cn.nit.bean.table1;
 
 import java.util.Date;
 
-public class S15Bean {
+public class S15_Bean {
 	
 	private int SeqNumber;
 	/**总计*/

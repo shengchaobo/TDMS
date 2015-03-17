@@ -2,7 +2,7 @@ package cn.nit.bean.table1;
 
 import java.util.Date;
 
-public class T19Bean {
+public class T19_Bean {
 	
 	private int SeqNumber;
 	private String RewardName;//奖励名称

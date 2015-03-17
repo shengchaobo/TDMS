@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T17Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T17_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T17DAO;
 import cn.nit.excel.imports.table1.T17Excel;
@@ -33,7 +33,7 @@ public class T17Action {
 	private T17Service t17Ser = new T17Service() ;
 	
 	/**  表17的Bean实体类  */
-	private T17Bean t17Bean = new T17Bean() ;
+	private T17_Bean t17Bean = new T17_Bean() ;
 	
 	/**  表17的数据库操作类  */
 	private T17DAO t17Dao = new T17DAO() ;
@@ -325,7 +325,7 @@ public class T17Action {
 
 		try {
 			
-			List<T17Bean> list = t17Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T17_Bean> list = t17Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -368,11 +368,11 @@ public class T17Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-	public T17Bean getT17Bean() {
+	public T17_Bean getT17Bean() {
 		return t17Bean;
 	}
 
-	public void setT17Bean(T17Bean t17Bean) {
+	public void setT17Bean(T17_Bean t17Bean) {
 		this.t17Bean = t17Bean;
 	}
 

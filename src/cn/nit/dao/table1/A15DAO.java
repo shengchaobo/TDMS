@@ -6,9 +6,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.bean.table1.A15Bean;
-import cn.nit.bean.table1.S15Bean;
-import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.A15_Bean;
+import cn.nit.bean.table1.S15_Bean;
+import cn.nit.bean.table1.T151_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.A15POJO;
 import cn.nit.util.DAOUtil;
@@ -114,11 +114,11 @@ public class A15DAO {
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
 	 */
-	public A15Bean loadData(String year){
+	public A15_Bean loadData(String year){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<A15Bean> list=null;
-		A15Bean bean=null;
+		List<A15_Bean> list=null;
+		A15_Bean bean=null;
         
 		sql.append("select * from "+ tableName);
 		sql.append(" where Time like '"+year+"%'");
@@ -134,7 +134,7 @@ public class A15DAO {
 //			st.setMaxRows(1) ;
 			rs = st.executeQuery(sql.toString()) ;
 //			rs.absolute((page - 1) * rows) ;
-			list = DAOUtil.getList(rs, A15Bean.class) ;
+			list = DAOUtil.getList(rs, A15_Bean.class) ;
 			if(list.size() != 0){
 				bean = list.get(0);
 			}
@@ -148,7 +148,7 @@ public class A15DAO {
 	/**
 	 * 更新数据
 	 * */
-	public boolean update(A15Bean a15Bean){
+	public boolean update(A15_Bean a15Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;
@@ -173,7 +173,7 @@ public class A15DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(A15Bean a15Bean){
+	public boolean insert(A15_Bean a15Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -223,10 +223,10 @@ public class A15DAO {
 		/**
 		excel数据导出
 		 */
-		public List<A15Bean> forExcel(String year){
+		public List<A15_Bean> forExcel(String year){
 			
 			StringBuffer sql = new StringBuffer() ;
-			List<A15Bean> list=null;
+			List<A15_Bean> list=null;
 	        
 			sql.append("select * from "+ tableName);
 			sql.append(" where Time like '"+year+"%'");
@@ -239,7 +239,7 @@ public class A15DAO {
 				st = conn.createStatement() ;
 
 				rs = st.executeQuery(sql.toString()) ;
-				list = DAOUtil.getList(rs, A15Bean.class) ;
+				list = DAOUtil.getList(rs, A15_Bean.class) ;
 				
 				
 			}catch(Exception e){
@@ -250,9 +250,9 @@ public class A15DAO {
 		}
 		      
 		/**得到统计信息*/
-		public List<S15Bean> getOriData(String year)
+		public List<S15_Bean> getOriData(String year)
 		{
-			List<S15Bean> list=new ArrayList<S15Bean>();
+			List<S15_Bean> list=new ArrayList<S15_Bean>();
 			
 			StringBuffer sql=new StringBuffer();
 			sql.append("select * from "+tableName1);
@@ -266,7 +266,7 @@ public class A15DAO {
 			{
 				st=conn.createStatement();
 				rs=st.executeQuery(sql.toString());
-				list = DAOUtil.getList(rs, S15Bean.class) ;
+				list = DAOUtil.getList(rs, S15_Bean.class) ;
 			}catch(Exception e)
 			{
 				e.printStackTrace();
@@ -299,7 +299,7 @@ public class A15DAO {
 		
 		public static void main(String arg[]){
 			A15DAO dao=new A15DAO();
-			 List<S15Bean> list=dao.getOriData("2014");
+			 List<S15_Bean> list=dao.getOriData("2014");
 			 System.out.println(list.size());
 		}
 

@@ -28,7 +28,7 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchTypeBean;
-import cn.nit.bean.table1.T12Bean;
+import cn.nit.bean.table1.T12_Bean;
 import cn.nit.bean.table4.T411_Bean;
 
 import cn.nit.service.di.DiDepartmentService;
@@ -57,7 +57,7 @@ public class T12Excel {
 		
 		boolean flag = false ;
         Date time=new Date();
-		List<T12Bean> list = new LinkedList<T12Bean>() ;
+		List<T12_Bean> list = new LinkedList<T12_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -65,7 +65,7 @@ public class T12Excel {
 		List<T411_Bean> t411List=t411_Ser.getList();
 		
 		for(Cell[] cell : cellList){
-			T12Bean t12Bean = new  T12Bean();
+			T12_Bean t12Bean = new  T12_Bean();
 			if(count<4){
 				count++;
 				continue;
@@ -193,7 +193,7 @@ public class T12Excel {
 	 * @return
 	 * @throws Exception 
 	 */
-	public static ByteArrayOutputStream batchExport(List<T12Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
+	public static ByteArrayOutputStream batchExport(List<T12_Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
 		
         WritableWorkbook wwb;
         ByteArrayOutputStream fos = null;

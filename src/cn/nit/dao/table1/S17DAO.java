@@ -6,8 +6,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.bean.table1.S17Bean;
-import cn.nit.bean.table1.T17Bean;
+import cn.nit.bean.table1.S17_Bean;
+import cn.nit.bean.table1.T17_Bean;
 import cn.nit.dbconnection.DBConnection;
 
 import cn.nit.pojo.table1.S17POJO;
@@ -65,11 +65,11 @@ public class S17DAO {
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
 	 */
-	public S17Bean loadData(String year){
+	public S17_Bean loadData(String year){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<S17Bean> list=null;
-		S17Bean bean=null;
+		List<S17_Bean> list=null;
+		S17_Bean bean=null;
         
 		sql.append("select * from "+ tableName);
 		sql.append(" where Time like '"+year+"%'");
@@ -85,7 +85,7 @@ public class S17DAO {
 //			st.setMaxRows(1) ;
 			rs = st.executeQuery(sql.toString()) ;
 //			rs.absolute((page - 1) * rows) ;
-			list = DAOUtil.getList(rs, S17Bean.class) ;
+			list = DAOUtil.getList(rs, S17_Bean.class) ;
 			if(list.size() != 0){
 				bean = list.get(0);
 			}
@@ -100,7 +100,7 @@ public class S17DAO {
 	/**
 	 * 更新数据
 	 * */
-	public boolean update(S17Bean s17Bean){
+	public boolean update(S17_Bean s17Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;
@@ -123,7 +123,7 @@ public class S17DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:23
 	 */
-	public boolean save(S17Bean bean, String year, String fields){
+	public boolean save(S17_Bean bean, String year, String fields){
 		
 		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year;		
 		boolean flag = false;
@@ -131,12 +131,12 @@ public class S17DAO {
 		
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<S17Bean> list = null ;
-		S17Bean tempBean = null;
+		List<S17_Bean> list = null ;
+		S17_Bean tempBean = null;
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, S17Bean.class) ;
+			list = DAOUtil.getList(rs, S17_Bean.class) ;
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());
@@ -223,10 +223,10 @@ public class S17DAO {
 	/**
 	excel数据导出
 	 */
-	public List<S17Bean> forExcel(String year){
+	public List<S17_Bean> forExcel(String year){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<S17Bean> list=null;
+		List<S17_Bean> list=null;
         
 		sql.append("select * from "+ tableName);
 		sql.append(" where Time like '"+year+"%'");
@@ -242,7 +242,7 @@ public class S17DAO {
 //			st.setMaxRows(1) ;
 			rs = st.executeQuery(sql.toString()) ;
 //			rs.absolute((page - 1) * rows) ;
-			list = DAOUtil.getList(rs, S17Bean.class) ;
+			list = DAOUtil.getList(rs, S17_Bean.class) ;
 			
 			
 		}catch(Exception e){
@@ -259,7 +259,7 @@ public class S17DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(S17Bean s17Bean){
+	public boolean insert(S17_Bean s17Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -305,9 +305,9 @@ public class S17DAO {
 	}
 	
 	/**得到统计信息*/
-	public List<T17Bean> getOriData(String year)
+	public List<T17_Bean> getOriData(String year)
 	{
-		List<T17Bean> list=new ArrayList<T17Bean>();
+		List<T17_Bean> list=new ArrayList<T17_Bean>();
 		
 		StringBuffer sql=new StringBuffer();
 		sql.append("select * from "+tableName1);
@@ -321,7 +321,7 @@ public class S17DAO {
 		{
 			st=conn.createStatement();
 			rs=st.executeQuery(sql.toString());
-			list = DAOUtil.getList(rs, T17Bean.class) ;
+			list = DAOUtil.getList(rs, T17_Bean.class) ;
 		}catch(Exception e)
 		{
 			e.printStackTrace();

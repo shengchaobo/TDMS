@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.nit.bean.table1.T12Bean;
-import cn.nit.bean.table1.T13Bean;
-import cn.nit.bean.table1.T14Bean;
+import cn.nit.bean.table1.T12_Bean;
+import cn.nit.bean.table1.T13_Bean;
+import cn.nit.bean.table1.T14_Bean;
 import cn.nit.dao.table1.T12DAO;
 import cn.nit.dao.table1.T13DAO;
 import cn.nit.dao.table1.T14DAO;
@@ -22,7 +22,7 @@ public class J14_Excel {
 		
 		T13DAO T13dao = new T13DAO();
 		
-		List<T12Bean> list = T13dao.totalListAll();
+		List<T12_Bean> list = T13dao.totalListAll();
 
 		String sheetName = "J-1-4学校教学科研单位（时点）";
 		

@@ -40,7 +40,7 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table1.S17Bean;
+import cn.nit.bean.table1.S17_Bean;
 import cn.nit.bean.table5.S512_Bean;
 import cn.nit.dao.table5.S512_DAO;
 import cn.nit.service.table5.S512_Service;

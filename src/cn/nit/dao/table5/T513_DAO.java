@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cn.nit.bean.table5.T513Bean;
+import cn.nit.bean.table5.T513_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.T513POJO;
 import cn.nit.util.DAOUtil;
@@ -49,7 +49,7 @@ public class T513_DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T513Bean> list1=new ArrayList<T513Bean>();
+		List<T513_Bean> list1=new ArrayList<T513_Bean>();
 		List<T513POJO> list= null;
 		//System.out.println(sql);
 		try{
@@ -62,7 +62,7 @@ public class T513_DAO {
 			//如果当前年表中没有单位列数据，先将单位列数据插入到表中
 			if(list.size()==0){
 			    for(int i =0;i<8;i++){
-			    	T513Bean bean = new T513Bean();
+			    	T513_Bean bean = new T513_Bean();
 			    	switch (i){
 			    		 case 0:bean.setItem("54000");
 			    		 		bean.setCategory("理论课");
@@ -162,7 +162,7 @@ public class T513_DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:23
 	 */	
-	public boolean update(T513Bean bean){
+	public boolean update(T513_Bean bean){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -183,19 +183,19 @@ public class T513_DAO {
 	 * @param 
 	 * @return
 	 */
-	public T513Bean findBySeqNum (int seqNum){
+	public T513_Bean findBySeqNum (int seqNum){
 		String sql = "select " + key+ "," +field + " from " + tableName 
 		+ " where SeqNumber=" + seqNum;		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T513Bean> list = null ;
-		T513Bean bean = null;
+		List<T513_Bean> list = null ;
+		T513_Bean bean = null;
 		System.out.println(sql);
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T513Bean.class) ;
+			list = DAOUtil.getList(rs, T513_Bean.class) ;
 			bean = list.get(0);		
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -217,7 +217,7 @@ public class T513_DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T513Bean t513Bean){
+	public boolean insert(T513_Bean t513Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -235,10 +235,10 @@ public class T513_DAO {
 	
 	/**
 	 * 讲数据批量插入513表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T513Bean> list,String year){
+	public boolean batchInsert(List<T513_Bean> list,String year){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -247,12 +247,12 @@ public class T513_DAO {
 		sql.append(" where Time like '"+year+"%'");
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T513Bean> templist = null ;
+		List<T513_Bean> templist = null ;
 		
 		try{
 			st = conn.createStatement();
 			rs = st.executeQuery(sql.toString());
-			templist = DAOUtil.getList(rs, T513Bean.class);
+			templist = DAOUtil.getList(rs, T513_Bean.class);
 			if(templist.size() != 0){
 				String delSql = "delete from " + tableName + " where Time like '" + year+"%'";
 				int delflag = st.executeUpdate(delSql.toString());

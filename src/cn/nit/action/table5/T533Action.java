@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
-import cn.nit.bean.table5.T533Bean;
+import cn.nit.bean.table5.T533_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T533DAO;
 import cn.nit.excel.imports.table5.T533Excel;
@@ -41,7 +41,7 @@ public class T533Action {
 	private CheckService check_services = new CheckService();
 	
 	/**  表533的Bean实体类  */
-	private T533Bean t533Bean = new T533Bean() ;
+	private T533_Bean t533Bean = new T533_Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -333,7 +333,7 @@ public class T533Action {
 
 		try {
 			
-			List<T533Bean> list = t533Dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+			List<T533_Bean> list = t533Dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -379,11 +379,11 @@ public class T533Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-	public T533Bean getT533Bean() {
+	public T533_Bean getT533Bean() {
 		return t533Bean;
 	}
 
-	public void setT533Bean(T533Bean t533Bean) {
+	public void setT533Bean(T533_Bean t533Bean) {
 		this.t533Bean = t533Bean;
 	}
 

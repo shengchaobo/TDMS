@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T181Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T181_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T18DAO;
 import cn.nit.excel.imports.table1.T181Excel;
@@ -36,7 +36,7 @@ public class T181Action {
 	private T181Service t181Ser = new T181Service() ;
 	
 	/**  表181的Bean实体类  */
-	private T181Bean t181Bean = new T181Bean() ;
+	private T181_Bean t181Bean = new T181_Bean() ;
 	
 	/**  表181的Dao类  */
 	private T18DAO t181Dao = new T18DAO() ;
@@ -339,7 +339,7 @@ public class T181Action {
 
 		try {
 			
-			List<T181Bean> list = t181Dao.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
+			List<T181_Bean> list = t181Dao.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
 			
 			String sheetName = this.excelName;
 			
@@ -382,11 +382,11 @@ public class T181Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-	public T181Bean getT181Bean() {
+	public T181_Bean getT181Bean() {
 		return t181Bean;
 	}
 
-	public void setT181Bean(T181Bean t181Bean) {
+	public void setT181Bean(T181_Bean t181Bean) {
 		this.t181Bean = t181Bean;
 	}
 

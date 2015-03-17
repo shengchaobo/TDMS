@@ -2,7 +2,7 @@ package cn.nit.bean.table5;
 
 import java.util.Date;
 
-public class T534Bean {
+public class T534_Bean {
 	
 	private Integer SeqNumber;
 	private String TeaUnit;

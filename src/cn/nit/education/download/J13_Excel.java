@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 	
-import cn.nit.bean.table1.T12Bean;
+import cn.nit.bean.table1.T12_Bean;
 import cn.nit.dao.table1.T12DAO;
 import cn.nit.util.ExcelUtil;
 
@@ -19,7 +19,7 @@ public class J13_Excel {
 		
 		T12DAO T12dao = new T12DAO();
 		
-		List<T12Bean> list = T12dao.totalList();
+		List<T12_Bean> list = T12dao.totalList();
 				
 		String sheetName = "J-1-3学校相关行政单位（时点）";
 		

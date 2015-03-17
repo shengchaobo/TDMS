@@ -3,7 +3,7 @@ package cn.nit.bean.table1;
 import java.util.Date;
 
 /**表T181签订合作协议机构（教务处）*/
-public class T181Bean {
+public class T181_Bean {
 	
 	private int SeqNumber;
 	/**填表部门*/

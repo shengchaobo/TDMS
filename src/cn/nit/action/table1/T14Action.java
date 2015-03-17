@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table1.T12Bean;
-import cn.nit.bean.table1.T14Bean;
+import cn.nit.bean.table1.T12_Bean;
+import cn.nit.bean.table1.T14_Bean;
 import cn.nit.dao.table1.T14DAO;
 import cn.nit.excel.imports.table1.T14Excel;
 import cn.nit.service.table1.T12Service;
@@ -33,7 +33,7 @@ public class T14Action {
 	private T12Service t12Ser = new T12Service() ;
 	
 	/**  表14的Bean实体类  */
-	private T14Bean t14Bean = new T14Bean() ;
+	private T14_Bean t14Bean = new T14_Bean() ;
 	
 	/**  表14的Dao类  */
 	private T14DAO t14Dao = new T14DAO() ;
@@ -136,7 +136,7 @@ public class T14Action {
 
 		try {
 			
-			List<T12Bean> list = t14Dao.totalList();
+			List<T12_Bean> list = t14Dao.totalList();
 			
 			String sheetName = this.excelName;
 			
@@ -179,11 +179,11 @@ public class T14Action {
 	}
 
 
-	public T14Bean getT14Bean() {
+	public T14_Bean getT14Bean() {
 		return t14Bean;
 	}
 
-	public void setT14Bean(T14Bean t14Bean) {
+	public void setT14Bean(T14_Bean t14Bean) {
 		this.t14Bean = t14Bean;
 	}
 	

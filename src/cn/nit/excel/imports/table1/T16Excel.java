@@ -26,7 +26,7 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.springframework.beans.BeanWrapperImpl;
-import cn.nit.bean.table1.T16Bean;
+import cn.nit.bean.table1.T16_Bean;
 import cn.nit.pojo.table1.T16POJO;
 import cn.nit.util.TimeUtil;
 

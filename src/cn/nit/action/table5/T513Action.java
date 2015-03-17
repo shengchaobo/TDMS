@@ -37,7 +37,7 @@ import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table5.T513Bean;
+import cn.nit.bean.table5.T513_Bean;
 import cn.nit.dao.table5.T513_DAO;
 import cn.nit.excel.imports.table5.T513Excel;
 
@@ -59,7 +59,7 @@ public class T513Action {
 	private T513Service t513Ser = new T513Service() ;
 	
 	/**  表513的Bean实体类  */
-	private T513Bean t513Bean = new T513Bean() ;
+	private T513_Bean t513Bean = new T513_Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -278,11 +278,11 @@ public class T513Action {
 		return ServletActionContext.getResponse() ;
 	}
 	
-	public T513Bean getT513Bean() {
+	public T513_Bean getT513Bean() {
 		return t513Bean;
 	}
 
-	public void setT533Bean(T513Bean t513Bean) {
+	public void setT533Bean(T513_Bean t513Bean) {
 		this.t513Bean = t513Bean;
 	}
 

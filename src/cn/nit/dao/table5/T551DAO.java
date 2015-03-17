@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table5.T551Bean;
+import cn.nit.bean.table5.T551_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.T551POJO;
 import cn.nit.util.DAOUtil;
@@ -30,7 +30,7 @@ public class T551DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T551Bean t551Bean){
+	public boolean insert(T551_Bean t551Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -48,10 +48,10 @@ public class T551DAO {
 	
 	/**
 	 * 讲数据批量插入551表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T551Bean> list){
+	public boolean batchInsert(List<T551_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -160,7 +160,7 @@ public class T551DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T551Bean> totalList(){
+	public List<T551_Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.AdmisSchYear,t.PartyMemNum,t.CheatNum," +
@@ -173,12 +173,12 @@ public class T551DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T551Bean> list = null ;
+		List<T551_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T551Bean.class) ;
+			list = DAOUtil.getList(rs, T551_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -188,7 +188,7 @@ public class T551DAO {
 	}
 	
 	//更新！
-	public boolean update(T551Bean t551Bean){
+	public boolean update(T551_Bean t551Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;

@@ -30,7 +30,7 @@ import jxl.write.WriteException;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table1.T11Bean;
+import cn.nit.bean.table1.T11_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.dao.table1.T11DAO;
 import cn.nit.dao.table4.T411_Dao;
@@ -48,14 +48,14 @@ public class J11_Excel {
 		String currentTime = time.toString();
 		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
-		List<T11Bean> list = T11_dao.forExcel(year);
-		T11Bean  bean;
+		List<T11_Bean> list = T11_dao.forExcel(year);
+		T11_Bean  bean;
 		if(list==null){
 			System.out.println("无列表");
-			bean = new T11Bean();
+			bean = new T11_Bean();
 		}else if(list.size()==0){
 			System.out.println("无列表");
-			bean = new T11Bean();
+			bean = new T11_Bean();
 		}else{
 			System.out.println("有列表");
 			bean = list.get(0);

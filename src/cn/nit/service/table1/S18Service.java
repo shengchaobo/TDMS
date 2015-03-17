@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 
-import cn.nit.bean.table1.S18Bean;
-import cn.nit.bean.table1.T181Bean;
+import cn.nit.bean.table1.S18_Bean;
+import cn.nit.bean.table1.T181_Bean;
 import cn.nit.dao.table1.S18DAO;
 import cn.nit.pojo.table1.S18POJO;
 
@@ -23,11 +23,11 @@ public class S18Service {
    /**
 	 * 数据显示
 	 * */
-	public S18Bean loadData(String year){
+	public S18_Bean loadData(String year){
 		
 		boolean flag=false;
-		S18Bean s18bean=null;//用作统计信息
-		S18Bean bean=null ;//输出数据
+		S18_Bean s18bean=null;//用作统计信息
+		S18_Bean bean=null ;//输出数据
 	   	int seq=s18Dao.getSeqNumber(year);
 
 	   	if(seq!=-1){// seq!=-1,说明数据库中有这条数据
@@ -61,7 +61,7 @@ public class S18Service {
    public String autidingdata(String year)
 	{
 //	   System.out.println("gello");
-	   	S18Bean s18bean=null;
+	   	S18_Bean s18bean=null;
 	   	S18POJO s18Pojo=null;
 //	   	List<S18POJO> list=null;
 	   	//先删除信息
@@ -83,11 +83,11 @@ public class S18Service {
 	}
    
 	/**得到统计信息*/
-   public S18Bean getStatic(String year)
+   public S18_Bean getStatic(String year)
    {
 //	   System.out.println("hello");
-	   S18Bean s18Bean=new S18Bean();
-	   	List<T181Bean> list=s18Dao.getOriData(year);
+	   S18_Bean s18Bean=new S18_Bean();
+	   	List<T181_Bean> list=s18Dao.getOriData(year);
 	   	System.out.println("s18条数："+list.size());
 	   	/**学术机构个数*/
 	   	int num1=0;
@@ -99,7 +99,7 @@ public class S18Service {
 	   	int totalCount=0;
 	   	for(int i=0;i<list.size();i++)
 	   	{
-	   		T181Bean t181Bean=new T181Bean();
+	   		T181_Bean t181Bean=new T181_Bean();
 	   		t181Bean=list.get(i);
 	   		String type=t181Bean.getCooperInsType();
 	   		if(type.equals("学术机构"))
@@ -130,7 +130,7 @@ public class S18Service {
    
    public static void main(String arg[]) throws SQLException{
 	   S18Service ser=new S18Service();
-	   S18Bean bean = ser.loadData("2014");
+	   S18_Bean bean = ser.loadData("2014");
 	  System.out.println(bean.getAcademicNum());
 	  System.out.println(bean.getIndustryNum());
 	  System.out.println(bean.getLocalGoverNum());

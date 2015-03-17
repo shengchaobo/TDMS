@@ -32,7 +32,7 @@ import org.springframework.beans.BeanWrapperImpl;
 
 
 import cn.nit.bean.di.DiEvaluTypeBean;
-import cn.nit.bean.table5.T513Bean;
+import cn.nit.bean.table5.T513_Bean;
 import cn.nit.service.di.DiEvaluTypeService;
 import cn.nit.service.table5.T513Service;
 import cn.nit.util.TimeUtil;
@@ -57,12 +57,12 @@ public class T513Excel {
 //		boolean biOpen=false;
 //		boolean buildCondi=false;
 		Date Time = new Date();
-		List<T513Bean> list = new LinkedList<T513Bean>() ;
+		List<T513_Bean> list = new LinkedList<T513_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiEvaluTypeService  dieSer = new DiEvaluTypeService();
 		List<DiEvaluTypeBean> dieList = dieSer.getList();
 		for(Cell[] cell : cellList){
-			T513Bean t513Bean = new  T513Bean();
+			T513_Bean t513Bean = new  T513_Bean();
 			int n=cellList.indexOf(cell);
 			if(count<5){
 				count++;

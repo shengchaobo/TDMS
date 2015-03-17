@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import jxl.Cell;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
-import cn.nit.bean.table5.T531Bean;
+import cn.nit.bean.table5.T531_Bean;
 import cn.nit.constants.Constants;
 
 import cn.nit.service.di.DiDepartmentService;
@@ -38,7 +38,7 @@ public class T531Excel {
 //		boolean biOpen=false;
 //		boolean buildCondi=false;
 		Date Time = new Date();
-		List<T531Bean> list = new LinkedList<T531Bean>() ;
+		List<T531_Bean> list = new LinkedList<T531_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -46,7 +46,7 @@ public class T531Excel {
 //		List<DiMajorTwoBean> diMajorTwoBeanList=diMajorTwoSer.getList();
 		
 		for(Cell[] cell : cellList){
-			T531Bean t531Bean = new  T531Bean();
+			T531_Bean t531Bean = new  T531_Bean();
 			int n=cellList.indexOf(cell);
 			if(count<4){
 				count++;

@@ -34,7 +34,7 @@ import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table5.T551Bean;
+import cn.nit.bean.table5.T551_Bean;
 import cn.nit.dao.table5.T551DAO;
 import cn.nit.excel.imports.table5.T551Excel;
 import cn.nit.service.table5.T551Service;
@@ -52,7 +52,7 @@ public class T551Action {
 	private T551Service t551Ser = new T551Service() ;
 	
 	/**  表551的Bean实体类  */
-	private T551Bean t551Bean = new T551Bean() ;
+	private T551_Bean t551Bean = new T551_Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -223,7 +223,7 @@ public class T551Action {
 	public InputStream getInputStream() throws IOException{
 		
 
-		List<T551Bean> list = t551Dao.totalList();
+		List<T551_Bean> list = t551Dao.totalList();
 		ByteArrayOutputStream fos = null;
 		 
 		if(list.size()<1){
@@ -236,11 +236,11 @@ public class T551Action {
 			String sheetName=this.excelName;	
 		    WritableWorkbook wwb;
 		    //统计合计
-		    T551Bean beanAll = new T551Bean();
+		    T551_Bean beanAll = new T551_Bean();
 		    beanAll.setTeaUnit("全校合计");
 		    int PartyMemNum=0; int CheatNum=0;double GoodClassRatio=0.0;
 		    for(int i=0;i<list.size();i++){
-		    	T551Bean bean = list.get(i);
+		    	T551_Bean bean = list.get(i);
 		    	PartyMemNum+=bean.getPartyMemNum();
 		    	CheatNum+=bean.getCheatNum();
 //		    	GoodClassRatio+=bean.getGoodClassRatio();
@@ -290,7 +290,7 @@ public class T551Action {
 		           
 		           int j = 4;//第3行写合计，4行开始写数据
 		           for(int i =0;i<list.size();i++){
-		        	   T551Bean bean = list.get(i);
+		        	   T551_Bean bean = list.get(i);
 		        	   if(i==0){
 		        		   ws.addCell(new Label(0,3,bean.getTeaUnit(),wcf));
 		        		   ws.mergeCells(0, 3, 5, 3);
@@ -367,11 +367,11 @@ public class T551Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-	public T551Bean getT551Bean() {
+	public T551_Bean getT551Bean() {
 		return t551Bean;
 	}
 
-	public void setT551Bean(T551Bean t551Bean) {
+	public void setT551Bean(T551_Bean t551Bean) {
 		this.t551Bean = t551Bean;
 	}
 

@@ -16,7 +16,7 @@ import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table5.T534Bean;
+import cn.nit.bean.table5.T534_Bean;
 import cn.nit.dao.table5.T534DAO;
 import cn.nit.util.ExcelUtil;
 
@@ -27,7 +27,7 @@ public class J534_Excel {
 		T534DAO T534_dao = new T534DAO();
 		Calendar a = Calendar.getInstance();
 		String year = String.valueOf(a.get(Calendar.YEAR));		
-		List<T534Bean> list = T534_dao.totalListY(year);
+		List<T534_Bean> list = T534_dao.totalListY(year);
 				
 		String sheetName = "J-5-3-4分专业毕业综合训练情况（学年）";
 		

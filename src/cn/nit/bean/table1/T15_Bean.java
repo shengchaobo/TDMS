@@ -1,6 +1,6 @@
 package cn.nit.bean.table1;
 
-public class T15Bean {
+public class T15_Bean {
 	
 	private int SeqNumber;
 	private String type;

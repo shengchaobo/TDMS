@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table5.T533Bean;
+import cn.nit.bean.table5.T533_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.T533POJO;
@@ -32,7 +32,7 @@ public class T533DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T533Bean t533Bean){
+	public boolean insert(T533_Bean t533Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -50,10 +50,10 @@ public class T533DAO {
 	
 	/**
 	 * 讲数据批量插入533表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T533Bean> list){
+	public boolean batchInsert(List<T533_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -270,7 +270,7 @@ public class T533DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T533Bean> totalList(String fillUnitID,String year, int checkState){
+	public List<T533_Bean> totalList(String fillUnitID,String year, int checkState){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
@@ -285,12 +285,12 @@ public class T533DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T533Bean> list = null ;
+		List<T533_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T533Bean.class) ;
+			list = DAOUtil.getList(rs, T533_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -300,7 +300,7 @@ public class T533DAO {
 	}
 	
 	/**教育部导出*/
-	public List<T533Bean> totalListEdu(String year){
+	public List<T533_Bean> totalListEdu(String year){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
@@ -312,12 +312,12 @@ public class T533DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T533Bean> list = null ;
+		List<T533_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T533Bean.class) ;
+			list = DAOUtil.getList(rs, T533_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -326,7 +326,7 @@ public class T533DAO {
 		return list ;
 	}
 	//更新！
-	public boolean update(T533Bean t533Bean){
+	public boolean update(T533_Bean t533Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;

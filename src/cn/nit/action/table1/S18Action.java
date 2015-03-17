@@ -31,7 +31,7 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table1.S18Bean;
+import cn.nit.bean.table1.S18_Bean;
 import cn.nit.dao.table1.S18DAO;
 import cn.nit.excel.imports.table1.S18Excel;
 
@@ -46,7 +46,7 @@ public class S18Action {
 	private S18Service s18Ser = new S18Service() ;
 	
 	/**  表S18的Bean实体类  */
-	private S18Bean s18Bean = new S18Bean() ;
+	private S18_Bean s18Bean = new S18_Bean() ;
 	
 	/**  表S18的DAO类  */
 	private S18DAO s18Dao = new S18DAO() ;
@@ -100,7 +100,7 @@ public class S18Action {
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		S18Bean bean = s18Ser.loadData(this.getSelectYear()) ;
+		S18_Bean bean = s18Ser.loadData(this.getSelectYear()) ;
 		
 		String json=null;
 		boolean flag = false; 
@@ -187,7 +187,7 @@ public InputStream getInputStream() throws Exception{
 		
 		System.out.println(this.getSelectYear());
 
-		S18Bean bean =s18Dao.forExcel(this.selectYear).get(0);
+		S18_Bean bean =s18Dao.forExcel(this.selectYear).get(0);
 		
 	    ByteArrayOutputStream fos = null;
 	
@@ -293,11 +293,11 @@ public InputStream getInputStream() throws Exception{
 		this.excelName = excelName;
 	}
 
-	public S18Bean getS18Bean() {
+	public S18_Bean getS18Bean() {
 		return s18Bean;
 	}
 
-	public void setS18Bean(S18Bean s18Bean) {
+	public void setS18Bean(S18_Bean s18Bean) {
 		this.s18Bean = s18Bean;
 	}
 

@@ -16,8 +16,8 @@ import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchRoomBean;
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T17Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T17_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
@@ -58,9 +58,9 @@ public class T17Excel {
 		}
 		
 		int count = 1 ;
-		T17Bean t17Bean = null ;
+		T17_Bean t17Bean = null ;
 		boolean flag = false ;
-		List<T17Bean> list = new LinkedList<T17Bean>() ;
+		List<T17_Bean> list = new LinkedList<T17_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 //		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 //		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -121,7 +121,7 @@ public class T17Excel {
 				count++ ;
 				
 				Date BuildYear=TimeUtil.changeDateY(BuildYearStr);
-				t17Bean = new T17Bean();
+				t17Bean = new T17_Bean();
 				t17Bean.setClubName(ClubName);
 				t17Bean.setBuildYear(BuildYear);
 				t17Bean.setPlace(Place);
@@ -156,7 +156,7 @@ public class T17Excel {
 	 * @return
 	 * @throws Exception 
 	 */
-	public static ByteArrayOutputStream batchExport(List<T17Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
+	public static ByteArrayOutputStream batchExport(List<T17_Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
 		
         WritableWorkbook wwb;
         ByteArrayOutputStream fos = null;

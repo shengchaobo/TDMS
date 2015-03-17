@@ -2,7 +2,7 @@ package cn.nit.bean.table1;
 
 import java.util.Date;
 
-public class T172Bean {
+public class T172_Bean {
   
 	
 	private Integer SeqNumber;

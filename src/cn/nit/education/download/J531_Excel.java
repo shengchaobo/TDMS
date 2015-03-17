@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 
-import cn.nit.bean.table5.T531Bean;
+import cn.nit.bean.table5.T531_Bean;
 import cn.nit.dao.table5.T531DAO;
 import cn.nit.util.ExcelUtil;
 
@@ -24,7 +24,7 @@ public class J531_Excel {
 			Calendar a = Calendar.getInstance();
 			String year = String.valueOf(a.get(Calendar.YEAR));
 			
-			List<T531Bean> list = T531_dao.totalList(year);
+			List<T531_Bean> list = T531_dao.totalList(year);
 					
 			String sheetName = "J-5-3-1人才培养模式创新实验项目（学年）";
 			

@@ -6,8 +6,8 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T152Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T152_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T152DAO;
 import cn.nit.pojo.table1.T152POJO;
@@ -30,7 +30,7 @@ public class T152Service {
 			 *
 			 * @time: 2014-5-14/上午10:52:05
 			 */
-			public boolean insert(T152Bean t152Bean){
+			public boolean insert(T152_Bean t152Bean){
 				
 				return t152Dao.insert(t152Bean) ;
 			}
@@ -91,7 +91,7 @@ public class T152Service {
 			 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
 			 * @return
 			 */
-			public boolean update(T152Bean t152Bean){
+			public boolean update(T152_Bean t152Bean){
 //			    this.setAudit(t151Bean) ;
 				return t152Dao.update(t152Bean) ;
 			}
@@ -130,13 +130,13 @@ public class T152Service {
 			}
 			
 			/**批量导入*/
-			public boolean batchInsert(List<T152Bean> list){
+			public boolean batchInsert(List<T152_Bean> list){
 				
 				return t152Dao.batchInsert(list) ;
 			}
 
 			
-			private void setAudit(T152Bean t152Bean){
+			private void setAudit(T152_Bean t152Bean){
 				
 				String audit = DIResourceDAO.getAudit(t152Dao.getTableName()) ;
 				

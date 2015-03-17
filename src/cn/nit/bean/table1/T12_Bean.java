@@ -2,7 +2,7 @@ package cn.nit.bean.table1;
 
 import java.util.Date;
 
-public class T12Bean {
+public class T12_Bean {
 	
 	private String UnitID;
 	private String UnitName;

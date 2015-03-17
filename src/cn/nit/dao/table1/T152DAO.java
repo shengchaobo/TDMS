@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T152Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T152_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 
@@ -36,7 +36,7 @@ public class T152DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T152Bean t152Bean){
+	public boolean insert(T152_Bean t152Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -54,10 +54,10 @@ public class T152DAO {
 	
 	/**
 	 * 讲数据批量插入152表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T152Bean> list){
+	public boolean batchInsert(List<T152_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -170,7 +170,7 @@ public class T152DAO {
 	}
 	
 	//教育部导出
-	public List<T151Bean> totalListAll(String year){
+	public List<T151_Bean> totalListAll(String year){
 		
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, t.OpenCondition,t.TeaUnit,t.UnitID,t.FillUnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
@@ -183,12 +183,12 @@ public class T152DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T151Bean> list = null ;
+		List<T151_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T151Bean.class) ;
+			list = DAOUtil.getList(rs, T151_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -203,7 +203,7 @@ public class T152DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T152Bean> totalList(String filledID,String year,int CheckState){
+	public List<T152_Bean> totalList(String filledID,String year,int CheckState){
 	
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,t.FillUnitID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, " +
@@ -218,12 +218,12 @@ public class T152DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T152Bean> list = null ;
+		List<T152_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T152Bean.class) ;
+			list = DAOUtil.getList(rs, T152_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -392,7 +392,7 @@ public class T152DAO {
 	}
 	
 	
-	public boolean update(T152Bean t152Bean){
+	public boolean update(T152_Bean t152Bean){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.nit.bean.table1.T12Bean;
+import cn.nit.bean.table1.T12_Bean;
 import cn.nit.bean.table6.T631_Bean;
 import cn.nit.dao.table1.T13DAO;
 import cn.nit.dao.table6.T631_Dao;

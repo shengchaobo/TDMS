@@ -2,7 +2,7 @@ package cn.nit.bean.table5;
 
 import java.util.Date;
 
-public class T532Bean {
+public class T532_Bean {
 	
 	private Integer SeqNumber;
 	private String CenterName;

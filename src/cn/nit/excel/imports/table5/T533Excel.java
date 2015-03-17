@@ -33,7 +33,7 @@ import org.springframework.beans.BeanWrapperImpl;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
-import cn.nit.bean.table5.T533Bean;
+import cn.nit.bean.table5.T533_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
@@ -60,7 +60,7 @@ public class T533Excel {
 //		boolean biOpen=false;
 //		boolean buildCondi=false;
 		Date Time = new Date();
-		List<T533Bean> list = new LinkedList<T533Bean>() ;
+		List<T533_Bean> list = new LinkedList<T533_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -68,7 +68,7 @@ public class T533Excel {
 		List<DiMajorTwoBean> diMajorTwoBeanList=diMajorTwoSer.getList();
 		
 		for(Cell[] cell : cellList){
-			T533Bean t533Bean = new  T533Bean();
+			T533_Bean t533Bean = new  T533_Bean();
 			int n=cellList.indexOf(cell);
 			if(count<4){
 				count++;

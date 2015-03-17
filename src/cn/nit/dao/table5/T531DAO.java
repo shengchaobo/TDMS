@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table5.T531Bean;
+import cn.nit.bean.table5.T531_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.T531POJO;
@@ -31,7 +31,7 @@ public class T531DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T531Bean t531Bean){
+	public boolean insert(T531_Bean t531Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -49,10 +49,10 @@ public class T531DAO {
 	
 	/**
 	 * 讲数据批量插入531表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T531Bean> list){
+	public boolean batchInsert(List<T531_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -162,7 +162,7 @@ public class T531DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T531Bean> totalList(String year,int checkState){
+	public List<T531_Bean> totalList(String year,int checkState){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.Name,t.Type,t.ItemLevel,t.buildTime,did.UnitName as TeaUnit," +
@@ -175,12 +175,12 @@ public class T531DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T531Bean> list = null ;
+		List<T531_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T531Bean.class) ;
+			list = DAOUtil.getList(rs, T531_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -196,7 +196,7 @@ public class T531DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T531Bean> totalList(String year){
+	public List<T531_Bean> totalList(String year){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.Name,t.Type,t.ItemLevel,t.buildTime,did.UnitName as TeaUnit," +
@@ -208,12 +208,12 @@ public class T531DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T531Bean> list = null ;
+		List<T531_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T531Bean.class) ;
+			list = DAOUtil.getList(rs, T531_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -222,7 +222,7 @@ public class T531DAO {
 		return list ;
 	}
 	//更新！
-	public boolean update(T531Bean t531Bean){
+	public boolean update(T531_Bean t531Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;

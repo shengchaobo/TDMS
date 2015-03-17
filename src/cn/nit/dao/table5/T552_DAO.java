@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table5.T532Bean;
+import cn.nit.bean.table5.T532_Bean;
 import cn.nit.bean.table5.T552_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;

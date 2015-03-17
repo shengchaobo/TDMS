@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table5.T521Bean;
+import cn.nit.bean.table5.T521_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.T521POJO;
@@ -32,7 +32,7 @@ public class T521DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T521Bean t521Bean){
+	public boolean insert(T521_Bean t521Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -50,10 +50,10 @@ public class T521DAO {
 	
 	/**
 	 * 讲数据批量插入531表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T521Bean> list){
+	public boolean batchInsert(List<T521_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -167,7 +167,7 @@ public class T521DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T521Bean> totalList(String year,int checkState){
+	public List<T521_Bean> totalList(String year,int checkState){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.CSType,t.CSName,t.CSID,dia.AwardLevel as CSLevel,t.Leader,t.TeaID,t.JoinTeaNum,t.OtherTea,t.CSUrl,t.AppvlTime,t.ReceptTime,t.TeaUnit," +
@@ -182,12 +182,12 @@ public class T521DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T521Bean> list = null ;
+		List<T521_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T521Bean.class) ;
+			list = DAOUtil.getList(rs, T521_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -198,7 +198,7 @@ public class T521DAO {
 	
 	
 	/**用于教育部导出*/
-	public List<T521Bean> totalList(String year){
+	public List<T521_Bean> totalList(String year){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.CSType,t.CSName,t.CSID,dia.AwardLevel as CSLevel,t.Leader,t.TeaID,t.JoinTeaNum,t.OtherTea,t.CSUrl,t.AppvlTime,t.ReceptTime,t.TeaUnit," +
@@ -211,12 +211,12 @@ public class T521DAO {
 		Connection conn = DBConnection.instance.getConnection() ; 
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T521Bean> list = null ;
+		List<T521_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T521Bean.class) ;
+			list = DAOUtil.getList(rs, T521_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -226,7 +226,7 @@ public class T521DAO {
 	}
 	
 	//更新！
-	public boolean update(T521Bean t521Bean){
+	public boolean update(T521_Bean t521Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;

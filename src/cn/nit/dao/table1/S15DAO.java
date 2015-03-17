@@ -6,8 +6,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.bean.table1.S15Bean;
-import cn.nit.bean.table1.T15Bean;
+import cn.nit.bean.table1.S15_Bean;
+import cn.nit.bean.table1.T15_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.S15POJO;
 import cn.nit.util.DAOUtil;
@@ -66,11 +66,11 @@ public class S15DAO {
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
 	 */
-	public S15Bean loadData(String year){
+	public S15_Bean loadData(String year){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<S15Bean> list=null;
-		S15Bean bean=null;
+		List<S15_Bean> list=null;
+		S15_Bean bean=null;
         
 		sql.append("select * from "+ tableName);
 		sql.append(" where Time like '"+year+"%'");
@@ -86,7 +86,7 @@ public class S15DAO {
 //			st.setMaxRows(1) ;
 			rs = st.executeQuery(sql.toString()) ;
 //			rs.absolute((page - 1) * rows) ;
-			list = DAOUtil.getList(rs, S15Bean.class) ;
+			list = DAOUtil.getList(rs, S15_Bean.class) ;
 			if(list.size() != 0){
 				bean = list.get(0);
 			}
@@ -100,7 +100,7 @@ public class S15DAO {
 	/**
 	 * 更新数据
 	 * */
-	public boolean update(S15Bean s15Bean){
+	public boolean update(S15_Bean s15Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;
@@ -117,9 +117,9 @@ public class S15DAO {
 		}
 	
 	/**得到要显示 的数据*/
-	public S15Bean getData()
+	public S15_Bean getData()
 	{
-		List<S15Bean>  list=new ArrayList<S15Bean>();
+		List<S15_Bean>  list=new ArrayList<S15_Bean>();
 		
 		StringBuffer sql=new StringBuffer();
 		sql.append("select * from "+ tableName);
@@ -132,7 +132,7 @@ public class S15DAO {
 		{
 			st=conn.createStatement();
 			rs=st.executeQuery(sql.toString());
-			list=DAOUtil.getList(rs, S15Bean.class);
+			list=DAOUtil.getList(rs, S15_Bean.class);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -167,7 +167,7 @@ public class S15DAO {
 	}
 	
 	/**插入数据*/
-	public boolean insert(S15Bean s15Bean)
+	public boolean insert(S15_Bean s15Bean)
 	{
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -205,10 +205,10 @@ public class S15DAO {
 	/**
 	 *Excel數據導出
 	 */
-	public List<S15Bean> forExcel(String year){
+	public List<S15_Bean> forExcel(String year){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<S15Bean> list=null;
+		List<S15_Bean> list=null;
         
 		sql.append("select * from "+ tableName);
 		sql.append(" where Time like '"+year+"%'");
@@ -224,7 +224,7 @@ public class S15DAO {
 //			st.setMaxRows(1) ;
 			rs = st.executeQuery(sql.toString()) ;
 //			rs.absolute((page - 1) * rows) ;
-			list = DAOUtil.getList(rs, S15Bean.class) ;
+			list = DAOUtil.getList(rs, S15_Bean.class) ;
 			
 			
 		}catch(Exception e){
@@ -284,9 +284,9 @@ public class S15DAO {
 	
 	
 	/**獲得原始數據*/
-	public List<T15Bean> getOriData(String year)
+	public List<T15_Bean> getOriData(String year)
 	{
-		List<T15Bean> list=new ArrayList<T15Bean>();
+		List<T15_Bean> list=new ArrayList<T15_Bean>();
 		StringBuffer sql1=new StringBuffer();
 		sql1.append("select SeqNumber,Type,HouseArea from "+ tableName1);
 		sql1.append(" where Time like '"+year+"%'");
@@ -308,7 +308,7 @@ public class S15DAO {
             rs1=st1.executeQuery(sql1.toString());
             rs2=st2.executeQuery(sql2.toString());
             while(rs1.next()){
-            	T15Bean t151=new T15Bean();
+            	T15_Bean t151=new T15_Bean();
             	int seq1=rs1.getInt("SeqNumber");
             	String type1=rs1.getString("Type");
             	double area1=rs1.getDouble("HouseArea");
@@ -319,7 +319,7 @@ public class S15DAO {
             	list.add(t151);
             }
             while(rs2.next()){
-            	T15Bean t152=new T15Bean();
+            	T15_Bean t152=new T15_Bean();
             	int seq2=rs2.getInt("SeqNumber");
             	String type2=rs2.getString("Type");
             	double area2=rs2.getDouble("HouseArea");
@@ -346,7 +346,7 @@ public class S15DAO {
 //		}
 //		int count = s15.countOriDate("2014");
 //		System.out.println(count);
-		 List<T15Bean> list = s15.getOriData("2014");
+		 List<T15_Bean> list = s15.getOriData("2014");
 		 System.out.println(list.size());
 		
 	}

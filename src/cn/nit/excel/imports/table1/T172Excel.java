@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.BeanWrapperImpl;
 
-import cn.nit.bean.table1.T172Bean;
+import cn.nit.bean.table1.T172_Bean;
 import cn.nit.service.table1.T172Service;
 import cn.nit.util.DateUtil;
 import cn.nit.util.TimeUtil;
@@ -48,9 +48,9 @@ public class T172Excel {
 		}
 		
 		int count = 1 ;
-		T172Bean t172Bean = null ;
+		T172_Bean t172Bean = null ;
 		boolean flag = false ;
-		List<T172Bean> list = new LinkedList<T172Bean>() ;
+		List<T172_Bean> list = new LinkedList<T172_Bean>() ;
 		
 		for(Cell[] cell : cellList){
 			 int n=cellList.indexOf(cell);
@@ -132,7 +132,7 @@ public class T172Excel {
 				count++ ;
 				
 				Date actTime=TimeUtil.changeDateYM(ActTime);
-				t172Bean = new T172Bean();
+				t172Bean = new T172_Bean();
 				t172Bean.setActName(ActName);
 				t172Bean.setActPlace(ActPlace);
 				t172Bean.setActTime(actTime);
@@ -169,7 +169,7 @@ public class T172Excel {
 	 * @return
 	 * @throws Exception 
 	 */
-	public static ByteArrayOutputStream batchExport(List<T172Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
+	public static ByteArrayOutputStream batchExport(List<T172_Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
 		
         WritableWorkbook wwb;
         ByteArrayOutputStream fos = null;

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cn.nit.bean.table1.A15Bean;
-import cn.nit.bean.table1.S15Bean;
-import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.A15_Bean;
+import cn.nit.bean.table1.S15_Bean;
+import cn.nit.bean.table1.T151_Bean;
 import cn.nit.dao.table1.A15DAO;
 import cn.nit.pojo.table1.A15POJO;
 
@@ -26,11 +26,11 @@ public class A15Service {
 	/**
 	 * 数据显示
 	 * */
-	public A15Bean loadData(String year){
+	public A15_Bean loadData(String year){
 		
 		boolean flag=false;
-		A15Bean a15bean=new A15Bean();//用作统计信息
-		A15Bean bean=null;//用于输出
+		A15_Bean a15bean=new A15_Bean();//用作统计信息
+		A15_Bean bean=null;//用于输出
 //	   	String str=null;
 	   	int seq=a15Dao.getSeqNumber(year);
 //	   	System.out.println(seq);
@@ -96,10 +96,10 @@ public class A15Service {
 	
 	
 	/**统计数据*/
-	public  A15Bean getStatic(String year)
+	public  A15_Bean getStatic(String year)
 	{
-		A15Bean a15Bean=new A15Bean();
-		List<S15Bean> list=a15Dao.getOriData(year);
+		A15_Bean a15Bean=new A15_Bean();
+		List<S15_Bean> list=a15Dao.getOriData(year);
 //		System.out.println(list.size());
 		
 		/**国家级个数*/
@@ -125,7 +125,7 @@ public class A15Service {
 		if(!list.isEmpty()&&list!=null){
 			for(int i=0;i<list.size();i++)
 			{
-				S15Bean s15Bean=new S15Bean();
+				S15_Bean s15Bean=new S15_Bean();
 				s15Bean=list.get(i);
 				//国家级
 				num1=s15Bean.getNationEnginResNum()+s15Bean.getNationKeyResNum()+s15Bean.getNationResNum()+s15Bean.getOtherNationResNum()
@@ -175,13 +175,13 @@ public class A15Service {
 	}
 	
 	/**插入数据*/
-	public boolean insert(A15Bean a15Bean){
+	public boolean insert(A15_Bean a15Bean){
 		
 		return a15Dao.insert(a15Bean) ;
 	}
 	
 	
-	public A15POJO beanToPojo(A15Bean bean){
+	public A15POJO beanToPojo(A15_Bean bean){
 		A15POJO pojo = new A15POJO();
 		pojo.setCityResNum(bean.getCityResNum());
 		pojo.setNationResNum(bean.getNationResNum());

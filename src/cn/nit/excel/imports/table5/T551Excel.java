@@ -31,7 +31,7 @@ import org.springframework.beans.BeanWrapperImpl;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.di.DiResearchTypeBean;
-import cn.nit.bean.table5.T551Bean;
+import cn.nit.bean.table5.T551_Bean;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
 import cn.nit.service.di.DiResearchTypeService;
@@ -58,7 +58,7 @@ public class T551Excel {
 		boolean flag = false ;
 		boolean biOpen=false;
 		boolean buildCondi=false;
-		List<T551Bean> list = new LinkedList<T551Bean>() ;
+		List<T551_Bean> list = new LinkedList<T551_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -66,7 +66,7 @@ public class T551Excel {
 		List<DiMajorTwoBean> diMajorTwoBeanList=diMajorTwoSer.getList();
 		
 		for(Cell[] cell : cellList){
-			T551Bean t551Bean = new  T551Bean();
+			T551_Bean t551Bean = new  T551_Bean();
 			int n=cellList.indexOf(cell);
 			if(count<5){//忽略合计的哪一行
 				count++;
@@ -242,7 +242,7 @@ public class T551Excel {
 	 * @return
 	 * @throws Exception 
 	 */
-	public static ByteArrayOutputStream batchExport(List<T551Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
+	public static ByteArrayOutputStream batchExport(List<T551_Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
 		
         WritableWorkbook wwb;
         ByteArrayOutputStream fos = null;

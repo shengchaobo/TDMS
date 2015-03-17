@@ -7,8 +7,8 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.bean.table1.S17Bean;
-import cn.nit.bean.table1.T11Bean;
+import cn.nit.bean.table1.S17_Bean;
+import cn.nit.bean.table1.T11_Bean;
 
 import jxl.Workbook;
 import jxl.format.Border;
@@ -24,7 +24,7 @@ public class S17Excel {
      *  
      * 这个是读取模板写入数据 导出
      * **/  
-	public  ByteArrayOutputStream writeExcel(List<S17Bean> list)
+	public  ByteArrayOutputStream writeExcel(List<S17_Bean> list)
 	{
 		
 		 ByteArrayOutputStream fos = null;
@@ -81,9 +81,9 @@ public class S17Excel {
 	}
 	
 	 /**将list<BEAN>转换成list<String>*/
-    public List<String> changeTo(List<S17Bean> list){
+    public List<String> changeTo(List<S17_Bean> list){
     	List<String> listStr=new ArrayList<String>();
-    	S17Bean s17Bean=list.get(0);
+    	S17_Bean s17Bean=list.get(0);
     	String total=""+s17Bean.getSumSchFriNum();
     	listStr.add(total);
     	String inland=""+s17Bean.getInlandNum();

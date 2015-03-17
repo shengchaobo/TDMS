@@ -2,7 +2,7 @@ package cn.nit.bean.table1;
 
 import java.util.Date;
 
-public class S17Bean {
+public class S17_Bean {
 	
 	private int SeqNumber;
 	/**校友会总数*/

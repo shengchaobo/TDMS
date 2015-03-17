@@ -27,7 +27,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 import cn.nit.bean.di.DiDepartmentBean;
-import cn.nit.bean.table1.T14Bean;
+import cn.nit.bean.table1.T14_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table1.T14Service;
@@ -43,7 +43,7 @@ public class T14Excel {
 	 * @return
 	 * @throws Exception 
 	 */
-	public static ByteArrayOutputStream batchExport(List<T14Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
+	public static ByteArrayOutputStream batchExport(List<T14_Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
 		
         WritableWorkbook wwb;
         ByteArrayOutputStream fos = null;
@@ -169,7 +169,7 @@ public class T14Excel {
 		
 		boolean flag = false ;
         Date time=new Date();
-		List<T14Bean> list = new LinkedList<T14Bean>() ;
+		List<T14_Bean> list = new LinkedList<T14_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -177,7 +177,7 @@ public class T14Excel {
 		List<T411_Bean> t411List=t411_Ser.getList();
 		
 		for(Cell[] cell : cellList){
-			T14Bean t14Bean = new  T14Bean();
+			T14_Bean t14Bean = new  T14_Bean();
 			int n=cellList.indexOf(cell);
 			if(count<4){
 				count++;

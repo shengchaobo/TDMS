@@ -19,8 +19,8 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
-import cn.nit.bean.table1.S17Bean;
-import cn.nit.bean.table1.S18Bean;
+import cn.nit.bean.table1.S17_Bean;
+import cn.nit.bean.table1.S18_Bean;
 import cn.nit.dao.table1.T17DAO;
 import cn.nit.service.table1.S17Service;
 import cn.nit.service.table1.S18Service;
@@ -37,13 +37,13 @@ public static boolean export_J17(String path){
 		String currentTime = time.toString();
 		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
-		S17Bean  s17Bean = S17_Ser.loadData(year);//校友会
+		S17_Bean  s17Bean = S17_Ser.loadData(year);//校友会
 		if(s17Bean == null){
-			s17Bean = new S17Bean();
+			s17Bean = new S17_Bean();
 		}
-		S18Bean  s18Bean = S18_Ser.loadData(year);//合作协议
+		S18_Bean  s18Bean = S18_Ser.loadData(year);//合作协议
 		if(s18Bean == null){
-			s18Bean = new S18Bean();
+			s18Bean = new S18_Bean();
 		}
 		
 		String sheetName = "J-1-7校友会与社会合作（时点）";

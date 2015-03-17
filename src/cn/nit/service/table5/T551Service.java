@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-import cn.nit.bean.table5.T551Bean;
+import cn.nit.bean.table5.T551_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table5.T551DAO;
 
@@ -26,7 +26,7 @@ public class T551Service {
 	 *
 	 * @time: 2014-5-14/上午10:52:05
 	 */
-	public boolean insert(T551Bean t551Bean){
+	public boolean insert(T551_Bean t551Bean){
 		
 		return t551Dao.insert(t551Bean) ;
 	}
@@ -43,15 +43,15 @@ public class T551Service {
 	
 	/**
 	 * 更新数据
-	 * @param t551Bean {@link cn.nit.bean.table1.T151Bean}实体类
+	 * @param t551Bean {@link cn.nit.bean.table1.T151_Bean}实体类
 	 * @return
 	 */
-	public boolean update(T551Bean t551Bean){
+	public boolean update(T551_Bean t551Bean){
 //	    this.setAudit(t151Bean) ;
 		return t551Dao.update(t551Bean) ;
 	}
 	
-	private void setAudit(T551Bean t551Bean){
+	private void setAudit(T551_Bean t551Bean){
 		
 		String audit = DIResourceDAO.getAudit(t551Dao.getTableName()) ;
 		
@@ -66,7 +66,7 @@ public class T551Service {
 	}
 	
 	/**批量导入*/
-	public boolean batchInsert(List<T551Bean> list){
+	public boolean batchInsert(List<T551_Bean> list){
 		
 		return t551Dao.batchInsert(list) ;
 	}

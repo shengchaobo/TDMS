@@ -18,8 +18,8 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import cn.nit.bean.table1.S17Bean;
-import cn.nit.bean.table1.S18Bean;
+import cn.nit.bean.table1.S17_Bean;
+import cn.nit.bean.table1.S18_Bean;
 import cn.nit.bean.table6.T641_Bean;
 import cn.nit.dao.table6.T641_Dao;
 

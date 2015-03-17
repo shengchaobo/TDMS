@@ -7,7 +7,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
-import cn.nit.bean.table5.T513Bean;
+import cn.nit.bean.table5.T513_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table5.T513_DAO;
 
@@ -76,7 +76,7 @@ public class T513Service {
 	 * @param 
 	 * @return
 	 */
-	public boolean update(T513Bean bean){
+	public boolean update(T513_Bean bean){
 		
 //		String CoverRatio=bean.getCoverRatio();
 		
@@ -88,7 +88,7 @@ public class T513Service {
 	 * @param 
 	 * @return
 	 */
-	public T513Bean findBySeqNum (int seqNum){
+	public T513_Bean findBySeqNum (int seqNum){
 		return t513Dao.findBySeqNum(seqNum) ;
 	}
 	
@@ -105,7 +105,7 @@ public class T513Service {
 	
 
 	/**批量导入*/
-	public boolean batchInsert(List<T513Bean> list,String year){
+	public boolean batchInsert(List<T513_Bean> list,String year){
 		
 		return t513Dao.batchInsert(list,year) ;
 	}

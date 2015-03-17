@@ -7,7 +7,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.bean.table1.A15Bean;
+import cn.nit.bean.table1.A15_Bean;
 
 import jxl.Workbook;
 import jxl.format.Border;
@@ -23,7 +23,7 @@ public class A15Excel {
 	    *  
 	    * 这个是读取模板写入数据 导出
 	    * **/  
-		public  ByteArrayOutputStream writeExcel(List<A15Bean> list)
+		public  ByteArrayOutputStream writeExcel(List<A15_Bean> list)
 		{
 			
 			 ByteArrayOutputStream fos = null;
@@ -82,10 +82,10 @@ public class A15Excel {
 		}
 		
 			 /**将list<BEAN>转换成list<String>*/
-		   public List<String> changeTo(List<A15Bean> list){
+		   public List<String> changeTo(List<A15_Bean> list){
 			   
 		   	List<String> listStr=new ArrayList<String>();
-		   	A15Bean a15=list.get(0);
+		   	A15_Bean a15=list.get(0);
 		   	String  NationResNum=""+a15.getNationResNum();
 		   	listStr.add(NationResNum);
 		   	String  NationResRatio=""+a15.getNationResRatio();

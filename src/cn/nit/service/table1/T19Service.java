@@ -6,7 +6,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
-import cn.nit.bean.table1.T19Bean;
+import cn.nit.bean.table1.T19_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T19DAO;
 
@@ -26,7 +26,7 @@ public class T19Service {
 	 *
 	 * @time: 2014-5-14/上午10:52:05
 	 */
-	public boolean insert(T19Bean t19Bean){
+	public boolean insert(T19_Bean t19Bean){
 		
 		return t19Dao.insert(t19Bean) ;
 	}
@@ -47,10 +47,10 @@ public class T19Service {
 	
 	/**
 	 * 更新数据
-	 * @param t151Bean {@link cn.nit.bean.table1.T151Bean}实体类
+	 * @param t151Bean {@link cn.nit.bean.table1.T151_Bean}实体类
 	 * @return
 	 */
-	public boolean update(T19Bean t19Bean){
+	public boolean update(T19_Bean t19Bean){
 //	    this.setAudit(t151Bean) ;
 		return t19Dao.update(t19Bean) ;
 	}
@@ -64,7 +64,7 @@ public class T19Service {
 	}
 	
 	/**批量导入*/
-	public boolean batchInsert(List<T19Bean> list){
+	public boolean batchInsert(List<T19_Bean> list){
 		
 		return t19Dao.batchInsert(list) ;
 	}

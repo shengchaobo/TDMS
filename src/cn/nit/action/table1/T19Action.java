@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table1.T181Bean;
-import cn.nit.bean.table1.T19Bean;
+import cn.nit.bean.table1.T181_Bean;
+import cn.nit.bean.table1.T19_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T19DAO;
 import cn.nit.excel.imports.table1.T19Excel;
@@ -33,7 +33,7 @@ public class T19Action {
 	private T19Service t19Ser = new T19Service() ;
 	
 	/**  表19的Bean实体类  */
-	private T19Bean t19Bean = new T19Bean() ;
+	private T19_Bean t19Bean = new T19_Bean() ;
 	
 	/**  表19的Dao类  */
 	private T19DAO t19Dao = new T19DAO() ;
@@ -309,7 +309,7 @@ public class T19Action {
 
 		try {
 			System.out.println("yaer:"+this.getSelectYear());
-			List<T19Bean> list = t19Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T19_Bean> list = t19Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			System.out.println(list.size());
 			
 			String sheetName = this.excelName;
@@ -352,11 +352,11 @@ public class T19Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-	public T19Bean getT19Bean() {
+	public T19_Bean getT19Bean() {
 		return t19Bean;
 	}
 
-	public void setT19Bean(T19Bean t19Bean) {
+	public void setT19Bean(T19_Bean t19Bean) {
 		this.t19Bean = t19Bean;
 	}
 

@@ -31,7 +31,7 @@ import jxl.write.biff.RowsExceededException;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchTypeBean;
-import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
@@ -60,7 +60,7 @@ public class T151Excel {
 		boolean flag = false ;
 		boolean biOpen=false;
 		boolean buildCondi=false;
-		List<T151Bean> list = new LinkedList<T151Bean>() ;
+		List<T151_Bean> list = new LinkedList<T151_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -68,7 +68,7 @@ public class T151Excel {
 		List<DiResearchTypeBean> diResearchBeanList=diResearchSer.getList();
 		
 		for(Cell[] cell : cellList){
-			T151Bean t151Bean = new  T151Bean();
+			T151_Bean t151Bean = new  T151_Bean();
 			int n=cellList.indexOf(cell);
 			if(count<4){
 				count++;
@@ -289,7 +289,7 @@ public class T151Excel {
 	 * @return
 	 * @throws Exception 
 	 */
-	public static ByteArrayOutputStream batchExport(List<T151Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
+	public static ByteArrayOutputStream batchExport(List<T151_Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
 		
         WritableWorkbook wwb;
         ByteArrayOutputStream fos = null;

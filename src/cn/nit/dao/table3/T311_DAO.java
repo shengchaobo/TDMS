@@ -8,7 +8,7 @@ import java.util.List;
 
 import sun.security.krb5.internal.UDPClient;
 
-import cn.nit.bean.table1.T181Bean;
+import cn.nit.bean.table1.T181_Bean;
 import cn.nit.bean.table3.T311_Bean;
 import cn.nit.constants.Constants;
 

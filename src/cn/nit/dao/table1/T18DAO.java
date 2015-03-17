@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T181Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T181_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 
@@ -34,7 +34,7 @@ public class T18DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T181Bean t181Bean){
+	public boolean insert(T181_Bean t181Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -52,10 +52,10 @@ public class T18DAO {
 	
 	/**
 	 * 讲数据批量插入t181表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T181Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T181_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T181Bean> list){
+	public boolean batchInsert(List<T181_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -163,7 +163,7 @@ public class T18DAO {
 	}
 	
 	/**用于数据导出*/
-	public List<T181Bean> totalList(String fillUnitID,String year,int checkState){
+	public List<T181_Bean> totalList(String fillUnitID,String year,int checkState){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,FillDept,t.CooperInsName,t.CooperInsType,dal.AwardLevel as CooperInsLevel,t.CooperInsLevel as CooperInsLevelID" +
@@ -177,12 +177,12 @@ public class T18DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T181Bean> list = null ;
+		List<T181_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T181Bean.class) ;
+			list = DAOUtil.getList(rs, T181_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -191,7 +191,7 @@ public class T18DAO {
 		return list ;
 	}
 	
-	public boolean update(T181Bean t181Bean){
+	public boolean update(T181_Bean t181Bean){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -396,7 +396,7 @@ public class T18DAO {
 //		int n=dao.totalAuditingData(null, "1012");
 //		System.out.println(list.size());
 //		System.out.println(n);
-		 List<T181Bean> list = dao.totalList("1012", "2015", 2);
+		 List<T181_Bean> list = dao.totalList("1012", "2015", 2);
 		System.out.println(list.size());
 	}
 

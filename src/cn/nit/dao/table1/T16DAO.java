@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T16Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T16_Bean;
 import cn.nit.dbconnection.DBConnection;
 
 import cn.nit.pojo.table1.T16POJO;
@@ -33,7 +33,7 @@ public class T16DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T16Bean t16Bean){
+	public boolean insert(T16_Bean t16Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -132,9 +132,9 @@ public class T16DAO {
 	
 	
 	/**取出最近年份的数据*/
-	public List<T16Bean> getBean(){
+	public List<T16_Bean> getBean(){
 		StringBuffer sql = new StringBuffer() ;
-		List<T16Bean> list = new  ArrayList<T16Bean>();
+		List<T16_Bean> list = new  ArrayList<T16_Bean>();
 		
 		sql.append("select top 2 * from "+tableName) ;
 		sql.append(" order by Time desc") ;
@@ -145,7 +145,7 @@ public class T16DAO {
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T16Bean.class) ;
+			list = DAOUtil.getList(rs, T16_Bean.class) ;
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -166,7 +166,7 @@ public class T16DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:23
 	 */
-	public boolean save(T16Bean bean, String year, String fields,String item){
+	public boolean save(T16_Bean bean, String year, String fields,String item){
 		
 		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year+" and Item like '"+item+"%'";	
 //		System.out.println("sql:"+sql);
@@ -175,12 +175,12 @@ public class T16DAO {
 		
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T16Bean> list = null ;
-		T16Bean tempBean = null;
+		List<T16_Bean> list = null ;
+		T16_Bean tempBean = null;
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T16Bean.class) ;
+			list = DAOUtil.getList(rs, T16_Bean.class) ;
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());	
@@ -203,10 +203,10 @@ public class T16DAO {
 
 	/**
 	 * 讲数据批量插入16表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T16Bean> list){
+	public boolean batchInsert(List<T16_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -292,7 +292,7 @@ public class T16DAO {
 		return list ;
 	}
 	
-	public boolean update(T16Bean t16Bean){
+	public boolean update(T16_Bean t16Bean){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -375,7 +375,7 @@ public class T16DAO {
 //			System.out.println(pojo.getContents2());
 //			System.out.println(pojo.getItem2());
 //		}
-		List<T16Bean> list = dao.getBean();
+		List<T16_Bean> list = dao.getBean();
 		System.out.println(list.size());
 
 	}

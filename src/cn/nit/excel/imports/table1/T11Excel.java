@@ -41,7 +41,7 @@ import org.springframework.beans.BeanWrapperImpl;
 
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiResearchTypeBean;
-import cn.nit.bean.table1.T11Bean;
+import cn.nit.bean.table1.T11_Bean;
 
 import cn.nit.dao.table1.T11DAO;
 import cn.nit.dbconnection.DBConnection;
@@ -58,7 +58,7 @@ public class T11Excel {
      *  
      * 这个是读取模板写入数据 导出
      * **/  
-	public  ByteArrayOutputStream writeExcel(List<T11Bean> list)
+	public  ByteArrayOutputStream writeExcel(List<T11_Bean> list)
 	{
 		
 		 ByteArrayOutputStream fos = null;
@@ -133,8 +133,8 @@ public class T11Excel {
 //		boolean flag = false ;
 //		boolean biOpen=false;
 //		boolean buildCondi=false;
-		List<T11Bean> list = new LinkedList<T11Bean>() ;
-		T11Bean t11Bean = new  T11Bean();
+		List<T11_Bean> list = new LinkedList<T11_Bean>() ;
+		T11_Bean t11Bean = new  T11_Bean();
 		t11Bean.setTime(new Date());
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		
@@ -415,9 +415,9 @@ public class T11Excel {
 	}
     
      /**将list<BEAN>转换成list<String>*/
-    public List<String> changeTo(List<T11Bean> list){
+    public List<String> changeTo(List<T11_Bean> list){
     	List<String> listStr=new ArrayList<String>();
-    	T11Bean t11Bean=list.get(0);
+    	T11_Bean t11Bean=list.get(0);
     	listStr.add(t11Bean.getSchAddress());
     	listStr.add(t11Bean.getSchTel());
     	listStr.add(t11Bean.getSchFax());

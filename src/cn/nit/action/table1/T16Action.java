@@ -36,8 +36,8 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
-import cn.nit.bean.table1.T11Bean;
-import cn.nit.bean.table1.T16Bean;
+import cn.nit.bean.table1.T11_Bean;
+import cn.nit.bean.table1.T16_Bean;
 import cn.nit.dao.table1.T16DAO;
 import cn.nit.excel.imports.table1.T16Excel;
 import cn.nit.pojo.table1.T16POJO;
@@ -52,7 +52,7 @@ public class T16Action {
 	private T16Service t16Ser = new T16Service() ;
 	
 	/**  表16的Bean实体类  */
-	private T16Bean t16Bean = new T16Bean() ;
+	private T16_Bean t16Bean = new T16_Bean() ;
 	
 	/**  表16的DAO类  */
 	private T16DAO t16Dao = new T16DAO() ;
@@ -207,16 +207,16 @@ public class T16Action {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
 		//得到需要复制的年份的数据
-		List<T16Bean> list = t16Ser.getBean() ;
+		List<T16_Bean> list = t16Ser.getBean() ;
 		Date newYear = TimeUtil.changeDateY(this.getSelectYear());
 		//System.out.println("year:"+this.getSelectYear());
 		//System.out.println(newYear);
 		//设置时间
-		T16Bean bean1 = list.get(0);
+		T16_Bean bean1 = list.get(0);
 		bean1.setTime(newYear);
-		T16Bean bean2 = list.get(1);
+		T16_Bean bean2 = list.get(1);
 		bean2.setTime(newYear);
-		List<T16Bean> newlist= new ArrayList<T16Bean>();
+		List<T16_Bean> newlist= new ArrayList<T16_Bean>();
 		newlist.add(bean1);newlist.add(bean2);
 		//插入
 		boolean flag = t16Ser.insert(newlist);
@@ -411,11 +411,11 @@ public class T16Action {
 	}
 
 
-	public T16Bean getT16Bean() {
+	public T16_Bean getT16Bean() {
 		return t16Bean;
 	}
 
-	public void setT16Bean(T16Bean t16Bean) {
+	public void setT16Bean(T16_Bean t16Bean) {
 		this.t16Bean = t16Bean;
 	}
 

@@ -3,7 +3,7 @@ package cn.nit.bean.table1;
 import java.util.Date;
 
 /**学校基本情况！*/
-public class T11Bean {
+public class T11_Bean {
 	
 	private int SeqNumber;//序号
 	private String SchAddress;//学校地址

@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-import cn.nit.bean.table1.T17Bean;
+import cn.nit.bean.table1.T17_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T17DAO;
 import cn.nit.pojo.table1.T17POJO;
@@ -27,7 +27,7 @@ public class T17Service {
 	 *
 	 * @time: 2014-5-14/上午10:52:05
 	 */
-	public boolean insert(T17Bean t17Bean){
+	public boolean insert(T17_Bean t17Bean){
 		
 		return t17Dao.insert(t17Bean) ;
 	}
@@ -52,14 +52,14 @@ public class T17Service {
 	 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
 	 * @return
 	 */
-	public boolean update(T17Bean t17Bean){
+	public boolean update(T17_Bean t17Bean){
 //	    this.setAudit(t151Bean) ;
 		return t17Dao.update(t17Bean) ;
 	}
 
 	
 	/**导入数据*/
-	public boolean batchInsert(List<T17Bean> list){
+	public boolean batchInsert(List<T17_Bean> list){
 			
 			return t17Dao.batchInsert(list) ;
 		}

@@ -27,7 +27,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 import cn.nit.bean.di.DiDepartmentBean;
-import cn.nit.bean.table1.T13Bean;
+import cn.nit.bean.table1.T13_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table1.T13Service;
@@ -43,7 +43,7 @@ public class T13Excel {
 	 * @return
 	 * @throws Exception 
 	 */
-	public static ByteArrayOutputStream batchExport(List<T13Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
+	public static ByteArrayOutputStream batchExport(List<T13_Bean> list, String sheetName, Map<String,Integer> maplist, List<String> columns) throws Exception{
 		
         WritableWorkbook wwb;
         ByteArrayOutputStream fos = null;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cn.nit.bean.table1.T11Bean;
+import cn.nit.bean.table1.T11_Bean;
 import cn.nit.dao.table1.T11DAO;
 
 import jxl.Workbook;
@@ -42,7 +42,7 @@ public class textExcel {
 			   wwb.removeSheet(2);
 			   
 			   
-			   List<T11Bean> list=new ArrayList<T11Bean>(); 
+			   List<T11_Bean> list=new ArrayList<T11_Bean>(); 
 	            //需要操作的数据库dao
 	            T11DAO t11dao=new T11DAO();
 	            Date time=new Date();
@@ -70,9 +70,9 @@ public class textExcel {
 		
 	}
 	
-	 public List<String> changeTo(List<T11Bean> list){
+	 public List<String> changeTo(List<T11_Bean> list){
 	    	List<String> listStr=new ArrayList<String>();
-	    	T11Bean t11Bean=list.get(0);
+	    	T11_Bean t11Bean=list.get(0);
 	    	listStr.add(t11Bean.getSchAddress());
 	    	listStr.add(t11Bean.getSchTel());
 	    	listStr.add(t11Bean.getSchFax());

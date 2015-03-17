@@ -5,7 +5,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
-import cn.nit.bean.table1.T14Bean;
+import cn.nit.bean.table1.T14_Bean;
 import cn.nit.dao.table1.T14DAO;
 import cn.nit.pojo.table1.T14POJO;
 import cn.nit.util.Pagition;
@@ -30,7 +30,7 @@ public class T14Service {
 		}
 	
 	/**批量导入*/
-	public boolean batchInsert(List<T14Bean> list){
+	public boolean batchInsert(List<T14_Bean> list){
 		
 		return t14Dao.batchInsert(list) ;
 	}

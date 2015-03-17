@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T152Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T152_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
@@ -36,7 +36,7 @@ public class T151DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T151Bean schResIns){
+	public boolean insert(T151_Bean schResIns){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -54,10 +54,10 @@ public class T151DAO {
 	
 	/**
 	 * 讲数据批量插入151表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T151Bean> list){
+	public boolean batchInsert(List<T151_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -203,7 +203,7 @@ public class T151DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T151Bean> totalList(String year){
+	public List<T151_Bean> totalList(String year){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,drt.ResearchType as Type, " +
@@ -220,12 +220,12 @@ public class T151DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T151Bean> list = null ;
+		List<T151_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T151Bean.class) ;
+			list = DAOUtil.getList(rs, T151_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -341,7 +341,7 @@ public class T151DAO {
 	
 	
 	//更新！
-	public boolean update(T151Bean t151Bean){
+	public boolean update(T151_Bean t151Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;
@@ -418,7 +418,7 @@ public class T151DAO {
 		T151DAO dao=new T151DAO();
 //		int n=dao.totalAuditingData(null, null);
 //		System.out.println(n);
-		List<T151Bean> list=dao.totalList("2014");
+		List<T151_Bean> list=dao.totalList("2014");
 //		List<T151Bean> list1=dao.totalList();
 		System.out.println(list.size());
 //		System.out.println(list1.size());

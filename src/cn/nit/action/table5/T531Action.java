@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table5.T531Bean;
+import cn.nit.bean.table5.T531_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T531DAO;
 import cn.nit.excel.imports.table5.T531Excel;
@@ -40,7 +40,7 @@ public class T531Action {
 	private CheckService check_services = new CheckService();
 	
 	/**  表531的Bean实体类  */
-	private T531Bean t531Bean = new T531Bean() ;
+	private T531_Bean t531Bean = new T531_Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -317,7 +317,7 @@ public class T531Action {
 
 		try {
 			
-			List<T531Bean> list = t531Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T531_Bean> list = t531Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -359,11 +359,11 @@ public class T531Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-	public T531Bean getT531Bean() {
+	public T531_Bean getT531Bean() {
 		return t531Bean;
 	}
 
-	public void setT531Bean(T531Bean t531Bean) {
+	public void setT531Bean(T531_Bean t531Bean) {
 		this.t531Bean = t531Bean;
 	}
 

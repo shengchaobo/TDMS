@@ -2,7 +2,7 @@ package cn.nit.bean.table1;
 
 import java.util.Date;
 
-public class A15Bean {
+public class A15_Bean {
 	
 	private int SeqNumber;
 	/**国家级科研机构*/

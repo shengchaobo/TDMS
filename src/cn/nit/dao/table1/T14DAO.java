@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table1.T12Bean;
-import cn.nit.bean.table1.T14Bean;
+import cn.nit.bean.table1.T12_Bean;
+import cn.nit.bean.table1.T14_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T14POJO;
 import cn.nit.util.DAOUtil;
@@ -113,7 +113,7 @@ public class T14DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T12Bean> totalList(){
+	public List<T12_Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select UnitName,UnitID, Leader,Functions,TeaID,Note" );
@@ -127,12 +127,12 @@ public class T14DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T12Bean> list = null ;
+		List<T12_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T12Bean.class) ;
+			list = DAOUtil.getList(rs, T12_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -142,10 +142,10 @@ public class T14DAO {
 
 	/**
 	 * 讲数据批量插入4表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T14Bean> list){
+	public boolean batchInsert(List<T14_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -166,7 +166,7 @@ public class T14DAO {
 	
 	public static void main(String arg[]){
 		T14DAO dao = new T14DAO();
-		List<T12Bean> list=dao.totalList();
+		List<T12_Bean> list=dao.totalList();
 		System.out.println(list.size());
 	}
 

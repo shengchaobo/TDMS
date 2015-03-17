@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T151DAO;
@@ -44,7 +44,7 @@ public class T151Action {
 	private T151Service t151Ser = new T151Service() ;
 	
 	/**  表151的Bean实体类  */
-	private T151Bean t151Bean = new T151Bean() ;
+	private T151_Bean t151Bean = new T151_Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -394,7 +394,7 @@ public class T151Action {
 
 		try {
 			
-			List<T151Bean> list = t151Dao.totalList(this.selectYear);
+			List<T151_Bean> list = t151Dao.totalList(this.selectYear);
 			System.out.println("数据条数："+list.size());
 			
 //			String sheetName = this.excelName;
@@ -444,11 +444,11 @@ public class T151Action {
 	}
 
 
-	public T151Bean getT151Bean() {
+	public T151_Bean getT151Bean() {
 		return t151Bean;
 	}
 
-	public void setT151Bean(T151Bean t151Bean) {
+	public void setT151Bean(T151_Bean t151Bean) {
 		this.t151Bean = t151Bean;
 	}
 

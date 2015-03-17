@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table5.T534Bean;
+import cn.nit.bean.table5.T534_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table5.T534POJO;
@@ -33,7 +33,7 @@ public class T534DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T534Bean t534Bean){
+	public boolean insert(T534_Bean t534Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -51,10 +51,10 @@ public class T534DAO {
 	
 	/**
 	 * 讲数据批量插入534表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T534Bean> list){
+	public boolean batchInsert(List<T534_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -167,7 +167,7 @@ public class T534DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T534Bean> totalList(String fillUnitID,String year,int checkState){
+	public List<T534_Bean> totalList(String fillUnitID,String year,int checkState){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
@@ -184,12 +184,12 @@ public class T534DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T534Bean> list = null ;
+		List<T534_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T534Bean.class) ;
+			list = DAOUtil.getList(rs, T534_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -202,7 +202,7 @@ public class T534DAO {
 	 *教育部导出
 	 * */
 	
-	public List<T534Bean> totalListY(String year){
+	public List<T534_Bean> totalListY(String year){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
@@ -218,12 +218,12 @@ public class T534DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T534Bean> list = null ;
+		List<T534_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T534Bean.class) ;
+			list = DAOUtil.getList(rs, T534_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -233,7 +233,7 @@ public class T534DAO {
 	}
 	
 	//更新！
-	public boolean update(T534Bean t534Bean){
+	public boolean update(T534_Bean t534Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;

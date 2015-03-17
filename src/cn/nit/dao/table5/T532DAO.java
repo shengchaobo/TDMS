@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table5.T532Bean;
+import cn.nit.bean.table5.T532_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 
@@ -33,7 +33,7 @@ public class T532DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T532Bean t532Bean){
+	public boolean insert(T532_Bean t532Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -51,10 +51,10 @@ public class T532DAO {
 	
 	/**
 	 * 讲数据批量插入533表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T532Bean> list){
+	public boolean batchInsert(List<T532_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -165,7 +165,7 @@ public class T532DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T532Bean> totalList(String year,int checkState){
+	public List<T532_Bean> totalList(String year,int checkState){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.CenterName,t.FromSubject,t.SubjectID,dal.AwardLevel CenterLevel,t.CenterLevel as CenterLevelID,t.FromTeaUnit,t.UnitID,t.CenterLeader," +
@@ -179,12 +179,12 @@ public class T532DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T532Bean> list = null ;
+		List<T532_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T532Bean.class) ;
+			list = DAOUtil.getList(rs, T532_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -195,7 +195,7 @@ public class T532DAO {
 	
 	
 	/**用于教育部导出处*/
-	public List<T532Bean> totalList(String year){
+	public List<T532_Bean> totalList(String year){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select t.SeqNumber,t.CenterName,t.FromSubject,t.SubjectID,dal.AwardLevel CenterLevel,t.CenterLevel as CenterLevelID,t.FromTeaUnit,t.UnitID,t.CenterLeader," +
@@ -210,12 +210,12 @@ public class T532DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T532Bean> list = null ;
+		List<T532_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T532Bean.class) ;
+			list = DAOUtil.getList(rs, T532_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -225,7 +225,7 @@ public class T532DAO {
 	}
 	
 	//更新！
-	public boolean update(T532Bean t532Bean){
+	public boolean update(T532_Bean t532Bean){
 			
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;
@@ -406,7 +406,7 @@ public class T532DAO {
 	public static void main(String arg[]){
 		T532DAO dao= new T532DAO();
 //		boolean flag = dao.updatCheck();
-		 List<T532Bean> list = dao.totalList("2014", 2);
+		 List<T532_Bean> list = dao.totalList("2014", 2);
 		System.out.println(list.size());
 	}
 	

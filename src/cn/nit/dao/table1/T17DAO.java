@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T17Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T17_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 
@@ -33,7 +33,7 @@ public class T17DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T17Bean t17Bean){
+	public boolean insert(T17_Bean t17Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -51,10 +51,10 @@ public class T17DAO {
 	
 	/**
 	 * 讲数据批量插入17表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T17Bean> list){
+	public boolean batchInsert(List<T17_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -164,7 +164,7 @@ public class T17DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T17Bean> totalList(String year,int checkState){
+	public List<T17_Bean> totalList(String year,int checkState){
 		
 		StringBuffer sql=new StringBuffer();
 		sql.append("select SeqNumber,ClubName,BuildYear,Place,CheckState,Time,Note from "+ tableName);
@@ -174,12 +174,12 @@ public class T17DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T17Bean> list = null ;
+		List<T17_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T17Bean.class) ;
+			list = DAOUtil.getList(rs, T17_Bean.class) ;
 			System.out.println(list.size());
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -296,7 +296,7 @@ public class T17DAO {
 	
 	
 	
-	public boolean update(T17Bean t17Bean){
+	public boolean update(T17_Bean t17Bean){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -376,7 +376,7 @@ public class T17DAO {
 //		System.out.println(n);
 //		boolean flag = dao.updateCheck();
 //		System.out.println(flag);
-		List<T17Bean> list = dao.totalList("2014", 2);
+		List<T17_Bean> list = dao.totalList("2014", 2);
 		System.out.println(list.size());
 		
 	}

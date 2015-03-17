@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-import cn.nit.bean.table1.T172Bean;
+import cn.nit.bean.table1.T172_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T172DAO;
 import cn.nit.util.Pagition;
@@ -26,7 +26,7 @@ public class T172Service {
 	 *
 	 * @time: 2014-5-14/上午10:52:05
 	 */
-	public boolean insert(T172Bean t172Bean){
+	public boolean insert(T172_Bean t172Bean){
 		
 		return t172Dao.insert(t172Bean) ;
 	}
@@ -35,7 +35,7 @@ public class T172Service {
 	public String auditingData(String conditions, String fillUnitId, int page, int rows){
 			
 	    int total = t172Dao.totalAuditingData(conditions, fillUnitId) ;
-		List<T172Bean> list = t172Dao.auditingData(conditions, fillUnitId, page, rows) ;
+		List<T172_Bean> list = t172Dao.auditingData(conditions, fillUnitId, page, rows) ;
 		Pagition pages = new Pagition(total, list) ;
 //		System.out.println("total:"+total);
 //		System.out.println("list:"+list.size());
@@ -51,7 +51,7 @@ public class T172Service {
 	 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
 	 * @return
 	 */
-	public boolean update(T172Bean t172Bean){
+	public boolean update(T172_Bean t172Bean){
 //	    this.setAudit(t151Bean) ;
 		return t172Dao.update(t172Bean) ;
 	}
@@ -65,7 +65,7 @@ public class T172Service {
 //	}
 	
 	/**导入数据*/
-	public boolean batchInsert(List<T172Bean> list){
+	public boolean batchInsert(List<T172_Bean> list){
 			
 			return t172Dao.batchInsert(list) ;
 		}

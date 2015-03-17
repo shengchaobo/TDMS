@@ -34,9 +34,9 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table1.A15Bean;
-import cn.nit.bean.table1.S17Bean;
-import cn.nit.bean.table1.T17Bean;
+import cn.nit.bean.table1.A15_Bean;
+import cn.nit.bean.table1.S17_Bean;
+import cn.nit.bean.table1.T17_Bean;
 import cn.nit.dao.table1.S17DAO;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.excel.imports.table1.S17Excel;
@@ -53,7 +53,7 @@ public class S17Action {
 	private S17Service s17Ser = new S17Service() ;
 	
 	/**  表S17的Bean实体类  */
-	private S17Bean s17Bean = new S17Bean() ;
+	private S17_Bean s17Bean = new S17_Bean() ;
 	
 	/**  表17的DAO类  */
 	private S17DAO s17Dao = new S17DAO() ;
@@ -108,7 +108,7 @@ public class S17Action {
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		S17Bean bean = s17Ser.loadData(this.getSelectYear()) ;
+		S17_Bean bean = s17Ser.loadData(this.getSelectYear()) ;
 		
 		String json=null;
 		boolean flag = false; 
@@ -153,7 +153,7 @@ public class S17Action {
 		String tempData = this.getData();
 		//System.out.println(tempData);
 				
-		S17Bean bean  = ToBeanUtil.toBean(tempData, S17Bean.class);
+		S17_Bean bean  = ToBeanUtil.toBean(tempData, S17_Bean.class);
 										
 		boolean flag = s17Ser.save(bean,this.getSelectYear(),this.getFields());
 		PrintWriter out = null ;
@@ -230,7 +230,7 @@ public class S17Action {
 		
 		System.out.println(this.getSelectYear());
 
-		S17Bean bean =s17Dao.forExcel(this.selectYear).get(0);
+		S17_Bean bean =s17Dao.forExcel(this.selectYear).get(0);
 		
 	    ByteArrayOutputStream fos = null;
 	
@@ -336,11 +336,11 @@ public class S17Action {
 		this.excelName = excelName;
 	}
 
-	public S17Bean getS17Bean() {
+	public S17_Bean getS17Bean() {
 		return s17Bean;
 	}
 
-	public void setS17Bean(S17Bean s17Bean) {
+	public void setS17Bean(S17_Bean s17Bean) {
 		this.s17Bean = s17Bean;
 	}
 

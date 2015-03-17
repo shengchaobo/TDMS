@@ -5,8 +5,8 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T17Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T17_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T151DAO;
 import cn.nit.pojo.table1.T151POJO;
@@ -29,7 +29,7 @@ import cn.nit.util.TimeUtil;
 		 *
 		 * @time: 2014-5-14/上午10:52:05
 		 */
-		public boolean insert(T151Bean t151Bean){
+		public boolean insert(T151_Bean t151Bean){
 			
 			return t151Dao.insert(t151Bean) ;
 		}
@@ -48,10 +48,10 @@ import cn.nit.util.TimeUtil;
 		
 		/**
 		 * 更新数据
-		 * @param t151Bean {@link cn.nit.bean.table1.T151Bean}实体类
+		 * @param t151Bean {@link cn.nit.bean.table1.T151_Bean}实体类
 		 * @return
 		 */
-		public boolean update(T151Bean t151Bean){
+		public boolean update(T151_Bean t151Bean){
 //		    this.setAudit(t151Bean) ;
 			return t151Dao.update(t151Bean) ;
 		}
@@ -101,7 +101,7 @@ import cn.nit.util.TimeUtil;
 
 		
 		/**批量导入*/
-		public boolean batchInsert(List<T151Bean> list){
+		public boolean batchInsert(List<T151_Bean> list){
 			
 			return t151Dao.batchInsert(list) ;
 		}

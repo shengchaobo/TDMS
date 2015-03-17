@@ -3,7 +3,7 @@ package cn.nit.bean.table1;
 import java.util.Date;
 
 /**表T16办学指导思想*/
-public class T16Bean {
+public class T16_Bean {
 	
 	private int SeqNumber;
 	private String Item;

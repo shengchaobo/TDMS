@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cn.nit.bean.table1.T11Bean;
-import cn.nit.bean.table1.T152Bean;
-import cn.nit.bean.table1.T16Bean;
+import cn.nit.bean.table1.T11_Bean;
+import cn.nit.bean.table1.T152_Bean;
+import cn.nit.bean.table1.T16_Bean;
 import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T11POJO;
@@ -38,7 +38,7 @@ public class T11DAO {
 	 *
 	 * @time: 2014-5-14/上午10:53:10
 	 */
-	public boolean insert(T11Bean t11Bean){
+	public boolean insert(T11_Bean t11Bean){
 		
 		//flag判断数据是否插入成功
 		boolean flag = false ;
@@ -56,10 +56,10 @@ public class T11DAO {
 	
 	/**
 	 * 讲数据批量插入11表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T11Bean> list){
+	public boolean batchInsert(List<T11_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -102,10 +102,10 @@ public class T11DAO {
      * 取出最近年份的数据
      * */
 
-	public T11Bean getBean(){
+	public T11_Bean getBean(){
 		StringBuffer sql = new StringBuffer() ;
-		List<T11Bean> list = new  ArrayList<T11Bean>();
-		T11Bean bean = new T11Bean();
+		List<T11_Bean> list = new  ArrayList<T11_Bean>();
+		T11_Bean bean = new T11_Bean();
 		
 		sql.append("select top 1 * from "+tableName) ;
 		sql.append(" order by Time desc") ;
@@ -116,7 +116,7 @@ public class T11DAO {
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T11Bean.class) ;
+			list = DAOUtil.getList(rs, T11_Bean.class) ;
 			bean = list.get(0);
 			
 		}catch(Exception e){
@@ -170,11 +170,11 @@ public class T11DAO {
 	 * @param fillUnitId 填报人单位号，如果为空，则查询所有未审核的数据，<br>如果不为空，则查询填报人自己单位的所有的数据
 	 * @return
 	 */
-	public T11Bean loadData(String year){
+	public T11_Bean loadData(String year){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T11Bean> list=null;
-		T11Bean bean=null;
+		List<T11_Bean> list=null;
+		T11_Bean bean=null;
         
 		sql.append("select * from "+ tableName);
 		sql.append(" where Time like '"+year+"%'");
@@ -190,7 +190,7 @@ public class T11DAO {
 //			st.setMaxRows(1) ;
 			rs = st.executeQuery(sql.toString()) ;
 //			rs.absolute((page - 1) * rows) ;
-			list = DAOUtil.getList(rs, T11Bean.class) ;
+			list = DAOUtil.getList(rs, T11_Bean.class) ;
 			if(list.size() != 0){
 				bean = list.get(0);
 			}
@@ -209,7 +209,7 @@ public class T11DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:23
 	 */
-	public boolean save(T11Bean bean, String year, String fields){
+	public boolean save(T11_Bean bean, String year, String fields){
 		
 		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year;		
 		boolean flag = false;
@@ -217,12 +217,12 @@ public class T11DAO {
 		
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T11Bean> list = null ;
-		T11Bean tempBean = null;
+		List<T11_Bean> list = null ;
+		T11_Bean tempBean = null;
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
-			list = DAOUtil.getList(rs, T11Bean.class) ;
+			list = DAOUtil.getList(rs, T11_Bean.class) ;
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());	
@@ -248,10 +248,10 @@ public class T11DAO {
 	/**
 	 *Excel數據導出
 	 */
-	public List<T11Bean> forExcel(String year){
+	public List<T11_Bean> forExcel(String year){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T11Bean> list=null;
+		List<T11_Bean> list=null;
         
 		sql.append("select * from "+ tableName);
 		sql.append(" where Time like '"+year+"%'");
@@ -267,7 +267,7 @@ public class T11DAO {
 //			st.setMaxRows(1) ;
 			rs = st.executeQuery(sql.toString()) ;
 //			rs.absolute((page - 1) * rows) ;
-			list = DAOUtil.getList(rs, T11Bean.class) ;
+			list = DAOUtil.getList(rs, T11_Bean.class) ;
 			System.out.println("数据库条数："+list.size());
 		
 			
@@ -279,7 +279,7 @@ public class T11DAO {
 	}
 	
 	
-	public boolean update(T11Bean t11Bean){
+	public boolean update(T11_Bean t11Bean){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -349,7 +349,7 @@ public class T11DAO {
     public static void main(String arg[])
     {
     	T11DAO dao=new T11DAO();
-    	T11Bean bean=dao.getBean();
+    	T11_Bean bean=dao.getBean();
     	System.out.println(bean.getAdmissonBatch());
 //    	System.out.println(bean.getMajDept());
     }

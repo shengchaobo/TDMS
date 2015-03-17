@@ -7,7 +7,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nit.bean.table1.S18Bean;
+import cn.nit.bean.table1.S18_Bean;
 
 import jxl.Workbook;
 import jxl.format.Border;
@@ -24,7 +24,7 @@ public class S18Excel {
     *  
     * 这个是读取模板写入数据 导出
     * **/  
-	public  ByteArrayOutputStream writeExcel(List<S18Bean> list)
+	public  ByteArrayOutputStream writeExcel(List<S18_Bean> list)
 	{
 		
 		 ByteArrayOutputStream fos = null;
@@ -81,10 +81,10 @@ public class S18Excel {
 	}
 	
 		 /**将list<BEAN>转换成list<String>*/
-	   public List<String> changeTo(List<S18Bean> list){
+	   public List<String> changeTo(List<S18_Bean> list){
 		   
 	   	List<String> listStr=new ArrayList<String>();
-	   	S18Bean s18Bean=list.get(0);
+	   	S18_Bean s18Bean=list.get(0);
 	    String total=""+s18Bean.getSumAgreeNum();
 	    listStr.add(total);
 	    String academic=""+s18Bean.getAcademicNum();

@@ -31,7 +31,7 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table1.A15Bean;
+import cn.nit.bean.table1.A15_Bean;
 
 import cn.nit.dao.table1.A15DAO;
 import cn.nit.excel.imports.table1.A15Excel;
@@ -48,7 +48,7 @@ public class A15Action {
 	private A15Service a15Ser = new A15Service() ;
 	
 	/**  表A15的Bean实体类  */
-	private A15Bean a15Bean = new A15Bean() ;
+	private A15_Bean a15Bean = new A15_Bean() ;
 	
 
 //	/**  表A15的DAO类  */
@@ -100,7 +100,7 @@ public class A15Action {
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		A15Bean bean = a15Ser.loadData(this.getSelectYear()) ;
+		A15_Bean bean = a15Ser.loadData(this.getSelectYear()) ;
 		
 		System.out.println(bean == null);
 		
@@ -197,7 +197,7 @@ public class A15Action {
 		
 		System.out.println(this.getSelectYear());
 
-		A15Bean bean =a15Dao.forExcel(this.selectYear).get(0);
+		A15_Bean bean =a15Dao.forExcel(this.selectYear).get(0);
 		
 	    ByteArrayOutputStream fos = null;
 	
@@ -295,11 +295,11 @@ public class A15Action {
 	}
 
 
-	public A15Bean getA15Bean() {
+	public A15_Bean getA15Bean() {
 		return a15Bean;
 	}
 
-	public void setA15Bean(A15Bean a15Bean) {
+	public void setA15Bean(A15_Bean a15Bean) {
 		this.a15Bean = a15Bean;
 	}
 	

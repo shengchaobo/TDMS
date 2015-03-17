@@ -6,8 +6,8 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-import cn.nit.bean.table1.T11Bean;
-import cn.nit.bean.table1.T16Bean;
+import cn.nit.bean.table1.T11_Bean;
+import cn.nit.bean.table1.T16_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T16DAO;
 
@@ -27,10 +27,10 @@ public class T16Service {
 	 *
 	 * @time: 2014-5-14/上午10:52:05
 	 */
-	public boolean insert(List<T16Bean> list){
+	public boolean insert(List<T16_Bean> list){
 		System.out.println("++++++");
-		T16Bean bean1 =list.get(0);
-		T16Bean bean2 = list.get(1);
+		T16_Bean bean1 =list.get(0);
+		T16_Bean bean2 = list.get(1);
 		boolean flag = false;
 		boolean flag1 = t16Dao.insert(bean1);
 		boolean flag2 = t16Dao.insert(bean2);
@@ -62,8 +62,8 @@ public class T16Service {
 	/**编辑保存*/
 	public Boolean save(String data, String year,	String fields){
 		System.out.println("++++++");
-		T16Bean bean1 = new T16Bean();
-		T16Bean bean2 = new T16Bean();
+		T16_Bean bean1 = new T16_Bean();
+		T16_Bean bean2 = new T16_Bean();
 		boolean flag = false;
 		String field[] = data.split("a");
 
@@ -102,7 +102,7 @@ public class T16Service {
 	}
 	
 	/**得到最近年份的数据*/
-	public List<T16Bean> getBean(){
+	public List<T16_Bean> getBean(){
 		return t16Dao.getBean();
 	}
 	
@@ -116,12 +116,12 @@ public class T16Service {
 	 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
 	 * @return
 	 */
-	public boolean update(T16Bean t16Bean){
+	public boolean update(T16_Bean t16Bean){
 //	    this.setAudit(t16Bean) ;
 		return t16Dao.update(t16Bean) ;
 	}
 	
-	private void setAudit(T16Bean t16Bean){
+	private void setAudit(T16_Bean t16Bean){
 		
 		String audit = DIResourceDAO.getAudit(t16Dao.getTableName()) ;
 		

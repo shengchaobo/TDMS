@@ -13,7 +13,7 @@ import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table4.T411_Bean;
-import cn.nit.bean.table5.T532Bean;
+import cn.nit.bean.table5.T532_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
@@ -42,7 +42,7 @@ public class T532Excel {
 //		boolean biOpen=false;
 //		boolean buildCondi=false;
 		Date Time = new Date();
-		List<T532Bean> list = new LinkedList<T532Bean>() ;
+		List<T532_Bean> list = new LinkedList<T532_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -55,7 +55,7 @@ public class T532Excel {
         
         
 		for(Cell[] cell : cellList){
-			T532Bean t532Bean = new  T532Bean();
+			T532_Bean t532Bean = new  T532_Bean();
 			int n=cellList.indexOf(cell);
 			if(count<4){
 				count++;

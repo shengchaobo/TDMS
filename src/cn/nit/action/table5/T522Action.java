@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table5.T521Bean;
+import cn.nit.bean.table5.T521_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T522DAO;
 import cn.nit.excel.imports.table5.T522Excel;
@@ -41,7 +41,7 @@ public class T522Action {
 	private CheckService check_services = new CheckService();
 	
 	/**  表522的Bean实体类  */
-	private T521Bean t522Bean = new T521Bean() ;
+	private T521_Bean t522Bean = new T521_Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
@@ -317,7 +317,7 @@ public class T522Action {
 
 		try {
 			
-			List<T521Bean> list = t522Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T521_Bean> list = t522Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -366,11 +366,11 @@ public class T522Action {
 		return ServletActionContext.getResponse() ;
 	}
 		
-	public T521Bean getT522Bean() {
+	public T521_Bean getT522Bean() {
 		return t522Bean;
 	}
 
-	public void setT522Bean(T521Bean t522Bean) {
+	public void setT522Bean(T521_Bean t522Bean) {
 		this.t522Bean = t522Bean;
 	}
 

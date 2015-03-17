@@ -13,7 +13,7 @@ import jxl.Cell;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table4.T411_Bean;
-import cn.nit.bean.table5.T521Bean;
+import cn.nit.bean.table5.T521_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
@@ -41,7 +41,7 @@ public class T522Excel {
 //		boolean biOpen=false;
 //		boolean buildCondi=false;
 		Date Time = new Date();
-		List<T521Bean> list = new LinkedList<T521Bean>() ;
+		List<T521_Bean> list = new LinkedList<T521_Bean>() ;
 //		UserRoleBean userinfo = (UserRoleBean)request.getSession().getAttribute("userinfo") ;
 		DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -51,7 +51,7 @@ public class T522Excel {
 	    List<T411_Bean> t411List=t411Ser.getList();
 		
 		for(Cell[] cell : cellList){
-			T521Bean t522Bean = new  T521Bean();
+			T521_Bean t522Bean = new  T521_Bean();
 			int n=cellList.indexOf(cell);
 			if(count<4){
 				count++;

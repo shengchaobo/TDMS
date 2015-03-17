@@ -5,8 +5,8 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-import cn.nit.bean.table1.S15Bean;
-import cn.nit.bean.table1.T15Bean;
+import cn.nit.bean.table1.S15_Bean;
+import cn.nit.bean.table1.T15_Bean;
 import cn.nit.dao.table1.S15DAO;
 import cn.nit.pojo.table1.S15POJO;
 
@@ -18,11 +18,11 @@ public class S15Service {
 		/**
 		 * 数据显示
 		 * */
-		public S15Bean loadData(String year){
+		public S15_Bean loadData(String year){
 			
 			boolean flag=false;
-			S15Bean s15bean=new S15Bean();//用作统计信息
-			S15Bean bean=new S15Bean();
+			S15_Bean s15bean=new S15_Bean();//用作统计信息
+			S15_Bean bean=new S15_Bean();
 		//   	String str=null;
 		   	int seq=s15Dao.getSeqNumber(year);
 		   	System.out.println("seq:"+seq);
@@ -79,10 +79,10 @@ public class S15Service {
 //	} 
 	
 	/**得到统计信息*/
-	public S15Bean getStatic(String year)
+	public S15_Bean getStatic(String year)
 	{
-		List<T15Bean> list=s15Dao.getOriData(year);
-		S15Bean s15bean=new S15Bean();
+		List<T15_Bean> list=s15Dao.getOriData(year);
+		S15_Bean s15bean=new S15_Bean();
 		
 		/**总个数*/
 	    int SumResNum=0;
@@ -143,7 +143,7 @@ public class S15Service {
 		
 		for(int i=0;i<list.size();i++)
 		{
-			T15Bean t15Bean=new T15Bean();
+			T15_Bean t15Bean=new T15_Bean();
 			t15Bean=list.get(i);
 			String type=t15Bean.getType();
 			double area=t15Bean.getHouseArea();
@@ -227,7 +227,7 @@ public class S15Service {
 	}
 	public static void main(String arg[]){
 		S15Service ser=new S15Service();
-		S15Bean bean = ser.loadData("2009");
+		S15_Bean bean = ser.loadData("2009");
 		if(bean == null){
 			System.out.println("无数据");
 		}else {

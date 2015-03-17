@@ -5,8 +5,8 @@ import java.util.List;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-import cn.nit.bean.table1.T11Bean;
-import cn.nit.bean.table1.T152Bean;
+import cn.nit.bean.table1.T11_Bean;
+import cn.nit.bean.table1.T152_Bean;
 import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T11DAO;
@@ -27,7 +27,7 @@ public class T11Service {
 	 *
 	 * @time: 2014-5-14/上午10:52:05
 	 */
-	public boolean insert(T11Bean t11Bean){
+	public boolean insert(T11_Bean t11Bean){
 		
 		return t11Dao.insert(t11Bean) ;
 	}
@@ -40,7 +40,7 @@ public class T11Service {
 		String str = null;
 		int n = t11Dao.countDate(Year);
 		if(n>0){
-			T11Bean t11Bean = t11Dao.loadData(Year);
+			T11_Bean t11Bean = t11Dao.loadData(Year);
 			//T11POJO t11pojo = this.pojoToBean(t11Bean);
 			JSON json = JSONSerializer.toJSON(t11Bean) ;
 			str = json.toString() ;
@@ -134,7 +134,7 @@ public class T11Service {
 	
 	
 	//保存
-	public Boolean save(T11Bean bean, String year,	String fields){
+	public Boolean save(T11_Bean bean, String year,	String fields){
 		return t11Dao.save(bean,year,fields);
 	}
 	
@@ -143,7 +143,7 @@ public class T11Service {
 	 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
 	 * @return
 	 */
-	public boolean update(T11Bean t11Bean){
+	public boolean update(T11_Bean t11Bean){
 //	    this.setAudit(t151Bean) ;
 		return t11Dao.update(t11Bean) ;
 	}
@@ -162,15 +162,15 @@ public class T11Service {
 		return t11Dao.deleteCoursesByIds(ids) ;
 	}
 	
-	public T11Bean getBean(){
+	public T11_Bean getBean(){
 		return t11Dao.getBean();
 	}
 	/**批量导入*/
-	public boolean batchInsert(List<T11Bean> list){
+	public boolean batchInsert(List<T11_Bean> list){
 		return t11Dao.batchInsert(list) ;
 	}
 	
- public T11POJO pojoToBean(T11Bean bean){
+ public T11POJO pojoToBean(T11_Bean bean){
 		 
 		 T11POJO t11Pojo=new T11POJO();
 			t11Pojo.setAdmissonBatch(bean.getAdmissonBatch());

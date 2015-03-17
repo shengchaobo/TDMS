@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
-import cn.nit.bean.table1.T151Bean;
-import cn.nit.bean.table1.T152Bean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T152_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T152DAO;
 import cn.nit.excel.imports.table1.T152Excel;
@@ -36,7 +36,7 @@ public class T152Action {
 	private T152Service t152Ser = new T152Service() ;
 	
 	/**  表152的Bean实体类  */
-	private T152Bean t152Bean = new T152Bean() ;
+	private T152_Bean t152Bean = new T152_Bean() ;
 	
 	/**  表152的数据库操作实体类  */
 	private T152DAO t152Dao=new T152DAO();
@@ -352,7 +352,7 @@ public class T152Action {
 
 		try {
 			
-			List<T152Bean> list = t152Dao.totalList(fillUnitID,this.selectYear,Constants.PASS_CHECK);
+			List<T152_Bean> list = t152Dao.totalList(fillUnitID,this.selectYear,Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -401,11 +401,11 @@ public class T152Action {
 	}
 
 
-	public T152Bean getT152Bean() {
+	public T152_Bean getT152Bean() {
 		return t152Bean;
 	}
 
-	public void setT152Bean(T152Bean t152Bean) {
+	public void setT152Bean(T152_Bean t152Bean) {
 		this.t152Bean = t152Bean;
 	}
 

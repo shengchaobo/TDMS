@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import cn.nit.bean.table1.T12Bean;
-import cn.nit.bean.table1.T13Bean;
+import cn.nit.bean.table1.T12_Bean;
+import cn.nit.bean.table1.T13_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T13POJO;
 import cn.nit.util.DAOUtil;
@@ -106,7 +106,7 @@ public class T13DAO {
 	}
 	
 	
-	public List<T12Bean> totalListAll(){
+	public List<T12_Bean> totalListAll(){
 		
 		StringBuffer sql=new StringBuffer();
 		sql.append("select UnitName,UnitID,Leader,Functions,TeaID,Note" );
@@ -119,12 +119,12 @@ public class T13DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T12Bean> list = null ;
+		List<T12_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T12Bean.class) ;
+			list = DAOUtil.getList(rs, T12_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -139,7 +139,7 @@ public class T13DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T12Bean> totalList(){
+	public List<T12_Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
 		sql.append("select UnitName,UnitID,Leader,Functions,TeaID,Note" );
@@ -152,12 +152,12 @@ public class T13DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T12Bean> list = null ;
+		List<T12_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T12Bean.class) ;
+			list = DAOUtil.getList(rs, T12_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -168,10 +168,10 @@ public class T13DAO {
 	
 	/**
 	 * 讲数据批量插入13表中
-	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151Bean}>}
+	 * @param list {@linkplain java.util.List<{@link cn.nit.bean.table1.T151_Bean}>}
 	 * @return true表示插入成功，false表示插入失败
 	 */
-	public boolean batchInsert(List<T13Bean> list){
+	public boolean batchInsert(List<T13_Bean> list){
 		
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -192,7 +192,7 @@ public class T13DAO {
 	
 	public static void  main(String arg[]){
 		T13DAO dao=new T13DAO();
-		List<T12Bean> list=dao.totalListAll();
+		List<T12_Bean> list=dao.totalListAll();
 		System.out.println(list.size());
 	} 
 

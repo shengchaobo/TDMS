@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 
-import cn.nit.bean.table1.T151Bean;
+import cn.nit.bean.table1.T151_Bean;
 import cn.nit.dao.table1.T151DAO;
 import cn.nit.dao.table1.T152DAO;
 import cn.nit.util.ExcelUtil;
@@ -27,8 +27,8 @@ public class J15_Excel {
 		String currentTime = time.toString();
 		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
-		List<T151Bean> list = T151dao.totalList(year);
-		List<T151Bean> list1 = T152dao.totalListAll(year);
+		List<T151_Bean> list = T151dao.totalList(year);
+		List<T151_Bean> list1 = T152dao.totalListAll(year);
 		
 		list.addAll(list1);
 

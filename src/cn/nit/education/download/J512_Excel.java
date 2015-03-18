@@ -60,7 +60,7 @@ public class J512_Excel {
 		}
 		
 		public static void main(String arg[]){
-			 String path = "D:\\江西项目\\相关表\\ExcelTest";
+			 String path = "D:";
 			  J512_Excel excel = new J512_Excel();
 			  boolean flag = excel.export_J512(path);
 			  if(flag){

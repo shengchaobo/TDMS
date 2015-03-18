@@ -37,7 +37,35 @@ import cn.nit.education.download.J262_Excel;
 import cn.nit.education.download.J27_Excel;
 import cn.nit.education.download.J28_Excel;
 import cn.nit.education.download.J29_Excel;
+import cn.nit.education.download.J311_Excel;
+import cn.nit.education.download.J312_Excel;
+import cn.nit.education.download.J313_Excel;
+import cn.nit.education.download.J314_Excel;
+import cn.nit.education.download.J321_Excel;
+import cn.nit.education.download.J322_Excel;
+import cn.nit.education.download.J323_Excel;
 import cn.nit.education.download.J411_Excel;
+import cn.nit.education.download.J412_Excel;
+import cn.nit.education.download.J42_Excel;
+import cn.nit.education.download.J441_Excel;
+import cn.nit.education.download.J442_Excel;
+import cn.nit.education.download.J451_Excel;
+import cn.nit.education.download.J452_Excel;
+import cn.nit.education.download.J461_Excel;
+import cn.nit.education.download.J462_Excel;
+import cn.nit.education.download.J463_Excel;
+import cn.nit.education.download.J464_Excel;
+import cn.nit.education.download.J465_Excel;
+import cn.nit.education.download.J466_Excel;
+import cn.nit.education.download.J511_Excel;
+import cn.nit.education.download.J512_Excel;
+import cn.nit.education.download.J513_Excel;
+import cn.nit.education.download.J52_Excel;
+import cn.nit.education.download.J531_Excel;
+import cn.nit.education.download.J532_Excel;
+import cn.nit.education.download.J533_Excel;
+import cn.nit.education.download.J534_Excel;
+import cn.nit.education.download.J54_Excel;
 import cn.nit.education.download.J611_Excel;
 import cn.nit.education.download.J612_Excel;
 import cn.nit.education.download.J613_Excel;
@@ -51,6 +79,7 @@ import cn.nit.education.download.J621_Excel;
 import cn.nit.education.download.J622_Excel;
 import cn.nit.education.download.J63_Excel;
 import cn.nit.education.download.J71_Excel;
+import cn.nit.education.download.J72_Excel;
 import cn.nit.education.download.J731_Excel;
 import cn.nit.education.download.J732_Excel;
 import cn.nit.util.ZipFileUtil;
@@ -144,9 +173,9 @@ public class MultiFileDownloadAction extends ActionSupport {
 		if(!J11_Excel.export_J11(filePath)){
 			return "J11_export has a error!";
 		}	
-/*	    if(!J12_Excel.export_J12(filePath)){
-			return "J12_export has a error!";
-		}*/
+//	    if(!J12_Excel.export_J12(filePath)){
+//			return "J12_export has a error!";
+//		}
 		if(!J13_Excel.export_J13(filePath)){
 			return "J13_export has a error!";
 		}
@@ -207,49 +236,48 @@ public class MultiFileDownloadAction extends ActionSupport {
 			return "J211_export has a error!";
 		}
 		
-		//3字头
-/*		if(!J311_Excel.export_J311(filePath)){
+	if(!J311_Excel.export_J311(filePath)){
 			return "J311_export has a error!";
-		}*/
-/*		if(!J312_Excel.export_J312(filePath)){
+		}
+		if(!J312_Excel.export_J312(filePath)){
 			return "J312_export has a error!";
-		}*/
-/*		if(!J313_Excel.export_J313(filePath)){
+		}
+		if(!J313_Excel.export_J313(filePath)){
 			return "J311_export has a error!";
-		}*/
-/*		if(!J314_Excel.export_J314(filePath)){
+		}
+		if(!J314_Excel.export_J314(filePath)){
 			return "J311_export has a error!";
-		}*/
-/*		if(!J321_Excel.export_J321(filePath)){
+		}
+		if(!J321_Excel.export_J321(filePath)){
 			return "J321_export has a error!";
-		}*/
-/*		if(!J322_Excel.export_J322(filePath)){
+		}
+		if(!J322_Excel.export_J322(filePath)){
 			return "J322_export has a error!";
-		}*/
-/*		if(!J323_Excel.export_J323(filePath)){
+		}
+		if(!J323_Excel.export_J323(filePath)){
 			return "J323_export has a error!";
-		}*/
+		}
 		
 		//4字头
-/*		if(!J411_Excel.export_J411(filePath)){
+	if(!J411_Excel.export_J411(filePath)){
 			return "J411_export has a error!";
-		}	*/			
-/*		if(!J412_Excel.export_J412(filePath)){
+		}			
+	if(!J412_Excel.export_J412(filePath)){
 			return "J412_export has a error!";
-		}*/
-/*		if(!J42_Excel.export_J42(filePath)){
+		}
+		if(!J42_Excel.export_J42(filePath)){
 			return "J42_export has a error!";
-		}*/
-/*		if(!J43_Excel.export_J43(filePath)){
-			return "J43_export has a error!";
-		}*/
-/*		if(!J441_Excel.export_J441(filePath)){
+		}
+//		if(!J43_Excel.export_J43(filePath)){
+//			return "J43_export has a error!";
+//		}
+	if(!J441_Excel.export_J441(filePath)){
 			return "J441_export has a error!";
-		}*/		
-/*		if(!J442_Excel.export_J442(filePath)){
+		}
+		if(!J442_Excel.export_J442(filePath)){
 			return "J442_export has a error!";
-		}*/	
-/*		if(!J451_Excel.export_J451(filePath)){
+		}
+	if(!J451_Excel.export_J451(filePath)){
 			return "J451_export has a error!";
 		}
 		if(!J452_Excel.export_J452(filePath)){
@@ -272,38 +300,38 @@ public class MultiFileDownloadAction extends ActionSupport {
 		}
 		if(!J466_Excel.export_J466(filePath)){
 			return "J466_export has a error!";
-		}*/
+		}
 
 		
 		
 		//5字头
-/*		if(!J511_Excel.export_J511(filePath)){
+		if(!J511_Excel.export_J511(filePath)){
 			return "J511_export has a error!";
-		}*/
-/*		if(!J512_Excel.export_J512(filePath)){
+		}
+		if(!J512_Excel.export_J512(filePath)){
 			return "J512_export has a error!";
-		}*/
-/*		if(!J513_Excel.export_J513(filePath)){
+		}
+	if(!J513_Excel.export_J513(filePath)){
 			return "J513_export has a error!";
-		}*/
-/*		if(!J52_Excel.export_J52(filePath)){
+		}
+	if(!J52_Excel.export_J52(filePath)){
 			return "J52_export has a error!";
-		}*/
-/*		if(!J531_Excel.export_J531(filePath)){
+		}
+		if(!J531_Excel.export_J531(filePath)){
 			return "J531_export has a error!";
-		}*/
-/*		if(!J532_Excel.export_J532(filePath)){
+		}
+		if(!J532_Excel.export_J532(filePath)){
 			return "J532_export has a error!";
-		}*/
-/*		if(!J533_Excel.export_J533(filePath)){
+		}
+		if(!J533_Excel.export_J533(filePath)){
 			return "J533_export has a error!";
-		}*/
-/*		if(!J534_Excel.export_J534(filePath)){
+		}
+		if(!J534_Excel.export_J534(filePath)){
 			return "J534_export has a error!";
-		}	*/	
-/*		if(!J54_Excel.export_J54(filePath)){
+		}	
+		if(!J54_Excel.export_J54(filePath)){
 			return "J54_export has a error!";
-		}*/
+		}
 
 		
 		//6字头
@@ -348,18 +376,18 @@ public class MultiFileDownloadAction extends ActionSupport {
 	   if(!J71_Excel.export_J71(filePath)){
 			return "J71_export has a error!";
 		}
-/*		if(!J72_Excel.export_J72(filePath)){
+		if(!J72_Excel.export_J72(filePath)){
 			return "J72_export has a error!";
-		}*/
+		}
 	    if(!J731_Excel.export_J731(filePath)){
 			return "J731_export has a error!";
 		}
 	    if(!J732_Excel.export_J732(filePath)){
 			return "J73_export has a error!";
 		}
-/*		if(!J74_Excel.export_J74(filePath)){
-			return "J74_export has a error!";
-		}*/
+//		if(!J74_Excel.export_J74(filePath)){
+//			return "J74_export has a error!";
+//		}
 		return null;
 	}
 

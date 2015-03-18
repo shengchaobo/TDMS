@@ -13,12 +13,12 @@ import cn.nit.util.DAOUtil;
 
 public class J732_DAO {
 	String tableName="T722_TeachAchieveAward_Tea$";
-	String field="AwardName,Leader,TeaID,AwardLevel,AwardTime,AwardFromUnit,,CheckState";
+	String field="AwardName,Leader,TeaID,AwardLevel,AwardTime,AwardFromUnit,CheckState";
 	
 	public List<J732POJO> getYearInfo(String year){
 		
 		String sql="select " + field + " from " + tableName + 
-				 " where convert(varchar(4),T722_TeachAchieveAward_Tea$.Time,120)=" + year+" and CheckState="+Constants.PASS_CHECK;
+				 " where T722_TeachAchieveAward_Tea$.Time like '" +year+"%' and CheckState="+Constants.PASS_CHECK;
 		Connection conn =DBConnection.instance.getConnection();
 		Statement st=null;
 		ResultSet rs=null;

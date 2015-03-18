@@ -69,7 +69,7 @@ public class J321_Excel {
 	}
 	
 	public static void main(String args[]){
-		String path = "E:/test";
+		String path = "E:";
 		boolean flag = J321_Excel.export_J321(path);
 		if(flag){
 		System.out.println("成功");

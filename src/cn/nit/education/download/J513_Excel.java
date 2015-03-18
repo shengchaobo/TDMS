@@ -31,7 +31,7 @@ import jxl.write.biff.RowsExceededException;
 
 public class J513_Excel {
 	
-	public  boolean export_J513(String path){
+	public static  boolean export_J513(String path){
 		
 		T513_DAO t513Dao = new T513_DAO();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
@@ -81,27 +81,27 @@ public class J513_Excel {
 		//计算
 		//学生评教
 		if(should1!=0 && have1!=0){
-			CoverRatio1 = this.toDouble(have1, should1);
-			ExcellentRatio1 = this.toDouble(exe1, have1);
-			GoodRatio1  = this.toDouble(good1, have1);
-			AvgRatio1 = this.toDouble(avg1, have1);
-			PoorRatio1 = this.toDouble(poor1, have1);
+			CoverRatio1 = J513_Excel.toDouble(have1, should1);
+			ExcellentRatio1 = J513_Excel.toDouble(exe1, have1);
+			GoodRatio1  = J513_Excel.toDouble(good1, have1);
+			AvgRatio1 = J513_Excel.toDouble(avg1, have1);
+			PoorRatio1 = J513_Excel.toDouble(poor1, have1);
 		}
 		//同行评教
 		if(should2!=0 && have2!=0){
-			CoverRatio2 = this.toDouble(have2, should2);
-			ExcellentRatio2 = this.toDouble(exe2, have2);
-			GoodRatio2  = this.toDouble(good2, have2);
-			AvgRatio2 = this.toDouble(avg2, have2);
-			PoorRatio2 = this.toDouble(poor2, have2);
+			CoverRatio2 = J513_Excel.toDouble(have2, should2);
+			ExcellentRatio2 = J513_Excel.toDouble(exe2, have2);
+			GoodRatio2  = J513_Excel.toDouble(good2, have2);
+			AvgRatio2 = J513_Excel.toDouble(avg2, have2);
+			PoorRatio2 = J513_Excel.toDouble(poor2, have2);
 		}
 		//专家评教
 		if(should3!=0 && have3!=0){
-			CoverRatio3 = this.toDouble(have3, should3);
-			ExcellentRatio3 = this.toDouble(exe3, have3);
-			GoodRatio3  = this.toDouble(good3, have3);
-			AvgRatio3 = this.toDouble(avg3, have3);
-			PoorRatio3 = this.toDouble(poor3, have3);
+			CoverRatio3 = J513_Excel.toDouble(have3, should3);
+			ExcellentRatio3 = J513_Excel.toDouble(exe3, have3);
+			GoodRatio3  = J513_Excel.toDouble(good3, have3);
+			AvgRatio3 = J513_Excel.toDouble(avg3, have3);
+			PoorRatio3 = J513_Excel.toDouble(poor3, have3);
 		}
 		
 		
@@ -200,7 +200,7 @@ public class J513_Excel {
 	}
 	
 	//保留两位小数
-	public  double toDouble(int a,int b){
+	public static double toDouble(int a,int b){
 		double n =(double)a/(double)b;
 		DecimalFormat df = new DecimalFormat("#.00");
 		String dou = df.format(n);

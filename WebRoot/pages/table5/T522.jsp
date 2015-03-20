@@ -281,12 +281,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<div class="fitem">
-					<label>负责人：</label> 
-					<input type="hidden" name="t522Bean.Leader" id="Leader"/>
-						<input id="TeaID" type="text" name="t522Bean.TeaID" class='easyui-combobox' 
-							data-options="valueField:'teaId',textField:'teaName',url:'pages/T411/loadT411' ,listHeight:'auto',editable:false,
+					<label>负责人教工号：</label> 
+					<input type="hidden" name="t522Bean.TeaID" id="TeaID"/>
+						<input id="Leader" type="text" name="t522Bean.Leader" class='easyui-combobox' 
+							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411' ,listHeight:'auto',editable:false,
 							onSelect:function(){
-							    $('#Leader').val($(this).combobox('getText')) ;
+							    document.getElementById('TeaID').value=$(this).combobox('getText')  ;
 							 }">
 					<span id="TeaIDSpan"></span>
 					</div>

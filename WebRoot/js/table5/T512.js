@@ -28,7 +28,7 @@
 	    
 	    function singleImport(){
 		    //录入数据的表单提交
-	    	alert(123);
+	 
 	    	 $('#t512Form').form('submit',{
 				    url: url ,
 				    data: $('#t512Form').serialize(),
@@ -90,9 +90,9 @@
 		
 			var stuNum = $('#StuNum').val();
 			
-			var cSTea = $('#CSTea').val();
+		
 			
-			var teaID= $('#TeaID').val();
+			var teaID= $('#CSTea').combobox('getText');
 			
 			var note = $('#Note').val();
 			
@@ -176,10 +176,7 @@
 				alert("学生人数只能为数字");
 				return false;
 			}
-			if(cSTea == null || cSTea.length ==0){
-				alert("任课老师不能为空");
-				return false;
-			}
+	
 			if(teaID == null || teaID.length ==0){
 				alert("教工号不能为空");
 				return false;
@@ -247,7 +244,6 @@
 	    	$('#dlg').dialog('open').dialog('setTitle','修改开课、授课情况');
 	       	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#Time').val(formattime(row[0].time)) ;
-	    	alert(formattime(row[0].time));
 	    	$('#FillUnitID').val(row[0].fillUnitID) ;
 	    	$('#FillTeaID').val(row[0].fillTeaID) ;
 	    	$('#CSUnit').val(row[0].CSUnit) ;
@@ -272,8 +268,7 @@
 	    	$('#ClassID').val(row[0].classID) ;
 	    	$('#ClassInfo').val(row[0].classInfo);
 	    	$('#StuNum').val(row[0].stuNum);
-	    	$('#CSTea').val(row[0].CSTea);
-	    	$('#TeaID').val(row[0].teaID);
+	    	$('#CSTea').combobox('select',row[0].CSTea);
 	    	$('#IsAccordJob').combobox('setText', formatBoolean(row[0].isAccordJob)) ;
 	    	$('#TeaTitle').combobox('setText', row[0].teaTitle) ;
 	    	$('#BookUseInfo').combobox('setText', row[0].bookUseInfo) ;

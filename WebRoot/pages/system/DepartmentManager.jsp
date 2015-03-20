@@ -47,20 +47,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div style="float: left;height: 24">
+		<div style="float: left;height:auto">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-add" plain="true" onclick="newDepartment()">添加部门</a>
+				iconCls="icon-add" plain="true" onclick="newDepartment()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-edit" plain="true" onclick="editDepartment()">编辑部门</a> 
+				iconCls="icon-edit" plain="true" onclick="editDepartment()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除部门</a>
+				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
-		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-			<!-- 两个文体输入框，可以避免enter键自动刷新事件 -->
-			<input id="hiddenText" type="text"  style="display:none" />
-		 	部门名称 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
-			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
-		</form>
+
 	</div>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true"

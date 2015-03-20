@@ -95,7 +95,7 @@
 		var subjectID = $('#SubjectID').val();
 		var centerLevel = $('#CenterLevel').combobox('getText');
 		var unitID = $('#FromTeaUnit').val();
-		var teaID = $('#Leader').val();
+		var teaID = $('#Leader').combobox('getText');
 		var teaTitle = $('#TeaTitle').combobox('getText');
 		var buildTime = $('#BuildTime').datebox('getValue');
 		var buildAppvlID = $('#BuildAppvlID').val();
@@ -126,7 +126,7 @@
 			return false;
 		}
 		if(teaID == null|| teaID.length == 0){
-			alert("中心主任不能为空");
+			alert("中心主任教工号不能为空");
 			return false;
 		}
 		if(teaTitle == null||teaTitle.length == 0){
@@ -197,7 +197,7 @@
     	$('#SubjectID').val(row[0].subjectID) ;
     	$('#CenterLevel').combobox('select', row[0].centerLevelID) ;
     	$('#UnitID').combobox('select', row[0].unitID) ;
-    	$('#TeaID').combobox('select', row[0].teaID) ;
+    	$('#Leader').combobox('select', row[0].centerLeader) ;
     	$('#TeaTitle').combobox('select', row[0].teaTitleID) ;
     	$('#BuildTime').datebox('setValue',formattime(row[0].buildTime));
     	$('#BuildAppvlID').val(row[0].buildAppvlID) ;

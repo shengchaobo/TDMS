@@ -42,18 +42,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar" style="height:auto">
-		<div style="float: left;height: 24">
+		<div style="float: left;height:auto">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-add" plain="true" onclick="newType()">添加荣誉类型</a>
+				iconCls="icon-add" plain="true" onclick="newType()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-edit" plain="true" onclick="editType()">编辑荣誉类型</a> 
+				iconCls="icon-edit" plain="true" onclick="editType()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton"
-				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除荣誉类型</a>
+				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
-		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-			<!-- 两个文体输入框，可以避免enter键自动刷新事件 -->
-			<input id="hiddenText" type="text"  style="display:none" />
-		</form>
 		
 	</div>
 	<div id="dlg" class="easyui-dialog"

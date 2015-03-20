@@ -556,25 +556,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 			<td class="empty"></td>
-				<td>
-					<div class="fitem">
-					<label>任课老师：</label> 
-					<input id="CSTea" type="text" name="t512_Bean.CSTea"
-					>
-					<span id="CSTeaSpan"></span>
-					</div>
+							<td>
+				<div class="fitem">
+				<label>教工号：</label> 
+				<input type="hidden" name="t512_Bean.TeaID" id="TeaID"/>
+				<input id="CSTea" type="text" name="t512_Bean.CSTea" class='easyui-combobox' 
+							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
+							onSelect:function(){
+							 	 document.getElementById('TeaID').value=$(this).combobox('getText') ;
+							 }">
+				<span id="TeaIDSpan"></span>
+				</div>
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<div class="fitem">
-					<label>教工号：</label> 
-					<input id="TeaID" type="text" name="t512_Bean.TeaID"
-					>
-					<span id="TeaIDSpan"></span>
-					</div>
-				</td>
-				<td class="empty"></td>
+           
 				<td>
 					<div class="fitem">
 					<label>是否符合岗位资格：</label> 
@@ -584,9 +580,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</select><span id="IsAccordJobSpan"></span>
 					</div>
 				</td>
-				
-			</tr>
-			<tr>
+				 <td class="empty"></td>
 				<td>
 					<div class="fitem">
 					<label>教师职称：</label> 
@@ -600,7 +594,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="TeaTitleSpan"></span>
 					</div>
 				</td>
-		 </tr>
+			</tr>
+
 		 
 		 <tr>
 				<td colspan="3" align="left" height="30px"><h4>3.使用教材</h4></td>

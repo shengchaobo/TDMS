@@ -91,7 +91,7 @@
 		// 获取文本框的值
 		//var unitID = $('#TeaUnit').val();
 		var majorID = $('#MajorName').val();
-		var teaName = $('#TeaName').val();
+		var teaName = $('#TeaName').combobox('getText');
 		//var isOutEmploy = $('#IsOutEmploy').combobox('getValue');
 		//alert(isOutEmploy);
 		var education = $('#Education').combobox('getText');
@@ -112,7 +112,7 @@
 			return false;
 		}
 		if(teaName == null || teaName.length == 0){
-			alert("教师姓名不能为空");
+			alert("教工号不能为空");
 			return false;
 		}
 		if(education == null || education.length == 0){
@@ -188,7 +188,7 @@
     	$('#UnitID').val(row[0].unitID) ;
     	//$('#UnitID').combobox('select', row[0].unitID) ;
     	$('#MajorID').combobox('select', row[0].majorID) ;
-    	$('#TeaID').combobox('select', row[0].teaID) ;
+    	$('#TeaName').combobox('select', row[0].teaName) ;
     	$('#IsOutEmploy').combobox('select', row[0].isOutEmploy) ;
     	$('#Education').combobox('select', row[0].educationID) ;
     	$('#Degree').combobox('select', row[0].degreeID) ;

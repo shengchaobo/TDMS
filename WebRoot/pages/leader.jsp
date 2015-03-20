@@ -1,4 +1,9 @@
-﻿<div id='vsb_content' ><link rel="stylesheet" Content-type="text/css" 
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<div id='vsb_content' ><link rel="stylesheet" Content-type="text/css" 
 
 href=""><STYLE>
 
@@ -41,7 +46,13 @@ div.Section1
   {page:Section1;}
 -->
 </STYLE>
-
+<div style="position:relitive; top:10px;right:50px;float:right">
+<td>
+<tr>
+<a href="index.jsp" >返回主页</a>
+</tr>
+</td>
+</div>
 <DIV class="Section1" style="layout-grid:  15.6pt none">
 <TABLE class="MsoNormalTable" cellspacing="0" cellpadding="0" 
 
@@ -72,6 +83,7 @@ left: 0cm;padding-right: 0cm">
 <P class="MsoNormal" align="left" style="text-align: left"><SPAN 
 
 lang="EN-US" style="font-size: 12pt;font-family: 宋体">&nbsp;</SPAN></P>
+
 <TABLE class="MsoNormalTable" cellspacing="0" cellpadding="0" 
 
 width="94%" align="left" border="0" style="width: 94.12%">
@@ -108,6 +120,7 @@ left"></P></TD></TR></TBODY></TABLE>
 <TD style="height: 85.65pt;padding-bottom: 0cm;padding-top: 
 
 0cm;padding-left: 0cm;padding-right: 0cm">
+
 <TABLE class="MsoNormalTable" cellspacing="0" cellpadding="0" 
 
 width="100%" border="0" style="width: 100%">
@@ -162,6 +175,7 @@ left: 0cm;padding-right: 0cm">
 研究员、双硕士<SPAN lang="EN-US"><BR></SPAN>研究生导师
 
 </SPAN></P></TD></TR>
+
 <TR style="height: 15pt">
 <TD style="height: 15pt;padding-bottom: 0cm;padding-top: 0cm;padding-
 

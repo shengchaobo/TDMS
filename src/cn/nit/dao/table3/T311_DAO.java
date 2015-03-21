@@ -211,7 +211,7 @@ public class T311_DAO {
 		sql.append("select SeqNumber,PostDocStaName,SetTime,ResearcherNum, UnitName," +
 		"UnitID,Note,Time,CheckState");
         sql.append(" from "+tableName);
-        sql.append(" where Time like '"+year+"%' and CheckState="+Constants.WAIT_CHECK);
+        sql.append(" where Time like '"+year+"%' and CheckState="+checkState);
 	
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

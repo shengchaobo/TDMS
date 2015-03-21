@@ -120,7 +120,6 @@ public class T311Excel {
 				count++ ;
 				
 				t311_Bean.setPostDocStaName(PostDocStaName);
-				System.out.println(TimeUtil.changeDateY(setTime));
 				t311_Bean.setSetTime(TimeUtil.changeDateY(setTime));
 				t311_Bean.setResearcherNum(Integer.parseInt(ResearcherNum));
 				t311_Bean.setUnitName(UnitName);

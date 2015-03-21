@@ -46,17 +46,17 @@ public class DiDatabaseAction {
 	}
 	
 	public InputStream getInputStream(){
-		
-
-		
+				
 		 ActionContext context = ActionContext.getContext();  
 	        HttpServletRequest request = (HttpServletRequest) context  
 	                .get(ServletActionContext.HTTP_REQUEST);  
 
+	        
 	        String path = ServletActionContext.getServletContext().getRealPath(inputPath);
+	        //String path = "E://apache-tomcat-6.0.37//webapps//TDMS//WEB-INF//";
 	        String name = "TDMS"; //数据库名  
 	        try {  
-	            System.out.println(path);  
+	            //System.out.println(path);  
 	            String realpath = path + "\\" + name + ".bak";// name文件名  
 	        	//String realpath = "D:\\TDMS.bak";
 	            String bakSQL = "backup database [TDMS] to disk=? with init";// SQL语句  
@@ -71,16 +71,16 @@ public class DiDatabaseAction {
 	        
 	        File dirFile = new File(path);
 	        if(dirFile.exists()){
-	        	File[] fileList = dirFile.listFiles();	        	
+	        	File[] fileList = dirFile.listFiles();
 	          	for(File f:fileList){
-	          		if(f.getName() == "TDMS.bak"){
-	          		this.setDownLoadName(f.getName());         
-	                try {
-	                	 inputStream = new FileInputStream(f);
-	                } catch (FileNotFoundException e) {
-	                 // TODO Auto-generated catch block
-	                     e.printStackTrace();
-	                }
+	          		if("TDMS.bak".equals(f.getName())){
+		          		this.setDownLoadName(f.getName());         
+		                try {
+		                	 inputStream = new FileInputStream(f);
+		                } catch (FileNotFoundException e) {
+		                 // TODO Auto-generated catch block
+		                     e.printStackTrace();
+		                }
 	          		}
 	          	}
 	        	

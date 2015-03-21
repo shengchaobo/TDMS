@@ -69,8 +69,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</tr>
 				</table>
      </div> 
-     
-     <div  id="searchDiv">
+     <br/>
+     <div d="searchDiv">
       	<table width="80%"  >
       			<tr align="center"  valign="middle"   id="TableTitle">
       					<td  width="10%">左括号</td>

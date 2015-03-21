@@ -52,8 +52,8 @@ public class DiDatabaseAction {
 	                .get(ServletActionContext.HTTP_REQUEST);  
 
 	        
-	        //String path = ServletActionContext.getServletContext().getRealPath(inputPath);
-	        String path = "E://apache-tomcat-6.0.37//webapps//TDMS//WEB-INF//";
+	        String path = ServletActionContext.getServletContext().getRealPath(inputPath);
+	        //String path = "E://apache-tomcat-6.0.37//webapps//TDMS//WEB-INF//";
 	        String name = "TDMS"; //数据库名  
 	        try {  
 	            //System.out.println(path);  

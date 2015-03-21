@@ -301,7 +301,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		<tr>
 	    			<td></td>
 	    			<td width="90px;">
-	    				<div  class="abc" id="showList"  style="display: none; border:1px solid grey; background-color: white;">
+	    				<div  id="showList"  style="display: none; border:1px solid grey; background-color: white;">
 							<ul>
 								<li><a href="javascript:void(0)"  onclick="return alertPsd()" >&nbsp;&nbsp;修改个人密码</a></li>
 								<li><a href="exit" >&nbsp;&nbsp;注销登录</a></li>	

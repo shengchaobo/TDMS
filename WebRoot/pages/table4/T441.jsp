@@ -213,7 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="majorId" type="text" name="T441_bean.majorId" class='easyui-combobox' 
 							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
 							onSelect:function(){
-							 	 document.getElementById('MajorName').value=$(this).combobox('getText') ;
+							 	 document.getElementById('majorName').value=$(this).combobox('getText') ;
 							 }">
 					</div>
 				</td>

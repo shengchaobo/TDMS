@@ -48,9 +48,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	</div>
 	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
-			<div class="fitem">
+			<div >
 			<Form id="batchForm" enctype="multipart/form-data" method="post">
-				<label>请选择备份文件：</label> 
+				<label style="width:180px;">请选择相应的数据库备份文件：</label> 
 				<input  type="file"  id="upload" name="uploadFile" />
 				<input type="button" value=" 提交 "  onclick="batchImport()"/>
 			</Form>

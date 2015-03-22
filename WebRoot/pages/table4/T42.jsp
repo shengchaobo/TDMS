@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body style="height: 100%'" >
-	<table  id="unverfiedData"  class="easyui-datagrid"  url="pages/T42/loadLeaderInfo"  style="height: auto"  >
+	<table title="全校领导基本信息" id="commomData"  class="easyui-datagrid"  url="pages/T42/loadLeaderInfo"  style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -88,17 +88,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			<a href='pages/T42/dataExport?excelName=<%=URLEncoder.encode("表4-2校领导基本信息（党院办）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
 		</div>
 		<form method="post" id="searchForm"
 				style="float: right; height: 24px;">
-				<table id="test" width="520">
+				<table id="test" width="550">
 					<tr>
 						<td>
-							编号:
+							教工号:
 						</td>
 						<td>
-							<input id="seqNum" name="seqNum" class="easyui-box"
-								style="width: 40px" />
+							<input id="TeaID" name="TeaID" class="easyui-box"
+								style="width: 100px" />
 						</td>
 						<td>
 							起始日期:
@@ -122,6 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</table>
 			</form>
 	</div>
+	<!--
 	
 	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
 		<thead data-options="frozen:true">
@@ -171,11 +173,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</thead>
 	</table>
+
 	<div id="toolbar2" style="float: right;">
 		<a href='pages/T42/dataExport?excelName=<%=URLEncoder.encode("表4-2校领导基本信息（党院办）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
 		
 	</div>
-	
+-->
+
 	<!--添加弹出框-->
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"

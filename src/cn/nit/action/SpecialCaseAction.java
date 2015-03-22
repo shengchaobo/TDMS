@@ -1,4 +1,4 @@
-package cn.nit.action.table4;
+package cn.nit.action;
 
 
 import java.io.ByteArrayInputStream;
@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,36 +18,27 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table4.T42_Bean;
-import cn.nit.dao.table4.T42_Dao;
-import cn.nit.service.table4.T42_Service;
+
+import cn.nit.bean.SpecialCaseBean;
+import cn.nit.bean.UserinfoBean;
+import cn.nit.service.SpecialCaseService;
 import cn.nit.util.ExcelUtil;
-import cn.nit.util.TimeUtil;
 
 
-public class T42_Action {
+public class SpecialCaseAction {
 	
 	private String rows; //每页显示的记录数
 	
 	private String page; //当前第几页
 	
-	private T42_Service T42_services = new T42_Service();
+	private SpecialCaseService case_services = new SpecialCaseService();
 	
-	private T42_Bean T42_bean = new T42_Bean();
+	private SpecialCaseBean specialCaseBean = new SpecialCaseBean();
 	
-	private T42_Dao T42_dao = new T42_Dao();
 	
 	/**  待审核数据的要删除的序列集  */
 	private String ids; //删除的id
 	
-	/**  数据的查询的教工号  */
-	private String TeaID ;
-	
-	/**  待审核数据查询的起始时间  */
-	private Date startTime ;
-	
-	/**  待审核数据查询的结束时间  */
-	private Date endTime ;
 	
 	/**  下载的excelName  */
 	private String excelName ;
@@ -60,34 +49,27 @@ public class T42_Action {
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	//查询出所有
-	public void loadLeaderInfo() throws Exception{
+	public void loadCaseInfo() throws Exception{
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;	
-				
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
+
 		
-		if(this.getTeaID() == null && this.getStartTime() == null && this.getEndTime() == null){			
-			cond = null;	
-		}else{			
-			if(this.getTeaID()!=null){
-				conditions.append(" and TeaID like '" + this.getTeaID() + "%'") ;
-			}
-			
-			if(this.getStartTime() != null){
-				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
-			}
-			
-			if(this.getEndTime() != null){
-				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
-						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-			}
-			cond = conditions.toString();
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID;
+		String tempUnitID = bean.getUnitID().substring(0,1);
+		if("3".equals(tempUnitID)){
+			fillUnitID = bean.getUnitID();
+			conditions.append(" and RoleID='" + bean.getRoleID() + "' and FillUnitID='" + fillUnitID + "'") ;
+		}else{
+			conditions.append(" and RoleID='" + bean.getRoleID()+"'") ;
 		}
+		cond = conditions.toString();
 		
-		List<T42_Bean> list = T42_services.getPageMajorTeaList(cond, null, this.getRows(), this.getPage()) ;
-		String TeaInfoJson = this.toBeJson(list,T42_services.getTotal(cond, null));
+		List<SpecialCaseBean> list = case_services.getCaseInfo(cond, this.getRows(), this.getPage()) ;
+		String TeaInfoJson = this.toBeJson(list,case_services.getTotal(cond));
 		//private JSONObject jsonObj;
 		
 		PrintWriter out = null ;
@@ -114,7 +96,7 @@ public class T42_Action {
 	}
 
     //将分页系统的总数以及当前页的list转化一个json传页面显示
-	private String toBeJson(List<T42_Bean> list, int total) throws Exception{
+	private String toBeJson(List<SpecialCaseBean> list, int total) throws Exception{
 		// TODO Auto-generated method stub
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -125,7 +107,6 @@ public class T42_Action {
 		testjson.accumulate("rows", list);
 		
         String json = testjson.toString();
-        System.out.println(json) ;
 		return json;
 	}
 	
@@ -135,10 +116,16 @@ public class T42_Action {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
-		//插入时间
-		T42_bean.setTime(new Date());
-				
-		boolean flag = T42_services.insert(T42_bean);
+		
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String tempUnitID = bean.getUnitID().substring(0,1);
+		if("3".equals(tempUnitID)){
+			specialCaseBean.setRoleID(bean.getRoleID());
+			specialCaseBean.setFillUnitID(bean.getUnitID());
+		}else{
+			specialCaseBean.setRoleID(bean.getRoleID());
+		}		
+		boolean flag = case_services.insert(specialCaseBean);
 		PrintWriter out = null ;
 		
 		try{
@@ -164,7 +151,7 @@ public class T42_Action {
 	/**  编辑数据  */
 	public void edit(){
 
-		boolean flag = T42_services.update(T42_bean) ;
+		boolean flag = case_services.update(specialCaseBean) ;
 		PrintWriter out = null ;
 	
 		try{
@@ -189,12 +176,11 @@ public class T42_Action {
 	/**  根据数据的id删除数据  */
 	public void deleteByIds(){
 		System.out.println("ids=" + this.getIds()) ;
-		boolean flag = T42_services.deleteByIds(ids) ;
+		boolean flag = case_services.deleteByIds(ids) ;
 		PrintWriter out = null ;
 		
 		try{
-			
-			
+						
 			response.setContentType("application/json; charset=UTF-8") ;
 			out = response.getWriter() ;			
 			if(flag){
@@ -217,27 +203,30 @@ public class T42_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String tempUnitID = bean.getUnitID().substring(0,1);
+		String roleID = null;
+		String fillUnitID = null;
+		if("3".equals(tempUnitID)){
+			roleID = bean.getRoleID();			
+			fillUnitID = bean.getUnitID();
+		}else{
+			roleID = bean.getRoleID();
+		}
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T42_Bean> list = T42_dao.totalList();
+	
+			List<SpecialCaseBean> list = case_services.totalList(roleID, fillUnitID);
 						
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
-			columns.add("姓名");columns.add("教工号");columns.add("职务");columns.add("性别");columns.add("出生年月");
-			columns.add("入校时间");columns.add("学历");columns.add("最高学位");
-			columns.add("专业技术职称");columns.add("校内分管工作");columns.add("学习和工作简历");
+			columns.add("表名");columns.add("说明");columns.add("备注");
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("name", 1);maplist.put("teaId", 2);maplist.put("duty", 3);maplist.put("gender", 4);
-			maplist.put("birthday", 5);maplist.put("joinSchTime", 6);maplist.put("education", 7);maplist.put("topDegree", 8);
-			maplist.put("majTechTitle", 9);maplist.put("forCharge", 10);maplist.put("resume", 11);
+			maplist.put("TableName", 1);maplist.put("Instruction", 2);maplist.put("Note", 3);
 						
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
@@ -272,36 +261,12 @@ public class T42_Action {
 		this.page = page;
 	}
 	
-	public T42_Bean getT42_bean() {
-		return T42_bean;
-	}
-
-	public void setT42_bean(T42_Bean T42Bean) {
-		T42_bean = T42Bean;
-	}
-
 	public String getIds() {
 		return ids;
 	}
 
 	public void setIds(String ids) {
 		this.ids = ids;
-	}
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
 	}
 	
 	public String getExcelName() {
@@ -318,11 +283,11 @@ public class T42_Action {
 		this.excelName = excelName;
 	}
 
-	public void setTeaID(String teaID) {
-		TeaID = teaID;
+	public void setSpecialCaseBean(SpecialCaseBean specialCaseBean) {
+		this.specialCaseBean = specialCaseBean;
 	}
 
-	public String getTeaID() {
-		return TeaID;
+	public SpecialCaseBean getSpecialCaseBean() {
+		return specialCaseBean;
 	}
 }

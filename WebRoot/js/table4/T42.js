@@ -47,7 +47,7 @@
 				 			msg: result.errorMsg
 				 		});
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
+			    		 $('#commomData').datagrid('reload'); // reload the user data
 	  		 	}
 	  		 }
 	  		 });
@@ -72,7 +72,7 @@
 				$.messager.alert('温馨提示', result.data);
 				if (result.state) {
 					$('#dlg').dialog('close');
-					$('#unverfiedData').datagrid('reload');
+					$('#commomData').datagrid('reload');
 				}
 			}
 			});
@@ -115,7 +115,7 @@
 
 	function edit() {
 		
-   	var row = $('#unverfiedData').datagrid('getSelections');
+   	var row = $('#commomData').datagrid('getSelections');
    	
    	if(row.length != 1){
    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
@@ -146,20 +146,20 @@
 	//查询
 	function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 
-         var  seqNum = $('#seqNum').val();
+         var  TeaID = $('#TeaID').val();
          var startTime = $('#startTime').datetimebox('getValue');
          var endTime = $('#endTime').datetimebox('getValue');
-         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
-         queryParams.seqNum = seqNum;  
+         var queryParams = $('#commomData').datagrid('options').queryParams;  
+         queryParams.TeaID = TeaID;  
          queryParams.startTime = startTime;  
          queryParams.endTime = endTime;  
-         $("#unverfiedData").datagrid('reload'); 
+         $("#commomData").datagrid('reload'); 
     }	
 	
 	//删除选中的行
    function deleteByIds() {
 	// 获取选中项
-   	var row = $('#unverfiedData').datagrid('getSelections');
+   	var row = $('#commomData').datagrid('getSelections');
    	if (row.length == 0) {
    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！");
 		return;
@@ -189,7 +189,7 @@
    		success : function(result) {
 			result = eval("(" + result + ")");
 			if (result.state) {
-				$('#unverfiedData').datagrid('reload');
+				$('#commomData').datagrid('reload');
 			}
 		}
    	}).submit();

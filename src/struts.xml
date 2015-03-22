@@ -245,6 +245,8 @@
      <!-- 办学条件-->
     <include file = "cn/nit/configuration/condi.xml"/>
     
+     <!-- 特殊情况说明　-->
+    <include file = "cn/nit/configuration/specialCase.xml"/>    
     
     <!-- 文件上传下载 -->
     <include file = "cn/nit/configuration/FileUploadDownload.xml"/>

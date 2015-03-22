@@ -69,71 +69,70 @@
 		<table id="showInfo" class="doc-table">
 			<tbody>
 				<tr>
-					<td rowspan=5 align="center"
-						style="width: 80px;">
+					<td rowspan=5 align="center">
 						学校规划
 					</td>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						1.发展战略规划(含制定时间）	
 					</td>									
-      				<td style="background-color: white">
+      				<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(151)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile151"></div>						
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						2.学科建设规划(含制定时间）
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(152)">上传文件</a>
 						</div>						
 					</td>
-					<td style="background-color: white">
+					<td>
 						<div id="downFile152"></div>						
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						3.专业建设发展规划(含制定时间）
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(153)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile153"></div>						
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						4.师资队伍建设规划(含制定时间）
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(154)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile154"></div>						
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						5.校园建设规划(含制定时间）
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(155)">上传文件</a>
 						</div>						
@@ -143,19 +142,19 @@
 					</td>
 				</tr>				
 				<tr>
-					<td rowspan=1 style="width: 80px; background-color: white" align="center">
+					<td rowspan=1  align="center">
 						校友会
 					</td>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						6.优秀校友事迹介绍
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(156)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile156"></div>					
 					</td>
 				</tr>
@@ -164,12 +163,11 @@
 		
 		
 	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
-		<div class="ftitle">文件上传</div>
-		<div class="fitem">
+		<div class="fitem" style="position: relative;top:25px;">
 			<Form id="batchForm" enctype="multipart/form-data" method="post">
-				<label>请选择文件：</label> 
-				<input  type="file"  id="upload" name="uploadFile" />
-				<input type="button" value=" 提交 "  onclick="batchImport()"/>
+				<label　style="width: 100px">请选择文件：</label> 
+				<input  type="file"  id="upload" name="uploadFile" size=25 style="height: 24px;"/>
+				<input type="button" value=" 提交 "  onclick="batchImport()" style="height: 24px;"s/>
 			</Form>
 		</div>
 	</div>	

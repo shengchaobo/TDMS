@@ -71,19 +71,19 @@
 		<table id="showInfo" class="doc-table">
 			<tbody>											
 				<tr>
-					<td rowspan=1 style="width: 160px; background-color: white" align="center">
+					<td rowspan=1 align="center">
 						职业资质培训情况
 					</td>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						1.大学生职业资质培训情况一览表
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(171)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile171"></div>					
 					</td>				
 			</tbody>
@@ -91,12 +91,11 @@
 		
 		
 	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
-		<div class="ftitle">文件上传</div>
-		<div class="fitem">
+		<div class="fitem" style="position: relative;top:25px;">
 			<Form id="batchForm" enctype="multipart/form-data" method="post">
-				<label>请选择文件：</label> 
-				<input  type="file"  id="upload" name="uploadFile" />
-				<input type="button" value=" 提交 "  onclick="batchImport()"/>
+				<label　style="width: 100px">请选择文件：</label> 
+				<input  type="file"  id="upload" name="uploadFile" size=25 style="height: 24px;"/>
+				<input type="button" value=" 提交 "  onclick="batchImport()" style="height: 24px;"s/>
 			</Form>
 		</div>
 	</div>		 

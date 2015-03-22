@@ -73,215 +73,215 @@
 		<table id="showInfo" class="doc-table">
 			<tbody>										
 				<tr>
-					<td rowspan=15 style="width: 160px; background-color: white" align="center">
-						学校就业工作情况
+					<td rowspan=15 align="center">
+						教学质量监控体系
 					</td>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						1.教学质量保障体系建设基本情况 
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(71)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile71"></div>								
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						2.教学工作定期检查制度
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(72)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile72"></div>								
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						3.教学督导机构和制度
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(73)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile73"></div>								
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						4.课程教学评价体系
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(74)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile74"></div>							
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						5.实验教学评价体系
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(75)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile75"></div>						
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						6.实习教学评价体系
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(76)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile76"></div>								
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						7.毕业综合训练环节评价体系
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(77)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile77"></div>							
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						8.教学单位或专业本科教学工作评价制度
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(78)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile78"></div>							
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						9.本科教学质量年度报告
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(79)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile79"></div>					
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						10.学校教学自我评价及质量改进机制
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(80)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile80"></div>							
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						11.学生评教制度
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(81)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile81"></div>					
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						12.评教结果分析
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(82)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td >
 							<div id="downFile82"></div>					
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						13.评教结果数据库
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(83)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile83"></div>					
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						14.教学质量评估实施情况
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(84)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile84"></div>					
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						15.教学质量管理制度目录
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(85)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile85"></div>					
 					</td>
 				</tr>
@@ -290,14 +290,13 @@
 		</table>
 			
 	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
-		<div class="ftitle">文件上传</div>
-		<div class="fitem">
+		<div class="fitem" style="position: relative;top:25px;">
 			<Form id="batchForm" enctype="multipart/form-data" method="post">
-				<label>请选择文件：</label> 
-				<input  type="file"  id="upload" name="uploadFile" />
-				<input type="button" value=" 提交 "  onclick="batchImport()"/>
+				<label　style="width: 100px">请选择文件：</label> 
+				<input  type="file"  id="upload" name="uploadFile" size=25 style="height: 24px;"/>
+				<input type="button" value=" 提交 "  onclick="batchImport()" style="height: 24px;"s/>
 			</Form>
 		</div>
-	</div>	
+	</div>
 	</body>
 </html>

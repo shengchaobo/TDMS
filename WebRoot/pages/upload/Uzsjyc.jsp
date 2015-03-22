@@ -70,47 +70,47 @@
 		<table id="showInfo" class="doc-table">
 			<tbody>											
 				<tr>
-					<td rowspan=3 style="width: 160px; background-color: white" align="center">
+					<td rowspan=3 align="center">
 						学校就业工作情况
 					</td>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						1.学校促进就业工作的制度与措施
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(161)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile161"></div>					
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						2.年度就业计划与工作总结
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(162)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile162"></div>					
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						3.职业生涯规划及创业教育指导课程开设情况
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(163)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile163"></div>						
 					</td>
 				</tr>
@@ -121,14 +121,13 @@
 		
 		
 	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
-		<div class="ftitle">文件上传</div>
-		<div class="fitem">
+		<div class="fitem" style="position: relative;top:25px;">
 			<Form id="batchForm" enctype="multipart/form-data" method="post">
-				<label>请选择文件：</label> 
-				<input  type="file"  id="upload" name="uploadFile" />
-				<input type="button" value=" 提交 "  onclick="batchImport()"/>
+				<label　style="width: 100px">请选择文件：</label> 
+				<input  type="file"  id="upload" name="uploadFile" size=25 style="height: 24px;"/>
+				<input type="button" value=" 提交 "  onclick="batchImport()" style="height: 24px;"s/>
 			</Form>
 		</div>
-	</div>					 
+	</div>				 
 	</body>
 </html>

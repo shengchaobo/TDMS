@@ -106,7 +106,7 @@
 							<div class="fitem">
 								<label>电子邮箱：</label> 
 								<input type="text" name="userinfo.TeaEmail" 
-									class="easyui-validatebox" id="TeaEmail" required='true'/>
+									class="easyui-validatebox" id="TeaEmail"/>
 								<span id="TeaEmailSpan"></span>
 							</div>
 						</td>

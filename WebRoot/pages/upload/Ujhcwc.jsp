@@ -72,33 +72,33 @@
 		<table id="showInfo" class="doc-table">
 			<tbody>										
 				<tr>
-					<td rowspan=2 style="width: 160px; background-color: white" align="center">
+					<td rowspan=2 align="center">
 						教学经费制度
 					</td>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2 
 						align="left">
 						1.学校年度教学经费分配办法
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(21)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile21"></div>				
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						2.学校年度财务决算报告
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(22)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile22"></div>								
 					</td>
 				</tr>				
@@ -106,14 +106,13 @@
 		</table>
 		
 	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
-		<div class="ftitle">文件上传</div>
-		<div class="fitem">
+		<div class="fitem" style="position: relative;top:25px;">
 			<Form id="batchForm" enctype="multipart/form-data" method="post">
-				<label>请选择文件：</label> 
-				<input  type="file"  id="upload" name="uploadFile" />
-				<input type="button" value=" 提交 "  onclick="batchImport()"/>
+				<label　style="width: 100px">请选择文件：</label> 
+				<input  type="file"  id="upload" name="uploadFile" size=25 style="height: 24px;"/>
+				<input type="button" value=" 提交 "  onclick="batchImport()" style="height: 24px;"s/>
 			</Form>
 		</div>
-	</div>	
+	</div>
 	</body>
 </html>

@@ -72,182 +72,180 @@
 			<tbody>
 
 				<tr>
-					<td rowspan=4 align="center"
-						style="width: 160px;">
+					<td rowspan=4 align="center">
 						本科学生成果
 					</td>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						1.学校组织、激励学生参加科技活动和学科竞赛活动的有关规定	
 					</td>									
-      				<td style="background-color: white">
+      				<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(111)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile111"></div>						
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						2.学生参加课外学术活动情况简介
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(112)">上传文件</a>
 						</div>						
 					</td>
-					<td style="background-color: white">
+					<td>
 							<div id="downFile112"></div>							
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						3.学生参加各级各类学术活动情况一览表
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(113)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile113"></div>						
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						4.学生参加教师科研项目情况一览表
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(114)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile114"></div>							
 					</td>
 				</tr>
 								
 				<tr>
-					<td rowspan=5 style="width: 160px; background-color: white" align="center">
+					<td rowspan=5 align="center">
 						课外活动、讲座
 					</td>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2 
 						align="left">
 						5.学生校园文化、体育活动情况一览表
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(115)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile115"></div>							
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						6.学生文化、体育活动场地一览表
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(116)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile116"></div>								
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						7.文化、学术讲座情况一览表
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(117)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile117"></div>						
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						8.本科生课外科技、文化活动项目一览表
 					</td>
-					<td style="background-color: white">
+					<td >
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(118)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile118"></div>							
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2 
 						align="left">
 						9.学生社团（俱乐部）及活动情况一览表
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(119)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile119"></div>						
 					</td>
 				</tr>
 				<tr>
-					<td rowspan=3 align="center"
-						style="width: 160px;">
+					<td rowspan=3 align="center">
 						素质教育基地、创业教育等情况
 					</td>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						10.心理咨询与辅导情况	
 					</td>									
-      				<td style="background-color: white">
+      				<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(120)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile120"></div>						
 					</td>
 					</tr>
 					<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						11.大学生创业教育活动开展情况一览表
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(121)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 							<div id="downFile121"></div>						
 					</td>
 				</tr>
 				<tr>
-					<td colspan=2 style="width: 200px; background-color: white"
+					<td colspan=2
 						align="left">
 						12.素质教育基地一览表
 					</td>
-					<td style="background-color: white">
+					<td>
 					    <div>
 					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(122)">上传文件</a>
 						</div>						
 					</td>		      							
-					<td style="background-color: white">
+					<td>
 						<div id="downFile122"></div>						
 					</td>
 				</tr>
@@ -255,12 +253,11 @@
 		</table>
 	
 	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
-		<div class="ftitle">文件上传</div>
-		<div class="fitem">
+		<div class="fitem" style="position: relative;top:25px;">
 			<Form id="batchForm" enctype="multipart/form-data" method="post">
-				<label>请选择文件：</label> 
-				<input  type="file"  id="upload" name="uploadFile" />
-				<input type="button" value=" 提交 "  onclick="batchImport()"/>
+				<label　style="width: 100px">请选择文件：</label> 
+				<input  type="file"  id="upload" name="uploadFile" size=25 style="height: 24px;"/>
+				<input type="button" value=" 提交 "  onclick="batchImport()" style="height: 24px;"s/>
 			</Form>
 		</div>
 	</div>	

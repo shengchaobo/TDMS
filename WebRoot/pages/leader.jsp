@@ -49,7 +49,7 @@ div.Section1
 <div style="position:relitive; top:10px;right:50px;float:right">
 <td>
 <tr>
-<a href="index.jsp" >返回主页</a>
+<a href="index.jsp" >返回首页</a>
 </tr>
 </td>
 </div>

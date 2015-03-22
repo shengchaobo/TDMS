@@ -328,7 +328,7 @@ private T311_Service postDocStaSer = new T311_Service() ;
 
 		try {
 			
-			List<T311_Bean> list = t311_DAO.totalList(this.getSelectYear(),Constants.WAIT_CHECK);
+			List<T311_Bean> list = t311_DAO.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			

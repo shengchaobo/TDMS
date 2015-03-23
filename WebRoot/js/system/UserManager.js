@@ -95,13 +95,13 @@
 			return false;
 		} 
 		
-		if (teaEmail == null || teaEmail.length == 0 || teaEmail.match(req) == null
+/*		if (teaEmail == null || teaEmail.length == 0 || teaEmail.match(req) == null
 				|| teaEmail.length > 100) {
 			alert("邮箱输入错误或长度不能为空或长度不超过100");
 			return false;
 		} else {
 			$('#TeaEmailSpan').html("");
-		}
+		}*/
 		
 		if (role == null || role.length == 0) {
 			alert("用户角色不能为空");

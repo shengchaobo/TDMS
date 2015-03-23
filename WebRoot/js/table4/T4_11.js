@@ -177,6 +177,20 @@
          $("#unverfiedData").datagrid('reload'); 
     }	
 	
+	
+    //根据用户选择的年显示相应年的数据
+    $(function(){ 
+		 $("#cbYearContrast1").combobox({  
+	        onChange:function(newValue, oldValue){ 
+		     //查询参数直接添加在queryParams中 
+	         var  queryYear = newValue;
+	         var queryParams = $('#verfiedData').datagrid('options').queryParams;  
+	         queryParams.queryYear = queryYear;  
+	         $("#verfiedData").datagrid('reload'); 
+	        }
+	   });
+    })
+	
 	//删除选中的行
     function deleteByIds() {
 	// 获取选中项

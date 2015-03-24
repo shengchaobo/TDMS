@@ -146,10 +146,6 @@ public class T152Service {
 //				t152Bean.setAudit(audits[0]) ;
 			}
 			
-			//导出
-			public List<T152_Bean> totalList(String filledID,String year,int CheckState){
-				return t152Dao.totalList(filledID, year, CheckState);
-			}
 	
 			public static void main(String arg[])
 			{

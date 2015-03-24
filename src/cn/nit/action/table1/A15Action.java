@@ -52,7 +52,7 @@ public class A15Action {
 	
 
 //	/**  表A15的DAO类  */
-	private A15DAO a15Dao = new A15DAO() ;
+//	private A15DAO a15Dao = new A15DAO() ;
 	
 	/**  表A15的Excel类  */
 	private A15Excel a15Excel = new A15Excel() ;
@@ -197,7 +197,7 @@ public class A15Action {
 		
 		System.out.println(this.getSelectYear());
 
-		A15_Bean bean =a15Dao.forExcel(this.selectYear).get(0);
+		A15_Bean bean =a15Ser.forExcel(this.selectYear).get(0);
 		
 	    ByteArrayOutputStream fos = null;
 	

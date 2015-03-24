@@ -49,7 +49,7 @@ public class S533_Action {
 		
 		private S533_Bean s533_Bean=new S533_Bean();
 		
-		private S533_DAO s533_Dao=new S533_DAO();
+//		private S533_DAO s533_Dao=new S533_DAO();
 		
 		/**  哪一年数据  */
 		private String selectYear;
@@ -110,7 +110,7 @@ public class S533_Action {
 			InputStream inputStream = null ;
 			ByteArrayOutputStream fos = new ByteArrayOutputStream();
 			try {
-				List<S533_Bean> list=s533_Dao.totalList(this.getSelectYear());
+				List<S533_Bean> list=s533_Service.totalList(this.getSelectYear());
 				if(list.size()==0){
 					PrintWriter out = null ;
 					response.setContentType("text/html;charset=utf-8") ;

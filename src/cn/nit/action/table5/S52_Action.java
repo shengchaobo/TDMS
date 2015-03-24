@@ -41,8 +41,8 @@ import cn.nit.service.table5.S52_Service;
 
 public class S52_Action {
 	
-	/**  表s52的数据库操作类  */
-	private S52_DAO s52Dao = new S52_DAO() ;
+//	/**  表s52的数据库操作类  */
+//	private S52_DAO s52Dao = new S52_DAO() ;
 	
 //	private S512Excel s512Excel=new S512Excel();
 
@@ -120,7 +120,7 @@ public class S52_Action {
 		
 		System.out.println(this.getSelectYear());
 
-		List<S52_Bean>  list = s52Dao.totalList(this.getSelectYear());
+		List<S52_Bean>  list = s52Ser.totalList(this.getSelectYear());
 		System.out.println("S52 de "+list.size());
 		
 	    ByteArrayOutputStream fos = null;

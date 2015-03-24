@@ -51,6 +51,9 @@ public class S15Action {
 	/**S15的Excel類*/
 	private S15Excel s15Excel=new S15Excel();
 	
+//	/**S15的Dao類*/
+//	private S15DAO s15Dao=new S15DAO();
+	
 	/**导出数据选择年份*/
 	private String selectYear;
 	
@@ -131,14 +134,13 @@ public class S15Action {
 		}
 	}
 
-	/**S15的Dao類*/
-	private S15DAO s15Dao=new S15DAO();
+
 		
 		
 		public InputStream getInputStream() throws Exception{
 			
 
-			S15_Bean bean =s15Dao.forExcel(this.selectYear).get(0);
+			S15_Bean bean =s15Ser.forExcel(this.selectYear).get(0);
 			
 		    ByteArrayOutputStream fos = null;
 		

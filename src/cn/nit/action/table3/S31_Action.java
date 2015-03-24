@@ -49,7 +49,7 @@ private S31_Service s31_Service = new S31_Service() ;
 	
 	private S31_Bean s31_Bean = new S31_Bean() ;
 	
-	private S31_DAO  s31_DAO=new S31_DAO();
+//	private S31_DAO  s31_DAO=new S31_DAO();
 
 	
 //	private S31Excel s31Excel = new S31Excel() ;
@@ -114,7 +114,7 @@ private S31_Service s31_Service = new S31_Service() ;
 		
 
 		System.out.println(this.getSelectYear());
-		S31_Bean bean = s31_DAO.exportData(this.getSelectYear());
+		S31_Bean bean = s31_Service.exportData(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		

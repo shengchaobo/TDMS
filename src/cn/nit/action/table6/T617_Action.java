@@ -90,7 +90,7 @@ public class T617_Action {
 	/** 表的Bean实体类 */
 	T617_Bean T617_bean = new T617_Bean();
 	
-	T617_Dao T617_dao = new T617_Dao();
+//	T617_Dao T617_dao = new T617_Dao();
 
 	/**  哪一年数据  */
 	private String selectYear;
@@ -276,7 +276,7 @@ public InputStream getInputStream(){
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T617_Bean> list=T617_dao.totalList(this.getSelectYear());
+			List<T617_Bean> list=T617_service.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

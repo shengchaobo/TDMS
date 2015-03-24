@@ -120,7 +120,7 @@ public class T657_Action {
 	/** 表的Bean实体类 */
 	T657_Bean T657_bean = new T657_Bean();
 	
-	T657_Dao T657_dao = new T657_Dao();
+//	T657_Dao T657_dao = new T657_Dao();
 
 	/**  哪一年数据  */
 	private String selectYear;
@@ -281,7 +281,7 @@ public class T657_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T657_Bean> list=T657_dao.totalList(this.getSelectYear());
+			List<T657_Bean> list=T657_service.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

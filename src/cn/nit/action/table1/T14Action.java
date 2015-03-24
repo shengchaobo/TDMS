@@ -136,7 +136,7 @@ public class T14Action {
 
 		try {
 			
-			List<T12_Bean> list = t14Dao.totalList();
+			List<T12_Bean> list = t12Ser.totalList2();
 			
 			String sheetName = this.excelName;
 			

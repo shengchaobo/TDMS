@@ -225,6 +225,15 @@ public class S15Service {
 		
 		return s15bean;
 	}
+	
+	/**
+	 *Excel數據導出
+	 */
+	public List<S15_Bean> forExcel(String year){
+		return s15Dao.forExcel(year);
+	}
+		
+	
 	public static void main(String arg[]){
 		S15Service ser=new S15Service();
 		S15_Bean bean = ser.loadData("2009");

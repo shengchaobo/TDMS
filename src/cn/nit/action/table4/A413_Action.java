@@ -42,7 +42,7 @@ public class A413_Action {
 	
 	private A413_Bean a413_Bean=new A413_Bean();
 	
-	private A413_Dao a413_Dao=new A413_Dao();
+//	private A413_Dao a413_Dao=new A413_Dao();
 
 	/**  导出的excelName名 */
 	private String excelName ;

@@ -53,7 +53,7 @@ public class T616_Action {
 	
 	private T616_Bean T616_bean = new T616_Bean();
 	
-	private T616_Dao T616_Dao = new T616_Dao();
+//	private T616_Dao T616_Dao = new T616_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -275,14 +275,14 @@ public class T616_Action {
 	}
 
 
-	public T616_Dao getT616_Dao() {
-		return T616_Dao;
-	}
-
-
-	public void setT616_Dao(T616_Dao t616Dao) {
-		T616_Dao = t616Dao;
-	}
+//	public T616_Dao getT616_Dao() {
+//		return T616_Dao;
+//	}
+//
+//
+//	public void setT616_Dao(T616_Dao t616Dao) {
+//		T616_Dao = t616Dao;
+//	}
 
 
 	public int getCheckNum() {
@@ -320,7 +320,7 @@ public class T616_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T616_Bean> list=T616_Dao.totalList(this.getSelectYear());
+			List<T616_Bean> list=T616_Service.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

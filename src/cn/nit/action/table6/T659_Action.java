@@ -98,7 +98,7 @@ public class T659_Action {
 	/** 表的Bean实体类 */
 	T659_Bean T659_bean = new T659_Bean();
 	
-	T659_Dao T659_dao = new T659_Dao();
+//	T659_Dao T659_dao = new T659_Dao();
 
 	/** 待审核数据的查询的序列号 */
 	private Integer seqNum;
@@ -294,7 +294,7 @@ public class T659_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T659_Bean> list = T659_dao.getAllList("", fillUnitID);
+			List<T659_Bean> list = T659_service.getAllList("", fillUnitID);
 						
 			String sheetName = this.excelName;
 			

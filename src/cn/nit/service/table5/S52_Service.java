@@ -31,6 +31,13 @@ public class S52_Service {
 		return list;
 	}
 	
+	/**
+	 * 用于excel
+	 * */
+	public List<S52_Bean> totalList(String year){
+		return s52Dao.totalList(year);
+	}
+	
 	public static void main(String arg[]){
 		S52_Service ser = new S52_Service();
 		List<S52_Bean> list = ser.loadInfo("2014");

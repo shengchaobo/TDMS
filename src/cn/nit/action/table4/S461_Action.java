@@ -47,7 +47,7 @@ public class S461_Action {
 	
 	private S46_Bean s46_Bean=new S46_Bean();
 	
-	private S461_Dao s461_Dao=new S461_Dao();
+//	private S461_Dao s461_Dao=new S461_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -114,7 +114,7 @@ public class S461_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<S46_Bean> list = s461_Dao.totalList(this.getSelectYear());
+		List<S46_Bean> list = s461_Service.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -254,13 +254,13 @@ public class S461_Action {
 		s46_Bean = s46Bean;
 	}
 
-	public S461_Dao getS461_Dao() {
-		return s461_Dao;
-	}
-
-	public void setS461_Dao(S461_Dao s461Dao) {
-		s461_Dao = s461Dao;
-	}
+//	public S461_Dao getS461_Dao() {
+//		return s461_Dao;
+//	}
+//
+//	public void setS461_Dao(S461_Dao s461Dao) {
+//		s461_Dao = s461Dao;
+//	}
 
 	public HttpServletResponse getResponse() {
 		return response;

@@ -67,6 +67,11 @@ public class T624_Service {
 		
 		return T624_Dao.batchInsert(list);
 	}
+	
+	/**导出*/
+	public List<T624_Bean> getAllList(String cond, Object object) {
+		return T624_Dao.getAllList(cond, object);
+	}
 
 
 

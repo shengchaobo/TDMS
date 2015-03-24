@@ -41,8 +41,8 @@ import cn.nit.service.table5.S534_Service;
 
 public class S534_Action {
 	
-	/**  表s534的数据库操作类  */
-	private S534_DAO s534Dao = new S534_DAO() ;
+//	/**  表s534的数据库操作类  */
+//	private S534_DAO s534Dao = new S534_DAO() ;
 	
 //	private S512Excel s512Excel=new S512Excel();
 
@@ -116,7 +116,7 @@ public InputStream getInputStream() throws Exception{
 		
 		System.out.println(this.getSelectYear());
 
-		List<S534_Bean>  list = s534Dao.totalList(this.getSelectYear());
+		List<S534_Bean>  list = s534Ser.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 	    

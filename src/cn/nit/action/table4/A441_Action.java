@@ -40,7 +40,7 @@ public class A441_Action {
 	
 	private A441_Bean a441_Bean=new A441_Bean();
 	
-	private A441_Dao a441_Dao=new A441_Dao();
+//	private A441_Dao a441_Dao=new A441_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -333,14 +333,14 @@ public class A441_Action {
 	}
 
 
-	public A441_Dao getA441_Dao() {
-		return a441_Dao;
-	}
-
-
-	public void setA441_Dao(A441_Dao a441Dao) {
-		a441_Dao = a441Dao;
-	}
+//	public A441_Dao getA441_Dao() {
+//		return a441_Dao;
+//	}
+//
+//
+//	public void setA441_Dao(A441_Dao a441Dao) {
+//		a441_Dao = a441Dao;
+//	}
 
 
 	public HttpServletResponse getResponse() {

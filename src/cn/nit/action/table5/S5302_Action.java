@@ -43,8 +43,8 @@ import cn.nit.service.table5.S5302_Service;
 public class S5302_Action {
 	
 
-	/**  表s5302的数据库操作类  */
-	private S5302_DAO s5302Dao = new S5302_DAO() ;
+//	/**  表s5302的数据库操作类  */
+//	private S5302_DAO s5302Dao = new S5302_DAO() ;
 	
 //	private S512Excel s512Excel=new S512Excel();
 

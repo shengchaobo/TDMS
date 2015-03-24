@@ -431,8 +431,8 @@ public class T654_Action {
 			columns.add("序号");
 			columns.add("教学单位");
 			columns.add("单位号");
-			columns.add("专利名称");
-			columns.add("专利号");
+			columns.add("项目名称");
+			columns.add("项目编号");
 			columns.add("类别");
 			columns.add("获批时间");
 			columns.add("学生姓名学号");

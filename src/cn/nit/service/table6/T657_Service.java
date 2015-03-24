@@ -87,6 +87,16 @@ public class T657_Service {
 		return T657_dao.deleteItemsByIds(ids) ;
 	}
 	
+	/**
+	 * 获取字典表的所有数据(导出)
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T657_Bean> totalList(String year){
+		return T657_dao.totalList(year);
+	}
+	
 	
 	public List<T657_Bean> getPageInfoList(String rows, String page) {
 		// TODO Auto-generated method stub

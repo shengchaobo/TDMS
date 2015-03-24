@@ -62,18 +62,12 @@
 	function validate() {
 		//获取文本框的值
 		var unitID = $('#UnitID').val();
-		var parentID = $('#ParentId').combobox('getText');
 		var researchName = $('#ResearchName').val();
 
 
 		//根据数据库定义的字段的长度，对其进行判断
 		if (unitID == null || unitID.length == 0 || unitID == "null") {
 			alert("教研室号不能为空");
-			return false;
-		}
-
-		if (parentID == null || parentID.length == 0 || parentID == "null") {
-			alert("所属教学单位不能为空");
 			return false;
 		}
 

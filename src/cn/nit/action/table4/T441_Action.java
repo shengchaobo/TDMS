@@ -362,7 +362,7 @@ public class T441_Action {
 			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 			String fillUnitID = bean.getUnitID();
 			
-			List<T441_Bean> list = T441_dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+			List<T441_Bean> list = T441_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 						
 			String sheetName = this.excelName;
 			

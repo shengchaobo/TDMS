@@ -87,6 +87,13 @@ public class T441_Service {
 		return majorLeaderDao.checkAll() ;
 	}
 
-
+	/**
+	 * 数据导出
+	 * @param 
+	 * @return
+	 */
+	public List<T441_Bean> totalList(String fillUnitID, String year, int checkState){
+		return majorLeaderDao.totalList(fillUnitID, year, checkState) ;
+	}
 
 }

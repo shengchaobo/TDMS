@@ -90,4 +90,15 @@ public class DIUserManagerService {
 	public boolean hasUser(String userID){
 		return userManagerDao.hasUser(userID);
 	}
+	
+	/**
+	 * 导出所有用户
+	 * @param conditions
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	public List<UserinfoBean> totalList(){		
+		return userManagerDao.totalList();
+	}
 }

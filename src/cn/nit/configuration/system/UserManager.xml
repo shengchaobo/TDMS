@@ -11,5 +11,18 @@
 	    <action name="resetPassword" class="cn.nit.action.di.DIUserManagerAction" method="resetPassword" />
 	    <action name="alertPassword" class="cn.nit.action.di.DIUserManagerAction" method="alertPassword" />
 	    <action name="deleteByIds" class="cn.nit.action.di.DIUserManagerAction" method="deleteByIds" />
+   	    <!-- 数据导出 -->
+	    <action name="dataExport" class="cn.nit.action.di.DIUserManagerAction" method="execute">
+	    	<result name="success" type="stream">
+	    		<!-- 指定下载文件的类型，下面表示无限制 -->
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<!-- 流对象名字 -->
+				<param name="inputName">inputStream</param>
+				<!-- 文件名转码 -->
+				<param name="contentDisposition">attachment;fileName="${excelName}.xls"</param>
+				<!-- 下载文件缓冲大小 -->
+				<param name="bufferSize">4096</param>
+	    	</result>
+	    </action>	
 	</package>
 </struts>

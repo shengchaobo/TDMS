@@ -83,7 +83,8 @@
 		var teaEmail = $('#TeaEmail').val();
 		var role = $('#RoleID').combobox('getText');
 		var note = $('#UserNote').val();
-		//alert(teaId);
+		alert(teaId);
+		alert(teaName)
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
 			alert("教工号不能为空或者教师库中无该教工号");

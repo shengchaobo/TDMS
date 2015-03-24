@@ -374,4 +374,36 @@ public class DIUserManagerDAO {
 		}
 		return flag ;
 	}
+	
+	/**
+	 * 导出所有用户
+	 * @param conditions
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	public List<UserinfoBean> totalList(){
+		List<UserinfoBean> list = null ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("select " + key + "," + field) ;
+		sql.append(" from " + tableName + "," + tableName1 + "," + tableName2) ;
+		sql.append(" where 1=1 and " + tableName + ".TeaID=" + tableName1 + ".TeaID and " + tableName1 + ".RoleID=" + tableName2 + ".RoleID " ) ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, UserinfoBean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(st) ;
+			DBConnection.close(conn) ;
+		}
+		
+		return list ;
+	}
 }

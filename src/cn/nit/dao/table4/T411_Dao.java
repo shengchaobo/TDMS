@@ -379,12 +379,7 @@ public class T411_Dao {
 	public boolean insert(T411_Bean teaInfoBean){
 		
 		Connection conn = DBConnection.instance.getConnection() ;
-		if(teaInfoBean.getIdcode().equals("40009")){
-			teaInfoBean.setTeaFlag("外聘");
-			return DAOUtil.insert(teaInfoBean, tableName, field, conn) ;
-		}else{
-			return DAOUtil.insert(teaInfoBean, tableName, field, conn) ;
-		}
+		return DAOUtil.insert(teaInfoBean, tableName, field, conn) ;
 		
 	}
 	
@@ -576,7 +571,6 @@ public class T411_Dao {
 		StringBuffer sql = new StringBuffer();
 		sql.append("Select count(distinct teaId) from " + tableName +
 				" where "+Cond+" and birthday >= '"+front+"-09-01' and birthday <= '"+end+"-08-31'");
-		System.out.println("haha");
 		System.out.println(sql.toString());
 		Connection conn = DBConnection.instance.getConnection();
 		Statement st = null;

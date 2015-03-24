@@ -104,6 +104,9 @@ public class MultiFileDownloadAction extends ActionSupport {
 	
 	//最终压缩后的zip文件的路径，传递给通用的下载Action
 	private String fileName;
+	
+	//选择导出的年
+	private String selectYear;
 
 	
 	/**
@@ -154,7 +157,8 @@ public class MultiFileDownloadAction extends ActionSupport {
         	dirFile.mkdirs();
         }
         
-    	String errorMessasge = preDownloadFile(dir);
+        System.out.println(this.getSelectYear());
+    	String errorMessasge = preDownloadFile(dir,this.getSelectYear());
     	
 	    if (errorMessasge != null) {
 	    	request.setAttribute("error", errorMessasge);
@@ -166,7 +170,7 @@ public class MultiFileDownloadAction extends ActionSupport {
     }
 	
 	
-	private String preDownloadFile(String filePath) {
+	private String preDownloadFile(String filePath,String year) {
 		
 		// TODO Auto-generated method stub
 		//1字头
@@ -268,9 +272,9 @@ public class MultiFileDownloadAction extends ActionSupport {
 		if(!J42_Excel.export_J42(filePath)){
 			return "J42_export has a error!";
 		}
-//		if(!J43_Excel.export_J43(filePath)){
-//			return "J43_export has a error!";
-//		}
+/*		if(!J43_Excel.export_J43(filePath)){
+			return "J43_export has a error!";
+		}*/
 	if(!J441_Excel.export_J441(filePath)){
 			return "J441_export has a error!";
 		}
@@ -311,10 +315,10 @@ public class MultiFileDownloadAction extends ActionSupport {
 		if(!J512_Excel.export_J512(filePath)){
 			return "J512_export has a error!";
 		}
-	if(!J513_Excel.export_J513(filePath)){
+	    if(!J513_Excel.export_J513(filePath)){
 			return "J513_export has a error!";
 		}
-	if(!J52_Excel.export_J52(filePath)){
+	    if(!J52_Excel.export_J52(filePath)){
 			return "J52_export has a error!";
 		}
 		if(!J531_Excel.export_J531(filePath)){
@@ -412,5 +416,13 @@ public class MultiFileDownloadAction extends ActionSupport {
 
 	public String getFilePath() {
 		return filePath;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
 	}
 }

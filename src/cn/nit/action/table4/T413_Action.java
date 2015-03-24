@@ -73,7 +73,13 @@ public class T413_Action {
 		
 		//具体教学单位
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-		String fillUnitID = bean.getUnitID();
+		String fillUnitID;
+		String tempUnitID = bean.getUnitID().substring(0,1);
+		if("3".equals(tempUnitID)){
+			fillUnitID = bean.getUnitID();
+		}else{
+			fillUnitID = null;
+		}
 		
 		List<T413_Bean> list = T413_services.getPageTeaInfoList(cond,fillUnitID,this.getRows(),this.getPage()) ;
 		String TeaInfoJson = this.toBeJson(list,T413_services.getTotal(cond,fillUnitID));
@@ -136,7 +142,7 @@ public class T413_Action {
 		T411_bean.setAdmisTime(null);
 		T411_bean.setTeaState(T413_bean.getTeaState());
 		T411_bean.setBeginWorkTime(null);
-		T411_bean.setIdcode("40009");
+		T411_bean.setIdcode(null);
 		T411_bean.setTeaFlag("外聘");
 		T411_bean.setOfficeID(T413_bean.getUnitId());
 		T411_bean.setFromOffice(T413_bean.getUnitName());
@@ -184,12 +190,42 @@ public class T413_Action {
 	public void edit(){
 
 		boolean flag = T413_services.update(T413_bean) ;
+		T411_bean.setTeaName(T413_bean.getName());
+		T411_bean.setTeaId(T413_bean.getTeaId());
+		T411_bean.setGender(T413_bean.getGender());
+		T411_bean.setBirthday(T413_bean.getBirthday());
+		T411_bean.setAdmisTime(null);
+		T411_bean.setTeaState(T413_bean.getTeaState());
+		T411_bean.setBeginWorkTime(null);
+		T411_bean.setIdcode(null);
+		T411_bean.setTeaFlag("外聘");
+		T411_bean.setOfficeID(T413_bean.getUnitId());
+		T411_bean.setFromOffice(T413_bean.getUnitName());
+		T411_bean.setUnitId(T413_bean.getUnitId());
+		T411_bean.setFromUnit(T413_bean.getUnitName());
+		T411_bean.setFromTeaResOffice(null);
+		T411_bean.setTeaResOfficeID(null);
+		T411_bean.setEducation(T413_bean.getEducation());
+		T411_bean.setTopDegree(T413_bean.getTopDegree());
+		T411_bean.setGraSch(null);
+		T411_bean.setSource(null);
+		T411_bean.setAdminLevel(null);
+		T411_bean.setMajTechTitle(T413_bean.getTechTitle());
+		T411_bean.setTeaTitle(null);
+		T411_bean.setNotTeaTitle(null);
+		T411_bean.setSubjectClass(T413_bean.getSubjectClass());
+		T411_bean.setIndustry(false);
+		T411_bean.setDoubleTea(false);
+		T411_bean.setEngineer(false);
+		T411_bean.setTeaBase(false);
+		T411_bean.setNote(T413_bean.getNote());				
+		boolean flag1 = T411_services.update(T411_bean);
 		PrintWriter out = null ;
 	
 		try{
 			response.setContentType("text/html; charset=UTF-8") ;
 			out = response.getWriter() ;
-			if(flag){
+			if(flag&&flag1){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;

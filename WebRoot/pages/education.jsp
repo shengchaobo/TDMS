@@ -27,10 +27,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		a:hover {color: red; text-decoration:underline;} 
 	</style> 
   </head>
+  <script type="text/javascript">
+      //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
+    }
+  
+  </script>
   
   <body>
-  	<div  style="position: relative;top: 30px;left: 50px;">
-       	<a  href="MultidownloadFile"   title="点击下载">教育部表一键导出</a>
-     </div>
+     <div id="edus" style="position: relative;top: 20px;left: 10px;ss">
+		 <div id="eduction">
+		    <form action='MultidownloadFile'   method="post"  id="exportForm" enctype="multipart/form-data">
+			    <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+				<a href='javascript:submitForm()'   style="font:18px;" >
+						教育部表一键导出
+				</a> 	
+			</form>	
+		 </div>
+		 <div id="allFile">
+			<form action='AllDownFile'   method="post"  id="exportForm" enctype="multipart/form-data">
+			    <select class="easyui-combobox"  id="cbYearContrast" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+				<a href='javascript:submitForm()'   style="font:18px;" >
+						全校所有表一键导出
+				</a> 	
+			</form>	
+		 </div>
+	</div>
   </body>
+
+
+<script type="text/javascript">
+    	var currentYear = new Date().getFullYear();
+    	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+    	
+      var select1 = document.getElementById("cbYearContrast1");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select1.appendChild(theOption);
+    	}
+</script>
 </html>

@@ -1,6 +1,14 @@
 package cn.nit.action.di;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,9 +19,12 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.UsersBean;
 import cn.nit.bean.di.DiUserRoleBean;
+import cn.nit.bean.table4.T42_Bean;
 import cn.nit.service.di.DIUserManagerService;
 import cn.nit.service.di.DiUserRoleService;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.MD5Util;
+
 
 public class DIUserManagerAction {
 	
@@ -39,6 +50,9 @@ public class DIUserManagerAction {
 	
 	/**  新密码  */
 	private String newPsd;
+	
+	/**  下载的excelName  */
+	private String excelName ;
 	
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	UserinfoBean user = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
@@ -281,6 +295,44 @@ public class DIUserManagerAction {
 		}
 	}
 	
+	public InputStream getInputStream() throws UnsupportedEncodingException{
+
+		InputStream inputStream = null ;
+		
+		try {
+/*			response.reset();
+			response.addHeader("Content-Disposition", "attachment;fileName="
+                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
+			
+			List<UserinfoBean> list = userManagerSer.totalList();
+						
+			String sheetName = this.excelName;
+			
+			List<String> columns = new ArrayList<String>();
+			
+			columns.add("序号");
+			columns.add("用户名");columns.add("姓名");columns.add("单位号");columns.add("单位名称");
+			columns.add("电子邮箱");columns.add("用户角色");columns.add("备注");
+			
+			Map<String,Integer> maplist = new HashMap<String,Integer>();
+			maplist.put("SeqNum", 0);
+			maplist.put("TeaID", 1);maplist.put("TeaName", 2);maplist.put("UnitID", 3);maplist.put("FromOffice", 4);
+			maplist.put("TeaEmail", 5);maplist.put("RoleName", 6);maplist.put("UserNote", 7);
+						
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+		return inputStream ;
+	}
+	
+	public String execute() throws Exception{
+		System.out.println("excelName=============" + this.excelName) ;
+		return "success" ;
+	}
+	
 	/**
 	 * 获取request
 	 * @return
@@ -345,5 +397,19 @@ public class DIUserManagerAction {
 
 	public String getNewPsd() {
 		return newPsd;
+	}
+	
+	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
 	}
 }

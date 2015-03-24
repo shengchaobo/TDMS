@@ -22,5 +22,15 @@ public class A322_Service {
 		
 		
 	}
+	
+	 /**
+		 * 获取字典表的所有数据
+		 * @return
+		 *
+		 * @time: 2014-5-14/下午02:34:42
+		 */
+		public List<A322_Bean> totalList(String year){
+			return a322_dao.totalList(year);
+		}
 
 }

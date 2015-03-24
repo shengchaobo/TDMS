@@ -67,6 +67,10 @@ public class T632_Service {
 		return T632_dao.batchInsert(list);
 	}
 	
+	public List<T632_Bean> getAllList(String cond, Object object) {
+		return T632_dao.getAllList(cond, object);
+	}
+	
 
 
 	

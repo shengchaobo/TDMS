@@ -70,8 +70,8 @@ public class T632_Action {
 	
 	/** �?32的Bean实体�?*/
 	T632_Bean T632_bean = new T632_Bean();
-	
-	T632_Dao T632_dao = new T632_Dao();
+//	
+//	T632_Dao T632_dao = new T632_Dao();
 	
 	
 	/**  哪一年数据  */
@@ -97,13 +97,13 @@ public class T632_Action {
 		check_services = checkServices;
 	}
 
-	public T632_Dao getT632_dao() {
-		return T632_dao;
-	}
-
-	public void setT632_dao(T632_Dao t632Dao) {
-		T632_dao = t632Dao;
-	}
+//	public T632_Dao getT632_dao() {
+//		return T632_dao;
+//	}
+//
+//	public void setT632_dao(T632_Dao t632Dao) {
+//		T632_dao = t632Dao;
+//	}
 
 	public String getSelectYear() {
 		return selectYear;
@@ -462,7 +462,7 @@ public class T632_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T632_Bean> list = T632_dao.getAllList("", null);
+			List<T632_Bean> list = T632_service.getAllList("", null);
 			
 			if(list==null){
 				if(list.size()==0){

@@ -49,7 +49,7 @@ public class S321_Action {
 	
 	private S321_Bean s321_Bean=new S321_Bean();
 	
-	private S321_DAO s321_Dao=new S321_DAO();
+//	private S321_DAO s321_Dao=new S321_DAO();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -107,7 +107,7 @@ public class S321_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<S321_Bean> list = s321_Dao.totalList(this.getSelectYear());
+		List<S321_Bean> list = s321_Service.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -246,13 +246,6 @@ public class S321_Action {
 		s321_Bean = s321Bean;
 	}
 
-	public S321_DAO getS321_Dao() {
-		return s321_Dao;
-	}
-
-	public void setS321_Dao(S321_DAO s321Dao) {
-		s321_Dao = s321Dao;
-	}
 
 	public HttpServletResponse getResponse() {
 		return response;

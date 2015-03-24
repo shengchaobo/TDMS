@@ -33,6 +33,11 @@ public class A321_Service {
    		List<A321_Bean> list = a321_DAO.getOriData(year);
    		return list;
    	}
+   	
+	/**用于数据导出*/
+	public List<A321_Bean> totalList(String year){
+		return a321_DAO.totalList(year);
+	}
 	
 //	public  List<A321_Bean> auditingData(String year){
 //		

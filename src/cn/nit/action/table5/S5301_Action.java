@@ -40,8 +40,8 @@ import cn.nit.service.table5.S5301_Service;
 
 public class S5301_Action {
 	
-	/**  表s5301的数据库操作类  */
-	private S5301_DAO s5301Dao = new S5301_DAO() ;
+//	/**  表s5301的数据库操作类  */
+//	private S5301_DAO s5301Dao = new S5301_DAO() ;
 	
 //	private S512Excel s512Excel=new S512Excel();
 

@@ -47,7 +47,7 @@ public class S444_Action {
 	
 	private S444_Bean s444_Bean=new S444_Bean();
 	
-	private S444_Dao s444_Dao=new S444_Dao();
+//	private S444_Dao s444_Dao=new S444_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -114,7 +114,7 @@ public class S444_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<S444_Bean> list = s444_Dao.totalList(this.getSelectYear());
+		List<S444_Bean> list = s444_Service.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -239,13 +239,13 @@ public class S444_Action {
 		s444_Bean = s444Bean;
 	}
 
-	public S444_Dao getS444_Dao() {
-		return s444_Dao;
-	}
-
-	public void setS444_Dao(S444_Dao s444Dao) {
-		s444_Dao = s444Dao;
-	}
+//	public S444_Dao getS444_Dao() {
+//		return s444_Dao;
+//	}
+//
+//	public void setS444_Dao(S444_Dao s444Dao) {
+//		s444_Dao = s444Dao;
+//	}
 
 	public HttpServletResponse getResponse() {
 		return response;

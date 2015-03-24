@@ -54,8 +54,8 @@ public class T16Action {
 	/**  表16的Bean实体类  */
 	private T16_Bean t16Bean = new T16_Bean() ;
 	
-	/**  表16的DAO类  */
-	private T16DAO t16Dao = new T16DAO() ;
+//	/**  表16的DAO类  */
+//	private T16DAO t16Dao = new T16DAO() ;
 	
 	/**  表16的Excel类  */
 	private T16Excel t16Excel = new T16Excel() ;

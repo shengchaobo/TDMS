@@ -47,7 +47,7 @@ public class S532_Action {
 	
 	private S532_Bean s532_Bean=new S532_Bean();
 	
-	private S532_DAO s532_Dao=new S532_DAO();
+//	private S532_DAO s532_Dao=new S532_DAO();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -108,7 +108,7 @@ public class S532_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<S532_Bean> list=s532_Dao.totalList(this.getSelectYear());
+			List<S532_Bean> list=s532_Service.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

@@ -57,4 +57,14 @@ public class T294_Service {
 	public boolean updateCheck(String selectYear, String unitName, int checkState){
 		return T294_Dao.updateCheck(selectYear, unitName, checkState) ;
 	}
+	
+	/**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T294_Bean> totalList(String year){
+		return T294_Dao.totalList(year);
+	}
 }

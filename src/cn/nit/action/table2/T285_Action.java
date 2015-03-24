@@ -53,7 +53,7 @@ public class T285_Action {
 	
 	private T285_Bean T285_bean = new T285_Bean();
 	
-	private T285_Dao T285_Dao = new T285_Dao();
+//	private T285_Dao T285_Dao = new T285_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -187,7 +187,7 @@ public class T285_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T285_Bean> list=T285_Dao.totalList(this.getSelectYear());
+			List<T285_Bean> list=T285_Service.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

@@ -47,7 +47,7 @@ public class S71_Action {
 	
 	private S71_Bean s71_Bean=new S71_Bean();
 	
-	private S71_DAO s71_Dao=new S71_DAO();
+//	private S71_DAO s71_Dao=new S71_DAO();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -114,7 +114,7 @@ public class S71_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<S71_Bean> list=s71_Dao.totalList(this.getSelectYear());
+			List<S71_Bean> list=s71_Service.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

@@ -71,7 +71,7 @@ public class T631_Action {
 	T631_Bean T631_bean = new T631_Bean();
 	
 	
-	private T631_Dao T631_dao = new T631_Dao();
+//	private T631_Dao T631_dao = new T631_Dao();
 	
 	
 	/**  哪一年数据  */
@@ -245,7 +245,7 @@ public class T631_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T631_Bean> list = T631_dao.getAllList("", null);
+			List<T631_Bean> list = T631_service.getAllList("", null);
 			if(list==null){
 				if(list.size()==0){
 					PrintWriter out = null ;
@@ -428,13 +428,13 @@ public class T631_Action {
 		check_services = checkServices;
 	}
 
-	public T631_Dao getT631_dao() {
-		return T631_dao;
-	}
-
-	public void setT631_dao(T631_Dao t631Dao) {
-		T631_dao = t631Dao;
-	}
+//	public T631_Dao getT631_dao() {
+//		return T631_dao;
+//	}
+//
+//	public void setT631_dao(T631_Dao t631Dao) {
+//		T631_dao = t631Dao;
+//	}
 
 	public String getSelectYear() {
 		return selectYear;

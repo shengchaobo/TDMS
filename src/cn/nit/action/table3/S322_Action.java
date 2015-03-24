@@ -49,7 +49,7 @@ public class S322_Action {
 	
 	private S322_Bean s322_Bean=new S322_Bean();
 	
-	private S322_DAO s322_Dao=new S322_DAO();
+//	private S322_DAO s322_Dao=new S322_DAO();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -107,7 +107,7 @@ public class S322_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<S322_Bean> list = s322_Dao.totalList(this.getSelectYear());
+		List<S322_Bean> list = s322_Service.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -227,13 +227,7 @@ public class S322_Action {
 		s322_Bean = s322Bean;
 	}
 
-	public S322_DAO getS322_Dao() {
-		return s322_Dao;
-	}
-
-	public void setS322_Dao(S322_DAO s322Dao) {
-		s322_Dao = s322Dao;
-	}
+	
 
 	public HttpServletResponse getResponse() {
 		return response;

@@ -77,7 +77,7 @@ public class T656_Action {
 	/** 表的Bean实体类 */
 	T656_Bean T656_bean = new T656_Bean();
 	
-	T656_Dao T656_dao = new T656_Dao();
+//	T656_Dao T656_dao = new T656_Dao();
 
 
 	private String excelName; //excel导出名字
@@ -238,7 +238,7 @@ public class T656_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T656_Bean> list=T656_dao.totalList(this.getSelectYear());
+			List<T656_Bean> list=T656_service.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

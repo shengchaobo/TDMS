@@ -130,6 +130,13 @@ public class S17Service {
 		return s17Bean;
 	   }
    
+   /**
+	excel数据导出
+	 */
+	public List<S17_Bean> forExcel(String year){
+		return s17Dao.forExcel(year);
+	}
+   
    public static void main(String arg[]){
 	   S17Service ser=new S17Service();
 	   S17_Bean bean=ser.loadData("2011");

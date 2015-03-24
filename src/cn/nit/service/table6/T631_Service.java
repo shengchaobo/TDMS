@@ -101,6 +101,10 @@ public class T631_Service {
 	public T631_Bean getYearInfo(String year, String teaUnit){
 		return T631_dao.getYearInfo(year,teaUnit);
 	}
+	
+	public List<T631_Bean> getAllList(String cond, Object object) {
+		return T631_dao.getAllList(cond, object);
+	}
 
 	/**
 	 * @param args

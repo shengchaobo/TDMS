@@ -44,7 +44,7 @@ public class A323_Action {
 	
 	private A323_Bean a323_Bean=new A323_Bean();
 	
-	private A323_DAO a323_Dao=new A323_DAO();
+//	private A323_DAO a323_Dao=new A323_DAO();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -102,7 +102,7 @@ public class A323_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<A323_Bean> list = a323_Dao.totalList(this.getSelectYear());
+		List<A323_Bean> list = a323_Service.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -268,15 +268,6 @@ public class A323_Action {
 		a323_Bean = a323Bean;
 	}
 
-
-	public A323_DAO getA323_Dao() {
-		return a323_Dao;
-	}
-
-
-	public void setA323_Dao(A323_DAO a323Dao) {
-		a323_Dao = a323Dao;
-	}
 
 
 	public HttpServletResponse getResponse() {

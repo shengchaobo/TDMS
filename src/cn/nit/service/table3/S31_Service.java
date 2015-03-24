@@ -75,6 +75,10 @@ public class S31_Service {
 
 	}
 	
+	public S31_Bean exportData(String year){
+		return s31_DAO.exportData(year);
+	}
+	
 	
 
 	

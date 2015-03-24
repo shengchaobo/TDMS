@@ -58,6 +58,11 @@ public class T621_Service {
 		return UndergraAdmiInfoDao.batchInsert(list);
 	}
 	
+	
+	public List<T621_Bean> getAllList(String cond, Object object) {
+		return UndergraAdmiInfoDao.getAllList(cond, object);
+	}
+	
 
 	
 

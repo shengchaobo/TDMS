@@ -79,6 +79,16 @@ public class T655_Service {
 		return T655_dao.updateCheck(selectYear, unitName, checkState) ;
 	}
 	
+	/**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T655_Bean> totalList(String year){
+		return T655_dao.totalList(year);
+	}
+	
 	
 
 	

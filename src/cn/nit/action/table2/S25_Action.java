@@ -47,7 +47,7 @@ public class S25_Action {
 	
 	private S25_Bean s25_Bean=new S25_Bean();
 	
-	private S25_Dao s25_Dao=new S25_Dao();
+//	private S25_Dao s25_Dao=new S25_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -93,7 +93,7 @@ public class S25_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<S25_Bean> list=s25_Dao.totalList(this.getSelectYear());
+			List<S25_Bean> list=s25_Service.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

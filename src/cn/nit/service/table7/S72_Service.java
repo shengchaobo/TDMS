@@ -13,5 +13,16 @@ public class S72_Service {
 		List<S72_Bean> list=s72_Dao.getData(selectYear);
 		return list;
 	}
+	
+	 /**
+		 * 获取字典表的所有数据
+		 * @return
+		 *
+		 * @time: 2014-5-14/下午02:34:42
+		 */
+	 	
+	 	public List<S72_Bean> totalList(String year){
+	 		return s72_Dao.totalList(year);
+	 	}
 
 }

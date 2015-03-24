@@ -50,7 +50,7 @@ public class T441_Action {
 	
 	private T441_Bean T441_bean = new T441_Bean();
 	
-	private T441_Dao T441_dao = new T441_Dao();
+//	private T441_Dao T441_dao = new T441_Dao();
 	
 	/**  待审核数据的要删除的序列集  */
 	private String ids; //删除的id

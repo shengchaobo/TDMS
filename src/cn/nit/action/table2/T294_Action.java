@@ -54,7 +54,7 @@ public class T294_Action {
 	
 	private T294_Bean T294_bean = new T294_Bean();
 	
-	private T294_Dao T294_Dao = new T294_Dao();
+//	private T294_Dao T294_Dao = new T294_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -231,7 +231,7 @@ public class T294_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T294_Bean> list=T294_Dao.totalList(this.getSelectYear());
+			List<T294_Bean> list=T294_Service.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

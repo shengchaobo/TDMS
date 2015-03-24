@@ -70,7 +70,7 @@ public class T621_Action {
 	/** �?21的Bean实体�?*/
 	T621_Bean UndergraAdmiInfo = new T621_Bean();
 	
-	private T621_Dao T621_dao = new T621_Dao();
+//	private T621_Dao T621_dao = new T621_Dao();
 	
 	private CheckService check_services = new CheckService();
 	
@@ -115,13 +115,13 @@ public class T621_Action {
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 
-	public T621_Dao getT621_dao() {
-		return T621_dao;
-	}
-
-	public void setT621_dao(T621_Dao t621Dao) {
-		T621_dao = t621Dao;
-	}
+//	public T621_Dao getT621_dao() {
+//		return T621_dao;
+//	}
+//
+//	public void setT621_dao(T621_Dao t621Dao) {
+//		T621_dao = t621Dao;
+//	}
 
 	public CheckService getCheck_services() {
 		return check_services;
@@ -434,7 +434,7 @@ public class T621_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T621_Bean> list = T621_dao.getAllList("", null);
+			List<T621_Bean> list = UndergraAdmiInfoSer.getAllList("", null);
 		
 			if(list==null){
 				if(list.size()==0){

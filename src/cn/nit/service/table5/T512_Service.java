@@ -91,6 +91,16 @@ public class T512_Service {
 		return t512_Dao.checkAll() ;
 	}
 	
+	  /**
+	 	 * 审核数据导出
+	 	 * @return
+	 	 *
+	 	 * @time: 2014-5-14/下午02:34:42
+	 	 */
+	 	public List<T512POJO> totalList(String year,String fillUnitID,int checkState){
+	 		return t512_Dao.totalList(year, fillUnitID, checkState);
+	 	}
+	
   
 	
 	

@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -83,7 +84,7 @@ public class T652_Action {
 	/** 表的Bean实体类 */
 	T652_Bean T652_bean = new T652_Bean();
 	
-	T652_Dao T652_dao = new T652_Dao();
+//	T652_Dao T652_dao = new T652_Dao();
 	
 	private CheckService check_services = new CheckService();
 	
@@ -125,6 +126,17 @@ public class T652_Action {
 	
 	/**  导出时间  */
 	private String selectYear ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
@@ -197,6 +209,13 @@ public class T652_Action {
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+					if(this.getQueryYear() != null){
+						conditions.append(" and Time like '" + this.queryYear + "%'");
+					}else{
+						 Calendar now = Calendar.getInstance();  
+						 this.setQueryYear(now.get(Calendar.YEAR)+"");
+						 conditions.append(" and Time like '" + this.queryYear + "%'");
+					}
 				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -398,7 +417,7 @@ public class T652_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T652_Bean> list = T652_dao. totalList(fillUnitID, this.getSelectYear(), Constants.PASS_CHECK);
+			List<T652_Bean> list = T652_service. totalList(fillUnitID, this.getSelectYear(), Constants.PASS_CHECK);
 						
 			String sheetName = this.excelName;
 			

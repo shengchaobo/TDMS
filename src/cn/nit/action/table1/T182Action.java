@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +39,8 @@ public class T182Action {
 	/**  表181的Bean实体类  */
 	private T181_Bean t181Bean = new T181_Bean() ;
 	
-	/**  表182的Dao类  */
-	private T18DAO t182Dao = new T18DAO() ;
+//	/**  表182的Dao类  */
+//	private T18DAO t182Dao = new T18DAO() ;
 	
 	/**  表182的Excel实体类  */
 	private T182Excel t182Excel = new T182Excel() ;
@@ -73,6 +74,18 @@ public class T182Action {
 	
 	/**  导出时间  */
 	private String selectYear ;
+	
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
@@ -154,6 +167,13 @@ public class T182Action {
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+					if(this.getQueryYear() != null){
+						conditions.append(" and Time like '" + this.queryYear + "%'");
+					}else{
+						 Calendar now = Calendar.getInstance();  
+						 this.setQueryYear(now.get(Calendar.YEAR)+"");
+						 conditions.append(" and Time like '" + this.queryYear + "%'");
+					}
 				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -330,7 +350,7 @@ public class T182Action {
 
 		try {
 			
-			List<T181_Bean> list = t182Dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+			List<T181_Bean> list = t182Ser.totalList("1013",this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			

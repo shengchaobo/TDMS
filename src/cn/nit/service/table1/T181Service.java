@@ -139,6 +139,11 @@ import cn.nit.util.TimeUtil;
 //				return sql.toString() ;
 //			}
 
+			public List<T181_Bean> totalList(String fillUnitID,String year,int checkState){
+				return t181Dao.totalList( fillUnitID, year, checkState);		
+			}
+			
+			
 			public static void main(String arg[])
 			{
 				T181Service ser=new T181Service();

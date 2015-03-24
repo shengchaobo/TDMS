@@ -96,6 +96,11 @@ public class T321_Service {
 	public boolean checkAll(){
 		return t321_DAO.checkAll() ;
 	}
+	
+	/**用于审核数据导出*/
+	public List<T321_Bean> totalList(String year, int checkState){
+		return t321_DAO.totalList(year, checkState);
+	}
 
 
 

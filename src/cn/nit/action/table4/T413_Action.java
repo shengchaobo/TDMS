@@ -47,7 +47,7 @@ public class T413_Action {
 	
 	private T411_Bean T411_bean = new T411_Bean();
 	
-	private T413_Dao T413_dao = new T413_Dao();
+//	private T413_Dao T413_dao = new T413_Dao();
 	
 	private String searchID; //用于查询的教工号
 	
@@ -216,7 +216,7 @@ public class T413_Action {
 			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 			String fillUnitID = bean.getUnitID();
 			
-			List<T413_Bean> list = T413_dao.totalList(fillUnitID);
+			List<T413_Bean> list = T413_services.totalList(fillUnitID);
 						
 			String sheetName = this.excelName;
 			

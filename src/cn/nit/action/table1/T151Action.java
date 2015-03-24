@@ -23,7 +23,7 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.constants.Constants;
-import cn.nit.dao.table1.T151DAO;
+//import cn.nit.dao.table1.T151DAO;
 import cn.nit.excel.imports.table1.T151Excel;
 import cn.nit.service.CheckService;
 import cn.nit.service.table1.T151Service;
@@ -36,8 +36,8 @@ import cn.nit.util.TimeUtil;
  */
 public class T151Action {
 	
-	/**  表T1-5的数据库操作类  */
-	private T151DAO t151Dao = new T151DAO() ;
+//	/**  表T1-5的数据库操作类  */
+//	private T151DAO t151Dao = new T151DAO() ;
 	
 	private T151Excel t151Excel=new T151Excel();
 
@@ -84,6 +84,7 @@ public class T151Action {
 	/**  审核通过数据按年时间查询  */
 	private String queryYear ;
 	
+	
 	public String getQueryYear() {
 		return queryYear;
 	}
@@ -92,6 +93,7 @@ public class T151Action {
 		this.queryYear = queryYear;
 	}
 
+	
 	/**  逐条插入数据  */
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
@@ -162,6 +164,7 @@ public class T151Action {
 				
 //				System.out.println("审核状态："+this.getCheckNum());
 				
+				System.out.println(this.queryYear);
 				//审核状态判断
 				if(this.getCheckNum() == Constants.WAIT_CHECK ){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
@@ -413,7 +416,7 @@ public class T151Action {
 
 		try {
 			
-			List<T151_Bean> list = t151Dao.totalList(this.selectYear);
+			List<T151_Bean> list = t151Ser.totalList(this.selectYear);
 			System.out.println("数据条数："+list.size());
 			
 //			String sheetName = this.excelName;

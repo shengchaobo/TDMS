@@ -90,6 +90,17 @@ public class T533Service {
 	public boolean checkAll(){
 		return t533Dao.checkAll() ;
 	}
+	
+	/**
+	 * 获得的总数（用于导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T533_Bean> totalList(String fillUnitID,String year, int checkState){
+		return t533Dao.totalList(fillUnitID, year, checkState);
+	}
+
 
 
 

@@ -37,7 +37,7 @@ public class T42_Action {
 	
 	private T42_Bean T42_bean = new T42_Bean();
 	
-	private T42_Dao T42_dao = new T42_Dao();
+//	private T42_Dao T42_dao = new T42_Dao();
 	
 	/**  待审核数据的要删除的序列集  */
 	private String ids; //删除的id
@@ -223,7 +223,7 @@ public class T42_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T42_Bean> list = T42_dao.totalList();
+			List<T42_Bean> list = T42_services.totalList();
 						
 			String sheetName = this.excelName;
 			

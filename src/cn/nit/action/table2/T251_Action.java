@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +42,7 @@ public class T251_Action {
 	
 	private T251_Bean T251_bean = new T251_Bean();
 	
-	private T251_Dao T251_dao = new T251_Dao();
+//	private T251_Dao T251_dao = new T251_Dao();
 	
 	/**  待审核数据的要删除的序列集  */
 	private String ids; //删除的id
@@ -63,6 +64,19 @@ public class T251_Action {
 	
 	/**  导出时间  */
 	private String selectYear ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
+
 
 
 
@@ -100,6 +114,13 @@ public class T251_Action {
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -333,7 +354,7 @@ public class T251_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T251_Bean> list = T251_dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T251_Bean> list = T251_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 						
 			String sheetName = this.excelName;
 			

@@ -95,6 +95,15 @@ public class T313_Service {
 	public boolean checkAll(){
 		return discipDAO.checkAll() ;
 	}
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public List<T313_Bean> totalList(String year,int checkState){
+		return discipDAO.totalList(year, checkState);
+	}
 
 	
 

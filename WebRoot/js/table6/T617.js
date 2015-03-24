@@ -21,62 +21,49 @@
 			remoteSort : false,
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
-			  if(count == 0 ) {				    	  				            
-		    	   count++;
-					if(rowData.rows.length == 0){
-
-						alert("该年数据为空");
-    					$("#newData").datagrid({title:'专科在校生信息补充表'});
-    					$("#newObject").show();
+			
+				//设置表格状态
+				if(rowData.rows[0].checkState!=0){  								
+    				if(rowData.rows[0].checkState==WAITCHECK){
+    					if(count==0){
+    						count++;
+	    					$("#newData").datagrid({title:'专科在校生信息补充表（<font color=red>待审核</font>）'});
+    					}else{
+	    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表（<font color=red>待审核</font>）");
+    					}
     					$("#edit").show();
-    					$("#delete").show();
+	    				$("#export").hide();
+    				}
+    				else if(rowData.rows[0].checkState==PASSCHECK){	
+    					if(count==0){
+    						count++;
+	    					$("#newData").datagrid({title:'专科在校生信息补充表（<font color=red>审核通过</font>）'});
+    					}else{
+	    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表（<font color=red>审核通过</font>）")
+    					}
+    					$("#edit").hide();
+    					$("#export").show();
+    				}				    				
+    				else if(rowData.rows[0].checkState==NOPASSCHECK){
+    					if(count==0){
+    						count++;
+	    					$("#newData").datagrid({title:'专科在校生信息补充表（<font color=red>审核未通过</font>）'});
+    					}else{
+	    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表（<font color=red>审核未通过</font>）");
+    					}
+    					$("#edit").show();
+	    				$("#export").hide();
+    				}
+				}else{
+					alert("该年数据为空");
+					if(count==0){
+						count++;
+    					$("#newData").datagrid({title:'专科在校生信息补充表'});
 					}else{
-
-
-					     
-					           // alert(rowData.rows[0].checkState);
-								//设置表格状态
-								if(rowData.rows[0].checkState!=0){  		
-				    				if(rowData.rows[0].checkState==WAITCHECK){
-				    					if(count == 0){
-											count++;
-					    					$("#newData").datagrid({title:'专科在校生信息补充表（<font color=red>待审核</font>）'});											
-										}else{
-					    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表（<font color=red>待审核</font>）");
-										}
-				    					$("#newObject").show();
-				    					$("#edit").show();
-				    					$("#delete").show();
-					    				$("#export").hide();
-				    				}
-				    				else if(rowData.rows[0].checkState==PASSCHECK){
-				    					if(count == 0){
-											count++;
-					    					$("#newData").datagrid({title:'专科在校生信息补充表（<font color=red>审核通过</font>）'});											
-										}else{
-					    					$("#newData").datagrid("getPanel").panel("setTitle","社会捐赠情况（<font color=red>专科在校生信息补充表</font>）");
-										}
-				    					$("#newObject").hide();
-				    					$("#edit").hide();
-				    					$("#delete").hide();
-					    				$("#export").show();
-				    				}				    				
-				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
-				    					if(count == 0){
-											count++;
-					    					$("#newData").datagrid({title:'专科在校生信息补充表（<font color=red>审核未通过</font>）'});											
-										}else{
-					    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表（<font color=red>审核未通过</font>）");
-										}
-				    					$("#newObject").hide();
-				    					$("#edit").show();
-				    					$("#delete").show();
-					    				$("#export").hide();
-				    				}
-								}
-				        }
-
-			}
+    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表");
+					}
+					$("#edit").show();
+				}
 		}
 		});
 		

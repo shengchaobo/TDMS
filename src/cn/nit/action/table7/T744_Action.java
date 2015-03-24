@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ public class T744_Action {
 	
 	T744_Bean majBuildAssessAC=new T744_Bean();
 	
-	private T744_DAO t744_Dao=new T744_DAO();
+//	private T744_DAO t744_Dao=new T744_DAO();
 	private CheckService check_services = new CheckService();
 	
 	/**  待审核数据的查询的序列号  */
@@ -62,6 +63,17 @@ public class T744_Action {
 	private String selectYear;
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
@@ -132,6 +144,13 @@ public class T744_Action {
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -293,7 +312,7 @@ public class T744_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			List<T744POJO> list = t744_Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T744POJO> list = t744_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			String sheetName = this.excelName;
 
 			List<String> columns = new ArrayList<String>();

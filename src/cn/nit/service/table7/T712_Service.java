@@ -120,5 +120,15 @@ public class T712_Service {
 		return t712_dao.batchInsert(list);
 		
 	}
+	
+	/**
+	 * 获取字典表的所有数据(审核导出)
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T712POJO> totalList(String fillUnitID, String year, int checkState){
+		return t712_dao.totalList(fillUnitID, year, checkState);
+	}
 
 }

@@ -90,6 +90,15 @@ public class T552_Service {
 		return t552_Dao.deleteCoursesByIds(ids) ;
 	}
 	
+	   /**
+	 	 * 用于审核过的数据导出
+	 	 * @return
+	 	 *
+	 	 * @time: 2014-5-14/下午02:34:42
+	 	 */
+	 	public List<T552POJO> totalList(String year, int checkState){
+	 		return t552_Dao.totalList(year, checkState);
+	 	}
   
 	
 	

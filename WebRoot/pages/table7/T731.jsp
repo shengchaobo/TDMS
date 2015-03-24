@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T731/auditingData"
+	<table id="commomData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T731/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="false" singleSelect="false" >
 		<thead data-options="frozen:true">
@@ -104,11 +104,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<div id="toolbar2" style="float: right;">
+	
+	<!--  <div id="toolbar2" style="float: right;">
 	<a href="pages/T731/dataExport?excelName=<%=URLEncoder.encode("表7-3-1校领导听课情况s","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 	
 	</div>
-	<table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
+	-->
+	<!--  <table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
 		toolbar="#toolbar2" pagination="true" rownumbers="true"
 		fitColumns="false" singleSelect="false">
 			<thead data-options="frozen:true">
@@ -136,6 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	</table>
+	-->
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
@@ -295,11 +298,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    var url;
 	    function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 
-         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+         var queryParams = $('#commomData').datagrid('options').queryParams;  
          queryParams.seqNum = $('#seqNum').val(); 
          queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
     	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
-         $("#unverfiedData").datagrid('reload'); 
+         $("#commomData").datagrid('reload'); 
     }
 	       //模板导入
 	 function batchImport(){
@@ -337,7 +340,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 			msg: result.errorMsg
 			 		});
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
+			    		 $('#commomData').datagrid('reload'); // reload the user data
 	  		 	}
 	  		 }
 	  		 });
@@ -369,7 +372,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#commomData').datagrid('reload'); 
 					    }
 				    }
 			    });
@@ -435,7 +438,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 			function editCourse(){
-	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	var row = $('#commomData').datagrid('getSelections');
 	    	
 	    	if(row.length != 1){
 	    		$.messager.alert('温馨提示', "请选择1条编辑的数据！！！") ;
@@ -467,7 +470,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
          function deleteByIds(){
 	    	//获取选中项
-			var row = $('#unverfiedData').datagrid('getSelections');
+			var row = $('#commomData').datagrid('getSelections');
 	    	
 			if(row.length == 0){
 	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
@@ -504,7 +507,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
-						 $('#unverfiedData').datagrid('reload') ;
+						 $('#commomData').datagrid('reload') ;
 					}
 	    		}
 	    	}).submit();

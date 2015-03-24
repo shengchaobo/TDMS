@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ private T313_Service discipSer = new T313_Service() ;
 	
 	private T313_Bean discipBean = new T313_Bean() ;
 	
-	private T313_DAO t313_DAO=new T313_DAO();
+//	private T313_DAO t313_DAO=new T313_DAO();
 	
 	private CheckService check_services = new CheckService();
 	private T313Excel t313Excel = new T313Excel() ;
@@ -78,6 +79,17 @@ private T313_Service discipSer = new T313_Service() ;
 	private String rows ;
 	
 	private String selectYear;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
@@ -148,6 +160,13 @@ public void auditingData(){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -325,7 +344,7 @@ public void auditingData(){
 		try {
 			T313Excel t313_Excel = new T313Excel();
 			
-			List<T313_Bean> list = t313_DAO.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T313_Bean> list = discipSer.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -377,13 +396,7 @@ public void auditingData(){
 		this.discipBean = discipBean;
 	}
 
-	public T313_DAO getT313_DAO() {
-		return t313_DAO;
-	}
 
-	public void setT313_DAO(T313_DAO t313DAO) {
-		t313_DAO = t313DAO;
-	}
 
 	public T313Excel getT313Excel() {
 		return t313Excel;

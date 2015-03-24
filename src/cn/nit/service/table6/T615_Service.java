@@ -149,4 +149,14 @@ public class T615_Service {
 	public int getMinorNum(String year){
 		return T615_Dao.getMinorNum(year);
 	}
+	
+	/**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T615_Bean> totalList(String year, int checkState){
+		return T615_Dao.totalList(year, checkState);
+	}
 }

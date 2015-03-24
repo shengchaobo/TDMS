@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,7 @@ public class T735_Action {
 	T735_Service t735_Sr=new T735_Service();
 	T735_Bean teachManageAssessInfoTea=new T735_Bean();
 	
-	T735_DAO t735_DAO=new T735_DAO();
+//	T735_DAO t735_DAO=new T735_DAO();
 	private CheckService check_services = new CheckService();
 	
 	/**  待审核数据的查询的序列号  */
@@ -60,6 +61,17 @@ public class T735_Action {
 	
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	
 	public String getSelectYear() {
@@ -140,6 +152,13 @@ public class T735_Action {
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -305,7 +324,7 @@ public class T735_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			List<T735POJO> list = t735_DAO.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T735POJO> list = t735_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();

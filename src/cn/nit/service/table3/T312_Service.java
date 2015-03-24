@@ -106,6 +106,16 @@ public class T312_Service {
 	public boolean checkAll(){
 		return docAndGraStaDao.checkAll() ;
 	}
+	
+
+	/**
+	 * 审核导出
+	 * @param 
+	 * @return
+	 */
+	public List<T312_Bean> totalList(String year,int checkState){
+		return docAndGraStaDao.totalList(year, checkState) ;
+	}
 
 	
 	

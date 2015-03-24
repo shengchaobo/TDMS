@@ -109,6 +109,16 @@ public class T623_Service {
 	public boolean checkAll(){
 		return T623_dao.checkAll() ;
 	}
+	
+	/**
+	 * 用于审核数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T623_Bean> totalList(String year, int checkState){
+		return T623_dao.totalList(year, checkState);
+	}
 
 
 

@@ -95,6 +95,15 @@ public class T19Service {
 	public boolean checkAll(){
 		return t19Dao.checkAll() ;
 	}
+	
+	/**
+	 * 审核导出
+	 * @param 
+	 * @return
+	 */
+	public List<T19_Bean> totalList(String year,int chekState){
+		return t19Dao.totalList(year, chekState) ;
+	}
      public static void  main(String arg[]){
     	 T19Service ser=new T19Service();
     	 String info=ser.auditingData(null, null, 1, 8);

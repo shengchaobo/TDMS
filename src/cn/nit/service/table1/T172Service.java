@@ -76,6 +76,12 @@ public class T172Service {
 		return t172Dao.deleteCoursesByIds(ids) ;
 	}
 	
+	/**导出数据*/
+	public List<T172_Bean> totalList(){
+		
+		return t172Dao.totalList() ;
+	}
+	
 	/**
 	 * 生成查条件
 	 * @param seqNum

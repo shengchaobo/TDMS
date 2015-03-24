@@ -89,6 +89,16 @@ public class T534Service {
 	public boolean checkAll(){
 		return t534Dao.checkAll() ;
 	}
+	
+	/**
+	 *用于审核导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T534_Bean> totalList(String fillUnitID,String year,int checkState){
+		return t534Dao.totalList(fillUnitID, year, checkState);
+	}
 
 
 

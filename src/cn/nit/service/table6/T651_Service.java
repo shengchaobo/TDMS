@@ -136,6 +136,12 @@ public class T651_Service {
 	public boolean checkAll(){
 		return T651_dao.checkAll() ;
 	}
+	
+	
+	/**审核数据导出*/
+	public List<T651_Bean> totalList(String fillUnitID, String year, int checkState){
+		return T651_dao.totalList(fillUnitID, year, checkState);
+	}
 	/**
 	 * @param args
 	 */

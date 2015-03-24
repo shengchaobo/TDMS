@@ -142,6 +142,16 @@ public class T672_Service {
 		// TODO Auto-generated method stub
 		return T672_dao.getAllList().size();
 	}
+	
+	/**
+	 *用与审核数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T672_Bean> totalList(String year, int checkState){
+		return T672_dao.totalList(year, checkState);
+	}
 
 
 	/**

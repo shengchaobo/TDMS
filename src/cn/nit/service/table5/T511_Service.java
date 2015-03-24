@@ -90,6 +90,16 @@ public class T511_Service {
 		return t511_Dao.deleteCoursesByIds(ids) ;
 	}
 	
+	 /**
+ 	 * 审核数据导出
+ 	 * @return
+ 	 *
+ 	 * @time: 2014-5-14/下午02:34:42
+ 	 */
+ 	public List<T511POJO> totalList(String year,int checkState){
+ 		return t511_Dao.totalList(year, checkState);
+ 	}
+	
   
 	
 	

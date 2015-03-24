@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ public class T512_Action {
 	
 	private T512_Bean t512_Bean=new T512_Bean();
 	
-	private T512_DAO t512_DAO=new T512_DAO();
+//	private T512_DAO t512_DAO=new T512_DAO();
 	
 	/**取得某个表的审核信息*/
 	private CheckService check_services = new CheckService();
@@ -65,6 +66,17 @@ public class T512_Action {
 	
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
@@ -144,8 +156,15 @@ public class T512_Action {
 			//审核状态判断
 			if(this.getCheckNum() == Constants.WAIT_CHECK ){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
-			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
+			}	else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -332,7 +351,7 @@ public class T512_Action {
 //			//具体教学单位
 //		    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 //			String fillUnitID = bean.getUnitID();
-			List<T512POJO> list = t512_DAO.totalList(this.getSelectYear(),fillUnitID,Constants.PASS_CHECK);
+			List<T512POJO> list = t512_Sr.totalList(this.getSelectYear(),fillUnitID,Constants.PASS_CHECK);
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();

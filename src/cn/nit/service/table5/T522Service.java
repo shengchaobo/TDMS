@@ -93,6 +93,17 @@ public class T522Service {
 		return t522Dao.checkAll() ;
 	}
 	
+	/**
+	 * 获得的总数（用于导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T521_Bean> totalList(String year,int checkState){
+		return t522Dao.totalList(year, checkState);
+	}
+
+	
 	public static void main(String arg[]){
 		T522Service ser=new T522Service();
 		System.out.println(ser.auditingData(null, null, 1, 1));

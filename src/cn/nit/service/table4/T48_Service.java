@@ -83,6 +83,16 @@ public class T48_Service {
 	public boolean checkAll(){
 		return teamDao.checkAll() ;
 	}
+	
+	/**
+	 * 审核数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T48_Bean> totalList(String fillUnitID, String year, int checkState){
+		return teamDao.totalList(fillUnitID, year, checkState);
+	}
 
 
 }

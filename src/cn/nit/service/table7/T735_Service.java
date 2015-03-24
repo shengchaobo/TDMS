@@ -31,6 +31,16 @@ public class T735_Service {
 	}
 	
 	/**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T735POJO> totalList(String year,int checkState){
+		return t735_DAO.totalList(year, checkState);
+	}
+	
+	/**
 	 * 获取正在审核的数据
 	 * @param conditions  查询条件
 	 * @param fillUnitId  教学单位ID号

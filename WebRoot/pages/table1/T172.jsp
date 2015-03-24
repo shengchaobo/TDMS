@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </head>
 <body style="overflow-y:scroll">
-	<table id="unverfiedData"  class="easyui-datagrid"  url="pages/T172/auditingData" >
+	<table id="commomData" title="校友返校交流情况（党院办）" class="easyui-datagrid"  url="pages/T172/auditingData" >
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
@@ -226,11 +226,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	 function reloadgrid ()  { 
 	        //查询参数直接添加在queryParams中 
-	         var queryParams = $('#unverfiedData').datagrid('options').queryParams;  
+	         var queryParams = $('#commomData').datagrid('options').queryParams;  
 	         queryParams.seqNum = $('#seqNum').val(); 
 	         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
 	    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
-	         $("#unverfiedData").datagrid('reload'); 
+	         $("#commomData").datagrid('reload'); 
 	    }
 	
 	function singleSearch(){
@@ -246,7 +246,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		 			msg: result.errorMsg
    			 });
    		 	} else {
-		    	$('#unverfiedData').datagrid('load'); // reload the auditing data
+		    	$('#commomData').datagrid('load'); // reload the auditing data
    		 	}
    		 }
    		 });
@@ -273,7 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 			msg: result.errorMsg
 				 		});
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
+			    		 $('#commomData').datagrid('reload'); // reload the user data
 	    		 	}
 	    		 }
 	    		 });
@@ -327,7 +327,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    $.messager.alert('温馨提示', result.data) ;
 					    if (result.state){ 
 						    $('#dlg').dialog('close'); 
-						    $('#unverfiedData').datagrid('reload'); 
+						    $('#commomData').datagrid('reload'); 
 					    }
 				    }
 			    });
@@ -406,7 +406,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 	    function edit(){
-	    	var row = $('#unverfiedData').datagrid('getSelections');
+	    	var row = $('#commomData').datagrid('getSelections');
 	     //alert(row.length);
 	    	
 	    	if(row.length != 1){
@@ -433,7 +433,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    
 	    function deleteByIds(){
 	    	//获取选中项
-			var row = $('#unverfiedData').datagrid('getSelections');
+			var row = $('#commomData').datagrid('getSelections');
 	    	
 			if(row.length == 0){
 	    		$.messager.alert('温馨提示', "请选择需要删除的数据！！！") ;
@@ -469,7 +469,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					if(result.state){
 						alert(result.data) ;
-						 $('#unverfiedData').datagrid('reload') ;
+						 $('#commomData').datagrid('reload') ;
 					}
 	    		}
 	    	}).submit();

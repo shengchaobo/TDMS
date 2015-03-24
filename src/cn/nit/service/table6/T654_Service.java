@@ -138,6 +138,16 @@ public class T654_Service {
          
 		return list;				
 	}
+	
+	/**
+	 * 获取字典表的所有数据(用与审核导出)
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T654_Bean> totalList(String fillUnitID, String year, int checkState){
+		return T654_dao.totalList(fillUnitID, year, checkState);
+	}
 
 
 	/**

@@ -139,7 +139,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 	</table>
 	<div id="toolbar2" style="float: right;">
-	<form action='pages/T152/dataExport?excelName=<%=URLEncoder.encode("表1-5-2教学单位科研机构","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+	<form action='pages/T152/dataExport?excelName=<%=URLEncoder.encode("表1-5-2教学单位科研机构","UTF-8")%>'   
+	method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
 					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
 						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
 								数据导出
@@ -312,7 +313,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     //查询参数直接添加在queryParams中 
 	         var  queryYear = newValue;
 	         var queryParams = $('#verfiedData').datagrid('options').queryParams;  
-	         queryParams.queryYear = queryYear;  
+	         queryParams.queryYear = queryYear;
+	         //alert(queryParams.queryYear);  
 	         $("#verfiedData").datagrid('reload'); 
 	        }
 	   });

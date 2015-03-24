@@ -50,8 +50,8 @@ import cn.nit.util.TimeUtil;
 
 public class T513Action {
 	
-	/**  表T513的数据库操作类  */
-	private T513_DAO t513Dao = new T513_DAO() ;
+//	/**  表T513的数据库操作类  */
+//	private T513_DAO t513Dao = new T513_DAO() ;
 	
 	private T513Excel t513Excel=new T513Excel();
 
@@ -143,7 +143,7 @@ public class T513Action {
 	 * @throws IOException */
 	public InputStream getInputStream() throws IOException{
 		
-		List<T513POJO>  list = t513Dao.totalList(this.getSelectYear());
+		List<T513POJO>  list = t513Ser.totalList(this.getSelectYear());
 //		System.out.println("S52 de "+list.size());
 		
 	    ByteArrayOutputStream fos = null;

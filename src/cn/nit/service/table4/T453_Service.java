@@ -82,6 +82,17 @@ public class T453_Service {
 	public boolean checkAll(){
 		return talkDao.checkAll() ;
 	}
+	
+	/**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T453_Bean> totalList(String fillUnitID, String year, int checkState){
+		return talkDao.totalList(fillUnitID, year, checkState);
+	}
+		
 
 
 

@@ -102,6 +102,16 @@ public class T551Service {
 		return sql.toString() ;
 	}
 	
+	/**
+	 * 获得的总数（用于导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T551_Bean> totalList(){
+		return t551Dao.totalList();
+	}
+	
 	public static void main(String arg[]){
 		T551Service ser=new T551Service();
 		String info=ser.auditingData(null, null, 1, 2);

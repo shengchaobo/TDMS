@@ -1,11 +1,13 @@
 package cn.nit.action.table5;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -30,8 +32,8 @@ import cn.nit.util.TimeUtil;
 
 public class T522Action {
 	
-	/**  表T522的数据库操作类  */
-	private T522DAO t522Dao = new T522DAO() ;
+//	/**  表T522的数据库操作类  */
+//	private T522DAO t522Dao = new T522DAO() ;
 	
 	private T522Excel t522Excel=new T522Excel();
 
@@ -74,6 +76,18 @@ public class T522Action {
 	
 	/**  导出时间  */
 	private String selectYear ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
+
 	
 	/**  逐条插入数据  */
 	public void insert(){
@@ -148,12 +162,20 @@ public class T522Action {
 					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
+				System.out.println( this.queryYear);
 				
 				//审核状态判断
 				if(this.getCheckNum() == Constants.WAIT_CHECK ){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+					if(this.getQueryYear() != null){
+						conditions.append(" and Time like '" + this.queryYear + "%'");
+					}else{
+						 Calendar now = Calendar.getInstance();  
+						 this.setQueryYear(now.get(Calendar.YEAR)+"");
+						 conditions.append(" and Time like '" + this.queryYear + "%'");
+					}
 				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -317,7 +339,7 @@ public class T522Action {
 
 		try {
 			
-			List<T521_Bean> list = t522Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T521_Bean> list = t522Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			

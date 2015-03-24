@@ -115,6 +115,15 @@ public class T311_Service {
 	public int getStationNum(String year){		
 		return postDocStaDao.getStationNum(year) ;
 	}
+	
+	/**
+	 * 审核导出
+	 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
+	 * @return
+	 */
+	public List<T311_Bean> totalList(String year,int checkState){		
+		return postDocStaDao.totalList(year, checkState) ;
+	}
 
 	
 	public static void main(String args[]){

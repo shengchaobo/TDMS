@@ -70,8 +70,8 @@ a:active {color: #0000FF}
     url:"findFiles_1",  
 	dataType :"json",  
     success: function(result){ 
-    
-    for(var i = 0;i<2;i++){
+    var length = getJsonLength(result);
+    for(var i = 0;i<length;i++){
     if(result[i]!="none"){
     add(result[i],i);
     }
@@ -79,6 +79,19 @@ a:active {color: #0000FF}
     }
 });
 
+function getJsonLength(jsonData){
+
+var jsonLength = 0;
+
+for(var item in jsonData){
+
+jsonLength++;
+
+}
+
+return jsonLength;
+
+}
 
   
   function add(txt,num)

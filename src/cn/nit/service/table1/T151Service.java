@@ -99,6 +99,10 @@ import cn.nit.util.TimeUtil;
 		}
 		
 
+		public List<T151_Bean> totalList(String year){
+			return t151Dao.totalList(year);
+		}
+		
 		
 		/**批量导入*/
 		public boolean batchInsert(List<T151_Bean> list){

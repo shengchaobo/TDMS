@@ -89,6 +89,11 @@ public class T17Service {
 	}
 	
 	
+	public List<T17_Bean> totalList(String year,int checkState){
+		return t17Dao.totalList(year, checkState);
+	}
+	
+	
 	/**
 	 * 全部审核通过
 	 * @param 

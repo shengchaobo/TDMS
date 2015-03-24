@@ -250,5 +250,8 @@
     
     <!-- 文件上传下载 -->
     <include file = "cn/nit/configuration/FileUploadDownload.xml"/>
+    
+    <!-- 主页显示文件上传下载 -->
+    <include file = "cn/nit/configuration/FileofMain.xml"/>
 
 </struts>

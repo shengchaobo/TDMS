@@ -115,6 +115,26 @@ public class T411_Service {
 	public List<T431_Bean> getT43List(int flag,String queryWord){
 		return teaInfoDao.getT43List(flag,queryWord) ;
 	}
+	
+	/**
+	 * 获得的总数（用于导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T411_Bean> totalList(){
+		return teaInfoDao.totalList();
+	}
+	
+	/**
+	 * 获得431到436的导出（用于431到436导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T431_Bean> getList(int param){
+		return teaInfoDao.getList(param);
+	}
 
 
 	

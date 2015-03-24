@@ -51,7 +51,7 @@ public class A412_Action {
 	
 	private A412_Bean a412_Bean=new A412_Bean();
 	
-	private A412_Dao a412_Dao=new A412_Dao();
+//	private A412_Dao a412_Dao=new A412_Dao();
 
 	/**  导出的excelName名 */
 	private String excelName ;
@@ -349,13 +349,13 @@ public class A412_Action {
 		a412_Bean = a412Bean;
 	}
 
-	public A412_Dao getA412_Dao() {
-		return a412_Dao;
-	}
-
-	public void setA412_Dao(A412_Dao a412Dao) {
-		a412_Dao = a412Dao;
-	}
+//	public A412_Dao getA412_Dao() {
+//		return a412_Dao;
+//	}
+//
+//	public void setA412_Dao(A412_Dao a412Dao) {
+//		a412_Dao = a412Dao;
+//	}
 
 	public HttpServletResponse getResponse() {
 		return response;

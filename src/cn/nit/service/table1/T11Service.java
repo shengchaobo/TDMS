@@ -197,6 +197,13 @@ public class T11Service {
 			t11Pojo.setSeqNumber(bean.getSeqNumber());
 		return t11Pojo;
 	}
+ 
+ /**
+	 *Excel數據導出
+	 */
+	public List<T11_Bean> forExcel(String year){
+		return t11Dao.forExcel(year);
+	}
    
 	
 	public static void main(String arg[])

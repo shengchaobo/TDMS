@@ -86,6 +86,16 @@ public class T412_Service {
 	public boolean checkAll(){
 		return majorTeaDao.checkAll() ;
 	}
+	
+	/**
+	 * 审核数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T412_Bean> totalList(String fillUnitID, String year, int checkState){
+		return majorTeaDao.totalList(fillUnitID, year, checkState);
+	}
 
 
 }

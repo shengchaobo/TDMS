@@ -44,7 +44,7 @@ public class S72_Action {
 	
 	private S72_Service s72_Service= new S72_Service();
 	
-	private S72_DAO s72_Dao=new S72_DAO();
+//	private S72_DAO s72_Dao=new S72_DAO();
 	
 	private S72_Bean s72_Bean=new S72_Bean();
 	
@@ -110,7 +110,7 @@ public class S72_Action {
 		InputStream inputStream=null;
 		ByteArrayOutputStream fos=new ByteArrayOutputStream();
 		try {
-			List<S72_Bean> list=s72_Dao.totalList(this.getSelectYear());
+			List<S72_Bean> list=s72_Service.totalList(this.getSelectYear());
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

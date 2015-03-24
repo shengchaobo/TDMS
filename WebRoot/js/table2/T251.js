@@ -13,6 +13,7 @@
 		$('#dlg').dialog('open').dialog('setTitle', '添加新的实验、实习、实训场所信息');
 		$('#addForm').form('reset');
 	}
+	
     //根据用户选择的年显示相应年的数据
     $(function(){ 
 		 $("#cbYearContrast1").combobox({  

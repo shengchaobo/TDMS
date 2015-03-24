@@ -259,6 +259,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         var  queryYear = newValue;
 	         var queryParams = $('#verfiedData').datagrid('options').queryParams;  
 	         queryParams.queryYear = queryYear;  
+	        // alert(queryParams.queryYear);
 	         $("#verfiedData").datagrid('reload'); 
 	        }
 	   });

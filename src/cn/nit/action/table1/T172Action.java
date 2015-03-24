@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table1.T172_Bean;
-import cn.nit.dao.table1.T172DAO;
+//import cn.nit.dao.table1.T172DAO;
 import cn.nit.service.table1.T172Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -31,8 +31,8 @@ public class T172Action {
 	/**  表172的Bean实体类  */
 	private T172_Bean t172Bean = new T172_Bean() ;
 	
-	/**  表17的数据库操作类  */
-	private T172DAO t172Dao = new T172DAO() ;
+//	/**  表17的数据库操作类  */
+//	private T172DAO t172Dao = new T172DAO() ;
 	
 //	/**  表17的Excel实体类  */
 //	private T17Excel t17Excel = new T17Excel() ;
@@ -224,7 +224,7 @@ public class T172Action {
 
 		try {
 			
-			List<T172_Bean> list = t172Dao.totalList();
+			List<T172_Bean> list = t172Ser.totalList();
 			
 			String sheetName = this.excelName;
 			

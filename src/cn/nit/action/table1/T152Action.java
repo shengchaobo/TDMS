@@ -1,4 +1,4 @@
-package cn.nit.action.table1;
+﻿package cn.nit.action.table1;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -388,6 +388,7 @@ public class T152Action {
 	}
 	
 	public String execute() throws Exception{
+		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 	

@@ -51,8 +51,8 @@ import cn.nit.util.TimeUtil;
 
 public class S512_Action {
 	
-	/**  表s512的数据库操作类  */
-	private S512_DAO s512Dao = new S512_DAO() ;
+//	/**  表s512的数据库操作类  */
+//	private S512_DAO s512Dao = new S512_DAO() ;
 
 	/**  表s512的Service类  */
 	private S512_Service s512Ser = new S512_Service() ;
@@ -125,7 +125,7 @@ public InputStream getInputStream() throws Exception{
 		
 		System.out.println(this.getSelectYear());
 
-		List<S512_Bean>  list = s512Dao.totalList(this.getSelectYear());
+		List<S512_Bean>  list = s512Ser.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 	    

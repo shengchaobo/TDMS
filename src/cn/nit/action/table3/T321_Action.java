@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -52,8 +53,8 @@ public class T321_Action {
 	
 	private CheckService check_services = new CheckService();
 	
-	/**  表181的Dao类  */
-	private T321_DAO t321_DAO = new T321_DAO() ;
+//	/**  表181的Dao类  */
+//	private T321_DAO t321_DAO = new T321_DAO() ;
 	
 	/**  表181的Excel实体类  */
 	private T321Excel t321Excel = new T321Excel() ;
@@ -98,6 +99,18 @@ public class T321_Action {
 	
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
+
 	
 //	public List<Integer> getNumofMainTrain(){
 //		List<Integer> list1=new ArrayList<Integer> ();
@@ -181,6 +194,13 @@ public void auditingData(){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -351,7 +371,8 @@ public void auditingData(){
 
 		try {
 			
-			List<T321_Bean> list = t321_DAO.totalList(this.getSelectYear(),Constants.PASS_CHECK);			
+			List<T321_Bean> list = t321_Service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
@@ -424,13 +445,6 @@ public void auditingData(){
 		this.num = num;
 	}
 
-	public T321_DAO getT321_DAO() {
-		return t321_DAO;
-	}
-
-	public void setT321_DAO(T321_DAO t321DAO) {
-		t321_DAO = t321DAO;
-	}
 
 	public T321Excel getT321Excel() {
 		return t321Excel;

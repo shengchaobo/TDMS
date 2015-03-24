@@ -31,7 +31,7 @@ public class T731_Action {
 	
 	T731_Bean schleadInClass=new T731_Bean();
 	
-	private T731_DAO t731_Dao=new T731_DAO();
+//	private T731_DAO t731_Dao=new T731_DAO();
 	
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
@@ -196,7 +196,7 @@ public class T731_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			List<T731POJO> list = t731_Dao.totalList(this.getSelectYear());
+			List<T731POJO> list = t731_Sr.totalList(this.getSelectYear());
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();

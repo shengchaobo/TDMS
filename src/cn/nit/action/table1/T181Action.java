@@ -1,4 +1,4 @@
-package cn.nit.action.table1;
+﻿package cn.nit.action.table1;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -346,7 +346,7 @@ public class T181Action {
 		InputStream inputStream = null ;
 
 		try {
-			
+
 			List<T181_Bean> list = t181Ser.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
 			
 			String sheetName = this.excelName;

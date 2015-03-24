@@ -217,6 +217,14 @@ public class A15Service {
 	     return f1;
 	}
 	
+	/**
+	excel数据导出
+	 */
+	public List<A15_Bean> forExcel(String year){
+		 return a15Dao.forExcel(year);
+	}
+		
+	
 	
 	
 	public static void main(String arg[]){

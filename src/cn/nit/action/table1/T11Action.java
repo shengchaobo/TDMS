@@ -59,8 +59,8 @@ public class T11Action {
 	/**  表11的Service类  */
 	private T11Service t11Ser = new T11Service() ;
 	
-	/**  表11的dao类  */
-	private T11DAO t11Dao = new T11DAO() ;
+//	/**  表11的dao类  */
+//	private T11DAO t11Dao = new T11DAO() ;
 	
 	/**  表11的Bean实体类  */
 	private T11_Bean t11Bean = new T11_Bean() ;
@@ -279,7 +279,7 @@ public class T11Action {
 		
 //			System.out.println(this.getSelectYear());
 //	
-			T11_Bean bean =t11Dao.forExcel(this.selectYear).get(0);
+			T11_Bean bean =t11Ser.forExcel(this.selectYear).get(0);
 			
 		    ByteArrayOutputStream fos = null;
 		

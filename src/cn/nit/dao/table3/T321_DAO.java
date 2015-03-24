@@ -426,8 +426,9 @@ public class T321_DAO {
 		T321_DAO dao = new T321_DAO();
 //		boolean flag = dao.updatCheck();
 //		System.out.println(flag);
-		int checkState = dao.getCheckState(295);
-		System.out.println(checkState);
+		List<T321_Bean>  list = dao.totalList("2015", 2);
+//		int checkState = dao.getCheckState(295);
+		System.out.println(list.size());
 
 	}
 

@@ -152,6 +152,11 @@ public class T322_Service {
 	public int getSumTotalCredit(String year){
 		return t322_Dao.getSumTotalCredit(year);
 	}
+	
+	/**用于审核数据导出*/
+	public List<T322POJO> totalList( String fillUnitID, String year, int checkState){
+		return t322_Dao.totalList(fillUnitID, year, checkState);
+	}
 
 	
 	public static void main(String args[]){

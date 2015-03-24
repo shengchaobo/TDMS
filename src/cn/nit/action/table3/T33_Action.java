@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +36,7 @@ public class T33_Action {
 	
 	private T33_Bean t33_Bean = new T33_Bean() ;
 	
-	private T33_DAO t33_DAO = new T33_DAO();
+//	private T33_DAO t33_DAO = new T33_DAO();
 	/**  表181的Excel实体类  */
 	private T33Excel t33Excel = new T33Excel() ;
 	
@@ -78,6 +79,17 @@ public class T33_Action {
 	
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
@@ -157,6 +169,13 @@ public void auditingData(){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -321,7 +340,7 @@ boolean flag = false;
 
 		try {
 			
-			List<T33_Bean> list = t33_DAO.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T33_Bean> list = t33_Service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;			
 
@@ -374,14 +393,6 @@ boolean flag = false;
 
 	public void setT33_Bean(T33_Bean t33Bean) {
 		t33_Bean = t33Bean;
-	}
-
-	public T33_DAO getT33_DAO() {
-		return t33_DAO;
-	}
-
-	public void setT33_DAO(T33_DAO t33DAO) {
-		t33_DAO = t33DAO;
 	}
 
 	public T33Excel getT33Excel() {

@@ -1,4 +1,4 @@
-package cn.nit.action.table1;
+﻿package cn.nit.action.table1;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -34,7 +34,6 @@ public class T17Action {
 	
 	/**  表17的Bean实体类  */
 	private T17_Bean t17Bean = new T17_Bean() ;
-
 	
 	/**  表17的Excel实体类  */
 	private T17Excel t17Excel = new T17Excel() ;

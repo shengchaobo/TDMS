@@ -139,6 +139,16 @@ public class T653_Service {
 	public boolean checkAll(){
 		return T653_dao.checkAll() ;
 	}
+	
+	/**
+	 * 获取字典表的所有数据(用于导出)
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T653_Bean> totalList(String fillUnitID, String year, int checkState){
+		return T653_dao.totalList(fillUnitID, year, checkState);
+	}
 
 
 	/**

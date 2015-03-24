@@ -48,8 +48,8 @@ public class S18Action {
 	/**  表S18的Bean实体类  */
 	private S18_Bean s18Bean = new S18_Bean() ;
 	
-	/**  表S18的DAO类  */
-	private S18DAO s18Dao = new S18DAO() ;
+//	/**  表S18的DAO类  */
+//	private S18DAO s18Dao = new S18DAO() ;
 	
 	/**  表S18的Excel类  */
 	private S18Excel s18Excel = new S18Excel() ;
@@ -187,7 +187,7 @@ public InputStream getInputStream() throws Exception{
 		
 		System.out.println(this.getSelectYear());
 
-		S18_Bean bean =s18Dao.forExcel(this.selectYear).get(0);
+		S18_Bean bean =s18Ser.forExcel(this.selectYear).get(0);
 		
 	    ByteArrayOutputStream fos = null;
 	

@@ -91,6 +91,16 @@ public class T531Service {
 	public boolean checkAll(){
 		return t531Dao.checkAll() ;
 	}
+	
+	/**
+	 * 用于审核导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T531_Bean> totalList(String year,int checkState){
+		return t531Dao.totalList(year, checkState);
+	}
 
 
 }

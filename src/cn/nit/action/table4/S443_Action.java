@@ -52,7 +52,7 @@ public class S443_Action {
 	
 	private S443_Bean s443_Bean=new S443_Bean();
 	
-	private S443_Dao s443_Dao=new S443_Dao();
+//	private S443_Dao s443_Dao=new S443_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -119,7 +119,7 @@ public class S443_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<S443_Bean> list = s443_Dao.totalList(this.getSelectYear());
+		List<S443_Bean> list = s443_Service.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -242,13 +242,13 @@ public class S443_Action {
 		s443_Bean = s443Bean;
 	}
 
-	public S443_Dao getS443_Dao() {
-		return s443_Dao;
-	}
-
-	public void setS443_Dao(S443_Dao s443Dao) {
-		s443_Dao = s443Dao;
-	}
+//	public S443_Dao getS443_Dao() {
+//		return s443_Dao;
+//	}
+//
+//	public void setS443_Dao(S443_Dao s443Dao) {
+//		s443_Dao = s443Dao;
+//	}
 
 	public HttpServletResponse getResponse() {
 		return response;

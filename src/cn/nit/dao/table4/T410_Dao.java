@@ -29,7 +29,8 @@ public class T410_Dao {
 	public T410_Bean totalList(String year, int checkState){
 		
 		String sql = "select " + " " + keyfield + "," +
-		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year;
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year
+					+" and CheckState=" + checkState;
 		System.out.println(sql);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

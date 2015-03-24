@@ -56,7 +56,7 @@ public class S17Action {
 	private S17_Bean s17Bean = new S17_Bean() ;
 	
 	/**  表17的DAO类  */
-	private S17DAO s17Dao = new S17DAO() ;
+//	private S17DAO s17Dao = new S17DAO() ;
 	
 	/**  表17的Excel实体类  */
 	private S17Excel s17Excel = new S17Excel() ;
@@ -230,7 +230,7 @@ public class S17Action {
 		
 		System.out.println(this.getSelectYear());
 
-		S17_Bean bean =s17Dao.forExcel(this.selectYear).get(0);
+		S17_Bean bean =s17Ser.forExcel(this.selectYear).get(0);
 		
 	    ByteArrayOutputStream fos = null;
 	

@@ -126,6 +126,13 @@ public class S18Service {
 	   	
 		return s18Bean;
 	   }
+   
+   /**
+	excel数据导出
+	 */
+	public List<S18_Bean> forExcel(String year){
+		return s18Dao.forExcel(year);
+	}
 	   
    
    public static void main(String arg[]) throws SQLException{

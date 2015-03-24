@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +39,8 @@ private T311_Service postDocStaSer = new T311_Service() ;
 	
 	private CheckService check_services = new CheckService();
 	
-
-	private T311_DAO t311_DAO = new T311_DAO();
+//
+//	private T311_DAO t311_DAO = new T311_DAO();
 	
 
 	private T311Excel t311Excel = new T311Excel() ;
@@ -83,6 +84,16 @@ private T311_Service postDocStaSer = new T311_Service() ;
 	
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
 
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
@@ -163,6 +174,13 @@ private T311_Service postDocStaSer = new T311_Service() ;
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -328,7 +346,7 @@ private T311_Service postDocStaSer = new T311_Service() ;
 
 		try {
 			
-			List<T311_Bean> list = t311_DAO.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T311_Bean> list = postDocStaSer.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -378,14 +396,6 @@ private T311_Service postDocStaSer = new T311_Service() ;
 
 	public void setPostDocStaSer(T311_Service postDocStaSer) {
 		this.postDocStaSer = postDocStaSer;
-	}
-
-	public T311_DAO getT311_DAO() {
-		return t311_DAO;
-	}
-
-	public void setT311_DAO(T311_DAO t311DAO) {
-		t311_DAO = t311DAO;
 	}
 
 	public T311Excel getT311Excel() {

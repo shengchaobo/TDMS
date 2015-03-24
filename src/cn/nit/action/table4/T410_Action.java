@@ -64,7 +64,7 @@ public class T410_Action {
 	
 	private T410_Bean T410_bean = new T410_Bean();
 	
-	private T410_Dao T410_dao = new T410_Dao();
+//	private T410_Dao T410_dao = new T410_Dao();
 	
 	/**  待审核数据的要删除的序列集  */
 	private String ids; //删除的id
@@ -86,6 +86,17 @@ public class T410_Action {
 	
 	/**  导出时间  */
 	private String selectYear ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
@@ -122,6 +133,14 @@ public class T410_Action {
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				System.out.println("year:"+this.queryYear);
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -428,24 +447,26 @@ public class T410_Action {
 	
 	public InputStream getInputStream() throws Exception{
 		
-		System.out.println(this.getSelectYear());
+		System.out.println("selectyear:"+this.getSelectYear());
+		System.out.println("queryyear:"+this.queryYear);
 
-		T410_Bean bean = T410_dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+		T410_Bean bean = T410_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 		
-	    ByteArrayOutputStream fos = null;
-	
+		InputStream inputStream = null ;
+		
 		if(bean==null){
 			PrintWriter out = null ;
-			response.setContentType("text/html; charset=UTF-8") ;
+			response.setContentType("text/html;charset=utf-8") ;
 			out = response.getWriter() ;
-			out.print("后台传入的数据为空!!!") ;
+			out.print("后台传入的数据为空") ;
 			System.out.println("后台传入的数据为空");
+			return inputStream;
 		}else{
 			String sheetName = this.excelName;
-						
+			ByteArrayOutputStream fos = new ByteArrayOutputStream();		
 		    WritableWorkbook wwb;
 		    try {    
-		           fos = new ByteArrayOutputStream();
+		    	  
 		           wwb = Workbook.createWorkbook(fos);
 		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
 		
@@ -570,9 +591,11 @@ public class T410_Action {
 		        } catch (IOException e){
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
-		        
+		    
+		        inputStream = new ByteArrayInputStream(fos.toByteArray());	
+		        return inputStream;
 		}
-		return new ByteArrayInputStream(fos.toByteArray());
+		//
 	}
 	
 	public String execute() throws Exception{

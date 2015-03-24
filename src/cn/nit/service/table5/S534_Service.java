@@ -29,6 +29,13 @@ public class S534_Service {
 		return list;
 	}
 	
+	/**
+	 * 用于excel
+	 * */
+	public List<S534_Bean> totalList(String year){
+		return s534Dao.totalList(year);
+	}
+	
 	public static void main(String arg[]){
 		S534_Service ser =  new S534_Service();
 		List<S534_Bean> list = ser.loadInfo("2014");

@@ -1,4 +1,4 @@
-package cn.nit.action.table1;
+﻿package cn.nit.action.table1;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -23,6 +23,7 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.constants.Constants;
+
 import cn.nit.excel.imports.table1.T151Excel;
 import cn.nit.service.CheckService;
 import cn.nit.service.table1.T151Service;
@@ -81,6 +82,7 @@ public class T151Action {
 	/**  审核通过数据按年时间查询  */
 	private String queryYear ;
 	
+	
 	public String getQueryYear() {
 		return queryYear;
 	}
@@ -89,6 +91,7 @@ public class T151Action {
 		this.queryYear = queryYear;
 	}
 
+	
 	/**  逐条插入数据  */
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
@@ -159,6 +162,7 @@ public class T151Action {
 				
 //				System.out.println("审核状态："+this.getCheckNum());
 				
+				System.out.println(this.queryYear);
 				//审核状态判断
 				if(this.getCheckNum() == Constants.WAIT_CHECK ){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;

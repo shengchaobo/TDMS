@@ -109,6 +109,13 @@ import cn.nit.util.TimeUtil;
 			
 			return t151Dao.batchInsert(list) ;
 		}
+		
+		/**审核数据导出*/
+		public List<T151_Bean> totalList(String year){
+			
+			return t151Dao.totalList(year) ;
+		}
+		
 		/**
 		 * 生成查条件
 		 * @param seqNum

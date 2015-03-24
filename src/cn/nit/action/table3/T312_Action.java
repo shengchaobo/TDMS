@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,6 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table3.T312_Bean;
 import cn.nit.constants.Constants;
-import cn.nit.dao.table3.T312_DAO;
 import cn.nit.excel.imports.table3.T312Excel;
 import cn.nit.service.CheckService;
 import cn.nit.service.table3.T312_Service;
@@ -36,8 +36,8 @@ public class T312_Action {
 	
 	private T312_Bean docAndGraStaBean = new T312_Bean() ;
 	
-	/**  表181的Dao类  */
-	private T312_DAO t312_DAO = new T312_DAO();
+//	/**  表181的Dao类  */
+//	private T312_DAO t312_DAO = new T312_DAO();
 	
 	
 	private CheckService check_services = new CheckService();
@@ -86,6 +86,18 @@ public class T312_Action {
 	
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	
 	public void insert(){
@@ -157,6 +169,13 @@ public class T312_Action {
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -326,7 +345,7 @@ public class T312_Action {
 
 		try {
 			
-			List<T312_Bean> list = t312_DAO.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T312_Bean> list = docAndGraStaSer.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -355,13 +374,6 @@ public class T312_Action {
 	}
 	
 
-	public T312_DAO getT312_DAO() {
-		return t312_DAO;
-	}
-
-	public void setT312_DAO(T312_DAO t312DAO) {
-		t312_DAO = t312DAO;
-	}
 
 	public T312Excel getT312Excel() {
 		return t312Excel;

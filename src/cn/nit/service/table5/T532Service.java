@@ -92,4 +92,13 @@ public class T532Service {
 		return t532Dao.checkAll() ;
 	}
 
+	/**
+	 * 获得的总数（用于导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T532_Bean> totalList(String year,int checkState){
+		return t532Dao.totalList(year, checkState);
+	}
 }

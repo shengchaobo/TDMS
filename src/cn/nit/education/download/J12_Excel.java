@@ -31,13 +31,12 @@ import jxl.write.WriteException;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table1.T11_Bean;
-import cn.nit.bean.table4.T411_Bean;
 import cn.nit.dao.table1.T11DAO;
-import cn.nit.dao.table4.T411_Dao;
+
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class J11_Excel {
+public class J12_Excel {
 	
 	public static boolean export_J11(String path) {
 		
@@ -62,7 +61,7 @@ public class J11_Excel {
 		}
 		
 		
-		String sheetName = "J-1-1学校概况（时点）";
+		String sheetName = "J-1-2校区地址（时点）";
 	
 		
 		try {
@@ -96,58 +95,38 @@ public class J11_Excel {
 	           ws.mergeCells(0, 0, 4, 0);
 	             
 	           //写入表头
-	           ws.addCell(new Label(0, 2, "项目", wcf)); 
-	           ws.addCell(new Label(1, 2, "内容", wcf)); 
+	           ws.addCell(new Label(0, 2, "序号", wcf)); 
+	           ws.addCell(new Label(1, 2,"校区名称", wcf)); 
+	           ws.addCell(new Label(2, 2, "地址", wcf));  
 	           
-	           ws.addCell(new Label(0, 3, "1.学校名称", wcf)); 
-	           ws.addCell(new Label(0, 4, "2.代码", wcf));  
-	           ws.addCell(new Label(0, 5, "3.英文名称", wcf)); 
-	           ws.addCell(new Label(0, 6, "4.办学类型", wcf)); 
-	           ws.addCell(new Label(0, 7, "5.办学性质", wcf)); 
-	           ws.addCell(new Label(0, 8, "6.举办者", wcf)); 
-	           ws.addCell(new Label(0, 9, "7.主管部门", wcf)); 
-	           ws.addCell(new Label(0, 10, "8.学校网址", wcf)); 
-	           ws.addCell(new Label(0, 11, "9.招生批次", wcf)); 
-	           ws.addCell(new Label(0, 12, "10.开办本科教育年份", wcf)); 
-	          
-	           ws.addCell(new Label(1, 3, bean.getSchName().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 4, bean.getSchID().toString(), wcf1));  
-	           ws.addCell(new Label(1, 5,  bean.getSchEnName().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 6, bean.getSchType().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 7, bean.getSchQuality().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 8, bean.getSchBuilder().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 9, bean.getMajDept().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 10, bean.getSchUrl().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 11, bean.getAdmissonBatch().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 12, bean.getSch_BeginTime().toString(), wcf1));
-	          
+	           //写入数据
+	           ws.addCell(new Label(0, 3, "1", wcf1));
+	           ws.addCell(new Label(0, 4, "2", wcf1));
+	           ws.addCell(new Label(1, 3, "瑶湖校区", wcf1));
+	           ws.addCell(new Label(1, 4, "彭桥校区", wcf1));
+	           ws.addCell(new Label(2, 3, bean.getYaohuSchAdd(), wcf1));
+	           ws.addCell(new Label(2, 4, bean.getPengHuSchAdd(), wcf1));
 	           
 //	           //写入数据
-//	           ws.addCell(new Label(3, 2, bean.getSchAddress(), wcf1)); 
-//	           ws.addCell(new Label(3, 3, bean.getSchTel(), wcf1));
-//	           ws.addCell(new Label(3, 4, bean.getSchFax(), wcf1));
-//	           ws.addCell(new Label(3, 5, bean.getSchFillerName(), wcf1));
-//	           ws.addCell(new Label(3, 6, bean.getSchFillerTel(), wcf1));
-//	           ws.addCell(new Label(3, 7, bean.getSchFillerEmail(), wcf1)); 
-//	           ws.addCell(new Label(3, 8, bean.getSchName(), wcf1));
-//	           ws.addCell(new Label(3, 9, bean.getSchID(), wcf1));
-//	           ws.addCell(new Label(3, 10, bean.getSchEnName(), wcf1));
-//	           ws.addCell(new Label(3, 11, bean.getSchType(), wcf1));
-//	           ws.addCell(new Label(3, 12, bean.getSchQuality(), wcf1));
-//	           ws.addCell(new Label(3, 13, bean.getSchBuilder(), wcf1));
-//	           ws.addCell(new Label(3, 14, bean.getMajDept(), wcf1));
-//	           ws.addCell(new Label(3, 15, bean.getSchUrl(), wcf1));
-//	           ws.addCell(new Label(3, 16, bean.getAdmissonBatch(), wcf1));
-//	           ws.addCell(new Label(3, 17, bean.getSch_BeginTime(),wcf1));
-////	           if(bean.getSch_BeginTime()==null){
-////	        	   ws.addCell(new Label(3, 17,"", wcf1));
-////	           }else{
-////	        	   ws.addCell(new Label(3, 17, TimeUtil.changeFormat5(bean.getSch_BeginTime()), wcf1));  
-////	           }
-//	           ws.addCell(new Label(3, 18, bean.getMediaUrl(), wcf1));
-//	           ws.addCell(new Label(3, 19, bean.getYaohuSchAdd(), wcf1));
-//	           ws.addCell(new Label(3, 20, bean.getPengHuSchAdd(), wcf1));
-	           
+//	           ws.addCell(new Label(3, 2, bean.getSchAddress().toString(), wcf1)); 
+//	           ws.addCell(new Label(3, 3, bean.getSchTel().toString(), wcf1));
+//	           ws.addCell(new Label(3, 4, bean.getSchFax().toString(), wcf1));
+//	           ws.addCell(new Label(3, 5, bean.getSchFillerName().toString(), wcf1));
+//	           ws.addCell(new Label(3, 6, bean.getSchFillerTel().toString(), wcf1));
+//	           ws.addCell(new Label(3, 7, bean.getSchFillerEmail().toString(), wcf1)); 
+//	           ws.addCell(new Label(3, 8, bean.getSchName().toString(), wcf1));
+//	           ws.addCell(new Label(3, 9, bean.getSchID().toString(), wcf1));
+//	           ws.addCell(new Label(3, 10, bean.getSchEnName().toString(), wcf1));
+//	           ws.addCell(new Label(3, 11, bean.getSchType().toString(), wcf1));
+//	           ws.addCell(new Label(3, 12, bean.getSchQuality().toString(), wcf1));
+//	           ws.addCell(new Label(3, 13, bean.getSchBuilder().toString(), wcf1));
+//	           ws.addCell(new Label(3, 14, bean.getMajDept().toString(), wcf1));
+//	           ws.addCell(new Label(3, 15, bean.getSchUrl().toString(), wcf1));
+//	           ws.addCell(new Label(3, 16, bean.getAdmissonBatch().toString(), wcf1));
+//	           ws.addCell(new Label(3, 17, TimeUtil.changeFormat5(bean.getSch_BeginTime()), wcf1));
+//	           ws.addCell(new Label(3, 18, bean.getMediaUrl().toString(), wcf1));
+//	           ws.addCell(new Label(3, 19, bean.getYaohuSchAdd().toString(), wcf1));
+//	           ws.addCell(new Label(3, 20, bean.getPengHuSchAdd().toString(), wcf1));
 	           wwb.write();
 		       wwb.close();
 								

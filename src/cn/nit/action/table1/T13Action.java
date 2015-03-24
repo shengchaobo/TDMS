@@ -35,8 +35,8 @@ public class T13Action {
 	/**  表13的Bean实体类  */
 	private T13_Bean t13Bean = new T13_Bean() ;
 	
-	/**  表13的DAO类  */
-	private T13DAO t13Dao = new T13DAO() ;
+//	/**  表13的DAO类  */
+//	private T13DAO t13Dao = new T13DAO() ;
 	
 	/**  表13的Excel实体类  */
 	private T13Excel t13Excel = new T13Excel() ;
@@ -136,7 +136,7 @@ public class T13Action {
 
 		try {
 			
-			List<T12_Bean> list = t13Dao.totalList();
+			List<T12_Bean> list = t12Ser.totalList1();
 			
 			String sheetName = this.excelName;
 			

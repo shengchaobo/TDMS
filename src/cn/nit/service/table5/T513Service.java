@@ -109,6 +109,16 @@ public class T513Service {
 		
 		return t513Dao.batchInsert(list,year) ;
 	}
+	/**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T513POJO> totalList(String year){
+		return t513Dao.totalList(year);
+	}
+	
 	public static void main(String arg[]){
 		T513Service ser = new T513Service();
 		List<T513POJO> list = ser.getYearInfo("2014");

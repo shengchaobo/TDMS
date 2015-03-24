@@ -104,6 +104,11 @@ public class T33_Service {
 	public boolean checkAll(){
 		return t33_DAO.checkAll() ;
 	}
+	
+	/**用于审核数据导出*/
+	public List<T33_Bean> totalList(String year, int checkState){
+		return t33_DAO.totalList(year, checkState);
+	}
 
 
 	

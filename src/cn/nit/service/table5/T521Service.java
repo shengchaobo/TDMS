@@ -92,5 +92,16 @@ public class T521Service {
 		return t521Dao.batchInsert(list) ;
 	}
 	
+	/**
+	 * 获得的总数（用于导出,审核导出）
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T521_Bean> totalList(String year,int checkState){
+		return t521Dao.totalList(year, checkState);
+	}
+
+	
 
 }

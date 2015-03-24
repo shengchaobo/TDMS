@@ -128,6 +128,16 @@ public class T652_Service {
          
 		return list;				
 	}
+	
+	/**
+	 * 用与审核完导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T652_Bean> totalList(String fillUnitID, String year, int checkState){
+		return T652_dao.totalList(fillUnitID, year, checkState);
+	}
 
 
 	/**

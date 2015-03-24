@@ -43,8 +43,8 @@ import cn.nit.util.TimeUtil;
 
 public class T551Action {
 
-	/**  表T551的数据库操作类  */
-	private T551DAO t551Dao = new T551DAO() ;
+//	/**  表T551的数据库操作类  */
+//	private T551DAO t551Dao = new T551DAO() ;
 	
 	private T551Excel t551Excel=new T551Excel();
 
@@ -223,7 +223,7 @@ public class T551Action {
 	public InputStream getInputStream() throws IOException{
 		
 
-		List<T551_Bean> list = t551Dao.totalList();
+		List<T551_Bean> list = t551Ser.totalList();
 		ByteArrayOutputStream fos = null;
 		 
 		if(list.size()<1){

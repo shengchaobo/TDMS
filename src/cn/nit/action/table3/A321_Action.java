@@ -57,7 +57,7 @@ public class A321_Action {
 		
 		private A321_Bean a321_Bean = new A321_Bean() ;
 		
-		private A321_DAO a321_DAO=new A321_DAO();
+//		private A321_DAO a321_DAO=new A321_DAO();
 	
 		
 //		private A321Excel a321Excel = new A321Excel() ;
@@ -196,7 +196,7 @@ public class A321_Action {
 			
 
 			System.out.println(this.getSelectYear());
-			List<A321_Bean> list = a321_DAO.totalList(this.getSelectYear());
+			List<A321_Bean> list = a321_Service.totalList(this.getSelectYear());
 			
 		    ByteArrayOutputStream fos = null;
 			
@@ -289,16 +289,6 @@ public class A321_Action {
 
 		public String execute() throws Exception{
 			return "success" ;
-		}
-		public A321_DAO getA321_DAO() {
-			return a321_DAO;
-		}
-
-
-
-
-		public void setA321_DAO(A321_DAO a321DAO) {
-			a321_DAO = a321DAO;
 		}
 
 

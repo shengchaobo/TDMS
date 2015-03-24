@@ -70,7 +70,7 @@ public class T624_Action {
 	T624_Bean T624_bean = new T624_Bean();
 
 	
-	private T624_Dao T624_dao = new T624_Dao();
+//	private T624_Dao T624_dao = new T624_Dao();
 	
 	
 	/**  哪一年数据  */
@@ -95,13 +95,13 @@ public class T624_Action {
 		check_services = checkServices;
 	}
 
-	public T624_Dao getT624_dao() {
-		return T624_dao;
-	}
-
-	public void setT624_dao(T624_Dao t624Dao) {
-		T624_dao = t624Dao;
-	}
+//	public T624_Dao getT624_dao() {
+//		return T624_dao;
+//	}
+//
+//	public void setT624_dao(T624_Dao t624Dao) {
+//		T624_dao = t624Dao;
+//	}
 
 	public String getSelectYear() {
 		return selectYear;
@@ -425,7 +425,7 @@ public class T624_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T624_Bean> list = T624_dao.getAllList("", null);
+			List<T624_Bean> list = T624_service.getAllList("", null);
 			
 			if(list==null){
 				if(list.size()==0){

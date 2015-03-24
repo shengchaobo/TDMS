@@ -42,8 +42,8 @@ import cn.nit.service.table5.S5102_Service;
 
 public class S5102_Action {
 	
-	/**  表s5102的数据库操作类  */
-	private S5102_DAO s5102Dao = new S5102_DAO() ;
+//	/**  表s5102的数据库操作类  */
+//	private S5102_DAO s5102Dao = new S5102_DAO() ;
 
 
 	/**  表s5102的Service类  */

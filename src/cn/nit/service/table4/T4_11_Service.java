@@ -83,6 +83,15 @@ public class T4_11_Service {
 	public boolean checkAll(){
 		return serDao.checkAll() ;
 	}
+	
+	/**
+	 * 审核数据导出
+	 * @param 
+	 * @return
+	 */
+	public List<T4_11_Bean> totalList(String fillUnitID, String year, int checkState){
+		return serDao.totalList(fillUnitID, year, checkState);
+	}
 
 
 }

@@ -106,6 +106,10 @@ public class T659_Service {
 		// TODO Auto-generated method stub
 		return T659_dao.getAllList().size();
 	}
+	
+	public List<T659_Bean> getAllList(String cond, String fillUnitID) {
+		return T659_dao.getAllList(cond, fillUnitID);
+	}
 
 
 	/**

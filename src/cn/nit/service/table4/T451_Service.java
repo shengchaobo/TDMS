@@ -77,6 +77,16 @@ public class T451_Service {
 	public boolean checkAll(){
 		return orgDao.checkAll() ;
 	}
+	
+	/**
+	 * 审核数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T451_Bean> totalList(String year, int checkState){
+		return orgDao.totalList(year, checkState);
+	}
 
 
 }

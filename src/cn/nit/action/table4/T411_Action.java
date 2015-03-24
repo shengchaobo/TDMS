@@ -54,7 +54,7 @@ public class T411_Action {
 	
 	private T411_Bean T411_bean = new T411_Bean();
 	
-	private T411_Dao T411_dao = new T411_Dao();
+//	private T411_Dao T411_dao = new T411_Dao();
 	
 
 	HttpServletResponse response = ServletActionContext.getResponse() ;
@@ -215,7 +215,7 @@ public class T411_Action {
 		
 		try {
 			
-			List<T411_Bean> list = T411_dao.totalList();
+			List<T411_Bean> list = T411_services.totalList();
 						
 			String sheetName = this.excelName;
 			
@@ -389,7 +389,7 @@ public class T411_Action {
 		
 		try {
 			
-			List<T431_Bean> list = T411_dao.getList(this.getParam());
+			List<T431_Bean> list = T411_services.getList(this.getParam());
 						
 			String sheetName = this.excelName;
 			

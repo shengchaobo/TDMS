@@ -65,7 +65,7 @@ public class T4_11_Action {
 	
 	private T4_11_Bean T4_11_bean = new T4_11_Bean();
 	
-	private T4_11_Dao T4_11_dao = new T4_11_Dao();
+//	private T4_11_Dao T4_11_dao = new T4_11_Dao();
 	
 	/**  待审核数据的要删除的序列集  */
 	private String ids; //删除的id
@@ -90,6 +90,8 @@ public class T4_11_Action {
 
 	/**  审核通过数据按年时间查询  */
 	private String queryYear ;
+	
+	
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
@@ -383,7 +385,7 @@ public class T4_11_Action {
 		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String fillUnitID = bean.getUnitID();
 			
-		List<T4_11_Bean> list = T4_11_dao.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+		List<T4_11_Bean> list = T4_11_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 						
 		String sheetName = this.excelName;
 			

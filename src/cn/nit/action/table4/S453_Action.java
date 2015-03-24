@@ -45,7 +45,7 @@ public class S453_Action {
 	
 	private S453_Bean s453_Bean=new S453_Bean();
 	
-	private S453_Dao s453_Dao=new S453_Dao();
+//	private S453_Dao s453_Dao=new S453_Dao();
 	
 	/**  哪一年数据  */
 	private String selectYear;
@@ -112,7 +112,7 @@ public class S453_Action {
 		
 
 		System.out.println(this.getSelectYear());
-		List<S453_Bean> list = s453_Dao.totalList(this.getSelectYear());
+		List<S453_Bean> list = s453_Service.totalList(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -268,13 +268,13 @@ public class S453_Action {
 		s453_Bean = s453Bean;
 	}
 
-	public S453_Dao getS453_Dao() {
-		return s453_Dao;
-	}
-
-	public void setS453_Dao(S453_Dao s453Dao) {
-		s453_Dao = s453Dao;
-	}
+//	public S453_Dao getS453_Dao() {
+//		return s453_Dao;
+//	}
+//
+//	public void setS453_Dao(S453_Dao s453Dao) {
+//		s453_Dao = s453Dao;
+//	}
 
 	public HttpServletResponse getResponse() {
 		return response;

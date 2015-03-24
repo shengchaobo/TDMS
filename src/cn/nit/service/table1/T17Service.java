@@ -8,6 +8,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 import cn.nit.bean.table1.T17_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table1.T17DAO;
 import cn.nit.pojo.table1.T17POJO;
@@ -101,6 +102,15 @@ public class T17Service {
 	 */
 	public boolean checkAll(){
 		return t17Dao.checkAll() ;
+	}
+	
+	/**
+	 *审核导出
+	 * @param 
+	 * @return
+	 */
+	public List<T17_Bean> totalList(String year,int checkState){
+		return t17Dao.totalList(year, checkState) ;
 	}
 	
 	

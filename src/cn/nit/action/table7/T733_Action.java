@@ -32,7 +32,7 @@ public class T733_Action {
 	
 	T733_Bean eachUnitTeachResActInfo=new T733_Bean();
 	
-	private T733_DAO t733_Dao=new T733_DAO();
+//	private T733_DAO t733_Dao=new T733_DAO();
 	
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
@@ -198,7 +198,7 @@ public class T733_Action {
 		InputStream inputStream = null ;
 		
 		try {
-			List<T733POJO> list = t733_Dao.totalList(this.getSelectYear());
+			List<T733POJO> list = t733_Sr.totalList(this.getSelectYear());
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();

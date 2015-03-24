@@ -86,6 +86,15 @@ public class T252_Service {
 	public boolean checkAll(){
 		return placeDao.checkAll() ;
 	}
+	
+	/**
+	 * 审核导出
+	 * @param 
+	 * @return
+	 */
+	public List<T252_Bean> totalList(String fillUnitID, String year, int checkState){
+		return placeDao.totalList(fillUnitID, year, checkState);
+	}
 
 
 }

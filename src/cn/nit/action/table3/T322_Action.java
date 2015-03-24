@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ public class T322_Action {
 	private T322_Bean t322_Bean = new T322_Bean() ;
 	
 
-	private T322_DAO t322_DAO = new T322_DAO();
+//	private T322_DAO t322_DAO = new T322_DAO();
 	
 
 	private T322Excel t322Excel = new T322Excel() ;
@@ -84,6 +85,18 @@ public class T322_Action {
 	private String rows ;
 	
 	private String selectYear;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	
 	/**  审核状态显示判别标志  */
@@ -176,6 +189,13 @@ public class T322_Action {
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
+				if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
+				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
 			}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -363,7 +383,7 @@ public class T322_Action {
 
 		try {
 			
-			List<T322POJO> list = t322_DAO.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+			List<T322POJO> list = t322_Service.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -444,13 +464,6 @@ public class T322_Action {
 		t322_Bean = t322Bean;
 	}
 
-	public T322_DAO getT322_DAO() {
-		return t322_DAO;
-	}
-
-	public void setT322_DAO(T322_DAO t322DAO) {
-		t322_DAO = t322DAO;
-	}
 
 	public T322Excel getT322Excel() {
 		return t322Excel;

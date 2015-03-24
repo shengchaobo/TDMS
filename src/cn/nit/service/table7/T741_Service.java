@@ -77,6 +77,17 @@ public class T741_Service {
 	public boolean checkAll(){
 		return t741_DAO.checkAll() ;
 	}
+	
+	/**
+	 * 获取字典表的所有数据(用于导出)
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T741POJO> totalList(String year,int checkState){
+		return t741_DAO.totalList(year, checkState);
+	}
+	
 	/**
 	 * 生成查条件
 	 * @param seqNum

@@ -132,6 +132,12 @@ public class T152Service {
 			}
 
 			
+			/**审核数据导出*/
+			public List<T152_Bean> totalList(String filledID,String year,int CheckState){
+				
+				return t152Dao.totalList(filledID,year,CheckState) ;
+			}
+			
 			private void setAudit(T152_Bean t152Bean){
 				
 				String audit = DIResourceDAO.getAudit(t152Dao.getTableName()) ;

@@ -41,6 +41,13 @@ public class S512_Service {
 		return s512Dao.getYearInfo(year,teaUnit);
 	}
 	
+	/**
+	 * 用于excel
+	 * */
+	public List<S512_Bean> totalList(String year){
+		return s512Dao.totalList(year);
+	}
+	
 	
 	
 	public static void main(String arg[]){

@@ -82,6 +82,16 @@ public class T722_Service {
 	}
 	
 	/**
+	 * 获取字典表的所有数据(审核导出)
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T722POJO> totalList(String year,int CheckState){
+		return teachAchieveAwardTeaDAO.totalList(year, CheckState);
+	}
+	
+	/**
 	 * 生成查条件
 	 * @param seqNum
 	 * @param startDate

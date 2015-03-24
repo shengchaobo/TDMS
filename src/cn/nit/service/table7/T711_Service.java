@@ -128,6 +128,16 @@ public class T711_Service {
 		return teaManagerAwardInfoTeaTeaDAO.deleteCoursesByIds(ids) ;
 	}
 	
+	 /**
+		 * 获取字典表的所有数据(审核导出)
+		 * @return
+		 *
+		 * @time: 2014-5-14/下午02:34:42
+		 */
+		public List<T711POJO> totalList(String fillUnitID,String year,int checkState){
+			return teaManagerAwardInfoTeaTeaDAO.totalList(fillUnitID, year, checkState);
+		}
+	
   
 	
 	

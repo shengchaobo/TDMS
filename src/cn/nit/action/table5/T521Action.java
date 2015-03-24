@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -30,8 +31,8 @@ import cn.nit.util.TimeUtil;
 
 public class T521Action {
 	
-	/**  表T521的数据库操作类  */
-	private T521DAO t521Dao = new T521DAO() ;
+//	/**  表T521的数据库操作类  */
+//	private T521DAO t521Dao = new T521DAO() ;
 	
 	private T521Excel t521Excel=new T521Excel();
 
@@ -74,6 +75,17 @@ public class T521Action {
 	
 	/**  导出时间  */
 	private String selectYear ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	/**  逐条插入数据  */
 	public void insert(){
@@ -155,6 +167,13 @@ public class T521Action {
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+					if(this.getQueryYear() != null){
+						conditions.append(" and Time like '" + this.queryYear + "%'");
+					}else{
+						 Calendar now = Calendar.getInstance();  
+						 this.setQueryYear(now.get(Calendar.YEAR)+"");
+						 conditions.append(" and Time like '" + this.queryYear + "%'");
+					}
 				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -324,7 +343,7 @@ public class T521Action {
 
 		try {
 			
-			List<T521_Bean> list = t521Dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T521_Bean> list = t521Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			

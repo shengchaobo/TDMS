@@ -83,6 +83,16 @@ public class T47_Service {
 	public boolean checkAll(){
 		return honorDao.checkAll() ;
 	}
+	
+	/**
+	 * 审核数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T47_Bean> totalList(String fillUnitID, String year, int checkState){
+		return honorDao.totalList(fillUnitID, year, checkState);
+	}
 
 
 }

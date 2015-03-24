@@ -86,6 +86,16 @@ public class T442_Service {
 	public boolean checkAll(){
 		return tutorDao.checkAll() ;
 	}
+	
+	/**
+	 * 审核数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T442_Bean> totalList(String year, int checkState){
+		return tutorDao.totalList(year, checkState);
+	}
 
 
 }

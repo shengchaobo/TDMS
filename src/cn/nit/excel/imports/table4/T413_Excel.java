@@ -301,7 +301,7 @@ public class T413_Excel {
 				T411_bean.setAdmisTime(null);
 				T411_bean.setTeaState(T413_bean.getTeaState());
 				T411_bean.setBeginWorkTime(null);
-				T411_bean.setIdcode("40009");
+				T411_bean.setIdcode(null);
 				T411_bean.setTeaFlag("外聘");
 				T411_bean.setOfficeID(unitId);
 				T411_bean.setFromOffice(unit);
@@ -321,7 +321,8 @@ public class T413_Excel {
 				T411_bean.setIndustry(false);
 				T411_bean.setDoubleTea(false);
 				T411_bean.setEngineer(false);
-				T411_bean.setTeaBase(false);			
+				T411_bean.setTeaBase(false);	
+				list.add(T411_bean);
 								
 			}catch(Exception e){
 				e.printStackTrace() ;

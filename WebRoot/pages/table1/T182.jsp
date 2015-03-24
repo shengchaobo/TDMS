@@ -262,7 +262,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     //查询参数直接添加在queryParams中 
 	         var  queryYear = newValue;
 	         var queryParams = $('#verfiedData').datagrid('options').queryParams;  
-	         queryParams.queryYear = queryYear;  
+	         queryParams.queryYear = queryYear; 
+	         //alert(queryParams.queryYear); 
 	         $("#verfiedData").datagrid('reload'); 
 	        }
 	   });

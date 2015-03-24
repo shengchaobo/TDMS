@@ -83,5 +83,15 @@ public class T461_Service {
 	public boolean checkAll(String param){
 		return honorDao.checkAll(param) ;
 	}
+	
+	/**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T461_Bean> totalList(String param,String fillUnitID, String year, int checkState){
+		return honorDao.totalList(param, fillUnitID, year, checkState);
+	}
 
 }

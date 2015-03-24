@@ -59,4 +59,14 @@ public class T42_Service {
 		return leaderDao.deleteByIds(ids) ;
 	}
 
+	
+	/**
+	 *数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T42_Bean> totalList(){
+		return leaderDao.totalList();
+	}
 }

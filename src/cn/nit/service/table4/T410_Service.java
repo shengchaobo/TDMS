@@ -84,5 +84,15 @@ public class T410_Service {
 	public boolean checkAll(){
 		return textDao.checkAll() ;
 	}
+	
+	/**
+	 * 审核数据导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public T410_Bean totalList(String year, int checkState){
+		return textDao.totalList(year, checkState);
+	}
 
 }

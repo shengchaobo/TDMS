@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -58,6 +59,7 @@
 				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除用户</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true" onclick="resetPassword()">重置密码</a>
+		    <a href='pages/UserManager/dataExport?excelName=<%=URLEncoder.encode("系统用户表","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 				
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
 			<!-- 两个文体输入框，可以避免enter键自动刷新事件 -->

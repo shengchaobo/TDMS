@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -120,7 +121,7 @@ public class T671_Action {
 	/** 表的Bean实体类 */
 	T671_Bean T671_bean = new T671_Bean();
 	
-	T671_Dao T671_dao = new T671_Dao();
+//	T671_Dao T671_dao = new T671_Dao();
 	
 	private CheckService check_services = new CheckService();
 
@@ -157,6 +158,18 @@ public class T671_Action {
 	
 	/**  导出时间  */
 	private String selectYear ;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
+
 	
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
@@ -219,6 +232,13 @@ public class T671_Action {
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
+					if(this.getQueryYear() != null){
+						conditions.append(" and Time like '" + this.queryYear + "%'");
+					}else{
+						 Calendar now = Calendar.getInstance();  
+						 this.setQueryYear(now.get(Calendar.YEAR)+"");
+						 conditions.append(" and Time like '" + this.queryYear + "%'");
+					}
 				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -412,7 +432,7 @@ public class T671_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T671_Bean> list = T671_dao.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			List<T671_Bean> list = T671_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			if(list==null){
 				if(list.size()==0){

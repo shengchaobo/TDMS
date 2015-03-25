@@ -193,7 +193,7 @@ public class T181Action {
 				tempUnitID = null;
 			}
 
-			String pages = t181Ser.auditingData(cond, "1012", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t181Ser.auditingData(cond, tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -351,7 +351,7 @@ public class T181Action {
 		try {
 			
 //			List<T181_Bean> list = t181Dao.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
-			List<T181_Bean> list = t181Ser.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
+			List<T181_Bean> list = t181Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK );
 			
 			String sheetName = this.excelName;
 			

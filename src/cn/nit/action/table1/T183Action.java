@@ -179,12 +179,12 @@ public class T183Action {
 				cond = conditions.toString();
 			}
 
-//			String tempFillID = bean.getUnitID();
-//			if(!tempFillID.equals("1017"))
-//			{
-//				tempFillID=null;
-//			}
-			String pages = t183Ser.auditingData(cond,"1017", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String tempUnitID = bean.getUnitID();
+			if(!tempUnitID.equals("1017")){
+				tempUnitID = null;
+			}
+			
+			String pages = t183Ser.auditingData(cond,tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			System.out.println("pages:"+pages);
 			PrintWriter out = null ;
 			
@@ -345,7 +345,7 @@ public class T183Action {
 
 		try {
 			
-			List<T181_Bean> list = t183Ser.totalList("1017",this.getSelectYear(),Constants.PASS_CHECK);
+			List<T181_Bean> list = t183Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			

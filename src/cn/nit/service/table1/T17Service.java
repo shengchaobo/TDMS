@@ -89,6 +89,8 @@ public class T17Service {
 		return t17Dao.updateCheck(seqNum,checkState) ;
 	}
 	
+
+	
 	
 	/**
 	 * 全部审核通过

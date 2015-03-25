@@ -15,11 +15,7 @@ import cn.nit.util.Pagition;
 import cn.nit.util.TimeUtil;
 
 public class T152Service {
-	/**
-	 * 表T1-5-2的service类
-	 * @author Lei Xia
-	 * @time: 2014-5-14/上午10:34:05
-	 */
+
 			/**  表T1-5-2的数据库操作类  */
 			private T152DAO t152Dao = new T152DAO() ;
 			
@@ -149,6 +145,7 @@ public class T152Service {
 				String audits[] = audit.split(",") ;
 //				t152Bean.setAudit(audits[0]) ;
 			}
+			
 	
 			public static void main(String arg[])
 			{

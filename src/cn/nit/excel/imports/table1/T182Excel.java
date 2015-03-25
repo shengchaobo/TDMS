@@ -142,30 +142,22 @@ public class T182Excel {
 						return "第" + count + "行，我方单位号不能为空";
 					}
 					
-					if(UnitID.length()>50){
-						return "第" + count + "行，我方单位号长度不能超过50";
-					}
-					if(!UnitName.equals("科学研究处")){
-						return "第" + count + "行，我方单位应为 “科学研究处”";
-					}
-					if(!UnitID.equals("1013")){
-						return "第" + count + "行，我方单位号应为 “1013”";
-					}
-//					for(DiDepartmentBean diDepartBean : diDepartBeanList){
-//						if(diDepartBean.getUnitId().equals(UnitID)){
-//							if(diDepartBean.getUnitName().equals(UnitName)){
-//								flag = true ;
-//								break ;
-//							}else{
-//								return "第" + count + "行，我方单位与单位编号不对应" ;
-//							}
-//						}//if
-//					}//for
-//					
-//					if(!flag){
-//						return "第" + count + "行，没有与之相匹配的单位编号" ;
-//					}else{
-//						flag = false ;	}
+					
+					for(DiDepartmentBean diDepartBean : diDepartBeanList){
+						if(diDepartBean.getUnitId().equals(UnitID)){
+							if(diDepartBean.getUnitName().equals(UnitName)){
+								flag = true ;
+								break ;
+							}else{
+								return "第" + count + "行，我方单位与单位编号不对应" ;
+						}
+						}//if
+					}//for
+					
+					if(!flag){
+						return "第" + count + "行，没有与之相匹配的单位编号" ;
+					}else{
+						flag = false ;	}
 						
 					
 					String UnitLevel=cell[7].getContents();

@@ -449,7 +449,7 @@ public class T321Excel {
 	                    ws.addCell(new Label(i, 2, columns.get(i), wcf));  
 	                }  
 	            }
-                
+                if(list.size()!=0){
                 while(count2<list.size()){
                 	if(list.get(count1).getMainClassID().equals(list.get(count2).getMainClassID())){
                 		count2++;
@@ -468,14 +468,15 @@ public class T321Excel {
                 for(int c=count1;c<count2;c++){
                 	mergedCells[c]=count2-1;
                 }
-
+                }
+                BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
   
                 //判断表中是否有数据  
                 if (list != null && list.size() > 0) {  
                 	int mergedNumCell;
                 	int mergedNum = 0;
                     //循环写入表中数据  
-                	BeanWrapperImpl wrapper = new BeanWrapperImpl() ;
+                	
                 	int i=1;  
                 	for(Object obj : list){  
                 		if(mergedCells[i-1]==i-1){//相等

@@ -102,7 +102,7 @@ public class T284_Dao {
 				String tempfields ="";
 				if(tempBean.getCheckState() == Constants.WAIT_CHECK){
 					tempfields = fields + ",SumFixedAsset";
-					flag = DAOUtil.update(bean, tableName, keyfield, fields, conn) ;
+					flag = DAOUtil.update(bean, tableName, keyfield, tempfields, conn) ;
 				}
 				if(tempBean.getCheckState() == Constants.NOPASS_CHECK){
 					tempfields = fields + ",SumFixedAsset,CheckState";

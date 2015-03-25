@@ -25,7 +25,7 @@ public class S15Service {
 			S15_Bean bean=new S15_Bean();
 		//   	String str=null;
 		   	int seq=s15Dao.getSeqNumber(year);
-		   	System.out.println("seq:"+seq);
+		   	//System.out.println("seq:"+seq);
 		 // seq!=-1,说明数据库中有这条数据
 		   	if(seq!=-1){
 		   		
@@ -42,8 +42,8 @@ public class S15Service {
 		   	}
 		   	//不存在数据 直接统计
 		   	else if(seq == -1){//does not exist the data information
-		   		System.out.println("hello");
-		   		System.out.println(s15Dao.countOriDate(year));
+		   		//System.out.println("hello");
+		   		//System.out.println(s15Dao.countOriDate(year));
 		   		if(s15Dao.countOriDate(year)>0){//有数据 统计
 		   			s15bean = this.getStatic(year);
 		   			flag = s15Dao.insert(s15bean);
@@ -202,9 +202,10 @@ public class S15Service {
 			HumanResSumArea=HumanProviResArea+HumanNationResArea;
 			
 			SumResNum=NationResNum+NationKeyResNum+NationEnginResNum+OtherNationResNum+ProviResNum
-			         +ProviLabNum+OtherProviResNum+HumanResSumNum+CityResNum+TeaUnitResNum+OtherSchResNum;
+			         +ProviLabNum+OtherProviResNum+HumanProviResNum+HumanNationResNum+CityResNum+TeaUnitResNum+OtherSchResNum;
+//			System.out.println();
 			SumResArea=NationResArea+NationKeyResArea+NationEnginResArea+OtherNationResArea+ProviResArea
-			          +ProviLabArea+OtherProviResArea+HumanResSumArea+CityResArea+TeaUnitResArea+OtherSchResArea;
+			          +ProviLabArea+OtherProviResArea+HumanProviResArea+HumanNationResArea+CityResArea+TeaUnitResArea+OtherSchResArea;
 			
 			s15bean.setCityResArea(CityResArea);  s15bean.setCityResNum(CityResNum);
 			s15bean.setHumanNationResArea(HumanNationResArea); s15bean.setHumanNationResNum(HumanNationResNum);

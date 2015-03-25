@@ -133,6 +133,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
 		<h3 class="title1">学校荣誉记录批量导入</h3>
+		
+		
 		<div class="fitem" id="item1"> 
 			<form id="batchForm" method="post" enctype="multipart/form-data">
 				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select> 
@@ -140,7 +142,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
 				<a href='pages/T19/downloadModel?saveFile=<%=URLEncoder.encode("表1-9学校获得荣誉（党院办）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
-			<a href="123"></a>
 		</div>
 		<hr></hr>	
 		<h3 class="title1">学校荣誉记录逐条导入</h3>
@@ -252,7 +253,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     })
 
 
-	    function batchImport(){
+
+		function batchImport(){
 	    	 $('#batchForm').form('submit',{
 	    		 url: 'pages/T19/uploadFile',
 	    		 type: "post",
@@ -268,12 +270,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		 			msg: result.errorMsg
 	    			 });
 	    		 	} else {
+				 		$.messager.show({
+				 			title: 'Success',
+				 			msg: result.errorMsg
+				 		});
 			    		 $('#dlg').dialog('close'); // close the dialog
-			    		 $('#dg').datagrid('reload'); // reload the user data
+			    		 $('#unverfiedData').datagrid('reload'); // reload the user data
 	    		 	}
 	    		 }
 	    		 });
 	    }
+
 	    
 	    function check(){
 	    	var fileName = $('#uploadFile').val() ;

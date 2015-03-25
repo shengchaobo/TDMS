@@ -1,4 +1,4 @@
-package cn.nit.action.table1;
+﻿package cn.nit.action.table1;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -22,7 +22,6 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table1.T152_Bean;
 import cn.nit.constants.Constants;
-//import cn.nit.dao.table1.T152DAO;
 import cn.nit.excel.imports.table1.T152Excel;
 import cn.nit.service.CheckService;
 import cn.nit.service.di.DiDepartmentService;
@@ -39,8 +38,6 @@ public class T152Action {
 	/**  表152的Bean实体类  */
 	private T152_Bean t152Bean = new T152_Bean() ;
 	
-//	/**  表152的数据库操作实体类  */
-//	private T152DAO t152Dao=new T152DAO();
 	
 	/**  表152的Excel实体类  */
 	private T152Excel t152Excel=new T152Excel();

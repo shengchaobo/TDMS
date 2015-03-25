@@ -100,6 +100,7 @@ import cn.nit.util.TimeUtil;
 		
 
 		
+		
 		/**批量导入*/
 		public boolean batchInsert(List<T151_Bean> list){
 			

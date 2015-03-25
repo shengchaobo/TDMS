@@ -1,4 +1,4 @@
-package cn.nit.action.table1;
+﻿package cn.nit.action.table1;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -23,7 +23,7 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.constants.Constants;
-//import cn.nit.dao.table1.T151DAO;
+
 import cn.nit.excel.imports.table1.T151Excel;
 import cn.nit.service.CheckService;
 import cn.nit.service.table1.T151Service;
@@ -36,8 +36,6 @@ import cn.nit.util.TimeUtil;
  */
 public class T151Action {
 	
-//	/**  表T1-5的数据库操作类  */
-//	private T151DAO t151Dao = new T151DAO() ;
 	
 	private T151Excel t151Excel=new T151Excel();
 

@@ -22,6 +22,7 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table1.T181_Bean;
 import cn.nit.constants.Constants;
+import cn.nit.dao.table1.T18DAO;
 import cn.nit.excel.imports.table1.T181Excel;
 import cn.nit.service.CheckService;
 import cn.nit.service.di.DiDepartmentService;
@@ -32,26 +33,28 @@ import cn.nit.util.TimeUtil;
 
 public class T181Action {
 	
-	/**  ±í181µÄServiceÀà  */
+	/**  è¡¨181çš„Serviceç±»  */
 	private T181Service t181Ser = new T181Service() ;
 	
-	/**  ±í181µÄBeanÊµÌåÀà  */
+	/**  è¡¨181çš„Beanå®ä½“ç±»  */
 	private T181_Bean t181Bean = new T181_Bean() ;
 	
+//	/**  è¡¨181çš„Daoç±»  */
+//	private T18DAO t181Dao = new T18DAO() ;
 	
-	/**  ±í181µÄExcelÊµÌåÀà  */
+	/**  è¡¨181çš„Excelå®ä½“ç±»  */
 	private T181Excel t181Excel = new T181Excel() ;
 	
-	/**  ÉóºË  */
+	/**  å®¡æ ¸  */
 	private CheckService check_services = new CheckService();
 	
-	/**excelµ¼³öÃû×Ö*/
+	/**excelå¯¼å‡ºåå­—*/
 	private String excelName; //
 	
 	public String getExcelName() {
 		try {
 			this.excelName = URLEncoder.encode(excelName, "UTF-8");
-			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// ÖĞÎÄÂÒÂë½â¾ö
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// ä¸­æ–‡ä¹±ç è§£å†³
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -62,48 +65,48 @@ public class T181Action {
 		this.excelName = excelName;
 	}
 
-	/**  ´ıÉóºËÊı¾İµÄ²éÑ¯µÄĞòÁĞºÅ  */
+	/**  å¾…å®¡æ ¸æ•°æ®çš„æŸ¥è¯¢çš„åºåˆ—å·  */
 	private Integer seqNum ;
 	
-	/**  ´ıÉóºËÊı¾İ²éÑ¯µÄÆğÊ¼Ê±¼ä  */
+	/**  å¾…å®¡æ ¸æ•°æ®æŸ¥è¯¢çš„èµ·å§‹æ—¶é—´  */
 	private Date startTime ;
 	
-	/**  ´ıÉóºËÊı¾İ²éÑ¯µÄ½áÊøÊ±¼ä  */
+	/**  å¾…å®¡æ ¸æ•°æ®æŸ¥è¯¢çš„ç»“æŸæ—¶é—´  */
 	private Date endTime ;
 	
-	/**  Êı¾İµÄSeqNumber±àºÅ  */
+	/**  æ•°æ®çš„SeqNumberç¼–å·  */
 	private String ids ;
 	
-	/**  µ±Ç°²éÑ¯µÄÊÇµÚ¼¸Ò³  */
+	/**  å½“å‰æŸ¥è¯¢çš„æ˜¯ç¬¬å‡ é¡µ  */
 	private String page ;
 	
-	/**Ã¿Ò³ÏÔÊ¾µÄÌõÊı  */
+	/**æ¯é¡µæ˜¾ç¤ºçš„æ¡æ•°  */
 	private String rows ;
 	
-	/**  ÉóºË×´Ì¬ÏÔÊ¾ÅĞ±ğ±êÖ¾  */
+	/**  å®¡æ ¸çŠ¶æ€æ˜¾ç¤ºåˆ¤åˆ«æ ‡å¿—  */
 	private int checkNum ;
 	
-	/**  µ¼³ö/µ¼ÈëÄê·İ  */
+	/**  å¯¼å‡º/å¯¼å…¥å¹´ä»½  */
 	private String selectYear ;
 	
-	/**  ÉóºËÍ¨¹ıÊı¾İ°´ÄêÊ±¼ä²éÑ¯  */
+	/**  å®¡æ ¸é€šè¿‡æ•°æ®æŒ‰å¹´æ—¶é—´æŸ¥è¯¢  */
 	private String queryYear ;
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
-	/**  ²¿ÃÅ¹ÜÀíServiceÀà  */
+	/**  éƒ¨é—¨ç®¡ç†Serviceç±»  */
 	private DiDepartmentService deSer = new DiDepartmentService() ;
-	//ÕıÔÚµÇÂ½µÄÓÃ»§ĞÅÏ¢
+	//æ­£åœ¨ç™»é™†çš„ç”¨æˆ·ä¿¡æ¯
 	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 	String fillUnitID = bean.getUnitID();
 	
-	/**  ÖğÌõ²åÈëÊı¾İ  */
+	/**  é€æ¡æ’å…¥æ•°æ®  */
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t181Bean.setTime(new Date()) ;
-		t181Bean.setFillDept(fillUnitID);//½ÌÎñ´¦
-		//²åÈëÉóºË×´Ì¬
+		t181Bean.setFillDept(fillUnitID);//æ•™åŠ¡å¤„
+		//æ’å…¥å®¡æ ¸çŠ¶æ€
 		t181Bean.setCheckState(Constants.WAIT_CHECK);
 
 
@@ -115,13 +118,13 @@ public class T181Action {
 //			getResponse().setHeader("Content-type", "text/html");  
 			out = getResponse().getWriter() ;
 			if(flag){
-				out.print("{\"state\":true,data:\"Â¼Èë³É¹¦!!!\"}") ;
+				out.print("{\"state\":true,data:\"å½•å…¥æˆåŠŸ!!!\"}") ;
 			}else{
-				out.print("{\"state\":false,data:\"Â¼ÈëÊ§°Ü!!!\"}") ;
+				out.print("{\"state\":false,data:\"å½•å…¥å¤±è´¥!!!\"}") ;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"Â¼ÈëÊ§°Ü!!!\"}") ;
+			out.print("{\"state\":false,data:\"å½•å…¥å¤±è´¥!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
@@ -130,10 +133,10 @@ public class T181Action {
 		out.flush() ;
 	}
 	
-	/**  Îª½çÃæ¼ÓÔØÊı¾İ  */
+	/**  ä¸ºç•Œé¢åŠ è½½æ•°æ®  */
 	public void auditingData(){
 			
-//			System.out.println("İ”³öİ”³öİ”³ö");
+//			System.out.println("è¼¸å‡ºè¼¸å‡ºè¼¸å‡º");
 			
 			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 				return ;
@@ -163,7 +166,7 @@ public class T181Action {
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
 				
-				//ÉóºË×´Ì¬ÅĞ¶Ï
+				//å®¡æ ¸çŠ¶æ€åˆ¤æ–­
 				if(this.getCheckNum() == Constants.WAIT_CHECK ){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.PASS_CHECK)){
@@ -190,7 +193,7 @@ public class T181Action {
 				tempUnitID = null;
 			}
 
-			String pages = t181Ser.auditingData(cond, tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t181Ser.auditingData(cond, "1012", Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -207,22 +210,22 @@ public class T181Action {
 			}
 		}
 
-	/**  ±à¼­Êı¾İ  */
+	/**  ç¼–è¾‘æ•°æ®  */
 	public void edit(){
 
         boolean flag = false;
         int tag = 0;
         
-        //»ñµÃ¸ÃÌõÊı¾İÉóºË×´Ì¬
+        //è·å¾—è¯¥æ¡æ•°æ®å®¡æ ¸çŠ¶æ€
 		int state = t181Ser.getCheckState(t181Bean.getSeqNumber());
 		
-		//Èç¹ûÉóºË×´Ì¬ÊÇ´ıÉóºË£¬ÔòÖ±½ÓĞŞ¸Ä
+		//å¦‚æœå®¡æ ¸çŠ¶æ€æ˜¯å¾…å®¡æ ¸ï¼Œåˆ™ç›´æ¥ä¿®æ”¹
 		if(state == Constants.WAIT_CHECK){
 			t181Bean.setCheckState(Constants.WAIT_CHECK);
 			flag = t181Ser.update(t181Bean) ;
 			if(flag) tag = 1;
 		}
-		//Èç¹ûÊÇÉóºË²»Í¨¹ı£¬ÔòĞŞ¸Ä¸ÃÌõÊı¾İ£¬²¢½«ÉóºË×´Ì¬µ÷½ÚÎª´ıÉóºË£¬Í¬Ê±É¾³ı¸ÃÌõÊı¾İÔÚcheckInfo±íµÄĞÅÏ¢
+		//å¦‚æœæ˜¯å®¡æ ¸ä¸é€šè¿‡ï¼Œåˆ™ä¿®æ”¹è¯¥æ¡æ•°æ®ï¼Œå¹¶å°†å®¡æ ¸çŠ¶æ€è°ƒèŠ‚ä¸ºå¾…å®¡æ ¸ï¼ŒåŒæ—¶åˆ é™¤è¯¥æ¡æ•°æ®åœ¨checkInfoè¡¨çš„ä¿¡æ¯
 		if(state == Constants.NOPASS_CHECK){
 			t181Bean.setCheckState(Constants.WAIT_CHECK);
 			boolean flag1 = t181Ser.update(t181Bean) ;
@@ -239,18 +242,18 @@ public class T181Action {
 			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			if(tag == 1){
-				out.print("{\"state\":true,data:\"ĞŞ¸Ä³É¹¦!!!\"}") ;
+				out.print("{\"state\":true,data:\"ä¿®æ”¹æˆåŠŸ!!!\"}") ;
 			}
 			else if(tag == 2){
-				out.print("{\"state\":true,data:\"ĞŞ¸Ä³É¹¦!!!\",tag:2}") ;	
+				out.print("{\"state\":true,data:\"ä¿®æ”¹æˆåŠŸ!!!\",tag:2}") ;	
 			}else{
-				out.print("{\"state\":true,data:\"ĞŞ¸ÄÊ§°Ü!!!\"}") ;
+				out.print("{\"state\":true,data:\"ä¿®æ”¹å¤±è´¥!!!\"}") ;
 			}
 			out.flush() ;
 			out.flush() ;
 		}catch(Exception e){
 			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"ÏµÍ³´íÎó£¬ÇëÁªÏµ¹ÜÀíÔ±!!!\"}") ;
+			out.print("{\"state\":false,data:\"ç³»ç»Ÿé”™è¯¯ï¼Œè¯·è”ç³»ç®¡ç†å‘˜!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
@@ -258,7 +261,7 @@ public class T181Action {
 		}
 	}
 	
-	/**  ĞŞ¸ÄÄ³ÌõÊı¾İµÄÉóºË×´Ì¬  */
+	/**  ä¿®æ”¹æŸæ¡æ•°æ®çš„å®¡æ ¸çŠ¶æ€  */
 	public void updateCheck(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
@@ -269,14 +272,14 @@ public class T181Action {
 			response.setContentType("text/html; charset=UTF-8") ;
 			out = response.getWriter() ;
 			if(flag){
-				out.print("{\"state\":true,data:\"ĞŞ¸ÄÉóºË×´Ì¬³É¹¦!!!\"}") ;
+				out.print("{\"state\":true,data:\"ä¿®æ”¹å®¡æ ¸çŠ¶æ€æˆåŠŸ!!!\"}") ;
 			}else{
-				out.print("{\"state\":false,data:\"ĞŞ¸ÄÉóºË×´Ì¬Ê§°Ü!!!\"}") ;
+				out.print("{\"state\":false,data:\"ä¿®æ”¹å®¡æ ¸çŠ¶æ€å¤±è´¥!!!\"}") ;
 			}
 			out.flush() ;
 		}catch(Exception e){
 			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"ĞŞ¸ÄÉóºË×´Ì¬Ê§°Ü!!!\"}") ;
+			out.print("{\"state\":false,data:\"ä¿®æ”¹å®¡æ ¸çŠ¶æ€å¤±è´¥!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
@@ -284,7 +287,7 @@ public class T181Action {
 		}
 	}
 	
-	/**  È«²¿ÉóºËÍ¨¹ı  */
+	/**  å…¨éƒ¨å®¡æ ¸é€šè¿‡  */
 	public void checkAll(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
@@ -296,14 +299,14 @@ public class T181Action {
 			response.setContentType("text/html; charset=UTF-8") ;
 			out = response.getWriter() ;
 			if(flag){
-				out.print("{\"state\":true,data:\"Ò»¼üÉóºË³É¹¦!!!\"}") ;
+				out.print("{\"state\":true,data:\"ä¸€é”®å®¡æ ¸æˆåŠŸ!!!\"}") ;
 			}else{
-				out.print("{\"state\":false,data:\"Ò»¼üÉóºËÊ§°Ü!!!\"}") ;
+				out.print("{\"state\":false,data:\"ä¸€é”®å®¡æ ¸å¤±è´¥!!!\"}") ;
 			}
 			out.flush() ;
 		}catch(Exception e){
 			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"Ò»¼üÉóºËÊ§°Ü!!!\"}") ;
+			out.print("{\"state\":false,data:\"ä¸€é”®å®¡æ ¸å¤±è´¥!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
@@ -311,12 +314,12 @@ public class T181Action {
 		}
 	}
 	
-	/**  ¸ù¾İÊı¾İµÄidÉ¾³ıÊı¾İ  */
+	/**  æ ¹æ®æ•°æ®çš„idåˆ é™¤æ•°æ®  */
 	public void deleteCoursesByIds(){
 		System.out.println("ids=" + ids) ;
 		
 		boolean flag = t181Ser.deleteCoursesByIds(ids) ;
-		//É¾³ıÉóºË²»Í¨¹ıĞÅÏ¢
+		//åˆ é™¤å®¡æ ¸ä¸é€šè¿‡ä¿¡æ¯
 		check_services.delete("T181", ids);
 		PrintWriter out = null ;
 		
@@ -324,15 +327,15 @@ public class T181Action {
 			out = getResponse().getWriter() ;
 			
 			if(flag){
-				out.print("{\"state\":true,data:\"Êı¾İÉ¾³ı³É¹¦!!!\"}") ;
+				out.print("{\"state\":true,data:\"æ•°æ®åˆ é™¤æˆåŠŸ!!!\"}") ;
 			}else{
-				out.print("{\"state\":false,data:\"Êı¾İÉ¾³ıÊ§°Ü!!!\"}") ;
+				out.print("{\"state\":false,data:\"æ•°æ®åˆ é™¤å¤±è´¥!!!\"}") ;
 			}
 			
 			out.flush() ;
 		}catch(Exception e){
 			e.printStackTrace() ;
-			out.print("{\"state\":false,data:\"ÏµÍ³´íÎó£¬ÇëÁªÏµ¹ÜÀíÔ±!!!\"}") ;
+			out.print("{\"state\":false,data:\"ç³»ç»Ÿé”™è¯¯ï¼Œè¯·è”ç³»ç®¡ç†å‘˜!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
@@ -340,19 +343,22 @@ public class T181Action {
 		}
 	}
 	
-	/**Êı¾İµ¼³ö*/
+	/**æ•°æ®å¯¼å‡º*/
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
 
 		try {
-t181Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK );			
+			
+//			List<T181_Bean> list = t181Dao.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
+			List<T181_Bean> list = t181Ser.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
+			
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
-			columns.add("ĞòºÅ");
-			columns.add("ºÏ×÷»ú¹¹Ãû³Æ");columns.add("ºÏ×÷»ú¹¹ÀàĞÍ");columns.add("ºÏ×÷»ú¹¹¼¶±ğ");columns.add("Ç©¶©Ğ­ÒéÊ±¼ä");
-			columns.add("ÎÒ·½µ¥Î»");columns.add("µ¥Î»ºÅ");columns.add("ÎÒ·½µ¥Î»¼¶±ğ");columns.add("±¸×¢");
+			columns.add("åºå·");
+			columns.add("åˆä½œæœºæ„åç§°");columns.add("åˆä½œæœºæ„ç±»å‹");columns.add("åˆä½œæœºæ„çº§åˆ«");columns.add("ç­¾è®¢åè®®æ—¶é—´");
+			columns.add("æˆ‘æ–¹å•ä½");columns.add("å•ä½å·");columns.add("æˆ‘æ–¹å•ä½çº§åˆ«");columns.add("å¤‡æ³¨");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();

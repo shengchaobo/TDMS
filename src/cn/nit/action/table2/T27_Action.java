@@ -253,7 +253,7 @@ public class T27_Action {
 		           ws.addCell(new Label(2, 10, bean.getAvgTeaMemSpace().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 11, bean.getAvgStuMemSpace().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 12, bean.getWebTeahingUrl().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 12, bean.getTeaManageUrl().toString(), wcf1)); 
+		           ws.addCell(new Label(2, 13, bean.getTeaManageUrl().toString(), wcf1)); 
 		             
 
 		          wwb.write();

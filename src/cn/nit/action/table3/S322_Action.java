@@ -159,14 +159,20 @@ public class S322_Action {
 		           ws.addCell(new Label(7, 2, "有效期(止)", wcf)); 
 		           ws.addCell(new Label(8, 2, "认证机构", wcf));            
 		           for(int i=0;i<list.size();i++){
-		        	   ws.addCell(new Label(0, 3+i,""+(i+1), wcf));
-		        	   ws.addCell(new Label(1, 3+i,list.get(i).getTeaUnit(), wcf));
+		        	   ws.addCell(new Label(0, 3+i,""+(i+1), wcf1));
+		        	   ws.addCell(new Label(1, 3+i,list.get(i).getTeaUnit(), wcf1));
 		        	   ws.addCell(new Label(2, 3+i,""+list.get(i).getUnitID(), wcf1));
 		        	   ws.addCell(new Label(3, 3+i,""+list.get(i).getPassedMajor(), wcf1));
 		        	   ws.addCell(new Label(4, 3+i,""+list.get(i).getMajorID(), wcf1));
-		        	   ws.addCell(new Label(5, 3+i,""+list.get(i).getAssessTime(), wcf1));
-		        	   ws.addCell(new Label(6, 3+i,""+list.get(i).getValidityBegin(), wcf1));
-		        	   ws.addCell(new Label(7, 3+i,""+list.get(i).getValidityEnd(), wcf1));
+		        	   java.util.Date utilDate = (java.util.Date)list.get(i).getAssessTime() ;
+		        	   Date sqlDate = new Date(utilDate.getTime()) ;
+		        	   ws.addCell(new Label(5,3+i,sqlDate.toString().substring(0, 7),wcf1));
+		        	   utilDate = (java.util.Date)list.get(i).getValidityBegin() ;
+		        	   sqlDate = new Date(utilDate.getTime()) ;
+		        	   ws.addCell(new Label(6, 3+i,sqlDate.toString().substring(0, 7), wcf1));
+		        	   utilDate = (java.util.Date)list.get(i).getValidityEnd() ;
+		        	   sqlDate = new Date(utilDate.getTime()) ;
+		        	   ws.addCell(new Label(7, 3+i,sqlDate.toString().substring(0, 7), wcf1));
 		        	   ws.addCell(new Label(8, 3+i,""+list.get(i).getAssessOrg(), wcf1));
 		           }
 

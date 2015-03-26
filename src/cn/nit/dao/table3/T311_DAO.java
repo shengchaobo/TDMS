@@ -122,7 +122,7 @@ public class T311_DAO {
 		return total ;
 	}
 	
-	
+	//查询出所有数据用于显示
 	public List<T311POJO> auditingData(String conditions, String fillDept, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
@@ -164,7 +164,7 @@ public class T311_DAO {
 	}
 	
 	
-	
+	//更新字段
 	public boolean update(T311_Bean t311Bean){
 		
 		boolean flag = false ;

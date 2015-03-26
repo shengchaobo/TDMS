@@ -170,17 +170,17 @@ public class A323_Action {
 		        	   if(list.get(i).getUnitID().equals("")){
 		        		   count = 1;
 			        	   ws.addCell(new Label(0, 4+i,list.get(i).getTeaUnit(), wcf));
-			        	   ws.addCell(new Label(3, 4+i,list.get(i).getRequireHour()+"%", wcf1));
-			        	   ws.addCell(new Label(4, 4+i,list.get(i).getOptionHour()+"%", wcf1));
-			        	   ws.addCell(new Label(5, 4+i,list.get(i).getInClassHour()+"%", wcf1));
-			        	   ws.addCell(new Label(6, 4+i,list.get(i).getExpHour()+"%", wcf1));
-			        	   ws.addCell(new Label(7, 4+i,list.get(i).getPraHour()+"%", wcf1));
-			        	   ws.addCell(new Label(8, 4+i,list.get(i).getRequireCredit()+"%", wcf1));
-			        	   ws.addCell(new Label(9, 4+i,list.get(i).getOptionCredit()+"%", wcf1));
-			        	   ws.addCell(new Label(10, 4+i,list.get(i).getInClassCredit()+"%", wcf1));
-			        	   ws.addCell(new Label(11, 4+i,list.get(i).getExpCredit()+"%", wcf1));
-			        	   ws.addCell(new Label(12, 4+i,list.get(i).getPraCredit()+"%", wcf1));
-			        	   ws.addCell(new Label(13, 4+i,list.get(i).getOutClassCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(3, 4+i,list.get(i).getRequireHour()+"", wcf1));
+			        	   ws.addCell(new Label(4, 4+i,list.get(i).getOptionHour()+"", wcf1));
+			        	   ws.addCell(new Label(5, 4+i,list.get(i).getInClassHour()+"", wcf1));
+			        	   ws.addCell(new Label(6, 4+i,list.get(i).getExpHour()+"", wcf1));
+			        	   ws.addCell(new Label(7, 4+i,list.get(i).getPraHour()+"", wcf1));
+			        	   ws.addCell(new Label(8, 4+i,list.get(i).getRequireCredit()+"", wcf1));
+			        	   ws.addCell(new Label(9, 4+i,list.get(i).getOptionCredit()+"", wcf1));
+			        	   ws.addCell(new Label(10, 4+i,list.get(i).getInClassCredit()+"", wcf1));
+			        	   ws.addCell(new Label(11, 4+i,list.get(i).getExpCredit()+"", wcf1));
+			        	   ws.addCell(new Label(12, 4+i,list.get(i).getPraCredit()+"", wcf1));
+			        	   ws.addCell(new Label(13, 4+i,list.get(i).getOutClassCredit()+"", wcf1));
 				           ws.mergeCells(0, 4+i, 2, 4+i);
 			        	   i++;
 			        	   
@@ -188,17 +188,17 @@ public class A323_Action {
 			        	   ws.addCell(new Label(0, 4+i,count+"", wcf));
 			        	   ws.addCell(new Label(1, 4+i,list.get(i).getTeaUnit(), wcf1));
 			        	   ws.addCell(new Label(2, 4+i,list.get(i).getUnitID()+"", wcf1));
-			        	   ws.addCell(new Label(3, 4+i,list.get(i).getRequireHour()+"%", wcf1));
-			        	   ws.addCell(new Label(4, 4+i,list.get(i).getOptionHour()+"%", wcf1));
-			        	   ws.addCell(new Label(5, 4+i,list.get(i).getInClassHour()+"%", wcf1));
-			        	   ws.addCell(new Label(6, 4+i,list.get(i).getExpHour()+"%", wcf1));
-			        	   ws.addCell(new Label(7, 4+i,list.get(i).getPraHour()+"%", wcf1));
-			        	   ws.addCell(new Label(8, 4+i,list.get(i).getRequireCredit()+"%", wcf1));
-			        	   ws.addCell(new Label(9, 4+i,list.get(i).getOptionCredit()+"%", wcf1));
-			        	   ws.addCell(new Label(10, 4+i,list.get(i).getInClassCredit()+"%", wcf1));
-			        	   ws.addCell(new Label(11, 4+i,list.get(i).getExpCredit()+"%", wcf1));
-			        	   ws.addCell(new Label(12, 4+i,list.get(i).getPraCredit()+"%", wcf1));
-			        	   ws.addCell(new Label(13, 4+i,list.get(i).getOutClassCredit()+"%", wcf1));
+			        	   ws.addCell(new Label(3, 4+i,list.get(i).getRequireHour()+"", wcf1));
+			        	   ws.addCell(new Label(4, 4+i,list.get(i).getOptionHour()+"", wcf1));
+			        	   ws.addCell(new Label(5, 4+i,list.get(i).getInClassHour()+"", wcf1));
+			        	   ws.addCell(new Label(6, 4+i,list.get(i).getExpHour()+"", wcf1));
+			        	   ws.addCell(new Label(7, 4+i,list.get(i).getPraHour()+"", wcf1));
+			        	   ws.addCell(new Label(8, 4+i,list.get(i).getRequireCredit()+"", wcf1));
+			        	   ws.addCell(new Label(9, 4+i,list.get(i).getOptionCredit()+"", wcf1));
+			        	   ws.addCell(new Label(10, 4+i,list.get(i).getInClassCredit()+"", wcf1));
+			        	   ws.addCell(new Label(11, 4+i,list.get(i).getExpCredit()+"", wcf1));
+			        	   ws.addCell(new Label(12, 4+i,list.get(i).getPraCredit()+"", wcf1));
+			        	   ws.addCell(new Label(13, 4+i,list.get(i).getOutClassCredit()+"", wcf1));
 			        	   count++;
 			        	   i++;
 		        	   }

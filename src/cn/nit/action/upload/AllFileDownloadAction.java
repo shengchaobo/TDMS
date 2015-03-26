@@ -1,4 +1,4 @@
-﻿package cn.nit.action.upload;
+package cn.nit.action.upload;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.education.download.J10_Excel;
-import cn.nit.education.download.J12_Excel;
 import cn.nit.education.download.J2101_Excel;
 import cn.nit.education.download.J2102_Excel;
 import cn.nit.education.download.J211_Excel;
@@ -93,7 +91,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * 处理多个附件下载
  * @author Luxh
  */
-public class MultiFileDownloadAction extends ActionSupport {
+public class AllFileDownloadAction extends ActionSupport {
 
 	private static final long serialVersionUID = 2743077909387361587L;
 	HttpServletRequest request = ServletActionContext.getRequest();
@@ -116,10 +114,10 @@ public class MultiFileDownloadAction extends ActionSupport {
 	 * 下载多个附件
 	 * 实现：将多个附近压缩成zip包,然后再下载zip包
 	 */
-	public InputStream getDownloadMultiFile() {
+	public InputStream getDownloadAllFile() {
 		
 		SimpleDateFormat sfm = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss");  
-		String filename = "教育部导出表格";
+		String filename = "全校所有表";
 		
 		//使用当前时间生成文件名称
 		String name = filename + "_" + sfm.format(new Date()).toString();
@@ -177,15 +175,12 @@ public class MultiFileDownloadAction extends ActionSupport {
 		
 		// TODO Auto-generated method stub
 		//1字头
-		if(!J10_Excel.export_J10(filePath)){
-			return "J10_export has a error!";
-		}	
 		if(!J11_Excel.export_J11(filePath)){
 			return "J11_export has a error!";
 		}	
-	    if(!J12_Excel.export_J12(filePath)){
-			return "J12_export has a error!";
-		}
+//	    if(!J12_Excel.export_J12(filePath)){
+//			return "J12_export has a error!";
+//		}
 		if(!J13_Excel.export_J13(filePath)){
 			return "J13_export has a error!";
 		}
@@ -246,7 +241,7 @@ public class MultiFileDownloadAction extends ActionSupport {
 			return "J211_export has a error!";
 		}
 		
-	if(!J311_Excel.export_J311(filePath)){
+	    if(!J311_Excel.export_J311(filePath)){
 			return "J311_export has a error!";
 		}
 		if(!J312_Excel.export_J312(filePath)){

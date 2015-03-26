@@ -52,10 +52,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除角色</a>
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-			<!-- 两个文体输入框，可以避免enter键自动刷新事件 -->
-			<input id="hiddenText" type="text"  style="display:none" />
-		 	角色编号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
-			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid ()">查询</a>
+				<table id="test" width="280">
+					<tr>
+						<td>
+							角色编号 :
+						</td>
+						<td>
+							<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 		</form>
 	</div>
 	<div id="dlg" class="easyui-dialog"
@@ -102,8 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td style="valign:left" colspan="3"><label>角色描述：</label>
 							<textarea id="RoleDest" name="role_bean.RoleDest" style="resize:none" cols="50" rows="10"></textarea>
 							<span id="RoleDestSpan"></span>
-						</td>
-					</tr>	
+					</td>
+				</tr>	
 			</table>
 		</form>
 	</div>

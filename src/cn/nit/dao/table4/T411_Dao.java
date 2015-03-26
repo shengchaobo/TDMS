@@ -802,6 +802,49 @@ public class T411_Dao {
 		return list ;
 	}
 	
+	
+	/**
+	 * 获取教育部表导出J43
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T411_Bean> getJ43List(){
+		
+		String Cond = "(TeaFlag is null or TeaFlag != '外聘') and T411_TeaBasicInfo_Per$.IDCode > '40000' and T411_TeaBasicInfo_Per$.IDCode < '40009'";
+				
+		String queryPageSql = "select TeaId,TeaName,Gender,Birthday,AdmisTime,TeaState," +
+		"BeginWorkTime,IdentiType AS IDCode,FromOffice,OfficeID,FromUnit,unitID," +
+		"FromTeaResOffice,TeaResOfficeID," + tableName4 + ".Education,Degree AS TopDegree,GraSch,Major," +
+		"AdminLevel," + tableName5 + ".Source,TitleLevel AS MajTechTitle,TitleName AS TeaTitle,NotTeaTitle,SubjectClass," +
+		"DoubleTea,Industry,Engineer,TeaBase,TeaFlag,Note"
+		+ " from " + tableName + 
+		" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
+		" left join " + tableName2+ " on " + "MajTechTitle=" + tableName2 + ".IndexID " +
+		" left join " + tableName3+ " on " + "TeaTitle=" + tableName3 + ".IndexID " +
+		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
+		" left join " + tableName5+ " on " + tableName + ".Source=" + tableName5 + ".IndexID " +
+		" left join " + tableName6+ " on " + tableName + ".IDCode=" + tableName6 + ".IndexID " +
+		" where " + Cond;
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T411_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(queryPageSql) ;
+			list = DAOUtil.getList(rs, T411_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null;
+		}
+		
+		return list ;
+	}
+	
+	
 	public static void main(String args[]){
 		String queryPageSql = "select "+tableName+".teaName as teaName,"+tableName+".teaId as teaId,"+tableName+".Gender as gender," +
 		tableName+".Birthday as birthday,"+tableName+".AdmisTime as admisTime,"+tableName+".TeaState as teaState," +

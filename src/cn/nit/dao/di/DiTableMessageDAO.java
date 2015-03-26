@@ -40,7 +40,11 @@ public class DiTableMessageDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return list;
-		}	
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
+		}
 		return list;
 		
 	}
@@ -69,7 +73,11 @@ public class DiTableMessageDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return list;
-		}	
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
+		}
 		return list;
 		
 	}

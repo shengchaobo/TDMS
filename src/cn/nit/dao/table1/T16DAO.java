@@ -74,9 +74,9 @@ public class T16DAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		return flag;
@@ -125,6 +125,10 @@ public class T16DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -151,11 +155,10 @@ public class T16DAO {
 			e.printStackTrace() ;
 			return null;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
-		
 		return list;
 	} 
 	
@@ -193,9 +196,9 @@ public class T16DAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 				
 		return flag ;
@@ -239,6 +242,10 @@ public class T16DAO {
     		}catch(Exception e){
     			e.printStackTrace() ;
     			return n ;
+    		}finally{
+    			DBConnection.close(rs);
+    			DBConnection.close(st);	;	
+    			DBConnection.close(conn);
     		}
     	 return n;
      }
@@ -287,6 +294,10 @@ public class T16DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -323,6 +334,9 @@ public class T16DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){
@@ -348,6 +362,9 @@ public class T16DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){
@@ -359,25 +376,6 @@ public class T16DAO {
 	
 	public String getTableName(){
 		return this.tableName ;
-	}
-	
-
-	public static void main(String arg[])
-	{
-		T16DAO dao=new T16DAO();
-//		List<T16POJO> list = dao.forExcel("2013");
-//		if(list == null){
-//			System.out.println("空");
-//		}else{
-//			T16POJO pojo = list.get(0);
-//			System.out.println(pojo.getContents1());
-//			System.out.println(pojo.getItem1());
-//			System.out.println(pojo.getContents2());
-//			System.out.println(pojo.getItem2());
-//		}
-		List<T16_Bean> list = dao.getBean();
-		System.out.println(list.size());
-
 	}
 
 

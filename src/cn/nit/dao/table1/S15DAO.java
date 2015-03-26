@@ -56,6 +56,10 @@ public class S15DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 			return seq;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return seq;
 	}
@@ -78,7 +82,6 @@ public class S15DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-//		System.out.println(sql.toString());
 		
 		try{
 			st = conn.createStatement() ;
@@ -93,6 +96,10 @@ public class S15DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return bean ;
 	}
@@ -110,8 +117,6 @@ public class S15DAO {
 			}catch(Exception e){
 				e.printStackTrace() ;
 				return flag ;
-			}finally{
-				DBConnection.close(conn) ;
 			}
 			return flag ;
 		}
@@ -137,6 +142,10 @@ public class S15DAO {
 		{
 			e.printStackTrace();
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return list.get(0);
 		
@@ -162,6 +171,9 @@ public class S15DAO {
 		{
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 	}
@@ -188,7 +200,6 @@ public class S15DAO {
 		sql.append("delete from "+tableName);
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		try{
 			st = conn.createStatement();
 			if(st.executeUpdate(sql.toString())>0){
@@ -198,6 +209,9 @@ public class S15DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 	}
@@ -230,6 +244,10 @@ public class S15DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return list ;
 	}
@@ -278,6 +296,12 @@ public class S15DAO {
 		}catch (Exception e){
 			e.printStackTrace();
 			return count;
+		}finally{
+			DBConnection.close(rs2);
+			DBConnection.close(st2);	
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn);
 		}
 		return count; 
 	}
@@ -333,48 +357,16 @@ public class S15DAO {
 		{
 			e.printStackTrace();
 			return null;
+		}finally{
+			DBConnection.close(rs2);
+			DBConnection.close(st2);	
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn);
 		}
 		return list;
 	}
 	
-	
-//	public boolean update(int a,double b,String str ){
-//		boolean flag = false;
-//		StringBuffer sql=new StringBuffer();
-//		sql.append("update "+tableName+" set SumResNum="+a+",SumResArea="+b+"  where Time like '"+str+"%'");
-//		Connection conn=DBConnection.instance.getConnection();
-//		Statement st=null;
-//		ResultSet rs=null;
-//		try{
-//			st = conn.createStatement();
-//			if(st.executeUpdate(sql.toString())>0){
-//				flag = true;
-//			}
-//			
-//		}catch(Exception e){
-//			e.printStackTrace();
-//			return flag;
-//		}
-//		
-//		return flag;
-//		
-//		
-//	}
-	
-	public static void main(String arg[]){
-		S15DAO s15=new S15DAO();
-//		List<S15Bean> list=s15.forExcel("2014");
-//		boolean flag = s15.delete();
-//		if(flag){
-//			System.out.println("true");
-//		}
-//		int count = s15.countOriDate("2014");,6701.
-//		System.out.println(count);
-//		 List<T15_Bean> list = s15.getOriData("2014");
-//		 System.out.println(list.size());
-//		boolean flag = s15.update(27,6701.3,"2015");
-//		System.out.println(flag);
-		
-	}
+
 
 }

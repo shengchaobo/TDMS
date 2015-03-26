@@ -55,7 +55,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
 		</div>
-
 	</div>
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true"
@@ -107,8 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<span id="Class2Span"></span>
 							</div>
 						</td>
-					</tr>
-					
+					</tr>					
 					<tr>
 						<td>
 							<div class="fitem">
@@ -140,8 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									教工号：
 								</label>
 								<input id="TeaID" type="text" name="de_bean.teaId" class='easyui-combobox' 
-							data-options="valueField:'teaId',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
-							">
+							data-options="valueField:'teaId',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true">
 								
 							</div>
 						</td>

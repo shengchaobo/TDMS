@@ -16,7 +16,11 @@
 			<param name="inputPath">/WEB-INF/FileofMain</param>	
             <result name="success" type="stream">
             	<param name="contentType">application/octet-stream;charset=UTF-8</param>
+<<<<<<< HEAD
                 <param name="contentDisposition">attachment;filename="downFile.xls"</param>
+=======
+                <param name="contentDisposition">attachment;filename="vedioFile.rar"</param>
+>>>>>>> 206b58e35f885537a3e3c1158cb54c374157ade4
                 <param name="inputName">downloadFile</param>
       				<!-- 下载文件缓冲大小 -->
 				<param name="bufferSize">4096</param>

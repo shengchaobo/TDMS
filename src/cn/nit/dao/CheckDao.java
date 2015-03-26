@@ -56,6 +56,7 @@ public class CheckDao {
 			e.printStackTrace();
 			return null ;
 		}finally{
+			DBConnection.close(rs) ;
 			DBConnection.close(st) ;
 			DBConnection.close(conn) ;
 		}
@@ -86,6 +87,9 @@ public class CheckDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(st) ;
+			DBConnection.close(conn) ;
 		}
 
 		if (flag == 0) {
@@ -118,6 +122,9 @@ public class CheckDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(st) ;
+			DBConnection.close(conn) ;
 		}
 
 		if (flag == 0) {

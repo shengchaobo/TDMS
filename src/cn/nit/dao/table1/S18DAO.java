@@ -62,6 +62,10 @@ public class S18DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return bean ;
 	}
@@ -90,6 +94,10 @@ public class S18DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 			return count;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		return count;
@@ -116,6 +124,10 @@ public class S18DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 			return seq;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return seq;
 		
@@ -171,6 +183,10 @@ public class S18DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return list ;
 	}
@@ -193,6 +209,9 @@ public class S18DAO {
 		}catch(Exception e)
 		{
 			e.printStackTrace();
+		}finally{
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return flag;
 	}
@@ -243,6 +262,10 @@ public class S18DAO {
 		{
 			e.printStackTrace();
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return list;
 	}
@@ -274,6 +297,10 @@ public class S18DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return list ;
 	}
@@ -281,12 +308,6 @@ public class S18DAO {
 	public String getTableName(){
 		return this.tableName ;
 	}
-	
-    public static void main(String arg[]){
-    	S18DAO dao=new S18DAO();
-    	List<T181_Bean> list=dao.getOriData("2014");
-    	System.out.println(list.size());
-    }
 	
 
 }

@@ -94,7 +94,11 @@ public class T11DAO {
    		}catch(Exception e){
    			e.printStackTrace() ;
    			return n ;
-   		}
+   		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
+		}
    	 return n;
     }
     
@@ -160,6 +164,10 @@ public class T11DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return list ;
 	}
@@ -197,6 +205,10 @@ public class T11DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return bean ;
 	}
@@ -274,6 +286,10 @@ public class T11DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return list ;
 	}
@@ -309,6 +325,9 @@ public class T11DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){
@@ -334,6 +353,9 @@ public class T11DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){
@@ -346,12 +368,5 @@ public class T11DAO {
 		return this.tableName ;
 	}
 
-    public static void main(String arg[])
-    {
-    	T11DAO dao=new T11DAO();
-    	T11_Bean bean=dao.getBean();
-    	System.out.println(bean.getAdmissonBatch());
-//    	System.out.println(bean.getMajDept());
-    }
 
 }

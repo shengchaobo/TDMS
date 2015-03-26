@@ -50,6 +50,10 @@ public class A15DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 			return seq;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return seq;
 	}
@@ -75,6 +79,10 @@ public class A15DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 			return seq;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return seq;
 	}
@@ -103,6 +111,10 @@ public class A15DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 			return count;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return count;
@@ -126,14 +138,10 @@ public class A15DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-//		System.out.println(sql.toString());
 		
 		try{
 			st = conn.createStatement() ;
-//			ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY
-//			st.setMaxRows(1) ;
 			rs = st.executeQuery(sql.toString()) ;
-//			rs.absolute((page - 1) * rows) ;
 			list = DAOUtil.getList(rs, A15_Bean.class) ;
 			if(list.size() != 0){
 				bean = list.get(0);
@@ -141,6 +149,10 @@ public class A15DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return bean ;
 	}
@@ -183,8 +195,6 @@ public class A15DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
-		}finally{
-			DBConnection.close(conn) ;
 		}
 		return flag ;
 	}
@@ -216,6 +226,10 @@ public class A15DAO {
 				}catch(Exception e){
 					e.printStackTrace() ;
 					return null ;
+				}finally{
+					DBConnection.close(rs);
+					DBConnection.close(st);	
+					DBConnection.close(conn);
 				}
 				return list ;
 			}
@@ -245,6 +259,10 @@ public class A15DAO {
 			}catch(Exception e){
 				e.printStackTrace() ;
 				return null ;
+			}finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
+				DBConnection.close(conn);
 			}
 			return list ;
 		}
@@ -271,6 +289,10 @@ public class A15DAO {
 			{
 				e.printStackTrace();
 				return null;
+			}finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
+				DBConnection.close(conn);
 			}
 			return list;
 		}
@@ -293,15 +315,11 @@ public class A15DAO {
 			}catch(Exception e)
 			{
 				e.printStackTrace();
+			}finally{
+				DBConnection.close(st);	
+				DBConnection.close(conn);
 			}
 			return flag;
 		}
 		
-		public static void main(String arg[]){
-			A15DAO dao=new A15DAO();
-			 List<S15_Bean> list=dao.getOriData("2014");
-			 System.out.println(list.size());
-		}
-
-
 }

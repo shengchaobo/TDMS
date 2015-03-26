@@ -108,6 +108,10 @@ public class T172DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return 0 ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return total ;
 	}
@@ -151,6 +155,10 @@ public class T172DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -179,6 +187,10 @@ public class T172DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -215,6 +227,9 @@ public class T172DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){
@@ -227,29 +242,4 @@ public class T172DAO {
 		return this.tableName ;
 	}
 	
-	public static void  main(String arg[])
-	{
-		T172DAO dao=new T172DAO();
-//		int n=dao.totalAuditingData(null, null);
-//		System.out.println(n);
-//		List<T172Bean> list=dao.totalList();
-//		System.out.println(list.size());
-		T172_Bean bean = new T172_Bean();
-		bean.setSeqNumber(1);
-		bean.setActName("test");
-		bean.setActPlace("test");
-		bean.setActTime(new Date());
-		bean.setActType("hotpot");
-		bean.setFriName("nikchun");
-		bean.setUnitID("12222");
-		bean.setUnitName("土建");
-		boolean flag = dao.update(bean);
-		if(flag){
-			System.out.println("更新完毕");
-		}else{
-			System.out.println("更新出错");
-		}
-		
-	}
-
 }

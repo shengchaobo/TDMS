@@ -46,7 +46,7 @@ $(function() {
 
 $(function() {
 	$('#unverfiedData').datagrid( {
-		title : '待审核数据域审核未通过数据',
+		title : '待审核数据与审核未通过数据',
 		iconCls : 'icon-ok',
 		width : '100%',
 		//height: '50%',

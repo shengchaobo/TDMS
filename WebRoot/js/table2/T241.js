@@ -9,7 +9,7 @@
 				        { "name": "其中：外文数量（种）", "group": "3.电子图书", "editor": "numberbox", "value": "", "field": "forDigBookType" },
 				        { "name": "电子图书总量（GB）", "group": "3.电子图书", "value": "", "field": "digBookSize", "editor": "numberbox" },
 				       	{ "name": "期刊种类（种）", "group": "4.电子期刊", "editor": "numberbox", "value": "", "field": "digJonalType" },
-				       	{ "name": "数量（个）", "group": "5.数据库", "editor": "numberbox", "value": "", "field": "databaseNum" },
+				       	{ "name": "数量（个）", "group": "5.期刊数据库", "editor": "numberbox", "value": "", "field": "databaseNum" },
 				       	{ "name": "数量（个）", "group": "6.其他数据库", "editor": "numberbox", "value": "", "field": "otherDatabase" }
 				    ];
 				    							

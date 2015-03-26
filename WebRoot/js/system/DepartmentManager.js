@@ -20,25 +20,7 @@
 			onLoadSuccess: function (rowData) {
 				
 			}
-		});
-					
-	   //导出
-	        $("#export").click(function(){
-	        var tableName = encodeURI('部门列表');
-		    $('#exportForm').form('submit', {
-		    	data : $('#exportForm').serialize(),
-			    url : "pages/DiDepartment/dataExport?excelName="+tableName,
-			    onSubmit : function() {
-			    	return $(this).form('validate');//对数据进行格式化
-			    },
-			    success : function(data) {
-			    	    $.messager.show({
-					    	title : '提示',
-					    	msg : data
-					    });
-			    }
-		    }); 
-		});							
+		});						
 	});
 			
 	var url;

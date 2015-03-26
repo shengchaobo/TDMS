@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									专业代码：
 								</label>
 								<input id="MajorNum" type="text" name="major_bean.majorNum"
-									class="easyui-validatebox">
+									class="easyui-validatebox"/>
 								<span id="MajorNumSpan"></span>
 							</div>
 						</td>
@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									专业名称：
 								</label>
 								<input id="MajorName" type="text" name="major_bean.majorName"
-									class="easyui-validatebox">
+									class="easyui-validatebox"/>
 								<span id="MajorNameSpan"></span>
 							</div>
 						</td>
@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									版本：
 								</label>
 								<input id="Version" type="text" name="major_bean.version"
-									class="easyui-validatebox">
+									class="easyui-validatebox"/>
 								<span id="VersionSpan"></span>
 							</div>
 						</td>
@@ -100,15 +100,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									年限：
 								</label>
-								<select class='easyui-combobox' id="Duration" name="major_bean.duration" style="width:80px" data-options="listHeight:'auto',editable:false,
-							">
+								<select class='easyui-combobox' id="Duration" name="major_bean.duration" style="width:80px" data-options="listHeight:'auto',editable:false">
 									<option value="一年">一年</option>
 									<option value="二年">二年</option>
 									<option value="三年">三年</option>
 									<option value="四年">四年</option>
 									<option value="五年">五年</option>
 									<option value="六年">六年</option>
-							 <span id="DurationIdSpan"></span>
+ 								</select>
 							</div>
 						</td>								
 					</tr>
@@ -119,8 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									门类：
 								</label>
-								<select class='easyui-combobox' id="Direction" name="major_bean.direction" style="width:80px" data-options="listHeight:'auto',editable:false,
-							">
+								<select class='easyui-combobox' id="Direction" name="major_bean.direction" style="width:80px" data-options="listHeight:'auto',editable:false">
 									<option value="工学">工学</option>
 									<option value="理学">理学</option>
 									<option value="农学">农学</option>
@@ -128,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<option value="经济学">经济学</option>
 									<option value="艺术学">艺术学</option>
 									<option value="文学">文学</option>
-								<span id="DirectionSpan"></span>
+								</select>
 							</div>
 						</td>
 						<td class="empty"></td>
@@ -138,8 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									所属学院：
 								</label>
 								<input id="UnitId" type="text" name="major_bean.unitId" class="easyui-combobox" 
-								data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
-							"/>
+								data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false"/>
 								<span id="UnitIDSpan"></span>
 							</div>
 						</td>

@@ -409,10 +409,10 @@
 		    return $(this).form('validate');//对数据进行格式化
 		    },
 		    success : function(data) {
-		    $.messager.show({
-		    	title : '提示',
-		    	msg : data
-		    });
+			    $.messager.show({
+			    	title : '提示',
+			    	msg : data
+			    });
 		    }
 	    }); 
     }

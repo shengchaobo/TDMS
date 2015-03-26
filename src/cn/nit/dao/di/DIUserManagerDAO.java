@@ -266,8 +266,9 @@ public class DIUserManagerDAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 	}
@@ -358,6 +359,10 @@ public class DIUserManagerDAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return list ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return list ;
 	}
@@ -371,6 +376,8 @@ public class DIUserManagerDAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
+		}finally{	
+			DBConnection.close(conn);
 		}
 		return flag ;
 	}

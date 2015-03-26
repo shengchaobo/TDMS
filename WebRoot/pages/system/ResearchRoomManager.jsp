@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									教研室号：
 								</label>
 								<input id="UnitID" type="text" name="room_bean.unitId"
-									class="easyui-validatebox">
+									class="easyui-validatebox"/>
 								<span id="UnitIDSpan"></span>
 							</div>
 						</td>
@@ -74,10 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									所属教学单位：
 								</label>
-
-								<input id="ParentId" name="room_bean.parentId" class='easyui-combobox'
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
-							">
+						    <input id="ParentId" name="room_bean.parentId" class='easyui-combobox'
+							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false">
 							 <span id="ParentIdSpan"></span>
 							</div>
 						</td>
@@ -89,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									教研室名称：
 								</label>
 								<input id="ResearchName" type="text" name="room_bean.researchName"
-									class="easyui-validatebox">
+									class="easyui-validatebox"/>
 								<span id="ResearchNameSpan"></span>
 							</div>
 						</td>

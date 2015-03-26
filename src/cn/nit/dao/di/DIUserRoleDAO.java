@@ -32,6 +32,10 @@ public class DIUserRoleDAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return list ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -97,10 +101,5 @@ public class DIUserRoleDAO {
 			return false ;
 		}
 		
-	}
-	
-	public static void main(String args[]){
-		DIUserRoleDAO userRoleDao = new DIUserRoleDAO() ;
-		System.out.println(userRoleDao.getList().size()) ;
 	}
 }

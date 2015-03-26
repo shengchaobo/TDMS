@@ -112,6 +112,10 @@ public class T151DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return 0 ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		return total ;
 	}
@@ -155,6 +159,10 @@ public class T151DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -229,6 +237,10 @@ public class T151DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -262,9 +274,9 @@ public class T151DAO {
 			e.printStackTrace() ;
 			return 0 ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		return state ;
@@ -282,7 +294,6 @@ public class T151DAO {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where SeqNumber='" + seq + "';" ;		
 		System.out.println(sql);
@@ -293,7 +304,8 @@ public class T151DAO {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -315,7 +327,6 @@ public class T151DAO {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
 		" where CheckState=" + Constants.WAIT_CHECK ;		
 		
@@ -327,7 +338,8 @@ public class T151DAO {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -375,7 +387,8 @@ public class T151DAO {
 			e.printStackTrace();
 			return false; 
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -401,6 +414,9 @@ public class T151DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	;	
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){
@@ -413,21 +429,6 @@ public class T151DAO {
 		return this.tableName ;
 	}
 	
-	public static void main(String args[])
-	{
-		T151DAO dao=new T151DAO();
-//		int n=dao.totalAuditingData(null, null);
-//		System.out.println(n);
-		List<T151_Bean> list=dao.totalList("2014");
-//		List<T151Bean> list1=dao.totalList();
-		System.out.println(list.size());
-//		System.out.println(list1.size());
-//		boolean flag = dao.updatCheck();
-//		System.out.println(flag);
-//		T151Bean a=list.get(0);
-//		System.out.println(a.getType());
-////	
-	}
 	
 	
 }

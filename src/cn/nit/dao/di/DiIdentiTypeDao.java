@@ -154,8 +154,8 @@ public class DiIdentiTypeDao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if(flag > 0){
@@ -187,8 +187,9 @@ public class DiIdentiTypeDao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 	}

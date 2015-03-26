@@ -37,6 +37,10 @@ public class DiRoleDAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return list ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -217,14 +221,10 @@ public class DiRoleDAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
-	}
-	
-	public static void main(String args[]){
-		DiRoleDAO userRoleDao = new DiRoleDAO() ;
-		System.out.println(userRoleDao.getList().size()) ;
 	}
 }

@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									专业代码：
 								</label>
 								<input id="MajorNum" type="text" name="major_bean.majorNum"
-									class="easyui-validatebox">
+									class="easyui-validatebox"/>
 								<span id="MajorNumSpan"></span>
 							</div>
 						</td>
@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									专业名称：
 								</label>
 								<input id="MajorName" type="text" name="major_bean.majorName"
-									class="easyui-validatebox">
+									class="easyui-validatebox"/>
 								<span id="MajorNameSpan"></span>
 							</div>
 						</td>
@@ -99,15 +99,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label>
 									年限：
 								</label>
-								<select class='easyui-combobox' id="Duration" name="major_bean.duration" style="width:80px" data-options="listHeight:'auto',editable:false,
-							">
+								<select class='easyui-combobox' id="Duration" name="major_bean.duration" style="width:80px" data-options="listHeight:'auto',editable:false">
 									<option value="一年">一年</option>
 									<option value="二年">二年</option>
 									<option value="三年">三年</option>
 									<option value="四年">四年</option>
 									<option value="五年">五年</option>
 									<option value="六年">六年</option>
-							 <span id="DurationIdSpan"></span>
+						       </select>
 							</div>
 						</td>								
 					</tr>
@@ -120,14 +119,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									所属学院：
 								</label>
 								<input id="UnitId" type="text" name="major_bean.unitId" class="easyui-combobox" 
-								data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false,
-							"/>
+								data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca' ,listHeight:'auto',editable:false"/>
 								<span id="UnitIDSpan"></span>
 							</div>
-						</td>
-						
-					</tr>				
-				
+						</td>						
+					</tr>								
 			</table>
 		</form>
 	</div>

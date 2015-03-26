@@ -446,25 +446,109 @@ public class T410_Action {
 	}
 	
 	public InputStream getInputStream() throws Exception{
-		
-		System.out.println("selectyear:"+this.getSelectYear());
-		System.out.println("queryyear:"+this.queryYear);
 
 		T410_Bean bean = T410_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-		
+		ByteArrayOutputStream fos = new ByteArrayOutputStream();
+		String sheetName = this.excelName;	
+		WritableWorkbook wwb;
 		InputStream inputStream = null ;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return inputStream;
+		if(bean == null){
+		    try {    
+		    	  
+		           wwb = Workbook.createWorkbook(fos);
+		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+		
+		            //    设置单元格的文字格式
+		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		           WritableCellFormat wcf = new WritableCellFormat(wf);
+		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		           wcf.setAlignment(Alignment.CENTRE);
+		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+		        		     jxl.format.Colour.BLACK);
+		           ws.setRowView(1, 500);
+		           
+		            //    设置内容单无格的文字格式
+		           WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		            WritableCellFormat wcf1 = new WritableCellFormat(wf1);        
+		            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
+		            wcf1.setAlignment(Alignment.CENTRE);
+		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+			        		     jxl.format.Colour.BLACK);
+		           
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.mergeCells(0, 0, 3, 0);
+		             
+		           ws.addCell(new Label(0, 2, "", wcf)); 
+		           ws.addCell(new Label(0, 5, "项目数（项）", wcf)); 
+		           ws.addCell(new Label(0, 6, "经费（万元）", wcf)); 
+		           ws.addCell(new Label(1, 2, "1.教师科研项目", wcf)); 
+		           ws.addCell(new Label(1, 3, "总计", wcf)); 
+		           ws.addCell(new Label(2, 3, "横向", wcf)); 
+		           ws.addCell(new Label(4, 3, "纵向", wcf)); 
+		           ws.addCell(new Label(2, 4, "横向总数", wcf)); 
+		           ws.addCell(new Label(3, 4, "其中：人文社会科学", wcf)); 
+		           ws.addCell(new Label(4, 4, "纵向总数", wcf)); 
+		           ws.addCell(new Label(5, 4, "其中：人文社会科学", wcf));
+		           ws.mergeCells(0, 2, 0, 4);
+		           ws.mergeCells(1, 2, 5, 2);
+		           ws.mergeCells(1, 3, 1, 4);
+		           ws.mergeCells(2, 3, 3, 3);
+		           ws.mergeCells(4, 3, 5, 3);
+		           
+		           	           
+		           ws.addCell(new Label(1, 8, "2.近一届科研成果奖数（项）", wcf)); 
+		           ws.addCell(new Label(1, 9, "总数", wcf)); 
+		           ws.addCell(new Label(2, 9, "其中", wcf)); 
+		           ws.addCell(new Label(2, 10, "国家级", wcf)); 
+		           ws.addCell(new Label(3, 10, "省部级", wcf)); 
+		           ws.addCell(new Label(4, 10, "市厅级", wcf)); 
+		           ws.addCell(new Label(5, 10, "校级", wcf)); 	           
+		           ws.mergeCells(1, 8, 5, 8);
+		           ws.mergeCells(1, 9, 1, 10);
+		           ws.mergeCells(2, 9, 5, 9);	           
+		           
+		           ws.addCell(new Label(1, 13, "3.发表论文数（篇）", wcf)); 
+		           ws.addCell(new Label(1, 14, "总数", wcf)); 
+		           ws.addCell(new Label(2, 14, "其中", wcf)); 
+		           ws.addCell(new Label(2, 15, "SCI", wcf)); 
+		           ws.addCell(new Label(3, 15, "SSCI", wcf)); 
+		           ws.addCell(new Label(4, 15, "EI", wcf)); 
+		           ws.addCell(new Label(5, 15, "ISTP", wcf)); 
+		           ws.addCell(new Label(6, 15, "国内核心期刊", wcf)); 
+		           ws.addCell(new Label(7, 15, "CSSCI", wcf)); 
+		           ws.addCell(new Label(8, 15, "CSCD", wcf)); 
+		           ws.addCell(new Label(9, 15, "其他", wcf)); 
+		           ws.mergeCells(1, 13, 9, 13);
+		           ws.mergeCells(1, 14, 1, 15);
+		           ws.mergeCells(2, 14, 9, 14);
+		           
+		           
+		           ws.addCell(new Label(1, 18, "4.出版专译著（册）", wcf)); 
+		           ws.addCell(new Label(1, 19, "总数", wcf)); 
+		           ws.addCell(new Label(2, 19, "专著", wcf)); 
+		           ws.addCell(new Label(3, 19, "译著", wcf)); 
+		           ws.mergeCells(1, 18, 3, 18);	           
+		           
+		           
+		           ws.addCell(new Label(1, 22, "5.获准专利（项）", wcf)); 
+		           ws.addCell(new Label(1, 23, "总数", wcf)); 
+		           ws.addCell(new Label(2, 23, "发明专利", wcf)); 
+		           ws.addCell(new Label(3, 23, "实用新型专利", wcf)); 
+		           ws.addCell(new Label(4, 23, "外观设计专利", wcf)); 
+		           ws.mergeCells(1, 22, 6, 22);
+		           ws.mergeCells(4, 23, 6, 23);
+		           ws.mergeCells(4, 24, 6, 24);
+		           
+		          wwb.write();
+		          wwb.close();
+
+		        } catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
 		}else{
-			String sheetName = this.excelName;
-			ByteArrayOutputStream fos = new ByteArrayOutputStream();		
-		    WritableWorkbook wwb;
 		    try {    
 		    	  
 		           wwb = Workbook.createWorkbook(fos);
@@ -591,16 +675,19 @@ public class T410_Action {
 		        } catch (IOException e){
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
-		    
-		        inputStream = new ByteArrayInputStream(fos.toByteArray());	
-		        return inputStream;
 		}
-		//
+        inputStream = new ByteArrayInputStream(fos.toByteArray());	
+        return inputStream;
 	}
 	
 	public String execute() throws Exception{
 		System.out.println("excelName=============" + this.excelName) ;
-		return "success" ;
+		if(this.getInputStream() == null){
+			return "test";
+		}else{
+			return "success" ;
+		}
+		
 	}
 
 	public String getRows() {

@@ -16,7 +16,7 @@
 			<param name="inputPath">/WEB-INF/FileofMain</param>	
             <result name="success" type="stream">
             	<param name="contentType">application/octet-stream;charset=UTF-8</param>
-                <param name="contentDisposition">attachment;filename="hha.xls"</param>
+                <param name="contentDisposition">attachment;filename="vedioFile.rar"</param>
                 <param name="inputName">downloadFile</param>
       				<!-- 下载文件缓冲大小 -->
 				<param name="bufferSize">4096</param>

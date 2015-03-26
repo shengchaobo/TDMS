@@ -40,6 +40,7 @@ import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table4.T42_Bean;
 import cn.nit.bean.table4.T452_Bean;
 import cn.nit.bean.table4.T453_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDegreeService;
@@ -171,6 +172,8 @@ public class T453_Excel {
 				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 				String fillUnitID = bean.getUnitID();
 				T453_bean.setFillUnitID(fillUnitID);
+				//插入审核状态
+				T453_bean.setCheckState(Constants.WAIT_CHECK);
 				//插入时间
 				T453_bean.setTime(TimeUtil.changeDateY(selectYear));
 				list.add(T453_bean);

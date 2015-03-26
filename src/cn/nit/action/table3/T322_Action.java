@@ -406,8 +406,9 @@ public class T322_Action {
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);maplist.put("MajorName", 1);maplist.put("MajorID", 2);
-			maplist.put("SchMajorName", 3);maplist.put("SchMajorID", 4);
-			maplist.put("MajorVersion", 5);maplist.put("MajorField", 6);maplist.put("MajorFieldID", 7);
+			maplist.put("MajorVersion", 3);
+			maplist.put("SchMajorName", 4);maplist.put("SchMajorID", 5);
+			maplist.put("MajorField", 6);maplist.put("MajorFieldID", 7);
 			maplist.put("MajorSetTime", 8);maplist.put("MajorAppvlID", 9);maplist.put("MajorDurition", 10);
 			maplist.put("MajorDegreeType", 11);maplist.put("MajorAdmisTime", 12);maplist.put("MajorState", 13);
 			maplist.put("StopAdmisTime", 14);maplist.put("IsNewMajor", 15);

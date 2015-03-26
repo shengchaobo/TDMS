@@ -14,7 +14,10 @@
 	    	<param name="className">cn.nit.excel.imports.table4.T441_Excel</param>
 	    	<!-- 处理类对应的方法名 -->
 	    	<param name="methodName">batchInsert</param>
-	    </action>  
+	    </action>
+	    
+	    
+	      
 	     
    	    <!-- 模板下载 -->
 	    <action name="downloadModel" class="cn.nit.action.DownloadModelAction" method="execute">

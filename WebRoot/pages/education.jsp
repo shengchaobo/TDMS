@@ -28,9 +28,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style> 
   </head>
   <script type="text/javascript">
-      //提交导出表单
+    //提交导出表单
     function submitForm(){
     	  document.getElementById('exportForm').submit();
+    }
+    
+    //提交导出表单
+    function submitForm1(){
+    	  document.getElementById('exportForm1').submit();
     }
   
   </script>
@@ -46,9 +51,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>	
 		 </div>
 		 <div id="allFile">
-			<form action='AllDownFile'   method="post"  id="exportForm" enctype="multipart/form-data">
+			<form action='AllDownFile'   method="post"  id="exportForm1" enctype="multipart/form-data">
 			    <select class="easyui-combobox"  id="cbYearContrast" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
-				<a href='javascript:submitForm()'   style="font:18px;" >
+				<a href='javascript:submitForm1()'   style="font:18px;" >
 						全校所有表一键导出
 				</a> 	
 			</form>	

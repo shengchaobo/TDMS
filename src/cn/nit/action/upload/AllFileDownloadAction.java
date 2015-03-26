@@ -1,4 +1,4 @@
-﻿package cn.nit.action.upload;
+package cn.nit.action.upload;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -91,7 +91,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * 处理多个附件下载
  * @author Luxh
  */
-public class MultiFileDownloadAction extends ActionSupport {
+public class AllFileDownloadAction extends ActionSupport {
 
 	private static final long serialVersionUID = 2743077909387361587L;
 	HttpServletRequest request = ServletActionContext.getRequest();
@@ -114,10 +114,10 @@ public class MultiFileDownloadAction extends ActionSupport {
 	 * 下载多个附件
 	 * 实现：将多个附近压缩成zip包,然后再下载zip包
 	 */
-	public InputStream getDownloadMultiFile() {
+	public InputStream getDownloadAllFile() {
 		
 		SimpleDateFormat sfm = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss");  
-		String filename = "教育部导出表格";
+		String filename = "全校所有表";
 		
 		//使用当前时间生成文件名称
 		String name = filename + "_" + sfm.format(new Date()).toString();
@@ -241,7 +241,7 @@ public class MultiFileDownloadAction extends ActionSupport {
 			return "J211_export has a error!";
 		}
 		
-	if(!J311_Excel.export_J311(filePath)){
+	    if(!J311_Excel.export_J311(filePath)){
 			return "J311_export has a error!";
 		}
 		if(!J312_Excel.export_J312(filePath)){

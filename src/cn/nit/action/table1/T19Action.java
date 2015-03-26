@@ -323,7 +323,6 @@ public class T19Action {
 	
 	/**数据导出*/
 	public InputStream getInputStream(){
-		System.out.println("ouput");
 
 		InputStream inputStream = null ;
 
@@ -357,6 +356,7 @@ public class T19Action {
 	
 
 	public String execute() throws Exception{
+		System.out.println("导入");
 		return "success" ;
 	}
 	

@@ -183,6 +183,7 @@ public class T251_Action {
 		
 		//插入时间
 		T251_bean.setTime(new Date());
+		System.out.println("YEAR++++++："+T251_bean.getBuildTimeYM());
 		
 		//插入审核状态
 		T251_bean.setCheckState(Constants.WAIT_CHECK);
@@ -214,6 +215,7 @@ public class T251_Action {
 	public void edit(){
 		
 		boolean flag = false;
+		System.out.println("buileTime:"+T251_bean.getBuildTimeYM());
 		
 		int tag = 0;
 		//获得该条数据审核状态
@@ -368,7 +370,7 @@ public class T251_Action {
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("expCenterName", 1);maplist.put("teaUnit", 2);maplist.put("teaUnitID", 3);maplist.put("labName", 4);
-			maplist.put("buildTime", 5);maplist.put("place", 6);maplist.put("machNum", 7);maplist.put("money", 8);
+			maplist.put("buildTimeYM", 5);maplist.put("place", 6);maplist.put("machNum", 7);maplist.put("money", 8);
 			maplist.put("area", 9);maplist.put("newAddArea", 10);maplist.put("nature", 11);maplist.put("forMajor", 12);
 						
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());

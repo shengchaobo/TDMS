@@ -204,7 +204,7 @@ public class A15Service {
 //		num=num*100;
 //		num=this.m2(num);
 //		System.out.println(num);
-		str=""+num+"%";
+		str=""+num;
 		System.out.println(str);
 		return str;
 	}

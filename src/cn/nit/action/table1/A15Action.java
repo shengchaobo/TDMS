@@ -318,9 +318,8 @@ public class A15Action {
 	}
 
 	public String toStr(double num){
-		double n=num*100;
-		String str1=""+n;
-		String str=str1+"%";
+		double n=num;
+		String str=""+n;
 		return str;
 	}
 	

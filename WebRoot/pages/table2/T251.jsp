@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'labName'" >
 						下属实验室名称
 					</th>
-					<th data-options="field:'buildTime'" formatter="formattime">
+					<th data-options="field:'buildTimeYM'" formatter="formattime">
 						创建时间
 					</th>
 					<th data-options="field:'place'">
@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'labName'" >
 						下属实验室名称
 					</th>
-					<th data-options="field:'buildTime'" formatter="formattime">
+					<th data-options="field:'buildTimeYM'" formatter="formattime">
 						创建时间
 					</th>
 					<th data-options="field:'place'">
@@ -251,9 +251,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>创建时间：</label> 
-						<input class="easyui-datebox"  id="buildTime" type="text" 
-						name="T251_bean.buildTime"  editable="false" />
-						<span id="buildTimeSpan"></span>
+						<input class="easyui-datebox"  id="BuildTimeYM" type="text" 
+						name="T251_bean.BuildTimeYM"  editable="false" />
+						<span id="BuildTimeYMSpan"></span>
 					</div>
 				</td>
 			</tr>

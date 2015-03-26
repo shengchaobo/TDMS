@@ -15,7 +15,7 @@ import cn.nit.util.DAOUtil;
 public class T251_Dao {
 	
 	private String tableName = "T251_PractisePlaceInfo_EQU$" ;
-	private String field = "ExpCenterName,TeaUnit,TeaUnitID,LabName,BuildTime,Place,MachNum,Money,Area,NewAddArea,Nature,ForMajor,Time,Note,CheckState";
+	private String field = "ExpCenterName,TeaUnit,TeaUnitID,LabName,BuildTimeYM,Place,MachNum,Money,Area,NewAddArea,Nature,ForMajor,Time,Note,CheckState";
 	private String keyfield = "SeqNumber";
 	
 	/**
@@ -155,7 +155,7 @@ public class T251_Dao {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		
-		String tempfield = "ExpCenterName,TeaUnit,TeaUnitID,LabName,BuildTime,Place,MachNum,Money,Area,NewAddArea,Nature,ForMajor,Time,CheckState";
+		String tempfield = "ExpCenterName,TeaUnit,TeaUnitID,LabName,BuildTimeYM,Place,MachNum,Money,Area,NewAddArea,Nature,ForMajor,Time,CheckState";
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 		}catch(Exception e){
@@ -225,7 +225,7 @@ public class T251_Dao {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		try{
-			String updatefield = "ExpCenterName,TeaUnit,TeaUnitID,LabName,BuildTime,Place,MachNum,Money,Area,NewAddArea,Nature,ForMajor,Note,CheckState";			
+			String updatefield = "ExpCenterName,TeaUnit,TeaUnitID,LabName,BuildTimeYM,Place,MachNum,Money,Area,NewAddArea,Nature,ForMajor,Note,CheckState";			
 			
 			flag = DAOUtil.update(bean, tableName, keyfield, updatefield, conn) ;
 		}catch(Exception e){

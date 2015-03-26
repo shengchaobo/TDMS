@@ -39,6 +39,7 @@ import cn.nit.bean.di.DiTitleNameBean;
 import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table4.T42_Bean;
 import cn.nit.bean.table4.T452_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDegreeService;
@@ -164,6 +165,8 @@ public class T452_Excel {
 				T452_bean.setInOrOut(inOrOut);
 				T452_bean.setTrainUnit(trainUnit);
 				T452_bean.setTrainMajor(trainMajor);
+				//插入审核状态
+				T452_bean.setCheckState(Constants.WAIT_CHECK);
 				T452_bean.setNote(note);
 				
 				//插入教学单位

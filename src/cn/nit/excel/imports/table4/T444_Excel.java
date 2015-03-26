@@ -75,7 +75,7 @@ public class T444_Excel {
 						break ;
 					}//if
 				}//for
-				
+			
 				if(!flag){
 					return "第" + count + "行，团队类型不存在" ;
 				}else{
@@ -111,7 +111,7 @@ public class T444_Excel {
 								
 				T444_bean = new T444_Bean() ;
 				T444_bean.setResField(resField);
-				T444_bean.setTeaId(teamID);
+				T444_bean.setType(teamID);
 				T444_bean.setGainTime(TimeUtil.changeDateY(gainTime));
 				T444_bean.setTeaId(teaId);
 				T444_bean.setLeader(name);				

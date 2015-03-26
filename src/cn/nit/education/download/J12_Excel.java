@@ -38,7 +38,7 @@ import cn.nit.util.TimeUtil;
 
 public class J12_Excel {
 	
-	public static boolean export_J11(String path) {
+	public static boolean export_J12(String path) {
 		
 		T11DAO T11_dao = new T11DAO();
 		
@@ -132,7 +132,7 @@ public class J12_Excel {
 								
 //			byteArrayOutputStream = ExcelUtil.exportExcel(list, sheetName, maplist,columns);
 
-			File file = new File(path,"J-1-0联系方式（时点）.xls");
+			File file = new File(path,"J-1-2校区地址（时点）.xls");
 			FileOutputStream fileOutputStream  = new FileOutputStream(file);
 			
 			//写到文件中
@@ -148,9 +148,9 @@ public class J12_Excel {
 	}
 	
 	public static void main(String arg[]){
-		  String path = "D:\\江西项目";
-		  J11_Excel excel = new J11_Excel();
-		  boolean flag = excel.export_J11(path);
+		 String path = "C:\\Users\\Fan Shuangyan\\Desktop";
+		  J12_Excel excel = new J12_Excel();
+		  boolean flag = excel.export_J12(path);
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

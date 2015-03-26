@@ -56,12 +56,21 @@ public class DIUserManagerService {
 	}
 	
 	/**
-	 * 根据用户SeqNumber删除用户
+	 * 根据用户id删除用户
 	 * @param ids
 	 * @return
 	 */
 	public boolean deleteByIds(String ids){
 		return userManagerDao.deleteByIds(ids) ;
+	}
+	
+	/**
+	 * 根据用户id开启或停用
+	 * @param ids
+	 * @return
+	 */
+	public boolean switchIds(String ids,String flag){
+		return userManagerDao.switchIds(ids,flag) ;
 	}
 	
 	/**

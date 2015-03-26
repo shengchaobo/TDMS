@@ -21,6 +21,7 @@ public class UsersBean implements java.io.Serializable {
 	private String teaEmail;
 	private String userNote;
 	private String unitID;
+	private boolean availability;
 
 
 	// Property accessors
@@ -92,6 +93,14 @@ public class UsersBean implements java.io.Serializable {
 
 	public String getTeaID() {
 		return teaID;
+	}
+
+	public void setAvailability(boolean availability) {
+		this.availability = availability;
+	}
+
+	public boolean isAvailability() {
+		return availability;
 	}
 
 }

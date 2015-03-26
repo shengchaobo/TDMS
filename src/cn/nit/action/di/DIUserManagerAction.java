@@ -54,6 +54,9 @@ public class DIUserManagerAction {
 	/**  下载的excelName  */
 	private String excelName ;
 	
+	/**  停用帐户标识  */
+	private String switchFlag;
+	
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	UserinfoBean user = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 	
@@ -112,6 +115,7 @@ public class DIUserManagerAction {
 		userBean.setFromOffice(userinfo.getFromOffice());
 		userBean.setUnitID(userinfo.getUnitID());
 		userBean.setUserNote(userinfo.getUserNote());
+
 	
 		DiUserRoleBean userRoleBean = new DiUserRoleBean();
 		userRoleBean.setTeaID(userinfo.getTeaID());
@@ -167,7 +171,8 @@ public class DIUserManagerAction {
 			userBean.setFromOffice(userinfo.getFromOffice());
 			userBean.setUnitID(userinfo.getUnitID());
 			userBean.setUserNote(userinfo.getUserNote());
-		
+			userBean.setAvailability(false);
+			
 			DiUserRoleBean userRoleBean = new DiUserRoleBean();
 			userRoleBean.setTeaID(userinfo.getTeaID());
 			userRoleBean.setRoleID(userinfo.getRoleID());
@@ -225,6 +230,44 @@ public class DIUserManagerAction {
 			}else{
 				out.print("{\"state\":false,data:\"用户删除失败!!!\"}") ;
 			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
+	/**
+	 * 开停用户
+	 */
+	public void switchIds(){
+		
+		boolean flag = userManagerSer.switchIds(ids,this.getSwitchFlag()) ;
+
+		PrintWriter out = null ;
+		
+		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
+			out = getResponse().getWriter() ;
+			if("0".equals(this.getSwitchFlag())){
+				if(flag){
+					out.print("{\"state\":true,data:\"帐户启用成功!!!\"}") ;
+				}else{
+					out.print("{\"state\":false,data:\"帐户启用失败!!!\"}") ;
+				}
+			}else{
+				if(flag){
+					out.print("{\"state\":true,data:\"帐户停用成功!!!\"}") ;
+				}else{
+					out.print("{\"state\":false,data:\"帐户停用失败!!!\"}") ;
+				}
+			}
+
 			
 			out.flush() ;
 		}catch(Exception e){
@@ -411,5 +454,13 @@ public class DIUserManagerAction {
 
 	public void setExcelName(String excelName) {
 		this.excelName = excelName;
+	}
+
+	public void setSwitchFlag(String switchFlag) {
+		this.switchFlag = switchFlag;
+	}
+
+	public String getSwitchFlag() {
+		return switchFlag;
 	}
 }

@@ -198,7 +198,7 @@ public class T293_Dao {
 				String tempfields ="";
 				if(tempBean.getCheckState() == Constants.WAIT_CHECK){
 					tempfields = fields + ",SumIncome,SumUndergraIncome,AllocateFund,SumOtherIncome,OtherAllocateFund,OtherTuition";
-					flag = DAOUtil.update(bean, tableName, keyfield, fields, conn) ;
+					flag = DAOUtil.update(bean, tableName, keyfield, tempfields, conn) ;
 				}
 				if(tempBean.getCheckState() == Constants.NOPASS_CHECK){
 					tempfields = fields + ",SumIncome,SumUndergraIncome,AllocateFund,SumOtherIncome,OtherAllocateFund,OtherTuition,CheckState";

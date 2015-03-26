@@ -1,4 +1,4 @@
-﻿package cn.nit.action.table1;
+package cn.nit.action.table1;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -22,6 +22,7 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table1.T181_Bean;
 import cn.nit.constants.Constants;
+import cn.nit.dao.table1.T18DAO;
 import cn.nit.excel.imports.table1.T181Excel;
 import cn.nit.service.CheckService;
 import cn.nit.service.di.DiDepartmentService;
@@ -38,6 +39,8 @@ public class T181Action {
 	/**  表181的Bean实体类  */
 	private T181_Bean t181Bean = new T181_Bean() ;
 	
+//	/**  表181的Dao类  */
+//	private T18DAO t181Dao = new T18DAO() ;
 	
 	/**  表181的Excel实体类  */
 	private T181Excel t181Excel = new T181Excel() ;
@@ -190,7 +193,7 @@ public class T181Action {
 				tempUnitID = null;
 			}
 
-			String pages = t181Ser.auditingData(cond, "1012", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t181Ser.auditingData(cond, tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -346,8 +349,9 @@ public class T181Action {
 		InputStream inputStream = null ;
 
 		try {
-
-			List<T181_Bean> list = t181Ser.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
+			
+//			List<T181_Bean> list = t181Dao.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
+			List<T181_Bean> list = t181Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK );
 			
 			String sheetName = this.excelName;
 			

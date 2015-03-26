@@ -24,7 +24,7 @@ public class T251_Bean implements java.io.Serializable {
 	private String expCenterName;
 	private String teaUnit;
 	private String labName;
-	private Date buildTime;
+	private Date buildTimeYM;
 	private String place;
 	private Integer machNum;
 	private double money;
@@ -77,13 +77,13 @@ public class T251_Bean implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "BuildTime", length = 10)
-	public Date getBuildTime() {
-		return this.buildTime;
+	@Column(name = "BuildTimeYM", length = 10)
+	public Date getBuildTimeYM() {
+		return this.buildTimeYM;
 	}
 
-	public void setBuildTime(Date buildTime) {
-		this.buildTime = buildTime;
+	public void setBuildTimeYM(Date buildTimeYM) {
+		this.buildTimeYM = buildTimeYM;
 	}
 
 	@Column(name = "Place")

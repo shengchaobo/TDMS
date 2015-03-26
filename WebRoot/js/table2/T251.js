@@ -183,7 +183,8 @@
    	$('#expCenterName').val(row[0].expCenterName) ;
   	$('#teaUnitID').combobox('select', row[0].teaUnitID) ;
   	$('#labName').val(row[0].labName) ;
-	$('#buildTime').datebox("setValue", formattime(row[0].buildTime)) ;
+	$('#buildTimeYM').datebox("setValue", formattime(row[0].buildTimeYM)) ;
+	//alert(formattime(row[0].buildTimeYM));
 	$('#place').val(row[0].place) ;
 	$('#machNum').val(row[0].machNum) ;	
    	$('#money').val(row[0].money) ;

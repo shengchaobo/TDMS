@@ -228,14 +228,14 @@ public class S15Action {
 			           ws.addCell(new Label(3, 5,""+bean.getNationKeyResArea() , wcf1));
 			           ws.addCell(new Label(2, 6, ""+bean.getNationEnginResNum(), wcf1)); 
 			           ws.addCell(new Label(3, 6,""+bean.getNationEnginResArea() , wcf1));
-			           ws.addCell(new Label(2, 6, ""+bean.getOtherNationResNum(), wcf1)); 
+			           ws.addCell(new Label(2, 7, ""+bean.getOtherNationResNum(), wcf1)); 
 			           ws.addCell(new Label(3, 7,""+bean.getOtherNationResArea() , wcf1));
 			           ws.addCell(new Label(2, 8, ""+bean.getProviResNum(), wcf1)); 
 			           ws.addCell(new Label(3, 8,""+bean.getProviResArea() , wcf1));
 			           ws.addCell(new Label(2, 9, ""+bean.getProviLabNum(), wcf1)); 
 			           ws.addCell(new Label(3, 9,""+bean.getProviLabArea() , wcf1));
 			           ws.addCell(new Label(2, 10, ""+bean.getOtherProviResNum(), wcf1)); 
-			           ws.addCell(new Label(3, 10,""+bean.getOtherSchResArea() , wcf1));
+			           ws.addCell(new Label(3, 10,""+bean.getOtherProviResArea() , wcf1));
 			           ws.addCell(new Label(2, 11, ""+bean.getHumanResSumNum(), wcf1)); 
 			           ws.addCell(new Label(3, 11,""+bean.getHumanResSumArea() , wcf1));
 			           ws.addCell(new Label(2, 12, ""+bean.getHumanNationResNum(), wcf1)); 

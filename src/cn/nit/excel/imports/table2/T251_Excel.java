@@ -124,7 +124,7 @@ public class T251_Excel {
 				if((buildTime == null) || buildTime.equals("")){
 					return "第" + count + "行，创建时间不能为空" ;
 				}else{
-					if(!TimeUtil.judgeFormatY(buildTime)){
+					if(!TimeUtil.judgeFormatYM(buildTime)){
 						return "第" + count + "行，创建时间格式不正确" ;
 					}
 				}
@@ -144,7 +144,8 @@ public class T251_Excel {
 				T251_bean.setTeaUnit(unit);
 				T251_bean.setTeaUnitID(unitId);
 				T251_bean.setLabName(labName);
-				T251_bean.setBuildTime(TimeUtil.changeDateYM(buildTime));
+				T251_bean.setBuildTimeYM(TimeUtil.changeDateYM(buildTime));
+//				T251_bean.setBuildTimeYM(TimeUtil.changeDateYM(buildTime));
 
 				
 				T251_bean.setPlace(place);

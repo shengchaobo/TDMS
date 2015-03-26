@@ -54,7 +54,7 @@ public class S17DAO {
 			return seq;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return seq;
@@ -97,7 +97,7 @@ public class S17DAO {
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return bean ;
@@ -161,7 +161,7 @@ public class S17DAO {
 			return false ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 				
@@ -200,7 +200,7 @@ public class S17DAO {
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return list ;
@@ -225,7 +225,7 @@ public class S17DAO {
 		{
 			e.printStackTrace();
 		}finally{
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return flag;
@@ -262,7 +262,7 @@ public class S17DAO {
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return list ;
@@ -315,7 +315,7 @@ public class S17DAO {
 			return count;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		
@@ -346,7 +346,7 @@ public class S17DAO {
 			return null;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return list;

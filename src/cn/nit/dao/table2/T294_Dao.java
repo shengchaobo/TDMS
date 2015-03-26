@@ -53,11 +53,10 @@ public class T294_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -85,11 +84,10 @@ public class T294_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 		
@@ -143,11 +141,10 @@ public class T294_Dao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		if(flag1==true&&flag2==true){
 			flag = true;
 		}
@@ -211,7 +208,14 @@ public class T294_Dao {
 				//重新打开数据库连接
 				Connection conn1 = DBConnection.instance.getConnection() ;	
 				Statement st1 = conn1.createStatement();
+				try{						
 				flag = st1.executeUpdate(sql.toString());
+				}catch(Exception e){
+					e.printStackTrace();
+				}finally{
+					DBConnection.close(st1);
+					DBConnection.close(conn1);
+				}
 			}else{
 				flag = 0;
 			}
@@ -220,6 +224,12 @@ public class T294_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(rs0);
+			DBConnection.close(rs1);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
+			DBConnection.close(conn);
 		}
 
 		if (flag == 0) {
@@ -292,7 +302,11 @@ public class T294_Dao {
 			e.printStackTrace() ;
 			return 0;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(rs1);
+			DBConnection.close(st1);
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		return flag;
 	}
@@ -317,7 +331,9 @@ public class T294_Dao {
 			e.printStackTrace() ;
 			return 0;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		return donaMoney;
 	}
@@ -344,7 +360,8 @@ public class T294_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {

@@ -75,7 +75,7 @@ public class T16DAO {
 			return false ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		
@@ -127,7 +127,7 @@ public class T16DAO {
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		
@@ -156,7 +156,7 @@ public class T16DAO {
 			return null;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return list;
@@ -197,7 +197,7 @@ public class T16DAO {
 			return false ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 				
@@ -244,7 +244,7 @@ public class T16DAO {
     			return n ;
     		}finally{
     			DBConnection.close(rs);
-    			DBConnection.close(st);	;	
+    			DBConnection.close(st);
     			DBConnection.close(conn);
     		}
     	 return n;
@@ -296,7 +296,7 @@ public class T16DAO {
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		
@@ -335,7 +335,7 @@ public class T16DAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		
@@ -363,7 +363,7 @@ public class T16DAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		

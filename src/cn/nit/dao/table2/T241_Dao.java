@@ -47,11 +47,10 @@ public class T241_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
-		
 		return bean ;
 	}
 		
@@ -103,11 +102,10 @@ public class T241_Dao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
-				
 		return flag ;
 	}
 	
@@ -124,7 +122,6 @@ public class T241_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where convert(varchar(4),Time,120)=" + year;			
 		//System.out.println(sql);
@@ -135,9 +132,9 @@ public class T241_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
-		
 		if (flag == 0) {
 			return false;
 		} else {

@@ -64,7 +64,7 @@ public class T14DAO {
 			return 0 ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return total ;
@@ -108,7 +108,7 @@ public class T14DAO {
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		
@@ -146,7 +146,7 @@ public class T14DAO {
 			return null;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	;	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return list ;

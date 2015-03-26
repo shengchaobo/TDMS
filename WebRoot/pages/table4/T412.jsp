@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  		<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable=false></select>
 				<input type="file" name="uploadFile" id="fileToUpload" class="easyui-validatebox" size="48" style="height: 24px;" required="true" />
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href='pages/T412/downloadModel?saveFile=<%=URLEncoder.encode("表4-1-2各专业专任教师队伍名单","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
+				<a href='pages/T412/downloadModel?saveFile=<%=URLEncoder.encode("表4-1-2各专业专任教师队伍名单.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
 			</form>
 		</div>	
 		<hr></hr>	

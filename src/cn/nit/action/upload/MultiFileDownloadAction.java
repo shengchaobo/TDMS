@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.education.download.J10_Excel;
+import cn.nit.education.download.J12_Excel;
 import cn.nit.education.download.J2101_Excel;
 import cn.nit.education.download.J2102_Excel;
 import cn.nit.education.download.J211_Excel;
@@ -174,12 +176,15 @@ public class MultiFileDownloadAction extends ActionSupport {
 		
 		// TODO Auto-generated method stub
 		//1字头
+		if(!J10_Excel.export_J10(filePath)){
+			return "J10_export has a error!";
+		}	
 		if(!J11_Excel.export_J11(filePath)){
 			return "J11_export has a error!";
 		}	
-//	    if(!J12_Excel.export_J12(filePath)){
-//			return "J12_export has a error!";
-//		}
+	    if(!J12_Excel.export_J12(filePath)){
+			return "J12_export has a error!";
+		}
 		if(!J13_Excel.export_J13(filePath)){
 			return "J13_export has a error!";
 		}

@@ -153,7 +153,7 @@ public class J11_Excel {
 								
 //			byteArrayOutputStream = ExcelUtil.exportExcel(list, sheetName, maplist,columns);
 
-			File file = new File(path,"J-1-0联系方式（时点）.xls");
+			File file = new File(path,"J-1-1 学校概况（时点）.xls");
 			FileOutputStream fileOutputStream  = new FileOutputStream(file);
 			
 			//写到文件中
@@ -169,7 +169,7 @@ public class J11_Excel {
 	}
 	
 	public static void main(String arg[]){
-		  String path = "D:\\江西项目";
+		 String path = "C:\\Users\\Fan Shuangyan\\Desktop";
 		  J11_Excel excel = new J11_Excel();
 		  boolean flag = excel.export_J11(path);
 		  if(flag){

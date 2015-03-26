@@ -69,7 +69,7 @@
 		
 	   //导出
 	   $("#export").click(function(){
-	        var tableName = encodeURI('S-5-1-1本科课程库信息统计(按课程性质统计)');
+	        var tableName = encodeURI('S-5-1-01本科课程库信息统计(按课程性质统计)');
 	        var year = $("#cbYearContrast").combobox('getValue'); 
 		    $('#exportForm').form('submit', {
 		    	data : $('#exportForm').serialize(),

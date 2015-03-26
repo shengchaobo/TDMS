@@ -258,7 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'pubCSType',align:'center'">
 				公选课类别
 				</th>
-				<th data-options="field:'isDoubleCS',align:'center'">
+				<th data-options="field:'isDoubleCS',align:'center'" formatter="formatBoolean">
 			          是否双语授课
 				</th>
 				<th data-options="field:'credit',align:'center'">

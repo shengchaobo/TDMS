@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<th field="disClass" >学位授予门类</th>
 				<th field="fieldNum">专业数（个）</th>
-				<th field="artRatio" formatter="toPercent">所占比例（%）</th>
+				<th field="ratio" formatter="toPercent">所占比例（%）</th>
 			</thead>
 	</table>
 					
@@ -71,11 +71,9 @@ function toPercent(data){
     var strData = parseFloat(data)*100;
     strData = Math.round(strData);
     strData/=100.00;
-    var ret = strData.toString()+"%";
-    return ret;
+    return strData;
 	}
 }
-var data = document.getElementById("retData").value;
 
 </script>
 		

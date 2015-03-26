@@ -4,11 +4,13 @@
 		var rows = [
 			         
 		        	{"name": "1.博士后流动站（个）", "group": "", "value": "",  "field": "postdocStation","editor": false },
-		        	{"name": "2.博士点（个）", "group": "", "value": "",  "field": "docStation","editor": false },
-		        	{"name": "3.硕士点（个）", "group": "", "value": "",  "field": "masterStation","editor": false },
-		        	{"name": "4.本科专业总数（个）", "group": "", "value": "",  "field": "sumMajor","editor": false },
-		        	{"name": "4.本科专业其中：新专业（个）", "group": "", "value": "",  "field": "newMajor","editor": false },
-		        	{"name": "5.专科专业（个）", "group": "", "value": "",  "field": "juniorMajor","editor": false }				        
+		        	{"name": "2.博士学位授权一级学科点", "group": "", "value": "",  "field": "docStationOne","editor": false },
+		        	{"name": "3.博士学位授权二级学科点（不含一级覆盖）", "group": "", "value": "",  "field": "docStationTwo","editor": false },
+		        	{"name": "4.硕士学位授权一级学科点", "group": "", "value": "",  "field": "masterStationOne","editor": false },
+		        	{"name": "5.硕士学位授权二级学科点（不含一级覆盖）", "group": "", "value": "",  "field": "masterStationTwo","editor": false },
+		        	{"name": "6.本科专业总数（个）", "group": "", "value": "",  "field": "sumMajor","editor": false },
+		        	{"name": "6.本科专业其中：新专业（个）", "group": "", "value": "",  "field": "newMajor","editor": false },
+		        	{"name": "7.专科专业（个）", "group": "", "value": "",  "field": "juniorMajor","editor": false }				        
 		        
 		    ];
 		    							

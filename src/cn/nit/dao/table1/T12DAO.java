@@ -74,6 +74,10 @@ public class T12DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return 0 ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		return total ;
 	}
@@ -118,6 +122,10 @@ public class T12DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -172,6 +180,10 @@ public class T12DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -264,12 +276,5 @@ public class T12DAO {
 		return this.tableName ;
 	}
 
-    public static void main(String arg[])
-    {
-    	T12DAO dao=new T12DAO();
-    	List<T12_Bean> list=dao.totalList();
-//    	int i=dao.totalAuditingData(null, "10");
-//    	List<T12POJO> pojo = dao.auditingData(null, "10", 1, 33);
-    	System.out.println(list.size());
-    }
+
 }

@@ -162,24 +162,24 @@ public class A322_Action {
 		           ws.addCell(new Label(9, 3, "校级", wcf)); 
 		           ws.addCell(new Label(0, 4, "全校合计", wcf)); 
 		           ws.addCell(new Label(3, 4, ""+list.get(0).getFieldNum(), wcf1)); 
-		           ws.addCell(new Label(4, 4, ""+list.get(0).getSum()+"%", wcf1)); 
-		           ws.addCell(new Label(5, 4, ""+list.get(0).getInternationRatio()+"%", wcf1)); 
-		           ws.addCell(new Label(6, 4, ""+list.get(0).getNationRatio()+"%", wcf1)); 
-		           ws.addCell(new Label(7, 4, ""+list.get(0).getProviRatio()+"%", wcf1)); 
-		           ws.addCell(new Label(8, 4, ""+list.get(0).getCityRatio()+"%", wcf1)); 
-		           ws.addCell(new Label(9, 4, ""+list.get(0).getSchoolRatio()+"%", wcf1));  
+		           ws.addCell(new Label(4, 4, ""+list.get(0).getSum()+"", wcf1)); 
+		           ws.addCell(new Label(5, 4, ""+list.get(0).getInternationRatio()+"", wcf1)); 
+		           ws.addCell(new Label(6, 4, ""+list.get(0).getNationRatio()+"", wcf1)); 
+		           ws.addCell(new Label(7, 4, ""+list.get(0).getProviRatio()+"", wcf1)); 
+		           ws.addCell(new Label(8, 4, ""+list.get(0).getCityRatio()+"", wcf1)); 
+		           ws.addCell(new Label(9, 4, ""+list.get(0).getSchoolRatio()+"", wcf1));  
 		           
 		           for(int i=1;i<list.size();i++){
 		        	   ws.addCell(new Label(0, 4+i,""+i, wcf));
 		        	   ws.addCell(new Label(1, 4+i,list.get(i).getTeaUnit(), wcf));
 		        	   ws.addCell(new Label(2, 4+i,""+list.get(i).getUnitID(), wcf1));
 		        	   ws.addCell(new Label(3, 4+i,""+list.get(i).getFieldNum(), wcf1));
-		        	   ws.addCell(new Label(4, 4+i,""+list.get(i).getSum()+"%", wcf1));
-		        	   ws.addCell(new Label(5, 4+i,""+list.get(i).getInternationRatio()+"%", wcf1));
-		        	   ws.addCell(new Label(6, 4+i,""+list.get(i).getNationRatio()+"%", wcf1));
-		        	   ws.addCell(new Label(7, 4+i,""+list.get(i).getProviRatio()+"%", wcf1));
-		        	   ws.addCell(new Label(8, 4+i,""+list.get(i).getCityRatio()+"%", wcf1));
-		        	   ws.addCell(new Label(9, 4+i,""+list.get(i).getSchoolRatio()+"%", wcf1));
+		        	   ws.addCell(new Label(4, 4+i,""+list.get(i).getSum()+"", wcf1));
+		        	   ws.addCell(new Label(5, 4+i,""+list.get(i).getInternationRatio()+"", wcf1));
+		        	   ws.addCell(new Label(6, 4+i,""+list.get(i).getNationRatio()+"", wcf1));
+		        	   ws.addCell(new Label(7, 4+i,""+list.get(i).getProviRatio()+"", wcf1));
+		        	   ws.addCell(new Label(8, 4+i,""+list.get(i).getCityRatio()+"", wcf1));
+		        	   ws.addCell(new Label(9, 4+i,""+list.get(i).getSchoolRatio()+"", wcf1));
 		           }
 		           
 

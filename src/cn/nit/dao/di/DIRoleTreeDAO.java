@@ -102,9 +102,5 @@ public class DIRoleTreeDAO {
 		
 		return flag;
 	}
-	
-	public static void main(String args[]){
-		DIRoleTreeDAO roleTreeDao = new DIRoleTreeDAO() ;
-		System.out.println(roleTreeDao.getList().size()) ;
-	}
+
 }

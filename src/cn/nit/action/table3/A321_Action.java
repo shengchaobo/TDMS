@@ -148,7 +148,6 @@ public class A321_Action {
 				response.setContentType("text/html; charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print("[{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}]") ;
-				System.out.println("统计数据不全");
 			}
 			
 		} catch (Exception e) {
@@ -250,7 +249,7 @@ public class A321_Action {
 			        	   ws.addCell(new Label(1, 5+i,list.get(i).getDisClass(), wcf));
 			        	   ws.addCell(new Label(2, 5+i,""+list.get(i).getFieldNum(), wcf1));
 			        	   
-			        	   ws.addCell(new Label(3, 5+i,list.get(i).getRatio()+"%", wcf1));
+			        	   ws.addCell(new Label(3, 5+i,list.get(i).getRatio()+"", wcf1));
 			           }
 			           
 
@@ -340,11 +339,6 @@ public class A321_Action {
 			return ServletActionContext.getResponse() ;
 		}
 		
-
-		public static void main(String args[]){
-			String match = "[\\d]+" ;
-			System.out.println("23gfhf4".matches(match)) ;
-		}
 
 
 }

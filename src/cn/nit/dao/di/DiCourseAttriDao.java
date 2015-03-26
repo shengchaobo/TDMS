@@ -46,7 +46,6 @@ public class DiCourseAttriDao {
 			e.printStackTrace() ;
 			return list ;
 		}finally{
-			DBConnection.close(rs) ;
 			DBConnection.close(st) ;
 			DBConnection.close(conn) ;
 		}
@@ -193,8 +192,9 @@ public class DiCourseAttriDao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 	}

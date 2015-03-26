@@ -29,8 +29,9 @@ public class RoleManagerDAO {
 			e.printStackTrace();
 			return null ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 	}	
 }

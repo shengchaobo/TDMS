@@ -11,6 +11,7 @@ import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
 import cn.nit.bean.table5.T512_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDepartmentService;
@@ -57,19 +58,21 @@ public class T512_Excel {
 			T512_Bean T512_Bean=new T512_Bean();
 			try {
 				
-				if(count<4){
+				if(count<5){
 					count++;
 					continue;
 				}
 				
-				String term = cell[1].getContents() ;
-				if(term == null || term.equals("")){
+				String term = cell[1].getContents();
+				//System.out.println("term:"+cell[1].getContents());
+				if(term.trim()== null || term.trim().equals("")){
 					return "第" + count + "行，学期不能为空" ;
 				}
 				if(term.length()>200){
 					return "第" + count + "行，学期不能超过200个字符" ;
 				}
 				String unit = cell[2].getContents() ;
+				//System.out.println("unit:"+cell[2].getContents());
 				if((unit == null) || unit.equals("")){
 					return "第" + count + "行，开课单位不能为空" ;
 				}
@@ -411,6 +414,7 @@ public class T512_Excel {
 				T512_Bean.setIsPlanbook(IsPlanbook);
 				T512_Bean.setIsAwardbook(IsAwardbook);
 				T512_Bean.setTime(TimeUtil.changeDateY(selectYear));
+				T512_Bean.setCheckState(Constants.WAIT_CHECK);
 	            
 				list.add(T512_Bean);
 				

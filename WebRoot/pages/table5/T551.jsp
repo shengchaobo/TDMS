@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'cheatNum'">
 						考试违纪、作弊及受处分（人次）
 					</th>
-					<th data-options="field:'goodClassRatio'" formatter="formatRatio">
+					<th data-options="field:'goodClassRatio'" >
 						优良学风班的比例(%)
 					</th>
 					<th data-options="field:'note'">
@@ -146,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'cheatNum'">
 						考试违纪、作弊及受处分（人次）
 					</th>
-					<th data-options="field:'goodClassRatio'"  formatter ="formatRatio">
+					<th data-options="field:'goodClassRatio'"  >
 						优良学风班的比例（%）
 					</th>
 					<th data-options="field:'note'">

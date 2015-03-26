@@ -187,8 +187,9 @@ public class DiContestLevelDao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 	}

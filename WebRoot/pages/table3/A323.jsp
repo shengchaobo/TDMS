@@ -121,11 +121,9 @@ function toPercent(data){
     var strData = parseFloat(data)*100;
     strData = Math.round(strData);
     strData/=100.00;
-    var ret = strData.toString()+"%";
-    return ret;
+    return strData;
 	}
 }
-var data = document.getElementById("retData").value;
 
 </script>
 		

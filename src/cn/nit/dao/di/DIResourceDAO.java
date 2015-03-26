@@ -35,6 +35,10 @@ public class DIResourceDAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return audit ;

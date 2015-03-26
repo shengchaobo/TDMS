@@ -80,8 +80,9 @@ public class DiMajorTwoDao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -205,8 +206,9 @@ public class DiMajorTwoDao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 	}

@@ -68,6 +68,9 @@ public class DiAwardLevelDao {
 			}catch(Exception e){
 				e.printStackTrace() ;
 				return list ;
+			}finally{
+				DBConnection.close(st);	
+				DBConnection.close(conn);
 			}
 			return list ;
 		}
@@ -92,6 +95,9 @@ public class DiAwardLevelDao {
 			}catch(Exception e){
 				e.printStackTrace() ;
 				return list ;
+			}finally{
+				DBConnection.close(st);	
+				DBConnection.close(conn);
 			}
 			return list ;
 		}
@@ -236,8 +242,9 @@ public class DiAwardLevelDao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 	}

@@ -110,6 +110,10 @@ public class T17DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return 0 ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		return total ;
 	}
@@ -153,6 +157,10 @@ public class T17DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -184,6 +192,10 @@ public class T17DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -219,9 +231,9 @@ public class T17DAO {
 			e.printStackTrace() ;
 			return 0 ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		return state ;
@@ -239,7 +251,6 @@ public class T17DAO {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where SeqNumber='" + seq + "';" ;		
 		System.out.println(sql);
@@ -250,7 +261,8 @@ public class T17DAO {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -272,7 +284,6 @@ public class T17DAO {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
 		" where CheckState=" + Constants.WAIT_CHECK ;		
 		
@@ -284,7 +295,8 @@ public class T17DAO {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -326,6 +338,9 @@ public class T17DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){
@@ -358,7 +373,8 @@ public class T17DAO {
 			e.printStackTrace();
 			return false; 
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -367,18 +383,4 @@ public class T17DAO {
 			return true;
 		}
 	}
-	
-	
-	public static void  main(String arg[])
-	{
-		T17DAO dao=new T17DAO();
-//		int n=dao.totalAuditingData(null, null);
-//		System.out.println(n);
-//		boolean flag = dao.updateCheck();
-//		System.out.println(flag);
-		List<T17_Bean> list = dao.totalList("2014", 2);
-		System.out.println(list.size());
-		
-	}
-
 }

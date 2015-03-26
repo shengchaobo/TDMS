@@ -55,8 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'expTeachNum'">
 				综合性、设计性实验教学（门）
 				</th>
-				<th data-options="field:'expRatio'"  formatter="formatRatio">
-				平均实验开出率（%）
+				<th data-options="field:'expRatio'" >
 				</th>
 			</tr>			
 			</thead>

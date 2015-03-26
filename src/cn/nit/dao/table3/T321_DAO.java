@@ -38,27 +38,7 @@ public class T321_DAO {
 	 */
 	
 	
-//	public int getNumofMainTrain(String UnitID){
-//		
-//		int num=0;
-//		Connection conn = DBConnection.instance.getConnection() ;
-//		try{
-//			DatabaseMetaData metadata=conn.getMetaData();
-//			ResultSet rs=metadata.getColumns(null,null,null,null);
-//			while(rs.next()){
-//				if("(rs.getArray(8))"== UnitID){
-//					num++;
-//				}
-//				
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//		}finally{
-//			DBConnection.close(conn) ;
-//		}
-//		return num;
-//		
-//	}
+
 
 	public boolean insert(T321_Bean t321_Bean){
 		
@@ -138,6 +118,10 @@ public class T321_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return 0 ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return total ;
 	}
@@ -179,6 +163,10 @@ public class T321_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -209,6 +197,10 @@ public class T321_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -238,6 +230,10 @@ public class T321_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -273,9 +269,9 @@ public class T321_DAO {
 			e.printStackTrace() ;
 			return 0 ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return state ;
@@ -293,7 +289,6 @@ public class T321_DAO {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where SeqNumber='" + seq + "';" ;		
 		System.out.println(sql);
@@ -304,7 +299,8 @@ public class T321_DAO {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -326,7 +322,6 @@ public class T321_DAO {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
 		" where CheckState=" + Constants.WAIT_CHECK ;		
 		
@@ -338,7 +333,8 @@ public class T321_DAO {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -366,7 +362,8 @@ public class T321_DAO {
 			e.printStackTrace();
 			return false; 
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -407,6 +404,9 @@ public class T321_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){
@@ -421,15 +421,5 @@ public class T321_DAO {
 		return this.tableName ;
 	}
 
-	
-	public static void main(String args[]){
-		T321_DAO dao = new T321_DAO();
-//		boolean flag = dao.updatCheck();
-//		System.out.println(flag);
-		List<T321_Bean>  list = dao.totalList("2015", 2);
-//		int checkState = dao.getCheckState(295);
-		System.out.println(list.size());
-
-	}
 
 }

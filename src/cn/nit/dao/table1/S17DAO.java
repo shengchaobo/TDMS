@@ -52,6 +52,10 @@ public class S17DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 			return seq;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		return seq;
 		
@@ -77,7 +81,6 @@ public class S17DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-//		System.out.println(sql.toString());
 		
 		try{
 			st = conn.createStatement() ;
@@ -92,6 +95,10 @@ public class S17DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		return bean ;
 	}
@@ -110,8 +117,6 @@ public class S17DAO {
 			}catch(Exception e){
 				e.printStackTrace() ;
 				return flag ;
-			}finally{
-				DBConnection.close(conn) ;
 			}
 			return flag ;
 		}
@@ -155,9 +160,9 @@ public class S17DAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 				
 		return flag ;
@@ -193,6 +198,10 @@ public class S17DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		return list ;
 	}
@@ -215,6 +224,9 @@ public class S17DAO {
 		}catch(Exception e)
 		{
 			e.printStackTrace();
+		}finally{
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		return flag;
 	}
@@ -248,6 +260,10 @@ public class S17DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		return list ;
 	}
@@ -269,8 +285,6 @@ public class S17DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
-		}finally{
-			DBConnection.close(conn) ;
 		}
 		return flag ;
 	}
@@ -299,6 +313,10 @@ public class S17DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 			return count;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		
 		return count;
@@ -326,19 +344,12 @@ public class S17DAO {
 		{
 			e.printStackTrace();
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}
 		return list;
 	}
-	
-	public static void main(String arg[]){
-		S17DAO dao=new S17DAO();
-//		S17Bean bean=dao.loadData("2014");
-//		if(bean!=null){
-//			System.out.println("yews");
-//		}
-//		int count=dao.getCount("2013");
-//		System.out.println(count);
-	}
-	
 
 }

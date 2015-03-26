@@ -196,22 +196,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th data-options="field:'title'">
 						职称
 					</th>
-					<th data-options="field:'isExcellent'" formatter="formatBoolean">
+					<th data-options="field:'isExcellent'" formatter="formatBoolean"> 
 						是否获评校级优秀指导教师
 					</th>
 					<th data-options="field:'trainIssueNum'">
 						指导毕业综合训练课题数量
 					</th>
-					<th data-options="field:'sociaPraFinishNum'">
+					<th data-options="field:'socialNum'">
 						其中在实验、实习、工程实践和社会调查等社会实践中完成数
 					</th>
 					<th data-options="field:'guideStuNum'">
 						指导学生人数
 					</th>
-					<th data-options="field:'gainBestGraDesinNum'">
+					<th data-options="field:'gainBestNum'">
 						其中：学生获优秀毕业设计人数
 					</th>
-					<th data-options="field:'gainTime'">
+					<th data-options="field:'gainTime'" formatter="formattime">
 						获评时间
 					</th>
 					

@@ -1,6 +1,8 @@
 package cn.nit.action.table5;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -16,6 +18,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jxl.Workbook;
+import jxl.format.Alignment;
+import jxl.format.Border;
+import jxl.format.BorderLineStyle;
+import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
+import jxl.format.VerticalAlignment;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
+
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
@@ -23,6 +40,7 @@ import cn.nit.bean.table5.T512_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T512_DAO;
 import cn.nit.pojo.table5.T512POJO;
+import cn.nit.pojo.table5.T513POJO;
 import cn.nit.service.CheckService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table5.T512_Service;
@@ -341,47 +359,216 @@ public class T512_Action {
 		}
 	}
 	
-	public InputStream getInputStream(){
+	
+	/**数据导出
+	 * @throws IOException */
+	public InputStream getInputStream() throws IOException{
 		
-		System.out.println("export");
-
-		InputStream inputStream = null ;
-		
-		try {
-//			//具体教学单位
-//		    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-//			String fillUnitID = bean.getUnitID();
+			//具体教学单位
+		    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+			String fillUnitID = bean.getUnitID();
 			List<T512POJO> list = t512_Sr.totalList(this.getSelectYear(),fillUnitID,Constants.PASS_CHECK);
-			String sheetName = this.excelName;
-			
-			List<String> columns = new ArrayList<String>();
-			columns.add("序号");
-			columns.add("学期");columns.add("开课单位");columns.add("单位号");columns.add("上课专业名称");columns.add("上课专业代码");
-			columns.add("课程名称");columns.add("课程编号");columns.add("课程类别");columns.add("课程性质");columns.add("公选课类别");
-			columns.add("是否双语授课");columns.add("学分");columns.add("总学时");columns.add("理论学时");columns.add("实践学时");
-			columns.add("考核方式");columns.add("实习、设计时间");columns.add("授课年级");columns.add("授课班级");columns.add("开课班号");
-			columns.add("合班情况");columns.add("学生人数");columns.add("任课教师");columns.add("教工号");
-             columns.add("是否符合岗位资格");columns.add("教师职称");
-			columns.add("使用情况");columns.add("是否规划教材");columns.add("是否获奖教材");
-			
-			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("SeqNum", 0);
-			maplist.put("Term", 1);maplist.put("CSUnit", 2);maplist.put("UnitID", 3);maplist.put("CSMajorName", 4);maplist.put("CSMajorID", 5);
-			maplist.put("CSName", 6);maplist.put("CSID", 7);maplist.put("CSType", 8);maplist.put("CSNature", 9);maplist.put("PubCSType", 10);
-			maplist.put("IsDoubleCS", 11);maplist.put("Credit", 12);maplist.put("SumCSHour", 13);maplist.put("TheoryCSHour", 14);
-			maplist.put("PraCSHour", 15);maplist.put("ExamWay", 16);maplist.put("PlanTime", 17);maplist.put("CSGrade", 18);
-			maplist.put("CSClass", 19);maplist.put("ClassID", 20);maplist.put("ClassInfo",21);maplist.put("StuNum", 22);
-			maplist.put("CSTea", 23);	maplist.put("TeaID", 24);
-			maplist.put("IsAccordJob", 25);maplist.put("TeaTitle", 26);maplist.put("BookUseInfo", 27);maplist.put("IsPlanbook", 28);maplist.put("IsAwardbook", 29);
-			
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null ;
-		}
+		
+			ByteArrayOutputStream fos = null;
+	    
 
-		return inputStream ;
+			String sheetName=this.excelName;	
+		    WritableWorkbook wwb;
+		    try {    
+		           fos = new ByteArrayOutputStream();
+		           wwb = Workbook.createWorkbook(fos);
+		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
+
+		
+		            //    设置单元格的文字格式
+		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
+		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
+		           WritableCellFormat wcf = new WritableCellFormat(wf);
+		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
+		           wcf.setAlignment(Alignment.CENTRE);
+		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
+						     jxl.format.Colour.BLACK); 
+		           wcf.setAlignment(jxl.write.Alignment.CENTRE);
+		           ws.setRowView(1, 500);
+		     
+		           //设置格式
+				   WritableCellFormat wcf1 = new WritableCellFormat();
+				   wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
+						     jxl.format.Colour.BLACK); 
+		           
+		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
+		           ws.mergeCells(0, 0, 3, 0);
+		             
+		           ws.addCell(new Label(0, 2, "序号", wcf)); 
+		           ws.addCell(new Label(1, 2, "学期", wcf)); 
+		           ws.addCell(new Label(2, 2, "开课单位", wcf)); 
+		           ws.addCell(new Label(3, 2, "单位号", wcf)); 
+		           ws.addCell(new Label(4, 2, "上课专业名称", wcf)); 
+		           ws.addCell(new Label(5, 2, "上课专业代码", wcf));
+		           ws.mergeCells(0, 2, 0, 3); ws.mergeCells(1, 2, 1, 3);
+		           ws.mergeCells(2, 2, 2, 3); ws.mergeCells(3, 2, 3, 3);
+		           ws.mergeCells(4, 2, 4, 3); ws.mergeCells(5, 2, 5, 3);
+		           
+		           ws.addCell(new Label(6, 2, "1.本科课程情况", wcf));
+		           ws.addCell(new Label(18, 2, "2.本科授课情况", wcf)); 
+		           ws.addCell(new Label(27, 2, "3.使用教材", wcf)); 
+		           
+		           ws.mergeCells(6, 2, 17, 2); ws.mergeCells(18, 2, 26, 2); ws.mergeCells(27, 2, 29, 2);
+		           
+		           
+		           ws.addCell(new Label(6, 3, "课程名称", wcf));
+		           ws.addCell(new Label(7, 3, "课程编号", wcf)); 
+		           ws.addCell(new Label(8, 3, "课程类别", wcf)); 
+		           ws.addCell(new Label(9, 3, "课程性质", wcf)); 
+		           ws.addCell(new Label(10, 3, "公选课类别", wcf)); 
+		           ws.addCell(new Label(11, 3, "是否双语授课", wcf)); 
+		           ws.addCell(new Label(12, 3, "学分", wcf)); 
+		           ws.addCell(new Label(13, 3, "总学时", wcf)); 
+		           ws.addCell(new Label(14, 3, "理论学时", wcf)); 
+		           ws.addCell(new Label(15, 3, "实践学时", wcf)); 
+		           ws.addCell(new Label(16, 3, "考核学时", wcf)); 
+		           ws.addCell(new Label(17, 3, "实习、设计学时", wcf)); 
+		           ws.addCell(new Label(18, 3, "授课年级", wcf)); 
+		           ws.addCell(new Label(19, 3, "理论班级", wcf)); 
+		           ws.addCell(new Label(20, 3, "开课班号", wcf)); 
+		           ws.addCell(new Label(21, 3, "合班情况", wcf)); 
+		           ws.addCell(new Label(22, 3, "学生人数", wcf)); 
+		           ws.addCell(new Label(23, 3, "授课教师", wcf)); 
+		           ws.addCell(new Label(24, 3, "授课教师工号", wcf)); 
+		           ws.addCell(new Label(25, 3, "是否符合岗位资格", wcf)); 
+		           ws.addCell(new Label(26, 3, "教师职称", wcf)); 
+		           ws.addCell(new Label(27, 3, "使用情况", wcf)); 
+		           ws.addCell(new Label(28, 3, "是否规划教材", wcf)); 
+		           ws.addCell(new Label(29, 3, "是否获奖教材", wcf)); 
+		           
+
+
+		           
+		           int n = list.size();
+		           int j = 4;
+		           int seq = 1;//序号
+		           String isDoubleCs;
+		           String isAccordJob;
+		           String isPlanbook;
+		           String isAwardbook;
+		           if(list!=null && list.size()>0){
+		        	   
+		        	   for(int i = 0 ; i<n;i++){
+		        		       T512POJO  pojo = list.get(i);
+			        		   ws.addCell(new Label(0, j, seq+"", wcf1)); 
+//			       
+			        		   ws.addCell(new Label(1, j, pojo.getTerm()+"", wcf1)); 
+			        		   ws.addCell(new Label(2, j, ""+pojo.getCSUnit(), wcf1)); 
+			        		   ws.addCell(new Label(3, j, ""+pojo.getUnitID(), wcf1)); 
+			        		   ws.addCell(new Label(4, j, ""+pojo.getCSMajorName(), wcf1)); 
+			        		   ws.addCell(new Label(5, j, ""+pojo.getCSMajorID(), wcf1)); 
+			        		   ws.addCell(new Label(6, j, ""+pojo.getCSName(), wcf1)); 
+			        		   ws.addCell(new Label(7, j, ""+pojo.getCSID(), wcf1)); 
+			        		   ws.addCell(new Label(8, j, ""+pojo.getCSType(), wcf1)); 
+			        		   ws.addCell(new Label(9, j, ""+pojo.getCSNature(), wcf1)); 
+			        		   ws.addCell(new Label(10, j, ""+pojo.getPubCSType(), wcf1)); 
+			        		   if(pojo.isIsDoubleCS()==false){
+			        			   isDoubleCs ="否";
+			        		   }else{
+			        			   isDoubleCs ="是";
+			        		   }
+			        		   ws.addCell(new Label(11, j, ""+isDoubleCs, wcf1)); 
+			        		   ws.addCell(new Label(12, j, ""+pojo.getCredit(), wcf1));
+
+//								maplist.put("IsAccordJob", 25);maplist.put("TeaTitle", 26);maplist.put("BookUseInfo", 27);maplist.put("IsPlanbook", 28);
+//								maplist.put("IsAwardbook", 29);
+			        		   ws.addCell(new Label(13, j, pojo.getSumCSHour()+"", wcf1)); 
+			        		   ws.addCell(new Label(14, j, ""+pojo.getTheoryCSHour(), wcf1)); 
+			        		   ws.addCell(new Label(15, j, ""+pojo.getPraCSHour(), wcf1)); 
+			        		   ws.addCell(new Label(16, j, ""+pojo.getExamWay(), wcf1)); 
+			        		   ws.addCell(new Label(17, j, ""+pojo.getPlanTime(), wcf1)); 
+			        		   ws.addCell(new Label(18, j, ""+pojo.getCSGrade(), wcf1)); 
+			        		   ws.addCell(new Label(19, j, ""+pojo.getCSClass(), wcf1)); 
+			        		   ws.addCell(new Label(20, j, ""+pojo.getCSID(), wcf1)); 
+			        		   ws.addCell(new Label(21, j, ""+pojo.getClassInfo(), wcf1)); 
+			        		   ws.addCell(new Label(22, j, ""+pojo.getStuNum(), wcf1)); 
+			        		   ws.addCell(new Label(23, j, ""+pojo.getCSTea(), wcf1)); 
+			        		   ws.addCell(new Label(24, j, ""+pojo.getTeaID(), wcf1)); 
+			        		   if(pojo.isIsAccordJob()==false){
+			        			   isAccordJob ="否";
+			        		   }else{
+			        			   isAccordJob ="是";
+			        		   }
+			        		   ws.addCell(new Label(25, j, ""+isAccordJob, wcf1)); 
+			        		   ws.addCell(new Label(26, j, ""+pojo.getTeaTitle(), wcf1)); 
+			        		   ws.addCell(new Label(27, j, ""+pojo.getBookUseInfo(), wcf1));
+			        		   if(pojo.isIsPlanbook()==false){
+			        			   isPlanbook ="否";
+			        		   }else{
+			        			   isPlanbook ="是";
+			        		   }
+			        		   ws.addCell(new Label(28, j, ""+isPlanbook, wcf1));
+			        		   if(pojo.isIsAwardbook()==false){
+			        			   isAwardbook ="否";
+			        		   }else{
+			        			   isAwardbook ="是";
+			        		   }
+			        		   ws.addCell(new Label(29, j, ""+isAwardbook, wcf1)); 
+			         
+			        		   j++;seq++;
+			        	   }
+			        	  
+			           }else{
+		        	   System.out.println("后台传入的数据为空");
+		           }
+		          wwb.write();
+		          wwb.close();
+
+		        } catch (IOException e){
+		        } catch (RowsExceededException e){
+		        } catch (WriteException e){}
+
+		return new ByteArrayInputStream(fos.toByteArray());
 	}
+	
+	
+//	public InputStream getInputStream(){
+//		
+//		//System.out.println("export");
+//
+//		InputStream inputStream = null ;
+//		
+//		try {
+////			//具体教学单位
+////		    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+////			String fillUnitID = bean.getUnitID();
+//			List<T512POJO> list = t512_Sr.totalList(this.getSelectYear(),fillUnitID,Constants.PASS_CHECK);
+//			String sheetName = this.excelName;
+//			
+//			List<String> columns = new ArrayList<String>();
+//			columns.add("序号");
+//			columns.add("学期");columns.add("开课单位");columns.add("单位号");columns.add("上课专业名称");columns.add("上课专业代码");
+//			columns.add("课程名称");columns.add("课程编号");columns.add("课程类别");columns.add("课程性质");columns.add("公选课类别");
+//			columns.add("是否双语授课");columns.add("学分");columns.add("总学时");columns.add("理论学时");columns.add("实践学时");
+//			columns.add("考核方式");columns.add("实习、设计时间");columns.add("授课年级");columns.add("授课班级");columns.add("开课班号");
+//			columns.add("合班情况");columns.add("学生人数");columns.add("授课教师");columns.add("授课教工号");
+//             columns.add("是否符合岗位资格");columns.add("教师职称");
+//			columns.add("使用情况");columns.add("是否规划教材");columns.add("是否获奖教材");
+//			
+//			Map<String,Integer> maplist = new HashMap<String,Integer>();
+//			maplist.put("SeqNum", 0);
+//			maplist.put("Term", 1);maplist.put("CSUnit", 2);maplist.put("UnitID", 3);maplist.put("CSMajorName", 4);maplist.put("CSMajorID", 5);
+//			maplist.put("CSName", 6);maplist.put("CSID", 7);maplist.put("CSType", 8);maplist.put("CSNature", 9);maplist.put("PubCSType", 10);
+//			maplist.put("IsDoubleCS", 11);maplist.put("Credit", 12);maplist.put("SumCSHour", 13);maplist.put("TheoryCSHour", 14);
+//			maplist.put("PraCSHour", 15);maplist.put("ExamWay", 16);maplist.put("PlanTime", 17);maplist.put("CSGrade", 18);
+//			maplist.put("CSClass", 19);maplist.put("ClassID", 20);maplist.put("ClassInfo",21);maplist.put("StuNum", 22);
+//			maplist.put("CSTea", 23);	maplist.put("TeaID", 24);
+//			maplist.put("IsAccordJob", 25);maplist.put("TeaTitle", 26);maplist.put("BookUseInfo", 27);maplist.put("IsPlanbook", 28);
+//			maplist.put("IsAwardbook", 29);
+//			
+//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null ;
+//		}
+//
+//		return inputStream ;
+//	}
 	
 	
 	public String execute() throws Exception{

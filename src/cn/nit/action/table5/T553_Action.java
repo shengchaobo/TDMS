@@ -318,12 +318,12 @@ public class T553_Action {
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("获奖名称");columns.add("获奖学生姓名");columns.add("学号");columns.add("所在教学单位");columns.add("所在班级");columns.add("级别");columns.add("获奖时间");
-			columns.add("备注");
+		
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("AwardName", 1);maplist.put("AwardStuName", 2);maplist.put("StuID", 3);maplist.put("TeaUnit", 4);maplist.put("FromClass", 5);maplist.put("AwardLevel", 6);maplist.put("AwardTime", 7);
-			maplist.put("Note", 8);		
+				
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();

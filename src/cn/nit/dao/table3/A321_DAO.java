@@ -40,43 +40,7 @@ public class A321_DAO {
 	private String field = "TotalNum,DisClass,FieldNum,Ratio,Time,Note" ;
 	
 
-	
-	
-//	public boolean update(String year,A321_Bean a321_bean){
-//		String sql="select * from " + tableName + " where Time like '"+year+"%' and DisClass="+"'"+a321_bean.getDisClass()+"'";	
-//		boolean flag=false;
-//		Connection conn = DBConnection.instance.getConnection() ;
-//		Statement st = null;
-//		ResultSet rs = null;
-//		List<A321_Bean> list=new ArrayList<A321_Bean>();
-//		A321_Bean bean=new A321_Bean();
-//		try{
-//			st=conn.createStatement();
-//			rs = st.executeQuery(sql);
-//			list=DAOUtil.getList(rs, A321_Bean.class);
-//			if(list.size()!=0){
-//				bean=list.get(0);
-//				System.out.println("haha");
-//				System.out.println(bean.getArtRatio());
-//				a321_bean.setSeqNumber(bean.getSeqNumber());
-//				a321_bean.setTime(TimeUtil.changeDateY(year));
-//				flag=DAOUtil.update(a321_bean, tableName, key, field, conn);
-//			}else{
-//				a321_bean.setTime(TimeUtil.changeDateY(year));
-//				flag=DAOUtil.insert(a321_bean, tableName, field, conn);
-//				
-//			}
-//		}catch (Exception e){
-//			e.printStackTrace() ;
-//		}finally{
-//			DBConnection.close(conn);
-//			DBConnection.close(rs);
-//			DBConnection.close(st);			
-//		}
-//		return flag;
-//		
-//		
-//	}
+
 	
  	public boolean save(List<A321_Bean> list,String year){
  		
@@ -104,9 +68,9 @@ public class A321_DAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
  		
  		return flag ;
@@ -190,6 +154,10 @@ public class A321_DAO {
 		{
 			e.printStackTrace();
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return list;
 	}
@@ -211,6 +179,10 @@ public class A321_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}		
 		return list ;
 	}

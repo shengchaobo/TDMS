@@ -70,6 +70,9 @@ public class DiDepartmentDao {
 				}catch(Exception e){
 					e.printStackTrace() ;
 					return list ;
+				}finally{
+					DBConnection.close(st);	
+					DBConnection.close(conn);
 				}
 				return list ;
 			}
@@ -95,6 +98,9 @@ public class DiDepartmentDao {
 					}catch(Exception e){
 						e.printStackTrace() ;
 						return list ;
+					}finally{
+						DBConnection.close(st);	
+						DBConnection.close(conn);
 					}
 					return list ;
 				}
@@ -257,8 +263,9 @@ public class DiDepartmentDao {
 				e.printStackTrace() ;
 				return false ;
 			}finally{
-				DBConnection.close(st) ;
-				DBConnection.close(conn) ;
+				DBConnection.close(rs);
+				DBConnection.close(st);	
+				DBConnection.close(conn);
 			}
 			return flag;
 		}
@@ -318,28 +325,6 @@ public class DiDepartmentDao {
 		}
 		
 		
-		public static void main(String arg[]){
-			
-			DiDepartmentDao dao = new DiDepartmentDao();
-			DiDepartmentBean bean = new DiDepartmentBean();
-			bean.setClass1("行政单位");
-			bean.setClass2("党群部门");
-			bean.setFunctions("其他");
-			bean.setLeader("黄华");
-			bean.setTeaId("200599");
-			bean.setUnitId("1001");
-			bean.setUnitName("党委办公室（院长办公室）");
-			bean.setNote("");
-			boolean flag = dao.update(bean);
-			if(flag){
-				System.out.println("更新成功");
-			}else{
-				System.out.println("更新失败");
-			}
-		}
-		
-	
-	
 
 
 }

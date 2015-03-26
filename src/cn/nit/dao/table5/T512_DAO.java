@@ -124,7 +124,7 @@ public class T512_DAO {
  			sql.append(conditions) ;
  		}
  		
- 		sql.append(" order by SeqNumber desc") ;
+ 		//sql.append(" order by SeqNumber desc") ;
  		
  		Connection conn=DBConnection.instance.getConnection();
  		

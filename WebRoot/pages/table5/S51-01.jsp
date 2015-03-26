@@ -82,13 +82,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<tr>
 					<th data-options="field:'theoPraNum',align:'center'">门数（门）</th>
-					<th data-options="field:'theoPraRatio',align:'center'"  formatter = "formatRatio">比例（%）</th>
+					<th data-options="field:'theoPraRatio',align:'center'"  >比例（%）</th>
 					<th data-options="field:'inClassNum',align:'center'">门数（门）</th>
-					<th data-options="field:'inClassRatio',align:'center'" formatter = "formatRatio">比例（%）</th>
+					<th data-options="field:'inClassRatio',align:'center'" >比例（%）</th>
 					<th data-options="field:'praNum',align:'center'">门数（门）</th>
-					<th data-options="field:'praRatio',align:'center'" formatter = "formatRatio">比例（%）</th>
+					<th data-options="field:'praRatio',align:'center'" >比例（%）</th>
 					<th data-options="field:'expNum',align:'center'">门数（门）</th>
-					<th data-options="field:'expRatio',align:'center'" formatter = "formatRatio">比例（%）</th>
+					<th data-options="field:'expRatio',align:'center'" >比例（%）</th>
 			</tr>
 		</thead>
 	</table>

@@ -183,8 +183,9 @@ public class TreeManagerDAO extends Dao{
 			e.printStackTrace();
 			return false ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 	}
 	
@@ -249,8 +250,9 @@ public class TreeManagerDAO extends Dao{
 			e.printStackTrace();
 			return 0 ;
 		}finally{
-			DBConnection.close(st) ;
-			DBConnection.close(conn) ;
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return count;

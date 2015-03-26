@@ -27,7 +27,7 @@ public class T48_Dao {
 	public List<T48_Bean> totalList(String fillUnitID, String year, int checkState){
 		
 		String sql = "select " + " " + keyfield + "," +
-		"TeaUnit,UnitId,TeamName,AwardLevel AS TeamLevel,Leader,TeaId,GroupNum,GroupInfo,GainTime,AppvlId,Time,Note,FillUnitID"
+		"TeaUnit,UnitId,TeamName,AwardLevel AS TeamLevel,Leader,TeaId,GroupNum,GroupInfo,GainTime,AppvlId,Time,Note,FillUnitID,CheckState"
 		+ " from " + tableName + 
 		" left join " + tableName1+ " on " + "TeamLevel=" + tableName1 + ".IndexID " + 
 		" where FillUnitID=" + "'" + fillUnitID + "'"

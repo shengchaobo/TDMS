@@ -46,6 +46,7 @@ public class T659_Dao {
 		String sql = "select " + key + "," + field + " from " + tableName 
 				+ " where convert(varchar(4),Time,120)=" + year;		
 		Connection conn = DBConnection.instance.getConnection() ;
+		Connection conn1 = null;
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T659_Bean> list = null ;
@@ -79,7 +80,7 @@ public class T659_Dao {
 				DAOUtil.batchInsert(list, tableName, field, conn) ;	
 				
 				//再取出来
-				Connection conn1 = DBConnection.instance.getConnection() ;
+				conn1 = DBConnection.instance.getConnection() ;
 				st = conn1.createStatement() ;
 				rs = st.executeQuery(sql) ;
 				list = DAOUtil.getList(rs, T659_Bean.class) ;
@@ -90,6 +91,7 @@ public class T659_Dao {
 		}finally{
 			DBConnection.close(rs);
 			DBConnection.close(st);
+			DBConnection.close(conn1);
 			DBConnection.close(conn);
 		}
 		return list ;
@@ -178,80 +180,7 @@ public class T659_Dao {
 		return flag;
 	}
 
-<<<<<<< HEAD
-	/**
-	 * 讲数据批量插入T511表中
-	 * 
-	 * @param list
-	 *            {@linkplain java.util.List<
-	 *            {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}>}
-	 * @return true表示插入成功，false表示插入失败
-	 */
-	public boolean batchInsert(List<T659_Bean> list) {
-
-		boolean flag = false;
-		Connection conn = DBConnection.instance.getConnection();
-
-		try {
-			flag = DAOUtil.batchInsert(list, tableName, field, conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return flag;
-		}finally{
-			DBConnection.close(conn);
-		}
-
-		return flag;
-	}
-
-	// 更新
-	public boolean update(T659_Bean StuExchangeInfo) {
-
-		boolean flag = false;
-		Connection conn = DBConnection.instance.getConnection();
-		try {
-			flag = DAOUtil
-					.update(StuExchangeInfo, tableName, key, field, conn);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return flag;
-		} finally {
-			DBConnection.close(conn);
-		}
-
-		return flag;
-	}
-
-	// 删除 ids应书写为"(1,2,3)"
-	public boolean deleteItemsByIds(String ids) {
-
-		int flag = 0;
-		StringBuffer sql = new StringBuffer();
-		sql.append("delete from " + tableName);
-		sql.append(" where " + key + " in " + ids);
-		Connection conn = DBConnection.instance.getConnection();
-		Statement st = null;
-
-		try {
-			st = conn.createStatement();
-			flag = st.executeUpdate(sql.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}finally{
-			DBConnection.close(st);	
-			DBConnection.close(conn);
-		}
-
-		if (flag == 0) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-=======
 	
->>>>>>> 30da44dcc88ac925fc3186f8447f8fcfbc952bf6
 
 	
 	
@@ -279,17 +208,10 @@ public class T659_Dao {
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-<<<<<<< HEAD
-			DBConnection.close(st);	
-			DBConnection.close(conn);
-		}
-		return list ;
-=======
 			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return bean ;
->>>>>>> 30da44dcc88ac925fc3186f8447f8fcfbc952bf6
 	}
 	
 	
@@ -319,12 +241,6 @@ public class T659_Dao {
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-<<<<<<< HEAD
-			DBConnection.close(st);	
-			DBConnection.close(conn);
-		}
-		return list ;
-=======
 			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
@@ -362,7 +278,6 @@ public class T659_Dao {
 		} else {
 			return true;
 		}
->>>>>>> 30da44dcc88ac925fc3186f8447f8fcfbc952bf6
 	}
 	
 	
@@ -408,7 +323,7 @@ public class T659_Dao {
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		return list ;
@@ -441,7 +356,7 @@ public class T659_Dao {
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		
@@ -453,7 +368,6 @@ public class T659_Dao {
 		String sql ="delete from "+tableName;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		try{
 			st = conn.createStatement();
 			flag = st.executeUpdate(sql);
@@ -461,6 +375,9 @@ public class T659_Dao {
 		}catch(SQLException e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);
+			DBConnection.close(conn);
 		}	
 		if(flag == 0){
 			return false ;
@@ -471,8 +388,6 @@ public class T659_Dao {
 	
 
 
-<<<<<<< HEAD
-=======
 	public static void main(String args[]) {
 
 		T659_Dao StuExchangeInfoDao = new T659_Dao();
@@ -484,7 +399,6 @@ public class T659_Dao {
 
 
 
->>>>>>> 30da44dcc88ac925fc3186f8447f8fcfbc952bf6
 
 
 }

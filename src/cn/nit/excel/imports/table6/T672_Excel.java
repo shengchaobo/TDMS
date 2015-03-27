@@ -268,8 +268,8 @@ public class T672_Excel {
 				T672_bean.setDualDegreeUnitId(dualDegreeUnitId);
 				T672_bean.setDualDegreeMaj(dualDegreeMaj);
 				T672_bean.setDualDegreeId(dualDegreeId);
-				T672_bean.setBeginTime(new SimpleDateFormat("yyyy-MM-dd").parse(beginTime));
-				T672_bean.setGraduateTime(new SimpleDateFormat("yyyy-MM-dd").parse(graduateTime));
+				T672_bean.setBeginTime(TimeUtil.changeDateYM(beginTime));
+				T672_bean.setGraduateTime(TimeUtil.changeDateYM(graduateTime));
 				T672_bean.setCheckState(Constants.WAIT_CHECK);
 				// 插入时间
 				T672_bean.setTime(TimeUtil.changeDateY(selectYear));

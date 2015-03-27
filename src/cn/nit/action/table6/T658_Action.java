@@ -448,7 +448,7 @@ public class T658_Action {
 			columns.add("指导教师人数");
 			columns.add("备注");
 			//columns.add("填写单位");		
-			columns.add("时间");
+//			columns.add("时间");
 			
 			
 
@@ -472,7 +472,7 @@ public class T658_Action {
 			maplist.put("note", 13);
 			
 			//maplist.put("fillUnitID", 14);
-			maplist.put("time", 14);
+//			maplist.put("time", 14);
 
 				
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());

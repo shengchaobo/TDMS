@@ -264,6 +264,7 @@ public class T615_Excel {
 
 		flag = false;
 		T615_Service T615_services = new T615_Service();
+		System.out.println("list的长度："+list.size());
 		flag = T615_services.batchInsert(list);
 
 		if (flag) {

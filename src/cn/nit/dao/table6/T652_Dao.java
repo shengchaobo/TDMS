@@ -83,6 +83,8 @@ public class T652_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(conn);
 		}
 
 		return flag;
@@ -134,6 +136,9 @@ public class T652_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 
 		if (flag == 0) {
@@ -188,11 +193,10 @@ public class T652_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -212,11 +216,10 @@ public class T652_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -256,11 +259,10 @@ public class T652_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -289,11 +291,10 @@ public class T652_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -317,9 +318,10 @@ public class T652_Dao {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
-		
 		return PaperNum;
 	}
 	
@@ -353,9 +355,9 @@ public class T652_Dao {
 			e.printStackTrace() ;
 			return 0 ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return state ;
@@ -373,7 +375,6 @@ public class T652_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where SeqNumber='" + seq + "';" ;		
 		System.out.println(sql);
@@ -384,7 +385,8 @@ public class T652_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -406,7 +408,6 @@ public class T652_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
 		" where CheckState=" + Constants.WAIT_CHECK ;		
 		
@@ -418,9 +419,9 @@ public class T652_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		if (flag == 0) {
 			return false;
 		} else {
@@ -436,7 +437,6 @@ public class T652_Dao {
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T652_Bean> list = null ;
-		T652_Bean bean = null;
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
@@ -446,52 +446,14 @@ public class T652_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
 	}
 	
-
-	public static void main(String args[]) {
-
-		T652_Dao StuPublishPaperDao = new T652_Dao();
-		List<T652_Bean> list = StuPublishPaperDao.getAllList(null, "1012");
-		System.out.println(list.size());
-//		T652_Bean StuPublishPaper = new T652_Bean();
-//		List<T652_Bean> list = StuPublishPaperDao.getYearInfo("2014");
-//		
-//		System.out.println(list.size());
-//		 StuPublishPaper.setSeqNumber(1);
-		//	
-		//TeaUnit,UnitId,PaperTitle,JonalName,JonalID,JonalDate,AwardStuName,
-		//AwardStuNum,GuideTeaName,GuideTeaNum,IsAward,AwardLevel,AwardName,AwardFromUnit,Time,Note,FillUnitID
-	
-//		StuPublishPaper.setTeaUnit("水利与生态工程学院");
-//		StuPublishPaper.setUnitId("3001");
-//		StuPublishPaper.setPaperTitle("test");
-//		StuPublishPaper.setJonalName("test");
-//		StuPublishPaper.setJonalId("test");
-//		StuPublishPaper.setJonalDate(new Date());
-//		StuPublishPaper.setAwardStuName("test");
-//		StuPublishPaper.setAwardStuNum(2);
-//		StuPublishPaper.setGuideTeaName("test");
-//		StuPublishPaper.setGuideTeaNum(2);
-//		StuPublishPaper.setIsAward(true);
-//		StuPublishPaper.setAwardLevel("50001");
-//		StuPublishPaper.setAwardName("test");
-//		StuPublishPaper.setAwardFromUnit("test");
-//		StuPublishPaper.setFillUnitID("1029");
-//		
-//				
-//		StuPublishPaper.setTime(new Date());
-//		StuPublishPaper.setNote("无");
-////		//		
-//		StuPublishPaperDao.insert(StuPublishPaper);
-
-	}
 
 
 

@@ -78,6 +78,8 @@ public class T659_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(conn);
 		}
 
 		return flag;
@@ -117,6 +119,9 @@ public class T659_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 
 		if (flag == 0) {
@@ -153,11 +158,10 @@ public class T659_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -194,11 +198,10 @@ public class T659_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -218,11 +221,10 @@ public class T659_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -252,48 +254,13 @@ public class T659_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
 	}
-
-	public static void main(String args[]) {
-
-		T659_Dao StuExchangeInfoDao = new T659_Dao();
-		T659_Bean StuExchangeInfo = new T659_Bean();
-//		 StuExchangeInfo.setSeqNumber(1);
-		//	
-		StuExchangeInfo.setTeaUnit("水利与生态工程学院");
-		StuExchangeInfo.setUnitId("3001");
-		StuExchangeInfo.setExchangeStuSum(8);
-		StuExchangeInfo.setFromSchToOverseas(8);
-		StuExchangeInfo.setFromSchToDomestic(0);
-		StuExchangeInfo.setFromDomesticToSch(0);
-		StuExchangeInfo.setFromOverseasToSch(0);
-		StuExchangeInfo.setFillUnitID("1022");
-				
-		StuExchangeInfo.setTime(new Date());
-		StuExchangeInfo.setNote("无");
-//		//		
-		StuExchangeInfoDao.insert(StuExchangeInfo);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(StuExchangeInfoDao.update(StuExchangeInfo)) ;
-//		 System.out.println(StuExchangeInfoDao.deleteItemsByIds("(8)")) ;
-
-		System.out.println("success!!");
-	}
-
-
-
-
 
 
 

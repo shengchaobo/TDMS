@@ -48,6 +48,7 @@ public class T655_Dao {
 		String sql = "select " + key + "," + field + " from " + tableName 
 				+ " where convert(varchar(4),Time,120)=" + year;		
 		Connection conn = DBConnection.instance.getConnection() ;
+		Connection conn1 = null;
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T655_Bean> list = null ;
@@ -83,7 +84,7 @@ public class T655_Dao {
 				DAOUtil.batchInsert(list, tableName, field, conn) ;	
 				
 				//再取出来
-				Connection conn1 = DBConnection.instance.getConnection() ;
+				conn1 = DBConnection.instance.getConnection() ;
 				st = conn1.createStatement() ;
 				rs = st.executeQuery(sql) ;
 				list = DAOUtil.getList(rs, T655_Bean.class) ;
@@ -92,9 +93,10 @@ public class T655_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
+			DBConnection.close(conn1);
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -123,9 +125,9 @@ public class T655_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -178,9 +180,9 @@ public class T655_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return bean ;
@@ -210,9 +212,9 @@ public class T655_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return bean ;
@@ -232,7 +234,6 @@ public class T655_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where TeaUnit='" + unitName + "' and convert(varchar(4),Time,120)=" + year;			
 		System.out.println(sql);
@@ -243,7 +244,8 @@ public class T655_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -298,6 +300,8 @@ public class T655_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(conn);
 		}
 
 		return flag;
@@ -479,6 +483,8 @@ public class T655_Dao {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
 		
@@ -504,6 +510,8 @@ public class T655_Dao {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
 		
@@ -529,9 +537,10 @@ public class T655_Dao {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
-		
 		return JPassRate;
 	}
 //	
@@ -566,7 +575,6 @@ public class T655_Dao {
 		String sql ="delete from "+tableName;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		try{
 			st = conn.createStatement();
 			flag = st.executeUpdate(sql);
@@ -574,6 +582,9 @@ public class T655_Dao {
 		}catch(SQLException e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}	
 		if(flag == 0){
 			return false ;
@@ -582,15 +593,7 @@ public class T655_Dao {
 		}	
 	}
 
-	public static void main(String args[]) {
 
-		T655_Dao CET46AndJiangxiNCREDao = new T655_Dao();
-		
-//	boolean flag = CET46AndJiangxiNCREDao.deleteAll();
-//	System.out.println(flag);
-		List<T655_Bean> list = CET46AndJiangxiNCREDao.getYearInfo("2014");
-		System.out.println(list.size());
-	}
 
 
 

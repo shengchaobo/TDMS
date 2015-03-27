@@ -106,17 +106,17 @@ public class S321_DAO {
 
 	public List<S321_Bean> getData(String year)
 	{
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
+		Connection conn1 = DBConnection.instance.getConnection() ;
+		Statement st1 = null ;
+		ResultSet rs1 = null ;
 
 		List<S321_Bean> list = new ArrayList<S321_Bean>() ;
 		
 		String sql = "select * from T322_UndergraMajorInfo_Tea$ where time like '"+ year +"%'";
 		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql);
-			if(!rs.next()){
+			st1 = conn1.createStatement();
+			rs1 = st1.executeQuery(sql);
+			if(!rs1.next()){
 				System.out.println("统计数据不全啊  ");
 				return list;
 			}
@@ -124,6 +124,10 @@ public class S321_DAO {
 		}catch (Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn1);
 		}
 		
 		
@@ -136,7 +140,10 @@ public class S321_DAO {
 				" from (SELECT distinct Type FROM T322_UndergraMajorInfo_Tea$) a " +
 				"left join (select * from T322_UndergraMajorInfo_Tea$) b on a.Type = b.Type where Time like '"+year+"%'group by a.Type";
    
-		//System.out.println(querysql);
+	Connection conn = DBConnection.instance.getConnection() ;
+	Statement st = null ;
+	ResultSet rs = null ;
+
 	
 		int sum=0,num=0,sumInternation=0,sumNation=0,sumProvi=0,sumCity=0,sumSchool=0;
 	

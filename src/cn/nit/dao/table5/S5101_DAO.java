@@ -54,6 +54,8 @@ public class S5101_DAO {
 			 e.printStackTrace();
 			 return count;
 		 }finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
 				DBConnection.close(conn);
 			}
 		 return count;
@@ -156,9 +158,10 @@ public class S5101_DAO {
 		 }catch (Exception e){
 			 e.printStackTrace();
 		 }finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
 				DBConnection.close(conn);
 			}
-		 
 		 return list;
 	}
 	
@@ -193,6 +196,8 @@ public class S5101_DAO {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
 		return list ;
@@ -223,6 +228,8 @@ public class S5101_DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
 		return list;
@@ -260,11 +267,10 @@ public class S5101_DAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
- 		
  		return flag ;
  		
  	}
@@ -281,27 +287,7 @@ public class S5101_DAO {
 	}
 	
 	
-	public static void main(String arg[]){
-		S5101_DAO dao= new S5101_DAO();
-//		List<S5101_Bean> list = dao.getOriData("2014");
-//		for(int i=0;i<list.size();i++){
-//			S5101_Bean bean = list.get(i);
-//			System.out.println("项目："+bean.getItem());
-//			System.out.println("实验课："+bean.getExpNum());
-//			System.out.println("实验课比列："+bean.getExpRatio());
-//			System.out.println("理论课（不含实践）："+bean.getInClassNum());
-//			System.out.println("理论课（含实践）："+bean.getPraNum());
-//			System.out.println("集中性实践环节："+bean.getTheoPraNum());
-//		}
-		int a = 1;
-		int b = 3;
-	    double n = dao.toDouble(a, b);
-	    System.out.println(n);
-		
-	
-	    
-//		System.out.println(list.size());
-	}
+
 	
 
 }

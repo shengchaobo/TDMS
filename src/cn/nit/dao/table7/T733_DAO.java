@@ -79,6 +79,10 @@ public class T733_DAO {
 			e.printStackTrace();
 			return 0;
 			
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return total;
@@ -125,6 +129,10 @@ public class T733_DAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return null;
+			}finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
+				DBConnection.close(conn);
 			}		
 			return list;	
 		}
@@ -153,11 +161,10 @@ public class T733_DAO {
 				e.printStackTrace() ;
 				return null ;
 			}finally{
-				DBConnection.close(conn);
 				DBConnection.close(rs);
-				DBConnection.close(st);			
+				DBConnection.close(st);	
+				DBConnection.close(conn);
 			}
-			
 			return list ;
 		}
 		 public boolean update(T733_Bean t733_B){
@@ -196,6 +203,8 @@ public class T733_DAO {
 				}catch(Exception e){
 					e.printStackTrace() ;
 					return flag ;
+				}finally{
+					DBConnection.close(conn);
 				}
 				
 				return flag ;
@@ -219,6 +228,9 @@ public class T733_DAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
+			}finally{
+				DBConnection.close(st);	
+				DBConnection.close(conn);
 			}
 			if (flag==0) {
 				return false;

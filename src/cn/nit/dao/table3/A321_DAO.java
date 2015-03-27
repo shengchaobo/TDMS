@@ -81,17 +81,17 @@ public class A321_DAO {
 	
 	public  List<A321_Bean> getOriData(String year)
 	{
-		Connection conn=DBConnection.instance.getConnection();
-		Statement st=null;
-		ResultSet rs=null;
+		Connection conn1=DBConnection.instance.getConnection();
+		Statement st1=null;
+		ResultSet rs1=null;
 		List<A321_Bean> list = new ArrayList<A321_Bean>() ;
 		
 		String sql = "select * from "+tableName1+" where time like '"+year+"%'";
 		
 		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql);
-			if(!rs.next()){
+			st1 = conn1.createStatement();
+			rs1 = st1.executeQuery(sql);
+			if(!rs1.next()){
 				System.out.println("统计数据不全啊  ");
 				return list;
 			}
@@ -99,13 +99,19 @@ public class A321_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn1);
 		}
 		
 		StringBuffer sql1=new StringBuffer();
 		sql1.append("select count(distinct b.MajorName) as sum,a.MajorDegreeType as DisClass,COUNT(b.MajorDegreeType) AS FieldNum" +
 				" from (SELECT distinct MajorDegreeType FROM T322_UndergraMajorInfo_Tea$) a " +
 				"left join  T322_UndergraMajorInfo_Tea$  b on a.MajorDegreeType = b.MajorDegreeType where Time like '"+year+"%'group by a.MajorDegreeType");
-	System.out.println(sql1);
+		Connection conn=DBConnection.instance.getConnection();
+		Statement st=null;
+		ResultSet rs=null;
 		
 
 		int num=0,total=0;

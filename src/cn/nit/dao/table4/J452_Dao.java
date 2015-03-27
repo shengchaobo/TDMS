@@ -68,11 +68,12 @@ public class J452_Dao {
 			e.printStackTrace();
 			return null;
 		}finally{
-			DBConnection.close(conn);
+			
 			DBConnection.close(rs1);
 			DBConnection.close(st1);
 			DBConnection.close(rs2);
 			DBConnection.close(st2);
+			DBConnection.close(conn);
 		}
 		return list;
 	}

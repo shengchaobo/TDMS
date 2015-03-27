@@ -55,10 +55,11 @@ public class S444_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
+		
 		
 		return list ;
 	}
@@ -96,10 +97,11 @@ public class S444_Dao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
+		
  		
  		return flag ;
  		
@@ -126,7 +128,12 @@ public class S444_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
+		
 		
 		
 	String querysql="select "+tableName2+".ResearchTeam as TeamType,count("+tableName1+".ResField) as TeamNum from "+tableName1+
@@ -136,17 +143,18 @@ public class S444_Dao {
    
 		System.out.println(querysql);
 
-
-		
+		Connection conn1 = DBConnection.instance.getConnection() ;
+		Statement st1 = null ;
+		ResultSet rs1 = null ;
 		int sum=0,teamNum=0;
 		String teamType=null;
 		
 		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(querysql) ;
-			while(rs.next()){
-				teamType = rs.getString("TeamType");				
-				teamNum = rs.getInt("TeamNum");
+			st1 = conn1.createStatement() ;
+			rs1 = st1.executeQuery(querysql) ;
+			while(rs1.next()){
+				teamType = rs1.getString("TeamType");				
+				teamNum = rs1.getInt("TeamNum");
 				sum += teamNum;
 
 				S444_Bean s444_Bean=new S444_Bean();	
@@ -170,6 +178,10 @@ public class S444_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn1);
 		}
 		
 		return list ;

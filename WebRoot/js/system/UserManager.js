@@ -1,4 +1,6 @@
-	//只是用来展示的数据
+
+
+//只是用来展示的数据
 	$(function() {
 		$('#userManager').datagrid( {
 			title : '用户管理',  //可变内容在具体页面定义
@@ -136,6 +138,59 @@
 		$('#UserNote').val(row[0].userNote);
 	}
 
+	function switchIds(flag) {
+		
+		
+		//获取选中项
+		var row = $('#userManager').datagrid('getSelections');
+
+		if(flag=='0'){
+			
+			if (row.length == 0) {
+				$.messager.alert('温馨提示', "请选择要启用的帐户！！！");
+				return;
+			}
+
+			$.messager.confirm('启用帐户', '您确定启用选中帐户?', function(sure) {
+				if (sure) {
+					var ids = "";
+					ids += "(";
+					for ( var i = 0; i < row.length; i++) {
+						if (i < (row.length - 1)) {
+							ids += ("'"+row[i].teaID+"'" + ",");
+						} else {
+							ids += ("'"+row[i].teaID +"'"+ ")");
+						}
+					}				
+					url = "pages/UserManager/switchIds?ids=" + ids + "&switchFlag=0" ;
+					submitIds();
+				}
+			});
+		}else{
+			if (row.length == 0) {
+				$.messager.alert('温馨提示', "请选择停用的帐户！！！");
+				return;
+			}
+
+			$.messager.confirm('停用帐户', '您确定停用选中帐户?', function(sure) {
+				if (sure) {
+					var ids = "";
+					ids += "(";
+					for ( var i = 0; i < row.length; i++) {
+						if (i < (row.length - 1)) {
+							ids += ("'"+row[i].teaID+"'" + ",");
+						} else {
+							ids += ("'"+row[i].teaID +"'"+ ")");
+						}
+					}				
+					url = "pages/UserManager/switchIds?ids=" + ids + "&switchFlag=1" ;
+					submitIds();
+				}
+			});
+		}
+
+	}
+	
 	function deleteByIds() {
 		//获取选中项
 		var row = $('#userManager').datagrid('getSelections');
@@ -161,7 +216,7 @@
 			}
 		});
 	}
-
+	
 	function submitIds() {
 		//alert(url);
 		$.ajax({
@@ -214,3 +269,13 @@
          queryParams.searchID = queryValue;  
          $("#userManager").datagrid('reload'); 
     }	
+	
+	function formatBoolean(val) {  
+	    if(val == true){
+		    return '是' ;
+	    }else if(val == false){
+	    	return '否' ;
+	    }else{
+	    	return null;
+	    }
+	}  

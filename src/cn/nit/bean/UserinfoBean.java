@@ -46,6 +46,10 @@ public class UserinfoBean {
 	
 	/** 所属角色 ID**/
 	private String RoleID;
+	
+	/** 帐号是否被停用**/
+	private boolean availability;
+
 
 	public String getTeaID() {
 		return TeaID;
@@ -125,6 +129,14 @@ public class UserinfoBean {
 
 	public Integer getSeqNumber() {
 		return SeqNumber;
+	}
+
+	public void setAvailability(boolean availability) {
+		this.availability = availability;
+	}
+
+	public boolean isAvailability() {
+		return availability;
 	}
 
 

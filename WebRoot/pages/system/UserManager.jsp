@@ -30,7 +30,7 @@
 		<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 		<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
-		<script type="text/javascript" src="js/system/UserManager.js"></script>
+		<script type="text/javascript" src="js/system/UserManager.js"></script>		
 		
 </head>
 <body style="overflow-y:scroll">
@@ -45,6 +45,7 @@
 				<th field="teaEmail">电子邮箱</th>
 				<th field="roleID"  hidden="true">用户ID</th>
 				<th field="roleName">用户角色</th>
+				<th data-options="field:'availability'" formatter="formatBoolean">是否停用</th>
 				<th field="userNote">备注</th>
 			</tr>
 		</thead>
@@ -57,6 +58,10 @@
 				iconCls="icon-edit" plain="true" onclick="editUser()">编辑用户</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除用户</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+				iconCls="icon-remove" plain="true" onclick="switchIds('1')">停用帐户</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+				iconCls="icon-remove" plain="true" onclick="switchIds('0')">启用用户</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				iconCls="icon-remove" plain="true" onclick="resetPassword()">重置密码</a>
 		    <a href='pages/UserManager/dataExport?excelName=<%=URLEncoder.encode("系统用户表","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 				

@@ -74,6 +74,11 @@ public class LoginUserAction {
 				UserinfoBean userinfo = list.get(0) ;
 				String password = MD5Util.encode(user.getPassword()) ;
 				
+				if(userinfo.isAvailability()==true){
+					out.print("{success:false,msg:'该帐号被停用，如有疑问，请联系系统管理员！！！'}") ;
+					return ;
+				}
+				
 				if(userinfo.getTeaPasswd().equals(password)){
 					request.getSession().setAttribute("userinfo", userinfo) ;
 					out.print("{success:true,url:'" + redirect +"'}") ;

@@ -21,7 +21,6 @@
 			remoteSort : false,
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
-			
 				//设置表格状态
 				if(rowData.rows[0].checkState!=0){  								
     				if(rowData.rows[0].checkState==WAITCHECK){

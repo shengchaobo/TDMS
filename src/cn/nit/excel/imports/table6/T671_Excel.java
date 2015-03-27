@@ -264,8 +264,8 @@ public class T671_Excel {
 				T671_bean.setMinorUnitId(minorUnitId);
 				T671_bean.setMinorMaj(minorMaj);
 				T671_bean.setMinorId(minorId);
-				T671_bean.setBeginTime(new SimpleDateFormat("yyyy-MM-dd").parse(beginTime));
-				T671_bean.setGraduateTime(new SimpleDateFormat("yyyy-MM-dd").parse(graduateTime));
+				T671_bean.setBeginTime(TimeUtil.changeDateYM(beginTime));
+				T671_bean.setGraduateTime(TimeUtil.changeDateYM(graduateTime));
 				T671_bean.setCheckState(Constants.WAIT_CHECK);
 				// 插入时间
 				T671_bean.setTime(TimeUtil.changeDateY(selectYear));

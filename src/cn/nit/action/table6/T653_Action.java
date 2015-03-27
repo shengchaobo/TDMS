@@ -440,7 +440,7 @@ public class T653_Action {
 			columns.add("颁发单位");
 			columns.add("备注");
 			//columns.add("填写单位");
-			columns.add("时间");
+//			columns.add("时间");
 				
 
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
@@ -464,7 +464,7 @@ public class T653_Action {
 			
 			maplist.put("note", 15);
 			//maplist.put("fillUnitID", 16);
-			maplist.put("time", 16);
+//			maplist.put("time", 16);
 				
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 		} catch (Exception e) {

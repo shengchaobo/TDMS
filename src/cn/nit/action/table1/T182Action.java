@@ -186,7 +186,7 @@ public class T182Action {
 			if(!tempUnitID.equals("1013")){
 				tempUnitID = null;
 			}
-			System.out.println(tempUnitID);
+//			System.out.println(tempUnitID);
 			
 			String pages = t182Ser.auditingData(cond,tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
@@ -210,7 +210,7 @@ public class T182Action {
 	/**  编辑数据  */
 	public void edit(){
 
-		System.out.println("edit");
+//		System.out.println("edit");
 		boolean flag = false;
 		int tag = 0;
 		
@@ -290,7 +290,7 @@ public class T182Action {
 	
 	/**  全部审核通过  */
 	public void checkAll(){
-		System.out.println("全部审核通过");
+//		System.out.println("全部审核通过");
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
 		boolean flag = t182Ser.checkAll();
@@ -317,7 +317,7 @@ public class T182Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
+//		System.out.println("ids=" + ids) ;
 		boolean flag = t182Ser.deleteCoursesByIds(ids) ;
 		//删除审核不通过信息
 		check_services.delete("T182", ids);

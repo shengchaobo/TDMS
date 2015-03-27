@@ -299,7 +299,7 @@ public class T17Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
+//		System.out.println("ids=" + ids) ;
 		boolean flag = t17Ser.deleteCoursesByIds(ids) ;
 		
 		//删除审核不通过信息

@@ -100,7 +100,7 @@ public class T183Action {
 		t183Bean.setCheckState(Constants.WAIT_CHECK);
 		t183Bean.setFillDept("fillUnitID");
 		//t183Bean.setFillDept("1017");//招就处
-		System.out.println(t183Bean.getUnitName());
+//		System.out.println(t183Bean.getUnitName());
 
 		boolean flag = t183Ser.insert(t183Bean) ;
 		PrintWriter out = null ;
@@ -285,7 +285,7 @@ public class T183Action {
 	
 	/**  全部审核通过  */
 	public void checkAll(){
-		System.out.println("全部审核通过");
+//		System.out.println("全部审核通过");
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
 		boolean flag = t183Ser.checkAll();
@@ -312,7 +312,7 @@ public class T183Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
+//		System.out.println("ids=" + ids) ;
 		boolean flag = t183Ser.deleteCoursesByIds(ids) ;
 		//删除审核不通过信息
 		check_services.delete("T183", ids);

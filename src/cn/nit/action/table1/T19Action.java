@@ -293,7 +293,7 @@ public class T19Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
+//		System.out.println("ids=" + ids) ;
 		boolean flag = t19Ser.deleteCoursesByIds(ids) ;
 		
 		
@@ -336,13 +336,13 @@ public class T19Action {
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("奖励名称 ");columns.add("级别");columns.add("授予单位 ");columns.add("获奖单位");
-			columns.add("单位号");columns.add("获奖时间");columns.add("备注");
+			columns.add("单位号");columns.add("获奖时间");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("RewardName", 1);maplist.put("RewardLevel", 2);maplist.put("RewardFromUnit", 3);maplist.put("UnitName", 4);
-			maplist.put("UnitID", 5);maplist.put("RewardTime", 6);maplist.put("Note", 7);
+			maplist.put("UnitID", 5);maplist.put("RewardTime", 6);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());

@@ -440,7 +440,7 @@ public class T654_Action {
 			columns.add("指导教师");
 			columns.add("指导教师人数");
 			columns.add("备注");
-			columns.add("时间");
+//			columns.add("时间");
 			//columns.add("填写单位");
 			
 				
@@ -460,7 +460,7 @@ public class T654_Action {
 			maplist.put("guideTeaName", 9);
 			maplist.put("guideTeaNum", 10);
 			maplist.put("note", 11);
-			maplist.put("time", 12);
+//			maplist.put("time", 12);
 			//maplist.put("fillUnitID", 13);
 			
 		

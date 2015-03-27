@@ -289,7 +289,7 @@ public class T655_Action {
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("seqNumber", 0);maplist.put("teaUnit", 1);maplist.put("unitId", 2);
 			maplist.put("CET4PassRate", 3);maplist.put("CET6PassRate", 4);
-			maplist.put("jiangxiNCREPassRate", 5);maplist.put("note", 5);
+			maplist.put("jiangxiNCREPassRate", 5);
 			WritableWorkbook wwb;
 		    try {    
 		            fos = new ByteArrayOutputStream();

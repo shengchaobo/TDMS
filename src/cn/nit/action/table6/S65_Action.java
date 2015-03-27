@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -146,9 +147,9 @@ public class S65_Action {
 			flag = false;
 			System.out.println("T655empty");
 		}else{
-			double cet4 = T655_services.getCET4PassRate(this.getSelectYear());
-			double cet6 = T655_services.getCET6PassRate(this.getSelectYear());
-			double jncre = T655_services.getJPassRate(this.getSelectYear());
+			double cet4 = this.toTwo(T655_services.getCET4PassRate(this.getSelectYear()));
+			double cet6 =this.toTwo( T655_services.getCET6PassRate(this.getSelectYear()));
+			double jncre = this.toTwo(T655_services.getJPassRate(this.getSelectYear()));
 			bean.setCET4(cet4);
 			bean.setCET6(cet6);
 			bean.setJingxiNCRE(jncre);
@@ -161,7 +162,7 @@ public class S65_Action {
 			flag = false;
 			System.out.println("T656empty");
 		}else{
-			double ncre = T656_services.getNPassRate(this.getSelectYear());
+			double ncre = this.toTwo(T656_services.getNPassRate(this.getSelectYear()));
 			bean.setNCRE(ncre);
 		}
 
@@ -172,8 +173,8 @@ public class S65_Action {
 			flag = false;
 			System.out.println("T657empty");
 		}else{
-			double conQualify = T657_services.getQualifiedRate(this.getSelectYear());
-			double conReach = T657_services.getTestReachRate(this.getSelectYear());
+			double conQualify = this.toTwo(T657_services.getQualifiedRate(this.getSelectYear()));
+			double conReach = this.toTwo(T657_services.getTestReachRate(this.getSelectYear()));
 			bean.setConQualify(conQualify);
 			bean.setConReach(conReach);
 		}
@@ -425,6 +426,16 @@ public class S65_Action {
 
 	public String getFields() {
 		return fields;
+	}
+	
+	/**double保留两位小数*/
+	public double toTwo(double num){
+		
+		 DecimalFormat df = new DecimalFormat("#.00");
+		 String str = df.format(num);
+		 double num1 = Double.valueOf(str);
+		 return num1;
+		 
 	}
 	
 	public static void main(String arg[]) throws Exception{

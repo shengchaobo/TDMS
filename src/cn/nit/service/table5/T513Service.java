@@ -22,8 +22,10 @@ public class T513Service {
 	
 	
 	public List<T513POJO> getYearInfo(String selectYear){
+		//根据年份得到数据上
 		List<T513POJO> oriList = t513Dao.getYearInfo(selectYear);
-		System.out.println("oriLisr："+oriList.size());
+		//System.out.println("oriLisr："+oriList.size());
+		//对数据排序
 		List<T513POJO> list = this.toRealData(oriList);
 		return list;
 	}

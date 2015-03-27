@@ -158,16 +158,16 @@ public class T172Action {
 	/**  编辑数据  */
 	public void editSch(){
 
-		System.out.println("编辑数据！");
-		System.out.println(t172Bean.getActName());
-		System.out.println(t172Bean.getSeqNumber());
-		System.out.println(t172Bean.getActPlace());
-		System.out.println(t172Bean.getActType());
-		System.out.println(t172Bean.getFriName());
-		System.out.println(t172Bean.getNote());
-		System.out.println(t172Bean.getUnitID());
-		System.out.println(t172Bean.getUnitName());
-		System.out.println(t172Bean.getActTime());
+//		System.out.println("编辑数据！");
+//		System.out.println(t172Bean.getActName());
+//		System.out.println(t172Bean.getSeqNumber());
+//		System.out.println(t172Bean.getActPlace());
+//		System.out.println(t172Bean.getActType());
+//		System.out.println(t172Bean.getFriName());
+//		System.out.println(t172Bean.getNote());
+//		System.out.println(t172Bean.getUnitID());
+//		System.out.println(t172Bean.getUnitName());
+//		System.out.println(t172Bean.getActTime());
 		boolean flag = t172Ser.update(t172Bean) ;
 		
 		PrintWriter out = null ;
@@ -193,7 +193,7 @@ public class T172Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
+//		System.out.println("ids=" + ids) ;
 		boolean flag = t172Ser.deleteCoursesByIds(ids) ;
 		PrintWriter out = null ;
 		

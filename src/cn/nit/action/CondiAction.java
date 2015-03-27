@@ -261,7 +261,7 @@ public class CondiAction {
 			bean614.getPreppyLastYearNum()+bean614.getAdvStuLastYearNum()+bean614.getAdultLastYearNum();			
 			condiBean.setFulltimeStuNum(FulltimeStuNum);
 			
-			double UndergraRatio = Math.round((double)UndergraNum/FulltimeStuNum * 100 ) / 100.0;
+			double UndergraRatio = Math.round((double)UndergraNum/FulltimeStuNum * 100) / 100.0;
 			condiBean.setUndergraRatio(UndergraRatio);
 			
 			int totalStuNum = (int)(bean611.getUndergraLastYearNum()+bean613.getCoTrainStuLastYearNum()+bean611.getJuniorLastYearNum()+
@@ -274,7 +274,7 @@ public class CondiAction {
 			
 			condiBean.setOutNum(outNum);
 			
-			double inOutRatio = Math.round((double)inNum/UndergraNum * 100 ) / 100.0;
+			double inOutRatio = Math.round((double)inNum/UndergraNum * 100) / 100.0;
 			condiBean.setInOutRatio(inOutRatio);
 			
 			condiBean.setMinorNum(minorNum);

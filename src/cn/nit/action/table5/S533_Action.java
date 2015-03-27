@@ -217,7 +217,7 @@ public class S533_Action {
 			        					}else if(type.endsWith("int")||type.endsWith("Integer")){
 			        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
 			        					}else if(type.endsWith("double")||type.endsWith("Double")){
-			        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString()+"%",wcf1));
+			        						ws.addCell(new Label(maplist.get(column).intValue(),i+3,(String) wrapper.getPropertyValue(column).toString(),wcf1));
 			        					}else{
 			        						throw new Exception("自行添加对应类型" + type) ;
 			        					}                       	                         	

@@ -9,16 +9,7 @@ import java.util.List;
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
-import cn.nit.bean.table6.T621_Bean;
-import cn.nit.bean.table6.T624_Bean;
-import cn.nit.bean.table6.T641_Bean;
-import cn.nit.bean.table6.T651_Bean;
-import cn.nit.bean.table6.T652_Bean;
-import cn.nit.bean.table6.T653_Bean;
-import cn.nit.bean.table6.T654_Bean;
-import cn.nit.bean.table6.T655_Bean;
-import cn.nit.bean.table6.T657_Bean;
-import cn.nit.bean.table6.T658_Bean;
+
 import cn.nit.bean.table6.T659_Bean;
 import cn.nit.dao.di.DIResourceDAO;
 import cn.nit.dao.table6.T624_Dao;
@@ -41,75 +32,67 @@ public class T659_Service {
 	/**  表624的数据库操作类  */
 	private T659_Dao T659_dao = new T659_Dao() ;
 	
+	
+	
+	public List<T659_Bean> getYearInfo(String selectYear){
+		List<T659_Bean> list = T659_dao.getYearInfo(selectYear);
+		return list;
+	}	
+	
 	/**
-	 * 表624的service的插入操作
-	 * @param T659_Bean
+	 * 更新数据
+	 * @param 
+	 * @return
+	 */
+	public boolean update(T659_Bean bean){
+		return T659_dao.update(bean) ;
+	}
+	
+	/**
+	 * 根据seqNumber找相应bean
+	 * @param 
+	 * @return
+	 */
+	public T659_Bean findBySeqNum (int seqNum){
+		return T659_dao.findBySeqNum(seqNum) ;
+	}
+	
+	/**
+	 * 找当年总计bean
+	 * @param 
+	 * @return
+	 */
+	public T659_Bean findSumBean(String name, String year){
+		return T659_dao.findSumBean(name, year) ;
+	}
+	
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(String selectYear, String unitName, int checkState){
+		return T659_dao.updateCheck(selectYear, unitName, checkState) ;
+	}
+	
+	/**
+	 * 获取字典表的所有数据
 	 * @return
 	 *
-	 * @time: 2014-6-12
+	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public boolean insert(T659_Bean  T659_bean){
-		
-		return T659_dao.insert(T659_bean);
+	public List<T659_Bean> totalList(String year){
+		return T659_dao.totalList(year);
 	}
+	
+
 	
 	public boolean batchInsert(List<T659_Bean> list){
 		
 		return T659_dao.batchInsert(list);
 	}
 	
-	/**
-	 * 更新数据
-	 * @param undergraCSBaseTea {@link cn.nit.bean.table5.UndergraCSBaseTeaBean}实体类
-	 * @return
-	 */
-	public boolean update(T659_Bean T659_bean){
-		return T659_dao.update(T659_bean) ;
-	}
-	
-	public boolean deleteItemsByIds(String ids){
-		
-		return T659_dao.deleteItemsByIds(ids) ;
-	}
-	
-	
-	public List<T659_Bean> getPageInfoList(String rows, String page) {
-		// TODO Auto-generated method stub
-		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
-		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
-		
-		List<T659_Bean> pageInfo = T659_dao.queryPageList(pagesize, currentpage);
-		
-		return pageInfo;	
-	}
-	
-	public List<T659_Bean> getPageInfoList(String cond, String filledID,
-			String rows, String page) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		int currentpage = Integer.parseInt((page == null || page == "0")?"1": page);
-		int pagesize = Integer.parseInt((rows == null || rows == "0")?"10":rows);
-		
-		List<T659_Bean> pageInfo = T659_dao.queryPageList(cond, filledID, pagesize, currentpage);
-		
-		return pageInfo;	
-	}
-	
-	public int getTotal(String cond, String fillUnitID) {
-		// TODO Auto-generated method stub
-		return T659_dao.getAllList(cond, fillUnitID).size();
-	}
-	
 
-
-	public int getTotal() {
-		// TODO Auto-generated method stub
-		return T659_dao.getAllList().size();
-	}
-	
-	public List<T659_Bean> getAllList(String cond, String fillUnitID) {
-		return T659_dao.getAllList(cond, fillUnitID);
-	}
 
 
 	/**

@@ -65,7 +65,7 @@ public class S5102_Action {
 	 * */
 	public void loadInfo() throws Exception{
 		
-		System.out.println();
+//		System.out.println();
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
 		if(this.getSelectYear()!=null){
@@ -83,7 +83,7 @@ public class S5102_Action {
 			}else{
 				json = JSONSerializer.toJSON(list) ;
 			}
-			System.out.println("year:"+this.getSelectYear());
+//			System.out.println("year:"+this.getSelectYear());
 
 			
 			PrintWriter out = null ;
@@ -121,7 +121,7 @@ public class S5102_Action {
 	/**excel导出*/
 	public InputStream getInputStream() throws Exception{
 		
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 
 		List<S5102POJO>  list = s5102Ser.getAll(this.getSelectYear());
 //		System.out.println("S52 de "+list.size());

@@ -15,8 +15,15 @@ public class T551_Bean {
     private double GoodClassRatio;
     private Date Time;
     private String Note;
+    private int CheckState;
 	
     
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
 	public Integer getSeqNumber() {
 		return SeqNumber;
 	}

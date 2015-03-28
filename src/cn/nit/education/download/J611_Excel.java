@@ -32,18 +32,18 @@ import jxl.write.WritableWorkbook;
 public class J611_Excel {
 	
 	
-   public static boolean export_J611(String path) {
+   public static boolean export_J611(String path,String year) {
 		
 		T611_Dao T611_dao = new T611_Dao();
 		T612_Dao T612_dao = new T612_Dao();
 		T613_Dao T613_dao = new T613_Dao();
 		T614_Dao T614_dao = new T614_Dao();
 		
-		
-		//获取当前年份
-		Date time = new Date();
-		String currentTime = time.toString();
-		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+//		
+//		//获取当前年份
+//		Date time = new Date();
+//		String currentTime = time.toString();
+//		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		//从数据库中获得值
         T611_Bean t611bean = T611_dao.getYearInfo(year);
@@ -145,7 +145,7 @@ public class J611_Excel {
 	   T611_Bean bean = new T611_Bean();
 	   String path = "D:\\江西项目\\相关表\\ExcelTest";
 	  J611_Excel excel = new J611_Excel();
-	  boolean flag = excel.export_J611(path);
+	  boolean flag = excel.export_J611(path,"2014");
 	  if(flag){
 		  System.out.println("成功！");
 	  }else{

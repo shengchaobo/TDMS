@@ -77,7 +77,7 @@ public class S534_Action {
 			}else{
 				json = JSONSerializer.toJSON(list) ;
 			}
-			System.out.println("year:"+this.getSelectYear());
+//			System.out.println("year:"+this.getSelectYear());
 
 			
 			PrintWriter out = null ;
@@ -114,7 +114,7 @@ public class S534_Action {
 	
 public InputStream getInputStream() throws Exception{
 		
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 
 		List<S534_Bean>  list = s534Ser.totalList(this.getSelectYear());
 		

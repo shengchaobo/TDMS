@@ -123,7 +123,7 @@ public class S512_Action {
 	
 public InputStream getInputStream() throws Exception{
 		
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 
 		List<S512_Bean>  list = s512Ser.totalList(this.getSelectYear());
 		

@@ -172,7 +172,7 @@ public class T66_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 		T66_Bean bean = T66_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;

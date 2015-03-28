@@ -40,7 +40,7 @@ import cn.nit.pojo.table1.A15POJO;
 import cn.nit.service.table1.S15Service;
 import cn.nit.util.JsonUtil;
 
-public class S15Action {
+public class S15_Action {
 	
 	/**S15的service類*/
 	private S15Service s15Ser=new S15Service();
@@ -93,7 +93,7 @@ public class S15Action {
 
 	//查询出所有
 	public void loadInfo() throws Exception{
-		System.out.println("nnnnnnnn");
+//		System.out.println("nnnnnnnn");
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
@@ -116,9 +116,9 @@ public class S15Action {
 			out = response.getWriter();
 			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
 		}else{
-			System.out.println("have data");
+//			System.out.println("have data");
 			try {				
-				System.out.println(json) ;
+//				System.out.println(json) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(json) ;

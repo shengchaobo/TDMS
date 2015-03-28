@@ -31,12 +31,12 @@ import cn.nit.util.ExcelUtil;
 
 public class J72_Excel {
 	
-	public static boolean export_J72(String path){
+	public static boolean export_J72(String path,String year){
 		
 		T27_Dao T27_dao = new T27_Dao();
 		S52_DAO S52_dao = new S52_DAO();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
+//		Calendar a = Calendar.getInstance();
+//		String year = String.valueOf(a.get(Calendar.YEAR));
 		String webTeahingUrl = T27_dao.getString(year,"WebTeahingUrl");
 		String teaManageUrl = T27_dao.getString(year,"TeaManageUrl");
 		int num = S52_dao.getNum(year,"网络课程");
@@ -134,7 +134,7 @@ public class J72_Excel {
 	
 	public static void main(String args[]){
 		String path = "E:/test";
-		boolean flag = J72_Excel.export_J72(path);
+		boolean flag = J72_Excel.export_J72(path,"2014");
 		if(flag){
 		System.out.println("成功");
 		}else{

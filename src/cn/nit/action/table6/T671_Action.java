@@ -286,7 +286,7 @@ public class T671_Action {
 		testjson.accumulate("rows", list);
 
 		String json = testjson.toString();
-		System.out.println(json);
+//		System.out.println(json);
 		return json;
 	}
 

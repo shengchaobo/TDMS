@@ -15,9 +15,11 @@ import cn.nit.pojo.table7.J731POJO;
 import cn.nit.util.ExcelUtil;
 
 public class J731_Excel {
-	public static boolean export_J731(String path){
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String year = dateFormat.format(new Date());
+	public static boolean export_J731(String path,String year){
+		
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+//		String year = dateFormat.format(new Date());
+		
 		J731_DAO J731_Dao=new J731_DAO();
 		List<J731POJO> list = J731_Dao.getYearInfo(year);
 		String sheetName = "J-7-3-1教育教学研究与改革项目（自然年）";
@@ -51,7 +53,7 @@ public class J731_Excel {
 	public static void main(String arg[]){
 		 String path = "E:\\江西项目\\测试表\\一键导出";
 		 J731_Excel excel= new J731_Excel();
-		 boolean flag = excel.export_J731(path);
+		 boolean flag = excel.export_J731(path,"2015");
 		 if(flag){
 			 System.out.println("导出成功");
 		 }else{

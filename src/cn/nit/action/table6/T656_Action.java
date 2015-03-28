@@ -148,12 +148,12 @@ public class T656_Action {
 				tag = 2;
 			}
 			T656_bean.setTime(sumBean.getTime());
-			System.out.println(T656_bean.getCheckState());
+//			System.out.println(T656_bean.getCheckState());
 			flag0 = true;
 			flag1 = T656_service.update(T656_bean) ;
 		}
 		else{
-			System.out.println("未修改合计");
+//			System.out.println("未修改合计");
 			//被修改的那条数据
 			T656_Bean oldBean = T656_service.findBySeqNum(T656_bean.getSeqNumber());
 			String teaUnitName = "全校合计";

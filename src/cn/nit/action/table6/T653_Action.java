@@ -154,7 +154,7 @@ public class T653_Action {
 		T653_bean.setFillUnitID(fillUnitID);
 		String teaUnit = deSer.getName(fillUnitID);
 		T653_bean.setUnitId(bean.getUnitID());
-		System.out.println(bean.getUnitID());
+//		System.out.println(bean.getUnitID());
 		T653_bean.setTeaUnit(teaUnit);
 		boolean flag = T653_service.insert(T653_bean);
 		PrintWriter out = null;
@@ -268,7 +268,7 @@ public class T653_Action {
 		testjson.accumulate("rows", list);
 
 		String json = testjson.toString();
-		System.out.println(json);
+//		System.out.println(json);
 		return json;
 	}
 
@@ -280,10 +280,10 @@ public class T653_Action {
 		int tag = 0;
 		//获得该条数据审核状态
 		int state = T653_service.getCheckState(T653_bean.getSeqNumber());
-		System.out.println("test"+state);
+//		System.out.println("test"+state);
 		//如果审核状态是待审核，则直接修改
 		if(state == Constants.WAIT_CHECK){
-			System.out.println("test"+state);
+//			System.out.println("test"+state);
 			T653_bean.setCheckState(Constants.WAIT_CHECK);
 			flag = T653_service.update(T653_bean) ;
 			if(flag) tag = 1;
@@ -326,7 +326,7 @@ public class T653_Action {
 	/** 根据数据的id删除数据 */
 	public void deleteByIds() {
 		
-		System.out.println("ids=" +this.getIds());
+//		System.out.println("ids=" +this.getIds());
 		boolean flag = T653_service.deleteItemsByIds(ids);
 		
 		//删除审核不通过信息

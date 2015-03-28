@@ -175,10 +175,10 @@ public class AllFileDownloadAction extends ActionSupport {
 		
 		// TODO Auto-generated method stub
 		//1字头
-		if(!J11_Excel.export_J11(filePath)){
+/*		if(!J11_Excel.export_J11(filePath)){
 			return "J11_export has a error!";
 		}			
-
+*/
 		return null;
 	}
 

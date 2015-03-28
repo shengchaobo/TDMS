@@ -22,11 +22,11 @@ import cn.nit.util.ExcelUtil;
 
 public class J534_Excel {
 	
-	public static boolean export_J534(String path){
+	public static boolean export_J534(String path,String year){
 		
 		T534DAO T534_dao = new T534DAO();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));		
+//		Calendar a = Calendar.getInstance();
+//		String year = String.valueOf(a.get(Calendar.YEAR));		
 		List<T534_Bean> list = T534_dao.totalListY(year);
 				
 		String sheetName = "J-5-3-4分专业毕业综合训练情况（学年）";
@@ -65,7 +65,7 @@ public class J534_Excel {
 	public static void main(String arg[]){
 		  String path = "D:\\";
 		  J534_Excel excel = new J534_Excel();
-		  boolean flag = excel.export_J534(path);
+		  boolean flag = excel.export_J534(path,"2015");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

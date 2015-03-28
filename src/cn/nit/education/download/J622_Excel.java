@@ -23,16 +23,16 @@ import cn.nit.dao.table6.T659_Dao;
 
 public class J622_Excel {
 	
-	public static boolean export_J622(String path) {
+	public static boolean export_J622(String path,String year) {
 		
 		T659_Dao T659_dao = new T659_Dao();
 		
-		//获取当前年份
-		Date time = new Date();
-		String currentTime = time.toString();
-		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
-		
-		 List<T659_Bean> list = T659_dao.getAllList() ;
+//		//获取当前年份
+//		Date time = new Date();
+//		String currentTime = time.toString();
+//		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+//		
+		 List<T659_Bean> list = T659_dao.getAllList(year) ;
 //		T16POJO pojo = list.get(0);
 		
 		String sheetName = "J-6-2-2本科生交流情况（学年）";
@@ -132,7 +132,7 @@ public class J622_Excel {
 	public static void main(String arg[]){
 		 String path = "D:\\江西项目\\相关表\\ExcelTest";
 		  J622_Excel excel = new J622_Excel();
-		  boolean flag = excel.export_J622(path);
+		  boolean flag = excel.export_J622(path,"2014");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

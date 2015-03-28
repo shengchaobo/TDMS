@@ -75,7 +75,7 @@ public class S533_Action {
 				flag = false;
 			}else{
 				 json = JSONSerializer.toJSON(list) ;
-				 System.out.println(json.toString());
+//				 System.out.println(json.toString());
 			}
 
 			PrintWriter out = null ;

@@ -5,12 +5,12 @@
 <struts>
 	<package name="t12" namespace="/pages/T12" extends="struts-default">
 	    <!-- 显示数据 -->
-	    <action name="auditingData" class="cn.nit.action.table1.T12Action" method="auditingData" />
+	    <action name="auditingData" class="cn.nit.action.table1.T12_Action" method="auditingData" />
 	      <!-- 数据查询 -->
-	    <action name="singleSearch" class="cn.nit.action.table1.T12Action" method="auditingData"/>
+	    <action name="singleSearch" class="cn.nit.action.table1.T12_Action" method="auditingData"/>
 	    
 	      <!-- 数据导出 -->
-	    <action name="dataExport" class="cn.nit.action.table1.T12Action" method="execute">
+	    <action name="dataExport" class="cn.nit.action.table1.T12_Action" method="execute">
 	    	<result name="success" type="stream">
 	    		<!-- 指定下载文件的类型，下面表示无限制 -->
 				<param name="contentType">application/octet-stream;charset=UTF-8</param>

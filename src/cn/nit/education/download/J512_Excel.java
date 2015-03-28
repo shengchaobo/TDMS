@@ -16,13 +16,13 @@ import cn.nit.util.ExcelUtil;
 
 public class J512_Excel {
 	
-	public static boolean export_J512(String path){
+	public static boolean export_J512(String path,String year){
 	
 			T512_DAO T512_dao = new T512_DAO();
 			
-			//年份
-			Calendar a = Calendar.getInstance();
-			String year = String.valueOf(a.get(Calendar.YEAR));
+//			//年份
+//			Calendar a = Calendar.getInstance();
+//			String year = String.valueOf(a.get(Calendar.YEAR));
 			
 			List<T512POJO> list = T512_dao.totalList(year);
 					
@@ -62,7 +62,7 @@ public class J512_Excel {
 		public static void main(String arg[]){
 			 String path = "D:";
 			  J512_Excel excel = new J512_Excel();
-			  boolean flag = excel.export_J512(path);
+			  boolean flag = excel.export_J512(path,"2015");
 			  if(flag){
 				  System.out.println("成功！");
 			  }else{

@@ -64,10 +64,10 @@ import cn.nit.util.TimeUtil;
  */
 public class T621_Action {
 
-	/** �?21的Service�?*/
+	/** T621的Service*/
 	private T621_Service UndergraAdmiInfoSer = new T621_Service();
 
-	/** �?21的Bean实体�?*/
+	/** T621的Bean实体*/
 	T621_Bean UndergraAdmiInfo = new T621_Bean();
 	
 //	private T621_Dao T621_dao = new T621_Dao();

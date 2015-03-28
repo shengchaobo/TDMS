@@ -305,6 +305,30 @@ public class T659_Dao {
 		return flag;
 	}
 
+	/**教育部导出*/
+	public List<T659_Bean> getAllList(String year) {
+		// TODO Auto-generated method stub
+		String sql = "select " + fieldShow + " from " + tableName
+				+" where convert(varchar(4),Time,120)=" + year ;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T659_Bean> list = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T659_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
+		}
+		return list ;
+	}
 	
 	public List<T659_Bean> getAllList() {
 		// TODO Auto-generated method stub

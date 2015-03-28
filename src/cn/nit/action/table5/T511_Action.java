@@ -87,7 +87,7 @@ public class T511_Action {
 		
 		System.out.println("+++++++++++++++++++++++++++++++++");
 		t511_Bean.setTime(new Date());
-		System.out.println(new Date());
+//		System.out.println(new Date());
 		//插入审核状态
 		t511_Bean.setCheckState(Constants.WAIT_CHECK);
 		boolean flag= t511_Sr.insert(t511_Bean);
@@ -291,7 +291,7 @@ public class T511_Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
+//		System.out.println("ids=" + ids) ;
 		boolean flag = t511_Sr.deleteCoursesByIds(ids) ;
 		//删除审核不通过信息
 		check_services.delete("T511", ids);

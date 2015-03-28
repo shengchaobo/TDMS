@@ -9,6 +9,10 @@
 	    <action name="auditingData" class="cn.nit.action.table5.T551Action" method="auditingData" />
 	     <!-- 编辑数据 -->
 	    <action name="edit" class="cn.nit.action.table5.T551Action" method="edit" />
+	     <!-- 修改审核状态 -->
+	    <action name="updateCheck" class="cn.nit.action.table5.T551Action"  method="updateCheck" />
+	     <!-- 审核通过全部 -->
+	    <action name="checkAll" class="cn.nit.action.table5.T551Action"  method="checkAll" />
 	     <!-- 删除数据 -->
 	    <action name="deleteByIds" class="cn.nit.action.table5.T551Action" method="deleteCoursesByIds" />
 	     <!-- 数据查询 -->

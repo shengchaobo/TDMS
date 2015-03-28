@@ -5,15 +5,15 @@
 <struts>
 	<package name="t172" namespace="/pages/T172" extends="struts-default">
 		<!-- 添加数据 -->
-	    <action name="insert" class="cn.nit.action.table1.T172Action" method="insert" />
+	    <action name="insert" class="cn.nit.action.table1.T172_Action" method="insert" />
 	    <!-- 显示数据 -->
-	    <action name="auditingData" class="cn.nit.action.table1.T172Action" method="auditingData" />
+	    <action name="auditingData" class="cn.nit.action.table1.T172_Action" method="auditingData" />
 	     <!-- 编辑数据 -->
-	    <action name="edit" class="cn.nit.action.table1.T172Action" method="editSch" />
+	    <action name="edit" class="cn.nit.action.table1.T172_Action" method="editSch" />
 	    <!-- 删除数据 -->
-	    <action name="deleteByIds" class="cn.nit.action.table1.T172Action" method="deleteCoursesByIds" />
+	    <action name="deleteByIds" class="cn.nit.action.table1.T172_Action" method="deleteCoursesByIds" />
 	      <!-- 数据查询 -->
-	    <action name="singleSearch" class="cn.nit.action.table1.T172Action" method="auditingConditions"/>
+	    <action name="singleSearch" class="cn.nit.action.table1.T172_Action" method="auditingConditions"/>
 	    
 	     <!-- 文件批量上传 -->
 	    <action name="uploadFile" class="cn.nit.action.UploadAction" method="uploadFile">
@@ -40,7 +40,7 @@
 	    </action>
 	    
 	    <!-- 数据导出 -->
-	    <action name="dataExport" class="cn.nit.action.table1.T172Action" method="execute">
+	    <action name="dataExport" class="cn.nit.action.table1.T172_Action" method="execute">
 	    	<result name="success" type="stream">
 	    		<!-- 指定下载文件的类型，下面表示无限制 -->
 				<param name="contentType">application/octet-stream;charset=UTF-8</param>

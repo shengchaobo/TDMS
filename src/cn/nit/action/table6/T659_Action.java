@@ -177,8 +177,8 @@ public class T659_Action {
 			boolean flag0 = false;
 			boolean flag1 = false;
 			String fillId=T659_bean.getUnitId();
-			System.out.println("填写的单位："+fillId);
-			System.out.println("用户单位："+fillUnitID);
+//			System.out.println("填写的单位："+fillId);
+//			System.out.println("用户单位："+fillUnitID);
 			if(fillId.equals(fillUnitID)){
 				T659_Bean oldBean = T659_service.findBySeqNum(T659_bean.getSeqNumber());
 				String teaUnitName = "全校合计：";

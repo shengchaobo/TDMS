@@ -316,7 +316,7 @@ public class T616_Action {
 
 
 	public InputStream getInputStream(){
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {

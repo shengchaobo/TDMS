@@ -28,12 +28,12 @@ import cn.nit.util.ExcelUtil;
 
 public class J54_Excel {
 	
-	public static boolean export_J54(String path){
+	public static boolean export_J54(String path,String year){
 		
 		T54_Service T54_services = new T54_Service();
 		T54_Dao T54_dao = new T54_Dao();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String year = dateFormat.format(new Date());
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+//		String year = dateFormat.format(new Date());
 		T54_Bean bean = T54_dao.totalList(year);
 		
 	    ByteArrayOutputStream fos = null;
@@ -135,7 +135,7 @@ public class J54_Excel {
 	public static void main(String arg[]){
 		  String path = "D:\\";
 		  J54_Excel excel = new J54_Excel();
-		  boolean flag = excel.export_J54(path);
+		  boolean flag = excel.export_J54(path,"2014");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

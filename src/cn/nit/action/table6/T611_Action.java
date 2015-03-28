@@ -173,7 +173,7 @@ public class T611_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 		T611_Bean bean = T611_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;

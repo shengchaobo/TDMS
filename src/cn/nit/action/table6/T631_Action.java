@@ -62,12 +62,12 @@ import cn.nit.util.TimeUtil;
  */
 public class T631_Action {
 
-	/** �?31的Service�?*/
+	/** T631的Service*/
 	private T631_Service T631_service = new T631_Service();
 	
 	private CheckService check_services = new CheckService();
 
-	/** �?31的Bean实体�?*/
+	/** T631的Bean*/
 	T631_Bean T631_bean = new T631_Bean();
 	
 	

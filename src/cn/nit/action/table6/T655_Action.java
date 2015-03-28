@@ -134,7 +134,7 @@ public class T655_Action {
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
 		List<T655_Bean> list = T655_service.getYearInfo(this.getSelectYear());
-		System.out.println(list.size());
+//		System.out.println(list.size());
 		
 		//System.out.println(this.getSelectYear());
 		//System.out.println(list.size());
@@ -165,7 +165,7 @@ public class T655_Action {
 		boolean flag0 = false;
 		boolean flag1 = false;
 		if(T655_bean.getTeaUnit().equals("全校合计")){
-			System.out.println("修改合计");
+//			System.out.println("修改合计");
 			T655_Bean sumBean = T655_service.findBySeqNum(T655_bean.getSeqNumber());
 			//首次编辑待审核
 			if(sumBean.getCheckState() == 0){
@@ -185,7 +185,7 @@ public class T655_Action {
 			flag1 = T655_service.update(T655_bean) ;
 		}
 		else{
-			System.out.println("未修改合计");
+//			System.out.println("未修改合计");
 			//被修改的那条数据
 			T655_Bean oldBean = T655_service.findBySeqNum(T655_bean.getSeqNumber());
 			String teaUnitName = "全校合计";
@@ -267,7 +267,7 @@ public class T655_Action {
 	
 	public InputStream getInputStream(){
 		
-		System.out.println("export");
+//		System.out.println("export");
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {

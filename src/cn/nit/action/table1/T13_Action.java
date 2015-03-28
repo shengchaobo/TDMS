@@ -26,7 +26,7 @@ import cn.nit.service.table1.T13Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class T13Action {
+public class T13_Action {
 	
 	
 	/**  表13的Service类  */

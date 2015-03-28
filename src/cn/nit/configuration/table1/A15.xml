@@ -5,10 +5,10 @@
 <struts>
 	<package name="A15" namespace="/pages/A15" extends="struts-default">
 		    <!-- 显示数据 -->
-	    <action name="loadInfo" class="cn.nit.action.table1.A15Action" method="loadInfo" />
+	    <action name="loadInfo" class="cn.nit.action.table1.A15_Action" method="loadInfo" />
 	
 	    <!-- 数据导出 -->
-	    <action name="dataExport" class="cn.nit.action.table1.A15Action" method="execute">
+	    <action name="dataExport" class="cn.nit.action.table1.A15_Action" method="execute">
 	    	<result name="success" type="stream">
 	    		<!-- 指定下载文件的类型，下面表示无限制 -->
 				<param name="contentType">application/octet-stream;charset=UTF-8</param>

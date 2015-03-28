@@ -30,7 +30,7 @@ import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 /**招就处*/
-public class T183Action {
+public class T183_Action {
 	
 	/**  表183的Service类  */
 	private T181Service t183Ser = new T181Service() ;

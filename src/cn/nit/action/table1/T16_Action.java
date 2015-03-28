@@ -46,7 +46,7 @@ import cn.nit.util.TimeUtil;
 import cn.nit.util.ToBeanUtil;
 
 
-public class T16Action {
+public class T16_Action {
 	
 	/**  表16的Service类  */
 	private T16Service t16Ser = new T16Service() ;

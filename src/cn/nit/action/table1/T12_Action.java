@@ -18,35 +18,32 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.table1.T12_Bean;
-import cn.nit.bean.table1.T14_Bean;
-import cn.nit.dao.table1.T14DAO;
-import cn.nit.excel.imports.table1.T14Excel;
+import cn.nit.dao.table1.T12DAO;
+import cn.nit.excel.imports.table1.T12Excel;
 import cn.nit.service.table1.T12Service;
-import cn.nit.service.table1.T14Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class T14Action {
+public class T12_Action {
 	
-
-	/**  表14的Service类  */
+	
+	/**  表12的Service类  */
 	private T12Service t12Ser = new T12Service() ;
 	
-	/**  表14的Bean实体类  */
-	private T14_Bean t14Bean = new T14_Bean() ;
+	/**  表12的Bean实体类  */
+	private T12_Bean t12Bean = new T12_Bean() ;
 	
-	/**  表14的Dao类  */
-	private T14DAO t14Dao = new T14DAO() ;
+//	/**  表12的DAO实体类  */
+//	private T12DAO t12Dao=new T12DAO();
 	
-	/**  表14的Excel实体类  */
-	private T14Excel t14Excel = new T14Excel() ;
-	
+	/**  表12的Excel实体类  */
+	private T12Excel t12Excel=new T12Excel();
 	
 	/**excel导出名字*/
 	private String excelName; //
 	
 	/**  待审核数据的查询的序列号  */
-	private Integer seqNum ;
+	private String unitID ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -62,14 +59,13 @@ public class T14Action {
 	
 	/**每页显示的条数  */
 	private String rows ;
-
-	/**  待审核数据的查询的序列号  */
-	private String unitID ;
+	/**  逐条插入数据  */
 	
 	/**  为界面加载数据  */
 	public void auditingData(){
 			
 			System.out.println("輸出輸出輸出");
+//			System.out.println(this.getUnitID());
 			
 			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 				return ;
@@ -78,16 +74,14 @@ public class T14Action {
 			if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
 				return ;
 			}
-			
 			String cond = null;
-			
+		
 			if(this.getUnitID()!= null&&!this.getUnitID().equals("")){
 				cond = " where UnitID LIKE '" + this.getUnitID() + "%'";
 //				System.out.println(cond);
 			}
 
-
-			String pages = t12Ser.auditingData(cond, "30", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t12Ser.auditingData(cond, "10", Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -104,29 +98,6 @@ public class T14Action {
 			}
 		}
 
-//	/**  为界面加载数据  */
-//	public void auditingData(){
-//		
-//		Date date=new Date();
-//		String cuYear=date.toString();
-//		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
-//		
-//		String pages = t12Ser.auditingData() ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			out = getResponse().getWriter() ;
-//			out.print(pages) ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			return ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
 	
 	/**数据导出*/
 	public InputStream getInputStream(){
@@ -136,19 +107,19 @@ public class T14Action {
 
 		try {
 			
-			List<T12_Bean> list = t12Ser.totalList2();
+			List<T12_Bean> list = t12Ser.totalList();
 			
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
-			columns.add("教学单位名称");columns.add("单位号");
+			columns.add("行政单位名称");columns.add("单位号");columns.add("单位职能");
 			columns.add("单位负责人");columns.add("备注");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("UnitName", 0);maplist.put("UnitID", 1);
-			maplist.put("Leader", 2);
-			maplist.put("Note", 3);
+			maplist.put("UnitName", 0);maplist.put("UnitID", 1);maplist.put("Functions", 2);
+			maplist.put("Leader", 3);
+			maplist.put("Note", 4);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
@@ -165,7 +136,6 @@ public class T14Action {
 		return "success" ;
 	}
 	
-	
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
 	}
@@ -178,22 +148,21 @@ public class T14Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-
-	public T14_Bean getT14Bean() {
-		return t14Bean;
+	public T12_Bean getT12Bean() {
+		return t12Bean;
 	}
 
-	public void setT14Bean(T14_Bean t14Bean) {
-		this.t14Bean = t14Bean;
+	public void setT12Bean(T12_Bean t12Bean) {
+		this.t12Bean = t12Bean;
 	}
 	
 	
-	public Integer getSeqNum() {
-		return seqNum;
+	public String getUnitID() {
+		return unitID;
 	}
 
-	public void setSeqNum(Integer seqNum) {
-		this.seqNum = seqNum;
+	public void setUnitID(String unitID) {
+		this.unitID = unitID;
 	}
 
 	public Date getStartTime() {
@@ -248,14 +217,6 @@ public class T14Action {
 			e.printStackTrace();
 		}
 		return excelName;
-	}
-
-	public String getUnitID() {
-		return unitID;
-	}
-
-	public void setUnitID(String unitID) {
-		this.unitID = unitID;
 	}
 	
 

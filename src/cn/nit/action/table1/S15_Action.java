@@ -40,7 +40,7 @@ import cn.nit.pojo.table1.A15POJO;
 import cn.nit.service.table1.S15Service;
 import cn.nit.util.JsonUtil;
 
-public class S15Action {
+public class S15_Action {
 	
 	/**S15的service類*/
 	private S15Service s15Ser=new S15Service();

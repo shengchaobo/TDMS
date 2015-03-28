@@ -51,13 +51,35 @@ public class T551Service {
 		return t551Dao.update(t551Bean) ;
 	}
 	
-	private void setAudit(T551_Bean t551Bean){
-		
-		String audit = DIResourceDAO.getAudit(t551Dao.getTableName()) ;
-		
-		String audits[] = audit.split(",") ;
-//		t151Bean.setAudit(audits[0]) ;
+	/**
+	 * 更新该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public boolean updateCheck(int seqNum, int checkState){
+		return t551Dao.updateCheck(seqNum,checkState) ;
 	}
+	
+	/**
+	 * 全部审核通过
+	 * @param 
+	 * @return
+	 */
+	public boolean checkAll(){
+		return t551Dao.checkAll() ;
+	}
+	
+
+	/**
+	 * 得到该条数据审核状态
+	 * @param 
+	 * @return
+	 */
+	public int getCheckState(int seqNumber){
+		return t551Dao.getCheckState(seqNumber) ;
+	}
+	
+	
 	
 	/**按id删除数据*/
 	public boolean deleteCoursesByIds(String ids){
@@ -108,8 +130,8 @@ public class T551Service {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T551_Bean> totalList(){
-		return t551Dao.totalList();
+	public List<T551_Bean> totalList(String year){
+		return t551Dao.totalList(year);
 	}
 	
 	public static void main(String arg[]){

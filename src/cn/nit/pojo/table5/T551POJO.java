@@ -15,6 +15,14 @@ public class T551POJO {
     private double GoodClassRatio;
     private Date Time;
     private String Note;
+    private int CheckState;
+    
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
 	public int getSeqNumber() {
 		return SeqNumber;
 	}

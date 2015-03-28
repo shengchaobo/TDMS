@@ -31,35 +31,39 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table1.S18_Bean;
-import cn.nit.dao.table1.S18DAO;
-import cn.nit.excel.imports.table1.S18Excel;
+import cn.nit.bean.table1.A15_Bean;
 
-import cn.nit.service.table1.S18Service;
+import cn.nit.dao.table1.A15DAO;
+import cn.nit.excel.imports.table1.A15Excel;
+import cn.nit.pojo.table1.A15POJO;
+import cn.nit.service.table1.A15Service;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
 import cn.nit.util.TimeUtil;
 
-public class S18Action {
+public class A15_Action {
 	
 
-	/**  表S18的Service类  */
-	private S18Service s18Ser = new S18Service() ;
+	/**  表A15的Service类  */
+	private A15Service a15Ser = new A15Service() ;
 	
-	/**  表S18的Bean实体类  */
-	private S18_Bean s18Bean = new S18_Bean() ;
+	/**  表A15的Bean实体类  */
+	private A15_Bean a15Bean = new A15_Bean() ;
 	
-//	/**  表S18的DAO类  */
-//	private S18DAO s18Dao = new S18DAO() ;
+
+//	/**  表A15的DAO类  */
+//	private A15DAO a15Dao = new A15DAO() ;
 	
-	/**  表S18的Excel类  */
-	private S18Excel s18Excel = new S18Excel() ;
-	
-	/**導出數據選擇年份*/
+	/**  表A15的Excel类  */
+	private A15Excel a15Excel = new A15Excel() ;
+
+	/**数据导出年份*/
 	private String selectYear;
 	
-	/**导出excelName*/
-	private String excelName;
-
+	/**  导出的excelName名 */
+	private String excelName ;
+	
+	
 	public String getSelectYear() {
 		return selectYear;
 	}
@@ -89,10 +93,6 @@ public class S18Action {
 		return data;
 	}
 
-
-	public void setData(String data) {
-		this.data = data;
-	}
 	
 	//查询出所有
 	public void loadInfo() throws Exception{
@@ -100,15 +100,21 @@ public class S18Action {
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		S18_Bean bean = s18Ser.loadData(this.getSelectYear()) ;
+		A15_Bean bean = a15Ser.loadData(this.getSelectYear()) ;
+		
+		System.out.println(bean == null);
 		
 		String json=null;
 		boolean flag = false; 
 		if(bean != null){
 			bean.setTime(null);
-			json = JsonUtil.beanToJson(bean);
+			A15POJO pojo = a15Ser.beanToPojo(bean);
+			json = JsonUtil.beanToJson(pojo);
 			flag = true;
 		}
+	
+//		System.out.println(json);
+//		
 		PrintWriter out = null ;
 		
 		if(flag == false){
@@ -135,31 +141,35 @@ public class S18Action {
 		}
 	}
 
-	/**  为界面加载数据  */
-	public void auditingData(){
-		
-//		System.out.println("=========");
-		Date date=new Date();
-		String cuYear=date.toString();
-		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
-		
-		String pages = s18Ser.autidingdata(year);
-//		System.out.println("pages:"+pages);
-		PrintWriter out = null ;
-		
-		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print(pages) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return ;
-		}finally{
-			if(out != null){
-				out.close() ;
-			}
-		}
-	}
+//	/**  为界面加载数据  */
+//	public void auditingData(){
+//		
+////		System.out.println("=========");
+//		Date date=new Date();
+//		String cuYear=date.toString();
+//		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
+//		
+//		String pages = a15Ser.autidingdata(year);
+////		System.out.println("pages:"+pages);
+//		PrintWriter out = null ;
+////		boolean flag=false;
+////		if(pages!=null){
+////			flag=true;
+////		}
+////		
+//		try{
+//			getResponse().setContentType("text/html; charset=UTF-8") ;
+//			out = getResponse().getWriter() ;
+//			out.print(pages) ;
+//		}catch(Exception e){
+//			e.printStackTrace() ;
+//			return ;
+//		}finally{
+//			if(out != null){
+//				out.close() ;
+//			}
+//		}
+//	}
 	
 //	public InputStream getInputStream(){
 //
@@ -167,12 +177,12 @@ public class S18Action {
 //
 //		try {
 //			
-//			List<S18Bean> list=new ArrayList<S18Bean>(); 
+//			List<A15Bean> list=new ArrayList<A15Bean>(); 
 ////            Date time=new Date();
 ////            String time1=time.toString();
 ////            String year=time1.substring(time1.length()-4, time1.length());
-//            list=s18Dao.forExcel(this.selectYear);
-//            inputStream = new ByteArrayInputStream(s18Excel.writeExcel(list).toByteArray());
+//            list=a15Dao.forExcel(this.selectYear);
+//            inputStream = new ByteArrayInputStream(a15Excel.writeExcel(list).toByteArray());
 //			
 //
 //		} catch (Exception e) {
@@ -183,11 +193,11 @@ public class S18Action {
 //		return inputStream ;
 //	}
 	
-public InputStream getInputStream() throws Exception{
+	public InputStream getInputStream() throws Exception{
 		
 		System.out.println(this.getSelectYear());
 
-		S18_Bean bean =s18Ser.forExcel(this.selectYear).get(0);
+		A15_Bean bean =a15Ser.forExcel(this.selectYear).get(0);
 		
 	    ByteArrayOutputStream fos = null;
 	
@@ -213,7 +223,7 @@ public InputStream getInputStream() throws Exception{
 		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
 		           wcf.setAlignment(Alignment.CENTRE);
 		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
-						     jxl.format.Colour.BLACK); 
+						     jxl.format.Colour.BLACK);
 		           wcf.setAlignment(jxl.write.Alignment.LEFT);
 		           ws.setRowView(1, 500);
 		           
@@ -231,25 +241,28 @@ public InputStream getInputStream() throws Exception{
 						     jxl.format.Colour.BLACK); 
 		           
 		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
-		           ws.mergeCells(0, 0, 2, 0);
+		           ws.mergeCells(0, 0, 1, 0);
 		             
 		           ws.addCell(new Label(0, 2, "项目", wcf)); 
-		           ws.addCell(new Label(2, 2, "内容", wcf));
-		           ws.addCell(new Label(0,3,"签订合作协议机构的协议个数",wcf));
-		           ws.addCell(new Label(1,3,"协议总数",wcf));
-		           ws.addCell(new Label(1,4,"其中：学术机构",wcf));
-		           ws.addCell(new Label(1,5," 行业机构和企业",wcf));
-		           ws.addCell(new Label(1,6," 地方政府",wcf));
-		           
-		           ws.mergeCells(0, 2, 1, 2);
-		           ws.mergeCells(0, 3, 0, 6);
+		           ws.addCell(new Label(1, 2, "个数（个）", wcf));
+		           ws.addCell(new Label(2, 2, "所占比例（%）", wcf));
+		           ws.addCell(new Label(0,3,"1.国家级科研机构",wcf));
+		           ws.addCell(new Label(0,4,"2.省部级科研机构",wcf));
+		           ws.addCell(new Label(0,5,"3.市级科研机构",wcf));
+		           ws.addCell(new Label(0,6,"4.校级科研机构",wcf));
+		           ws.addCell(new Label(0,7,"5.总计",wcf));
+		           ws.addCell(new Label(2,7,"/",wcf));
 		           
 		          
-		           ws.addCell(new Label(2, 3, ""+bean.getSumAgreeNum(), wcf1)); 
-		           ws.addCell(new Label(2, 4,""+bean.getAcademicNum() , wcf1));
-		           ws.addCell(new Label(2, 5, ""+bean.getIndustryNum(), wcf1));
-		           ws.addCell(new Label(2, 6, ""+bean.getLocalGoverNum(), wcf1));
-		           
+		           ws.addCell(new Label(1, 3, ""+bean.getNationResNum(), wcf1)); 
+		           ws.addCell(new Label(2, 3,this.toStr(bean.getNationResRatio()) , wcf1));
+		           ws.addCell(new Label(1, 4, ""+bean.getProviResNum(), wcf1));
+		           ws.addCell(new Label(2, 4, this.toStr(bean.getProviResRatio()), wcf1));
+		           ws.addCell(new Label(1, 5,""+bean.getCityResNum(), wcf1));
+		           ws.addCell(new Label(2, 5, this.toStr(bean.getCityResRatio()), wcf1)); 
+		           ws.addCell(new Label(1, 6,""+bean.getSchResNum(), wcf1));
+		           ws.addCell(new Label(2, 6, this.toStr(bean.getSchResRatio()), wcf1));
+		           ws.addCell(new Label(1, 7, ""+bean.getSumResNum(), wcf1));
 		           
 		          wwb.write();
 		          wwb.close();
@@ -264,8 +277,10 @@ public InputStream getInputStream() throws Exception{
 	
 
 	public String execute() throws Exception{
+		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
 		return "success" ;
 	}
+
 	
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
@@ -279,6 +294,15 @@ public InputStream getInputStream() throws Exception{
 		return ServletActionContext.getResponse() ;
 	}
 
+
+	public A15_Bean getA15Bean() {
+		return a15Bean;
+	}
+
+	public void setA15Bean(A15_Bean a15Bean) {
+		this.a15Bean = a15Bean;
+	}
+	
 	public String getExcelName() {
 		try {
 			this.excelName = URLEncoder.encode(excelName, "UTF-8");
@@ -293,12 +317,18 @@ public InputStream getInputStream() throws Exception{
 		this.excelName = excelName;
 	}
 
-	public S18_Bean getS18Bean() {
-		return s18Bean;
+	public String toStr(double num){
+		double n=num;
+		String str=""+n;
+		return str;
+	}
+	
+	public static  void main(String arg[]){
+		A15_Action action=new A15_Action();
+		String str=action.toStr(0.23);
+		System.out.println(str);
 	}
 
-	public void setS18Bean(S18_Bean s18Bean) {
-		this.s18Bean = s18Bean;
-	}
+	
 
 }

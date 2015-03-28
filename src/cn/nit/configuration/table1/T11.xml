@@ -5,20 +5,20 @@
 <struts>
 	<package name="T11" namespace="/pages/T11" extends="struts-default">
 		<!-- 添加获奖 -->
-	    <action name="insert" class="cn.nit.action.table1.T11Action" method="insert" />
-	    <action name="loadInfo" class="cn.nit.action.table1.T11Action" method="loadInfo" />
+	    <action name="insert" class="cn.nit.action.table1.T11_Action" method="insert" />
+	    <action name="loadInfo" class="cn.nit.action.table1.T11_Action" method="loadInfo" />
 	     <!-- 编辑数据 -->
-	    <action name="save" class="cn.nit.action.table1.T11Action" method="save" />
+	    <action name="save" class="cn.nit.action.table1.T11_Action" method="save" />
 	     <!-- 复制数据 -->
-	    <action name="copy" class="cn.nit.action.table1.T11Action" method="copy" />
+	    <action name="copy" class="cn.nit.action.table1.T11_Action" method="copy" />
 	     <!-- 删除数据 -->
 	     <!-- 删除数据 -->
-	    <action name="deleteByIds" class="cn.nit.action.table1.T11Action" method="deleteCoursesByIds" />
+	    <action name="deleteByIds" class="cn.nit.action.table1.T11_Action" method="deleteCoursesByIds" />
 	     <!-- 数据查询 -->
-	    <action name="singleSearch" class="cn.nit.action.table1.T11Action" method="auditingConditions"/>
+	    <action name="singleSearch" class="cn.nit.action.table1.T11_Action" method="auditingConditions"/>
 	    
 	     <!-- 数据导出 -->
-	    <action name="dataExport" class="cn.nit.action.table1.T11Action" method="execute">
+	    <action name="dataExport" class="cn.nit.action.table1.T11_Action" method="execute">
 	    	<result name="success" type="stream">
 	    		<!-- 指定下载文件的类型，下面表示无限制 -->
 				<param name="contentType">application/octet-stream;charset=UTF-8</param>

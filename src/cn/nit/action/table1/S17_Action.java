@@ -1,15 +1,18 @@
 package cn.nit.action.table1;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,38 +35,39 @@ import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.table1.A15_Bean;
-
-import cn.nit.dao.table1.A15DAO;
-import cn.nit.excel.imports.table1.A15Excel;
-import cn.nit.pojo.table1.A15POJO;
-import cn.nit.service.table1.A15Service;
+import cn.nit.bean.table1.S17_Bean;
+import cn.nit.bean.table1.T17_Bean;
+import cn.nit.dao.table1.S17DAO;
+import cn.nit.dbconnection.DBConnection;
+import cn.nit.excel.imports.table1.S17Excel;
+import cn.nit.service.table1.S17Service;
+import cn.nit.util.DAOUtil;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
-import cn.nit.util.TimeUtil;
+import cn.nit.util.ToBeanUtil;
 
-public class A15Action {
+public class S17_Action {
 	
 
-	/**  表A15的Service类  */
-	private A15Service a15Ser = new A15Service() ;
+	/**  表S17的Service类  */
+	private S17Service s17Ser = new S17Service() ;
 	
-	/**  表A15的Bean实体类  */
-	private A15_Bean a15Bean = new A15_Bean() ;
+	/**  表S17的Bean实体类  */
+	private S17_Bean s17Bean = new S17_Bean() ;
 	
-
-//	/**  表A15的DAO类  */
-//	private A15DAO a15Dao = new A15DAO() ;
+	/**  表17的DAO类  */
+//	private S17DAO s17Dao = new S17DAO() ;
 	
-	/**  表A15的Excel类  */
-	private A15Excel a15Excel = new A15Excel() ;
-
-	/**数据导出年份*/
+	/**  表17的Excel实体类  */
+	private S17Excel s17Excel = new S17Excel() ;
+	
+	/**导出数据选择年份*/
 	private String selectYear;
 	
-	/**  导出的excelName名 */
-	private String excelName ;
+	/**导出excelName*/
+	 private String excelName;
 	
-	
+
 	public String getSelectYear() {
 		return selectYear;
 	}
@@ -93,28 +97,26 @@ public class A15Action {
 		return data;
 	}
 
+
+	public void setData(String data) {
+		this.data = data;
+	}
 	
 	//查询出所有
 	public void loadInfo() throws Exception{
-		System.out.println("nnnnnnnn");
+//		System.out.println("nnnnnnnn");
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		A15_Bean bean = a15Ser.loadData(this.getSelectYear()) ;
-		
-		System.out.println(bean == null);
+		S17_Bean bean = s17Ser.loadData(this.getSelectYear()) ;
 		
 		String json=null;
 		boolean flag = false; 
 		if(bean != null){
 			bean.setTime(null);
-			A15POJO pojo = a15Ser.beanToPojo(bean);
-			json = JsonUtil.beanToJson(pojo);
+			json = JsonUtil.beanToJson(bean);
 			flag = true;
 		}
-	
-//		System.out.println(json);
-//		
 		PrintWriter out = null ;
 		
 		if(flag == false){
@@ -140,6 +142,40 @@ public class A15Action {
 			}
 		}
 	}
+	
+	
+	//保存
+	public void save(){
+		
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		String tempData = this.getData();
+		//System.out.println(tempData);
+				
+		S17_Bean bean  = ToBeanUtil.toBean(tempData, S17_Bean.class);
+										
+		boolean flag = s17Ser.save(bean,this.getSelectYear(),this.getFields());
+		PrintWriter out = null ;
+		
+		try{
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"mesg\":\"success\"}") ;
+			}else{
+				out.print("{\"mesg\":\"fail\"}") ;
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"保存失败!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+		out.flush() ;
+	}
 
 //	/**  为界面加载数据  */
 //	public void auditingData(){
@@ -149,14 +185,10 @@ public class A15Action {
 //		String cuYear=date.toString();
 //		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
 //		
-//		String pages = a15Ser.autidingdata(year);
+//		String pages = s17Ser.autidingdata(year);
 ////		System.out.println("pages:"+pages);
 //		PrintWriter out = null ;
-////		boolean flag=false;
-////		if(pages!=null){
-////			flag=true;
-////		}
-////		
+//		
 //		try{
 //			getResponse().setContentType("text/html; charset=UTF-8") ;
 //			out = getResponse().getWriter() ;
@@ -177,12 +209,12 @@ public class A15Action {
 //
 //		try {
 //			
-//			List<A15Bean> list=new ArrayList<A15Bean>(); 
+//			List<S17Bean> list=new ArrayList<S17Bean>(); 
 ////            Date time=new Date();
 ////            String time1=time.toString();
 ////            String year=time1.substring(time1.length()-4, time1.length());
-//            list=a15Dao.forExcel(this.selectYear);
-//            inputStream = new ByteArrayInputStream(a15Excel.writeExcel(list).toByteArray());
+//            list=s17Dao.forExcel(this.selectYear);
+//            inputStream = new ByteArrayInputStream(s17Excel.writeExcel(list).toByteArray());
 //			
 //
 //		} catch (Exception e) {
@@ -193,11 +225,12 @@ public class A15Action {
 //		return inputStream ;
 //	}
 	
+	
 	public InputStream getInputStream() throws Exception{
 		
 		System.out.println(this.getSelectYear());
 
-		A15_Bean bean =a15Ser.forExcel(this.selectYear).get(0);
+		S17_Bean bean =s17Ser.forExcel(this.selectYear).get(0);
 		
 	    ByteArrayOutputStream fos = null;
 	
@@ -223,7 +256,7 @@ public class A15Action {
 		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
 		           wcf.setAlignment(Alignment.CENTRE);
 		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
-						     jxl.format.Colour.BLACK);
+						     jxl.format.Colour.BLACK); 
 		           wcf.setAlignment(jxl.write.Alignment.LEFT);
 		           ws.setRowView(1, 500);
 		           
@@ -244,25 +277,20 @@ public class A15Action {
 		           ws.mergeCells(0, 0, 1, 0);
 		             
 		           ws.addCell(new Label(0, 2, "项目", wcf)); 
-		           ws.addCell(new Label(1, 2, "个数（个）", wcf));
-		           ws.addCell(new Label(2, 2, "所占比例（%）", wcf));
-		           ws.addCell(new Label(0,3,"1.国家级科研机构",wcf));
-		           ws.addCell(new Label(0,4,"2.省部级科研机构",wcf));
-		           ws.addCell(new Label(0,5,"3.市级科研机构",wcf));
-		           ws.addCell(new Label(0,6,"4.校级科研机构",wcf));
-		           ws.addCell(new Label(0,7,"5.总计",wcf));
-		           ws.addCell(new Label(2,7,"/",wcf));
+		           ws.addCell(new Label(2, 2, "内容", wcf));
+		           ws.addCell(new Label(0,3,"校友会（个）",wcf));
+		           ws.addCell(new Label(1,3,"总数",wcf));
+		           ws.addCell(new Label(1,4,"其中：境内",wcf));
+		           ws.addCell(new Label(1,5,"境外",wcf));
+		           
+		           ws.mergeCells(0, 2, 1, 2);
+		           ws.mergeCells(0, 3, 0, 5);
 		           
 		          
-		           ws.addCell(new Label(1, 3, ""+bean.getNationResNum(), wcf1)); 
-		           ws.addCell(new Label(2, 3,this.toStr(bean.getNationResRatio()) , wcf1));
-		           ws.addCell(new Label(1, 4, ""+bean.getProviResNum(), wcf1));
-		           ws.addCell(new Label(2, 4, this.toStr(bean.getProviResRatio()), wcf1));
-		           ws.addCell(new Label(1, 5,""+bean.getCityResNum(), wcf1));
-		           ws.addCell(new Label(2, 5, this.toStr(bean.getCityResRatio()), wcf1)); 
-		           ws.addCell(new Label(1, 6,""+bean.getSchResNum(), wcf1));
-		           ws.addCell(new Label(2, 6, this.toStr(bean.getSchResRatio()), wcf1));
-		           ws.addCell(new Label(1, 7, ""+bean.getSumResNum(), wcf1));
+		           ws.addCell(new Label(2, 3, ""+bean.getSumSchFriNum(), wcf1)); 
+		           ws.addCell(new Label(2, 4,""+bean.getInlandNum() , wcf1));
+		           ws.addCell(new Label(2, 5, ""+bean.getOutlandNum(), wcf1));
+		           
 		           
 		          wwb.write();
 		          wwb.close();
@@ -274,13 +302,12 @@ public class A15Action {
 		}
 		return new ByteArrayInputStream(fos.toByteArray());
 }
-	
 
 	public String execute() throws Exception{
+
 		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
 		return "success" ;
 	}
-
 	
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
@@ -295,14 +322,6 @@ public class A15Action {
 	}
 
 
-	public A15_Bean getA15Bean() {
-		return a15Bean;
-	}
-
-	public void setA15Bean(A15_Bean a15Bean) {
-		this.a15Bean = a15Bean;
-	}
-	
 	public String getExcelName() {
 		try {
 			this.excelName = URLEncoder.encode(excelName, "UTF-8");
@@ -317,18 +336,12 @@ public class A15Action {
 		this.excelName = excelName;
 	}
 
-	public String toStr(double num){
-		double n=num;
-		String str=""+n;
-		return str;
-	}
-	
-	public static  void main(String arg[]){
-		A15Action action=new A15Action();
-		String str=action.toStr(0.23);
-		System.out.println(str);
+	public S17_Bean getS17Bean() {
+		return s17Bean;
 	}
 
-	
+	public void setS17Bean(S17_Bean s17Bean) {
+		this.s17Bean = s17Bean;
+	}
 
 }

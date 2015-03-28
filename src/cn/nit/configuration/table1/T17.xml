@@ -5,20 +5,20 @@
 <struts>
 	<package name="t17" namespace="/pages/T17" extends="struts-default">
 		<!-- 添加数据 -->
-	    <action name="insert" class="cn.nit.action.table1.T17Action" method="insert" />
+	    <action name="insert" class="cn.nit.action.table1.T17_Action" method="insert" />
 	    <!-- 显示数据 -->
-	    <action name="auditingData" class="cn.nit.action.table1.T17Action" method="auditingData" />
+	    <action name="auditingData" class="cn.nit.action.table1.T17_Action" method="auditingData" />
 	     <!-- 编辑数据 -->
-	    <action name="edit" class="cn.nit.action.table1.T17Action" method="editSch" />
+	    <action name="edit" class="cn.nit.action.table1.T17_Action" method="editSch" />
 	    <!-- 修改审核状态 -->
-	    <action name="updateCheck" class="cn.nit.action.table1.T17Action"  method="updateCheck" />
+	    <action name="updateCheck" class="cn.nit.action.table1.T17_Action"  method="updateCheck" />
 	    
   	    <!-- 审核通过全部 -->
-	    <action name="checkAll" class="cn.nit.action.table1.T17Action"  method="checkAll" />
+	    <action name="checkAll" class="cn.nit.action.table1.T17_Action"  method="checkAll" />
 	    <!-- 删除数据 -->
-	    <action name="deleteByIds" class="cn.nit.action.table1.T17Action" method="deleteCoursesByIds" />
+	    <action name="deleteByIds" class="cn.nit.action.table1.T17_Action" method="deleteCoursesByIds" />
 	      <!-- 数据查询 -->
-	    <action name="singleSearch" class="cn.nit.action.table1.T17Action" method="auditingConditions"/>
+	    <action name="singleSearch" class="cn.nit.action.table1.T17_Action" method="auditingConditions"/>
 	    
 	     <!-- 文件批量上传 -->
 	    <action name="uploadFile" class="cn.nit.action.UploadAction" method="uploadFile">
@@ -45,7 +45,7 @@
 	    </action>
 	    
 	    <!-- 数据导出 -->
-	    <action name="dataExport" class="cn.nit.action.table1.T17Action" method="execute">
+	    <action name="dataExport" class="cn.nit.action.table1.T17_Action" method="execute">
 	    	<result name="success" type="stream">
 	    		<!-- 指定下载文件的类型，下面表示无限制 -->
 				<param name="contentType">application/octet-stream;charset=UTF-8</param>

@@ -23,7 +23,7 @@ import cn.nit.service.table1.T172Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class T172Action {
+public class T172_Action {
 	
 	/**  表172的Service类  */
 	private T172Service t172Ser = new T172Service() ;

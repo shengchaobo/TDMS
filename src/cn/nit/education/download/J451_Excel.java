@@ -17,11 +17,9 @@ public class J451_Excel {
 	
 	
 	
-	public static boolean export_J451(String path){
+	public static boolean export_J451(String path, String year){
 		
 		T451_Dao T451_dao = new T451_Dao();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<T451_Bean> list = T451_dao.totalList(year);
 		for(int i=0;i<list.size();i++){
 			list.get(i).setOrgType(null);
@@ -57,17 +55,6 @@ public class J451_Excel {
 		} catch (Exception e) {	
 			e.printStackTrace();
 			return false;
-		}
-	}
-	
-	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J451_Excel.export_J451(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
 		}
 	}
 

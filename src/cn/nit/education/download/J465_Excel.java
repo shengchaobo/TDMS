@@ -27,12 +27,12 @@ import cn.nit.dao.table4.T49_Dao;
 
 public class J465_Excel {
 	
-	public static boolean export_J465(String path){
+	public static boolean export_J465(String path, String year){
 		
 		T410_Dao T410_dao = new T410_Dao();
 		T49_Dao T49_dao = new T49_Dao();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
+/*		Calendar a = Calendar.getInstance();
+		String year = String.valueOf(a.get(Calendar.YEAR));*/
 		T410_Bean bean = T410_dao.totalList(year, Constants.PASS_CHECK);
 		int bianZhu = T49_dao.getNum(year,"ComplileBookNum");
 		int bianXie = T49_dao.getNum(year,"WriteBookNum");
@@ -119,16 +119,4 @@ public class J465_Excel {
 			}
 
 	}
-	
-	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J465_Excel.export_J465(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
-
 }

@@ -28,10 +28,10 @@ import jxl.write.biff.RowsExceededException;
 
 public class J29_Excel {
 	
-	public static boolean export_J29(String path){
+	public static boolean export_J29(String path, String year){
 		S28_Service S28_services = new S28_Service();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String year = dateFormat.format(new Date());
+	/*	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+		String year = dateFormat.format(new Date());*/
 		S28_Bean bean = S28_services.getYearInfo(year);
 		
 	    ByteArrayOutputStream fos = null;

@@ -45,6 +45,7 @@ public class T513_DAO {
 		sql.append(" and Time like '"+year+"%'");
 		
 		Connection conn = DBConnection.instance.getConnection() ;
+		Connection conn1 = null;
 		Statement st = null ;
 		ResultSet rs = null ;
 		//若数据库无数据 ，则加入新数据
@@ -100,7 +101,7 @@ public class T513_DAO {
 				DAOUtil.batchInsert(list1, tableName, field, conn) ;	
 				
 				//再取出来
-				Connection conn1 = DBConnection.instance.getConnection() ;
+				conn1 = DBConnection.instance.getConnection() ;
 				st = conn1.createStatement() ;
 				rs = st.executeQuery(sql.toString()) ;
 				list = DAOUtil.getList(rs, T513POJO.class) ;
@@ -109,9 +110,10 @@ public class T513_DAO {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
+			DBConnection.close(conn1);
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -144,11 +146,10 @@ public class T513_DAO {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -198,9 +199,9 @@ public class T513_DAO {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return bean ;
@@ -263,6 +264,10 @@ public class T513_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return flag ;
@@ -308,6 +313,10 @@ public class T513_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return 0 ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return total ;
 	}
@@ -350,6 +359,10 @@ public class T513_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -404,6 +417,9 @@ public class T513_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){
@@ -431,6 +447,10 @@ public class T513_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -446,7 +466,6 @@ public class T513_DAO {
 		String sql ="delete from "+tableName;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		try{
 			st = conn.createStatement();
 			flag = st.executeUpdate(sql);
@@ -454,6 +473,9 @@ public class T513_DAO {
 		}catch(SQLException e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}	
 		if(flag == 0){
 			return false ;

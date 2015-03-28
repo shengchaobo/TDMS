@@ -81,6 +81,8 @@ public class T653_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(conn);
 		}
 
 		return flag;
@@ -106,8 +108,7 @@ public class T653_Dao {
 			
 			
 			
-			flag = DAOUtil
-					.update(StuPublishWord, tableName, key, temp1, conn);
+			flag = DAOUtil.update(StuPublishWord, tableName, key, temp1, conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
@@ -134,6 +135,9 @@ public class T653_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 
 		if (flag == 0) {
@@ -175,9 +179,9 @@ public class T653_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -228,11 +232,10 @@ public class T653_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -252,11 +255,10 @@ public class T653_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -295,9 +297,9 @@ public class T653_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -333,11 +335,10 @@ public class T653_Dao {
 			e.printStackTrace() ;
 			return 0 ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return state ;
 	}
 	
@@ -353,7 +354,6 @@ public class T653_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where SeqNumber='" + seq + "';" ;		
 		System.out.println(sql);
@@ -364,7 +364,8 @@ public class T653_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -386,7 +387,6 @@ public class T653_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
 		" where CheckState=" + Constants.WAIT_CHECK ;		
 		
@@ -398,7 +398,8 @@ public class T653_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -427,11 +428,10 @@ public class T653_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -454,61 +454,12 @@ public class T653_Dao {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
 		
 		return WorkNum;
 	}
-
-	public static void main(String args[]) {
-
-		T653_Dao StuPublishWordDao = new T653_Dao();
-		List<T653_Bean> list = StuPublishWordDao.totalList("3002", "2015", 2);
-		System.out.println(list.size());
-//		T653_Bean StuPublishWord = new T653_Bean();
-////		 StuPublishWord.setSeqNumber(1);
-//		//	
-//
-//		StuPublishWord.setTeaUnit("水利与生态工程学院");
-//		StuPublishWord.setUnitId("3001");
-//		
-//		StuPublishWord.setWorkName("test");
-//		StuPublishWord.setJonalName("test");
-//		StuPublishWord.setJonalId("test");
-//		StuPublishWord.setJonalDate(new Date());
-//		StuPublishWord.setAwardStuName("test");
-//		StuPublishWord.setAwardStuNum(2);
-//		StuPublishWord.setGuideTeaName("test");
-//		StuPublishWord.setGuideTeaNum(2);
-//		StuPublishWord.setIsAward(true);
-//		StuPublishWord.setAwardLevel("50002");
-//		StuPublishWord.setAwardName("test");
-//		StuPublishWord.setAwardFromUnit("test");
-//		StuPublishWord.setFillUnitID("1022");
-//		
-//				
-//		StuPublishWord.setTime(new Date());
-//		StuPublishWord.setNote("无");
-////		//		
-//		StuPublishWordDao.insert(StuPublishWord);
-		//		
-		//	
-		//		
-		// //
-		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-		// ;
-		// // System.out.println(StuPublishWordDao.update(StuPublishWord)) ;
-//		 System.out.println(StuPublishWordDao.deleteItemsByIds("(8)")) ;
-
-//		System.out.println("success!!");
-//		List<T653_Bean> list = StuPublishWordDao.getYearInfo("2014");
-//		System.out.println(list.size());
-	}
-
-
-
-
-
-
 
 }

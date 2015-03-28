@@ -55,9 +55,9 @@ public class S443_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -96,9 +96,9 @@ public class S443_Dao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
  		
  		return flag ;
@@ -127,6 +127,10 @@ public class S443_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		
@@ -138,17 +142,19 @@ public class S443_Dao {
 
 		System.out.println(querysql);
 
-
+		Connection conn1 = DBConnection.instance.getConnection() ;
+		Statement st1 = null ;
+		ResultSet rs1 = null ;
 		
 		int sum=0,talentNum=0;
 		String talentType=null;
 		
 		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(querysql) ;
-			while(rs.next()){
-				talentType = rs.getString("talentType");				
-				talentNum = rs.getInt("talentNum");
+			st1 = conn1.createStatement() ;
+			rs1 = st1.executeQuery(querysql) ;
+			while(rs1.next()){
+				talentType = rs1.getString("talentType");				
+				talentNum = rs1.getInt("talentNum");
 				sum += talentNum;
 
 				S443_Bean s443_Bean=new S443_Bean();	
@@ -172,7 +178,12 @@ public class S443_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn1);
 		}
+		
 		
 		return list ;
 	}

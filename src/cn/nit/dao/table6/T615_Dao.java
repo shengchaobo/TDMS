@@ -65,11 +65,10 @@ public class T615_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -116,6 +115,8 @@ public class T615_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(conn);
 		}
 
 		return flag;
@@ -127,8 +128,7 @@ public class T615_Dao {
 		boolean flag = false;
 		Connection conn = DBConnection.instance.getConnection();
 		try {
-			flag = DAOUtil
-					.update(GenUndergraMajStuNum, tableName, key, field, conn);
+			flag = DAOUtil.update(GenUndergraMajStuNum, tableName, key, field, conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
@@ -155,6 +155,9 @@ public class T615_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 
 		if (flag == 0) {
@@ -191,11 +194,10 @@ public class T615_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -234,11 +236,10 @@ public class T615_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -258,11 +259,10 @@ public class T615_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -271,8 +271,6 @@ public class T615_Dao {
 		// TODO Auto-generated method stub
 		
 		String Cond = "1=1";
-		
-		int total = 0;
 		if(cond != null && !cond.equals("")){
 			Cond = Cond + cond;
 		}
@@ -298,11 +296,10 @@ public class T615_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -339,11 +336,10 @@ public class T615_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -377,11 +373,10 @@ public class T615_Dao {
 			e.printStackTrace() ;
 			return 0 ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return state ;
 	}
 	
@@ -397,7 +392,6 @@ public class T615_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where SeqNumber='" + seq + "';" ;		
 		System.out.println(sql);
@@ -408,9 +402,9 @@ public class T615_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		if (flag == 0) {
 			return false;
 		} else {
@@ -430,7 +424,6 @@ public class T615_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
 		" where CheckState=" + Constants.WAIT_CHECK ;		
 		
@@ -442,9 +435,9 @@ public class T615_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		if (flag == 0) {
 			return false;
 		} else {
@@ -470,9 +463,9 @@ public class T615_Dao {
 			e.printStackTrace();
 			return false; 
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		if (flag == 0) {
 			return false;
 		} else {
@@ -504,7 +497,11 @@ public class T615_Dao {
 		 }catch(Exception e){
 			 e.printStackTrace();
 			 return count;
-		 }
+		 }finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
+				DBConnection.close(conn);
+			}
 		 return count;		 
 	}
 	
@@ -533,7 +530,11 @@ public class T615_Dao {
 		 }catch(Exception e){
 			 e.printStackTrace();
 			 return count;
-		 }
+		 }finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
+				DBConnection.close(conn);
+			}
 		 return count;		 
 	}
 	
@@ -561,15 +562,11 @@ public class T615_Dao {
 		 }catch(Exception e){
 			 e.printStackTrace();
 			 return count;
-		 }
+		 }finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
+				DBConnection.close(conn);
+			}
 		 return count;		 
-	}
-
-	public static void main(String args[]) {
-
-		T615_Dao GenUndergraMajStuNumDao = new T615_Dao();	
-		boolean flag = GenUndergraMajStuNumDao.updatCheck();
-		System.out.println(flag);
-
 	}
 }

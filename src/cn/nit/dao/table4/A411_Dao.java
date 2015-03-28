@@ -48,9 +48,9 @@ public class A411_Dao {
 		}catch (Exception e){
 			e.printStackTrace() ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 		
@@ -77,11 +77,10 @@ public class A411_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return bean ;
 	}
 

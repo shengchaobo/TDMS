@@ -67,9 +67,9 @@ public class A441_Dao {
 		}catch (Exception e){
 			e.printStackTrace() ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 		
@@ -95,9 +95,9 @@ public class A441_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return bean ;
@@ -127,6 +127,10 @@ public class A441_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		
@@ -150,7 +154,9 @@ public class A441_Dao {
 			" from "+tableName2+" left join "+tableName1+" on "+tableName2+".TeaID = "+tableName1+".TeaID " +
 			" where convert(varchar(4),Time,120)=" + selectYear;
    
-		System.out.println(querysql);
+		Connection conn1 = DBConnection.instance.getConnection() ;
+		Statement st1 = null ;
+		ResultSet rs1 = null ;
 
 		A441_Bean bean = new A441_Bean() ;
 		
@@ -159,28 +165,28 @@ public class A441_Dao {
 		
 		
 		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(querysql) ;
-			while(rs.next()){
-				num = rs.getInt("Sum");
+			st1 = conn1.createStatement() ;
+			rs1 = st1.executeQuery(querysql) ;
+			while(rs1.next()){
+				num = rs1.getInt("Sum");
 				if(num==0){
 					return null;
 				}
-				num1 = rs.getInt("SeniorNum");
-				num2 = rs.getInt("SubSenior");
-				num3 = rs.getInt("MiddleNum");
+				num1 = rs1.getInt("SeniorNum");
+				num2 = rs1.getInt("SubSenior");
+				num3 = rs1.getInt("MiddleNum");
 				num4 = num - num1 - num2 - num3;
-				num5 = rs.getInt("DoctorNum");
-				num6 = rs.getInt("MasterNum");
-				num7 = rs.getInt("BachelorNum");
-				num8 = rs.getInt("NotDegreeNum");
-				num9 = rs.getInt("Below35Num");
-				num10 = rs.getInt("In36To45Num");
-				num11 = rs.getInt("In46To55Num");
+				num5 = rs1.getInt("DoctorNum");
+				num6 = rs1.getInt("MasterNum");
+				num7 = rs1.getInt("BachelorNum");
+				num8 = rs1.getInt("NotDegreeNum");
+				num9 = rs1.getInt("Below35Num");
+				num10 = rs1.getInt("In36To45Num");
+				num11 = rs1.getInt("In46To55Num");
 				num12 = num -num9 - num10 - num11;
-				num13 = rs.getInt("ThisSchNum");
-				num14 = rs.getInt("OutSchInNum");
-				num15 = rs.getInt("OutSchOutNum");
+				num13 = rs1.getInt("ThisSchNum");
+				num14 = rs1.getInt("OutSchInNum");
+				num15 = rs1.getInt("OutSchOutNum");
 
 
 				NumberFormat nf = NumberFormat.getNumberInstance();
@@ -241,6 +247,10 @@ public class A441_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn1);
 		}
 		
 		return bean ;

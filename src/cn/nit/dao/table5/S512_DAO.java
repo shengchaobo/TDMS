@@ -59,6 +59,10 @@ public class S512_DAO {
 		}catch (Exception e){
 			e.printStackTrace();
 			return seq;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return seq;
@@ -95,6 +99,10 @@ public class S512_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return list ;
 	}
@@ -142,7 +150,11 @@ public class S512_DAO {
 		 }catch(Exception e){
 			 e.printStackTrace();
 			 return count;
-		 }
+		 }finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
+				DBConnection.close(conn);
+			}
 		 return count;
 		 
 	}
@@ -245,6 +257,8 @@ public class S512_DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
 
@@ -258,7 +272,6 @@ public class S512_DAO {
 		sql.append("delete from " +tableName);
 		Connection conn=DBConnection.instance.getConnection();
 		Statement st=null;
-		ResultSet rs=null;
 		try{
 			st = conn.createStatement();
 			int n = st.executeUpdate(sql.toString());
@@ -268,6 +281,9 @@ public class S512_DAO {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return flag;
@@ -303,9 +319,9 @@ public class S512_DAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
  		
  		return flag ;
@@ -333,6 +349,10 @@ public class S512_DAO {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return list;
 	}
@@ -366,6 +386,10 @@ public class S512_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 	}
 	

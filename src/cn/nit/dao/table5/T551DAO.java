@@ -64,6 +64,8 @@ public class T551DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
+		}finally{	
+			DBConnection.close(conn);
 		}
 		
 		return flag ;
@@ -109,6 +111,10 @@ public class T551DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return 0 ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return total ;
 	}
@@ -151,6 +157,10 @@ public class T551DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -187,6 +197,10 @@ public class T551DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -359,6 +373,9 @@ public class T551DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){

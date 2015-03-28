@@ -42,6 +42,7 @@ public class T656_Dao {
 		String sql = "select " + key + "," + field + " from " + tableName 
 				+ " where convert(varchar(4),Time,120)=" + year;		
 		Connection conn = DBConnection.instance.getConnection() ;
+		Connection conn1 = null;
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T656_Bean> list = null ;
@@ -76,7 +77,7 @@ public class T656_Dao {
 				DAOUtil.batchInsert(list, tableName, field, conn) ;	
 				
 				//再取出来
-				Connection conn1 = DBConnection.instance.getConnection() ;
+				conn1 = DBConnection.instance.getConnection() ;
 				st = conn1.createStatement() ;
 				rs = st.executeQuery(sql) ;
 				list = DAOUtil.getList(rs, T656_Bean.class) ;
@@ -85,9 +86,10 @@ public class T656_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn1);
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -116,9 +118,9 @@ public class T656_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -170,11 +172,10 @@ public class T656_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return bean ;
 	}
 	
@@ -202,11 +203,10 @@ public class T656_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return bean ;
 	}
 	
@@ -222,7 +222,6 @@ public class T656_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where TeaUnit='" + unitName + "' and convert(varchar(4),Time,120)=" + year;			
 		//System.out.println(sql);
@@ -233,7 +232,8 @@ public class T656_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -262,7 +262,7 @@ public class T656_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
-		} finally {
+		}finally{
 			DBConnection.close(conn);
 		}
 		return flag;
@@ -286,6 +286,8 @@ public class T656_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(conn);
 		}
 
 		return flag;
@@ -308,6 +310,9 @@ public class T656_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 
 		if (flag == 0) {
@@ -344,9 +349,9 @@ public class T656_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -358,7 +363,6 @@ public class T656_Dao {
 		String sql ="delete from "+tableName;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		try{
 			st = conn.createStatement();
 			flag = st.executeUpdate(sql);
@@ -366,6 +370,9 @@ public class T656_Dao {
 		}catch(SQLException e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}	
 		if(flag == 0){
 			return false ;
@@ -406,9 +413,9 @@ public class T656_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -430,11 +437,10 @@ public class T656_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -463,11 +469,10 @@ public class T656_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -490,9 +495,10 @@ public class T656_Dao {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
-		
 		return NPassRate;
 	}
 	

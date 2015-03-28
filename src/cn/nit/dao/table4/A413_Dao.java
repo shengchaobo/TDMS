@@ -62,9 +62,9 @@ public class A413_Dao {
 		}catch (Exception e){
 			e.printStackTrace() ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 		
@@ -91,9 +91,9 @@ public class A413_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return bean ;
@@ -105,21 +105,25 @@ public class A413_Dao {
 	/**得到数据*/
 	public A413_Bean getYearInfo(int year)
 	{
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
+		Connection conn1 = DBConnection.instance.getConnection() ;
+		Statement st1 = null ;
+		ResultSet rs1 = null ;
 		String sql="select * from "+tableName1;
 		
 		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql);
-			if(rs.equals(null)){
+			st1 = conn1.createStatement();
+			rs1 = st1.executeQuery(sql);
+			if(rs1.equals(null)){
 				return null;
 			}
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn1);
 		}
 	
 	    String querysql="select " +
@@ -143,7 +147,9 @@ public class A413_Dao {
 			"sum (case when TutorType = '43003' then 1 else 0 end) as NotTutorNum"+
 			" from "+tableName1;
    
-		System.out.println(querysql);
+	    Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
 
 		A413_Bean bean = new A413_Bean() ;
 		
@@ -249,6 +255,10 @@ public class A413_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return bean ;

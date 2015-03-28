@@ -58,9 +58,9 @@ public class T632_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -160,9 +160,9 @@ public class T632_Dao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if(flag1==true&&flag2==true){
@@ -226,7 +226,9 @@ public class T632_Dao {
 				" from " + tableName + " where " + key + " in " + ids;
 		
 		Connection conn = DBConnection.instance.getConnection();
+		Connection conn1 = null;
 		Statement st = null ;
+		Statement st1 = null;
 		ResultSet rs0 = null ;
 		ResultSet rs1 = null ;
 		List<T632_Bean> templist = null ;
@@ -302,8 +304,8 @@ public class T632_Dao {
 
 			if(flag1){
 				//重新打开数据库连接
-				Connection conn1 = DBConnection.instance.getConnection() ;	
-				Statement st1 = conn1.createStatement();
+				conn1 = DBConnection.instance.getConnection() ;	
+				st1 = conn1.createStatement();
 				flag = st1.executeUpdate(sql.toString());
 			}else{
 				flag = 0;
@@ -313,6 +315,13 @@ public class T632_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(rs0);	
+			DBConnection.close(st1);
+			DBConnection.close(st);	
+			DBConnection.close(conn1);
+			DBConnection.close(conn);
 		}
 
 		if (flag == 0) {
@@ -335,7 +344,8 @@ public class T632_Dao {
 		int flag = 0;
 		boolean flag0 = false;
 		boolean flag1 = false;
-		Connection conn = DBConnection.instance.getConnection() ;		
+		Connection conn = DBConnection.instance.getConnection() ;	
+		Connection conn1 = null;
 		Statement st = null ;
 		ResultSet rs = null ;
 		Statement st1 = null ;
@@ -387,7 +397,7 @@ public class T632_Dao {
 				tempBean1.setCheckState(Constants.WAIT_CHECK);
 				flag0 = DAOUtil.update(bean, tableName, key, updatefield, conn) ;
 				//重新打开数据库连接
-				Connection conn1 = DBConnection.instance.getConnection() ;	
+				conn1 = DBConnection.instance.getConnection() ;	
 				flag1 = DAOUtil.update(tempBean1, tableName, key, updatefield1, conn1) ;					
 				
 				if(flag0&&flag1){
@@ -415,7 +425,7 @@ public class T632_Dao {
 				tempBean1.setAbroadNum(tempBean1.getAbroadNum()+(bean.getAbroadNum()-tempBean.getAbroadNum()));
 				flag0 = DAOUtil.update(bean, tableName, key, updatefield, conn) ;
 				//重新打开数据库连接
-				Connection conn1 = DBConnection.instance.getConnection() ;	
+				conn1 = DBConnection.instance.getConnection() ;	
 				flag1 = DAOUtil.update(tempBean1, tableName, key, updatefield1, conn1) ;	
 				if(flag0&&flag1){
 					flag = 1;
@@ -426,6 +436,11 @@ public class T632_Dao {
 			e.printStackTrace() ;
 			return 0;
 		}finally{
+			DBConnection.close(rs1) ;
+			DBConnection.close(rs) ;
+			DBConnection.close(st1) ;
+			DBConnection.close(st) ;
+			DBConnection.close(conn1) ;
 			DBConnection.close(conn) ;
 		}
 		return flag;
@@ -453,7 +468,8 @@ public class T632_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -481,6 +497,8 @@ public class T632_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(conn);
 		}
 
 		return flag;
@@ -556,11 +574,10 @@ public class T632_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -580,11 +597,10 @@ public class T632_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -619,11 +635,10 @@ public class T632_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -652,9 +667,9 @@ public class T632_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -689,6 +704,10 @@ public class T632_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 	}
 

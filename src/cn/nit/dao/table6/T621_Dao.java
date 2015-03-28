@@ -55,9 +55,9 @@ public class T621_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -86,9 +86,9 @@ public class T621_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -114,6 +114,8 @@ public class T621_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;		
 		Statement st = null ;
 		ResultSet rs = null ;
+		Statement st1 = null;
+		ResultSet rs1 =null;
 		List<T621_Bean> templist = null ;
 		String tempfield = "AmisPlanNum,ActulEnrollNum,ActulRegisterNum,AutoEnrollNum,SpecialtyEnrollNum,InProviEnrollNum,NewMajEnrollNum,AvgScore";
 		try{
@@ -144,8 +146,8 @@ public class T621_Dao {
 				Connection conn1 = DBConnection.instance.getConnection() ;	
 				flag2 = DAOUtil.insert(bean, tableName, field, conn1);				
 			}else{
-				Statement st1 = conn.createStatement();
-				ResultSet rs1 = st1.executeQuery(sq2);
+				st1 = conn.createStatement();
+				rs1 = st1.executeQuery(sq2);
 				int sum=0;
 				while(rs1.next()){
 					sum = rs1.getInt("num")-1;
@@ -173,9 +175,11 @@ public class T621_Dao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if(flag1==true&&flag2==true){
@@ -210,6 +214,7 @@ public class T621_Dao {
 		String sql3 = "select count(FromTeaUnit) from "+tableName+" where convert(varchar(4),Time,120)=" + year;
 		
 		Connection conn = DBConnection.instance.getConnection();
+		Connection conn1 = null;
 		Statement st = null ;
 		Statement st1 = null;
 		Statement st2 = null;
@@ -271,7 +276,7 @@ public class T621_Dao {
 
 			if(flag1){
 				//重新打开数据库连接
-				Connection conn1 = DBConnection.instance.getConnection() ;	
+				conn1 = DBConnection.instance.getConnection() ;	
 				Statement st4 = conn1.createStatement();
 				flag = st4.executeUpdate(sql.toString());
 			}else{
@@ -282,6 +287,15 @@ public class T621_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(rs3);
+			DBConnection.close(st2);	
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(rs0);
+			DBConnection.close(st);
+			DBConnection.close(conn1);
+			DBConnection.close(conn);
 		}
 
 		if (flag == 0) {
@@ -312,6 +326,8 @@ public class T621_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(conn);
 		}
 
 		return flag;
@@ -500,7 +516,13 @@ public class T621_Dao {
 			e.printStackTrace() ;
 			return 0;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(rs2);
+			DBConnection.close(st2);	
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 	}
@@ -572,7 +594,8 @@ public class T621_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -609,9 +632,9 @@ public class T621_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -649,9 +672,9 @@ public class T621_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -673,11 +696,10 @@ public class T621_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -707,11 +729,10 @@ public class T621_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -742,11 +763,10 @@ public class T621_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 

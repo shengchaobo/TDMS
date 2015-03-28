@@ -68,9 +68,9 @@ public class S461_Dao {
 		e.printStackTrace() ;
 		return null ;
 	}finally{
-		DBConnection.close(conn);
 		DBConnection.close(rs);
-		DBConnection.close(st);			
+		DBConnection.close(st);	
+		DBConnection.close(conn);
 	}
 	
 	return list ;
@@ -115,9 +115,9 @@ public class S461_Dao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
  		
  		return flag ;
@@ -224,6 +224,10 @@ public class S461_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -231,22 +235,6 @@ public class S461_Dao {
 	}
 	
 	
-	public static void main(String args[]){
-//		String querysql="select "+tableName2+".AwardLevel as Item," +
-//		"sum(case when "+tableName1+".AwardType = '51000' then 1 else 0 end) as FameTeaAward," +
-//		"sum(case when "+tableName1+".AwardType = '51001' then 1 else 0 end) as AdvanceTeaAward," +
-//		"sum(case when "+tableName1+".AwardType = '51002' then 1 else 0 end) as WorkAward," +
-//		"sum(case when "+tableName1+".AwardType = '51003' then 1 else 0 end) as StuWordAward," +
-//		"sum(case when "+tableName1+".AwardType = '51004' then 1 else 0 end) as OutstdTeaAward," +
-//		"sum(case when "+tableName1+".AwardType = '51005' then 1 else 0 end) as OutWorkAward," +
-//		"sum(case when "+tableName1+".AwardType = '51006' then 1 else 0 end) as TeathAward," +
-//		"sum(case when "+tableName1+".AwardType = '51007' then 1 else 0 end) as OtherAward," +
-//		" from "+tableName2+
-//		" left join "+tableName1+" on "+tableName2+".IndexID = "+tableName1+".AwardLevel "+
-//		" and Time like '"+2014+"%' group by "+tableName2+".AwardLevel " +
-//		" order by "+tableName2+".AwardLevel";
-//		System.out.println(querysql);
-//		
-	}
+
 
 }

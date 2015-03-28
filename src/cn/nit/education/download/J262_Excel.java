@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,7 +17,7 @@ import cn.nit.dao.table2.T26_Dao;
 import cn.nit.util.ExcelUtil;
 
 public class J262_Excel {
-	
+
 	public static boolean export_J262(String path, String year){
 		
 /*		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");

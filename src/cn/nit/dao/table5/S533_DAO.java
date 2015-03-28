@@ -46,9 +46,9 @@ public class S533_DAO {
 				e.printStackTrace() ;
 				return null ;
 			}finally{
-				DBConnection.close(conn);
 				DBConnection.close(rs);
-				DBConnection.close(st);			
+				DBConnection.close(st);	
+				DBConnection.close(conn);
 			}
 			
 			return list ;
@@ -88,9 +88,9 @@ public class S533_DAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
  		
  		return flag ;
@@ -119,6 +119,10 @@ public class S533_DAO {
 				}catch(Exception e){
 					e.printStackTrace() ;
 					return null;
+				}finally{
+					DBConnection.close(rs);
+					DBConnection.close(st);	
+					DBConnection.close(conn);
 				}
 				
 				
@@ -135,9 +139,9 @@ public class S533_DAO {
 		
 		int hasExpCourseNum=0,expCourseNum=0,expTeachNum=0;
 		double expRatio1=0,expRatio=0; 
+		Connection conn1 = DBConnection.instance.getConnection() ;
 		try {
-			
-			st = conn.createStatement() ;
+			st = conn1.createStatement() ;
 			rs = st.executeQuery(querysql) ;
 			
 			while(rs.next()){
@@ -184,6 +188,10 @@ public class S533_DAO {
 			// TODO: handle exception
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn1);
 		}
 		return list ;
 	}

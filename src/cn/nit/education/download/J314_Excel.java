@@ -16,11 +16,11 @@ import cn.nit.util.ExcelUtil;
 public class J314_Excel {
 	
 	
-	public static boolean export_J314(String path){
+	public static boolean export_J314(String path,String year){
 		
 		T313_DAO T313_dao = new T313_DAO();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
+//		Calendar a = Calendar.getInstance();
+//		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<T313POJO> list = T313_dao.totalList(year);
 
 		String sheetName = "J-3-1-4重点学科（时点）";
@@ -56,16 +56,6 @@ public class J314_Excel {
 		}
 	}
 	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J314_Excel.export_J314(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
-	
-	
+
 
 }

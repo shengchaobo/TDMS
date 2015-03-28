@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="cn.nit.constants.Constants"%>
 <%@ page import="java.net.*" %>
 <%
 String path = request.getContextPath();
@@ -37,148 +38,107 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/table6/T659.js"></script>
 </head>
 
+<% request.setAttribute("CHECKTYPE",Constants.CTypeThree); %>
+<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("NOPASS",Constants.NOPASS_CHECK); %>
+<% request.setAttribute("PASS",Constants.PASS_CHECK); %>
+<body style="height: 100%'"   onload = "myMarquee('T659','<%=request.getAttribute("CHECKTYPE") %>')">
 
-<body>
-	<table id="commomData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T659/loadData" style="height: auto;">
-		<thead data-options="frozen:true">
-			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber">编号</th>
-				<th field="teaUnit">教学单位</th>
-				<th field="unitId">单位号</th>
-			</tr>
-		</thead>	
+<div  id="floatDiv">
+        <span style="font:12px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;审核未通过提示消息：</span>
+        <marquee id="marquee"  scrollAmount="1"  width="900"  height="40" direction="up"  style="color: red;"  onmouseover="stop()" onmouseout="start()">
+        </marquee>       
+  </div>
+    <br/>
+
+	<table id="newData"  style="height: auto" >		
 		<thead>
 			<tr>
-				<th field="exchangeStuSum">交流学生总数</th>
-				<th field="fromSchToOverseas">本校到境外</th>			
-				<th field="fromSchToDomestic">本校到境内</th>		
-				<th field="fromDomesticToSch">境内到本校</th>		
-				<th field="fromOverseasToSch">境外到本校</th>
-
-				<th field="fillUnitID">填写单位</th>	
-				<th field="note">备注</th>
+				<th data-options="field:'ck',checkbox:true"  rowspan="2">选取</th>
+				<th  data-options="field:'seqNumber'" rowspan="2" hidden="true">编号</th>
+				<th data-options="field:'teaUnit'" rowspan="2">
+			   	教学单位
+				</th>
+				<th data-options="field:'unitId'" rowspan="2">
+	       		单位号
+				</th>
+				<th  colspan="5">交流学生数（个）</th>
 			</tr>
-		</thead>
+			<tr>
+				<th data-options="field:'exchangeStuSum'">
+				总数
+				</th>
+				<th data-options="field:'fromSchToOverseas'">
+	       		本校到境外
+				</th>
+				<th data-options="field:'fromSchToDomestic'">
+				本校到境内
+				</th>
+				<th data-options="field:'fromDomesticToSch'">
+				境内到本校
+				</th>
+				<th data-options="field:'fromOverseasToSch'">
+	       		境外到本校
+				</th>
+			</tr>			
+	</thead>
 	</table>
+	
 	<div id="toolbar" style="height:auto">
 		<div style="float: left;">
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newItem()">添加</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editItem()">编辑</a> 
-			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			<a href="javascript:void(0)" id="edit" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
+			<a href="javascript:void(0)" id="export" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
 		</div>
-		 <div style="float: right;">
-		 	<form method="post" id="searchForm"
-				style="float: right; height: 24px;">
-				<table id="test" width="520">
-					<tr>
-						<td>
-							编号:
-						</td>
-						<td>
-							<input id="seqNum" name="seqNum" class="easyui-box"
-								style="width: 40px" />
-						</td>
-						<td>
-							起始日期:
-						</td>
-						<td>
-							<input id="startTime" name="startTime" class="easyui-datebox"
-								style="width: 100px" />
-						</td>
-						<td>
-							结束日期:
-						</td>
-						<td>
-							<input id="endTime" name="endTime" class="easyui-datebox"
-								style="width: 100px" />
-						</td>
-						<td>
-							<a href="javascript:void(0)" class="easyui-linkbutton"
-								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
-						</td>
-					</tr>
-				</table>
-			</form>
-		</div>
+	 	 <form  id="exportForm"  style="float: right;"  method="post" >
+			显示： <select class="easyui-combobox" id="cbYearContrast" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false ></select>
+	 	</form>	
 	</div>
 	
-		<!--审核通过数据-->
-	<table id="verfiedData"  class="easyui-datagrid"  url=""  style="height: auto;" >
-		<thead data-options="frozen:true">
-			<tr>
-				<th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber">编号</th>
-				<th field="teaUnit">教学单位</th>
-				<th field="unitId">单位号</th>
-			</tr>
-		</thead>	
-		<thead>
-			<tr>
-				<th field="exchangeStuSum">交流学生总数</th>
-				<th field="fromSchToOverseas">本校到境外</th>			
-				<th field="fromSchToDomestic">本校到境内</th>		
-				<th field="fromDomesticToSch">境内到本校</th>		
-				<th field="fromOverseasToSch">境外到本校</th>
-
-				<th field="fillUnitID">填写单位</th>	
-				<th field="note">备注</th>
-				<th field="time" formatter="formattime">时间</th>
-			</tr>
-		</thead>
-	</table>
-	<div id="toolbar2" style="float: right;">
-		<a href='pages/T659/dataExport?excelName=<%=URLEncoder.encode("表6-5-9学习成果—本科生交流情况（教学单位-国际交流与合作处）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
-		
-	</div>
-	
+		<!--添加弹出框-->
 	<div id="dlg" class="easyui-dialog"
-		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
+	style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
-		<h3 class="title1">本科生交流情况批量导入</h3>
-		<div class="fitem" id="item1">
-			<form id="batchForm" method="post" enctype="multipart/form-data">
-				<select class="easyui-combobox"  id="cbYearContrast" name="selectYear" editable="false"></select>
-				<input type="file" name="uploadFile" id="uploadFile" class="easyui-validatebox" size="48" style="height: 24px;"
-					validType="fileType['xls']" required="true" invalidMessage="请选择Excel格式的文件" />
-				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" onclick="batchImport()">模板导入</a>
-				<a href='pages/T659/downloadModel?saveFile=<%=URLEncoder.encode("表6-5-9学习成果—本科生交流情况（教学单位-国际交流与合作处）.xls","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download">模板下载</a>
-			</form>
-		</div>
-	<hr></hr>
-		<div></div>
-		<h3 class="title1">本科生交流情况逐条导入</h3>
-		<form id="addItemForm" method="post">
+	   <form id="addForm" method="post">
 		<table>
 			<tr>
-				<td>
-					<div class="fitem">
-						<label>教学单位：</label> 
-						<input id="seqNumber" type="hidden" name="T659_bean.seqNumber">	
-						<input id="teaUnit" type="hidden" name="T659_bean.teaUnit">										
-						<input id="unitId" type="text" name="T659_bean.unitId" class='easyui-combobox'
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
-							onSelect:function(){
-							 	 document.getElementById('teaUnit').value=$(this).combobox('getText') ;
-							 }">
-					</div>
+			<td >
+				<input type="hidden" name="T659_bean.seqNumber" id="seqNumber"/>
+				<div class="fitem">
+				<label>教学单位：</label> 
+				<input id="teaUnit" type="text" name="T659_bean.teaUnit"
+				class="easyui-validatebox" ><span id="teaUnitSpan"></span>
+				</div>
 				</td>
 				<td class="empty"></td>
-				
 				<td>
+				<div class="fitem">
+				<label>单位号：</label> 
+				<input id="unitId" type="text" name="T659_bean.unitId"
+				class="easyui-validatebox" ><span id="unitIDSpan"></span>
+				</div>
+				</td>
+		
+		</tr>
+		<tr>
+		
+		<td>
 					<div class="fitem">
 						<label>交流学生总数：</label> 
-						<input id="exchangeStuSum" name="T659_bean.exchangeStuSum" class='easyui-validatebox'>
+						<input class="easyui-numberbox"   id="exchangeStuSum"  type="text"  
+						name="T659_bean.exchangeStuSum"  editable="false" />
 						<span id="exchangeStuSumSpan"></span>
 					</div>
 				</td>
-			</tr>
+				
+		</tr>
 
 			<tr>
 				<td>
 					<div class="fitem">
 						<label>本校到境外：</label> 
-						<input id="fromSchToOverseas" name="T659_bean.fromSchToOverseas" class='easyui-validatebox'><span id="fromSchToOverseasSpan" ></span>
+						<input class="easyui-numberbox"   id="fromSchToOverseas"  type="text" 
+						name="T659_bean.fromSchToOverseas"  editable="false" />
+						<span id="fromSchToOverseasSpan" ></span>
 					</div>
 				</td>
 				<td class="empty"></td>
@@ -186,16 +146,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 					<div class="fitem">
 						<label>本校到境内：</label> 
-						<input id="fromSchToDomestic" name="T659_bean.fromSchToDomestic" class='easyui-validatebox' type="text" editable="false"><span id="fromSchToDomesticSpan"></span>
+						<input class="easyui-numberbox"   id="fromSchToDomestic"  type="text" 
+						name="T659_bean.fromSchToDomestic"  editable="false" />
+						<span id="fromSchToDomesticSpan"></span>
 					</div>
 				</td>
 			</tr>		
 			<tr>
 				<td>			
 					<div class="fitem">
-						<label>境内到本校：</label> 
-						<input id="fromDomesticToSch" name="T659_bean.fromDomesticToSch" 
-							 class='easyui-validatebox' ><span id="fromDomesticToSchSpan"></span>
+						<label>境内到本校：</label>
+						<input class="easyui-numberbox"   id="fromDomesticToSch"  type="text" 
+						name="T659_bean.fromDomesticToSch"  editable="false" /> 
+						<span id="fromDomesticToSchSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>
@@ -203,49 +166,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>			
 					<div class="fitem">
 						<label>境外到本校：</label> 
-						<input id="fromOverseasToSch" name="T659_bean.fromOverseasToSch" 
-							 class='easyui-validatebox' ><span id="fromOverseasToSchSpan"></span>
+						<input class="easyui-numberbox"   id="fromOverseasToSch"  type="text"  
+						name="T659_bean.fromOverseasToSch"  editable="false" /> 
+						<span id="fromOverseasToSchSpan"></span>
 					</div>
 				</td>
 			</tr>
 			
-			<tr>
-				<td>			
-					<div class="fitem">
-						<label>填写单位：</label> 
-						<input id="fillUnitID" name="T659_bean.fillUnitID" 
-							 class='easyui-validatebox'><span id="fillUnitIDSpan"></span>
-					</div>
-				</td>
-				<td class="empty"></td>
-				
-				<td>
-					<div class="fitem">
-						<label>填写时间：</label> 
-						<input class="easyui-datebox"  id="time" type="text" 
-						name="T659_bean.time"  editable="false" />
-						<span id="timeSpan"></span>
-					</div>
-				</td>
-			</tr>
-
-			<tr>
-				<td style="valign:left" colspan="3"><label>备注：</label>
-					<textarea id="note" name="T659_bean.note" style="resize:none" cols="50" rows="10"></textarea>
-					<span id="noteSpan"></span>
-				</td>
-			</tr>
 		</table>
 		</form>
 	</div>
 	
-
-	<div id="dlg-buttons">
+		<!-- 跟dlg组合-->
+	<div id="dlg-buttons"  >
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-ok" onclick="singleImport()">保存</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
-	</div>
+	</div>	
 </body>
 
 

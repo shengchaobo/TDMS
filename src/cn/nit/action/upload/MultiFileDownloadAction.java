@@ -249,66 +249,67 @@ public class MultiFileDownloadAction extends ActionSupport {
 	   if(!J311_Excel.export_J311(filePath)){
 			return "J311_export has a error!";
 		}
-		if(!J312_Excel.export_J312(filePath)){
+		if(!J312_Excel.export_J312(filePath,year)){
 			return "J312_export has a error!";
 		}
-		if(!J313_Excel.export_J313(filePath)){
+		if(!J313_Excel.export_J313(filePath,year)){
 			return "J311_export has a error!";
 		}
-		if(!J314_Excel.export_J314(filePath)){
+		if(!J314_Excel.export_J314(filePath,year)){
 			return "J311_export has a error!";
 		}
-		if(!J321_Excel.export_J321(filePath)){
+		if(!J321_Excel.export_J321(filePath,year)){
 			return "J321_export has a error!";
 		}
-		if(!J322_Excel.export_J322(filePath)){
+		if(!J322_Excel.export_J322(filePath,year)){
 			return "J322_export has a error!";
 		}
-		if(!J323_Excel.export_J323(filePath)){
+		if(!J323_Excel.export_J323(filePath,year)){
 			return "J323_export has a error!";
 		}
 		
 		//4字头
-	    if(!J411_Excel.export_J411(filePath)){
+	        if(!J411_Excel.export_J411(filePath)){
 			return "J411_export has a error!";
-		}			
-	    if(!J412_Excel.export_J412(filePath)){
+		 }			
+	       if(!J412_Excel.export_J412(filePath)){
 			return "J412_export has a error!";
 		}
 		if(!J42_Excel.export_J42(filePath, year)){
 			return "J42_export has a error!";
 		}
-	    if(!J43_Excel.export_J43(filePath)){
+	       if(!J43_Excel.export_J43(filePath)){
 			return "J43_export has a error!";
 		}
-	    if(!J441_Excel.export_J441(filePath, year)){
+
+	       if(!J441_Excel.export_J441(filePath,year)){
 			return "J441_export has a error!";
 		}
-		if(!J442_Excel.export_J442(filePath, year)){
+		if(!J442_Excel.export_J442(filePath,year)){
 			return "J442_export has a error!";
 		}
-	    if(!J451_Excel.export_J451(filePath, year)){
+	        if(!J451_Excel.export_J451(filePath,year)){
 			return "J451_export has a error!";
 		}
-		if(!J452_Excel.export_J452(filePath, year)){
+		if(!J452_Excel.export_J452(filePath,year)){
 			return "J452_export has a error!";
 		}
-		if(!J461_Excel.export_J461(filePath, year)){
+		if(!J461_Excel.export_J461(filePath,year)){
 			return "J461_export has a error!";
 		}
-		if(!J462_Excel.export_J462(filePath, year)){
+		if(!J462_Excel.export_J462(filePath,year)){
 			return "J461_export has a error!";
 		}
-		if(!J463_Excel.export_J463(filePath, year)){
+		if(!J463_Excel.export_J463(filePath,year)){
 			return "J463_export has a error!";
 		}
-		if(!J464_Excel.export_J464(filePath, year)){
+		if(!J464_Excel.export_J464(filePath,year)){
 			return "J464_export has a error!";
 		}
-		if(!J465_Excel.export_J465(filePath, year)){
+		if(!J465_Excel.export_J465(filePath,year)){
 			return "J465_export has a error!";
 		}
-		if(!J466_Excel.export_J466(filePath, year)){
+		if(!J466_Excel.export_J466(filePath,year)){
 			return "J466_export has a error!";
 		}
 

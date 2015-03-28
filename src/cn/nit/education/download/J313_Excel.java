@@ -17,11 +17,11 @@ public class J313_Excel {
 	
 	
 	
-	public static boolean export_J313(String path){
+	public static boolean export_J313(String path,String year){
 		
 		T312_DAO T312_dao = new T312_DAO();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
+//		Calendar a = Calendar.getInstance();
+//		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<T312_Bean> list = T312_dao.totalList(year);
 				
 		String sheetName = "J-3-1-3博士点、硕士点（时点）";
@@ -54,16 +54,6 @@ public class J313_Excel {
 		} catch (Exception e) {	
 			e.printStackTrace();
 			return false;
-		}
-	}
-	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J313_Excel.export_J313(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
 		}
 	}
 

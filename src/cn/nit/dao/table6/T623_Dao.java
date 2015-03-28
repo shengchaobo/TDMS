@@ -62,9 +62,9 @@ public class T623_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -112,6 +112,8 @@ public class T623_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(conn);
 		}
 
 		return flag;
@@ -151,6 +153,9 @@ public class T623_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 
 		if (flag == 0) {
@@ -187,9 +192,9 @@ public class T623_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -231,9 +236,9 @@ public class T623_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -255,9 +260,9 @@ public class T623_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -294,9 +299,9 @@ public class T623_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -332,9 +337,9 @@ public class T623_Dao {
 			e.printStackTrace() ;
 			return 0 ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return state ;
@@ -352,7 +357,6 @@ public class T623_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where SeqNumber='" + seq + "';" ;		
 		System.out.println(sql);
@@ -363,7 +367,8 @@ public class T623_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -385,7 +390,6 @@ public class T623_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
 		" where CheckState=" + Constants.WAIT_CHECK ;		
 		
@@ -397,7 +401,8 @@ public class T623_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -425,7 +430,8 @@ public class T623_Dao {
 			e.printStackTrace();
 			return false; 
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {

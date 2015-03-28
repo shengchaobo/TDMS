@@ -26,7 +26,7 @@ public class A413_Dao {
 	"PrimaryNum,PrimaryRatio,Below35Num,Below35Ratio,In36To45Num,In36To45Ratio,In46To55Num,In46To55Ratio,Above56Num,Above56Ratio," +
 	"AdminNum,AdminRatio,ResNum,ResRatio,HighNum,HighRatio,BusinessNum,BusinessRatio,CompanyNum," +
 	"CompanyRatio,ArmyNum,ArmyRatio,OtherNum,OtherRatio,DuTutorNum,DuTutorRatio,DocTutorNum,DocTutorRaio,MasterTutorNum,MasterTutorRatio," +
-	"NotTutorNum,NotTutorRatio,Time,Note";
+	"NotTutorNum,NotTutorRatio,Note";
 	private String key = "SeqNumber";
 
 	
@@ -44,6 +44,7 @@ public class A413_Dao {
 		String sql="select * from " + tableName;	
 		boolean flag=false;
 		Connection conn = DBConnection.instance.getConnection() ;
+		Connection conn1 = null;
 		Statement st = null;
 		ResultSet rs = null;
 		List<A413_Bean> list=new ArrayList<A413_Bean>();
@@ -52,19 +53,21 @@ public class A413_Dao {
 			st=conn.createStatement();
 			rs = st.executeQuery(sql);
 			list=DAOUtil.getList(rs, A413_Bean.class);
+			conn1 = DBConnection.instance.getConnection() ;
 			if(list.size()!=0){
 				bean=list.get(0);
 				a413_bean.setSeqNumber(bean.getSeqNumber());
-				flag=DAOUtil.update(a413_bean, tableName, key, field, conn);
+				flag=DAOUtil.update(a413_bean, tableName, key, field, conn1);
 			}else{
-				flag=DAOUtil.insert(a413_bean, tableName, field, conn);				
+				flag=DAOUtil.insert(a413_bean, tableName, field, conn1);				
 			}
 		}catch (Exception e){
 			e.printStackTrace() ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn1);
+			DBConnection.close(conn);
 		}
 		return flag;
 		
@@ -91,9 +94,9 @@ public class A413_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return bean ;
@@ -105,21 +108,25 @@ public class A413_Dao {
 	/**得到数据*/
 	public A413_Bean getYearInfo(int year)
 	{
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
+		Connection conn1 = DBConnection.instance.getConnection() ;
+		Statement st1 = null ;
+		ResultSet rs1 = null ;
 		String sql="select * from "+tableName1;
 		
 		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql);
-			if(rs.equals(null)){
+			st1 = conn1.createStatement();
+			rs1 = st1.executeQuery(sql);
+			if(rs1.equals(null)){
 				return null;
 			}
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn1);
 		}
 	
 	    String querysql="select " +
@@ -143,7 +150,9 @@ public class A413_Dao {
 			"sum (case when TutorType = '43003' then 1 else 0 end) as NotTutorNum"+
 			" from "+tableName1;
    
-		System.out.println(querysql);
+	    Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
 
 		A413_Bean bean = new A413_Bean() ;
 		
@@ -249,6 +258,10 @@ public class A413_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return bean ;

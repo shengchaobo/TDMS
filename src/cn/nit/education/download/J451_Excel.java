@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -14,8 +14,6 @@ import cn.nit.dao.table4.T451_Dao;
 import cn.nit.util.ExcelUtil;
 
 public class J451_Excel {
-	
-	
 	
 	public static boolean export_J451(String path, String year){
 		

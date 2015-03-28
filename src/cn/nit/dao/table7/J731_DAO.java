@@ -38,9 +38,9 @@ public class J731_DAO {
 			e.printStackTrace();
 			return null;
 		}finally{
-				DBConnection.close(conn);
-				DBConnection.close(rs);
-				DBConnection.close(st);
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return list;
 	}

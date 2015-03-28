@@ -82,6 +82,8 @@ public class T658_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
+		}finally{
+			DBConnection.close(conn);
 		}
 
 		return flag;
@@ -104,8 +106,7 @@ public class T658_Dao {
 				String a = "ConferenceLevel,";
 			    temp1 = updatefield.replaceAll(a , "");
 			}
-			flag = DAOUtil
-					.update(InInterConference, tableName, key, temp1, conn);
+			flag = DAOUtil.update(InInterConference, tableName, key, temp1, conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return flag;
@@ -132,6 +133,9 @@ public class T658_Dao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 
 		if (flag == 0) {
@@ -168,9 +172,9 @@ public class T658_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -217,9 +221,9 @@ public class T658_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -241,11 +245,10 @@ public class T658_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -286,11 +289,10 @@ public class T658_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -324,11 +326,10 @@ public class T658_Dao {
 			e.printStackTrace() ;
 			return 0 ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return state ;
 	}
 	
@@ -344,7 +345,6 @@ public class T658_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + checkState +
 		" where SeqNumber='" + seq + "';" ;		
 		System.out.println(sql);
@@ -355,7 +355,8 @@ public class T658_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -377,7 +378,6 @@ public class T658_Dao {
 		int flag ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		String sql = "update " + tableName + " set CheckState=" + Constants.PASS_CHECK +
 		" where CheckState=" + Constants.WAIT_CHECK ;		
 		
@@ -389,7 +389,8 @@ public class T658_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if (flag == 0) {
@@ -418,6 +419,8 @@ public class T658_Dao {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
 		
@@ -442,9 +445,9 @@ public class T658_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -479,58 +482,14 @@ public class T658_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
 	}
 	
-
-	public static void main(String args[]) {
-
-		T658_Dao InInterConferenceDao = new T658_Dao();
-		T658_Bean InInterConference = new T658_Bean();
-//		 InInterConference.setSeqNumber(1);
-//		//	
-//	
-//		InInterConference.setTeaUnit("水利与生态工程学院");
-//		InInterConference.setUnitId("3001");
-//		InInterConference.setConferenceName("test");
-//		InInterConference.setPaperTitle("test");
-//		InInterConference.setHoldTime(new Date());
-//		InInterConference.setHoldPlace("test");
-//		InInterConference.setHoldUnit("test");
-//		InInterConference.setConferenceLevel("50001");
-//		InInterConference.setAwardStuNum(2);
-//		InInterConference.setAwardStuName("test");
-//		InInterConference.setGuideTeaName("test");
-//		InInterConference.setGuideTeaNum(2);
-//		InInterConference.setFillUnitID("1022");
-//				
-//		InInterConference.setTime(new Date());
-//		InInterConference.setNote("无");
-////		//		
-//		InInterConferenceDao.insert(InInterConference);
-//		//		
-//		//	
-//		//		
-//		// //
-//		// System.out.println(underCSBaseTeaDao.auditingData("audit='1'",null,2,10).size())
-//		// ;
-//		// // System.out.println(InInterConferenceDao.update(InInterConference)) ;
-////		 System.out.println(InInterConferenceDao.deleteItemsByIds("(8)")) ;
-//
-//		System.out.println("success!!");
-		List<T658_Bean> list = InInterConferenceDao.getAllList("1=1", null);
-		System.out.println(list.size());
-	}
-
-
-
-
-
 
 
 }

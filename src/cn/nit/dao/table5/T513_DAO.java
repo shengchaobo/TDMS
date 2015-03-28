@@ -35,11 +35,9 @@ public class T513_DAO {
 	 * @time: 2014-5-14/下午02:34:42
 	 */
 	public List<T513POJO> getYearInfo(String year){
-		
-//		String sql = "select " + key + "," + field + " from " + tableName 
-//				+ " where convert(varchar(4),Time,120)=" + year;
-//		
+			
 		StringBuffer sql = new StringBuffer();
+		
 		sql.append("select t.SeqNumber,die.EvaluType as Item,t.Item as ItemID,t.Category,t.ShouldASCSNum,t.HavedASCSNum,t.CoverRatio,t.ExcellentNum,t.ExcellentRatio" +
 		",t.GoodNum,t.GoodRatio,t.AvgNum,t.AvgRatio,t.PoorNum,t.PoorRatio,t.Time,t.Note");
 		sql.append(" from "+tableName+" as t,DiEvaluType as die ");
@@ -47,8 +45,10 @@ public class T513_DAO {
 		sql.append(" and Time like '"+year+"%'");
 		
 		Connection conn = DBConnection.instance.getConnection() ;
+		Connection conn1 = null;
 		Statement st = null ;
 		ResultSet rs = null ;
+		//若数据库无数据 ，则加入新数据
 		List<T513_Bean> list1=new ArrayList<T513_Bean>();
 		List<T513POJO> list= null;
 		//System.out.println(sql);
@@ -103,7 +103,7 @@ public class T513_DAO {
 				DAOUtil.batchInsert(list1, tableName, field, conn) ;	
 				
 				//再取出来
-				Connection conn1 = DBConnection.instance.getConnection() ;
+				conn1 = DBConnection.instance.getConnection() ;
 				st = conn1.createStatement() ;
 				rs = st.executeQuery(sql.toString()) ;
 				list = DAOUtil.getList(rs, T513POJO.class) ;
@@ -112,9 +112,10 @@ public class T513_DAO {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);
+			DBConnection.close(conn1);
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -147,11 +148,10 @@ public class T513_DAO {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -201,9 +201,9 @@ public class T513_DAO {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return bean ;
@@ -266,6 +266,10 @@ public class T513_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return flag ;
@@ -311,6 +315,10 @@ public class T513_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return 0 ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return total ;
 	}
@@ -353,6 +361,10 @@ public class T513_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -407,6 +419,9 @@ public class T513_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		if(flag == 0){
@@ -415,6 +430,34 @@ public class T513_DAO {
 			return true ;
 		}
 	}
+	
+	public  List<T513_Bean> getDate(){
+		
+		StringBuffer sql = new StringBuffer() ;
+		List<T513_Bean> list = null ;
+		sql.append("select * from "+tableName);
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T513_Bean.class) ;
+			
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
+		}
+		
+		return list ;
+	}
+	
 	public String getTableName(){
 		return this.tableName ;
 	}
@@ -425,7 +468,6 @@ public class T513_DAO {
 		String sql ="delete from "+tableName;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
-		ResultSet rs = null ;
 		try{
 			st = conn.createStatement();
 			flag = st.executeUpdate(sql);
@@ -433,6 +475,9 @@ public class T513_DAO {
 		}catch(SQLException e){
 			e.printStackTrace() ;
 			return false ;
+		}finally{
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}	
 		if(flag == 0){
 			return false ;
@@ -446,7 +491,7 @@ public class T513_DAO {
 		if(dao.deleteAll()){
 			System.out.println("删除完毕");
 		}
-//		List<T513POJO> list = dao.getYearInfo("2012");
+//		List<T513_Bean> list = dao.getDate();
 //		System.out.println(list.size());
 	}
 	

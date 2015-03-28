@@ -30,13 +30,13 @@ import cn.nit.service.table2.T21_Service;
 
 public class J311_Excel {
 	
-	public static boolean export_J311(String path){
+	public static boolean export_J311(String path,String year){
 		
 		
 
 		S31_DAO s31_Dao = new S31_DAO();
-		SimpleDateFormat  dateFormat = new SimpleDateFormat ("yyyy");
-		String year = dateFormat.format(new Date());
+//		SimpleDateFormat  dateFormat = new SimpleDateFormat ("yyyy");
+//		String year = dateFormat.format(new Date());
 		S31_Bean bean = s31_Dao.exportData(year);
 		
 	    ByteArrayOutputStream fos = null;
@@ -133,14 +133,6 @@ public class J311_Excel {
 		        		
 	}
 	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J311_Excel.export_J311(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
+
 
 }

@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -14,7 +14,6 @@ import cn.nit.dao.table4.T42_Dao;
 import cn.nit.util.ExcelUtil;
 
 public class J42_Excel {
-	
 	
 	public static boolean export_J42(String path, String year){
 		
@@ -57,5 +56,10 @@ public class J42_Excel {
 			return false;
 		}
 	}
+<<<<<<< HEAD
+=======
+	
+
+>>>>>>> 3c642a643366a0b258dfc711e79b81f39eb32ffa
 
 }

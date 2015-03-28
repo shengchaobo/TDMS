@@ -63,9 +63,9 @@ public class A412_Dao {
 		}catch (Exception e){
 			e.printStackTrace() ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		return flag;
 		
@@ -92,11 +92,10 @@ public class A412_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return bean ;
 		
 	}
@@ -108,21 +107,25 @@ public class A412_Dao {
 
 	public A412_Bean getYearInfo(int year)
 	{
-		Connection conn = DBConnection.instance.getConnection() ;
-		Statement st = null ;
-		ResultSet rs = null ;
+		Connection conn1 = DBConnection.instance.getConnection() ;
+		Statement st1 = null ;
+		ResultSet rs1 = null ;
 		String sql="select * from "+tableName1;
 		
 		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql);
-			if(rs.equals(null)){
+			st1 = conn1.createStatement();
+			rs1 = st1.executeQuery(sql);
+			if(rs1.equals(null)){
 				return null;
 			}
 			
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn1);
 		}
 		
 	    String querysql="select " +
@@ -145,7 +148,9 @@ public class A412_Dao {
 			"sum (case when engineer = 'true' then 1 else 0 end) as EngineerNum " +
 			" from "+tableName1+" where IDCode = '40000' and (TeaFlag is null or TeaFlag != '外聘')";
    
-		System.out.println(querysql);
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
 		
 		A412_Bean bean = new A412_Bean() ;
 		
@@ -245,6 +250,10 @@ public class A412_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return bean ;

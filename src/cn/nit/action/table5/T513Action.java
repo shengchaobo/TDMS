@@ -80,7 +80,7 @@ public class T513Action {
 	public void auditingData() throws Exception{
 		System.out.println("+++++++++++++++++++");
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
-		System.out.println(this.getSelectYear());
+		//System.out.println(this.getSelectYear());
 		List<T513POJO> list=null;
 		if(this.getSelectYear()!=null){
 			list = t513Ser.getYearInfo(this.getSelectYear());

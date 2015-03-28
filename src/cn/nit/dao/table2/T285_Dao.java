@@ -38,6 +38,7 @@ public class T285_Dao {
 		String sql = "select " + key + "," + field + " from " + tableName 
 				+ " where convert(varchar(4),Time,120)=" + year;		
 		Connection conn = DBConnection.instance.getConnection() ;
+		Connection conn1 = null;
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T285_Bean> list = null ;
@@ -71,7 +72,7 @@ public class T285_Dao {
 				DAOUtil.batchInsert(list, tableName, field, conn) ;	
 				
 				//再取出来
-				Connection conn1 = DBConnection.instance.getConnection() ;
+				conn1 = DBConnection.instance.getConnection() ;
 				st = conn1.createStatement() ;
 				rs = st.executeQuery(sql) ;
 				list = DAOUtil.getList(rs, T285_Bean.class) ;
@@ -82,6 +83,7 @@ public class T285_Dao {
 		}finally{
 			DBConnection.close(rs);
 			DBConnection.close(st);
+			DBConnection.close(conn1);
 			DBConnection.close(conn);
 		}
 		return list ;

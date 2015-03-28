@@ -97,11 +97,10 @@ public class T616_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return list ;
 	}
 	
@@ -144,6 +143,10 @@ public class T616_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return flag ;
@@ -173,9 +176,9 @@ public class T616_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -227,11 +230,10 @@ public class T616_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return bean ;
 	}
 	
@@ -259,11 +261,10 @@ public class T616_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		return bean ;
 	}
 	
@@ -282,20 +283,15 @@ public class T616_Dao {
 			e.printStackTrace() ;
 			return false;
 		}finally{
-			DBConnection.close(conn) ;
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
-		
 		if (flag == 0) {
 			return false;
 		} else {
 			return true;
 		}
 	}
-	
-	public static void main(String arg[]){
-		T616_Dao t=new T616_Dao();
-	    List<T616_Bean> list =t.getYearInfo("2014");
-		System.out.println(list.size());
-	}
+
 }
 

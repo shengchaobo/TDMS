@@ -29,7 +29,8 @@ public class T659_Bean implements java.io.Serializable {
 	private Integer fromOverseasToSch;
 	private Date time;
 	private String note;
-	private String fillUnitID;
+	private String FillUnitID;
+	private int CheckState;
 	
 	public int getSeqNumber() {
 		return seqNumber;
@@ -82,6 +83,12 @@ public class T659_Bean implements java.io.Serializable {
 	public Date getTime() {
 		return time;
 	}
+	public int getCheckState() {
+		return CheckState;
+	}
+	public void setCheckState(int checkState) {
+		CheckState = checkState;
+	}
 	public void setTime(Date time) {
 		this.time = time;
 	}
@@ -92,11 +99,12 @@ public class T659_Bean implements java.io.Serializable {
 		this.note = note;
 	}
 	public String getFillUnitID() {
-		return fillUnitID;
+		return FillUnitID;
 	}
 	public void setFillUnitID(String fillUnitID) {
-		this.fillUnitID = fillUnitID;
+		FillUnitID = fillUnitID;
 	}
+
 
 	
 

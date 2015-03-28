@@ -172,6 +172,7 @@ public class T294_Dao {
 		String sql1 = "select sum(DonaMoney) AS SumDelMoney from " + tableName + " where " + key + " in " + ids;
 		
 		Connection conn = DBConnection.instance.getConnection();
+		Connection conn1 = null;
 		Statement st = null ;
 		ResultSet rs0 = null ;
 		ResultSet rs1 = null ;
@@ -206,7 +207,7 @@ public class T294_Dao {
 
 			if(flag1){
 				//重新打开数据库连接
-				Connection conn1 = DBConnection.instance.getConnection() ;	
+				conn1 = DBConnection.instance.getConnection() ;	
 				Statement st1 = conn1.createStatement();
 				try{						
 				flag = st1.executeUpdate(sql.toString());
@@ -229,7 +230,7 @@ public class T294_Dao {
 			DBConnection.close(rs1);
 			DBConnection.close(st);	
 			DBConnection.close(conn);
-			DBConnection.close(conn);
+			DBConnection.close(conn1);
 		}
 
 		if (flag == 0) {
@@ -253,7 +254,8 @@ public class T294_Dao {
 		int flag = 0;
 		boolean flag0 = false;
 		boolean flag1 = false;
-		Connection conn = DBConnection.instance.getConnection() ;		
+		Connection conn = DBConnection.instance.getConnection() ;	
+		
 		Statement st = null ;
 		ResultSet rs = null ;
 		Statement st1 = null ;

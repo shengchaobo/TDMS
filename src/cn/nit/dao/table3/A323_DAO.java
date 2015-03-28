@@ -127,24 +127,38 @@ public class A323_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		String sql = " select DiDepartment.UnitName as TeaUnit, count("+tableName1+".MajorName) as majorNum from DiDepartment right join " +
 				""+tableName1+" on DiDepartment.UnitID = "+tableName1+".FillUnitID and Time like '"+year+"%' " +
 						" where "  +  "DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,DiDepartment.UnitName order by DiDepartment.UnitID";
+		
+		Connection conn1 = DBConnection.instance.getConnection() ;
+		Statement st1 = null ;
+		ResultSet rs1 = null ;
+		
 		List<String> unitNameList = new ArrayList<String>();
 		List<Integer> majorNum = new ArrayList<Integer>();
 		try{
-			st = conn.createStatement();
-			rs = st.executeQuery(sql);
-			while(rs.next()){
-				unitNameList.add(rs.getString("TeaUnit"));
-				majorNum.add(rs.getInt("majorNum"));
+			st1 = conn1.createStatement();
+			rs1 = st1.executeQuery(sql);
+			while(rs1.next()){
+				unitNameList.add(rs1.getString("TeaUnit"));
+				majorNum.add(rs1.getInt("majorNum"));
 			}
 		}catch (Exception e){
 			e.printStackTrace();
 			return null;
-		}	
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn1);
+		}
+			
 		int sum=0;
 		for(int i=0;i<majorNum.size();i++){
 			sum += majorNum.get(i);
@@ -153,7 +167,10 @@ public class A323_DAO {
 		String querysql="select FillUnitID,MajorName,MajorID,TotalCSHour,RequireCShour,OptionCSHour,InClassCSHour,ExpCSHour,PraCSHour," +
 				"TotalCredit,RequireCredit,OptionCredit,InClassCredit,ExpCredit,PraCredit,OutClassCredit from "+tableName1+" where Time like " +
 						" '"+year+"%' and FillUnitID like '3%' order by FillUnitID";
-		System.out.println(querysql);
+		
+		Connection conn2 = DBConnection.instance.getConnection() ;
+		Statement st2 = null ;
+		ResultSet rs2 = null ;
 
 
 		int count = 0, count1 = 0,i=0;
@@ -162,8 +179,8 @@ public class A323_DAO {
 		nf.setMaximumFractionDigits(4);
 		int sum1 = 0,sum2 = 0,sum3 = 0,sum4 = 0,sum5 = 0,sum6 = 0,sum7 = 0,sum8 = 0,sum9 = 0,sum10 = 0,sum11 = 0,sumAll1 = 0,sumAll2 = 0;
 		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(querysql) ;
+			st2 = conn2.createStatement() ;
+			rs2 = st2.executeQuery(querysql) ;
 			while(i<sum){
 				
 				List<A323_Bean> list1 = new ArrayList<A323_Bean>() ;
@@ -173,23 +190,23 @@ public class A323_DAO {
 				double total2=0,num6=0,num7=0,num8=0,num9=0,num10=0,num11=0;
 				count = majorNum.get(count1);
 				for(int j=0;j<count;j++){
-					if(rs.next()){
+					if(rs2.next()){
 					i++;
 					A323_Bean bean = new A323_Bean ();
-					total1 = rs.getInt("TotalCSHour");
-					num1 = rs.getInt("RequireCShour");
-					num2 = rs.getInt("OptionCSHour");
-					num3 = rs.getInt("InClassCSHour");
-					num4 = rs.getInt("ExpCSHour");
-					num5 = rs.getInt("PraCSHour");
+					total1 = rs2.getInt("TotalCSHour");
+					num1 = rs2.getInt("RequireCShour");
+					num2 = rs2.getInt("OptionCSHour");
+					num3 = rs2.getInt("InClassCSHour");
+					num4 = rs2.getInt("ExpCSHour");
+					num5 = rs2.getInt("PraCSHour");
 
-					total2 = rs.getDouble("TotalCredit");	
-					num6 = rs.getDouble("RequireCredit");
-					num7 = rs.getDouble("OptionCredit");
-					num8 = rs.getDouble("InClassCredit");
-					num9 = rs.getDouble("ExpCredit");
-					num10 = rs.getDouble("PraCredit");
-					num11 = rs.getDouble("OutClassCredit");
+					total2 = rs2.getDouble("TotalCredit");	
+					num6 = rs2.getDouble("RequireCredit");
+					num7 = rs2.getDouble("OptionCredit");
+					num8 = rs2.getDouble("InClassCredit");
+					num9 = rs2.getDouble("ExpCredit");
+					num10 = rs2.getDouble("PraCredit");
+					num11 = rs2.getDouble("OutClassCredit");
 					
 					Total1 += total1;
 					Num1 += num1;
@@ -204,9 +221,9 @@ public class A323_DAO {
 					Num9 += num9;
 					Num10 += num10;
 					Num11 += num11;
-					unitName = rs.getString("MajorName");
+					unitName = rs2.getString("MajorName");
 					bean.setTeaUnit(unitName);
-					bean.setUnitID(rs.getString("MajorID"));
+					bean.setUnitID(rs2.getString("MajorID"));
 					bean.setRequireHour(Double.parseDouble(nf.format((double)num1/total1))*100);
 					bean.setOptionHour(Double.parseDouble(nf.format((double)num2/total1))*100);
 					bean.setInClassHour(Double.parseDouble(nf.format((double)num3/total1))*100);
@@ -282,9 +299,9 @@ public class A323_DAO {
 			e.printStackTrace() ;
 			return null;
 		}finally{
-			DBConnection.close(rs);
-			DBConnection.close(st);	
-			DBConnection.close(conn);
+			DBConnection.close(rs2);
+			DBConnection.close(st2);	
+			DBConnection.close(conn2);
 		}
 		
 		return list ;

@@ -16,11 +16,11 @@ import cn.nit.util.ExcelUtil;
 public class J322_Excel {
 	
 	
-	public static boolean export_J322(String path){
+	public static boolean export_J322(String path,String year){
 		
 		T321_DAO T321_dao = new T321_DAO();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
+//		Calendar a = Calendar.getInstance();
+//		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<T321_Bean> list = T321_dao.totalList(year);
 				
 		String sheetName = "J-3-2-2大类培养基本情况表（时点）";
@@ -57,15 +57,6 @@ public class J322_Excel {
 		}
 	}
 	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J322_Excel.export_J322(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
-	
+
 
 }

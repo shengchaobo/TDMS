@@ -197,6 +197,8 @@ public class T13DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return flag ;
+		}finally{
+			DBConnection.close(conn);
 		}
 		
 		return flag ;

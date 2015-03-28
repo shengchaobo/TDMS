@@ -57,9 +57,9 @@ public class S452_Dao {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return list ;
@@ -98,9 +98,9 @@ public class S452_Dao {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
  		
  		return flag ;
@@ -130,9 +130,15 @@ public class S452_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
-		
+		Connection conn1 = DBConnection.instance.getConnection() ;
+		Statement st1 = null ;
+		ResultSet rs1 = null ;
 		
 		
 	String querysql="select "+tableName2+".UnitName as TeaUnit,"+tableName2+".UnitID as UnitID," +
@@ -158,19 +164,19 @@ public class S452_Dao {
 		int num1=0,num2=0,num3=0,num4=0,num5=0,num6=0,num7=0,num8=0,num9=0;
 		
 		try{
-			st = conn.createStatement() ;
-			rs = st.executeQuery(querysql) ;
-			while(rs.next()){
+			st1 = conn1.createStatement() ;
+			rs1 = st1.executeQuery(querysql) ;
+			while(rs1.next()){
 				
-				num1 = rs.getInt("IndustryTrain");
-				num2 = rs.getInt("DoctorTrain");
-				num3 = rs.getInt("MasterTrain");
-				num4 = rs.getInt("OtherTrain");
-				num5 = rs.getInt("OneMonth");
-				num6 = rs.getInt("OneToThreeMonth");
-				num7 = rs.getInt("AboveThreeMonth");
-				num8 = rs.getInt("InPlace");
-				num9 = rs.getInt("OutPlace");
+				num1 = rs1.getInt("IndustryTrain");
+				num2 = rs1.getInt("DoctorTrain");
+				num3 = rs1.getInt("MasterTrain");
+				num4 = rs1.getInt("OtherTrain");
+				num5 = rs1.getInt("OneMonth");
+				num6 = rs1.getInt("OneToThreeMonth");
+				num7 = rs1.getInt("AboveThreeMonth");
+				num8 = rs1.getInt("InPlace");
+				num9 = rs1.getInt("OutPlace");
 				
 				sum1 += num1;
 				sum2 += num2;
@@ -185,8 +191,8 @@ public class S452_Dao {
 
 				
 				S452_Bean s452_Bean=new S452_Bean();
-				s452_Bean.setTeaUnit(rs.getString("TeaUnit"));
-				s452_Bean.setUnitID(rs.getString("UnitID"));
+				s452_Bean.setTeaUnit(rs1.getString("TeaUnit"));
+				s452_Bean.setUnitID(rs1.getString("UnitID"));
 				s452_Bean.setIndustryTrain(num1);
 				s452_Bean.setDoctorTrain(num2);
 				s452_Bean.setMasterTrain(num3);
@@ -223,7 +229,12 @@ public class S452_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
+		}finally{
+			DBConnection.close(rs1);
+			DBConnection.close(st1);	
+			DBConnection.close(conn1);
 		}
+		
 		
 		return list ;
 	}

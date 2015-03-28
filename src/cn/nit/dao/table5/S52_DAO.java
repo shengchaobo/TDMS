@@ -53,6 +53,8 @@ public class S52_DAO {
 			 e.printStackTrace();
 			 return count;
 		 }finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
 				DBConnection.close(conn);
 			}
 		 return count;
@@ -135,6 +137,8 @@ public class S52_DAO {
 		 }catch (Exception e){
 			 e.printStackTrace();
 		 }finally{
+				DBConnection.close(rs);
+				DBConnection.close(st);	
 				DBConnection.close(conn);
 			}
 		 
@@ -173,6 +177,8 @@ public class S52_DAO {
 			e.printStackTrace() ;
 			return null ;
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
 		return list ;
@@ -200,6 +206,8 @@ public class S52_DAO {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
 		return list;
@@ -236,9 +244,9 @@ public class S52_DAO {
 			e.printStackTrace() ;
 			return false ;
 		}finally{
-			DBConnection.close(conn);
 			DBConnection.close(rs);
-			DBConnection.close(st);			
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
  		
  		return flag ;
@@ -265,6 +273,10 @@ public class S52_DAO {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return 0;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
 		}
 		
 		return result ;

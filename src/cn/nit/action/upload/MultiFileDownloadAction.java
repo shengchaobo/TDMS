@@ -246,7 +246,7 @@ public class MultiFileDownloadAction extends ActionSupport {
 			return "J211_export has a error!";
 		}
 		
-	   if(!J311_Excel.export_J311(filePath)){
+	   if(!J311_Excel.export_J311(filePath, year)){
 			return "J311_export has a error!";
 		}
 		if(!J312_Excel.export_J312(filePath,year)){

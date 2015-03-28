@@ -185,7 +185,7 @@ public class T183_Action {
 			}
 			
 			String pages = t183Ser.auditingData(cond,tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
-			System.out.println("pages:"+pages);
+//			System.out.println("pages:"+pages);
 			PrintWriter out = null ;
 			
 			try{

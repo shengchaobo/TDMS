@@ -25,15 +25,15 @@ import jxl.write.WritableWorkbook;
 
 public class J618_Excel {
 	
-	public static boolean export_J618(String path) {
+	public static boolean export_J618(String path,String year) {
 		
 		T632_Dao T632_dao = new T632_Dao();
 		
-		//获取当前年份
-		Date time = new Date();
-		String currentTime = time.toString();
-		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
-		
+//		//获取当前年份
+//		Date time = new Date();
+//		String currentTime = time.toString();
+//		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+//		
 		List<T632_Bean> list = T632_dao.getAllList("", null);
 		
 		String sheetName = "J-6-1-8应届本科毕业生就业情况（时点）";
@@ -198,7 +198,7 @@ public class J618_Excel {
 public static void main(String arg[]){
 	 String path = "D:\\江西项目\\相关表\\ExcelTest";
 	  J618_Excel excel = new J618_Excel();
-	  boolean flag = excel.export_J618(path);
+	  boolean flag = excel.export_J618(path,"2014");
 	  if(flag){
 		  System.out.println("成功！");
 	  }else{

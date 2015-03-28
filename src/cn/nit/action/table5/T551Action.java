@@ -187,7 +187,7 @@ public class T551Action {
 				
 //				System.out.println("审核状态："+this.getCheckNum());
 				
-				System.out.println(this.queryYear);
+//				System.out.println(this.queryYear);
 				//审核状态判断
 				if(this.getCheckNum() == Constants.WAIT_CHECK ){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
@@ -214,7 +214,7 @@ public class T551Action {
 //			System.out.println(this.getSeqNum());
 			String pages = t551Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			
-			System.out.println("pages:"+pages);
+//			System.out.println("pages:"+pages);
 			PrintWriter out = null ;
 			
 			try{
@@ -469,32 +469,7 @@ public class T551Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 
-//
-//		try {
-//			
-//			List<T551Bean> list = t551Dao.totalList();
-//			
-//			String sheetName = this.excelName;
-//			
-//			List<String> columns = new ArrayList<String>();
-//			columns.add("序号");
-//			columns.add("教学单位");columns.add("单位号");columns.add("专业名称");columns.add("专业代码");
-//			columns.add("入校年份");columns.add("本科生党员数（个）");columns.add("考试违纪、作弊及受处分（人次）");
-//			columns.add("优良学风班的比例（%）");columns.add("备注");
-//
-//			
-//			Map<String,Integer> maplist = new HashMap<String,Integer>();
-//			maplist.put("SeqNum", 0);
-//			maplist.put("TeaUnit", 1);maplist.put("UnitID", 2);maplist.put("MajorName", 3);maplist.put("MajorID", 4);
-//			maplist.put("AdmisSchYear", 5);maplist.put("PartyMemNum", 6);maplist.put("CheatNum", 7);maplist.put("GoodClassRatio", 8);
-//			maplist.put("Note", 9);
-//			
-//			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-//			inputStream = new ByteArrayInputStream(t551Excel.batchExport(list, sheetName, maplist, columns).toByteArray());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
+
 		return 	 new ByteArrayInputStream(fos.toByteArray());
 	}
 	

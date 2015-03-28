@@ -72,7 +72,7 @@ public class S532_Action {
 			flag = false;
 		}else{
 			 json = JSONSerializer.toJSON(list) ;
-			 System.out.println(json.toString());
+//			 System.out.println(json.toString());
 		}
 
 		PrintWriter out = null ;
@@ -243,7 +243,7 @@ public class S532_Action {
 	
 	public String execute() throws Exception{
 		request.setCharacterEncoding("UTF-8") ;
-		System.out.println("excelName=============" + this.excelName) ;
+//		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 	

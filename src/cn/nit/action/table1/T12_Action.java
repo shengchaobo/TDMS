@@ -64,7 +64,7 @@ public class T12_Action {
 	/**  为界面加载数据  */
 	public void auditingData(){
 			
-			System.out.println("輸出輸出輸出");
+			System.out.println("+++++++++++++++++++");
 //			System.out.println(this.getUnitID());
 			
 			if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
@@ -127,7 +127,7 @@ public class T12_Action {
 			e.printStackTrace();
 			return null ;
 		}
-        System.out.println(inputStream);
+//        System.out.println(inputStream);
 		return inputStream ;
 	}
 	

@@ -25,14 +25,14 @@ import cn.nit.pojo.table1.T16POJO;
 
 public class J16_Excel {
 	
-	public static boolean export_J16(String path) {
+	public static boolean export_J16(String path,String year) {
 		
 		T16DAO T16_dao = new T16DAO();
-		
-		//获取当前年份
-		Date time = new Date();
-		String currentTime = time.toString();
-		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+//		
+//		//获取当前年份
+//		Date time = new Date();
+//		String currentTime = time.toString();
+//		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		List<T16POJO> list = T16_dao.forExcel(year);
 //		T16POJO pojo = list.get(0);
@@ -117,7 +117,7 @@ public class J16_Excel {
 	public static void main(String arg[]){
 		 String path = "D:\\江西项目\\相关表\\ExcelTest";
 		  J16_Excel excel = new J16_Excel();
-		  boolean flag = excel.export_J16(path);
+		  boolean flag = excel.export_J16(path,"2015");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

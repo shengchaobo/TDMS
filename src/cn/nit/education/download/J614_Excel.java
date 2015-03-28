@@ -25,7 +25,7 @@ import jxl.write.WritableWorkbook;
 
 public class J614_Excel {
 	
-public static boolean export_J614(String path) {
+public static boolean export_J614(String path,String year) {
 		
 		T616_Dao T616_dao = new T616_Dao();
 		
@@ -142,7 +142,7 @@ public static boolean export_J614(String path) {
 	public static void main(String arg[]){
 		 String path = "D:\\江西项目\\相关表\\ExcelTest";
 		  J614_Excel excel = new J614_Excel();
-		  boolean flag = excel.export_J614(path);
+		  boolean flag = excel.export_J614(path,"2014");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

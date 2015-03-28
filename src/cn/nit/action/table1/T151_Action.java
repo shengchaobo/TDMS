@@ -162,7 +162,7 @@ public class T151_Action {
 				
 //				System.out.println("审核状态："+this.getCheckNum());
 				
-				System.out.println(this.queryYear);
+//				System.out.println(this.queryYear);
 				//审核状态判断
 				if(this.getCheckNum() == Constants.WAIT_CHECK ){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
@@ -205,64 +205,11 @@ public class T151_Action {
 			}
 		}
 
-//	/**  为界面加载数据  */
-//	public void auditingData(){
-//		
-////		System.out.println("輸出輸出輸出");
-//		
-//		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
-//			return ;
-//		}
-//		
-//		if(this.rows == null || this.rows.equals("") || !rows.matches("[\\d]+")){
-//			return ;
-//		}
-//		
-//		String conditions = (String) getSession().getAttribute("auditingConditions") ;
-//		String pages = t151Ser.auditingData(conditions, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
-//		PrintWriter out = null ;
-//		System.out.println("pages："+pages);
-//		
-//		try{
-//			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			out = getResponse().getWriter() ;
-//			out.print(pages) ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			return ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
-	
-//	/**  生成查询条件  （查询数据） */
-//	public void auditingConditions(){
-//		
-//		String sqlConditions = t151Ser.gernateAuditingConditions(seqNum, startTime, endTime) ;
-//		getSession().setAttribute("auditingConditions", sqlConditions) ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			out = getResponse().getWriter() ;
-//			out.print("{\"state\":true,data:\"查询失败!!!\"}") ;
-//			out.flush() ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			out.print("{\"state\":false,data:\"查询失败!!!\"}") ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
+
 	
 	/**  编辑数据  */
 	public void edit(){
 
-
-		
 		boolean flag = false;
 		int tag = 0;
 		//获得该条审数据审核状态
@@ -396,14 +343,14 @@ public class T151_Action {
 	/**数据导出*/
 	public InputStream getInputStream(){
 		
-		System.out.println("数据导出");
-        System.out.println("年份："+this.selectYear);
+//		System.out.println("数据导出");
+//        System.out.println("年份："+this.selectYear);
 		InputStream inputStream = null ;
 
 		try {
 			
 			List<T151_Bean> list = t151Ser.totalList(this.selectYear);
-			System.out.println("数据条数："+list.size());
+//			System.out.println("数据条数："+list.size());
 			
 //			String sheetName = this.excelName;
 			String sheetName = "表1-5-1校级以上科研机构（科研处）";

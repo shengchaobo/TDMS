@@ -102,7 +102,7 @@ public class S65_Action {
 
 		if(T651_services.getYearInfo(this.getSelectYear()).size() == 0){
 			flag = false;
-			System.out.println("T651empty");
+//			System.out.println("T651empty");
 		}else{
 			bean = T651_services.getStatic(this.getSelectYear());
 		}
@@ -115,7 +115,7 @@ public class S65_Action {
 		
 		if(T652_services.getYearInfo(this.getSelectYear()).size() == 0){	
 			flag = false;
-			System.out.println("T652empty");
+//			System.out.println("T652empty");
 		}else{
 			int paperNum = T652_services.getPaper(this.getSelectYear());
 			bean.setPaperNum(paperNum);
@@ -125,7 +125,7 @@ public class S65_Action {
 		
 		if(T653_services.getYearInfo(this.getSelectYear()).size() == 0){	
 			flag = false;
-			System.out.println("T653empty");
+//			System.out.println("T653empty");
 		}else{
 			int workNum = T653_services.getWork(this.getSelectYear());
 			bean.setWorkNum(workNum);
@@ -135,7 +135,7 @@ public class S65_Action {
 		
 		if(T654_services.getYearInfo(this.getSelectYear()).size() == 0){	
 			flag = false;
-			System.out.println("T654empty");
+//			System.out.println("T654empty");
 		}else{
 			int patentNum = T654_services.getPatent(this.getSelectYear());
 			bean.setPatentNum(patentNum);
@@ -145,7 +145,7 @@ public class S65_Action {
 		
 		if(T655_services.getYearInfo(this.getSelectYear()).size() == 0){	
 			flag = false;
-			System.out.println("T655empty");
+//			System.out.println("T655empty");
 		}else{
 			double cet4 = this.toTwo(T655_services.getCET4PassRate(this.getSelectYear()));
 			double cet6 =this.toTwo( T655_services.getCET6PassRate(this.getSelectYear()));
@@ -160,7 +160,7 @@ public class S65_Action {
 		//T656,全国计算机等级考试累计通过率（%）
 		if(T656_services.getYearInfo(this.getSelectYear()).size() == 0){	
 			flag = false;
-			System.out.println("T656empty");
+//			System.out.println("T656empty");
 		}else{
 			double ncre = this.toTwo(T656_services.getNPassRate(this.getSelectYear()));
 			bean.setNCRE(ncre);
@@ -185,7 +185,7 @@ public class S65_Action {
 		 
 		if(T658_services.getYearInfo(this.getSelectYear()).size() == 0){	
 			flag = false;
-			System.out.println("T658empty");
+//			System.out.println("T658empty");
 		}else{
 			int interCon = T658_services.getInterConference(this.getSelectYear());
 			bean.setInterConference(interCon);
@@ -205,7 +205,7 @@ public class S65_Action {
 		PrintWriter out = null ;
 
 		if(flag == false){
-			System.out.println("++++");
+//			System.out.println("++++");
 			response.setContentType("text/html;charset=UTF-8");
 			out = response.getWriter();
 			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
@@ -213,7 +213,7 @@ public class S65_Action {
 		}
 		else{
 			try {				
-				System.out.println(json) ;
+//				System.out.println(json) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(json) ;
@@ -232,7 +232,7 @@ public class S65_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 		S65_Bean bean = S65_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;

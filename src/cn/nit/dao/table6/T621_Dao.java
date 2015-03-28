@@ -747,7 +747,7 @@ public class T621_Dao {
 		// TODO Auto-generated method stub
 		String sql;
 		
-		sql = "select " + fieldShow + " from " + tableName +" where Time like '"+year+"%'"; 
+		sql = "select " + fieldShow + " from " + tableName +" where Time like '"+year+"%' and CheckState = "+Constants.PASS_CHECK; 
 	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;

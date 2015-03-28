@@ -327,9 +327,9 @@ public class T19_Action {
 		InputStream inputStream = null ;
 
 		try {
-			System.out.println("yaer:"+this.getSelectYear());
+//			System.out.println("yaer:"+this.getSelectYear());
 			List<T19_Bean> list = t19Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			System.out.println(list.size());
+//			System.out.println(list.size());
 			
 			String sheetName = this.excelName;
 			
@@ -356,7 +356,7 @@ public class T19_Action {
 	
 
 	public String execute() throws Exception{
-		System.out.println("导入");
+//		System.out.println("导入");
 		return "success" ;
 	}
 	

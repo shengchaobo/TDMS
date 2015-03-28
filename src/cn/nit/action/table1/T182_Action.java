@@ -99,7 +99,7 @@ public class T182_Action {
 	
 	/**  逐条插入数据  */
 	public void insert(){
-		System.out.println("insert");
+		System.out.println("+++++++++++++++");
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t181Bean.setTime(new Date()) ;
 		t181Bean.setFillDept(fillUnitID);//科研处

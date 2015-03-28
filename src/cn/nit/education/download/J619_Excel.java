@@ -19,14 +19,14 @@ import cn.nit.util.ExcelUtil;
 public class J619_Excel {
 	
 	
-public static boolean export_J619(String path){
+public static boolean export_J619(String path,String year){
 		
 		T631_Dao T631_dao = new T631_Dao();
 		
-		//获取当前年份
-		Date time = new Date();
-		String currentTime = time.toString();
-		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+//		//获取当前年份
+//		Date time = new Date();
+//		String currentTime = time.toString();
+//		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		List<T631POJO> list = T631_dao.getAllList(year);
 
@@ -68,7 +68,7 @@ public static boolean export_J619(String path){
 	public static void main(String arg[]){
 		String path = "D:\\江西项目\\相关表\\ExcelTest";
 		  J619_Excel excel = new J619_Excel();
-		  boolean flag = excel.export_J619(path);
+		  boolean flag = excel.export_J619(path,"2014");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

@@ -125,9 +125,9 @@ public class S17_Action {
 			out = response.getWriter();
 			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
 		}else{
-			System.out.println("have data");
+//			System.out.println("have data");
 			try {				
-				System.out.println(json) ;
+//				System.out.println(json) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(json) ;
@@ -177,58 +177,11 @@ public class S17_Action {
 		out.flush() ;
 	}
 
-//	/**  为界面加载数据  */
-//	public void auditingData(){
-//		
-////		System.out.println("=========");
-//		Date date=new Date();
-//		String cuYear=date.toString();
-//		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
-//		
-//		String pages = s17Ser.autidingdata(year);
-////		System.out.println("pages:"+pages);
-//		PrintWriter out = null ;
-//		
-//		try{
-//			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			out = getResponse().getWriter() ;
-//			out.print(pages) ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			return ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
-	
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			
-//			List<S17Bean> list=new ArrayList<S17Bean>(); 
-////            Date time=new Date();
-////            String time1=time.toString();
-////            String year=time1.substring(time1.length()-4, time1.length());
-//            list=s17Dao.forExcel(this.selectYear);
-//            inputStream = new ByteArrayInputStream(s17Excel.writeExcel(list).toByteArray());
-//			
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
-	
+
 	
 	public InputStream getInputStream() throws Exception{
 		
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 
 		S17_Bean bean =s17Ser.forExcel(this.selectYear).get(0);
 		

@@ -81,7 +81,7 @@ public class S5302_Action {
 			}else{
 				json = JSONSerializer.toJSON(list) ;
 			}
-			System.out.println("year:"+this.getSelectYear());
+//			System.out.println("year:"+this.getSelectYear());
 
 			
 			PrintWriter out = null ;
@@ -119,7 +119,7 @@ public class S5302_Action {
 	/**excel导出*/
 	public InputStream getInputStream() throws Exception{
 		
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 
 		List<S5302POJO>  list = s5302Ser.loadInfo(this.getSelectYear());
 //		System.out.println("S5302 de "+list.size());

@@ -117,9 +117,9 @@ public class S18_Action {
 			out = response.getWriter();
 			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
 		}else{
-			System.out.println("have data");
+//			System.out.println("have data");
 			try {				
-				System.out.println(json) ;
+//				System.out.println(json) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(json) ;
@@ -161,31 +161,11 @@ public class S18_Action {
 		}
 	}
 	
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			
-//			List<S18Bean> list=new ArrayList<S18Bean>(); 
-////            Date time=new Date();
-////            String time1=time.toString();
-////            String year=time1.substring(time1.length()-4, time1.length());
-//            list=s18Dao.forExcel(this.selectYear);
-//            inputStream = new ByteArrayInputStream(s18Excel.writeExcel(list).toByteArray());
-//			
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
+
 	
 public InputStream getInputStream() throws Exception{
 		
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 
 		S18_Bean bean =s18Ser.forExcel(this.selectYear).get(0);
 		

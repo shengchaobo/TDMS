@@ -79,51 +79,7 @@ public class T16_Action {
 
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
-//	
-//	/**  待审核数据查询的起始时间  */
-//	private Date startTime ;
-//	
-//	/**  待审核数据查询的结束时间  */
-//	private Date endTime ;
-//	
-//	/**  数据的SeqNumber编号  */
-//	private String ids ;
-//	
-//	/**  当前查询的是第几页  */
-//	private String page ;
-//	
-//	/**每页显示的条数  */
-//	private String rows ;
-//	
-//	/**  逐条插入数据  */
-//	public void insert(){
-////		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-//		t16Bean.setTime(new Date()) ;
-//		//这还没确定,设置填报者的职工号与部门号
-////		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
-////		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
-//		boolean flag = t16Ser.insert(t16Bean) ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			getResponse().setContentType("text/html; charset=UTF-8") ;
-////			getResponse().setHeader("Content-type", "text/html");  
-//			out = getResponse().getWriter() ;
-//			if(flag){
-//				out.print("{\"state\":true,data:\"录入成功!!!\"}") ;
-//			}else{
-//				out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			out.print("{\"state\":false,data:\"录入失败!!!\"}") ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//		out.flush() ;
-//	}
+
 
 	/**  为界面加载数据  
 	 * @throws Exception */
@@ -134,7 +90,7 @@ public class T16_Action {
 //		String str=currentTi.toString();
 //		String Year=str.substring(str.length()-4, str.length()) ;
 		HttpServletResponse response = ServletActionContext.getResponse() ;	
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 		String pages = t16Ser.auditingData(this.getSelectYear()) ;
 		boolean flag = false;
 		if(pages!=null){
@@ -150,7 +106,7 @@ public class T16_Action {
 			out.print("{\"data\":\"无该年数据!!!\"}"); 
 		}else{
 			try {
-				System.out.println(pages) ;
+//				System.out.println(pages) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(pages) ;
@@ -176,7 +132,7 @@ public class T16_Action {
 //		System.out.println("tempData:"+tempData);
 
 //		System.out.println("fields:"+this.getFields());	
-		System.out.println("this.getFields():"+this.getFields());
+//		System.out.println("this.getFields():"+this.getFields());
 		boolean flag = t16Ser.save(tempData,this.getSelectYear(),this.getFields());
 	
 		PrintWriter out = null ;
@@ -203,7 +159,7 @@ public class T16_Action {
 	
 	//复制往年数据
 	public void copy(){
-		System.out.println("ccccccccccccccccccccccccccccccccccc");
+//		System.out.println("ccccccccccccccccccccccccccccccccccc");
 		HttpServletResponse response = ServletActionContext.getResponse();
 		
 		//得到需要复制的年份的数据
@@ -276,7 +232,7 @@ public class T16_Action {
 	/**  根据数据的year删除数据  */
 	public void deleteByYear(){
 		
-		System.out.println("year=" + year) ;
+//		System.out.println("year=" + year) ;
 		boolean flag = t16Ser.deleteByYear(year);
 		PrintWriter out = null ;
 		
@@ -302,7 +258,7 @@ public class T16_Action {
 	 * @throws Exception */
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 
 		List<T16POJO> list = t16Ser.forExcel(this.getSelectYear());
 		
@@ -374,26 +330,7 @@ public class T16_Action {
 	}
 	
 
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			
-//			List<T16POJO> list=new ArrayList<T16POJO>(); 
-////            Date time=new Date();
-////            String time1=time.toString();
-////            String year=time1.substring(time1.length()-4, time1.length());
-//            list=t16Dao.forExcel(this.getSelectYear());
-//            inputStream = new ByteArrayInputStream(t16Excel.writeExcel(list).toByteArray());
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//		return inputStream ;
-//	}
-//	
+
 	public String execute() throws Exception{
 		return "success" ;
 	}

@@ -227,8 +227,8 @@ public class T651_Action {
 				tempfield=null;
 			}
 			
-			System.out.println("---------------");
-			System.out.println(tempfield);
+//			System.out.println("---------------");
+//			System.out.println(tempfield);
 			List<T651_Bean> list = T651_service.getPageInfoList(cond, tempfield, this.getRows(), this.getPage()) ;
 			String TeaInfoJson = this.toBeJson(list,T651_service.getTotal(cond, tempfield));
 			//private JSONObject jsonObj;
@@ -267,7 +267,7 @@ public class T651_Action {
 		testjson.accumulate("rows", list);
 
 		String json = testjson.toString();
-		System.out.println(json);
+//		System.out.println(json);
 		return json;
 	}
 
@@ -300,19 +300,19 @@ public class T651_Action {
 		int tag = 0;
 		//获得该条数据审核状态
 		int state = T651_service.getCheckState(T651_bean.getSeqNumber());
-		System.out.println("==========");
-		System.out.println(state);
-		System.out.println("test"+state);
+//		System.out.println("==========");
+//		System.out.println(state);
+//		System.out.println("test"+state);
 		//如果审核状态是待审核，则直接修改
 		if(state == Constants.WAIT_CHECK){
-			System.out.println("test"+state);
+//			System.out.println("test"+state);
 			T651_bean.setCheckState(Constants.WAIT_CHECK);
 			flag = T651_service.update(T651_bean) ;
 			if(flag) tag = 1;
 		}
 		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
 		if(state == Constants.NOPASS_CHECK){
-			System.out.println("审核："+state);
+//			System.out.println("审核："+state);
 			T651_bean.setCheckState(Constants.WAIT_CHECK);
 			boolean flag1 = T651_service.update(T651_bean) ;
 			boolean flag2 = check_services.delete("T651",T651_bean.getSeqNumber());
@@ -400,7 +400,7 @@ public class T651_Action {
 
 	/** 根据数据的id删除数据 */
 	public void deleteByIds() {
-		System.out.println("ids=" +this.getIds());
+//		System.out.println("ids=" +this.getIds());
 		boolean flag = T651_service.deleteItemsByIds(ids);
 		//删除审核不通过信息
 		check_services.delete("T651", ids);
@@ -428,9 +428,9 @@ public class T651_Action {
 
 	public InputStream getInputStream() {
 
-		System.out.println("+++++++++++");
-		System.out.println("year:"+this.getSelectYear());
-		System.out.println("fillUnitID:"+fillUnitID);
+//		System.out.println("+++++++++++");
+//		System.out.println("year:"+this.getSelectYear());
+//		System.out.println("fillUnitID:"+fillUnitID);
 		InputStream inputStream = null ;
 		
 		try {

@@ -113,9 +113,9 @@ public class T11_Action {
 		//System.out.println(this.getSelectYear());
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 		String pages = t11Ser.loadData(this.getSelectYear()) ;
-		System.out.println("pages:"+pages);
+//		System.out.println("pages:"+pages);
 		boolean flag = false;
 		if(pages!=null){
 			flag=true;
@@ -135,7 +135,7 @@ public class T11_Action {
 			out.print("{\"data\":\"无该年数据!!!\"}"); 
 		}else{
 			try {
-				System.out.println(pages) ;
+//				System.out.println(pages) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(pages) ;
@@ -191,7 +191,7 @@ public class T11_Action {
 	public void edit(){
 		
 		t11Bean.setTime(new Date()) ;
-		System.out.println(this.Year);
+//		System.out.println(this.Year);
 		Date ti=TimeUtil.changeDateY(this.Year);
 		//t11Bean.setSch_BeginTime(ti);
 //		System.out.println(t11Bean.getTime());
@@ -251,28 +251,7 @@ public class T11_Action {
 		out.flush() ;
 	}
 
-//	/**利用模板導入*/
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			
-//			List<T11Bean> list=new ArrayList<T11Bean>(); 
-////            Date time=new Date();
-////            String time1=time.toString();
-////            String year=time1.substring(time1.length()-4, time1.length());
-//            list=t11Dao.forExcel(this.selectYear);
- //          inputStream = new ByteArrayInputStream(t11Excel.writeExcel(list).toByteArray());
-//			
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
+
 	
 	
 	public InputStream getInputStream() throws Exception{

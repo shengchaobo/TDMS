@@ -217,7 +217,7 @@ public class T617_Action {
 
 	/**  根据数据的id删除数据  */
 	public void deleteByIds(){
-		System.out.println("ids=" + this.getIds()) ;
+//		System.out.println("ids=" + this.getIds()) ;
 		boolean flag = T617_service.deleteByIds(ids, this.getSelectYear()) ;
 		//删除审核不通过信息
 		int year = Integer.parseInt(this.getSelectYear());
@@ -271,7 +271,7 @@ public class T617_Action {
 		}
 	}
 
-public InputStream getInputStream(){
+	public InputStream getInputStream(){
 		
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();

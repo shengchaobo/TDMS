@@ -281,7 +281,7 @@ public class T552_Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
+//		System.out.println("ids=" + ids) ;
 		boolean flag = t552_Sr.deleteCoursesByIds(ids) ;
 
 		//删除审核不通过信息

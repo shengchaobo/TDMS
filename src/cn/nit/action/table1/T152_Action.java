@@ -100,7 +100,7 @@ public class T152_Action {
 		t152Bean.setFillUnitID(fillUnitID);
 		t152Bean.setUnitID(fillUnitID);
 		t152Bean.setTeaUnit(UnitName);
-		System.out.println("fillUnitID:"+fillUnitID);
+//		System.out.println("fillUnitID:"+fillUnitID);
 		boolean flag = t152Ser.insert(t152Bean) ;
 		PrintWriter out = null ;
 		
@@ -214,7 +214,7 @@ public class T152_Action {
 	/**  编辑数据  */
 	public void edit(){
 //		System.out.println("hello");
-		System.out.println("year:"+t152Bean.getBeginYear());
+//		System.out.println("year:"+t152Bean.getBeginYear());
 		
 		boolean flag = false;
 		
@@ -298,7 +298,7 @@ public class T152_Action {
 	
 	/**  全部审核通过  */
 	public void checkAll(){
-		System.out.println("全部审核通过");
+//		System.out.println("全部审核通过");
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
 		boolean flag = t152Ser.checkAll();
@@ -390,7 +390,7 @@ public class T152_Action {
 	}
 	
 	public String execute() throws Exception{
-		System.out.println("excelName=============" + this.excelName) ;
+//		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 	

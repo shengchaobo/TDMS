@@ -16,14 +16,14 @@ import cn.nit.util.ExcelUtil;
 
 public class J531_Excel {
 	
-	 public static boolean export_J531(String path){
+	 public static boolean export_J531(String path,String year){
 			
 			T531DAO T531_dao = new T531DAO();
 			
-			//年份
-			Calendar a = Calendar.getInstance();
-			String year = String.valueOf(a.get(Calendar.YEAR));
-			
+//			//年份
+//			Calendar a = Calendar.getInstance();
+//			String year = String.valueOf(a.get(Calendar.YEAR));
+//			
 			List<T531_Bean> list = T531_dao.totalList(year);
 					
 			String sheetName = "J-5-3-1人才培养模式创新实验项目（学年）";
@@ -61,7 +61,7 @@ public class J531_Excel {
 		public static void main(String arg[]){
 			 String path = "D:\\江西项目\\相关表\\ExcelTest";
 			  J531_Excel excel = new J531_Excel();
-			  boolean flag = excel.export_J531(path);
+			  boolean flag = excel.export_J531(path,"2014");
 			  if(flag){
 				  System.out.println("成功！");
 			  }else{

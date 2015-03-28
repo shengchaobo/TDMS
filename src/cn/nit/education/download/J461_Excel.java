@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,12 +36,10 @@ import cn.nit.util.ExcelUtil;
 
 public class J461_Excel {	
 	
-	public static boolean export_J461(String path){
+	public static boolean export_J461(String path, String year){
 		
-		J461_Dao J461_dao = new J461_Dao();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
-		J461POJO pojo = J461_dao.totalList(year);
+	    J461_Dao J461_dao = new J461_Dao();
+	    J461POJO pojo = J461_dao.totalList(year);
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -143,16 +141,9 @@ public class J461_Excel {
 			}
 
 	}
+<<<<<<< HEAD
+=======
 	
-	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J461_Excel.export_J461(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
+>>>>>>> 3c642a643366a0b258dfc711e79b81f39eb32ffa
 
 }

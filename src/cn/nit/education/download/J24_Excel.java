@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -28,10 +28,10 @@ import jxl.write.biff.RowsExceededException;
 
 public class J24_Excel {
 	
-	public static boolean export_J24(String path){
+	public static boolean export_J24(String path, String year){
 		T22_Service T22_services = new T22_Service();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String year = dateFormat.format(new Date());
+/*		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+		String year = dateFormat.format(new Date());*/
 		T22_Bean bean = T22_services.getYearInfo(year);
 		
 	    ByteArrayOutputStream fos = null;

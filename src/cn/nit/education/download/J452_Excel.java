@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -15,15 +15,11 @@ import cn.nit.util.ExcelUtil;
 
 public class J452_Excel {
 	
-	
-	public static boolean export_J452(String path){
+	public static boolean export_J452(String path, String year){
 		
 		J452_Dao J452_dao = new J452_Dao();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
-		List<J452POJO> list = J452_dao.totalList(year);
+		List<J452POJO> list = J452_dao.totalList(year);				
 
-				
 		String sheetName = "J-4-5-2教师培训进修.交流情况（学年）";
 		
 		List<String> columns = new ArrayList<String>();
@@ -62,16 +58,9 @@ public class J452_Excel {
 			return false;
 		}
 	}
-	
-	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J452_Excel.export_J452(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
+<<<<<<< HEAD
+=======
 
+
+>>>>>>> 3c642a643366a0b258dfc711e79b81f39eb32ffa
 }

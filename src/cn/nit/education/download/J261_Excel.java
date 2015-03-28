@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,10 +18,10 @@ import cn.nit.util.ExcelUtil;
 
 public class J261_Excel {
 	
-	public static boolean export_J261(String path){
+	public static boolean export_J261(String path, String year){
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String year = dateFormat.format(new Date());
+/*		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+		String year = dateFormat.format(new Date());*/
 		
 		J261_Dao J261_dao = new J261_Dao();		
 		List<J261_POJO> list = J261_dao.getYearInfo(year);

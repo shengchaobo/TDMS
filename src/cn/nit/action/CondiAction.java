@@ -261,7 +261,7 @@ public class CondiAction {
 			bean614.getPreppyLastYearNum()+bean614.getAdvStuLastYearNum()+bean614.getAdultLastYearNum();			
 			condiBean.setFulltimeStuNum(FulltimeStuNum);
 			
-			double UndergraRatio = Math.round((double)UndergraNum/FulltimeStuNum * 100) / 100.0;
+			double UndergraRatio = Math.round((double)UndergraNum/FulltimeStuNum * 10000) / 100.0;
 			condiBean.setUndergraRatio(UndergraRatio);
 			
 			int totalStuNum = (int)(bean611.getUndergraLastYearNum()+bean613.getCoTrainStuLastYearNum()+bean611.getJuniorLastYearNum()+
@@ -274,29 +274,29 @@ public class CondiAction {
 			
 			condiBean.setOutNum(outNum);
 			
-			double inOutRatio = Math.round((double)inNum/UndergraNum * 100) / 100.0;
+			double inOutRatio = Math.round((double)inNum/UndergraNum * 10000) / 100.0;
 			condiBean.setInOutRatio(inOutRatio);
 			
 			condiBean.setMinorNum(minorNum);
 			
-			double minorNumRatio = Math.round((double)minorNum/UndergraNum * 100 ) / 100.0;
+			double minorNumRatio = Math.round((double)minorNum/UndergraNum * 10000 ) / 100.0;
 			condiBean.setMinorNumRatio(minorNumRatio);
 			
-			double graduRatio = Math.round((double)(bean631.getThisYearGraduNum()-bean631.getThisYearNotGraduNum())/bean631.getThisYearGraduNum() * 100 ) / 100.0;
+			double graduRatio = Math.round((double)(bean631.getThisYearGraduNum()-bean631.getThisYearNotGraduNum())/bean631.getThisYearGraduNum() * 10000 ) / 100.0;
 			condiBean.setGraduRatio(graduRatio);
 			
-			double degreeRatio = Math.round((double)bean631.getAwardDegreeNum()/bean631.getThisYearGraduNum() * 100 ) / 100.0;
+			double degreeRatio = Math.round((double)bean631.getAwardDegreeNum()/bean631.getThisYearGraduNum() * 10000 ) / 100.0;
 			condiBean.setDegreeRatio(degreeRatio);
 			
-			double stuEmployRatio = Math.round((double)bean632.getSumEmployNum()/bean631.getThisYearGraduNum() * 100 ) / 100.0;
+			double stuEmployRatio = Math.round((double)bean632.getSumEmployNum()/bean631.getThisYearGraduNum() * 10000 ) / 100.0;
 			condiBean.setStuEmployRatio(stuEmployRatio);
 			
 			condiBean.setFullTimeTeachNum(beanA411.getFullTimeTeaNum());
 			
-			double graduDegreeRatio = Math.round((double)(beanA412.getDoctorNum()+beanA412.getMasterNum())/beanA411.getFullTimeTeaNum() * 100 ) / 100.0;
+			double graduDegreeRatio = Math.round((double)(beanA412.getDoctorNum()+beanA412.getMasterNum())/beanA411.getFullTimeTeaNum() * 10000 ) / 100.0;
 			condiBean.setGraduDegreeRatio(graduDegreeRatio);
 			
-			double adminLevelRatio = Math.round((double)(beanA412.getSeniorNum()+beanA412.getSubSenior())/beanA411.getFullTimeTeaNum() * 100 ) / 100.0;
+			double adminLevelRatio = Math.round((double)(beanA412.getSeniorNum()+beanA412.getSubSenior())/beanA411.getFullTimeTeaNum() * 10000 ) / 100.0;
 			condiBean.setAdminLevelRatio(adminLevelRatio);
 			
 			condiBean.setOutHireTeaNum(outHireTeaNum);
@@ -312,16 +312,16 @@ public class CondiAction {
 			int totalScoreNum = beanS512.getSumCS();
 			condiBean.setTotalScoreNum(totalScoreNum);
 			
-			double praRatio = Math.round((double)(sumPraCredit + sumExpCredit)/sumTotalCredit * 100 ) / 100.0;
+			double praRatio = Math.round((double)(sumPraCredit + sumExpCredit)/sumTotalCredit * 10000 ) / 100.0;
 			condiBean.setPraRatio(praRatio);
 			
-			double optionRatio = Math.round((double)(sumOptionCredit + sumOutClassCredit)/sumTotalCredit * 100 ) / 100.0;
+			double optionRatio = Math.round((double)(sumOptionCredit + sumOutClassCredit)/sumTotalCredit * 10000 ) / 100.0;
 			condiBean.setOptionRatio(optionRatio);
 			
-			double profNumRatio = Math.round((double)(beanS512.getProfessor() + beanS512.getViceProfessor()) / (beanA412.getSeniorNum()+beanA412.getSubSenior())* 100 ) / 100.0;
+			double profNumRatio = Math.round((double)(beanS512.getProfessor() + beanS512.getViceProfessor()) / (beanA412.getSeniorNum()+beanA412.getSubSenior())* 10000 ) / 100.0;
 			condiBean.setProfNumRatio(profNumRatio);
 			
-			double profCourseRatio = Math.round((double)(beanS512.getCSProfNum()+beanS512.getCSViceProfNum()) / totalScoreNum* 100 ) / 100.0;
+			double profCourseRatio = Math.round((double)(beanS512.getCSProfNum()+beanS512.getCSViceProfNum()) / totalScoreNum* 10000 ) / 100.0;
 			condiBean.setProfCourseRatio(profCourseRatio);
 			
 			double areaPerStu = Math.round(bean21.getSumArea()/FulltimeStuNum* 100 ) / 100.0;
@@ -339,7 +339,7 @@ public class CondiAction {
 			double equPerStu = Math.round(beanS28.getPlantAsset()/totalStuNum * 100 ) / 100.0;
 			condiBean.setEquPerStu(equPerStu);
 			
-			double newEquRatio = Math.round(beanS28.getNewAddAsset()/(beanS28.getPlantAsset()-beanS28.getNewAddAsset()) * 100 ) / 100.0;
+			double newEquRatio = Math.round(beanS28.getNewAddAsset()/(beanS28.getPlantAsset()-beanS28.getNewAddAsset()) * 10000 ) / 100.0;
 			condiBean.setNewEquRatio(newEquRatio);
 			
 			double booksPerStu = Math.round((double)bean241.getPaperBookNum()/totalStuNum * 100 ) / 100.0 ;

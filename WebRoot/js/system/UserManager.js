@@ -118,11 +118,17 @@
 	}
 
 	function editUser() {
+		
 		var row = $('#userManager').datagrid('getSelections');
 
 		if (row.length != 1) {
 			$.messager.alert('温馨提示', "请选择1条编辑的数据！！！");
 			return;
+		}
+		
+		if(row[0].teaID == "000"){
+			$.messager.alert('温馨提示', "初始管理员不可被编辑！！！");
+			return ;
 		}
 
 		url = 'pages/UserManager/edit';
@@ -177,6 +183,10 @@
 					var ids = "";
 					ids += "(";
 					for ( var i = 0; i < row.length; i++) {
+						if(row[i].teaID == "000"){
+							$.messager.alert('温馨提示', "初始管理员不能被停用！！！");
+							return ;
+						}
 						if (i < (row.length - 1)) {
 							ids += ("'"+row[i].teaID+"'" + ",");
 						} else {
@@ -205,6 +215,10 @@
 				var ids = "";
 				ids += "(";
 				for ( var i = 0; i < row.length; i++) {
+					if(row[i].teaID == "000"){
+						$.messager.alert('温馨提示', "初始管理员不可被删除！！！");
+						return ;
+					}
 					if (i < (row.length - 1)) {
 						ids += ("'"+row[i].teaID+"'" + ",");
 					} else {

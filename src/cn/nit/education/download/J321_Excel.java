@@ -18,11 +18,11 @@ public class J321_Excel {
 	
 	
 	
-	public static boolean export_J321(String path){
+	public static boolean export_J321(String path,String year){
 		
 		T322_DAO T322_dao = new T322_DAO();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
+//		Calendar a = Calendar.getInstance();
+//		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<T322POJO> list = T322_dao.totalList1(year);
 				
 		String sheetName = "J-3-2-1专业基本情况（时点）";
@@ -67,15 +67,6 @@ public class J321_Excel {
 			return false;
 		}
 	}
-	
-	public static void main(String args[]){
-		String path = "E:";
-		boolean flag = J321_Excel.export_J321(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
+
 
 }

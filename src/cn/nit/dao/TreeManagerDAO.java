@@ -138,6 +138,7 @@ public class TreeManagerDAO extends Dao{
 	 */
 	public List<Trees> getDITreeByUserRole(int parentId, String roleId){
 		
+		List<Trees> temp = new ArrayList<Trees>();
 		StringBuffer sql = new StringBuffer("select t.TreeId as treeId,t.TreeName as treeName,t.Url as url,t.ParentId as ParentId") ;
 		sql.append(" from " + tableName +" as t,DiRoleTree as ra ") ;
 		sql.append("where t.TreeID=ra.TreeID and ra.RoleID=" + roleId) ;
@@ -151,7 +152,23 @@ public class TreeManagerDAO extends Dao{
 		try {
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			return DAOUtil.getList(rs, Trees.class) ;
+			temp = DAOUtil.getList(rs, Trees.class) ;
+			//保证2和4系列表的顺序
+			if(parentId == 1014 && "111".equals(roleId)) {
+				Trees tree1 = temp.remove(0);
+				Trees tree2 = temp.remove(0);
+				Trees tree3 = temp.remove(0);
+				temp.add(19,tree1);
+				temp.add(20,tree2);
+				temp.add(21,tree3);
+			}
+			else if(parentId == 1025 && "111".equals(roleId)){
+				Trees tree = temp.remove(0);
+				Trees tree1 = temp.remove(1);
+				temp.add(25,tree);
+				temp.add(26,tree1);
+			}
+			return temp;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

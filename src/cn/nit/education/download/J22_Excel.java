@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -26,10 +26,10 @@ import cn.nit.service.table2.S22_Service;
 
 public class J22_Excel {
 	
-	public static boolean export_J22(String path){
+	public static boolean export_J22(String path, String year){
 		S22_Service S22_services = new S22_Service();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String year = dateFormat.format(new Date());
+/*		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+		String year = dateFormat.format(new Date());*/
 		S22_Bean bean = S22_services.getYearInfo(year);
 		
 	    ByteArrayOutputStream fos = null;

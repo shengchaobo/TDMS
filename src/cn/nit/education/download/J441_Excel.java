@@ -17,11 +17,11 @@ public class J441_Excel {
 	
 	
 	
-	public static boolean export_J441(String path){
+	public static boolean export_J441(String path,String year){
 		
 		T443_Dao T443_dao = new T443_Dao();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
+//		Calendar a = Calendar.getInstance();
+//		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<T443_Bean> list = T443_dao.totalList(year);
 				
 		String sheetName = "J-4-4-1高层次人才（时点）";
@@ -57,15 +57,5 @@ public class J441_Excel {
 		}
 	}
 	
-	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J441_Excel.export_J441(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
 
 }

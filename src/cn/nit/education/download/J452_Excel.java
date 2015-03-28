@@ -16,11 +16,11 @@ import cn.nit.util.ExcelUtil;
 public class J452_Excel {
 	
 	
-	public static boolean export_J452(String path){
+	public static boolean export_J452(String path,String year){
 		
 		J452_Dao J452_dao = new J452_Dao();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
+//		Calendar a = Calendar.getInstance();
+//		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<J452POJO> list = J452_dao.totalList(year);
 
 				
@@ -62,16 +62,6 @@ public class J452_Excel {
 			return false;
 		}
 	}
-	
-	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J452_Excel.export_J452(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
+
 
 }

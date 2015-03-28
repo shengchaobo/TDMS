@@ -26,10 +26,10 @@ import cn.nit.service.table2.T27_Service;
 
 public class J27_Excel {
 	
-	public static boolean export_J27(String path){
+	public static boolean export_J27(String path,String year){
 		T27_Service T27_services = new T27_Service();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String year = dateFormat.format(new Date());
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+//		String year = dateFormat.format(new Date());
 		T27_Bean bean = T27_services.getYearInfo(year);
 		
 	    ByteArrayOutputStream fos = null;

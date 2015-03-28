@@ -26,7 +26,7 @@ public class A413_Dao {
 	"PrimaryNum,PrimaryRatio,Below35Num,Below35Ratio,In36To45Num,In36To45Ratio,In46To55Num,In46To55Ratio,Above56Num,Above56Ratio," +
 	"AdminNum,AdminRatio,ResNum,ResRatio,HighNum,HighRatio,BusinessNum,BusinessRatio,CompanyNum," +
 	"CompanyRatio,ArmyNum,ArmyRatio,OtherNum,OtherRatio,DuTutorNum,DuTutorRatio,DocTutorNum,DocTutorRaio,MasterTutorNum,MasterTutorRatio," +
-	"NotTutorNum,NotTutorRatio,Time,Note";
+	"NotTutorNum,NotTutorRatio,Note";
 	private String key = "SeqNumber";
 
 	
@@ -44,6 +44,7 @@ public class A413_Dao {
 		String sql="select * from " + tableName;	
 		boolean flag=false;
 		Connection conn = DBConnection.instance.getConnection() ;
+		Connection conn1 = null;
 		Statement st = null;
 		ResultSet rs = null;
 		List<A413_Bean> list=new ArrayList<A413_Bean>();
@@ -52,18 +53,20 @@ public class A413_Dao {
 			st=conn.createStatement();
 			rs = st.executeQuery(sql);
 			list=DAOUtil.getList(rs, A413_Bean.class);
+			conn1 = DBConnection.instance.getConnection() ;
 			if(list.size()!=0){
 				bean=list.get(0);
 				a413_bean.setSeqNumber(bean.getSeqNumber());
-				flag=DAOUtil.update(a413_bean, tableName, key, field, conn);
+				flag=DAOUtil.update(a413_bean, tableName, key, field, conn1);
 			}else{
-				flag=DAOUtil.insert(a413_bean, tableName, field, conn);				
+				flag=DAOUtil.insert(a413_bean, tableName, field, conn1);				
 			}
 		}catch (Exception e){
 			e.printStackTrace() ;
 		}finally{
 			DBConnection.close(rs);
 			DBConnection.close(st);	
+			DBConnection.close(conn1);
 			DBConnection.close(conn);
 		}
 		return flag;

@@ -137,7 +137,7 @@ public class A441_Dao {
 		
 		int year = Integer.parseInt(selectYear);
 	    String querysql="select " +
-	    	"count(distinct "+tableName2+".TeaID) as Sum," +
+	    	"count("+tableName2+".TeaID) as Sum," +
 			"sum (case when "+tableName1+".majTechTitle = '41000' then 1 else 0 end) as SeniorNum," +
 			"sum (case when "+tableName1+".majTechTitle = '41001' then 1 else 0 end) as SubSenior," +
 			"sum (case when "+tableName1+".majTechTitle = '41002' then 1 else 0 end) as MiddleNum," +

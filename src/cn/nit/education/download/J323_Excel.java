@@ -18,11 +18,11 @@ public class J323_Excel {
 	
 	
 	
-	public static boolean export_J323(String path){
+	public static boolean export_J323(String path,String year){
 		
 		T322_DAO T322_dao = new T322_DAO();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
+//		Calendar a = Calendar.getInstance();
+//		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<T322POJO> list = T322_dao.totalList1(year);
 				
 		String sheetName = "J-3-2-3优势专业情况（时点）";
@@ -53,16 +53,6 @@ public class J323_Excel {
 		} catch (Exception e) {	
 			e.printStackTrace();
 			return false;
-		}
-	}
-	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J323_Excel.export_J323(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
 		}
 	}
 

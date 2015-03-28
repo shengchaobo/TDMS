@@ -16,11 +16,11 @@ import cn.nit.util.ExcelUtil;
 public class J42_Excel {
 	
 	
-	public static boolean export_J42(String path){
+	public static boolean export_J42(String path,String year){
 		
 		T42_Dao T42_dao = new T42_Dao();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
+//		Calendar a = Calendar.getInstance();
+//		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<T42_Bean> list = T42_dao.totalList(year);
 				
 		String sheetName = "J-4-2校领导基本信息（时点）";
@@ -58,15 +58,6 @@ public class J42_Excel {
 		}
 	}
 	
-	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J42_Excel.export_J42(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
+
 
 }

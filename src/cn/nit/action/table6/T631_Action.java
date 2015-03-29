@@ -245,7 +245,7 @@ public class T631_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T631_Bean> list = T631_service.getAllList("", null);
+			List<T631_Bean> list = T631_service.totalList(this.getSelectYear());
 			if(list==null){
 				if(list.size()==0){
 					PrintWriter out = null ;
@@ -257,20 +257,7 @@ public class T631_Action {
 				}
 			}
 			if(list!=null){
-				int ThisYearGraduNum=0; int ThisYearNotGraduNum=0; int AwardDegreeNum=0; 
-				//统计全校合计
-				for(T631_Bean bean : list){
-					ThisYearGraduNum+=bean.getThisYearGraduNum();
-					ThisYearNotGraduNum+=bean.getThisYearNotGraduNum();
-					AwardDegreeNum+=bean.getAwardDegreeNum();
-				}
-				
-				T631_Bean bean = new T631_Bean();
-				bean.setThisYearGraduNum(ThisYearGraduNum);
-				bean.setThisYearNotGraduNum(ThisYearNotGraduNum);
-				bean.setAwardDegreeNum(AwardDegreeNum);
-				bean.setTeaUnit("全校合计：");
-				list.add(0, bean);
+
 				
 				String sheetName = this.excelName;
 				

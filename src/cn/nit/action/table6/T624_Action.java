@@ -153,6 +153,7 @@ public class T624_Action {
 		System.out.println("haha");
 	
 		List<T624_Bean> list=T624_service.getYearInfo(this.getSelectYear());
+		list.get(0).setIsCurrentYearAdmis(null);
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
 
@@ -425,7 +426,7 @@ public class T624_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T624_Bean> list = T624_service.getAllList("", null);
+			List<T624_Bean> list = T624_service.totalList(this.getSelectYear());
 			
 			if(list==null){
 				if(list.size()==0){
@@ -437,29 +438,7 @@ public class T624_Action {
 					return null;
 				}
 			}
-			if(list!=null){
-				int PlanAdmisNum=0; int ActualAdmisNum=0; int ActualRegisterNum=0; int GenHignSchNum=0;
-				int SecondVocationNum = 0; int OtherNum = 0; 
-				//统计全校合计
-				for(T624_Bean bean : list){
-					PlanAdmisNum+=bean.getPlanAdmisNum();
-					ActualAdmisNum+=bean.getActualAdmisNum();
-					ActualRegisterNum+=bean.getActualRegisterNum();
-					GenHignSchNum+=bean.getGenHignSchNum();
-					SecondVocationNum+=bean.getSecondVocationNum();
-					OtherNum+=bean.getOtherNum();
-				}
-				
-				T624_Bean bean = new T624_Bean();
-				bean.setPlanAdmisNum(PlanAdmisNum);
-				bean.setActualAdmisNum(ActualAdmisNum);
-				bean.setActualRegisterNum(ActualRegisterNum);
-				bean.setGenHignSchNum(GenHignSchNum);
-				bean.setSecondVocationNum(SecondVocationNum);
-				bean.setOtherNum(OtherNum);
-				bean.setTeaUnit("全校合计：");
-				list.add(0, bean);
-				
+		
 				String sheetName = this.excelName;
 				
 				List<String> columns = new ArrayList<String>();
@@ -519,36 +498,37 @@ public class T624_Action {
 						}
 						
 						//向表中写数据
-						int k=3;//从第4行开始写数据,第3行为全校合计数
-						for(int j=0;j<list.size();j++){
-							T624_Bean bean1 =  list.get(j);
-							if(j==0){
-								ws.addCell(new Label(0,3, bean1.getTeaUnit(), wcf1));
-								ws.mergeCells(0, 3, 6, 3);
-								ws.addCell(new Label(7, 3, bean1.getPlanAdmisNum()+"", wcf1));
-								ws.addCell(new Label(8, 3, bean1.getActualAdmisNum()+"", wcf1));
-								ws.addCell(new Label(9, 3, bean1.getActualRegisterNum()+"", wcf1));
-								ws.addCell(new Label(10, 3, bean1.getGenHignSchNum()+"", wcf1));
-								ws.addCell(new Label(11, 3, bean1.getSecondVocationNum()+"", wcf1));
-								ws.addCell(new Label(12, 3, bean1.getOtherNum()+"", wcf1));
-//								ws.addCell(new Label(13, 3, bean1.getNote()+"", wcf));
-							}else{
-								ws.addCell(new Label(0, k,j+"", wcf1));
-								ws.addCell(new Label(1, k, bean1.getTeaUnit(), wcf1));
-								ws.addCell(new Label(2, k, bean1.getUnitId(), wcf1));
-								ws.addCell(new Label(3, k, bean1.getMajorName(), wcf1));
-								ws.addCell(new Label(4, k, bean1.getMajorId(), wcf1));
-								ws.addCell(new Label(5, k, bean1.getMajorFieldName(), wcf1));
-								ws.addCell(new Label(6, k, this.BooleanToString(bean1.getIsCurrentYearAdmis()), wcf1));
-								ws.addCell(new Label(7, k, bean1.getPlanAdmisNum()+"", wcf1));
-								ws.addCell(new Label(8, k, bean1.getActualAdmisNum()+"", wcf1));
-								ws.addCell(new Label(9, k, bean1.getActualRegisterNum()+"", wcf1));
-								ws.addCell(new Label(10, k, bean1.getGenHignSchNum()+"", wcf1));
-								ws.addCell(new Label(11, k, bean1.getSecondVocationNum()+"", wcf1));
-								ws.addCell(new Label(12, k, bean1.getOtherNum()+"", wcf1));
+						//先写合计
+						T624_Bean bean1 =  list.get(0);
+						
+						ws.addCell(new Label(0,3,bean1.getTeaUnit(),wcf1));
+						ws.mergeCells(0, 3, 6, 3);
+						ws.addCell(new Label(7, 3, bean1.getPlanAdmisNum()+"", wcf1));
+						ws.addCell(new Label(8, 3, bean1.getActualAdmisNum()+"", wcf1));
+						ws.addCell(new Label(9, 3, bean1.getActualRegisterNum()+"", wcf1));
+						ws.addCell(new Label(10, 3, bean1.getGenHignSchNum()+"", wcf1));
+						ws.addCell(new Label(11, 3, bean1.getSecondVocationNum()+"", wcf1));
+						ws.addCell(new Label(12, 3, bean1.getOtherNum()+"", wcf1));
+	
+						//写其它行
+						for(int j=1;j<list.size();j++){
+							bean1 =  list.get(j);
+								ws.addCell(new Label(0, j+3,j+"", wcf1));
+								ws.addCell(new Label(1, j+3, bean1.getTeaUnit(), wcf1));
+								ws.addCell(new Label(2, j+3, bean1.getUnitId(), wcf1));
+								ws.addCell(new Label(3, j+3, bean1.getMajorName(), wcf1));
+								ws.addCell(new Label(4, j+3, bean1.getMajorId(), wcf1));
+								ws.addCell(new Label(5, j+3, bean1.getMajorFieldName(), wcf1));
+								ws.addCell(new Label(6, j+3, this.BooleanToString(bean1.getIsCurrentYearAdmis()), wcf1));
+								ws.addCell(new Label(7, j+3, bean1.getPlanAdmisNum()+"", wcf1));
+								ws.addCell(new Label(8, j+3, bean1.getActualAdmisNum()+"", wcf1));
+								ws.addCell(new Label(9, j+3, bean1.getActualRegisterNum()+"", wcf1));
+								ws.addCell(new Label(10, j+3, bean1.getGenHignSchNum()+"", wcf1));
+								ws.addCell(new Label(11, j+3, bean1.getSecondVocationNum()+"", wcf1));
+								ws.addCell(new Label(12, j+3, bean1.getOtherNum()+"", wcf1));
 //								ws.addCell(new Label(13, k, bean1.getNote()+"", wcf));
-							}
-							k++;
+							
+						
 						}
 						    wwb.write();
 				            wwb.close();
@@ -557,7 +537,7 @@ public class T624_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 				
-			}
+			
 		
 		} catch (Exception e) {
 			e.printStackTrace();

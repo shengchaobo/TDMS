@@ -477,6 +477,40 @@ public class T631_Dao {
 		return list ;
 	}
 	
+	
+	 /**
+	 * 获取字典表的所有数据(导出)
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T631_Bean> totalList(String year){
+		
+		String sql = "select " + key+ "," +field + " from " + tableName 
+				+ " where convert(varchar(4),Time,120)=" + year;		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T631_Bean> list = null ;
+		System.out.println(sql);
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T631_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
+		}
+		
+		return list ;
+	}
+	
+	
+	
 	public List<T631_Bean> getAllList(String cond, Object object) {
 		// TODO Auto-generated method stub
 		String Cond = "1=1";

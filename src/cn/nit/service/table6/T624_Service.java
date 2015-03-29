@@ -73,6 +73,9 @@ public class T624_Service {
 		return T624_Dao.getAllList(cond, object);
 	}
 
+	public List<T624_Bean> totalList(String year){
+		return T624_Dao.totalList(year);
+	}
 
 
 }

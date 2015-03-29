@@ -32,6 +32,7 @@ public class J27_Excel {
 		String year = dateFormat.format(new Date());*/
 
 		T27_Bean bean = T27_services.getYearInfo(year);
+
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -113,4 +114,5 @@ public class J27_Excel {
 			}
 		        		
 	}
+
 }

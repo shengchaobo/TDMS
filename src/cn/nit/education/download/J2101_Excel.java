@@ -34,7 +34,7 @@ public class J2101_Excel {
 //		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 //		String year = dateFormat.format(new Date());
 		T291_Bean bean = T291_services.getYearInfo(year);
-		
+
 	    ByteArrayOutputStream fos = null;
 		
 	    String sheetName = "J-2-10-1教育经费概况（自然年） ";
@@ -116,4 +116,6 @@ public class J2101_Excel {
 			}
 		        		
 	}
+	
+	
 }

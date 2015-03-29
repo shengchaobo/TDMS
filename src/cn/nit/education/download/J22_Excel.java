@@ -31,6 +31,7 @@ public class J22_Excel {
 /*		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 		String year = dateFormat.format(new Date());*/
 		S22_Bean bean = S22_services.getYearInfo(year);
+		 
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -122,4 +123,7 @@ public class J22_Excel {
 			}
 		        		
 	}
+	
+	
+	
 }

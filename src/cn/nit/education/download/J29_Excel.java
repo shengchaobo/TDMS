@@ -33,7 +33,7 @@ public class J29_Excel {
 	/*	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 		String year = dateFormat.format(new Date());*/
 		S28_Bean bean = S28_services.getYearInfo(year);
-		
+
 	    ByteArrayOutputStream fos = null;
 		
 	    String sheetName = "J-2-9固定资产（时点） ";
@@ -119,4 +119,6 @@ public class J29_Excel {
 			}
 		        		
 	}
+	
+	
 }

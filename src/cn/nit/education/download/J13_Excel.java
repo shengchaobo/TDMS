@@ -53,7 +53,7 @@ public class J13_Excel {
 	}
 	
 	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
+		String path = "C:\\Users\\Fan Shuangyan\\Desktop\\Education";
 		  J13_Excel excel = new J13_Excel();
 		  boolean flag = excel.export_J13(path);
 		  if(flag){

@@ -115,9 +115,9 @@ public class J16_Excel {
 	}
 	
 	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
+		String path = "C:\\Users\\Fan Shuangyan\\Desktop\\Education";
 		  J16_Excel excel = new J16_Excel();
-		  boolean flag = excel.export_J16(path,"2015");
+		  boolean flag = excel.export_J16(path,"2002");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

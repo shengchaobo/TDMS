@@ -44,7 +44,7 @@ public class J513_Excel {
 		double CoverRatio3 = 0; double ExcellentRatio3 = 0;double GoodRatio3 = 0;
 		double AvgRatio3 = 0; double PoorRatio3 = 0;
 		
-		int should1 = 0;int have1=0;int exe1 = 0;int good1=0;int avg1=0; int poor1=0;//学生评教
+		int should1 = 0;int have1 = 0;int exe1 = 0;int good1=0;int avg1=0; int poor1=0;//学生评教
 		int should2 = 0;int have2 = 0;int exe2 = 0;int good2=0;int avg2=0; int poor2=0;//同行评教
 		int should3 = 0;int have3 = 0;int exe3 = 0;int good3=0;int avg3=0; int poor3=0;//专家评教
 		if(list.size()>0){
@@ -141,35 +141,36 @@ public class J513_Excel {
 	           ws.mergeCells(0, 0, 1, 0);
 	           
 	           ws.addCell(new Label(0, 2, "项目", wcf)); 
-	           ws.addCell(new Label(1, 2, "覆盖比例%", wcf)); 
-	           ws.addCell(new Label(2, 2, "优（90分及以上）", wcf)); 
-	           ws.addCell(new Label(3, 2, "良好（89-75分）", wcf));  
-	           ws.addCell(new Label(4, 2, "中（74-60分）", wcf)); 
-	           ws.addCell(new Label(5, 2, "差（60分以下）", wcf)); 
+	           ws.addCell(new Label(1, 2, "覆盖比例(%)", wcf)); 
+	           ws.addCell(new Label(2, 2, "优（90分及以上）（%）", wcf)); 
+	           ws.addCell(new Label(3, 2, "良好（89-75分）（%）", wcf));  
+	           ws.addCell(new Label(4, 2, "中（74-60分）（%）", wcf)); 
+	           ws.addCell(new Label(5, 2, "差（60分以下）（%）", wcf)); 
 	           ws.addCell(new Label(0, 3, "学生评教", wcf)); 
 	           ws.addCell(new Label(0, 4, "同行评教", wcf)); 
 	           ws.addCell(new Label(0, 5, "专家评教", wcf)); 
 	           		           
-
-		           ws.addCell(new Label(1, 3, ""+CoverRatio1+"%", wcf1)); 
-		           ws.addCell(new Label(2, 3, ""+ExcellentRatio1+"%", wcf1));  
-		           ws.addCell(new Label(3, 3, ""+GoodRatio1+"%", wcf1)); 
-		           ws.addCell(new Label(4, 3, ""+AvgRatio1+"%", wcf1)); 
-		           ws.addCell(new Label(5, 3, ""+PoorRatio1+"%", wcf1)); 
+	           if(list.size()!=0){
+	        	   
+	        	   ws.addCell(new Label(1, 3, ""+CoverRatio1, wcf1)); 
+		           ws.addCell(new Label(2, 3, ""+ExcellentRatio1, wcf1));  
+		           ws.addCell(new Label(3, 3, ""+GoodRatio1, wcf1)); 
+		           ws.addCell(new Label(4, 3, ""+AvgRatio1, wcf1)); 
+		           ws.addCell(new Label(5, 3, ""+PoorRatio1, wcf1)); 
 		           
-		           ws.addCell(new Label(1, 4, ""+CoverRatio2+"%", wcf1)); 
-		           ws.addCell(new Label(2, 4, ""+ExcellentRatio2+"%", wcf1));  
-		           ws.addCell(new Label(3, 4, ""+GoodRatio2+"%", wcf1)); 
-		           ws.addCell(new Label(4, 4, ""+AvgRatio2+"%", wcf1)); 
-		           ws.addCell(new Label(5, 4, ""+PoorRatio2+"%", wcf1)); 
+		           ws.addCell(new Label(1, 4, ""+CoverRatio2, wcf1)); 
+		           ws.addCell(new Label(2, 4, ""+ExcellentRatio2, wcf1));  
+		           ws.addCell(new Label(3, 4, ""+GoodRatio2, wcf1)); 
+		           ws.addCell(new Label(4, 4, ""+AvgRatio2, wcf1)); 
+		           ws.addCell(new Label(5, 4, ""+PoorRatio2, wcf1)); 
 		           
-		           ws.addCell(new Label(1, 5, ""+CoverRatio3+"%", wcf1)); 
-		           ws.addCell(new Label(2, 5, ""+ExcellentRatio3+"%", wcf1));  
-		           ws.addCell(new Label(3, 5, ""+GoodRatio3+"%", wcf1)); 
-		           ws.addCell(new Label(4, 5, ""+AvgRatio3+"%", wcf1)); 
-		           ws.addCell(new Label(5, 5, ""+PoorRatio3+"%", wcf1)); 
-		         
-	             
+		           ws.addCell(new Label(1, 5, ""+CoverRatio3, wcf1)); 
+		           ws.addCell(new Label(2, 5, ""+ExcellentRatio3, wcf1));  
+		           ws.addCell(new Label(3, 5, ""+GoodRatio3, wcf1)); 
+		           ws.addCell(new Label(4, 5, ""+AvgRatio3, wcf1)); 
+		           ws.addCell(new Label(5, 5, ""+PoorRatio3, wcf1)); 
+	           }
+	           
 	          wwb.write();
 	          wwb.close();
 	
@@ -209,9 +210,9 @@ public class J513_Excel {
 	}
 	
 	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
-		  J513_Excel excel = new J513_Excel();
-		  boolean flag = excel.export_J513(path,"2014");
+		 String path = "C:\\Users\\Fan Shuangyan\\Desktop\\Education";
+		  J252_Excel excel = new J252_Excel();
+		  boolean flag = excel.export_J252(path,"2002");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

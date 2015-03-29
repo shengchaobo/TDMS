@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table4.T441_Bean;
 import cn.nit.constants.Constants;
@@ -25,9 +26,17 @@ public class T441_Dao {
 	 */
 	public List<T441_Bean> totalList(String fillUnitID, String year, int checkState){
 		
-		String sql = "select " + keyfield+ "," + field + " from " + tableName +
-				     " where FillUnitID=" + "'" + fillUnitID + "'"
-				     + " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		String sql = null;
+		
+		if("111".equals(fillUnitID)){
+			sql = "select " + keyfield+ "," + field + " from " + tableName +
+		     " where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			sql = "select " + keyfield+ "," + field + " from " + tableName +
+		     " where FillUnitID=" + "'" + fillUnitID + "'"
+		     + " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		}
+		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

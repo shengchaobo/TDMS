@@ -21,6 +21,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import cn.nit.action.table2.T21_Action;
 import cn.nit.bean.table2.T21_Bean;
 import cn.nit.service.table2.T21_Service;
 import cn.nit.util.ExcelUtil;
@@ -35,6 +36,7 @@ public class J21_Excel {
 
 		T21_Bean bean = T21_services.getYearInfo(year);
 		
+	
 	    ByteArrayOutputStream fos = null;
 		
 	    String sheetName = "J-2-1占地与建筑面积（时点）";
@@ -139,4 +141,6 @@ public class J21_Excel {
 			}
 		        		
 	}
+	
+	
 }

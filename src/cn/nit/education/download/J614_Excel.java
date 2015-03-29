@@ -63,13 +63,13 @@ public static boolean export_J614(String path,String year) {
 	           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 	           ws.mergeCells(0, 0, 2, 0);
 	             
-	           //写表�?
+	           //写表�?
 	           ws.addCell(new Label(0, 2, "", wcf)); 
 	           ws.addCell(new Label(2, 2, "毕（结）业生数（人）", wcf)); 
 	           ws.addCell(new Label(3, 2, "授予学位数（人）", wcf)); 
 	           ws.addCell(new Label(4, 2, "招生数（人）", wcf)); 
-	           ws.addCell(new Label(5, 2, "在校生数（人�?, wcf)); 
-	           ws.addCell(new Label(0, 3, "本科生（境外�?, wcf)); 
+	           ws.addCell(new Label(5, 2, "在校生数（人）", wcf)); 
+	           ws.addCell(new Label(0, 3, "本科生（境外)", wcf)); 
 	           ws.addCell(new Label(0, 4, "按地域分", wcf)); 
 	           ws.addCell(new Label(1, 4, "国外", wcf1)); 
 	           ws.addCell(new Label(1, 5, "香港", wcf1)); 
@@ -122,7 +122,7 @@ public static boolean export_J614(String path,String year) {
 			File file = new File(path,"J-6-1-4国外及港澳台学生情况（时点）.xls");
 			FileOutputStream fileOutputStream  = new FileOutputStream(file);
 			
-			//写到文件�?
+			//写到文件�?
 			fileOutputStream.write(byteArrayOutputStream.toByteArray());
 			
 			byteArrayOutputStream.close();
@@ -139,7 +139,7 @@ public static boolean export_J614(String path,String year) {
 		  J614_Excel excel = new J614_Excel();
 		  boolean flag = excel.export_J614(path,"2014");
 		  if(flag){
-			  System.out.println("成功�?);
+			  System.out.println("成功");
 		  }else{
 			  System.out.println("不成功！");
 		  }

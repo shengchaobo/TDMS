@@ -27,6 +27,13 @@ public class T624_Service {
 		return list;
 	}
 	
+	
+	public List<T624_Bean> totalList(String selectYear,int checkstate){
+		List<T624_Bean> list = T624_Dao.totalList(selectYear,checkstate);
+		return list;
+	}
+	
+	
 	//插入一个bean
 	public Boolean insert(T624_Bean bean, String year){
 		return T624_Dao.insert(bean, year);
@@ -73,9 +80,7 @@ public class T624_Service {
 		return T624_Dao.getAllList(cond, object);
 	}
 
-	public List<T624_Bean> totalList(String year){
-		return T624_Dao.totalList(year);
-	}
+
 
 
 }

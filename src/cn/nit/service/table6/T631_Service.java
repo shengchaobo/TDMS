@@ -37,8 +37,8 @@ public class T631_Service {
 	}
 	
 	
-	public List<T631_Bean> totalList(String year){
-		return T631_dao.totalList(year);
+	public List<T631_Bean> totalList(String year,int checkstate){
+		return T631_dao.totalList(year,checkstate);
 	}
 
 	

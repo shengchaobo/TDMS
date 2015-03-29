@@ -48,6 +48,7 @@ import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table6.T617_Bean;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T631_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T621_Dao;
 import cn.nit.dao.table6.T631_Dao;
 import cn.nit.dbconnection.DBConnection;
@@ -160,7 +161,7 @@ public class T621_Action {
 		
 		System.out.println("haha");
 	
-		List<T621_Bean> list=UndergraAdmiInfoSer.getYearInfo(this.getSelectYear());
+		List<T621_Bean> list=UndergraAdmiInfoSer.getYearInfo(this.getSelectYear(),Constants.PASS_CHECK);
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
 

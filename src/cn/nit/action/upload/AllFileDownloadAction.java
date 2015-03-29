@@ -124,6 +124,7 @@ public class AllFileDownloadAction extends ActionSupport {
 		request.getSession().removeAttribute("allYear");
 		return null;
 	}
+	
 
 	private boolean export441(String filePath2) {
 		

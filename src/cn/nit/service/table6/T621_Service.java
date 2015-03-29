@@ -22,6 +22,12 @@ public class T621_Service {
 		return list;
 	}
 	
+	public List<T621_Bean> getYearInfo(String selectYear,int checkState){
+		List<T621_Bean> list = UndergraAdmiInfoDao.getYearInfo(selectYear,checkState);
+		return list;
+	}
+	
+	
 	public Boolean insert(T621_Bean bean, String year){
 		return UndergraAdmiInfoDao.insert(bean, year);
 	}

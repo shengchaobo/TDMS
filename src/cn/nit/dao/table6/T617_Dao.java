@@ -74,10 +74,10 @@ public class T617_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T617_Bean> totalList(String year){
+	public List<T617_Bean> totalList(String year,int checkState){
 		
 		String sql = "select " + key+ "," +field + " from " + tableName 
-				+ " where convert(varchar(4),Time,120)=" + year;		
+				+ " where convert(varchar(4),Time,120)=" + year+" and CheckState="+checkState;		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

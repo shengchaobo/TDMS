@@ -23,6 +23,13 @@ public class T632_Service {
 		return list;
 	}
 	
+	
+	public List<T632_Bean> getYearInfo(String selectYear,int checkState){
+		List<T632_Bean> list = T632_dao.getYearInfo(selectYear,checkState);
+		return list;
+	}
+	
+	
 	//插入一个bean
 	public Boolean insert(T632_Bean bean, String year){
 		return T632_dao.insert(bean, year);

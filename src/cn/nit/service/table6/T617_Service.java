@@ -130,8 +130,8 @@ public class T617_Service {
 		 *
 		 * @time: 2014-5-14/下午02:34:42
 		 */
-		public List<T617_Bean> totalList(String year){
-			return T617_Dao.totalList(year);
+		public List<T617_Bean> totalList(String year,int checkstate){
+			return T617_Dao.totalList(year,checkstate);
 		}
 
 

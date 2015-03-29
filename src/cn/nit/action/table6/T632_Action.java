@@ -48,6 +48,7 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T631_Bean;
 import cn.nit.bean.table6.T632_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T632_Dao;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.service.CheckService;
@@ -462,7 +463,7 @@ public class T632_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T632_Bean> list = T632_service.getYearInfo(this.getSelectYear());
+			List<T632_Bean> list = T632_service.getYearInfo(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			if(list==null){
 				if(list.size()==0){

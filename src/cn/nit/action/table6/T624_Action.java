@@ -45,6 +45,7 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.table6.T624_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T624_Dao;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.service.CheckService;
@@ -307,7 +308,7 @@ public class T624_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T624_Bean> list = T624_service.totalList(this.getSelectYear());
+			List<T624_Bean> list = T624_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
 			if(list==null){
 				if(list.size()==0){

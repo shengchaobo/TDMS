@@ -55,6 +55,7 @@ import cn.nit.bean.table6.T617_Bean;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T631_Bean;
 import cn.nit.bean.table6.T632_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T611_Dao;
 import cn.nit.dao.table6.T612_Dao;
 import cn.nit.dao.table6.T613_Dao;
@@ -276,7 +277,7 @@ public class T617_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T617_Bean> list=T617_service.totalList(this.getSelectYear());
+			List<T617_Bean> list=T617_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

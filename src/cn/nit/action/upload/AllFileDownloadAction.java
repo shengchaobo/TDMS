@@ -3,6 +3,7 @@ package cn.nit.action.upload;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -17,71 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.education.download.J2101_Excel;
-import cn.nit.education.download.J2102_Excel;
-import cn.nit.education.download.J211_Excel;
-import cn.nit.education.download.J21_Excel;
-import cn.nit.education.download.J22_Excel;
-import cn.nit.education.download.J11_Excel;
-import cn.nit.education.download.J13_Excel;
-import cn.nit.education.download.J14_Excel;
-import cn.nit.education.download.J15_Excel;
-import cn.nit.education.download.J16_Excel;
-import cn.nit.education.download.J17_Excel;
-import cn.nit.education.download.J23_Excel;
-import cn.nit.education.download.J24_Excel;
-import cn.nit.education.download.J251_Excel;
-import cn.nit.education.download.J252_Excel;
-import cn.nit.education.download.J261_Excel;
-import cn.nit.education.download.J262_Excel;
-import cn.nit.education.download.J27_Excel;
-import cn.nit.education.download.J28_Excel;
-import cn.nit.education.download.J29_Excel;
-import cn.nit.education.download.J311_Excel;
-import cn.nit.education.download.J312_Excel;
-import cn.nit.education.download.J313_Excel;
-import cn.nit.education.download.J314_Excel;
-import cn.nit.education.download.J321_Excel;
-import cn.nit.education.download.J322_Excel;
-import cn.nit.education.download.J323_Excel;
-import cn.nit.education.download.J411_Excel;
-import cn.nit.education.download.J412_Excel;
-import cn.nit.education.download.J42_Excel;
-import cn.nit.education.download.J43_Excel;
-import cn.nit.education.download.J441_Excel;
-import cn.nit.education.download.J442_Excel;
-import cn.nit.education.download.J451_Excel;
-import cn.nit.education.download.J452_Excel;
-import cn.nit.education.download.J461_Excel;
-import cn.nit.education.download.J462_Excel;
-import cn.nit.education.download.J463_Excel;
-import cn.nit.education.download.J464_Excel;
-import cn.nit.education.download.J465_Excel;
-import cn.nit.education.download.J466_Excel;
-import cn.nit.education.download.J511_Excel;
-import cn.nit.education.download.J512_Excel;
-import cn.nit.education.download.J513_Excel;
-import cn.nit.education.download.J52_Excel;
-import cn.nit.education.download.J531_Excel;
-import cn.nit.education.download.J532_Excel;
-import cn.nit.education.download.J533_Excel;
-import cn.nit.education.download.J534_Excel;
-import cn.nit.education.download.J54_Excel;
-import cn.nit.education.download.J611_Excel;
-import cn.nit.education.download.J612_Excel;
-import cn.nit.education.download.J613_Excel;
-import cn.nit.education.download.J614_Excel;
-import cn.nit.education.download.J615_Excel;
-import cn.nit.education.download.J616_Excel;
-import cn.nit.education.download.J617_Excel;
-import cn.nit.education.download.J618_Excel;
-import cn.nit.education.download.J619_Excel;
-import cn.nit.education.download.J621_Excel;
-import cn.nit.education.download.J622_Excel;
-import cn.nit.education.download.J63_Excel;
-import cn.nit.education.download.J71_Excel;
-import cn.nit.education.download.J72_Excel;
-import cn.nit.education.download.J731_Excel;
+import cn.nit.action.table2.T21_Action;
+import cn.nit.action.table4.T441_Action;
 import cn.nit.education.download.J732_Excel;
 import cn.nit.util.ZipFileUtil;
 
@@ -158,7 +96,6 @@ public class AllFileDownloadAction extends ActionSupport {
         	dirFile.mkdirs();
         }
         
-        System.out.println(this.getSelectYear());
     	String errorMessasge = preDownloadFile(dir,this.getSelectYear());
     	
 	    if (errorMessasge != null) {
@@ -173,13 +110,73 @@ public class AllFileDownloadAction extends ActionSupport {
 	
 	private String preDownloadFile(String filePath,String year) {
 		
-		// TODO Auto-generated method stub
-		//1字头
-/*		if(!J11_Excel.export_J11(filePath)){
-			return "J11_export has a error!";
-		}			
-*/
+		request.getSession().setAttribute("allYear", year) ;
+		//2字头
+		if(!export21(filePath)){
+			return "export21 has a error!";
+		}
+		
+		
+		//4字头
+		if(!export441(filePath)){
+			return "export441 has a error!";
+		}	
+		request.getSession().removeAttribute("allYear");
 		return null;
+	}
+
+	private boolean export441(String filePath2) {
+		
+		try {			
+			File file = new File(filePath2,"表4-4-1专业带头人（教学单位-教务处）.xls");
+			FileOutputStream fileOutputStream  = new FileOutputStream(file);
+			
+			T441_Action t441 = new T441_Action();
+			InputStream is = t441.getInputStream();
+		    int ch = 0;    
+		    while((ch=is.read()) != -1){  
+		    	fileOutputStream.write(ch);  
+		    }
+
+            //关闭输入流等（略）  
+			fileOutputStream.close();  
+			is.close();
+			
+			return true;
+		} catch (Exception e) {	
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	private boolean export21(String filePath2) {
+		
+		try {
+			
+			File file = new File(filePath2,"表2-1占地与建筑面积（后勤处）.xls");
+			FileOutputStream fileOutputStream  = new FileOutputStream(file);
+			
+			T21_Action t21 = new T21_Action();
+			InputStream is = t21.getInputStream();
+			if(is == null){
+				System.out.println("该年数据为空");
+				return false;
+			}else{
+			    int ch = 0;    
+			    while((ch=is.read()) != -1){  
+			    	fileOutputStream.write(ch);  
+			    }
+			}
+
+            //关闭输入流等（略）  
+			fileOutputStream.close();  
+			is.close();
+			
+			return true;
+		} catch (Exception e) {	
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public String getFileName() {

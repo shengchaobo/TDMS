@@ -34,6 +34,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table2.T21_Bean;
 import cn.nit.service.table2.T21_Service;
 import cn.nit.util.ExcelUtil;
@@ -173,8 +174,18 @@ public class T21_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		T21_Bean bean = T21_services.getYearInfo(this.getSelectYear());
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T21_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T21_services.getYearInfo(year);
+			sheetName = "表2-1占地与建筑面积（后勤处）";
+		}else{
+			bean = T21_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -186,7 +197,7 @@ public class T21_Action {
 			System.out.println("后台传入的数据为空");
 			return null;
 		}else{
-			String sheetName = this.excelName;
+			
 						
 		    WritableWorkbook wwb;
 		    try {    

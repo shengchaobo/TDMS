@@ -356,15 +356,21 @@ public class T441_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T441_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T441_services.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表4-4-1专业带头人（教学单位-教务处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = T441_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 		
 		try {
-			//具体教学单位
-			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-			String fillUnitID = bean.getUnitID();
-			
-			List<T441_Bean> list = T441_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
-						
-			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

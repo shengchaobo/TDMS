@@ -29,10 +29,10 @@ public static boolean export_J614(String path,String year) {
 		
 		T616_Dao T616_dao = new T616_Dao();
 		
-		//获取当前年份
-		Date time = new Date();
-		String currentTime = time.toString();
-		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+//		//获取当前年份
+//		Date time = new Date();
+//		String currentTime = time.toString();
+//		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		List<T616_Bean> list = T616_dao.totalList(year);
 		

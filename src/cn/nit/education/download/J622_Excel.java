@@ -33,7 +33,8 @@ public class J622_Excel {
 //		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 //		
 		 List<T659_Bean> list = T659_dao.getAllList(year) ;
-//		T16POJO pojo = list.get(0);
+		
+
 		
 		String sheetName = "J-6-2-2本科生交流情况（学年）";
 		
@@ -84,29 +85,33 @@ public class J622_Excel {
 	           ws.mergeCells(0, 3, 0, 7);
 	           
 	        //写入数据
-	           T659_Bean bean = new T659_Bean();
-	          if(list!=null||list.size()>0){
-	        	  int ExchangeStuSum = 0;int FromSchToOverseas = 0;int FromSchToDomestic = 0;
-	        	  int FromDomesticToSch = 0;int FromOverseasToSch = 0;
-	        	  for(int i =0;i<list.size();i++){
-	        		  T659_Bean bean1 = list.get(i);
-	        		  ExchangeStuSum +=bean1.getExchangeStuSum();
-	        		  FromSchToOverseas +=bean1.getFromSchToOverseas();
-	        		  FromSchToDomestic +=bean1.getFromSchToDomestic();
-	        		  FromDomesticToSch += bean1.getFromDomesticToSch();
-	        		  FromOverseasToSch += bean1.getFromOverseasToSch();
+	        
+	          if(list!=null){
+	        	  if(list.size()!=0){
+	        		  T659_Bean bean = new T659_Bean();
+		        	  int ExchangeStuSum = 0;int FromSchToOverseas = 0;int FromSchToDomestic = 0;
+		        	  int FromDomesticToSch = 0;int FromOverseasToSch = 0;
+		        	  for(int i =0;i<list.size();i++){
+		        		  T659_Bean bean1 = list.get(i);
+		        		  ExchangeStuSum +=bean1.getExchangeStuSum();
+		        		  FromSchToOverseas +=bean1.getFromSchToOverseas();
+		        		  FromSchToDomestic +=bean1.getFromSchToDomestic();
+		        		  FromDomesticToSch += bean1.getFromDomesticToSch();
+		        		  FromOverseasToSch += bean1.getFromOverseasToSch();
+		        	  }
+		        	  bean.setExchangeStuSum(ExchangeStuSum);
+		        	  bean.setFromSchToOverseas(FromSchToOverseas);
+		        	  bean.setFromSchToDomestic(FromSchToDomestic);
+		        	  bean.setFromDomesticToSch(FromDomesticToSch);
+		        	  bean.setFromOverseasToSch(FromOverseasToSch);
+		        	  
+		        	  ws.addCell(new Label(2, 3, ""+bean.getExchangeStuSum(), wcf1)); 
+			           ws.addCell(new Label(2, 4, ""+bean.getFromSchToOverseas(), wcf1)); 
+			           ws.addCell(new Label(2, 5, ""+bean.getFromSchToDomestic(), wcf1)); 
+			           ws.addCell(new Label(2, 6, ""+bean.getFromDomesticToSch(), wcf1)); 
+			           ws.addCell(new Label(2, 7, ""+bean.getFromOverseasToSch(), wcf1));
 	        	  }
-	        	  bean.setExchangeStuSum(ExchangeStuSum);
-	        	  bean.setFromSchToOverseas(FromSchToOverseas);
-	        	  bean.setFromSchToDomestic(FromSchToDomestic);
-	        	  bean.setFromDomesticToSch(FromDomesticToSch);
-	        	  bean.setFromOverseasToSch(FromOverseasToSch);
 	        	  
-	        	  ws.addCell(new Label(2, 3, ""+bean.getExchangeStuSum(), wcf1)); 
-		           ws.addCell(new Label(2, 4, ""+bean.getFromSchToOverseas(), wcf1)); 
-		           ws.addCell(new Label(2, 5, ""+bean.getFromSchToDomestic(), wcf1)); 
-		           ws.addCell(new Label(2, 6, ""+bean.getFromDomesticToSch(), wcf1)); 
-		           ws.addCell(new Label(2, 7, ""+bean.getFromOverseasToSch(), wcf1)); 
 	          }
 	        
 	           wwb.write();
@@ -129,16 +134,6 @@ public class J622_Excel {
 		}
 	}
 	
-	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
-		  J622_Excel excel = new J622_Excel();
-		  boolean flag = excel.export_J622(path,"2014");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
 
 
 }

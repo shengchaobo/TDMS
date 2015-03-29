@@ -12,6 +12,7 @@ import net.sf.json.JSON;
 
 import cn.nit.bean.table2.T285_Bean;
 import cn.nit.bean.table6.T659_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
 import cn.nit.util.TimeUtil;
@@ -309,7 +310,7 @@ public class T659_Dao {
 	public List<T659_Bean> getAllList(String year) {
 		// TODO Auto-generated method stub
 		String sql = "select " + fieldShow + " from " + tableName
-				+" where convert(varchar(4),Time,120)=" + year ;
+				+" where convert(varchar(4),Time,120)=" + year +" and CheckState="+Constants.PASS_CHECK;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

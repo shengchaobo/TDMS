@@ -15,6 +15,7 @@ public class J732_DAO {
 	String tableName="T722_TeachAchieveAward_Tea$";
 	String field="AwardName,Leader,TeaID,AwardLevel,AwardTime,AwardFromUnit,CheckState";
 	
+	/**教育部导出*/
 	public List<J732POJO> getYearInfo(String year){
 		
 		String sql="select " + field + " from " + tableName + 

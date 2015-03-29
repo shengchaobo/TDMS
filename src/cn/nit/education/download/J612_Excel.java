@@ -11,6 +11,7 @@ import java.util.Map;
 
 
 import cn.nit.bean.table6.T615_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T615_Dao;
 import cn.nit.util.ExcelUtil;
 
@@ -25,7 +26,7 @@ public class J612_Excel {
 //		String currentTime = time.toString();
 //		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
-		List<T615_Bean> list = T615_dao.getAllList(year);
+		List<T615_Bean> list = T615_dao.totalList(year, Constants.PASS_CHECK);
 		
 		String sheetName = "J-6-1-2普通本科分专业（大类）学生数（时点）";
 		
@@ -66,16 +67,6 @@ public class J612_Excel {
 		}
 	}
 	
-	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
-		  J612_Excel excel = new J612_Excel();
-		  boolean flag = excel.export_J612(path,"2014");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-		}
 
 
 }

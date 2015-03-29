@@ -65,7 +65,7 @@ public class T616_Service {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T616_Bean> totalList(String year){
-		return T616_Dao.totalList(year);
+	public List<T616_Bean> totalList(String year,int CheckState){
+		return T616_Dao.totalList(year,CheckState);
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.nit.bean.table6.T616_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T616_Dao;
 
 import jxl.Workbook;
@@ -29,7 +30,7 @@ public static boolean export_J614(String path,String year) {
 		
 		T616_Dao T616_dao = new T616_Dao();
 		
-		List<T616_Bean> list = T616_dao.totalList(year);
+		List<T616_Bean> list = T616_dao.totalList(year,Constants.PASS_CHECK);
 		
 		String sheetName = "J-6-1-4国外及港澳台学生情况（时点）";
 		
@@ -63,7 +64,7 @@ public static boolean export_J614(String path,String year) {
 	           ws.addCell(new Label(0, 0, sheetName, wcf)); 
 	           ws.mergeCells(0, 0, 2, 0);
 	             
-	           //写表�?
+	           //写表头?
 	           ws.addCell(new Label(0, 2, "", wcf)); 
 	           ws.addCell(new Label(2, 2, "毕（结）业生数（人）", wcf)); 
 	           ws.addCell(new Label(3, 2, "授予学位数（人）", wcf)); 
@@ -81,38 +82,37 @@ public static boolean export_J614(String path,String year) {
 	           ws.mergeCells(0, 3, 1, 3);
 	           ws.mergeCells(0, 4, 0, 7);
 	           
-	          T616_Bean bean ;
+	          
 	           if(list!=null && list.size()>0){
-	        	   bean = list.get(0);
-	           }else{
-	        	   bean = new T616_Bean();
+	        	   T616_Bean  bean = list.get(0);
+	     		   //写入数据
+		           ws.addCell(new Label(2, 3, ""+bean.getSumGraNum(), wcf)); 
+		           ws.addCell(new Label(3, 3, ""+bean.getSumDegreeNum(), wcf)); 
+		           ws.addCell(new Label(4, 3, ""+bean.getSumAdmisNum(), wcf)); 
+		           ws.addCell(new Label(5, 3, ""+bean.getSumInSchNum(), wcf));
+		           //国外
+		           ws.addCell(new Label(2, 4, ""+bean.getGraOutNum(), wcf)); 
+		           ws.addCell(new Label(3, 4, ""+bean.getDegreeOutNum(), wcf)); 
+		           ws.addCell(new Label(4, 4, ""+bean.getAdmisOutNum(), wcf)); 
+		           ws.addCell(new Label(5, 4, ""+bean.getInSchOutNum(), wcf)); 
+		           //香港
+		           ws.addCell(new Label(2, 5, ""+bean.getGraHongNum(), wcf)); 
+		           ws.addCell(new Label(3, 5, ""+bean.getDegreeHongNum(), wcf)); 
+		           ws.addCell(new Label(4, 5, ""+bean.getAdmisHongNum(), wcf)); 
+		           ws.addCell(new Label(5, 5, ""+bean.getInSchHongNum(), wcf)); 
+		           //澳门
+		           ws.addCell(new Label(2, 6, ""+bean.getGraAoNum(), wcf)); 
+		           ws.addCell(new Label(3, 6, ""+bean.getDegreeAoNum(), wcf)); 
+		           ws.addCell(new Label(4, 6, ""+bean.getAdmisAoNum(), wcf)); 
+		           ws.addCell(new Label(5, 6, ""+bean.getInSchAoNum(), wcf)); 
+		           //台湾
+		           ws.addCell(new Label(2, 7, ""+bean.getGraTaiNum(), wcf)); 
+		           ws.addCell(new Label(3, 7, ""+bean.getDegreeTaiNum(), wcf)); 
+		           ws.addCell(new Label(4, 7, ""+bean.getAdmisTaiNum(), wcf)); 
+		           ws.addCell(new Label(5, 7, ""+bean.getInSchTaiNum(), wcf)); 
 	           }
 	           
-		        		   //写入数据
-	           ws.addCell(new Label(2, 3, ""+bean.getSumGraNum(), wcf)); 
-	           ws.addCell(new Label(3, 3, ""+bean.getSumDegreeNum(), wcf)); 
-	           ws.addCell(new Label(4, 3, ""+bean.getSumAdmisNum(), wcf)); 
-	           ws.addCell(new Label(5, 3, ""+bean.getSumInSchNum(), wcf));
-	           //国外
-	           ws.addCell(new Label(2, 4, ""+bean.getGraOutNum(), wcf)); 
-	           ws.addCell(new Label(3, 4, ""+bean.getDegreeOutNum(), wcf)); 
-	           ws.addCell(new Label(4, 4, ""+bean.getAdmisOutNum(), wcf)); 
-	           ws.addCell(new Label(5, 4, ""+bean.getInSchOutNum(), wcf)); 
-	           //香港
-	           ws.addCell(new Label(2, 5, ""+bean.getGraHongNum(), wcf)); 
-	           ws.addCell(new Label(3, 5, ""+bean.getDegreeHongNum(), wcf)); 
-	           ws.addCell(new Label(4, 5, ""+bean.getAdmisHongNum(), wcf)); 
-	           ws.addCell(new Label(5, 5, ""+bean.getInSchHongNum(), wcf)); 
-	           //澳门
-	           ws.addCell(new Label(2, 6, ""+bean.getGraAoNum(), wcf)); 
-	           ws.addCell(new Label(3, 6, ""+bean.getDegreeAoNum(), wcf)); 
-	           ws.addCell(new Label(4, 6, ""+bean.getAdmisAoNum(), wcf)); 
-	           ws.addCell(new Label(5, 6, ""+bean.getInSchAoNum(), wcf)); 
-	           //台湾
-	           ws.addCell(new Label(2, 7, ""+bean.getGraTaiNum(), wcf)); 
-	           ws.addCell(new Label(3, 7, ""+bean.getDegreeTaiNum(), wcf)); 
-	           ws.addCell(new Label(4, 7, ""+bean.getAdmisTaiNum(), wcf)); 
-	           ws.addCell(new Label(5, 7, ""+bean.getInSchTaiNum(), wcf)); 
+		       
 	        
 	           wwb.write();
 		       wwb.close();
@@ -122,7 +122,7 @@ public static boolean export_J614(String path,String year) {
 			File file = new File(path,"J-6-1-4国外及港澳台学生情况（时点）.xls");
 			FileOutputStream fileOutputStream  = new FileOutputStream(file);
 			
-			//写到文件�?
+			//写到文件?
 			fileOutputStream.write(byteArrayOutputStream.toByteArray());
 			
 			byteArrayOutputStream.close();
@@ -134,16 +134,5 @@ public static boolean export_J614(String path,String year) {
 		}
 	}
 	
-	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
-		  J614_Excel excel = new J614_Excel();
-		  boolean flag = excel.export_J614(path,"2014");
-		  if(flag){
-			  System.out.println("成功");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
-
 
 }

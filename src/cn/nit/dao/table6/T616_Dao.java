@@ -26,7 +26,7 @@ public class T616_Dao {
 	
 	/**  数据库表中除了自增长字段的所有字段  */
 	private String field = "StuType,SumGraNum,GraOutNum,GraHongNum,GraAoNum,GraTaiNum,SumDegreeNum,DegreeOutNum,DegreeHongNum,DegreeAoNum,DegreeTaiNum,SumAdmisNum," +
-			"AdmisHongNum,AdmisAoNum,AdmisOutNum,AdmisTaiNum,SumInSchNum,InSchHongNum,InSchAoNum,InSchTaiNum,InSchOutNum,Time,Note,checkState" ;
+			"AdmisHongNum,AdmisAoNum,AdmisOutNum,AdmisTaiNum,SumInSchNum,InSchHongNum,InSchAoNum,InSchTaiNum,InSchOutNum,Time,Note,CheckState" ;
 
 	
     /**
@@ -159,10 +159,10 @@ public class T616_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T616_Bean> totalList(String year){
-		
+	public List<T616_Bean> totalList(String year,int CheckState){
+
 		String sql = "select " + key+ "," +field + " from " + tableName 
-				+ " where convert(varchar(4),Time,120)=" + year;		
+				+ " where convert(varchar(4),Time,120)=" + year+" and CheckState="+CheckState;		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

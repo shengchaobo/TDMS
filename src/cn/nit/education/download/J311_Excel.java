@@ -94,15 +94,17 @@ public class J311_Excel {
 		           ws.mergeCells(0, 10, 1, 10);
 		           ws.mergeCells(0, 8, 0, 9);
 		           
-		           
-		           ws.addCell(new Label(2, 3, ""+bean.getPostdocStation(), wcf1)); 
-		           ws.addCell(new Label(2, 4, ""+bean.getDocStationOne(), wcf1));  
-		           ws.addCell(new Label(2, 5, ""+bean.getDocStationTwo(), wcf1)); 
-		           ws.addCell(new Label(2, 6, ""+bean.getMasterStationOne(), wcf1)); 
-		           ws.addCell(new Label(2, 7, ""+bean.getMasterStationTwo(), wcf1)); 
-		           ws.addCell(new Label(2, 8, ""+bean.getSumMajor(), wcf1));
-		           ws.addCell(new Label(2, 9, ""+bean.getNewMajor(), wcf1)); 
-		           ws.addCell(new Label(2, 10, ""+bean.getJuniorMajor(), wcf1)); 
+		           if(bean!=null){
+		        	   ws.addCell(new Label(2, 3, ""+bean.getPostdocStation(), wcf1)); 
+			           ws.addCell(new Label(2, 4, ""+bean.getDocStationOne(), wcf1));  
+			           ws.addCell(new Label(2, 5, ""+bean.getDocStationTwo(), wcf1)); 
+			           ws.addCell(new Label(2, 6, ""+bean.getMasterStationOne(), wcf1)); 
+			           ws.addCell(new Label(2, 7, ""+bean.getMasterStationTwo(), wcf1)); 
+			           ws.addCell(new Label(2, 8, ""+bean.getSumMajor(), wcf1));
+			           ws.addCell(new Label(2, 9, ""+bean.getNewMajor(), wcf1)); 
+			           ws.addCell(new Label(2, 10, ""+bean.getJuniorMajor(), wcf1)); 
+		           }
+		          
  
 		             
 
@@ -132,6 +134,8 @@ public class J311_Excel {
 				}
 		        		
 	}
+	
+	
 	
 
 

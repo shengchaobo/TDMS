@@ -320,7 +320,7 @@ public class T616_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T616_Bean> list=T616_Service.totalList(this.getSelectYear());
+			List<T616_Bean> list=T616_Service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			if(list.size()==0){
 				PrintWriter out = null ;
 				response.setContentType("text/html;charset=utf-8") ;

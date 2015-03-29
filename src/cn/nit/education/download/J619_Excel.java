@@ -30,6 +30,7 @@ public static boolean export_J619(String path,String year){
 		
 		List<T631POJO> list = T631_dao.getAllList(year);
 
+
 		String sheetName = "J-6-1-9应届本科毕业生分专业毕业就业情况（时点）    ";
 		
 		List<String> columns = new ArrayList<String>();
@@ -64,17 +65,7 @@ public static boolean export_J619(String path,String year){
 			return false;
 		}
 	}
-	
-	public static void main(String arg[]){
-		String path = "D:\\江西项目\\相关表\\ExcelTest";
-		  J619_Excel excel = new J619_Excel();
-		  boolean flag = excel.export_J619(path,"2014");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
+
 
 	
 

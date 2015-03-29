@@ -62,14 +62,5 @@ public class J534_Excel {
 		}
 	}
 	
-	public static void main(String arg[]){
-		  String path = "D:\\";
-		  J534_Excel excel = new J534_Excel();
-		  boolean flag = excel.export_J534(path,"2015");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
+	
 }

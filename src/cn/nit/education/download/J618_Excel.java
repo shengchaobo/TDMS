@@ -195,16 +195,16 @@ public class J618_Excel {
 		}
 }
 
-public static void main(String arg[]){
-	 String path = "D:\\江西项目\\相关表\\ExcelTest";
-	  J618_Excel excel = new J618_Excel();
-	  boolean flag = excel.export_J618(path,"2014");
-	  if(flag){
-		  System.out.println("成功！");
-	  }else{
-		  System.out.println("不成功！");
-	  }
-}
+	public static void main(String arg[]){
+		 String path = "C:\\Users\\Fan Shuangyan\\Desktop\\Education";
+		  J618_Excel excel = new J618_Excel();
+		  boolean flag = excel.export_J618(path,"2014");
+		  if(flag){
+			  System.out.println("成功！");
+		  }else{
+			  System.out.println("不成功！");
+		  }
+	}
 	
 	
 

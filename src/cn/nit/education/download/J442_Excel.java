@@ -51,19 +51,4 @@ public class J442_Excel {
 			return false;
 		}
 	}
-<<<<<<< HEAD
-=======
-//	
-//	
-//	public static void main(String args[]){
-//		String path = "E:/test";
-//		boolean flag = J442_Excel.export_J442(path);
-//		if(flag){
-//		System.out.println("成功");
-//		}else{
-//			System.out.println("失败");
-//		}
-//	}
->>>>>>> 3c642a643366a0b258dfc711e79b81f39eb32ffa
-
 }

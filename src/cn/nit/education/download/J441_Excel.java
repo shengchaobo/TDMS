@@ -54,9 +54,4 @@ public class J441_Excel {
 			return false;
 		}
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> 3c642a643366a0b258dfc711e79b81f39eb32ffa
-
 }

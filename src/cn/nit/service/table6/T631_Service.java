@@ -37,6 +37,11 @@ public class T631_Service {
 	}
 	
 	
+	public List<T631_Bean> totalList(String year){
+		return T631_dao.totalList(year);
+	}
+
+	
 	/**
 	 * 删除数据
 	 * @param 

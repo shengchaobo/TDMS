@@ -16,11 +16,9 @@ import cn.nit.util.ExcelUtil;
 
 public class J413_Excel {
 	
-	public static boolean export_J413(String path){
+	public static boolean export_J413(String path,String year){
 		
 		T411_Dao T411_dao = new T411_Dao();
-		Calendar a = Calendar.getInstance();
-		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<J413_Bean> list = T411_dao.getTotalList(year);
 				
 		String sheetName = "J-4-1-3其他师资信息（时点）";
@@ -60,15 +58,6 @@ public class J413_Excel {
 			return false;
 		}
 	}
-	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J413_Excel.export_J413(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
+
 
 }

@@ -910,13 +910,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 			}
 
-			if(MajorState == "在招" && !StopAdmisTime== null){
+			if(MajorState=="在招" && !(StopAdmisTime == null||StopAdmisTime.length==0)){
 				$.messager.alert('提示',"招生状态为'在招'时，停止招生时间不填") ;
 				return false;
 			}
 
 
-			if(MajorState == "当年停招" && StopAdmisTime== null){
+			if(MajorState=="当年停招" && (StopAdmisTime== null||StopAdmisTime.length==0)){
 				$.messager.alert('提示',"招生状态为'当年停招'时，停止招生时间不能为空 ") ;
 				return false;
 			}

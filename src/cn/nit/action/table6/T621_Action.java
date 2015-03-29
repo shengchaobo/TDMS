@@ -434,7 +434,7 @@ public class T621_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T621_Bean> list = UndergraAdmiInfoSer.getAllList("", null);
+			List<T621_Bean> list = UndergraAdmiInfoSer.getYearInfo(this.selectYear);
 		
 			if(list==null){
 				if(list.size()==0){
@@ -447,30 +447,7 @@ public class T621_Action {
 				}
 			}
 			if(list!=null){
-				int AmisPlanNum=0; int ActulEnrollNum=0; int ActulRegisterNum=0; int AutoEnrollNum=0;
-				int SpecialtyEnrollNum = 0; int InProviEnrollNum = 0; int NewMajEnrollNum = 0; double avrscore = 0;
-				//统计全校合计
-				for(T621_Bean bean : list){
-					AmisPlanNum+=bean.getAmisPlanNum();
-					ActulEnrollNum+=bean.getActulEnrollNum();
-					ActulRegisterNum+=bean.getActulRegisterNum();
-					AutoEnrollNum+=bean.getActulEnrollNum();
-					SpecialtyEnrollNum+=bean.getSpecialtyEnrollNum();
-					InProviEnrollNum+=bean.getInProviEnrollNum();
-					NewMajEnrollNum+=bean.getNewMajEnrollNum();
-				}
 				
-				T621_Bean bean = new T621_Bean();
-				bean.setActulEnrollNum(ActulEnrollNum);
-				bean.setActulRegisterNum(ActulRegisterNum);
-				bean.setAmisPlanNum(AmisPlanNum);
-				bean.setAutoEnrollNum(AutoEnrollNum);
-				bean.setInProviEnrollNum(InProviEnrollNum);
-				bean.setNewMajEnrollNum(NewMajEnrollNum);
-				bean.setSpecialtyEnrollNum(SpecialtyEnrollNum);
-				bean.setAvgScore(avrscore);
-				bean.setFromTeaUnit("全校合计：");
-				list.add(0, bean);
 				
 				String sheetName = this.excelName;
 				
@@ -541,7 +518,7 @@ public class T621_Action {
 								ws.addCell(new Label(9, 3, bean1.getSpecialtyEnrollNum()+"", wcf1));
 								ws.addCell(new Label(10, 3, bean1.getInProviEnrollNum()+"", wcf1));
 								ws.addCell(new Label(11, 3, bean1.getNewMajEnrollNum()+"", wcf1));
-								ws.addCell(new Label(11, 3, "", wcf1));
+								ws.addCell(new Label(12, 3, bean1.getAvgScore()+"", wcf1));
 //								ws.addCell(new Label(12, 3, bean1.getTime()+"", wcf));
 //								ws.addCell(new Label(13, 3, bean1.getNote()+"", wcf));
 							}else{
@@ -557,7 +534,7 @@ public class T621_Action {
 								ws.addCell(new Label(9, k, bean1.getSpecialtyEnrollNum()+"", wcf1));
 								ws.addCell(new Label(10, k, bean1.getInProviEnrollNum()+"", wcf1));
 								ws.addCell(new Label(11, k, bean1.getNewMajEnrollNum()+"", wcf1));
-								ws.addCell(new Label(11, k, bean1.getAvgScore()+"", wcf1));
+								ws.addCell(new Label(12, k, bean1.getAvgScore()+"", wcf1));
 //								ws.addCell(new Label(12, k, bean1.getTime()+"", wcf));
 //								ws.addCell(new Label(13, k, bean1.getNote()+"", wcf));
 							}

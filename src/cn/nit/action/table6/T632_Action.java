@@ -462,7 +462,7 @@ public class T632_Action {
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T632_Bean> list = T632_service.getAllList("", null);
+			List<T632_Bean> list = T632_service.getYearInfo(this.getSelectYear());
 			
 			if(list==null){
 				if(list.size()==0){
@@ -475,52 +475,7 @@ public class T632_Action {
 				}
 			}
 			if(list!=null){
-				int SumEmployNum=0; int GovermentNum=0; int PubInstiNum=0; int EnterpriseNum=0;
-				int ForceNum = 0; int FlexibleEmploy = 0; int GoOnHighStudy = 0;
-				int NationItemEmploy = 0;int OtherEmploy = 0; int SumGoOnHighStudyNum = 0;
-				int RecommendGraNum = 0; int ExamGraApplyNum = 0; int ExamGraEnrollNum = 0;
-				int ExamGraInSch = 0; int ExamGraOutSch = 0; int AbroadNum = 0;
-				//统计全校合计
-				for(T632_Bean bean : list){
-					SumEmployNum+=bean.getSumEmployNum();
-					GovermentNum+=bean.getGovermentNum();
-					PubInstiNum+=bean.getPubInstiNum();
-					EnterpriseNum+=bean.getEnterpriseNum();
-					ForceNum+=bean.getForceNum();
-					FlexibleEmploy+=bean.getFlexibleEmploy();
-					GoOnHighStudy+=bean.getGoOnHighStudy();
-					NationItemEmploy+=bean.getNationItemEmploy();
-					OtherEmploy+=bean.getOtherEmploy();
-					SumGoOnHighStudyNum+=bean.getSumGoOnHighStudyNum();
-					RecommendGraNum+=bean.getRecommendGraNum();
-					ExamGraApplyNum+=bean.getExamGraApplyNum();
-					ExamGraEnrollNum+=bean.getExamGraEnrollNum();
-					ExamGraInSch+=bean.getExamGraInSch();
-					ExamGraOutSch+=bean.getExamGraOutSch();
-					AbroadNum+=bean.getAbroadNum();
-				}
-				
-				T632_Bean bean = new T632_Bean();
-				bean.setSumEmployNum(SumEmployNum);
-				bean.setGovermentNum(GovermentNum);
-				bean.setPubInstiNum(PubInstiNum);
-				bean.setEnterpriseNum(EnterpriseNum);
-				bean.setForceNum(ForceNum);
-				bean.setFlexibleEmploy(FlexibleEmploy);
-				
-				bean.setGoOnHighStudy(GoOnHighStudy);
-				bean.setNationItemEmploy(NationItemEmploy);
-				bean.setOtherEmploy(OtherEmploy);
-				bean.setSumGoOnHighStudyNum(SumGoOnHighStudyNum);
-				bean.setRecommendGraNum(RecommendGraNum);
-				bean.setExamGraApplyNum(ExamGraApplyNum);
-				
-				bean.setExamGraEnrollNum(ExamGraEnrollNum);
-				bean.setExamGraInSch(ExamGraInSch);
-				bean.setExamGraOutSch(ExamGraOutSch);
-				bean.setAbroadNum(AbroadNum);
-				bean.setTeaUnit("全校合计：");
-				list.add(0, bean);
+
 				
 				String sheetName = this.excelName;
 				

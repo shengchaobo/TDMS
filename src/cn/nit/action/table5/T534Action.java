@@ -98,7 +98,7 @@ public class T534Action {
 	/**  逐条插入数据  */
 	public void insert(){
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		System.out.println(t534Bean.getIsOutEmploy());
+//		System.out.println(t534Bean.getIsOutEmploy());
 		t534Bean.setTime(new Date()) ;
 		String teaUnit = deSer.getName(fillUnitID);
 		t534Bean.setTeaUnit(teaUnit);
@@ -216,12 +216,12 @@ public class T534Action {
 		boolean flag = false;
 		int tag = 0;
 		
-		System.out.println(t534Bean.getFillUnitID());
+//		System.out.println(t534Bean.getFillUnitID());
 		//获得该条数据审核状态
 		int state = t534Ser.getCheckState(t534Bean.getSeqNumber());
 		//如果审核状态是待审核，则直接修改
 		if(state == Constants.WAIT_CHECK){
-			System.out.println("test"+state);
+//			System.out.println("test"+state);
 			t534Bean.setCheckState(Constants.WAIT_CHECK);
 			flag = t534Ser.update(t534Bean) ;
 			if(flag) tag = 1;
@@ -379,7 +379,7 @@ public class T534Action {
 			e.printStackTrace();
 			return null ;
 		}
-        System.out.println(inputStream);
+//        System.out.println(inputStream);
 		return inputStream ;
 	}
 	

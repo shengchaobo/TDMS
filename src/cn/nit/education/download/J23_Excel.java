@@ -26,10 +26,9 @@ import cn.nit.service.table2.T231_Service;
 
 public class J23_Excel {
 	
-	public static boolean export_J23(String path,String year){
+
+	public static boolean export_J23(String path, String year){
 		T231_Service T231_services = new T231_Service();
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-//		String year = dateFormat.format(new Date());
 		T231_Bean bean = T231_services.getYearInfo(year);
 		
 	    ByteArrayOutputStream fos = null;

@@ -25,14 +25,14 @@ import cn.nit.dao.table6.T659_Dao;
 
 public class J621_Excel {
 	
-public static boolean export_J621(String path) {
+public static boolean export_J621(String path,String year) {
 		
 		S65_Dao S65_dao = new S65_Dao();
 		
-		//获取当前年份
-		Date time = new Date();
-		String currentTime = time.toString();
-		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+//		//获取当前年份
+//		Date time = new Date();
+//		String currentTime = time.toString();
+//		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		S65_Bean bean = S65_dao.getYearInfo(year);
 		
@@ -164,7 +164,7 @@ public static boolean export_J621(String path) {
 	public static void main(String arg[]){
 		 String path = "D:\\江西项目\\相关表\\ExcelTest";
 		  J621_Excel excel = new J621_Excel();
-		  boolean flag = excel.export_J621(path);
+		  boolean flag = excel.export_J621(path,"2014");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -26,11 +26,11 @@ import cn.nit.dao.table4.T410_Dao;
 
 public class J466_Excel {
 	
-	public static boolean export_J466(String path,String year){
+	public static boolean export_J466(String path, String year){
 		
 		T410_Dao T410_dao = new T410_Dao();
-//		Calendar a = Calendar.getInstance();
-//		String year = String.valueOf(a.get(Calendar.YEAR));
+/*		Calendar a = Calendar.getInstance();
+		String year = String.valueOf(a.get(Calendar.YEAR));*/
 		T410_Bean bean = T410_dao.totalList(year, Constants.PASS_CHECK);
 		
 	    ByteArrayOutputStream fos = null;

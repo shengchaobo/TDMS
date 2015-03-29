@@ -157,7 +157,7 @@ public class T532Action {
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
 				
-				System.out.println("year:"+this.queryYear );
+//				System.out.println("year:"+this.queryYear );
 				//审核状态判断
 				if(this.getCheckNum() == Constants.WAIT_CHECK ){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;

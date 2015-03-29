@@ -1,15 +1,18 @@
 package cn.nit.action.table1;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,34 +34,39 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
-import cn.nit.bean.table1.S18_Bean;
-import cn.nit.dao.table1.S18DAO;
-import cn.nit.excel.imports.table1.S18Excel;
-
-import cn.nit.service.table1.S18Service;
+import cn.nit.bean.table1.A15_Bean;
+import cn.nit.bean.table1.S17_Bean;
+import cn.nit.bean.table1.T17_Bean;
+import cn.nit.dao.table1.S17DAO;
+import cn.nit.dbconnection.DBConnection;
+import cn.nit.excel.imports.table1.S17Excel;
+import cn.nit.service.table1.S17Service;
+import cn.nit.util.DAOUtil;
+import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
-import cn.nit.util.TimeUtil;
+import cn.nit.util.ToBeanUtil;
 
-public class S18Action {
+public class S17_Action {
 	
 
-	/**  表S18的Service类  */
-	private S18Service s18Ser = new S18Service() ;
+	/**  表S17的Service类  */
+	private S17Service s17Ser = new S17Service() ;
 	
-	/**  表S18的Bean实体类  */
-	private S18_Bean s18Bean = new S18_Bean() ;
+	/**  表S17的Bean实体类  */
+	private S17_Bean s17Bean = new S17_Bean() ;
 	
-//	/**  表S18的DAO类  */
-//	private S18DAO s18Dao = new S18DAO() ;
+	/**  表17的DAO类  */
+//	private S17DAO s17Dao = new S17DAO() ;
 	
-	/**  表S18的Excel类  */
-	private S18Excel s18Excel = new S18Excel() ;
+	/**  表17的Excel实体类  */
+	private S17Excel s17Excel = new S17Excel() ;
 	
-	/**導出數據選擇年份*/
+	/**导出数据选择年份*/
 	private String selectYear;
 	
 	/**导出excelName*/
-	private String excelName;
+	 private String excelName;
+	
 
 	public String getSelectYear() {
 		return selectYear;
@@ -96,11 +104,11 @@ public class S18Action {
 	
 	//查询出所有
 	public void loadInfo() throws Exception{
-		System.out.println("nnnnnnnn");
+//		System.out.println("nnnnnnnn");
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
-		S18_Bean bean = s18Ser.loadData(this.getSelectYear()) ;
+		S17_Bean bean = s17Ser.loadData(this.getSelectYear()) ;
 		
 		String json=null;
 		boolean flag = false; 
@@ -117,9 +125,9 @@ public class S18Action {
 			out = response.getWriter();
 			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
 		}else{
-			System.out.println("have data");
+//			System.out.println("have data");
 			try {				
-				System.out.println(json) ;
+//				System.out.println(json) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(json) ;
@@ -134,60 +142,48 @@ public class S18Action {
 			}
 		}
 	}
-
-	/**  为界面加载数据  */
-	public void auditingData(){
+	
+	
+	//保存
+	public void save(){
 		
-//		System.out.println("=========");
-		Date date=new Date();
-		String cuYear=date.toString();
-		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+		HttpServletResponse response = ServletActionContext.getResponse();
 		
-		String pages = s18Ser.autidingdata(year);
-//		System.out.println("pages:"+pages);
+		String tempData = this.getData();
+		//System.out.println(tempData);
+				
+		S17_Bean bean  = ToBeanUtil.toBean(tempData, S17_Bean.class);
+										
+		boolean flag = s17Ser.save(bean,this.getSelectYear(),this.getFields());
 		PrintWriter out = null ;
 		
 		try{
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print(pages) ;
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;
+			if(flag){
+				out.print("{\"mesg\":\"success\"}") ;
+			}else{
+				out.print("{\"mesg\":\"fail\"}") ;
+			}
 		}catch(Exception e){
 			e.printStackTrace() ;
-			return ;
+			out.print("{\"state\":false,data:\"保存失败!!!\"}") ;
 		}finally{
 			if(out != null){
 				out.close() ;
 			}
 		}
+		out.flush() ;
 	}
-	
-//	public InputStream getInputStream(){
-//
-//		InputStream inputStream = null ;
-//
-//		try {
-//			
-//			List<S18Bean> list=new ArrayList<S18Bean>(); 
-////            Date time=new Date();
-////            String time1=time.toString();
-////            String year=time1.substring(time1.length()-4, time1.length());
-//            list=s18Dao.forExcel(this.selectYear);
-//            inputStream = new ByteArrayInputStream(s18Excel.writeExcel(list).toByteArray());
-//			
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
-	
-public InputStream getInputStream() throws Exception{
-		
-		System.out.println(this.getSelectYear());
 
-		S18_Bean bean =s18Ser.forExcel(this.selectYear).get(0);
+
+	
+	public InputStream getInputStream() throws Exception{
+		
+//		System.out.println(this.getSelectYear());
+
+		S17_Bean bean =s17Ser.forExcel(this.selectYear).get(0);
 		
 	    ByteArrayOutputStream fos = null;
 	
@@ -231,24 +227,22 @@ public InputStream getInputStream() throws Exception{
 						     jxl.format.Colour.BLACK); 
 		           
 		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
-		           ws.mergeCells(0, 0, 2, 0);
+		           ws.mergeCells(0, 0, 1, 0);
 		             
 		           ws.addCell(new Label(0, 2, "项目", wcf)); 
 		           ws.addCell(new Label(2, 2, "内容", wcf));
-		           ws.addCell(new Label(0,3,"签订合作协议机构的协议个数",wcf));
-		           ws.addCell(new Label(1,3,"协议总数",wcf));
-		           ws.addCell(new Label(1,4,"其中：学术机构",wcf));
-		           ws.addCell(new Label(1,5," 行业机构和企业",wcf));
-		           ws.addCell(new Label(1,6," 地方政府",wcf));
+		           ws.addCell(new Label(0,3,"校友会（个）",wcf));
+		           ws.addCell(new Label(1,3,"总数",wcf));
+		           ws.addCell(new Label(1,4,"其中：境内",wcf));
+		           ws.addCell(new Label(1,5,"境外",wcf));
 		           
 		           ws.mergeCells(0, 2, 1, 2);
-		           ws.mergeCells(0, 3, 0, 6);
+		           ws.mergeCells(0, 3, 0, 5);
 		           
 		          
-		           ws.addCell(new Label(2, 3, ""+bean.getSumAgreeNum(), wcf1)); 
-		           ws.addCell(new Label(2, 4,""+bean.getAcademicNum() , wcf1));
-		           ws.addCell(new Label(2, 5, ""+bean.getIndustryNum(), wcf1));
-		           ws.addCell(new Label(2, 6, ""+bean.getLocalGoverNum(), wcf1));
+		           ws.addCell(new Label(2, 3, ""+bean.getSumSchFriNum(), wcf1)); 
+		           ws.addCell(new Label(2, 4,""+bean.getInlandNum() , wcf1));
+		           ws.addCell(new Label(2, 5, ""+bean.getOutlandNum(), wcf1));
 		           
 		           
 		          wwb.write();
@@ -261,9 +255,10 @@ public InputStream getInputStream() throws Exception{
 		}
 		return new ByteArrayInputStream(fos.toByteArray());
 }
-	
 
 	public String execute() throws Exception{
+
+		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
 		return "success" ;
 	}
 	
@@ -279,6 +274,7 @@ public InputStream getInputStream() throws Exception{
 		return ServletActionContext.getResponse() ;
 	}
 
+
 	public String getExcelName() {
 		try {
 			this.excelName = URLEncoder.encode(excelName, "UTF-8");
@@ -293,12 +289,12 @@ public InputStream getInputStream() throws Exception{
 		this.excelName = excelName;
 	}
 
-	public S18_Bean getS18Bean() {
-		return s18Bean;
+	public S17_Bean getS17Bean() {
+		return s17Bean;
 	}
 
-	public void setS18Bean(S18_Bean s18Bean) {
-		this.s18Bean = s18Bean;
+	public void setS17Bean(S17_Bean s17Bean) {
+		this.s17Bean = s17Bean;
 	}
 
 }

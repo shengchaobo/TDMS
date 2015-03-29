@@ -27,15 +27,15 @@ import cn.nit.service.table1.S18Service;
 
 public class J17_Excel {
 	
-public static boolean export_J17(String path){
+public static boolean export_J17(String path,String year){
 		
 		S17Service S17_Ser = new S17Service();
 		S18Service S18_Ser = new S18Service();
 		
-		//获取当前年份
-		Date time = new Date();
-		String currentTime = time.toString();
-		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+//		//获取当前年份
+//		Date time = new Date();
+//		String currentTime = time.toString();
+//		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		S17_Bean  s17Bean = S17_Ser.loadData(year);//校友会
 		if(s17Bean == null){
@@ -137,7 +137,7 @@ public static boolean export_J17(String path){
 	public static void main(String arg[]){
 		 String path = "E:\\江西项目\\测试表\\一键导出";
 		  J17_Excel excel = new J17_Excel();
-		  boolean flag = excel.export_J17(path);
+		  boolean flag = excel.export_J17(path,"2015");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

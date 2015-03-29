@@ -103,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="float: left;">
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" id="export" class="easyui-linkbutton" iconCls="icon-download" plain="true"  onclick="exports()">数据导出</a>
-			<a href="javascript:void(0)" id="add" class="easyui-linkbutton" iconCls="icon-add" plain="true" ">数据导入</a>
+			<!--  <a href="javascript:void(0)" id="add" class="easyui-linkbutton" iconCls="icon-add" plain="true" ">数据导入</a>-->
 		</div>
 	 	 <form  id="exportForm"  style="float: right;"  method="post" >
 			显示： <select class="easyui-combobox" id="cbYearContrast" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false ></select>

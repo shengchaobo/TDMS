@@ -26,7 +26,7 @@ import cn.nit.service.table1.T13Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class T13Action {
+public class T13_Action {
 	
 	
 	/**  表13的Service类  */
@@ -104,29 +104,7 @@ public class T13Action {
 			}
 		}
 
-//	/**  为界面加载数据  */
-//	public void auditingData(){
-//		
-//		Date date=new Date();
-//		String cuYear=date.toString();
-//		String year=cuYear.substring(cuYear.length()-4, cuYear.length());
-//		
-//		String pages = t12Ser.auditingData() ;
-//		PrintWriter out = null ;
-//		
-//		try{
-//			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			out = getResponse().getWriter() ;
-//			out.print(pages) ;
-//		}catch(Exception e){
-//			e.printStackTrace() ;
-//			return ;
-//		}finally{
-//			if(out != null){
-//				out.close() ;
-//			}
-//		}
-//	}
+
 	
 	/**数据导出*/
 	public InputStream getInputStream(){

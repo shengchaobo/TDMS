@@ -15,9 +15,11 @@ import cn.nit.pojo.table7.J732POJO;
 import cn.nit.util.ExcelUtil;
 
 public class J732_Excel {
-	public static boolean export_J732(String path){
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String year = dateFormat.format(new Date());
+	public static boolean export_J732(String path,String year){
+		
+		
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+//		String year = dateFormat.format(new Date());
 		J732_DAO J732_Dao=new J732_DAO();
 		List<J732POJO> list=J732_Dao.getYearInfo(year);
 		
@@ -55,7 +57,7 @@ public class J732_Excel {
 		
 		String path = "E:\\江西项目\\测试表\\一键导出";
 		 J732_Excel excel= new J732_Excel();
-		 boolean flag = excel.export_J732(path);
+		 boolean flag = excel.export_J732(path,"2014");
 		 if(flag){
 			 System.out.println("导出成功");
 		 }else{

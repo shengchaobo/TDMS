@@ -5,12 +5,12 @@
 <struts>
 	<package name="s17" namespace="/pages/S17" extends="struts-default">
 	    
-	    <action name="loadInfo" class="cn.nit.action.table1.S17Action" method="loadInfo" />
+	    <action name="loadInfo" class="cn.nit.action.table1.S17_Action" method="loadInfo" />
 	       <!-- 编辑数据 -->
-	    <action name="save" class="cn.nit.action.table1.S17Action" method="save" />
+	    <action name="save" class="cn.nit.action.table1.S17_Action" method="save" />
 	    
 	      <!-- 数据导出 -->
-	    <action name="dataExport" class="cn.nit.action.table1.S17Action" method="execute">
+	    <action name="dataExport" class="cn.nit.action.table1.S17_Action" method="execute">
 	    	<result name="success" type="stream">
 	    		<!-- 指定下载文件的类型，下面表示无限制 -->
 				<param name="contentType">application/octet-stream;charset=UTF-8</param>

@@ -162,7 +162,7 @@ public class T522Action {
 					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
-				System.out.println( this.queryYear);
+//				System.out.println( this.queryYear);
 				
 				//审核状态判断
 				if(this.getCheckNum() == Constants.WAIT_CHECK ){

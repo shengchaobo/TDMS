@@ -41,7 +41,7 @@ import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
 import cn.nit.util.TimeUtil;
 
-public class A15Action {
+public class A15_Action {
 	
 
 	/**  表A15的Service类  */
@@ -96,13 +96,13 @@ public class A15Action {
 	
 	//查询出所有
 	public void loadInfo() throws Exception{
-		System.out.println("nnnnnnnn");
+//		System.out.println("nnnnnnnn");
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		
 		
 		A15_Bean bean = a15Ser.loadData(this.getSelectYear()) ;
 		
-		System.out.println(bean == null);
+//		System.out.println(bean == null);
 		
 		String json=null;
 		boolean flag = false; 
@@ -123,9 +123,9 @@ public class A15Action {
 			out = response.getWriter();
 			out.print("{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计！！！\"}");
 		}else{
-			System.out.println("have data");
+//			System.out.println("have data");
 			try {				
-				System.out.println(json) ;
+//				System.out.println(json) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(json) ;
@@ -195,7 +195,7 @@ public class A15Action {
 	
 	public InputStream getInputStream() throws Exception{
 		
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 
 		A15_Bean bean =a15Ser.forExcel(this.selectYear).get(0);
 		
@@ -324,7 +324,7 @@ public class A15Action {
 	}
 	
 	public static  void main(String arg[]){
-		A15Action action=new A15Action();
+		A15_Action action=new A15_Action();
 		String str=action.toStr(0.23);
 		System.out.println(str);
 	}

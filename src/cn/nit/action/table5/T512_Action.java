@@ -143,7 +143,7 @@ public class T512_Action {
 	
 	public void auditingData(){
 		
-            System.out.println("-------------------------------");
+//            System.out.println("-------------------------------");
 		if(this.page == null || this.page.equals("") || !page.matches("[\\d]+")){
 			return ;
 		}
@@ -235,10 +235,10 @@ public class T512_Action {
 		int tag = 0;
 		//获得该条数据审核状态
 		int state = t512_Sr.getCheckState(t512_Bean.getSeqNumber());
-		System.out.println("test"+state);
+//		System.out.println("test"+state);
 		//如果审核状态是待审核，则直接修改
 		if(state == Constants.WAIT_CHECK){
-			System.out.println("test"+state);
+//			System.out.println("test"+state);
 			t512_Bean.setCheckState(Constants.WAIT_CHECK);
 			flag = t512_Sr.update(t512_Bean) ;
 			if(flag) tag = 1;
@@ -281,7 +281,7 @@ public class T512_Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
+//		System.out.println("ids=" + ids) ;
 		boolean flag = t512_Sr.deleteCoursesByIds(ids) ;
 		//删除审核不通过信息
 		check_services.delete("T512", ids);
@@ -527,48 +527,7 @@ public class T512_Action {
 	}
 	
 	
-//	public InputStream getInputStream(){
-//		
-//		//System.out.println("export");
-//
-//		InputStream inputStream = null ;
-//		
-//		try {
-////			//具体教学单位
-////		    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-////			String fillUnitID = bean.getUnitID();
-//			List<T512POJO> list = t512_Sr.totalList(this.getSelectYear(),fillUnitID,Constants.PASS_CHECK);
-//			String sheetName = this.excelName;
-//			
-//			List<String> columns = new ArrayList<String>();
-//			columns.add("序号");
-//			columns.add("学期");columns.add("开课单位");columns.add("单位号");columns.add("上课专业名称");columns.add("上课专业代码");
-//			columns.add("课程名称");columns.add("课程编号");columns.add("课程类别");columns.add("课程性质");columns.add("公选课类别");
-//			columns.add("是否双语授课");columns.add("学分");columns.add("总学时");columns.add("理论学时");columns.add("实践学时");
-//			columns.add("考核方式");columns.add("实习、设计时间");columns.add("授课年级");columns.add("授课班级");columns.add("开课班号");
-//			columns.add("合班情况");columns.add("学生人数");columns.add("授课教师");columns.add("授课教工号");
-//             columns.add("是否符合岗位资格");columns.add("教师职称");
-//			columns.add("使用情况");columns.add("是否规划教材");columns.add("是否获奖教材");
-//			
-//			Map<String,Integer> maplist = new HashMap<String,Integer>();
-//			maplist.put("SeqNum", 0);
-//			maplist.put("Term", 1);maplist.put("CSUnit", 2);maplist.put("UnitID", 3);maplist.put("CSMajorName", 4);maplist.put("CSMajorID", 5);
-//			maplist.put("CSName", 6);maplist.put("CSID", 7);maplist.put("CSType", 8);maplist.put("CSNature", 9);maplist.put("PubCSType", 10);
-//			maplist.put("IsDoubleCS", 11);maplist.put("Credit", 12);maplist.put("SumCSHour", 13);maplist.put("TheoryCSHour", 14);
-//			maplist.put("PraCSHour", 15);maplist.put("ExamWay", 16);maplist.put("PlanTime", 17);maplist.put("CSGrade", 18);
-//			maplist.put("CSClass", 19);maplist.put("ClassID", 20);maplist.put("ClassInfo",21);maplist.put("StuNum", 22);
-//			maplist.put("CSTea", 23);	maplist.put("TeaID", 24);
-//			maplist.put("IsAccordJob", 25);maplist.put("TeaTitle", 26);maplist.put("BookUseInfo", 27);maplist.put("IsPlanbook", 28);
-//			maplist.put("IsAwardbook", 29);
-//			
-//			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null ;
-//		}
-//
-//		return inputStream ;
-//	}
+
 	
 	
 	public String execute() throws Exception{

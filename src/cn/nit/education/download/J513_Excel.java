@@ -31,11 +31,11 @@ import jxl.write.biff.RowsExceededException;
 
 public class J513_Excel {
 	
-	public static  boolean export_J513(String path){
+	public static  boolean export_J513(String path,String year){
 		
 		T513_DAO t513Dao = new T513_DAO();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String year = dateFormat.format(new Date());
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+//		String year = dateFormat.format(new Date());
 		List<T513POJO>  list = t513Dao.totalList(year);
 		double CoverRatio1 = 0; double ExcellentRatio1 = 0;double GoodRatio1 = 0;
 		double AvgRatio1 = 0; double PoorRatio1 = 0;
@@ -211,7 +211,7 @@ public class J513_Excel {
 	public static void main(String arg[]){
 		 String path = "D:\\江西项目\\相关表\\ExcelTest";
 		  J513_Excel excel = new J513_Excel();
-		  boolean flag = excel.export_J513(path);
+		  boolean flag = excel.export_J513(path,"2014");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

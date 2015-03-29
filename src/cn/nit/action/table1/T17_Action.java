@@ -27,7 +27,7 @@ import cn.nit.service.table1.T17Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class T17Action {
+public class T17_Action {
 	
 	/**  表17的Service类  */
 	private T17Service t17Ser = new T17Service() ;

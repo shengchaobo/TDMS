@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,10 +36,10 @@ import cn.nit.util.ExcelUtil;
 
 public class J461_Excel {	
 	
-	public static boolean export_J461(String path,String year){
+	public static boolean export_J461(String path, String year){
 		
-		J461_Dao J461_dao = new J461_Dao();
-		J461POJO pojo = J461_dao.totalList(year);
+	    J461_Dao J461_dao = new J461_Dao();
+	    J461POJO pojo = J461_dao.totalList(year);
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -141,6 +141,5 @@ public class J461_Excel {
 			}
 
 	}
-	
 
 }

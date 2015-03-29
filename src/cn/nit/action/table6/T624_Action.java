@@ -60,13 +60,13 @@ import cn.nit.util.TimeUtil;
  */
 public class T624_Action {
 
-	/** �?24的Service�?*/
+	/** T24的Service*/
 	private T624_Service T624_service = new T624_Service();
 	
 	private CheckService check_services = new CheckService();
 
 
-	/** �?24的Bean实体�?*/
+	/** T24的Bean*/
 	T624_Bean T624_bean = new T624_Bean();
 
 	
@@ -150,10 +150,9 @@ public class T624_Action {
 
 	public void loadInfo() {
 		
-		System.out.println("haha");
+//		System.out.println("haha");
 	
 		List<T624_Bean> list=T624_service.getYearInfo(this.getSelectYear());
-		list.get(0).setIsCurrentYearAdmis(null);
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
 
@@ -240,7 +239,7 @@ public class T624_Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteByIds(){
-		System.out.println("ids=" + this.getIds()) ;
+//		System.out.println("ids=" + this.getIds()) ;
 		boolean flag = T624_service.deleteByIds(ids, this.getSelectYear()) ;
 		//删除审核不通过信息
 		int year = Integer.parseInt(this.getSelectYear());
@@ -296,125 +295,7 @@ public class T624_Action {
 	}
 	
 	
-//
-//	/** 为界面加载数�?*/
-//	public void loadData() throws Exception {
-//		
-//		  HttpServletResponse response = ServletActionContext.getResponse() ;	
-//			
-//			String cond = null;
-//			StringBuffer conditions = new StringBuffer();
-//			
-//			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
-//				cond = null;	
-//			}else{			
-//				if(this.getSeqNum()!=null){
-//					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
-//				}
-//				
-//				if(this.getStartTime() != null){
-//					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-//							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
-//				}
-//				
-//				if(this.getEndTime() != null){
-//					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
-//							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-//				}
-//				cond = conditions.toString();
-//			}
-//			
-//			List<T624_Bean> list = T624_service.getPageInfoList(cond, null, this.getRows(), this.getPage()) ;
-//			String TeaInfoJson = this.toBeJson(list,T624_service.getTotal(cond, null));
-//			//private JSONObject jsonObj;
-//			
-//			PrintWriter out = null ;
-//
-//			if(TeaInfoJson == null){			
-//				return ;
-//			}else{
-//				try {
-//					
-//					System.out.println(TeaInfoJson) ;
-//					response.setContentType("application/json;charset=UTF-8") ;
-//					out = response.getWriter() ;
-//					out.print(TeaInfoJson) ;
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}finally{
-//					if(out != null){
-//						out.flush() ;
-//						out.close() ;
-//					}
-//				}
-//			}
-//	}
 
-//	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
-//	private String toBeJson(List<T624_Bean> list, int total) throws Exception {
-//		// TODO Auto-generated method stub
-//		HttpServletResponse response = ServletActionContext.getResponse();
-//		HttpServletRequest request = ServletActionContext.getRequest();
-//
-//		JSONObject testjson = new JSONObject();
-//		testjson.accumulate("total", total);
-//		testjson.accumulate("rows", list);
-//
-//		String json = testjson.toString();
-//		System.out.println(json);
-//		return json;
-//	}
-
-//	/** 编辑数据 */
-//	public void edit() {
-//
-//		boolean flag = T624_service.update(T624_bean);
-//		PrintWriter out = null;
-//
-//		try {
-//			out = getResponse().getWriter();
-//			if (flag) {
-//				out.print("{\"state\":true,data:\"编辑成功!!!\"}");
-//			} else {
-//				out.print("{\"state\":true,data:\"编辑失败!!!\"}");
-//			}
-//			out.flush();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
-//		} finally {
-//			if (out != null) {
-//				out.close();
-//			}
-//		}
-//	}
-
-//	/** 根据数据的id删除数据 */
-//	public void deleteByIds() {
-//		System.out.println("ids=" +this.getIds());
-//		boolean flag = T624_service.deleteItemsByIds(ids);
-//		PrintWriter out = null;
-//
-//		try {
-//			out = getResponse().getWriter();
-//
-//			if (flag) {
-//				out.print("{\"state\":true,data:\"数据删除成功!!!\"}");
-//			} else {
-//				out.print("{\"state\":false,data:\"数据删除失败!!!\"}");
-//			}
-//
-//			out.flush();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
-//		} finally {
-//			if (out != null) {
-//				out.close();
-//			}
-//		}
-//	}
 
 	public InputStream getInputStream() {
 

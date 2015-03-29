@@ -166,7 +166,7 @@ public class T615_Action {
 	/** 为界面加载数据 */
 	public void loadData() throws Exception {
 
-HttpServletResponse response = ServletActionContext.getResponse() ;	
+		HttpServletResponse response = ServletActionContext.getResponse() ;	
 		
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
@@ -219,7 +219,7 @@ HttpServletResponse response = ServletActionContext.getResponse() ;
 		}else{
 			try {
 				
-				System.out.println(TeaInfoJson) ;
+//				System.out.println(TeaInfoJson) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(TeaInfoJson) ;
@@ -246,7 +246,7 @@ HttpServletResponse response = ServletActionContext.getResponse() ;
 		testjson.accumulate("rows", list);
 
 		String json = testjson.toString();
-		System.out.println(json);
+//		System.out.println(json);
 		return json;
 	}
 
@@ -355,7 +355,7 @@ HttpServletResponse response = ServletActionContext.getResponse() ;
 
 	/** 根据数据的id删除数据 */
 	public void deleteByIds() {
-		System.out.println("ids=" +this.getIds());
+//		System.out.println("ids=" +this.getIds());
 		boolean flag = T615_service.deleteItemsByIds(ids);
 		//删除审核不通过信息
 		check_services.delete("T615", ids);
@@ -387,83 +387,6 @@ HttpServletResponse response = ServletActionContext.getResponse() ;
 		ByteArrayOutputStream fos = null;
 		
 		List<T615_Bean> list = T615_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-		
-//		if(list.size()==0){
-//			PrintWriter out = null ;
-//			getResponse().setContentType("text/html; charset=UTF-8") ;
-//			out = getResponse().getWriter() ;
-//			out.print("后台传入的数据为空!!!") ;
-//			System.out.println("后台传入的数据为空");
-//		}else{
-//			String sheetName=this.excelName;	
-//		    WritableWorkbook wwb;
-//		    try {    
-//		           fos = new ByteArrayOutputStream();
-//		           wwb = Workbook.createWorkbook(fos);
-//		           WritableSheet ws = wwb.createSheet(sheetName, 0);        // 创建一个工作表
-//		
-//		            //    设置单元格的文字格式
-//		           WritableFont wf = new WritableFont(WritableFont.ARIAL,12,WritableFont.BOLD,false,
-//		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
-//		           WritableCellFormat wcf = new WritableCellFormat(wf);
-//		           wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
-//		           wcf.setAlignment(Alignment.CENTRE);
-//		           wcf.setBorder(Border.ALL, BorderLineStyle.THIN,
-//						     jxl.format.Colour.BLACK); 
-//		           wcf.setAlignment(jxl.write.Alignment.LEFT);
-//		           ws.setRowView(1, 500);
-//		           
-//		           //设置格式
-//				   WritableCellFormat wcf1 = new WritableCellFormat();
-//				   wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
-//						     jxl.format.Colour.BLACK); 
-//		           
-//		           ws.addCell(new Label(0, 0, sheetName, wcf)); 
-//		           ws.mergeCells(0, 0, 2, 0);
-//		             
-//		           ws.addCell(new Label(0, 2, "序号", wcf)); 
-//		           ws.addCell(new Label(1, 2, "校内专业（大类）名称", wcf));
-//		           ws.addCell(new Label(2,2,"校内专业（大类）代码",wcf));
-//		           ws.addCell(new Label(3,2,"所属教学单位",wcf));
-//		           ws.addCell(new Label(4,2,"单位号",wcf));
-//		           ws.addCell(new Label(5,2," 学制",wcf));
-//		           
-//		           ws.mergeCells(0, 2, 0, 3);  ws.mergeCells(1, 2, 1, 3);
-//		           ws.mergeCells(2, 2, 2, 3);  ws.mergeCells(3, 2, 3, 3);
-//		           ws.mergeCells(4, 2, 4, 3);  ws.mergeCells(5, 2, 5, 3);
-//		           
-//		           
-//
-//		           ws.addCell(new Label(6,2," 1.在校学生数",wcf));ws.mergeCells(6, 2, 13, 2);
-//		           ws.addCell(new Label(14,2," 2.转专业人数",wcf));ws.mergeCells(14, 2, 15, 2);
-//		           
-//		           ws.addCell(new Label(6,3,"总计",wcf));ws.addCell(new Label(7,3,"一年级",wcf));
-//		           ws.addCell(new Label(8,3,"二年级",wcf));ws.addCell(new Label(9,3,"三年级",wcf));
-//		           ws.addCell(new Label(10,3,"四年级",wcf));ws.addCell(new Label(11,3,"五年级及以上",wcf));
-//		           ws.addCell(new Label(12,3,"其中：辅修",wcf));ws.addCell(new Label(13,3,"其中：双学位",wcf));
-//		           ws.addCell(new Label(14,3,"转入人数",wcf));ws.addCell(new Label(15,3,"转出人数",wcf));
-//		           
-//		           int j=4;//从第4行开始写数据
-//		           for(int i =0;i<list.size();i++){
-//		        	   T615_Bean bean = list.get(i);
-//		        	   ws.addCell(new Label(0,j,""+(i+1),wcf1));ws.addCell(new Label(1,j,bean.getMajorName(),wcf1));
-//			           ws.addCell(new Label(2,j,bean.getMajorId(),wcf1));ws.addCell(new Label(3,j,bean.getFromUnitId(),wcf1));
-//			           ws.addCell(new Label(4,j,bean.getUnitId(),wcf1));ws.addCell(new Label(5,j,""+bean.getSchLen(),wcf1));
-//		        	   ws.addCell(new Label(6,j,""+bean.getSchStuSumNum(),wcf1));ws.addCell(new Label(7,j,""+bean.getFreshmanNum(),wcf1));
-//			           ws.addCell(new Label(8,j,""+bean.getSophomoreNum(),wcf1));ws.addCell(new Label(9,j,""+bean.getJuniorNum(),wcf1));
-//			           ws.addCell(new Label(10,j,""+bean.getSeniorNum(),wcf1));ws.addCell(new Label(11,j,""+bean.getOtherGradeNum(),wcf1));
-//			           ws.addCell(new Label(12,j,""+bean.getMinorNum(),wcf1));ws.addCell(new Label(13,j,""+bean.getDualDegreeNum(),wcf1));
-//			           ws.addCell(new Label(14,j,""+bean.getChangeInNum(),wcf1));ws.addCell(new Label(15,j,""+bean.getChangeOutNum(),wcf1));
-//		               j++;
-//		           }
-//		           
-//		          wwb.write();
-//		          wwb.close();
-//
-//		        } catch (IOException e){
-//		        } catch (RowsExceededException e){
-//		        } catch (WriteException e){}
-//		}
 		
 		String sheetName=this.excelName;	
 	    WritableWorkbook wwb;

@@ -28,10 +28,13 @@ import cn.nit.dao.table7.S71_DAO;
 import cn.nit.service.table7.S71_Service;
 
 public class J71_Excel {
-	public static boolean export_J71(String path){
+	public static boolean export_J71(String path,String year){
+		
 		S71_Service S71_Ser=new S71_Service();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-		String year = dateFormat.format(new Date());
+		
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+//		String year = dateFormat.format(new Date());
+		
 		S71_Bean bean=S71_Ser.getYearIf(year);
 		ByteArrayOutputStream fos = null;
 		String sheetName = "J-7-1教学管理人员培训及成果（时点）";
@@ -128,7 +131,7 @@ public class J71_Excel {
 	public static void main(String arg[]){
 		String path = "E:\\江西项目\\测试表\\一键导出";
 		 J71_Excel excel= new J71_Excel();
-		 boolean flag = excel.export_J71(path);
+		 boolean flag = excel.export_J71(path,"2014");
 		 if(flag){
 			 System.out.println("导出成功");
 		 }else{

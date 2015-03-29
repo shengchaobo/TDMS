@@ -94,7 +94,7 @@ public class T54_Action {
 			out.print("{\"data\":\"无该年数据!!!\"}"); 
 		}else{
 			try {				
-				System.out.println(json) ;
+//				System.out.println(json) ;
 				response.setContentType("application/json;charset=UTF-8") ;
 				out = response.getWriter() ;
 				out.print(json) ;
@@ -173,7 +173,7 @@ public class T54_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 		T54_Bean bean = T54_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;

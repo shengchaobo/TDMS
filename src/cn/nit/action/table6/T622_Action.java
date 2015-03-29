@@ -226,7 +226,7 @@ public class T622_Action {
 			}else{
 				try {
 					
-					System.out.println(TeaInfoJson) ;
+//					System.out.println(TeaInfoJson) ;
 					response.setContentType("application/json;charset=UTF-8") ;
 					out = response.getWriter() ;
 					out.print(TeaInfoJson) ;
@@ -253,7 +253,7 @@ public class T622_Action {
 		testjson.accumulate("rows", list);
 
 		String json = testjson.toString();
-		System.out.println(json);
+//		System.out.println(json);
 		return json;
 	}
 
@@ -362,7 +362,7 @@ public class T622_Action {
 	
 	/** 根据数据的id删除数据 */
 	public void deleteByIds() {
-		System.out.println("ids=" +this.getIds());
+//		System.out.println("ids=" +this.getIds());
 		boolean flag = T622_service.deleteItemsByIds(ids);
 		
 

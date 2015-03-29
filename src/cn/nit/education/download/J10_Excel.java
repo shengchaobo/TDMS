@@ -38,14 +38,14 @@ import cn.nit.util.TimeUtil;
 
 public class J10_Excel {
 	
-	public static boolean export_J10(String path) {
+	public static boolean export_J10(String path,String year) {
 		
 		T11DAO T11_dao = new T11DAO();
 		
-		//获取当前年份
-		Date time = new Date();
-		String currentTime = time.toString();
-		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+//		//获取当前年份
+//		Date time = new Date();
+//		String currentTime = time.toString();
+//		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		List<T11_Bean> list = T11_dao.forExcel(year);
 		T11_Bean  bean;
@@ -140,7 +140,7 @@ public class J10_Excel {
 	public static void main(String arg[]){
 		  String path = "C:\\Users\\Fan Shuangyan\\Desktop";
 		  J10_Excel excel = new J10_Excel();
-		  boolean flag = excel.export_J10(path);
+		  boolean flag = excel.export_J10(path,"2015");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

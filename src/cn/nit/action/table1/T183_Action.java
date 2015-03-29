@@ -19,52 +19,37 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
-import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table1.T181_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T18DAO;
 import cn.nit.excel.imports.table1.T181Excel;
+import cn.nit.excel.imports.table1.T183Excel;
 import cn.nit.service.CheckService;
-import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table1.T181Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-
-public class T181Action {
+/**招就处*/
+public class T183_Action {
 	
-	/**  表181的Service类  */
-	private T181Service t181Ser = new T181Service() ;
+	/**  表183的Service类  */
+	private T181Service t183Ser = new T181Service() ;
 	
-	/**  表181的Bean实体类  */
-	private T181_Bean t181Bean = new T181_Bean() ;
+	/**  表183的Bean实体类  */
+	private T181_Bean t183Bean = new T181_Bean() ;
 	
-//	/**  表181的Dao类  */
-//	private T18DAO t181Dao = new T18DAO() ;
+//	/**  表183的Dao类  */
+//	private T18DAO t183Dao = new T18DAO() ;
 	
-	/**  表181的Excel实体类  */
-	private T181Excel t181Excel = new T181Excel() ;
+	/**  表183的Excel实体类  */
+	private T183Excel t183Excel = new T183Excel() ;
 	
-	/**  审核  */
+	/**取得某个表的审核信息*/
 	private CheckService check_services = new CheckService();
-	
+
 	/**excel导出名字*/
 	private String excelName; //
 	
-	public String getExcelName() {
-		try {
-			this.excelName = URLEncoder.encode(excelName, "UTF-8");
-			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return excelName;
-	}
-
-	public void setExcelName(String excelName) {
-		this.excelName = excelName;
-	}
-
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
 	
@@ -86,31 +71,38 @@ public class T181Action {
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
 	
-	/**  导出/导入年份  */
+	/**  导出时间  */
 	private String selectYear ;
 	
 	/**  审核通过数据按年时间查询  */
 	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
-	/**  部门管理Service类  */
-	private DiDepartmentService deSer = new DiDepartmentService() ;
+	
 	//正在登陆的用户信息
 	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 	String fillUnitID = bean.getUnitID();
 	
 	/**  逐条插入数据  */
 	public void insert(){
-//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t181Bean.setTime(new Date()) ;
-		t181Bean.setFillDept(fillUnitID);//教务处
-		//插入审核状态
-		t181Bean.setCheckState(Constants.WAIT_CHECK);
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+		t183Bean.setTime(new Date()) ;
+		t183Bean.setCheckState(Constants.WAIT_CHECK);
+		t183Bean.setFillDept("fillUnitID");
+		//t183Bean.setFillDept("1017");//招就处
+//		System.out.println(t183Bean.getUnitName());
 
-
-		boolean flag = t181Ser.insert(t181Bean) ;
+		boolean flag = t183Ser.insert(t183Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -149,7 +141,7 @@ public class T181Action {
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
 			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum()==0){			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){			
 				cond = null;	
 			}else{			
 				if(this.getSeqNum()!=null){
@@ -186,14 +178,14 @@ public class T181Action {
 				
 				cond = conditions.toString();
 			}
-			
-			
+
 			String tempUnitID = bean.getUnitID();
-			if(!tempUnitID.equals("1012")){
+			if(!tempUnitID.equals("1017")){
 				tempUnitID = null;
 			}
-
-			String pages = t181Ser.auditingData(cond, tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			
+			String pages = t183Ser.auditingData(cond,tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
+//			System.out.println("pages:"+pages);
 			PrintWriter out = null ;
 			
 			try{
@@ -210,32 +202,38 @@ public class T181Action {
 			}
 		}
 
+
+
 	/**  编辑数据  */
 	public void edit(){
 
-        boolean flag = false;
-        int tag = 0;
-        
-        //获得该条数据审核状态
-		int state = t181Ser.getCheckState(t181Bean.getSeqNumber());
+		boolean flag = false;
+		int tag = 0;
 		
-		//如果审核状态是待审核，则直接修改
+		//获得该条审数据审核状态
+		int state = t183Ser.getCheckState(t183Bean.getSeqNumber());
+		
+		//如果是待审核，直接修改
 		if(state == Constants.WAIT_CHECK){
-			t181Bean.setCheckState(Constants.WAIT_CHECK);
-			flag = t181Ser.update(t181Bean) ;
+			t183Bean.setCheckState(Constants.WAIT_CHECK);
+			//t152Bean.setFillUnitID(fillUnitID);
+			//t152Bean.setTime(new Date());
+			flag = t183Ser.update(t183Bean) ;
 			if(flag) tag = 1;
 		}
+		
+
 		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
 		if(state == Constants.NOPASS_CHECK){
-			t181Bean.setCheckState(Constants.WAIT_CHECK);
-			boolean flag1 = t181Ser.update(t181Bean) ;
-			boolean flag2 = check_services.delete("T181",t181Bean.getSeqNumber());
+			t183Bean.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = t183Ser.update(t183Bean) ;
+			boolean flag2 = check_services.delete("T183",t183Bean.getSeqNumber());
 			if(flag1&&flag2){
 				flag = true;
 				tag = 2;
 			}
 		}
-        
+		
 		PrintWriter out = null ;
 		
 		try{
@@ -250,7 +248,6 @@ public class T181Action {
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
 			out.flush() ;
-			out.flush() ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
@@ -260,12 +257,11 @@ public class T181Action {
 			}
 		}
 	}
-	
 	/**  修改某条数据的审核状态  */
 	public void updateCheck(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
-		boolean flag = t181Ser.updateCheck(this.getSeqNum(),this.getCheckNum());
+		boolean flag = t183Ser.updateCheck(this.getSeqNum(),this.getCheckNum());
 		PrintWriter out = null ;
 		
 		try{
@@ -289,10 +285,10 @@ public class T181Action {
 	
 	/**  全部审核通过  */
 	public void checkAll(){
+//		System.out.println("全部审核通过");
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
-		boolean flag = t181Ser.checkAll();
-		
+		boolean flag = t183Ser.checkAll();
 		PrintWriter out = null ;
 		
 		try{
@@ -316,11 +312,10 @@ public class T181Action {
 	
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
-		System.out.println("ids=" + ids) ;
-		
-		boolean flag = t181Ser.deleteCoursesByIds(ids) ;
+//		System.out.println("ids=" + ids) ;
+		boolean flag = t183Ser.deleteCoursesByIds(ids) ;
 		//删除审核不通过信息
-		check_services.delete("T181", ids);
+		check_services.delete("T183", ids);
 		PrintWriter out = null ;
 		
 		try{
@@ -350,8 +345,7 @@ public class T181Action {
 
 		try {
 			
-//			List<T181_Bean> list = t181Dao.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
-			List<T181_Bean> list = t181Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK );
+			List<T181_Bean> list = t183Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
@@ -394,16 +388,7 @@ public class T181Action {
 		return ServletActionContext.getResponse() ;
 	}
 
-	public T181_Bean getT181Bean() {
-		return t181Bean;
-	}
 
-	public void setT181Bean(T181_Bean t181Bean) {
-		this.t181Bean = t181Bean;
-	}
-
-	
-	
 	public Integer getSeqNum() {
 		return seqNum;
 	}
@@ -451,9 +436,30 @@ public class T181Action {
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
+	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
 
 	public int getCheckNum() {
 		return checkNum;
+	}
+
+	public T181_Bean getT183Bean() {
+		return t183Bean;
+	}
+
+	public void setT183Bean(T181_Bean t183Bean) {
+		this.t183Bean = t183Bean;
 	}
 
 	public void setCheckNum(int checkNum) {
@@ -466,16 +472,6 @@ public class T181Action {
 
 	public void setSelectYear(String selectYear) {
 		this.selectYear = selectYear;
-	}
-	
-	
-
-	public String getQueryYear() {
-		return queryYear;
-	}
-
-	public void setQueryYear(String queryYear) {
-		this.queryYear = queryYear;
 	}
 
 	public static void main(String args[]){

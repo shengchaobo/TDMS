@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -26,12 +26,13 @@ import cn.nit.service.table2.T21_Service;
 import cn.nit.util.ExcelUtil;
 
 public class J21_Excel {
-	
-	public static boolean export_J21(String path,String year){
+
+	public static boolean export_J21(String path, String year){
 		
 		T21_Service T21_services = new T21_Service();
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
-//		String year = dateFormat.format(new Date());
+/*		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+		String year = dateFormat.format(new Date());*/
+
 		T21_Bean bean = T21_services.getYearInfo(year);
 		
 	    ByteArrayOutputStream fos = null;

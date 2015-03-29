@@ -117,7 +117,7 @@ public class S5301_Action {
 	/**excel导出*/
 	public InputStream getInputStream() throws Exception{
 		
-		System.out.println(this.getSelectYear());
+//		System.out.println(this.getSelectYear());
 
 		List<S5301_Bean>  list = s5301Ser.getAll(this.getSelectYear());
 		System.out.println("S52 de "+list.size());

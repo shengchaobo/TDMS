@@ -68,7 +68,7 @@ public class S5101_Action {
 		HttpServletResponse response = ServletActionContext.getResponse() ;
 		
 		if(this.getSelectYear()!=null){
-			System.out.println("year:"+this.getSelectYear());
+//			System.out.println("year:"+this.getSelectYear());
 			List<S5101POJO> list =s5101Ser.loadInfo(this.getSelectYear());
 //			List<S512_Bean> list=s512Ser.loadInfo(this.getSelectYear();
 		
@@ -96,7 +96,7 @@ public class S5101_Action {
 					out.print(outPrint) ;
 				}
 				else{
-					System.out.println("hello");
+//					System.out.println("hello");
 					response.setContentType("text/html; charset=UTF-8") ;
 					out = response.getWriter() ;
 					out.print("[{\"data\":\"该统计表数据不全，请填写相关数据后再进行统计!!!\"}]") ;

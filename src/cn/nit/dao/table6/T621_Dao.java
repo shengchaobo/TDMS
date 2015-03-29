@@ -76,7 +76,7 @@ public class T621_Dao {
 	public boolean insert(T621_Bean bean, String year){
 		
 		String sql = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + 
-		year + " and FromTeaUnit=" + "'全校合计'" + ";";	
+		year + " and FromTeaUnit=" + "'全校合计'";	
 		String sq2 = "select count(distinct FromTeaUnit) as num from "+tableName+" where Time like '"+year+"%'";
 		boolean flag = false;
 		boolean flag1;
@@ -84,8 +84,6 @@ public class T621_Dao {
 		Connection conn = DBConnection.instance.getConnection() ;		
 		Statement st = null ;
 		ResultSet rs = null ;
-		Statement st1 = null;
-		ResultSet rs1 =null;
 		List<T621_Bean> templist = null ;
 		String tempfield = "AmisPlanNum,ActulEnrollNum,ActulRegisterNum,AutoEnrollNum,SpecialtyEnrollNum,InProviEnrollNum,NewMajEnrollNum,AvgScore";
 		try{
@@ -116,11 +114,11 @@ public class T621_Dao {
 				Connection conn1 = DBConnection.instance.getConnection() ;	
 				flag2 = DAOUtil.insert(bean, tableName, field, conn1);				
 			}else{
-				st1 = conn.createStatement();
-				rs1 = st1.executeQuery(sq2);
+				st = conn.createStatement();
+				rs = st.executeQuery(sq2);
 				int sum=0;
-				while(rs1.next()){
-					sum = rs1.getInt("num")-1;
+				while(rs.next()){
+					sum = rs.getInt("num")-1;
 				}
 				System.out.println(sum);
 				bean.setTime(TimeUtil.changeDateY(year));
@@ -144,9 +142,7 @@ public class T621_Dao {
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return false ;
-		}finally{
-			DBConnection.close(rs1);
-			DBConnection.close(st1);	
+		}finally{	
 			DBConnection.close(rs);
 			DBConnection.close(st);	
 			DBConnection.close(conn);
@@ -177,7 +173,7 @@ public class T621_Dao {
 		sql.append(" where " + key + " in " + ids);
 		
 		
-		String sql0 = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year + " and FromTeaUnit=" + "'全校合计'" + ";";	
+		String sql0 = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year + " and FromTeaUnit=" + "'全校合计'" ;	
 		String sql1 = "select count(FromTeaUnit) as count,sum(amisPlanNum) AS sumamisPlanNum,sum(actulEnrollNum) AS sumactulEnrollNum, sum(actulRegisterNum)as sumactulRegisterNum," +
 				"sum(autoEnrollNum)as sumautoEnrollNum, sum(specialtyEnrollNum) as sumspecialtyEnrollNum,sum(inProviEnrollNum) as suminProviEnrollNum," +
 				"sum(newMajEnrollNum) as sumnewMajEnrollNum ,sum (AvgScore) as sumaveraScore from " + tableName + " where " + key + " in " + ids;
@@ -409,7 +405,7 @@ public class T621_Dao {
 	public int update(T621_Bean bean, String year){
 		
 		String sql0 = "select * from " + tableName + " where SeqNumber=" + bean.getSeqNumber();
-		String sql1 = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year + " and FromTeaUnit=" + "'全校合计'" + ";";		
+		String sql1 = "select * from " + tableName + " where convert(varchar(4),Time,120)=" + year + " and FromTeaUnit=" + "'全校合计'" ;		
 		String sql2 = "select count(distinct FromTeaUnit) from "+tableName+" where convert(varchar(4),Time,120)=" + year;
 		int flag = 0;
 		boolean flag0 = false;
@@ -717,7 +713,7 @@ public class T621_Dao {
 		// TODO Auto-generated method stub
 		String sql;
 		
-		sql = "select " + fieldShow + " from " + tableName +" where Time like '"+year+"%'"; 
+		sql = "select " + fieldShow + " from " + tableName +" where Time like '"+year+"%' and CheckState = "+Constants.PASS_CHECK; 
 	    System.out.println(sql);
 	
 		Connection conn = DBConnection.instance.getConnection() ;

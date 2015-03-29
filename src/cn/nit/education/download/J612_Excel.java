@@ -16,14 +16,14 @@ import cn.nit.util.ExcelUtil;
 
 public class J612_Excel {
 	
-  public static boolean export_J612(String path){
+  public static boolean export_J612(String path,String year){
 	
 		T615_Dao T615_dao = new T615_Dao();
 	
-		//获取当前年份
-		Date time = new Date();
-		String currentTime = time.toString();
-		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
+//		//获取当前年份
+//		Date time = new Date();
+//		String currentTime = time.toString();
+//		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		List<T615_Bean> list = T615_dao.getAllList(year);
 		
@@ -69,7 +69,7 @@ public class J612_Excel {
 	public static void main(String arg[]){
 		 String path = "D:\\江西项目\\相关表\\ExcelTest";
 		  J612_Excel excel = new J612_Excel();
-		  boolean flag = excel.export_J612(path);
+		  boolean flag = excel.export_J612(path,"2014");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

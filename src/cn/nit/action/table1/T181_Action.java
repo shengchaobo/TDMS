@@ -1,4 +1,4 @@
-package cn.nit.action.table5;
+package cn.nit.action.table1;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -18,39 +18,52 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.nit.bean.table5.T521_Bean;
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table1.T181_Bean;
 import cn.nit.constants.Constants;
-import cn.nit.dao.table5.T521DAO;
-import cn.nit.excel.imports.table5.T521Excel;
-
-
+import cn.nit.dao.table1.T18DAO;
+import cn.nit.excel.imports.table1.T181Excel;
 import cn.nit.service.CheckService;
-import cn.nit.service.table5.T521Service;
+import cn.nit.service.di.DiDepartmentService;
+import cn.nit.service.table1.T181Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
-public class T521Action {
-	
-//	/**  表T521的数据库操作类  */
-//	private T521DAO t521Dao = new T521DAO() ;
-	
-	private T521Excel t521Excel=new T521Excel();
 
-	/**  表521的Service类  */
-	private T521Service t521Ser = new T521Service() ;
+public class T181_Action {
 	
-	/**审核*/
+	/**  表181的Service类  */
+	private T181Service t181Ser = new T181Service() ;
+	
+	/**  表181的Bean实体类  */
+	private T181_Bean t181Bean = new T181_Bean() ;
+	
+//	/**  表181的Dao类  */
+//	private T18DAO t181Dao = new T18DAO() ;
+	
+	/**  表181的Excel实体类  */
+	private T181Excel t181Excel = new T181Excel() ;
+	
+	/**  审核  */
 	private CheckService check_services = new CheckService();
-	
-	/**  表522的Bean实体类  */
-	private T521_Bean t521Bean = new T521_Bean() ;
 	
 	/**excel导出名字*/
 	private String excelName; //
 	
-	/**导出数据所要的年份*/
-	private String Year;//
-	
+	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
 
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
@@ -73,39 +86,31 @@ public class T521Action {
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
 	
-	/**  导出时间  */
+	/**  导出/导入年份  */
 	private String selectYear ;
 	
 	/**  审核通过数据按年时间查询  */
 	private String queryYear ;
-	public String getQueryYear() {
-		return queryYear;
-	}
-
-	public void setQueryYear(String queryYear) {
-		this.queryYear = queryYear;
-	}
-
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
+	//正在登陆的用户信息
+	UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+	String fillUnitID = bean.getUnitID();
 	
 	/**  逐条插入数据  */
 	public void insert(){
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t521Bean.setTime(new Date()) ;
+		t181Bean.setTime(new Date()) ;
+		t181Bean.setFillDept(fillUnitID);//教务处
 		//插入审核状态
-		t521Bean.setCheckState(Constants.WAIT_CHECK);
-//		System.out.println(t522Bean.getAppvlID());
-//		System.out.println(t522Bean.getCSID());
-//		System.out.println(t522Bean.getCSName());
-//		System.out.println(t522Bean.getCSType());
-//		System.out.println(t522Bean.getJoinTeaNum());
-//		System.out.println(t522Bean.getLeader());
-////		t533Bean.setFillUnitID("3001");
+		t181Bean.setCheckState(Constants.WAIT_CHECK);
 
-//		这还没确定,设置填报者的职工号与部门号
-//		UserRoleBean userinfo = (UserRoleBean)getSession().getAttribute("userinfo") ;
-//		undergraCSBaseTea.setFillTeaID(userinfo.getTeaID()) ;
-		
-		boolean flag = t521Ser.insert(t521Bean) ;
+
+		boolean flag = t181Ser.insert(t181Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -148,7 +153,7 @@ public class T521Action {
 				cond = null;	
 			}else{			
 				if(this.getSeqNum()!=null){
-					conditions.append(" and  SeqNumber=" + this.getSeqNum()) ;
+					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
 				}
 				
 				if(this.getStartTime() != null){
@@ -160,7 +165,6 @@ public class T521Action {
 					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 				}
-				
 				
 				//审核状态判断
 				if(this.getCheckNum() == Constants.WAIT_CHECK ){
@@ -179,13 +183,17 @@ public class T521Action {
 				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
 					conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
 				}
+				
 				cond = conditions.toString();
 			}
+			
+			
+			String tempUnitID = bean.getUnitID();
+			if(!tempUnitID.equals("1012")){
+				tempUnitID = null;
+			}
 
-//            System.out.println("page:"+page);
-//            System.out.println("rows:"+rows);
-			String pages = t521Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
-
+			String pages = t181Ser.auditingData(cond, tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -202,46 +210,46 @@ public class T521Action {
 			}
 		}
 
-	
 	/**  编辑数据  */
 	public void edit(){
 
-		 boolean flag = false;
-		 int tag = 0;
+        boolean flag = false;
+        int tag = 0;
+        
+        //获得该条数据审核状态
+		int state = t181Ser.getCheckState(t181Bean.getSeqNumber());
 		
-		//获得该条数据审核状态
-			int state = t521Ser.getCheckState(t521Bean.getSeqNumber());
-			
-			//如果审核状态是待审核，则直接修改
-			if(state == Constants.WAIT_CHECK){
-				t521Bean.setCheckState(Constants.WAIT_CHECK);
-				flag = t521Ser.update(t521Bean) ;
-				if(flag) tag = 1;
+		//如果审核状态是待审核，则直接修改
+		if(state == Constants.WAIT_CHECK){
+			t181Bean.setCheckState(Constants.WAIT_CHECK);
+			flag = t181Ser.update(t181Bean) ;
+			if(flag) tag = 1;
+		}
+		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
+		if(state == Constants.NOPASS_CHECK){
+			t181Bean.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = t181Ser.update(t181Bean) ;
+			boolean flag2 = check_services.delete("T181",t181Bean.getSeqNumber());
+			if(flag1&&flag2){
+				flag = true;
+				tag = 2;
 			}
-			//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
-			if(state == Constants.NOPASS_CHECK){
-				t521Bean.setCheckState(Constants.WAIT_CHECK);
-				boolean flag1 = t521Ser.update(t521Bean) ;
-				boolean flag2 = check_services.delete("T521",t521Bean.getSeqNumber());
-				if(flag1&&flag2){
-					flag = true;
-					tag = 2;
-				}
-			}
-
+		}
+        
 		PrintWriter out = null ;
 		
 		try{
+			getResponse().setContentType("text/html; charset=UTF-8") ;
 			out = getResponse().getWriter() ;
 			if(tag == 1){
 				out.print("{\"state\":true,data:\"修改成功!!!\"}") ;
 			}
 			else if(tag == 2){
-				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;
-			}
-			else{
+				out.print("{\"state\":true,data:\"修改成功!!!\",tag:2}") ;	
+			}else{
 				out.print("{\"state\":true,data:\"修改失败!!!\"}") ;
 			}
+			out.flush() ;
 			out.flush() ;
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -257,7 +265,7 @@ public class T521Action {
 	public void updateCheck(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
-		boolean flag = t521Ser.updateCheck(this.getSeqNum(),this.getCheckNum());
+		boolean flag = t181Ser.updateCheck(this.getSeqNum(),this.getCheckNum());
 		PrintWriter out = null ;
 		
 		try{
@@ -283,7 +291,7 @@ public class T521Action {
 	public void checkAll(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
-		boolean flag = t521Ser.checkAll();
+		boolean flag = t181Ser.checkAll();
 		
 		PrintWriter out = null ;
 		
@@ -309,10 +317,10 @@ public class T521Action {
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 //		System.out.println("ids=" + ids) ;
-		boolean flag = t521Ser.deleteCoursesByIds(ids) ;
-
+		
+		boolean flag = t181Ser.deleteCoursesByIds(ids) ;
 		//删除审核不通过信息
-		check_services.delete("T521", ids);
+		check_services.delete("T181", ids);
 		PrintWriter out = null ;
 		
 		try{
@@ -337,48 +345,42 @@ public class T521Action {
 	
 	/**数据导出*/
 	public InputStream getInputStream(){
-		
-//        System.out.println("年份："+this.Year);
+
 		InputStream inputStream = null ;
 
 		try {
 			
-			List<T521_Bean> list = t521Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+//			List<T181_Bean> list = t181Dao.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
+			List<T181_Bean> list = t181Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK );
 			
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
-			columns.add("类型");columns.add("课程名称");columns.add("课程编号");columns.add("级别");
-			columns.add("负责人");columns.add("教工号");
-			columns.add("参与教师总人数");columns.add("其他参与教师");columns.add("课程访问链接");columns.add("获准时间");
-			columns.add("验收时间");columns.add("所属教学单位");
-			columns.add("单位号");columns.add("批文号");columns.add("备注"); 	
+			columns.add("合作机构名称");columns.add("合作机构类型");columns.add("合作机构级别");columns.add("签订协议时间");
+			columns.add("我方单位");columns.add("单位号");columns.add("我方单位级别");columns.add("备注");
+
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("CSType", 1);maplist.put("CSName", 2);maplist.put("CSID", 3);maplist.put("CSLevel", 4);
-			maplist.put("Leader", 5);maplist.put("TeaID", 6);
-			maplist.put("JoinTeaNum", 7);maplist.put("OtherTea", 8);maplist.put("CSUrl", 9);maplist.put("AppvlTime", 10);
-			maplist.put("ReceptTime", 11);maplist.put("TeaUnit", 12);
-			maplist.put("UnitID", 13);maplist.put("AppvlID", 14);maplist.put("Note", 15);
+			maplist.put("CooperInsName", 1);maplist.put("CooperInsType", 2);maplist.put("CooperInsLevel", 3);maplist.put("SignedTime", 4);
+			maplist.put("UnitName", 5);maplist.put("UnitID", 6);maplist.put("UnitLevel", 7);maplist.put("Note", 8);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
-			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
+			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null ;
 		}
-        System.out.println(inputStream);
+
 		return inputStream ;
 	}
 	
 
 	public String execute() throws Exception{
-
-		getResponse().setContentType("application/octet-stream;charset=UTF-8") ;
 		return "success" ;
 	}
+	
 	
 	public HttpServletRequest getRequest(){
 		return ServletActionContext.getRequest() ;
@@ -390,17 +392,18 @@ public class T521Action {
 	
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
-	}	
-
-
-	public T521_Bean getT521Bean() {
-		return t521Bean;
 	}
 
-	public void setT521Bean(T521_Bean t521Bean) {
-		this.t521Bean = t521Bean;
+	public T181_Bean getT181Bean() {
+		return t181Bean;
 	}
 
+	public void setT181Bean(T181_Bean t181Bean) {
+		this.t181Bean = t181Bean;
+	}
+
+	
+	
 	public Integer getSeqNum() {
 		return seqNum;
 	}
@@ -440,14 +443,6 @@ public class T521Action {
 	public void setPage(String page) {
 		this.page = page;
 	}
-	
-	public String getYear() {
-		return Year;
-	}
-
-	public void setYear(String year) {
-		this.Year = year;
-	}
 
 	public String getRows() {
 		return rows;
@@ -455,20 +450,6 @@ public class T521Action {
 
 	public void setRows(String rows) {
 		this.rows = rows;
-	}
-
-	public void setExcelName(String excelName) {
-		this.excelName = excelName;
-	}
-
-	public String getExcelName() {
-		try {
-			this.excelName = URLEncoder.encode(excelName, "UTF-8");
-			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return excelName;
 	}
 
 	public int getCheckNum() {
@@ -486,6 +467,20 @@ public class T521Action {
 	public void setSelectYear(String selectYear) {
 		this.selectYear = selectYear;
 	}
+	
+	
 
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
+	public static void main(String args[]){
+		String match = "[\\d]+" ;
+		System.out.println("23gfhf4".matches(match)) ;
+	}
 
 }

@@ -1,4 +1,4 @@
-﻿package cn.nit.action.table1;
+package cn.nit.action.table1;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -19,42 +19,38 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
-import cn.nit.bean.table1.T151_Bean;
-import cn.nit.bean.table1.T152_Bean;
+import cn.nit.bean.table1.T181_Bean;
 import cn.nit.constants.Constants;
-import cn.nit.excel.imports.table1.T152Excel;
+import cn.nit.dao.table1.T18DAO;
+import cn.nit.excel.imports.table1.T181Excel;
+import cn.nit.excel.imports.table1.T182Excel;
 import cn.nit.service.CheckService;
 import cn.nit.service.di.DiDepartmentService;
-import cn.nit.service.table1.T152Service;
+import cn.nit.service.table1.T181Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
 
 
-public class T152Action {
+public class T182_Action {
 	
-	/**  表152的Service类  */
-	private T152Service t152Ser = new T152Service() ;
+	/**  表181的Service类  */
+	private T181Service t182Ser = new T181Service() ;
 	
-	/**  表152的Bean实体类  */
-	private T152_Bean t152Bean = new T152_Bean() ;
+	/**  表181的Bean实体类  */
+	private T181_Bean t181Bean = new T181_Bean() ;
 	
+//	/**  表182的Dao类  */
+//	private T18DAO t182Dao = new T18DAO() ;
 	
-	/**  表152的Excel实体类  */
-	private T152Excel t152Excel=new T152Excel();
+	/**  表182的Excel实体类  */
+	private T182Excel t182Excel = new T182Excel() ;
 	
-	/**取得某个表的审核信息*/
+	/**审核*/
 	private CheckService check_services = new CheckService();
 	
 	/**excel导出名字*/
 	private String excelName; //
 	
-	/**  审核状态显示判别标志  */
-	private int checkNum ;
-	
-	public void setExcelName(String excelName) {
-		this.excelName = excelName;
-	}
-
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
 	
@@ -63,9 +59,6 @@ public class T152Action {
 	
 	/**  待审核数据查询的结束时间  */
 	private Date endTime ;
-	
-	/**  导出时间  */
-	private String selectYear ;
 	
 	/**  数据的SeqNumber编号  */
 	private String ids ;
@@ -76,8 +69,23 @@ public class T152Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+	/**  审核状态显示判别标志  */
+	private int checkNum ;
+	
+	/**  导出时间  */
+	private String selectYear ;
+	
+	
 	/**  审核通过数据按年时间查询  */
 	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
@@ -91,17 +99,13 @@ public class T152Action {
 	
 	/**  逐条插入数据  */
 	public void insert(){
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
-		t152Bean.setTime(new Date()) ;
-		t152Bean.setCheckState(Constants.WAIT_CHECK);
-//		System.out.println(t152Bean.getTime());
-		//c插入教学单位
-		String UnitName = deSer.getName(fillUnitID);
-		t152Bean.setFillUnitID(fillUnitID);
-		t152Bean.setUnitID(fillUnitID);
-		t152Bean.setTeaUnit(UnitName);
-		System.out.println("fillUnitID:"+fillUnitID);
-		boolean flag = t152Ser.insert(t152Bean) ;
+		System.out.println("+++++++++++++++");
+//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+		t181Bean.setTime(new Date()) ;
+		t181Bean.setFillDept(fillUnitID);//科研处
+
+		t181Bean.setCheckState(Constants.WAIT_CHECK);
+		boolean flag = t182Ser.insert(t181Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -124,12 +128,9 @@ public class T152Action {
 		out.flush() ;
 	}
 	
+	
 	/**  为界面加载数据  */
 	public void auditingData(){
-		
-//		System.out.println("加载数据");
-//		System.out.println("fillUnitID:"+fillUnitID);
-//		System.out.println("审核状态："+this.getCheckNum());
 			
 //			System.out.println("輸出輸出輸出");
 			
@@ -144,9 +145,9 @@ public class T152Action {
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
 			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){	
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null && this.getCheckNum() == 0){			
 				cond = null;	
-			}else{	
+			}else{			
 				if(this.getSeqNum()!=null){
 					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
 				}
@@ -178,22 +179,16 @@ public class T152Action {
 				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
 					conditions.append(" and CheckState!=" + Constants.PASS_CHECK) ;
 				}
-				
 				cond = conditions.toString();
-//				System.out.println("条件："+cond);
 			}
+ 
+			String tempUnitID = bean.getUnitID();
+			if(!tempUnitID.equals("1013")){
+				tempUnitID = null;
+			}
+//			System.out.println(tempUnitID);
 			
-			//具体教学单位
-			String fillUnitID;
-			String tempUnitID = bean.getUnitID().substring(0,1);
-			if("3".equals(tempUnitID)){
-				fillUnitID = bean.getUnitID();//是教学单位
-			}else{
-				fillUnitID = null;
-			}
-
-			String pages = t152Ser.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
-//			System.out.println("pages:"+pages);
+			String pages = t182Ser.auditingData(cond,tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -210,42 +205,39 @@ public class T152Action {
 			}
 		}
 
+
 	
 	/**  编辑数据  */
 	public void edit(){
-//		System.out.println("hello");
-		System.out.println("year:"+t152Bean.getBeginYear());
-		
+
+//		System.out.println("edit");
 		boolean flag = false;
-		
 		int tag = 0;
+		
 		//获得该条审数据审核状态
-		int state = t152Ser.getCheckState(t152Bean.getSeqNumber());
+		int state = t182Ser.getCheckState(t181Bean.getSeqNumber());
 		
 		//如果是待审核，直接修改
 		if(state == Constants.WAIT_CHECK){
-			t152Bean.setCheckState(Constants.WAIT_CHECK);
-			//t152Bean.setFillUnitID(fillUnitID);
-			//t152Bean.setTime(new Date());
-			flag = t152Ser.update(t152Bean) ;
+			System.out.println("edit1");
+			t181Bean.setCheckState(Constants.WAIT_CHECK);
+
+			flag = t182Ser.update(t181Bean) ;
 			if(flag) tag = 1;
 		}
 		
 
 		//如果是审核不通过，则修改该条数据，并将审核状态调节为待审核，同时删除该条数据在checkInfo表的信息
 		if(state == Constants.NOPASS_CHECK){
-			t152Bean.setCheckState(Constants.WAIT_CHECK);
-			boolean flag1 = t152Ser.update(t152Bean) ;
-			boolean flag2 = check_services.delete("T152",t152Bean.getSeqNumber());
+			t181Bean.setCheckState(Constants.WAIT_CHECK);
+			boolean flag1 = t182Ser.update(t181Bean) ;
+			boolean flag2 = check_services.delete("T182",t181Bean.getSeqNumber());
 			if(flag1&&flag2){
 				flag = true;
 				tag = 2;
 			}
 		}
 		
-//		t152Bean.setFillUnitID(fillUnitID);
-//		t152Bean.setTime(new Date());
-//		boolean flag = t152Ser.update(t152Bean) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -274,7 +266,7 @@ public class T152Action {
 	public void updateCheck(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
-		boolean flag = t152Ser.updateCheck(this.getSeqNum(),this.getCheckNum());
+		boolean flag = t182Ser.updateCheck(this.getSeqNum(),this.getCheckNum());
 		PrintWriter out = null ;
 		
 		try{
@@ -298,10 +290,10 @@ public class T152Action {
 	
 	/**  全部审核通过  */
 	public void checkAll(){
-		System.out.println("全部审核通过");
+//		System.out.println("全部审核通过");
 		HttpServletResponse response = ServletActionContext.getResponse();
 	
-		boolean flag = t152Ser.checkAll();
+		boolean flag = t182Ser.checkAll();
 		PrintWriter out = null ;
 		
 		try{
@@ -326,11 +318,9 @@ public class T152Action {
 	/**  根据数据的id删除数据  */
 	public void deleteCoursesByIds(){
 //		System.out.println("ids=" + ids) ;
-		boolean flag = t152Ser.deleteCoursesByIds(ids) ;
-		
+		boolean flag = t182Ser.deleteCoursesByIds(ids) ;
 		//删除审核不通过信息
-		check_services.delete("T152", ids);
-		
+		check_services.delete("T182", ids);
 		PrintWriter out = null ;
 		
 		try{
@@ -352,32 +342,29 @@ public class T152Action {
 			}
 		}
 	}
- 
-	/**导出数据：只有审核通过的才能导出*/
+	
+	/**数据导出*/
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
 
 		try {
 			
-			List<T152_Bean> list = t152Ser.totalList(fillUnitID,this.selectYear,Constants.PASS_CHECK);
+			List<T181_Bean> list = t182Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
 			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
-			columns.add("科研机构名称");columns.add("单位号");columns.add("类别");columns.add("共建情况");
-			columns.add("是否对本科生开放");columns.add("对本科生开放情况（500字以内）");columns.add("所属教学单位");columns.add("教学单位号");
-			columns.add("开设年份");columns.add("专业科研用房面积（平方米）");
-//			columns.add("备注");
+			columns.add("合作机构名称");columns.add("合作机构类型");columns.add("合作机构级别");columns.add("签订协议时间");
+			columns.add("我方单位");columns.add("单位号");columns.add("我方单位级别");columns.add("备注");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
-			maplist.put("ResInsName", 1);maplist.put("ResInsID", 2);maplist.put("Type", 3);maplist.put("BuildCondition", 4);
-			maplist.put("BiOpen",5);maplist.put("OpenCondition", 6);maplist.put("TeaUnit", 7);maplist.put("UnitID", 8);
-			maplist.put("BeginYear", 9);maplist.put("HouseArea", 10);
-//			maplist.put("Note", 11);
+			maplist.put("CooperInsName", 1);maplist.put("CooperInsType", 2);maplist.put("CooperInsLevel", 3);maplist.put("SignedTime", 4);
+			maplist.put("UnitName", 5);maplist.put("UnitID", 6);maplist.put("UnitLevel", 7);
+			maplist.put("Note", 8);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist, columns).toByteArray());
@@ -389,8 +376,22 @@ public class T152Action {
 		return inputStream ;
 	}
 	
+
+	public String getExcelName() {
+		try {
+			this.excelName = URLEncoder.encode(excelName, "UTF-8");
+			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return excelName;
+	}
+
+	public void setExcelName(String excelName) {
+		this.excelName = excelName;
+	}
+	
 	public String execute() throws Exception{
-		System.out.println("excelName=============" + this.excelName) ;
 		return "success" ;
 	}
 	
@@ -405,21 +406,17 @@ public class T152Action {
 	public HttpServletResponse getResponse(){
 		return ServletActionContext.getResponse() ;
 	}
+
+	public T181_Bean getT181Bean() {
+		return t181Bean;
+	}
+
+	public void setT181Bean(T181_Bean t181Bean) {
+		this.t181Bean = t181Bean;
+	}
+
 	
-
-	public UserinfoBean getUserinfo(){
-		return (UserinfoBean)getSession().getAttribute("userinfo") ;
-	}
-
-
-	public T152_Bean getT152Bean() {
-		return t152Bean;
-	}
-
-	public void setT152Bean(T152_Bean t152Bean) {
-		this.t152Bean = t152Bean;
-	}
-
+	
 	public Integer getSeqNum() {
 		return seqNum;
 	}
@@ -467,42 +464,26 @@ public class T152Action {
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
-	
-	public void setSelectYear(String selectYear) {
-		this.selectYear = selectYear;
-	}
-
-	public String getSelectYear() {
-		return selectYear;
-	}
-	
-	public void setCheckNum(int checkNum) {
-		this.checkNum = checkNum;
-	}
 
 	public int getCheckNum() {
 		return checkNum;
 	}
 
-	public String getExcelName() {
-		try {
-			this.excelName = URLEncoder.encode(excelName, "UTF-8");
-			//this.saveFile = new String(saveFile.getBytes("ISO-8859-1"),"UTF-8");// 中文乱码解决
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return excelName;
-	}
-	
-	
-	
-	public String getQueryYear() {
-		return queryYear;
+
+	public void setCheckNum(int checkNum) {
+		this.checkNum = checkNum;
 	}
 
-	public void setQueryYear(String queryYear) {
-		this.queryYear = queryYear;
+
+	public String getSelectYear() {
+		return selectYear;
 	}
+
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
 
 	public static void main(String args[]){
 		String match = "[\\d]+" ;

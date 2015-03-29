@@ -61,8 +61,14 @@ public class T513_DAO {
 			
 			//如果当前年表中没有单位列数据，先将单位列数据插入到表中
 			if(list.size()==0){
-			    for(int i =0;i<8;i++){
+			    for(int i =0;i<6;i++){
+			    	System.out.println("insert+++++++");
 			    	T513_Bean bean = new T513_Bean();
+			    	bean.setAvgNum(0);bean.setAvgRatio(0.0);bean.setCoverRatio(0.0);
+    		 		bean.setExcellentNum(0);bean.setExcellentRatio(0.0);
+    		 		bean.setGoodNum(0);bean.setGoodRatio(0.0);
+    		 		bean.setHavedASCSNum(0);bean.setPoorNum(0);
+    		 		bean.setPoorRatio(0.0);bean.setShouldASCSNum(0);
 			    	switch (i){
 			    		 case 0:bean.setItem("54000");
 			    		 		bean.setCategory("理论课");
@@ -87,15 +93,7 @@ public class T513_DAO {
 			    		 case 5:bean.setItem("54002");
 		    		 		bean.setCategory("实践教学");
 		    		 		bean.setTime(time);
-//		    		 		break;
-//			    		 case 6:bean.setItem("54003");
-//		    		 		bean.setCategory("理论课");
-//		    		 		bean.setTime(time);
-//		    		 		break;
-//			    		 case 7:bean.setItem("54003");
-//		    		 		bean.setCategory("实践教学");
-//		    		 		bean.setTime(time);
-//		    		 		break;		
+		
 			    	}
 			    	list1.add(bean);
 			    }

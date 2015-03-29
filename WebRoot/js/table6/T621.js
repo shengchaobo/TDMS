@@ -163,8 +163,7 @@
 	 //弹出添加的界面
 		function newObject() {	   
 			
-			$("input#fromTeaUnit").attr("readonly",false);
-			$("input#fromTeaUnit").css({"color":"black"});
+	
 			
 			var year = $("#cbYearContrast").combobox('getValue'); 
 			url = 'pages/T621/insert?selectYear='+year; 

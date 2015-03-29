@@ -64,10 +64,10 @@ import cn.nit.util.TimeUtil;
  */
 public class T621_Action {
 
-	/** �?21的Service�?*/
+	/** T621的Service*/
 	private T621_Service UndergraAdmiInfoSer = new T621_Service();
 
-	/** �?21的Bean实体�?*/
+	/** T621的Bean实体*/
 	T621_Bean UndergraAdmiInfo = new T621_Bean();
 	
 //	private T621_Dao T621_dao = new T621_Dao();
@@ -518,7 +518,7 @@ public class T621_Action {
 								ws.addCell(new Label(9, 3, bean1.getSpecialtyEnrollNum()+"", wcf1));
 								ws.addCell(new Label(10, 3, bean1.getInProviEnrollNum()+"", wcf1));
 								ws.addCell(new Label(11, 3, bean1.getNewMajEnrollNum()+"", wcf1));
-								ws.addCell(new Label(11, 3, "", wcf1));
+								ws.addCell(new Label(12, 3, bean1.getAvgScore()+"", wcf1));
 //								ws.addCell(new Label(12, 3, bean1.getTime()+"", wcf));
 //								ws.addCell(new Label(13, 3, bean1.getNote()+"", wcf));
 							}else{
@@ -534,7 +534,7 @@ public class T621_Action {
 								ws.addCell(new Label(9, k, bean1.getSpecialtyEnrollNum()+"", wcf1));
 								ws.addCell(new Label(10, k, bean1.getInProviEnrollNum()+"", wcf1));
 								ws.addCell(new Label(11, k, bean1.getNewMajEnrollNum()+"", wcf1));
-								ws.addCell(new Label(11, k, bean1.getAvgScore()+"", wcf1));
+								ws.addCell(new Label(12, k, bean1.getAvgScore()+"", wcf1));
 //								ws.addCell(new Label(12, k, bean1.getTime()+"", wcf));
 //								ws.addCell(new Label(13, k, bean1.getNote()+"", wcf));
 							}

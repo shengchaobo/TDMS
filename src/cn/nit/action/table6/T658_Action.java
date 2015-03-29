@@ -254,8 +254,8 @@ public class T658_Action {
 				return ;
 			}else{
 				try {
-					
-					System.out.println(TeaInfoJson) ;
+//					
+//					System.out.println(TeaInfoJson) ;
 					response.setContentType("application/json;charset=UTF-8") ;
 					out = response.getWriter() ;
 					out.print(TeaInfoJson) ;
@@ -282,7 +282,7 @@ public class T658_Action {
 		testjson.accumulate("rows", list);
 
 		String json = testjson.toString();
-		System.out.println(json);
+//		System.out.println(json);
 		return json;
 	}
 
@@ -294,10 +294,10 @@ public class T658_Action {
 		int tag = 0;
 		//获得该条数据审核状态
 		int state = T658_service.getCheckState(T658_bean.getSeqNumber());
-		System.out.println("test"+state);
+//		System.out.println("test"+state);
 		//如果审核状态是待审核，则直接修改
 		if(state == Constants.WAIT_CHECK){
-			System.out.println("test"+state);
+//			System.out.println("test"+state);
 			T658_bean.setCheckState(Constants.WAIT_CHECK);
 			flag = T658_service.update(T658_bean) ;
 			if(flag) tag = 1;
@@ -339,7 +339,7 @@ public class T658_Action {
 
 	/** 根据数据的id删除数据 */
 	public void deleteByIds() {
-		System.out.println("ids=" +this.getIds());
+//		System.out.println("ids=" +this.getIds());
 		boolean flag = T658_service.deleteItemsByIds(ids);
 		//删除审核不通过信息
 		check_services.delete("T658", ids);

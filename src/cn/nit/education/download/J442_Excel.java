@@ -1,4 +1,4 @@
-package cn.nit.education.download;
+﻿package cn.nit.education.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -15,14 +15,9 @@ import cn.nit.util.ExcelUtil;
 
 public class J442_Excel {
 	
-	
-	
-	
-	public static boolean export_J442(String path,String year){
+	public static boolean export_J442(String path, String year){
 		
 		T444_Dao T444_dao = new T444_Dao();
-//		Calendar a = Calendar.getInstance();
-//		String year = String.valueOf(a.get(Calendar.YEAR));
 		List<T444_Bean> list = T444_dao.totalList(year);
 				
 		String sheetName = "J-4-4-2高层次研究团队（时点）";
@@ -56,16 +51,4 @@ public class J442_Excel {
 			return false;
 		}
 	}
-//	
-//	
-//	public static void main(String args[]){
-//		String path = "E:/test";
-//		boolean flag = J442_Excel.export_J442(path);
-//		if(flag){
-//		System.out.println("成功");
-//		}else{
-//			System.out.println("失败");
-//		}
-//	}
-
 }

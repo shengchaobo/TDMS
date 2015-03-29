@@ -64,16 +64,17 @@ public class J511_Excel {
 		}
 	}
   
-	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
-		  J511_Excel excel = new J511_Excel();
-		  boolean flag = excel.export_J511(path,"2015");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
+	  public static void main(String arg[]){
+			String path = "C:\\Users\\Fan Shuangyan\\Desktop\\Education";
+			  J511_Excel excel = new J511_Excel();
+			  boolean flag = excel.export_J511(path,"2002");
+			  if(flag){
+				  System.out.println("成功！");
+			  }else{
+				  System.out.println("不成功！");
+			  }
+		}
+
 	
 
 

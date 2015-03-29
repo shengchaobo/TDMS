@@ -39,6 +39,7 @@ public class J2102_Excel {
 		T293_Service T293_services = new T293_Service();
 		T293_Bean bean2 = T293_services.getYearInfo(year);
 		
+		
 	    ByteArrayOutputStream fos = null;
 		
 	    String sheetName = "J-2-10-2本科教育经费收支情况（自然年）  ";
@@ -123,7 +124,7 @@ public class J2102_Excel {
 	           ws.mergeCells(1, 18, 2, 18);
 	           ws.mergeCells(1, 19, 2, 19);
 	           		           
-	           if(bean1!=null){
+	           if(bean1!=null && bean2!=null ){
 		           ws.addCell(new Label(3, 3, bean1.getUndergraTeaExpTotal().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 4, bean1.getDayTeaExp().toString(), wcf1));  
 		           ws.addCell(new Label(3, 5, bean1.getTeaReformExp().toString(), wcf1)); 
@@ -133,18 +134,25 @@ public class J2102_Excel {
 		           ws.addCell(new Label(3, 9, bean1.getPraTeaExp().toString(), wcf1));
 		           ws.addCell(new Label(3, 10, bean1.getOtherTeaExp().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 11, bean1.getStuActExp().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 12, bean1.getTeaTrainExp().toString(), wcf1)); 		           		              
-	           }
-	           
-	           if(bean2!=null){	        	   
+		           ws.addCell(new Label(3, 12, bean1.getTeaTrainExp().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 13, bean2.getNationFund().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 14, bean2.getLocalFund().toString(), wcf1));  
 		           ws.addCell(new Label(3, 15, bean2.getJuniorAllocateFund().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 16, bean2.getUndergraTuition().toString().toString(), wcf1)); 
 		           ws.addCell(new Label(3, 17, bean2.getJuniorTuition().toString(), wcf1));
 		           ws.addCell(new Label(3, 18, bean2.getEduReformFund().toString(), wcf1));
-		           ws.addCell(new Label(3, 19, bean2.getDonation().toString(), wcf1));		           		              
+		           ws.addCell(new Label(3, 19, bean2.getDonation().toString(), wcf1));	
 	           }
+	           
+//	           if(bean2!=null){	        	   
+//		           ws.addCell(new Label(3, 13, bean2.getNationFund().toString(), wcf1)); 
+//		           ws.addCell(new Label(3, 14, bean2.getLocalFund().toString(), wcf1));  
+//		           ws.addCell(new Label(3, 15, bean2.getJuniorAllocateFund().toString(), wcf1)); 
+//		           ws.addCell(new Label(3, 16, bean2.getUndergraTuition().toString().toString(), wcf1)); 
+//		           ws.addCell(new Label(3, 17, bean2.getJuniorTuition().toString(), wcf1));
+//		           ws.addCell(new Label(3, 18, bean2.getEduReformFund().toString(), wcf1));
+//		           ws.addCell(new Label(3, 19, bean2.getDonation().toString(), wcf1));		           		              
+//	           }
 	          wwb.write();
 	          wwb.close();
 	
@@ -174,4 +182,6 @@ public class J2102_Excel {
 			}
 		        		
 	}
+	
+	
 }

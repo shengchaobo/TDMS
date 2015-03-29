@@ -106,12 +106,9 @@ public class J251_Excel {
 	           ws.mergeCells(1, 3, 2, 3);
 	           ws.mergeCells(1, 4, 2, 4);
 	           
-	           if(bean1!=null){
+	           if(bean1!=null && bean!=null){
 		           ws.addCell(new Label(1, 3, bean1.getLibNum().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 4, bean1.getLibRoomSitNum().toString(), wcf1)); 	   
-	           }
-	           	        	           		           
-	           if(bean!=null){
+		           ws.addCell(new Label(1, 4, bean1.getLibRoomSitNum().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 5, bean.getPaperBookNum().toString(), wcf1));  
 		           ws.addCell(new Label(2, 6, bean.getPaperJonalNum().toString(), wcf1));  
 		           ws.addCell(new Label(2, 7, bean.getPaperJonalType().toString(), wcf1)); 
@@ -119,8 +116,19 @@ public class J251_Excel {
 		           ws.addCell(new Label(2, 9, bean.getChiDigBookType().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 10, bean.getForDigBookType().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 11, bean.getDigJonalType().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 12, bean.getDatabaseNum().toString(), wcf1)); 		             
-	           }	             
+		           ws.addCell(new Label(2, 12, bean.getDatabaseNum().toString(), wcf1)); 
+	           }
+	           	        	           		           
+//	           if(bean!=null){
+//		           ws.addCell(new Label(2, 5, bean.getPaperBookNum().toString(), wcf1));  
+//		           ws.addCell(new Label(2, 6, bean.getPaperJonalNum().toString(), wcf1));  
+//		           ws.addCell(new Label(2, 7, bean.getPaperJonalType().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 8, bean.getDigBookType().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 9, bean.getChiDigBookType().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 10, bean.getForDigBookType().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 11, bean.getDigJonalType().toString(), wcf1)); 
+//		           ws.addCell(new Label(2, 12, bean.getDatabaseNum().toString(), wcf1)); 		             
+//	           }	             
 	          wwb.write();
 	          wwb.close();
 	
@@ -150,4 +158,6 @@ public class J251_Excel {
 			}
 		        		
 	}
+	
+	
 }

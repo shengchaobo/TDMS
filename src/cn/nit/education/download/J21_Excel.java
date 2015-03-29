@@ -35,6 +35,7 @@ public class J21_Excel {
 
 		T21_Bean bean = T21_services.getYearInfo(year);
 		
+	
 	    ByteArrayOutputStream fos = null;
 		
 	    String sheetName = "J-2-1占地与建筑面积（时点）";
@@ -139,4 +140,6 @@ public class J21_Excel {
 			}
 		        		
 	}
+	
+	
 }

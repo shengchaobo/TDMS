@@ -48,17 +48,17 @@ public class J10_Excel {
 //		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		List<T11_Bean> list = T11_dao.forExcel(year);
-		T11_Bean  bean;
-		if(list==null){
-			System.out.println("无列表");
-			bean = new T11_Bean();
-		}else if(list.size()==0){
-			System.out.println("无列表");
-			bean = new T11_Bean();
-		}else{
-			System.out.println("有列表");
-			bean = list.get(0);
-		}
+//		T11_Bean  bean;
+//		if(list==null){
+//			System.out.println("无列表");
+//			bean = new T11_Bean();
+//		}else if(list.size()==0){
+//			System.out.println("无列表");
+//			bean = new T11_Bean();
+//		}else{
+//			System.out.println("有列表");
+//			bean = list.get(0);
+//		}
 		
 		
 		String sheetName = "J-1-0联系方式（时点）";
@@ -105,16 +105,20 @@ public class J10_Excel {
 	           
 	           ws.mergeCells(0, 5, 0, 7);
 	           
-	           //写入数据
-	           ws.addCell(new Label(1, 2, bean.getSchAddress().toString(), wcf1));
-	           ws.mergeCells(1, 2, 2, 2);
-	           ws.addCell(new Label(1, 3,  bean.getSchTel().toString(), wcf1));
-	           ws.mergeCells(1, 3, 2, 3);
-	           ws.addCell(new Label(1, 4,  bean.getSchFax().toString(), wcf1));
-	           ws.mergeCells(1, 4, 2, 4);
-	           ws.addCell(new Label(2, 5, bean.getSchFillerName().toString(), wcf1));
-	           ws.addCell(new Label(2, 6, bean.getSchFillerTel().toString(), wcf1));
-	           ws.addCell(new Label(2, 7, bean.getSchFillerEmail().toString(), wcf1));
+	           if(list.size()!=0){
+	        	   T11_Bean bean = list.get(0);
+	        	   //写入数据
+		           ws.addCell(new Label(1, 2, bean.getSchAddress().toString(), wcf1));
+		           ws.mergeCells(1, 2, 2, 2);
+		           ws.addCell(new Label(1, 3,  bean.getSchTel().toString(), wcf1));
+		           ws.mergeCells(1, 3, 2, 3);
+		           ws.addCell(new Label(1, 4,  bean.getSchFax().toString(), wcf1));
+		           ws.mergeCells(1, 4, 2, 4);
+		           ws.addCell(new Label(2, 5, bean.getSchFillerName().toString(), wcf1));
+		           ws.addCell(new Label(2, 6, bean.getSchFillerTel().toString(), wcf1));
+		           ws.addCell(new Label(2, 7, bean.getSchFillerEmail().toString(), wcf1));
+	           }
+	          
 	           
 //	       
 	           wwb.write();
@@ -137,14 +141,5 @@ public class J10_Excel {
 		}
 	}
 	
-	public static void main(String arg[]){
-		  String path = "C:\\Users\\Fan Shuangyan\\Desktop";
-		  J10_Excel excel = new J10_Excel();
-		  boolean flag = excel.export_J10(path,"2015");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
+	
 }

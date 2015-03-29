@@ -49,17 +49,17 @@ public class J11_Excel {
 //		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		List<T11_Bean> list = T11_dao.forExcel(year);
-		T11_Bean  bean;
-		if(list==null){
-			System.out.println("无列表");
-			bean = new T11_Bean();
-		}else if(list.size()==0){
-			System.out.println("无列表");
-			bean = new T11_Bean();
-		}else{
-			System.out.println("有列表");
-			bean = list.get(0);
-		}
+//		T11_Bean  bean;
+//		if(list==null){
+//			System.out.println("无列表");
+//			bean = new T11_Bean();
+//		}else if(list.size()==0){
+//			System.out.println("无列表");
+//			bean = new T11_Bean();
+//		}else{
+//			System.out.println("有列表");
+//			bean = list.get(0);
+//		}
 		
 		
 		String sheetName = "J-1-1学校概况（时点）";
@@ -110,16 +110,20 @@ public class J11_Excel {
 	           ws.addCell(new Label(0, 11, "9.招生批次", wcf)); 
 	           ws.addCell(new Label(0, 12, "10.开办本科教育年份", wcf)); 
 	          
-	           ws.addCell(new Label(1, 3, bean.getSchName().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 4, bean.getSchID().toString(), wcf1));  
-	           ws.addCell(new Label(1, 5,  bean.getSchEnName().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 6, bean.getSchType().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 7, bean.getSchQuality().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 8, bean.getSchBuilder().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 9, bean.getMajDept().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 10, bean.getSchUrl().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 11, bean.getAdmissonBatch().toString(), wcf1)); 
-	           ws.addCell(new Label(1, 12, bean.getSch_BeginTime().toString(), wcf1));
+	           if(list.size()!=0){
+	        	   T11_Bean bean = list.get(0);
+	        	   ws.addCell(new Label(1, 3, bean.getSchName().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 4, bean.getSchID().toString(), wcf1));  
+		           ws.addCell(new Label(1, 5,  bean.getSchEnName().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 6, bean.getSchType().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 7, bean.getSchQuality().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 8, bean.getSchBuilder().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 9, bean.getMajDept().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 10, bean.getSchUrl().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 11, bean.getAdmissonBatch().toString(), wcf1)); 
+		           ws.addCell(new Label(1, 12, bean.getSch_BeginTime().toString(), wcf1));
+	           }
+	         
 	          
 	           
 //	           //写入数据
@@ -168,14 +172,5 @@ public class J11_Excel {
 		}
 	}
 	
-	public static void main(String arg[]){
-		 String path = "C:\\Users\\Fan Shuangyan\\Desktop";
-		  J11_Excel excel = new J11_Excel();
-		  boolean flag = excel.export_J11(path,"2015");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
+	
 }

@@ -48,17 +48,17 @@ public class J12_Excel {
 //		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 //		
 		List<T11_Bean> list = T11_dao.forExcel(year);
-		T11_Bean  bean;
-		if(list==null){
-			System.out.println("无列表");
-			bean = new T11_Bean();
-		}else if(list.size()==0){
-			System.out.println("无列表");
-			bean = new T11_Bean();
-		}else{
-			System.out.println("有列表");
-			bean = list.get(0);
-		}
+//		T11_Bean  bean;
+//		if(list==null){
+//			System.out.println("无列表");
+//			bean = new T11_Bean();
+//		}else if(list.size()==0){
+//			System.out.println("无列表");
+//			bean = new T11_Bean();
+//		}else{
+//			System.out.println("有列表");
+//			bean = list.get(0);
+//		}
 		
 		
 		String sheetName = "J-1-2校区地址（时点）";
@@ -97,15 +97,20 @@ public class J12_Excel {
 	           //写入表头
 	           ws.addCell(new Label(0, 2, "序号", wcf)); 
 	           ws.addCell(new Label(1, 2,"校区名称", wcf)); 
-	           ws.addCell(new Label(2, 2, "地址", wcf));  
-	           
-	           //写入数据
+	           ws.addCell(new Label(2, 2, "地址", wcf));
 	           ws.addCell(new Label(0, 3, "1", wcf1));
 	           ws.addCell(new Label(0, 4, "2", wcf1));
 	           ws.addCell(new Label(1, 3, "瑶湖校区", wcf1));
 	           ws.addCell(new Label(1, 4, "彭桥校区", wcf1));
-	           ws.addCell(new Label(2, 3, bean.getYaohuSchAdd(), wcf1));
-	           ws.addCell(new Label(2, 4, bean.getPengHuSchAdd(), wcf1));
+	           
+	           if(list.size()!=0){
+	        	   T11_Bean bean = list.get(0);
+	        	   //写入数据
+		          
+		           ws.addCell(new Label(2, 3, bean.getYaohuSchAdd(), wcf1));
+		           ws.addCell(new Label(2, 4, bean.getPengHuSchAdd(), wcf1));
+	           }
+	          
 	           
 //	           //写入数据
 //	           ws.addCell(new Label(3, 2, bean.getSchAddress().toString(), wcf1)); 
@@ -146,15 +151,7 @@ public class J12_Excel {
 			return false;
 		}
 	}
+
 	
-	public static void main(String arg[]){
-		 String path = "C:\\Users\\Fan Shuangyan\\Desktop";
-		  J12_Excel excel = new J12_Excel();
-		  boolean flag = excel.export_J12(path,"2015");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
+	
 }

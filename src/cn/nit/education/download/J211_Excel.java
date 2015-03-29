@@ -46,6 +46,7 @@ public class J211_Excel {
 		T2103_Service T2103_services = new T2103_Service();
 		T2103_Bean bean3 = T2103_services.getYearInfo(year);
 		
+		
 	    ByteArrayOutputStream fos = null;
 		
 	    String sheetName = "J-2-11素质教育基地、职业资质培训等情况（学年） ";
@@ -93,16 +94,18 @@ public class J211_Excel {
 	           ws.addCell(new Label(0, 5, "3.开设的职业生涯规划及创业教育指导课程数（个）", wcf)); 
 	           ws.addCell(new Label(0, 6, "4.素质教育基地数（个）", wcf)); 
 	           
-	           if(bean1!=null){
+	           if(bean1!=null && bean2!=null && bean3!=null){
 		           ws.addCell(new Label(1, 3, bean1.getQuaEduItemNum().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 6, bean1.getQuaEduBaseNum().toString(), wcf1)); 		              
+		           ws.addCell(new Label(1, 6, bean1.getQuaEduBaseNum().toString(), wcf1)); 	
+		           ws.addCell(new Label(1, 5, bean2.getCourseNum().toString(), wcf1));
+		           ws.addCell(new Label(1, 4, bean3.getStuProfTrainNum().toString(), wcf1)); 
 	           }
-	           if(bean2!=null){
-	        	   ws.addCell(new Label(1, 5, bean2.getCourseNum().toString(), wcf1));            
-	           }	           
-	           if(bean3!=null){
-		           ws.addCell(new Label(1, 4, bean3.getStuProfTrainNum().toString(), wcf1)); 		              
-	           }
+//	           if(bean2!=null){
+//	        	   ws.addCell(new Label(1, 5, bean2.getCourseNum().toString(), wcf1));            
+//	           }	           
+//	           if(bean3!=null){
+//		           ws.addCell(new Label(1, 4, bean3.getStuProfTrainNum().toString(), wcf1)); 		              
+//	           }
 	           
 	          wwb.write();
 	          wwb.close();
@@ -133,4 +136,6 @@ public class J211_Excel {
 			}
 		        		
 	}
+	
+
 }

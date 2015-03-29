@@ -38,14 +38,9 @@ public static boolean export_J17(String path,String year){
 //		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 		
 		S17_Bean  s17Bean = S17_Ser.loadData(year);//校友会
-		if(s17Bean == null){
-			s17Bean = new S17_Bean();
-		}
+
 		S18_Bean  s18Bean = S18_Ser.loadData(year);//合作协议
-		if(s18Bean == null){
-			s18Bean = new S18_Bean();
-		}
-		
+	
 		String sheetName = "J-1-7校友会与社会合作（时点）";
 		
 		
@@ -100,21 +95,16 @@ public static boolean export_J17(String path,String year){
 	           
 	       
 	           //写入数据
-	           
-	           ws.addCell(new Label(2, 3, ""+s17Bean.getSumSchFriNum(), wcf1)); 
-	           System.out.println( ""+s17Bean.getSumSchFriNum());
-	           ws.addCell(new Label(2, 4, ""+s17Bean.getOutlandNum(), wcf1));
-	           System.out.println(""+s17Bean.getOutlandNum());
-	           ws.addCell(new Label(2, 5, ""+s17Bean.getInlandNum(), wcf1)); 
-	           System.out.println(  ""+s17Bean.getInlandNum());
-	           ws.addCell(new Label(2, 6, ""+s18Bean.getSumAgreeNum(), wcf1)); 
-	           System.out.println( ""+s18Bean.getSumAgreeNum());
-	           ws.addCell(new Label(2, 7, ""+s18Bean.getAcademicNum(), wcf1)); 
-	           System.out.println(""+s18Bean.getAcademicNum());
-	           ws.addCell(new Label(2, 8, ""+s18Bean.getIndustryNum(), wcf1)); 
-	           System.out.println(""+s18Bean.getIndustryNum());
-	           ws.addCell(new Label(2, 9, ""+s18Bean.getLocalGoverNum(), wcf1)); 
-	           System.out.println( ""+s18Bean.getLocalGoverNum());
+	           if(s17Bean!=null && s18Bean!=null){
+	        	   ws.addCell(new Label(2, 3, ""+s17Bean.getSumSchFriNum(), wcf1)); 
+	 	           ws.addCell(new Label(2, 4, ""+s17Bean.getOutlandNum(), wcf1));
+	 	           ws.addCell(new Label(2, 5, ""+s17Bean.getInlandNum(), wcf1)); 
+	 	           ws.addCell(new Label(2, 6, ""+s18Bean.getSumAgreeNum(), wcf1)); 
+	 	           ws.addCell(new Label(2, 7, ""+s18Bean.getAcademicNum(), wcf1)); 
+	 	           ws.addCell(new Label(2, 8, ""+s18Bean.getIndustryNum(), wcf1)); 
+	 	           ws.addCell(new Label(2, 9, ""+s18Bean.getLocalGoverNum(), wcf1)); 
+	           }
+	          
 	        
 	           wwb.write();
 		       wwb.close();			
@@ -134,15 +124,6 @@ public static boolean export_J17(String path,String year){
 			return false;
 		}
 	}
-	public static void main(String arg[]){
-		 String path = "E:\\江西项目\\测试表\\一键导出";
-		  J17_Excel excel = new J17_Excel();
-		  boolean flag = excel.export_J17(path,"2015");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
+	
 
 }

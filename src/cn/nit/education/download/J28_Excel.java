@@ -33,7 +33,7 @@ public class J28_Excel {
 /*		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 		String year = dateFormat.format(new Date());*/
 		T22_Bean bean = T22_services.getYearInfo(year);
-		
+
 	    ByteArrayOutputStream fos = null;
 		
 	    String sheetName = "J-2-8学生生活用房（时点） ";
@@ -121,4 +121,5 @@ public class J28_Excel {
 			}
 		        		
 	}
+
 }

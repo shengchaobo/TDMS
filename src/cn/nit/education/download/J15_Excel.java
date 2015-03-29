@@ -65,16 +65,7 @@ public class J15_Excel {
 		}
 	}
 	
-	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
-		  J15_Excel excel = new J15_Excel();
-		  boolean flag = excel.export_J15(path,"2015");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-		}
+	
 
 	
 

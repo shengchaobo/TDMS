@@ -25,7 +25,8 @@ public class J261_Excel {
 		
 		J261_Dao J261_dao = new J261_Dao();		
 		List<J261_POJO> list = J261_dao.getYearInfo(year);
-				
+
+		
 		String sheetName = "J-2-6-1本科实验、实习、实训场所（时点） ";
 		
 		List<String> columns = new ArrayList<String>();
@@ -62,4 +63,6 @@ public class J261_Excel {
 			return false;
 		}
 	}
+	
+	
 }

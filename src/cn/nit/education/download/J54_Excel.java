@@ -132,14 +132,5 @@ public class J54_Excel {
 		        		
 	}
 	
-	public static void main(String arg[]){
-		  String path = "D:\\";
-		  J54_Excel excel = new J54_Excel();
-		  boolean flag = excel.export_J54(path,"2014");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
+	
 }

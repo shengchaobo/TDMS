@@ -59,16 +59,5 @@ public class J616_Excel {
 			}
 		}
 		
-		public static void main(String arg[]){
-			 String path = "D:\\江西项目\\相关表\\ExcelTest";
-			  J616_Excel excel = new J616_Excel();
-			  boolean flag = excel.export_J616(path,"2014");
-			  if(flag){
-				  System.out.println("成功！");
-			  }else{
-				  System.out.println("不成功！");
-			  }
-			}
-
 
 }

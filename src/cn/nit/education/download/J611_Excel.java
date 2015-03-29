@@ -111,15 +111,18 @@ public class J611_Excel {
 	           ws.addCell(new Label(0, 19, "12.自考学生数", wcf));  
 	        
 	           //写入数据
-	           ws.addCell(new Label(1, 3, ""+t611bean.getUndergraThisYearNum(), wcf));            ws.addCell(new Label(1, 4, ""+t613bean.getCoTrainStuThisYearNum(), wcf1));
-	           ws.addCell(new Label(1, 5, ""+t611bean.getJuniorThisYearNum(), wcf));  ws.addCell(new Label(1, 6, ""+t612bean.getMasterThisYearNum(), wcf)); 
-	           ws.addCell(new Label(1, 7, ""+t612bean.getFullTimeMasterThisYearNum(), wcf1));        ws.addCell(new Label(1, 8, ""+t612bean.getPartTimeMasterThisYearNum(), wcf1)); 
-	           ws.addCell(new Label(1, 9, ""+t612bean.getDoctorThisYearNum(), wcf));              ws.addCell(new Label(1, 10, ""+t612bean.getFullTimeDoctorThisYearNum(), wcf1)); 
-	           ws.addCell(new Label(1, 11, ""+t612bean.getPartTimeDoctorThisYearNum(), wcf1));                 ws.addCell(new Label(1, 12, ""+t613bean.getForeignStuThisYearNum(), wcf)); 
-	           ws.addCell(new Label(1, 13, ""+t614bean.getPreppyThisYearNum(), wcf));             ws.addCell(new Label(1, 14, ""+t614bean.getAdvStuThisYearNum(), wcf)); 
-	           ws.addCell(new Label(1, 15,""+t614bean.getAdultThisYearNum(), wcf));  		   ws.addCell(new Label(1, 16, ""+t614bean.getNightUniThisYearNum(), wcf)); 
-	           ws.addCell(new Label(1, 17, ""+t614bean.getCorrespdThisYearNum(), wcf));             ws.addCell(new Label(1, 18, ""+t614bean.getNetStuThisYearNum(), wcf));  
-	           ws.addCell(new Label(1, 19, ""+t614bean.getSelfStudyThisYearNum(), wcf));  
+	           if(t611bean!=null && t612bean!=null && t614bean!=null && t613bean!=null){
+	        	   ws.addCell(new Label(1, 3, ""+t611bean.getUndergraThisYearNum(), wcf));            ws.addCell(new Label(1, 4, ""+t613bean.getCoTrainStuThisYearNum(), wcf1));
+		           ws.addCell(new Label(1, 5, ""+t611bean.getJuniorThisYearNum(), wcf));  ws.addCell(new Label(1, 6, ""+t612bean.getMasterThisYearNum(), wcf)); 
+		           ws.addCell(new Label(1, 7, ""+t612bean.getFullTimeMasterThisYearNum(), wcf1));        ws.addCell(new Label(1, 8, ""+t612bean.getPartTimeMasterThisYearNum(), wcf1)); 
+		           ws.addCell(new Label(1, 9, ""+t612bean.getDoctorThisYearNum(), wcf));              ws.addCell(new Label(1, 10, ""+t612bean.getFullTimeDoctorThisYearNum(), wcf1)); 
+		           ws.addCell(new Label(1, 11, ""+t612bean.getPartTimeDoctorThisYearNum(), wcf1));                 ws.addCell(new Label(1, 12, ""+t613bean.getForeignStuThisYearNum(), wcf)); 
+		           ws.addCell(new Label(1, 13, ""+t614bean.getPreppyThisYearNum(), wcf));             ws.addCell(new Label(1, 14, ""+t614bean.getAdvStuThisYearNum(), wcf)); 
+		           ws.addCell(new Label(1, 15,""+t614bean.getAdultThisYearNum(), wcf));  		   ws.addCell(new Label(1, 16, ""+t614bean.getNightUniThisYearNum(), wcf)); 
+		           ws.addCell(new Label(1, 17, ""+t614bean.getCorrespdThisYearNum(), wcf));             ws.addCell(new Label(1, 18, ""+t614bean.getNetStuThisYearNum(), wcf));  
+		           ws.addCell(new Label(1, 19, ""+t614bean.getSelfStudyThisYearNum(), wcf));  
+	           }
+	          
 	           
 	           wwb.write();
 		       wwb.close();
@@ -141,17 +144,7 @@ public class J611_Excel {
 		}
 	}
    
-   public static void main(String arg[]){
-	   T611_Bean bean = new T611_Bean();
-	   String path = "D:\\江西项目\\相关表\\ExcelTest";
-	  J611_Excel excel = new J611_Excel();
-	  boolean flag = excel.export_J611(path,"2014");
-	  if(flag){
-		  System.out.println("成功！");
-	  }else{
-		  System.out.println("不成功！");
-	  }
-   }
+  
 
 
 }

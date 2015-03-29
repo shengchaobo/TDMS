@@ -20,6 +20,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 import cn.nit.bean.table6.T66_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T66_Dao;
 
 public class J63_Excel {
@@ -33,10 +34,7 @@ public static boolean export_J63(String path,String year) {
 //		String currentTime = time.toString();
 //		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 //		
-		T66_Bean bean = T66_dao.getYearInfo(year);
-		if(bean==null){
-			bean = new T66_Bean();
-		}
+		T66_Bean bean = T66_dao.getYearInfo(year,Constants.PASS_CHECK);
 		
 		String sheetName = "J-6-3学生社团（时点）";
 		
@@ -95,18 +93,21 @@ public static boolean export_J63(String path,String year) {
 	           ws.mergeCells(0, 9, 0, 14);
 	           		           
 	           //写入数据
-	           ws.addCell(new Label(2, 3, bean.getStuClubSum()+"", wcf1));
-	           ws.addCell(new Label(2, 4,bean.getStuClubSciNum()+"", wcf1));
-	           ws.addCell(new Label(2, 5,bean.getStuClubHumanNum()+"", wcf1));
-	           ws.addCell(new Label(2, 6, bean.getStuClubSportNum()+"", wcf1));
-	           ws.addCell(new Label(2, 7, bean.getStuClubArtNum()+"", wcf1));
-	           ws.addCell(new Label(2, 8,bean.getOtherStuClub()+"", wcf1));
-	           ws.addCell(new Label(2, 9, bean.getJoinStuSum()+"", wcf1));
-	           ws.addCell(new Label(2, 10, bean.getJoinClubSciNum()+"", wcf1));
-	           ws.addCell(new Label(2, 11, bean.getJoinClubHumanNum()+"", wcf1));
-	           ws.addCell(new Label(2, 12, bean.getJoinClubSportNum()+"", wcf1));
-	           ws.addCell(new Label(2, 13, bean.getJoinClubArtNum()+"", wcf1));
-	           ws.addCell(new Label(2, 14, bean.getJoinOtherClub()+"", wcf1)); 
+	           if(bean!=null){
+	        	   ws.addCell(new Label(2, 3, bean.getStuClubSum()+"", wcf1));
+		           ws.addCell(new Label(2, 4,bean.getStuClubSciNum()+"", wcf1));
+		           ws.addCell(new Label(2, 5,bean.getStuClubHumanNum()+"", wcf1));
+		           ws.addCell(new Label(2, 6, bean.getStuClubSportNum()+"", wcf1));
+		           ws.addCell(new Label(2, 7, bean.getStuClubArtNum()+"", wcf1));
+		           ws.addCell(new Label(2, 8,bean.getOtherStuClub()+"", wcf1));
+		           ws.addCell(new Label(2, 9, bean.getJoinStuSum()+"", wcf1));
+		           ws.addCell(new Label(2, 10, bean.getJoinClubSciNum()+"", wcf1));
+		           ws.addCell(new Label(2, 11, bean.getJoinClubHumanNum()+"", wcf1));
+		           ws.addCell(new Label(2, 12, bean.getJoinClubSportNum()+"", wcf1));
+		           ws.addCell(new Label(2, 13, bean.getJoinClubArtNum()+"", wcf1));
+		           ws.addCell(new Label(2, 14, bean.getJoinOtherClub()+"", wcf1)); 
+	           }
+	          
 	          
 	           wwb.write();
 		       wwb.close();
@@ -128,19 +129,6 @@ public static boolean export_J63(String path,String year) {
 		}
 }
 
-public static void main(String arg[]){
-	 String path = "E:\\江西项目\\测试表\\一键导出";
-	  J63_Excel excel = new J63_Excel();
-	  boolean flag = excel.export_J63(path,"2014");
-	  if(flag){
-		  System.out.println("成功！");
-	  }else{
-		  System.out.println("不成功！");
-	  }
-}
-	
-	
-	
-	
+		
 
 }

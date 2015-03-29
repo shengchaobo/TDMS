@@ -64,16 +64,6 @@ public class J533_Excel {
 			}
 		}
 	  
-		public static void main(String arg[]){
-			 String path = "D:\\江西项目\\相关表\\ExcelTest";
-			  J533_Excel excel = new J533_Excel();
-			  boolean flag = excel.export_J533(path,"2015");
-			  if(flag){
-				  System.out.println("成功！");
-			  }else{
-				  System.out.println("不成功！");
-			  }
-		}
 		
 
 }

@@ -17,7 +17,7 @@ public class J731_DAO {
 	String field="ItemName,Leader,TeaID,ItemLevel,ItemSetUpTime,ReceptTime,ApplvExp,OtherTeaNum,CheckState";
 		
 	/**
-	 * 获得当年所有数据
+	 * 获得当年所有数据(教育部)
 	 * @return
 	 */
 	public List<J731POJO> getYearInfo(String year){

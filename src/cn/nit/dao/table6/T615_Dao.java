@@ -243,6 +243,10 @@ public class T615_Dao {
 		return list ;
 	}
 	
+	
+	/**
+	 * 教育部导出
+	 * */
 	public List<T615_Bean> getAllList() {
 		// TODO Auto-generated method stub
 		String sql = "select " + fieldShow + " from " + tableName ;

@@ -36,7 +36,8 @@ public class J513_Excel {
 		T513_DAO t513Dao = new T513_DAO();
 //		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 //		String year = dateFormat.format(new Date());
-		List<T513POJO>  list = t513Dao.totalList(year);
+//		List<T513POJO>  list = t513Dao.totalList(year);
+		List<T513POJO>  list = null;
 		double CoverRatio1 = 0; double ExcellentRatio1 = 0;double GoodRatio1 = 0;
 		double AvgRatio1 = 0; double PoorRatio1 = 0;
 		double CoverRatio2 = 0; double ExcellentRatio2 = 0;double GoodRatio2 = 0;
@@ -47,36 +48,39 @@ public class J513_Excel {
 		int should1 = 0;int have1 = 0;int exe1 = 0;int good1=0;int avg1=0; int poor1=0;//学生评教
 		int should2 = 0;int have2 = 0;int exe2 = 0;int good2=0;int avg2=0; int poor2=0;//同行评教
 		int should3 = 0;int have3 = 0;int exe3 = 0;int good3=0;int avg3=0; int poor3=0;//专家评教
-		if(list.size()>0){
-			for(T513POJO pojo:list){
-				if(pojo.getItemID()=="54000")//学生评教
-				{
-					have1 +=pojo.getHavedASCSNum();
-					should1 +=pojo.getShouldASCSNum();
-					exe1 +=pojo.getExcellentNum();
-					good1 +=pojo.getGoodNum();
-					avg1 +=pojo.getAvgNum();
-					poor1 +=pojo.getPoorNum();
-				}
-				if(pojo.getItemID()=="54002")//同行评教
-				{
-					have2 +=pojo.getHavedASCSNum();
-					should2 +=pojo.getShouldASCSNum();
-					exe2 +=pojo.getExcellentNum();
-					good2 +=pojo.getGoodNum();
-					avg2 +=pojo.getAvgNum();
-					poor2 +=pojo.getPoorNum();
-				}
-				if(pojo.getItemID()=="54003")//专家评教
-				{
-					have3 +=pojo.getHavedASCSNum();
-					should3 +=pojo.getShouldASCSNum();
-					exe3 +=pojo.getExcellentNum();
-					good3 +=pojo.getGoodNum();
-					avg3 +=pojo.getAvgNum();
-					poor3 +=pojo.getPoorNum();
+		if(list!=null){
+			if(list.size()!=0){
+				for(T513POJO pojo:list){
+					if(pojo.getItemID()=="54000")//学生评教
+					{
+						have1 +=pojo.getHavedASCSNum();
+						should1 +=pojo.getShouldASCSNum();
+						exe1 +=pojo.getExcellentNum();
+						good1 +=pojo.getGoodNum();
+						avg1 +=pojo.getAvgNum();
+						poor1 +=pojo.getPoorNum();
+					}
+					if(pojo.getItemID()=="54002")//同行评教
+					{
+						have2 +=pojo.getHavedASCSNum();
+						should2 +=pojo.getShouldASCSNum();
+						exe2 +=pojo.getExcellentNum();
+						good2 +=pojo.getGoodNum();
+						avg2 +=pojo.getAvgNum();
+						poor2 +=pojo.getPoorNum();
+					}
+					if(pojo.getItemID()=="54003")//专家评教
+					{
+						have3 +=pojo.getHavedASCSNum();
+						should3 +=pojo.getShouldASCSNum();
+						exe3 +=pojo.getExcellentNum();
+						good3 +=pojo.getGoodNum();
+						avg3 +=pojo.getAvgNum();
+						poor3 +=pojo.getPoorNum();
+					}
 				}
 			}
+			
 		}
 		//计算
 		//学生评教
@@ -150,7 +154,7 @@ public class J513_Excel {
 	           ws.addCell(new Label(0, 4, "同行评教", wcf)); 
 	           ws.addCell(new Label(0, 5, "专家评教", wcf)); 
 	           		           
-	           if(list.size()!=0){
+	           if(list!=null){
 	        	   
 	        	   ws.addCell(new Label(1, 3, ""+CoverRatio1, wcf1)); 
 		           ws.addCell(new Label(2, 3, ""+ExcellentRatio1, wcf1));  
@@ -211,8 +215,8 @@ public class J513_Excel {
 	
 	public static void main(String arg[]){
 		 String path = "C:\\Users\\Fan Shuangyan\\Desktop\\Education";
-		  J252_Excel excel = new J252_Excel();
-		  boolean flag = excel.export_J252(path,"2002");
+		  J513_Excel excel = new J513_Excel();
+		  boolean flag = excel.export_J513(path,"2002");
 		  if(flag){
 			  System.out.println("成功！");
 		  }else{

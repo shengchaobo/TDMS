@@ -37,9 +37,13 @@ public class J72_Excel {
 		S52_DAO S52_dao = new S52_DAO();
 //		Calendar a = Calendar.getInstance();
 //		String year = String.valueOf(a.get(Calendar.YEAR));
+		
 		String webTeahingUrl = T27_dao.getString(year,"WebTeahingUrl");
+		System.out.println(webTeahingUrl);
 		String teaManageUrl = T27_dao.getString(year,"TeaManageUrl");
 		int num = S52_dao.getNum(year,"网络课程");
+
+		
 	    ByteArrayOutputStream fos = null;
 		
 	    String sheetName = "J-7-2本科教学信息化（时点）";
@@ -85,6 +89,7 @@ public class J72_Excel {
 	           ws.addCell(new Label(0, 3, "教学管理信息系统", wcf)); 
 	           ws.addCell(new Label(0, 4, "网络教学平台", wcf)); 
 	           ws.addCell(new Label(0, 5, "网络课程数量", wcf)); 
+	           
 	           if(teaManageUrl == null){
 	        	   ws.addCell(new Label(1, 3,"无", wcf1)); 
 	           }else{
@@ -133,7 +138,7 @@ public class J72_Excel {
 	
 	
 	public static void main(String args[]){
-		String path = "E:/test";
+	    String path = "C:\\Users\\Fan Shuangyan\\Desktop\\Education";
 		boolean flag = J72_Excel.export_J72(path,"2014");
 		if(flag){
 		System.out.println("成功");

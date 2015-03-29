@@ -65,6 +65,40 @@ public class T641_Dao {
 		}
 		return bean ;
 	}
+	
+	/**
+	 * 教育部导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public T641_Bean getYearInfo(String year,int CheckState){
+		
+		String sql = "select " + " " + key + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year
+		+" CheckState="+CheckState;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T641_Bean> list = null ;
+		T641_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T641_Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
+		}
+		return bean ;
+	}
 		
 	/**
 	 * 保存数据

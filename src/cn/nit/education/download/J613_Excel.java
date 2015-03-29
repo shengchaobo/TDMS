@@ -36,7 +36,7 @@ public class J613_Excel {
 		//从数据库读取数据
 		List<T621_Bean> list = T621_dao.getAllList(year);
 		
-		T621_Bean bean = new T621_Bean();	;
+		T621_Bean bean=new T621_Bean();
 		
 		if(list!=null){
 			int AmisPlanNum=0; int ActulEnrollNum=0; int ActulRegisterNum=0; int AutoEnrollNum=0;
@@ -51,7 +51,6 @@ public class J613_Excel {
 				InProviEnrollNum+=bean1.getInProviEnrollNum();
 				NewMajEnrollNum+=bean1.getNewMajEnrollNum();
 			}
-			
 			bean.setActulEnrollNum(ActulEnrollNum);
 			bean.setActulRegisterNum(ActulRegisterNum);
 			bean.setAmisPlanNum(AmisPlanNum);
@@ -107,13 +106,16 @@ public class J613_Excel {
 	   
 	           
 		        //写入数据
-	           ws.addCell(new Label(1, 3, ""+bean.getAmisPlanNum(), wcf1)); 
-	           ws.addCell(new Label(1, 4, ""+bean.getActulEnrollNum(), wcf1)); 
-	           ws.addCell(new Label(1, 5, ""+bean.getActulRegisterNum(), wcf1)); 
-	           ws.addCell(new Label(1, 6, ""+bean.getAutoEnrollNum(), wcf1)); 
-	           ws.addCell(new Label(1, 7, ""+bean.getSpecialtyEnrollNum(), wcf1)); 
-	           ws.addCell(new Label(1, 8, ""+bean.getInProviEnrollNum(), wcf));
-	           ws.addCell(new Label(1, 8, ""+bean.getNewMajEnrollNum(), wcf1));
+	           if(list!=null){
+	        	   ws.addCell(new Label(1, 3, ""+bean.getAmisPlanNum(), wcf1)); 
+		           ws.addCell(new Label(1, 4, ""+bean.getActulEnrollNum(), wcf1)); 
+		           ws.addCell(new Label(1, 5, ""+bean.getActulRegisterNum(), wcf1)); 
+		           ws.addCell(new Label(1, 6, ""+bean.getAutoEnrollNum(), wcf1)); 
+		           ws.addCell(new Label(1, 7, ""+bean.getSpecialtyEnrollNum(), wcf1)); 
+		           ws.addCell(new Label(1, 8, ""+bean.getInProviEnrollNum(), wcf));
+		           ws.addCell(new Label(1, 8, ""+bean.getNewMajEnrollNum(), wcf1));
+	           }
+	           
 	   
 	        
 	           wwb.write();
@@ -136,16 +138,7 @@ public class J613_Excel {
 		}
 	}
 	
-	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
-		  J613_Excel excel = new J613_Excel();
-		  boolean flag = excel.export_J613(path,"2015");
-		  if(flag){
-			  System.out.println("成功！");
-		  }else{
-			  System.out.println("不成功！");
-		  }
-	}
+	
 
 	
 

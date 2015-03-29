@@ -18,7 +18,7 @@ public class J452_Excel {
 	public static boolean export_J452(String path, String year){
 		
 		J452_Dao J452_dao = new J452_Dao();
-		List<J452POJO> list = J452_dao.totalList(year);				
+		List<J452POJO> list = J452_dao.totalList(year);		
 
 		String sheetName = "J-4-5-2教师培训进修.交流情况（学年）";
 		
@@ -58,4 +58,7 @@ public class J452_Excel {
 			return false;
 		}
 	}
+	
+
+
 }

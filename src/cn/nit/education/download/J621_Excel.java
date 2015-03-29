@@ -162,7 +162,7 @@ public static boolean export_J621(String path,String year) {
 	}
 	
 	public static void main(String arg[]){
-		 String path = "D:\\江西项目\\相关表\\ExcelTest";
+		String path = "C:\\Users\\Fan Shuangyan\\Desktop\\Education";
 		  J621_Excel excel = new J621_Excel();
 		  boolean flag = excel.export_J621(path,"2014");
 		  if(flag){

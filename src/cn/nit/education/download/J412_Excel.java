@@ -60,14 +60,6 @@ public class J412_Excel {
 		}
 	}
 	
-	public static void main(String args[]){
-		String path = "E:/test";
-		boolean flag = J412_Excel.export_J412(path);
-		if(flag){
-		System.out.println("成功");
-		}else{
-			System.out.println("失败");
-		}
-	}
+	
 
 }

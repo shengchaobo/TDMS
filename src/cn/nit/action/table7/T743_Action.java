@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table7.T743_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table7.T743_DAO;
@@ -311,10 +312,23 @@ public class T743_Action {
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T743POJO> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list =  t743_Sr.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表4-4-1专业带头人（教学单位-教务处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = t743_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
 		
 		try {
-			List<T743POJO> list = t743_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			String sheetName = this.excelName;
+			//List<T743POJO> list = t743_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

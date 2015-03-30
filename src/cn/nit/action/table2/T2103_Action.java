@@ -33,7 +33,9 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table2.T2103_Bean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.service.table2.T2103_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
@@ -173,20 +175,32 @@ public class T2103_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		T2103_Bean bean = T2103_services.getYearInfo(this.getSelectYear());
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T2103_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T2103_services.getYearInfo(year);
+			sheetName = "表2-10-3职业资质培训（职教处）";
+		}else{
+			bean =T2103_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		
+//		T2103_Bean bean = T2103_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+			//String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -219,8 +233,11 @@ public class T2103_Action {
 		           ws.addCell(new Label(1, 2, "内容", wcf)); 
 		           ws.addCell(new Label(0, 3, "1.大学生职业资质培训数（人次）", wcf)); 
 
-		           		           
-		           ws.addCell(new Label(1, 3, bean.getStuProfTrainNum().toString(), wcf1)); 
+		           		    
+		           if(bean!=null){
+		        	   ws.addCell(new Label(1, 3, bean.getStuProfTrainNum().toString(), wcf1)); 
+		           }
+		          
   
 		             
 
@@ -231,7 +248,7 @@ public class T2103_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

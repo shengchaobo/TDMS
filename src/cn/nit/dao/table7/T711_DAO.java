@@ -168,14 +168,30 @@ public class T711_DAO {
 	 */
 	public List<T711POJO> totalList(String fillUnitID,String year,int checkState){
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name," +
-				"t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel," +
-				"t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime7," +
-				"t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID,t.CheckState");
-    	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
-    	sql.append(" where adl.IndexID=t.AwardLevel") ;
-    	sql.append(" and t.FillUnitID=" + "'" + fillUnitID + "'");
-    	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		
+
+		if("111".equals(fillUnitID)){
+			
+			sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name," +
+					"t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel," +
+					"t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime7," +
+					"t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID,t.CheckState");
+	    	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
+	    	sql.append(" where adl.IndexID=t.AwardLevel") ;
+	    	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+//			sql = "select " + keyfield+ "," + field + " from " + tableName +
+//		     " where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.Name," +
+					"t.TeaID,t.AwardName,adl.AwardLevel as AwardLevel," +
+					"t.AwardLevel as AwardLevelID,t.AwardRank,t.AwardTime7," +
+					"t.AwardFromUnit,t.AppvlID,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.FillUnitID,t.CheckState");
+	    	sql.append(" from " + tableName + " as t, DiAwardLevel adl");
+	    	sql.append(" where adl.IndexID=t.AwardLevel") ;
+	    	sql.append(" and t.FillUnitID=" + "'" + fillUnitID + "'");
+	    	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		}
+		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

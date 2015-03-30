@@ -189,14 +189,14 @@ public class T21_Action {
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
 			
 						
 		    WritableWorkbook wwb;
@@ -256,18 +256,21 @@ public class T21_Action {
 		           ws.mergeCells(0, 3, 0, 9);
 		           ws.mergeCells(0, 10, 0, 14);
 		           		           
-		           ws.addCell(new Label(2, 3, bean.getSumArea().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 4, bean.getSchProArea().toString(), wcf1));  
-		           ws.addCell(new Label(2, 5, bean.getGreenArea().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 6, bean.getNotSchProArea().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 7, bean.getGreenAreaNotInSch().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 8, bean.getOnlyUseArea().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 9, bean.getCoUseArea().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 10, bean.getSumCoverArea().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 11, bean.getSchProCovArea().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 12, bean.getNotSchProCovArea().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 13, bean.getOnlyUseCovArea().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 14, bean.getCoUseCovArea().toString(), wcf1)); 
+		           if(bean!=null){
+		        	   ws.addCell(new Label(2, 3, bean.getSumArea().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 4, bean.getSchProArea().toString(), wcf1));  
+			           ws.addCell(new Label(2, 5, bean.getGreenArea().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 6, bean.getNotSchProArea().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 7, bean.getGreenAreaNotInSch().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 8, bean.getOnlyUseArea().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 9, bean.getCoUseArea().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 10, bean.getSumCoverArea().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 11, bean.getSchProCovArea().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 12, bean.getNotSchProCovArea().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 13, bean.getOnlyUseCovArea().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 14, bean.getCoUseCovArea().toString(), wcf1)); 
+		           }
+		         
 		             
 
 		          wwb.write();
@@ -277,7 +280,7 @@ public class T21_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

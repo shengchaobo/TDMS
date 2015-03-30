@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table7.T721_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table7.T721_DAO;
@@ -321,10 +322,24 @@ public class T721_Action {
 
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T721POJO> list  = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t721_Sr.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表7-2-1教育教学研究与改革项目（教务处）";
+		}else{			
+			//String fillUnitID = userBean.getUnitID();			
+			list = t721_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 		try {
 			
-			List<T721POJO> list = t721_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			String sheetName = this.excelName;
+//			List<T721POJO> list = t721_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+//			String sheetName = this.excelName;
 
 			
 			List<String> columns = new ArrayList<String>();

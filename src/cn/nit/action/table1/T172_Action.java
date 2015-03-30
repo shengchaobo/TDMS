@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table1.T12_Bean;
 import cn.nit.bean.table1.T172_Bean;
 //import cn.nit.dao.table1.T172DAO;
 import cn.nit.service.table1.T172Service;
@@ -73,6 +75,9 @@ public class T172_Action {
 	
 	/**每页显示的条数  */
 	private String rows ;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	/**  逐条插入数据  */
 	public void insert(){
@@ -221,12 +226,25 @@ public class T172_Action {
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T172_Bean> list   = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list =  t172Ser.totalList();
+			sheetName = "表1-7-2校友返校交流情况（党院办）";
+		}else{
+			list = t172Ser.totalList();
+			sheetName = this.excelName;
+		}
 
 		try {
 			
-			List<T172_Bean> list = t172Ser.totalList();
+			//List<T172_Bean> list = t172Ser.totalList();
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

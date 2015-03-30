@@ -33,6 +33,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table2.T284_Bean;
 import cn.nit.service.table2.T284_Service;
 import cn.nit.util.ExcelUtil;
@@ -174,20 +176,32 @@ public class T284_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		T284_Bean bean = T284_services.getYearInfo(this.getSelectYear());
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T284_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean =T284_services.getYearInfo(year);
+			sheetName = "表2-8-4固定资产总值-档案(档案馆)";
+		}else{
+			bean = T284_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		
+	//T284_Bean bean = T284_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+//			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -224,10 +238,12 @@ public class T284_Action {
 
 		           ws.mergeCells(0, 2, 2, 2);
 
-		           		           
-		           ws.addCell(new Label(0, 4, bean.getSumFixedAsset().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 4, bean.getFileAsset().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 4, bean.getOtherAsset().toString(), wcf1)); 	
+		           if(bean!=null){
+		        	   ws.addCell(new Label(0, 4, bean.getSumFixedAsset().toString(), wcf1)); 
+			           ws.addCell(new Label(1, 4, bean.getFileAsset().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 4, bean.getOtherAsset().toString(), wcf1));
+		           }
+		            	
 		             
 
 		          wwb.write();
@@ -237,7 +253,7 @@ public class T284_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

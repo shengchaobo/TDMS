@@ -33,6 +33,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table2.T242_Bean;
 import cn.nit.service.table2.T242_Service;
 import cn.nit.util.ExcelUtil;
@@ -173,21 +175,33 @@ public class T242_Action {
 	}
 		
 	public InputStream getInputStream() throws Exception{
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T242_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T242_services.getYearInfo(year);
+			sheetName = "表2-4-2图书当年新增情况（图书馆）";
+		}else{
+			bean = T242_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
 
-		System.out.println(this.getSelectYear());
-		T242_Bean bean = T242_services.getYearInfo(this.getSelectYear());
+		//T242_Bean bean = T242_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+//			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -223,12 +237,15 @@ public class T242_Action {
 		           ws.addCell(new Label(0, 6, "4.当年图书流通量（本次）", wcf)); 
 		           ws.addCell(new Label(0, 7, "5.当年电子资源访问量（次）", wcf)); 
 
-		           ws.addCell(new Label(1, 2, "数量", wcf)); 
-		           ws.addCell(new Label(1, 3, bean.getAddPaperBookNum().toString(), wcf1));  
-		           ws.addCell(new Label(1, 4, bean.getAddDigBookType().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 5, bean.getLiterAcqusExps().toString(), wcf1));  
-		           ws.addCell(new Label(1, 6, bean.getBookTurnover().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 7, bean.getDigResVisit().toString(), wcf1)); 
+		           if(bean!=null){
+		        	   ws.addCell(new Label(1, 2, "数量", wcf)); 
+			           ws.addCell(new Label(1, 3, bean.getAddPaperBookNum().toString(), wcf1));  
+			           ws.addCell(new Label(1, 4, bean.getAddDigBookType().toString(), wcf1)); 
+			           ws.addCell(new Label(1, 5, bean.getLiterAcqusExps().toString(), wcf1));  
+			           ws.addCell(new Label(1, 6, bean.getBookTurnover().toString(), wcf1)); 
+			           ws.addCell(new Label(1, 7, bean.getDigResVisit().toString(), wcf1));
+		           }
+		          
 		             
 
 		          wwb.write();
@@ -238,7 +255,7 @@ public class T242_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

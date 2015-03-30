@@ -17,7 +17,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T12_Bean;
+import cn.nit.bean.table1.T19_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T12DAO;
 import cn.nit.excel.imports.table1.T12Excel;
 import cn.nit.service.table1.T12Service;
@@ -60,6 +63,10 @@ public class T12_Action {
 	/**每页显示的条数  */
 	private String rows ;
 	/**  逐条插入数据  */
+	
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	/**  为界面加载数据  */
 	public void auditingData(){
@@ -104,22 +111,34 @@ public class T12_Action {
 		
 //        System.out.println("年份："+this.Year);
 		InputStream inputStream = null ;
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T12_Bean> list   = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list =  t12Ser.totalList();
+			sheetName = "表1-2学校行政单位（党院办）";
+		}else{
+			list =  t12Ser.totalList();
+			sheetName = this.excelName;
+		}
 
 		try {
 			
-			List<T12_Bean> list = t12Ser.totalList();
+			//List<T12_Bean> list = t12Ser.totalList();
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("行政单位名称");columns.add("单位号");columns.add("单位职能");
-			columns.add("单位负责人");columns.add("备注");
+			columns.add("单位负责人");columns.add("教工号");
 
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("UnitName", 0);maplist.put("UnitID", 1);maplist.put("Functions", 2);
-			maplist.put("Leader", 3);
-			maplist.put("Note", 4);
+			maplist.put("Leader", 3);	maplist.put("TeaID",4);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());

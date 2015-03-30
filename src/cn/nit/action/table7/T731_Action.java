@@ -18,7 +18,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table7.T731_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table7.T731_DAO;
 import cn.nit.pojo.table7.T731POJO;
 import cn.nit.service.table7.T731_Service;
@@ -195,10 +197,24 @@ public class T731_Action {
 
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T731POJO> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list =  t731_Sr.totalList(year);
+			sheetName = "表7-3-1校领导听课情况（教务处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list =  t731_Sr.totalList(this.getSelectYear());					
+			sheetName = this.excelName;
+		}
+		
 		try {
-			List<T731POJO> list = t731_Sr.totalList(this.getSelectYear());
-			String sheetName = this.excelName;
-			
+//			List<T731POJO> list = t731_Sr.totalList(this.getSelectYear());
+//			String sheetName = this.excelName;
+//			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("听课学期");columns.add("校领导姓名");columns.add("校领导教工号");columns.add("听课日期");columns.add("授课教师");columns.add("授课教教工号");

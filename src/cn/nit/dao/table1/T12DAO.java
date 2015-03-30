@@ -163,7 +163,7 @@ public class T12DAO {
 	public List<T12_Bean> totalList(){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select UnitName,UnitID,Functions, Leader,TeaID,Note" );
+		sql.append("select  UnitName,UnitID,Functions, Leader,TeaID,Note" );
 		sql.append(" from "+tableName );
 		sql.append(" where UnitID like '10%'");
 //		System.out.println(sql.toString());
@@ -277,6 +277,11 @@ public class T12DAO {
 	public String getTableName(){
 		return this.tableName ;
 	}
-
+	
+	public static void main(String args[]){
+		T12DAO dao = new T12DAO();
+		List<T12_Bean> list = dao.totalList();
+		System.out.println(list.size());
+	}
 
 }

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table5.T511_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T511_DAO;
@@ -321,10 +322,24 @@ public class T511_Action {
 
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean1 = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T511POJO> list = null;
+		
+		if("111".equals(userBean1.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t511_Sr.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表5-1-1本科课程库";
+		}else{			
+			//String fillUnitID = userBean1.getUnitID();			
+			list = t511_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 		try {
 			
-			List<T511POJO> list = t511_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			String sheetName = this.excelName;
+//			List<T511POJO> list = t511_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+//			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

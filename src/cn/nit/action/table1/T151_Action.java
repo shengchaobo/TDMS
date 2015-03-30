@@ -20,8 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T151_Bean;
-import cn.nit.bean.table4.T411_Bean;
 import cn.nit.constants.Constants;
 
 import cn.nit.excel.imports.table1.T151Excel;
@@ -91,6 +92,9 @@ public class T151_Action {
 		this.queryYear = queryYear;
 	}
 
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	/**  逐条插入数据  */
 	public void insert(){
@@ -343,17 +347,28 @@ public class T151_Action {
 	/**数据导出*/
 	public InputStream getInputStream(){
 		
-//		System.out.println("数据导出");
-//        System.out.println("年份："+this.selectYear);
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T151_Bean> list= null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list= t151Ser.totalList(year);
+			sheetName = "表1-5-1校级以上科研机构（科研处）";
+		}else{
+			list = t151Ser.totalList(this.selectYear);
+			sheetName = "表1-5-1校级以上科研机构（科研处）";
+		}
+		
 		InputStream inputStream = null ;
 
 		try {
 			
-			List<T151_Bean> list = t151Ser.totalList(this.selectYear);
+			//List<T151_Bean> list = t151Ser.totalList(this.selectYear);
 //			System.out.println("数据条数："+list.size());
 			
 //			String sheetName = this.excelName;
-			String sheetName = "表1-5-1校级以上科研机构（科研处）";
+		//	String sheetName = "表1-5-1校级以上科研机构（科研处）";
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

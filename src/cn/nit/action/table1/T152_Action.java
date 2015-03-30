@@ -357,12 +357,25 @@ public class T152_Action {
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean1 = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T152_Bean> list = null;
+		
+		if("111".equals(userBean1.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t152Ser.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表1-5-2教学单位科研机构（教学单位-科研处）";
+		}else{			
+			String fillUnitID = userBean1.getUnitID();			
+			list = t152Ser.totalList(fillUnitID,this.selectYear,Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
 
 		try {
 			
-			List<T152_Bean> list = t152Ser.totalList(fillUnitID,this.selectYear,Constants.PASS_CHECK);
+			//List<T152_Bean> list = t152Ser.totalList(fillUnitID,this.selectYear,Constants.PASS_CHECK);
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

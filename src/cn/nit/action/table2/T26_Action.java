@@ -21,7 +21,9 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table2.T26_Bean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table2.T26_Dao;
 import cn.nit.service.CheckService;
@@ -348,14 +350,28 @@ public class T26_Action {
 
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T26_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T26_services.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表2-6校外实习、实训基地（教务处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = T26_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
+		
 		try {
 /*			response.reset();
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T26_Bean> list = T26_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-						
-			String sheetName = this.excelName;
+//			List<T26_Bean> list = T26_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+//						
+//			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

@@ -33,7 +33,9 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table2.T2102_Bean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.service.table2.T2102_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
@@ -173,21 +175,34 @@ public class T2102_Action {
 	}
 	
 	public InputStream getInputStream() throws Exception{
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T2102_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T2102_services.getYearInfo(year);
+			sheetName = "表2-10-2职业及创业教育课程（招就处）";
+		}else{
+			bean = T2102_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		
 
-		System.out.println(this.getSelectYear());
-		T2102_Bean bean = T2102_services.getYearInfo(this.getSelectYear());
+		//T2102_Bean bean = T2102_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+			//String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -223,11 +238,13 @@ public class T2102_Action {
 		           ws.addCell(new Label(0, 5, "3.任课教师数（人）", wcf));
 		           ws.addCell(new Label(0, 6, "4.面向学生数（人）", wcf));
 
-		           		           
-		           ws.addCell(new Label(1, 3, bean.getCourseNum().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 4, bean.getCourseTimes().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 5, bean.getTeaNum().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 6, bean.getStuNum().toString(), wcf1)); 
+		           if(bean!=null){
+		        	   ws.addCell(new Label(1, 3, bean.getCourseNum().toString(), wcf1)); 
+			           ws.addCell(new Label(1, 4, bean.getCourseTimes().toString(), wcf1)); 
+			           ws.addCell(new Label(1, 5, bean.getTeaNum().toString(), wcf1)); 
+			           ws.addCell(new Label(1, 6, bean.getStuNum().toString(), wcf1));
+		           }
+		           
 		           
 		             
 
@@ -238,7 +255,7 @@ public class T2102_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

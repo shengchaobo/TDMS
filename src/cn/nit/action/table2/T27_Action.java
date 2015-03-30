@@ -33,6 +33,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table2.T27_Bean;
 import cn.nit.service.table2.T27_Service;
 import cn.nit.util.ExcelUtil;
@@ -175,20 +177,33 @@ public class T27_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		T27_Bean bean = T27_services.getYearInfo(this.getSelectYear());
+
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T27_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean =T27_services.getYearInfo(year);
+			sheetName = "表2-7校园网（网络信息中心）";
+		}else{
+			bean = T27_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		
+		//T27_Bean bean = T27_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+//			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -242,18 +257,21 @@ public class T27_Action {
 		           ws.mergeCells(0, 5, 1, 5);
 		           ws.mergeCells(0, 6, 0, 8);
 		           ws.mergeCells(0, 9, 0, 11);
-		           		           
-		           ws.addCell(new Label(2, 3, bean.getMainBw().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 4, bean.getExitBw().toString(), wcf1));  
-		           ws.addCell(new Label(2, 5, bean.getAccessPoinum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 6, bean.getClassrmNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 7, bean.getDormiNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 8, bean.getOfficeNum().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 9, bean.getSumMemSpace().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 10, bean.getAvgTeaMemSpace().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 11, bean.getAvgStuMemSpace().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 12, bean.getWebTeahingUrl().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 13, bean.getTeaManageUrl().toString(), wcf1)); 
+		           
+		           if(bean!=null){
+		        	   ws.addCell(new Label(2, 3, bean.getMainBw().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 4, bean.getExitBw().toString(), wcf1));  
+			           ws.addCell(new Label(2, 5, bean.getAccessPoinum().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 6, bean.getClassrmNum().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 7, bean.getDormiNum().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 8, bean.getOfficeNum().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 9, bean.getSumMemSpace().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 10, bean.getAvgTeaMemSpace().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 11, bean.getAvgStuMemSpace().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 12, bean.getWebTeahingUrl().toString(), wcf1)); 
+			           ws.addCell(new Label(2, 13, bean.getTeaManageUrl().toString(), wcf1)); 
+		           }
+		           
 		             
 
 		          wwb.write();
@@ -263,7 +281,7 @@ public class T27_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

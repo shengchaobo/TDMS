@@ -185,6 +185,7 @@ public class T285_Action {
 	public InputStream getInputStream(){
 		
 		InputStream inputStream = null ;
+		
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
 			List<T285_Bean> list=T285_Service.totalList(this.getSelectYear());

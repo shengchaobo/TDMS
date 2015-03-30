@@ -21,7 +21,9 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table2.T251_Bean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table2.T251_Dao;
 import cn.nit.service.CheckService;
@@ -348,17 +350,31 @@ public class T251_Action {
 
 	
 	public InputStream getInputStream() throws UnsupportedEncodingException{
-
+		
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T251_Bean> list  = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T251_services.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表2-5-1本科实验、实习、实训场所-基本情况（设备处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list =T251_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
+
 		
 		try {
 /*			response.reset();
 			response.addHeader("Content-Disposition", "attachment;fileName="
                       + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
 			
-			List<T251_Bean> list = T251_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			//List<T251_Bean> list = T251_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 						
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

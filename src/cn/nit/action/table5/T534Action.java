@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table5.T534_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T534DAO;
@@ -344,14 +345,27 @@ public class T534Action {
 	/**数据导出*/
 	public InputStream getInputStream(){
 		
-//        System.out.println("年份："+this.Year);
+
+		UserinfoBean userBean1 = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T534_Bean> list = null;
+		
+		if("111".equals(userBean1.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t534Ser.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表5-3-4分专业毕业综合训练情况（教学单位-教务处）";
+		}else{			
+			String fillUnitID = userBean1.getUnitID();			
+			list = t534Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);				
+			sheetName = this.excelName;
+		}
 		InputStream inputStream = null ;
 
 		try {
 			
-			List<T534_Bean> list = t534Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+			//List<T534_Bean> list = t534Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

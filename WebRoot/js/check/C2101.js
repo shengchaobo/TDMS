@@ -30,6 +30,9 @@
 											$("#edit").propertygrid( {
 													title : '素质教育情况'
 											});
+											$("#pass").hide();
+											$("#nopass").hide();
+											$("#renopass").hide();
 								   } 
 						  		  else {
 												//alert(json.checkState);
@@ -38,20 +41,23 @@
 												title : '素质教育情况（<font color=red>待审核</font>）'
 											});
 											//document.getElementById("export").style.display ="none";
-										$("#pass").show();
-										$("#nopass").show();
+											$("#pass").show();
+											$("#nopass").show();
+											$("#renopass").hide();
 									} else if (json.checkState == PASSCHECK) {
 										$("#edit").propertygrid( {
 											title : '素质教育情况（<font color=red>已审核通过</font>）'
 										});
 										$("#pass").hide();
 										$("#nopass").hide();
+										$("#renopass").show();
 									} else {
 										$("#edit").propertygrid( {
 											title : '素质教育情况（<font color=red>已审核未通过</font>）'
 										});
 										$("#pass").hide();
 										$("#nopass").hide();
+										$("#renopass").hide();
 									}
 								}
 			                    var i = 0;
@@ -88,32 +94,39 @@
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
-					  				if (typeof (json.data) != "undefined") {
+							  	  if (typeof (json.data) != "undefined") {
 											alert(json.data);
 											$("#edit").propertygrid( {
 													title : '素质教育情况'
 											});
-								   } else {
+											$("#pass").hide();
+											$("#nopass").hide();
+											$("#renopass").hide();
+								   } 
+						  		  else {
 												//alert(json.checkState);
 										if (json.checkState == WAITCHECK) {
 											$("#edit").propertygrid( {
 												title : '素质教育情况（<font color=red>待审核</font>）'
 											});
 											//document.getElementById("export").style.display ="none";
-										$("#pass").show();
-										$("#nopass").show();
+											$("#pass").show();
+											$("#nopass").show();
+											$("#renopass").hide();
 									} else if (json.checkState == PASSCHECK) {
 										$("#edit").propertygrid( {
 											title : '素质教育情况（<font color=red>已审核通过</font>）'
 										});
 										$("#pass").hide();
 										$("#nopass").hide();
+										$("#renopass").show();
 									} else {
 										$("#edit").propertygrid( {
 											title : '素质教育情况（<font color=red>已审核未通过</font>）'
 										});
 										$("#pass").hide();
 										$("#nopass").hide();
+										$("#renopass").hide();
 									}
 								}
 			                    var i = 0;
@@ -171,32 +184,39 @@ function reloadgrid (year,flag)  {
     		async : false,
     		dataType : "json",
     		success : function(json) {
-					if (typeof (json.data) != "undefined") {
+			  	   if (typeof (json.data) != "undefined") {
 							alert(json.data);
 							$("#edit").propertygrid( {
 									title : '素质教育情况'
 							});
-					} else {
+							$("#pass").hide();
+							$("#nopass").hide();
+							$("#renopass").hide();
+				   } 
+				  else {
 								//alert(json.checkState);
 						if (json.checkState == WAITCHECK) {
 							$("#edit").propertygrid( {
 								title : '素质教育情况（<font color=red>待审核</font>）'
 							});
 							//document.getElementById("export").style.display ="none";
-						$("#pass").show();
-						$("#nopass").show();
+							$("#pass").show();
+							$("#nopass").show();
+							$("#renopass").hide();
 					} else if (json.checkState == PASSCHECK) {
 						$("#edit").propertygrid( {
 							title : '素质教育情况（<font color=red>已审核通过</font>）'
 						});
 						$("#pass").hide();
 						$("#nopass").hide();
+						$("#renopass").show();
 					} else {
 						$("#edit").propertygrid( {
 							title : '素质教育情况（<font color=red>已审核未通过</font>）'
 						});
 						$("#pass").hide();
 						$("#nopass").hide();
+						$("#renopass").hide();
 					}
 				}
                 var i = 0;

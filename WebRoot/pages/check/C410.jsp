@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data										    		 
 						  		}
 				    }
 				});
@@ -77,6 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data										    		 
 						  		}
 				    }
 				});  	    
@@ -99,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  			 });
 							  		} else {
 									    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		     $('#checkPassData').datagrid('reload'); // reload the user data											    		 
 							  		}
 					    }
 					});
@@ -109,11 +112,141 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%'">
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T410/loadResInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		  </tr>
+		</thead>
+		<thead>	
+			<tr>	
+				  <th  data-options="field:'seqNumber'"  rowspan="2">编号</th>
+					<th  colspan="5">
+					 	教师科研项目数
+					</th>
+					<th colspan="5"> 
+						教师科研项目经费
+					</th>
+					<th colspan="5"> 
+						近一届科研成果数（项）
+					</th>
+					 <th colspan="9"> 
+						发表论文数（篇）
+					</th>
+					 <th colspan="3"> 
+						出版专译著（册）
+					</th>
+					 <th colspan="4"> 
+						获准专利（项）
+					</th>
+				</tr>	
+				<tr>	
+					<th data-options="field:'resItemNum'">
+						总计
+					</th>				
+					<th data-options="field:'hresItemNum'" >
+						横向总数
+					</th>
+					<th data-options="field:'hhumanItemNum'" >
+						横向人文社会科学
+					</th>	
+					<th data-options="field:'zresItemNum'" >
+						纵向总数
+					</th>
+					<th data-options="field:'zhumanItemNum'" >
+						纵向人文社会科学
+					</th>	
+					<th data-options="field:'resItemFund'">
+						总计
+					</th>				
+					<th data-options="field:'hitemFund'" >
+						横向总数
+					</th>
+					<th data-options="field:'hhumanItemFund'" >
+						横向人文社会科学
+					</th>	
+					<th data-options="field:'zitemFund'" >
+						纵向向总数
+					</th>
+					<th data-options="field:'zhumanItemFund'" >
+						纵向人文社会科学
+					</th>						
+					<th data-options="field:'resAwardNum'">
+						总数
+					</th>				
+					<th data-options="field:'nationResAward'" >
+						国家级
+					</th>
+					<th data-options="field:'proviResAward'" >
+						省部级
+					</th>	
+					<th data-options="field:'cityResAward'" >
+						市厅级
+					</th>
+					<th data-options="field:'schResAward'" >
+						校级
+					</th>
+					<th data-options="field:'paperNum'">
+						总数
+					</th>				
+					<th data-options="field:'sci'" >
+						SCI
+					</th>
+					<th data-options="field:'ssci'" >
+						SSCI
+					</th>	
+					<th data-options="field:'ei'" >
+						EI
+					</th>
+					<th data-options="field:'istp'" >
+						ISTP
+					</th>						
+					<th data-options="field:'inlandCoreJnal'">
+						国内核心期刊
+					</th>				
+					<th data-options="field:'cssci'" >
+						CSSCI
+					</th>
+					<th data-options="field:'cscd'" >
+						CSCD
+					</th>	
+					<th data-options="field:'otherPaper'" >
+						其他
+					</th>
+					<th data-options="field:'publicationNum'" >
+						总数
+					</th>
+					<th data-options="field:'treatises'" >
+						专著
+					</th>
+					<th data-options="field:'translation'" >
+						译著
+					</th>
+					<th data-options="field:'patentNum'" >
+						总数
+					</th>
+					<th data-options="field:'inventPatent'" >
+						发明专利
+					</th>
+					<th data-options="field:'utilityPatent'" >
+						实用新型专利
+					</th>
+					<th data-options="field:'designPatent'" >
+						外观设计专利
+					</th>	
+					<th data-options="field:'note'" rowspan="2">
+						备注
+					</th>
+				</tr>
+			</thead>
+	</table>
+	
+	<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T410/loadResInfo?checkNum=<%=request.getAttribute("PASSCHECK")%>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		  </tr>
 		</thead>
 		<thead>	

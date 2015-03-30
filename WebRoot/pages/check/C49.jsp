@@ -53,6 +53,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data									    		 								    		 
+								    		 
 						  		}
 				    }
 				});
@@ -76,7 +78,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data									    		 								    		 
+								    		 		
 						  		}
 				    }
 				});  	    
@@ -100,6 +104,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										  			 });
 								  		} else {
 										    		 $('#checkData').datagrid('reload'); // reload the user data
+										    		 $('#checkPassData').datagrid('reload'); // reload the user data									    		 								    		 
+										    		 
 								  		}
 						    }
 						});
@@ -110,11 +116,85 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
+
 <body style="height: 100%" >  
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T49/loadTextInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater"  rowspan="2">审核操作</th>
+		 </tr>
+		</thead>
+		<thead>
+			<tr>			
+				  <th  data-options="field:'seqNumber'"   rowspan="2">编号</th>
+					<th data-options="field:'teaUnit'" rowspan="2">
+					 	教学单位
+					</th>
+					<th data-options="field:'unitId'" rowspan="2"> 
+						单位号
+					</th>
+					<th data-options="field:'complileBookNum'" rowspan="2">
+						教师编著教材数
+					</th>				
+					<th data-options="field:'writeBookNum'"  rowspan="2">
+						教师编写教材数
+					</th>
+					<th colspan="6">
+						其中规划教材
+					</th>
+					<th colspan="6">
+						其中获奖教材
+					</th>
+				</tr>
+				<tr>
+					<th  data-options="field:'sumPlanBook'" >
+						小计
+					</th>
+					<th data-options="field:'interPlanBook'" >
+						国际级
+					</th>
+					<th  data-options="field:'nationPlanBook'" >
+						国家级
+					</th>
+					<th data-options="field:'proviPlanBook'" >
+						省部级
+					</th>					
+					<th data-options="field:'cityPlanBook'" >
+						市级
+					</th>
+					<th data-options="field:'schPlanBook'" >
+						校级
+					</th>
+					<th data-options="field:'sumAwardBook'" >
+						小计
+					</th>
+					<th data-options="field:'interAwardBook'" >
+						国际级
+					</th>
+					<th  data-options="field:'nationAwardBook'" >
+						国家级
+					</th>
+					<th data-options="field:'proviAwardBook'" >
+						省部级
+					</th>					
+					<th data-options="field:'cityAwardBook'" >
+						市级
+					</th>
+					<th data-options="field:'schAwardBook'" >
+						校级
+					</th>
+					<th data-options="field:'note'" rowspan="2">
+						备注
+					</th>
+				</tr>
+			</thead>
+	</table>
+	
+	<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T49/loadTextInfo?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"    style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1"  rowspan="2">审核操作</th>
 		 </tr>
 		</thead>
 		<thead>

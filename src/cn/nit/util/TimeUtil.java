@@ -61,6 +61,7 @@ public class TimeUtil {
 	public static Date changeDateY(String dateString){
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy") ;
 		Date date = null ;
+		if(dateString == null || "".equals(dateString)) return date;
 		try {
 			date = sf.parse(dateString) ;
 		} catch (Exception e) {
@@ -80,6 +81,7 @@ public class TimeUtil {
 	public static Date changeDateYM(String dateString){
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM") ;
 		Date date = null ;
+		if(dateString == null || "".equals(dateString)) return date;
 		try {
 			date = sf.parse(dateString) ;
 		} catch (Exception e) {

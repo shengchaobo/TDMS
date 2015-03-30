@@ -53,6 +53,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data									    		 
+								    		 
 						  		}
 				    }
 				});
@@ -76,7 +78,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data									    		 
+								    		 		
 						  		}
 				    }
 				});  	    
@@ -100,6 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										  			 });
 								  		} else {
 										    		 $('#checkData').datagrid('reload'); // reload the user data
+									    	         $('#checkPassData').datagrid('reload'); // reload the user data									    		 										    		 
 								  		}
 						    }
 						});
@@ -110,11 +115,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
+
 <body style="height: 100%" >  
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T4_11/loadSerInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		 </tr>
+		</thead>
+		<thead>
+			<tr>			
+				    <th  data-options="field:'seqNumber'"  rowspan="2">编号</th>
+					  <th data-options="field:'unitName'" rowspan="2">
+					 	 			教学单位
+						</th>
+						<th data-options="field:'unitId'" rowspan="2"> 
+									单位号
+						</th>
+						<th colspan="2">
+							1.成果转化
+						</th>
+						<th colspan="3">
+							2.社会工作
+						</th>
+				</tr>
+				<tr>
+					<th  data-options="field:'patentNum'" >
+						专利转让数量
+					</th>
+					<th data-options="field:'achieNum'" >
+						科技成果转化数量
+					</th>
+					<th  data-options="field:'consNum'" >
+						技术咨询采用次数
+					</th>
+					<th data-options="field:'partJobNum'" >
+						兼任协（学）会职务人次数
+					</th>					
+					<th data-options="field:'judgeNum'" >
+						受聘学科竞赛评委/裁判人次数
+					</th>
+					<th data-options="field:'note'" rowspan="2">
+						备注
+					</th>
+				</tr>
+			</thead>
+	</table>
+	
+	<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T4_11/loadSerInfo?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"    style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		 </tr>
 		</thead>
 		<thead>

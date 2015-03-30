@@ -19,7 +19,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table7.T733_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table7.T733_DAO;
 import cn.nit.pojo.table7.T733POJO;
 import cn.nit.service.table7.T733_Service;
@@ -197,9 +199,22 @@ public class T733_Action {
 
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T733POJO> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t733_Sr.totalList(year);
+			sheetName = "表7-3-3各单位开展教学研究活动情况";
+		}else{						
+			list = t733_Sr.totalList(this.getSelectYear());						
+			sheetName = this.excelName;
+		}
+		
 		try {
-			List<T733POJO> list = t733_Sr.totalList(this.getSelectYear());
-			String sheetName = this.excelName;
+//			List<T733POJO> list = t733_Sr.totalList(this.getSelectYear());
+//			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

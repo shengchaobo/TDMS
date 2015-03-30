@@ -180,15 +180,33 @@ public class T534DAO {
 	public List<T534_Bean> totalList(String fillUnitID,String year,int checkState){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
-				"dea.Education as Education,dde.Degree as Degree, dtn.TitleName as Title," +
-				"t.IsExcellent, t.TrainIssueNum, t.SocialNum,t.GuideStuNum,t.GainBestNum,t.GainTime,t.Time,t.Note,t.FillUnitID,t.CheckState");
-		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
-		sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
-				" and  dtn.IndexID = t.Title");
-		sql.append(" and t.FillUnitID="+fillUnitID);
-		sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		
 
+		if("111".equals(fillUnitID)){
+			
+			sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
+					"dea.Education as Education,dde.Degree as Degree, dtn.TitleName as Title," +
+					"t.IsExcellent, t.TrainIssueNum, t.SocialNum,t.GuideStuNum,t.GainBestNum,t.GainTime,t.Time,t.Note,t.FillUnitID,t.CheckState");
+			sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
+			sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
+					" and  dtn.IndexID = t.Title");
+			sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+
+//			sql = "select " + keyfield+ "," + field + " from " + tableName +
+//		     " where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.TeaName,t.TeaID,t.IsOutEmploy," +
+					"dea.Education as Education,dde.Degree as Degree, dtn.TitleName as Title," +
+					"t.IsExcellent, t.TrainIssueNum, t.SocialNum,t.GuideStuNum,t.GainBestNum,t.GainTime,t.Time,t.Note,t.FillUnitID,t.CheckState");
+			sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt,DiDegree as dde,DiEducation as dea,DiTitleName as dtn");
+			sql.append(" where dde.IndexID = t.Degree and did.UnitID = t.UnitID and dea.IndexID = t.Education and dmt.MajorNum = t.MajorID" +
+					" and  dtn.IndexID = t.Title");
+			sql.append(" and t.FillUnitID="+fillUnitID);
+			sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+
+		}
+		
+		
 //		System.out.println(sql.toString());
 		
 		Connection conn = DBConnection.instance.getConnection() ;

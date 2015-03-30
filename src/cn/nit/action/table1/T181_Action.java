@@ -21,6 +21,7 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T151_Bean;
 import cn.nit.bean.table1.T181_Bean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T18DAO;
 import cn.nit.excel.imports.table1.T181Excel;
@@ -193,7 +194,8 @@ public class T181_Action {
 				tempUnitID = null;
 			}
 
-			String pages = t181Ser.auditingData(cond, tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t181Ser.auditingData(cond, "1012", Integer.parseInt(page), Integer.parseInt(rows)) ;
+			//String pages = t181Ser.auditingData(cond, tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -347,13 +349,26 @@ public class T181_Action {
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		
+		UserinfoBean userBean1 = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T181_Bean> list  = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean1.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t181Ser.totalList("1012",year,Constants.PASS_CHECK );
+			sheetName = "表1-8-1签订合作协议机构（教务处）";
+		}else{
+			list = t181Ser.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
+			sheetName = this.excelName;
+		}
 
 		try {
 			
 //			List<T181_Bean> list = t181Dao.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
-			List<T181_Bean> list = t181Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK );
+			//List<T181_Bean> list = t181Ser.totalList("1012",this.getSelectYear(),Constants.PASS_CHECK );
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

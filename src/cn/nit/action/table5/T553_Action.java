@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table5.T553_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T553_DAO;
@@ -310,10 +312,24 @@ public class T553_Action {
 
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T553POJO> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t553_Sr.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表5-5-3优秀本科生（学工处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = t553_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 		try {
 			
-			List<T553POJO> list = t553_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			String sheetName = this.excelName;
+			//List<T553POJO> list = t553_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

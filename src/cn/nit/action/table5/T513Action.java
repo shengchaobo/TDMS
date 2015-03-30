@@ -37,6 +37,9 @@ import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table5.T513_Bean;
 import cn.nit.dao.table5.T513_DAO;
 import cn.nit.excel.imports.table5.T513Excel;
@@ -143,21 +146,34 @@ public class T513Action {
 	 * @throws IOException */
 	public InputStream getInputStream() throws IOException{
 		
-		List<T513POJO>  list = t513Ser.totalList(this.getSelectYear());
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T513POJO>  list = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t513Ser.totalList(year);
+			sheetName = "表5-1-3课堂教学质量评估统计表（评估中心）";
+		}else{
+			 list = t513Ser.totalList(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		
+		//List<T513POJO>  list = t513Ser.totalList(this.getSelectYear());
 //		System.out.println("S52 de "+list.size());
 		
 	    ByteArrayOutputStream fos = null;
 	    
 	
-		if(list==null){
-			PrintWriter out = null ;
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print("后台传入的数据为空!!!") ;
-			System.out.println("后台传入的数据为空");
-		}else{
+//		if(list==null){
+//			PrintWriter out = null ;
+//			getResponse().setContentType("text/html; charset=UTF-8") ;
+//			out = getResponse().getWriter() ;
+//			out.print("后台传入的数据为空!!!") ;
+//			System.out.println("后台传入的数据为空");
+//		}else{
 //			String sheetName = this.getExcelName();
-				String sheetName=this.excelName;	
+				//String sheetName=this.excelName;	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();
@@ -255,7 +271,7 @@ public class T513Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

@@ -164,15 +164,31 @@ public class T512_DAO {
  	 */
  	public List<T512POJO> totalList(String year,String fillUnitID,int checkState){
  		StringBuffer sql=new StringBuffer();
- 		sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID," +
- 				"cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID," +
- 				"t.PubCSType,t.IsDoubleCS,t.Credit,t.SumCSHour,t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass," +
- 				"t.ClassID,t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob,t.TeaTitle,t.BookUseInfo," +
- 				"t.IsPlanbook,t.IsAwardbook,t.Time,t.Note,t.TeaID,t.CheckState,t.FillUnitID,t.FillTeaID") ;
-		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
-		sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
-	 	sql.append(" and FillUnitID=" + "'" + fillUnitID + "'");
-	 	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+ 		
+
+		if("111".equals(fillUnitID)){
+			sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID," +
+	 				"cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID," +
+	 				"t.PubCSType,t.IsDoubleCS,t.Credit,t.SumCSHour,t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass," +
+	 				"t.ClassID,t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob,t.TeaTitle,t.BookUseInfo," +
+	 				"t.IsPlanbook,t.IsAwardbook,t.Time,t.Note,t.TeaID,t.CheckState,t.FillUnitID,t.FillTeaID") ;
+			sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
+			sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+		 	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+//			sql = "select " + keyfield+ "," + field + " from " + tableName +
+//		     " where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			sql.append("select t.SeqNumber,t.Term,t.CSUnit,t.UnitID,t.CSMajorName,t.CSMajorID,t.CSName,t.CSID," +
+	 				"cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID," +
+	 				"t.PubCSType,t.IsDoubleCS,t.Credit,t.SumCSHour,t.TheoryCSHour,t.PraCSHour,t.ExamWay,t.PlanTime,t.CSGrade,t.CSClass," +
+	 				"t.ClassID,t.ClassInfo,t.StuNum,t.CSTea,t.IsAccordJob,t.TeaTitle,t.BookUseInfo," +
+	 				"t.IsPlanbook,t.IsAwardbook,t.Time,t.Note,t.TeaID,t.CheckState,t.FillUnitID,t.FillTeaID") ;
+			sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
+			sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
+		 	sql.append(" and FillUnitID=" + "'" + fillUnitID + "'");
+		 	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		}
+ 		
  		Connection conn = DBConnection.instance.getConnection() ;
  		Statement st = null ;
  		ResultSet rs = null ;

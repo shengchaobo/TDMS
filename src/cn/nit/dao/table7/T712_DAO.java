@@ -161,14 +161,30 @@ public class T712_DAO {
 	 */
 	public List<T712POJO> totalList(String fillUnitID, String year, int checkState){
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.TeaUnit,dt.UnitID as UnitID," +
-				"t.UnitID as UnitIDD,t.Name,t.TeaID,t.PaperName," +
-				"t.PaperType,t.FirstSubject,t.JonalName,t.JonalID," +
-				"t.JonalTime,t.PaperWordNum,t.ConfirmLevel,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.CheckState,t.FillUnitID");
-    	sql.append(" from " + tableName + " as t, DiDepartment dt");
-    	sql.append(" where dt.UnitID=t.UnitID") ;
-    	sql.append(" and t.FillUnitID=" + "'" + fillUnitID + "'");
-    	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		
+
+		if("111".equals(fillUnitID)){
+			sql.append("select t.SeqNumber,t.TeaUnit,dt.UnitID as UnitID," +
+					"t.UnitID as UnitIDD,t.Name,t.TeaID,t.PaperName," +
+					"t.PaperType,t.FirstSubject,t.JonalName,t.JonalID," +
+					"t.JonalTime,t.PaperWordNum,t.ConfirmLevel,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.CheckState,t.FillUnitID");
+	    	sql.append(" from " + tableName + " as t, DiDepartment dt");
+	    	sql.append(" where dt.UnitID=t.UnitID") ;
+	    	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+	    	
+//			sql = "select " + keyfield+ "," + field + " from " + tableName +
+//		     " where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			sql.append("select t.SeqNumber,t.TeaUnit,dt.UnitID as UnitID," +
+					"t.UnitID as UnitIDD,t.Name,t.TeaID,t.PaperName," +
+					"t.PaperType,t.FirstSubject,t.JonalName,t.JonalID," +
+					"t.JonalTime,t.PaperWordNum,t.ConfirmLevel,t.JoinTeaNum,t.OtherJoinTeaInfo,t.Time,t.Note,t.CheckState,t.FillUnitID");
+	    	sql.append(" from " + tableName + " as t, DiDepartment dt");
+	    	sql.append(" where dt.UnitID=t.UnitID") ;
+	    	sql.append(" and t.FillUnitID=" + "'" + fillUnitID + "'");
+	    	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		}
+		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

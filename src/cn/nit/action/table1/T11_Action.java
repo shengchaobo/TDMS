@@ -36,8 +36,11 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T11_Bean;
 import cn.nit.bean.table1.T151_Bean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table4.T410_Bean;
 import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dao.table1.T11DAO;
@@ -106,6 +109,9 @@ public class T11_Action {
 		this.data = data;
 	}
 
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 
 	//查询出所有
 	public void loadInfo() throws Exception{
@@ -257,20 +263,33 @@ public class T11_Action {
 	public InputStream getInputStream() throws Exception{
 		
 //			System.out.println(this.getSelectYear());
-//	
-			T11_Bean bean =t11Ser.forExcel(this.selectYear).get(0);
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T11_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = t11Ser.getYearInfo(year);
+			sheetName = "表1-1学校基本信息（党院办）";
+			
+		}else{
+			bean = t11Ser.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+			
+		}
 			
 		    ByteArrayOutputStream fos = null;
-		
-			if(bean==null){
-				PrintWriter out = null ;
-				getResponse().setContentType("text/html; charset=UTF-8") ;
-				out = getResponse().getWriter() ;
-				out.print("后台传入的数据为空!!!") ;
-				System.out.println("后台传入的数据为空");
-			}else{
+//		
+//			if(bean==null){
+//				PrintWriter out = null ;
+//				getResponse().setContentType("text/html; charset=UTF-8") ;
+//				out = getResponse().getWriter() ;
+//				out.print("后台传入的数据为空!!!") ;
+//				System.out.println("后台传入的数据为空");
+//			}else{
 	//			String sheetName = this.getExcelName();
-				String sheetName=this.excelName;	
+				//String sheetName=this.excelName;	
 			    WritableWorkbook wwb;
 			    try {    
 			           fos = new ByteArrayOutputStream();
@@ -287,15 +306,7 @@ public class T11_Action {
 							     jxl.format.Colour.BLACK);
 			           wcf.setAlignment(jxl.write.Alignment.LEFT);
 			           ws.setRowView(1, 500);
-			           
-	//		            //    设置内容单无格的文字格式
-	//		           WritableFont wf1 = new WritableFont(WritableFont.ARIAL,12,WritableFont.NO_BOLD,false,
-	//		                    UnderlineStyle.NO_UNDERLINE,Colour.BLACK);
-	//		            WritableCellFormat wcf1 = new WritableCellFormat(wf1);        
-	//		            wcf1.setVerticalAlignment(VerticalAlignment.CENTRE);
-	//		            wcf1.setAlignment(Alignment.CENTRE);
-	//		            wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
-	//			        		     jxl.format.Colour.BLACK);
+
 			           //设置格式
 					   WritableCellFormat wcf1 = new WritableCellFormat();
 					   wcf1.setBorder(Border.ALL, BorderLineStyle.THIN,
@@ -351,25 +362,28 @@ public class T11_Action {
 			           
 			           
 			          
-			           ws.addCell(new Label(3, 2, bean.getSchAddress().toString(), wcf1)); 
-			           ws.addCell(new Label(3, 3, bean.getSchTel().toString(), wcf1));
-			           ws.addCell(new Label(3, 4, bean.getSchFax().toString(), wcf1));
-			           ws.addCell(new Label(3, 5, bean.getSchFillerName().toString(), wcf1));
-			           ws.addCell(new Label(3, 6, bean.getSchFillerTel().toString(), wcf1));
-			           ws.addCell(new Label(3, 7, bean.getSchFillerEmail().toString(), wcf1)); 
-			           ws.addCell(new Label(3, 8, bean.getSchName().toString(), wcf1));
-			           ws.addCell(new Label(3, 9, bean.getSchID().toString(), wcf1));
-			           ws.addCell(new Label(3, 10, bean.getSchEnName().toString(), wcf1));
-			           ws.addCell(new Label(3, 11, bean.getSchType().toString(), wcf1));
-			           ws.addCell(new Label(3, 12, bean.getSchQuality().toString(), wcf1));
-			           ws.addCell(new Label(3, 13, bean.getSchBuilder().toString(), wcf1));
-			           ws.addCell(new Label(3, 14, bean.getMajDept().toString(), wcf1));
-			           ws.addCell(new Label(3, 15, bean.getSchUrl().toString(), wcf1));
-			           ws.addCell(new Label(3, 16, bean.getAdmissonBatch().toString(), wcf1));
-			           ws.addCell(new Label(3, 17, bean.getSch_BeginTime(), wcf1));
-			           ws.addCell(new Label(3, 18, bean.getMediaUrl().toString(), wcf1));
-			           ws.addCell(new Label(3, 19, bean.getYaohuSchAdd().toString(), wcf1));
-			           ws.addCell(new Label(3, 20, bean.getPengHuSchAdd().toString(), wcf1));
+			           if(bean!=null){
+			        	   ws.addCell(new Label(3, 2, bean.getSchAddress().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 3, bean.getSchTel().toString(), wcf1));
+				           ws.addCell(new Label(3, 4, bean.getSchFax().toString(), wcf1));
+				           ws.addCell(new Label(3, 5, bean.getSchFillerName().toString(), wcf1));
+				           ws.addCell(new Label(3, 6, bean.getSchFillerTel().toString(), wcf1));
+				           ws.addCell(new Label(3, 7, bean.getSchFillerEmail().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 8, bean.getSchName().toString(), wcf1));
+				           ws.addCell(new Label(3, 9, bean.getSchID().toString(), wcf1));
+				           ws.addCell(new Label(3, 10, bean.getSchEnName().toString(), wcf1));
+				           ws.addCell(new Label(3, 11, bean.getSchType().toString(), wcf1));
+				           ws.addCell(new Label(3, 12, bean.getSchQuality().toString(), wcf1));
+				           ws.addCell(new Label(3, 13, bean.getSchBuilder().toString(), wcf1));
+				           ws.addCell(new Label(3, 14, bean.getMajDept().toString(), wcf1));
+				           ws.addCell(new Label(3, 15, bean.getSchUrl().toString(), wcf1));
+				           ws.addCell(new Label(3, 16, bean.getAdmissonBatch().toString(), wcf1));
+				           ws.addCell(new Label(3, 17, bean.getSch_BeginTime(), wcf1));
+				           ws.addCell(new Label(3, 18, bean.getMediaUrl().toString(), wcf1));
+				           ws.addCell(new Label(3, 19, bean.getYaohuSchAdd().toString(), wcf1));
+				           ws.addCell(new Label(3, 20, bean.getPengHuSchAdd().toString(), wcf1));
+			           }
+			           
 			          wwb.write();
 			          wwb.close();
 	
@@ -377,7 +391,7 @@ public class T11_Action {
 			        } catch (RowsExceededException e){
 			        } catch (WriteException e){}
 			        
-			}
+//			}
 			return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

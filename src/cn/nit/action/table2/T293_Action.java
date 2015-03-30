@@ -33,6 +33,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table2.T293_Bean;
 import cn.nit.service.table2.T293_Service;
 import cn.nit.service.table2.T294_Service;
@@ -190,20 +192,31 @@ public class T293_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		T293_Bean bean = T293_services.getYearInfo(this.getSelectYear());
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T293_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T293_services.getYearInfo(year);
+			sheetName = "表2-9-3本科教育经费收入情况（计财处）";
+		}else{
+			bean = T293_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+//		T293_Bean bean = T293_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+//			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -270,25 +283,27 @@ public class T293_Action {
 		           ws.mergeCells(1, 18, 2, 18);
 		           ws.mergeCells(1, 19, 2, 19);
 		           
-		           		
-		           ws.addCell(new Label(3, 2, bean.getSumIncome().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 3, bean.getSumUndergraIncome().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 4, bean.getAllocateFund().toString(), wcf1));  
-		           ws.addCell(new Label(3, 5, bean.getNationFund().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 6, bean.getLocalFund().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 7, bean.getUndergraTuition().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 8, bean.getEduReformFund().toString(), wcf1));  
-		           ws.addCell(new Label(3, 9, bean.getSumOtherIncome().toString(), wcf1));
-		           ws.addCell(new Label(3, 10, bean.getJuniorAllocateFund().toString(), wcf1));
-		           ws.addCell(new Label(3, 11, bean.getOtherAllocateFund().toString(), wcf1));		          
-		           ws.addCell(new Label(3, 12, bean.getOtherNationFund().toString(), wcf1));
-		           ws.addCell(new Label(3, 13, bean.getOtherLocalFund().toString(), wcf1));
-		           ws.addCell(new Label(3, 14, bean.getOtherTuition().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 15, bean.getGraTuition().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 16, bean.getJuniorTuition().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 17, bean.getNetTeaTuition().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 18, bean.getDonation().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 19, bean.getOtherIncome().toString(), wcf1)); 
+		           		if(bean!=null){
+		           		 ws.addCell(new Label(3, 2, bean.getSumIncome().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 3, bean.getSumUndergraIncome().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 4, bean.getAllocateFund().toString(), wcf1));  
+				           ws.addCell(new Label(3, 5, bean.getNationFund().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 6, bean.getLocalFund().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 7, bean.getUndergraTuition().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 8, bean.getEduReformFund().toString(), wcf1));  
+				           ws.addCell(new Label(3, 9, bean.getSumOtherIncome().toString(), wcf1));
+				           ws.addCell(new Label(3, 10, bean.getJuniorAllocateFund().toString(), wcf1));
+				           ws.addCell(new Label(3, 11, bean.getOtherAllocateFund().toString(), wcf1));		          
+				           ws.addCell(new Label(3, 12, bean.getOtherNationFund().toString(), wcf1));
+				           ws.addCell(new Label(3, 13, bean.getOtherLocalFund().toString(), wcf1));
+				           ws.addCell(new Label(3, 14, bean.getOtherTuition().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 15, bean.getGraTuition().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 16, bean.getJuniorTuition().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 17, bean.getNetTeaTuition().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 18, bean.getDonation().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 19, bean.getOtherIncome().toString(), wcf1)); 
+		           		}
+		          
 
 		          wwb.write();
 		          wwb.close();
@@ -297,7 +312,7 @@ public class T293_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

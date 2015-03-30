@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table5.T532_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T532DAO;
@@ -84,6 +86,9 @@ public class T532Action {
 	public void setQueryYear(String queryYear) {
 		this.queryYear = queryYear;
 	}
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 
 	
 	/**  逐条插入数据  */
@@ -333,14 +338,26 @@ public class T532Action {
 	/**数据导出*/
 	public InputStream getInputStream(){
 		
-//        System.out.println("年份："+this.Year);
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T532_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t532Ser.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表5-3-2实验教学示范中心（设备处）";
+		}else{			
+			//String fillUnitID = userBean.getUnitID();			
+			list = t532Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);				
+			sheetName = this.excelName;
+		}
 		InputStream inputStream = null ;
 
 		try {
-			System.out.println(this.getSelectYear());
-			List<T532_Bean> list = t532Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+//			System.out.println(this.getSelectYear());
+			//List<T532_Bean> list = t532Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

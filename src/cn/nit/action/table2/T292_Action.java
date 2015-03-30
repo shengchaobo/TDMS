@@ -33,6 +33,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table2.T292_Bean;
 import cn.nit.service.table2.T292_Service;
 import cn.nit.util.ExcelUtil;
@@ -174,20 +176,31 @@ public class T292_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		T292_Bean bean = T292_services.getYearInfo(this.getSelectYear());
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T292_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T292_services.getYearInfo(year);
+			sheetName = "表2-9-2本科教育经费支出情况（计财处）";
+		}else{
+			bean = T292_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		//T292_Bean bean = T292_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+//			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -247,20 +260,23 @@ public class T292_Action {
 		           ws.mergeCells(1, 14, 2, 14);
 		           ws.mergeCells(1, 15, 2, 15);
 		           		
-		           ws.addCell(new Label(3, 2, bean.getSchTeaExpTotal().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 3, bean.getUndergraTeaExpTotal().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 4, bean.getDayTeaExp().toString(), wcf1));  
-		           ws.addCell(new Label(3, 5, bean.getTeaReformExp().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 6, bean.getCourseExp().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 7, bean.getMajorExp().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 8, bean.getTextbookExp().toString(), wcf1));  
-		           ws.addCell(new Label(3, 9, bean.getPraTeaExpTotal().toString(), wcf1));
-		           ws.addCell(new Label(3, 10, bean.getExpTeaExp().toString(), wcf1));
-		           ws.addCell(new Label(3, 11, bean.getPraTeaExp().toString(), wcf1));
-		           ws.addCell(new Label(3, 12, bean.getOutSchPraExp().toString(), wcf1));
-		           ws.addCell(new Label(3, 13, bean.getStuActExp().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 14, bean.getTeaTrainExp().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 15, bean.getOtherTeaExp().toString(), wcf1)); 
+		           if(bean!=null){
+		        	   ws.addCell(new Label(3, 2, bean.getSchTeaExpTotal().toString(), wcf1)); 
+			           ws.addCell(new Label(3, 3, bean.getUndergraTeaExpTotal().toString(), wcf1)); 
+			           ws.addCell(new Label(3, 4, bean.getDayTeaExp().toString(), wcf1));  
+			           ws.addCell(new Label(3, 5, bean.getTeaReformExp().toString(), wcf1)); 
+			           ws.addCell(new Label(3, 6, bean.getCourseExp().toString(), wcf1)); 
+			           ws.addCell(new Label(3, 7, bean.getMajorExp().toString(), wcf1)); 
+			           ws.addCell(new Label(3, 8, bean.getTextbookExp().toString(), wcf1));  
+			           ws.addCell(new Label(3, 9, bean.getPraTeaExpTotal().toString(), wcf1));
+			           ws.addCell(new Label(3, 10, bean.getExpTeaExp().toString(), wcf1));
+			           ws.addCell(new Label(3, 11, bean.getPraTeaExp().toString(), wcf1));
+			           ws.addCell(new Label(3, 12, bean.getOutSchPraExp().toString(), wcf1));
+			           ws.addCell(new Label(3, 13, bean.getStuActExp().toString(), wcf1)); 
+			           ws.addCell(new Label(3, 14, bean.getTeaTrainExp().toString(), wcf1)); 
+			           ws.addCell(new Label(3, 15, bean.getOtherTeaExp().toString(), wcf1)); 
+		           }
+		          
 		             
 
 		          wwb.write();
@@ -270,7 +286,7 @@ public class T292_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

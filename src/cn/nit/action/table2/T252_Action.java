@@ -23,6 +23,7 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table2.T252_Bean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table2.T252_Dao;
 import cn.nit.service.CheckService;
@@ -378,14 +379,28 @@ public class T252_Action {
 
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T252_Bean> list= null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T252_services.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表4-4-1专业带头人（教学单位-教务处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = T252_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
+		
 		try {
 
-			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-			String fillUnitID = bean.getUnitID();
-			
-			List<T252_Bean> list = T252_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
-						
-			String sheetName = this.excelName;
+//			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+//			String fillUnitID = bean.getUnitID();
+//			
+//			List<T252_Bean> list = T252_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+//						
+//			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

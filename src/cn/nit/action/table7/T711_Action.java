@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table7.T711_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table7.T711_DAO;
@@ -334,12 +335,24 @@ public class T711_Action {
 
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T711POJO> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t711_Sr.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表7-1-1教学管理人员获得教学成果奖情况（教学单位-教务处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list =  t711_Sr.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 		try {
-			//具体教学单位
-			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-			String fillUnitID = bean.getUnitID();
-			List<T711POJO> list = t711_Sr.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
-			String sheetName = this.excelName;
+			
+//			List<T711POJO> list = t711_Sr.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+//			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

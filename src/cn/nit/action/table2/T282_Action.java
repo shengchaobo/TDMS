@@ -33,6 +33,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table2.T282_Bean;
 import cn.nit.service.table2.T282_Service;
 import cn.nit.util.ExcelUtil;
@@ -174,20 +176,33 @@ public class T282_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		T282_Bean bean = T282_services.getYearInfo(this.getSelectYear());
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T282_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T282_services.getYearInfo(year);
+			sheetName = "表2-8-2固定资产总值-设备（设备处）";
+		}else{
+			bean = T282_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		
+		//T282_Bean bean = T282_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+//			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -226,12 +241,14 @@ public class T282_Action {
 		           
 		           ws.mergeCells(0, 2, 4, 2);
 
-		           		           
-		           ws.addCell(new Label(0, 4, bean.getSumFixedAsset().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 4, bean.getOnlyEqu().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 4, bean.getGeneralEqu().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 4, bean.getFurniture().toString(), wcf1)); 	
-		           ws.addCell(new Label(4, 4, bean.getOtherAsset().toString(), wcf1)); 
+		           		if(bean!=null){
+		           		 ws.addCell(new Label(0, 4, bean.getSumFixedAsset().toString(), wcf1)); 
+				           ws.addCell(new Label(1, 4, bean.getOnlyEqu().toString(), wcf1)); 
+				           ws.addCell(new Label(2, 4, bean.getGeneralEqu().toString(), wcf1)); 
+				           ws.addCell(new Label(3, 4, bean.getFurniture().toString(), wcf1)); 	
+				           ws.addCell(new Label(4, 4, bean.getOtherAsset().toString(), wcf1)); 
+		           		}
+		          
 
 		          wwb.write();
 		          wwb.close();
@@ -240,7 +257,7 @@ public class T282_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

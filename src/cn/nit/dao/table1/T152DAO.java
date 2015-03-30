@@ -215,16 +215,29 @@ public class T152DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T152_Bean> totalList(String filledID,String year,int CheckState){
-	
+	public List<T152_Bean> totalList(String fillUnitID,String year,int CheckState){
+		
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,t.FillUnitID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, " +
-				"t.CheckState,t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
-		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
-		sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
-		sql.append(" and CheckState="+CheckState);
-		sql.append(" and t.Time like '"+year+"%'");
-		sql.append(" and t.FillUnitID="+filledID);
+		
+		if("111".equals(fillUnitID)){
+			
+			sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,t.FillUnitID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, " +
+					"t.CheckState,t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
+			sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
+			sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
+			sql.append(" and CheckState="+CheckState);
+			sql.append(" and t.Time like '"+year+"%'");
+		
+		}else{
+			
+			sql.append("select t.SeqNumber,t.ResInsName,t.ResInsID,t.FillUnitID,drt.ResearchType as Type, t.BuildCondition,t.BiOpen, " +
+					"t.CheckState,t.OpenCondition,t.TeaUnit,t.UnitID,t.BeginYear,t.HouseArea,t.Time,t.Note" );
+			sql.append(" from "+tableName + " as t,DiDepartment dpt,DiResearchType drt");
+			sql.append(" where dpt.UnitID=t.ResInsID and drt.IndexID=t.Type");
+			sql.append(" and CheckState="+CheckState);
+			sql.append(" and t.Time like '"+year+"%'");
+			sql.append(" and t.FillUnitID="+fillUnitID);
+		}
 
 	
 		Connection conn = DBConnection.instance.getConnection() ;

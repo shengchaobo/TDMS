@@ -20,6 +20,7 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T181_Bean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T18DAO;
 import cn.nit.excel.imports.table1.T181Excel;
@@ -182,13 +183,14 @@ public class T182_Action {
 				cond = conditions.toString();
 			}
  
-			String tempUnitID = bean.getUnitID();
-			if(!tempUnitID.equals("1013")){
-				tempUnitID = null;
-			}
+//			String tempUnitID = bean.getUnitID();
+//			if(!tempUnitID.equals("1013")){
+//				tempUnitID = null;
+//			}
 //			System.out.println(tempUnitID);
 			
-			String pages = t182Ser.auditingData(cond,tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
+//			String pages = t182Ser.auditingData(cond,tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t182Ser.auditingData(cond,"1013", Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;
 			
 			try{
@@ -347,12 +349,26 @@ public class T182_Action {
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean1 = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T181_Bean> list = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean1.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list= t182Ser.totalList("1013",this.getSelectYear(),Constants.PASS_CHECK);
+			sheetName = "表2-1占地与建筑面积（后勤处）";
+		}else{
+			list = t182Ser.totalList("1013",this.getSelectYear(),Constants.PASS_CHECK);
+			sheetName = this.excelName;
+		}
+		
+		
 
 		try {
 			
-			List<T181_Bean> list = t182Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+			//List<T181_Bean> list = t182Ser.totalList("1013",this.getSelectYear(),Constants.PASS_CHECK);
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

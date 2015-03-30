@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T12_Bean;
 import cn.nit.bean.table1.T13_Bean;
 import cn.nit.dao.table1.T13DAO;
@@ -64,6 +65,9 @@ public class T13_Action {
 	
 	/**  待审核数据的查询的序列号  */
 	private String unitID ;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	/**  逐条插入数据  */
 	
 	/**  为界面加载数据  */
@@ -111,22 +115,37 @@ public class T13_Action {
 		
 //        System.out.println("年份："+this.Year);
 		InputStream inputStream = null ;
+		
+
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T12_Bean> list   = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list =  t12Ser.totalList1();
+			sheetName = "表1-2学校行政单位（党院办）";
+		}else{
+			list =  t12Ser.totalList1();
+			sheetName = this.excelName;
+		}
+
 
 		try {
 			
-			List<T12_Bean> list = t12Ser.totalList1();
+			//List<T12_Bean> list = t12Ser.totalList1();
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("科研单位名称");columns.add("单位号");
-			columns.add("单位负责人");columns.add("备注");
-
+			columns.add("单位负责人");columns.add("教工号");
 			
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
-			maplist.put("UnitName", 0);maplist.put("UnitID", 1);
+			maplist.put("UnitID", 0);
+			maplist.put("UnitName", 1);
 			maplist.put("Leader", 2);
-			maplist.put("Note", 3);
+			maplist.put("TeaID", 3);
 			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());

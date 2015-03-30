@@ -17,8 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T181_Bean;
 import cn.nit.bean.table1.T19_Bean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T19DAO;
 import cn.nit.excel.imports.table1.T19Excel;
@@ -85,6 +88,8 @@ public class T19_Action {
 	}
 
 
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	/**  逐条插入数据  */
 	public void insert(){
@@ -325,13 +330,27 @@ public class T19_Action {
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T19_Bean> list  = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list =  t19Ser.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表1-9学校获得荣誉（党院办）";
+		}else{
+			list =  t19Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			sheetName = this.excelName;
+		}
+		
 
 		try {
 //			System.out.println("yaer:"+this.getSelectYear());
-			List<T19_Bean> list = t19Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			//List<T19_Bean> list = t19Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 //			System.out.println(list.size());
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

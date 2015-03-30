@@ -150,15 +150,31 @@ public class T732_DAO {
 		 */
 		public List<T732POJO> totalList(String fillUnitID, String year, int checkState){
             StringBuffer sql=new StringBuffer();
+            
+            if("111".equals(fillUnitID)){
+            	
+            	sql.append("select  t.SeqNumber,t.AttendClassTerm,t.LeaderName," +
+    					"t.LeaderTeaID,t.AdminTitle,t.AttendClassTime,t.LectureTea," +
+    					"tbp.TeaID as LectureTeaID,t.LectureTeaID as LectureTeaIDD," +
+    					"t.LectureCS,t.CSID,t.SetCSUnit,t.UnitID,t.LectureClass,t.Evaluate,t.Time,t.Note,t.CheckState,t.FillUnitID");
+    			sql.append(" from " +  tableName  + " as t, T411_TeaBasicInfo_Per$  tbp");
+    			sql.append(" where tbp.TeaID=t.LectureTeaID ");
+    			sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+            	
+//    			sql = "select " + keyfield+ "," + field + " from " + tableName +
+//    		     " where CheckState=" + checkState + " and Time like '"+year+"%'";
+    		}else{
+    			sql.append("select  t.SeqNumber,t.AttendClassTerm,t.LeaderName," +
+    					"t.LeaderTeaID,t.AdminTitle,t.AttendClassTime,t.LectureTea," +
+    					"tbp.TeaID as LectureTeaID,t.LectureTeaID as LectureTeaIDD," +
+    					"t.LectureCS,t.CSID,t.SetCSUnit,t.UnitID,t.LectureClass,t.Evaluate,t.Time,t.Note,t.CheckState,t.FillUnitID");
+    			sql.append(" from " +  tableName  + " as t, T411_TeaBasicInfo_Per$  tbp");
+    			sql.append(" where tbp.TeaID=t.LectureTeaID ");
+    			sql.append(" and t.FillUnitID=" + "'" + fillUnitID + "'");
+    			sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+    		}
 			
-			sql.append("select  t.SeqNumber,t.AttendClassTerm,t.LeaderName," +
-					"t.LeaderTeaID,t.AdminTitle,t.AttendClassTime,t.LectureTea," +
-					"tbp.TeaID as LectureTeaID,t.LectureTeaID as LectureTeaIDD," +
-					"t.LectureCS,t.CSID,t.SetCSUnit,t.UnitID,t.LectureClass,t.Evaluate,t.Time,t.Note,t.CheckState,t.FillUnitID");
-			sql.append(" from " +  tableName  + " as t, T411_TeaBasicInfo_Per$  tbp");
-			sql.append(" where tbp.TeaID=t.LectureTeaID ");
-			sql.append(" and t.FillUnitID=" + "'" + fillUnitID + "'");
-			sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+			
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;

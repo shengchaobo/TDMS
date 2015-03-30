@@ -20,6 +20,7 @@ import org.apache.struts2.ServletActionContext;
 
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table7.T744_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table7.T744_DAO;
@@ -311,9 +312,22 @@ public class T744_Action {
 
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T744POJO>  list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t744_Sr.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表7-4-4专业建设评估（评估中心）";
+		}else{						
+			list = t744_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
+		
 		try {
-			List<T744POJO> list = t744_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			String sheetName = this.excelName;
+//			List<T744POJO> list = t744_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+//			String sheetName = this.excelName;
 
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

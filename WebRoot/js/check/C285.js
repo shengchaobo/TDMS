@@ -21,7 +21,6 @@
 			remoteSort : false,
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
-					alert("test");
 					//设置表格状态
 					if(rowData.rows[0].checkState!=0){  								
 	    				if(rowData.rows[0].checkState==WAITCHECK){
@@ -33,6 +32,7 @@
 	    					}
 	    					$("#pass").show();
 	    					$("#nopass").show();
+							$("#renopass").hide();	    					
 	    				}
 	    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
 	    					if(count==0){
@@ -43,6 +43,7 @@
 	    					}
 	    					$("#pass").hide();
 	    					$("#nopass").hide();
+							$("#renopass").show();	    						    					
 	    				}				    				
 	    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 	    					if(count==0){
@@ -53,6 +54,7 @@
 	    					}
 	    					$("#pass").hide();
 	    					$("#nopass").hide();
+							$("#renopass").hide();	    						    					
 	    				}
 					}else{
 						alert("该年数据为空");
@@ -64,6 +66,7 @@
     					}
     					$("#pass").hide();
     					$("#nopass").hide();
+						$("#renopass").hide();	    								
 					}
 			}
 		});
@@ -95,22 +98,26 @@
 			    					$("#newData").datagrid("getPanel").panel("setTitle","教学、科研仪器设备（<font color=red>待审核</font>）")
 			    					$("#pass").show();
 			    					$("#nopass").show();
+									$("#renopass").hide();	    								
 			    				}
 			    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
 			    					$("#newData").datagrid("getPanel").panel("setTitle","教学、科研仪器设备（<font color=red>审核通过</font>）")
 			    					$("#pass").hide();
 			    					$("#nopass").hide();
+									$("#renopass").show();	    								
 			    				}				    				
 			    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 			    					$("#newData").datagrid("getPanel").panel("setTitle","教学、科研仪器设备（<font color=red>审核未通过</font>）");
 			    					$("#pass").hide();
 			    					$("#nopass").hide();
+									$("#renopass").hide();	    								
 			    				}
 							}else{
 								alert("该年数据为空");
 		    					$("#newData").datagrid("getPanel").panel("setTitle","教学、科研仪器设备");
 		    					$("#pass").hide();
 		    					$("#nopass").hide();
+								$("#renopass").hide();	    								
 							}						
 					}
 				});

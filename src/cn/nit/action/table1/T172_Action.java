@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +77,29 @@ public class T172_Action {
 	/**每页显示的条数  */
 	private String rows ;
 	
+	/**  导出时间  */
+	private String selectYear ;
+	
+	public String getSelectYear() {
+		return selectYear;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	
+	
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
@@ -123,7 +147,9 @@ public class T172_Action {
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
 			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null 
+					&& this.getQueryYear()==null){
+				//System.out.println("+++++++++++++++++++++++");
 				cond = null;	
 			}else{			
 				if(this.getSeqNum()!=null){
@@ -138,6 +164,19 @@ public class T172_Action {
 				if(this.getEndTime() != null){
 					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+				}
+				if(this.getQueryYear() != null){
+					if(this.getSeqNum() ==null&&this.getStartTime() == null&&this.getEndTime() == null){
+						conditions.append(" Time like '" + this.queryYear + "%'");
+					}
+					else{
+						conditions.append(" and Time like '" + this.queryYear + "%'");
+					}
+					
+				}else{
+					 Calendar now = Calendar.getInstance();  
+					 this.setQueryYear(now.get(Calendar.YEAR)+"");
+					 conditions.append(" and Time like '" + this.queryYear + "%'");
 				}
 				cond = conditions.toString();
 			}
@@ -233,10 +272,10 @@ public class T172_Action {
 		
 		if("111".equals(userBean.getRoleID())){
 			String year = (String)request.getSession().getAttribute("allYear") ;
-			list =  t172Ser.totalList();
+			list =  t172Ser.totalList(year);
 			sheetName = "表1-7-2校友返校交流情况（党院办）";
 		}else{
-			list = t172Ser.totalList();
+			list = t172Ser.totalList(this.getSelectYear());
 			sheetName = this.excelName;
 		}
 

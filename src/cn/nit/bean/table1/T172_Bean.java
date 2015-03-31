@@ -14,6 +14,13 @@ public class T172_Bean {
 	private String UnitName;
 	private String UnitID;
 	private String Note;
+	private Date Time;
+	public Date getTime() {
+		return Time;
+	}
+	public void setTime(Date time) {
+		Time = time;
+	}
 	public Integer getSeqNumber() {
 		return SeqNumber;
 	}

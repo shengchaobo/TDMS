@@ -68,6 +68,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			<form action='pages/T731/dataExport?excelName=<%=URLEncoder.encode("表7-3-1校领导听课情况s","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 		</div>
 		 <div>
 		  <form method="post" id="auditing"
@@ -163,6 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>听课学期：</label> 
 						<input id="seqNumber" name="schleadInClass.SeqNumber" type="hidden" value="0">
+						<input id="Time" type="hidden" name="schleadInClass.Time" value="0"></input>
 						<input id="AttendClassTerm" type="text" name="schleadInClass.AttendClassTerm"
 							><span id="AttendClassTermSpan"></span>
 					</div>
@@ -287,14 +294,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 	
-	var currentYear = new Date().getFullYear();
-    	var select = document.getElementById("cbYearContrast");
-    	for (var i = 0; i <= 10; i++) {
-        var theOption = document.createElement("option");
-        	theOption.innerHTML = currentYear-i + "年";
-        	theOption.value = currentYear-i;
-        	select.appendChild(theOption);
-    	}
+		//var currentYear = new Date().getFullYear();
+    	//var select = document.getElementById("cbYearContrast");
+    	//for (var i = 0; i <= 10; i++) {
+       // var theOption = document.createElement("option");
+        //	theOption.innerHTML = currentYear-i + "年";
+        //	theOption.value = currentYear-i;
+        //	select.appendChild(theOption);
+    	//}
 	    var url;
 	    function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 
@@ -454,6 +461,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#dlg').dialog('open').dialog('setTitle','修改校领导听课情况');
 	    
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
 	    	$('#AttendClassTerm').val(row[0].attendClassTerm) ;
 	    	$('#LeaderName').combobox('select', row[0].leaderIDD) ;
 	    	$('#AttendClassTime').datebox('setValue',formattime(row[0].attendClassTime)) ;
@@ -511,6 +519,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 	    		}
 	    	}).submit();
+	    }
+	    
+	     //根据用户选择的年显示相应年的数据
+    $(function(){ 
+		 $("#cbYearContrast1").combobox({  
+	        onChange:function(newValue, oldValue){ 
+		     //查询参数直接添加在queryParams中 
+	         var  queryYear = newValue;
+	         var queryParams = $('#commomData').datagrid('options').queryParams;  
+	         queryParams.queryYear = queryYear;  
+	         
+	         $("#commomData").datagrid('reload'); 
+	        }
+	   });
+    })
+    
+     //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
 	    }
 		
 
@@ -583,6 +610,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+			
+			<script type="text/javascript">
+	    	var currentYear = new Date().getFullYear();
+	    	var select = document.getElementById("cbYearContrast1");
+	    	for (var i = 0; i <= 10; i++) {
+	        var theOption = document.createElement("option");
+	        	theOption.innerHTML = currentYear-i + "年";
+	        	theOption.value = currentYear-i;
+	        	select.appendChild(theOption);
+	    	}
+	</script>
+	
+	<script type="text/javascript">
+	    	var currentYear = new Date().getFullYear();
+	    	var select = document.getElementById("cbYearContrast");
+	    	for (var i = 0; i <= 10; i++) {
+	        var theOption = document.createElement("option");
+	        	theOption.innerHTML = currentYear-i + "年";
+	        	theOption.value = currentYear-i;
+	        	select.appendChild(theOption);
+	    	}
+	</script>
 
 </html>
 

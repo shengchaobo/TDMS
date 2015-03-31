@@ -141,6 +141,10 @@ public class T656_Service {
 		return T656_dao.totalList(year);
 	}
 
+	
+	public List<T656_Bean> totalList(String year,int checkState){
+		return T656_dao.totalList(year,checkState);
+	}
 	/**
 	 * @param args
 	 */

@@ -229,18 +229,35 @@ public class T322_DAO {
 	public List<T322POJO> totalList( String fillUnitID, String year, int checkState){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID," +
-				"t.MajorVersion,t.SchMajorName,t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime," +
-				"t.MajorAppvlID,t.MajorDurition," +
-				"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.MajorLevel as MajorLevelID,t.Type," +
-				"t.Field,t.Leader,t.TeaID,t.CheckTime,t.CheckAppvlID,t.SchExp,t.EduMinistryExp,t.FirstAppvlTime,t.AppvlTime," +
-				"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.MajorFeature,t.MajorPurpose,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
-				"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit," +
-				"t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note,t.FillUnitID,t.CheckState ");
-			sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
-			sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");
-			sql.append(" and t.FillUnitID="+fillUnitID+" and t.Time like '"+year+"%'");
-			sql.append(" and t.CheckState="+checkState);
+		if("111".equals(fillUnitID)){
+			sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID," +
+					"t.MajorVersion,t.SchMajorName,t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime," +
+					"t.MajorAppvlID,t.MajorDurition," +
+					"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.MajorLevel as MajorLevelID,t.Type," +
+					"t.Field,t.Leader,t.TeaID,t.CheckTime,t.CheckAppvlID,t.SchExp,t.EduMinistryExp,t.FirstAppvlTime,t.AppvlTime," +
+					"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.MajorFeature,t.MajorPurpose,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
+					"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit," +
+					"t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note,t.FillUnitID,t.CheckState ");
+				sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
+				sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");
+				sql.append(" and t.Time like '"+year+"%'");
+				sql.append(" and t.CheckState="+checkState);
+			
+		}else{
+			sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID," +
+					"t.MajorVersion,t.SchMajorName,t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime," +
+					"t.MajorAppvlID,t.MajorDurition," +
+					"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.MajorLevel as MajorLevelID,t.Type," +
+					"t.Field,t.Leader,t.TeaID,t.CheckTime,t.CheckAppvlID,t.SchExp,t.EduMinistryExp,t.FirstAppvlTime,t.AppvlTime," +
+					"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.MajorFeature,t.MajorPurpose,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
+					"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit," +
+					"t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note,t.FillUnitID,t.CheckState ");
+				sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
+				sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");
+				sql.append(" and t.FillUnitID="+fillUnitID+" and t.Time like '"+year+"%'");
+				sql.append(" and t.CheckState="+checkState);
+		}
+
 //		if(fillUnitID != null && !fillUnitID.equals("")){
 //				sql.append(" and t.fillUnitId=" + fillUnitID) ;
 //			}

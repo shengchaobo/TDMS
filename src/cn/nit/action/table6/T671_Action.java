@@ -42,6 +42,9 @@ import jxl.write.biff.RowsExceededException;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -427,27 +430,21 @@ public class T671_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T671_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T671_service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表6-7-1辅修情况汇总表（教务处）";
+		}else{					
+			list = T671_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T671_Bean> list = T671_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			
-			if(list==null){
-				if(list.size()==0){
-					PrintWriter out = null ;
-					response.setContentType("text/html;charset=utf-8") ;
-					out = response.getWriter() ;
-					out.print("后台传入的数据为空") ;
-					System.out.println("后台传入的数据为空");
-					return null;
-				}
-			}
-			
-			if(list!=null){
-				
-				String sheetName = this.excelName;
+
 				
 				List<String> columns = new ArrayList<String>();
 				
@@ -513,6 +510,7 @@ public class T671_Action {
 						ws.addCell(new Label(13, 3, "预计毕业时间", wcf));
 						
 						//向表中写数据
+						if(list.size()!=0&&list!=null){
 						int k=4;//从第4行开始写数据,第3行为全校合计数
 						for(int j=0;j<list.size();j++){
 							T671_Bean bean1 =  list.get(j);
@@ -533,6 +531,7 @@ public class T671_Action {
 								ws.addCell(new Label(13, k, TimeUtil.changeFormat4(bean1.getGraduateTime()), wcf1));
 							k++;
 						}
+						}
 						    wwb.write();
 				            wwb.close();
 
@@ -540,7 +539,7 @@ public class T671_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 				
-			}
+			
 		
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -25,9 +25,11 @@ import cn.nit.dao.table3.T321_DAO;
 import cn.nit.excel.imports.table3.T321Excel;
 import cn.nit.service.CheckService;
 import cn.nit.service.di.DiDepartmentService;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 
 
+import cn.nit.bean.table3.T311_Bean;
 import cn.nit.bean.table3.T321_Bean;
 
 
@@ -368,13 +370,21 @@ public void auditingData(){
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) getRequest().getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T321_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)getRequest().getSession().getAttribute("allYear") ;
+			list = t321_Service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表3-2-1大类培养基本情况表（教务处）";
+		}else{					
+			list = t321_Service.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
 
-		try {
-			
-			List<T321_Bean> list = t321_Service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 
-			String sheetName = this.excelName;
-			
+		try {		
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("大类名称");columns.add("大类代码");columns.add("分流时间");

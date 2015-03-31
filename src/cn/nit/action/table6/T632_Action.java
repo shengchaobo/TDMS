@@ -45,7 +45,9 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table6.T621_Bean;
+import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T631_Bean;
 import cn.nit.bean.table6.T632_Bean;
 import cn.nit.constants.Constants;
@@ -458,28 +460,20 @@ public class T632_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T632_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T632_service.getYearInfo(year,Constants.PASS_CHECK);
+			sheetName = "表6-3-2分专业应届本科毕业生就业情况（招就处）";
+		}else{					
+			list = T632_service.getYearInfo(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T632_Bean> list = T632_service.getYearInfo(this.getSelectYear(),Constants.PASS_CHECK);
-			
-			if(list==null){
-				if(list.size()==0){
-					PrintWriter out = null ;
-					response.setContentType("text/html;charset=utf-8") ;
-					out = response.getWriter() ;
-					out.print("后台传入的数据为空") ;
-					System.out.println("后台传入的数据为空");
-					return null;
-				}
-			}
-			if(list!=null){
-
-				
-				String sheetName = this.excelName;
-				
 			
 				WritableWorkbook wwb;
 				try{
@@ -542,6 +536,7 @@ public class T632_Action {
 						ws.addCell(new Label(19, 4, "考取外校", wcf));
 						
 						//向表中写数据
+						if(list.size()>0&&list!=null){
 						int k=5;//从第6行开始写数据、（其中第6行是全校统计）
 						for(int j=0;j<list.size();j++){
 							T632_Bean bean1 =  list.get(j);
@@ -590,6 +585,7 @@ public class T632_Action {
 							}
 							k++;
 						}
+						}
 						    wwb.write();
 				            wwb.close();
 
@@ -597,7 +593,7 @@ public class T632_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 				
-			}
+			
 		
 		} catch (Exception e) {
 			e.printStackTrace();

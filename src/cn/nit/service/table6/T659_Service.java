@@ -81,8 +81,8 @@ public class T659_Service {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T659_Bean> totalList(String year){
-		return T659_dao.totalList(year);
+	public List<T659_Bean> totalList(String year,int checkState){
+		return T659_dao.totalList(year,checkState);
 	}
 	
 

@@ -97,6 +97,10 @@ public class T657_Service {
 		return T657_dao.totalList(year);
 	}
 	
+	public List<T657_Bean> totalList(String year,int checkState){
+		return T657_dao.totalList(year,checkState);
+	}
+	
 	
 	public List<T657_Bean> getPageInfoList(String rows, String page) {
 		// TODO Auto-generated method stub

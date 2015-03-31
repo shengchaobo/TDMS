@@ -140,13 +140,13 @@ public class T411_Excel {
 				}
 				
 				String beginTime = cell[7].getContents() ;
-				if((beginTime == null) || beginTime.equals("")){
+/*				if((beginTime == null) || beginTime.equals("")){
 					return "第" + count + "行，教师本科工作开始时间不能为空" ;
 				}else{
 					if(!TimeUtil.judgeFormatY(beginTime)){
 						return "第" + count + "行，教师本科工作开始时间格式不正确" ;
 					}
-				}
+				}*/
 				
 				String IDCode = cell[8].getContents() ;
 				if((IDCode == null) || IDCode.equals("")){
@@ -172,15 +172,15 @@ public class T411_Excel {
 				String office = cell[9].getContents() ;
 				String officId = cell[10].getContents() ;
 				
-				if(office == null || office.equals("")){
+/*				if(office == null || office.equals("")){
 					return "第" + count + "行，所属部门不能为空" ;
 				}
 				
 				if(officId == null || officId.equals("")){
 					return "第" + count + "行，所属部门号不能为空" ;
-				}			
+				}	*/		
 				
-				for(DiDepartmentBean diDepartBean : diDepartBeanList){
+/*				for(DiDepartmentBean diDepartBean : diDepartBeanList){
 					if(diDepartBean.getUnitId().equals(officId)){
 						if(diDepartBean.getUnitName().equals(office)){
 							flag = true ;
@@ -195,12 +195,12 @@ public class T411_Excel {
 					return "第" + count + "行，没有与之相匹配的部门编号" ;
 				}else{
 					flag = false ;
-				}
+				}*/
 				
 				String unit = cell[11].getContents() ;
 				String unitId = cell[12].getContents() ;
 				
-				if(unit == null || unit.equals("")){
+/*				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属单位不能为空" ;
 				}
 				
@@ -223,12 +223,12 @@ public class T411_Excel {
 					return "第" + count + "行，没有与之相匹配的单位号" ;
 				}else{
 					flag = false ;
-				}
+				}*/
 				
 				String fromTeaResOffice = cell[13].getContents() ;
 				String teaResOfficeID = cell[14].getContents() ;
 				
-				if(fromTeaResOffice == null || fromTeaResOffice.equals("")){
+/*				if(fromTeaResOffice == null || fromTeaResOffice.equals("")){
 					return "第" + count + "行，所属教研室不能为空" ;
 				}
 				
@@ -255,7 +255,7 @@ public class T411_Excel {
 					return "第" + count + "行，教研室编号不存在" ; 
 				}else{
 					flag = false ;
-				}
+				}*/
 				
 				String edu = cell[15].getContents() ;
 				
@@ -277,7 +277,7 @@ public class T411_Excel {
 					flag = false ;
 				}
 				
-				String degree = cell[16].getContents() ;
+				String degree = cell[16].getContents().trim() ;
 				
 				if(degree == null || degree.equals("")){
 					return "第" + count + "行，教师最高学位不能为空" ;
@@ -302,7 +302,7 @@ public class T411_Excel {
 				
 				String source = cell[19].getContents() ;
 				
-				if(source == null || source.equals("")){
+/*				if(source == null || source.equals("")){
 					return "第" + count + "行，教师学缘不能为空" ;
 				}
 				String sourceID = null;
@@ -318,15 +318,15 @@ public class T411_Excel {
 					return "第" + count + "行，教师学缘不存在" ;
 				}else{
 					flag = false ;
-				}
+				}*/
 				
 				String adminTitle = cell[20].getContents() ;
 				
 				
-				String majTitle = cell[21].getContents() ;
+				String majTitle = cell[21].getContents().trim();
 				
 				if(majTitle == null || majTitle.equals("")){
-					return "第" + count + "行，教师专业技术职称不能为空" ;
+					majTitle = "未定级";
 				}
 				String majID = null;
 				for(DiTitleLevelBean titleLevelBean : diTitleList){
@@ -343,10 +343,10 @@ public class T411_Excel {
 					flag = false ;
 				}
 				
-				String teaTitle = cell[22].getContents() ;
+				String teaTitle = cell[22].getContents().trim() ;
 				
 				if(teaTitle == null || teaTitle.equals("")){
-					return "第" + count + "行，教师教学职称不能为空" ;
+					teaTitle = "未评级";
 				}
 				String teaTitleID = null;
 				for(DiTitleNameBean titleNameBean : diTitleNameList){
@@ -363,20 +363,19 @@ public class T411_Excel {
 					flag = false ;
 				}
 				
-				
 				String notTeaTitle = cell[23].getContents() ;
 				
 				String subject = cell[24].getContents() ;
 				
-				if(subject == null || subject.equals("")){
+/*				if(subject == null || subject.equals("")){
 					return "第" + count + "行，学科类别不能为空" ;
-				}
+				}*/
 				
 				String doubleTea = cell[25].getContents() ;
 				boolean bdoubleTea;
 				
 				if(doubleTea == null || doubleTea.equals("")){
-					return "第" + count + "行，是否是双师型教师不能为空" ;
+					bdoubleTea = false;
 				}else{
 					if(doubleTea == "是"){
 						bdoubleTea = true;
@@ -389,7 +388,7 @@ public class T411_Excel {
 				boolean bindustry;
 				
 				if(industry == null || industry.equals("")){
-					return "第" + count + "行，是否具有行业背景不能为空" ;
+					bindustry = false;
 				}else{
 					if(doubleTea == "是"){
 						bindustry = true;
@@ -402,7 +401,7 @@ public class T411_Excel {
 				boolean bengineer;
 				
 				if(engineer == null || engineer.equals("")){
-					return "第" + count + "行，是否具有工程背景不能为空" ;
+					bengineer = false;
 				}else{
 					if(engineer == "是"){
 						bengineer = true;
@@ -412,10 +411,10 @@ public class T411_Excel {
 				}
 				
 				String teaBase = cell[28].getContents() ;
-				boolean bteaBase;
+				Boolean bteaBase = null;
 				
-				if(teaBase == null || teaBase.equals("")){
-					return "第" + count + "行，是否是教师库教师不能为空" ;
+				if(teaBase == null && "".equals(teaBase)){
+					bteaBase = false;
 				}else{
 					if(teaBase == "是"){
 						bteaBase = true;
@@ -452,7 +451,7 @@ public class T411_Excel {
 				T411_bean.setTopDegree(degreeID);
 				T411_bean.setGraSch(graSch);
 				T411_bean.setMajor(major);
-				T411_bean.setSource(sourceID);
+				T411_bean.setSource(source);
 				T411_bean.setAdminLevel(adminTitle);
 				T411_bean.setMajTechTitle(majID);
 				T411_bean.setTeaTitle(teaTitleID);

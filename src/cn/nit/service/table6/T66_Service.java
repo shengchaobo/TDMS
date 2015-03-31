@@ -20,6 +20,13 @@ public class T66_Service {
 		return bean;		
 	}
 	
+	public T66_Bean getYearInfo(String selectYear,int chechState){
+		
+		T66_Bean bean = infoDao.getYearInfo(selectYear,chechState);
+		
+		return bean;		
+	}
+	
 	
 	//保存
 	public Boolean save(T66_Bean bean, String year, String fields){

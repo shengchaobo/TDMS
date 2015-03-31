@@ -33,7 +33,10 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table6.T641_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.table6.T641_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
@@ -173,22 +176,22 @@ public class T641_Action {
 	}
 		
 	public InputStream getInputStream() throws Exception{
-
-//		System.out.println(this.getSelectYear());
-		T641_Bean bean = T641_services.getYearInfo(this.getSelectYear());
 		
-	    ByteArrayOutputStream fos = null;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T641_Bean bean = null;
+		String sheetName = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T641_services.getYearInfo(year,Constants.PASS_CHECK);
+			sheetName = "表6-4-1本科生奖贷补（学工处）";
 		}else{
-			String sheetName = this.excelName;
+			bean = T641_services.getYearInfo(this.getSelectYear(),Constants.PASS_CHECK);
+			sheetName = this.excelName;
+		}
+
 						
+		    ByteArrayOutputStream fos = null;
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();
@@ -229,7 +232,7 @@ public class T641_Action {
 		           ws.addCell(new Label(0, 9, "6.减免学费", wcf));
 		           ws.addCell(new Label(0, 10, "7.临时困难补助", wcf));
 
-		           		           
+		          if(bean!=null) {		           
 		           ws.addCell(new Label(1, 3, bean.getSumAidFund().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 4, bean.getGovAidFund().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 5, bean.getSocialAidFund().toString(), wcf1));
@@ -247,7 +250,7 @@ public class T641_Action {
 		           ws.addCell(new Label(2, 8, bean.getWorkStudyNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 9, bean.getTuitionWaiberNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 10, bean.getTempNum().toString(), wcf1));
-		             
+		          }
 
 		          wwb.write();
 		          wwb.close();
@@ -256,7 +259,7 @@ public class T641_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+		
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

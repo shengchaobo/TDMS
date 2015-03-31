@@ -23,6 +23,7 @@ import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table4.T47_Bean;
 import cn.nit.bean.table4.T48_Bean;
 import cn.nit.constants.Constants;
@@ -69,6 +70,12 @@ public class T48_Action {
 	
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
+	
+	/**  该标志是用来区分显示审核通过数据的年为空时的两种情况，
+	 * 一种是被审核用户的当前年数据显示，另一种是审核用户审核通过数据的显示  
+	 * 用0来代表后者
+	 * */
+	private int checkFlag ;
 	
 	/**  导出时间  */
 	private String selectYear ;
@@ -123,9 +130,11 @@ public class T48_Action {
 				if(this.getQueryYear() != null){
 					conditions.append(" and Time like '" + this.queryYear + "%'");
 				}else{
-					 Calendar now = Calendar.getInstance();  
-					 this.setQueryYear(now.get(Calendar.YEAR)+"");
-					 conditions.append(" and Time like '" + this.queryYear + "%'");
+					if(this.getCheckFlag()!=0){
+						 Calendar now = Calendar.getInstance();  
+						 this.setQueryYear(now.get(Calendar.YEAR)+"");
+						 conditions.append(" and Time like '" + this.queryYear + "%'");
+					}
 				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;
@@ -368,15 +377,21 @@ public class T48_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T48_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T48_services.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表4-8教学团队（教学单位-教务处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = T48_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 		
 		try {
-			//具体教学单位
-			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-			String fillUnitID = bean.getUnitID();
-			
-			List<T48_Bean> list = T48_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
-						
-			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
@@ -492,5 +507,13 @@ public class T48_Action {
 
 	public String getSelectYear() {
 		return selectYear;
+	}
+
+	public void setCheckFlag(int checkFlag) {
+		this.checkFlag = checkFlag;
+	}
+
+	public int getCheckFlag() {
+		return checkFlag;
 	}
 }

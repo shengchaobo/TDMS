@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table3.T312_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.excel.imports.table3.T312Excel;
@@ -342,12 +343,22 @@ public class T312_Action {
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		
+		UserinfoBean userBean = (UserinfoBean) getRequest().getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T312_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)getRequest().getSession().getAttribute("allYear") ;
+			list = docAndGraStaSer.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表3-1-2博士点 、硕士点（研究生院）";
+		}else{					
+			list = docAndGraStaSer.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
 
 		try {
 			
-			List<T312_Bean> list = docAndGraStaSer.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			
-			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

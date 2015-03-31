@@ -89,6 +89,9 @@ public class T655_Service {
 		return T655_dao.totalList(year);
 	}
 	
+	public List<T655_Bean> totalList(String year, int checkState){
+		return T655_dao.totalList(year,checkState);
+	}
 	
 
 	

@@ -79,7 +79,7 @@ public class T285_Action {
 		//System.out.println(list.size());
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
-		//System.out.println(json.toString());
+		System.out.println(json.toString());
 		try {
 			//设置输出内容的格式为json
 			response.setContentType("application/json; charset=UTF-8") ;

@@ -48,6 +48,7 @@ import org.springframework.beans.BeanWrapperImpl;
 
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table2.T285_Bean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -274,17 +275,22 @@ public class T659_Action {
 			
 			InputStream inputStream = null ;
 			ByteArrayOutputStream fos = new ByteArrayOutputStream();
+			
+			UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+			String sheetName = null;
+			List<T659_Bean> list = null;
+			
+			if("111".equals(userBean.getRoleID())){
+				String year = (String)request.getSession().getAttribute("allYear") ;
+				list = T659_service.totalList(year,Constants.PASS_CHECK);
+				sheetName = "表6-5-9本科生交流情况（教学单位-国际交流与合作处）";
+			}else{					
+				list = T659_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+				sheetName = this.excelName;
+			}
+			
+			
 			try {
-				List<T659_Bean> list=T659_service.totalList(this.getSelectYear());
-				if(list.size()==0){
-					PrintWriter out = null ;
-					response.setContentType("text/html;charset=utf-8") ;
-					out = response.getWriter() ;
-					out.print("后台传入的数据为空") ;
-					System.out.println("后台传入的数据为空");
-					return null;
-				}
-				String sheetName = this.excelName;
 				List<String> columns = new ArrayList<String>();
 				columns.add("序号");columns.add("教学单位");columns.add("单位号");
 				columns.add("总数");columns.add("本校到境外");columns.add("本校到境内");columns.add("境内到本校");

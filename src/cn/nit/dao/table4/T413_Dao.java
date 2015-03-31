@@ -28,16 +28,30 @@ public class T413_Dao {
 	 * @time: 2014-5-14/下午02:34:42
 	 */
 	public List<T413_Bean> totalList(String fillUnitID){
+		String sql = null;
 		
-		String sql = "select " + 
-		"Name,TeaId,Gender,Birthday,HireBeginTime,TeaState,HireTimeLen,UnitId,"+
-		"UnitName," + tableName4 + ".Education,Degree AS TopDegree,TitleLevel AS TechTitle,SubjectClass,WorkUnitType," + tableName3 + ".TutorType,Region,Note,FillUnitID"
-		+ " from " + tableName + 
-		" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
-		" left join " + tableName2+ " on " + "TechTitle=" + tableName2 + ".IndexID " +
-		" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
-		" left join " + tableName3+ " on " + tableName + ".TutorType=" + tableName3 + ".IndexID " +
-		" where FillUnitID=" + "'" + fillUnitID + "'";
+		if("111".equals(fillUnitID)){
+			sql = "select " + 
+			"Name,TeaId,Gender,Birthday,HireBeginTime,TeaState,HireTimeLen,UnitId,"+
+			"UnitName," + tableName4 + ".Education,Degree AS TopDegree,TitleLevel AS TechTitle,SubjectClass,WorkUnitType," + tableName3 + ".TutorType,Region,Note,FillUnitID"
+			+ " from " + tableName + 
+			" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
+			" left join " + tableName2+ " on " + "TechTitle=" + tableName2 + ".IndexID " +
+			" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
+			" left join " + tableName3+ " on " + tableName + ".TutorType=" + tableName3 + ".IndexID " ;	
+		}else{
+			sql = "select " + 
+			"Name,TeaId,Gender,Birthday,HireBeginTime,TeaState,HireTimeLen,UnitId,"+
+			"UnitName," + tableName4 + ".Education,Degree AS TopDegree,TitleLevel AS TechTitle,SubjectClass,WorkUnitType," + tableName3 + ".TutorType,Region,Note,FillUnitID"
+			+ " from " + tableName + 
+			" left join " + tableName1+ " on " + "TopDegree=" + tableName1 + ".IndexID " +
+			" left join " + tableName2+ " on " + "TechTitle=" + tableName2 + ".IndexID " +
+			" left join " + tableName4+ " on " + tableName + ".Education=" + tableName4 + ".IndexID " +
+			" left join " + tableName3+ " on " + tableName + ".TutorType=" + tableName3 + ".IndexID " +
+			" where FillUnitID=" + "'" + fillUnitID + "'";
+			
+		}
+
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

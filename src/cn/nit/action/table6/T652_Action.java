@@ -28,6 +28,7 @@ import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -411,15 +412,21 @@ public class T652_Action {
 	public InputStream getInputStream() {
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T652_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T652_service.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表6-5-2学习成果——学生发表论文（教学单位-团委）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = T652_service.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T652_Bean> list = T652_service. totalList(fillUnitID, this.getSelectYear(), Constants.PASS_CHECK);
-						
-			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			

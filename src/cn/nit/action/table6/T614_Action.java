@@ -33,7 +33,10 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T614_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.table6.T614_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
@@ -173,22 +176,22 @@ public class T614_Action {
 	}
 		
 	public InputStream getInputStream() throws Exception{
-
-//		System.out.println(this.getSelectYear());
-		T614_Bean bean = T614_services.getYearInfo(this.getSelectYear());
 		
-	    ByteArrayOutputStream fos = null;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T614_Bean bean = null;
+		String sheetName = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T614_services.getYearInfo(year,Constants.PASS_CHECK);
+			sheetName = "表6-1-4继续教育学生数量基本情况（继续教育学院）";
 		}else{
-			String sheetName = this.excelName;
-						
+			bean = T614_services.getYearInfo(this.getSelectYear(),Constants.PASS_CHECK);
+			sheetName = this.excelName;
+		}
+			
+			
+			  ByteArrayOutputStream fos = null;			
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();
@@ -228,7 +231,8 @@ public class T614_Action {
 		           ws.addCell(new Label(0, 8, "11.网络学生数", wcf)); 
 		           ws.addCell(new Label(0, 9, "12.自考学生数", wcf));
 
-		           		           
+		           
+		           if(bean!=null){
 		           ws.addCell(new Label(1, 3, bean.getPreppyLastYearNum().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 4, bean.getAdvStuLastYearNum().toString(), wcf1));
 		           ws.addCell(new Label(1, 5, bean.getAdultLastYearNum().toString(), wcf1)); 
@@ -244,7 +248,7 @@ public class T614_Action {
 		           ws.addCell(new Label(2, 7, bean.getCorrespdThisYearNum().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 8, bean.getNetStuThisYearNum().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 9, bean.getSelfStudyThisYearNum().toString(), wcf1));
-		           
+		           }
 		          wwb.write();
 		          wwb.close();
 
@@ -252,7 +256,7 @@ public class T614_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+		
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

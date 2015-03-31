@@ -53,6 +53,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+									    	 $('#checkPassData').datagrid('reload'); // reload the user data									    		 
+								    		 
 						  		}
 				    }
 				});
@@ -76,7 +78,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data	
+									    	 $('#checkPassData').datagrid('reload'); // reload the user data									    		 
+								    		 	
 						  		}
 				    }
 				});  	    
@@ -100,6 +104,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										  			 });
 								  		} else {
 										    		 $('#checkData').datagrid('reload'); // reload the user data
+									    		     $('#checkPassData').datagrid('reload'); // reload the user data									    		 
+										    		 
 								  		}
 						    }
 						});
@@ -110,6 +116,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
+
 <body style="height: 100%'">
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T251/loadPlaceInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
@@ -163,6 +171,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	
+   <table  id="checkPassData"  class="easyui-datagrid"  url="pages/T251/loadPlaceInfo?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
+		  </tr>
+		</thead>
+		<thead>
+				<tr>		
+					<th  data-options="field:'seqNumber'" >编号</th>
+					<th data-options="field:'expCenterName'">
+						实验中心名称
+				  </th>
+					<th data-options="field:'teaUnit'">
+						所属教学单位
+					</th>
+					<th data-options="field:'teaUnitID'">
+						教学单位号
+					</th>
+					<th data-options="field:'labName'" >
+						下属实验室名称
+					</th>
+					<th data-options="field:'buildTime'" formatter="formattime">
+						创建时间
+					</th>
+					<th data-options="field:'place'">
+						地点
+					</th>	
+					<th data-options="field:'machNum'">
+						台件数量
+					</th>
+					<th data-options="field:'money'">
+						金额（元）
+					</th>		
+					<th data-options="field:'area'">
+						面积（平方米）
+					</th>	
+					<th data-options="field:'newAddArea'">
+						其中当年新增面积（平方米）
+					</th>
+					<th data-options="field:'nature'">
+						性质
+					</th>	
+					<th data-options="field:'forMajor'">
+						面向专业
+					</th>																															
+					<th data-options="field:'note'">
+						备注
+					</th>
+				</tr>
+			</thead>
+	</table>
   <div id="toolbar"  style="float: right;">
 			<a href='javascript:checkAll()'   class="easyui-linkbutton" iconCls="icon-download" plain="true"  >
 					一键审核通过

@@ -460,15 +460,25 @@ public class T658_Dao {
 	 * @time: 2014-5-14/下午02:34:42
 	 */
 	public List<T658_Bean> totalList(String fillUnitID, String year, int checkState){
+		String sql = null;
 		
 		
-		String sql = "select SeqNumber,TeaUnit,UnitID,ConferenceName,PaperTitle,HoldTime," +
+		if("111".equals(fillUnitID)){
+		sql = "select SeqNumber,TeaUnit,UnitID,ConferenceName,PaperTitle,HoldTime," +
 				"HoldPlace,HoldUnit,DiAwardLevel.AwardLevel as ConferenceLevel,AwardStuName" +
 		",AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID,CheckState"
 		+ " from " + tableName + 
 		" left join DiAwardLevel on "+tableName+".ConferenceLevel = DiAwardLevel.IndexID"+
-		" where FillUnitID=" + "'" + fillUnitID + "'" 
-						+ " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		" where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			sql = "select SeqNumber,TeaUnit,UnitID,ConferenceName,PaperTitle,HoldTime," +
+			"HoldPlace,HoldUnit,DiAwardLevel.AwardLevel as ConferenceLevel,AwardStuName" +
+	",AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID,CheckState"
+	+ " from " + tableName + 
+	" left join DiAwardLevel on "+tableName+".ConferenceLevel = DiAwardLevel.IndexID"+
+	" where FillUnitID=" + "'" + fillUnitID + "'" 
+					+ " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		}
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

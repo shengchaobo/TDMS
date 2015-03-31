@@ -25,9 +25,12 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table4.T431_Bean;
+import cn.nit.bean.table4.T441_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table4.T411_Dao;
 import cn.nit.excel.imports.table4.T411_Excel;
 import cn.nit.service.table4.T411_Service;
@@ -212,13 +215,20 @@ public class T411_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T411_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			list = T411_services.totalList();
+			sheetName = "表4-4-1专业带头人（教学单位-教务处）";
+		}else{			
+			list = T411_services.totalList();					
+			sheetName = this.excelName;
+		}
 		
 		try {
-			
-			List<T411_Bean> list = T411_services.totalList();
-						
-			String sheetName = this.excelName;
-			
+
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("姓名");columns.add("教工号");columns.add("性别");columns.add("出生年月");
@@ -410,6 +420,8 @@ public class T411_Action {
 
 		return inputStream1 ;
 	}
+	
+
 
 	public String getRows() {
 		return rows;

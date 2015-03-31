@@ -17,7 +17,8 @@ $(function(){
 				        	"options":{
 				        		"data":[{"value":"大学","text":"大学"},{"value":"独立设置的学院","text":"独立设置的学院"},
 				        		        {"value":"独立学院","text":"独立学院"}],
-				        		"panelHeight":"auto"
+				        		"panelHeight":"auto",
+				        			"editable":false
 				        	}
 				       }},
 				       { "name": "9 学校性质", "group": "学校概况", "value": "", "field": "schQuality",  "editor": {
@@ -29,7 +30,8 @@ $(function(){
 				        		        ,{"value":"语言院校","text":"语言院校"},{"value":"财经院校","text":"财经院校"}
 				        		        ,{"value":"政法院校","text":"政法院校"},{"value":"体育院校","text":"体育院校"}
 				        		        ,{"value":"艺术院校","text":"艺术院校"},{"value":"民族院校","text":"民族院校"}],
-				        		"panelHeight":"auto"
+				        		"panelHeight":"auto",
+				        		"editable":false
 				        	}
 				       }},
 				        
@@ -45,7 +47,8 @@ $(function(){
 				        		"data":[{"value":"提前批招生","text":"提前批招生"},{"value":"第一批次招生","text":"第一批次招生"},
 				        		        {"value":"第二批次招生A","text":"第二批次招生A"},{"value":"第二批次招生B","text":"第二批次招生B"}
 				        		        ,{"value":"第三批次招生A","text":"第三批次招生A"},{"value":"第三批次招生B","text":"第三批次招生B"}],
-				        		"panelHeight":"auto"
+				        		"panelHeight":"auto",
+				        		"editable":false
 				        	}
 				       }},
 				        { "name": "14 办学本科教育年份", "group": "学校概况", "value": "", "field": "sch_BeginTime", "editor": {
@@ -58,14 +61,7 @@ $(function(){
 				        } },
 				        { "name": "15 多媒体反映", "group": "学校概况", "value": "", "field": "mediaUrl", "editor": "text" },
 				        { "name": "16.1  校区名称（瑶湖校区）", "group": "学校地址", "value": "", "field": "yaohuSchAdd", "editor": "text" },
-				        { "name": "16.2  校区名称（彭桥校区）", "group": "学校地址", "value": "", "field": "pengHuSchAdd", "editor": "text" },
-				        {"name":"combox类型","value":"1","group":"自定义设置", "editor":{
-				            "type":"combobox",
-				            "options":{
-				                "data":[{"value":1,"text":"一"},{"value":2,"text":"二"}],
-				                "panelHeight":"auto"
-				            }
-				     }}
+				        { "name": "16.2  校区名称（彭桥校区）", "group": "学校地址", "value": "", "field": "pengHuSchAdd", "editor": "text" }
 				    ];
 				    							
 				$('#edit').propertygrid({

@@ -58,7 +58,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href="pages/T172/dataExport?excelName=表1-7-2校友返校交流情况（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+			<a></a>
+			<form action='pages/T172/dataExport?excelName=<%=URLEncoder.encode("表1-7-2校友返校交流情况（党院办）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
+		<!-- 	<a href="pages/T172/dataExport?excelName=表1-7-2校友返校交流情况（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>  -->
 		</div>	
 			<form method="post" id="auditing"
 				style="float: right; height: 24px;">
@@ -136,6 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>校友姓名：</label> 
 						<input id="seqNumber" type="hidden" name="t172Bean.SeqNumber" value="0"></input>
+						<input id="Time" type="hidden" name="t172Bean.Time" ></input>
 						<input id="FriName" name="t172Bean.FriName" class="easyui-validatebox" required="true">
 						<span id="FriNameSpan"></span>
 					</div>
@@ -308,6 +316,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $('#dlg').dialog('open').dialog('setTitle','添加校友返校交流情况的信息');
 		    $('#t172form').form('reset');
 	    }
+	    
+	    //根据用户选择的年显示相应年的数据
+	    $(function(){ 
+			 $("#cbYearContrast1").combobox({  
+		        onChange:function(newValue, oldValue){ 
+			     //查询参数直接添加在queryParams中 
+		         var  queryYear = newValue;
+		         var queryParams = $('#commomData').datagrid('options').queryParams;  
+		         queryParams.queryYear = queryYear;  
+		         $("#commomData").datagrid('reload'); 
+		        }
+		   });
+	    })
 
 	    function singleImport(){
 		    //录入数据的表单提交
@@ -421,6 +442,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
 	    	$('#dlg').dialog('open').dialog('setTitle','修改校友返校交流情况的信息');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
 	    	$('#FriName').val(row[0].friName) ;
 	    	$('#ActName').val(row[0].actName);
 	    	$('#ActType').val(row[0].actType);
@@ -481,102 +503,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    
 	    }
 	    
-	    function loadDictionary(){
-	    	
-	    	$.ajax({ 
-	    		type: "POST", 
-	    		url: "table5/loadDic", 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			data = eval("(" + data + ")");
-	    			alert(data[0].id) ;
-	    			var str = "<table width=\"100%\" border=\"1\"><tr>" ;
-	    			$(data).each(function(index) {
-	    				var val = data[index];
-	    				if(index%4 == 0 && index != 0){
-	    					str += "</tr><tr>" ;
-	    				}
-	    				str += "<td><input type=\"checkbox\" id=\"" + val.id + "\"name=" + "\"checkboxex\"" +  "value=\"" + val.data + "\">" + val.data + "</input></td>" ; 
-	    			}); 
-	    			//alert(str);
-	    			str += "</tr><tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" onclick=\"loadData()\">添加</a></td></tr></table>" ;
-	    			document.getElementById("dicTables").innerHTML = str;
-	    			$.parser.parse('#dicTables');
-	    		}
-	    	}).submit();
+	  //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
 	    }
-	    	
-	    function loadData(){
-	    	
-	    	//flag判断
-	    	var flag = false ;
-	    	var checkboxes = document.getElementsByName("checkboxex");
-	    	var tables = "<div class=\"ftitle\">自定义查询条件</div><form method=\"post\" action=\"table5/dictorySearch\" id=\"dicsDataForm\"><table width=\"100%\" border=\"1\">" ;
-	    	tables += "<tr><td>查询名称</td><td>运算符</td><td>查询内容</td><td>逻辑关系</td></tr>" ;
-	    	for(i=0; i<checkboxes.length; i++){
-	    		if(checkboxes[i].checked){
-	    			flag = true ;
-	    			tables += ("<tr><td style=\"width:50%px\">" + hideId(checkboxes[i].id,i)  + checkboxes[i].value + "</td><td>" + selectOperateData(i) + "</td><td>" + selectDataHtml(checkboxes[i].id,i) +"</td><td>" + selectLogicData(i) + "</td></tr>") ;
-	    		}
-	    	}
-	    	if(flag){
-	    		tables += "<tr><td colSpan=\"4\" style=\"text-align:center\"><a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-search\" onclick=\"submitDicForm()\">查询</a></td></tr>" ;
-	    	}
-	    	tables += "</table></form>" ;
-	    	alert(tables) ;
-	    	document.getElementById("dices").innerHTML = tables ;
-	    	$.parser.parse('#dices');
-	    	
-	    }
-	    
-	    function hideId(val,index){
-	    	var hiddenId = "<input type='hidden' name='dictorySearch[" + index + "].id' value='" + val + "'/>" ;
-	    	
-	    	return hiddenId ;
-	    }
-	    
-	    //自动加载要查询的数据
-	    function selectDataHtml(val,index){
-	    	
-	    	var selectsHtml = "<select class=\"easyui-combogrid\" style=\"width:50%px\" name=\"dictorySearch[" + index + "].dicData\" data-options=\"panelWidth: 500, multiple: true,required:true,"
-	    	 + " idField: 'dicData',textField: 'dicData',"
-	    	 + "url: 'table5/loadDictionary?dicId=" + val + "',"
-	    	 + "method: 'post',"
-	    	 + "columns: [[{field:'ck',checkbox:true},{field:'itemid',title:'数据',width:80},{field:'dicData',title:'数据',width:80}]],"
-	    	 + "fitColumns: true \"> </select>" ;
-	    	 
-	    	 return selectsHtml ;
-	    }
-	    
-	    //生成运算关系combo
-	    function selectOperateData(index){
-	    	
-	    	var operateHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].operator\"> <option value=\"equals\">等于</option><option value=\"between\">之间</option><option value=\"side\">两边</option></select>" ;
-	    	
-	    	return operateHtml ;
-	    }
-	    
-	  //生成逻辑关系combo
-	    function selectLogicData(index){
-	    	
-	    	var logicHtml = "<select style=\"width:15%px\" name=\"dictorySearch[" + index + "].logic\"> <option value=\"and\">并且</option><option value=\"or\">或者</option></select>" ;
-	    	
-	    	return logicHtml ;
-	    }
-	  
-	  function submitDicForm(){
-		  $.ajax({ 
-	    		type: "POST", 
-	    		url: "table5/dictorySearch",
-	    		data: $('#dicsDataForm').serialize(), 
-	    		async:"false",
-	    		dataType: "text",
-	    		success: function(data){
-	    			alert(123) ;
-	    		}
-	    	}).submit();
-	  }
 	    
 	    </script>
 
@@ -615,5 +545,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        	select.appendChild(theOption);
 		    	}
 			</script>
+			
+			<script type="text/javascript">
+	    	var currentYear = new Date().getFullYear();
+	    	var select = document.getElementById("cbYearContrast1");
+	    	for (var i = 0; i <= 10; i++) {
+	        var theOption = document.createElement("option");
+	        	theOption.innerHTML = currentYear-i + "年";
+	        	theOption.value = currentYear-i;
+	        	select.appendChild(theOption);
+	    	}
+	</script>
 
 </html>

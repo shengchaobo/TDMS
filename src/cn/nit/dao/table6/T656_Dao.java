@@ -126,6 +126,32 @@ public class T656_Dao {
 		return list ;
 	}
 	
+	public List<T656_Bean> totalList(String year,int checkState){
+		
+		String sql = "select " + key+ "," +field + " from " + tableName 
+				+ " where convert(varchar(4),Time,120)=" + year
+				 + " and CheckState=" + checkState;		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T656_Bean> list = null ;
+		System.out.println(sql);
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T656_Bean.class) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
+		}
+		
+		return list ;
+	}
+	
 	/**
 	 * 更新数据
 	 * @param diCourseCategories

@@ -18,7 +18,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table3.T311_Bean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table3.T311_DAO;
 import cn.nit.excel.imports.table3.T311Excel;
@@ -343,12 +345,20 @@ private T311_Service postDocStaSer = new T311_Service() ;
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) getRequest().getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T311_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)getRequest().getSession().getAttribute("allYear") ;
+			list = postDocStaSer.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表3-1-1博士后流动站（人事处）";
+		}else{					
+			list = postDocStaSer.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
 
 		try {
-			
-			List<T311_Bean> list = postDocStaSer.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			
-			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

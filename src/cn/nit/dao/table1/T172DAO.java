@@ -22,7 +22,7 @@ public class T172DAO {
 	private String key = "SeqNumber" ;
 	
 	/**  数据库表中除了自增长字段的所有字段  */
-	private String field = "FriName,ActName,ActType,ActTime,ActPlace,UnitName,UnitID,Note" ;
+	private String field = "FriName,ActName,ActType,ActTime,ActPlace,UnitName,UnitID,Note,Time" ;
 	
 	/**
 	 * 将数据表1-7的实体类插入数据库
@@ -170,11 +170,12 @@ public class T172DAO {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T172_Bean> totalList(){
+	public List<T172_Bean> totalList(String year){
 		
 		StringBuffer sql=new StringBuffer();
-		sql.append("select SeqNumber,FriName,ActName,ActType,ActTime,ActPlace,UnitName,UnitID,Note from "+ tableName);
-
+		sql.append("select SeqNumber,FriName,ActName,ActType,ActTime,ActPlace,UnitName,UnitID,Note,Time from "+ tableName);
+		sql.append(" where Time like '"+year+"%'");
+		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -238,8 +239,44 @@ public class T172DAO {
 			return true ;
 		}
 	}
+	
 	public String getTableName(){
 		return this.tableName ;
 	}
 	
+	/**设置数据库time字段*/
+	public boolean updateTime()
+	{
+		int flag = 0;
+		Date year = new Date();
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("update "+tableName+" set Time='2015-01-01'");
+		System.out.println(sql.toString());
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			flag = st.executeUpdate(sql.toString()) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}finally{
+			DBConnection.close(st);
+			DBConnection.close(conn);
+		}
+		if(flag == 0){
+			return false ;
+		}else{
+			return true ;
+		}
+		
+	}
+	
+	public static void main(String args[]){
+		T172DAO dao = new T172DAO();
+		boolean flag = dao.updateTime();
+		System.out.println(flag);
+				
+	}
 }

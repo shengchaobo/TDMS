@@ -46,6 +46,8 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -277,20 +279,22 @@ public class T657_Action {
 	
 
 	public InputStream getInputStream() {
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T657_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T657_service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表6-5-7学习成果-体质合格、达标率（体育教学部）";
+		}else{				
+			list = T657_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T657_Bean> list=T657_service.totalList(this.getSelectYear());
-			if(list.size()==0){
-				PrintWriter out = null ;
-				response.setContentType("text/html;charset=utf-8") ;
-				out = response.getWriter() ;
-				out.print("后台传入的数据为空") ;
-				System.out.println("后台传入的数据为空");
-				return null;
-			}
-			String sheetName = this.excelName;
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");columns.add("教学单位");columns.add("单位号");columns.add("1.体质合格率（%）");
 			columns.add("2.体质测试达标率（%）");

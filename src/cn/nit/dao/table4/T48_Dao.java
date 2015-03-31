@@ -25,13 +25,24 @@ public class T48_Dao {
 	 * @time: 2014-5-14/下午02:34:42
 	 */
 	public List<T48_Bean> totalList(String fillUnitID, String year, int checkState){
+		String sql = null;
 		
-		String sql = "select " + " " + keyfield + "," +
-		"TeaUnit,UnitId,TeamName,AwardLevel AS TeamLevel,Leader,TeaId,GroupNum,GroupInfo,GainTime,AppvlId,Time,Note,FillUnitID,CheckState"
-		+ " from " + tableName + 
-		" left join " + tableName1+ " on " + "TeamLevel=" + tableName1 + ".IndexID " + 
-		" where FillUnitID=" + "'" + fillUnitID + "'"
-		+ " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		if("111".equals(fillUnitID)){
+			sql = "select " + " " + keyfield + "," +
+			"TeaUnit,UnitId,TeamName,AwardLevel AS TeamLevel,Leader,TeaId,GroupNum,GroupInfo,GainTime,AppvlId,Time,Note,FillUnitID,CheckState"
+			+ " from " + tableName + 
+			" left join " + tableName1+ " on " + "TeamLevel=" + tableName1 + ".IndexID " + 
+			" where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			sql = "select " + " " + keyfield + "," +
+			"TeaUnit,UnitId,TeamName,AwardLevel AS TeamLevel,Leader,TeaId,GroupNum,GroupInfo,GainTime,AppvlId,Time,Note,FillUnitID,CheckState"
+			+ " from " + tableName + 
+			" left join " + tableName1+ " on " + "TeamLevel=" + tableName1 + ".IndexID " + 
+			" where FillUnitID=" + "'" + fillUnitID + "'"
+			+ " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		}
+		
+
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

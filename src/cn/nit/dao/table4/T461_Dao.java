@@ -29,7 +29,7 @@ public class T461_Dao {
 	public List<T461_Bean> totalList(String param,String fillUnitID, String year, int checkState){
 		
 		String cond = null;
-		if(fillUnitID != null){
+		if(fillUnitID != null&&!"111".equals(fillUnitID)){
 			cond = " FillUnitID=" + "'" + fillUnitID + "' and ";
 		}
 				

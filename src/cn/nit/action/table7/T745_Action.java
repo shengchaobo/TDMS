@@ -68,6 +68,21 @@ public class T745_Action {
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
 	
+	/**  该标志是用来区分显示审核通过数据的年为空时的两种情况，
+	 * 一种是被审核用户的当前年数据显示，另一种是审核用户审核通过数据的显示  
+	 * 用0来代表后者
+	 * */
+	private int checkFlag ;
+	
+	public int getCheckFlag() {
+		return checkFlag;
+	}
+
+	public void setCheckFlag(int checkFlag) {
+		this.checkFlag = checkFlag;
+	}
+
+
 	/**  审核通过数据按年时间查询  */
 	private String queryYear ;
 	public String getQueryYear() {
@@ -151,9 +166,11 @@ public class T745_Action {
 				if(this.getQueryYear() != null){
 					conditions.append(" and Time like '" + this.queryYear + "%'");
 				}else{
-					 Calendar now = Calendar.getInstance();  
-					 this.setQueryYear(now.get(Calendar.YEAR)+"");
-					 conditions.append(" and Time like '" + this.queryYear + "%'");
+					if(this.getCheckFlag()!=0){
+						 Calendar now = Calendar.getInstance();  
+						 this.setQueryYear(now.get(Calendar.YEAR)+"");
+						 conditions.append(" and Time like '" + this.queryYear + "%'");
+					}
 				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;

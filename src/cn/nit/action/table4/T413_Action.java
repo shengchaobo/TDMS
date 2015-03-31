@@ -27,6 +27,8 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table4.T413_Bean;
+import cn.nit.bean.table4.T441_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table4.T411_Dao;
 import cn.nit.dao.table4.T413_Dao;
 import cn.nit.service.table4.T411_Service;
@@ -245,16 +247,20 @@ public class T413_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T413_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			list = T413_services.totalList("111");
+			sheetName = "表4-1-3外聘教师基本信息（教学单位-人事处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = T413_services.totalList(fillUnitID);						
+			sheetName = this.excelName;
+		}
 		
 		try {
-			
-			//具体教学单位
-			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-			String fillUnitID = bean.getUnitID();
-			
-			List<T413_Bean> list = T413_services.totalList(fillUnitID);
-						
-			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

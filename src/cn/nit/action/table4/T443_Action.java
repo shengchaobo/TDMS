@@ -21,6 +21,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table4.T443_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table4.T443_Dao;
@@ -348,17 +350,20 @@ public class T443_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T443_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T443_services.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表4-4-3高层次人才（人事处）";
+		}else{						
+			list = T443_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			//根据用户选择的时间导出审核通过的数据
-			//System.out.println(this.getSelectYear()+"test");
-			List<T443_Bean> list = T443_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-						
-			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

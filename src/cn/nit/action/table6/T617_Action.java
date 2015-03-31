@@ -46,11 +46,13 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
 import cn.nit.bean.table6.T614_Bean;
 import cn.nit.bean.table6.T615_Bean;
+import cn.nit.bean.table6.T616_Bean;
 import cn.nit.bean.table6.T617_Bean;
 import cn.nit.bean.table6.T621_Bean;
 import cn.nit.bean.table6.T631_Bean;
@@ -274,19 +276,22 @@ public class T617_Action {
 
 	public InputStream getInputStream(){
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T617_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T617_service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表6-1-7专科在校生信息补充表（教务处）";
+		}else{						
+			list = T617_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T617_Bean> list=T617_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			if(list.size()==0){
-				PrintWriter out = null ;
-				response.setContentType("text/html;charset=utf-8") ;
-				out = response.getWriter() ;
-				out.print("后台传入的数据为空") ;
-				System.out.println("后台传入的数据为空");
-				return null;
-			}
-			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");columns.add("教学单位");columns.add("单位号");columns.add("专业名称");
@@ -324,15 +329,8 @@ public class T617_Action {
 					//第一行存表名
 					ws.addCell(new Label(0, 0, sheetName, wcf)); 
 					ws.mergeCells(0, 0, 1, 0);
-					
-					//取出第一行总计信息
-					T617_Bean bean = list.get(0);					
-					ws.addCell(new Label(0, 4, "全校合计", wcf));  
-					ws.mergeCells(0, 4, 5, 4);
-					ws.addCell(new Label(6, 4, bean.getJuniorStuSumNum().toString(), wcf1));  
-					ws.addCell(new Label(7, 4, bean.getJuniorOneStuNum().toString(), wcf1));  
-					ws.addCell(new Label(8, 4, bean.getJuniorTwoStuNum().toString(), wcf1));  
-					ws.addCell(new Label(9, 4, bean.getJuniorThreeStuNum().toString(), wcf1));  
+
+  
 					
 		            //判断一下表头数组是否有数据    
 		            if (columns != null && columns.size() > 0) {  		 
@@ -370,8 +368,14 @@ public class T617_Action {
 		                	int i=0;  
 		                	for(Object obj : list){
 		                		if(i == 0) {
-		                			i++;
-		                			continue;
+		        					//取出第一行总计信息
+		        					T617_Bean bean = list.get(0);					
+		        					ws.addCell(new Label(0, 4, "全校合计", wcf));  
+		        					ws.mergeCells(0, 4, 5, 4);
+		        					ws.addCell(new Label(6, 4, bean.getJuniorStuSumNum().toString(), wcf1));  
+		        					ws.addCell(new Label(7, 4, bean.getJuniorOneStuNum().toString(), wcf1));  
+		        					ws.addCell(new Label(8, 4, bean.getJuniorTwoStuNum().toString(), wcf1));  
+		        					ws.addCell(new Label(9, 4, bean.getJuniorThreeStuNum().toString(), wcf1));
 		                		}
 		                		wrapper.setWrappedInstance(obj) ;  
 		                        //循环输出map中的子集：既列值                         

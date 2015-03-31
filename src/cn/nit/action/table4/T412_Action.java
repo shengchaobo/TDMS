@@ -25,6 +25,7 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T412_Bean;
 import cn.nit.bean.table4.T42_Bean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table4.T412_Dao;
 import cn.nit.dao.table4.T42_Dao;
@@ -370,18 +371,22 @@ public class T412_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T412_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T412_services.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表4-1-2各专业专任教师队伍名单（教学单位-人事处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = T412_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 		
 		try {
-			
-			
-			//插入教学单位
-			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-			String fillUnitID = bean.getUnitID();
-			
-			List<T412_Bean> list = T412_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
-						
-			String sheetName = this.excelName;
-			
+
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("所属教学单位");columns.add("教学单位号");columns.add("专业名称");columns.add("专业代码");

@@ -77,9 +77,9 @@ public class T172Service {
 	}
 	
 	/**导出数据*/
-	public List<T172_Bean> totalList(){
+	public List<T172_Bean> totalList(String year){
 		
-		return t172Dao.totalList() ;
+		return t172Dao.totalList(year) ;
 	}
 	
 	/**

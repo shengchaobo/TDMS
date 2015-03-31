@@ -41,7 +41,9 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table4.T410_Bean;
 import cn.nit.bean.table4.T49_Bean;
 import cn.nit.constants.Constants;
@@ -453,11 +455,21 @@ public class T410_Action {
 	}
 	
 	public InputStream getInputStream() throws Exception{
-
-		T410_Bean bean = T410_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T410_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T410_services.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表2-1占地与建筑面积（后勤处）";
+		}else{
+			bean = T410_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			sheetName = this.excelName;
+		}
+	
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
-		String sheetName = this.excelName;	
-		WritableWorkbook wwb;
+		WritableWorkbook wwb;	
 		InputStream inputStream = null ;
 		
 		if(bean == null){

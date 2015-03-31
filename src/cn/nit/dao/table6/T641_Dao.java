@@ -76,7 +76,7 @@ public class T641_Dao {
 		
 		String sql = "select " + " " + key + "," +
 		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year
-		+" CheckState="+CheckState;
+		+" and CheckState="+CheckState;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

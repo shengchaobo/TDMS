@@ -11,41 +11,43 @@ $(function(){
 				        { "name": "5 学校名称", "group": "学校概况", "value": "", "field": "schName", "editor": "text" },
 				        { "name": "6 代码", "group": "学校概况", "value": "", "field": "schID", "editor": "text" },
 				        { "name": "7 英文名称", "group": "学校概况", "value": "", "field": "schEnName", "editor": "text" },
-				        { "name": "8 办学类型", "group": "学校概况", "value": "", "field": "schType", "editor": "text" },
-				        { "name": "9 学校性质", "group": "学校概况", "value": "", "field": "schQuality", "editor": "text" },
+				        //{ "name": "8 办学类型", "group": "学校概况", "value": "", "field": "schType", "editor": "text" },
+				        { "name": "8 办学类型", "group": "学校概况", "value": "", "field": "schType",  "editor": {
+				        	"type":"combobox",
+				        	"options":{
+				        		"data":[{"value":"大学","text":"大学"},{"value":"独立设置的学院","text":"独立设置的学院"},
+				        		        {"value":"独立学院","text":"独立学院"}],
+				        		"panelHeight":"auto"
+				        	}
+				       }},
+				       { "name": "9 学校性质", "group": "学校概况", "value": "", "field": "schQuality",  "editor": {
+				        	"type":"combobox",
+				        	"options":{
+				        		"data":[{"value":"综合院校","text":"综合院校"},{"value":"理工院校","text":"理工院校"},
+				        		        {"value":"农业院校","text":"农业院校"},{"value":"林业院校","text":"林业院校"}
+				        		        ,{"value":"医药院校","text":"医药院校"},{"value":"师范院校","text":"师范院校"}
+				        		        ,{"value":"语言院校","text":"语言院校"},{"value":"财经院校","text":"财经院校"}
+				        		        ,{"value":"政法院校","text":"政法院校"},{"value":"体育院校","text":"体育院校"}
+				        		        ,{"value":"艺术院校","text":"艺术院校"},{"value":"民族院校","text":"民族院校"}],
+				        		"panelHeight":"auto"
+				        	}
+				       }},
+				        
+				       // { "name": "9 学校性质", "group": "学校概况", "value": "", "field": "schQuality", "editor": "text" },
 				        { "name": "10 举办者", "group": "学校概况", "value": "", "field": "schBuilder", "editor": "text" },
 				        { "name": "11 主管部门", "group": "学校概况", "value": "", "field": "majDept", "editor": "text" },
 				        { "name": "12 学校网址", "group": "学校概况", "value": "", "field": "schUrl", "editor": "text" },
-				        { "name": "13 招生批次", "group": "学校概况", "value": "", "field": "admissonBatch", "editor": "text" },
-//				        {"name": "14 办学本科教育年份", "group": "学校概况","value":"","field": "sch_BeginTime",
-//				        	formatter:function(value,row,index){
-//				        		alert(123);
-//								if(val == null){
-//									return null ;
-//								}
-//								
-//							    var year=parseInt(val.year)+1900;  
-//							    var month=(parseInt(val.month)+1);  
-//							    month=month>9?month:('0'+month);  
-//							    var date=parseInt(val.date);  
-//							    date=date>9?date:('0'+date);  
-//							    var hours=parseInt(val.hours);  
-//							    hours=hours>9?hours:('0'+hours);  
-//							    var minutes=parseInt(val.minutes);  
-//							    minutes=minutes>9?minutes:('0'+minutes);  
-//							    var seconds=parseInt(val.seconds);  
-//							    seconds=seconds>9?seconds:('0'+seconds);  
-//							    var time=year+'-'+month+'-'+date ;  
-//							    //alert(time) ;
-//							        return time;  
-//				        	},
-//				        	
-//				        	"editor":{
-//				        	"type":"datebox",
-//				        	"options":{"required":true}
-//				        		}
-//				        },
-				       // { "name": "14办学本科教育年份", "group": "学校概况", "value": "", "field": "sch_BeginTime","editor":"datebox"},
+				        // "name": "13 招生批次", "group": "学校概况", "value": "", "field": "admissonBatch", "editor": "text" },
+
+				        { "name": "13 招生批次", "group": "学校概况", "value": "", "field": "admissonBatch",  "editor": {
+				        	"type":"combobox",
+				        	"options":{
+				        		"data":[{"value":"提前批招生","text":"提前批招生"},{"value":"第一批次招生","text":"第一批次招生"},
+				        		        {"value":"第二批次招生A","text":"第二批次招生A"},{"value":"第二批次招生B","text":"第二批次招生B"}
+				        		        ,{"value":"第三批次招生A","text":"第三批次招生A"},{"value":"第三批次招生B","text":"第三批次招生B"}],
+				        		"panelHeight":"auto"
+				        	}
+				       }},
 				        { "name": "14 办学本科教育年份", "group": "学校概况", "value": "", "field": "sch_BeginTime", "editor": {
 				        	"type":"numberbox",
 				        	"options":{
@@ -56,7 +58,14 @@ $(function(){
 				        } },
 				        { "name": "15 多媒体反映", "group": "学校概况", "value": "", "field": "mediaUrl", "editor": "text" },
 				        { "name": "16.1  校区名称（瑶湖校区）", "group": "学校地址", "value": "", "field": "yaohuSchAdd", "editor": "text" },
-				        { "name": "16.2  校区名称（彭桥校区）", "group": "学校地址", "value": "", "field": "pengHuSchAdd", "editor": "text" }
+				        { "name": "16.2  校区名称（彭桥校区）", "group": "学校地址", "value": "", "field": "pengHuSchAdd", "editor": "text" },
+				        {"name":"combox类型","value":"1","group":"自定义设置", "editor":{
+				            "type":"combobox",
+				            "options":{
+				                "data":[{"value":1,"text":"一"},{"value":2,"text":"二"}],
+				                "panelHeight":"auto"
+				            }
+				     }}
 				    ];
 				    							
 				$('#edit').propertygrid({

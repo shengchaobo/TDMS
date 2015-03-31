@@ -33,7 +33,10 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table6.T612_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.table6.T612_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
@@ -174,21 +177,19 @@ public class T612_Action {
 	}
 	
 	public InputStream getInputStream() throws Exception{
-
-//		System.out.println(this.getSelectYear());
-		T612_Bean bean = T612_services.getYearInfo(this.getSelectYear());
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T612_Bean bean = null;
+		String sheetName = null;
 		
-	    ByteArrayOutputStream fos = null;
-		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T612_services.getYearInfo(year,Constants.PASS_CHECK);
+			sheetName = "表6-1-2研究生数量基本情况（研究生院）";
 		}else{
-			String sheetName = this.excelName;
+			bean = T612_services.getYearInfo(this.getSelectYear(),Constants.PASS_CHECK);
+			sheetName = this.excelName;
+		}
+			ByteArrayOutputStream fos = null;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -228,7 +229,7 @@ public class T612_Action {
 		           ws.addCell(new Label(0, 7, "其中：全日制", wcf));
 		           ws.addCell(new Label(0, 8, "其中：非全日制", wcf));
 
-		           		           
+		           	if(bean!=null){           
 		           ws.addCell(new Label(1, 3, bean.getMasterLastYearNum().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 4, bean.getFullTimeMasterLastYearNum().toString(), wcf1));
 		           ws.addCell(new Label(1, 5, bean.getPartTimeMasterLastYearNum().toString(), wcf1)); 
@@ -241,7 +242,7 @@ public class T612_Action {
 		           ws.addCell(new Label(2, 6, bean.getDoctorThisYearNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 7, bean.getFullTimeDoctorThisYearNum().toString(), wcf1)); 
 		           ws.addCell(new Label(2, 8, bean.getPartTimeDoctorThisYearNum().toString(), wcf1));
-
+		           	}
 		          wwb.write();
 		          wwb.close();
 
@@ -249,7 +250,7 @@ public class T612_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+		
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

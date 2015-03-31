@@ -38,6 +38,8 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table6.T616_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T616_Dao;
@@ -319,17 +321,21 @@ public class T616_Action {
 //		System.out.println(this.getSelectYear());
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T616_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T616_Service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表6-1-6国外及港澳台学生情况（国际交流与合作处）";
+		}else{						
+			list = T616_Service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 		try {
-			List<T616_Bean> list=T616_Service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			if(list.size()==0){
-				PrintWriter out = null ;
-				response.setContentType("text/html;charset=utf-8") ;
-				out = response.getWriter() ;
-				out.print("后台传入的数据为空") ;
-				System.out.println("后台传入的数据为空");
-				return null;
-			}
-			String sheetName = this.excelName;
 			List<String> columns = new ArrayList<String>();
 			columns.add("1.毕（结）业生数（人）");columns.add("2.授予学位数（人）");columns.add("3.招生数（人）");columns.add("4.在校生数（人）");
 			columns.add("小计");columns.add("国外");columns.add("香港");columns.add("澳门");columns.add("台湾");

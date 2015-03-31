@@ -44,6 +44,9 @@ import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T624_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T624_Dao;
@@ -299,29 +302,24 @@ public class T624_Action {
 
 
 	public InputStream getInputStream() {
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T624_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T624_service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表6-2-4专科招生信息补充表（招就处）";
+		}else{					
+			list = T624_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T624_Bean> list = T624_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			
-			if(list==null){
-				if(list.size()==0){
-					PrintWriter out = null ;
-					response.setContentType("text/html;charset=utf-8") ;
-					out = response.getWriter() ;
-					out.print("后台传入的数据为空") ;
-					System.out.println("后台传入的数据为空");
-					return null;
-				}
-			}
-		
-				String sheetName = this.excelName;
 				
 				List<String> columns = new ArrayList<String>();
 				
@@ -381,6 +379,7 @@ public class T624_Action {
 						
 						//向表中写数据
 						//先写合计
+						if(list!=null&&list.size()>0){
 						T624_Bean bean1 =  list.get(0);
 						
 						ws.addCell(new Label(0,3,bean1.getTeaUnit(),wcf1));
@@ -411,6 +410,7 @@ public class T624_Action {
 //								ws.addCell(new Label(13, k, bean1.getNote()+"", wcf));
 							
 						
+						}
 						}
 						    wwb.write();
 				            wwb.close();

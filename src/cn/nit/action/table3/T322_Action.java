@@ -375,17 +375,24 @@ public class T322_Action {
 	
 	/**数据导出*/
 	public InputStream getInputStream(){
-		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-		String fillUnitID = bean.getUnitID();
-
-
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T322POJO> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t322_Service.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表4-4-1专业带头人（教学单位-教务处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = t322_Service.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 
 		try {
 			
-			List<T322POJO> list = t322_Service.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
-			
-			String sheetName = this.excelName;
+
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

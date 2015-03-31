@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table3.T313_Bean;
 import cn.nit.bean.table3.T33_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table3.T33_DAO;
@@ -337,12 +340,20 @@ boolean flag = false;
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) getRequest().getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T33_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)getRequest().getSession().getAttribute("allYear") ;
+			list = t33_Service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表3-3专科专业基本情况（教务处）";
+		}else{					
+			list = t33_Service.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
 
-		try {
-			
-			List<T33_Bean> list = t33_Service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			
-			String sheetName = this.excelName;			
+		try {		
 
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);

@@ -62,6 +62,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			<form action='pages/T733/dataExport?excelName=<%=URLEncoder.encode("表7-3-3各单位开展教学研究活动情况","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
+						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
+								数据导出
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
+			</form>
 		</div>
 		 <div>
 		  <form method="post" id="auditing"
@@ -152,6 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>单位名称：</label> 
 						<input id="seqNumber" name="eachUnitTeachResActInfo.SeqNumber" type="hidden" value="0">
+						<input id="Time" type="hidden" name="eachUnitTeachResActInfo.Time" value="0"></input>
 						<input id="UnitName" type="hidden" name="eachUnitTeachResActInfo.UnitName">
 						<input id="UnitID" type="text" name="eachUnitTeachResActInfo.UnitID" 
 							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
@@ -386,6 +393,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('hr').hide();
 	    	$('#dlg').dialog('open').dialog('setTitle','修改各单位开展教学研究活动情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
+	    	$('#Time').val(formattime(row[0].time)) ;
 	    	$('#UnitID').combobox('select', row[0].unitIDD) ;
 	    	$('#MeetingMemberInfo').val(row[0].meetingMemberInfo);
 	    	
@@ -441,7 +449,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		}
 	    	}).submit();
 	    }
+	    
+	    
+	        //根据用户选择的年显示相应年的数据
+    $(function(){ 
+		 $("#cbYearContrast1").combobox({  
+	        onChange:function(newValue, oldValue){ 
+		     //查询参数直接添加在queryParams中 
+	         var  queryYear = newValue;
+	         var queryParams = $('#commomData').datagrid('options').queryParams;  
+	         queryParams.queryYear = queryYear;  
+	         
+	         $("#commomData").datagrid('reload'); 
+	        }
+	   });
+    })
 		
+		  //提交导出表单
+	    function submitForm(){
+	    	  document.getElementById('exportForm').submit();
+	    }
 
 	    function editUser(){
 	    	var row = $('#dg').datagrid('getSelections');
@@ -490,5 +517,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        return time;  
 			    }  
 			</script>
+			
+			<script type="text/javascript">
+	    	var currentYear = new Date().getFullYear();
+	    	var select = document.getElementById("cbYearContrast1");
+	    	for (var i = 0; i <= 10; i++) {
+	        var theOption = document.createElement("option");
+	        	theOption.innerHTML = currentYear-i + "年";
+	        	theOption.value = currentYear-i;
+	        	select.appendChild(theOption);
+	    	}
+	</script>
 	
 </html>

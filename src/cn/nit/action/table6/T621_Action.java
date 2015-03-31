@@ -44,6 +44,8 @@ import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table6.T617_Bean;
 import cn.nit.bean.table6.T621_Bean;
@@ -161,7 +163,7 @@ public class T621_Action {
 		
 		System.out.println("haha");
 	
-		List<T621_Bean> list=UndergraAdmiInfoSer.getYearInfo(this.getSelectYear(),Constants.PASS_CHECK);
+		List<T621_Bean> list=UndergraAdmiInfoSer.getYearInfo(this.getSelectYear());
 		JSON json = JSONSerializer.toJSON(list) ;
 		PrintWriter out = null ;
 
@@ -300,157 +302,29 @@ public class T621_Action {
 			}
 		}
 	}
-	
-	
-//
-//	/** 为界面加载数�?
-//	 * 
-//	 * 2014-6-20 修改
-//	 * */
-//	public void loadData() throws Exception {
-//
-//		  HttpServletResponse response = ServletActionContext.getResponse() ;	
-//			
-//			String cond = null;
-//			StringBuffer conditions = new StringBuffer();
-//			
-//			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
-//				cond = null;	
-//			}else{			
-//				if(this.getSeqNum()!=null){
-//					conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
-//				}
-//				
-//				if(this.getStartTime() != null){
-//					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-//							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
-//				}
-//				
-//				if(this.getEndTime() != null){
-//					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
-//							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-//				}
-//				cond = conditions.toString();
-//			}
-//			
-//			List<T621_Bean> list = UndergraAdmiInfoSer.getPageInfoList(cond, null, this.getRows(), this.getPage()) ;
-//			String TeaInfoJson = this.toBeJson(list,UndergraAdmiInfoSer.getTotal(cond, null));
-//			//private JSONObject jsonObj;
-//			
-//			PrintWriter out = null ;
-//
-//			if(TeaInfoJson == null){			
-//				return ;
-//			}else{
-//				try {
-//					
-//					System.out.println(TeaInfoJson) ;
-//					response.setContentType("application/json;charset=UTF-8") ;
-//					out = response.getWriter() ;
-//					out.print(TeaInfoJson) ;
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}finally{
-//					if(out != null){
-//						out.flush() ;
-//						out.close() ;
-//					}
-//				}
-//			}
-//	}
 
-//	// 将分页系统的总数以及当前页的list转化一个json传页面显�?
-//	private String toBeJson(List<T621_Bean> list, int total) throws Exception {
-//		// TODO Auto-generated method stub
-//		HttpServletResponse response = ServletActionContext.getResponse();
-//		HttpServletRequest request = ServletActionContext.getRequest();
-//
-//		JSONObject testjson = new JSONObject();
-//		testjson.accumulate("total", total);
-//		testjson.accumulate("rows", list);
-//
-//		String json = testjson.toString();
-//		System.out.println(json);
-//		return json;
-//	}
-
-//	/** 编辑数据 */
-//	public void edit() {
-//
-//		boolean flag = UndergraAdmiInfoSer.update(UndergraAdmiInfo);
-//		PrintWriter out = null;
-//
-//		try {
-//			out = getResponse().getWriter();
-//			if (flag) {
-//				out.print("{\"state\":true,data:\"编辑成功!!!\"}");
-//			} else {
-//				out.print("{\"state\":true,data:\"编辑失败!!!\"}");
-//			}
-//			out.flush();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
-//		} finally {
-//			if (out != null) {
-//				out.close();
-//			}
-//		}
-//	}
-//
-//	/** 根据数据的id删除数据 */
-//	public void deleteByIds() {
-//		System.out.println("ids=" +this.getIds());
-//		boolean flag = UndergraAdmiInfoSer.deleteItemsByIds(ids);
-//		PrintWriter out = null;
-//
-//		try {
-//			out = getResponse().getWriter();
-//
-//			if (flag) {
-//				out.print("{\"state\":true,data:\"数据删除成功!!!\"}");
-//			} else {
-//				out.print("{\"state\":false,data:\"数据删除失败!!!\"}");
-//			}
-//
-//			out.flush();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			out.print("{\"state\":false,data:\"系统错误，请联系管理�?!!\"}");
-//		} finally {
-//			if (out != null) {
-//				out.close();
-//			}
-//		}
-//	}
 
 	public InputStream getInputStream() {
+		
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T621_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = UndergraAdmiInfoSer.getYearInfo(year,Constants.PASS_CHECK);
+			sheetName = "表6-2-1近一届本科生分专业招生录取情况（招就处）";
+		}else{						
+			list = UndergraAdmiInfoSer.getYearInfo(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T621_Bean> list = UndergraAdmiInfoSer.getYearInfo(this.selectYear);
-		
-			if(list==null){
-				if(list.size()==0){
-					PrintWriter out = null ;
-					response.setContentType("text/html;charset=utf-8") ;
-					out = response.getWriter() ;
-					out.print("后台传入的数据为空") ;
-					System.out.println("后台传入的数据为空");
-					return null;
-				}
-			}
-			if(list!=null){
-				
-				
-				String sheetName = this.excelName;
 				
 				List<String> columns = new ArrayList<String>();
 				
@@ -548,7 +422,7 @@ public class T621_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 				
-			}
+			
 		
 		} catch (Exception e) {
 			e.printStackTrace();

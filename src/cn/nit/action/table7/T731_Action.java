@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +59,19 @@ public class T731_Action {
 	
 	/**导出选择年份*/
 	private String selectYear;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
+
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
@@ -105,8 +119,15 @@ public class T731_Action {
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
 		
-		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
-			cond = null;	
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null
+				&& this.getQueryYear()==null){	
+			System.out.println("+++");
+			 Calendar now = Calendar.getInstance();  
+			 this.setQueryYear(now.get(Calendar.YEAR)+"");
+			 System.out.println(now.get(Calendar.YEAR)+"");
+			 conditions.append(" and Time like '" + this.queryYear + "%'");
+			 cond = conditions.toString();
+			//cond = null;	
 		}else{			
 			if(this.getSeqNum()!=null){
 				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
@@ -120,6 +141,14 @@ public class T731_Action {
 			if(this.getEndTime() != null){
 				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
+			if(this.getQueryYear() != null){
+					conditions.append(" and Time like '" + this.queryYear + "%'");
+			}else{
+				 Calendar now = Calendar.getInstance();  
+				 this.setQueryYear(now.get(Calendar.YEAR)+"");
+				 System.out.println(now.get(Calendar.YEAR));
+				 conditions.append(" and Time like '" + this.queryYear + "%'");
 			}
 			cond = conditions.toString();
 		}
@@ -143,7 +172,7 @@ public class T731_Action {
 
 	/**  编辑数据  */
 	public void edit(){
-		schleadInClass.setTime(new Date());
+		//schleadInClass.setTime(new Date());
 		boolean flag=t731_Sr.update(schleadInClass);
 		
 		PrintWriter out=null;
@@ -206,7 +235,8 @@ public class T731_Action {
 			list =  t731_Sr.totalList(year);
 			sheetName = "表7-3-1校领导听课情况（教务处）";
 		}else{			
-			String fillUnitID = userBean.getUnitID();			
+			
+			System.out.println("this.getSelectYear():"+this.getSelectYear());
 			list =  t731_Sr.totalList(this.getSelectYear());					
 			sheetName = this.excelName;
 		}

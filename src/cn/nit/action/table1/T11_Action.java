@@ -115,7 +115,7 @@ public class T11_Action {
 
 	//查询出所有
 	public void loadInfo() throws Exception{
-		System.out.println("nnnnnnnn");
+		//System.out.println("nnnnnnnn");
 		//System.out.println(this.getSelectYear());
 		
 		HttpServletResponse response = ServletActionContext.getResponse() ;		

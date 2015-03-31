@@ -337,9 +337,9 @@ public class AllFileDownloadAction extends ActionSupport {
 		if(!export284(filePath)){
 			return "export284 has a error!";
 		}
-//		if(!export285(filePath)){
-//			return "export285 has a error!";
-//		}
+		if(!export285(filePath)){
+			return "export285 has a error!";
+		}
 		if(!export291(filePath)){
 			return "export291 has a error!";
 		}
@@ -2732,6 +2732,29 @@ public class AllFileDownloadAction extends ActionSupport {
 			return false;
 		}
 	}
+	
+	private boolean export285(String filePath2) {
+		try {			
+	File file = new File(filePath2,"表2-8-5教学、科研仪器设备（设备处）.xls");
+	FileOutputStream fileOutputStream  = new FileOutputStream(file);
+	
+	T285_Action t285 = new T285_Action();
+	InputStream is = t285.getInputStream();
+    int ch = 0;    
+    while((ch=is.read()) != -1){  
+    	fileOutputStream.write(ch);  
+    }
+
+    //关闭输入流等（略）  
+	fileOutputStream.close();  
+	is.close();
+	
+	return true;
+} catch (Exception e) {	
+	e.printStackTrace();
+	return false;
+}
+}
 	
 	
 	private boolean export291(String filePath2) {

@@ -38,6 +38,8 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table2.T285_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table2.T285_Dao;
@@ -186,18 +188,31 @@ public class T285_Action {
 		
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T285_Bean> list = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T285_Service.getYearInfo(year);
+			sheetName = "表2-8-5教学、科研仪器设备（设备处）";
+		}else{
+			list = T285_Service.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T285_Bean> list=T285_Service.totalList(this.getSelectYear());
-			if(list.size()==0){
-				PrintWriter out = null ;
-				response.setContentType("text/html;charset=utf-8") ;
-				out = response.getWriter() ;
-				out.print("后台传入的数据为空") ;
-				System.out.println("后台传入的数据为空");
-				return null;
-			}
-			String sheetName = this.excelName;
+			//List<T285_Bean> list=T285_Service.totalList(this.getSelectYear());
+//			if(list.size()==0){
+//				PrintWriter out = null ;
+//				response.setContentType("text/html;charset=utf-8") ;
+//				out = response.getWriter() ;
+//				out.print("后台传入的数据为空") ;
+//				System.out.println("后台传入的数据为空");
+//				return null;
+//			}
+//			String sheetName = this.excelName;
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");columns.add("教学单位");columns.add("单位号");columns.add("总量");
 			columns.add("单价10万元以上");columns.add("总量");columns.add("当年新增值");columns.add("单价10万元以上");

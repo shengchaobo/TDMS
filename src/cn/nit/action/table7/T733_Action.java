@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +59,19 @@ public class T733_Action {
 	private String excelName ;
 	/**导出选择年份*/
 	private String selectYear;
+	
+	/**  审核通过数据按年时间查询  */
+	private String queryYear ;
+	public String getQueryYear() {
+		return queryYear;
+	}
+
+
+	public void setQueryYear(String queryYear) {
+		this.queryYear = queryYear;
+	}
+
+
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
@@ -107,8 +121,12 @@ public class T733_Action {
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
 		
-		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null){			
-			cond = null;	
+		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null
+				&& this.getQueryYear()==null){			
+			 Calendar now = Calendar.getInstance();  
+			 this.setQueryYear(now.get(Calendar.YEAR)+"");
+			 conditions.append(" and Time like '" + this.queryYear + "%'");
+			 cond = conditions.toString();
 		}else{			
 			if(this.getSeqNum()!=null){
 				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
@@ -123,6 +141,13 @@ public class T733_Action {
 				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
 			}
+			if(this.getQueryYear() != null){
+				conditions.append(" and Time like '" + this.queryYear + "%'");
+		}else{
+			 Calendar now = Calendar.getInstance();  
+			 this.setQueryYear(now.get(Calendar.YEAR)+"");
+			 conditions.append(" and Time like '" + this.queryYear + "%'");
+		}
 			cond = conditions.toString();
 		}
 		String pages = t733_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
@@ -145,7 +170,7 @@ public class T733_Action {
 
 	/**  编辑数据  */
 	public void edit(){
-		eachUnitTeachResActInfo.setTime(new Date());
+		//eachUnitTeachResActInfo.setTime(new Date());
 		boolean flag=t733_Sr.update(eachUnitTeachResActInfo);
 		
 		PrintWriter out=null;

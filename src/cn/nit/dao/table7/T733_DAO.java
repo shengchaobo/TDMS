@@ -109,8 +109,7 @@ public class T733_DAO {
 			if(conditions != null){
 				sql.append(conditions) ;
 			}
-			
-			sql.append(" order by SeqNumber desc") ;
+		
 			
 			Connection conn=DBConnection.instance.getConnection();
 			
@@ -147,7 +146,7 @@ public class T733_DAO {
             StringBuffer sql=new StringBuffer();			
 			sql.append("select  t.SeqNumber,t.UnitName,dbt.UnitID as UnitID,t.UnitID as UnitIDD,t.MeetingDate,t.MeetingMemberInfo,t.MeetingNum,t.MeetingTheme,t.MeetingResult,t.Time,t.Note");
 			sql.append(" from " + tableName + " as t, DiDepartment  dbt");
-			sql.append(" where dbt.UnitID=t.UnitID ");
+			sql.append(" where dbt.UnitID=t.UnitID and t.Time like '"+year+"%'");
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;

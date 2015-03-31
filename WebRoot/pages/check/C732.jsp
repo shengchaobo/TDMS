@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		  $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		  $('#checkPassData').datagrid('reload'); // reload the user data			
 						  		}
 				    }
 				});  	    
@@ -100,6 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										  			 });
 								  		} else {
 										    		 $('#checkData').datagrid('reload'); // reload the user data
+										    		  $('#checkPassData').datagrid('reload'); // reload the user data	
 								  		}
 						    }
 						});
@@ -110,8 +113,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%" >  
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T732/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		 </tr>
+		</thead>
+		<thead>
+				<tr>		
+					<th  data-options="field:'seqNumber'" >编号</th>			
+					<th field="attendClassTerm">听课学期</th>
+				<th field="leaderName">教学单位领导姓名</th>
+					<th field="leaderTeaID">领导教工号</th>
+				<th field="adminTitle" >行政职务</th>
+				<th field="attendClassTime" formatter="formattime">听课日期</th>
+				<th field="lectureTea">授课教师</th>
+				<th field="lectureTeaID" >授课教教工号</th>
+				<th field="lectureCS">听课课程</th>
+				<th field="CSID">课程编号</th>
+				<th field="setCSUnit">开课单位</th>
+				<th field="unitID">单位号</th>
+				<th field="lectureClass">上课班级</th>
+				<th field="evaluate">综合评价</th>	
+				<th field="note">备注</th>
+					 <th data-options="field:'fillUnitID',hidden:true">
+						填报教学单位
+					</th>
+				</tr>
+			</thead>
+	</table>
+	
+	<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T732/auditingData?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>

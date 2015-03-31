@@ -114,7 +114,7 @@ public class T513Action {
 	
 	/**  编辑数据  */
 	public void edit(){
-		t513Bean.setTime(TimeUtil.changeDateY(this.getSelectYear()));
+		//t513Bean.setTime(TimeUtil.changeDateY(this.getSelectYear()));
 		
 		boolean flag = t513Ser.update(t513Bean) ;		
 //		boolean flag0 = T285_Service.update(sumBean) ;

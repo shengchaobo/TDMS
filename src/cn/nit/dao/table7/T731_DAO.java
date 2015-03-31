@@ -47,6 +47,7 @@ public class T731_DAO {
 	    public int totalAuditingData(String conditions,String fillUnitId){
 		
 		StringBuffer sql=new StringBuffer();
+		
 		sql.append(" select count(*)");
 		sql.append(" from " + tableName + " as t, T411_TeaBasicInfo_Per$  tbp");
 		sql.append(" where tbp.TeaID=t.LeaderID ");
@@ -56,10 +57,10 @@ public class T731_DAO {
 		Statement st=null;
 		ResultSet rs=null;
 		
-
-		if(fillUnitId!=null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId);	
-		}
+//
+//		if(fillUnitId!=null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId);	
+//		}
 		
 		if(conditions!=null && !conditions.equals("")){
 			sql.append(conditions);
@@ -109,8 +110,7 @@ public class T731_DAO {
 			if(conditions != null){
 				sql.append(conditions) ;
 			}
-			
-			sql.append(" order by SeqNumber desc") ;
+		
 			
 			Connection conn=DBConnection.instance.getConnection();
 			
@@ -148,7 +148,7 @@ public class T731_DAO {
 			
 			sql.append("select t.SeqNumber,t.AttendClassTerm,t.LeaderName,tbp.TeaID as LeaderID,t.LeaderID as LeaderIDD,t.AttendClassTime,t.LectureTea,t.LectureTeaID,t.LectureCS,t.CSID,t.SetCSUnit,t.UnitID,t.LectureClass,t.Evaluate,t.Time,t.Note");
 			sql.append(" from " + tableName + " as t, T411_TeaBasicInfo_Per$  tbp");
-			sql.append(" where tbp.TeaID=t.LeaderID ");
+			sql.append(" where tbp.TeaID=t.LeaderID and t.Time like '"+year+"%'");
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;
@@ -250,6 +250,12 @@ public class T731_DAO {
 
 		public void setTableName(String tableName) {
 			this.tableName = tableName;
+		}
+		
+		public static void main(String args[]){
+			T731_DAO dao = new T731_DAO();
+			List<T731POJO> list = dao.totalList("2015");
+			System.out.println(list.size());
 		}
 		
 }

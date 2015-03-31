@@ -84,10 +84,19 @@ public class T657_Dao {
 				DAOUtil.batchInsert(list, tableName, field, conn) ;	
 				
 				//再取出来
-				conn1 = DBConnection.instance.getConnection() ;
-				st = conn1.createStatement() ;
-				rs = st.executeQuery(sql) ;
-				list = DAOUtil.getList(rs, T657_Bean.class) ;
+				try{
+					//再取出来
+					conn1 = DBConnection.instance.getConnection() ;
+					st = conn1.createStatement() ;
+					rs = st.executeQuery(sql) ;
+					list = DAOUtil.getList(rs, T657_Bean.class) ;
+				}catch(Exception e){
+					e.printStackTrace();
+					return null;
+				}finally{
+					DBConnection.close(conn1);
+				}
+			
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -95,7 +104,6 @@ public class T657_Dao {
 		}finally{
 			DBConnection.close(rs);
 			DBConnection.close(st);	
-			DBConnection.close(conn1);
 			DBConnection.close(conn);
 		}
 		

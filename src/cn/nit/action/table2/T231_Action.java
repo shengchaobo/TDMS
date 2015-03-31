@@ -33,6 +33,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table2.T231_Bean;
 import cn.nit.service.table2.T231_Service;
 import cn.nit.util.ExcelUtil;
@@ -170,21 +172,33 @@ public class T231_Action {
 	}
 		
 	public InputStream getInputStream() throws Exception{
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T231_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean =  T231_services.getYearInfo(year);
+			sheetName = "表2-3教室（教务处）";
+		}else{
+			bean = T231_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
 
-		System.out.println(this.getSelectYear());
-		T231_Bean bean = T231_services.getYearInfo(this.getSelectYear());
+		//T231_Bean bean = T231_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+//			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -223,13 +237,16 @@ public class T231_Action {
 		           ws.addCell(new Label(0, 8, "其中：外语教学计算机机房（含语音室）", wcf)); 
 		           ws.addCell(new Label(0, 9, " 多媒体教室", wcf)); 
 		           		           
-		           ws.addCell(new Label(1, 3, bean.getClassrmArea().toString(), wcf1)); 
+		           if(bean!=null){
+		        	ws.addCell(new Label(1, 3, bean.getClassrmArea().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 4, bean.getClassNum().toString(), wcf1));  
 		           ws.addCell(new Label(1, 5, bean.getComputerNum().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 6, bean.getMediaNum().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 7, bean.getClassSeatNum().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 8, bean.getComputerSitNum().toString(), wcf1)); 
 		           ws.addCell(new Label(1, 9, bean.getMediaSitNum().toString(), wcf1)); 
+		           }
+		          
 		             
 
 		          wwb.write();
@@ -239,7 +256,7 @@ public class T231_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

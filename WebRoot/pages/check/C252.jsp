@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+									    	 $('#checkPassData').datagrid('reload'); // reload the user data									    		 								    		 
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data
+										     $('#checkPassData').datagrid('reload'); // reload the user data									    		 							    		 		
 						  		}
 				    }
 				});  	    
@@ -100,6 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										  			 });
 								  		} else {
 										    		 $('#checkData').datagrid('reload'); // reload the user data
+									    	         $('#checkPassData').datagrid('reload'); // reload the user data									    		 										    		 
 								  		}
 						    }
 						});
@@ -110,11 +113,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
+
 <body style="height: 100%" >  
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T252/loadExpInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		 </tr>
+		</thead>
+		<thead>
+				<tr>		
+					<th  data-options="field:'seqNumber'" >编号</th>
+					<th data-options="field:'expCenterName'">
+					  实验中心名称
+					</th>
+					<th data-options="field:'teaUnit'">
+						所属教学单位
+					</th>
+					<th data-options="field:'teaUnitID'">
+						教学单位号
+					</th>
+					<th data-options="field:'labName'">
+						下属实验室名称
+					</th>
+					<th data-options="field:'expClassHour'">
+						每次实验教学学时数
+					</th>	
+					<th data-options="field:'stuNum'">
+						每次可容纳的学生数（个）
+					</th>
+					<th data-options="field:'expHour'">
+						学年度承担的实验教学人时数（人时）
+					</th>		
+					<th data-options="field:'expTimes'">
+						学年度承担的实验教学人次数（人次）
+					</th>	
+					<th data-options="field:'practiseItemNum'">
+						本科生实验、实习、实训项目数（个）
+					</th>										
+				</tr>
+			</thead>
+	</table>
+	
+	<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T252/loadExpInfo?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"    style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		 </tr>
 		</thead>
 		<thead>

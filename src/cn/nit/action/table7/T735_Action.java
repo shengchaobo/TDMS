@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table7.T735_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table7.T735_DAO;
@@ -323,9 +324,23 @@ public class T735_Action {
 
 		InputStream inputStream = null ;
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T735POJO> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list =t735_Sr.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表7-3-5 院（部）教学管理状态考评情况";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list =t735_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
+		
 		try {
-			List<T735POJO> list = t735_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			String sheetName = this.excelName;
+//			List<T735POJO> list = t735_Sr.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+//			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

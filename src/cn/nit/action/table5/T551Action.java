@@ -35,6 +35,8 @@ import jxl.write.biff.RowsExceededException;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table5.T551_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T551DAO;
@@ -118,6 +120,9 @@ public class T551Action {
 	public void setSelectYear(String selectYear) {
 		this.selectYear = selectYear;
 	}
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 
 	/**  逐条插入数据  */
 	public void insert(){
@@ -372,16 +377,29 @@ public class T551Action {
 	public InputStream getInputStream() throws IOException{
 		
 
-		List<T551_Bean> list = t551Ser.totalList(this.getSelectYear());
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T551_Bean> list= null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t551Ser.totalList(year);
+			sheetName = "表5-5-1学风概况（学工处）";
+		}else{
+			list = t551Ser.totalList(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		
+		//List<T551_Bean> list = t551Ser.totalList(this.getSelectYear());
 		ByteArrayOutputStream fos = null;
 		 
-			String sheetName=this.excelName;	
+			//String sheetName=this.excelName;	
 		    WritableWorkbook wwb;
 		    //统计合计
 		    T551_Bean beanAll = new T551_Bean();
 		    beanAll.setTeaUnit("全校合计");
 		    int PartyMemNum=0; int CheatNum=0;double GoodClassRatio=0.0;
-		    if(list.size()>0){
+		    if(list!=null && list.size()>0){
 		    	 for(int i=0;i<list.size();i++){
 				    	T551_Bean bean = list.get(i);
 				    	PartyMemNum+=bean.getPartyMemNum();
@@ -435,7 +453,7 @@ public class T551Action {
 		           ws.addCell(new Label(8,2,"优良学风班的比例（%）",wcf));
 		           
 		           
-		           if(list.size()>0){
+		           if(list!=null && list.size()>0){
 		        	   int j = 4;//第3行写合计，4行开始写数据
 			           for(int i =0;i<list.size();i++){
 			        	   T551_Bean bean = list.get(i);

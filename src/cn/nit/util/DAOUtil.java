@@ -232,7 +232,7 @@ public class DAOUtil {
 					}else if(type.endsWith("long")||type.endsWith("Long")){
 						pst.setLong(i + 1, (Long) wrapper.getPropertyValue(fields[i])) ;
 					}else if(type.endsWith("boolean")||type.endsWith("Boolean")){
-						pst.setBoolean(i+1, (Boolean) wrapper.getPropertyValue(fields[i])) ;
+						pst.setBoolean(i + 1, (Boolean) wrapper.getPropertyValue(fields[i])) ;					
 					}else if(type.endsWith("double")||type.endsWith("Double")){
 						if(wrapper.getPropertyValue(fields[i])==null){
 							pst.setDouble(i+1, 0) ;

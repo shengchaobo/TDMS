@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.nit.bean.table6.T632_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table6.T632_Dao;
 
 import jxl.Workbook;
@@ -34,7 +35,7 @@ public class J618_Excel {
 //		String currentTime = time.toString();
 //		String year = currentTime.substring(currentTime.length()-4, currentTime.length());
 //		
-		List<T632_Bean> list = T632_dao.getAllList("", null);
+		List<T632_Bean> list = T632_dao.getYearInfo(year, Constants.PASS_CHECK);
 		
 		String sheetName = "J-6-1-8应届本科毕业生就业情况（时点）";
 		

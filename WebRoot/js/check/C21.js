@@ -155,43 +155,49 @@
 				$("#edit").propertygrid( {
 					title : '占地与建筑面积'
 				});
+				$("#renopass").hide();
+				$("#pass").hide();
+				$("#nopass").hide();
 			} else {
 				//alert(json.checkState);
-		if (json.checkState == WAITCHECK) {
-			$("#edit").propertygrid( {
-				title : '占地与建筑面积（<font color=red>待审核</font>）'
-			});
-			//document.getElementById("export").style.display ="none";
-		$("#pass").show();
-		$("#nopass").show();
-	} else if (json.checkState == PASSCHECK) {
-		$("#edit").propertygrid( {
-			title : '占地与建筑面积（<font color=red>已审核通过</font>）'
-		});
-		$("#pass").hide();
-		$("#nopass").hide();
-	} else {
-		$("#edit").propertygrid( {
-			title : '占地与建筑面积（<font color=red>已审核未通过</font>）'
-		});
-		$("#pass").hide();
-		$("#nopass").hide();
-	}
-}
-var i = 0;
-while (i < rows.length) {
-	rows[i].value = eval('json.' + rows[i].field);
-	i = i + 1;
-}
-},
-error : function(XMLResponse) {
-alert("该年数据为空!!!");
-var i = 0;
-while (i < rows.length) {
-	rows[i].value = "";
-	i = i + 1;
-}
-}
+				if (json.checkState == WAITCHECK) {
+					$("#edit").propertygrid( {
+						title : '占地与建筑面积（<font color=red>待审核</font>）'
+					});
+						//document.getElementById("export").style.display ="none";
+					$("#pass").show();
+					$("#nopass").show();
+					$("#renopass").hide();
+				} else if (json.checkState == PASSCHECK) {
+					$("#edit").propertygrid( {
+						title : '占地与建筑面积（<font color=red>已审核通过</font>）'
+					});
+					$("#pass").hide();
+					$("#nopass").hide();
+					$("#renopass").show();
+				} else {
+					$("#edit").propertygrid( {
+						title : '占地与建筑面积（<font color=red>已审核未通过</font>）'
+					});
+					$("#pass").hide();
+					$("#nopass").hide();
+					$("#renopass").hide();
+				}
+			}
+			var i = 0;
+			while (i < rows.length) {
+				rows[i].value = eval('json.' + rows[i].field);
+				i = i + 1;
+			}
+			},
+			error : function(XMLResponse) {
+			alert("该年数据为空!!!");
+			var i = 0;
+			while (i < rows.length) {
+				rows[i].value = "";
+				i = i + 1;
+			}
+			}
 	})
 
 	$('#edit').propertygrid('loadData', rows);
@@ -212,52 +218,58 @@ while (i < rows.length) {
 			async : false,
 			dataType : "json",
 			success : function(json) {
-				if (typeof (json.data) != "undefined") {
-					alert(json.data);
-					$("#edit").propertygrid( {
-						title : '占地与建筑面积'
-					});
-				} else {
-					//alert(json.checkState);
-			if (json.checkState == WAITCHECK) {
+			if (typeof (json.data) != "undefined") {
+				alert(json.data);
 				$("#edit").propertygrid( {
-					title : '占地与建筑面积（<font color=red>待审核</font>）'
+					title : '占地与建筑面积'
 				});
-				//document.getElementById("export").style.display ="none";
-			$("#pass").show();
-			$("#nopass").show();
-		} else if (json.checkState == PASSCHECK) {
-			$("#edit").propertygrid( {
-				title : '占地与建筑面积（<font color=red>已审核通过</font>）'
-			});
-			$("#pass").hide();
-			$("#nopass").hide();
-		} else {
-			$("#edit").propertygrid( {
-				title : '占地与建筑面积（<font color=red>已审核未通过</font>）'
-			});
-			$("#pass").hide();
-			$("#nopass").hide();
-		}
-	}
-	var i = 0;
-	while (i < rows.length) {
-		rows[i].value = eval('json.' + rows[i].field);
-		i = i + 1;
-	}
-},
-error : function(XMLResponse) {
-	// alert(XMLResponse.responseText
+				$("#renopass").hide();
+				$("#pass").hide();
+				$("#nopass").hide();
+			} else {
+				//alert(json.checkState);
+				if (json.checkState == WAITCHECK) {
+					$("#edit").propertygrid( {
+						title : '占地与建筑面积（<font color=red>待审核</font>）'
+					});
+						//document.getElementById("export").style.display ="none";
+					$("#pass").show();
+					$("#nopass").show();
+					$("#renopass").hide();
+				} else if (json.checkState == PASSCHECK) {
+					$("#edit").propertygrid( {
+						title : '占地与建筑面积（<font color=red>已审核通过</font>）'
+					});
+					$("#pass").hide();
+					$("#nopass").hide();
+					$("#renopass").show();
+				} else {
+					$("#edit").propertygrid( {
+						title : '占地与建筑面积（<font color=red>已审核未通过</font>）'
+					});
+					$("#pass").hide();
+					$("#nopass").hide();
+					$("#renopass").hide();
+				}
+			}
 			var i = 0;
 			while (i < rows.length) {
-				rows[i].value = "";
+				rows[i].value = eval('json.' + rows[i].field);
 				i = i + 1;
 			}
-			if (flag == true) {
-				alert("该年数据为空!!!");
-			}
-		}
-		})
+			},
+			error : function(XMLResponse) {
+				// alert(XMLResponse.responseText
+						var i = 0;
+						while (i < rows.length) {
+							rows[i].value = "";
+							i = i + 1;
+						}
+						if (flag == true) {
+							alert("该年数据为空!!!");
+						}
+					}
+			})
 	}
 
 	//审核通过
@@ -295,53 +307,59 @@ function reloadgrid(year, flag) {
 		async : false,
 		dataType : "json",
 		success : function(json) {
-			if (typeof (json.data) != "undefined") {
-				alert(json.data);
-				$("#edit").propertygrid( {
-					title : '占地与建筑面积'
-				});
-			} else {
-				//alert(json.checkState);
-		if (json.checkState == WAITCHECK) {
+		if (typeof (json.data) != "undefined") {
+			alert(json.data);
 			$("#edit").propertygrid( {
-				title : '占地与建筑面积（<font color=red>待审核</font>）'
+				title : '占地与建筑面积'
 			});
-			//document.getElementById("export").style.display ="none";
-		$("#pass").show();
-		$("#nopass").show();
-	} else if (json.checkState == PASSCHECK) {
-		$("#edit").propertygrid( {
-			title : '占地与建筑面积（<font color=red>已审核通过</font>）'
-		});
-		$("#pass").hide();
-		$("#nopass").hide();
-	} else {
-		$("#edit").propertygrid( {
-			title : '占地与建筑面积（<font color=red>已审核未通过</font>）'
-		});
-		$("#pass").hide();
-		$("#nopass").hide();
-	}
-}
-var i = 0;
-while (i < rows.length) {
-	rows[i].value = eval('json.' + rows[i].field);
-	i = i + 1;
-}
-},
-error : function(XMLResponse) {
-// alert(XMLResponse.responseText
+			$("#renopass").hide();
+			$("#pass").hide();
+			$("#nopass").hide();
+		} else {
+			//alert(json.checkState);
+			if (json.checkState == WAITCHECK) {
+				$("#edit").propertygrid( {
+					title : '占地与建筑面积（<font color=red>待审核</font>）'
+				});
+					//document.getElementById("export").style.display ="none";
+				$("#pass").show();
+				$("#nopass").show();
+				$("#renopass").hide();
+			} else if (json.checkState == PASSCHECK) {
+				$("#edit").propertygrid( {
+					title : '占地与建筑面积（<font color=red>已审核通过</font>）'
+				});
+				$("#pass").hide();
+				$("#nopass").hide();
+				$("#renopass").show();
+			} else {
+				$("#edit").propertygrid( {
+					title : '占地与建筑面积（<font color=red>已审核未通过</font>）'
+				});
+				$("#pass").hide();
+				$("#nopass").hide();
+				$("#renopass").hide();
+			}
+		}
 		var i = 0;
 		while (i < rows.length) {
-			rows[i].value = "";
+			rows[i].value = eval('json.' + rows[i].field);
 			i = i + 1;
 		}
-		if (flag == true) {
-			alert("该年数据为空!!!");
-		}
+		},
+		error : function(XMLResponse) {
+		// alert(XMLResponse.responseText
+				var i = 0;
+				while (i < rows.length) {
+					rows[i].value = "";
+					i = i + 1;
+				}
+				if (flag == true) {
+					alert("该年数据为空!!!");
+				}
+			}
+		})
 	}
-})
-}
 
 //审核不通过
 function noPassCheck(year) {

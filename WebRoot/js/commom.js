@@ -115,6 +115,28 @@ $(function() {
 });
 
 
+$(function() {
+	$('#checkPassData').datagrid({  
+		title : '审核通过数据', //可变内容在具体页面定义
+		iconCls : 'icon-ok',
+		width : '100%',
+		//height: '50%',
+		pageSize : 10,//默认选择的分页是每页5行数据
+		pageList : [ 5, 10, 15, 20 ],//可以选择的分页集合
+		nowrap : true,//设置为true，当数据长度超出列宽时将会自动截取
+		striped : true,//设置为true将交替显示行背景。
+		collapsible : true,//显示可折叠按钮
+		//toolbar : "#toolbar",//在添加 增添、删除、修改操作的按钮要用到这个
+		loadMsg : '数据装载中......',
+		singleSelect : false,//为true时只能选择单行
+		fitColumns : false,//允许表格自动缩放，以适应父容器
+		remoteSort : false,
+		pagination : true,//分页
+		rownumbers : true
+	});
+});
+
+
 function formattime(val) {  
     if(val == null){
 	    return null ;
@@ -185,6 +207,12 @@ function rowformater(value,row,index)
 {
 		if(row.fillUnitID == "")   row.fillUnitID = "undefined";
 		return "<a href='javascript:passCheck(" + row.seqNumber+")'>审核通过</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href ='javascript:openDig("+ row.seqNumber+ "," + row.fillUnitID +")'>审核不通过</a>";
+}
+
+function rowformater1(value,row,index)
+{
+		if(row.fillUnitID == "")   row.fillUnitID = "undefined";
+		return "<a href ='javascript:openDig("+ row.seqNumber+ "," + row.fillUnitID +")'>重新审核不通过</a>";
 }
 
 //打开填写框

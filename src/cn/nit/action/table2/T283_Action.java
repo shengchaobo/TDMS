@@ -33,6 +33,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table2.T283_Bean;
 import cn.nit.service.table2.T283_Service;
 import cn.nit.util.ExcelUtil;
@@ -174,20 +176,33 @@ public class T283_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		T283_Bean bean = T283_services.getYearInfo(this.getSelectYear());
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T283_Bean  bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T283_services.getYearInfo(year);
+			sheetName = "表2-8-3固定资产总值-图书（图书馆）";
+		}else{
+			bean = T283_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		
+		
+		//T283_Bean bean = T283_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+//			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -225,11 +240,13 @@ public class T283_Action {
 
 		           ws.mergeCells(0, 2, 3, 2);
 
-		           		           
-		           ws.addCell(new Label(0, 4, bean.getSumFixedAsset().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 4, bean.getDisplayAsset().toString(), wcf1)); 
-		           ws.addCell(new Label(2, 4, bean.getBookAsset().toString(), wcf1)); 
-		           ws.addCell(new Label(3, 4, bean.getOtherAsset().toString(), wcf1));
+		           		if(bean!=null){
+		           			ws.addCell(new Label(0, 4, bean.getSumFixedAsset().toString(), wcf1)); 
+		 		           ws.addCell(new Label(1, 4, bean.getDisplayAsset().toString(), wcf1)); 
+		 		           ws.addCell(new Label(2, 4, bean.getBookAsset().toString(), wcf1)); 
+		 		           ws.addCell(new Label(3, 4, bean.getOtherAsset().toString(), wcf1));
+		           		}
+		           
 		             
 
 		          wwb.write();
@@ -239,7 +256,7 @@ public class T283_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

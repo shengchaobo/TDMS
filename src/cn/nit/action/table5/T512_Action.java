@@ -36,6 +36,7 @@ import jxl.write.biff.RowsExceededException;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table5.T512_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T512_DAO;
@@ -364,15 +365,27 @@ public class T512_Action {
 	 * @throws IOException */
 	public InputStream getInputStream() throws IOException{
 		
-			//具体教学单位
-		    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-			String fillUnitID = bean.getUnitID();
-			List<T512POJO> list = t512_Sr.totalList(this.getSelectYear(),fillUnitID,Constants.PASS_CHECK);
+		
+		UserinfoBean userBean1 = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T512POJO> list = null;
+		
+		if("111".equals(userBean1.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t512_Sr.totalList(year,"111",Constants.PASS_CHECK);
+			sheetName = "表5-1-2开课、授课情况（教学单位-教务处）";
+		}else{			
+			String fillUnitID = userBean1.getUnitID();			
+			list = t512_Sr.totalList(this.getSelectYear(),fillUnitID,Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
+			
+			//List<T512POJO> list = t512_Sr.totalList(this.getSelectYear(),fillUnitID,Constants.PASS_CHECK);
 		
 			ByteArrayOutputStream fos = null;
 	    
 
-			String sheetName=this.excelName;	
+			//String sheetName=this.excelName;	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();

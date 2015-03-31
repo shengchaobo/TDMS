@@ -36,8 +36,10 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T11_Bean;
 import cn.nit.bean.table1.T16_Bean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.dao.table1.T16DAO;
 import cn.nit.excel.imports.table1.T16Excel;
 import cn.nit.pojo.table1.T16POJO;
@@ -73,12 +75,12 @@ public class T16_Action {
 	
 	/**  前台获数据 */
 	private String data ;
-	
-
-	
 
 	/**  待审核数据的查询的序列号  */
 	private int seqNum ;
+	
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
 
 
 	/**  为界面加载数据  
@@ -259,21 +261,34 @@ public class T16_Action {
 	public InputStream getInputStream() throws Exception{
 
 //		System.out.println(this.getSelectYear());
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T16POJO> list =null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t16Ser.forExcel(year);
+			sheetName = "表1-6办学指导思想（党院办）";
+		}else{
+			list = t16Ser.forExcel(this.getSelectYear());
+			sheetName = this.excelName;
+		}
 
-		List<T16POJO> list = t16Ser.forExcel(this.getSelectYear());
+		//List<T16POJO> list = t16Ser.forExcel(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 	    
-	
-		if(list==null){
-			PrintWriter out = null ;
-			getResponse().setContentType("text/html; charset=UTF-8") ;
-			out = getResponse().getWriter() ;
-			out.print("后台传入的数据为空!!!") ;
-			System.out.println("后台传入的数据为空");
-		}else{
+//	
+//		if(list==null){
+//			PrintWriter out = null ;
+//			getResponse().setContentType("text/html; charset=UTF-8") ;
+//			out = getResponse().getWriter() ;
+//			out.print("后台传入的数据为空!!!") ;
+//			System.out.println("后台传入的数据为空");
+//		}else{
 //			String sheetName = this.getExcelName();
-				String sheetName=this.excelName;	
+				//String sheetName=this.excelName;	
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();
@@ -302,22 +317,21 @@ public class T16_Action {
 		             
 		           ws.addCell(new Label(0, 2, "项目", wcf)); 
 		           ws.addCell(new Label(1, 2, "内容", wcf)); 
-		           ws.addCell(new Label(2, 2, "备注", wcf));  
+		          // ws.addCell(new Label(2, 2, "备注", wcf));  
 		   
 
-		           if(list!=null && list.size()>0){
-		        	   System.out.println("导出");
-		        	  
+		           if(list!=null ){
+		        	   if(list.size()!=0){
+				        	  
 		        		   T16POJO pojo = list.get(0);
 			        		   ws.addCell(new Label(0, 3, pojo.getItem1(), wcf1)); 
 			        		   ws.addCell(new Label(1, 3, pojo.getContents1(), wcf1)); 
-			        		   ws.addCell(new Label(2, 3, pojo.getNote1(), wcf1)); 
+			        		   //ws.addCell(new Label(2, 3, pojo.getNote1(), wcf1)); 
 			        		   ws.addCell(new Label(0, 4, pojo.getItem2(), wcf1)); 
 			        		   ws.addCell(new Label(1, 4, pojo.getContents2(), wcf1)); 
-			        		   ws.addCell(new Label(2, 4, pojo.getNote2(), wcf1)); 
-			           }else{
-		        	   System.out.println("后台传入的数据为空");
-		           }
+			        		   //ws.addCell(new Label(2, 4, pojo.getNote2(), wcf1)); 
+		        	   	}
+			           }
 		          wwb.write();
 		          wwb.close();
 
@@ -325,7 +339,7 @@ public class T16_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

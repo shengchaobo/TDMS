@@ -38,8 +38,10 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table2.T285_Bean;
 import cn.nit.bean.table2.T294_Bean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table2.T294_Dao;
 import cn.nit.service.CheckService;
@@ -228,19 +230,33 @@ public class T294_Action {
 	
 	public InputStream getInputStream(){
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T294_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T294_Service.totalList(year);
+			sheetName = "表4-4-1专业带头人（教学单位-教务处）";
+		}else{			
+			//String fillUnitID = userBean.getUnitID();			
+			list = T294_Service.totalList(this.getSelectYear());					
+			sheetName = this.excelName;
+		}
+		
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T294_Bean> list=T294_Service.totalList(this.getSelectYear());
-			if(list.size()==0){
-				PrintWriter out = null ;
-				response.setContentType("text/html;charset=utf-8") ;
-				out = response.getWriter() ;
-				out.print("后台传入的数据为空") ;
-				System.out.println("后台传入的数据为空");
-				return null;
-			}
-			String sheetName = this.excelName;
+			//List<T294_Bean> list=T294_Service.totalList(this.getSelectYear());
+//			if(list.size()==0){
+//				PrintWriter out = null ;
+//				response.setContentType("text/html;charset=utf-8") ;
+//				out = response.getWriter() ;
+//				out.print("后台传入的数据为空") ;
+//				System.out.println("后台传入的数据为空");
+//				return null;
+//			}
+//			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");columns.add("捐赠机构或人员名称");columns.add("类别");columns.add("捐赠金额（万元）");
@@ -276,10 +292,13 @@ public class T294_Action {
 					ws.mergeCells(0, 0, 1, 0);
 					
 					//取出第一行总计信息
-					T294_Bean bean = list.get(0);					
-					ws.addCell(new Label(0, 2, "捐赠金额总计（万元）", wcf));  
-					ws.mergeCells(0, 2, 2, 2);
-					ws.addCell(new Label(3, 2, bean.getDonaMoney().toString(), wcf1));  
+					if(list!=null&&list.size()>0){
+						T294_Bean bean = list.get(0);					
+						ws.addCell(new Label(0, 2, "捐赠金额总计（万元）", wcf));  
+						ws.mergeCells(0, 2, 2, 2);
+						ws.addCell(new Label(3, 2, bean.getDonaMoney().toString(), wcf1));  
+						
+					}
 					
 		            //判断一下表头数组是否有数据    
 		            if (columns != null && columns.size() > 0) {  		 

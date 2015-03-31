@@ -125,6 +125,9 @@
 				$("#edit").propertygrid( {
 					title : '用房面积'
 				});
+				$("#renopass").hide();
+				$("#pass").hide();
+				$("#nopass").hide();
 			} else {
 				//alert(json.checkState);
 					if (json.checkState == WAITCHECK) {
@@ -132,20 +135,23 @@
 								title : '用房面积（<font color=red>待审核</font>）'
 							});
 							//document.getElementById("export").style.display ="none";
-						$("#pass").show();
-						$("#nopass").show();
+							$("#pass").show();
+							$("#nopass").show();
+							$("#renopass").hide();
 					} else if (json.checkState == PASSCHECK) {
 						$("#edit").propertygrid( {
 							title : '用房面积（<font color=red>已审核通过</font>）'
 						});
 						$("#pass").hide();
 						$("#nopass").hide();
+						$("#renopass").show();
 					} else {
 						$("#edit").propertygrid( {
 							title : '用房面积（<font color=red>已审核未通过</font>）'
 						});
 						$("#pass").hide();
 						$("#nopass").hide();
+						$("#renopass").hide();
 					}
 				}
 	            var i = 0;
@@ -190,62 +196,67 @@
 			async : false,
 			dataType : "json",
 			success : function(json) {
-				if (typeof (json.data) != "undefined") {
-					alert(json.data);
-					$("#edit").propertygrid( {
-						title : '用房面积'
-					});
-				} 
-				else {
-							//alert(json.checkState);
+			if (typeof (json.data) != "undefined") {
+				alert(json.data);
+				$("#edit").propertygrid( {
+					title : '用房面积'
+				});
+				$("#renopass").hide();
+				$("#pass").hide();
+				$("#nopass").hide();
+			} else {
+				//alert(json.checkState);
 					if (json.checkState == WAITCHECK) {
+							$("#edit").propertygrid( {
+								title : '用房面积（<font color=red>待审核</font>）'
+							});
+							//document.getElementById("export").style.display ="none";
+							$("#pass").show();
+							$("#nopass").show();
+							$("#renopass").hide();
+					} else if (json.checkState == PASSCHECK) {
 						$("#edit").propertygrid( {
-							title : '用房面积（<font color=red>待审核</font>）'
+							title : '用房面积（<font color=red>已审核通过</font>）'
 						});
-						//document.getElementById("export").style.display ="none";
-					$("#pass").show();
-					$("#nopass").show();
-				} else if (json.checkState == PASSCHECK) {
-					$("#edit").propertygrid( {
-						title : '用房面积（<font color=red>已审核通过</font>）'
-					});
-					$("#pass").hide();
-					$("#nopass").hide();
-				} else {
-					$("#edit").propertygrid( {
-						title : '用房面积（<font color=red>已审核未通过</font>）'
-					});
-					$("#pass").hide();
-					$("#nopass").hide();
+						$("#pass").hide();
+						$("#nopass").hide();
+						$("#renopass").show();
+					} else {
+						$("#edit").propertygrid( {
+							title : '用房面积（<font color=red>已审核未通过</font>）'
+						});
+						$("#pass").hide();
+						$("#nopass").hide();
+						$("#renopass").hide();
+					}
 				}
-	}
-    var i = 0;
-    while(i<rows.length){
-    	if((i==1)|| (i==4)) {
-    		i=i+1;
-    		continue;
-    	}
-    	rows[i].value = eval('json.'+rows[i].field);	
-    	i=i+1;
-    }	
-  },
-  error : function(XMLResponse) {
-	// alert(XMLResponse.responseText
-	      var i = 0;
-	      while(i<rows.length){
-	      	if((i==1)|| (i==4)) {
-	      		i=i+1;
-	      		continue;
-	      	}
-	      	rows[i].value = "";	
-	      	i=i+1;
-	      }	
-			if (flag == true) {
-				alert("该年数据为空!!!");
-			}
+			    var i = 0;
+			    while(i<rows.length){
+			    	if((i==1)|| (i==4)) {
+			    		i=i+1;
+			    		continue;
+			    	}
+			    	rows[i].value = eval('json.'+rows[i].field);	
+			    	i=i+1;
+			    }	
+			  },
+			  error : function(XMLResponse) {
+				// alert(XMLResponse.responseText
+				      var i = 0;
+				      while(i<rows.length){
+				      	if((i==1)|| (i==4)) {
+				      		i=i+1;
+				      		continue;
+				      	}
+				      	rows[i].value = "";	
+				      	i=i+1;
+				      }	
+						if (flag == true) {
+							alert("该年数据为空!!!");
+						}
+					}
+				})
 		}
-	})
-}
 
 	//审核通过
 	$("#pass").click(function() {
@@ -282,31 +293,37 @@ function reloadgrid(year, flag) {
 		dataType : "json",
 		success : function(json) {
 			if (typeof (json.data) != "undefined") {
-							alert(json.data);
-							$("#edit").propertygrid( {
-								title : '用房面积'
-							});
-						} else {
-							//alert(json.checkState);
-					if (json.checkState == WAITCHECK) {
+				alert(json.data);
+				$("#edit").propertygrid( {
+					title : '用房面积'
+				});
+				$("#renopass").hide();
+				$("#pass").hide();
+				$("#nopass").hide();
+			} else {
+			//alert(json.checkState);
+				if (json.checkState == WAITCHECK) {
 						$("#edit").propertygrid( {
 							title : '用房面积（<font color=red>待审核</font>）'
 						});
 						//document.getElementById("export").style.display ="none";
-					$("#pass").show();
-					$("#nopass").show();
+						$("#pass").show();
+						$("#nopass").show();
+						$("#renopass").hide();
 				} else if (json.checkState == PASSCHECK) {
 					$("#edit").propertygrid( {
 						title : '用房面积（<font color=red>已审核通过</font>）'
 					});
 					$("#pass").hide();
 					$("#nopass").hide();
+					$("#renopass").show();
 				} else {
 					$("#edit").propertygrid( {
 						title : '用房面积（<font color=red>已审核未通过</font>）'
 					});
 					$("#pass").hide();
 					$("#nopass").hide();
+					$("#renopass").hide();
 				}
 			}
             var i = 0;

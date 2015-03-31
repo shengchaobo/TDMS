@@ -201,8 +201,8 @@ public class T11Service {
  /**
 	 *Excel數據導出
 	 */
-	public List<T11_Bean> forExcel(String year){
-		return t11Dao.forExcel(year);
+	public T11_Bean getYearInfo(String year){
+		return t11Dao.getYearInfo(year);
 	}
    
 	

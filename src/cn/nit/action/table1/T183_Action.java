@@ -20,6 +20,7 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table1.T181_Bean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table1.T18DAO;
 import cn.nit.excel.imports.table1.T181Excel;
@@ -98,7 +99,7 @@ public class T183_Action {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		t183Bean.setTime(new Date()) ;
 		t183Bean.setCheckState(Constants.WAIT_CHECK);
-		t183Bean.setFillDept("fillUnitID");
+		t183Bean.setFillDept(fillUnitID);
 		//t183Bean.setFillDept("1017");//招就处
 //		System.out.println(t183Bean.getUnitName());
 
@@ -179,12 +180,12 @@ public class T183_Action {
 				cond = conditions.toString();
 			}
 
-			String tempUnitID = bean.getUnitID();
-			if(!tempUnitID.equals("1017")){
-				tempUnitID = null;
-			}
+//			String tempUnitID = bean.getUnitID();
+//			if(!tempUnitID.equals("1017")){
+//				tempUnitID = null;
+//			}
 			
-			String pages = t183Ser.auditingData(cond,tempUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
+			String pages = t183Ser.auditingData(cond,"1017", Integer.parseInt(page), Integer.parseInt(rows)) ;
 //			System.out.println("pages:"+pages);
 			PrintWriter out = null ;
 			
@@ -342,12 +343,26 @@ public class T183_Action {
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		
+		UserinfoBean userBean1 = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		List<T181_Bean> list  = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean1.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t183Ser.totalList("1017",this.getSelectYear(),Constants.PASS_CHECK);
+			sheetName = "表1-8-3签订合作协议机构（招就处）";
+		}else{
+			list = t183Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+			sheetName = this.excelName;
+		}
+		
 
 		try {
 			
-			List<T181_Bean> list = t183Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
+			//List<T181_Bean> list = t183Ser.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

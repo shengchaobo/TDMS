@@ -47,7 +47,7 @@
 	    <!-- 模板下载 -->
 	    <action name="downloadModel" class="cn.nit.action.DownloadModelAction" method="execute">
 	    <!-- 模板路径 -->
-	    	<param name="fileName">cn/nit/excel/downloads/T411.xls</param>
+	    	<param name="fileName">cn/nit/excel/downloads/T4_11.xls</param>
 	    	<result name="success" type="stream">
 	    		<!-- 指定下载文件的类型，下面表示无限制 -->
 				<param name="contentType">application/octet-stream;charset=UTF-8</param>

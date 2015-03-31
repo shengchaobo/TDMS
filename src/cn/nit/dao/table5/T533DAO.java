@@ -278,14 +278,26 @@ public class T533DAO {
 	public List<T533_Bean> totalList(String fillUnitID,String year, int checkState){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
-		",t.ExpRatio,t.Time,t.Note,t.FillUnitID,t.CheckState");
-		sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
-		sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
-		sql.append(" and t.FillUnitID='"+fillUnitID+"'");
-		sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
-
 		
+
+		if("111".equals(fillUnitID)){
+			
+			sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
+					",t.ExpRatio,t.Time,t.Note,t.FillUnitID,t.CheckState");
+					sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
+					sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
+					sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+//			
+//			sql = "select " + keyfield+ "," + field + " from " + tableName +
+//		     " where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,t.MajorID,t.ExpCSNum,t.IndepentExpCSNum,t.DesignExpCSNum" +
+					",t.ExpRatio,t.Time,t.Note,t.FillUnitID,t.CheckState");
+					sql.append(" from "+tableName+" as t,DiDepartment as did,DiMajorTwo as dmt");
+					sql.append(" where did.UnitID = t.UnitID and dmt.MajorNum = t.MajorID ");
+					sql.append(" and t.FillUnitID='"+fillUnitID+"'");
+					sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		}
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

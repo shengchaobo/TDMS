@@ -53,6 +53,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data									    		 								    		 
+								    		 
 						  		}
 				    }
 				});
@@ -76,7 +78,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data									    		 								    		 
+								    		 		
 						  		}
 				    }
 				});  	    
@@ -100,6 +104,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										  			 });
 								  		} else {
 										    		 $('#checkData').datagrid('reload'); // reload the user data
+										    		 $('#checkPassData').datagrid('reload'); // reload the user data									    		 								    		 
+										    		 
 								  		}
 						    }
 						});
@@ -110,11 +116,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
+
 <body style="height: 100%" >  
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T47/loadHonorInfo?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		 </tr>
+		</thead>
+		<thead>
+				<tr>		
+					<th  data-options="field:'seqNumber'" >编号</th>	
+					 <th data-options="field:'teaUnit'">
+					 	教学单位
+					</th>
+					<th data-options="field:'unitId'">
+						单位号
+					</th>		
+					<th data-options="field:'awardName'">
+						获奖名称
+					</th>				
+					<th data-options="field:'awardLevel'">
+						获奖级别
+					</th>
+					<th data-options="field:'awardFromUnit'">
+						授予单位
+					</th>
+					<th data-options="field:'gainAwardTime'"  formatter="formattime">
+						获奖时间
+					</th>
+					<th data-options="field:'appvlId'">
+						批文号
+					</th>
+					<th data-options="field:'note'">
+						备注
+					</th>
+				</tr>
+			</thead>
+	</table>
+	
+	<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T47/loadHonorInfo?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"    style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		 </tr>
 		</thead>
 		<thead>

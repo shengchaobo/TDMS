@@ -33,6 +33,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table2.T232_Bean;
 import cn.nit.service.table2.T232_Service;
 import cn.nit.util.ExcelUtil;
@@ -173,20 +175,32 @@ public class T232_Action {
 		
 	public InputStream getInputStream() throws Exception{
 
-		System.out.println(this.getSelectYear());
-		T232_Bean bean = T232_services.getYearInfo(this.getSelectYear());
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T232_Bean bean = null;
+		String sheetName = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean =  T232_services.getYearInfo(year);
+			sheetName = "表2-3-2教学计算机数量（设备处）";
+		}else{
+			bean =  T232_services.getYearInfo(this.getSelectYear());
+			sheetName = this.excelName;
+		}
+		
+		//T232_Bean bean = T232_services.getYearInfo(this.getSelectYear());
 		
 	    ByteArrayOutputStream fos = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
-		}else{
-			String sheetName = this.excelName;
+//		if(bean==null){
+//			PrintWriter out = null ;
+//			response.setContentType("text/html;charset=utf-8") ;
+//			out = response.getWriter() ;
+//			out.print("后台传入的数据为空") ;
+//			System.out.println("后台传入的数据为空");
+//			return null;
+//		}else{
+//			String sheetName = this.excelName;
 						
 		    WritableWorkbook wwb;
 		    try {    
@@ -217,9 +231,12 @@ public class T232_Action {
 		           
 		           ws.addCell(new Label(0, 2, "1.教学计算机机房数（个）", wcf)); 
 		           ws.addCell(new Label(0, 3, "2.教学计算机台数（台）", wcf));  
-		           		           
-		           ws.addCell(new Label(1, 2, bean.getComputerRoom().toString(), wcf1)); 
-		           ws.addCell(new Label(1, 3, bean.getComputerNum().toString(), wcf1));  
+		           		      
+		           if(bean!=null){
+		        	   ws.addCell(new Label(1, 2, bean.getComputerRoom().toString(), wcf1)); 
+			           ws.addCell(new Label(1, 3, bean.getComputerNum().toString(), wcf1));
+		           }
+		            
 		             
 
 		          wwb.write();
@@ -229,7 +246,7 @@ public class T232_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+//		}
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

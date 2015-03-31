@@ -11,6 +11,7 @@ import java.util.List;
 import cn.nit.bean.table1.T11_Bean;
 import cn.nit.bean.table1.T152_Bean;
 import cn.nit.bean.table1.T16_Bean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table5.T54_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.pojo.table1.T11POJO;
@@ -255,6 +256,43 @@ public class T11DAO {
 		}
 				
 		return flag ;
+	}
+	
+	
+	/**
+	 * 获取字典表的所有数据
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public T11_Bean getYearInfo(String year){
+		
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("select * from "+ tableName);
+		sql.append(" where Time like '"+year+"%'");
+		
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T11_Bean> list = null ;
+		T11_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql.toString()) ;
+			list = DAOUtil.getList(rs, T11_Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);
+			DBConnection.close(conn);
+		}
+		
+		return bean ;
 	}
 	
 	/**

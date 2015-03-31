@@ -126,6 +126,9 @@
 											$("#edit").propertygrid( {
 													title : '本科教育经费支出情况'
 											});
+											$("#renopass").hide();
+											$("#pass").hide();
+											$("#nopass").hide();
 								   } 
 						  		  else {
 												//alert(json.checkState);
@@ -134,18 +137,21 @@
 												title : '本科教育经费支出情况（<font color=red>待审核</font>）'
 											});
 											//document.getElementById("export").style.display ="none";
-										$("#pass").show();
-										$("#nopass").show();
+											$("#pass").show();
+											$("#nopass").show();
+											$("#renopass").hide();
 									} else if (json.checkState == PASSCHECK) {
 										$("#edit").propertygrid( {
 											title : '本科教育经费支出情况（<font color=red>已审核通过</font>）'
 										});
 										$("#pass").hide();
 										$("#nopass").hide();
+										$("#renopass").show();
 									} else {
 										$("#edit").propertygrid( {
 											title : '本科教育经费支出情况（<font color=red>已审核未通过</font>）'
 										});
+										$("#renopass").hide();
 										$("#pass").hide();
 										$("#nopass").hide();
 									}
@@ -184,30 +190,37 @@
 				    		async : false,
 				    		dataType : "json",
 				    		success : function(json) {
-					  				if (typeof (json.data) != "undefined") {
+						  		  if (typeof (json.data) != "undefined") {
 											alert(json.data);
 											$("#edit").propertygrid( {
 													title : '本科教育经费支出情况'
 											});
-								   } else {
+											$("#renopass").hide();
+											$("#pass").hide();
+											$("#nopass").hide();
+								   } 
+						  		  else {
 												//alert(json.checkState);
 										if (json.checkState == WAITCHECK) {
 											$("#edit").propertygrid( {
 												title : '本科教育经费支出情况（<font color=red>待审核</font>）'
 											});
 											//document.getElementById("export").style.display ="none";
-										$("#pass").show();
-										$("#nopass").show();
+											$("#pass").show();
+											$("#nopass").show();
+											$("#renopass").hide();
 									} else if (json.checkState == PASSCHECK) {
 										$("#edit").propertygrid( {
 											title : '本科教育经费支出情况（<font color=red>已审核通过</font>）'
 										});
 										$("#pass").hide();
 										$("#nopass").hide();
+										$("#renopass").show();
 									} else {
 										$("#edit").propertygrid( {
 											title : '本科教育经费支出情况（<font color=red>已审核未通过</font>）'
 										});
+										$("#renopass").hide();
 										$("#pass").hide();
 										$("#nopass").hide();
 									}
@@ -267,30 +280,37 @@ function reloadgrid (year,flag)  {
     		async : false,
     		dataType : "json",
     		success : function(json) {
-					if (typeof (json.data) != "undefined") {
+		  		  if (typeof (json.data) != "undefined") {
 							alert(json.data);
 							$("#edit").propertygrid( {
 									title : '本科教育经费支出情况'
 							});
-					} else {
+							$("#renopass").hide();
+							$("#pass").hide();
+							$("#nopass").hide();
+				   } 
+				  else {
 								//alert(json.checkState);
 						if (json.checkState == WAITCHECK) {
 							$("#edit").propertygrid( {
 								title : '本科教育经费支出情况（<font color=red>待审核</font>）'
 							});
 							//document.getElementById("export").style.display ="none";
-						$("#pass").show();
-						$("#nopass").show();
+							$("#pass").show();
+							$("#nopass").show();
+							$("#renopass").hide();
 					} else if (json.checkState == PASSCHECK) {
 						$("#edit").propertygrid( {
 							title : '本科教育经费支出情况（<font color=red>已审核通过</font>）'
 						});
 						$("#pass").hide();
 						$("#nopass").hide();
+						$("#renopass").show();
 					} else {
 						$("#edit").propertygrid( {
 							title : '本科教育经费支出情况（<font color=red>已审核未通过</font>）'
 						});
+						$("#renopass").hide();
 						$("#pass").hide();
 						$("#nopass").hide();
 					}

@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table5.T521_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table5.T522DAO;
@@ -87,7 +89,9 @@ public class T522Action {
 		this.queryYear = queryYear;
 	}
 
-
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	HttpServletRequest request = ServletActionContext.getRequest() ;
+	
 	
 	/**  逐条插入数据  */
 	public void insert(){
@@ -334,14 +338,26 @@ public class T522Action {
 	/**数据导出*/
 	public InputStream getInputStream(){
 		
-//        System.out.println("年份："+this.Year);
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T521_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = t522Ser.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表5-2-2网络课程建设情况（网络信息中心）";
+		}else{			
+			//String fillUnitID = userBean.getUnitID();			
+			list = t522Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 		InputStream inputStream = null ;
 
 		try {
 			
-			List<T521_Bean> list = t522Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			//List<T521_Bean> list = t522Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			
-			String sheetName = this.excelName;
+			//String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

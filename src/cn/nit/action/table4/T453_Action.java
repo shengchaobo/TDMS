@@ -23,6 +23,7 @@ import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table4.T452_Bean;
 import cn.nit.bean.table4.T453_Bean;
 import cn.nit.constants.Constants;
@@ -365,15 +366,23 @@ public class T453_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T453_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T453_services.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表4-5-3教师交流情况（教学单位-国际交流与合作处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = T453_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 		
 		try {
 			//具体教学单位
-			UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-			String fillUnitID = bean.getUnitID();
-			
-			List<T453_Bean> list = T453_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
-						
-			String sheetName = this.excelName;
+
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

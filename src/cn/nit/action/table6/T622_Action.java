@@ -42,6 +42,9 @@ import jxl.write.biff.RowsExceededException;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -391,28 +394,27 @@ public class T622_Action {
 	}
 
 	public InputStream getInputStream() {
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T622_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T622_service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表6-2-2近一届文、理科本科生录取标准及人数（招就处）";
+		}else{					
+			list = T622_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T622_Bean> list = T622_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			String sheetName = this.excelName;
-			if(list==null){
-				if(list.size()==0){
-					PrintWriter out = null ;
-					response.setContentType("text/html;charset=utf-8") ;
-					out = response.getWriter() ;
-					out.print("后台传入的数据为空") ;
-					System.out.println("后台传入的数据为空");
-					return null;
-				}
-			}
-			else if(list!=null){WritableWorkbook wwb;
+
+			WritableWorkbook wwb;
 			try{
 				
 				 fos = new ByteArrayOutputStream();
@@ -484,7 +486,7 @@ public class T622_Action {
 			} catch (IOException e){
 	        } catch (RowsExceededException e){
 	        } catch (WriteException e){}
-		}
+		
 	
 	} catch (Exception e) {
 		e.printStackTrace();

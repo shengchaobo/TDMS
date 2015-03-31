@@ -22,7 +22,9 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T42_Bean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table4.T442_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table4.T42_Dao;
@@ -343,15 +345,20 @@ public class T442_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T442_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T442_services.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表4-4-2研究生导师情况（研究生院）";
+		}else{					
+			list = T442_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T442_Bean> list = T442_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-						
-			String sheetName = this.excelName;
 			
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");

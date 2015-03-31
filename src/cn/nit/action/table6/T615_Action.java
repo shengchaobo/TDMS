@@ -45,6 +45,7 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T435_Bean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -382,14 +383,21 @@ public class T615_Action {
 	}
 
 	public InputStream getInputStream() throws IOException {
+		UserinfoBean userBean = (UserinfoBean) getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T615_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)getSession().getAttribute("allYear") ;
+			list = T615_service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表6-1-5普通本科分专业（大类）学生数（教务处）";
+		}else{					
+			list = T615_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 
-		InputStream inputStream = null ;
-		ByteArrayOutputStream fos = null;
-		
-		List<T615_Bean> list = T615_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-		
-		String sheetName=this.excelName;	
 	    WritableWorkbook wwb;
+		ByteArrayOutputStream fos = null;
 	    try {    
 	           fos = new ByteArrayOutputStream();
 	           wwb = Workbook.createWorkbook(fos);

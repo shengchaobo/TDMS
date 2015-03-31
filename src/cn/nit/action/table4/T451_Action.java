@@ -22,6 +22,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table4.T444_Bean;
 import cn.nit.bean.table4.T451_Bean;
 import cn.nit.constants.Constants;
@@ -346,16 +348,21 @@ public class T451_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T451_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T451_services.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表4-5-1教师教学发展机构（人事处）";
+		}else{					
+			list = T451_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T451_Bean> list = T451_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-						
-			String sheetName = this.excelName;
-			
+
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("机构名称");columns.add("单位号");columns.add("机构类型");columns.add("培训次数");

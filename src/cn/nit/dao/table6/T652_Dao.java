@@ -274,10 +274,16 @@ public class T652_Dao {
 	 * @time: 2014-5-14/下午02:34:42
 	 */
 	public List<T652_Bean> totalList(String fillUnitID, String year, int checkState){
+		String sql = null;
 		
-		String sql = "select " + key+ "," +field + " from " + tableName
-						+ " where FillUnitID=" + "'" + fillUnitID + "'" 
-						+ " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		if("111".equals(fillUnitID)){
+		sql = "select " + key+ "," +field + " from " + tableName
+						+ " where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			sql = "select " + key+ "," +field + " from " + tableName
+			+ " where FillUnitID=" + "'" + fillUnitID + "'" 
+			+ " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		}
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;

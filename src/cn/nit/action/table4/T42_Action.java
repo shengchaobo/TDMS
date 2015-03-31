@@ -20,7 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table4.T42_Bean;
+import cn.nit.bean.table4.T441_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.dao.table4.T42_Dao;
 import cn.nit.service.table4.T42_Service;
 import cn.nit.util.ExcelUtil;
@@ -217,16 +221,20 @@ public class T42_Action {
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T42_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			list = T42_services.totalList();
+			sheetName = "表4-2校领导基本信息（党院办）";
+		}else{					
+			list = T42_services.totalList();						
+			sheetName = this.excelName;
+		}
 		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T42_Bean> list = T42_services.totalList();
-						
-			String sheetName = this.excelName;
-			
+
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");
 			columns.add("姓名");columns.add("教工号");columns.add("职务");columns.add("性别");columns.add("出生年月");

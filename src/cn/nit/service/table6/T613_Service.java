@@ -20,6 +20,13 @@ public class T613_Service {
 		return bean;		
 	}
 	
+	public T613_Bean getYearInfo(String selectYear,int checkState){
+		
+		T613_Bean bean = infoDao.getYearInfo(selectYear,checkState);
+		
+		return bean;		
+	}
+	
 	
 	//保存
 	public Boolean save(T613_Bean bean, String year, String fields){

@@ -45,6 +45,8 @@ import net.sf.json.JSONSerializer;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table6.T622_Bean;
 import cn.nit.bean.table6.T631_Bean;
 import cn.nit.constants.Constants;
 
@@ -241,26 +243,20 @@ public class T631_Action {
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T631_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T631_service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表6-3-1分专业应届本科毕业生毕业情况（教务处）";
+		}else{					
+			list = T631_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+		
 		try {
-/*			response.reset();
-			response.addHeader("Content-Disposition", "attachment;fileName="
-                      + java.net.URLEncoder.encode(excelName,"UTF-8"));*/
-			
-			List<T631_Bean> list = T631_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			if(list==null){
-				if(list.size()==0){
-					PrintWriter out = null ;
-					response.setContentType("text/html;charset=utf-8") ;
-					out = response.getWriter() ;
-					out.print("后台传入的数据为空") ;
-					System.out.println("后台传入的数据为空");
-					return null;
-				}
-			}
-			if(list!=null){
-
-				
-				String sheetName = this.excelName;
 				
 				List<String> columns = new ArrayList<String>();
 				
@@ -315,7 +311,7 @@ public class T631_Action {
 								ws.addCell(new Label(i, 2, columns.get(i), wcf));
 							}
 						}
-						
+						if(list!=null&&list.size()>0){
 						//向表中写数据
 						int k=3;//从第4行开始写数据,第3行为全校合计数
 						for(int j=0;j<list.size();j++){
@@ -339,6 +335,7 @@ public class T631_Action {
 							}
 							k++;
 						}
+						}
 						    wwb.write();
 				            wwb.close();
 
@@ -346,7 +343,7 @@ public class T631_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 				
-			}
+			
 		
 		} catch (Exception e) {
 			e.printStackTrace();

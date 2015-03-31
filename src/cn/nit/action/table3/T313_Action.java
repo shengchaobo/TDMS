@@ -21,6 +21,7 @@ import org.apache.struts2.ServletActionContext;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table3.T313_DAO;
 import cn.nit.excel.imports.table3.T313Excel;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.table3.T313_Bean;
 import cn.nit.service.CheckService;
 import cn.nit.service.table3.T313_Service;
@@ -340,25 +341,26 @@ public void auditingData(){
 	public InputStream getInputStream(){
 
 		InputStream inputStream = null ;
+		UserinfoBean userBean = (UserinfoBean) getRequest().getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T313_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)getRequest().getSession().getAttribute("allYear") ;
+			list = discipSer.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表3-1-3重点学科（科研处）";
+		}else{					
+			list = discipSer.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			sheetName = this.excelName;
+		}
 
 		try {
-			T313Excel t313_Excel = new T313Excel();
-			
-			List<T313_Bean> list = discipSer.totalList(this.getSelectYear(),Constants.PASS_CHECK);
-			
-			String sheetName = this.excelName;
-			
-
-			
+			T313Excel t313_Excel = new T313Excel();		
 			Map<String,Integer> maplist = new HashMap<String,Integer>();
 			maplist.put("SeqNum", 0);
 			maplist.put("DiscipName", 1);maplist.put("DiscipID", 2);maplist.put("UnitName", 3);maplist.put("UnitID", 4);
 			maplist.put("DiscipType", 5);maplist.put("NationLevelOne", 6);maplist.put("NationLevelTwo", 7);maplist.put("NationLevelKey", 8);
-			maplist.put("ProvinceLevelOne", 9);maplist.put("ProvinceLevelTwo", 10);maplist.put("CityLevel", 11);maplist.put("SchLevel", 12);
-			
-			
-			
-			
+			maplist.put("ProvinceLevelOne", 9);maplist.put("ProvinceLevelTwo", 10);maplist.put("CityLevel", 11);maplist.put("SchLevel", 12);			
 			//inputStream = new ByteArrayInputStream(ExcelUtil.exportExcel(list, sheetName, maplist,columns).toByteArray());
 			inputStream = new ByteArrayInputStream(t313_Excel.exportExcel(list, sheetName, maplist).toByteArray());
 		} catch (Exception e) {

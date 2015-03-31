@@ -253,14 +253,24 @@ public class T651_Dao {
 
 	/**审核数据导出*/
 	public List<T651_Bean> totalList(String fillUnitID, String year, int checkState){
+		String sql = null;
 		
-		String sql = "select SeqNumber,TeaUnit,UnitID,"+tableName1+".ContestLevel as CompetiType,"+"CompetiName,AwardItem,"+tableName2+".AwardLevel as AwardLevel,"
+		if("111".equals(fillUnitID)){
+		sql = "select SeqNumber,TeaUnit,UnitID,"+tableName1+".ContestLevel as CompetiType,"+"CompetiName,AwardItem,"+tableName2+".AwardLevel as AwardLevel,"
 		+" AwardGrade,AwardFromUnit,AwardTime,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID,CheckState"
 		+ " from " + tableName +
 		" left join "+tableName1+" on "+tableName+".CompetiType="+tableName1+".IndexID "+
 		"left join "+tableName2+" on "+tableName+".AwardLevel="+tableName2+".IndexID " 
-		+ " where FillUnitID=" + "'" + fillUnitID + "'" 
-		+ " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		+ " where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			sql = "select SeqNumber,TeaUnit,UnitID,"+tableName1+".ContestLevel as CompetiType,"+"CompetiName,AwardItem,"+tableName2+".AwardLevel as AwardLevel,"
+			+" AwardGrade,AwardFromUnit,AwardTime,AwardStuName,AwardStuNum,GuideTeaName,GuideTeaNum,Time,Note,FillUnitID,CheckState"
+			+ " from " + tableName +
+			" left join "+tableName1+" on "+tableName+".CompetiType="+tableName1+".IndexID "+
+			"left join "+tableName2+" on "+tableName+".AwardLevel="+tableName2+".IndexID " 
+			+ " where FillUnitID=" + "'" + fillUnitID + "'" 
+			+ " and CheckState=" + checkState + " and Time like '"+year+"%'";
+		}
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

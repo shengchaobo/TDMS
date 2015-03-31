@@ -67,7 +67,36 @@ public class T612_Dao {
 		
 		return bean ;
 	}
+
+	
+	public T612_Bean getYearInfo(String year,int checkState){
 		
+		String sql = "select " + " " + key + "," +
+		field + " from " + tableName + " where convert(varchar(4),Time,120)=" + year
+		+ "and CheckState="+checkState;
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		ResultSet rs = null ;
+		List<T612_Bean> list = null ;
+		T612_Bean bean = null;
+		try{
+			st = conn.createStatement() ;
+			rs = st.executeQuery(sql) ;
+			list = DAOUtil.getList(rs, T612_Bean.class) ;
+			if(list.size() != 0){
+				bean = list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return null ;
+		}finally{
+			DBConnection.close(rs);
+			DBConnection.close(st);	
+			DBConnection.close(conn);
+		}
+		
+		return bean ;
+	}
 	/**
 	 * 保存数据
 	 * @param diCourseCategories

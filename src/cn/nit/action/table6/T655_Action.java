@@ -46,6 +46,8 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table6.T611_Bean;
 import cn.nit.bean.table6.T612_Bean;
 import cn.nit.bean.table6.T613_Bean;
@@ -267,21 +269,23 @@ public class T655_Action {
 	
 	public InputStream getInputStream(){
 		
-//		System.out.println("export");
+		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T655_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T655_service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表6-5-5学习成果-英语四六级、省计算机等级考试（教务处）";
+		}else{					
+			list = T655_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T655_Bean> list=T655_service.totalList(this.getSelectYear());
-			System.out.println("导出数据条数："+list.size());
-			if(list.size()==0){
-				PrintWriter out = null ;
-				response.setContentType("text/html;charset=utf-8") ;
-				out = response.getWriter() ;
-				out.print("后台传入的数据为空") ;
-				System.out.println("后台传入的数据为空");
-				return null;
-			}
-			String sheetName = this.excelName;
+
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");columns.add("教学单位");columns.add("单位号");columns.add("1.英语四级考试累计通过率（%）");
 			columns.add("2.英语六级考试累计通过率（%）");columns.add("3.江西省高校计算机等级考试累计通过率（%）");

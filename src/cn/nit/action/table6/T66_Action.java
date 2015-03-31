@@ -33,7 +33,10 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table6.T66_Bean;
+import cn.nit.constants.Constants;
 import cn.nit.service.table6.T66_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.JsonUtil;
@@ -171,22 +174,21 @@ public class T66_Action {
 	}
 		
 	public InputStream getInputStream() throws Exception{
-
-//		System.out.println(this.getSelectYear());
-		T66_Bean bean = T66_services.getYearInfo(this.getSelectYear());
 		
-	    ByteArrayOutputStream fos = null;
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		T66_Bean bean = null;
+		String sheetName = null;
 		
-		if(bean==null){
-			PrintWriter out = null ;
-			response.setContentType("text/html;charset=utf-8") ;
-			out = response.getWriter() ;
-			out.print("后台传入的数据为空") ;
-			System.out.println("后台传入的数据为空");
-			return null;
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			bean = T66_services.getYearInfo(year,Constants.PASS_CHECK);
+			sheetName = "表6-6 学生社团（团委）";
 		}else{
-			String sheetName = this.excelName;
-						
+			bean = T66_services.getYearInfo(this.getSelectYear(),Constants.PASS_CHECK);
+			sheetName = this.excelName;
+		}
+			
+		    ByteArrayOutputStream fos = null;		
 		    WritableWorkbook wwb;
 		    try {    
 		           fos = new ByteArrayOutputStream();
@@ -234,7 +236,7 @@ public class T66_Action {
 		           ws.mergeCells(0, 2, 1, 2);
 		           ws.mergeCells(0, 3, 0, 8);
 		           ws.mergeCells(0, 9, 0, 14);
-		           		           
+		           	if(bean!=null)	{           
 		           ws.addCell(new Label(2, 3, bean.getStuClubSum().toString(), wcf1));
 		           ws.addCell(new Label(2, 4,bean.getStuClubSciNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 5,bean.getStuClubHumanNum().toString(), wcf1));
@@ -248,7 +250,7 @@ public class T66_Action {
 		           ws.addCell(new Label(2, 13, bean.getJoinClubArtNum().toString(), wcf1));
 		           ws.addCell(new Label(2, 14, bean.getJoinOtherClub().toString(), wcf1));  
 		             
-
+		           	}
 		          wwb.write();
 		          wwb.close();
 
@@ -256,7 +258,7 @@ public class T66_Action {
 		        } catch (RowsExceededException e){
 		        } catch (WriteException e){}
 		        
-		}
+		
 		return new ByteArrayInputStream(fos.toByteArray());
 	}
 	

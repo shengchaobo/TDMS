@@ -40,6 +40,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
 import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table4.T48_Bean;
 import cn.nit.bean.table4.T49_Bean;
 import cn.nit.constants.Constants;
@@ -387,14 +388,20 @@ public class T49_Action {
 	
 	public InputStream getInputStream() throws Exception{
 		
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T49_Bean> list = null;
 		
-		//具体教学单位
-		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-		String fillUnitID = bean.getUnitID();
-			
-		List<T49_Bean> list = T49_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);
-						
-		String sheetName = this.excelName;
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T49_services.totalList("111",year,Constants.PASS_CHECK);
+			sheetName = "表4-9教师出版教材（教学单位-教务处）";
+		}else{			
+			String fillUnitID = userBean.getUnitID();			
+			list = T49_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
+
 			
 		List<String> columns = new ArrayList<String>();
 		columns.add("序号");

@@ -46,6 +46,8 @@ import net.sf.json.JSONSerializer;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+import cn.nit.bean.UserinfoBean;
+import cn.nit.bean.table4.T441_Bean;
 import cn.nit.bean.table6.T655_Bean;
 import cn.nit.bean.table6.T656_Bean;
 import cn.nit.constants.Constants;
@@ -234,20 +236,23 @@ public class T656_Action {
 	}
 
 	public InputStream getInputStream() {
+		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String sheetName = null;
+		List<T656_Bean> list = null;
+		
+		if("111".equals(userBean.getRoleID())){
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T656_service.totalList(year,Constants.PASS_CHECK);
+			sheetName = "表6-5-6学习成果-全国计算机等级考试（信息工程学院）";
+		}else{					
+			list = T656_service.totalList(this.getSelectYear(),Constants.PASS_CHECK);						
+			sheetName = this.excelName;
+		}
 
 		InputStream inputStream = null ;
 		ByteArrayOutputStream fos = new ByteArrayOutputStream();
 		try {
-			List<T656_Bean> list=T656_service.totalList(this.getSelectYear());
-			if(list.size()==0){
-				PrintWriter out = null ;
-				response.setContentType("text/html;charset=utf-8") ;
-				out = response.getWriter() ;
-				out.print("后台传入的数据为空") ;
-				System.out.println("后台传入的数据为空");
-				return null;
-			}
-			String sheetName = this.excelName;
+
 			List<String> columns = new ArrayList<String>();
 			columns.add("序号");columns.add("教学单位");columns.add("单位号");columns.add("全国高校计算机等级考试累计通过率（%）");
 			//columns.add("备注");

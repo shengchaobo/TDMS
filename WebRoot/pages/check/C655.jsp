@@ -55,6 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="float: left;">	
 			<a href="javascript:void(0)" id="pass"  class="easyui-linkbutton" iconCls="icon-save" plain="true" >审核通过</a>
 			<a href="javascript:openDig()" id="nopass"  class="easyui-linkbutton" iconCls="icon-save" plain="true">审核未通过</a>
+			<a href="javascript:openDig()" id="renopass"  class="easyui-linkbutton" iconCls="icon-save" plain="true">重新审核未通过</a>	
 		</div>
 	 	 <form  id="exportForm"  style="float: right;"  method="post" >
 			显示： <select class="easyui-combobox" id="cbYearContrast" panelHeight="auto" style="width:80px; padding-top:5px; margin-top:10px;"  editable=false ></select>

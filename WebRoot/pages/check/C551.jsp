@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -77,6 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});  	    
@@ -99,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -109,12 +112,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%'">
-  <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T551/auditingData?checkNum=<%=request.getAttribute("WAITCHECK")%>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		  </tr>
+		</thead>
+		
+		<thead> 
+			<tr>
+			 <th field="seqNumber">编号</th>
+				<th data-options="field:'teaUnit'">
+						教学单位
+					</th>
+					<th data-options="field:'unitID'">
+						单位号
+					</th>
+					<th data-options="field:'majorName'">
+						专业名称
+					</th>
+					<th data-options="field:'majorID'">
+						专业代码
+					</th>
+					<th data-options="field:'admisSchYear'">
+						入校年份
+					</th>
+					<th data-options="field:'partyMemNum'">
+						本科生党员数（个）
+					</th>
+					<th data-options="field:'cheatNum'">
+						考试违纪、作弊及受处分（人次）
+					</th>
+					<th data-options="field:'goodClassRatio'"  >
+						优良学风班的比例（%）
+					</th>
+					<th data-options="field:'note'">
+						备注
+					</th>
+			</tr>
+		</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T551/auditingData?checkNum=<%=request.getAttribute("PASSCHECK")%>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		  </tr>
 		</thead>
 		

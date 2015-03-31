@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		  $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data	
+								    		  $('#checkPassData').datagrid('reload'); // reload the user data		
 						  		}
 				    }
 				});  	    
@@ -99,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		  $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -109,12 +112,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%'">
   <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/DiscipRes/auditingData?checkNum=<%=request.getAttribute("WAITCHECK")%>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		  </tr>
+		</thead>
+		
+		<thead> 
+			<tr>
+			 <th field="seqNumber">编号</th>
+			 	<th field="discipName" >重点学科名称</th>
+				<th field="discipID" >学科代码</th>
+				<th field="unitName" >所属教学单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="discipType" >学科门类</th>
+				<th field="nationLevelOne"  formatter="booleanstr">国家一级</th>
+				<th field="nationLevelTwo"  formatter="booleanstr">国家二级</th>
+				<th field="nationLevelKey" formatter="booleanstr">国家重点（培育）</th>
+				<th field="provinceLevelOne" " formatter="booleanstr">省部一级</th>
+				<th field="provinceLevelTwo"  formatter="booleanstr">省部二级</th>
+				<th field="cityLevel"  formatter="booleanstr">市级</th>
+				<th field="schLevel"  formatter="booleanstr">校级</th>
+				<th field="note" >备注</th>
+			</tr>
+		</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/DiscipRes/auditingData?checkNum=<%=request.getAttribute("PASSCHECK")%>&checkFlag=0"    style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		  </tr>
 		</thead>
 		

@@ -79,6 +79,8 @@ public class T152_Action {
 	/**  审核通过数据按年时间查询  */
 	private String queryYear ;
 	
+	private int checkFlag ;
+	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
@@ -169,9 +171,11 @@ public class T152_Action {
 					if(this.getQueryYear() != null){
 						conditions.append(" and Time like '" + this.queryYear + "%'");
 					}else{
+						if(this.getCheckFlag()!=0){
 						 Calendar now = Calendar.getInstance();  
 						 this.setQueryYear(now.get(Calendar.YEAR)+"");
 						 conditions.append(" and Time like '" + this.queryYear + "%'");
+						}
 					}
 				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
@@ -515,6 +519,15 @@ public class T152_Action {
 
 	public void setQueryYear(String queryYear) {
 		this.queryYear = queryYear;
+	}
+	
+	
+	public int getCheckFlag() {
+		return checkFlag;
+	}
+
+	public void setCheckFlag(int checkFlag) {
+		this.checkFlag = checkFlag;
 	}
 
 	public static void main(String args[]){

@@ -32,6 +32,7 @@
 					}   
 					$("#pass").hide();
 					$("#nopass").hide();
+					$("#renopass").hide();
 				}else{
 								if(rowData.rows[0].checkState!=0){  		
 									if(rowData.rows[0].checkState==WAITCHECK){
@@ -43,6 +44,7 @@
 										}
 										$("#pass").show();
 				    					$("#nopass").show();
+				    					$("#renopass").hide();
 				    				}
 				    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
 										if(count == 0){
@@ -53,6 +55,7 @@
 										}
 										$("#pass").hide();
 				    					$("#nopass").hide();
+				    					$("#renopass").show();
 				    				}				    				
 				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 										if(count == 0){
@@ -63,6 +66,7 @@
 										}				    					
 										$("#pass").hide();
 				    					$("#nopass").hide();
+				    					$("#renopass").hide();
 				    				}
 								}
 				        
@@ -95,6 +99,7 @@
 		    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表");
 		    					$("#pass").hide();
 		    					$("#nopass").hide();
+		    					$("#renopass").hide();
 							}else{
 								//设置表格状态
 								//alert(rowData.rows[0].checkState);
@@ -103,16 +108,19 @@
 				    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表（<font color=red>待审核</font>）");
 				    					$("#pass").show();
 				    					$("#nopass").show();
+				    					$("#renopass").hide();
 				    				}
 				    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
 				    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表（<font color=red>审核通过</font>）");
 				    					$("#pass").hide();
 				    					$("#nopass").hide();
+				    					$("#renopass").show();
 				    				}				    				
 				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 				    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表（<font color=red>审核未通过</font>）");
 				    					$("#pass").hide();
 				    					$("#nopass").hide();
+				    					$("#renopass").hide();
 				    				}
 								}
 						}

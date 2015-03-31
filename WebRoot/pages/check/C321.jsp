@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data		
 						  		}
 				    }
 				});  	    
@@ -99,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -109,12 +112,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%'">
   <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/MainTrainBasicInfoTea/auditingData?checkNum=<%=request.getAttribute("WAITCHECK")%>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		  </tr>
+		</thead>
+		
+		<thead> 
+			<tr>
+			 <th field="seqNumber">编号</th>
+			 	<th field="mainClassName" >大类名称</th>
+				<th field="mainClassID" >大类代码</th>
+				<th field="byPassTime" >分流时间</th>
+				<th field="majorNameInSch" ">包含校内专业名称</th>
+				<th field="majorID" >校内专业代码</th>
+				<th field="unitName" >所属单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="note" >备注</th>
+			</tr>
+		</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/MainTrainBasicInfoTea/auditingData?checkNum=<%=request.getAttribute("PASSCHECK")%>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		  </tr>
 		</thead>
 		

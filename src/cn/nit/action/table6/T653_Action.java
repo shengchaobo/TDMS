@@ -139,6 +139,16 @@ public class T653_Action {
 	public void setQueryYear(String queryYear) {
 		this.queryYear = queryYear;
 	}
+	private int checkFlag ;
+	
+	
+	public int getCheckFlag() {
+		return checkFlag;
+	}
+
+	public void setCheckFlag(int checkFlag) {
+		this.checkFlag = checkFlag;
+	}
 
 	
 	HttpServletResponse response = ServletActionContext.getResponse() ;
@@ -212,9 +222,11 @@ public class T653_Action {
 					if(this.getQueryYear() != null){
 						conditions.append(" and Time like '" + this.queryYear + "%'");
 					}else{
+						if(this.getCheckFlag()!=0){
 						 Calendar now = Calendar.getInstance();  
 						 this.setQueryYear(now.get(Calendar.YEAR)+"");
 						 conditions.append(" and Time like '" + this.queryYear + "%'");
+						}
 					}
 				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;

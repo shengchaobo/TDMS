@@ -50,6 +50,13 @@ private T311_Service postDocStaSer = new T311_Service() ;
 	/**excel导出名字*/
 	private String excelName; //
 	
+	
+	/**  该标志是用来区分显示审核通过数据的年为空时的两种情况，
+	 * 一种是被审核用户的当前年数据显示，另一种是审核用户审核通过数据的显示  
+	 * 用0来代表后者
+	 * */
+	private int checkFlag ;
+	
 	public String getExcelName() {
 		try {
 			this.excelName = URLEncoder.encode(excelName, "UTF-8");
@@ -64,6 +71,18 @@ private T311_Service postDocStaSer = new T311_Service() ;
 		this.excelName = excelName;
 	}
 	
+	
+	
+	public int getCheckFlag() {
+		return checkFlag;
+	}
+
+	public void setCheckFlag(int checkFlag) {
+		this.checkFlag = checkFlag;
+	}
+
+
+
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
 	
@@ -179,9 +198,11 @@ private T311_Service postDocStaSer = new T311_Service() ;
 				if(this.getQueryYear() != null){
 					conditions.append(" and Time like '" + this.queryYear + "%'");
 				}else{
+					if(this.getCheckFlag()!=0){
 					 Calendar now = Calendar.getInstance();  
 					 this.setQueryYear(now.get(Calendar.YEAR)+"");
 					 conditions.append(" and Time like '" + this.queryYear + "%'");
+					}
 				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;

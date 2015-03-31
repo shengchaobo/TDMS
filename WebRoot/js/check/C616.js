@@ -31,8 +31,9 @@
 			    					}else{
 				    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>待审核</font>）");
 			    					}
-			    					$("#pass").show();
-			    					$("#nopass").show();
+									$("#pass").show();
+									$("#nopass").show();
+									$("#renopass").hide();
 			    				}
 			    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
 			    					if(count==0){
@@ -41,8 +42,9 @@
 			    					}else{
 				    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>审核通过</font>）")
 			    					}
-			    					$("#pass").hide();
-			    					$("#nopass").hide();
+									$("#pass").hide();
+									$("#nopass").hide();
+									$("#renopass").show();
 			    				}				    				
 			    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 			    					if(count==0){
@@ -51,8 +53,9 @@
 			    					}else{
 				    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>审核未通过</font>）");
 			    					}
-			    					$("#pass").hide();
-			    					$("#nopass").hide();
+									$("#pass").hide();
+									$("#nopass").hide();
+									$("#renopass").hide();
 			    				}
 							}else{
 								alert("该年数据为空");
@@ -62,6 +65,7 @@
 		    					}else{
 			    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况");
 		    					}
+		    					$("#renopass").hide();
 		    					$("#pass").hide();
 		    					$("#nopass").hide();
 							}
@@ -97,22 +101,26 @@
 				    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>待审核</font>）")
 				    					$("#pass").show();
 				    					$("#nopass").show();
+				    					$("#renopass").hide();
 				    				}
 				    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
 				    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>审核通过</font>）")
 				    					$("#pass").hide();
 				    					$("#nopass").hide();
+				    					$("#renopass").show();
 				    				}				    				
 				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 				    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况（<font color=red>审核未通过</font>）");
 				    					$("#pass").hide();
 				    					$("#nopass").hide();
+				    					$("#renopass").hide();
 				    				}
 								}else{
 									alert("该年数据为空");
 			    					$("#newData").datagrid("getPanel").panel("setTitle","国外及港澳台学生情况");
 			    					$("#pass").hide();
 			    					$("#nopass").hide();
+			    					$("#renopass").hide();
 								}						
 						}
 					});

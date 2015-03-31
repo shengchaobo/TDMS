@@ -32,6 +32,7 @@
 	    					}
 	    					$("#pass").show();
 	    					$("#nopass").show();
+	    					$("#renopass").hide();
 	    				}
 	    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
 	    					if(count==0){
@@ -42,6 +43,7 @@
 	    					}
 	    					$("#pass").hide();
 	    					$("#nopass").hide();
+	    					$("#renopass").show();
 	    				}				    				
 	    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 	    					if(count==0){
@@ -52,6 +54,7 @@
 	    					}
 	    					$("#pass").hide();
 	    					$("#nopass").hide();
+	    					$("#renopass").hide();
 	    				}
 					}else{
 						alert("该年数据为空");
@@ -63,6 +66,7 @@
     					}
     					$("#pass").hide();
     					$("#nopass").hide();
+    					$("#renopass").hide();
 					}
 			}
 		});
@@ -94,22 +98,26 @@
 			    					$("#newData").datagrid("getPanel").panel("setTitle","本科生交流情况（<font color=red>待审核</font>）")
 			    					$("#pass").show();
 			    					$("#nopass").show();
+			    					$("#renopass").hide();
 			    				}
 			    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
 			    					$("#newData").datagrid("getPanel").panel("setTitle","本科生交流情况（<font color=red>审核通过</font>）")
 			    					$("#pass").hide();
 			    					$("#nopass").hide();
+			    					$("#renopass").show();
 			    				}				    				
 			    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 			    					$("#newData").datagrid("getPanel").panel("setTitle","本科生交流情况（<font color=red>审核未通过</font>）");
 			    					$("#pass").hide();
 			    					$("#nopass").hide();
+			    					$("#renopass").hide();
 			    				}
 							}else{
 								alert("该年数据为空");
 		    					$("#newData").datagrid("getPanel").panel("setTitle","本科生交流情况");
 		    					$("#pass").hide();
 		    					$("#nopass").hide();
+		    					$("#renopass").hide();
 							}						
 					}
 				});

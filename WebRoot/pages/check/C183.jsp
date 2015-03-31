@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data	
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});  	    
@@ -99,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  			 });
 							  		} else {
 									    		 $('#checkData').datagrid('reload'); // reload the user data
+									    		 $('#checkPassData').datagrid('reload'); // reload the user data
 							  		}
 					    }
 					});
@@ -109,6 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%'">
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T183/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
@@ -118,7 +122,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</thead>
 		<thead>
 				<tr>		
-					<th field="id" >编号</th>
+				<th field="seqNumber" >编号</th>
+				<th field="cooperInsName" >合作机构名称</th>
+				<th field="cooperInsType" >合作机构类型</th>
+				<th field="cooperInsLevel" >合作机构级别</th>
+				<th field="signedTime" >签订协议时间</th>
+				<th field="unitName" >我方单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="unitLevel" >我方单位级别</th>
+				<th field="note" >备注</th>
+				</tr>
+			</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T183/auditingData?checkNum=<%=request.getAttribute("PASSCHECK")%>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
+		  </tr>
+		</thead>
+		<thead>
+				<tr>		
+					<th field="seqNumber" >编号</th>
 				<th field="cooperInsName" >合作机构名称</th>
 				<th field="cooperInsType" >合作机构类型</th>
 				<th field="cooperInsLevel" >合作机构级别</th>

@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data	
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});  	    
@@ -99,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  			 });
 							  		} else {
 									    		 $('#checkData').datagrid('reload'); // reload the user data
+									    		 $('#checkPassData').datagrid('reload'); // reload the user data
 							  		}
 					    }
 					});
@@ -109,11 +112,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%'">
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T615/loadData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		  </tr>
+		</thead>
+		<thead>
+				<tr>		
+					<th  data-options="field:'seqNumber'" >编号</th>
+				<th field="majorName">校内专业（大类）名称</th>
+				<th field="majorId">校内专业（大类）代码</th>
+				<th field="fromUnitId">所属教学单位</th>
+				<th field="unitId">单位号</th>
+					<th field="schLen">学制</th>
+				<th field="schStuSumNum">在校生总人数</th>
+				<th field="freshmanNum">一年级生人数</th>
+				<th field="sophomoreNum">二年级生人数</th>
+				<th field="juniorNum">三年级生人数</th>
+				<th field="seniorNum">四年级生人数</th>
+				<th field="otherGradeNum">五年级生及以上人数</th>
+				<th field="minorNum">辅修学生人数</th>
+				<th field="dualDegreeNum">双学位学生人数</th>
+				<th field="changeInNum">转入人数</th>
+				<th field="changeOutNum">转出人数</th>
+				<th field="note">备注</th>
+				</tr>
+			</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T615/loadData?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		  </tr>
 		</thead>
 		<thead>

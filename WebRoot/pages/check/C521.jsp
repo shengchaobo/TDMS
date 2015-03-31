@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data	
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data		
 						  		}
 				    }
 				});  	    
@@ -99,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -109,12 +112,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%'">
-  <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T521/auditingData?checkNum=<%=request.getAttribute("WAITCHECK")%>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+				
+		  </tr>
+		</thead>
+		<thead> 
+			<tr>
+			<th field="seqNumber">编号</th>
+				<th data-options="field:'CSType'">
+						类型
+					</th>
+					<th data-options="field:'CSName'">
+						课程名称
+					</th>
+					<th data-options="field:'CSID'">
+						课程编号
+					</th>
+					<th data-options="field:'CSLevel'">
+						级别
+					</th>
+					<th data-options="field:'leader'">
+					           负责人
+					</th>
+					<th data-options="field:'teaID'">
+						教工号
+					</th>
+					<th data-options="field:'joinTeaNum'">
+						参与教师总人数
+					</th>
+					<th data-options="field:'otherTea'">
+						其他参与教师
+					</th>
+					<th data-options="field:'CSUrl'">
+						课程访问链接
+					</th>
+					<th data-options="field:'appvlTime'" formatter="formattime">
+						获准时间
+					</th>
+					<th data-options="field:'receptTime'" formatter="formattime">
+					          验收时间
+					</th>
+					<th data-options="field:'teaUnit'">
+						所属教学单位
+					</th>
+					<th data-options="field:'unitID'">
+					          单位号
+					</th>
+					<th data-options="field:'appvlID'">
+						批文号
+					</th>
+					<th data-options="field:'note'">
+						备注
+					</th>
+			</tr>
+		</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T521/auditingData?checkNum=<%=request.getAttribute("PASSCHECK")%>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 				
 		  </tr>
 		</thead>

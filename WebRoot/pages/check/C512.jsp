@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data	
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data		
 						  		}
 				    }
 				});  	    
@@ -100,6 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -110,12 +113,125 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 
 <body style="height: 100%'">
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T512/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+				
+		  </tr>
+		</thead>
+		<thead>
+			<tr>
+			<th data-options="field:'seqNumber'" rowspan="2">编号</th>
+			<th data-options="field:'term',align:'center'" rowspan="2">
+			          学期
+				</th>
+				<th data-options="field:'CSUnit',align:'center'" rowspan="2">
+				开课单位
+				</th>
+				<th data-options="field:'unitID',align:'center'" rowspan="2">
+				单位号
+				</th>
+				<th data-options="field:'CSMajorName',align:'center'" rowspan="2">
+				上课专业名称
+				</th>
+				<th data-options="field:'CSMajorID',align:'center'" rowspan="2">
+				上课专业代码
+				</th>
+				<th colspan="12">
+			      1.本科课程情况   
+				</th>
+				<th colspan="8">
+			      2.本科授课情况   
+				</th>
+				<th colspan="3">
+			      3.使用教材   
+				</th>
+			</tr>
+			<tr>
+				<th data-options="field:'CSName',align:'center'">
+				课程名称
+				</th>
+				<th data-options="field:'CSID',align:'center'">
+				课程编号
+				</th>
+				<th data-options="field:'CSType',align:'center'">
+				课程类别
+				</th>
+				<th data-options="field:'CSNature',align:'center' ">
+				课程性质
+				</th>
+				<th data-options="field:'pubCSType',align:'center'">
+				公选课类别
+				</th>
+				<th data-options="field:'isDoubleCS',align:'center'" formatter="formatBoolean">
+			          是否双语授课
+				</th>
+				<th data-options="field:'credit',align:'center'">
+				学分
+				</th>
+				<th data-options="field:'sumCSHour',align:'center'">
+				总学时
+				</th>
+				<th data-options="field:'theoryCSHour',align:'center' ">
+				理论学时
+				</th>
+				<th data-options="field:'praCSHour',align:'center'">
+				实践学时
+				</th>
+				<th data-options="field:'examWay',align:'center' ">
+				考核方式
+				</th>
+				<th data-options="field:'planTime',align:'center'">
+				实习、设计时间
+				</th>
+				<th data-options="field:'CSGrade',align:'center'">
+				授课年级
+				</th>
+				<th data-options="field:'CSClass',align:'center'">
+				授课班级
+				</th>
+				<th data-options="field:'classID',align:'center'">
+				开课班号
+				</th>
+				<th data-options="field:'classInfo',align:'center' ">
+				合班情况
+				</th>
+				<th data-options="field:'stuNum',align:'center'">
+				学生人数
+				</th>
+				<th data-options="field:'CSTea',align:'center'">
+			        任课教师
+				</th>
+				<th data-options="field:'teaID',align:'center'">
+			       教工号
+				</th>
+				<th data-options="field:'isAccordJob',align:'center'" formatter="formatBoolean">
+			         是否符合岗位资格
+				</th>
+				<th data-options="field:'teaTitle',align:'center'">
+			        教师职称
+				</th>
+				<th data-options="field:'bookUseInfo',align:'center'">
+				使用情况
+				</th>
+				<th data-options="field:'isPlanbook',align:'center'" formatter="formatBoolean">
+			         是否规划教材
+				</th>
+				<th data-options="field:'isAwardbook',align:'center'" formatter="formatBoolean">
+				是否获奖教材
+				</th>
+			</tr>		
+			</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T512/auditingData?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 				
 		  </tr>
 		</thead>

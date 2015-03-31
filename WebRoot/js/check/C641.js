@@ -94,6 +94,9 @@ $(function() {
 				$("#edit").propertygrid( {
 					title : '本科生奖贷补'
 				});
+				$("#renopass").hide();
+				$("#pass").hide();
+				$("#nopass").hide();
 			} else {
 				//alert(json.checkState);
 		if (json.checkState == WAITCHECK) {
@@ -103,18 +106,21 @@ $(function() {
 			//document.getElementById("export").style.display ="none";
 		$("#pass").show();
 		$("#nopass").show();
+		$("#renopass").hide();
 	} else if (json.checkState == PASSCHECK) {
 		$("#edit").propertygrid( {
 			title : '本科生奖贷补（<font color=red>已审核通过</font>）'
 		});
 		$("#pass").hide();
 		$("#nopass").hide();
+		$("#renopass").show();
 	} else {
 		$("#edit").propertygrid( {
 			title : '本科生奖贷补（<font color=red>已审核未通过</font>）'
 		});
 		$("#pass").hide();
 		$("#nopass").hide();
+		$("#renopass").hide();
 	}
 }
 var i = 0;
@@ -156,6 +162,9 @@ while (i < rows.length) {
 					$("#edit").propertygrid( {
 						title : '本科生奖贷补'
 					});
+					$("#pass").hide();
+					$("#nopass").hide();
+					$("#renopass").hide();
 				} else {
 					//alert(json.checkState);
 			if (json.checkState == WAITCHECK) {
@@ -165,18 +174,21 @@ while (i < rows.length) {
 				//document.getElementById("export").style.display ="none";
 			$("#pass").show();
 			$("#nopass").show();
+			$("#renopass").hide();
 		} else if (json.checkState == PASSCHECK) {
 			$("#edit").propertygrid( {
 				title : '本科生奖贷补（<font color=red>已审核通过</font>）'
 			});
 			$("#pass").hide();
 			$("#nopass").hide();
+			$("#renopass").show();
 		} else {
 			$("#edit").propertygrid( {
 				title : '本科生奖贷补（<font color=red>已审核未通过</font>）'
 			});
 			$("#pass").hide();
 			$("#nopass").hide();
+			$("#renopass").hide();
 		}
 	}
 	var i = 0;
@@ -240,6 +252,9 @@ function reloadgrid(year, flag) {
 				$("#edit").propertygrid( {
 					title : '本科生奖贷补'
 				});
+				$("#pass").hide();
+				$("#nopass").hide();
+				$("#renopass").hide();
 			} else {
 				//alert(json.checkState);
 		if (json.checkState == WAITCHECK) {
@@ -249,18 +264,21 @@ function reloadgrid(year, flag) {
 			//document.getElementById("export").style.display ="none";
 		$("#pass").show();
 		$("#nopass").show();
+		$("#renopass").hide();
 	} else if (json.checkState == PASSCHECK) {
 		$("#edit").propertygrid( {
 			title : '本科生奖贷补（<font color=red>已审核通过</font>）'
 		});
 		$("#pass").hide();
 		$("#nopass").hide();
+		$("#renopass").show();
 	} else {
 		$("#edit").propertygrid( {
 			title : '本科生奖贷补（<font color=red>已审核未通过</font>）'
 		});
 		$("#pass").hide();
 		$("#nopass").hide();
+		$("#renopass").hide();
 	}
 }
 var i = 0;

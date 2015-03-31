@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data	
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data		
 						  		}
 				    }
 				});  	    
@@ -100,6 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -110,12 +113,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 
 <body style="height: 100%'">
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T152/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+				
+		  </tr>
+		</thead>
+		<thead>
+			<tr>
+			 <th data-options="field:'seqNumber'">编号</th>
+				<th data-options="field:'resInsName'" >科研机构名称</th>
+				<th data-options="field:'resInsID'" >单位号</th>		
+				<th data-options="field:'type'" >类别</th>
+				<th data-options="field:'buildCondition'" formatter="booleanstr" >共建情况</th>
+				<th data-options="field:'biOpen'"  formatter="booleanstr" >是否对本科生开放</th>
+				<th data-options="field:'openCondition'" >对本科生开放情况（500字以内）</th>
+				<th data-options="field:'teaUnit'">所属教学单位</th>
+				<th data-options="field:'unitID'" >教学单位号</th>
+				<th data-options="field:'beginYear'" fit="true" formatter="formattime">开设年份</th>
+				<th data-options="field:'houseArea'" >专业科研用房面积（平方米）</th>
+				<!-- <th field="fillUnitID">填报单位</th> -->
+				<th data-options="field:'fillUnitID',hidden:true">填报教学单位</th>
+				<th data-options="field:'note'" >备注</th>
+			</tr>
+			</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T152/auditingData?checkNum=<%=request.getAttribute("PASSCHECK")%>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 				
 		  </tr>
 		</thead>

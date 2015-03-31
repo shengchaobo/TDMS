@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+											 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data
+											 $('#checkPassData').datagrid('reload'); // reload the user data			
 						  		}
 				    }
 				});  	    
@@ -84,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
    //全部审核通过
   function checkAll(){
-              if(confirm("全部数据审核通过，确认吗？")){
+              if(confirm("全部数据审核通过，该操作不可恢复，确认吗？")){
 		    $.ajax({
 				    type:"POST", 
 				    url: "pages/PostDocSta/checkAll", 
@@ -99,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+											 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});
@@ -109,6 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%'">
   <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/PostDocSta/auditingData?checkNum=<%=request.getAttribute("WAITCHECK")%>"   style="height: auto"  >
@@ -130,10 +135,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	</table>
-	
+	<table  id="checkPassData"  class="easyui-datagrid"  url="pages/PostDocSta/auditingData?checkNum=<%=request.getAttribute("PASSCHECK")%>&checkFlag=0"    style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
+		  </tr>
+		</thead>
+		
+		<thead> 
+			<tr>
+			 <th field="seqNumber">编号</th>
+				<th field="postDocStaName" >博士后流动站名称</th>
+				<th field="setTime"  formatter="formattime">设置时间</th>
+				<th field="researcherNum" >研究员人数</th>
+				<th field="unitName" >所属单位</th>
+				<th field="unitID" >单位号</th>
+				<th field="note">备注</th>
+			</tr>
+		</thead>
+	</table>
   <div id="toolbar"  style="float: right;">
 			<a href='javascript:checkAll()'   class="easyui-linkbutton" iconCls="icon-download" plain="true"  >
-					一键全审核通过
+					一键审核通过
 			</a>
 	</div>
 	

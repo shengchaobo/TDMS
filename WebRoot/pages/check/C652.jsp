@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -77,6 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});  	    
@@ -100,6 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										  			 });
 								  		} else {
 										    		 $('#checkData').datagrid('reload'); // reload the user data
+										    		 $('#checkPassData').datagrid('reload'); // reload the user data
 								  		}
 						    }
 						});
@@ -110,11 +113,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%" >  
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T652/loadData?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		 </tr>
+		</thead>
+		<thead>
+				<tr>		
+					<th  data-options="field:'seqNumber'" >编号</th>		
+					<th field="teaUnit">教学单位</th>
+				<th field="unitId">单位号</th>
+					<th field="paperTitle">学术论文题目</th>
+				<th field="jonalName">刊物名称</th>
+				<th field="jonalId">刊号</th>
+				<th field="jonalDate" formatter="formattime">刊期</th>				
+				<th field="awardStuName">学生姓名学号</th>
+				<th field="awardStuNum">参与学生人数</th>
+				<th field="guideTeaName">指导教师</th>
+				<th field="guideTeaNum">指导教师人数</th>
+				<th field="isAward"  formatter="formatBoolean">是否获奖</th>
+				<th field="awardLevel">获奖级别</th>
+				<th field="awardName">奖项名称</th>
+				<th field="awardFromUnit">颁发单位</th>
+				<th field="note">备注</th>
+				<th data-options="field:'fillUnitId',hidden:true">填报教学单位</th>
+				</tr>
+			</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T652/loadData?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"    style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		 </tr>
 		</thead>
 		<thead>

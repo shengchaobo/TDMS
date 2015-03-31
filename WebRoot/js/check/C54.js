@@ -43,6 +43,9 @@ $(function() {
 				$("#edit").propertygrid( {
 					title : '课外活动、讲座'
 				});
+				$("#renopass").hide();
+				$("#pass").hide();
+				$("#nopass").hide();
 			} else {
 				//alert(json.checkState);
 		if (json.checkState == WAITCHECK) {
@@ -52,18 +55,21 @@ $(function() {
 			//document.getElementById("export").style.display ="none";
 		$("#pass").show();
 		$("#nopass").show();
+		$("#renopass").hide();
 	} else if (json.checkState == PASSCHECK) {
 		$("#edit").propertygrid( {
 			title : '课外活动、讲座（<font color=red>已审核通过</font>）'
 		});
 		$("#pass").hide();
 		$("#nopass").hide();
+		$("#renopass").show();
 	} else {
 		$("#edit").propertygrid( {
 			title : '课外活动、讲座（<font color=red>已审核未通过</font>）'
 		});
 		$("#pass").hide();
 		$("#nopass").hide();
+		$("#renopass").hide();
 	}
 }
 var i = 0;
@@ -105,6 +111,9 @@ while (i < rows.length) {
 					$("#edit").propertygrid( {
 						title : '课外活动、讲座'
 					});
+					$("#renopass").hide();
+					$("#pass").hide();
+					$("#nopass").hide();
 				} else {
 					//alert(json.checkState);
 			if (json.checkState == WAITCHECK) {
@@ -112,20 +121,23 @@ while (i < rows.length) {
 					title : '课外活动、讲座（<font color=red>待审核</font>）'
 				});
 				//document.getElementById("export").style.display ="none";
-			$("#pass").show();
-			$("#nopass").show();
+				$("#pass").show();
+				$("#nopass").show();
+				$("#renopass").hide();
 		} else if (json.checkState == PASSCHECK) {
 			$("#edit").propertygrid( {
 				title : '课外活动、讲座（<font color=red>已审核通过</font>）'
 			});
 			$("#pass").hide();
 			$("#nopass").hide();
+			$("#renopass").show();
 		} else {
 			$("#edit").propertygrid( {
 				title : '课外活动、讲座（<font color=red>已审核未通过</font>）'
 			});
 			$("#pass").hide();
 			$("#nopass").hide();
+			$("#renopass").hide();
 		}
 	}
 	var i = 0;
@@ -189,6 +201,9 @@ function reloadgrid(year, flag) {
 				$("#edit").propertygrid( {
 					title : '课外活动、讲座'
 				});
+				$("#renopass").hide();
+				$("#pass").hide();
+				$("#nopass").hide();
 			} else {
 				//alert(json.checkState);
 		if (json.checkState == WAITCHECK) {
@@ -196,20 +211,23 @@ function reloadgrid(year, flag) {
 				title : '课外活动、讲座（<font color=red>待审核</font>）'
 			});
 			//document.getElementById("export").style.display ="none";
-		$("#pass").show();
-		$("#nopass").show();
+			$("#pass").show();
+			$("#nopass").show();
+			$("#renopass").hide();
 	} else if (json.checkState == PASSCHECK) {
 		$("#edit").propertygrid( {
 			title : '课外活动、讲座（<font color=red>已审核通过</font>）'
 		});
 		$("#pass").hide();
 		$("#nopass").hide();
+		$("#renopass").show();
 	} else {
 		$("#edit").propertygrid( {
 			title : '课外活动、讲座（<font color=red>已审核未通过</font>）'
 		});
 		$("#pass").hide();
 		$("#nopass").hide();
+		$("#renopass").hide();
 	}
 }
 var i = 0;

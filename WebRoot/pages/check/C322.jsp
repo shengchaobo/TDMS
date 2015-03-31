@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data	
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});  	    
@@ -100,6 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										  			 });
 								  		} else {
 										    		 $('#checkData').datagrid('reload'); // reload the user data
+										    		 $('#checkPassData').datagrid('reload'); // reload the user data
 								  		}
 						    }
 						});
@@ -110,11 +113,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%" >  
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/UndergraMajorInfoTea/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"    style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		 </tr>
+		</thead>
+		<thead>
+				<tr>		
+					<th  data-options="field:'seqNumber'" >编号</th>			
+				<th field="majorName" >专业名称</th>
+				<th field="majorID" >专业代码</th>
+					<th field="majorVersion" >代码版本</th>
+					<th field="schMajorName" >校内专业名称</th>
+				<th field="schMajorID" >校内专业代码</th>
+				<th field="majorField" >专业方向名称</th>
+				<th field="majorFieldID" >专业方向号</th>
+				<th field="majorSetTime"  formatter="formattime">专业设置时间</th>
+				<th field="majorAppvlID"  >批文号</th>
+				<th field="majorDurition" >学制</th>
+				<th field="majorDegreeType" >学位授予门类</th>
+				<th field="majorAdmisTime"  formatter="formattime">开始招生时间</th>
+				<th field="majorState" >招生状态</th>
+				<th field="stopAdmisTime"  formatter="formattime">停止招生时间</th>
+				<th field="isNewMajor" formatter="booleanstr" >是否新办专业</th>
+				<th field="majorFeature">专业特色简述</th>
+				<th field="majorPurpose">专业培养目标简述</th>
+				<th field="appvlYear"  formatter="formattime">批准建设年度</th>
+				<th field="buildAppvlID" >建设批文号</th>
+				<th field="majorLevel" >级别</th>
+				<th field="type" >类型</th>
+				<th field="field" >领域方向</th>
+				<th field="leader"  >建设负责人</th>
+				<th field="teaID" >教工号</th>
+				<th field="checkTime"  formatter="formattime">验收时间</th>
+				<th field="checkAppvlID" >验收批文号</th>
+				<th field="schExp" >学校经费（万元）</th>
+				<th field="eduMinistryExp" >教育部经费（万元）</th>
+				<th field="firstAppvlTime"  formatter="formattime">首次通过认证时间</th>
+				<th field="appvlTime"  formatter="formattime">认证时间</th>
+				<th field="appvlID" >批文号</th>
+				<th field="appvlResult" >认证结果</th>
+				<th field="fromTime"  formatter="formattime">有效期（起）</th>
+				<th field="endTime"  formatter="formattime">有效期（止）</th>
+				<th field="appvlAuth"  >认证机构</th>
+				<th field="totalCSHour" >总学时数</th>
+				<th field="requireCShour" >必修课学时数</th>
+				<th field="optionCSHour" >选修课学时数</th>
+				<th field="inClassCSHour" >课内教学学时数</th>
+				<th field="expCSHour" >实验教学学时数</th>
+				<th field="praCSHour" >集中性实践教学环节学时数</th>
+				<th field="totalCredit" >总学分数</th>
+				<th field="requireCredit" >必修课学分数</th>
+				<th field="optionCredit" >选修课学分数</th>
+				<th field="inClassCredit" >课内教学学分数</th>
+				<th field="expCredit" >实验教学学分数</th>
+				<th field="praCredit" >集中实践教学环节学分数</th>
+				<th field="outClassCredit" >课外科技活动学分数</th>
+				<th field="note" >备注</th>
+					 <th data-options="field:'fillUnitID',hidden:true">
+						填报教学单位
+					</th>
+				</tr>
+			</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/UndergraMajorInfoTea/auditingData?checkNum=<%=request.getAttribute("PASSCHECK")%>&checkFlag=0"    style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		 </tr>
 		</thead>
 		<thead>

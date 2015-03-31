@@ -45,7 +45,17 @@ private T313_Service discipSer = new T313_Service() ;
 	private String excelName; //
 	/**  审核状态显示判别标志  */
 	private int checkNum ;
+	private int checkFlag ;
 	
+	
+	public int getCheckFlag() {
+		return checkFlag;
+	}
+
+	public void setCheckFlag(int checkFlag) {
+		this.checkFlag = checkFlag;
+	}
+
 	public String getExcelName() {
 		try {
 			this.excelName = URLEncoder.encode(excelName, "UTF-8");
@@ -164,9 +174,11 @@ public void auditingData(){
 				if(this.getQueryYear() != null){
 					conditions.append(" and Time like '" + this.queryYear + "%'");
 				}else{
+					if(this.getCheckFlag()!=0){
 					 Calendar now = Calendar.getInstance();  
 					 this.setQueryYear(now.get(Calendar.YEAR)+"");
 					 conditions.append(" and Time like '" + this.queryYear + "%'");
+					}
 				}
 			}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 				conditions.append(" and CheckState=" + this.getCheckNum()) ;

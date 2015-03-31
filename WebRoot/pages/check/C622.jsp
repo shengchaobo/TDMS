@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		  $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data	
+								    		  $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});  	    
@@ -99,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									  			 });
 							  		} else {
 									    		 $('#checkData').datagrid('reload'); // reload the user data
+									    		  $('#checkPassData').datagrid('reload'); // reload the user data
 							  		}
 					    }
 					});
@@ -109,11 +112,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%'">
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T622/loadData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+		  </tr>
+		</thead>
+		<thead>
+				<tr>		
+					<th  data-options="field:'seqNumber'" >编号</th>
+					<th field="province">省份</th>
+				<th field="batch">批次</th>
+					<th field="libEnrollNum">文科录取数</th>
+				<th field="sciEnrollNum">理科录取数</th>			
+				<th field="libLowestScore">文科批次最低控制线（分）</th>		
+				<th field="sciLowestScore">理科批次最低控制线（分）</th>		
+				<th field="libAvgScore">文科当年录取平均分数（分）</th>
+				<th field="sciAvgScore">理科当年录取平均分数（分）</th>
+				<th field="note">说明</th>
+				
+				</tr>
+			</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T622/loadData?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		  </tr>
 		</thead>
 		<thead>

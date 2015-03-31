@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -76,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  		 			msg: result.data
 								  			 });
 						  		} else {
-								    		 $('#checkData').datagrid('reload'); // reload the user data		
+								    		 $('#checkData').datagrid('reload'); // reload the user data	
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data	
 						  		}
 				    }
 				});  	    
@@ -99,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								  			 });
 						  		} else {
 								    		 $('#checkData').datagrid('reload'); // reload the user data
+								    		 $('#checkPassData').datagrid('reload'); // reload the user data
 						  		}
 				    }
 				});
@@ -109,12 +112,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
+<% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 <body style="height: 100%'">
-  <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T532/auditingData?checkNum=<%=request.getAttribute("WAITCHECK")%>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
 				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+				
+		  </tr>
+		</thead>
+
+		<thead> 
+			<tr>
+			<th data-options="field:'seqNumber'">编号</th>
+				<th data-options="field:'centerName'">
+						中心名称
+					</th>
+				<th data-options="field:'fromSubject'">
+						所属学科
+					</th>
+					<th data-options="field:'subjectID'">
+						学科代码
+					</th>
+					<th data-options="field:'centerLevel'">
+						级别
+				        </th>
+
+					<th data-options="field:'fromTeaUnit'">
+						所属教学单位
+					</th>
+					<th data-options="field:'unitID'">
+						单位号
+					</th>
+					<th data-options="field:'centerLeader'">
+						中心主任
+					</th>
+					<th data-options="field:'teaID'">
+						教工号
+					</th>
+					<th data-options="field:'teaTitle'">
+						职称
+					</th>
+					<th data-options="field:'buildTime'" formatter="formattime">
+						设立时间
+					</th>
+					<th data-options="field:'buildAppvlID'">
+						建设批文号
+					</th>
+					<th data-options="field:'receptTime'" formatter="formattime">
+						验收时间
+					</th>
+					<th data-options="field:'receptAppvlID'">
+						验收批文号
+					</th>
+					<th data-options="field:'validTime'">
+						有效期（年）
+					</th>
+					<th data-options="field:'fund'">
+						经费(万元)
+					</th>
+					<th data-options="field:'note'">
+						备注
+					</th>
+			</tr>
+		</thead>
+	</table>
+	
+		<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T532/auditingData?checkNum=<%=request.getAttribute("PASSCHECK")%>&checkFlag=0"   style="height: auto"  >
+		<thead data-options="frozen:true">
+			<tr>			
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 				
 		  </tr>
 		</thead>

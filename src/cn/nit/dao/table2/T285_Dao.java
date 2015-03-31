@@ -72,10 +72,17 @@ public class T285_Dao {
 				DAOUtil.batchInsert(list, tableName, field, conn) ;	
 				
 				//再取出来
+				try{
 				conn1 = DBConnection.instance.getConnection() ;
 				st = conn1.createStatement() ;
 				rs = st.executeQuery(sql) ;
 				list = DAOUtil.getList(rs, T285_Bean.class) ;
+				}catch(Exception e){
+					e.printStackTrace();
+					return null;
+				}finally{
+					DBConnection.close(conn1);
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -83,7 +90,6 @@ public class T285_Dao {
 		}finally{
 			DBConnection.close(rs);
 			DBConnection.close(st);
-			DBConnection.close(conn1);
 			DBConnection.close(conn);
 		}
 		return list ;

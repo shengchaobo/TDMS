@@ -57,7 +57,7 @@ public class T513_DAO {
 			rs = st.executeQuery(sql.toString()) ;
 			list= DAOUtil.getList(rs, T513POJO.class) ;
 			Date time = TimeUtil.changeDateY(year);
-			System.out.println("daolist:"+list.size());
+			//System.out.println("daolist:"+list.size());
 			
 			//如果当前年表中没有单位列数据，先将单位列数据插入到表中
 			if(list.size()==0){
@@ -101,10 +101,18 @@ public class T513_DAO {
 				DAOUtil.batchInsert(list1, tableName, field, conn) ;	
 				
 				//再取出来
-				conn1 = DBConnection.instance.getConnection() ;
-				st = conn1.createStatement() ;
-				rs = st.executeQuery(sql.toString()) ;
-				list = DAOUtil.getList(rs, T513POJO.class) ;
+				try{
+					//再取出来
+					conn1 = DBConnection.instance.getConnection() ;
+					st = conn1.createStatement() ;
+					rs = st.executeQuery(sql.toString()) ;
+					list = DAOUtil.getList(rs, T513POJO.class) ;
+				}catch(Exception e){
+					e.printStackTrace();
+					return null;
+				}finally{
+					DBConnection.close(conn1);
+				}	
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
@@ -112,7 +120,6 @@ public class T513_DAO {
 		}finally{
 			DBConnection.close(rs);
 			DBConnection.close(st);
-			DBConnection.close(conn1);
 			DBConnection.close(conn);
 		}
 		

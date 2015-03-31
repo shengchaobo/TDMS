@@ -10,6 +10,7 @@ import java.util.List;
 import net.sf.json.JSON;
 
 import cn.nit.bean.table6.T651_Bean;
+import cn.nit.bean.table6.T655_Bean;
 import cn.nit.bean.table6.T656_Bean;
 import cn.nit.dbconnection.DBConnection;
 import cn.nit.util.DAOUtil;
@@ -77,18 +78,27 @@ public class T656_Dao {
 				DAOUtil.batchInsert(list, tableName, field, conn) ;	
 				
 				//再取出来
-				conn1 = DBConnection.instance.getConnection() ;
-				st = conn1.createStatement() ;
-				rs = st.executeQuery(sql) ;
-				list = DAOUtil.getList(rs, T656_Bean.class) ;
+				try{
+					//再取出来
+					conn1 = DBConnection.instance.getConnection() ;
+					st = conn1.createStatement() ;
+					rs = st.executeQuery(sql) ;
+					list = DAOUtil.getList(rs, T656_Bean.class) ;
+				}catch(Exception e){
+					e.printStackTrace();
+					return null;
+				}finally{
+					DBConnection.close(conn1);
+				}
+
+				
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null ;
 		}finally{
 			DBConnection.close(rs);
-			DBConnection.close(st);	
-			DBConnection.close(conn1);
+			DBConnection.close(st);
 			DBConnection.close(conn);
 		}
 		

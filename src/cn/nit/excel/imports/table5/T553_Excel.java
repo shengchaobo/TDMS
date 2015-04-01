@@ -48,14 +48,14 @@ public class T553_Excel {
 					continue;
 				}
 				
-				String awardname = cell[1].getContents() ;
+				String awardname = cell[1].getContents().trim() ;
 				if(awardname == null || awardname.equals("")){
 					return "第" + count + "行，获奖名称不能为空" ;
 				}
 				if(awardname.length()>100){
 					return "第" + count + "行，获奖名称字数不能超过50字" ;
 				}
-				String awardstuname = cell[2].getContents() ;
+				String awardstuname = cell[2].getContents().trim() ;
 				if((awardstuname == null) || awardstuname.equals("")){
 					return "第" + count + "行，获奖学生姓名不能为空" ;
 				}
@@ -63,7 +63,7 @@ public class T553_Excel {
 					return "第" + count + "行，获奖学生姓名字数不能超过50字" ;
 				}
 				
-				String stuID = cell[3].getContents() ;
+				String stuID = cell[3].getContents().trim() ;
 				if((stuID == null) || stuID.equals("")){
 					return "第" + count + "行，学号不能为空" ;
 				}
@@ -71,7 +71,7 @@ public class T553_Excel {
 					return "第" + count + "行，学号字数不能超过50字" ;
 				}
 				
-				String teaUnit = cell[4].getContents() ;
+				String teaUnit = cell[4].getContents().trim() ;
 				if((teaUnit == null) || teaUnit.equals("")){
 					return "第" + count + "行，所在教学单位不能为空" ;
 				}	
@@ -79,7 +79,7 @@ public class T553_Excel {
 					return "第" + count + "行，所在教学单位字数不能超过100字" ;
 				}
 				
-				String fromClass = cell[5].getContents() ;
+				String fromClass = cell[5].getContents().trim() ;
 				if((fromClass == null) || fromClass.equals("")){
 					return "第" + count + "行，所在班级不能为空" ;
 				}
@@ -87,7 +87,7 @@ public class T553_Excel {
 					return "第" + count + "行，所在班级字数不能超过50字" ;
 				}
 				
-				String ardLevel = cell[6].getContents() ;
+				String ardLevel = cell[6].getContents().trim() ;
 				if((ardLevel == null) || ardLevel.equals("")){
 					return "第" + count + "行，级别不能为空" ;
 				}
@@ -107,7 +107,7 @@ public class T553_Excel {
 				}else{
 					flag = false ;
 				}
-				String awardTime = cell[7].getContents();
+				String awardTime = cell[7].getContents().trim();
 				if(awardTime == null || awardTime.equals("")){
 					return "第" + count + "行，获奖时间不能为空" ;
 				}

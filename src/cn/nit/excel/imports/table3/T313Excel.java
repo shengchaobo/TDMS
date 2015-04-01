@@ -74,20 +74,20 @@ public class T313Excel {
 				    	continue;
 				    }
 				 
-				    String DiscipName = cell[1].getContents();
+				    String DiscipName = cell[1].getContents().trim();
 				    
 				    if(DiscipName == null || DiscipName.equals("")){
 				    	return "第" + count + "行，重点学科名称不能为空" ;
 				    }
 
-					String DiscipID = cell[2].getContents() ;
+					String DiscipID = cell[2].getContents().trim();
 					
 					if(DiscipID == null ||DiscipID.equals("")){
 						return "第" + count + "行，学科代码不能为空" ;
 					}
 
-					String UnitName = cell[3].getContents();
-					String UnitID=cell[4].getContents();
+					String UnitName = cell[3].getContents().trim();
+					String UnitID=cell[4].getContents().trim();
 					
 					if(UnitName == null || UnitName.equals("")){
 						return "第" + count + "行，所属教学单位不能为空";
@@ -114,7 +114,7 @@ public class T313Excel {
 						flag = false ;
 					}
 					
-				    String DiscipType = cell[5].getContents();
+				    String DiscipType = cell[5].getContents().trim();
 				    
 					if(DiscipType.equals("01哲学")||DiscipType.equals("02经济学")||DiscipType.equals("03法学")||DiscipType.equals("04教育学")||DiscipType.equals("05文学")||DiscipType.equals("06历史学")||DiscipType.equals("07理学")||DiscipType.equals("08工学")||DiscipType.equals("09农学")||DiscipType.equals("10医学")||DiscipType.equals("11军事学")||DiscipType.equals("12管理学")||DiscipType.equals("13艺术学")){
 					

@@ -100,12 +100,12 @@ public class T655_Excel {
 					continue;
 				}
 				
-				String teaUnit = cell[1].getContents();
+				String teaUnit = cell[1].getContents().trim();
 				if (teaUnit == null || teaUnit.equals("")) {
 					return "第" + count + "行，教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -130,18 +130,18 @@ public class T655_Excel {
 					flag = false;
 				}
 
-				String CET4PassRate = cell[3].getContents();
+				String CET4PassRate = cell[3].getContents().trim();
 
 				if (CET4PassRate == null || CET4PassRate.equals("")) {
 					return "第" + count + "行，英语四级考试累计通过率不能为空";
 				}
 				
-				String CET6PassRate = cell[4].getContents();
+				String CET6PassRate = cell[4].getContents().trim();
 				if (CET6PassRate == null || CET6PassRate.equals("")) {
 					return "第" + count + "行，英语六级考试累计通过率不能为空";
 				}
 				
-				String jiangxiNCREPassRate = cell[5].getContents();
+				String jiangxiNCREPassRate = cell[5].getContents().trim();
 				if (jiangxiNCREPassRate == null || jiangxiNCREPassRate.equals("")) {
 					return "第" + count + "行，江西省高校计算机等级考试累计通过率不能为空";
 				}

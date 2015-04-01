@@ -59,8 +59,8 @@ public class T461_Excel {
 					continue;
 				}
 				
-				String name = cell[1].getContents() ;
-				String teaId = cell[2].getContents() ;
+				String name = cell[1].getContents().trim();
+				String teaId = cell[2].getContents().trim() ;
 				
 				if(name == null || name.equals("")){
 					return "第" + count + "行，名称不能为空" ;
@@ -70,8 +70,8 @@ public class T461_Excel {
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				
-				String unit = cell[3].getContents() ;
-				String unitId = cell[4].getContents() ;
+				String unit = cell[3].getContents().trim() ;
+				String unitId = cell[4].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属单位不能为空" ;
@@ -98,7 +98,7 @@ public class T461_Excel {
 					flag = false ;
 				}
 				
-				String awardType = cell[5].getContents() ;
+				String awardType = cell[5].getContents().trim() ;
 				
 				if(awardType == null || awardType.equals("")){
 					return "第" + count + "行，获奖类型不能为空" ;
@@ -118,7 +118,7 @@ public class T461_Excel {
 					flag = false ;
 				}
 				
-				String awardLevel = cell[6].getContents() ;
+				String awardLevel = cell[6].getContents().trim() ;
 				
 				if(awardLevel == null || awardLevel.equals("")){
 					return "第" + count + "行，获奖级别不能为空" ;
@@ -139,9 +139,9 @@ public class T461_Excel {
 				}
 				
 				
-				String awardFromUnit = cell[7].getContents();
+				String awardFromUnit = cell[7].getContents().trim();
 				
-				String gainAwardTime = cell[8].getContents() ;
+				String gainAwardTime = cell[8].getContents().trim() ;
 				if((gainAwardTime == null) || gainAwardTime.equals("")){
 					return "第" + count + "行，获奖日间不能为空" ;
 				}else{
@@ -150,10 +150,10 @@ public class T461_Excel {
 					}
 				}
 												
-				String appvlId = cell[9].getContents() ;
-				String otherTeaNum = cell[10].getContents() ;
-				String otherTeaInfo = cell[11].getContents() ;
-				String note = cell[12].getContents() ;
+				String appvlId = cell[9].getContents().trim() ;
+				String otherTeaNum = cell[10].getContents().trim();
+				String otherTeaInfo = cell[11].getContents().trim() ;
+				String note = cell[12].getContents().trim() ;
 								
 				count++ ;
 								

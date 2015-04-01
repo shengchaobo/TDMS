@@ -59,8 +59,8 @@ public class T711_Excel {
 					continue;
 				}
 			
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
@@ -91,8 +91,8 @@ public class T711_Excel {
 					flag = false ;
 				}
 				
-				String name = cell[3].getContents() ;
-				String teaId = cell[4].getContents() ;
+				String name = cell[3].getContents().trim();
+				String teaId = cell[4].getContents().trim() ;
 				
 				if(name == null || name.equals("")){
 					return "第" + count + "行，名称不能为空" ;
@@ -136,14 +136,14 @@ public class T711_Excel {
 //				if(teaId.length()>50){
 //					return "第" + count + "行，教工号不能超过50个字符" ;
 //				}
-				String ardName = cell[5].getContents() ;
+				String ardName = cell[5].getContents().trim() ;
 				if((ardName == null) || ardName.equals("")){
 					return "第" + count + "行，奖励名称不能为空" ;
 				}
 				if(ardName.length()>200){
 					return "第" + count + "行，奖励名称不能超过200个字符" ; 
 				}
-				String ardLevel = cell[6].getContents() ;
+				String ardLevel = cell[6].getContents().trim() ;
 				if((ardLevel == null) || ardLevel.equals("")){
 					return "第" + count + "行，级别不能为空" ;
 				}
@@ -167,35 +167,35 @@ public class T711_Excel {
 					flag = false ;
 				}
 				
-				String ardRank = cell[7].getContents();
+				String ardRank = cell[7].getContents().trim();
 				if(ardRank == null || ardRank.equals("")){
 					return "第" + count + "行，等级不能为空" ;
 				}
 				if(!ardRank.equals("一等奖") && !ardRank.equals("二等奖")&& !ardRank.equals("三等奖")&& !ardRank.equals("优秀奖")&& !ardRank.equals("其他")){
 					return "第" + count + "行，等级格式有误，只能填写“一等奖”或“二等奖”或“三等奖”或“优秀奖”或“其他”";
 				}
-				String ardTime = cell[8].getContents();
+				String ardTime = cell[8].getContents().trim();
 				if(ardTime == null || ardTime.equals("")){
 					return "第" + count + "行，获奖时间不能为空" ;
 				}
 				if(!TimeUtil.judgeFormatYM(ardTime)){
 					return "第" + count + "行，获准时间格式不正确，格式为：2012-09" ;
 				}
-				String ardFu = cell[9].getContents();
+				String ardFu = cell[9].getContents().trim();
 				if(ardFu == null || ardFu.equals("")){
 					return "第" + count + "行，授予单位不能为空" ;
 				}
 				if(ardFu.length()>200){
 					return "第" + count + "行，授予单位不能超过200个字符" ; 
 				}
-				String appID = cell[10].getContents();
+				String appID = cell[10].getContents().trim();
 				if(appID == null || appID.equals("")){
 					return "第" + count + "行，批文号不能为空" ;
 				}
 				if(appID.length()>100){
 					return "第" + count + "行，批文号不能超过100个字符" ; 
 				}
-				String joinTn = cell[11].getContents();
+				String joinTn = cell[11].getContents().trim();
 				if(joinTn == null || joinTn.equals("")){
 					return "第" + count + "行，合作教师人数不能为空" ;
 				}
@@ -203,7 +203,7 @@ public class T711_Excel {
 					return "第" + count + "行，合作教师人数只能填数字" ;
 				}
 				
-				String otherJTI = cell[12].getContents();
+				String otherJTI = cell[12].getContents().trim();
 				if(otherJTI == null || otherJTI.equals("")){
 					return "第" + count + "行，其他合作教师不能为空" ;
 				}
@@ -211,7 +211,7 @@ public class T711_Excel {
 					return "第" + count + "行，其他合作教师不能超过300个字符" ; 
 				}
 				
-				String note = cell[13].getContents();
+				String note = cell[13].getContents().trim();
 				
 				count++ ;
 				//插入教学单位

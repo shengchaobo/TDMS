@@ -100,12 +100,12 @@ public class T657_Excel {
 					continue;
 				}
 				
-				String teaUnit = cell[1].getContents();
+				String teaUnit = cell[1].getContents().trim();
 				if (teaUnit == null || teaUnit.equals("")) {
 					return "第" + count + "行，教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -131,13 +131,13 @@ public class T657_Excel {
 				}
 
 
-				String habitusQualifiedRate = cell[3].getContents();
+				String habitusQualifiedRate = cell[3].getContents().trim();
 
 				if (habitusQualifiedRate == null || habitusQualifiedRate.equals("")) {
 					return "第" + count + "行，体质合格率不能为空";
 				}
 				
-				String habitusTestReachRate = cell[4].getContents();
+				String habitusTestReachRate = cell[4].getContents().trim();
 				if (habitusTestReachRate == null || habitusTestReachRate.equals("")) {
 					return "第" + count + "行，体质测试达标率不能为空";
 				}

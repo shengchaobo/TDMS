@@ -97,8 +97,8 @@ public class T413_Excel {
 					continue;
 				}
 
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属单位不能为空" ;
@@ -125,8 +125,8 @@ public class T413_Excel {
 					flag = false ;
 				}
 				
-				String name = cell[3].getContents() ;
-				String teaId = cell[4].getContents() ;
+				String name = cell[3].getContents().trim() ;
+				String teaId = cell[4].getContents().trim() ;
 				
 				if(name == null || name.equals("")){
 					return "第" + count + "行，教师名称不能为空" ;
@@ -136,12 +136,12 @@ public class T413_Excel {
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				
-				String gender = cell[5].getContents();
+				String gender = cell[5].getContents().trim();
 				if(gender == null || gender.equals("")){
 					return "第" + count + "行，教师性别不能为空" ;
 				}
 				
-				String birthday = cell[6].getContents() ;
+				String birthday = cell[6].getContents().trim();
 				if((birthday == null) || birthday.equals("")){
 					return "第" + count + "行，教师出生日期不能为空" ;
 				}else{
@@ -151,7 +151,7 @@ public class T413_Excel {
 				}
 				
 				
-				String hireBeginTime = cell[7].getContents() ;
+				String hireBeginTime = cell[7].getContents().trim() ;
 				if((hireBeginTime == null) || hireBeginTime.equals("")){
 					return "第" + count + "行，教师聘任时间不能为空" ;
 				}else{
@@ -161,17 +161,17 @@ public class T413_Excel {
 				}
 				
 				
-				String teaState = cell[8].getContents() ;
+				String teaState = cell[8].getContents().trim() ;
 				if((teaState == null) || teaState.equals("")){
 					return "第" + count + "行，教师任职状态不能为空" ;
 				}
 				
-				String hireTimeLen = cell[9].getContents() ;
+				String hireTimeLen = cell[9].getContents().trim();
 				if((hireTimeLen == null) || hireTimeLen.equals("")){
 					return "第" + count + "行，教师聘期（个月）不能为空" ;
 				}
 				
-				String edu = cell[10].getContents() ;
+				String edu = cell[10].getContents().trim() ;
 				
 				if(edu == null || edu.equals("")){
 					return "第" + count + "行，教师学历不能为空" ;
@@ -191,7 +191,7 @@ public class T413_Excel {
 					flag = false ;
 				}
 				
-				String degree = cell[11].getContents() ;
+				String degree = cell[11].getContents().trim() ;
 				
 				if(degree == null || degree.equals("")){
 					return "第" + count + "行，教师最高学位不能为空" ;
@@ -212,7 +212,7 @@ public class T413_Excel {
 				}
 				
 					
-				String majTitle = cell[12].getContents() ;
+				String majTitle = cell[12].getContents().trim() ;
 				
 				if(majTitle == null || majTitle.equals("")){
 					return "第" + count + "行，教师专业技术职称不能为空" ;
@@ -232,15 +232,15 @@ public class T413_Excel {
 					flag = false ;
 				}
 				
-				String subject = cell[13].getContents() ;
+				String subject = cell[13].getContents().trim() ;
 				
 				if(subject == null || subject.equals("")){
 					return "第" + count + "行，学科类别不能为空" ;
 				}
 				
-				String workType = cell[14].getContents() ;
+				String workType = cell[14].getContents().trim() ;
 				
-				String tutorType = cell[15].getContents() ;
+				String tutorType = cell[15].getContents().trim() ;
 				
 				if(tutorType == null || tutorType.equals("")){
 					return "第" + count + "行，导师类型不能为空" ;
@@ -265,7 +265,7 @@ public class T413_Excel {
 					return "第" + count + "行，学科类别不能为空" ;
 				}
 				
-				String region = cell[16].getContents() ;
+				String region = cell[16].getContents().trim() ;
 				
 				count++ ;
 				

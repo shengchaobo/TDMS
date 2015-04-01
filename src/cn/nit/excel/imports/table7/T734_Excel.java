@@ -38,28 +38,28 @@ public class T734_Excel {
 					count++;
 					continue;
 				}
-				String teaName = cell[1].getContents() ;
+				String teaName = cell[1].getContents().trim() ;
 				if(teaName == null || teaName.equals("")){
 					return "第" + count + "行，教师不能为空" ;
 				}
 				if(teaName.length()>50){
 					return "第" + count + "行，教师不能超过50个字符" ; 
 				}
-				String teaId = cell[2].getContents() ;
+				String teaId = cell[2].getContents().trim() ;
 				if(teaId == null || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				if(teaId.length()>50){
 					return "第" + count + "行，教工号不能超过50个字符" ; 
 				}
-				String unit = cell[3].getContents() ;
+				String unit = cell[3].getContents().trim() ;
 				if((unit == null) || unit.equals("")){
 					return "第" + count + "行，所属部门不能为空" ;
 				}
 				if(unit.length()>200){
 					return "第" + count + "行，所属部门不能超过200个字符" ; 
 				}
-				String unitId = cell[4].getContents() ;
+				String unitId = cell[4].getContents().trim() ;
 				if((unitId == null) || unitId.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
 				}
@@ -82,21 +82,21 @@ public class T734_Excel {
 				}else{
 					flag = false ;
 				}
-				String accsite = cell[5].getContents() ;
+				String accsite = cell[5].getContents().trim() ;
 				if((accsite == null) || accsite.equals("")){
 					return "第" + count + "行，事故发生地点不能为空" ;
 				}
 				if(accsite.length()>200){
 					return "第" + count + "行，事故发生地点不能超过200个字符" ; 
 				}
-				String cause = cell[6].getContents() ;
+				String cause = cell[6].getContents().trim() ;
 				if((cause == null) || cause.equals("")){
 					return "第" + count + "行，事由不能为空" ;
 				}
 				if(cause.length()>200){
 					return "第" + count + "行，事由不能超过200个字符" ; 
 				}
-				String handTime = cell[7].getContents() ;
+				String handTime = cell[7].getContents().trim() ;
 				if((handTime == null) || handTime.equals("")){
 					return "第" + count + "行，处理时间不能为空" ;
 				}
@@ -104,21 +104,21 @@ public class T734_Excel {
 					return "第" + count + "行，处理时间格式不正确，格式为：2012-09" ;
 				}
 				
-				String accLevel = cell[8].getContents() ;
+				String accLevel = cell[8].getContents().trim() ;
 				if((accLevel == null) || accLevel.equals("")){
 					return "第" + count + "行，教学事故等级不能为空" ;
 				}
 				if(accLevel.length()>50){
 					return "第" + count + "行，教学事故等级不能超过50个字符" ; 
 				}
-				String handId = cell[9].getContents() ;
+				String handId = cell[9].getContents().trim() ;
 				if((handId == null) || handId.equals("")){
 					return "第" + count + "行，处理文号不能为空" ;
 				}
 				if(handId.length()>100){
 					return "第" + count + "行，处理文号不能超过100个字符" ; 
 				}
-                String note = cell[10].getContents();
+                String note = cell[10].getContents().trim();
 				
 				count++ ;
 				String fillUnitID=null;	

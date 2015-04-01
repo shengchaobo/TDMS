@@ -45,8 +45,8 @@ public class T744_Excel {
 					continue;
 				}
 				
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
@@ -77,8 +77,8 @@ public class T744_Excel {
 					flag = false ;
 				}
 
-				String major = cell[3].getContents() ;
-				String majorId = cell[4].getContents() ;
+				String major = cell[3].getContents().trim() ;
+				String majorId = cell[4].getContents().trim() ;
 				
 				if(major == null || major.equals("")){
 					return "第" + count + "行，专业名称不能为空" ;
@@ -109,7 +109,7 @@ public class T744_Excel {
 					flag = false ;
 				}
 				
-				String deType = cell[5].getContents() ;
+				String deType = cell[5].getContents().trim() ;
 				if((deType == null) || deType.equals("")){
 					return "第" + count + "行，学位授予门类不能为空" ;
 				}
@@ -118,49 +118,49 @@ public class T744_Excel {
 						   && !deType.equals("09农学")&& !deType.equals("10医学")&& !deType.equals("11军事学")&& !deType.equals("12管理学")&& !deType.equals("13艺术学")){
 							return "第" + count + "行，学位授予门类格式有误，只能填写“01哲学”或“02经济学”或“03法学”或“04教育学”或“05文学”或“06历史学”或“07理学”或“08工学”或“09农学”或“10医学”或“11军事学”或“12管理学”或“13艺术学”";
 						}
-				String leaderName = cell[6].getContents() ;
+				String leaderName = cell[6].getContents().trim() ;
 				if((leaderName == null) || leaderName.equals("")){
 					return "第" + count + "行，负责人姓名不能为空" ;
 				}
 				if(leaderName.length()>50){
 					return "第" + count + "行，负责人姓名不能超过50个字符" ;
 				}
-				String teaId = cell[7].getContents() ;
+				String teaId = cell[7].getContents().trim() ;
 				if((teaId == null) || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				if(teaId.length()>50){
 					return "第" + count + "行，教工号不能超过50个字符" ;
 				}
-				String setYear = cell[8].getContents() ;
+				String setYear = cell[8].getContents().trim() ;
 				if((setYear == null) || setYear.equals("")){
 					return "第" + count + "行，设置年份不能为空" ;
 				}
 				if(!TimeUtil.judgeFormat3(setYear)){
 					return "第" + count + "行，设置年份格式错误！" ;
 				}
-				String assYear = cell[9].getContents() ;
+				String assYear = cell[9].getContents().trim() ;
 				if((assYear == null) || assYear.equals("")){
 					return "第" + count + "行，评估年份不能为空" ;
 				}
 				if(!TimeUtil.judgeFormat3(assYear)){
 					return "第" + count + "行，评估年份格式错误！" ;
 				}
-				String assResult = cell[10].getContents() ;
+				String assResult = cell[10].getContents().trim() ;
 				if(assResult == null || assResult.equals("")){
 					return "第" + count + "行，评估结果不能为空" ;
 				}
 				if(!assResult.equals("校级优秀") && !assResult.equals("校级良好")&& !assResult.equals("校级合格")&& !assResult.equals("校级不合格")){
 					return "第" + count + "行，评估结果只能是“校级优秀”或“校级良好”或“校级合格”或“校级不合格”" ;
 				}
-				String appID = cell[11].getContents() ;
+				String appID = cell[11].getContents().trim() ;
 				if(appID == null || appID.equals("")){
 					return "第" + count + "行，批文号不能为空" ;
 				}
 				if(appID.length()>100){
 					return "第" + count + "行，批文号不能超过100个字符" ;
 				}
-				String note = cell[12].getContents();
+				String note = cell[12].getContents().trim();
 					
 				count++ ;
 				String fillUnitID=null;	

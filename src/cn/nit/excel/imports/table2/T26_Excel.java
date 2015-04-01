@@ -84,14 +84,14 @@ public class T26_Excel {
 					continue;
 				}
 			
-				String practiseBase = cell[1].getContents() ;
+				String practiseBase = cell[1].getContents().trim();
 				
 				if(practiseBase == null || practiseBase.equals("")){
 					return "第" + count + "行，校外实习、实训基地名称不能为空" ;
 				}
 								
-				String unit = cell[2].getContents() ;
-				String unitId = cell[3].getContents() ;
+				String unit = cell[2].getContents().trim() ;
+				String unitId = cell[3].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属单位不能为空" ;
@@ -118,13 +118,13 @@ public class T26_Excel {
 					flag = false ;
 				}
 							
-				String address = cell[4].getContents() ;
-				String forMajor = cell[5].getContents() ;
+				String address = cell[4].getContents().trim() ;
+				String forMajor = cell[5].getContents().trim() ;
 								
-				String stuNumEachTime = cell[6].getContents() ;
-				String stuNumEachYear = cell[7].getContents() ;
+				String stuNumEachTime = cell[6].getContents().trim();
+				String stuNumEachYear = cell[7].getContents().trim() ;
 				
-				String awardLevel = cell[8].getContents() ;
+				String awardLevel = cell[8].getContents().trim() ;
 				
 				if(awardLevel == null || awardLevel.equals("")){
 					return "第" + count + "行，签约级别不能为空" ;
@@ -143,7 +143,7 @@ public class T26_Excel {
 				}else{
 					flag = false ;
 				}
-				String baseLevel = cell[9].getContents() ;
+				String baseLevel = cell[9].getContents().trim() ;
 								
 				count++ ;
 				

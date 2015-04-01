@@ -101,12 +101,12 @@ public class T659_Excel {
 					continue;
 				}
 	
-				String teaUnit = cell[1].getContents();
+				String teaUnit = cell[1].getContents().trim();
 				if (teaUnit == null || teaUnit.equals("")) {
 					return "第" + count + "行，教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -131,7 +131,7 @@ public class T659_Excel {
 					flag = false;
 				}
 
-				String exchangeStuSum = cell[3].getContents();
+				String exchangeStuSum = cell[3].getContents().trim();
 
 				if (exchangeStuSum == null || exchangeStuSum.equals("")) {
 					return "第" + count + "行，交流学生总数不能为空，没有请添加0";
@@ -140,7 +140,7 @@ public class T659_Excel {
 					return "第" + count + "行，交流学生总数只能填数字";
 				}
 
-				String fromSchToOverseas = cell[4].getContents();
+				String fromSchToOverseas = cell[4].getContents().trim();
 				if (fromSchToOverseas == null || fromSchToOverseas.equals("")) {
 					return "第" + count + "行，本校到境外不能为空，没有请添加0";
 				}
@@ -148,7 +148,7 @@ public class T659_Excel {
 					return "第" + count + "行，本校到境外数只能填数字";
 				}
 				
-				String fromSchToDomestic = cell[5].getContents();
+				String fromSchToDomestic = cell[5].getContents().trim();
 				if (fromSchToDomestic == null || fromSchToDomestic.equals("")) {
 					return "第" + count + "行，本校到境内不能为空，没有请添加0";
 				}
@@ -156,7 +156,7 @@ public class T659_Excel {
 					return "第" + count + "行，交本校到境内数只能填数字";
 				}
 				
-				String fromDomesticToSch = cell[6].getContents();
+				String fromDomesticToSch = cell[6].getContents().trim();
 				if (fromDomesticToSch == null || fromDomesticToSch.equals("")) {
 					return "第" + count + "行，境内到本校不能为空，没有请添加0";
 				}
@@ -164,7 +164,7 @@ public class T659_Excel {
 					return "第" + count + "行，境内到本校数只能填数字";
 				}
 				
-				String fromOverseasToSch = cell[7].getContents();
+				String fromOverseasToSch = cell[7].getContents().trim();
 				if (fromOverseasToSch == null || fromOverseasToSch.equals("")) {
 					return "第" + count + "行，境外到本校不能为空，没有请添加0";
 				}

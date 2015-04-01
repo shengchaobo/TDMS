@@ -41,8 +41,8 @@ public class T745_Excel {
 					continue;
 				}
 				
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
@@ -73,28 +73,28 @@ public class T745_Excel {
 					flag = false ;
 				}
 				
-				String assYear = cell[3].getContents() ;
+				String assYear = cell[3].getContents().trim() ;
 				if((assYear == null) || assYear.equals("")){
 					return "第" + count + "行，评估年份不能为空" ;
 				}
 				if(assYear.length()>10){
 					return "第" + count + "行，评估年份不能超过10个字符" ;
 				}
-				String assResult = cell[4].getContents() ;
+				String assResult = cell[4].getContents().trim() ;
 				if(assResult == null || assResult.equals("")){
 					return "第" + count + "行，评估结果不能为空" ;
 				}
 				if(!assResult.equals("校级优秀") && !assResult.equals("校级良好")&& !assResult.equals("校级合格")&& !assResult.equals("校级不合格")){
 					return "第" + count + "行，评估结果只能是“校级优秀”或“校级良好”或“校级合格”或“校级不合格”" ;
 				}
-				String appID = cell[5].getContents() ;
+				String appID = cell[5].getContents().trim();
 				if(appID == null || appID.equals("")){
 					return "第" + count + "行，批文号不能为空" ;
 				}
 				if(appID.length()>100){
 					return "第" + count + "行，批文号不能超过100个字符" ;
 				}
-				String note = cell[6].getContents();
+				String note = cell[6].getContents().trim();
 					
 				count++ ;
 				String fillUnitID=null;	

@@ -107,7 +107,7 @@ public class T721_Excel {
 					return "第" + count + "行，其他参与教师人数不能为空" ;
 				}
 				if(!this.isNumeric(OJTNum)){
-					return "第" + count + "行，合作教师人数只能填数字" ;
+					return "第" + count + "行，其他参与教师人数只能填数字" ;
 				}
 				String otherTea = cell[7].getContents() ;
 				if((otherTea == null) || otherTea.equals("")){

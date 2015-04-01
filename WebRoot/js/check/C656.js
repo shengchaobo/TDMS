@@ -21,38 +21,57 @@
 			remoteSort : false,
 			rownumbers : true,
 			onLoadSuccess: function (rowData) {
-			       if(count == 0 ) {				    	  				            
-				            count++;
+			
 							//设置表格状态
 							if(rowData.rows[0].checkState!=0){  								
 			    				if(rowData.rows[0].checkState==WAITCHECK){
-			    					$("#newData").datagrid({title:'学习成果-全国计算机等级考试（<font color=red>待审核</font>）'});
+			    					if(count==0){
+			    						count++;
+				    					$("#newData").datagrid({title:'学习成果-全国计算机等级考试（<font color=red>待审核</font>）'});
+			    					}else{
+				    					$("#newData").datagrid("getPanel").panel("setTitle","学习成果-全国计算机等级考试（<font color=red>待审核</font>）");
+			    					}
 			    					$("#pass").show();
 			    					$("#nopass").show();
-			    					$("#renopass").hide();
+									$("#renopass").hide();	
 			    					
 			    				}
 			    				else if(rowData.rows[0].checkState==PASSCHECK){			    				
-			    					$("#newData").datagrid({title:'学习成果-全国计算机等级考试（<font color=red>审核通过</font>）'});
+			    					if(count==0){
+			    						count++;
+				    					$("#newData").datagrid({title:'学习成果-全国计算机等级考试（<font color=red>审核通过</font>）'});
+			    					}else{
+				    					$("#newData").datagrid("getPanel").panel("setTitle","学习成果-全国计算机等级考试（<font color=red>审核通过</font>）")
+			    					}
 			    					$("#pass").hide();
 			    					$("#nopass").hide();
-			    					$("#renopass").show();
+									$("#renopass").show();	
 			    				}				    				
 			    				else if(rowData.rows[0].checkState==NOPASSCHECK){
-			    					$("#newData").datagrid({title:'学习成果-全国计算机等级考试（<font color=red>审核未通过</font>）'});
+			    					if(count==0){
+			    						count++;
+				    					$("#newData").datagrid({title:'学习成果-全国计算机等级考试（<font color=red>审核未通过</font>）'});
+			    					}else{
+				    					$("#newData").datagrid("getPanel").panel("setTitle","学习成果-全国计算机等级考试（<font color=red>审核未通过</font>）");
+			    					}
 			    					$("#pass").hide();
 			    					$("#nopass").hide();
-			    					$("#renopass").hide();
+									$("#renopass").hide();	
 			    				}
 							}else{
 								alert("该年数据为空");
-		    					$("#newData").datagrid({title:'学习成果-全国计算机等级考试'});
+		    					if(count==0){
+		    						count++;
+		        					$("#newData").datagrid({title:'学习成果-全国计算机等级考试'});
+		    					}else{
+			    					$("#newData").datagrid("getPanel").panel("setTitle","学习成果-全国计算机等级考试");
+		    					}
 		    					$("#pass").hide();
 		    					$("#nopass").hide();
-		    					$("#renopass").hide();
+								$("#renopass").hide();	
 							}
 			     }
-			}
+			
 		});
 		
 		

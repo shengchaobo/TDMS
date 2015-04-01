@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table  id="checkData"  class="easyui-datagrid"  url="pages/T742/auditingData?checkNum=<%=request.getAttribute("WAITCHECK") %>"   style="height: auto"  >
 		<thead data-options="frozen:true">
 			<tr>			
-				<th  data-options="field:'check',align:'center'"   formatter="rowformater">审核操作</th>
+				<th  data-options="field:'check',align:'center'"   formatter="rowformater1">审核操作</th>
 		  </tr>
 		</thead>
 		<thead>

@@ -82,7 +82,7 @@ public class T17Excel {
 				 
 			
 			try{
-				String ClubName = cell[1].getContents() ;
+				String ClubName = cell[1].getContents().trim() ;
 				if(ClubName == null || ClubName.equals("")){
 					return "第" + count + "行，校友会名称不能为空" ;
 				}
@@ -91,7 +91,7 @@ public class T17Excel {
 					return "第" + count + "行，校友会名称字数不超过100个字" ;
 				}
 				
-				String BuildYearStr = cell[2].getContents() ;
+				String BuildYearStr = cell[2].getContents().trim() ;
 				
 				if((BuildYearStr == null) || BuildYearStr.equals("")){
 					return "第" + count + "行，设立时间不能为空" ;
@@ -105,7 +105,7 @@ public class T17Excel {
 					return "第" + count + "行，设立时间只能为4位" ;
 				}
 				
-				String Place = cell[3].getContents() ;
+				String Place = cell[3].getContents().trim() ;
 				if(Place == null || Place.equals("")){
 					return "第" + count + "行，地点不能为空" ;
 				}

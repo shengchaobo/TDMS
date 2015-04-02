@@ -339,7 +339,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	<div region="center" border="false">
 				<div id="tabs" class="easyui-tabs" data-options="split:true"  fit="true">
 			    	<div title="首页" >
-			    	   <iframe frameborder=0 width='100%' height='100%' src="pages/index.jsp"></iframe>
+			    		    <%  
+	    		user = (UserinfoBean) session.getAttribute("userinfo") ;
+	    		if("000".equals(user.getRoleID())){
+	     %>	
+			    	   <iframe frameborder=0 width='100%' height='100%' src="pages/index1.jsp"></iframe>
+		<%    
+	    		}else{	    
+	    %>
+	     <iframe frameborder=0 width='100%' height='100%' src="pages/index.jsp"></iframe>
+	     		<%    
+	    		}	    
+	    %>
+	     
 					</div>
 			    </div>
 		    </div>

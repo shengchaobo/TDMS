@@ -44,7 +44,7 @@ a:active {color: #0000FF}
 	    	<div style="height:auto;width:300px;float:left">
 	    		<table >
 	    		<tr>
-	    		<td><h1>重要通知</h1>			</td>
+	    		<td><h1>重要通知1</h1>			</td>
 	    		</tr>
 	    		<tr>
 	    		
@@ -54,6 +54,13 @@ a:active {color: #0000FF}
 							</ul>
 						</div>
 	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+					    <div>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(1)">上传文件</a>
+						</div>						
+					</td>	
 	    		</tr>
 				</table>
 			</div>
@@ -71,6 +78,13 @@ a:active {color: #0000FF}
 							</ul>
 						</div>
 	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+					    <div>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(2)">上传文件</a>
+						</div>						
+					</td>	
 	    		</tr>
 				</table>
 			</div>	
@@ -91,12 +105,28 @@ a:active {color: #0000FF}
 						</div>
 	    			</td>
 	    		</tr>
+	    		<tr>
+	    			<td>
+					    <div>
+					    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="upload(3)">上传文件</a>
+						</div>						
+					</td>	
+	    		</tr>
 				</table>
 			</div>	
-
-		
-
 		</div>
+		
+	<div id="udlg" class="easyui-dialog" style="width:500px;height:180px;padding:10px 20px;" closed="true" data-options="modal:true">
+		<div class="fitem" style="position: relative;top:25px;">
+			<Form id="batchForm" enctype="multipart/form-data" method="post">
+				<label　style="width: 100px">请选择文件：</label> 
+				<input  type="file"  id="upload" name="uploadFile" size=25 style="height: 24px;"/>
+				<input type="button" value=" 提交 "  onclick="batchImport()" style="height: 24px;"s/>
+			</Form>
+		</div>
+	</div>	
+		
+		
   </body>
   <script type="text/javascript">
   
@@ -168,7 +198,7 @@ return jsonLength;
 
         var ul=document.getElementById("show"+i);             
         var obj=document.createElement("li");         
-        obj.innerHTML="<a href='downloadFileofMain?FileNum="+num+"&fileName="+txt+"&type_1="+i+"'>"+txt+"</a>";           
+        obj.innerHTML="<a href='downloadFileofMain?FileNum="+num+"&fileName="+txt+"&type_1="+i+"'>"+txt+"</a>&nbsp;&nbsp;&nbsp;&nbsp;<a title='删除' herf='javascript:void(0)' onclick='deleteFile("+i+","+num+")'><img src='images/delete.jpg' border='0'/></a>";           
         ul.appendChild(obj); 
  }
    
@@ -176,6 +206,63 @@ return jsonLength;
    
    
   })
+  
+  			var url;
+			function upload(type_1){
+			
+				$('#udlg').dialog('open').dialog('setTitle','文件上传');
+				$('#batchForm').form('reset');	
+				url = "fileupload?type_1=" + type_1;			
+			}
+			
+			function batchImport(){
+			 
+				  var fileName = $('#upload').val() ; 	
+				  if(fileName == null || fileName == ""){
+					  $.messager.alert('文件导入', '请选择将要上传的文件!');      
+				   		return false ;
+				  }	
+				  
+			  	 $('#batchForm').form('submit',{
+			  		 url: url,
+			  		 type: "post",
+				     dataType: "json",
+			  		 onSubmit: function(){
+			  			 return true;
+			  		 },
+			  		 success: function(result){
+				  		 	var result = eval('('+result+')');
+				  		 	if (result.state){
+				  		 		$('#udlg').dialog('close'); // close the dialog	
+								alert(result.data);								
+								window.location.reload();											 
+				  		 	} else {
+								alert(result.data);
+				  		 	}
+				  	 }
+			  	});
+			  }
+  
+  			  function deleteFile(type,fileNum){	
+					$.messager.confirm('文件删除', '您确定删除?', function(sure) {
+						if (sure) {
+			    		   	$.ajax({
+						   		type : "post",
+						   		url : "deleteFile?FileNum=" +fileNum+"&type_1="+type,
+						   		async : true,
+						   		dataType :"json",
+						   		success : function(result) {
+							  		 	if (result.state){				  		 	
+											alert(result.data);								
+											window.location.reload();											 
+							  		 	} else {
+											alert(result.data);
+							  		 	}		
+								}
+						   	});
+						}
+				   	});				  
+			  }
 
   </script>
 </html>

@@ -39,8 +39,8 @@ public class T735_Excel {
 					count++;
 					continue;
 				}
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
@@ -71,21 +71,21 @@ public class T735_Excel {
 					flag = false ;
 				}
 				
-				String assResult = cell[3].getContents() ;
+				String assResult = cell[3].getContents().trim() ;
 				if(assResult == null || assResult.equals("")){
 					return "第" + count + "行，考评结论不能为空" ;
 				}
 				if(!assResult.equals("优秀") && !assResult.equals("良好")&& !assResult.equals("合格")&& !assResult.equals("不合格")){
 					return "第" + count + "行，考评结论只能是“优秀”或“良好”或“合格”或“不合格”" ;
 				}
-				String assYear = cell[4].getContents() ;
+				String assYear = cell[4].getContents().trim() ;
 				if((assYear == null) || assYear.equals("")){
 					return "第" + count + "行，考评年份不能为空" ;
 				}
 				if(!TimeUtil.judgeFormat3(assYear)){
 					return "第" + count + "行，考评年份格式不正确！" ;
 				}
-               String note = cell[5].getContents();
+               String note = cell[5].getContents().trim();
 				
 				count++ ;
 				String fillUnitID=null;	

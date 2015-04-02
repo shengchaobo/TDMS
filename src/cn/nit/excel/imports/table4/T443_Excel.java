@@ -53,8 +53,8 @@ public class T443_Excel {
 					continue;
 				}
 				
-				String name = cell[1].getContents() ;
-				String teaId = cell[2].getContents() ;
+				String name = cell[1].getContents().trim() ;
+				String teaId = cell[2].getContents().trim() ;
 				
 				if(name == null || name.equals("")){
 					return "第" + count + "行，导师名称不能为空" ;
@@ -64,7 +64,7 @@ public class T443_Excel {
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				
-				String talentType = cell[3].getContents();			
+				String talentType = cell[3].getContents().trim();			
 				if(talentType == null || talentType.equals("")){
 					return "第" + count + "行，人才类别不能为空" ;
 				}
@@ -83,9 +83,9 @@ public class T443_Excel {
 					flag = false ;
 				}
 				
-				String resField = cell[4].getContents() ;
+				String resField = cell[4].getContents().trim() ;
 				
-				String gainTime = cell[5].getContents() ;
+				String gainTime = cell[5].getContents().trim() ;
 				if((gainTime == null) || gainTime.equals("")){
 					return "第" + count + "行，获得时间不能为空" ;
 				}else{
@@ -94,7 +94,7 @@ public class T443_Excel {
 					}
 				}
 
-				String note = cell[6].getContents() ;
+				String note = cell[6].getContents().trim();
 							
 								
 				count++ ;

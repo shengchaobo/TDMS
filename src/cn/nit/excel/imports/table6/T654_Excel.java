@@ -103,12 +103,12 @@ public class T654_Excel {
 					continue;
 				}
 				
-				String teaUnit = cell[1].getContents();
+				String teaUnit = cell[1].getContents().trim();
 				if (teaUnit == null || teaUnit.equals("")) {
 					return "第" + count + "行，教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -133,23 +133,23 @@ public class T654_Excel {
 					flag = false;
 				}
 
-				String jonalName = cell[3].getContents();
+				String jonalName = cell[3].getContents().trim();
 
 				if (jonalName == null || jonalName.equals("")) {
 					return "第" + count + "行，专利名称不能为空";
 				}
 				
-				String jonalId = cell[4].getContents();
+				String jonalId = cell[4].getContents().trim();
 				if (jonalId == null || jonalId.equals("")) {
 					return "第" + count + "行，专利号不能为空";
 				}
 				
-				String patentType = cell[5].getContents();
+				String patentType = cell[5].getContents().trim();
 				if (patentType == null || patentType.equals("")) {
 					return "第" + count + "行，类别不能为空";
 				}
 				
-				String appvlTime = cell[6].getContents();
+				String appvlTime = cell[6].getContents().trim();
 				if (appvlTime == null || appvlTime.equals("")) {
 					return "第" + count + "行，获批时间不能为空";
 				}
@@ -158,27 +158,27 @@ public class T654_Excel {
 				}
 				
 				
-				String awardStuName = cell[7].getContents();
+				String awardStuName = cell[7].getContents().trim();
 				if (awardStuName == null || awardStuName.equals("")) {
 					return "第" + count + "行，学生姓名学号不能为空";
 				}
 				
-				String awardStuNum = cell[8].getContents();
+				String awardStuNum = cell[8].getContents().trim();
 				if (awardStuNum == null || awardStuNum.equals("")) {
 					return "第" + count + "行，参与学生人数不能为空，没有请添加0";
 				}
 
-				String guideTeaName = cell[9].getContents();
+				String guideTeaName = cell[9].getContents().trim();
 				if (guideTeaName == null || guideTeaName.equals("")) {
 					return "第" + count + "行，指导教师不能为空，没有请添加0";
 				}
 
-				String guideTeaNum = cell[10].getContents();
+				String guideTeaNum = cell[10].getContents().trim();
 				if (guideTeaNum == null || guideTeaNum.equals("")) {
 					return "第" + count + "行，指导教师数人数不能为空，没有请添加0";
 				}
 
-				String note = cell[11].getContents();
+				String note = cell[11].getContents().trim();
 				
 
 				count++;

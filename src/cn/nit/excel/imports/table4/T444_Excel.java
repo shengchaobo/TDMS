@@ -58,12 +58,12 @@ public class T444_Excel {
 				}
 				
 				
-				String resField = cell[1].getContents() ;
+				String resField = cell[1].getContents().trim() ;
 				if((resField == null) || resField.equals("")){
 					return "第" + count + "行，研究方向不能为空" ;
 				}
 				
-				String teamType = cell[2].getContents();			
+				String teamType = cell[2].getContents().trim();			
 				if(teamType == null || teamType.equals("")){
 					return "第" + count + "行，团队类型不能为空" ;
 				}
@@ -82,7 +82,7 @@ public class T444_Excel {
 					flag = false ;
 				}
 				
-				String gainTime = cell[3].getContents() ;
+				String gainTime = cell[3].getContents().trim() ;
 				if((gainTime == null) || gainTime.equals("")){
 					return "第" + count + "行，获得时间不能为空" ;
 				}else{
@@ -91,8 +91,8 @@ public class T444_Excel {
 					}
 				}
 				
-				String name = cell[4].getContents() ;
-				String teaId = cell[5].getContents() ;
+				String name = cell[4].getContents().trim() ;
+				String teaId = cell[5].getContents().trim() ;
 				
 				if(name == null || name.equals("")){
 					return "第" + count + "行，负责人名称不能为空" ;
@@ -102,10 +102,10 @@ public class T444_Excel {
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				
-				String otherTeamNum = cell[6].getContents() ;
-				String otherTeamPer = cell[7].getContents() ;
+				String otherTeamNum = cell[6].getContents().trim() ;
+				String otherTeamPer = cell[7].getContents().trim() ;
 
-				String note = cell[8].getContents() ;
+				String note = cell[8].getContents().trim() ;
 															
 				count++ ;
 								

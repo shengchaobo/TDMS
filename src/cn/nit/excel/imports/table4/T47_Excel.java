@@ -58,8 +58,8 @@ public class T47_Excel {
 					continue;
 				}
 				
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
@@ -86,13 +86,13 @@ public class T47_Excel {
 					flag = false ;
 				}
 				
-				String awardName = cell[3].getContents() ;
+				String awardName = cell[3].getContents().trim() ;
 				
 				if(awardName == null || awardName.equals("")){
 					return "第" + count + "行，获奖名称不能为空" ;
 				}
 
-				String awardLevel = cell[4].getContents() ;
+				String awardLevel = cell[4].getContents().trim() ;
 				
 				if(awardLevel == null || awardLevel.equals("")){
 					return "第" + count + "行，获奖级别不能为空" ;
@@ -113,9 +113,9 @@ public class T47_Excel {
 				}
 				
 				
-				String awardFromUnit = cell[5].getContents();
+				String awardFromUnit = cell[5].getContents().trim();
 				
-				String gainAwardTime = cell[6].getContents() ;
+				String gainAwardTime = cell[6].getContents().trim() ;
 				if((gainAwardTime == null) || gainAwardTime.equals("")){
 					return "第" + count + "行，获奖日期不能为空" ;
 				}else{
@@ -124,8 +124,8 @@ public class T47_Excel {
 					}
 				}
 												
-				String appvlId = cell[7].getContents() ;
-				String note = cell[8].getContents() ;
+				String appvlId = cell[7].getContents().trim() ;
+				String note = cell[8].getContents().trim();
 								
 				count++ ;
 								

@@ -63,7 +63,7 @@ public class T512_Excel {
 					continue;
 				}
 				
-				String term = cell[1].getContents();
+				String term = cell[1].getContents().trim();
 				//System.out.println("term:"+cell[1].getContents());
 				if(term.trim()== null || term.trim().equals("")){
 					return "第" + count + "行，学期不能为空" ;
@@ -71,12 +71,12 @@ public class T512_Excel {
 				if(term.length()>200){
 					return "第" + count + "行，学期不能超过200个字符" ;
 				}
-				String unit = cell[2].getContents() ;
+				String unit = cell[2].getContents().trim() ;
 				//System.out.println("unit:"+cell[2].getContents());
 				if((unit == null) || unit.equals("")){
 					return "第" + count + "行，开课单位不能为空" ;
 				}
-				String unitId = cell[3].getContents() ;
+				String unitId = cell[3].getContents().trim() ;
 				if((unitId == null) || unitId.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
 				}
@@ -101,8 +101,8 @@ public class T512_Excel {
 					flag = false ;
 				}
 				
-				String major = cell[4].getContents() ;
-				String majorId = cell[5].getContents() ;
+				String major = cell[4].getContents().trim() ;
+				String majorId = cell[5].getContents().trim() ;
 				
 				if(major == null || major.equals("")){
 					return "第" + count + "行，上课专业名称不能为空" ;
@@ -133,14 +133,14 @@ public class T512_Excel {
 					flag = false ;
 				}
 				
-				String csName = cell[6].getContents() ;
+				String csName = cell[6].getContents().trim() ;
 				if(csName == null || csName.equals("")){
 					return "第" + count + "行，课程名称不能为空" ;
 				}
 				if(csName.length()>100){
 					return "第" + count + "行，课程名称不能超过50个字" ;
 				}
-				String csID = cell[7].getContents() ;
+				String csID = cell[7].getContents().trim() ;
 				if((csID == null) || csID.equals("")){
 					return "第" + count + "行，课程编号不能为空" ;
 				}
@@ -148,7 +148,7 @@ public class T512_Excel {
 					return "第" + count + "行，课程编号不能超过50个字符" ;
 				}
 				
-				String csType = cell[8].getContents() ;
+				String csType = cell[8].getContents().trim() ;
 				if((csType == null) || csType.equals("")){
 					return "第" + count + "行，课程类别不能为空" ;
 				}
@@ -167,7 +167,7 @@ public class T512_Excel {
 					flag = false ;
 				}
 				
-				String csNature = cell[9].getContents() ;
+				String csNature = cell[9].getContents().trim() ;
 				if((csNature == null) || csNature.equals("")){
 					return "第" + count + "行，课程性质不能为空" ;
 				}
@@ -186,7 +186,7 @@ public class T512_Excel {
 					flag = false ;
 				}
 				
-				String pubCSType = cell[10].getContents() ;
+				String pubCSType = cell[10].getContents().trim() ;
 				if(pubCSType == null || pubCSType.equals("")){
 					return "第" + count + "行，公选课类别不能为空" ;
 				}
@@ -194,7 +194,7 @@ public class T512_Excel {
 					return "第" + count + "行，公选课类别不能超过30个字" ;
 				}
 				
-				String isDoubleCS = cell[11].getContents() ;
+				String isDoubleCS = cell[11].getContents().trim() ;
 				isDoubleCS = isDoubleCS.trim();
 				boolean IsDoubleCS = false;
 				if((isDoubleCS == null) || isDoubleCS.equals("")){
@@ -210,7 +210,7 @@ public class T512_Excel {
 					return "第" + count + "行，是否双语授课填写格式错误，只能填写“是”或者“否”" ;
 				}
 				
-				String credit = cell[12].getContents() ;
+				String credit = cell[12].getContents().trim() ;
 				if((credit == null) || credit.equals("")){
 					return "第" + count + "行，学分不能为空" ;
 				}
@@ -218,7 +218,7 @@ public class T512_Excel {
 					return "第" + count + "行，学分格式有误，只能填写数字或小数" ;
 				}
 				
-				String sumCSHour = cell[13].getContents() ;
+				String sumCSHour = cell[13].getContents().trim() ;
 				if((sumCSHour == null) || sumCSHour.equals("")){
 					return "第" + count + "行，总学时不能为空" ;
 				}
@@ -226,7 +226,7 @@ public class T512_Excel {
 					return "第" + count + "行，总学时格式有误，只能填数字" ;
 				}
 				
-				String theoryCSHour = cell[14].getContents() ;
+				String theoryCSHour = cell[14].getContents().trim() ;
 				if(theoryCSHour == null || theoryCSHour.equals("")){
 					return "第" + count + "行，理论学时不能为空" ;
 				}
@@ -234,7 +234,7 @@ public class T512_Excel {
 					return "第" + count + "行，理论学时格式有误，只能填数字" ;
 				}
 				
-				String praCSHour = cell[15].getContents() ;
+				String praCSHour = cell[15].getContents().trim() ;
 				if((praCSHour == null) || praCSHour.equals("")){
 					return "第" + count + "行，实践学时不能为空" ;
 				}
@@ -242,7 +242,7 @@ public class T512_Excel {
 					return "第" + count + "行，实践学时格式有误，只能填写数字" ;
 				}
 				
-				String examWay = cell[16].getContents() ;
+				String examWay = cell[16].getContents().trim() ;
 				if((examWay == null) || examWay.equals("")){
 					return "第" + count + "行，考核方式不能为空" ;
 				}
@@ -250,7 +250,7 @@ public class T512_Excel {
 					return "第" + count + "行，考核方式格式有误 ，只能填写“考试”或“考查”" ;
 				}
 				
-				String planTime = cell[17].getContents() ;
+				String planTime = cell[17].getContents().trim() ;
 				if((planTime == null) || planTime.equals("")){
 					planTime = "0";
 				}
@@ -258,7 +258,7 @@ public class T512_Excel {
 //					return "第" + count + "行，考核方式不能为空" ;
 //				}
 				
-				String cSGrade = cell[18].getContents() ;
+				String cSGrade = cell[18].getContents().trim() ;
 				if(cSGrade == null || cSGrade.equals("")){
 					return "第" + count + "行，授课年级不能为空" ;
 				}
@@ -266,14 +266,14 @@ public class T512_Excel {
 					return "第" + count + "行，授课年级格式有误，只能填写数字" ;
 				}
 				
-				String cSClass = cell[19].getContents() ;
+				String cSClass = cell[19].getContents().trim() ;
 				if((cSClass == null) || cSClass.equals("")){
 					return "第" + count + "行，授课班级不能为空" ;
 				}
 				if(cSClass.length()>100){
 					return "第" + count + "行，授课班级字数不能超过50个字" ;
 				}
-				String classID = cell[20].getContents() ;
+				String classID = cell[20].getContents().trim() ;
 				if((classID == null) || classID.equals("")){
 					return "第" + count + "行，开课班号不能为空" ;
 				}
@@ -281,14 +281,14 @@ public class T512_Excel {
 					return "第" + count + "行，开课班号不能超过50个字符" ;
 				}
 				
-				String classInfo = cell[21].getContents() ;
+				String classInfo = cell[21].getContents().trim();
 				if((classInfo == null) || classInfo.equals("")){
 					return "第" + count + "行，合班情况不能为空" ;
 				}
 				if(classInfo.length()>100){
 					return "第" + count + "行，合班情况字数不能超过50个字" ;
 				}
-				String stuNum = cell[22].getContents() ;
+				String stuNum = cell[22].getContents().trim() ;
 				if(stuNum == null || stuNum.equals("")){
 					return "第" + count + "行，学生人数不能为空" ;
 				}
@@ -296,7 +296,7 @@ public class T512_Excel {
 					return "第" + count + "行，学生人数格式有误，只能填数字" ;
 				}
 				
-				String cSTea = cell[23].getContents() ;
+				String cSTea = cell[23].getContents().trim();
 				if((cSTea == null) || cSTea.equals("")){
 					return "第" + count + "行，任课教师不能为空" ;
 				}
@@ -304,7 +304,7 @@ public class T512_Excel {
 					return "第" + count + "行，任课教师所填字符不能超过100字" ;
 				}
 				
-				String teaID = cell[24].getContents() ;
+				String teaID = cell[24].getContents().trim() ;
 				if((teaID == null) || teaID.equals("")){
 					return "第" + count + "行，任课教师教工号不能为空" ;
 				}
@@ -312,7 +312,7 @@ public class T512_Excel {
 					return "第" + count + "行，任课教师教工号不能超过50个字符" ;
 				}
 				
-				String isAccordJob = cell[25].getContents() ;
+				String isAccordJob = cell[25].getContents().trim() ;
 				Boolean IsAccordJob = false;
 				isAccordJob = isAccordJob.trim();
 				if((isAccordJob == null) || isAccordJob.equals("")){
@@ -328,7 +328,7 @@ public class T512_Excel {
 					return "第" + count + "行， 是否符合岗位资格填写格式有误，只能填写“是”或者“否”" ;
 				}
 				
-				String teaTitle = cell[26].getContents() ;
+				String teaTitle = cell[26].getContents().trim();
 				if((teaTitle == null) || teaTitle.equals("")){
 					return "第" + count + "行，教师职称不能为空" ;
 				}
@@ -336,7 +336,7 @@ public class T512_Excel {
 					return "第" + count + "行，教师职称格式有误，只能填写“正高级”或“副高级”或“中级”或“初级”或“未定级”";
 				}
 				
-				String bookUseInfo = cell[27].getContents() ;
+				String bookUseInfo = cell[27].getContents().trim() ;
 				if((bookUseInfo == null) || bookUseInfo.equals("")){
 					return "第" + count + "行，使用情况不能为空" ;
 				}
@@ -344,7 +344,7 @@ public class T512_Excel {
 					return "第" + count + "行，使用情况填写格式有误，只能填写“先用”或“自编”" ;
 				}
 				
-				String isPlanbook = cell[28].getContents() ;
+				String isPlanbook = cell[28].getContents().trim() ;
 				boolean IsPlanbook = false;
 				isPlanbook =isPlanbook.trim();
 				if((isPlanbook == null) || isPlanbook.equals("")){
@@ -362,7 +362,7 @@ public class T512_Excel {
 				}
 				
 				
-				String isAwardbook = cell[29].getContents() ;
+				String isAwardbook = cell[29].getContents().trim();
 				boolean IsAwardbook = false;
 				isAwardbook = isAwardbook.trim();
 				if((isAwardbook == null) || isAwardbook.equals("")){

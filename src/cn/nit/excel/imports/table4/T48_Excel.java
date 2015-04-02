@@ -60,8 +60,8 @@ public class T48_Excel {
 					continue;
 				}
 				
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
@@ -88,13 +88,13 @@ public class T48_Excel {
 					flag = false ;
 				}
 				
-				String teamName = cell[3].getContents() ;
+				String teamName = cell[3].getContents().trim() ;
 				
 				if(teamName == null || teamName.equals("")){
 					return "第" + count + "行，团队名称不能为空" ;
 				}
 
-				String teamLevel = cell[4].getContents() ;
+				String teamLevel = cell[4].getContents().trim() ;
 				
 				if(teamLevel == null || teamLevel.equals("")){
 					return "第" + count + "行，团队级别不能为空" ;
@@ -114,8 +114,8 @@ public class T48_Excel {
 					flag = false ;
 				}
 				
-				String leader = cell[5].getContents() ;
-				String teaId = cell[6].getContents() ;
+				String leader = cell[5].getContents().trim() ;
+				String teaId = cell[6].getContents().trim() ;
 				
 				if(leader == null || leader.equals("")){
 					return "第" + count + "行，负责人名称不能为空" ;
@@ -125,10 +125,10 @@ public class T48_Excel {
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				
-				String groupNum = cell[7].getContents() ;
-				String groupInfo = cell[8].getContents() ;
+				String groupNum = cell[7].getContents().trim() ;
+				String groupInfo = cell[8].getContents().trim() ;
 				
-				String gainTime = cell[9].getContents() ;
+				String gainTime = cell[9].getContents().trim();
 				if((gainTime == null) || gainTime.equals("")){
 					return "第" + count + "行，获奖日期不能为空" ;
 				}else{
@@ -137,8 +137,8 @@ public class T48_Excel {
 					}
 				}
 												
-				String appvlId = cell[10].getContents() ;
-				String note = cell[11].getContents() ;
+				String appvlId = cell[10].getContents().trim() ;
+				String note = cell[11].getContents().trim() ;
 								
 				count++ ;
 								

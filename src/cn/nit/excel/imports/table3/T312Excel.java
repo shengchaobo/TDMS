@@ -80,20 +80,20 @@ public class T312Excel {
 				    
 
 				 
-				    String StaName = cell[1].getContents();
+				    String StaName = cell[1].getContents().trim();
 				    
 				    if(StaName == null || StaName.equals("")){
 				    	return "第" + count + "行，名称不能为空" ;
 				    }
 
-					String StaID = cell[2].getContents() ;
+					String StaID = cell[2].getContents().trim() ;
 					
 					if(StaID == null || StaID.equals("")){
 						return "第" + count + "行，代码不能为空" ;
 					}
 
-					String UnitName = cell[3].getContents();
-					String UnitID=cell[4].getContents();
+					String UnitName = cell[3].getContents().trim();
+					String UnitID=cell[4].getContents().trim();
 					
 					if(UnitName == null || UnitName.equals("")){
 						return "第" + count + "行，所属单位不能为空";
@@ -120,7 +120,7 @@ public class T312Excel {
 						flag = false ;
 					}
 					
-				    String StaType = cell[5].getContents();
+				    String StaType = cell[5].getContents().trim();
 				    
 				    if(StaType == null || StaType.equals("")){
 				    	return "第" + count + "行，类型不能为空" ;

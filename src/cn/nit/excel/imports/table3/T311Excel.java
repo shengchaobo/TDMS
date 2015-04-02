@@ -73,14 +73,14 @@ public class T311Excel {
 				    
 
 				 
-				    String PostDocStaName = cell[1].getContents();
+				    String PostDocStaName = cell[1].getContents().trim();
 				    
 				    if(PostDocStaName == null || PostDocStaName.equals("")){
 				    	return "第" + count + "行，博士后流动站名称不能为空" ;
 				    }
 
 				    
-					String setTime = cell[2].getContents() ;
+					String setTime = cell[2].getContents().trim();
 					
 					if(setTime == null || setTime.equals("")){
 						return "第" + count + "行，设置时间不能为空" ;
@@ -91,7 +91,7 @@ public class T311Excel {
 					}
 				    
 				    
-					String ResearcherNum = cell[3].getContents() ;
+					String ResearcherNum = cell[3].getContents().trim() ;
 					
 					if(ResearcherNum == null || ResearcherNum.equals("")){
 						return "第" + count + "行，研究员人数不能为空" ;
@@ -102,8 +102,8 @@ public class T311Excel {
 						return "第"+count+"行，研究员人数必须为正整数";
 					}
 					
-					String UnitName = cell[4].getContents();
-					String UnitID=cell[5].getContents();
+					String UnitName = cell[4].getContents().trim();
+					String UnitID=cell[5].getContents().trim();
 					
 					if(UnitName == null || UnitName.equals("")){
 						return "第" + count + "行，所属单位不能为空";

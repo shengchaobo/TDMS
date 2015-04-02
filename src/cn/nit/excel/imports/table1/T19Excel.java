@@ -79,7 +79,7 @@ public class T19Excel {
 				
 			  try{
 				 
-				    String RewardName = cell[1].getContents() ;
+				    String RewardName = cell[1].getContents().trim() ;
 				    
 				    if(RewardName == null || RewardName.equals("")){
 				    	return "第" + count + "行，奖励名称不能为空" ;
@@ -89,7 +89,7 @@ public class T19Excel {
 				    }
 				    
 				    
-					String RewardLevel = cell[2].getContents() ;
+					String RewardLevel = cell[2].getContents().trim() ;
 					
 					
 					if(RewardLevel == null || RewardLevel.equals("")){
@@ -111,7 +111,7 @@ public class T19Excel {
 						flag=false;
 					}
 					
-					String RewardFromUnit = cell[3].getContents();
+					String RewardFromUnit = cell[3].getContents().trim();
 					
 					if(RewardFromUnit == null || RewardFromUnit.equals("")){
 						return "第" + count + "行，授予单位不能为空" ;
@@ -122,9 +122,9 @@ public class T19Excel {
 					}
 					
 				 
-					String UnitName = cell[4].getContents() ;
+					String UnitName = cell[4].getContents().trim() ;
 					UnitName = UnitName.trim();
-					String UnitID = cell[5].getContents();
+					String UnitID = cell[5].getContents().trim();
 					
 					if(UnitName == null || UnitName.equals("")){
 						return "第" + count + "行，获奖单位不能为空" ;
@@ -154,7 +154,7 @@ public class T19Excel {
 						flag=false;
 					}
 					
-					String RewardTime=cell[6].getContents();
+					String RewardTime=cell[6].getContents().trim();
 					
 					if(RewardTime == null || RewardTime.equals("")){
 						return "第" + count + "行，获奖时间不能为空" ;

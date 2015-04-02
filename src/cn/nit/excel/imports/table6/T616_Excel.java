@@ -76,7 +76,7 @@ public class T616_Excel {
 				 
 				 
 				 
-					String Category = cell[0].getContents() ;
+					String Category = cell[0].getContents().trim() ;
 					
 					if(Category == null || Category.equals("")){
 						return "第" + count + "行，分类不能为空" ;
@@ -85,7 +85,7 @@ public class T616_Excel {
 						return "第" + count + "行，学生类别只能填写“博士”、“硕士”、“本科生”、“专科生”、“培训生”中的一种！" ;
 					}
 					
-					String sumGraNum = cell[1].getContents();
+					String sumGraNum = cell[1].getContents().trim();
 					if(sumGraNum == null||sumGraNum.equals("")){
 						sumGraNum = "0";
 					}
@@ -93,7 +93,7 @@ public class T616_Excel {
 						return "第" + count + "行，毕业生人数小计只能填写数字" ;
 					}
 					
-					String graOutNum = cell[2].getContents();
+					String graOutNum = cell[2].getContents().trim();
 					if(graOutNum == null||graOutNum.equals("")){
 						graOutNum = "0";
 					}
@@ -101,7 +101,7 @@ public class T616_Excel {
 						return "第" + count + "行，国外毕业生人数只能填写数字" ;
 					}
 					
-					String graHongNum = cell[3].getContents();
+					String graHongNum = cell[3].getContents().trim();
 					if(graHongNum == null||graHongNum.equals("")){
 						graHongNum = "0";
 					}
@@ -109,7 +109,7 @@ public class T616_Excel {
 						return "第" + count + "行，香港毕业生人数只能填写数字" ;
 					}
 					
-					String graAoNum = cell[4].getContents();
+					String graAoNum = cell[4].getContents().trim();
 					if(graAoNum == null||graAoNum.equals("")){
 						graAoNum = "0";
 					}
@@ -117,7 +117,7 @@ public class T616_Excel {
 						return "第" + count + "行，澳门毕业生人数只能填写数字" ;
 					}
 					
-					String graTaiNum = cell[5].getContents();
+					String graTaiNum = cell[5].getContents().trim();
 					if(graTaiNum == null||graTaiNum.equals("")){
 						graTaiNum = "0";
 					}
@@ -125,7 +125,7 @@ public class T616_Excel {
 						return "第" + count + "行，台湾毕业生人数只能填写数字" ;
 					}
 					
-					String sumDegreeNum = cell[6].getContents();
+					String sumDegreeNum = cell[6].getContents().trim();
 					if(sumDegreeNum == null||sumDegreeNum.equals("")){
 						sumDegreeNum = "0";
 					}
@@ -133,7 +133,7 @@ public class T616_Excel {
 						return "第" + count + "行，获得学位人数小计只能填写数字" ;
 					}
 					
-					String degreeOutNum = cell[7].getContents();
+					String degreeOutNum = cell[7].getContents().trim();
 					if(degreeOutNum == null||degreeOutNum.equals("")){
 						degreeOutNum = "0";
 					}
@@ -141,7 +141,7 @@ public class T616_Excel {
 						return "第" + count + "行，国外获得学位人数只能填写数字" ;
 					}
 					
-					String degreeHongNum = cell[8].getContents();
+					String degreeHongNum = cell[8].getContents().trim();
 					if(degreeHongNum == null||degreeHongNum.equals("")){
 						degreeHongNum = "0";
 					}
@@ -149,7 +149,7 @@ public class T616_Excel {
 						return "第" + count + "行，香港获得学位人数只能填写数字" ;
 					}
 					
-					String degreeAoNum = cell[9].getContents();
+					String degreeAoNum = cell[9].getContents().trim();
 					if(degreeAoNum == null||degreeAoNum.equals("")){
 						degreeAoNum = "0";
 					}
@@ -157,7 +157,7 @@ public class T616_Excel {
 						return "第" + count + "行，澳门获得学位人数只能填写数字" ;
 					}
 					
-					String degreeTaiNum = cell[10].getContents();
+					String degreeTaiNum = cell[10].getContents().trim();
 					if(degreeTaiNum == null||degreeTaiNum.equals("")){
 						degreeTaiNum = "0";
 					}
@@ -165,7 +165,7 @@ public class T616_Excel {
 						return "第" + count + "行，台湾获得学位人数只能填写数字" ;
 					}
 					
-					String sumAdmisNum = cell[11].getContents();
+					String sumAdmisNum = cell[11].getContents().trim();
 					if(sumAdmisNum == null||sumAdmisNum.equals("")){
 						sumAdmisNum = "0";
 					}
@@ -173,7 +173,7 @@ public class T616_Excel {
 						return "第" + count + "行，招生人数小计只能填写数字" ;
 					}
 					
-					String admisOutNum = cell[12].getContents();
+					String admisOutNum = cell[12].getContents().trim();
 					if(admisOutNum == null||admisOutNum.equals("")){
 						admisOutNum = "0";
 					}
@@ -181,7 +181,7 @@ public class T616_Excel {
 						return "第" + count + "行，国外招生人数只能填写数字" ;
 					}
 					
-					String admisHongNum = cell[13].getContents();
+					String admisHongNum = cell[13].getContents().trim();
 					if(admisHongNum == null||admisHongNum.equals("")){
 						admisHongNum = "0";
 					}
@@ -189,7 +189,7 @@ public class T616_Excel {
 						return "第" + count + "行，香港招生人数只能填写数字" ;
 					}
 					
-					String admisAoNum = cell[14].getContents();
+					String admisAoNum = cell[14].getContents().trim();
 					if(admisAoNum == null||admisAoNum.equals("")){
 						admisAoNum = "0";
 					}
@@ -197,7 +197,7 @@ public class T616_Excel {
 						return "第" + count + "行，澳门招生人数只能填写数字" ;
 					}
 					
-					String admisTaiNum = cell[15].getContents();
+					String admisTaiNum = cell[15].getContents().trim();
 					if(admisTaiNum == null||admisTaiNum.equals("")){
 						admisTaiNum = "0";
 					}
@@ -205,7 +205,7 @@ public class T616_Excel {
 						return "第" + count + "行，台湾招生人数只能填写数字" ;
 					}
 					
-					String sumInSchNum = cell[16].getContents();
+					String sumInSchNum = cell[16].getContents().trim();
 					if(sumInSchNum == null||sumInSchNum.equals("")){
 						sumInSchNum = "0";
 					}
@@ -213,7 +213,7 @@ public class T616_Excel {
 						return "第" + count + "行，在校生人数小计只能填写数字" ;
 					}
 					
-					String inSchOutNum = cell[17].getContents();
+					String inSchOutNum = cell[17].getContents().trim();
 					if(inSchOutNum == null||inSchOutNum.equals("")){
 						inSchOutNum = "0";
 					}
@@ -221,7 +221,7 @@ public class T616_Excel {
 						return "第" + count + "行，国外在校生人数只能填写数字" ;
 					}
 					
-					String inSchHongNum = cell[18].getContents();
+					String inSchHongNum = cell[18].getContents().trim();
 					if(inSchHongNum == null||inSchHongNum.equals("")){
 						inSchHongNum = "0";
 					}
@@ -229,7 +229,7 @@ public class T616_Excel {
 						return "第" + count + "行，香港在校生人数只能填写数字" ;
 					}
 					
-					String inSchAoNum = cell[19].getContents();
+					String inSchAoNum = cell[19].getContents().trim();
 					if(inSchAoNum == null||inSchAoNum.equals("")){
 						inSchAoNum = "0";
 					}
@@ -237,7 +237,7 @@ public class T616_Excel {
 						return "第" + count + "行，澳门在校生人数只能填写数字" ;
 					}
 					
-					String inSchTaiNum = cell[20].getContents();
+					String inSchTaiNum = cell[20].getContents().trim();
 					if(inSchTaiNum == null||inSchTaiNum.equals("")){
 						inSchTaiNum = "0";
 					}

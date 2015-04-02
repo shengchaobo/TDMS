@@ -62,7 +62,7 @@ public class T522Excel {
 				
 			  try{
 				 
-				 String CSType = cell[1].getContents() ;
+				 String CSType = cell[1].getContents().trim() ;
 				 
 				 if(CSType == null || CSType.equals("")){
 						return "第" + count + "行，类型不能为空" ;
@@ -71,7 +71,7 @@ public class T522Excel {
 					 return "第" + count + "行，只能填“网络课程”" ;
 				 }
 				 
-					String CSName = cell[2].getContents() ;
+					String CSName = cell[2].getContents().trim() ;
 					
 					if(CSName == null || CSName.equals("")){
 						return "第" + count + "行，课程名称不能为空" ;
@@ -81,13 +81,13 @@ public class T522Excel {
 						return "第" + count + "行，课程名称长度超过25个汉字" ;
 					}
 					
-					String CSID = cell[3].getContents() ;
+					String CSID = cell[3].getContents().trim() ;
 					
 					if(CSID == null || CSID.equals("")){
 						return "第" + count + "行，课程编号不能为空" ;
 					}
 		
-					String CSLevel = cell[4].getContents() ;
+					String CSLevel = cell[4].getContents().trim() ;
 					
 					if(CSLevel == null || CSLevel.equals("")){
 						return "第" + count + "行，级别不能为空" ;
@@ -103,8 +103,8 @@ public class T522Excel {
 						return "第" + count + "行，没有该级别" ;
 					}
 					
-					String Leader = cell[5].getContents() ;
-					String TeaID = cell[6].getContents() ;
+					String Leader = cell[5].getContents().trim() ;
+					String TeaID = cell[6].getContents().trim() ;
 					
 					if(Leader == null || Leader.equals("")){
 						return "第" + count + "行，负责人不能为空" ;
@@ -135,7 +135,7 @@ public class T522Excel {
 						flag = false ;
 					}
 					
-					String JoinTeaNum = cell[7].getContents();
+					String JoinTeaNum = cell[7].getContents().trim();
 					
 					if(JoinTeaNum == null || JoinTeaNum.equals("")){
 						JoinTeaNum="0";
@@ -144,15 +144,15 @@ public class T522Excel {
 						return "第" + count + "行，参与教工人数只能填数字" ;
 					}
 					
-					String OtherTeaNum=cell[8].getContents();
+					String OtherTeaNum=cell[8].getContents().trim();
 					
 					if(OtherTeaNum != null && OtherTeaNum.length()>200){
 						return "第" + count + "行，其他参与教师字数不能超过100字" ;
 					}
 					
-					String CSUrl=cell[9].getContents();
+					String CSUrl=cell[9].getContents().trim();
 					
-					String AppvlTime=cell[10].getContents();
+					String AppvlTime=cell[10].getContents().trim();
 					
 					if(AppvlTime ==null || AppvlTime.equals("")){
 						return "第" + count + "行，获准时间不能为空" ;
@@ -161,7 +161,7 @@ public class T522Excel {
 						return "第" + count + "行，获准时间格式不正确，格式为：2012-09" ;
 					}
 					
-					String ReceptTime=cell[11].getContents();
+					String ReceptTime=cell[11].getContents().trim();
 					if(ReceptTime ==null || ReceptTime.equals("")){
 						return "第" + count + "行，验收时间不能为空" ;
 					}
@@ -169,8 +169,8 @@ public class T522Excel {
 						return "第" + count + "行，验收时间格式不正确，格式为：2012-09" ;
 					}
 					
-					String FromTeaUnit = cell[12].getContents() ;
-					String UnitID = cell[13].getContents() ;
+					String FromTeaUnit = cell[12].getContents().trim() ;
+					String UnitID = cell[13].getContents().trim() ;
 					
 					if(FromTeaUnit == null || FromTeaUnit.equals("")){
 						return "第" + count + "行，所属教学单位不能为空" ;
@@ -201,13 +201,13 @@ public class T522Excel {
 						flag = false ;
 					}
 					
-					String AppvlID=cell[14].getContents();
+					String AppvlID=cell[14].getContents().trim();
 					
 					if(AppvlID == null || AppvlID.equals("")){
 						return "第" + count + "行，批文号" ;
 					}
 					
-					String Note=cell[15].getContents();
+					String Note=cell[15].getContents().trim();
 					
 					if(Note != null&&Note.length()>1000){
 						return "第" + count + "行，备注不能超过500字" ;

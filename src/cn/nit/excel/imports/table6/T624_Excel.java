@@ -88,12 +88,12 @@ public class T624_Excel {
 				}
 				
 				
-				String fromTeaUnit = cell[1].getContents();
+				String fromTeaUnit = cell[1].getContents().trim();
 				if (fromTeaUnit == null || fromTeaUnit.equals("")) {
 					return "第" + count + "行，所属教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -119,12 +119,12 @@ public class T624_Excel {
 				}
 				
 
-				String majorName = cell[3].getContents();
+				String majorName = cell[3].getContents().trim();
 				if (majorName == null || majorName.equals("")) {
 					return "第" + count + "行，专业名称不能为空";
 				}
 
-				String majorId = cell[4].getContents();
+				String majorId = cell[4].getContents().trim();
 				if (majorId == null || majorId.equals("")) {
 					return "第" + count + "行，专业代码不能为空";
 				}
@@ -148,17 +148,17 @@ public class T624_Excel {
 					flag = false;
 				}
 
-				String majorFieldName = cell[5].getContents();
+				String majorFieldName = cell[5].getContents().trim();
 				if (majorFieldName == null || majorFieldName.equals("")) {
 					return "第" + count + "行，专业方向名称不能为空";
 				}
 
-				String isCurrentYearAdmis = cell[6].getContents();
+				String isCurrentYearAdmis = cell[6].getContents().trim();
 				if (isCurrentYearAdmis == null || isCurrentYearAdmis.equals("")) {
 					return "第" + count + "行，当年是否招生（含方向）不能为空";
 				}
 
-				String planAdmisNum = cell[7].getContents();
+				String planAdmisNum = cell[7].getContents().trim();
 				if (planAdmisNum == null || planAdmisNum.equals("")) {
 					return "第" + count + "行，当年计划招生数不能为空";
 				}
@@ -166,7 +166,7 @@ public class T624_Excel {
 					return "第" + count + "行，当年计划招生数只能填数字";
 				}
 
-				String actualAdmisNum = cell[8].getContents();
+				String actualAdmisNum = cell[8].getContents().trim();
 				if (actualAdmisNum == null || actualAdmisNum.equals("")) {
 					return "第" + count + "行，实际录取数不能为空";
 				}
@@ -174,7 +174,7 @@ public class T624_Excel {
 					return "第" + count + "行，实际录取数只能填数字";
 				}
 
-				String actualRegisterNum = cell[9].getContents();
+				String actualRegisterNum = cell[9].getContents().trim();
 				if (actualRegisterNum == null || actualRegisterNum.equals("")) {
 					return "第" + count + "行，实际报到数不能为空，没有请添加0";
 				}
@@ -182,7 +182,7 @@ public class T624_Excel {
 					return "第" + count + "行，实际报到数只能填数字";
 				}
 
-				String genHignSchNum = cell[10].getContents();
+				String genHignSchNum = cell[10].getContents().trim();
 				if (genHignSchNum == null || genHignSchNum.equals("")) {
 					return "第" + count + "行，普通高中起点数不能为空";
 				}
@@ -190,7 +190,7 @@ public class T624_Excel {
 					return "第" + count + "行，普通高中起点数只能填数字";
 				}
 
-				String secondVocationNum = cell[11].getContents();
+				String secondVocationNum = cell[11].getContents().trim();
 				if (secondVocationNum == null || secondVocationNum.equals("")) {
 					return "第" + count + "行，中职起点数不能为空，没有请添加0";
 				}
@@ -198,7 +198,7 @@ public class T624_Excel {
 					return "第" + count + "行，中职起点数只能填数字";
 				}
 				
-				String otherNum = cell[12].getContents();
+				String otherNum = cell[12].getContents().trim();
 				if (otherNum == null || otherNum.equals("")) {
 					return "第" + count + "行，其他人数不能为空，没有请添加0";
 				}

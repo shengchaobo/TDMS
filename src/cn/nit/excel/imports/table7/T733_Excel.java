@@ -37,8 +37,8 @@ public class T733_Excel {
 					continue;
 				}
 				
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim();
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，单位名称不能为空" ;
@@ -71,42 +71,42 @@ public class T733_Excel {
 					flag = false ;
 				}
 				
-				String meetDate = cell[3].getContents() ;
+				String meetDate = cell[3].getContents().trim() ;
 				if(meetDate == null || meetDate.equals("")){
 					return "第" + count + "行，会议日期不能为空" ;
 				}
 				if(!TimeUtil.judgeFormatYM(meetDate)){
 					return "第" + count + "行，听课日期格式不正确，格式为：2012-09" ;
 				}
-				String meetmeinfo = cell[4].getContents() ;
+				String meetmeinfo = cell[4].getContents().trim() ;
 				if((meetmeinfo == null) || meetmeinfo.equals("")){
 					return "第" + count + "行，参会人员情况不能为空" ;
 				}
 				if(meetmeinfo.length()>300){
 					return "第" + count + "行，参会人员情况不能超过300个字符" ; 
 				}
-				String meetNum = cell[5].getContents() ;
+				String meetNum = cell[5].getContents().trim();
 				if((meetNum == null) || meetNum.equals("")){
 					return "第" + count + "行，参会人数不能为空" ;
 				}
 				if(!isNumeric(meetNum)){
 					return "第" + count + "行，参会人数只能填数字" ;
 				}
-				String meetTheme = cell[6].getContents() ;
+				String meetTheme = cell[6].getContents().trim();
 				if((meetTheme == null) || meetTheme.equals("")){
 					return "第" + count + "行，会议主要议题或内容不能为空" ;
 				}
 				if(meetTheme.length()>200){
 					return "第" + count + "行，会议主要议题或内容不能超过200个字符" ; 
 				}
-				String meetResult = cell[7].getContents() ;
+				String meetResult = cell[7].getContents().trim() ;
 				if((meetResult == null) || meetResult.equals("")){
 					return "第" + count + "行，会议形成的主要决议或共识内容不能为空" ;
 				}
 				if(meetResult.length()>200){
 					return "第" + count + "行，会议形成的主要决议或共识内容不能超过1000个字符" ; 
 				}
-	            String note = cell[8].getContents();
+	            String note = cell[8].getContents().trim();
 				
 				count++ ;
 				String fillUnitID=null;	

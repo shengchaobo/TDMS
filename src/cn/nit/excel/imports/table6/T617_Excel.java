@@ -87,12 +87,12 @@ public class T617_Excel {
 					continue;
 				}
 	
-				String fromTeaUnit = cell[1].getContents();
+				String fromTeaUnit = cell[1].getContents().trim();
 				if (fromTeaUnit == null || fromTeaUnit.equals("")) {
 					return "第" + count + "行，教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -118,12 +118,12 @@ public class T617_Excel {
 				}
 				
 
-				String majorName = cell[3].getContents();
+				String majorName = cell[3].getContents().trim();
 				if (majorName == null || majorName.equals("")) {
 					return "第" + count + "行，专业名称不能为空";
 				}
 
-				String majorId = cell[4].getContents();
+				String majorId = cell[4].getContents().trim();
 				if (majorId == null || majorId.equals("")) {
 					return "第" + count + "行，专业代码不能为空";
 				}
@@ -147,13 +147,13 @@ public class T617_Excel {
 					flag = false;
 				}
 
-				String majorFieldName = cell[5].getContents();
+				String majorFieldName = cell[5].getContents().trim();
 				if (majorFieldName == null || majorFieldName.equals("")) {
 					return "第" + count + "行，专业方向名称不能为空";
 				}
 
 
-				String juniorStuSumNum = cell[6].getContents();
+				String juniorStuSumNum = cell[6].getContents().trim();
 				System.out.println("juniorStuSumNum:"+juniorStuSumNum);
 				if (juniorStuSumNum == null || juniorStuSumNum.equals("")) {
 					return "第" + count + "行，在校生总人数不能为空，没有请添加0";
@@ -162,7 +162,7 @@ public class T617_Excel {
 					return "第" + count + "行，在校生总人数只能填数字";
 				}
 
-				String juniorOneStuNum = cell[7].getContents();
+				String juniorOneStuNum = cell[7].getContents().trim();
 				if (juniorOneStuNum == null || juniorOneStuNum.equals("")) {
 					return "第" + count + "行，一年级生人数不能为空，没有请添加0";
 				}
@@ -170,7 +170,7 @@ public class T617_Excel {
 					return "第" + count + "行，一年级生人数只能填数字";
 				}
 
-				String juniorTwoStuNum = cell[8].getContents();
+				String juniorTwoStuNum = cell[8].getContents().trim();
 				if (juniorTwoStuNum == null || juniorTwoStuNum.equals("")) {
 					return "第" + count + "行，二年级生人数不能为空，没有请添加0";
 				}
@@ -178,7 +178,7 @@ public class T617_Excel {
 					return "第" + count + "行，二年级生人数只能填数字";
 				}
 
-				String juniorThreeStuNum = cell[9].getContents();
+				String juniorThreeStuNum = cell[9].getContents().trim();
 				if (juniorThreeStuNum == null || juniorThreeStuNum.equals("")) {
 					return "第" + count + "行，三年级生人数不能为空，没有请添加0";
 				}

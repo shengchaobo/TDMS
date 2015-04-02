@@ -103,12 +103,12 @@ public class T651_Excel {
 					continue;
 				}
 
-				String teaUnit = cell[1].getContents();
+				String teaUnit = cell[1].getContents().trim();
 				if (teaUnit == null || teaUnit.equals("")) {
 					return "第" + count + "行，教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -133,7 +133,7 @@ public class T651_Excel {
 					flag = false;
 				}
 
-				String competiType = cell[3].getContents();
+				String competiType = cell[3].getContents().trim();
 				
 				String competiID = null;
 			
@@ -150,17 +150,17 @@ public class T651_Excel {
 					return "第" + count + "行，竞赛类型不能为空";
 				}
 
-				String competiName = cell[4].getContents();
+				String competiName = cell[4].getContents().trim();
 				if (competiName == null || competiName.equals("")) {
 					return "第" + count + "行，赛事名称不能为空";
 				}
 				
-				String awardItem = cell[5].getContents();
+				String awardItem = cell[5].getContents().trim();
 				if (awardItem == null || awardItem.equals("")) {
 					return "第" + count + "行，获奖项目不能为空";
 				}
 
-				String awardLevel = cell[6].getContents();
+				String awardLevel = cell[6].getContents().trim();
 				
 				String levelID = null;
 
@@ -176,17 +176,17 @@ public class T651_Excel {
 					return "第" + count + "行，级别不能为空或者级别ID与级别不匹配";
 				}
 
-				String awardGrade = cell[7].getContents();
+				String awardGrade = cell[7].getContents().trim();
 				if (awardGrade == null || awardGrade.equals("")) {
 					return "第" + count + "行，等级不能为空";
 				}
 				
-				String awardFromUnit = cell[8].getContents();
+				String awardFromUnit = cell[8].getContents().trim();
 				if (awardFromUnit == null || awardFromUnit.equals("")) {
 					return "第" + count + "行，授予单位不能为空";
 				}
 
-				String awardTime = cell[9].getContents();
+				String awardTime = cell[9].getContents().trim();
 				if (awardTime == null || awardTime.equals("")) {
 					return "第" + count + "行，获奖时间不能为空";
 				}
@@ -194,27 +194,27 @@ public class T651_Excel {
 					return "第" + count + "行，获奖时间格式为：2012-02";
 				}
 
-				String awardStuName = cell[10].getContents();
+				String awardStuName = cell[10].getContents().trim();
 				if (awardStuName == null || awardStuName.equals("")) {
 					return "第" + count + "行，获奖学生姓名不能为空";
 				}
 				
-				String awardStuNum = cell[11].getContents();
+				String awardStuNum = cell[11].getContents().trim();
 				if (awardStuNum == null || awardStuNum.equals("")) {
 					return "第" + count + "行，获奖学生数不能为空，没有请添加0";
 				}
 
-				String guideTeaName = cell[12].getContents();
+				String guideTeaName = cell[12].getContents().trim();
 				if (guideTeaName == null || guideTeaName.equals("")) {
 					return "第" + count + "行，指导教师不能为空，没有请添加0";
 				}
 
-				String guideTeaNum = cell[13].getContents();
+				String guideTeaNum = cell[13].getContents().trim();
 				if (guideTeaNum == null || guideTeaNum.equals("")) {
 					return "第" + count + "行，指导教师数不能为空，没有请添加0";
 				}
 
-				String note = cell[14].getContents();
+				String note = cell[14].getContents().trim();
 				
 
 				count++;

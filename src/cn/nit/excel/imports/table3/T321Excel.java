@@ -85,19 +85,19 @@ public class T321Excel {
 				    	count++;
 				    	continue;
 				    }else if(count == 4){
-					    MainClassName = cell[1].getContents();
+					    MainClassName = cell[1].getContents().trim();
 					    
 					    if(MainClassName == null || MainClassName.equals("")){
 					    	return "第" + count + "行，大类名称不能为空" ;
 					    }
 
-						MainClassID = cell[2].getContents() ;
+						MainClassID = cell[2].getContents().trim() ;
 						
 						if(MainClassID == null || MainClassID.equals("")){
 							return "第" + count + "行，大类代码不能为空" ;
 						}
 
-						ByPassTime=cell[3].getContents();
+						ByPassTime=cell[3].getContents().trim();
 						boolean isNum = ByPassTime.matches("[0-9]+"); 
 						if(!isNum){
 							return "第"+count+"行，研究员人数必须为正整数";
@@ -113,8 +113,8 @@ public class T321Excel {
 							return "第" + count + "行，分流时间必须在1与10之间" ;
 						}
 						
-						String MajorNameInSch = cell[4].getContents();
-						String MajorID=cell[5].getContents();
+						String MajorNameInSch = cell[4].getContents().trim();
+						String MajorID=cell[5].getContents().trim();
 						
 						if(MajorNameInSch == null || MajorNameInSch.equals("")){
 							return "第" + count + "行，包含校内专业名称不能为空";
@@ -141,8 +141,8 @@ public class T321Excel {
 							flag = false ;
 						}
 					
-						String UnitName = cell[6].getContents();
-						String UnitID=cell[7].getContents();
+						String UnitName = cell[6].getContents().trim();
+						String UnitID=cell[7].getContents().trim();
 						
 						if(UnitName == null || UnitName.equals("")){
 							return "第" + count + "行，所属单位不能为空";

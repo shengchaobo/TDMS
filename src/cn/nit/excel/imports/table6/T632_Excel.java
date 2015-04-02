@@ -89,12 +89,12 @@ public class T632_Excel {
 				}
 
 
-				String fromTeaUnit = cell[1].getContents();
+				String fromTeaUnit = cell[1].getContents().trim();
 				if (fromTeaUnit == null || fromTeaUnit.equals("")) {
 					return "第" + count + "行，教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -120,12 +120,12 @@ public class T632_Excel {
 				}
 				
 
-				String majorName = cell[3].getContents();
+				String majorName = cell[3].getContents().trim();
 				if (majorName == null || majorName.equals("")) {
 					return "第" + count + "行，专业名称不能为空";
 				}
 
-				String majorId = cell[4].getContents();
+				String majorId = cell[4].getContents().trim();
 				if (majorId == null || majorId.equals("")) {
 					return "第" + count + "行，专业代码不能为空";
 				}
@@ -149,7 +149,7 @@ public class T632_Excel {
 					flag = false;
 				}
 				
-				String sumEmployNum = cell[5].getContents();
+				String sumEmployNum = cell[5].getContents().trim();
 				if (sumEmployNum == null || sumEmployNum.equals("")) {
 					return "第" + count + "行，应届就业总人数不能为空";
 				}
@@ -157,7 +157,7 @@ public class T632_Excel {
 					return "第" + count + "行，应届就业总人数只能填数字";
 				}
 
-				String govermentNum = cell[6].getContents();
+				String govermentNum = cell[6].getContents().trim();
 				if (govermentNum == null || govermentNum.equals("")) {
 					return "第" + count + "行，政府机构就业人数不能为空，没有请添加0";
 				}
@@ -165,7 +165,7 @@ public class T632_Excel {
 					return "第" + count + "行，政府机构就业人数只能填数字";
 				}
 
-				String pubInstiNum = cell[7].getContents();
+				String pubInstiNum = cell[7].getContents().trim();
 				if (pubInstiNum == null || pubInstiNum.equals("")) {
 					return "第" + count + "行，事业单位就业人数不能为空，没有请添加0";
 				}
@@ -173,7 +173,7 @@ public class T632_Excel {
 					return "第" + count + "行，事业单位就业人数只能填数字";
 				}
 				
-				String enterpriseNum = cell[8].getContents();
+				String enterpriseNum = cell[8].getContents().trim();
 				if (enterpriseNum == null || enterpriseNum.equals("")) {
 					return "第" + count + "行，企业就业总人数不能为空，没有请添加0";
 				}
@@ -181,7 +181,7 @@ public class T632_Excel {
 					return "第" + count + "行，企业就业总人数只能填数字";
 				}
 
-				String forceNum = cell[9].getContents();
+				String forceNum = cell[9].getContents().trim();
 				if (forceNum == null || forceNum.equals("")) {
 					return "第" + count + "行，部队人数不能为空，没有请添加0";
 				}
@@ -189,7 +189,7 @@ public class T632_Excel {
 					return "第" + count + "行，部队人数只能填数字";
 				}
 
-				String flexibleEmploy = cell[10].getContents();
+				String flexibleEmploy = cell[10].getContents().trim();
 				if (flexibleEmploy == null || flexibleEmploy.equals("")) {
 					return "第" + count + "行，灵活就业人数不能为空，没有请添加0";
 				}
@@ -198,7 +198,7 @@ public class T632_Excel {
 				}
 				
 				
-				String goOnHighStudy = cell[11].getContents();
+				String goOnHighStudy = cell[11].getContents().trim();
 				if (goOnHighStudy == null || goOnHighStudy.equals("")) {
 					return "第" + count + "行，升学人数不能为空，没有请添加0";
 				}
@@ -206,7 +206,7 @@ public class T632_Excel {
 					return "第" + count + "行，升学人数只能填数字";
 				}
 
-				String nationItemEmploy = cell[12].getContents();
+				String nationItemEmploy = cell[12].getContents().trim();
 				if (nationItemEmploy == null || nationItemEmploy.equals("")) {
 					return "第" + count + "行，参加国家地方项目就业人数不能为空，没有请添加0";
 				}
@@ -214,7 +214,7 @@ public class T632_Excel {
 					return "第" + count + "行，参加国家地方项目就业人数只能填数字";
 				}
 
-				String otherEmploy = cell[13].getContents();
+				String otherEmploy = cell[13].getContents().trim();
 				if (otherEmploy == null || otherEmploy.equals("")) {
 					return "第" + count + "行，其他人数不能为空，没有请添加0";
 				}
@@ -222,7 +222,7 @@ public class T632_Excel {
 					return "第" + count + "行，其他人数只能填数字";
 				}
 
-				String sumGoOnHighStudyNum = cell[14].getContents();
+				String sumGoOnHighStudyNum = cell[14].getContents().trim();
 				if (sumGoOnHighStudyNum == null || sumGoOnHighStudyNum.equals("")) {
 					return "第" + count + "行，应届升学总人数不能为空，没有请添加0";
 				}
@@ -230,7 +230,7 @@ public class T632_Excel {
 					return "第" + count + "行，届升学总人数只能填数字";
 				}
 
-				String recommendGraNum = cell[15].getContents();
+				String recommendGraNum = cell[15].getContents().trim();
 				if (recommendGraNum == null || recommendGraNum.equals("")) {
 					return "第" + count + "行，免试推荐研究生人数不能为空，没有请添加0";
 				}
@@ -238,7 +238,7 @@ public class T632_Excel {
 					return "第" + count + "行，免试推荐研究生人数只能填数字";
 				}
 
-				String examGraApplyNum = cell[16].getContents();
+				String examGraApplyNum = cell[16].getContents().trim();
 				if (examGraApplyNum == null || examGraApplyNum.equals("")) {
 					return "第" + count + "行，考研报名人数不能为空，没有请添加0";
 				}
@@ -246,7 +246,7 @@ public class T632_Excel {
 					return "第" + count + "行，考研报名人数只能填数字";
 				}
 
-				String examGraEnrollNum = cell[17].getContents();
+				String examGraEnrollNum = cell[17].getContents().trim();
 				if (examGraEnrollNum == null || examGraEnrollNum.equals("")) {
 					return "第" + count + "行，考研录取总人数不能为空，没有请添加0";
 				}
@@ -254,7 +254,7 @@ public class T632_Excel {
 					return "第" + count + "行，考研录取总人数只能填数字";
 				}
 
-				String examGraInSch = cell[18].getContents();
+				String examGraInSch = cell[18].getContents().trim();
 				if (examGraInSch == null || examGraInSch.equals("")) {
 					return "第" + count + "行，考取本校人数不能为空，没有请添加0";
 				}
@@ -262,7 +262,7 @@ public class T632_Excel {
 					return "第" + count + "行，考取本校人数只能填数字";
 				}
 
-				String examGraOutSch = cell[19].getContents();
+				String examGraOutSch = cell[19].getContents().trim();
 				if (examGraOutSch == null || examGraOutSch.equals("")) {
 					return "第" + count + "行，考取外校人数不能为空，没有请添加0";
 				}
@@ -270,7 +270,7 @@ public class T632_Excel {
 					return "第" + count + "行，考取外校人数只能填数字";
 				}
 
-				String abroadNum = cell[20].getContents();
+				String abroadNum = cell[20].getContents().trim();
 				if (abroadNum == null || abroadNum.equals("")) {
 					return "第" + count + "行，出国（境）留学人数不能为空，没有请添加0";
 				}

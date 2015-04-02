@@ -87,12 +87,12 @@ public class T621_Excel {
 				
 		
 			
-				String fromTeaUnit = cell[1].getContents();
+				String fromTeaUnit = cell[1].getContents().trim();
 				if (fromTeaUnit == null || fromTeaUnit.equals("")) {
 					return "第" + count + "行，所属教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -118,12 +118,12 @@ public class T621_Excel {
 				}
 				
 
-				String majorName = cell[3].getContents();
+				String majorName = cell[3].getContents().trim();
 				if (majorName == null || majorName.equals("")) {
 					return "第" + count + "行，专业名称不能为空";
 				}
 
-				String majorId = cell[4].getContents();
+				String majorId = cell[4].getContents().trim();
 				if (majorId == null || majorId.equals("")) {
 					return "第" + count + "行，专业代码不能为空";
 				}
@@ -147,7 +147,7 @@ public class T621_Excel {
 					flag = false;
 				}
 
-				String amisPlanNum = cell[5].getContents();
+				String amisPlanNum = cell[5].getContents().trim();
 				if (amisPlanNum == null || amisPlanNum.equals("")) {
 					return "第" + count + "行，招生计划数不能为空";
 				}
@@ -155,7 +155,7 @@ public class T621_Excel {
 					return "第" + count + "行，招生计划数只能填数字";
 				}
 
-				String actulEnrollNum = cell[6].getContents();
+				String actulEnrollNum = cell[6].getContents().trim();
 				if (actulEnrollNum == null || actulEnrollNum.equals("")) {
 					return "第" + count + "行，实际录取数不能为空";
 				}
@@ -163,7 +163,7 @@ public class T621_Excel {
 					return "第" + count + "行，实际录取数只能填数字";
 				}
 
-				String actulRegisterNum = cell[7].getContents();
+				String actulRegisterNum = cell[7].getContents().trim();
 				if (actulRegisterNum == null || actulRegisterNum.equals("")) {
 					return "第" + count + "行，实际报到数不能为空";
 				}
@@ -171,7 +171,7 @@ public class T621_Excel {
 					return "第" + count + "行，实际报到数只能填数字";
 				}
 
-				String autoEnrollNum = cell[8].getContents();
+				String autoEnrollNum = cell[8].getContents().trim();
 				if (autoEnrollNum == null || autoEnrollNum.equals("")) {
 					return "第" + count + "行，自主招生数不能为空，没有请添加0";
 				}
@@ -179,7 +179,7 @@ public class T621_Excel {
 					return "第" + count + "行，自主招生数只能填数字";
 				}
 
-				String specialtyEnrollNum = cell[9].getContents();
+				String specialtyEnrollNum = cell[9].getContents().trim();
 				if (specialtyEnrollNum == null || specialtyEnrollNum.equals("")) {
 					return "第" + count + "行，招收特长生数不能为空，没有请添加0";
 				}
@@ -187,7 +187,7 @@ public class T621_Excel {
 					return "第" + count + "行，招收特长生数只能填数字";
 				}
 
-				String inProviEnrollNum = cell[10].getContents();
+				String inProviEnrollNum = cell[10].getContents().trim();
 				if (inProviEnrollNum == null || inProviEnrollNum.equals("")) {
 					return "第" + count + "行，招收本省学生数不能为空";
 				}
@@ -196,7 +196,7 @@ public class T621_Excel {
 				}
 
 
-				String newMajEnrollNum = cell[11].getContents();
+				String newMajEnrollNum = cell[11].getContents().trim();
 				if (newMajEnrollNum == null || newMajEnrollNum.equals("")) {
 					return "第" + count + "行，新办专业招生数不能为空，没有请添加0";
 				}

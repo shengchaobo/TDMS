@@ -86,8 +86,8 @@ public class T412_Excel {
 					continue;
 				}
 				
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属单位不能为空" ;
@@ -114,12 +114,12 @@ public class T412_Excel {
 					flag = false ;
 				}
 				
-				String major = cell[3].getContents() ;
-				String majorId = cell[4].getContents() ;
+				String major = cell[3].getContents().trim() ;
+				String majorId = cell[4].getContents().trim() ;
 				
 				
-				String name = cell[5].getContents() ;
-				String teaId = cell[6].getContents() ;
+				String name = cell[5].getContents().trim() ;
+				String teaId = cell[6].getContents().trim() ;
 				
 				if(name == null || name.equals("")){
 					return "第" + count + "行，教工名称不能为空" ;

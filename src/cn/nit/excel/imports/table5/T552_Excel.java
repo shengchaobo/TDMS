@@ -48,20 +48,20 @@ public class T552_Excel {
 					continue;
 				}
 				
-				String awardname = cell[1].getContents() ;
+				String awardname = cell[1].getContents().trim() ;
 				if(awardname == null || awardname.equals("")){
 					return "第" + count + "行，获奖名称不能为空" ;
 				}
-				String awardClass = cell[2].getContents() ;
+				String awardClass = cell[2].getContents().trim() ;
 				if((awardClass == null) || awardClass.equals("")){
 					return "第" + count + "行，获奖班级不能为空" ;
 				}
-				String teaUnit = cell[3].getContents() ;
+				String teaUnit = cell[3].getContents().trim() ;
 				if((teaUnit == null) || teaUnit.equals("")){
 					return "第" + count + "行，所在教学单位不能为空" ;
 				}
 				
-				String ardLevel = cell[4].getContents() ;
+				String ardLevel = cell[4].getContents().trim() ;
 				if((ardLevel == null) || ardLevel.equals("")){
 					return "第" + count + "行，级别不能为空" ;
 				}
@@ -82,7 +82,7 @@ public class T552_Excel {
 					flag = false ;
 				}
 				
-				String awardTime = cell[5].getContents();
+				String awardTime = cell[5].getContents().trim();
 				if(awardTime == null || awardTime.equals("")){
 					return "第" + count + "行，获奖时间不能为空" ;
 				}

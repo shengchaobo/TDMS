@@ -78,8 +78,8 @@ public class T551Excel {
 				
 			  try{
 				 
-				 String TeaUnit = cell[1].getContents() ;
-					String UnitID = cell[2].getContents() ;
+				 String TeaUnit = cell[1].getContents().trim() ;
+					String UnitID = cell[2].getContents().trim() ;
 					
 					if(TeaUnit == null || TeaUnit.equals("")){
 						return "第" + count + "行，教学单位不能为空" ;
@@ -110,8 +110,8 @@ public class T551Excel {
 						flag = false ;
 					}
 					
-					String MajorName = cell[3].getContents() ;
-					String MajorID = cell[4].getContents() ;
+					String MajorName = cell[3].getContents().trim() ;
+					String MajorID = cell[4].getContents().trim() ;
 					
 					if(MajorName == null || MajorName.equals("")){
 						return "第" + count + "行，专业名称不能为空" ;
@@ -142,7 +142,7 @@ public class T551Excel {
 						flag = false ;
 					}
 					
-					String AdmisSchYear = cell[5].getContents() ;
+					String AdmisSchYear = cell[5].getContents().trim() ;
 					
 					if(AdmisSchYear == null || AdmisSchYear.equals("")){
 						return "第" + count + "行，入学年份不能为空" ;
@@ -152,7 +152,7 @@ public class T551Excel {
 					}
 					
 					
-					String PartyMemNum=cell[6].getContents();
+					String PartyMemNum=cell[6].getContents().trim();
 //					System.out.println("BuildCon:"+BuildCon);
 					
 					if(PartyMemNum == null || PartyMemNum.equals("")){
@@ -163,7 +163,7 @@ public class T551Excel {
 						return "第" + count + "行，本科生党员个数只能填数字" ;
 					}
 					
-					String CheatNum=cell[7].getContents();
+					String CheatNum=cell[7].getContents().trim();
 //					System.out.println("BuildCon:"+BuildCon);
 					
 					if(CheatNum == null || CheatNum.equals("")){
@@ -174,7 +174,7 @@ public class T551Excel {
 						return "第" + count + "行，违纪人数只能填数字" ;
 					}
 					
-					String GoodClassRatio=cell[8].getContents();
+					String GoodClassRatio=cell[8].getContents().trim();
 					
 					if(GoodClassRatio == null || GoodClassRatio.equals("")){
 						return "第" + count + "行，优良学风班的比例不能为空" ;

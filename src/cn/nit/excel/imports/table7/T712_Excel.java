@@ -40,8 +40,8 @@ public class T712_Excel {
 						continue;
 					}
 					
-					String unit = cell[1].getContents() ;
-					String unitId = cell[2].getContents() ;
+					String unit = cell[1].getContents().trim() ;
+					String unitId = cell[2].getContents().trim() ;
 					
 					if(unit == null || unit.equals("")){
 						return "第" + count + "行，教学单位不能为空" ;
@@ -73,35 +73,35 @@ public class T712_Excel {
 					}else{
 						flag = false ;
 					}
-					String name = cell[3].getContents() ;
+					String name = cell[3].getContents().trim() ;
 					if(name == null || name.equals("")){
 						return "第" + count + "行，姓名不能为空" ;
 					}
 					if(name.length()>50){
 						return "第" + count + "行，姓名不能超过50个字符" ;
 					}
-					String teaId = cell[4].getContents() ;
+					String teaId = cell[4].getContents().trim() ;
 					if((teaId == null) || teaId.equals("")){
 						return "第" + count + "行，教工号不能为空" ;
 					}
 					if(teaId.length()>50){
 						return "第" + count + "行，教工号不能超过50个字符" ;
 					}
-					String perName = cell[5].getContents() ;
+					String perName = cell[5].getContents().trim();
 					if((perName == null) || perName.equals("")){
 						return "第" + count + "行，论文名称不能为空" ;
 					}
 					if(perName.length()>200){
 						return "第" + count + "行，论文名称不能超过200个字符" ; 
 					}
-					String perType = cell[6].getContents() ;
+					String perType = cell[6].getContents().trim() ;
 					if((perType == null) || perType.equals("")){
 						return "第" + count + "行，归口类型不能为空" ;
 					}
 					if(!perType.equals("教学研究") && !perType.equals("教学管理")){
 						return "第" + count + "行，归口类型格式有误，只能填写“教学研究”或“教学管理”";
 					}
-					String FSub = cell[7].getContents();
+					String FSub = cell[7].getContents().trim();
 					if(FSub == null || FSub.equals("")){
 						return "第" + count + "行，所属一级学科不能为空" ;
 					}
@@ -110,7 +110,7 @@ public class T712_Excel {
 					   && !FSub.equals("09农学")&& !FSub.equals("10医学")&& !FSub.equals("11军事学")&& !FSub.equals("12管理学")&& !FSub.equals("13艺术学")){
 						return "第" + count + "行，所属一级学科格式有误，只能填写“01哲学”或“02经济学”或“03法学”或“04教育学”或“05文学”或“06历史学”或“07理学”或“08工学”或“09农学”或“10医学”或“11军事学”或“12管理学”或“13艺术学”";
 					}
-					String JnName = cell[8].getContents();
+					String JnName = cell[8].getContents().trim();
 					if(JnName == null || JnName.equals("")){
 						return "第" + count + "行，刊物/会议名称不能为空" ;
 					}
@@ -118,35 +118,35 @@ public class T712_Excel {
 						return "第" + count + "行，刊物/会议名称不能超过200个字符" ; 
 					}
 					
-					String JnID = cell[9].getContents();
+					String JnID = cell[9].getContents().trim();
 					if(JnID == null || JnID.equals("")){
 						return "第" + count + "行，刊号不能为空" ;
 					}
 					if(JnID.length()>50){
 						return "第" + count + "行，刊号不能超过50个字符" ;
 					}
-					String JnTime = cell[10].getContents();
+					String JnTime = cell[10].getContents().trim();
 					if(JnTime == null || JnTime.equals("")){
 						return "第" + count + "行，刊期/日期不能为空" ;
 					}
 					if(!TimeUtil.judgeFormatYM(JnTime)){
 						return "第" + count + "行，刊期/日期格式不正确，格式为：2012-09" ;
 					}
-					String PWNum = cell[11].getContents();
+					String PWNum = cell[11].getContents().trim();
 					if(PWNum == null || PWNum.equals("")){
 						return "第" + count + "行，论文字数不能为空" ;
 					}
 					if(!this.isNumeric(PWNum)){
 						return "第" + count + "行，论文字数只能填数字" ;
 					}
-					String CfLevel = cell[12].getContents();
+					String CfLevel = cell[12].getContents().trim();
 					if(CfLevel == null || CfLevel.equals("")){
 						return "第" + count + "行，认定等级不能为空" ;
 					}
 					if(CfLevel.length()>50){
 						return "第" + count + "行，认定等级不能超过50个字符" ;
 					}
-					String joinTn = cell[13].getContents();
+					String joinTn = cell[13].getContents().trim();
 					if(joinTn == null || joinTn.equals("")){
 						return "第" + count + "行，合作教师人数不能为空" ;
 					}
@@ -154,7 +154,7 @@ public class T712_Excel {
 						return "第" + count + "行，合作教师人数只能填数字" ;
 					}
 					
-					String otherJTI = cell[14].getContents();
+					String otherJTI = cell[14].getContents().trim();
 					if(otherJTI == null || otherJTI.equals("")){
 						return "第" + count + "行，其他合作教师不能为空" ;
 					}
@@ -162,7 +162,7 @@ public class T712_Excel {
 						return "第" + count + "行，其他合作教师不能超过300个字符" ; 
 					}
 					
-					String note = cell[13].getContents();
+					String note = cell[15].getContents().trim();
 					//插入教学单位
 					UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 					String fillUnitID = bean.getUnitID();

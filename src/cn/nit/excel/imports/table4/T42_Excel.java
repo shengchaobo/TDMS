@@ -82,8 +82,8 @@ public class T42_Excel {
 					continue;
 				}
 				
-				String name = cell[1].getContents() ;
-				String teaId = cell[2].getContents() ;
+				String name = cell[1].getContents().trim() ;
+				String teaId = cell[2].getContents().trim() ;
 				
 				if(name == null || name.equals("")){
 					return "第" + count + "行，名称不能为空" ;
@@ -93,17 +93,17 @@ public class T42_Excel {
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				
-				String duty = cell[3].getContents();
+				String duty = cell[3].getContents().trim();
 				if(duty == null || duty.equals("")){
 					return "第" + count + "行，领导职务不能为空" ;
 				}
 				
-				String gender = cell[4].getContents();
+				String gender = cell[4].getContents().trim();
 				if(gender == null || gender.equals("")){
 					return "第" + count + "行，领导性别不能为空" ;
 				}
 				
-				String birthday = cell[5].getContents() ;
+				String birthday = cell[5].getContents().trim() ;
 				if((birthday == null) || birthday.equals("")){
 					return "第" + count + "行，领导出生日期不能为空" ;
 				}else{
@@ -112,7 +112,7 @@ public class T42_Excel {
 					}
 				}
 				
-				String admisTime = cell[6].getContents() ;
+				String admisTime = cell[6].getContents().trim() ;
 				if((admisTime == null) || admisTime.equals("")){
 					return "第" + count + "行，领导入校时间不能为空" ;
 				}else{
@@ -122,7 +122,7 @@ public class T42_Excel {
 				}
 				
 								
-				String edu = cell[7].getContents() ;
+				String edu = cell[7].getContents().trim() ;
 				
 				if(edu == null || edu.equals("")){
 					return "第" + count + "行，领导学历不能为空" ;
@@ -142,7 +142,7 @@ public class T42_Excel {
 					flag = false ;
 				}
 				
-				String degree = cell[8].getContents() ;
+				String degree = cell[8].getContents().trim() ;
 				
 				if(degree == null || degree.equals("")){
 					return "第" + count + "行，领导最高学位不能为空" ;
@@ -162,9 +162,9 @@ public class T42_Excel {
 					flag = false ;
 				}
 				
-				String majTechTitle = cell[9].getContents() ;
-				String forCharge = cell[10].getContents() ;
-				String resume = cell[11].getContents() ;
+				String majTechTitle = cell[9].getContents().trim() ;
+				String forCharge = cell[10].getContents().trim() ;
+				String resume = cell[11].getContents().trim() ;
 								
 				count++ ;
 				

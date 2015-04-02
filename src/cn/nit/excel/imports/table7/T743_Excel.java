@@ -9,11 +9,13 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDepartmentBean;
+import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table7.T743_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDepartmentService;
+import cn.nit.service.table4.T411_Service;
 import cn.nit.service.table7.T743_Service;
 import cn.nit.util.TimeUtil;
 
@@ -40,6 +42,9 @@ public class T743_Excel {
 		
 		DiCourseCharService diCourseCharSer=new DiCourseCharService();
 		List<DiCourseCharBean> diCourseCharBeanList=diCourseCharSer.getList();
+		
+		T411_Service t411_Ser=new T411_Service();
+		List<T411_Bean> t411_BeanList = t411_Ser.getList();
 		
 		for(Cell[] cell: cellList){
 			T743_Bean T743_Bean=new T743_Bean();
@@ -138,6 +143,7 @@ public class T743_Excel {
 				}
 				
 				String csLeader = cell[7].getContents().trim() ;
+				String teaId = cell[8].getContents().trim() ;
 				if((csLeader == null) || csLeader.equals("")){
 					return "第" + count + "行，课程负责人不能为空" ;
 				}
@@ -145,12 +151,29 @@ public class T743_Excel {
 					return "第" + count + "行，课程负责人不能超过50个字符" ;
 				}
 
-				String teaId = cell[8].getContents().trim() ;
+			
 				if((teaId == null) || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				if(teaId.length()>50){
 					return "第" + count + "行，教工号不能超过50个字符" ;
+				}
+				for(T411_Bean t411_Bean : t411_BeanList){
+					if(t411_Bean.getTeaId().equals(teaId)){
+						if(t411_Bean.getTeaName().equals(csLeader)){
+							flag = true ;
+							break ;
+						}else{
+							return "第" + count + "行，建设负责人与教工号不对应" ;
+							
+						}
+					}//if
+				}//for
+				
+				if(!flag){
+					return "第" + count + "行，没有与之相匹配的教工号" ;
+				}else{
+					flag=false;
 				}
 				String assYear = cell[9].getContents().trim() ;
 				if((assYear == null) || assYear.equals("")){

@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
+import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table7.T734_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
+import cn.nit.service.table4.T411_Service;
 import cn.nit.service.table7.T734_Service;
 import cn.nit.util.TimeUtil;
 
@@ -30,6 +32,9 @@ public class T734_Excel {
 	    DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
 		
+		T411_Service t411_Ser=new T411_Service();
+		List<T411_Bean> t411_BeanList = t411_Ser.getList();
+		
 		for(Cell[] cell: cellList){
 			T734_Bean T734_Bean=new T734_Bean();
 			try {
@@ -39,18 +44,37 @@ public class T734_Excel {
 					continue;
 				}
 				String teaName = cell[1].getContents().trim() ;
+				String teaId = cell[2].getContents().trim() ;
 				if(teaName == null || teaName.equals("")){
 					return "第" + count + "行，教师不能为空" ;
 				}
 				if(teaName.length()>50){
 					return "第" + count + "行，教师不能超过50个字符" ; 
 				}
-				String teaId = cell[2].getContents().trim() ;
+				
 				if(teaId == null || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				if(teaId.length()>50){
 					return "第" + count + "行，教工号不能超过50个字符" ; 
+				}
+				
+				for(T411_Bean t411_Bean : t411_BeanList){
+					if(t411_Bean.getTeaId().equals(teaId)){
+						if(t411_Bean.getTeaName().equals(teaName)){
+							flag = true ;
+							break ;
+						}else{
+							return "第" + count + "行，建设负责人与教工号不对应" ;
+							
+						}
+					}//if
+				}//for
+				
+				if(!flag){
+					return "第" + count + "行，没有与之相匹配的教工号" ;
+				}else{
+					flag=false;
 				}
 				String unit = cell[3].getContents().trim() ;
 				if((unit == null) || unit.equals("")){

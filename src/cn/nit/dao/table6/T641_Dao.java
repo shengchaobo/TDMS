@@ -121,70 +121,72 @@ public class T641_Dao {
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql) ;
 			list = DAOUtil.getList(rs, T641_Bean.class) ;
+			//数据不为空
 			if(list.size() != 0){
-				tempBean = list.get(0);
-				bean.setSeqNumber(tempBean.getSeqNumber());
+				tempBean = list.get(0);//取得当前数据
+				bean.setSeqNumber(tempBean.getSeqNumber());//获取seqnumber号
 				String tempfields = "";
+				//若审核状态为“待审核”
 				if(tempBean.getCheckState() == Constants.WAIT_CHECK){
-					tempfields = fields + ",SumAidFund,SumAidNum";
+					tempfields = fields + ",SumAidFund,SumAidNum";//fields为修改的字段
 				}
+				//若审核状态为“审核不通过”
 				if(tempBean.getCheckState() == Constants.NOPASS_CHECK){
-					tempfields = fields + ",SumAidFund,SumAidNum,CheckState";
-					bean.setCheckState(Constants.WAIT_CHECK);
+					tempfields = fields + ",SumAidFund,SumAidNum,CheckState";//编辑后要修改审核位
+					bean.setCheckState(Constants.WAIT_CHECK);//设置审核位
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(tempBean.getTime());
 					int year1 = cal.get(Calendar.YEAR); 
-					checkDao.delete("T641", year1 ) ;
+					checkDao.delete("T641", year1 ) ;//删除不通过原因
 				}
 				
-				double sumAidFund = tempBean.getSumAidFund();
+				double sumAidFund = tempBean.getSumAidFund();//tempBean为数据库中的数据
 				int sumAidNum = tempBean.getSumAidNum();
-				
-//				资助金额
+//				资助金额不为空
 				if(bean.getGovAidFund()!=null){
-					if(tempBean.getGovAidFund()==null){
-						sumAidFund = sumAidFund + bean.getGovAidFund();
+					if(tempBean.getGovAidFund()==0){
+						sumAidFund = sumAidFund + bean.getGovAidFund();//bean为修改的数据
 					}else{
 						sumAidFund = sumAidFund + (bean.getGovAidFund()-tempBean.getGovAidFund());
 					}
 				}
 				if(bean.getSocialAidFund()!=null){
-					if(tempBean.getSocialAidFund()==null){
+					if(tempBean.getSocialAidFund()==0){
 						sumAidFund = sumAidFund + bean.getSocialAidFund();
 					}else{
 						sumAidFund = sumAidFund + (bean.getSocialAidFund()-tempBean.getSocialAidFund());
 					}
 				}
 				if(bean.getSchAidFund()!=null){
-					if(tempBean.getSchAidFund()==null){
+					if(tempBean.getSchAidFund()==0){
 						sumAidFund = sumAidFund + bean.getSchAidFund();
 					}else{
 						sumAidFund = sumAidFund + (bean.getSchAidFund()-tempBean.getSchAidFund());
 					}
 				}
 				if(bean.getNationAidFund()!=null){
-					if(tempBean.getNationAidFund()==null){
+					if(tempBean.getNationAidFund()==0){
 						sumAidFund = sumAidFund + bean.getNationAidFund();
 					}else{
 						sumAidFund = sumAidFund + (bean.getNationAidFund()-tempBean.getNationAidFund());
 					}
 				}
 				if(bean.getWorkStudyFund()!=null){
-					if(tempBean.getWorkStudyFund()==null){
+					if(tempBean.getWorkStudyFund()==0){
 						sumAidFund = sumAidFund + bean.getWorkStudyFund();
 					}else{
 						sumAidFund = sumAidFund + (bean.getWorkStudyFund()-tempBean.getWorkStudyFund());
 					}
 				}
 				if(bean.getTuitionWaiberFund()!=null){
-					if(tempBean.getTuitionWaiberFund()==null){
+					if(tempBean.getTuitionWaiberFund()==0){
 						sumAidFund = sumAidFund + bean.getTuitionWaiberFund();
 					}else{
 						sumAidFund = sumAidFund + (bean.getTuitionWaiberFund()-tempBean.getTuitionWaiberFund());
 					}
 				}
 				if(bean.getTempFund()!=null){
-					if(tempBean.getTempFund()==null){
+					if(tempBean.getTempFund()==0){
 						sumAidFund = sumAidFund + bean.getTempFund();
 					}else{
 						sumAidFund = sumAidFund + (bean.getTempFund()-tempBean.getTempFund());
@@ -194,58 +196,60 @@ public class T641_Dao {
 				
 				
 //				资助学生数
-				if(bean.getGovAidFund()!=null){
-					if(tempBean.getGovAidNum()==null){
+				if(bean.getGovAidNum()!=null){
+					if(tempBean.getGovAidNum()==0){
 						sumAidNum = sumAidNum + bean.getGovAidNum();
 					}else{
 						sumAidNum = sumAidNum + (bean.getGovAidNum()-tempBean.getGovAidNum());
 					}
 				}
 				if(bean.getSocialAidNum()!=null){
-					if(tempBean.getSocialAidNum()==null){
+					if(tempBean.getSocialAidNum()==0){
 						sumAidNum =sumAidNum + bean.getSocialAidNum();
 					}else{
 						sumAidNum = sumAidNum + (bean.getSocialAidNum()-tempBean.getSocialAidNum());
 					}
 				}
 				if(bean.getSchAidNum()!=null){
-					if(tempBean.getSchAidNum()==null){
+					if(tempBean.getSchAidNum()==0){
 						sumAidNum = sumAidNum + bean.getSchAidNum();
 					}else{
 						sumAidNum = sumAidNum + (bean.getSchAidNum()-tempBean.getSchAidNum());
 					}
 				}
 				if(bean.getNationAidNum()!=null){
-					if(tempBean.getNationAidNum()==null){
+					if(tempBean.getNationAidNum()==0){
 						sumAidNum = sumAidNum + bean.getNationAidNum();
 					}else{
 						sumAidNum = sumAidNum + (bean.getNationAidNum()-tempBean.getNationAidNum());
 					}
 				}
 				if(bean.getWorkStudyNum()!=null){
-					if(tempBean.getWorkStudyFund()==null){
+					if(tempBean.getWorkStudyFund()==0){
 						sumAidNum = sumAidNum + bean.getWorkStudyNum();
 					}else{
 						sumAidNum = sumAidNum + (bean.getWorkStudyNum()-tempBean.getWorkStudyNum());
 					}
 				}
 				if(bean.getTuitionWaiberNum()!=null){
-					if(tempBean.getTuitionWaiberNum()==null){
+					if(tempBean.getTuitionWaiberNum()==0){
 						sumAidNum = sumAidNum + bean.getTuitionWaiberNum();
 					}else{
 						sumAidNum = sumAidNum + (bean.getTuitionWaiberNum()-tempBean.getTuitionWaiberNum());
 					}
 				}
 				if(bean.getTempNum()!=null){
-					if(tempBean.getTempNum()==null){
+					if(tempBean.getTempNum()==0){
 						sumAidNum = sumAidNum + bean.getTempNum();
 					}else{
 						sumAidNum = sumAidNum + (bean.getTempNum()-tempBean.getTempNum());
 					}
 				}
-				bean.setSumAidNum(sumAidNum);						
+				bean.setSumAidNum(sumAidNum);
+				//System.out.println("tempfields:"+tempfields);
 				flag = DAOUtil.update(bean, tableName, key, tempfields, conn) ;
 			}else{
+				//首次插入数据
 				bean.setCheckState(Constants.WAIT_CHECK);
 				bean.setTime(TimeUtil.changeDateY(year));
 				double sumAidFund =0;

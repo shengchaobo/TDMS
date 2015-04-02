@@ -9,10 +9,12 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 
+import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table7.T721_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
+import cn.nit.service.table4.T411_Service;
 import cn.nit.service.table7.T721_Service;
 import cn.nit.util.TimeUtil;
 
@@ -37,7 +39,10 @@ public class T721_Excel {
 		DiAwardLevelService diAwardLeSr = new DiAwardLevelService();
 		List<DiAwardLevelBean> diAwardLeBeanList = diAwardLeSr.getList() ;
 		
-		System.out.println(cellList.size());
+		T411_Service t411_Ser=new T411_Service();
+		List<T411_Bean> t411_BeanList = t411_Ser.getList();
+		
+		//System.out.println(cellList.size());
 		
 		for(Cell[] cell: cellList){
 			T721_Bean T721_Bean=new T721_Bean();
@@ -89,19 +94,39 @@ public class T721_Excel {
 				}
 				
 				String leader = cell[4].getContents().trim() ;
+				String teaId = cell[5].getContents().trim() ;
 				if((leader == null) || leader.equals("")){
 					return "第" + count + "行，负责人不能为空" ;
 				}
 				if(leader.length()>50){
 					return "第" + count + "行，负责人不能超过50个字符" ;
 				}
-				String teaId = cell[5].getContents().trim() ;
 				if((teaId == null) || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				if(teaId.length()>50){
 					return "第" + count + "行，教工号不能超过50个字符" ;
 				}
+				for(T411_Bean t411_Bean : t411_BeanList){
+					if(t411_Bean.getTeaId().equals(teaId)){
+						if(t411_Bean.getTeaName().equals(leader)){
+							flag = true ;
+							break ;
+						}else{
+							return "第" + count + "行，建设负责人与教工号不对应" ;
+							
+						}
+					}//if
+				}//for
+				
+				if(!flag){
+					return "第" + count + "行，没有与之相匹配的教工号" ;
+				}else{
+					flag=false;
+				}
+				
+				
+				
 				String OJTNum = cell[6].getContents().trim() ;
 				if((OJTNum == null) || OJTNum.equals("")){
 					return "第" + count + "行，其他参与教师人数不能为空" ;

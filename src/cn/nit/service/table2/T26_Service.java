@@ -91,8 +91,8 @@ public class T26_Service {
 	 * @param 
 	 * @return
 	 */
-	public List<T26_Bean>  totalList(String year, int checkState){
-		return placeDao.totalList(year, checkState);
+	public List<T26_Bean>  totalList(String fillUnitID,String year, int checkState){
+		return placeDao.totalList(fillUnitID, year, checkState);
 	}
 
 

@@ -85,7 +85,7 @@
 				if (result.state) {
 					if(result.tag==2){
 						$('#dlg').dialog('close');
-						myMarquee('T26', CTypeOne);
+						myMarquee('T26', CTypeTwo);
 						$('#unverfiedData').datagrid('reload'); // reload the user data
 					}else{
 						$('#dlg').dialog('close');
@@ -105,7 +105,7 @@
 		var stuNumEachTime = $('#stuNumEachTime').val();
 		var stuNumEachYear = $('#stuNumEachYear').val();	
 		var practiseBase = $('#practiseBase').val();
-		var unitName = $('#teaUnitID').combobox('getText');
+		//var unitName = $('#teaUnitID').combobox('getText');
 		var signLevel = $('#signLevel').combobox('getText');
 		
 		
@@ -114,10 +114,10 @@
 			return false;
 	    }
 		
-		if(unitName == null || unitName==""){
+/*		if(unitName == null || unitName==""){
 			alert("所属教学单位不能为空");
 			return false;
-	    }
+	    }*/
 			
 		if($('#stuNumEachTime').val() == null || $('#stuNumEachTime').val()==""){
 			$('#stuNumEachTime').val(0) ;
@@ -165,7 +165,8 @@
    	$('#dlg').dialog('open').dialog('setTitle','修改校外实习、实训基地的信息');
    	$('#seqNumber').val(row[0].seqNumber) ;
    	$('#practiseBase').val(row[0].practiseBase) ;
-  	$('#teaUnitID').combobox('select', row[0].teaUnitID) ;
+	$('#teaUnitID').val(row[0].teaUnitID) ;
+	$('#teaUnit').val(row[0].teaUnit) ;
   	$('#address').val(row[0].address) ;
   	$('#signLevel').combobox('setText', row[0].signLevel) ;
 	$('#stuNumEachTime').val(row[0].stuNumEachTime) ;	
@@ -222,7 +223,7 @@
 			result = eval("(" + result + ")");
 			if (result.state) {
 				alert(result.data);
-				myMarquee('T26', CTypeOne);
+				myMarquee('T26', CTypeTwo);
 				$('#unverfiedData').datagrid('reload'); // reload the user data
 			}
 		}

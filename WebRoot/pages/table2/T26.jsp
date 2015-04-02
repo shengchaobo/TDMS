@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/table2/T26.js"></script>
 </head>
 
-<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("NOCHECK",Constants.NO_CHECK); %>
 <% request.setAttribute("PASS",Constants.PASS_CHECK); %>
 <body style="height: 100%'"  onload="myMarquee('T26','<%=request.getAttribute("CHECKTYPE") %>')">
@@ -200,24 +200,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 				<input type="hidden" name="T26_bean.seqNumber" id="seqNumber"/>
+				<input type="hidden"  name="T26_bean.teaUnit" id="teaUnit"/>
+				<input type="hidden"  name="T26_bean.teaUnitID"  id="teaUnitID" >
 				<div class="fitem">
 				<label>校外实习、实训基地名称：</label> 
 				<input id="practiseBase" type="text" name="T26_bean.practiseBase"
 				class="easyui-validatebox" ><span id="practiseBaseSpan"></span>
 				</div>
-				</td>
-				<td class="empty"></td>
-				<td>
-				   <div class="fitem">
-						<label>所属教学单位：</label> 
-						<input type="hidden" name="T26_bean.teaUnit" id="teaUnit"/>
-						<input id="teaUnitID" type="text" name="T26_bean.teaUnitID" class='easyui-combobox' 
-							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentAca',listHeight:'auto',editable:false,
-							onSelect:function(){
-							    document.getElementById('teaUnit').value=$(this).combobox('getText') ;
-							 }">
-						 <span id="teaUnitIDSpan"></span>
-					</div>
 				</td>
 			</tr>
 			<tr>

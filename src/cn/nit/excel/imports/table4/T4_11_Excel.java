@@ -53,8 +53,8 @@ public class T4_11_Excel {
 					continue;
 				}
 				
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
@@ -81,12 +81,12 @@ public class T4_11_Excel {
 					flag = false ;
 				}
 				
-				String patentNum = cell[3].getContents() ;					
-				String achieNum = cell[4].getContents() ;				
-				String consNum = cell[5].getContents();				
-				String partJobNum = cell[6].getContents() ;												
-				String judgeNum = cell[7].getContents() ;
-				String note = cell[8].getContents() ;
+				String patentNum = cell[3].getContents().trim() ;					
+				String achieNum = cell[4].getContents().trim() ;				
+				String consNum = cell[5].getContents().trim();				
+				String partJobNum = cell[6].getContents().trim() ;												
+				String judgeNum = cell[7].getContents().trim() ;
+				String note = cell[8].getContents().trim() ;
 								
 				count++ ;
 								

@@ -82,8 +82,8 @@ public class T33Excel {
 				    
 
 				    
-					String TeaUnit = cell[1].getContents();
-					String UnitID=cell[2].getContents();
+					String TeaUnit = cell[1].getContents().trim();
+					String UnitID=cell[2].getContents().trim();
 					
 					if(TeaUnit == null || TeaUnit.equals("")){
 						return "第" + count + "行，教学单位不能为空";
@@ -111,8 +111,8 @@ public class T33Excel {
 					}
 					
 					
-					String MajorName = cell[3].getContents();
-					String MajorID=cell[4].getContents();
+					String MajorName = cell[3].getContents().trim();
+					String MajorID=cell[4].getContents().trim();
 					
 					if(MajorName == null || MajorName.equals("")){
 						return "第" + count + "行，专业名称不能为空";
@@ -139,13 +139,13 @@ public class T33Excel {
 						flag=false;
 					}
 				 
-				    String MajorFieldName = cell[5].getContents();
+				    String MajorFieldName = cell[5].getContents().trim();
 				    
 				    if(MajorFieldName == null || MajorFieldName.equals("")){
 				    	return "第" + count + "行，专业方向名称不能为空" ;
 				    }
 
-					String AppvlSetTime = cell[6].getContents() ;
+					String AppvlSetTime = cell[6].getContents().trim() ;
 					
 					if(AppvlSetTime == null || AppvlSetTime.equals("")){
 						return "第" + count + "行，批准设置时间不能为空" ;
@@ -155,7 +155,7 @@ public class T33Excel {
 						return "第" + count + "行，批准设置时间格式有误（格式如：2013-02）" ;
 					}
 
-					String FirstAdmisTime = cell[7].getContents() ;
+					String FirstAdmisTime = cell[7].getContents().trim() ;
 					
 					if(FirstAdmisTime == null || FirstAdmisTime.equals("")){
 						return "第" + count + "行，首次招生时间不能为空" ;
@@ -167,7 +167,7 @@ public class T33Excel {
 				    
 				    
 					
-					String MajorYearLimit1 = cell[8].getContents();
+					String MajorYearLimit1 = cell[8].getContents().trim();
 					if(MajorYearLimit1 == null || MajorYearLimit1.equals("")){
 				    	return "第" + count + "行，修业年限不能为空" ;
 				    }
@@ -183,8 +183,8 @@ public class T33Excel {
 					}
 					boolean IsSepcialMajor1;
 					boolean IsKeyMajor1;
-				    String  IsSepcialMajor=cell[9].getContents();
-				    String  IsKeyMajor=cell[10].getContents();
+				    String  IsSepcialMajor=cell[9].getContents().trim();
+				    String  IsKeyMajor=cell[10].getContents().trim();
 				    
 				    
 				    if(IsSepcialMajor.equals("是")){
@@ -205,14 +205,14 @@ public class T33Excel {
 				    	return "第" + count + "行，重点专业应该填 是或否" ; 
 				    }
 				    
-					String MajorLeader = cell[11].getContents() ;
+					String MajorLeader = cell[11].getContents().trim() ;
 					
 					if(MajorLeader == null || MajorLeader.equals("")){
 						return "第" + count + "行，专业带头人姓名不能为空" ;
 					}
 					
 					boolean LIsFullTime1;
-					String LIsFullTime= cell[12].getContents();
+					String LIsFullTime= cell[12].getContents().trim();
 				    if(LIsFullTime.equals("是")){
 				    	LIsFullTime1=true;
 				    }else if(LIsFullTime.equals("否")){
@@ -222,14 +222,14 @@ public class T33Excel {
 				    }
 					
 				    
-					String MajorChargeMan = cell[13].getContents() ;
+					String MajorChargeMan = cell[13].getContents().trim() ;
 					
 					if(MajorChargeMan == null || MajorChargeMan.equals("")){
 						return "第" + count + "行，专业负责人姓名不能为空" ;
 					}
 					
 					boolean CIsFullTime1;
-					String CIsFullTime= cell[14].getContents();
+					String CIsFullTime= cell[14].getContents().trim();
 				    if(CIsFullTime.equals("是")){
 				    	CIsFullTime1=true;
 				    }else if(CIsFullTime.equals("否")){

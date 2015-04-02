@@ -73,7 +73,7 @@ public class T513Excel {
 				
 			  try{
 				 
-				 String Item = cell[0].getContents() ;
+				 String Item = cell[0].getContents().trim() ;
 				 if(Item == null || Item.equals("")){
 					 return "第" + count + "行，项目不能为空" ;
 				 }
@@ -87,7 +87,7 @@ public class T513Excel {
 				 if(!flag){
 					 return "第" + count + "行，此项目不存在！" ;
 				 }
-					String Category = cell[1].getContents() ;
+					String Category = cell[1].getContents().trim() ;
 					
 					if(Category == null || Category.equals("")){
 						return "第" + count + "行，分类不能为空" ;
@@ -96,7 +96,7 @@ public class T513Excel {
 						return "第" + count + "行，分类只能填写“理论课”或“实践教学”" ;
 					}
 					
-					String ShouldASCSNum = cell[2].getContents();
+					String ShouldASCSNum = cell[2].getContents().trim();
 					if(ShouldASCSNum == null||ShouldASCSNum.equals("")){
 						return "第" + count + "行，应评课程总门次数不能为空" ;
 					}
@@ -104,7 +104,7 @@ public class T513Excel {
 						return "第" + count + "行，应评课程总门次数后只能填写数字" ;
 					}
 					
-					String HavedASCSNum = cell[3].getContents();
+					String HavedASCSNum = cell[3].getContents().trim();
 					if(HavedASCSNum == null||HavedASCSNum.equals("")){
 						return "第" + count + "行，已评课程门次数不能为空" ;
 					}
@@ -112,7 +112,7 @@ public class T513Excel {
 						return "第" + count + "行，已评课程门次数只能填数字" ;
 					}
 					
-					String CoverRatio = cell[4].getContents();
+					String CoverRatio = cell[4].getContents().trim();
 					if(CoverRatio == null || CoverRatio.equals("")){
 						return "第" + count + "行，覆盖比例（%）不能为空" ;
 					}
@@ -120,7 +120,7 @@ public class T513Excel {
 						return "第" + count + "行，覆盖比例（%）只能填百分数" ;
 					}
 					
-					String ExcellentNum = cell[5].getContents();
+					String ExcellentNum = cell[5].getContents().trim();
 					if(ExcellentNum == null ||ExcellentNum.equals("")){
 						return "第" + count + "行，优级门次数不能为空" ;
 					}
@@ -128,7 +128,7 @@ public class T513Excel {
 						return "第" + count + "行，优级门次数只能填数字" ;
 					}
 					
-					String ExcellentRatio = cell[6].getContents();
+					String ExcellentRatio = cell[6].getContents().trim();
 					if(ExcellentRatio == null ||ExcellentRatio.equals(ExcellentRatio)){
 						return "第" + count + "行，优级比例只能填数字" ;
 					}
@@ -136,7 +136,7 @@ public class T513Excel {
 						return "第" + count + "行，优级比例只能填百分比" ;
 					}
 					
-					String GoodNum = cell[7].getContents();
+					String GoodNum = cell[7].getContents().trim();
 					if(GoodNum == null ||GoodNum.equals("")){
 						return "第" + count + "行，良级门次数不能为空" ;
 					}
@@ -144,7 +144,7 @@ public class T513Excel {
 						return "第" + count + "行，良级门次数只能填数字" ;
 					}
 					
-					String GoodRatio = cell[8].getContents();
+					String GoodRatio = cell[8].getContents().trim();
 					if(GoodRatio == null ||ExcellentRatio.equals(GoodRatio)){
 						return "第" + count + "行，良级比例只能填数字" ;
 					}
@@ -152,7 +152,7 @@ public class T513Excel {
 						return "第" + count + "行，良级比例只能填百分比" ;
 					}
 					
-					String AvgNum = cell[9].getContents();
+					String AvgNum = cell[9].getContents().trim();
 					if(AvgNum == null ||AvgNum.equals("")){
 						return "第" + count + "行，中级门次数不能为空" ;
 					}
@@ -160,7 +160,7 @@ public class T513Excel {
 						return "第" + count + "行，中级门次数只能填数字" ;
 					}
 					
-					String AvgRatio = cell[10].getContents();
+					String AvgRatio = cell[10].getContents().trim();
 					if(ExcellentRatio == null ||ExcellentRatio.equals("")){
 						return "第" + count + "行，中级比例只能填数字" ;
 					}
@@ -168,7 +168,7 @@ public class T513Excel {
 						return "第" + count + "行，中级比例只能填百分比" ;
 					}
 					
-					String PoorNum = cell[11].getContents();
+					String PoorNum = cell[11].getContents().trim();
 					if(PoorNum == null ||PoorNum.equals("")){
 						return "第" + count + "行，差级门次数不能为空" ;
 					}
@@ -176,7 +176,7 @@ public class T513Excel {
 						return "第" + count + "行，差级门次数只能填数字" ;
 					}
 					
-					String PoorRatio = cell[12].getContents();
+					String PoorRatio = cell[12].getContents().trim();
 					if(PoorRatio == null ||PoorRatio.equals("")){
 						return "第" + count + "行，差级比例只能填数字" ;
 					}

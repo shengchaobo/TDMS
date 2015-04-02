@@ -79,8 +79,8 @@ public class T533Excel {
 				
 			  try{
 				 
-				 String TeaUnit = cell[1].getContents() ;
-					String UnitID = cell[2].getContents() ;
+				 String TeaUnit = cell[1].getContents().trim();
+					String UnitID = cell[2].getContents().trim();
 					
 					if(TeaUnit == null || TeaUnit.equals("")){
 						return "第" + count + "行，教学单位不能为空" ;
@@ -111,8 +111,8 @@ public class T533Excel {
 						flag = false ;
 					}
 					
-					String MajorName = cell[3].getContents() ;
-					String MajorID = cell[4].getContents() ;
+					String MajorName = cell[3].getContents().trim() ;
+					String MajorID = cell[4].getContents().trim() ;
 					
 					if(MajorName == null || MajorName.equals("")){
 						return "第" + count + "行，专业名称不能为空" ;
@@ -143,7 +143,7 @@ public class T533Excel {
 						flag = false ;
 					}
 					
-					String ExpCSNum = cell[5].getContents() ;
+					String ExpCSNum = cell[5].getContents().trim() ;
 					
 					if(ExpCSNum == null || ExpCSNum.equals("")){
 						ExpCSNum="0";
@@ -153,7 +153,7 @@ public class T533Excel {
 					}
 					
 					
-					String IndepentExpCSNum=cell[6].getContents();
+					String IndepentExpCSNum=cell[6].getContents().trim();
 //					System.out.println("BuildCon:"+BuildCon);
 					
 					if(IndepentExpCSNum == null || IndepentExpCSNum.equals("")){
@@ -164,7 +164,7 @@ public class T533Excel {
 						return "第" + count + "行，独立实验课程只能填数字" ;
 					}
 					
-					String DesignExpCSNum=cell[7].getContents();
+					String DesignExpCSNum=cell[7].getContents().trim();
 //					System.out.println("BuildCon:"+BuildCon);
 					
 					if(DesignExpCSNum == null || DesignExpCSNum.equals("")){
@@ -175,7 +175,7 @@ public class T533Excel {
 						return "第" + count + "行，综合型实验教学门数只能填数字" ;
 					}
 					
-					String ExpRatio=cell[8].getContents();
+					String ExpRatio=cell[8].getContents().trim();
 					
 					if(ExpRatio == null || ExpRatio.equals("")){
 						return "第" + count + "行，实验开出率（%）不能为空" ;

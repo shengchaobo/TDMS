@@ -9,10 +9,12 @@ import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiDepartmentBean;
 
+import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table7.T721_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiAwardLevelService;
 import cn.nit.service.di.DiDepartmentService;
+import cn.nit.service.table4.T411_Service;
 import cn.nit.service.table7.T721_Service;
 import cn.nit.util.TimeUtil;
 
@@ -37,7 +39,10 @@ public class T721_Excel {
 		DiAwardLevelService diAwardLeSr = new DiAwardLevelService();
 		List<DiAwardLevelBean> diAwardLeBeanList = diAwardLeSr.getList() ;
 		
-		System.out.println(cellList.size());
+		T411_Service t411_Ser=new T411_Service();
+		List<T411_Bean> t411_BeanList = t411_Ser.getList();
+		
+		//System.out.println(cellList.size());
 		
 		for(Cell[] cell: cellList){
 			T721_Bean T721_Bean=new T721_Bean();
@@ -47,15 +52,15 @@ public class T721_Excel {
 					continue;
 				}
 				
-				String itemname = cell[1].getContents() ;
+				String itemname = cell[1].getContents().trim() ;
 				if(itemname == null || itemname.equals("")){
 					return "第" + count + "行，项目名称不能为空" ;
 				}
 				if(itemname.length()>200){
 					return "第" + count + "行，项目名称不能超过200个字符" ; 
 				}
-				String unit = cell[2].getContents() ;
-				String unitId = cell[3].getContents() ;
+				String unit = cell[2].getContents().trim() ;
+				String unitId = cell[3].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属教学单位不能为空" ;
@@ -88,35 +93,55 @@ public class T721_Excel {
 					flag = false ;
 				}
 				
-				String leader = cell[4].getContents() ;
+				String leader = cell[4].getContents().trim() ;
+				String teaId = cell[5].getContents().trim() ;
 				if((leader == null) || leader.equals("")){
 					return "第" + count + "行，负责人不能为空" ;
 				}
 				if(leader.length()>50){
 					return "第" + count + "行，负责人不能超过50个字符" ;
 				}
-				String teaId = cell[5].getContents() ;
 				if((teaId == null) || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				if(teaId.length()>50){
 					return "第" + count + "行，教工号不能超过50个字符" ;
 				}
-				String OJTNum = cell[6].getContents() ;
+				for(T411_Bean t411_Bean : t411_BeanList){
+					if(t411_Bean.getTeaId().equals(teaId)){
+						if(t411_Bean.getTeaName().equals(leader)){
+							flag = true ;
+							break ;
+						}else{
+							return "第" + count + "行，建设负责人与教工号不对应" ;
+							
+						}
+					}//if
+				}//for
+				
+				if(!flag){
+					return "第" + count + "行，没有与之相匹配的教工号" ;
+				}else{
+					flag=false;
+				}
+				
+				
+				
+				String OJTNum = cell[6].getContents().trim() ;
 				if((OJTNum == null) || OJTNum.equals("")){
 					return "第" + count + "行，其他参与教师人数不能为空" ;
 				}
 				if(!this.isNumeric(OJTNum)){
-					return "第" + count + "行，合作教师人数只能填数字" ;
+					return "第" + count + "行，其他参与教师人数只能填数字" ;
 				}
-				String otherTea = cell[7].getContents() ;
+				String otherTea = cell[7].getContents().trim() ;
 				if((otherTea == null) || otherTea.equals("")){
 					return "第" + count + "行，其他教师不能为空" ;
 				}
 				if(otherTea.length()>300){
 					return "第" + count + "行，其他教师不能超过300个字符" ; 
 				}
-				String itemLevel = cell[8].getContents() ;
+				String itemLevel = cell[8].getContents().trim() ;
 				if((itemLevel == null) || itemLevel.equals("")){
 					return "第" + count + "行，级别不能为空" ;
 				}
@@ -136,35 +161,35 @@ public class T721_Excel {
 				}else{
 					flag = false ;
 				}
-				String ISUTime = cell[9].getContents();
+				String ISUTime = cell[9].getContents().trim();
 				if(ISUTime == null || ISUTime.equals("")){
 					return "第" + count + "行，立项时间不能为空" ;
 				}
 				if(!TimeUtil.judgeFormatYM(ISUTime)){
 					return "第" + count + "行，立项时间格式不正确，格式为：2012-09" ;
 				}
-				String recTime = cell[10].getContents();
+				String recTime = cell[10].getContents().trim();
 				if(recTime == null || recTime.equals("")){
 					return "第" + count + "行，验收时间不能为空" ;
 				}
 				if(!TimeUtil.judgeFormatYM(recTime)){
 					return "第" + count + "行，验收时间格式不正确，格式为：2012-09" ;
 				}
-				String appExp = cell[11].getContents();
+				String appExp = cell[11].getContents().trim();
 				if(appExp == null || appExp.equals("")){
 					return "第" + count + "行，批准经费不能为空" ;
 				}
 				if(!this.isDouble(appExp)){
 					return "第" + count + "行，批准经费只能填数字" ;
 				}
-				String schExp = cell[12].getContents();
+				String schExp = cell[12].getContents().trim();
 				if(schExp == null || schExp.equals("")){
 					return "第" + count + "行，学校配套经费不能为空" ;
 				}
 				if(!this.isDouble(schExp)){
 					return "第" + count + "行，学校配套经费只能填数字" ;
 				}
-				String appID = cell[13].getContents();
+				String appID = cell[13].getContents().trim();
 				if(appID == null || appID.equals("")){
 					return "第" + count + "行，批文号不能为空" ;
 				}
@@ -172,7 +197,7 @@ public class T721_Excel {
 					return "第" + count + "行，批文号不能超过100个字符" ; 
 				}
 				
-				String note = cell[14].getContents();
+				String note = cell[14].getContents().trim();
 				
 				count++ ;
 				String fillUnitID=null;				

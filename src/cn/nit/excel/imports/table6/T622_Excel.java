@@ -80,17 +80,17 @@ public class T622_Excel {
 					continue;
 				}
 				
-				String province = cell[1].getContents();
+				String province = cell[1].getContents().trim();
 				if (province == null || province.equals("")) {
 					return "第" + count + "行，省份不能为空";
 				}
 				
-				String batch = cell[2].getContents();
+				String batch = cell[2].getContents().trim();
 				if (batch == null || batch.equals("")) {
 					return "第" + count + "行，批次不能为空";
 				}
 
-				String libEnrollNum = cell[3].getContents();
+				String libEnrollNum = cell[3].getContents().trim();
 				if (libEnrollNum == null || libEnrollNum.equals("")) {
 					return "第" + count + "行，文科录取数不能为空";
 				}
@@ -98,7 +98,7 @@ public class T622_Excel {
 					return "第" + count + "行，文科录取数只能填数字";
 				}
 
-				String sciEnrollNum = cell[4].getContents();
+				String sciEnrollNum = cell[4].getContents().trim();
 				if (sciEnrollNum == null || sciEnrollNum.equals("")) {
 					return "第" + count + "行，理科录取数不能为空";
 				}
@@ -106,7 +106,7 @@ public class T622_Excel {
 					return "第" + count + "行，理科录取数只能填数字";
 				}
 
-				String libLowestScore = cell[5].getContents();
+				String libLowestScore = cell[5].getContents().trim();
 				if (libLowestScore == null || libLowestScore.equals("")) {
 					return "第" + count + "行，文科批次最低控制线（分）不能为空";
 				}
@@ -114,7 +114,7 @@ public class T622_Excel {
 					return "第" + count + "行，文科批次最低控制线（分）只能填数字";
 				}
 
-				String sciLowestScore = cell[6].getContents();
+				String sciLowestScore = cell[6].getContents().trim();
 				if (sciLowestScore == null || sciLowestScore.equals("")) {
 					return "第" + count + "行，理科批次最低控制线（分）不能为空";
 				}
@@ -124,7 +124,7 @@ public class T622_Excel {
 				
 				
 
-				String libAvgScore = cell[7].getContents();
+				String libAvgScore = cell[7].getContents().trim();
 				if (libAvgScore == null || libAvgScore.equals("")) {
 					return "第" + count + "行，文科当年录取平均分数（分）不能为空";
 				}
@@ -132,7 +132,7 @@ public class T622_Excel {
 					return "第" + count + "行，文科当年录取平均分数（分）只能填数字";
 				}
 
-				String sciAvgScore = cell[8].getContents();
+				String sciAvgScore = cell[8].getContents().trim();
 				if (sciAvgScore == null || sciAvgScore.equals("")) {
 					return "第" + count + "行，理科当年录取平均分数（分）不能为空";
 				}

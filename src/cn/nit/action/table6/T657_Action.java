@@ -170,7 +170,7 @@ public class T657_Action {
 
 	/** 编辑数据 */
 	public void edit() {
-		System.out.println("--------------------------");
+		//System.out.println("--------------------------");
 		int tag = 1;
 		boolean flag0 = false;
 		boolean flag1 = false;
@@ -187,7 +187,7 @@ public class T657_Action {
 				T657_bean.setCheckState(Constants.WAIT_CHECK);
 				//sumBean.setCheckState(Constants.WAIT_CHECK);
 				int year = Integer.parseInt(this.getSelectYear());
-				check_services.delete("T656", year);
+				check_services.delete("T657", year);
 				tag = 2;
 			}
 			T657_bean.setTime(sumBean.getTime());

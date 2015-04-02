@@ -87,8 +87,8 @@ public class T452_Excel {
 				}
 				
 				
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，教学单位不能为空" ;
@@ -115,8 +115,8 @@ public class T452_Excel {
 					flag = false ;
 				}
 				
-				String name = cell[3].getContents() ;
-				String teaId = cell[4].getContents() ;
+				String name = cell[3].getContents().trim() ;
+				String teaId = cell[4].getContents().trim() ;
 				
 				if(name == null || name.equals("")){
 					return "第" + count + "行，名称不能为空" ;
@@ -126,9 +126,9 @@ public class T452_Excel {
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				
-				String trainType = cell[5].getContents() ;
-				String beginTime = cell[6].getContents() ;
-				String endTime = cell[7].getContents() ;
+				String trainType = cell[5].getContents().trim() ;
+				String beginTime = cell[6].getContents().trim() ;
+				String endTime = cell[7].getContents().trim() ;
 				
 				if((beginTime == null) || beginTime.equals("")){
 					return "第" + count + "行，开始时间不能为空" ;
@@ -146,10 +146,10 @@ public class T452_Excel {
 					}
 				}
 				
-				String inOrOut = cell[8].getContents() ;
-				String trainUnit = cell[9].getContents() ;
-				String trainMajor = cell[10].getContents() ;
-				String note = cell[11].getContents() ;
+				String inOrOut = cell[8].getContents().trim() ;
+				String trainUnit = cell[9].getContents().trim() ;
+				String trainMajor = cell[10].getContents().trim() ;
+				String note = cell[11].getContents().trim() ;
 				
 				count++ ;
 				

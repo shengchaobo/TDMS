@@ -86,12 +86,12 @@ public class T615_Excel {
 					continue;
 				}
 
-				String majorName = cell[1].getContents();
+				String majorName = cell[1].getContents().trim();
 				if (majorName == null || majorName.equals("")) {
 					return "第" + count + "行，校内专业（大类）名称不能为空";
 				}
 
-				String majorId = cell[2].getContents();
+				String majorId = cell[2].getContents().trim();
 				if (majorId == null || majorId.equals("")) {
 					return "第" + count + "行，校内专业（大类）代码不能为空";
 				}
@@ -115,12 +115,12 @@ public class T615_Excel {
 					flag = false;
 				}
 			
-				String fromTeaUnit = cell[3].getContents();
+				String fromTeaUnit = cell[3].getContents().trim();
 				if (fromTeaUnit == null || fromTeaUnit.equals("")) {
 					return "第" + count + "行，所属教学单位不能为空";
 				}
 				
-				String unitId = cell[4].getContents();
+				String unitId = cell[4].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -145,7 +145,7 @@ public class T615_Excel {
 					flag = false;
 				}
 
-				String schLen = cell[5].getContents();
+				String schLen = cell[5].getContents().trim();
 				if (schLen == null || schLen.equals("")) {
 					return "第" + count + "行，学制不能为空";
 				}
@@ -153,7 +153,7 @@ public class T615_Excel {
 					return "第" + count + "行，学制只能填写数字";
 				}
 
-				String schStuSumNum = cell[6].getContents();
+				String schStuSumNum = cell[6].getContents().trim();
 				if (schStuSumNum == null || schStuSumNum.equals("")) {
 					return "第" + count + "行，在校生总人数不能为空";
 				}
@@ -161,7 +161,7 @@ public class T615_Excel {
 					return "第" + count + "行，在校生总人数只能填写数字";
 				}
 
-				String freshmanNum = cell[7].getContents();
+				String freshmanNum = cell[7].getContents().trim();
 				if (freshmanNum == null || freshmanNum.equals("")) {
 					return "第" + count + "行，一年级生人数不能为空";
 				}
@@ -169,7 +169,7 @@ public class T615_Excel {
 					return "第" + count + "行，一年级生人数只能填写数字";
 				}
 
-				String sophomoreNum = cell[8].getContents();
+				String sophomoreNum = cell[8].getContents().trim();
 				if (sophomoreNum == null || sophomoreNum.equals("")) {
 					return "第" + count + "行，二年级生人数不能为空，没有请添加0";
 				}
@@ -177,7 +177,7 @@ public class T615_Excel {
 					return "第" + count + "行，二年级生人数只能填写数字";
 				}
 
-				String juniorNum = cell[9].getContents();
+				String juniorNum = cell[9].getContents().trim();
 				if (juniorNum == null || juniorNum.equals("")) {
 					return "第" + count + "行，三年级生人数不能为空，没有请添加0";
 				}
@@ -185,7 +185,7 @@ public class T615_Excel {
 					return "第" + count + "行，三年级生人数只能填写数字";
 				}
 
-				String seniorNum = cell[10].getContents();
+				String seniorNum = cell[10].getContents().trim();
 				if (seniorNum == null || seniorNum.equals("")) {
 					return "第" + count + "行，四年级生人数不能为空，没有请添加0";
 				}
@@ -193,7 +193,7 @@ public class T615_Excel {
 					return "第" + count + "行，四年级生人数只能填写数字";
 				}
 
-				String otherGradeNum = cell[11].getContents();
+				String otherGradeNum = cell[11].getContents().trim();
 				if (otherGradeNum == null || otherGradeNum.equals("")) {
 					return "第" + count + "行，五年级生及以上人数不能为空，没有请添加0";
 				}
@@ -201,7 +201,7 @@ public class T615_Excel {
 					return "第" + count + "行，五年级生及以上人数只能填写数字";
 				}
 				
-				String minorNum = cell[11].getContents();
+				String minorNum = cell[12].getContents().trim();
 				if (minorNum == null || minorNum.equals("")) {
 					return "第" + count + "行，辅修学生人数不能为空，没有请添加0";
 				}
@@ -209,7 +209,7 @@ public class T615_Excel {
 					return "第" + count + "行，辅修学生人数只能填写数字";
 				}
 				
-				String dualDegreeNum = cell[11].getContents();
+				String dualDegreeNum = cell[13].getContents().trim();
 				if (dualDegreeNum == null || dualDegreeNum.equals("")) {
 					return "第" + count + "行，双学位学生人数不能为空，没有请添加0";
 				}
@@ -217,7 +217,7 @@ public class T615_Excel {
 					return "第" + count + "行，双学位学生人数只能填写数字";
 				}
 				
-				String changeInNum = cell[11].getContents();
+				String changeInNum = cell[14].getContents().trim();
 				if (changeInNum == null || changeInNum.equals("")) {
 					return "第" + count + "行，转入人数不能为空，没有请添加0";
 				}
@@ -225,7 +225,7 @@ public class T615_Excel {
 					return "第" + count + "行，转入人数只能填写数字";
 				}
 				
-				String changeOutNum = cell[11].getContents();
+				String changeOutNum = cell[15].getContents().trim();
 				if (changeOutNum == null || changeOutNum.equals("")) {
 					return "第" + count + "行，转出人数不能为空，没有请添加0";
 				}

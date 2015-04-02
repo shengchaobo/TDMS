@@ -79,8 +79,8 @@ public class T151Excel {
 				
 			  try{
 				 
-				 String ResInsName = cell[1].getContents() ;
-					String ResInsID = cell[2].getContents() ;
+				 String ResInsName = cell[1].getContents().trim() ;
+					String ResInsID = cell[2].getContents().trim() ;
 					
 					if(ResInsName == null || ResInsName.equals("")){
 						return "第" + count + "行，科研机构不能为空" ;
@@ -111,7 +111,7 @@ public class T151Excel {
 						flag = false ;
 					}
 				 
-					String Type = cell[3].getContents() ;
+					String Type = cell[3].getContents().trim() ;
 					
 					if(Type == null || Type.equals("")){
 						return "第" + count + "行，科研机构类别不能为空" ;
@@ -130,7 +130,7 @@ public class T151Excel {
 						flag = false ;
 					}
 					
-					String BuildCon=cell[4].getContents();
+					String BuildCon=cell[4].getContents().trim();
 //					System.out.println("BuildCon:"+BuildCon);
 					
 					if(BuildCon == null || BuildCon.equals("")){
@@ -151,7 +151,7 @@ public class T151Excel {
 						flag=false;
 					}
 
-					String BiOpen=cell[5].getContents();
+					String BiOpen=cell[5].getContents().trim();
 //					System.out.println("BiOpen:"+BiOpen);
 					
 					if(BiOpen == null || BiOpen.equals("")){
@@ -171,7 +171,7 @@ public class T151Excel {
 			        	flag=false;
 			        }
 					
-					String OpenCondition=cell[6].getContents();
+					String OpenCondition=cell[6].getContents().trim();
 					
 					if(OpenCondition ==null || OpenCondition.equals("")){
 						return "第" + count + "行，对本科生开放情况不能为空" ;
@@ -181,8 +181,8 @@ public class T151Excel {
 						return "第" + count + "行，对本科生开放情况字数不能超过500！" ;
 					}
 					
-					String TeaUnit=cell[7].getContents();
-					String UnitID=cell[8].getContents();
+					String TeaUnit=cell[7].getContents().trim();
+					String UnitID=cell[8].getContents().trim();
 					
 					if(TeaUnit == null || TeaUnit.equals("")){
 						return "第" + count + "行，所属教学单位不能为空" ;
@@ -213,7 +213,7 @@ public class T151Excel {
 						flag = false ;
 					}
 					
-					String BeginYearStr=cell[9].getContents();
+					String BeginYearStr=cell[9].getContents().trim();
 //					System.out.println(BeginYearStr);
 					
 					if(BeginYearStr == null || BeginYearStr.equals("")){
@@ -228,7 +228,7 @@ public class T151Excel {
 						return "第" + count + "行，年份只能为4位" ;
 					}
 					
-					String HouseArea=cell[10].getContents();
+					String HouseArea=cell[10].getContents().trim();
 					
 					if(HouseArea == null|| HouseArea.equals("")){
 						return "第" + count + "行，用房面积不能为空" ;
@@ -251,7 +251,7 @@ public class T151Excel {
 				t151Bean.setBiOpen(biOpen);
 				t151Bean.setBuildCondition(buildCondi);
 				t151Bean.setHouseArea(houseArea);
-//				t151Bean.setNote(note);
+				//t151Bean.setNote(note);
 				t151Bean.setOpenCondition(OpenCondition);
 				t151Bean.setResInsID(ResInsID);
 				t151Bean.setResInsName(ResInsName);

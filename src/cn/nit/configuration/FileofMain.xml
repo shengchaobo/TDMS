@@ -7,23 +7,40 @@
 	<package name="FileofMain" namespace="/" extends="struts-default">	
 		
 		
-		<action name="findFiles_1" class="cn.nit.action.FileofMain_1"  method="findFiles_1">
+		<action name="findFiles" class="cn.nit.action.FileofMain"  method="findFiles">
 		<param name="inputPath">/WEB-INF/FileofMain</param>	
         </action>
         
         
-        <action name="downloadFileofMain" class="cn.nit.action.FileofMain_1">
+        <action name="downloadFileofMain" class="cn.nit.action.FileofMain">
 			<param name="inputPath">/WEB-INF/FileofMain</param>	
             <result name="success" type="stream">
             	<param name="contentType">application/octet-stream;charset=UTF-8</param>
 
-                <param name="contentDisposition">attachment;filename="vedioFile.rar"</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
 
                 <param name="inputName">downloadFile</param>
       				<!-- 下载文件缓冲大小 -->
 				<param name="bufferSize">4096</param>
             </result>
         </action>
+        
+       <action name="deleteFile" class="cn.nit.action.FileofMain"  method="deleteFile">
+		<param name="inputPath">/WEB-INF/FileofMain</param></action>
+
+		<action name="fileupload" class="cn.nit.action.FileofMain"  method="upload">
+		<param name="inputPath">/WEB-INF/FileofMain</param>	
+			<interceptor-ref name="fileUpload">
+<!--大家可以设置成自己的配置，想文件类型和大小等限制			-->
+<!--				<param name="maximumSize">2097152</param>单位是字节	2M	（2097152B）		-->
+<!--				<param name="allowedTypes">image/bmp,image/x-png,image/png,image/gif,image/jpeg,image/jpg,image/pjpeg</param>-->
+<!--				-->
+<!--					容许文件类型为doc,ppt,xls,pdf,txt,java-->
+<!--				-->
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
 
 	</package>
 </struts>

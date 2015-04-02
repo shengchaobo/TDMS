@@ -89,8 +89,8 @@ public class T441_Excel {
 				}
 				
 				
-				String unit = cell[1].getContents() ;
-				String unitId = cell[2].getContents() ;
+				String unit = cell[1].getContents().trim() ;
+				String unitId = cell[2].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属单位不能为空" ;
@@ -117,8 +117,8 @@ public class T441_Excel {
 					flag = false ;
 				}
 				
-				String major = cell[3].getContents() ;
-				String majorId = cell[4].getContents() ;
+				String major = cell[3].getContents().trim() ;
+				String majorId = cell[4].getContents().trim();
 				
 				if(major == null || major.equals("")){
 					return "第" + count + "行，专业名称不能为空" ;
@@ -145,8 +145,8 @@ public class T441_Excel {
 					flag = false ;
 				}
 				
-				String name = cell[5].getContents() ;
-				String teaId = cell[6].getContents() ;
+				String name = cell[5].getContents().trim() ;
+				String teaId = cell[6].getContents().trim() ;
 				
 				if(name == null || name.equals("")){
 					return "第" + count + "行，专业带头人名称不能为空" ;

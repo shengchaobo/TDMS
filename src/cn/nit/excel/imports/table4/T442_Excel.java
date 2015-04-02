@@ -55,8 +55,8 @@ public class T442_Excel {
 					continue;
 				}
 				
-				String name = cell[1].getContents() ;
-				String teaId = cell[2].getContents() ;
+				String name = cell[1].getContents().trim() ;
+				String teaId = cell[2].getContents().trim() ;
 				
 				if(name == null || name.equals("")){
 					return "第" + count + "行，导师名称不能为空" ;
@@ -66,7 +66,7 @@ public class T442_Excel {
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				
-				String tutorType = cell[3].getContents();			
+				String tutorType = cell[3].getContents().trim();			
 				if(tutorType == null || tutorType.equals("")){
 					return "第" + count + "行，导师类别不能为空" ;
 				}
@@ -85,13 +85,13 @@ public class T442_Excel {
 					flag = false ;
 				}
 				
-				String subjectClass = cell[4].getContents();
+				String subjectClass = cell[4].getContents().trim();
 				if(subjectClass == null || subjectClass.equals("")){
 					return "第" + count + "行，学科门类不能为空" ;
 				}
 				
-				String MajorName = cell[5].getContents() ;
-				String MajorId = cell[6].getContents() ;
+				String MajorName = cell[5].getContents().trim() ;
+				String MajorId = cell[6].getContents().trim() ;
 				
 				if(MajorName == null || MajorName.equals("")){
 					return "第" + count + "行，专业名称不能为空" ;
@@ -118,10 +118,10 @@ public class T442_Excel {
 					flag = false ;
 				}
 								
-				String resField = cell[7].getContents() ;
+				String resField = cell[7].getContents().trim() ;
 				
-				String unit = cell[8].getContents() ;
-				String unitId = cell[9].getContents() ;
+				String unit = cell[8].getContents().trim();
+				String unitId = cell[9].getContents().trim();
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属单位不能为空" ;

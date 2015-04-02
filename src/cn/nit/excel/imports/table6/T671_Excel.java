@@ -91,23 +91,23 @@ public class T671_Excel {
 					continue;
 				}
 	
-				String stuName = cell[1].getContents();
+				String stuName = cell[1].getContents().trim();
 				if (stuName == null || stuName.equals("")) {
 					return "第" + count + "行，学生姓名不能为空";
 				}
 				
-				String stuId = cell[2].getContents();
+				String stuId = cell[2].getContents().trim();
 				if (stuId == null || stuId.equals("")) {
 					return "第" + count + "行，学号不能为空";
 				}
 
 
-				String fromTeaUnit = cell[3].getContents();
+				String fromTeaUnit = cell[3].getContents().trim();
 				if (fromTeaUnit == null || fromTeaUnit.equals("")) {
 					return "第" + count + "行，所在教学单位不能为空";
 				}
 				
-				String unitId = cell[4].getContents();
+				String unitId = cell[4].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -134,12 +134,12 @@ public class T671_Excel {
 				
 
 
-				String fromMaj = cell[5].getContents();
+				String fromMaj = cell[5].getContents().trim();
 				if (fromMaj == null || fromMaj.equals("")) {
 					return "第" + count + "行，所在专业不能为空";
 				}
 
-				String majId = cell[6].getContents();
+				String majId = cell[6].getContents().trim();
 				if (majId == null || majId.equals("")) {
 					return "第" + count + "行，所在专业代码不能为空";
 				}
@@ -168,17 +168,17 @@ public class T671_Excel {
 
 				
 				
-				String fromClass = cell[7].getContents();
+				String fromClass = cell[7].getContents().trim();
 				if (fromClass == null || fromClass.equals("")) {
 					return "第" + count + "行，所在班级不能为空";
 				}
 				
-				String minorFromTeaUnit = cell[8].getContents();
+				String minorFromTeaUnit = cell[8].getContents().trim();
 				if (minorFromTeaUnit == null || minorFromTeaUnit.equals("")) {
 					return "第" + count + "行，辅修专业所在教学单位不能为空";
 				}
 				
-				String minorUnitId = cell[9].getContents();
+				String minorUnitId = cell[9].getContents().trim();
 				if (minorUnitId == null || minorUnitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -203,12 +203,12 @@ public class T671_Excel {
 					flag = false;
 				}
 
-				String minorMaj = cell[10].getContents();
+				String minorMaj = cell[10].getContents().trim();
 				if (minorMaj == null || minorMaj.equals("")) {
 					return "第" + count + "行，辅修专业不能为空";
 				}
 
-				String minorId = cell[11].getContents();
+				String minorId = cell[11].getContents().trim();
 				if (minorId == null || minorId.equals("")) {
 					return "第" + count + "行，所在专业代码不能为空";
 				}
@@ -232,7 +232,7 @@ public class T671_Excel {
 					flag = false;
 				}
 				
-				String beginTime = cell[12].getContents();
+				String beginTime = cell[12].getContents().trim();
 				if (beginTime == null || beginTime.equals("")) {
 					return "第" + count + "行，起始时间不能为空";
 				}
@@ -240,7 +240,7 @@ public class T671_Excel {
 					return "第" + count + "行，起始时间格式为：2013-02";
 				}
 
-				String graduateTime = cell[13].getContents();
+				String graduateTime = cell[13].getContents().trim();
 				if (graduateTime == null || graduateTime.equals("")) {
 					return "第" + count + "行，预计毕业时间不能为空";
 				}

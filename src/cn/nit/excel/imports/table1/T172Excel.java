@@ -62,7 +62,7 @@ public class T172Excel {
 			 { 
 			
 			try{
-				String FriName = cell[1].getContents() ;
+				String FriName = cell[1].getContents().trim() ;
 				if(FriName == null || FriName.equals("")){
 					return "第" + count + "行，校友名称不能为空" ;
 				}
@@ -71,7 +71,7 @@ public class T172Excel {
 					return "第" + count + "行，校友名称字数不超过100个字" ;
 				}
 				
-				String ActName = cell[2].getContents() ;
+				String ActName = cell[2].getContents().trim() ;
 				
 				if((ActName == null) || ActName.equals("")){
 					return "第" + count + "行，交流活动名称不能为空" ;
@@ -81,7 +81,7 @@ public class T172Excel {
 					return "第" + count + "行，交流活动名称不能超过100字" ;
 				}
 				
-				String ActType = cell[3].getContents() ;
+				String ActType = cell[3].getContents().trim() ;
 				
 				if((ActType == null) || ActType.equals("")){
 					return "第" + count + "行，交流类型不能为空" ;
@@ -91,7 +91,7 @@ public class T172Excel {
 					return "第" + count + "行，交流活动类型不能超过50字" ;
 				}			
 				
-				String ActTime = cell[4].getContents() ;
+				String ActTime = cell[4].getContents().trim() ;
 			    if(ActTime ==null || ActTime.equals("")){
 			    	return "第" + count + "行，交流时间不能为空" ;
 			    }
@@ -99,7 +99,7 @@ public class T172Excel {
 			    	return "第" + count + "行，交流时间格式应为：2014-05" ;
 			    }
 				
-				String ActPlace = cell[5].getContents() ;
+				String ActPlace = cell[5].getContents().trim() ;
 				if(ActPlace == null || ActPlace.equals("")){
 					return "第" + count + "行，交流地点不能为空" ;
 				}
@@ -107,7 +107,7 @@ public class T172Excel {
 					return "第" + count + "行，交流地点字数不能超过100字" ;
 				}
 				
-				String UnitName = cell[6].getContents() ;
+				String UnitName = cell[6].getContents().trim();
 				if(UnitName == null || UnitName.equals("")){
 					return "第" + count + "行协作单位不能为空" ;
 				}
@@ -115,7 +115,7 @@ public class T172Excel {
 					return "第" + count + "行，协作单位字数不能超过100字" ;
 				}
 				
-				String UnitID = cell[7].getContents() ;
+				String UnitID = cell[7].getContents().trim();
 				if(UnitID == null || UnitID.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
 				}
@@ -123,7 +123,7 @@ public class T172Excel {
 					return "第" + count + "行，单位号字数不能超过50个字符" ;
 				}
 
-				String note = cell[8].getContents() ;
+				String note = cell[8].getContents().trim();
 				
 				if(note.length() > 1000){
 					return "第" + count + "行，备注不能超过500个汉字" ;

@@ -94,8 +94,8 @@ public class T534Excel {
 				
 			  try{
 				 
-				  	String TeaUnit = cell[1].getContents() ;
-					String UnitID = cell[2].getContents() ;
+				  	String TeaUnit = cell[1].getContents().trim() ;
+					String UnitID = cell[2].getContents().trim() ;
 					
 					if(TeaUnit == null || TeaUnit.equals("")){
 						return "第" + count + "行，教学单位不能为空" ;
@@ -126,8 +126,8 @@ public class T534Excel {
 						flag = false ;
 					}
 					
-					String MajorName = cell[3].getContents() ;
-					String MajorID = cell[4].getContents() ;
+					String MajorName = cell[3].getContents().trim() ;
+					String MajorID = cell[4].getContents().trim() ;
 					
 					if(MajorName == null || MajorName.equals("")){
 						return "第" + count + "行，专业名称不能为空" ;
@@ -158,8 +158,8 @@ public class T534Excel {
 						flag = false ;
 					}
 					
-					String TeaName = cell[5].getContents() ;
-					String TeaID = cell[6].getContents() ;
+					String TeaName = cell[5].getContents().trim() ;
+					String TeaID = cell[6].getContents().trim() ;
 					
 					if(TeaName == null || TeaName.equals("")){
 						return "第" + count + "行，教师姓名不能为空" ;
@@ -190,7 +190,7 @@ public class T534Excel {
 						flag = false ;
 					}
 					
-					String isOutEmploy = cell[7].getContents() ;
+					String isOutEmploy = cell[7].getContents().trim() ;
 					
 					if(isOutEmploy == null || isOutEmploy.equals("")){
 						return "第" + count + "行，是否外聘不能为空" ;
@@ -208,7 +208,7 @@ public class T534Excel {
 					}
 					
 					
-					String Education=cell[8].getContents();
+					String Education=cell[8].getContents().trim();
 //					System.out.println("BuildCon:"+BuildCon);
 					
 					if(Education == null || Education.equals("")){
@@ -228,7 +228,7 @@ public class T534Excel {
 						flag = false ;
 					}
 					
-					String Degree=cell[9].getContents();
+					String Degree=cell[9].getContents().trim();
 //					System.out.println("BuildCon:"+BuildCon);
 					
 					if(Degree == null || Degree.equals("")){
@@ -248,7 +248,7 @@ public class T534Excel {
 						flag = false ;
 					}
 					
-					String Title=cell[10].getContents();
+					String Title=cell[10].getContents().trim();
 //					System.out.println("BuildCon:"+BuildCon);
 					
 					if(Title == null || Title.equals("")){
@@ -268,7 +268,7 @@ public class T534Excel {
 						flag = false ;
 					}
 					
-					String isExcellent = cell[11].getContents() ;
+					String isExcellent = cell[11].getContents().trim() ;
 					
 					if(isExcellent == null || isExcellent.equals("")){
 						return "第" + count + "行，是否获评校级优秀指导教师不能为空" ;
@@ -285,7 +285,7 @@ public class T534Excel {
 						return "第" + count + "行，是否获评校级优秀指导教师不格式不正确,只能填”是“或”否“" ;
 					}
 					
-					String TrainIssueNum=cell[12].getContents();
+					String TrainIssueNum=cell[12].getContents().trim();
 					
 					if(TrainIssueNum == null || TrainIssueNum.equals("")){
 						TrainIssueNum = "0";
@@ -294,7 +294,7 @@ public class T534Excel {
 						return "第" + count + "行，格式不正确,课题数量只能为数字" ;
 					}
 					
-					String SociaPraFinishNum=cell[13].getContents();
+					String SociaPraFinishNum=cell[13].getContents().trim();
 					
 					if(SociaPraFinishNum == null || SociaPraFinishNum.equals("")){
 						TrainIssueNum = "0";
@@ -303,7 +303,7 @@ public class T534Excel {
 						return "第" + count + "行，格式不正确,实践完成数只能为数字" ;
 					}
 					
-					String GuideStuNum=cell[14].getContents();
+					String GuideStuNum=cell[14].getContents().trim();
 					
 					if(GuideStuNum == null || GuideStuNum.equals("")){
 						TrainIssueNum = "0";
@@ -312,7 +312,7 @@ public class T534Excel {
 						return "第" + count + "行，格式不正确,指导学生人数只能为数字" ;
 					}
 					
-					String GainBestGraDesinNum=cell[15].getContents();
+					String GainBestGraDesinNum=cell[15].getContents().trim();
 					
 					if(GainBestGraDesinNum == null || GainBestGraDesinNum.equals("")){
 						TrainIssueNum = "0";
@@ -321,14 +321,14 @@ public class T534Excel {
 						return "第" + count + "行，格式不正确,获优秀毕业人数只能为数字" ;
 					}
 					
-					String GainTime=cell[16].getContents();
+					String GainTime=cell[16].getContents().trim();
 					if(GainTime == null || GainTime.equals("")){
 						return "第" + count + "行，获评时间不能为空" ;
 					}
 					if(!this.judgeFormat1(GainTime)){
 						return "第" + count + "行，获评时间格式不正确，应为：2012-09" ;
 					}
-					String Note=cell[17].getContents();
+					String Note=cell[17].getContents().trim();
 					if(Note!=null&&Note.length()>1000){
 						return "第" + count + "行，备注长度不能超过500字" ;
 					}

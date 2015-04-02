@@ -55,7 +55,7 @@ public class T531Excel {
 			else{
 			  try{
 				 
-				 String Name = cell[1].getContents() ;
+				 String Name = cell[1].getContents().trim() ;
 				 
 				 if(Name == null || Name.equals("")){
 						return "第" + count + "行，名称不能为空" ;
@@ -64,7 +64,7 @@ public class T531Excel {
 					 return "第" + count + "行，名称不能超过500个字" ;
 				 }
 				 
-					String Type = cell[2].getContents() ;
+					String Type = cell[2].getContents().trim() ;
 					
 					if(Type == null || Type.equals("")){
 						return "第" + count + "行，类型不能为空" ;
@@ -74,7 +74,7 @@ public class T531Excel {
 						return "第" + count + "行，类型不能超过25个汉字" ;
 					}
 					
-					String ItemLevel = cell[3].getContents() ;
+					String ItemLevel = cell[3].getContents().trim() ;
 					
 					if(ItemLevel == null || ItemLevel.equals("")){
 						return "第" + count + "行，级别不能为空" ;
@@ -86,7 +86,7 @@ public class T531Excel {
                     	ItemLevel = "省级";
                     }
 		
-					String buildTime = cell[4].getContents() ;
+					String buildTime = cell[4].getContents().trim();
 					
 					if(buildTime == null || buildTime.equals("")){
 						return "第" + count + "行，设立时间不能为空" ;
@@ -95,7 +95,7 @@ public class T531Excel {
 						return "第" + count + "行，时间格式错误，格式为：2014" ;
 					}
 					
-					String TeaUnit = cell[5].getContents();
+					String TeaUnit = cell[5].getContents().trim();
 //					System.out.println("TeaUnit:"+TeaUnit);
 					if(TeaUnit == null || TeaUnit.equals("")){
 						return "第" + count + "行，所属教学单位不能为空" ;
@@ -115,7 +115,7 @@ public class T531Excel {
 						flag = false ;
 					}
 					
-					String JoinStuNum=cell[6].getContents();
+					String JoinStuNum=cell[6].getContents().trim();
 					
 					if(JoinStuNum == null || JoinStuNum.equals("")){
 						JoinStuNum ="0" ;

@@ -103,12 +103,12 @@ public class T658_Excel {
 					continue;
 				}
 				
-				String teaUnit = cell[1].getContents();
+				String teaUnit = cell[1].getContents().trim();
 				if (teaUnit == null || teaUnit.equals("")) {
 					return "第" + count + "行，教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -134,18 +134,18 @@ public class T658_Excel {
 				}
 		
 
-				String conferenceName = cell[3].getContents();
+				String conferenceName = cell[3].getContents().trim();
 
 				if (conferenceName == null || conferenceName.equals("")) {
 					return "第" + count + "行，会议名称不能为空";
 				}
 
-				String paperTitle = cell[4].getContents();
+				String paperTitle = cell[4].getContents().trim();
 				if (paperTitle == null || paperTitle.equals("")) {
 					return "第" + count + "行，发表论文题目不能为空";
 				}
 				
-				String holdTime = cell[5].getContents();
+				String holdTime = cell[5].getContents().trim();
 				if (holdTime == null || holdTime.equals("")) {
 					return "第" + count + "行，举办时间不能为空";
 				}
@@ -153,18 +153,18 @@ public class T658_Excel {
 					return "第" + count + "行，举办时间格式为：2013-02";
 				}
 				
-				String holdPlace = cell[6].getContents();
+				String holdPlace = cell[6].getContents().trim();
 				if (holdPlace == null || holdPlace.equals("")) {
 					return "第" + count + "行，举办地点不能为空";
 				}
 				
-				String holdUnit = cell[7].getContents();
+				String holdUnit = cell[7].getContents().trim();
 				if (holdUnit == null || holdUnit.equals("")) {
 					return "第" + count + "行，举办单位不能为空";
 				}
 				
 				
-				String conferenceLevel = cell[8].getContents();
+				String conferenceLevel = cell[8].getContents().trim();
 				
 				String levelID = null;
 

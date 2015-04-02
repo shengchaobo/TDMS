@@ -83,14 +83,14 @@ public class T252_Excel {
 					continue;
 				}
 				
-				String expCenterName = cell[1].getContents() ;
+				String expCenterName = cell[1].getContents().trim() ;
 				
 				if(expCenterName == null || expCenterName.equals("")){
 					return "第" + count + "行，实验中心名称不能为空" ;
 				}
 								
-				String unit = cell[2].getContents() ;
-				String unitId = cell[3].getContents() ;
+				String unit = cell[2].getContents().trim() ;
+				String unitId = cell[3].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属单位不能为空" ;
@@ -117,12 +117,12 @@ public class T252_Excel {
 					flag = false ;
 				}
 					
-				String labName = cell[4].getContents() ;				
-				String expClassHour = cell[5].getContents() ;
-				String stuNum = cell[6].getContents() ;
-				String expHour = cell[7].getContents() ;
-				String expTimes = cell[8].getContents() ;
-				String practiseItemNum = cell[9].getContents() ;
+				String labName = cell[4].getContents().trim();				
+				String expClassHour = cell[5].getContents().trim() ;
+				String stuNum = cell[6].getContents().trim() ;
+				String expHour = cell[7].getContents().trim() ;
+				String expTimes = cell[8].getContents().trim() ;
+				String practiseItemNum = cell[9].getContents().trim() ;
 
 								
 				count++ ;

@@ -101,12 +101,12 @@ public class T656_Excel {
 					continue;
 				}
 				
-				String teaUnit = cell[1].getContents();
+				String teaUnit = cell[1].getContents().trim();
 				if (teaUnit == null || teaUnit.equals("")) {
 					return "第" + count + "行，教学单位不能为空";
 				}
 				
-				String unitId = cell[2].getContents();
+				String unitId = cell[2].getContents().trim();
 				if (unitId == null || unitId.equals("")) {
 					return "第" + count + "行，单位号不能为空";
 				}
@@ -131,7 +131,7 @@ public class T656_Excel {
 					flag = false;
 				}
 
-				String nationNCREPassRate = cell[3].getContents();
+				String nationNCREPassRate = cell[3].getContents().trim();
 				if (nationNCREPassRate == null || nationNCREPassRate.equals("")) {
 					return "第" + count + "行，全国高校计算机等级考试累计通过率不能为空";
 				}

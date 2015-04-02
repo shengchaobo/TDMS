@@ -84,14 +84,14 @@ public class T251_Excel {
 					continue;
 				}
 				
-				String expCenterName = cell[1].getContents() ;
+				String expCenterName = cell[1].getContents().trim();
 				
 				if(expCenterName == null || expCenterName.equals("")){
 					return "第" + count + "行，实验中心名称不能为空" ;
 				}
 								
-				String unit = cell[2].getContents() ;
-				String unitId = cell[3].getContents() ;
+				String unit = cell[2].getContents().trim() ;
+				String unitId = cell[3].getContents().trim() ;
 				
 				if(unit == null || unit.equals("")){
 					return "第" + count + "行，所属单位不能为空" ;
@@ -118,8 +118,8 @@ public class T251_Excel {
 					flag = false ;
 				}
 							
-				String labName = cell[4].getContents() ;
-				String buildTime = cell[5].getContents() ;
+				String labName = cell[4].getContents().trim();
+				String buildTime = cell[5].getContents().trim() ;
 				
 				if((buildTime == null) || buildTime.equals("")){
 					return "第" + count + "行，创建时间不能为空" ;
@@ -129,13 +129,13 @@ public class T251_Excel {
 					}
 				}
 				
-				String place = cell[6].getContents() ;
-				String machNum = cell[7].getContents() ;
-				String money = cell[8].getContents() ;
-				String area = cell[9].getContents() ;
-				String newAddArea = cell[10].getContents() ;
-				String nature = cell[11].getContents() ;
-				String forMajor = cell[12].getContents() ;
+				String place = cell[6].getContents().trim() ;
+				String machNum = cell[7].getContents().trim() ;
+				String money = cell[8].getContents().trim();
+				String area = cell[9].getContents().trim();
+				String newAddArea = cell[10].getContents().trim() ;
+				String nature = cell[11].getContents().trim() ;
+				String forMajor = cell[12].getContents().trim() ;
 								
 				count++ ;
 								

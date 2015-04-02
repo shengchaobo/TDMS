@@ -80,7 +80,7 @@ public class T183Excel {
 				
 			  try{
 				 
-				    String CooperInsName = cell[1].getContents() ;
+				    String CooperInsName = cell[1].getContents().trim();
 				    
 				    if(CooperInsName == null || CooperInsName.equals("")){
 				    	return "第" + count + "行，合作机构名称不能为空" ;
@@ -90,7 +90,7 @@ public class T183Excel {
 				    }
 				    
 				    
-					String CooperInsType = cell[2].getContents() ;
+					String CooperInsType = cell[2].getContents().trim() ;
 					
 					if(CooperInsType == null || CooperInsType.equals("")){
 						return "第" + count + "行，合作机构类型不能为空" ;
@@ -100,7 +100,7 @@ public class T183Excel {
 						return "第" + count + "行，合作机构类型只能为“学术机构”或者“行业机构和企业”或者“地方政府”" ;
 					}
 					
-					String CooperInsLevel = cell[3].getContents();
+					String CooperInsLevel = cell[3].getContents().trim();
 					
 					if(CooperInsLevel == null || CooperInsLevel.equals("")){
 						return "第" + count + "行，合作机构级别不能为空" ;
@@ -120,7 +120,7 @@ public class T183Excel {
 					}
 					
 				 
-					String SignedTime = cell[4].getContents() ;
+					String SignedTime = cell[4].getContents().trim() ;
 					
 					if(SignedTime == null || SignedTime.equals("")){
 						return "第" + count + "行，签订协议时间不能为空" ;
@@ -130,9 +130,9 @@ public class T183Excel {
 						return "第" + count + "行，签订协议时间格式有误（格式如：2013/03或者2013/03/01）" ;
 					}
 					
-					String UnitName = cell[5].getContents();
+					String UnitName = cell[5].getContents().trim();
 					UnitName = UnitName.trim();
-					String UnitID=cell[6].getContents();
+					String UnitID=cell[6].getContents().trim();
 					
 					if(UnitName == null || UnitName.equals("")){
 						return "第" + count + "行，我方不能为空";
@@ -168,7 +168,7 @@ public class T183Excel {
 						flag = false ;	}
 						
 					
-					String UnitLevel=cell[7].getContents();
+					String UnitLevel=cell[7].getContents().trim();
 					
 					if(UnitLevel == null || UnitLevel.equals("")){
 						return "第" + count + "行，我方单位级别不能为空" ;
@@ -186,7 +186,7 @@ public class T183Excel {
 							flag=false;
 						}
 					
-					String note=cell[8].getContents();
+					String note=cell[8].getContents().trim();
 					
 					if(note.length()>500){
 						return "第" + count + "行，备注字数不能超过500" ;

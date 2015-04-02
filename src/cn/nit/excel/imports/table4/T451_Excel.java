@@ -57,23 +57,23 @@ public class T451_Excel {
 				}
 				
 				
-				String orgName = cell[1].getContents() ;
+				String orgName = cell[1].getContents().trim() ;
 				if((orgName == null) || orgName.equals("")){
 					return "第" + count + "行，机构名称不能为空" ;
 				}
 				
-				String unitId = cell[2].getContents();			
+				String unitId = cell[2].getContents().trim();			
 				if(unitId == null || unitId.equals("")){
 					return "第" + count + "行，单位号不能为空" ;
 				}
 				
-				String orgType = cell[3].getContents() ;
+				String orgType = cell[3].getContents().trim() ;
 				if((orgName == null) || orgName.equals("")){
 					return "第" + count + "行，机构类型不能为空" ;
 				}
 				
-				String trainTime = cell[4].getContents();			
-				String trainPerTime = cell[5].getContents();
+				String trainTime = cell[4].getContents().trim();			
+				String trainPerTime = cell[5].getContents().trim();
 
 															
 				count++ ;

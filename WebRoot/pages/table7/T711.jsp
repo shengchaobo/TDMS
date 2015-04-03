@@ -199,8 +199,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AwardNameSpan"></span>
 					</div>
 				</td>
-					</tr>
-				<tr>
+			</tr>
+			<tr>
 					<td>
 					<div class="fitem">
 						<label>级别：</label> 

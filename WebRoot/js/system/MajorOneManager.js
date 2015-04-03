@@ -112,8 +112,9 @@
 		
 		url = 'pages/DiMajorOne/edit';
 
-		$('#dlg').dialog('open').dialog('setTitle', '编辑专科专业');
 		
+		$('#dlg').dialog('open').dialog('setTitle', '编辑专科专业');
+		$('#SeqNumber').val(row[0].seqNumber) ;
     	$('#MajorNum').val(row[0].majorNum) ;
     	$("input#MajorNum").attr("readonly",true);
     	$("input#MajorNum").css({"color":"#888"});

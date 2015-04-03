@@ -28,8 +28,8 @@
 	function newMajor() {
 		
 		//update隐藏的量在提交之后要恢复
-		$("input#MajorNum").attr("readonly",false);
-		$("input#MajorNum").css({"color":"black"});
+		$("input#SchMajorID").attr("readonly",false);
+		$("input#SchMajorID").css({"color":"black"});
 		
 		url = 'pages/DiMajorTwo/insert';
 		$('#dlg').dialog('open').dialog('setTitle', '添加本科专业');
@@ -61,6 +61,8 @@
 
 	function validate() {
 		//获取文本框的值
+		var SchMajorID = $('#MajorNum').val();
+		var SchMajorName = $('#MajorName').val();
 		var majorNum = $('#MajorNum').val();
 		var majorName = $('#MajorName').val();
 		var version = $('#Version').val();
@@ -70,6 +72,17 @@
 
 		
 		//根据数据库定义的字段的长度，对其进行判断
+		if (SchMajorID == null || SchMajorID.length == 0 || SchMajorID == "null") {
+			alert("校内专业代码不能为空");
+			return false;
+		}
+		
+		if (SchMajorName == null || SchMajorName.length == 0 || SchMajorName == "null") {
+			alert("校内专业名称不能为空");
+			return false;
+		}
+		
+		
 		if (majorNum == null || majorNum.length == 0 || majorNum == "null") {
 			alert("专业代码不能为空");
 			return false;
@@ -116,10 +129,12 @@
 
 		$('#dlg').dialog('open').dialog('setTitle', '编辑本科专业');
 		
+    	$('#SchMajorID').val(row[0].schMajorID) ;
+    	$("input#SchMajorID").attr("readonly",true);
+    	$("input#SchMajorID").css({"color":"#888"});
+    	
+    	$('#SchMajorName').val(row[0].schMajorName);
     	$('#MajorNum').val(row[0].majorNum) ;
-    	$("input#MajorNum").attr("readonly",true);
-    	$("input#MajorNum").css({"color":"#888"});
-
     	$('#MajorName').val(row[0].majorName);
     	$('#Version').val(row[0].version);
 		$('#Duration').combobox('select',row[0].duration);

@@ -35,6 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true">选取</th>
+				<th field="schMajorID">校内专业代码</th>
+				<th field="schMajorName">校内专业名称</th>	
 				<th field="majorNum">专业代码</th>
 				<th field="majorName">专业名称</th>				
 				<th field="version">版本</th>
@@ -59,6 +61,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		data-options="modal:true" buttons="#dlg-buttons">
 		<form id="majorManagerForm" method="post">
 			<table>
+			
+						<tr>
+						<td>
+							<div class="fitem">
+								<label>
+									校内专业代码：
+								</label>
+								<input id="SchMajorID" type="text" name="major_bean.schMajorID"
+									class="easyui-validatebox"/>
+								<span id="SchMajorIDSpan"></span>
+							</div>
+						</td>
+						<td class="empty"></td>
+						<td>
+							<div class="fitem">
+								<label>
+									校内专业名称：
+								</label>
+								<input id="SchMajorName" type="text" name="major_bean.schMajorName"
+									class="easyui-validatebox"/>
+								<span id="SchMajorNameSpan"></span>
+							</div>
+						</td>
+						
+					</tr>
+			
+			
+			
 					<tr>
 						<td>
 							<div class="fitem">
@@ -101,12 +131,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									年限：
 								</label>
 								<select class='easyui-combobox' id="Duration" name="major_bean.duration" style="width:80px" data-options="listHeight:'auto',editable:false">
-									<option value="一年">一年</option>
-									<option value="二年">二年</option>
-									<option value="三年">三年</option>
-									<option value="四年">四年</option>
-									<option value="五年">五年</option>
-									<option value="六年">六年</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
  								</select>
 							</div>
 						</td>								

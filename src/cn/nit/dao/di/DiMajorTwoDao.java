@@ -14,9 +14,9 @@ public class DiMajorTwoDao {
 	
 	private String tableName = "DiMajorTwo" ;
 	
-	private String key = "MajorNum";
+	private String key = "SchMajorID";
 	
-	private String field = "MajorNum,MajorName,Version,Duration,Direction,UnitId";
+	private String field = "SchMajorID,SchMajorName,MajorNum,MajorName,Version,Duration,Direction,UnitId";
 	
 	/**
 	 * 获取DiDegree字典表的所有数据
@@ -140,7 +140,7 @@ public class DiMajorTwoDao {
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		boolean flag = false ;
-		String field = "MajorName,Version,Duration,Direction,UnitId";
+		String field = "SchMajorName,MajorNum,MajorName,Version,Duration,Direction,UnitId";
 		
 		try{
 			flag = DAOUtil.update(majorbean, tableName, key, field, conn) ;

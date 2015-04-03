@@ -25,11 +25,34 @@ public class DiMajorTwoBean implements java.io.Serializable {
 	private String duration;
 	private String direction;
 	private String unitId;
+	private String schMajorName;
+	private String schMajorID;
+	
+	
+	
 
 	// Constructors
 
+
+
 	/** default constructor */
 	public DiMajorTwoBean() {
+	}
+
+	public String getSchMajorName() {
+		return schMajorName;
+	}
+
+	public void setSchMajorName(String schMajorName) {
+		this.schMajorName = schMajorName;
+	}
+
+	public String getSchMajorID() {
+		return schMajorID;
+	}
+
+	public void setSchMajorID(String schMajorID) {
+		this.schMajorID = schMajorID;
 	}
 
 	/** minimal constructor */

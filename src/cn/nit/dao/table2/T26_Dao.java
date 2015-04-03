@@ -15,7 +15,7 @@ public class T26_Dao {
 	
 	private String tableName = "T26_OutSchPractiseBase_Tea$" ;
 	private String tableName1 = "DiAwardLevel" ;
-	private String field = "PractiseBase,TeaUnit,TeaUnitID,Address,ForMajor,StuNumEachTime,StuNumEachYear,SignLevel,BaseLevel,Time,Note,CheckState";
+	private String field = "PractiseBase,TeaUnit,TeaUnitID,Address,ForMajor,StuNumEachTime,StuNumEachYear,SignLevel,BaseLevel,Time,Note,FillUnitID,CheckState";
 	private String keyfield = "SeqNumber";
 	
 	/**
@@ -24,13 +24,24 @@ public class T26_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T26_Bean> totalList(String year, int checkState){
+	public List<T26_Bean> totalList(String fillUnitID, String year, int checkState){
 		
-		String sql = "select SeqNumber,PractiseBase,TeaUnit,TeaUnitID,Address,ForMajor,StuNumEachTime,StuNumEachYear," +
-				"AwardLevel AS SignLevel,BaseLevel,Time,Note,CheckState"
-		+ " from " + tableName +
-		" left join " + tableName1+ " on " + "SignLevel=" + tableName1 + ".IndexID " +
-		" where CheckState=" + checkState + " and Time like '"+year+"%'";;
+		String sql = null;
+		
+		if("111".equals(fillUnitID)){
+			 sql = "select SeqNumber,PractiseBase,TeaUnit,TeaUnitID,Address,ForMajor,StuNumEachTime,StuNumEachYear," +
+				"AwardLevel AS SignLevel,BaseLevel,Time,Note,FillUnitID,CheckState"
+			+ " from " + tableName +
+			" left join " + tableName1+ " on " + "SignLevel=" + tableName1 + ".IndexID " +
+			" where CheckState=" + checkState + " and Time like '"+year+"%'";
+		}else{
+			 sql = "select SeqNumber,PractiseBase,TeaUnit,TeaUnitID,Address,ForMajor,StuNumEachTime,StuNumEachYear," +
+				"AwardLevel AS SignLevel,BaseLevel,Time,Note,FillUnitID,CheckState"
+			+ " from " + tableName +
+			" left join " + tableName1+ " on " + "SignLevel=" + tableName1 + ".IndexID " +
+			" where FillUnitID=" + "'" + fillUnitID + "'" +
+			" and CheckState=" + checkState + " and Time like '"+year+"%'";
+		}
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -59,7 +70,7 @@ public class T26_Dao {
 	public List<T26_Bean> getYearInfo(String year){
 		
 		String sql = "select SeqNumber,PractiseBase,TeaUnit,TeaUnitID,Address,ForMajor,StuNumEachTime,StuNumEachYear," +
-				"AwardLevel AS SignLevel,BaseLevel,Time,Note,CheckState"
+				"AwardLevel AS SignLevel,BaseLevel,Time,Note,FillUnitID,CheckState"
 		+ " from " + tableName +
 		" left join " + tableName1+ " on " + "SignLevel=" + tableName1 + ".IndexID " +
 		" where convert(varchar(4),Time,120)=" + year;
@@ -150,7 +161,7 @@ public class T26_Dao {
 				
 		String queryPageSql = "select top " + pageSize + " " + keyfield + "," +
 		"PractiseBase,TeaUnit,TeaUnitID,Address,ForMajor,StuNumEachTime,StuNumEachYear," +
-		"AwardLevel AS SignLevel,BaseLevel,Time,Note,CheckState" + " from " + tableName + 
+		"AwardLevel AS SignLevel,BaseLevel,Time,Note,FillUnitID,CheckState" + " from " + tableName + 
 		" left join " + tableName1+ " on " + "SignLevel=" + tableName1 + ".IndexID " +
 		" where " + Cond + " and (SeqNumber not in (select top " + pageSize * (showPage-1) + " SeqNumber from "+
 		tableName  + " where " + Cond +  "  order by SeqNumber)) order by SeqNumber" ;
@@ -188,7 +199,7 @@ public class T26_Dao {
 		boolean flag = false ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		
-		String tempfield = "PractiseBase,TeaUnit,TeaUnitID,Address,ForMajor,StuNumEachTime,StuNumEachYear,SignLevel,BaseLevel,Time,CheckState";
+		String tempfield = "PractiseBase,TeaUnit,TeaUnitID,Address,ForMajor,StuNumEachTime,StuNumEachYear,SignLevel,BaseLevel,Time,FillUnitID,CheckState";
 		
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
@@ -283,33 +294,7 @@ public class T26_Dao {
 		
 		return flag ;
 	}
-	
-	/**
-	 * 更新数据
-	 * @param diCourseCategories
-	 * @return
-	 *
-	 * @time: 2014-5-14/下午02:34:23
-	 */	
-	public boolean update(T251_Bean bean){
 		
-		boolean flag = false ;
-		Connection conn = DBConnection.instance.getConnection() ;
-		try{
-			String updatefield = "ExpCenterName,TeaUnit,TeaUnitID,LabName,BuildTime,Place,MachNum,Money,Area,NewAddArea,Nature,ForMajor,Note,CheckState";			
-			
-			flag = DAOUtil.update(bean, tableName, keyfield, updatefield, conn) ;
-		}catch(Exception e){
-			e.printStackTrace() ;
-			return flag ;
-		}finally{
-			DBConnection.close(conn) ;
-		}
-		
-		return flag ;
-	}
-	
-	
 	/**
 	 * 找到该条数据的审核状态
 	 * @param diCourseCategories

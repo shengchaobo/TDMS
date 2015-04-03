@@ -67,7 +67,7 @@
 		var class2 = $('#Class2').val();
 		var functions = $('#Functions').val();
 		var leader = $('#Leader').val();
-		var teaId = $('#TeaID').combobox('getText');
+		var teaId = $('#TeaID').val();
 		
 		var note = $('#Note').val();
 		
@@ -103,7 +103,7 @@
 		}
 
 		if (teaId == null ||  teaId == ''  || teaId.length == 0) {
-			alert("教工号不能为空或者教师库中无该教工号");
+			alert("教工号不能为空");
 			return false;
 		}
 		
@@ -136,7 +136,7 @@
 		$('#Class2').val(row[0].class2);
 		$('#Functions').val(row[0].functions);
 		$('#Leader').val(row[0].leader);
-		$('#TeaID').combobox('select', row[0].teaId) ;
+		$('#TeaID').val(row[0].teaId);
 		$('#Note').val(row[0].note);
 	}
 

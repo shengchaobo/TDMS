@@ -32,21 +32,6 @@ public class SearchAction {
 	
 	private String querySql;
 	private String tableName;
-	private String formattime = "'function(value,rec){" +
-/*			" if(val == null){return null ;}" +
-			" var year=parseInt(val.year)+1900; " +
-			" var month=(parseInt(val.month)+1); " +
-			" month=month>9?month:('0'+month);" +
-			" var date=parseInt(val.date); " +
-			" date=date>9?date:('0'+date);  " +
-			" var hours=parseInt(val.hours); " +
-			" hours=hours>9?hours:('0'+hours); " +
-			" var minutes=parseInt(val.minutes);" +
-			"  minutes=minutes>9?minutes:('0'+minutes);  " +
-			" var seconds=parseInt(val.seconds); " +
-			" seconds=seconds>9?seconds:('0'+seconds);  " +
-			" var time=year+'-'+month+'-'+date ;  " +*/
-			" return 123;}'";
 
 	//查询表单表头信息
 	public void loadColumnResult() throws IOException {
@@ -59,9 +44,9 @@ public class SearchAction {
 			columnInfoBean.setField(bean.getTid());
 			columnInfoBean.setAlign("center");
 			columnInfoBean.setWidth(120);
-/*			if(bean.getTFieldFlag() == 30){
-				columnInfoBean.setFormatter(formattime);
-			}*/
+			if(bean.getTFieldFlag() == 30){
+				columnInfoBean.setFormatter("formattime");
+			}
 			list.add(columnInfoBean);
 		}		
 		
@@ -72,6 +57,7 @@ public class SearchAction {
 		response.setContentType("text/html; charset=utf-8");
 		response.getWriter().write(jsonArray.toString());
 	}
+	
 	
 	//查询表单内数据
     public void loadQueryResult(){

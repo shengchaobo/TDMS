@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
 </head>
 
-<% request.setAttribute("CHECKTYPE",Constants.CTypeOne); %>
+<% request.setAttribute("CHECKTYPE",Constants.CTypeTwo); %>
 <% request.setAttribute("WAITCHECK",Constants.WAIT_CHECK); %>
 <% request.setAttribute("PASSCHECK",Constants.PASS_CHECK); %>
 
@@ -235,6 +235,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="fitem">
 								<label>该条数据编号：</label> 
 								<input type="text" name="checkInfo.checkID" id="dataID" 
+								readonly="readonly"  style="width: 150px;color: grey"/>
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+							<div class="fitem">
+								<label>填写者的教学单位号：</label> 
+								<input type="text" name="checkInfo.fillUnitID"  id="unitID" 
 								readonly="readonly"  style="width: 150px;color: grey"/>
 							</div>
 					</td>

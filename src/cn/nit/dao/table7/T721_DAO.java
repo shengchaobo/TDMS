@@ -169,7 +169,7 @@ public class T721_DAO {
 		Statement st = null ;
 		ResultSet rs = null ;
 		List<T721POJO> list = null ;
-		System.out.println(sql);
+		//System.out.println(sql);
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
@@ -192,7 +192,7 @@ public class T721_DAO {
 		
 		try {
 			flag=DAOUtil.update(t721_B, tableName, key, field, conn);
-			System.out.println(flag);
+			//System.out.println(flag);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -179,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>名称：</label> 
 						<input type="hidden" name="t531Bean.SeqNumber"  id="seqNumber" value="0"/>
-						<input type="hidden" name="t531Bean.Time"  id="Time" value="0"/>
+						<input type="hidden" name="t531Bean.Time"  id="Time" />
 						<input id="Name" type="text" name="t531Bean.Name" class="easyui-validatebox"   style="width:400px">
 						 <span id="NameSpan"></span>
 					</div>

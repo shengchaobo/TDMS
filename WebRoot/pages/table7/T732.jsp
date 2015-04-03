@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>听课学期：</label> 
 						<input id="seqNumber" name="teaLeadInClassInfo.SeqNumber" type="hidden" value="0">
-						<input id="Time" name="teaLeadInClassInfo.Time" type="hidden" value="0">
+						<input id="Time" name="teaLeadInClassInfo.Time" type="hidden">
 						<input id="FillUnitID" name="teaLeadInClassInfo.FillUnitID" type="hidden" value="0">
 						<input id="UnitID" name="teaLeadInClassInfo.UnitID" type="hidden" value="0">
 						<input id="SetCSUnit" name="teaLeadInClassInfo.SetCSUnit" type="hidden" value="0">
@@ -194,7 +194,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AttendClassTermSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>	
+				<td class="empty"></td>
+				
+				 <td>
+					<div class="fitem">
+						<label>听课日期：</label> 
+						<input id="AttendClassTime" class="easyui-datebox" style="width:80px" name="teaLeadInClassInfo.AttendClassTime"
+							editable="false"><span id="AttendClassTimeSpan"></span>
+					</div>
+					</td>	
+				
+				</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>领导教工号：</label> 
@@ -203,11 +214,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     class='easyui-combobox' data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							 onSelect:function(){
 							   document.getElementById('LeaderTeaID').value=$(this).combobox('getText') ;
+							   document.getElementById('name').value=$(this).combobox('getValue') ;
 							 }">
 							
 							<span id="LeaderIDSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>
+				
+				<td>
+					<div class="fitem">
+					<label>领导姓名：</label> 
+					<input id="name"  name="techName"  readonly="true" style="color:grey">
+					</div>
+				</td>
+				
 				</tr>
 			<tr>
 			<td>
@@ -217,17 +238,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AdminTitleSpan"></span>
 					</div>
 					</td>
-					<td class="empty"></td>	
-			         <td>
-					<div class="fitem">
-						<label>听课日期：</label> 
-						<input id="AttendClassTime" class="easyui-datebox" style="width:80px" name="teaLeadInClassInfo.AttendClassTime"
-							editable="false"><span id="AttendClassTimeSpan"></span>
-					</div>
-					</td>
+			        
 					</tr>
 					<tr>
-				<td>
+					<td>
 					<div class="fitem">
 						<label>授课教师教工号：</label> 
 						<input id="LectureTeaID" type="hidden" name="teaLeadInClassInfo.LectureTeaID" >
@@ -235,6 +249,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     class='easyui-combobox' data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							 onSelect:function(){
 							   document.getElementById('LectureTeaID').value=$(this).combobox('getText') ;
+							    document.getElementById('Lecname').value=$(this).combobox('getValue') ;
 							 }">
 							
 							<span id="LeaderIDSpan"></span>
@@ -243,14 +258,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
+					<label>授课教师姓名：</label> 
+					<input id="Lecname"  name="Lecname"  readonly="true" style="color:grey">
+					</div>
+				</td>
+					
+					</tr>
+			<tr>
+				<td>
+					<div class="fitem">
 						<label>听课课程：</label> 
 						<input id="LectureCS" type="text" name="teaLeadInClassInfo.LectureCS"
 							><span id="LectureCSSpan"></span>
 					</div>
 				</td>
-				</tr>
-				<tr>
-			
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>课程编号：</label> 
@@ -258,16 +280,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="CSIDSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>	
-				<td>
+				</tr>
+				<tr>
+			
+					<td>
 					<div class="fitem">
 						<label>上课班级：</label> 
 						<input id="LectureClass" type="text" name="teaLeadInClassInfo.LectureClass"
 							><span id="LectureClassSpan"></span>
 					</div>
 				</td>
-			</tr>
-				<tr>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>综合评价：</label> 
@@ -281,8 +304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="EvaluateSpan"></span>
 					</div>
 				</td>
-				
-				</tr>
+			</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
 					<textarea id="Note" name="teaLeadInClassInfo.Note" style="resize:none" cols="50" rows="10"></textarea>
@@ -421,9 +443,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var adminTitle = $('#AdminTitle').val();
 			var attendClassTime = $('#AttendClassTime').datebox('getText');
 			var lectureTeaId = $('#LectureTea').combobox('getText');
-			alert(lectureTeaId);
 			var lectureTeaName = $('#LectureTea').combobox('getValue');
-			alert(lectureTeaName);
 			var lectureCS = $('#LectureCS').val();
 			var cSID = $('#CSID').val();
 			//var setCSUnit = $('#UnitID').combobox('getText');

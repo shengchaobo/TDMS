@@ -174,18 +174,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>教工号：</label> 
 						<input id="seqNumber" name="teachAccidentTea.SeqNumber" type="hidden" value="0">
-						<input id="Time" name="teachAccidentTea.Time" type="hidden" value="0">
+						<input id="Time" name="teachAccidentTea.Time" type="hidden" >
 						<input id="TeaID" type="hidden" name="teachAccidentTea.TeaID" >
 					    <input id="TeaName" type="text" name="teachAccidentTea.TeaName"
 					     class='easyui-combobox' data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							 onSelect:function(){
 							   document.getElementById('TeaID').value=$(this).combobox('getText') ;
+							    document.getElementById('name').value=$(this).combobox('getValue') ;
 							 }">
 							
 							<span id="TeaIDSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>	
+				<td>
+					<div class="fitem">
+					<label>教师姓名：</label> 
+					<input id="name"  name="techName"  readonly="true" style="color:grey">
+					</div>
+				</td>
+		</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>所属部门：</label> 
@@ -199,8 +208,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="FromDeptSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>事故发生地点：</label> 
@@ -209,7 +217,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					
 				</td>
-				<td class="empty"></td>	
+				</tr>
+				
+				
+		
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>事由：</label> 
@@ -218,8 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>处理时间：</label> 
@@ -227,7 +238,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							editable="false"><span id="HandingTimeSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>	
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>教学事故等级：</label> 
@@ -235,9 +247,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AccidentLevelSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
-			<td>
+				<td class="empty"></td>	
+				<td>
 					<div class="fitem">
 						<label>处理文号：</label> 
 						<input id="HandingID" type="text" name="teachAccidentTea.HandingID"

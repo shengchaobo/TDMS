@@ -245,7 +245,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		   <div class="fitem">
 		   		   <label>中心名称:</label>
 		   		   <input id="seqNumber" name="t532Bean.SeqNumber" type="hidden" value="0">
-		   		    <input id="Time" name="t532Bean.Time" type="hidden" value="0">
+		   		    <input id="Time" name="t532Bean.Time" type="hidden" >
 		   		   <input id="CenterName" name="t532Bean.CenterName" type="text" class="easyui-validatebox">
 		   		   <span id="CenterNameSpan"></span>
 		   		   </div>
@@ -300,12 +300,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411' ,listHeight:'auto',editable:false,
 							onSelect:function(){
 							   document.getElementById('TeaID').value=$(this).combobox('getText')  ;
+							   document.getElementById('name').value=$(this).combobox('getValue')  ;
 							 }">
 					<span id="TeaIDSpan"></span>
 					</div>
 		   		</td>
 		   		<td class="empty"></td>
 		   		<td>
+			
+					<div class="fitem">
+					<label>中心主任姓名：</label> 
+					<input id="name"  name="techName"  readonly="true" style="color:grey">
+					</div>
+				</td>
+				   	</tr>
+		 	<tr>
+				<td>
 			   		<div class="fitem">
 			   		<label>职称：</label> 
 				    <input class='easyui-combobox' id="TeaTitle" name="t532Bean.TeaTitle"
@@ -313,8 +323,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<span id="TeaTitleSpan"></span>
 			   		</div>
 		   		</td>
-		   	</tr>
-		   	<tr>
+		   		<td class="empty"></td>
 		   		<td>
 		   			<div class="fitem">
 						<label>设立时间：</label> 
@@ -322,7 +331,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						 <span id="BuildTimeSpan"></span>
 					</div>
 		   		</td>
-		   		<td class="empty"></td>
+		</tr>
+		   		
+		
+		   	<tr>
 		   		<td>
 		   			<div class="fitem">
 		   			<label>建设批文号:</label>
@@ -330,8 +342,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   			<span id="BuildAppvlIDSpan"></span>
 		   			</div>
 		   		</td>
-		   	</tr>
-		   	<tr>
+		   		<td class="empty"></td>
 		   		<td>
 		   		<div class="fitem">
 		   		<label>验收时间：</label> 
@@ -339,7 +350,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span id="ReceptTimeSpan"></span>
 		   		</div>
 		   		</td>
-		   		<td class="empty"></td>
+		   	</tr>
+		   	<tr>
 		   		<td>
 		   			<div class="fitem">
 		   			<label>验收批文号:</label>
@@ -347,8 +359,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   			<span id="ReceptAppvlIDSpan"></span>
 		   			</div>
 		   		</td>
-		   	</tr>
-		   	<tr>
+		   		<td class="empty"></td>
 		   		<td>
 		   			<div class="fitem">
 		   			<label>有效期（年）:</label>
@@ -356,7 +367,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   			<span id="ValidTimeSpan"></span>
 		   			</div>
 		   		</td>
-		   		<td class="empty"></td>
+		   	</tr>
+		   	<tr>
 		   		<td>
 		   			<div class="fitem">
 		   			<label>经费(万元):</label>
@@ -364,6 +376,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   			<span id="FundSpan"></span>
 		   			</div>
 		   		</td>
+		   		
 		   	</tr>
 			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>

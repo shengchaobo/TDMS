@@ -152,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>合作机构名称：</label> 
 						<input id="seqNumber" name="t183Bean.SeqNumber", type="hidden" value="0"></input>
-						<input id="Time" name="t183Bean.Time", type="hidden" value="0"></input>
+						<input id="Time" name="t183Bean.Time", type="hidden"></input>
 							<input id="FillDept" name="t183Bean.FillDept", type="hidden" value="0"></input>
 						<input id="CooperInsName" type="text" name="t183Bean.CooperInsName"
 							class="easyui-validatebox" required="true"><span id="CooperInsNameSpan"></span>

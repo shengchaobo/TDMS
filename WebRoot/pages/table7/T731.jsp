@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 <body style="overflow-y:scroll">
-	<table id="commomData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T731/auditingData"
+	<table id="commomData" title=“校领导听课情况" class="easyui-datagrid" url="pages/T731/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="false" singleSelect="false" >
 		<thead data-options="frozen:true">
@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<!--  <div id="toolbar2" style="float: right;">
-	<a href="pages/T731/dataExport?excelName=<%=URLEncoder.encode("表7-3-1校领导听课情况s","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
+	<a href="pages/T731/dataExport?excelName=<%=URLEncoder.encode("表7-3-1校领导听课情况","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 	
 	</div>
 	-->
@@ -169,12 +169,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>听课学期：</label> 
 						<input id="seqNumber" name="schleadInClass.SeqNumber" type="hidden" value="0">
-						<input id="Time" type="hidden" name="schleadInClass.Time" value="0"></input>
+						<input id="Time" type="hidden" name="schleadInClass.Time"></input>
 						<input id="AttendClassTerm" type="text" name="schleadInClass.AttendClassTerm"
 							><span id="AttendClassTermSpan"></span>
 					</div>
 				</td>
 					<td class="empty"></td>	
+					<td>
+					<div class="fitem">
+						<label>听课日期：</label> 
+						<input id="AttendClassTime" class="easyui-datebox" style="width:80px" name="schleadInClass.AttendClassTime"
+							editable="false"><span id="AttendClassTimeSpan"></span>
+					</div>
+				</td>
+					
+					
+				
+				
+				</tr>
+				
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>校领导教工号：</label> 
@@ -183,22 +197,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     class='easyui-combobox' data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							 onSelect:function(){
 							   document.getElementById('LeaderID').value=$(this).combobox('getText') ;
+							   document.getElementById('name').value=$(this).combobox('getValue') ;
 							 }">
 							
 							<span id="LeaderIDSpan"></span>
 					</div>
 				</td>
+				<td class="empty"></td>	
+				<td>
+					<div class="fitem">
+					<label>校领导姓名：</label> 
+					<input id="name"  name="techName"  readonly="true" style="color:grey">
+					</div>
+				</td>
 				</tr>
 			<tr>
 			<td>
-					<div class="fitem">
-						<label>听课日期：</label> 
-						<input id="AttendClassTime" class="easyui-datebox" style="width:80px" name="schleadInClass.AttendClassTime"
-							editable="false"><span id="AttendClassTimeSpan"></span>
-					</div>
-				</td>
-				<td class="empty"></td>	
-				<td>
 					<div class="fitem">
 						<label>授课教师教工号：</label> 
 						<input id="LectureTeaID" type="hidden" name="schleadInClass.LectureTeaID" >
@@ -206,9 +220,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					     class='easyui-combobox' data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							 onSelect:function(){
 							   document.getElementById('LectureTeaID').value=$(this).combobox('getText') ;
+							     document.getElementById('lecName').value=$(this).combobox('getValue') ;
 							 }">
 							
 							<span id="LeaderIDSpan"></span>
+					</div>
+				</td>
+				<td class="empty"></td>	
+				<td>
+					<div class="fitem">
+					<label>授课教师姓名：</label> 
+					<input id="lecName"  name="lecName"  readonly="true" style="color:grey">
 					</div>
 				</td>
 				</tr>
@@ -405,15 +427,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    alert("听课学期不能为空");
 				return false;
 			}
-			if (leaderId == null ||  leaderId == ''  || leaderId.length == 0 || leaderId == leaderName) {
-				alert("校领导不能为空或者教师库中无该教工号");
-				return false;
-			}
 			
 			if(attendClassTime == null || attendClassTime.length == 0){
 				alert("听课日期不能为空");
 				return false;
 			}
+			if (leaderId == null ||  leaderId == ''  || leaderId.length == 0 || leaderId == leaderName) {
+				alert("校领导不能为空或者教师库中无该教工号");
+				return false;
+			}
+			
+			
 			
 			if (lectureTeaId == null ||  lectureTeaId == ''  || lectureTeaId.length == 0 || lectureTeaId == lectureTeaName) {
 				alert("教工号不能为空或者教师库中无该教工号");

@@ -175,18 +175,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>教工号：</label> 
 						<input id="seqNumber" name="teachLevelAssessAC.SeqNumber" type="hidden" value="0">
-						<input id="Time" name="teachLevelAssessAC.Time" type="hidden" value="0">
+						<input id="Time" name="teachLevelAssessAC.Time" type="hidden" >
 						<input id="TeaID" type="hidden" name="teachLevelAssessAC.TeaID" >
 					    <input id="TeaName" type="text" name="teachLevelAssessAC.TeaName"
 					     class='easyui-combobox' data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							 onSelect:function(){
 							   document.getElementById('TeaID').value=$(this).combobox('getText') ;
+							   document.getElementById('name').value=$(this).combobox('getValue') ;
 							 }">
 							
 							<span id="TeaIDSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>	
+				<td>
+					<div class="fitem">
+					<label>教师姓名：</label> 
+					<input id="name"  name="techName"  readonly="true" style="color:grey">
+					</div>
+				</td>
+				</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>所属教学单位：</label> 
@@ -200,8 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="TeaUnitSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>参评课程：</label> 
@@ -210,7 +218,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					
 				</td>
-				<td class="empty"></td>	
+				</tr>
+				
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>课程编号：</label> 
@@ -219,8 +229,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>课程类别：</label> 
@@ -229,7 +238,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="CSTypeSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>	
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>评估年份：</label> 
@@ -237,9 +247,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="AssessYearSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
-			<td>
+				<td class="empty"></td>	
+				<td>
 					<div class="fitem">
 						<label>评估结果：</label> 
 						<select class='easyui-combobox' id="AssessResult" name="teachLevelAssessAC.AssessResult" panelHeight="auto" editable="false">
@@ -254,14 +263,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="AssessResultSpan"></span>
 					</div>
 				</td>
-			<td class="empty"></td>	
-				<td>
+			</tr>
+			<tr>
+			<td>
 					<div class="fitem">
 						<label>批文号：</label> 
 						<input id="AppvlID" type="text" name="teachLevelAssessAC.AppvlID"
 							><span id="AppvlIDSpan"></span>
 					</div>
 				</td>
+				
 			</tr>
 			
 			<tr>

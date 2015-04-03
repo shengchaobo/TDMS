@@ -25,6 +25,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiAwardLevelBean;
 import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
@@ -158,6 +159,10 @@ public class T26_Excel {
 				T26_bean.setStuNumEachYear(Integer.parseInt(stuNumEachYear));
 				T26_bean.setSignLevel(awardLevelID);
 				T26_bean.setBaseLevel(baseLevel);
+				//插入教学单位
+				UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+				String fillUnitID = bean.getUnitID();
+				T26_bean.setFillUnitID(fillUnitID);
 				//插入时间
 				T26_bean.setTime(TimeUtil.changeDateY(selectYear));
 				//插入审核状态

@@ -175,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>科研机构名称：</label> 
 						<input id="seqNumber" type="hidden"name="t152Bean.SeqNumber" value="0"></input>
-						<input id="Time" type="hidden"name="t152Bean.Time" value="0"></input>
+						<input id="Time" type="hidden"name="t152Bean.Time" ></input>
 						<input id="TeaUnit" type="hidden"name="t152Bean.TeaUnit" value="0"></input>
 						<input id="UnitID" type="hidden"name="t152Bean.UnitID" value="0"></input>
 						<input id="FillUnitID" type="hidden"name="t152Bean.FillUnitID" value="0"></input>

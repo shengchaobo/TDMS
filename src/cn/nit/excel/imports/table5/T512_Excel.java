@@ -10,12 +10,14 @@ import cn.nit.bean.di.DiCourseCategoriesBean;
 import cn.nit.bean.di.DiCourseCharBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
+import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table5.T512_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiCourseCategoriesService;
 import cn.nit.service.di.DiCourseCharService;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
+import cn.nit.service.table4.T411_Service;
 import cn.nit.service.table5.T512_Service;
 import cn.nit.util.TimeUtil;
 
@@ -51,6 +53,9 @@ public class T512_Excel {
 		
 		DiMajorTwoService diMajorSer = new DiMajorTwoService() ;
 		List<DiMajorTwoBean> diMajorBeanList = diMajorSer.getList() ;
+		
+		T411_Service t411_Ser=new T411_Service();
+		List<T411_Bean> t411_BeanList = t411_Ser.getList();
 		
 		System.out.println(cellList.size());
 		
@@ -310,6 +315,24 @@ public class T512_Excel {
 				}
 				if(teaID.length()>50){
 					return "第" + count + "行，任课教师教工号不能超过50个字符" ;
+				}
+				
+				for(T411_Bean t411_Bean : t411_BeanList){
+					if(t411_Bean.getTeaId().equals(teaID)){
+						if(t411_Bean.getTeaName().equals(cSTea)){
+							flag = true ;
+							break ;
+						}else{
+							return "第" + count + "行，建设负责人与教工号不对应" ;
+							
+						}
+					}//if
+				}//for
+				
+				if(!flag){
+					return "第" + count + "行，没有与之相匹配的教工号" ;
+				}else{
+					flag=false;
 				}
 				
 				String isAccordJob = cell[25].getContents().trim() ;

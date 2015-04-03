@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
 import cn.nit.bean.di.DiMajorTwoBean;
+import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table7.T744_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.di.DiMajorTwoService;
+import cn.nit.service.table4.T411_Service;
 import cn.nit.service.table7.T744_Service;
 import cn.nit.util.TimeUtil;
 
@@ -36,6 +38,9 @@ public class T744_Excel {
 		
 		DiMajorTwoService diMajorSer = new DiMajorTwoService() ;
 		List<DiMajorTwoBean> diMajorBeanList = diMajorSer.getList() ;
+		
+		T411_Service t411_Ser=new T411_Service();
+		List<T411_Bean> t411_BeanList = t411_Ser.getList();
 		
 		for(Cell[] cell : cellList){
 			T744_Bean T744_Bean =new T744_Bean();
@@ -118,20 +123,40 @@ public class T744_Excel {
 						   && !deType.equals("09农学")&& !deType.equals("10医学")&& !deType.equals("11军事学")&& !deType.equals("12管理学")&& !deType.equals("13艺术学")){
 							return "第" + count + "行，学位授予门类格式有误，只能填写“01哲学”或“02经济学”或“03法学”或“04教育学”或“05文学”或“06历史学”或“07理学”或“08工学”或“09农学”或“10医学”或“11军事学”或“12管理学”或“13艺术学”";
 						}
+				
 				String leaderName = cell[6].getContents().trim() ;
+				String teaId = cell[7].getContents().trim() ;
 				if((leaderName == null) || leaderName.equals("")){
 					return "第" + count + "行，负责人姓名不能为空" ;
 				}
 				if(leaderName.length()>50){
 					return "第" + count + "行，负责人姓名不能超过50个字符" ;
 				}
-				String teaId = cell[7].getContents().trim() ;
+			
 				if((teaId == null) || teaId.equals("")){
 					return "第" + count + "行，教工号不能为空" ;
 				}
 				if(teaId.length()>50){
 					return "第" + count + "行，教工号不能超过50个字符" ;
 				}
+				for(T411_Bean t411_Bean : t411_BeanList){
+					if(t411_Bean.getTeaId().equals(teaId)){
+						if(t411_Bean.getTeaName().equals(leaderName)){
+							flag = true ;
+							break ;
+						}else{
+							return "第" + count + "行，建设负责人与教工号不对应" ;
+							
+						}
+					}//if
+				}//for
+				
+				if(!flag){
+					return "第" + count + "行，没有与之相匹配的教工号" ;
+				}else{
+					flag=false;
+				}
+				
 				String setYear = cell[8].getContents().trim() ;
 				if((setYear == null) || setYear.equals("")){
 					return "第" + count + "行，设置年份不能为空" ;

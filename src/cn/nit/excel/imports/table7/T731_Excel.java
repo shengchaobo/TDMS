@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import cn.nit.bean.UserinfoBean;
 import cn.nit.bean.di.DiDepartmentBean;
+import cn.nit.bean.table4.T411_Bean;
 import cn.nit.bean.table7.T731_Bean;
 import cn.nit.service.di.DiDepartmentService;
+import cn.nit.service.table4.T411_Service;
 import cn.nit.service.table7.T731_Service;
 import cn.nit.util.TimeUtil;
 
@@ -26,6 +28,9 @@ public class T731_Excel {
 		int  count=1;
 		boolean flag=false;
 	    List<T731_Bean> list=new LinkedList<T731_Bean>();
+	    
+		T411_Service t411_Ser=new T411_Service();
+		List<T411_Bean> t411_BeanList = t411_Ser.getList();
 	
 	    DiDepartmentService diDepartSer = new DiDepartmentService() ;
 		List<DiDepartmentBean> diDepartBeanList = diDepartSer.getList() ;
@@ -66,18 +71,37 @@ public class T731_Excel {
 					return "第" + count + "行，听课日期格式不正确，格式为：2012-09" ;
 				}
 				String lecTea = cell[5].getContents().trim() ;
+				String lecTeaId = cell[6].getContents().trim() ;
 				if((lecTea == null) || lecTea.equals("")){
 					return "第" + count + "行，授课教师不能为空" ;
 				}
 				if(lecTea.length()>50){
 					return "第" + count + "行，授课教师不能超过50个字符" ; 
 				}
-				String lecTeaId = cell[6].getContents().trim() ;
+				
 				if((lecTeaId == null) || lecTeaId.equals("")){
 					return "第" + count + "行，授课教教工号不能为空" ;
 				}
 				if(lecTeaId.length()>50){
 					return "第" + count + "行，授课教教工号不能超过50个字符" ; 
+				}
+				
+				for(T411_Bean t411_Bean : t411_BeanList){
+					if(t411_Bean.getTeaId().equals(lecTeaId)){
+						if(t411_Bean.getTeaName().equals(lecTea)){
+							flag = true ;
+							break ;
+						}else{
+							return "第" + count + "行，建设负责人与教工号不对应" ;
+							
+						}
+					}//if
+				}//for
+				
+				if(!flag){
+					return "第" + count + "行，没有与之相匹配的教工号" ;
+				}else{
+					flag=false;
 				}
 				String lecCS = cell[7].getContents().trim() ;
 				if((lecCS == null) || lecCS.equals("")){

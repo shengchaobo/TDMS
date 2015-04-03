@@ -288,8 +288,7 @@ public class T441_Action {
 		PrintWriter out = null ;
 		
 		try{
-			
-			
+						
 			response.setContentType("application/json; charset=UTF-8") ;
 			out = response.getWriter() ;			
 			if(flag){

@@ -27,6 +27,7 @@ import cn.nit.bean.table4.T441_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table2.T26_Dao;
 import cn.nit.service.CheckService;
+import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table2.T26_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -41,6 +42,9 @@ public class T26_Action {
 	private T26_Service T26_services = new T26_Service();
 	
 	private CheckService check_services = new CheckService();
+	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
 	
 	private T26_Bean T26_bean = new T26_Bean();
 	
@@ -140,8 +144,18 @@ public class T26_Action {
 			cond = conditions.toString();
 		}
 		
-		List<T26_Bean> list = T26_services.getPageMajorTeaList(cond, null, this.getRows(), this.getPage()) ;
-		String TeaInfoJson = this.toBeJson(list,T26_services.getTotal(cond, null));
+		//具体教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID;
+		String tempUnitID = bean.getUnitID().substring(0,1);
+		if("3".equals(tempUnitID)){
+			fillUnitID = bean.getUnitID();
+		}else{
+			fillUnitID = null;
+		}
+		
+		List<T26_Bean> list = T26_services.getPageMajorTeaList(cond, fillUnitID, this.getRows(), this.getPage()) ;
+		String TeaInfoJson = this.toBeJson(list,T26_services.getTotal(cond, fillUnitID));
 		//private JSONObject jsonObj;
 		
 		PrintWriter out = null ;
@@ -191,6 +205,16 @@ public class T26_Action {
 		
 		//插入时间
 		T26_bean.setTime(new Date());
+		//插入审核状态
+		T26_bean.setCheckState(Constants.WAIT_CHECK);
+		//插入教学单位
+		UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
+		T26_bean.setFillUnitID(fillUnitID);
+		
+		String unitName = deSer.getName(fillUnitID);
+		T26_bean.setTeaUnit(unitName);
+		T26_bean.setTeaUnitID(fillUnitID);
 		
 		//插入审核状态
 		T26_bean.setCheckState(Constants.WAIT_CHECK);
@@ -364,11 +388,11 @@ public class T26_Action {
 		
 		if("111".equals(userBean.getRoleID())){
 			String year = (String)request.getSession().getAttribute("allYear") ;
-			list = T26_services.totalList(year,Constants.PASS_CHECK);
+			list = T26_services.totalList("111",year,Constants.PASS_CHECK);
 			sheetName = "表2-6校外实习、实训基地（教务处）";
 		}else{			
 			String fillUnitID = userBean.getUnitID();			
-			list = T26_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
+			list = T26_services.totalList(fillUnitID,this.getSelectYear(),Constants.PASS_CHECK);							
 			sheetName = this.excelName;
 		}
 		

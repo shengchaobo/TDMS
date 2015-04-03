@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
 </head>
 <body style="overflow-y:scroll">
-	<table id="commomData" title="待审核数据域审核未通过数据" class="easyui-datagrid" url="pages/T733/auditingData"
+	<table id="commomData" title="单位开展教学研究活动情况" class="easyui-datagrid" url="pages/T733/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="false" singleSelect="false" >
 		<thead data-options="frozen:true">

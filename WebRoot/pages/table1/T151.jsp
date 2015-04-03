@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>科研机构名称：</label> 
 						<input id="seqNumber" type="hidden" name="t151Bean.SeqNumber" value="0"></input>
-						<input id="Time" type="hidden" name="t151Bean.Time" value="0"></input>
+						<input id="Time" type="hidden" name="t151Bean.Time"></input>
 						<input type="hidden" name="t151Bean.ResInsName" id="ResInsName"/>
 						<input id="ResInsID" type="text" name="t151Bean.ResInsID" class='easyui-combobox' 
 							data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDIDepartmentSci' ,listHeight:'auto',editable:false,

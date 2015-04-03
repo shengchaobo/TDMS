@@ -216,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 				<input type="hidden" name="t511_Bean.SeqNumber"  id="seqNumber" value="0"/>
-					<input type="hidden" name="t511_Bean.Time"  id="Time" value="0"/>
+					<input type="hidden" name="t511_Bean.Time"  id="Time" />
 					<div class="fitem">
 						<label>课程名称：</label> 
 						<input id="CSName" type="text" name="t511_Bean.CSName"

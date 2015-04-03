@@ -172,18 +172,45 @@ function Query() {
 		         dataType:'json',
 		         data:{},
 		         success:function(data){//获取表头数据成功后，使用easyUi的datagrid去生成表格
-		        	 //alert(data.length);
+		        	alert(data[0][0].formatter);
+		        	for (var i=0;i<data[0].length;i++)
+		        	{
+		        	  alert(data[0][i].formatter == "formattime");
+		        	  if(data[0][i].formatter == "formattime"){
+		        		  
+		        		  data[0][i].formatter = function formattime(val) {  
+		        			    if(val == null){
+		        				    return null ;
+		        			    }
+		        			    var year=parseInt(val.year)+1900;  
+		        			    var month=(parseInt(val.month)+1);  
+		        			    month=month>9?month:('0'+month);  
+		        			    var date=parseInt(val.date);  
+		        			    date=date>9?date:('0'+date);  
+		        			    var hours=parseInt(val.hours);  
+		        			    hours=hours>9?hours:('0'+hours);  
+		        			    var minutes=parseInt(val.minutes);  
+		        			    minutes=minutes>9?minutes:('0'+minutes);  
+		        			    var seconds=parseInt(val.seconds);  
+		        			    seconds=seconds>9?seconds:('0'+seconds);  
+		        			    var time=year+'-'+month+'-'+date ;  
+		        			    //alert(time) ;
+		        			     return time;  
+		        			} ;
+		        	  }
+		        	}
                     $('#totalTb').datagrid({ 	
                         url: 'pages/search/loadQueryResult?querySql=' + querySql,
                         singleSelect:true,
                         idField:"appId",
                         queryParams:{},
-                        columns:data
+                        columns: data
                     });		        	 
 		         }
 		    });
 	    }
    	});
 }
+
 
 

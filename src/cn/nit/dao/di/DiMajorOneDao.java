@@ -16,7 +16,7 @@ public class DiMajorOneDao {
 	
 	private String field = "MajorNum,MajorName,Duration,Direction,UnitId" ;
 	
-	private String key = "MajorNum";
+	private String key = "SeqNumber";
 	
 	/**
 	 * 获取DiDegree字典表的所有数据
@@ -26,7 +26,7 @@ public class DiMajorOneDao {
 	 */
 	public List<DiMajorOneBean> getList(){
 		
-		String sql = "select " + field + " from " + tableName ;
+		String sql = "select " + key+", "+field + " from " + tableName ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
@@ -61,7 +61,7 @@ public class DiMajorOneDao {
 		Statement st = null ;
 		ResultSet rs = null ;
 		StringBuffer sql = new StringBuffer() ;
-		sql.append("select " + field) ;
+		sql.append("select "  + key+", "+ field) ;
 		sql.append(" from " + tableName) ;
 		sql.append(" where 1=1" ) ;
 		
@@ -140,7 +140,7 @@ public class DiMajorOneDao {
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		boolean flag = false ;
-		String field = "MajorName,Duration,Direction,UnitId";
+		String field = "MajorNum,MajorName,Duration,Direction,UnitId";
 		
 		try{
 			flag = DAOUtil.update(majorbean, tableName, key, field, conn) ;

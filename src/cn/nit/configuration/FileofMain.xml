@@ -32,7 +32,7 @@
 		<param name="inputPath">/WEB-INF/FileofMain</param>	
 			<interceptor-ref name="fileUpload">
 <!--大家可以设置成自己的配置，想文件类型和大小等限制			-->
-<!--				<param name="maximumSize">2097152</param>单位是字节	2M	（2097152B）		-->
+			<param name="maximumSize">100000000</param>	
 <!--				<param name="allowedTypes">image/bmp,image/x-png,image/png,image/gif,image/jpeg,image/jpg,image/pjpeg</param>-->
 <!--				-->
 <!--					容许文件类型为doc,ppt,xls,pdf,txt,java-->

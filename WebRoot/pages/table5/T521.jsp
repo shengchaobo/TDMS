@@ -232,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<input type="hidden" name="t521Bean.SeqNumber"  id="seqNumber" value="0"/>
-					<input type="hidden" name="t521Bean.Time"  id="Time" value="0"/>
+					<input type="hidden" name="t521Bean.Time"  id="Time"/>
 					<div class="fitem">
 						<label>类型：</label> 
 						<select class='easyui-combobox'  id="CStype" name="t521Bean.CSType"  panelHeight="auto" editable="false" >

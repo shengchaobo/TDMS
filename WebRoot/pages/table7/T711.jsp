@@ -176,32 +176,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tr>
 			<td>
 					<div class="fitem">
+					
 						<label>教工号：</label> 
 						<input id="seqNumber" name="t711_Bean.SeqNumber" type="hidden" value="0">
-							<input id="Time" name="t711_Bean.Time" type="hidden" value="0">
+							<input id="Time" name="t711_Bean.Time" type="hidden">
 							<input id="FillUnitID" name="t711_Bean.FillUnitID" type="hidden" value="0">
 							<input id="TeaUnit" name="t711_Bean.TeaUnit" type="hidden" value="0">
 							<input id="UnitID" name="t711_Bean.UnitID" type="hidden" value="0">
+						
 						<input id="TeaID" type="hidden" name="t711_Bean.TeaID">
 						<input id="Name" type="text" name="t711_Bean.Name" class='easyui-combobox'
 						data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 						 onSelect:function(){
 							 	document.getElementById('TeaID').value=$(this).combobox('getText') ;
-							 }">
-							<span id="TeaIDSpan"></span>
+							 	document.getElementById('name').value=$(this).combobox('getValue') ;
+							 }" >
+							<span id="TeaIDSpan" ></span>
 					</div>
 					</td>
 				<td class="empty"></td>
-				<td>
+					<td>
+					<div class="fitem">
+					<label>姓名：</label> 
+					<input id="name"  name="techName"  readonly="true" style="color:grey">
+					</div>
+				</td>
+				
+			</tr>
+			<tr>
+			<td>
 					<div class="fitem">
 						<label>奖励名称：</label> 
 						<input id="AwardName" type="text" name="t711_Bean.AwardName"
 							><span id="AwardNameSpan"></span>
 					</div>
 				</td>
-					</tr>
-				<tr>
-					<td>
+				<td class="empty"></td>
+				<td>
 					<div class="fitem">
 						<label>级别：</label> 
 						<input class='easyui-combobox' id="AwardLevel" name="t711_Bean.AwardLevel"
@@ -209,9 +220,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="AwardLevelSpan"></span>
 					</div>
 				</td>
-			
-				<td class="empty"></td>
-				<td>
+			</tr>
+			<tr>
+					<td>
 					<div class="fitem">
 						<label>等级：</label> 
 						<select class='easyui-combobox' id="AwardRank" name="t711_Bean.AwardRank" panelHeight="auto" editable="false">
@@ -223,8 +234,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="AwardRankSpan"></span>
 					</div>
 				</td>
-			  	</tr>
-				<tr>
+			
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>获奖时间：</label> 
@@ -233,7 +244,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="AwardTime7Span"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+				
+			  	</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>授予单位：</label> 
@@ -241,8 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AwardFromUnitSpan"></span>
 					</div>
 				</td>
-			</tr>
-				<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>批文号：</label> 
@@ -250,7 +262,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="AppvlIDSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+				
+			</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>合作教师人数：</label> 
@@ -258,8 +272,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="JoinTeaNumSpan"></span>
 					</div>
 				</td>
-		</tr>
-				<tr>
+				<td class="empty"></td>
 				<td>
 				
 					<div class="fitem">
@@ -268,8 +281,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="OtherJoinTeaInfoSpan"></span>
 					</div>
 				</td>
-				
-			</tr>
+		</tr>
 			<tr>
 			
 				<td style="valign:left" colspan="3"><label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
@@ -308,6 +320,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	}
 
 	    var url;
+	    
+	    function getName(){
+	    alert(111111);
+	    var name = document.getElementById('TeaID').value=$(this).combobox('getValue') 
+	    $('TeaIDSpan').html(name);
+	    }
 	    
 	function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 

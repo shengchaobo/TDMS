@@ -185,15 +185,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>校内专业（大类）名称：</label> 
 						<input id="seqNumber" type="hidden" name="T615_bean.seqNumber">	
-						<input id="majorName" type="hidden" name="T615_bean.majorName">
-						<input id="majorId" type="text" name="T615_bean.majorId" class='easyui-combobox'
-							data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
-							onSelect:function(){
-							 	 document.getElementById('majorName').value=$(this).combobox('getText') ;
-							 }"></input>
+						<input id="majorName" name="T615_bean.majorName" 
+							 class='easyui-validatebox'><span id="majorNameSpan"></span>
 					</div>
 				</td>
 				<td class="empty"></td>
+				<td>
+					<div class="fitem">
+						<label>校内专业（大类）代码：</label> 
+						<input id="majorId" name="T615_bean.majorId" 
+							 class='easyui-validatebox'><span id="majorIdSpan"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>所属教学单位：</label> 
@@ -205,8 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 }">
 					</div>
 				</td>
-			</tr>
-			<tr>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>学制：</label> 
@@ -214,7 +218,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="schLenSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+
+			</tr>
+
+			<tr>
+						
 				<td>
 					<div class="fitem">
 						<label>在校生总人数：</label> 
@@ -222,9 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="schStuSumNumSpan"></span>
 					</div>
 				</td>
-			</tr>
-
-			<tr>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>一年级生人数：</label> 
@@ -232,7 +238,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="freshmanNumSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+			
+
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>二年级生人数：</label> 
@@ -240,8 +249,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="sophomoreNumSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>三年级生人数：</label> 
@@ -249,7 +257,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="juniorNumSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+				
+
+			</tr>
+
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>四年级生人数：</label> 
@@ -257,9 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="seniorNumSpan"></span>
 					</div>
 				</td>
-			</tr>
-
-			<tr>
+	<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>五年级生及以上人数：</label> 
@@ -267,16 +277,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="otherGradeNumSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
-				<td>
+			
+
+			</tr>
+			<tr>
+			<td>
 					<div class="fitem">
 						<label>辅修学生人数：</label> 
 						<input id="minorNum" name="T615_bean.minorNum" 
 							 class='easyui-validatebox'><span id="minorNumSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>双学位学生人数：</label> 
@@ -284,7 +296,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="dualDegreeNumSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+			
+
+			</tr>
+			
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>转入人数：</label> 
@@ -292,9 +308,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="changeInNumSpan"></span>
 					</div>
 				</td>
-			</tr>
-			
-			<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>转入人数：</label> 
@@ -302,10 +316,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 class='easyui-validatebox'><span id="changeOutNumSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
-				<td>
+				
+
+			</tr>
+			<tr>
+			<td>
 					<div class="fitem">
-						<label>时间：</label> 
+						<label>填写时间：</label> 
 						<input class="easyui-datebox"  id="time" type="text" 
 						name="T615_bean.time"  editable="false" />
 						<span id="timeSpan"></span>

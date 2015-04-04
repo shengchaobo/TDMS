@@ -106,7 +106,7 @@ public class A321_DAO {
 		}
 		
 		StringBuffer sql1=new StringBuffer();
-		sql1.append("select count(distinct b.MajorName) as sum,a.MajorDegreeType as DisClass,COUNT(b.MajorDegreeType) AS FieldNum" +
+		sql1.append("select count (b.MajorName) as sum,a.MajorDegreeType as DisClass,COUNT(b.MajorDegreeType) AS FieldNum" +
 				" from (SELECT distinct MajorDegreeType FROM T322_UndergraMajorInfo_Tea$) a " +
 				"left join  T322_UndergraMajorInfo_Tea$  b on a.MajorDegreeType = b.MajorDegreeType where Time like '"+year+"%'group by a.MajorDegreeType");
 		Connection conn=DBConnection.instance.getConnection();

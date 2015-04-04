@@ -44,7 +44,7 @@ a:active {color: #0000FF}
 	    	<div style="height:auto;width:300px;float:left">
 	    		<table >
 	    		<tr>
-	    		<td><h1>重要通知1</h1>			</td>
+	    		<td><h1>重要通知</h1>			</td>
 	    		</tr>
 	    		<tr>
 	    		

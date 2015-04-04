@@ -161,7 +161,7 @@ public class A323_DAO {
 			
 		int sum=0;
 		for(int i=0;i<majorNum.size();i++){
-			sum += majorNum.get(i);
+			sum += majorNum.get(i);//一共专业个数
 		}
 
 		String querysql="select FillUnitID,MajorName,MajorID,TotalCSHour,RequireCShour,OptionCSHour,InClassCSHour,ExpCSHour,PraCSHour," +

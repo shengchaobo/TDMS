@@ -68,7 +68,7 @@
 									}else{
 				    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表（<font color=red>审核未通过</font>）");
 									}
-			    					$("#newObject").hide();
+			    					$("#newObject").show();
 			    					$("#edit").show();
 			    					$("#delete").show();
 				    				$("#export").hide();
@@ -128,7 +128,7 @@
 				    				}				    				
 				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 				    					$("#newData").datagrid("getPanel").panel("setTitle","专科在校生信息补充表（<font color=red>审核未通过</font>）");
-				    					$("#newObject").hide();
+				    					$("#newObject").show();
 				    					$("#edit").show();
 				    					$("#delete").show();
 					    				$("#export").hide();

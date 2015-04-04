@@ -95,18 +95,7 @@ public class T615_Excel {
 				if (majorId == null || majorId.equals("")) {
 					return "第" + count + "行，校内专业（大类）代码不能为空";
 				}
-				
-				String MajName = null;
-				for (DiMajorTwoBean diMaj2Bean : diMaj2List) {
-					if (diMaj2Bean.getMajorNum().equals(majorId)) {
-						MajName = diMaj2Bean.getMajorName();
-						if(MajName.equals(majorName)){
-							flag = true;
-							break;
-						}
-						
-					}// if
-				}// for
+
 	
 
 				if (!flag) {

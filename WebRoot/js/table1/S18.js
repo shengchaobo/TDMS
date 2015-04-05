@@ -4,8 +4,8 @@ $(function(){
 				var rows = [
 				        { "name": "协议总数", "group": "签订合作协议机构的协议个数", "value": "",  "field": "sumAgreeNum","editor": false },
 				        { "name": "其中：学术机构",  "group": "签订合作协议机构的协议个数", "value": "", "field": "academicNum", "editor":  false},
-				        { "name": "      行业机构和企业", "group": "签订合作协议机构的协议个数", "value": "", "field": "industryNum","editor": false},
-				        { "name": "      地方政府", "group": "签订合作协议机构的协议个数", "value": "", "field": "localGoverNum","editor": false}
+				        { "name": "其中：行业机构和企业", "group": "签订合作协议机构的协议个数", "value": "", "field": "industryNum","editor": false},
+				        { "name": "其中：地方政府", "group": "签订合作协议机构的协议个数", "value": "", "field": "localGoverNum","editor": false}
                    ];
 				    							
 				$('#edit').propertygrid({

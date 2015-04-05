@@ -31,15 +31,8 @@ public class T722_Bean {
 	private Date Time;
 	 
 	private String Note;
-
-    private String FillTeaID ;
-	
-	private String FillUnitID ;
 	
 	private int CheckState;
-	
-
-	private String audit ;
 
 
 	
@@ -156,21 +149,7 @@ public class T722_Bean {
 		Note = note;
 	}
 
-	public String getFillTeaID() {
-		return FillTeaID;
-	}
 
-	public void setFillTeaID(String fillTeaID) {
-		FillTeaID = fillTeaID;
-	}
-
-	public String getFillUnitID() {
-		return FillUnitID;
-	}
-
-	public void setFillUnitID(String fillUnitID) {
-		FillUnitID = fillUnitID;
-	}
 
 	public int getCheckState() {
 		return CheckState;
@@ -180,13 +159,5 @@ public class T722_Bean {
 		CheckState = checkState;
 	}
 
-	public String getAudit() {
-		return audit;
-	}
-
-	public void setAudit(String audit) {
-		this.audit = audit;
-	}
-	
 	
 }

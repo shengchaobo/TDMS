@@ -24,12 +24,8 @@ public class T733_Bean {
 	
 	private String Note;
 	
-    private String FillTeaID ;
-	
     private String FillUnitID ;
-		
-		/**  审核单位ID号  */
-	private String audit ;
+
 
 	
 
@@ -113,28 +109,12 @@ public class T733_Bean {
 		Note = note;
 	}
 
-	public String getFillTeaID() {
-		return FillTeaID;
-	}
-
-	public void setFillTeaID(String fillTeaID) {
-		FillTeaID = fillTeaID;
-	}
-
 	public String getFillUnitID() {
 		return FillUnitID;
 	}
 
 	public void setFillUnitID(String fillUnitID) {
 		FillUnitID = fillUnitID;
-	}
-
-	public String getAudit() {
-		return audit;
-	}
-
-	public void setAudit(String audit) {
-		this.audit = audit;
 	}
 	
 	

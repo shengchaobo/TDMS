@@ -214,7 +214,7 @@ public class T721_Excel {
 				T721_Bean.setApplvExp(Double.parseDouble(appExp));
 				T721_Bean.setSchSupportExp(Double.parseDouble(schExp));
 				T721_Bean.setAppvlID(appID);
-				T721_Bean.setFillUnitID(fillUnitID);
+//				T721_Bean.setFillUnitID(fillUnitID);
 				T721_Bean.setCheckState(Constants.WAIT_CHECK);
 				T721_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T721_Bean.setNote(note);

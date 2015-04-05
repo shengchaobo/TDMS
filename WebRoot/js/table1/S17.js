@@ -4,7 +4,7 @@ $(function(){
 				var rows = [
 				        { "name": "总数", "group": "校友会（个）", "value": "",  "field": "sumSchFriNum","editor":  false},
 				        { "name": "其中：境内",  "group": "校友会（个）", "value": "", "field": "inlandNum", "editor":  false},
-				        { "name": "其中: 境外", "group": "校友会（个）", "value": "", "field": "outlandNum","editor":  false }
+				        { "name": "其中：境外", "group": "校友会（个）", "value": "", "field": "outlandNum","editor":  false }
                    ];
 				    							
 				$('#edit').propertygrid({

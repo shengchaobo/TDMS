@@ -20,7 +20,7 @@ public class T711_DAO {
 	
 	private String field="TeaUnit,UnitID,Name,TeaID,AwardName,AwardLevel," +
 			"AwardRank,AwardTime7,AwardFromUnit,AppvlID,JoinTeaNum," +
-			"OtherJoinTeaInfo,Time,Note,FillTeaID,FillUnitID,audit,CheckState";
+			"OtherJoinTeaInfo,Time,Note,FillUnitID,CheckState";
 
 
     public boolean insert(T711_Bean teaManagerAwardInfo)

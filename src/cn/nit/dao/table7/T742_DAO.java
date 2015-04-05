@@ -19,7 +19,7 @@ public class T742_DAO {
 	
 	private String field="TeaName,TeaID,TeaUnit,UnitID,AssessCS," +
 			"CSID,CSType,AssessYear,AssessResult,AppvlID,Time,Note," +
-			"FillTeaID,FillUnitID,audit,CheckState";
+			"CheckState";
 
 	
 	public boolean insert(T742_Bean t742_B){
@@ -58,10 +58,10 @@ public class T742_DAO {
 	  Statement st=null;
 	  ResultSet rs=null;
 	
-
-	if(fillUnitId!=null && !fillUnitId.equals("")){
-		sql.append(" and FillUnitID=" + fillUnitId);	
-	}
+//
+//	if(fillUnitId!=null && !fillUnitId.equals("")){
+//		sql.append(" and FillUnitID=" + fillUnitId);	
+//	}
 	
 	if(conditions!=null && !conditions.equals("")){
 		sql.append(conditions);
@@ -105,10 +105,10 @@ public class T742_DAO {
 				"t.AppvlID,t.Time,t.Note,t.CheckState");
 		sql.append(" from "+ tableName +" as t, DiCourseCategories cst");
 		sql.append(" where cst.IndexID=t.CSType") ;
-		
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
-		}
+//		
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
 		
 		if(conditions != null){
 			sql.append(conditions) ;
@@ -205,7 +205,7 @@ public class T742_DAO {
 			Connection conn = DBConnection.instance.getConnection() ;
 			
 			String tempfield = "TeaName,TeaID,TeaUnit,UnitID,AssessCS,CSID,CSType," +
-					"AssessYear,AssessResult,AppvlID,Time,Note,FillUnitID,CheckState";
+					"AssessYear,AssessResult,AppvlID,Time,Note,CheckState";
 			try{
 				flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 			}catch(Exception e){

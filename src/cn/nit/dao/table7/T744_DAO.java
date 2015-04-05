@@ -19,7 +19,7 @@ public class T744_DAO {
 	
 	private String field="TeaUnit,UnitID,MajorName,MajorID,DegreeType," +
 			"LeaderName,TeaID,SetYear,AssessYear,AssessResult," +
-			"AppvlID,Time,Note,FillTeaID,FillUnitID,audit,CheckState";
+			"AppvlID,Time,Note,CheckState";
 	public boolean insert(T744_Bean t744_B){
 		boolean flag=false;
 		
@@ -59,10 +59,10 @@ public class T744_DAO {
 	  ResultSet rs=null;
 	
 
-	if(fillUnitId!=null && !fillUnitId.equals("")){
-		sql.append(" and FillUnitID=" + fillUnitId);	
-	}
-	
+//	if(fillUnitId!=null && !fillUnitId.equals("")){
+//		sql.append(" and FillUnitID=" + fillUnitId);	
+//	}
+//	
 	if(conditions!=null && !conditions.equals("")){
 		sql.append(conditions);
 	}
@@ -107,9 +107,9 @@ public class T744_DAO {
 		sql.append(" from "+ tableName +" as t, DiMajorTwo mt");
 		sql.append(" where mt.MajorNum=t.MajorID") ;
 		  
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
-		}
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
 		
 		if(conditions != null){
 			sql.append(conditions) ;
@@ -208,7 +208,7 @@ public class T744_DAO {
 			
 			String tempfield = "TeaUnit,UnitID,MajorName,MajorID," +
 					"DegreeType,LeaderName,TeaID,SetYear,AssessYear," +
-					"AssessResult,AppvlID,Time,Note,FillUnitID,CheckState";
+					"AssessResult,AppvlID,Time,Note,CheckState";
 			try{
 				flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 			}catch(Exception e){

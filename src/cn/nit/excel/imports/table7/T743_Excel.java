@@ -212,7 +212,7 @@ public class T743_Excel {
 				T743_Bean.setAssessResult(assResult);
 				T743_Bean.setAppvlID(appID);
 				T743_Bean.setCheckState(Constants.WAIT_CHECK);
-				T743_Bean.setFillUnitID(fillUnitID);
+//				T743_Bean.setFillUnitID(fillUnitID);
 				T743_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T743_Bean.setNote(note);
 					

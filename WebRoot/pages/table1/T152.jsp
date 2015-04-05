@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 		</thead>
 	</table>
-	<div id="toolbar2" style="float: right;">
+	<div id="toolbar2" >
 	<form action='pages/T152/dataExport?excelName=<%=URLEncoder.encode("表1-5-2教学单位科研机构","UTF-8")%>'   
 	method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
 					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;

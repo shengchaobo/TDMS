@@ -180,7 +180,7 @@ public class T731_Excel {
 				T731_Bean.setUnitID(unitId);
 				T731_Bean.setLectureClass(lecClass);
 				T731_Bean.setEvaluate(eva);
-				T731_Bean.setFillUnitID(fillUnitID);
+//				T731_Bean.setFillUnitID(fillUnitID);
 				T731_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T731_Bean.setNote(note);
 				

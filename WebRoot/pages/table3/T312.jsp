@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div id="toolbar2">
-	<form action='pages/DocAndGraSta/dataExport?excelName=<%=URLEncoder.encode("表3-1-2博士点 、硕士点（研究生院）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+	<form action='pages/DocAndGraSta/dataExport?excelName=<%=URLEncoder.encode("表3-1-2博士点硕士点（研究生院）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
 					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
 						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
 								数据导出

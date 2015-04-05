@@ -88,8 +88,7 @@ public class T312_DAO {
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
 //		sql.append(" from "+ tableName);
-		sql.append(" from " + tableName + " as t,DiDepartment dpt") ;
-		sql.append(" where dpt.UnitID=t.UnitID");		
+		sql.append(" from " + tableName +" where 1=1") ;		
 		int total = 0 ;
 
 //		System.out.println(sql.toString());
@@ -134,10 +133,9 @@ public class T312_DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T312POJO> list =null ;
-		sql.append("select t.SeqNumber,t.StaName,t.StaID,t.UnitName,t.UnitID, t.StaType," +
-				"t.Time,t.Note,t.CheckState");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt");
-		sql.append(" where   dpt.UnitID=t.UnitID " );
+		sql.append("select SeqNumber,StaName,StaID,UnitName,UnitID, StaType," +
+				"Time,Note,CheckState");
+		sql.append(" from "+tableName+" where 1=1 ");
 //		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
 //		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
 //		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
@@ -197,7 +195,6 @@ public class T312_DAO {
 	}
 	
 	public boolean deleteCoursesByIds(String ids){
-		System.out.println("hahah");
 		int flag = 0 ;
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("delete from " + tableName) ;
@@ -229,11 +226,10 @@ public class T312_DAO {
 	public List<T312_Bean> totalList(String year,int checkState){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.StaName,t.StaID,t.UnitName,t.UnitID, t.StaType," +
-		"t.Time,t.Note,t.CheckState");
-        sql.append(" from "+tableName + " as t,DiDepartment dpt");
-        sql.append(" where   dpt.UnitID=t.UnitID" );
-        sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		sql.append("select SeqNumber,StaName,StaID,UnitName,UnitID, StaType," +
+		"Time,Note,CheckState");
+        sql.append(" from "+tableName);
+        sql.append(" where Time like '"+year+"%' and CheckState="+checkState);
 
 		
 		
@@ -263,11 +259,11 @@ public class T312_DAO {
 	public List<T312_Bean> totalList(String year){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.StaName,t.StaID,t.UnitName,t.UnitID, t.StaType," +
-		"t.Time,t.Note,t.CheckState");
-        sql.append(" from "+tableName + " as t,DiDepartment dpt");
-        sql.append(" where   dpt.UnitID=t.UnitID and t.Time like '"+year+"%'" );
-        sql.append(" and t.CheckState ="+Constants.PASS_CHECK);
+		sql.append("select SeqNumber,StaName,StaID,UnitName,UnitID, StaType," +
+		"Time,Note,CheckState");
+        sql.append(" from "+tableName);
+        sql.append(" where Time like '"+year+"%'" );
+        sql.append(" and CheckState ="+Constants.PASS_CHECK);
 
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

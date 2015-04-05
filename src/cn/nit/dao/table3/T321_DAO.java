@@ -88,8 +88,7 @@ public class T321_DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ") ;
-		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID");		
+		sql.append(" from " + tableName + " where 1=1 ") ;		
 		int total = 0 ;
 
 //		System.out.println(sql.toString());
@@ -129,15 +128,16 @@ public class T321_DAO {
 	}
 	
 	
-	public List<T321POJO> auditingData(String conditions, String fillDept, int page, int rows){
+	public List<T321_Bean> auditingData(String conditions, String fillDept, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T321POJO> list =null ;
-		sql.append("select t.SeqNumber,t.MainClassName,t.MainClassID,t.ByPassTime," +
-				"t.MajorNameInSch,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.UnitName,t.UnitID,"+
-				"t.Note,t.Time,t.CheckState");
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ");
-		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID" );
+		List<T321_Bean> list =null ;
+		sql.append("select "+key+","+field+" from "+tableName+ " where 1=1 ");
+//		sql.append("select SeqNumber,MainClassName,MainClassID,ByPassTime," +
+//				"MajorNameInSch,MajorNum as MajorID,MajorID as MajorIDID,t.UnitName,t.UnitID,"+
+//				"t.Note,t.Time,t.CheckState");
+//		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ");
+//		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID" );
 
 		if(fillDept != null && !fillDept.equals("")){
 			sql.append(" and FillDept=" + fillDept) ;
@@ -159,7 +159,7 @@ public class T321_DAO {
 			st.setMaxRows(page * rows) ;
 			rs = st.executeQuery(sql.toString()) ;
 			rs.absolute((page - 1) * rows) ;//将光标移动到此 ResultSet 对象的给定行编号
-			list = DAOUtil.getList(rs, T321POJO.class) ;
+			list = DAOUtil.getList(rs, T321_Bean.class) ;
 		
 			
 		}catch(Exception e){
@@ -178,12 +178,8 @@ public class T321_DAO {
 	public List<T321_Bean> totalList(String year, int checkState){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.MainClassName,t.MainClassID,t.ByPassTime," +
-				"t.MajorNameInSch,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.UnitName,t.UnitID,"+
-				"t.Note,t.Time,t.CheckState");
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ");
-		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID ");
-		sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		sql.append("select "+key+","+field+" from "+tableName+ " where ");
+		sql.append(" Time like '"+year+"%' and CheckState="+checkState);
 		sql.append(" order by cast(MainClassID as int)") ;
 		
 		
@@ -204,8 +200,9 @@ public class T321_DAO {
 			DBConnection.close(st);	
 			DBConnection.close(conn);
 		}
-		
+		System.out.println(list.toString());
 		return list ;
+		
 	}
 	
 	
@@ -213,12 +210,8 @@ public class T321_DAO {
 	public List<T321_Bean> totalList(String year){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.MainClassName,t.MainClassID,t.ByPassTime," +
-				"t.MajorNameInSch,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.UnitName,t.UnitID,"+
-				"t.Note,t.Time,t.CheckState");
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorTwo dmt ");
-		sql.append(" where dpt.UnitID=t.UnitID and dmt.MajorNum=t.MajorID " +
-				"and t.CheckState="+Constants.PASS_CHECK+"and t.Time like '"+year+"%'");
+		sql.append("select "+key+","+field+" from "+tableName);
+		sql.append(" where  CheckState="+Constants.PASS_CHECK+"and Time like '"+year+"%'");
 		sql.append(" order by cast(MainClassID as int)") ;
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

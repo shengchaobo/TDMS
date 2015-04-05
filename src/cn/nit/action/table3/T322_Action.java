@@ -392,7 +392,7 @@ public class T322_Action {
 		InputStream inputStream = null ;
 		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String sheetName = null;
-		List<T322POJO> list = null;
+		List<T322_Bean> list = null;
 		
 		if("111".equals(userBean.getRoleID())){
 			String year = (String)request.getSession().getAttribute("allYear") ;

@@ -23,7 +23,7 @@ public class J321_Excel {
 		T322_DAO T322_dao = new T322_DAO();
 //		Calendar a = Calendar.getInstance();
 //		String year = String.valueOf(a.get(Calendar.YEAR));
-		List<T322POJO> list = T322_dao.totalList1(year);
+		List<T322_Bean> list = T322_dao.totalList1(year);
 				
 		String sheetName = "J-3-2-1专业基本情况（时点）";
 		

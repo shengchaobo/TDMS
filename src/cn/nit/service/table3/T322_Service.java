@@ -35,7 +35,7 @@ public class T322_Service {
 	public String auditingData(String conditions, String fillDept, int page, int rows){
 		
 	    int total = t322_Dao.totalAuditingData(conditions, fillDept) ;
-		List<T322POJO> list = t322_Dao.auditingData(conditions, fillDept, page, rows) ;
+		List<T322_Bean> list = t322_Dao.auditingData(conditions, fillDept, page, rows) ;
 	
 		System.out.println("怎么样");
 		Pagition pages = new Pagition(total, list) ;
@@ -154,7 +154,7 @@ public class T322_Service {
 	}
 	
 	/**用于审核数据导出*/
-	public List<T322POJO> totalList( String fillUnitID, String year, int checkState){
+	public List<T322_Bean> totalList( String fillUnitID, String year, int checkState){
 		return t322_Dao.totalList(fillUnitID, year, checkState);
 	}
 

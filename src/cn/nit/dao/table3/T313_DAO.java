@@ -86,8 +86,7 @@ public class T313_DAO {
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
 //		sql.append(" from "+ tableName);
-		sql.append(" from " + tableName + " as t,DiDepartment dpt ") ;
-		sql.append(" where dpt.UnitID=t.UnitID ");		
+		sql.append(" from " + tableName+  " where 1=1 ") ;	
 		int total = 0 ;
 
 //		System.out.println(sql.toString());
@@ -131,11 +130,12 @@ public class T313_DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T313_Bean> list =null ;
-		sql.append("select t.SeqNumber,t.DiscipName,t.DiscipID,t.UnitName," +
-				"t.UnitID,t.DiscipType,t.NationLevelOne,t.NationLevelTwo,t.NationLevelKey,t.ProvinceLevelOne,"+
-				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time,t.CheckState");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
-		sql.append(" where   dpt.UnitID=t.UnitID" );
+		sql.append("select "+key+","+field+" from "+tableName+" where 1=1 ");
+//		sql.append("select t.SeqNumber,t.DiscipName,t.DiscipID,t.UnitName," +
+//				"t.UnitID,t.DiscipType,t.NationLevelOne,t.NationLevelTwo,t.NationLevelKey,t.ProvinceLevelOne,"+
+//				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time,t.CheckState");
+//		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
+//		sql.append(" where   dpt.UnitID=t.UnitID" );
 //		sql.append(" where dpt.UnitID=t.UnitID and dal.IndexID=t.UnitLevel and dal.IndexID=t.CooperInsLevel");
 //		sql.append("select t.SeqNumber,t.CSName,t.CSID,t.CSUnit,t.UnitID,t.FromTeaResOffice,t.TeaResOfficeID,cst.CourseCategories as CSType,t.CSType as CSTypeID,csn.CourseChar as CSNature,t.CSNature as CSNatureID,t.State,t.PubCSType,t.Time,t.Note") ;
 //		sql.append(" from " + tableName + " as t,DiCourseChar csn,DiCourseCategories cst") ;
@@ -181,12 +181,8 @@ public class T313_DAO {
 	public List<T313_Bean> totalList(String year,int checkState){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.DiscipName,t.DiscipID,t.UnitName," +
-				"t.UnitID,t.DiscipType,t.NationLevelOne,t.NationLevelTwo,t.NationLevelKey,t.ProvinceLevelOne,"+
-				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time,t.CheckState");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
-		sql.append(" where   dpt.UnitID=t.UnitID");
-		sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		sql.append("select "+key+","+field+" from "+tableName);
+		sql.append(" where Time like '"+year+"%' and CheckState="+checkState);
 		
 		
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -214,12 +210,9 @@ public class T313_DAO {
 	public List<T313POJO> totalList(String year){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.DiscipName,t.DiscipID,t.UnitName," +
-				"t.UnitID,t.DiscipType,t.NationLevelOne,t.NationLevelTwo,t.NationLevelKey,t.ProvinceLevelOne,"+
-				"t.ProvinceLevelTwo,t.CityLevel,t.SchLevel,t.Note,t.Time,t.CheckState");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt ");
-		sql.append(" where   dpt.UnitID=t.UnitID and t.Time like '"+year+"%'");
-		sql.append(" and t.CheckState="+Constants.PASS_CHECK);
+		sql.append("select "+key+","+field+" from "+tableName);
+		sql.append(" where Time like '"+year+"%'");
+		sql.append(" and CheckState="+Constants.PASS_CHECK);
 			
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;

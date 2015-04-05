@@ -25,6 +25,7 @@ import cn.nit.bean.table7.T733_Bean;
 import cn.nit.constants.Constants;
 import cn.nit.dao.table7.T733_DAO;
 import cn.nit.pojo.table7.T733POJO;
+import cn.nit.service.di.DiDepartmentService;
 import cn.nit.service.table7.T733_Service;
 import cn.nit.util.ExcelUtil;
 import cn.nit.util.TimeUtil;
@@ -36,6 +37,10 @@ public class T733_Action {
 	T733_Bean eachUnitTeachResActInfo=new T733_Bean();
 	
 //	private T733_DAO t733_Dao=new T733_DAO();
+	
+	
+	/**  部门管理Service类  */
+	private DiDepartmentService deSer = new DiDepartmentService() ;
 	
 	/**  待审核数据的查询的序列号  */
 	private Integer seqNum ;
@@ -77,6 +82,14 @@ public class T733_Action {
 	
 	public void insert(){
 		eachUnitTeachResActInfo.setTime(new Date());
+		
+		//具体教学单位
+	    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
+		eachUnitTeachResActInfo.setFillUnitID(fillUnitID);
+		String teaUnit = deSer.getName(fillUnitID);
+		eachUnitTeachResActInfo.setUnitID(fillUnitID);
+		eachUnitTeachResActInfo.setUnitName(teaUnit);
 		PrintWriter out=null;
 		
 		boolean flag;

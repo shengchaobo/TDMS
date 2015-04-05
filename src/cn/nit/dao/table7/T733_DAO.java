@@ -99,7 +99,8 @@ public class T733_DAO {
 			List<T733POJO> list=null;
 			StringBuffer sql=new StringBuffer();
 			
-			sql.append("select  t.SeqNumber,t.UnitName,dbt.UnitID as UnitID,t.UnitID as UnitIDD,t.MeetingDate,t.MeetingMemberInfo,t.MeetingNum,t.MeetingTheme,t.MeetingResult,t.Time,t.Note");
+			sql.append("select  t.SeqNumber,t.UnitName,dbt.UnitID as UnitID," +
+					"t.UnitID as UnitIDD,t.MeetingDate,t.MeetingMemberInfo,t.MeetingNum,t.MeetingTheme,t.MeetingResult,t.Time,t.Note");
 			sql.append(" from " + tableName + " as t, DiDepartment  dbt");
 			sql.append(" where dbt.UnitID=t.UnitID ");
 			

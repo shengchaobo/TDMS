@@ -63,13 +63,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<form action='pages/T733/dataExport?excelName=<%=URLEncoder.encode("表7-3-3各单位开展教学研究活动情况","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
+			
+		</div>
+		<div style="float: right;">
+		<form action='pages/T733/dataExport?excelName=<%=URLEncoder.encode("表7-3-3各单位开展教学研究活动情况","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
 					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
 						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
 								数据导出
 						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
 			</form>
+		
 		</div>
+	</div>		
+	<!-- 
 		 <div>
 		  <form method="post" id="auditing"
 				style="float: right; height: 24px;">
@@ -103,8 +109,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</tr>
 				</table>
 			</form>
-		</div>
-	</div>
+		</div> -->
+
 	<!--  
 	<div id="toolbar2" style="float: right;">
 	<a href="pages/T733/dataExport?excelName=<%=URLEncoder.encode("表7-3-3各单位开展教学研究活动情况","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 

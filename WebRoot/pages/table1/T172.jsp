@@ -58,14 +58,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a></a>
+		</div>
+		<div style="float: right;">
 			<form action='pages/T172/dataExport?excelName=<%=URLEncoder.encode("表1-7-2校友返校交流情况（党院办）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
 					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
 						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
 								数据导出
 						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
 			</form>
-		<!-- 	<a href="pages/T172/dataExport?excelName=表1-7-2校友返校交流情况（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>  -->
+			
+			</div>
+  </div>
+			
+		<!-- 	<a href="pages/T172/dataExport?excelName=表1-7-2校友返校交流情况（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>  
 		</div>	
 			<form method="post" id="auditing"
 				style="float: right; height: 24px;">
@@ -99,8 +104,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</tr>
 				</table>
 			</form>
-	</div>
-	
+
+	-->
 	<!--  
 	<table id="verfiedData"  class="easyui-datagrid"  url="pages/T17/auditingData" >
 		<thead>

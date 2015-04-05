@@ -212,7 +212,7 @@ return jsonLength;
 			
 				$('#udlg').dialog('open').dialog('setTitle','文件上传');
 				$('#batchForm').form('reset');	
-				url = "fileupload?type_1=" + type_1;			
+				url = "fileuploadofmain?type_1=" + type_1;			
 			}
 			
 			function batchImport(){
@@ -248,7 +248,7 @@ return jsonLength;
 						if (sure) {
 			    		   	$.ajax({
 						   		type : "post",
-						   		url : "deleteFile?FileNum=" +fileNum+"&type_1="+type,
+						   		url : "deleteFileofmain?FileNum=" +fileNum+"&type_1="+type,
 						   		async : true,
 						   		dataType :"json",
 						   		success : function(result) {

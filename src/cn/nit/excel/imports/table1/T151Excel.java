@@ -220,14 +220,14 @@ public class T151Excel {
 						return "第" + count + "行，年份不能为空" ;
 					}
 					
-					if(!DateUtil.isNumeric(BeginYearStr))
-					{
-						return "第" + count + "行，年份只能为数字" ;
-					} 
-					if (BeginYearStr.length() >5){
-						return "第" + count + "行，年份只能为4位" ;
+//					if(!DateUtil.isNumeric(BeginYearStr))
+//					{
+//						return "第" + count + "行，年份只能为数字" ;
+//					} 
+					if(!TimeUtil.judgeFormatY(BeginYearStr)){
+
+						return "第" + count + "行，年份的填写格式为：“2014”" ;
 					}
-					
 					String HouseArea=cell[10].getContents().trim();
 					
 					if(HouseArea == null|| HouseArea.equals("")){
@@ -237,10 +237,7 @@ public class T151Excel {
 					if(!DateUtil.isDouble(HouseArea)){
 						return "第" + count + "行，用房面积只能为保留两位的整型数" ;
 					}
-
-				 
-				
-				
+					
 				count++ ;
 				
 				Date BeginYear=TimeUtil.changeDateY(BeginYearStr);

@@ -88,7 +88,7 @@ public class T17Excel {
 				}
 				
 				if(ClubName.length() > 100){
-					return "第" + count + "行，校友会名称字数不超过100个字" ;
+					return "第" + count + "行，校友会名称字数不能超过100个字" ;
 				}
 				
 				String BuildYearStr = cell[2].getContents().trim() ;
@@ -97,13 +97,17 @@ public class T17Excel {
 					return "第" + count + "行，设立时间不能为空" ;
 				}
 				
-				if(!DateUtil.isNumeric(BuildYearStr))
-				{
-					return "第" + count + "行，设立时间只能为数字" ;
-				} 
-				if (BuildYearStr.length() >5){
-					return "第" + count + "行，设立时间只能为4位" ;
+				if(!TimeUtil.judgeFormatY(BuildYearStr)){
+					return "第" + count + "行，设立时间的填写格式为：“2014”" ;
 				}
+				
+//				if(!DateUtil.isNumeric(BuildYearStr))
+//				{
+//					return "第" + count + "行，设立时间只能为数字" ;
+//				} 
+//				if (BuildYearStr.length() >5){
+//					return "第" + count + "行，设立时间只能为4位" ;
+//				}
 				
 				String Place = cell[3].getContents().trim() ;
 				if(Place == null || Place.equals("")){

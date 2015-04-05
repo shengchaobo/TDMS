@@ -1,7 +1,7 @@
 $(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue');
 				var rows = [
-					        { "name": "1.校训", "group": "办学指导思想", "value": "",  "field": "contents1","editor": "text"},
+					        { "name": "1.校训", "group": "办学指导思想", "value": "",  "field": "contents1","editor": "textarea"},
 					        { "name": "2.定位与发展目标",  "group": "办学指导思想", "value": "", "field": "contents2","editor": "textarea",
 					        	"rowheight":"300px"
 					        }     

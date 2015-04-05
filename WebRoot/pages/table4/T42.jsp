@@ -182,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="dlg1" class="easyui-dialog" style="width:300px;height:150px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg1-buttons">
 		<form action='pages/T42/dataExport?excelName=<%=URLEncoder.encode("表4-2校领导基本信息（党院办）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data">
-			  <select class="easyui-combobox"  id="cbYearContrast" name="selectYear"  editable=false ></select>&nbsp;&nbsp;	
+			  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;	
 	   </form>	
     </div>
 
@@ -325,6 +325,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
     	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+    	
+    　　　　var select1 = document.getElementById("cbYearContrast1");
     	for (var i = 0; i <= 10; i++) {
         var theOption = document.createElement("option");
         	theOption.innerHTML = currentYear-i + "年";

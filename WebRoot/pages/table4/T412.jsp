@@ -183,22 +183,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>
 						<div class="fitem">
 						<label>教工号：</label> 
+						<input type="hidden" id="fromTeaUnit"  name="T412_bean.fromTeaUnit" />
+						<input type="hidden"  id="teaUnitID" name="T412_bean.teaUnitID" />
 						<input type="hidden" name="T412_bean.teaId" id="teaId"/>
 						<input type="hidden" name="T412_bean.SeqNumber" id="seqNumber"/>
 						<input id="teaName" type="text" name="T412_bean.teaName" class='easyui-combobox' 
 									data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 									onSelect:function(){
 									 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
+									 	 document.getElementById('name').value=$(this).combobox('getValue') ;
 									 }">
 						<span id="teaIdSpan"></span>
 						</div>
 				</td>
 				<td class="empty"></td>
 				<td>
-					<div class="fitem">
-						<input type="hidden" id="fromTeaUnit"  name="T412_bean.fromTeaUnit" />
-						<input type="hidden"  id="teaUnitID" name="T412_bean.teaUnitID" />
-					</div>
+				<div class="fitem">
+				<label>教师姓名：</label>
+				<input id="name" name="techName" readonly="true" style="color:grey">
+				</div>
 				</td>
 			</tr>
 			<tr>			

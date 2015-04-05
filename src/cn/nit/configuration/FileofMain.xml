@@ -25,10 +25,10 @@
             </result>
         </action>
         
-       <action name="deleteFile" class="cn.nit.action.FileofMain"  method="deleteFile">
+       <action name="deleteFileofmain" class="cn.nit.action.FileofMain"  method="deleteFile">
 		<param name="inputPath">/WEB-INF/FileofMain</param></action>
 
-		<action name="fileupload" class="cn.nit.action.FileofMain"  method="upload">
+		<action name="fileuploadofmain" class="cn.nit.action.FileofMain"  method="upload">
 		<param name="inputPath">/WEB-INF/FileofMain</param>	
 			<interceptor-ref name="fileUpload">
 <!--大家可以设置成自己的配置，想文件类型和大小等限制			-->

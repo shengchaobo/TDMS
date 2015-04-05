@@ -62,5 +62,13 @@ public class T413_Service {
 		return teaInfoDao.totalList(fillUnitID);
 	}
 		
-
+	/**
+	 * 删除数据
+	 * @param 
+	 * @return
+	 */
+	
+	public boolean deleteByIds(String ids){		
+		return teaInfoDao.deleteByIds(ids) ;
+	}
 }

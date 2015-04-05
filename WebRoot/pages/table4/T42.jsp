@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<a href='pages/T42/dataExport?excelName=<%=URLEncoder.encode("表4-2校领导基本信息（党院办）","UTF-8")%>'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
+			<a href='javascript:dataExport()'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
 		</div>
 		<form method="post" id="searchForm"
 				style="float: right; height: 24px;">
@@ -179,6 +179,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	</div>
 -->
+    <div id="dlg1" class="easyui-dialog" style="width:300px;height:150px;padding:10px 20px;" closed="true" data-options="modal:true"
+		buttons="#dlg1-buttons">
+		<form action='pages/T42/dataExport?excelName=<%=URLEncoder.encode("表4-2校领导基本信息（党院办）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data">
+			  <select class="easyui-combobox"  id="cbYearContrast" name="selectYear"  editable=false ></select>&nbsp;&nbsp;	
+	   </form>	
+    </div>
 
 	<!--添加弹出框-->
 	<div id="dlg" class="easyui-dialog"
@@ -307,6 +313,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			iconCls="icon-ok" onclick="singleImport()">保存</a> 
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+	</div>
+	
+	<div id="dlg1-buttons"  >
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-ok" onclick="submitForm()">确定</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-cancel" onclick="javascript:$('#dlg1').dialog('close')">取消</a>
 	</div>
 </body>
 	<script type="text/javascript">

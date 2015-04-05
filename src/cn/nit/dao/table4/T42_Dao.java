@@ -25,7 +25,7 @@ public class T42_Dao {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T42_Bean> totalList(){
+	public List<T42_Bean> totalList1(String year){
 		
 		String sql = "select SeqNumber,Name,TeaId,Duty,Gender,Birthday,JoinSchTime," + tableName2 + ".Education,Degree AS TopDegree,"+
 		"MajTechTitle,ForCharge,Resume,Time,Note"
@@ -299,12 +299,6 @@ public class T42_Dao {
 			DBConnection.close(conn);
 		}
 		return flag ;
-	}
-	
-	
-	public static void main(String args[]){
-		T42_Dao testDao =  new T42_Dao() ;
-		System.out.println(testDao.totalList().size()) ;
 	}
 
 }

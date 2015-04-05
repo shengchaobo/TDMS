@@ -195,4 +195,13 @@
    	}).submit();
    }
 
+	//弹出添加的界面
+	function dataExport() {
+		$('#dlg1').dialog('open').dialog('setTitle', '请选择要导出的时间年');
+	}
 	
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
+    	  $('#dlg1').dialog('close'); // close the dialog
+    }

@@ -57,6 +57,8 @@ public class T42_Action {
 	
 	/**  下载的excelName  */
 	private String excelName ;
+	
+	private String selectYear;
 
 
 
@@ -226,10 +228,11 @@ public class T42_Action {
 		List<T42_Bean> list = null;
 		
 		if("111".equals(userBean.getRoleID())){
-			list = T42_services.totalList();
+			String year = (String)request.getSession().getAttribute("allYear") ;
+			list = T42_services.totalList1(year);
 			sheetName = "表4-2校领导基本信息（党院办）";
 		}else{					
-			list = T42_services.totalList();						
+			list = T42_services.totalList1(this.getSelectYear());						
 			sheetName = this.excelName;
 		}
 		
@@ -332,5 +335,13 @@ public class T42_Action {
 
 	public String getTeaID() {
 		return TeaID;
+	}
+
+	public void setSelectYear(String selectYear) {
+		this.selectYear = selectYear;
+	}
+
+	public String getSelectYear() {
+		return selectYear;
 	}
 }

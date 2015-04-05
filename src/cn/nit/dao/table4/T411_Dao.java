@@ -412,36 +412,37 @@ public class T411_Dao {
 			
 			String temp = field.replaceAll("TeaId,", "");
 			String temp0 = temp; 
-			if(bean.getIdcode().trim().equals("")){
+			System.out.println(bean.getIdcode());
+			if(bean.getIdcode()==null || bean.getIdcode().trim().equals("")){
 				String a = "idcode,";
 				temp0 = temp.replaceAll(a,"");
 			}
 			
 			String temp1 = temp0;
 			
-			if(bean.getEducation().trim().equals("")){
+			if(bean.getEngineer()==null || bean.getEducation().trim().equals("")){
 				String a = "Education,";
 			    temp1 = temp0.replaceAll(a , "");
 			}
 			
 			String temp2 = temp1;
 			
-			if(bean.getTopDegree().trim().equals("")){
+			if(bean.getTopDegree()==null || bean.getTopDegree().trim().equals("")){
 				temp2 = temp1.replaceAll("TopDegree," , "");
 			}
 			
 			String temp3 = temp2;
-			if(bean.getMajTechTitle().trim().equals("")){
+			if(bean.getMajTechTitle()==null || bean.getMajTechTitle().trim().equals("")){
 				temp3 = temp2.replaceAll("MajTechTitle," , "");
 			}
 			
 			String temp4 = temp3;
-			if(bean.getSource().trim().equals("")){
+			if(bean.getSource()==null || bean.getSource().trim().equals("")){
 				temp4 = temp3.replaceAll("Source,", "");
 			}	
 			
 			String temp5 = temp4;
-			if(bean.getTeaTitle().trim().equals("")){
+			if(bean.getTeaTitle()==null || bean.getTeaTitle().trim().equals("")){
 				temp5 = temp4.replaceFirst("TeaTitle,", "");
 			}
 			//System.out.println(temp5);
@@ -457,7 +458,7 @@ public class T411_Dao {
 		return flag ;
 	}
 	
-/*	public boolean deleteByIds(String ids){
+	public boolean deleteByIds(String ids){
 		
 		int flag = 0 ;
 		StringBuffer sql = new StringBuffer() ;
@@ -480,7 +481,7 @@ public class T411_Dao {
 		}else{
 			return true ;
 		}
-	}*/
+	}
 	
 	/**
 	 * 判断T411表中是否存在该教职工

@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>
 					<div class="fitem">
-					<label>表名：</label> 
+					<label>表名（例如1-1形式）：</label> 
 					<input id="TableName" type="text" name="specialCaseBean.TableName"
 					class="easyui-validatebox" >
 					</div>

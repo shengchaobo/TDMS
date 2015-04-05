@@ -47,6 +47,63 @@ public class SearchAction {
 			if(bean.getTFieldFlag() == 30){
 				columnInfoBean.setFormatter("formattime");
 			}
+			if(bean.getTFieldFlag() == 31){
+				columnInfoBean.setFormatter("formatBoolean");
+			}
+			if(bean.getTFieldFlag() == 6){
+				columnInfoBean.setFormatter("formatIdcode");
+			}
+			if(bean.getTFieldFlag() == 7){
+				columnInfoBean.setFormatter("formatEducation");
+			}
+			if(bean.getTFieldFlag() == 8){
+				columnInfoBean.setFormatter("formatDegree");
+			}
+			if(bean.getTFieldFlag() == 9){
+				columnInfoBean.setFormatter("formatSource");
+			}
+			if(bean.getTFieldFlag() == 10){
+				columnInfoBean.setFormatter("formatMachTitle");
+			}
+			if(bean.getTFieldFlag() == 11){
+				columnInfoBean.setFormatter("formatTeaTitle");
+			}
+			if(bean.getTFieldFlag() == 12){
+				columnInfoBean.setFormatter("formatTutor");
+			}
+			if(bean.getTFieldFlag() == 13){
+				columnInfoBean.setFormatter("formatHighTalent");
+			}
+			if(bean.getTFieldFlag() == 14){
+				columnInfoBean.setFormatter("formatHighTeam");
+			}
+			if(bean.getTFieldFlag() == 15){
+				columnInfoBean.setFormatter("formatAwardLevel");
+			}
+			if(bean.getTFieldFlag() == 16){
+				columnInfoBean.setFormatter("formatAwardType");
+			}
+			if(bean.getTFieldFlag() == 17){
+				columnInfoBean.setFormatter("formatPaperType");
+			}
+			if(bean.getTFieldFlag() == 18){
+				columnInfoBean.setFormatter("formatCourseCat");
+			}
+			if(bean.getTFieldFlag() == 19){
+				columnInfoBean.setFormatter("formatCourseChar");
+			}
+			if(bean.getTFieldFlag() == 20){
+				columnInfoBean.setFormatter("formatCourseAttri");
+			}
+			if(bean.getTFieldFlag() == 21){
+				columnInfoBean.setFormatter("formatEvaluType");
+			}
+			if(bean.getTFieldFlag() == 22){
+				columnInfoBean.setFormatter("formatContestType");
+			}
+			if(bean.getTFieldFlag() == 23){
+				columnInfoBean.setFormatter("formatContestScope");
+			}
 			list.add(columnInfoBean);
 		}		
 		

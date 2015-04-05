@@ -18,6 +18,7 @@ public class DiMajorOneBean implements java.io.Serializable {
 
 	// Fields
 
+	private int SeqNumber;
 	private String majorNum;
 	private String majorName;
 	private String direction;
@@ -40,8 +41,17 @@ public class DiMajorOneBean implements java.io.Serializable {
 	// Property accessors
 	@Id
 	@Column(name = "MajorNum", unique = true, nullable = false)
+	
 	public String getMajorNum() {
 		return this.majorNum;
+	}
+
+	public int getSeqNumber() {
+		return SeqNumber;
+	}
+
+	public void setSeqNumber(int seqNumber) {
+		SeqNumber = seqNumber;
 	}
 
 	public void setMajorNum(String majorNum) {

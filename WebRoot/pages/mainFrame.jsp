@@ -341,7 +341,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<div title="首页" >
 			    		    <%  
 	    		user = (UserinfoBean) session.getAttribute("userinfo") ;
-	    		if("000".equals(user.getRoleID())){
+	    		if("111".equals(user.getRoleID())){
 	     %>	
 			    	   <iframe frameborder=0 width='100%' height='100%' src="pages/index1.jsp"></iframe>
 		<%    

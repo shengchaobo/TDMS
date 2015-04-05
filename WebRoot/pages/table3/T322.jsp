@@ -249,7 +249,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>专业名称：</label> 
 						<input id="SeqNumber" name="t322_Bean.SeqNumber" type="hidden" value="0"></input>
-						<input id="Time" name="t322_Bean.Time" type="hidden" value="0"></input>
+						<input id="Time" name="t322_Bean.Time" type="hidden" ></input>
 						<input id="FillUnitID" name="t322_Bean.FillUnitID" type="hidden" value="0"></input>
 						<input type="hidden" name="t322_Bean.MajorName" id="MajorName"/>
 						<input id="MajorID" type="text" name="t322_Bean.MajorID" 
@@ -472,6 +472,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</td>
 					<td class="empty"></td>
+					</tr>
+
+				<tr>
+				
 				<td>
 				<div class="fitem">
 				<label>教工号：</label> 
@@ -479,11 +483,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input id="Leader" type="text" name="t322_Bean.Leader" class='easyui-combobox' 
 							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							onSelect:function(){
-							 	 document.getElementById('TeaID').value=$(this).combobox('getText') ;
+							 	 document.getElementById('TeaID').value=$(this).combobox('getText') ; 
+							 	 document.getElementById('name').value=$(this).combobox('getValue') ;
 							 }">
 				<span id="TeaIDSpan"></span>
 				</div>
-				</td>				
+				</td>
+				<td class="empty"></td>
+				<td>
+				<div class="fitem">
+				<label>教师姓名：</label>
+				<input id="name" name="techName" readonly="true" style="color:grey">
+				</div>
+				</td>
+				</tr>				
 			</tr>
 			 <tr>
 				<td>

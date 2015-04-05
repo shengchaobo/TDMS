@@ -44,7 +44,7 @@ a:active {color: #0000FF}
 	    	<div style="height:auto;width:300px;float:left">
 	    		<table >
 	    		<tr>
-	    		<td><h1>重要通知1</h1>			</td>
+	    		<td><h1>重要通知</h1>			</td>
 	    		</tr>
 	    		<tr>
 	    		
@@ -212,7 +212,7 @@ return jsonLength;
 			
 				$('#udlg').dialog('open').dialog('setTitle','文件上传');
 				$('#batchForm').form('reset');	
-				url = "fileupload?type_1=" + type_1;			
+				url = "fileuploadofmain?type_1=" + type_1;			
 			}
 			
 			function batchImport(){
@@ -248,7 +248,7 @@ return jsonLength;
 						if (sure) {
 			    		   	$.ajax({
 						   		type : "post",
-						   		url : "deleteFile?FileNum=" +fileNum+"&type_1="+type,
+						   		url : "deleteFileofmain?FileNum=" +fileNum+"&type_1="+type,
 						   		async : true,
 						   		dataType :"json",
 						   		success : function(result) {

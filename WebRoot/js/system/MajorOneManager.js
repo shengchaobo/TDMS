@@ -6,6 +6,8 @@
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
+			pageSize : 20,//默认选择的分页是每页20行数据
+			pageList : [ 5, 10, 20, 50 ],//可以选择的分页集合
 			nowrap : true,//设置为true，当数据长度超出列宽时将会自动截取
 			striped : true,//设置为true将交替显示行背景。
 			collapsible : true,//显示可折叠按钮
@@ -112,8 +114,9 @@
 		
 		url = 'pages/DiMajorOne/edit';
 
-		$('#dlg').dialog('open').dialog('setTitle', '编辑专科专业');
 		
+		$('#dlg').dialog('open').dialog('setTitle', '编辑专科专业');
+		$('#SeqNumber').val(row[0].seqNumber) ;
     	$('#MajorNum').val(row[0].majorNum) ;
     	$("input#MajorNum").attr("readonly",true);
     	$("input#MajorNum").css({"color":"#888"});

@@ -125,19 +125,31 @@ public class S322_DAO {
 			DBConnection.close(conn1);
 		}
 		
-		String querysql=" select DiDepartment.UnitName as TeaUnit,DiDepartment.UnitID as UnitID," +
-		"T322_UndergraMajorInfo_Tea$.MajorName as PassedMajor, "+
-		"T322_UndergraMajorInfo_Tea$.MajorID as MajorID, "+
-		"T322_UndergraMajorInfo_Tea$.AppvlTime as AssessTime, "+
-		"T322_UndergraMajorInfo_Tea$.FromTime as ValidityBegin, "+
-		"T322_UndergraMajorInfo_Tea$.EndTime as ValidityEnd,"+
-		"T322_UndergraMajorInfo_Tea$.AppvlAuth as AssessOrg"+
-					" from DiMajorTwo " +
-					"left join T322_UndergraMajorInfo_Tea$ on DiMajorTwo.MajorNum = T322_UndergraMajorInfo_Tea$.MajorID " +
-					"left join DiDepartment  on DiMajorTwo.UnitID=DiDepartment.UnitID"+
-					" where Time like '"+year+"%' and T322_UndergraMajorInfo_Tea$.AppvlResult = '通过' "+
-					" and "  +  "DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,DiDepartment.UnitName,T322_UndergraMajorInfo_Tea$.MajorName,T322_UndergraMajorInfo_Tea$.MajorID," +
-							" T322_UndergraMajorInfo_Tea$.AppvlTime,T322_UndergraMajorInfo_Tea$.FromTime,T322_UndergraMajorInfo_Tea$.EndTime,T322_UndergraMajorInfo_Tea$.AppvlAuth";
+		sql = "select DiDepartment.UnitName as TeaUnit, DiDepartment.UnitID as UnitID,"+
+		"MajorName as PassedMajor, "+
+		"MajorID as MajorID, "+
+		"AppvlTime as AssessTime, "+
+		"FromTime as ValidityBegin, "+
+		"EndTime as ValidityEnd,"+
+		"AppvlAuth as AssessOrg"+
+		" from T322_UndergraMajorInfo_Tea$ left join DiDepartment on T322_UndergraMajorInfo_Tea$.FillUnitID = DiDepartment.UnitID "+
+		" where Time like '"+year+"%' and AppvlResult = '通过' "+
+		" and "  +  "FillUnitID like '3%' group by DiDepartment.UnitID,DiDepartment.UnitName,MajorName,MajorID," +
+				" AppvlTime,FromTime,EndTime,AppvlAuth";
+
+//		String querysql=" select DiDepartment.UnitName as TeaUnit,DiDepartment.UnitID as UnitID," +
+//		"T322_UndergraMajorInfo_Tea$.MajorName as PassedMajor, "+
+//		"T322_UndergraMajorInfo_Tea$.MajorID as MajorID, "+
+//		"T322_UndergraMajorInfo_Tea$.AppvlTime as AssessTime, "+
+//		"T322_UndergraMajorInfo_Tea$.FromTime as ValidityBegin, "+
+//		"T322_UndergraMajorInfo_Tea$.EndTime as ValidityEnd,"+
+//		"T322_UndergraMajorInfo_Tea$.AppvlAuth as AssessOrg"+
+//					" from DiMajorTwo " +
+//					"left join T322_UndergraMajorInfo_Tea$ on DiMajorTwo.MajorNum = T322_UndergraMajorInfo_Tea$.MajorID " +
+//					"left join DiDepartment  on DiMajorTwo.UnitID=DiDepartment.UnitID"+
+//					" where Time like '"+year+"%' and T322_UndergraMajorInfo_Tea$.AppvlResult = '通过' "+
+//					" and "  +  "DiDepartment.UnitID like '3%' group by DiDepartment.UnitID,DiDepartment.UnitName,T322_UndergraMajorInfo_Tea$.MajorName,T322_UndergraMajorInfo_Tea$.MajorID," +
+//							" T322_UndergraMajorInfo_Tea$.AppvlTime,T322_UndergraMajorInfo_Tea$.FromTime,T322_UndergraMajorInfo_Tea$.EndTime,T322_UndergraMajorInfo_Tea$.AppvlAuth";
 
 
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -145,7 +157,7 @@ public class S322_DAO {
 		ResultSet rs = null ;
 		try{
 			st = conn.createStatement() ;
-			rs = st.executeQuery(querysql) ;
+			rs = st.executeQuery(sql) ;
 			while(rs.next()){
 				S322_Bean s322_Bean=new S322_Bean();			
 				s322_Bean.setTeaUnit(rs.getString("TeaUnit"));

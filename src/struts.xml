@@ -9,6 +9,7 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.locale" value="zh_CN" /> 
 	<constant name="struts.i18n.encoding" value="UTF-8" /> 
+	<constant name="struts.multipart.maxSize" value="100000000"/> 
 	  <!-- 用户登录 -->
     <include file="cn/nit/configuration/login.xml" />
     <!-- 功能菜单管理 -->

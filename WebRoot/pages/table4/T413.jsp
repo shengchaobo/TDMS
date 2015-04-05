@@ -267,6 +267,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
+	
+				<td>
+					<div class="fitem">
+					<label>地区：</label> 
+					<select class='easyui-combobox'  id="region" name="T413_bean.region"  panelHeight="auto" editable="false" >
+							<option value="境内">境内</option>
+							<option value="境外（国外及港澳台）">境外（国外及港澳台）</option>
+						</select>	<span id="regionSpan"></span>
+					</div>
+				
+				</td>
+			</tr>
+			<tr>
 				<td style="valign:left" colspan="3"><label>备注：</label>
 					<textarea id="note" name="T413_bean.note" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="noteSpan"></span>

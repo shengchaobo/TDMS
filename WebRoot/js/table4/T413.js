@@ -92,6 +92,7 @@
 		var education = $('#education').combobox('getText');
 		var techTitle = $('#techTitle').combobox('getText');
 		var tutorType = $('#tutorType').combobox('getText');
+		var region = $('#region').combobox('getText');
 		
 		// 根据数据库定义的字段的长度，对其进行判断
 		 if (teaName == null || teaName.length == 0 || teaName.length > 100) {
@@ -161,6 +162,10 @@
 				"<font style=\"color:red\">备注中文字数不超过500</font>");*/
 				return false;
 		}
+		if(region == null || region==""){
+			alert("地区不能为空");
+			return false;
+	    }
 		return true;
 	 }
 

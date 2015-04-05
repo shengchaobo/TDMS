@@ -106,6 +106,17 @@ public class A322_DAO {
 	public List<A322_Bean> getData(String year)
 	{
 		
+		String sql = "select UnitName as TeaUnit,T322_UndergraMajorInfo_Tea$.FillUnitID as UnitID,count(T322_UndergraMajorInfo_Tea$.MajorName) as FieldNum,"+
+		" sum(case when T322_UndergraMajorInfo_Tea$.MajorLevel='50000' then 1 else 0 end) AS Internation, "+
+		" sum(case when T322_UndergraMajorInfo_Tea$.MajorLevel='50001' then 1 else 0 end) AS Nation, "+
+		" sum(case when T322_UndergraMajorInfo_Tea$.MajorLevel='50002' then 1 else 0 end) AS Provi, "+
+		" sum(case when T322_UndergraMajorInfo_Tea$.MajorLevel='50003' then 1 else 0 end) AS City, "+
+		" sum(case when T322_UndergraMajorInfo_Tea$.MajorLevel='50004' then 1 else 0 end) AS School"+
+		" from DiDepartment left join T322_UndergraMajorInfo_Tea$ on DiDepartment.UnitID = T322_UndergraMajorInfo_Tea$.FillUnitID "+
+		" where Time like '"+year+"%'"+
+		" and "  +  "UnitID like '3%' group by T322_UndergraMajorInfo_Tea$.FillUnitID,UnitName";
+		
+		
 
 		String querysql=" select DiDepartment.UnitName as TeaUnit,DiDepartment.UnitID as UnitID,COUNT(T322_UndergraMajorInfo_Tea$.MajorName) AS FieldNum," +
 		" sum(case when T322_UndergraMajorInfo_Tea$.MajorLevel='50000' then 1 else 0 end) AS Internation, "+
@@ -129,7 +140,7 @@ public class A322_DAO {
 		nf.setMaximumFractionDigits(4);
 		try{
 			st = conn.createStatement() ;
-			rs = st.executeQuery(querysql) ;
+			rs = st.executeQuery(sql) ;
 			while(rs.next()){
 
 				sum+=rs.getInt("FieldNum");

@@ -43,7 +43,8 @@ function validate() {
 	// 获取文本框的值
 	var  num = /^\d+$/;  //用于判断字符串是否全是数字
 	var unitId = $('#unitId').combobox('getText');
-	var majorId = $('#majorId').combobox('getText');
+	var majorId = $('#majorId').val();
+	var majorName = $('#majorName').val();
 
 	var schLen = $('#schLen').val();
 	var schStuSumNum = $('#schStuSumNum').val();
@@ -64,6 +65,15 @@ function validate() {
 
 	// 根据数据库定义的字段的长度，对其进行判断
 
+	if (majorName == null || majorName.length == 0) {
+		alert("校内专业（大类）名称不能为空");
+		return false;
+	}
+	
+	if (majorId == null || majorId.length == 0) {
+		alert("校内专业（大类）代码不能为空");
+		return false;
+	}
 	if (unitId == null || unitId.length == 0) {
 		alert("教学单位不能为空");
 		return false;
@@ -174,8 +184,10 @@ function editItem() {
 	
 	$('#dlg').dialog('open').dialog('setTitle', '普通本科分专业（大类）学生数');
 	$('#seqNumber').val(row[0].seqNumber);
+	$('#majorName').val(row[0].majorName);
+	$('#majorId').val(row[0].majorId);
 	$('#unitId').combobox('select', row[0].unitId);
-	$('#majorId').combobox('select', row[0].majorId);
+	
 
 	$('#schLen').val(row[0].schLen);
 

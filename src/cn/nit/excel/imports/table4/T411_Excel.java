@@ -101,8 +101,6 @@ public class T411_Excel {
 				String name = cell[1].getContents().trim() ;
 				String teaId = cell[2].getContents().trim() ;
 				
-				System.out.println(name);
-				System.out.println(teaId);
 				if(name == null || name.equals("")){
 					return "第" + count + "行，教师名称不能为空" ;
 				}
@@ -112,9 +110,9 @@ public class T411_Excel {
 				}
 				
 				String gender = cell[3].getContents().trim();
-				if(gender == null || gender.equals("")){
+/*				if(gender == null || gender.equals("")){
 					return "第" + count + "行，教师性别不能为空" ;
-				}
+				}*/
 				
 				String birthday = cell[4].getContents().trim() ;
 				if((birthday == null) || birthday.equals("")){
@@ -140,13 +138,13 @@ public class T411_Excel {
 				}
 				
 				String beginTime = cell[7].getContents().trim() ;
-/*				if((beginTime == null) || beginTime.equals("")){
+				if((beginTime == null) || beginTime.equals("")){
 					return "第" + count + "行，教师本科工作开始时间不能为空" ;
 				}else{
 					if(!TimeUtil.judgeFormatY(beginTime)){
 						return "第" + count + "行，教师本科工作开始时间格式不正确" ;
 					}
-				}*/
+				}
 				
 				String IDCode = cell[8].getContents().trim() ;
 				if((IDCode == null) || IDCode.equals("")){
@@ -260,7 +258,7 @@ public class T411_Excel {
 				String edu = cell[15].getContents().trim() ;
 				
 				if(edu == null || edu.equals("")){
-					return "第" + count + "行，教师学历不能为空" ;
+					edu = "无" ;
 				}
 				String eduID = null;
 				for(DiEducationBean eduBean : diEduList){
@@ -280,7 +278,7 @@ public class T411_Excel {
 				String degree = cell[16].getContents().trim().trim() ;
 				
 				if(degree == null || degree.equals("")){
-					return "第" + count + "行，教师最高学位不能为空" ;
+					degree =  "无学位" ;
 				}
 				String degreeID = null;
 				for(DiDegreeBean digreeBean : diDegreeList){
@@ -346,7 +344,7 @@ public class T411_Excel {
 				String teaTitle = cell[22].getContents().trim() ;
 				
 				if(teaTitle == null || teaTitle.equals("")){
-					teaTitle = "未评级";
+					teaTitle = "未定级";
 				}
 				String teaTitleID = null;
 				for(DiTitleNameBean titleNameBean : diTitleNameList){
@@ -366,10 +364,6 @@ public class T411_Excel {
 				String notTeaTitle = cell[23].getContents().trim() ;
 				
 				String subject = cell[24].getContents().trim() ;
-				
-/*				if(subject == null || subject.equals("")){
-					return "第" + count + "行，学科类别不能为空" ;
-				}*/
 				
 				String doubleTea = cell[25].getContents().trim() ;
 				boolean bdoubleTea;

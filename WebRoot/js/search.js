@@ -172,10 +172,8 @@ function Query() {
 		         dataType:'json',
 		         data:{},
 		         success:function(data){//获取表头数据成功后，使用easyUi的datagrid去生成表格
-		        	alert(data[0][0].formatter);
 		        	for (var i=0;i<data[0].length;i++)
 		        	{
-		        	  alert(data[0][i].formatter == "formattime");
 		        	  if(data[0][i].formatter == "formattime"){
 		        		  
 		        		  data[0][i].formatter = function formattime(val) {  
@@ -198,6 +196,398 @@ function Query() {
 		        			     return time;  
 		        			} ;
 		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatBoolean"){
+		        		  
+		        		  data[0][i].formatter = function formatBoolean(val) {  
+		        			    if(val == true){
+		        				    return '是' ;
+		        			    }else if(val == false){
+		        			    	return '否' ;
+		        			    }else{
+		        			    	return null;
+		        			    }
+		        			} 
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatIdcode"){
+		        		  data[0][i].formatter = function formatIdcode(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiIdentiType/loadDiIdentiType",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].identiType;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatEducation"){
+		        		  data[0][i].formatter = function formatEducation(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiEducation/loadDiEducation",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].education;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatDegree"){
+		        		  data[0][i].formatter = function formatDegree(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiDegree/loadDiDegree",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].degree;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatSource"){
+		        		  data[0][i].formatter = function formatSource(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiSource/loadDiSource",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].source;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatMachTitle"){
+		        		  data[0][i].formatter = function formatMachTitle(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiTitleLevel/loadDiTitleLevel",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].titleLevel;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatTeaTitle"){
+		        		  data[0][i].formatter = function formatTeaTitle(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiTitleName/loadDiTitleName",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].titleName;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatTutor"){
+		        		  data[0][i].formatter = function formatTutor(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiTutorType/loadDiTutorType",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].tutorType;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatHighTalent"){
+		        		  data[0][i].formatter = function formatHighTalent(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiTalentType/loadDiTalentType",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].talentType;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatHighTeam"){
+		        		  data[0][i].formatter = function formatHighTeam(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiResearchTeam/loadDiResearchTeam",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].researchTeam;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatAwardLevel"){
+		        		  data[0][i].formatter = function formatAwardLevel(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiAwardLevel/loadDiAwardLevel",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].awardLevel;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatAwardType"){
+		        		  data[0][i].formatter = function formatAwardType(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiAwardType/loadDiAwardType",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].awardType;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatPaperType"){
+		        		  data[0][i].formatter = function formatPaperType(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiPaperRoom/loadDiPaperType",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].paperType;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatCourseCat"){
+		        		  data[0][i].formatter = function formatCourseCat(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiCourseCategories/loadDiCourseCategories",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].courseCategories;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatCourseChar"){
+		        		  data[0][i].formatter = function formatCourseChar(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiCourseChar/loadDiCourseChar",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].courseChar;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatCourseAttri"){
+		        		  data[0][i].formatter = function formatCourseAttri(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiCourseAttri/loadDiCourseAttri",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].courseAttri;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatEvaluType"){
+		        		  data[0][i].formatter = function formatEvaluType(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiEvaluType/loadDiEvaluType",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].evaluType;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatContestType"){
+		        		  data[0][i].formatter = function formatContestType(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiContestLevel/loadDiContestLevel",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].contestLevel;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatContestScope"){
+		        		  data[0][i].formatter = function formatContestScope(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiContestScope/loadDiContestScope",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].contestScope;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
 		        	}
                     $('#totalTb').datagrid({ 	
                         url: 'pages/search/loadQueryResult?querySql=' + querySql,

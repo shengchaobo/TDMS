@@ -67,7 +67,7 @@
 										}else{
 					    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>审核未通过</font>）");
 										}
-				    					$("#newObject").hide();
+				    					$("#newObject").show();
 				    					$("#edit").show();
 				    					$("#delete").show();
 					    				$("#export").hide();
@@ -124,7 +124,7 @@
 				    				}				    				
 				    				else if(rowData.rows[0].checkState==NOPASSCHECK){
 				    					$("#newData").datagrid("getPanel").panel("setTitle","近一届本科生分专业招生录取情况（<font color=red>审核未通过</font>）");
-				    					$("#newObject").hide();
+				    					$("#newObject").show();
 				    					$("#edit").show();
 				    					$("#delete").show();
 					    				$("#export").hide();

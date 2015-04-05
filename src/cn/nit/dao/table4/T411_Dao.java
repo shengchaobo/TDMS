@@ -132,7 +132,7 @@ public class T411_Dao {
 		else if(param == 4){
 			cond = "(IDCode = '40007' or IDcode = '40008')";
 		}else{
-			cond = "(IDCode = '40010')";
+			cond = "(IDCode = '40011')";
 		}
 				
 		String queryPageSql = "select TeaId,TeaName AS Name,IdentiType AS staffType,FromOffice AS FromDept,OfficeID AS UnitId"
@@ -226,7 +226,7 @@ public class T411_Dao {
 		" left join " + tableName8+ " as t on " + tableName + ".TopDegree = t.IndexID " +
 		" where ("+tableName+".IDCode = '40001' or "+tableName+".IDCode = '40002' or "+tableName+".IDCode = '40003' or " +
 		tableName+".IDCode = '40004' or "+tableName+".IDCode = '40005' or "+tableName+".IDCode = '40006' or " +
-		tableName+".IDCode = '40007' or "+tableName+".IDCode = '40008' or "+tableName+".IDCode = '40010' ) " +
+		tableName+".IDCode = '40007' or "+tableName+".IDCode = '40008' or "+tableName+".IDCode = '40011' ) " +
 		"and Time like '"+year+"%'" ;
 		
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -721,7 +721,7 @@ public class T411_Dao {
 		}else if(flag == 4){
 			sql.append(" idcode = 40003 or idcode = 40004");
 		}else if(flag == 5){
-			sql.append(" idcode = 40010");
+			sql.append(" idcode = 40011");
 		}
 		System.out.println(sql.toString());
 		Connection conn = DBConnection.instance.getConnection();
@@ -818,7 +818,7 @@ public class T411_Dao {
 		else if(flag == 4){
 			cond = "(IDCode = '40007' or IDcode = '40008')";
 		}else{
-			cond = "(IDCode = '40010')";
+			cond = "(IDCode = '40011')";
 		}
 		
 		if(queryWord != null){

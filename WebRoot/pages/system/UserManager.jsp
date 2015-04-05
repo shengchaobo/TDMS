@@ -74,7 +74,7 @@
 							教工号:
 						</td>
 						<td>
-							<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
+							<input id="searchID"  name="searchID"  class="easyui-box" style="height:24px" />
 						</td>
 						<td>
 							<a href="javascript:void(0)" class="easyui-linkbutton"
@@ -95,10 +95,10 @@
 					<div class="fitem">
 					<label>教工号：</label> 
 					<input type="hidden" name="userinfo.TeaID" id="TeaID"/>
-					<input id="TeaName" type="text" name="userinfo.TeaName" class='easyui-combobox'  
+					<input id="TeaName" type="text" id="TeaName" name="userinfo.TeaName" class='easyui-combobox'  
 								data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 								onSelect:function(){
-								 	 document.getElementById('TeaID').value=$(this).combobox('getText') ;
+								 	 document.getElementById('TeaID').value=$('#TeaName').combobox('getText').trim();
 								 }">
 					<span id="TeaIDSpan"></span>
 					</div>

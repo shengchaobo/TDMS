@@ -6,6 +6,8 @@
 			iconCls : 'icon-ok',
 			width : '100%',
 			//height: '100%',
+			pageSize : 20,//默认选择的分页是每页20行数据
+			pageList : [ 10, 20, 30, 40 ],//可以选择的分页集合
 			nowrap : true,//设置为true，当数据长度超出列宽时将会自动截取
 			striped : true,//设置为true将交替显示行背景。
 			collapsible : true,//显示可折叠按钮

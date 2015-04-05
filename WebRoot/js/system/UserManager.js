@@ -85,6 +85,9 @@
 		var teaEmail = $('#TeaEmail').val();
 		var role = $('#RoleID').combobox('getText');
 		var note = $('#UserNote').val();
+		document.getElementById('TeaID').value = teaId;
+		//alert(teaId);
+		//alert(teaName);
 
 		//根据数据库定义的字段的长度，对其进行判断
 		if (teaId == null ||  teaId == ''  || teaId.length == 0 || teaId == teaName) {
@@ -134,10 +137,9 @@
 		url = 'pages/UserManager/edit';
 
 		$('#dlg').dialog('open').dialog('setTitle', '编辑用户');
-		$('#seqNumber').val(row[0].seqNumber);
 		$('#TeaName').combobox('select', row[0].teaName);
 		$('#TeaName').combobox('readonly',true);
-		
+		$('#seqNumber').val(row[0].seqNumber) ;
 		$('#UnitID').combobox('select', row[0].unitID);
 		$('#RoleID').combobox('select', row[0].roleID);
 		$('#TeaEmail').val(row[0].teaEmail) ;

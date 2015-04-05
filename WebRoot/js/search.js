@@ -172,10 +172,8 @@ function Query() {
 		         dataType:'json',
 		         data:{},
 		         success:function(data){//获取表头数据成功后，使用easyUi的datagrid去生成表格
-		        	alert(data[0][0].formatter);
 		        	for (var i=0;i<data[0].length;i++)
 		        	{
-		        	  alert(data[0][i].formatter == "formattime");
 		        	  if(data[0][i].formatter == "formattime"){
 		        		  
 		        		  data[0][i].formatter = function formattime(val) {  
@@ -198,6 +196,146 @@ function Query() {
 		        			     return time;  
 		        			} ;
 		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatBoolean"){
+		        		  
+		        		  data[0][i].formatter = function formatBoolean(val) {  
+		        			    if(val == true){
+		        				    return '是' ;
+		        			    }else if(val == false){
+		        			    	return '否' ;
+		        			    }else{
+		        			    	return null;
+		        			    }
+		        			} 
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatIdcode"){
+		        		  data[0][i].formatter = function formatBoolean(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiIdentiType/loadDiIdentiType",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].identiType;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatEducation"){
+		        		  data[0][i].formatter = function formatBoolean(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiEducation/loadDiEducation",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].education;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatDegree"){
+		        		  data[0][i].formatter = function formatBoolean(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiDegree/loadDiDegree",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].degree;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatSource"){
+		        		  data[0][i].formatter = function formatBoolean(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiSource/loadDiSource",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].source;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatMachTitle"){
+		        		  data[0][i].formatter = function formatBoolean(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiTitleLevel/loadDiTitleLevel",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].titleLevel;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
+		        	  if(data[0][i].formatter == "formatTeaTitle"){
+		        		  data[0][i].formatter = function formatBoolean(val) {  
+		        			  var temp;
+		        			  $.ajax({  
+		        				    type: 'post',  
+		        				    url:"pages/DiTitleName/loadDiTitleName",  
+		        					dataType :"json", 
+		        					async:false, 
+		        				    success: function(result){ 
+		        				       for (var i=0;i<result.length;i++){
+		        				    	   if(val == result[i].indexId){
+		        				    		   temp = result[i].titleName;
+		        				    		   break;
+		        				    	   }
+		        				       }		        				  		
+		        				    }
+		        			 });
+		        			 return temp;
+		        		  }
+		        	  }
+		        	  
 		        	}
                     $('#totalTb').datagrid({ 	
                         url: 'pages/search/loadQueryResult?querySql=' + querySql,

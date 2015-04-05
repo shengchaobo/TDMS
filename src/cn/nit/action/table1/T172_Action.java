@@ -88,19 +88,31 @@ public class T172_Action {
 		this.selectYear = selectYear;
 	}
 
-	/**  审核通过数据按年时间查询  */
-	private String queryYear ;
+	/**校友名称*/
+	private String friName;
+
+//	/**  审核通过数据按年时间查询  */
+//	private String queryYear ;
+//	
+//	
+//	public String getQueryYear() {
+//		return queryYear;
+//	}
+//
+//	public void setQueryYear(String queryYear) {
+//		this.queryYear = queryYear;
+//	}
 	
-	
-	public String getQueryYear() {
-		return queryYear;
+
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	public String getFriName() {
+		return friName;
 	}
 
-	public void setQueryYear(String queryYear) {
-		this.queryYear = queryYear;
+	public void setFriName(String friName) {
+		this.friName = friName;
 	}
-	
-	HttpServletResponse response = ServletActionContext.getResponse() ;
+
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	/**  逐条插入数据  */
@@ -146,52 +158,24 @@ public class T172_Action {
 			
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
-			
-			if(this.getQueryYear()==null){
-				 Calendar now = Calendar.getInstance();  
-				 this.setQueryYear(now.get(Calendar.YEAR)+"");
-				 conditions.append("  Time like '" + this.queryYear + "%'");
-				 cond = conditions.toString();
+			if(this.getFriName() == null && this.getStartTime() == null && this.getEndTime() == null){			
+				cond = null;	
 			}else{			
-					conditions.append(" Time like '" + this.queryYear + "%'");
-					cond = conditions.toString();
+				if(this.getFriName()!=null){
+					conditions.append(" and FriName like '" + this.getFriName() + "%'") ;
 				}
-			
-//			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null 
-//					&& this.getQueryYear()==null){
-//				//System.out.println("+++++++++++++++++++++++");
-//				cond = null;	
-//			}else{			
-//				if(this.getSeqNum()!=null){
-//					conditions.append(" SeqNumber=" + this.getSeqNum()) ;
-//				}
-//				
-//				if(this.getStartTime() != null){
-//					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-//							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
-//				}
-//				
-//				if(this.getEndTime() != null){
-//					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
-//							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-//				}
-//				if(this.getQueryYear() != null){
-//					if(this.getSeqNum() ==null&&this.getStartTime() == null&&this.getEndTime() == null){
-//						conditions.append(" Time like '" + this.queryYear + "%'");
-//					}
-//					else{
-//						conditions.append(" and Time like '" + this.queryYear + "%'");
-//					}
-//					
-//				}else{
-//					 Calendar now = Calendar.getInstance();  
-//					 this.setQueryYear(now.get(Calendar.YEAR)+"");
-//					 conditions.append(" and Time like '" + this.queryYear + "%'");
-//				}
-//				cond = conditions.toString();
-//			}
-			
-			
+				
+				if(this.getStartTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+				}
+				
+				if(this.getEndTime() != null){
+					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+				}
+				cond = conditions.toString();
+			}
 
 			String pages = t172Ser.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 			PrintWriter out = null ;

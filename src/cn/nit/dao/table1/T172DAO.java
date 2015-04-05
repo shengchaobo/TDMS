@@ -75,6 +75,12 @@ public class T172DAO {
 	 */
 	public int totalAuditingData(String conditions, String fillUnitId){
 		
+		
+		String Cond = "1=1";
+		
+		if(conditions != null && !conditions.equals("")){
+			Cond = Cond + conditions;
+		}
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
 		sql.append(" from " + tableName) ;
@@ -82,12 +88,13 @@ public class T172DAO {
 //		sql.append(" where audit!='0' and csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 		int total = 0 ;
 		
+		
 //		if(fillUnitId != null && !fillUnitId.equals("")){
 //			sql.append(" and FillUnitID=" + fillUnitId) ;
 //		}
 //		
 		if(conditions != null && !conditions.equals("")){
-			sql.append(" where "+conditions) ;
+			sql.append(" where  "+Cond) ;
 		}
 		
 		Connection conn = DBConnection.instance.getConnection() ;
@@ -123,6 +130,13 @@ public class T172DAO {
 	 */
 	public List<T172_Bean> auditingData(String conditions, String fillUnitId, int page, int rows){
 		
+		
+		String Cond = "1=1";
+		
+		if(conditions != null && !conditions.equals("")){
+			Cond = Cond + conditions;
+		}
+		
 		StringBuffer sql = new StringBuffer() ;
 		List<T172_Bean> list = null ;
 		sql.append("select * from "+tableName);
@@ -135,7 +149,7 @@ public class T172DAO {
 //		}
 		
 		if(conditions != null){
-			sql.append(" where "+conditions) ;
+			sql.append(" where "+Cond) ;
 		}
 		
 //		sql.append(" order by SeqNumber desc") ;

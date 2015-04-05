@@ -68,7 +68,7 @@ public class SearchAction {
 			if(bean.getTFieldFlag() == 11){
 				columnInfoBean.setFormatter("formatTeaTitle");
 			}
-/*			if(bean.getTFieldFlag() == 12){
+			if(bean.getTFieldFlag() == 12){
 				columnInfoBean.setFormatter("formatTutor");
 			}
 			if(bean.getTFieldFlag() == 13){
@@ -103,7 +103,7 @@ public class SearchAction {
 			}
 			if(bean.getTFieldFlag() == 23){
 				columnInfoBean.setFormatter("formatContestScope");
-			}*/
+			}
 			list.add(columnInfoBean);
 		}		
 		

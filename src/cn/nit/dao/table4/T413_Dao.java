@@ -329,6 +329,31 @@ public class T413_Dao {
 		 return count;		 
 	}
 	
+	public boolean deleteByIds(String ids){
+		
+		int flag = 0 ;
+		StringBuffer sql = new StringBuffer() ;
+		sql.append("delete from " + tableName) ;
+		sql.append(" where " + "teaId" + " in " + ids) ;
+		System.out.println(sql);
+		Connection conn = DBConnection.instance.getConnection() ;
+		Statement st = null ;
+		
+		try{
+			st = conn.createStatement() ;
+			flag = st.executeUpdate(sql.toString()) ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			return false ;
+		}
+		
+		if(flag == 0){
+			return false ;
+		}else{
+			return true ;
+		}
+	}
+	
 	public static void main(String args[]){
 		T413_Dao testDao =  new T413_Dao() ;
 		//System.out.println(testDao.totalList().size()) ;

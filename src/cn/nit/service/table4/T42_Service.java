@@ -66,7 +66,7 @@ public class T42_Service {
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T42_Bean> totalList(){
-		return leaderDao.totalList();
+	public List<T42_Bean> totalList1(String year){
+		return leaderDao.totalList1(year);
 	}
 }

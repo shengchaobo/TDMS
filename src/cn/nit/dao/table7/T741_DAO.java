@@ -19,7 +19,7 @@ public class T741_DAO {
 	
 	private String field="TeaName,TeaID,TeaUnit,UnitID,AssessCS," +
 			"CSID,CSType,AssessYear,AccessResult,AppvlID,Time,Note," +
-			"FillTeaID,FillUnitID,audit,CheckState";
+			"CheckState";
 
 	
 	public boolean insert(T741_Bean teachability){
@@ -60,10 +60,10 @@ public class T741_DAO {
 		  ResultSet rs=null;
 		
 
-		if(fillUnitId!=null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId);	
-		}
-		
+//		if(fillUnitId!=null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId);	
+//		}
+//		
 		if(conditions!=null && !conditions.equals("")){
 			sql.append(conditions);
 		}
@@ -106,10 +106,10 @@ public class T741_DAO {
 			sql.append(" from "+ tableName +" as t, DiCourseCategories cst");
 		    sql.append(" where cst.IndexID=t.CSType") ;
 			
-			if(fillUnitId != null && !fillUnitId.equals("")){
-				sql.append(" and FillUnitID=" + fillUnitId) ;
-			}
-			
+//			if(fillUnitId != null && !fillUnitId.equals("")){
+//				sql.append(" and FillUnitID=" + fillUnitId) ;
+//			}
+//			
 			if(conditions != null){
 				sql.append(conditions) ;
 			}
@@ -206,7 +206,7 @@ public class T741_DAO {
 				Connection conn = DBConnection.instance.getConnection() ;
 				
 				String tempfield = "TeaName,TeaID,TeaUnit,UnitID,AssessCS,CSID," +
-						"CSType,AssessYear,AccessResult,AppvlID,Time,Note,FillUnitID,CheckState";
+						"CSType,AssessYear,AccessResult,AppvlID,Time,Note,CheckState";
 				try{
 					flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 				}catch(Exception e){

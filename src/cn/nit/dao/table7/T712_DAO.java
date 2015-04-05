@@ -20,7 +20,7 @@ public class T712_DAO {
 	private String field="TeaUnit,UnitID,Name,TeaID,PaperName," +
 			"PaperType,FirstSubject,JonalName,JonalID,JonalTime," +
 			"PaperWordNum,ConfirmLevel,JoinTeaNum,OtherJoinTeaInfo," +
-			"Time,Note,FillTeaID,FillUnitID,audit,CheckState";
+			"Time,Note,FillUnitID,CheckState";
 
 	
 

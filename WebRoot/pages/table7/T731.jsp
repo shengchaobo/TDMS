@@ -32,10 +32,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+			<script type="text/javascript" src="js/commom.js"></script>
 
 </head>
 <body style="overflow-y:scroll">
-	<table id="commomData" title=“校领导听课情况" class="easyui-datagrid" url="pages/T731/auditingData"
+	<table id="commomData" title="校领导听课情况" class="easyui-datagrid" url="pages/T731/auditingData"
 		toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="false" singleSelect="false" >
 		<thead data-options="frozen:true">
@@ -68,24 +69,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
-			<form action='pages/T731/dataExport?excelName=<%=URLEncoder.encode("表7-3-1校领导听课情况s","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
-					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
-						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
-								数据导出
-						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
-			</form>
+			<a href='javascript:dataExport()'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
 		</div>
-		 <div>
-		  <form method="post" id="auditing"
+			<form method="post" id="searchForm"
 				style="float: right; height: 24px;">
-				<table id="test" width="520">
+				<table id="test" width="550">
 					<tr>
 						<td>
-							编号:
+							教工号:
 						</td>
 						<td>
-							<input id="seqNum" name="seqNum" class="easyui-box"
-								style="width: 40px" />
+							<input id="TeaID" name="TeaID" class="easyui-box"
+								style="width: 100px" />
 						</td>
 						<td>
 							起始日期:
@@ -108,43 +103,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</tr>
 				</table>
 			</form>
-		</div>
+		
 	</div>
+
+
 	
-	<!--  <div id="toolbar2" style="float: right;">
-	<a href="pages/T731/dataExport?excelName=<%=URLEncoder.encode("表7-3-1校领导听课情况","UTF-8")%>"  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 	
-	</div>
-	-->
-	<!--  <table id="verfiedData" title="审核通过数据" class="easyui-datagrid" url=""
-		toolbar="#toolbar2" pagination="true" rownumbers="true"
-		fitColumns="false" singleSelect="false">
-			<thead data-options="frozen:true">
-			<tr>			
-		        <th data-options="field:'ck',checkbox:true">选取</th>
-				<th field="seqNumber" >编号</th>
-				<th field="attendClassTerm" >听课学期</th>
-				<th field="leaderName" >校领导姓名</th>
-		     </tr>
-		</thead>
-		<thead>
-			<tr>
-				<th field="leaderID">校领导教工号</th>
-				<th field="attendClassTime" formatter="formattime">听课日期</th>
-				<th field="lectureTea">授课教师</th>
-				<th field="lectureTeaID" >授课教教工号</th>
-				<th field="lectureCS" >听课课程</th>
-				<th field="CSID">课程编号</th>
-				<th field="setCSUnit">开课单位</th>
-				<th field="unitID">单位号</th>
-				<th field="lectureClass">上课班级</th>
-				<th field="evaluate">综合评价</th>	
-				<th field="note">备注</th>
-			
-			</tr>
-		</thead>
-	</table>
-	-->
+	<div id="dlg1" class="easyui-dialog" style="width:300px;height:150px;padding:10px 20px;" closed="true" data-options="modal:true"
+		buttons="#dlg1-buttons">
+		<form action='pages/T731/dataExport?excelName=<%=URLEncoder.encode("表7-3-1校领导听课情况","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data">
+			  <select class="easyui-combobox"  id="cbYearContrast" name="selectYear"  editable=false ></select>&nbsp;&nbsp;	
+	   </form>	
+    </div>
+	
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
@@ -312,6 +283,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
+	
+	<div id="dlg1-buttons"  >
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-ok" onclick="submitForm()">确定</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-cancel" onclick="javascript:$('#dlg1').dialog('close')">取消</a>
+	</div>
 </body>
 	<script type="text/javascript">
 	
@@ -328,7 +306,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    function reloadgrid ()  { 
         //查询参数直接添加在queryParams中 
          var queryParams = $('#commomData').datagrid('options').queryParams;  
-         queryParams.seqNum = $('#seqNum').val(); 
+         queryParams.TeaID = $('#TeaID').val(); 
          queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
     	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
          $("#commomData").datagrid('reload'); 
@@ -544,25 +522,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		}
 	    	}).submit();
 	    }
-	    
-	     //根据用户选择的年显示相应年的数据
-    $(function(){ 
-		 $("#cbYearContrast1").combobox({  
-	        onChange:function(newValue, oldValue){ 
-		     //查询参数直接添加在queryParams中 
-	         var  queryYear = newValue;
-	         var queryParams = $('#commomData').datagrid('options').queryParams;  
-	         queryParams.queryYear = queryYear;  
-	         
-	         $("#commomData").datagrid('reload'); 
-	        }
-	   });
-    })
+
     
-     //提交导出表单
-	    function submitForm(){
-	    	  document.getElementById('exportForm').submit();
-	    }
+	//弹出添加的界面
+	function dataExport() {
+		$('#dlg1').dialog('open').dialog('setTitle', '请选择要导出的时间年');
+	}
+	
+    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
+    	  $('#dlg1').dialog('close'); // close the dialog
+    }
+
 		
 
 	    function editUser(){

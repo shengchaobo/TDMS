@@ -101,6 +101,16 @@ public class T411_Service {
 	
 	
 	/**
+	 * 删除数据
+	 * @param 
+	 * @return
+	 */
+	
+	public boolean deleteByIds(String ids){		
+		return teaInfoDao.deleteByIds(ids) ;
+	}
+	
+	/**
 	 * 判断用户是否存
 	 * @param 
 	 * @return

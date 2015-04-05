@@ -19,7 +19,7 @@ public class T743_DAO {
 	
 	private String field="CSName,CSID,SetCSUnit,UnitID,CSType," +
 			"CSNature,CSLeader,TeaID,AssessYear,AssessResult," +
-			"AppvlID,Time,Note,FillTeaID,FillUnitID,audit,CheckState";
+			"AppvlID,Time,Note,CheckState";
 
 	public boolean insert(T743_Bean t743_B){
 		boolean flag=false;
@@ -57,11 +57,11 @@ public class T743_DAO {
 		  Statement st=null;
 		  ResultSet rs=null;
 		
-
-		if(fillUnitId!=null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId);	
-		}
-		
+//
+//		if(fillUnitId!=null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId);	
+//		}
+//		
 		if(conditions!=null && !conditions.equals("")){
 			sql.append(conditions);
 		}
@@ -107,10 +107,10 @@ public class T743_DAO {
 		    sql.append(" from "+ tableName +" as t, DiCourseChar csn, DiCourseCategories cst");
 			sql.append(" where csn.IndexID=t.CSNature and cst.IndexID=t.CSType") ;
 			  
-			if(fillUnitId != null && !fillUnitId.equals("")){
-				sql.append(" and FillUnitID=" + fillUnitId) ;
-			}
-			
+//			if(fillUnitId != null && !fillUnitId.equals("")){
+//				sql.append(" and FillUnitID=" + fillUnitId) ;
+//			}
+//			
 			if(conditions != null){
 				sql.append(conditions) ;
 			}
@@ -209,7 +209,7 @@ public class T743_DAO {
 				
 				String tempfield = "CSName,CSID,SetCSUnit,UnitID,CSType," +
 						"CSNature,CSLeader,TeaID,AssessYear,AssessResult," +
-						"AppvlID,Time,Note,FillUnitID,CheckState";
+						"AppvlID,Time,Note,CheckState";
 				try{
 					flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 				}catch(Exception e){

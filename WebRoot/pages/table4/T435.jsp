@@ -145,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
 								数据导出
 						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
-			</form>		
+			   </form>		
 	</div>
 	
 	<!--添加弹出框-->

@@ -197,7 +197,7 @@ public class T722_Excel {
 					T722_Bean.setAwardTime(TimeUtil.changeDateYM(ardTime));
 					T722_Bean.setAwardFromUnit(ardfUnit);
 					T722_Bean.setAppvlID(appID);
-					T722_Bean.setFillUnitID(fillUnitID);
+//					T722_Bean.setFillUnitID(fillUnitID);
 					T722_Bean.setCheckState(Constants.WAIT_CHECK);
 					T722_Bean.setTime(TimeUtil.changeDateY(selectYear));
 					T722_Bean.setNote(note);

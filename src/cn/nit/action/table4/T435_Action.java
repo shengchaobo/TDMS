@@ -118,7 +118,7 @@ public class T435_Action {
 				if(this.getQueryYear() != null){
 					conditions.append(" and Time like '" + this.queryYear + "%'");
 				}else{
-					if(this.getCheckFlag()!=0){
+					if(this.getCheckFlag()!=1){
 						 Calendar now = Calendar.getInstance();  
 						 this.setQueryYear(now.get(Calendar.YEAR)+"");
 						 conditions.append(" and Time like '" + this.queryYear + "%'");
@@ -358,6 +358,7 @@ public class T435_Action {
 		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String sheetName = null;
 		List<T435_Bean> list = null;
+		
 		
 		if("111".equals(userBean.getRoleID())){
 			String year = (String)request.getSession().getAttribute("allYear") ;

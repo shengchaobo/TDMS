@@ -155,7 +155,7 @@ public class T734_Excel {
 				T734_Bean.setHandingTime(TimeUtil.changeDateYM(handTime));
 				T734_Bean.setAccidentLevel(accLevel);
 				T734_Bean.setHandingID(handId);
-				T734_Bean.setFillUnitID(fillUnitID);
+//				T734_Bean.setFillUnitID(fillUnitID);
 				T734_Bean.setCheckState(Constants.WAIT_CHECK);
 				T734_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T734_Bean.setNote(note);

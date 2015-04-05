@@ -88,19 +88,31 @@ public class T172_Action {
 		this.selectYear = selectYear;
 	}
 
-	/**  审核通过数据按年时间查询  */
-	private String queryYear ;
+	/**校友名称*/
+	private String friName;
+
+//	/**  审核通过数据按年时间查询  */
+//	private String queryYear ;
+//	
+//	
+//	public String getQueryYear() {
+//		return queryYear;
+//	}
+//
+//	public void setQueryYear(String queryYear) {
+//		this.queryYear = queryYear;
+//	}
 	
-	
-	public String getQueryYear() {
-		return queryYear;
+
+	HttpServletResponse response = ServletActionContext.getResponse() ;
+	public String getFriName() {
+		return friName;
 	}
 
-	public void setQueryYear(String queryYear) {
-		this.queryYear = queryYear;
+	public void setFriName(String friName) {
+		this.friName = friName;
 	}
-	
-	HttpServletResponse response = ServletActionContext.getResponse() ;
+
 	HttpServletRequest request = ServletActionContext.getRequest() ;
 	
 	/**  逐条插入数据  */
@@ -146,14 +158,11 @@ public class T172_Action {
 			
 			String cond = null;
 			StringBuffer conditions = new StringBuffer();
-			
-			if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null 
-					&& this.getQueryYear()==null){
-				//System.out.println("+++++++++++++++++++++++");
+			if(this.getFriName() == null && this.getStartTime() == null && this.getEndTime() == null){			
 				cond = null;	
 			}else{			
-				if(this.getSeqNum()!=null){
-					conditions.append(" SeqNumber=" + this.getSeqNum()) ;
+				if(this.getFriName()!=null){
+					conditions.append(" and FriName like '" + this.getFriName() + "%'") ;
 				}
 				
 				if(this.getStartTime() != null){
@@ -164,19 +173,6 @@ public class T172_Action {
 				if(this.getEndTime() != null){
 					conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
 							+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-				}
-				if(this.getQueryYear() != null){
-					if(this.getSeqNum() ==null&&this.getStartTime() == null&&this.getEndTime() == null){
-						conditions.append(" Time like '" + this.queryYear + "%'");
-					}
-					else{
-						conditions.append(" and Time like '" + this.queryYear + "%'");
-					}
-					
-				}else{
-					 Calendar now = Calendar.getInstance();  
-					 this.setQueryYear(now.get(Calendar.YEAR)+"");
-					 conditions.append(" and Time like '" + this.queryYear + "%'");
 				}
 				cond = conditions.toString();
 			}

@@ -493,6 +493,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        	theOption.value = currentYear-i;
 		        	select.appendChild(theOption);
 		    	}
-			</script>1
+			</script>
 
 </html>

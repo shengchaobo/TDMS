@@ -55,6 +55,9 @@ public class T413_Action {
 	
 	private String excelName; //excel导出名字
 	
+	private String ids; //删除的id
+
+
 
 
 	HttpServletResponse response = ServletActionContext.getResponse() ;
@@ -243,6 +246,35 @@ public class T413_Action {
 		}
 	}
 	
+	/**  根据数据的id删除数据  */
+	public void deleteByIds(){
+		System.out.println("ids=" + this.getIds()) ;
+		boolean flag = T413_services.deleteByIds(ids) ;
+		boolean flag1 = T411_services.deleteByIds(ids) ;
+		PrintWriter out = null ;
+		
+		try{
+			
+			
+			response.setContentType("application/json; charset=UTF-8") ;
+			out = response.getWriter() ;			
+			if(flag&&flag1){
+				out.print("{\"state\":true,data:\"数据删除成功!!!\"}") ;
+			}else{
+				out.print("{\"state\":false,data:\"数据删除失败!!!\"}") ;
+			}
+			
+			out.flush() ;
+		}catch(Exception e){
+			e.printStackTrace() ;
+			out.print("{\"state\":false,data:\"系统错误，请联系管理员!!!\"}") ;
+		}finally{
+			if(out != null){
+				out.close() ;
+			}
+		}
+	}
+	
 	
 	public InputStream getInputStream() throws UnsupportedEncodingException{
 
@@ -330,6 +362,15 @@ public class T413_Action {
 	public void setExcelName(String excelName) {
 		this.excelName = excelName;
 	}
+	
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
 
 	public String getExcelName() {
 		try {

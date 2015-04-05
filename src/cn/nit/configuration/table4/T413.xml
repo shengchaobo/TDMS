@@ -33,9 +33,9 @@
 	    	</result>
 	    </action>
 
-	    <!-- 删除相应教职工 
-	    <action name="deleteByIds" class="cn.nit.action.table4.T411_Action"  method="deleteByIds" />
-	    -->
+	    <!-- 删除相应教职工 -->
+	    <action name="deleteByIds" class="cn.nit.action.table4.T413_Action"  method="deleteByIds" />
+	    
 	    <!-- 更新相应教职工 -->
 	    <action name="edit" class="cn.nit.action.table4.T413_Action"  method="edit" />
 	    

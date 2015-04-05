@@ -16,7 +16,7 @@ public class T731_DAO {
 	
 	private String key="SeqNumber"; 
 	
-	private String field="AttendClassTerm,LeaderName,LeaderID,AttendClassTime,LectureTea,LectureTeaID,LectureCS,CSID,SetCSUnit,UnitID,LectureClass,Evaluate,Time,Note,FillTeaID,FillUnitID,audit";
+	private String field="AttendClassTerm,LeaderName,LeaderID,AttendClassTime,LectureTea,LectureTeaID,LectureCS,CSID,SetCSUnit,UnitID,LectureClass,Evaluate,Time,Note";
 
 	public boolean insert(T731_Bean schleadInClassTnfoTea){
 		
@@ -46,6 +46,7 @@ public class T731_DAO {
 		    
 	    public int totalAuditingData(String conditions,String fillUnitId){
 		
+	    	
 		StringBuffer sql=new StringBuffer();
 		
 		sql.append(" select count(*)");
@@ -198,7 +199,8 @@ public class T731_DAO {
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;
 			
-			String tempfield = "AttendClassTerm,LeaderName,LeaderID,AttendClassTime,LectureTea,LectureTeaID,LectureCS,CSID,SetCSUnit,UnitID,LectureClass,Evaluate,Time,Note,FillUnitID";
+			String tempfield = "AttendClassTerm,LeaderName,LeaderID,AttendClassTime,LectureTea,LectureTeaID,LectureCS,CSID,SetCSUnit," +
+					"UnitID,LectureClass,Evaluate,Time,Note";
 			try{
 				flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 			}catch(Exception e){

@@ -20,7 +20,7 @@ public class T721_DAO {
 	
 	private String field="ItemName,TeaUnit,UnitID,Leader,TeaID,OtherTeaNum," +
 			"OtherTea,ItemLevel,ItemSetUpTime,ReceptTime,ApplvExp,SchSupportExp," +
-			"AppvlID,Time,Note,FillTeaID,FillUnitID,audit,CheckState";
+			"AppvlID,Time,Note,CheckState";
 
 	
 
@@ -217,7 +217,7 @@ public class T721_DAO {
 		
 		String tempfield = "ItemName,TeaUnit,UnitID,Leader,TeaID,OtherTeaNum," +
 				"OtherTea,ItemLevel,ItemSetUpTime,ReceptTime,ApplvExp,SchSupportExp," +
-				"AppvlID,Time,Note,FillUnitID,CheckState";
+				"AppvlID,Time,Note,CheckState";
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 		}catch(Exception e){

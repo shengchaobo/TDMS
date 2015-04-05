@@ -186,7 +186,7 @@ public class T742_Excel {
 					T742_Bean.setAssessResult(assResult);
 					T742_Bean.setAppvlID(appID);
 					T742_Bean.setCheckState(Constants.WAIT_CHECK);
-					T742_Bean.setFillUnitID(fillUnitID);
+//					T742_Bean.setFillUnitID(fillUnitID);
 					T742_Bean.setTime(TimeUtil.changeDateY(selectYear));
 					T742_Bean.setNote(note);
 					

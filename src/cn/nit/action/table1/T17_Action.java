@@ -174,12 +174,14 @@ public class T17_Action {
 					if(this.getQueryYear() != null){
 						conditions.append(" and Time like '" + this.queryYear + "%'");
 					}else{
-						if(this.getCheckFlag()!=0){
+						System.out.println("this.getCheckFlag:"+this.getCheckFlag());
+						if(this.getCheckFlag()!=1){
 						 Calendar now = Calendar.getInstance();  
 						 this.setQueryYear(now.get(Calendar.YEAR)+"");
 						 conditions.append(" and Time like '" + this.queryYear + "%'");
 						}
 					}
+					System.out.println("this.queryYear:"+this.queryYear);
 				}else if(this.getCheckNum() == (Constants.NOPASS_CHECK)){
 					conditions.append(" and CheckState=" + this.getCheckNum()) ;
 				}else if(this.getCheckNum() == (Constants.NO_CHECK)){
@@ -353,11 +355,12 @@ public class T17_Action {
 		
 		if("111".equals(userBean.getRoleID())){
 			String year = (String)request.getSession().getAttribute("allYear") ;
-			t17Ser.totalList(year,Constants.PASS_CHECK);
+			list=t17Ser.totalList(year,Constants.PASS_CHECK);
 			sheetName = "表1-7-1校友会（党院办）";
 		}else{			
 			String fillUnitID = userBean.getUnitID();			
-			t17Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);				
+			list=t17Ser.totalList(this.getSelectYear(),Constants.PASS_CHECK);
+			System.out.println();
 			sheetName = this.excelName;
 		}
 

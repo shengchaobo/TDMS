@@ -134,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</thead>
 	</table>
 	
-	<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T735/auditingData?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=0"   style="height: auto" 
+	<table  id="checkPassData"  class="easyui-datagrid"  url="pages/T735/auditingData?checkNum=<%=request.getAttribute("PASSCHECK") %>&checkFlag=1"   style="height: auto" 
 	toolbar="#toolbar" pagination="true" rownumbers="true"
 		fitColumns="true" singleSelect="false" >
 		<thead data-options="frozen:true">

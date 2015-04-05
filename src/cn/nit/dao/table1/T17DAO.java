@@ -383,4 +383,10 @@ public class T17DAO {
 			return true;
 		}
 	}
+	
+	public static void main(String args[]){
+		T17DAO dao = new T17DAO();
+		List<T17_Bean> list = dao.totalList("2014", 2);
+		System.out.println(list.size());
+	}
 }

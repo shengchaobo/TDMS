@@ -20,7 +20,7 @@ public class T722_DAO {
 	
 	private String field="AwardName,TeaUnit,UnitID,Leader,TeaID," +
 			"OtherTeaNum,OtherTea,AwardLevel,AwardTime,AwardFromUnit," +
-			"AppvlID,Time,Note,FillTeaID,FillUnitID,audit,CheckState";
+			"AppvlID,Time,Note,CheckState";
 
 	public boolean insert(T722_Bean teachAchieveAwardTea){
 		boolean flag=false;
@@ -206,7 +206,7 @@ public class T722_DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		
 		String tempfield = "AwardName,TeaUnit,UnitID,Leader,TeaID,OtherTeaNum,OtherTea,AwardLevel," +
-				"AwardTime,AwardFromUnit,AppvlID,Time,Note,FillUnitID,CheckState";
+				"AwardTime,AwardFromUnit,AppvlID,Time,Note,CheckState";
 		try{
 			flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 		}catch(Exception e){

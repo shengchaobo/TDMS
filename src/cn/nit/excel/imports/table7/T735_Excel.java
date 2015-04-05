@@ -93,7 +93,7 @@ public class T735_Excel {
 				T735_Bean.setUnitID(unitId);
 				T735_Bean.setAssessResult(assResult);
 				T735_Bean.setAssessYear(assYear);
-				T735_Bean.setFillUnitID(fillUnitID);
+//				T735_Bean.setFillUnitID(fillUnitID);
 				T735_Bean.setCheckState(Constants.WAIT_CHECK);
 				T735_Bean.setTime(TimeUtil.changeDateY(selectYear));
 				T735_Bean.setNote(note);

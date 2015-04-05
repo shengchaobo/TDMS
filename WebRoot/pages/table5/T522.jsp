@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>	
 		<hr></hr>	
-	   <h3  class="title1">课程建设逐条导入</h3>
+	   <h3  class="title1">网络课程建设逐条导入</h3>
 	   <form id="addForm" method="post">
 		<table>
 			<tr>
@@ -237,14 +237,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="fitem">
 						<label>类型：</label> 
 						<select class='easyui-combobox'  id="CStype" name="t522Bean.CSType"  panelHeight="auto" editable="false" >
-							<option value="精品（优秀）课程">精品（优秀）课程</option>
+							<!-- <option value="精品（优秀）课程">精品（优秀）课程</option>
 							<option value="精品视频公开课">精品视频公开课</option>
 							<option value="微课">微课</option>
 							<option value="双语教学示范课程">双语教学示范课程</option>
 							<option value="重点建设课程">重点建设课程</option>
-							<option value="重点建设通识任选课程">重点建设通识任选课程</option>
-							<option value="网络课程" selected="selected">网络课程</option>
-							<option value="其他">其他</option>
+							<option value="重点建设通识任选课程">重点建设通识任选课程</option> -->
+							<option value="网络课程">网络课程</option>
+							<!--  <option value="其他">其他</option>-->
 						</select>
 						 <span id="CStypeSpan"></span>
 					</div>

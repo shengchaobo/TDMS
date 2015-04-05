@@ -17,7 +17,8 @@ public class T733_DAO {
 	
 	private String key="SeqNumber";
 	
-	private String field="UnitName,UnitID,MeetingDate,MeetingMemberInfo,MeetingNum,MeetingTheme,MeetingResult,Time,Note,FillTeaID,FillUnitID,audit";
+	private String field="UnitName,UnitID,MeetingDate,MeetingMemberInfo,MeetingNum," +
+			"MeetingTheme,MeetingResult,Time,Note,FillUnitID";
 
 	public boolean insert(T733_Bean eachUnitTeacgResAC){
 		boolean flag= false;

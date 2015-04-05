@@ -18,7 +18,7 @@ public class T734_DAO {
 	private String key="SeqNumber";
 	
 	private String field="TeaName,TeaID,FromDept,UnitID,AccidentSite," +
-			"Cause,HandingTime,AccidentLevel,HandingID,Time,Note,FillTeaID,FillUnitID,audit,CheckState";
+			"Cause,HandingTime,AccidentLevel,HandingID,Time,Note,CheckState";
 
     public boolean insert(T734_Bean teachAcc){
     	boolean flag=false;
@@ -58,9 +58,9 @@ public class T734_DAO {
 		ResultSet rs=null;
 		
 
-		if(fillUnitId!=null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId);	
-		}
+//		if(fillUnitId!=null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId);	
+//		}
 		
 		if(conditions!=null && !conditions.equals("")){
 			sql.append(conditions);
@@ -105,9 +105,9 @@ public class T734_DAO {
 			sql.append(" from "+ tableName +" as t, DiDepartment dt");
 			sql.append(" where dt.UnitID=t.UnitID") ;
 			
-			if(fillUnitId != null && !fillUnitId.equals("")){
-				sql.append(" and FillUnitID=" + fillUnitId) ;
-			}
+//			if(fillUnitId != null && !fillUnitId.equals("")){
+//				sql.append(" and FillUnitID=" + fillUnitId) ;
+//			}
 			
 			if(conditions != null){
 				sql.append(conditions) ;
@@ -203,7 +203,7 @@ public class T734_DAO {
 				Connection conn = DBConnection.instance.getConnection() ;
 				
 				String tempfield = "TeaName,TeaID,FromDept,UnitID,AccidentSite," +
-						"Cause,HandingTime,AccidentLevel,HandingID,Time,Note,FillUnitID,CheckState";
+						"Cause,HandingTime,AccidentLevel,HandingID,Time,Note,CheckState";
 				try{
 					flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 				}catch(Exception e){

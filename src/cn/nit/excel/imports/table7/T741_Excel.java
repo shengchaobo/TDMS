@@ -185,7 +185,7 @@ public class T741_Excel {
 					T741_Bean.setAssessYear(assYear);
 					T741_Bean.setAccessResult(accResult);
 					T741_Bean.setAppvlID(appID);
-					T741_Bean.setFillUnitID(fillUnitID);
+//					T741_Bean.setFillUnitID(fillUnitID);
 					T741_Bean.setCheckState(Constants.WAIT_CHECK);
 					T741_Bean.setTime(TimeUtil.changeDateY(selectYear));
 					T741_Bean.setNote(note);

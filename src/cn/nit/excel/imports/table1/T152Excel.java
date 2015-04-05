@@ -180,7 +180,7 @@ public class T152Excel {
 					}
 					
 					if(OpenCondition.length()>1000){
-						return "第" + count + "行，对本科生开放情况字数不能超过500！" ;
+						return "第" + count + "行，对本科生开放情况字数不能超过500字！" ;
 					}
 					
 					String TeaUnit=cell[7].getContents().trim();
@@ -222,14 +222,18 @@ public class T152Excel {
 						return "第" + count + "行，年份不能为空" ;
 					}
 					
-					if(!DateUtil.isNumeric(BeginYearStr))
-					{
-						return "第" + count + "行，年份只能为数字" ;
-					} 
-					if (BeginYearStr.length() >5){
-						return "第" + count + "行，年份只能为4位" ;
+					if(!TimeUtil.judgeFormatY(BeginYearStr)){
+						return "第" + count + "行，年份的填写格式为：“2014”" ;
 					}
-					
+//					
+//					if(!DateUtil.isNumeric(BeginYearStr))
+//					{
+//						return "第" + count + "行，年份只能为数字" ;
+//					} 
+//					if (BeginYearStr.length() >5){
+//						return "第" + count + "行，年份只能为4位" ;
+//					}
+//					
 					String HouseArea=cell[10].getContents().trim();
 					
 					if(HouseArea == null|| HouseArea.equals("")){

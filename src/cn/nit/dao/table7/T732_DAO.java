@@ -21,7 +21,7 @@ public class T732_DAO {
 	
 	private String field="AttendClassTerm,LeaderName,LeaderTeaID,AdminTitle," +
 			"AttendClassTime,LectureTea,LectureTeaID,LectureCS,CSID," +
-			"SetCSUnit,UnitID,LectureClass,Evaluate,Time,Note,FillTeaID,FillUnitID,audit,CheckState";
+			"SetCSUnit,UnitID,LectureClass,Evaluate,Time,Note,FillUnitID,CheckState";
 
 	public boolean insert(T732_Bean teaLeadInClassInfo){
 		boolean flag=false;

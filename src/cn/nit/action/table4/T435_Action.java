@@ -118,7 +118,7 @@ public class T435_Action {
 				if(this.getQueryYear() != null){
 					conditions.append(" and Time like '" + this.queryYear + "%'");
 				}else{
-					if(this.getCheckFlag()!=0){
+					if(this.getCheckFlag()!=1){
 						 Calendar now = Calendar.getInstance();  
 						 this.setQueryYear(now.get(Calendar.YEAR)+"");
 						 conditions.append(" and Time like '" + this.queryYear + "%'");

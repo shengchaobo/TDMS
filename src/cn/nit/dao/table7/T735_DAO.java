@@ -18,7 +18,7 @@ public class T735_DAO {
 	private String key="SeqNumber";
 	
 	private String field="TeaUnit,UnitID,AssessResult,AssessYear," +
-			"Time,Note,FillTeaID,FillUnitID,audit,CheckState";
+			"Time,Note,CheckState";
 	
 	public boolean insert(T735_Bean teachManageAssessInfoTea){
 		boolean flag=false;
@@ -58,9 +58,9 @@ public class T735_DAO {
 	  ResultSet rs=null;
 	
 
-	if(fillUnitId!=null && !fillUnitId.equals("")){
-		sql.append(" and FillUnitID=" + fillUnitId);	
-	}
+//	if(fillUnitId!=null && !fillUnitId.equals("")){
+//		sql.append(" and FillUnitID=" + fillUnitId);	
+//	}
 	
 	if(conditions!=null && !conditions.equals("")){
 		sql.append(conditions);
@@ -104,9 +104,9 @@ public class T735_DAO {
 		sql.append(" from "+ tableName +" as t, DiDepartment dt");
 		sql.append(" where dt.UnitID=t.UnitID") ;
 		
-		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and FillUnitID=" + fillUnitId) ;
-		}
+//		if(fillUnitId != null && !fillUnitId.equals("")){
+//			sql.append(" and FillUnitID=" + fillUnitId) ;
+//		}
 		
 		if(conditions != null){
 			sql.append(conditions) ;
@@ -201,7 +201,7 @@ public class T735_DAO {
 			boolean flag = false ;
 			Connection conn = DBConnection.instance.getConnection() ;
 			
-			String tempfield = "TeaUnit,UnitID,AssessResult,AssessYear,Time,Note,FillUnitID";
+			String tempfield = "TeaUnit,UnitID,AssessResult,AssessYear,Time,Note";
 			try{
 				flag = DAOUtil.batchInsert(list, tableName, tempfield, conn) ;
 			}catch(Exception e){

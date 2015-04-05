@@ -7,13 +7,13 @@
 				        { "name": "其中：人文社会类", "group": "1.学生社团（个）", "value": "", "field": "stuClubHumanNum", "editor": "numberbox" },
 				        { "name": "其中：体育类", "group": "1.学生社团（个）", "value": "", "field": "stuClubSportNum", "editor": "numberbox" },
 				        { "name": "其中：文艺类", "group": "1.学生社团（个）", "value": "", "field": "stuClubArtNum", "editor": "numberbox" },
-				        { "name": "其他", "group": "1.学生社团（个）", "value": "", "field": "otherStuClub", "editor": "numberbox" },
+				        { "name": "其中：其他", "group": "1.学生社团（个）", "value": "", "field": "otherStuClub", "editor": "numberbox" },
 				        { "name": "总数", "group": "2.参与人次数（人次）", "value": "", "field": "joinStuSum","editor": false },
 				        { "name": "其中：科技类", "group": "2.参与人次数（人次）", "value": "", "field": "joinClubSciNum", "editor": "numberbox" },
 				        { "name": "其中：人文社会类", "group": "2.参与人次数（人次）", "value": "", "field": "joinClubHumanNum", "editor": "numberbox" },
 				        { "name": "其中：体育类", "group": "2.参与人次数（人次）", "value": "", "field": "joinClubSportNum", "editor": "numberbox" },
 				        { "name": "其中：文艺类", "group": "2.参与人次数（人次）", "value": "", "field": "joinClubArtNum", "editor": "numberbox" },
-				        { "name": "其他", "group": "2.参与人次数（人次）", "value": "", "field": "joinOtherClub", "editor": "numberbox" }
+				        { "name": "其中：其他", "group": "2.参与人次数（人次）", "value": "", "field": "joinOtherClub", "editor": "numberbox" }
 				    ];
 				    							
 				$('#edit').propertygrid({

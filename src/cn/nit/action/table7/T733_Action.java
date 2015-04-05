@@ -121,35 +121,45 @@ public class T733_Action {
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
 		
-		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null
-				&& this.getQueryYear()==null){			
+		if( this.getQueryYear()==null){			
 			 Calendar now = Calendar.getInstance();  
 			 this.setQueryYear(now.get(Calendar.YEAR)+"");
 			 conditions.append(" and Time like '" + this.queryYear + "%'");
 			 cond = conditions.toString();
-		}else{			
-			if(this.getSeqNum()!=null){
-				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
-			}
-			
-			if(this.getStartTime() != null){
-				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
-			}
-			
-			if(this.getEndTime() != null){
-				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
-						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-			}
-			if(this.getQueryYear() != null){
+		}else{	
 				conditions.append(" and Time like '" + this.queryYear + "%'");
-		}else{
-			 Calendar now = Calendar.getInstance();  
-			 this.setQueryYear(now.get(Calendar.YEAR)+"");
-			 conditions.append(" and Time like '" + this.queryYear + "%'");
+				cond = conditions.toString();
 		}
-			cond = conditions.toString();
-		}
+		
+//		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null
+//				&& this.getQueryYear()==null){			
+//			 Calendar now = Calendar.getInstance();  
+//			 this.setQueryYear(now.get(Calendar.YEAR)+"");
+//			 conditions.append(" and Time like '" + this.queryYear + "%'");
+//			 cond = conditions.toString();
+//		}else{			
+//			if(this.getSeqNum()!=null){
+//				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
+//			}
+//			
+//			if(this.getStartTime() != null){
+//				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+//						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+//			}
+//			
+//			if(this.getEndTime() != null){
+//				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+//						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+//			}
+//			if(this.getQueryYear() != null){
+//				conditions.append(" and Time like '" + this.queryYear + "%'");
+//		}else{
+//			 Calendar now = Calendar.getInstance();  
+//			 this.setQueryYear(now.get(Calendar.YEAR)+"");
+//			 conditions.append(" and Time like '" + this.queryYear + "%'");
+//		}
+//			cond = conditions.toString();
+//		}
 		String pages = t733_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		

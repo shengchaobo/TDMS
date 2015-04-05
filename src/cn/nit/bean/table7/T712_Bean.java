@@ -36,12 +36,9 @@ public class T712_Bean {
 	private Date Time ;
 	
 	private String Note ;
-    private String FillTeaID ;
 	
 	private String FillUnitID ;
 	
-	/**  审核单位ID号  */
-	private String audit ;
 	
 	private int CheckState;
 
@@ -184,13 +181,6 @@ public class T712_Bean {
 		Note = note;
 	}
 
-	public String getFillTeaID() {
-		return FillTeaID;
-	}
-
-	public void setFillTeaID(String fillTeaID) {
-		FillTeaID = fillTeaID;
-	}
 
 	public String getFillUnitID() {
 		return FillUnitID;
@@ -208,13 +198,6 @@ public class T712_Bean {
 		CheckState = checkState;
 	}
 
-	public String getAudit() {
-		return audit;
-	}
-
-	public void setAudit(String audit) {
-		this.audit = audit;
-	}
 	
 	
 	

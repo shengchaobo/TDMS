@@ -29,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="jquery-easyui/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="jquery-easyui/dialog_bug.js"></script>
+		<script type="text/javascript" src="js/commom.js"></script>
 	
 </head>
 <body style="overflow-y:scroll">
@@ -38,12 +39,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<thead>
 			<tr>
 			<!-- 	<th data-options="field:'ck',checkbox:true">选取</th> -->
-				<th field="unitName" width=10>行政单位名称</th>
-				<th field="unitID" width=10 >单位号</th>
-				<th field="functions" width=10>单位职能</th>
-				<th field="leader" width=10>单位负责人</th>
-				<th field="teaID" width=10>教工号</th>
-				<th field="note" width=10>备注</th>
+				<th field="unitName">行政单位名称</th>
+				<th field="unitID" >单位号</th>
+				<th field="functions" >单位职能</th>
+				<th field="leader" >单位负责人</th>
+				<th field="teaID" >教工号</th>
+				<th field="note" >备注</th>
 			</tr>
 		</thead>
 	</table>

@@ -35,9 +35,8 @@ public class T731_Action {
 	T731_Bean schleadInClass=new T731_Bean();
 	
 //	private T731_DAO t731_Dao=new T731_DAO();
-	
-	/**  待审核数据的查询的序列号  */
-	private Integer seqNum ;
+	/**  数据的查询的教工号  */
+	private String TeaID ;
 	
 	/**  待审核数据查询的起始时间  */
 	private Date startTime ;
@@ -60,16 +59,7 @@ public class T731_Action {
 	/**导出选择年份*/
 	private String selectYear;
 	
-	/**  审核通过数据按年时间查询  */
-	private String queryYear ;
-	public String getQueryYear() {
-		return queryYear;
-	}
 
-
-	public void setQueryYear(String queryYear) {
-		this.queryYear = queryYear;
-	}
 
 
 	HttpServletResponse response = ServletActionContext.getResponse() ;
@@ -118,53 +108,28 @@ public class T731_Action {
 		
 		String cond = null;
 		StringBuffer conditions = new StringBuffer();
-		
-		
-		if(this.getQueryYear()==null){	
-			 Calendar now = Calendar.getInstance();  
-			 this.setQueryYear(now.get(Calendar.YEAR)+"");
-			 conditions.append(" and Time like '" + this.queryYear + "%'");
-			 cond = conditions.toString();
-			//cond = null;	
-		}else{
+
+		if(this.getTeaID() == null && this.getStartTime() == null && this.getEndTime() == null){			
+			cond = null;	
+		}else{			
+			if(this.getTeaID()!=null){
+				conditions.append(" and TeaID like '" + this.getTeaID() + "%'") ;
+			}
 			
-					conditions.append(" and Time like '" + this.queryYear + "%'");
+			if(this.getStartTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
+			}
+			
+			if(this.getEndTime() != null){
+				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
+						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
+			}
 			cond = conditions.toString();
 		}
 		
-//		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null
-//				&& this.getQueryYear()==null){	
-//			System.out.println("+++");
-//			 Calendar now = Calendar.getInstance();  
-//			 this.setQueryYear(now.get(Calendar.YEAR)+"");
-//			 System.out.println(now.get(Calendar.YEAR)+"");
-//			 conditions.append(" and Time like '" + this.queryYear + "%'");
-//			 cond = conditions.toString();
-//			//cond = null;	
-//		}else{			
-//			if(this.getSeqNum()!=null){
-//				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
-//			}
-//			
-//			if(this.getStartTime() != null){
-//				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-//						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
-//			}
-//			
-//			if(this.getEndTime() != null){
-//				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
-//						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-//			}
-//			if(this.getQueryYear() != null){
-//					conditions.append(" and Time like '" + this.queryYear + "%'");
-//			}else{
-//				 Calendar now = Calendar.getInstance();  
-//				 this.setQueryYear(now.get(Calendar.YEAR)+"");
-//				 System.out.println(now.get(Calendar.YEAR));
-//				 conditions.append(" and Time like '" + this.queryYear + "%'");
-//			}
-//			cond = conditions.toString();
-//		}
+	
+
 		String pages = t731_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
@@ -308,13 +273,14 @@ public class T731_Action {
 	}
 
 
-	public Integer getSeqNum() {
-		return seqNum;
+
+	public String getTeaID() {
+		return TeaID;
 	}
 
 
-	public void setSeqNum(Integer seqNum) {
-		this.seqNum = seqNum;
+	public void setTeaID(String teaID) {
+		TeaID = teaID;
 	}
 
 

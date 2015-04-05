@@ -58,30 +58,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newObject()">添加</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a> 
 			<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteByIds()">删除</a>
+			<a href='javascript:dataExport()'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 		
+		
 		</div>
-		<div style="float: right;">
-			<form action='pages/T172/dataExport?excelName=<%=URLEncoder.encode("表1-7-2校友返校交流情况（党院办）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
-					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
-						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >
-								数据导出
-						</a> &nbsp;&nbsp;&nbsp;&nbsp;		
-			</form>
-			
-			</div>
-  </div>
-			
-		<!-- 	<a href="pages/T172/dataExport?excelName=表1-7-2校友返校交流情况（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a>  
-		</div>	
 			<form method="post" id="auditing"
 				style="float: right; height: 24px;">
-				<table id="test" width="520">
+				<table id="test" width="550">
 					<tr>
 						<td>
-							编号:
+							校友姓名:
 						</td>
 						<td>
-							<input id="seqNum" name="seqNum" class="easyui-box"
-								style="width: 40px" />
+							<input id="friName" name="friName" class="easyui-box"
+								style="width: 100px" />
 						</td>
 						<td>
 							起始日期:
@@ -104,8 +93,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</tr>
 				</table>
 			</form>
+		
+  </div>
+			
+		<!-- 	<a href="pages/T172/dataExport?excelName=表1-7-2校友返校交流情况（党院办）" class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> --> 
+		</div>	
+			
 
-	-->
+	
 	<!--  
 	<table id="verfiedData"  class="easyui-datagrid"  url="pages/T17/auditingData" >
 		<thead>
@@ -126,6 +121,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="">高级检索</a>
 	</div>
 	-->
+
+	<div id="dlg1" class="easyui-dialog" style="width:300px;height:150px;padding:10px 20px;" closed="true" data-options="modal:true"
+		buttons="#dlg1-buttons">
+		<form action='pages/T172/dataExport?excelName=<%=URLEncoder.encode("表1-7-2校友返校交流情况（党院办）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data">
+			  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;	
+	   </form>	
+    </div>
+    
 	<div id="dlg" class="easyui-dialog"
 		style="width:800px;height:500px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg-buttons">
@@ -232,6 +235,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
+	
+	<div id="dlg1-buttons"  >
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-ok" onclick="submitForm()">确定</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-cancel" onclick="javascript:$('#dlg1').dialog('close')">取消</a>
+	</div>
 </body>
 	<script type="text/javascript">
 	
@@ -240,7 +250,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 function reloadgrid ()  { 
 	        //查询参数直接添加在queryParams中 
 	         var queryParams = $('#commomData').datagrid('options').queryParams;  
-	         queryParams.seqNum = $('#seqNum').val(); 
+	         queryParams.friName = $('#friName').val(); 
 	         queryParams.startTime = $('#startTime').datetimebox('getValue');	         		     
 	    	 queryParams.endTime  = $('#endTime').datetimebox('getValue');        	 
 	         $("#commomData").datagrid('reload'); 
@@ -321,19 +331,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $('#dlg').dialog('open').dialog('setTitle','添加校友返校交流情况的信息');
 		    $('#t172form').form('reset');
 	    }
-	    
-	    //根据用户选择的年显示相应年的数据
-	    $(function(){ 
-			 $("#cbYearContrast1").combobox({  
-		        onChange:function(newValue, oldValue){ 
-			     //查询参数直接添加在queryParams中 
-		         var  queryYear = newValue;
-		         var queryParams = $('#commomData').datagrid('options').queryParams;  
-		         queryParams.queryYear = queryYear;  
-		         $("#commomData").datagrid('reload'); 
-		        }
-		   });
-	    })
+	  
 
 	    function singleImport(){
 		    //录入数据的表单提交
@@ -507,11 +505,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    loadDictionary() ;
 		    
 	    }
+	
 	    
-	  //提交导出表单
-	    function submitForm(){
-	    	  document.getElementById('exportForm').submit();
-	    }
+	    	//弹出添加的界面
+	function dataExport() {
+		$('#dlg1').dialog('open').dialog('setTitle', '请选择要导出的时间年');
+	}
+	    //提交导出表单
+    function submitForm(){
+    	  document.getElementById('exportForm').submit();
+    	  $('#dlg1').dialog('close'); // close the dialog
+    }
+	
 	    
 	    </script>
 

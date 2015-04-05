@@ -46,6 +46,7 @@ public class T731_DAO {
 		    
 	    public int totalAuditingData(String conditions,String fillUnitId){
 		
+	    	
 		StringBuffer sql=new StringBuffer();
 		
 		sql.append(" select count(*)");

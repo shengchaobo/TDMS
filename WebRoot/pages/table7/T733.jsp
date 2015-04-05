@@ -163,45 +163,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tr>
 			<td>
 					<div class="fitem">
-						<label>单位名称：</label> 
+					<label>会议日期：</label> 
 						<input id="seqNumber" name="eachUnitTeachResActInfo.SeqNumber" type="hidden" value="0">
-						<input id="Time" type="hidden" name="eachUnitTeachResActInfo.Time" value="0"></input>
-						<input id="UnitName" type="hidden" name="eachUnitTeachResActInfo.UnitName">
-						<input id="UnitID" type="text" name="eachUnitTeachResActInfo.UnitID" 
-							 class='easyui-combobox' data-options="valueField:'unitId',textField:'unitName',url:'pages/DiDepartment/loadDiDepartment',listHeight:'auto',editable:false,
-							 onSelect:function(){
-							 	document.getElementById('UnitName').value=$(this).combobox('getText') ;
-							 }">
-							<span id="UnitNameSpan"></span>
+						<input id="Time" type="hidden" name="eachUnitTeachResActInfo.Time" ></input>
+							<input id="FillUnitID" name="eachUnitTeachResActInfo.FillUnitID" type="hidden" value="0">
+							<input id="TeaUnit" name="eachUnitTeachResActInfo.UnitName" type="hidden" value="0">
+							<input id="UnitID" name="eachUnitTeachResActInfo.UnitID" type="hidden" value="0">
+						<input id="MeetingDate" class="easyui-datebox" style="width:80px" name="eachUnitTeachResActInfo.MeetingDate"
+							editable="false"><span id="MeetingDateSpan"></span>
+						
+					
 					</div>
 				</td>
 				<td class="empty"></td>		
 				<td>
-					<div class="fitem">
-						<label>会议日期：</label> 
-						<input id="MeetingDate" class="easyui-datebox" style="width:80px" name="eachUnitTeachResActInfo.MeetingDate"
-							editable="false"><span id="MeetingDateSpan"></span>
-					</div>
-				</td>
-				</tr>
-			<tr>
-			<td>
 					<div class="fitem">
 						<label>参会人员情况：</label> 
 						<input id="MeetingMemberInfo" type="text" name="eachUnitTeachResActInfo.MeetingMemberInfo"
 							><span id="MeetingMemberInfoSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>	
-				<td>
+				</tr>
+			<tr>
+			<td>
 					<div class="fitem">
 						<label>参会人数：</label> 
 						<input id="MeetingNum" type="text" name="eachUnitTeachResActInfo.MeetingNum"
 							><span id="MeetingNumSpan"></span>
 					</div>
 				</td>
-				</tr>
-				<tr>
+				<td class="empty"></td>	
 				<td>
 					<div class="fitem">
 						<label>会议主要议题或内容：</label> 
@@ -209,7 +200,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="MeetingThemeSpan"></span>
 					</div>
 				</td>
-			<td class="empty"></td>	
+				</tr>
+				<tr>
 				<td>
 					<div class="fitem">
 						<label>会议形成的主要决议或共识：</label> 
@@ -217,6 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							><span id="MeetingResultSpan"></span>
 					</div>
 				</td>
+				
 				</tr>
 				
 			<tr>
@@ -342,7 +335,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function validate(){
 			//获取文本框的值
-			var unitName = $('#UnitID').combobox('getText');
 			var meetingDate = $('#MeetingDate').datebox('getText');
 			var meetingMemberInfo = $('#MeetingMemberInfo').val();
 			var meetingNum = $('#MeetingNum').val();
@@ -350,10 +342,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var meetingResult = $('#MeetingResult').val();
 			var note = $('#Note').val();
 			//根据数据库定义的字段的长度，对其进行判断
-			if(unitName == null || unitName.length==0 || unitName.length > 100){
-				alert("单位名称不能为空或长度不超过100");
-				return false;
-			}
+			
 			if(meetingDate == null || meetingDate.length==0){
 				alert("会议日期不能为空");
 				return false;
@@ -401,7 +390,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	$('#dlg').dialog('open').dialog('setTitle','修改各单位开展教学研究活动情况');
 	    	$('#seqNumber').val(row[0].seqNumber) ;
 	    	$('#Time').val(formattime(row[0].time)) ;
-	    	$('#UnitID').combobox('select', row[0].unitIDD) ;
+	    	$('#UnitID').val(row[0].unitID) ;
+	    	$('#FillUnitID').val(row[0].fillUnitID) ;
+	    	$('#TeaUnit').val(row[0].unitName) ;
+	    	
+	    	//$('#UnitID').combobox('select', row[0].unitIDD) ;
 	    	$('#MeetingMemberInfo').val(row[0].meetingMemberInfo);
 	    	
 	    	$('#MeetingDate').datebox('setValue',formattime(row[0].meetingDate)) ;

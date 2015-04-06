@@ -206,7 +206,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			-->
 			<tr>
-				<td colspan="3">
+				<td >
 			  <input type="hidden" name="T452_bean.seqNumber" id="seqNumber"/>
 				<input type="hidden" name="T452_bean.teaUnitName" id="teaUnitName"/>
 				<input type="hidden"  name="T452_bean.unitId"  id="unitId" >
@@ -217,9 +217,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							onSelect:function(){
 							 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
+							 	 document.getElementById('name1').value=$(this).combobox('getValue') ;
 							 }">
 				<span id="teaIdSpan"></span>
 				</div></td>
+				<td class="empty"></td>
+								<td>
+				<div class="fitem">
+				<label>进修教师姓名：</label>
+				<input id="name1" name="techName1" readonly="true" style="color:grey">
+				</div>
+				</td>
+				
 			</tr>
  			<tr>
 				<td>

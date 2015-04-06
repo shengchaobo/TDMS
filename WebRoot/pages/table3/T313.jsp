@@ -138,15 +138,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tr>
 				<th field="discipID" >学科代码</th>
 				<th field="unitName" >所属教学单位</th>
-				<th field="unitId" >单位号</th>
+				<th field="unitID" >单位号</th>
 				<th field="discipType" >学科门类</th>
-				<th field="nationLevelOne" >国家一级</th>
-				<th field="nationLevelTwo" >国家二级</th>
-				<th field="nationLevelKey" >国家重点（培育）</th>
-				<th field="provinceLevelOne" ">省部一级</th>
-				<th field="provinceLevelTwo" >省部二级</th>
-				<th field="cityLevel" >市级</th>
-				<th field="schLevel" >校级</th>
+				<th field="nationLevelOne"  formatter="booleanstr">国家一级</th>
+				<th field="nationLevelTwo"  formatter="booleanstr">国家二级</th>
+				<th field="nationLevelKey" formatter="booleanstr">国家重点（培育）</th>
+				<th field="provinceLevelOne" " formatter="booleanstr">省部一级</th>
+				<th field="provinceLevelTwo"  formatter="booleanstr">省部二级</th>
+				<th field="cityLevel"  formatter="booleanstr">市级</th>
+				<th field="schLevel"  formatter="booleanstr">校级</th>
 				<th field="note" >备注</th>
 			</tr>
 		</thead>

@@ -27,17 +27,21 @@ import cn.nit.bean.table2.T21_Bean;
 import cn.nit.bean.table3.S31_Bean;
 import cn.nit.dao.table3.S31_DAO;
 import cn.nit.service.table2.T21_Service;
+import cn.nit.service.table3.S31_Service;
 
 public class J311_Excel {
 	
 	public static boolean export_J311(String path,String year){
 		
 		
-
+		S31_Service s31_Service = new S31_Service();
 		S31_DAO s31_Dao = new S31_DAO();
 //		SimpleDateFormat  dateFormat = new SimpleDateFormat ("yyyy");
 //		String year = dateFormat.format(new Date());
 		S31_Bean bean = s31_Dao.exportData(year);
+		if(bean==null){
+			bean = s31_Service.getYearInfo(year);
+		}
 		
 	    ByteArrayOutputStream fos = null;
 		
@@ -135,6 +139,9 @@ public class J311_Excel {
 		        		
 	}
 	
+	public static void main (String args[]){
+		export_J311("E:","2014");
+	}
 	
 	
 

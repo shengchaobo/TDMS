@@ -56,6 +56,10 @@ public class J314_Excel {
 		}
 	}
 	
+	public static void main (String args[]){
+		export_J314("E:","2015");
+	}
+	
 	
 	
 

@@ -457,7 +457,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<option value="示范专业">示范专业</option>
 							<option value="重点建设专业">重点建设专业</option>
 							<option value="地方优势专业">地方优势专业</option>
-							<option value="地方优势专业">其他</option>
+							<option value="其他">其他</option>
 						</select>
 						<span id="TypeSpan"></span>
 					</div>
@@ -492,7 +492,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td class="empty"></td>
 				<td>
 				<div class="fitem">
-				<label>教师姓名：</label>
+				<label>建设负责人：</label>
 				<input id="name" name="techName" readonly="true" style="color:grey">
 				</div>
 				</td>
@@ -934,44 +934,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 			}
 
-			if(AppvlYear == null || AppvlYear.length == 0){
-				$.messager.alert('提示',"批准建设年度不能为空") ;
-				return false;
-			}
 
-			if(BuildAppvlID == null || BuildAppvlID.length==0){
-				$.messager.alert('提示',"建设批文号不能为空") ;
-				return false;
-			}
-
-			if(MajorLevel == null || MajorLevel.length == 0){
-				$.messager.alert('提示',"级别不能为空") ;
-				return false;
-			}
-
-			if(Field == null || Field.length == 0){
-				$.messager.alert('提示',"领域方向不能为空") ;
-				return false;
-			}
-			if(TeaID == null || TeaID.length == 0){
-				$.messager.alert('提示',"建设负责人教工号不能为空") ;
-				return false;
-			}
-			if(CheckTime == null || CheckTime.length == 0){
-				$.messager.alert('提示',"验收时间不能为空") ;
-				return false;
-			}
-			if(CheckAppvlID == null || CheckAppvlID.length == 0){
-				$.messager.alert('提示',"验收批文号不能为空") ;
-				return false;
-			}
-			if(SchExp == null || SchExp.length == 0){
-				$.messager.alert('提示',"学校经费(万元)不能为空") ;
-				return false;
-			}else if(isNaN(SchExp)){
-				$.messager.alert('提示',"学校经费(万元)必须是数字") ;
-				return false;
-			}
 
 			if(MajorFeature !=null && MajorFeature.length > 1000){
 				$.messager.alert('提示',"专业特色简述字数不超过500") ;
@@ -982,13 +945,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return false;
 			}
 
-			if(EduMinistryExp == null || EduMinistryExp.length == 0){
-				$.messager.alert('提示',"教育部经费(万元)不能为空") ;
-				return false;
-			}else if(isNaN(EduMinistryExp)){
-				$.messager.alert('提示',"教育部经费(万元)必须是数字") ;
-				return false;
-			}
+
 			var rs1= "通过";
 			var rs2= "未通过";
 			var rs3= "未参加评估";
@@ -1033,46 +990,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$.messager.alert('提示',"认证批文号不能为空") ;
 					return false;
 				}
-				if(!(FromTime == null || FromTime.length == 0)){
-					$.messager.alert('提示',"有限期起必须为空") ;
-					return false;
-				}
-				if(!(EndTime == null || EndTime.length == 0)){
-					$.messager.alert('提示',"有限期止必须为空") ;
-					return false;
-				}
+
 				if(AppvlAuth == null || AppvlAuth.length == 0){
 					$.messager.alert('提示',"认证机构不能为空") ;
 					return false;
 				}
 			}
-			if(AppvlResult == rs3){
-				if(FirstAppvlTime == null || FirstAppvlTime.length == 0){
-					$.messager.alert('提示',"首次通过认证时间不能为空") ;
-					return false;
-				}
-				if(!(AppvlTime == null || AppvlTime.length == 0)){
-					$.messager.alert('提示',"认证时间必须为空") ;
-					return false;
-				}
-				if(!(AppvlID == null || AppvlID.length == 0)){
-					$.messager.alert('提示',"认证批文号必须为空") ;
-					return false;
-				}
-				if(!(FromTime == null || FromTime.length == 0)){
-					$.messager.alert('提示',"有限期起必须为空") ;
-					return false;
-				}
-				if(!(EndTime == null || EndTime.length == 0)){
-					$.messager.alert('提示',"有限期止必须为空") ;
-					return false;
-				}
-				if(!(AppvlAuth == null || AppvlAuth.length == 0)){
-					$.messager.alert('提示',"认证机构必须为空") ;
-					return false;
-				}
 
-			}
 			if(RequireCShour == null || RequireCShour.length == 0){
 				$.messager.alert('提示',"必修课学时数不能为空") ;
 				return false;

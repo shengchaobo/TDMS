@@ -56,7 +56,9 @@ public class J313_Excel {
 			return false;
 		}
 	}
-	
+	public static void main (String args[]){
+		export_J313("E:","2014");
+	}
 	
 
 }

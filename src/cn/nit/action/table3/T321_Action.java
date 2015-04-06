@@ -392,6 +392,7 @@ public void auditingData(){
 			list = t321_Service.totalList(year,Constants.PASS_CHECK);
 			sheetName = "表3-2-1大类培养基本情况表（教务处）";
 		}else{					
+			System.out.println(this.getSelectYear());
 			list = t321_Service.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
 			sheetName = this.excelName;
 		}

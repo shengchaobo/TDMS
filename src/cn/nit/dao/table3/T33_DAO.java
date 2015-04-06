@@ -91,8 +91,7 @@ public class T33_DAO {
 		StringBuffer sql = new StringBuffer() ;
 		sql.append("select count(*)") ;
 //		sql.append(" from "+ tableName);
-		sql.append(" from " + tableName + " as t,DiDepartment dpt,DiMajorOne dmo ") ;
-		sql.append(" where dpt.UnitID=t.UnitID and dmo.MajorNum=t.MajorID");		
+		sql.append(" from " + tableName+ " where 1=1") ;		
 		int total = 0 ;
 
 //		System.out.println(sql.toString());
@@ -136,11 +135,10 @@ public class T33_DAO {
 		
 		StringBuffer sql = new StringBuffer() ;
 		List<T33POJO> list =null ;
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,dmo.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorFieldName,t.AppvlSetTime,t.FirstAdmisTime," +
-			"t.MajorYearLimit,t.IsSepcialMajor,t.IsKeyMajor,t.MajorLeader,t.LIsFullTime," +
-			"t.MajorChargeMan,t.CIsFullTime,t.Time,t.Note,t.CheckState");
-		sql.append(" from "+tableName + " as t,DiDepartment dpt,DiMajorOne dmo ");
-		sql.append(" where dpt.UnitID=t.UnitID and dmo.MajorNum=t.MajorID" );
+		sql.append("select SeqNumber,TeaUnit,UnitID,MajorName,MajorID,MajorFieldName,AppvlSetTime,FirstAdmisTime," +
+			"MajorYearLimit,IsSepcialMajor,IsKeyMajor,MajorLeader,LIsFullTime," +
+			"MajorChargeMan,CIsFullTime,Time,Note,CheckState");
+		sql.append(" from "+tableName +" where 1=1");
 
 		if(fillDept != null && !fillDept.equals("")){
 			sql.append(" and FillDept=" + fillDept) ;
@@ -182,12 +180,11 @@ public class T33_DAO {
 	public List<T33_Bean> totalList(String year, int checkState){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.TeaUnit,t.UnitID,t.MajorName,dmo.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorFieldName,t.AppvlSetTime,t.FirstAdmisTime," +
-		"t.MajorYearLimit,t.IsSepcialMajor,t.IsKeyMajor,t.MajorLeader," +
-		"t.LIsFullTime,t.MajorChargeMan,t.CIsFullTime,t.Time,t.Note,t.CheckState");
-	sql.append(" from "+tableName + " as t,DiDepartment dpt,DiMajorOne dmo ");
-	sql.append(" where dpt.UnitID=t.UnitID and dmo.MajorNum=t.MajorID");
-	sql.append(" and t.Time like '"+year+"%' and t.CheckState="+checkState);
+		sql.append("select SeqNumber,TeaUnit,UnitID,MajorName,MajorID,MajorFieldName,AppvlSetTime,FirstAdmisTime," +
+		"MajorYearLimit,IsSepcialMajor,IsKeyMajor,MajorLeader," +
+		"LIsFullTime,MajorChargeMan,CIsFullTime,Time,Note,CheckState");
+	sql.append(" from "+tableName );
+	sql.append(" where Time like '"+year+"%' and CheckState="+checkState);
 		
 		
 		Connection conn = DBConnection.instance.getConnection() ;

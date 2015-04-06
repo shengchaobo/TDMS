@@ -178,11 +178,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							onSelect:function(){
 							 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
+							 	 document.getElementById('name1').value=$(this).combobox('getValue') ;
 							 }">
 				<span id="teaIdSpan"></span>
 				</div></td>
 			</tr>
 			<tr>
+				<td>
+				<div class="fitem">
+				<label>姓名：</label>
+				<input id="name1" name="techName1" readonly="true" style="color:grey">
+				</div>
+				</td>
+				<td class="empty"></td>
 				<td colspan="3">
 					<div class="fitem">
 						<label>人员类别：</label> 

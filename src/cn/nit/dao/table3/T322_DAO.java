@@ -92,10 +92,9 @@ public class T322_DAO {
 		StringBuffer sql = new StringBuffer() ;
 		int total = 0 ;
 		sql.append("select count(*)") ;
-		sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ") ;
-		sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");		
+		sql.append(" from " + tableName +" where 1=1 ") ;	
 		if(fillUnitId != null && !fillUnitId.equals("")){
-			sql.append(" and t.fillUnitId=" + fillUnitId) ;
+			sql.append(" and fillUnitId=" + fillUnitId) ;
 		}
 		
 		if(conditions != null && !conditions.equals("")){
@@ -130,21 +129,21 @@ public class T322_DAO {
 	}
 	
 	
-	public List<T322POJO> auditingData(String conditions, String fillUnitId, int page, int rows){
+	public List<T322_Bean> auditingData(String conditions, String fillUnitId, int page, int rows){
 		
 		StringBuffer sql = new StringBuffer() ;
-		List<T322POJO> list =null ;
-		sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorVersion,t.SchMajorName," +
+		List<T322_Bean> list =null ;
+		sql.append("select t.SeqNumber,t.MajorName,t.MajorID,t.MajorVersion,t.SchMajorName," +
 				"t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime,t.MajorAppvlID,t.MajorDurition," +
 			"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear," +
-			"t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.MajorLevel as MajorLevelID,t.Type," +
+			"t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.Type," +
 			"t.Field,t.Leader,t.TeaID,t.CheckTime,t.CheckAppvlID,t.SchExp,t.EduMinistryExp,t.FirstAppvlTime,t.AppvlTime," +
 			"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.MajorFeature," +
 			"t.MajorPurpose,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
 			"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit,t.InClassCredit," +
 			"t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note,t.fillUnitID,t.CheckState");
-		sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
-		sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID" );
+		sql.append(" from " + tableName + " as t,DiAwardLevel dal ");
+		sql.append(" where dal.IndexID=t.MajorLevel " );
 		if(fillUnitId != null && !fillUnitId.equals("")){
 			sql.append(" and t.fillUnitID=" + fillUnitId) ;
 		}
@@ -165,7 +164,7 @@ public class T322_DAO {
 			st.setMaxRows(page * rows) ;
 			rs = st.executeQuery(sql.toString()) ;
 			rs.absolute((page - 1) * rows) ;//将光标移动到此 ResultSet 对象的给定行编号
-			list = DAOUtil.getList(rs, T322POJO.class) ;
+			list = DAOUtil.getList(rs, T322_Bean.class) ;
 		
 			
 		}catch(Exception e){
@@ -226,34 +225,34 @@ public class T322_DAO {
 	
 	
 	/**用于数据导出*/
-	public List<T322POJO> totalList( String fillUnitID, String year, int checkState){
+	public List<T322_Bean> totalList( String fillUnitID, String year, int checkState){
 
 		StringBuffer sql=new StringBuffer();
 		if("111".equals(fillUnitID)){
-			sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID," +
+			sql.append("select t.SeqNumber,t.MajorName,t.MajorID ," +
 					"t.MajorVersion,t.SchMajorName,t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime," +
 					"t.MajorAppvlID,t.MajorDurition," +
-					"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.MajorLevel as MajorLevelID,t.Type," +
+					"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.Type," +
 					"t.Field,t.Leader,t.TeaID,t.CheckTime,t.CheckAppvlID,t.SchExp,t.EduMinistryExp,t.FirstAppvlTime,t.AppvlTime," +
 					"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.MajorFeature,t.MajorPurpose,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
 					"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit," +
 					"t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note,t.FillUnitID,t.CheckState ");
-				sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
-				sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");
+				sql.append(" from " + tableName + " as t,DiAwardLevel dal");
+				sql.append(" where dal.IndexID=t.MajorLevel ");
 				sql.append(" and t.Time like '"+year+"%'");
 				sql.append(" and t.CheckState="+checkState);
 			
 		}else{
-			sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID," +
+			sql.append("select t.SeqNumber,t.MajorName,t.MajorID ," +
 					"t.MajorVersion,t.SchMajorName,t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime," +
 					"t.MajorAppvlID,t.MajorDurition," +
-					"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.MajorLevel as MajorLevelID,t.Type," +
+					"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.Type," +
 					"t.Field,t.Leader,t.TeaID,t.CheckTime,t.CheckAppvlID,t.SchExp,t.EduMinistryExp,t.FirstAppvlTime,t.AppvlTime," +
 					"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.MajorFeature,t.MajorPurpose,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
 					"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit," +
 					"t.InClassCredit,t.ExpCredit,t.PraCredit,t.OutClassCredit,t.Time,t.Note,t.FillUnitID,t.CheckState ");
-				sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
-				sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");
+				sql.append(" from " + tableName + " as t,DiAwardLevel dal");
+				sql.append(" where dal.IndexID=t.MajorLevel ");
 				sql.append(" and t.FillUnitID="+fillUnitID+" and t.Time like '"+year+"%'");
 				sql.append(" and t.CheckState="+checkState);
 		}
@@ -266,12 +265,12 @@ public class T322_DAO {
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T322POJO> list = null ;
+		List<T322_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T322POJO.class) ;
+			list = DAOUtil.getList(rs, T322_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -286,28 +285,28 @@ public class T322_DAO {
 	
 	
 	/**用于教育部数据导出*/
-	public List<T322POJO> totalList1( String year){
+	public List<T322_Bean> totalList1( String year){
 
 		StringBuffer sql=new StringBuffer();
-		sql.append("select t.SeqNumber,t.MajorName,dmt.MajorNum as MajorID,t.MajorID as MajorIDID,t.MajorVersion,t.SchMajorName,t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime,t.MajorAppvlID,t.MajorDurition," +
-				"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.MajorLevel as MajorLevelID,t.Type," +
+		sql.append("select t.SeqNumber,t.MajorName,t.MajorID,t.MajorVersion,t.SchMajorName,t.SchMajorID,t.MajorField,t.MajorFieldID,t.MajorSetTime,t.MajorAppvlID,t.MajorDurition," +
+				"t.MajorDegreeType,t.MajorAdmisTime,t.MajorState,t.StopAdmisTime,t.IsNewMajor,t.AppvlYear,t.BuildAppvlID,dal.AwardLevel as MajorLevel,t.Type," +
 				"t.Field,t.Leader,t.TeaID,t.CheckTime,t.CheckAppvlID,t.SchExp,t.EduMinistryExp,t.FirstAppvlTime,t.AppvlTime," +
 				"t.AppvlID,t.AppvlResult,t.FromTime,t.EndTime,t.AppvlAuth,t.MajorFeature,t.MajorPurpose,t.TotalCSHour,t.RequireCShour,t.OptionCSHour,t.InClassCSHour," +
 				"t.ExpCSHour,t.PraCSHour,t.TotalCredit,t.RequireCredit,t.OptionCredit,t.InClassCredit,t.ExpCredit," +
 				"t.PraCredit,t.OutClassCredit,t.Time,t.Note,t.FillUnitID ,t.CheckState");
-			sql.append(" from " + tableName + " as t,DiAwardLevel dal,DiMajorTwo dmt,T411_TeaBasicInfo_Per$ t411 ");
-			sql.append(" where dal.IndexID=t.MajorLevel and dmt.MajorNum=t.MajorID and t411.TeaID=t.TeaID ");
-			sql.append(" and t.CheckState="+Constants.PASS_CHECK);
+			sql.append(" from " + tableName + " as t,DiAwardLevel dal");
+			sql.append(" where dal.IndexID=t.MajorLevel ");
+			sql.append(" and t.CheckState="+Constants.PASS_CHECK +"and (t.Type='特色专业' or t.Type='品牌专业' or t.Type='名牌专业' or t.Type='示范专业' or t.Type='重点建设专业' or t.Type='地方优势专业')");
 		
 		Connection conn = DBConnection.instance.getConnection() ;
 		Statement st = null ;
 		ResultSet rs = null ;
-		List<T322POJO> list = null ;
+		List<T322_Bean> list = null ;
 		
 		try{
 			st = conn.createStatement() ;
 			rs = st.executeQuery(sql.toString()) ;
-			list = DAOUtil.getList(rs, T322POJO.class) ;
+			list = DAOUtil.getList(rs, T322_Bean.class) ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			return null;
@@ -329,7 +328,7 @@ public class T322_DAO {
 		try{
 			st = conn.createStatement();
 			rs = st.executeQuery(sql1.toString());
-			while(!rs.next()) return -1;
+			while(!rs.next()) return 0;
 		}catch(Exception e){
 			e.printStackTrace();
 			return 0;

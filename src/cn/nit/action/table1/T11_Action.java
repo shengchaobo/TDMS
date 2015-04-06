@@ -164,23 +164,73 @@ public class T11_Action {
 		
 //		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
+		int tag = 0;
+		boolean flag = false;
+		//正在登陆的用户信息
+		UserinfoBean user = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = user.getUnitID();
+		//获取当年年份
+		Date year= new Date();
+		String Year = year.toString();
+		String currentYear = Year.substring(Year.length()-4, Year.length());
 		
-		String tempData = this.getData();
-		//System.out.println(tempData);
-				
-		T11_Bean bean  = ToBeanUtil.toBean(tempData, T11_Bean.class);
-										
-		boolean flag = t11Ser.save(bean,this.getSelectYear(),this.getFields());
+		System.out.println("currentYear:"+currentYear);
+		System.out.println("getSelectYear:"+this.getSelectYear());
+		System.out.println("fillUnitID:"+fillUnitID);
+		//若为党院办，只能修改本年数据
+		if(fillUnitID.equals("1010")){
+			if(currentYear.equals(this.getSelectYear())){
+				System.out.println("2015年");
+				String tempData = this.getData();
+				//System.out.println(tempData);
+						
+				T11_Bean bean  = ToBeanUtil.toBean(tempData, T11_Bean.class);
+												
+				flag = t11Ser.save(bean,this.getSelectYear(),this.getFields());
+				if(flag){
+					//保存成功
+					tag=1;
+				}else{
+					//保存失败
+					tag=2;
+				}
+			}else if(!currentYear.equals(this.getSelectYear())){
+				System.out.println("不是2015年");
+				//党院办角色只能修改本年数据，不能修改其他年份数据
+				tag=3;	
+			}
+		}else{
+			//管理员角色可以修改任何一个年份的数据
+			String tempData = this.getData();
+			//System.out.println(tempData);
+					
+			T11_Bean bean  = ToBeanUtil.toBean(tempData, T11_Bean.class);
+											
+			flag = t11Ser.save(bean,this.getSelectYear(),this.getFields());
+			if(flag){
+				//保存成功
+				tag=1;
+			}else{
+				//保存失败
+				tag=2;
+			}
+		}
+		
+		System.out.println("tag:"+tag);
 		PrintWriter out = null ;
 		
 		try{
 			response.setContentType("application/json; charset=UTF-8") ;
 			out = response.getWriter() ;
-			if(flag){
+			if(tag == 1){
 				out.print("{\"mesg\":\"success\"}") ;
-			}else{
-				out.print("{\"mesg\":\"fail\"}") ;
 			}
+			else if(tag == 2){
+				out.print("{\"mesg\":\"fail\"}") ;	
+			}else if(tag == 3){
+				out.print("{\"mesg\":\"noauthority\"}") ;
+			}
+			out.flush() ;
 		}catch(Exception e){
 			e.printStackTrace() ;
 			out.print("{\"state\":false,data:\"保存失败!!!\"}") ;
@@ -189,7 +239,7 @@ public class T11_Action {
 				out.close() ;
 			}
 		}
-		out.flush() ;
+		
 	}
 	
 

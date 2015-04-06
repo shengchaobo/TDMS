@@ -127,7 +127,7 @@ public class T183Excel {
 					}
 					
 					if(!this.judgeFormat1(SignedTime)){
-						return "第" + count + "行，签订协议时间格式有误（格式如：2013/03或者2013/03/01）" ;
+						return "第" + count + "行，签订协议时间格式有误（格式如：2013-03）" ;
 					}
 					
 					String UnitName = cell[5].getContents().trim();

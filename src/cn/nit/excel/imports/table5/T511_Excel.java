@@ -53,7 +53,7 @@ public class T511_Excel {
 		DiResearchRoomService diResearchRoomSr=new DiResearchRoomService();
 		List<DiResearchRoomBean>     diResearchBeanList=diResearchRoomSr.getList();
 		
-		System.out.println(cellList.size());
+//		System.out.println(cellList.size());
 		
 		
 		for(Cell[] cell: cellList){
@@ -91,7 +91,7 @@ public class T511_Excel {
 							flag = true ;
 							break ;
 						}else{
-							return "第" + count + "行，开课单位与所属单位号不对应" ;
+							return "第" + count + "行，开课单位与单位号不对应" ;
 						}
 					}//if
 				}//for

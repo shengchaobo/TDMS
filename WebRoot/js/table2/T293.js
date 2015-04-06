@@ -3,29 +3,29 @@
 				var rows = [
 					        { "name": "1.学校教育经费收入总额（万元）", "group": "", "value": "",  "field": "sumIncome","editor": false },
 					        { "name": "收入总计", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "sumUndergraIncome", "editor":  false },
-					        { "name": "本科生生均拨款总额", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "allocateFund", "editor":  false },
-					        { "name": "本科生生均国家拨款总额", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "nationFund", "editor":  {
+					        { "name": "<font color=white>——</font>本科生生均拨款总额：总数", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "allocateFund", "editor":  false },
+					        { "name": "<font color=white>————————————</font>国家", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "nationFund", "editor":  {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					        { "name": "本科生生均地方拨款总额", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "localFund", "editor":  {
+					        { "name": "<font color=white>————————————</font>地方", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "localFund", "editor":  {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					        { "name": "本科生学费收入", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "undergraTuition", "editor":  {
+					        { "name": "<font color=white>——</font>本科生学费收入", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "undergraTuition", "editor":  {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					        { "name": "本科教改专项拨款", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "eduReformFund", "editor":  {
+					        { "name": "<font color=white>——</font>本科教改专项拨款", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "eduReformFund", "editor":  {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
@@ -33,52 +33,52 @@
 					    		}
 					        } },
 					        { "name": "收入总计", "group": "3.其他教育事业收入（万元）", "value": "", "field": "sumOtherIncome", "editor": false},
-					       	{ "name": "专科生生均拨款总额", "group": "3.其他教育事业收入（万元）", "value": "", "field": "juniorAllocateFund" ,"editor": {
+					       	{ "name": "<font color=white>——</font>专科生生均拨款总额", "group": "3.其他教育事业收入（万元）", "value": "", "field": "juniorAllocateFund" ,"editor": {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					        { "name": "经常性预算内教育事业费拨款总数", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherAllocateFund", "editor": false },
-					       	{ "name": "经常性预算内教育事业费国家拨款", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherNationFund" ,"editor": {
+					        { "name": "<font color=white>——</font>经常性预算内教育事业费拨款：总数", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherAllocateFund", "editor": false },
+					       	{ "name": "<font color=white>————————————————</font>国家", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherNationFund" ,"editor": {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					       	{ "name": "经常性预算内教育事业费地方拨款", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherLocalFund","editor": {
+					       	{ "name": "<font color=white>————————————————</font>地方", "group": "3.其他教育事业收入（万元）", "value": "", "field": "otherLocalFund","editor": {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					       	{ "name": "学费收入总数", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "otherTuition","editor": false},
-					       	{ "name": "各类研究生学费收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "graTuition", "editor": {
+					       	{ "name": "<font color=white>——</font>学费收入：总数", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "otherTuition","editor": false},
+					       	{ "name": "<font color=white>——————</font>　各类研究生", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "graTuition", "editor": {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					       	{ "name": "高职高专学费收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "juniorTuition","editor": {
+					       	{ "name": "<font color=white>——————</font>　高职高专", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "juniorTuition","editor": {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					       	{ "name": "网络与继续教育学费收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "netTeaTuition", "editor": {
+					       	{ "name": "<font color=white>——————</font>　网络与继续教育", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "netTeaTuition", "editor": {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,
 					        	 	"precision": 2
 					    		}
 					        } },
-					       	{ "name": "社会捐赠收入（如为0，则表示无该年捐赠收入，请先填写相关表）", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "donation","editor": false},
-					       	{ "name": "其他教育事业收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "otherIncome","editor": {
+					       	{ "name": "<font color=white>——</font>社会捐赠收入（如为0，则表示无该年捐赠收入，请先填写相关表）", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "donation","editor": false},
+					       	{ "name": "<font color=white>——</font>其他教育事业收入", "group": "3.其他教育事业收入（万元）",  "value": "", "field": "otherIncome","editor": {
 					    		"type":"numberbox",
 					    		"options":{
 					        	 	"min":  0,

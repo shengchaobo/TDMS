@@ -9,11 +9,11 @@
 				    		}
 				        } },
 				        { "name": "2.数量（间）", "group": "", "value": "", "field": "classNum", "editor": "numberbox" },
-				        { "name": "其中：外语教学计算机机房（含语音室）", "value": "", "group": "", "field": "computerNum",  "editor": "numberbox"},
-				        { "name": "其中：多媒体教室", "value": "", "group": "", "field": "mediaNum", "editor": "numberbox" },
+				        { "name": "<font color=white>——</font>其中：外语教学计算机机房（含语音室）", "value": "", "group": "", "field": "computerNum",  "editor": "numberbox"},
+				        { "name": "<font color=white>————</font>　多媒体教室", "value": "", "group": "", "field": "mediaNum", "editor": "numberbox" },
 				        { "name": "3.座位数（个）", "group": "", "value": "", "field": "classSeatNum", "editor": "numberbox" },
-				        { "name": "其中：外语教学计算机机房（含语音室）", "group": "", "editor": "numberbox", "value": "", "field": "computerSitNum" },
-				        { "name": "其中：多媒体教室", "group": "", "value": "", "field": "mediaSitNum", "editor": "numberbox" }
+				        { "name": "<font color=white>——</font>其中：外语教学计算机机房（含语音室）", "group": "", "editor": "numberbox", "value": "", "field": "computerSitNum" },
+				        { "name": "<font color=white>————</font>　多媒体教室", "group": "", "value": "", "field": "mediaSitNum", "editor": "numberbox" }
 				    ];
 				    							
 				$('#edit').propertygrid({

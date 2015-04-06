@@ -144,11 +144,16 @@ public class T733_Action {
 				cond = conditions.toString();
 		}
 
-		
 		//具体教学单位
 	    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
-		String fillUnitID = bean.getUnitID();
-		
+		//具体教学单位
+		String fillUnitID;
+		String tempUnitID = bean.getUnitID();
+		if("1028".equals(tempUnitID)){
+			fillUnitID =null;
+		}else{
+			fillUnitID =  bean.getUnitID();//系统管理员
+		}
 		String pages = t733_Sr.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		

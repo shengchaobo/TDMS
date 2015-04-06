@@ -54,6 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th data-options="field:'ck',checkbox:true" >选取</th>
 				<th field="seqNumber" >编号</th>
 					<th  data-options="field:'checkState'"   formatter="formatCheckState">审核状态</th>
+				
 				<th field="majorName" >专业名称</th>
 				<th field="majorID" >专业代码</th>
 			</tr>
@@ -275,22 +276,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 		<tr>
-			<td>
-					<div class="fitem">
-						<label>校内专业名称：</label> 
-						<input id="SchMajorName" type="text" name="t322_Bean.SchMajorName"
-							class="easyui-validatebox" ><span id="SchMajorNameSpan"></span>
-					</div>	
-					</td>	
-						<td class="empty"></td>
+		
 				<td>
 					<div class="fitem">
-						<label>校内专业代码：</label> 
-						<input id="SchMajorID" type="text" name="t322_Bean.SchMajorID"
-							class="easyui-validatebox" ><span id="SchMajorIDSpan"></span>
+						<label>校内专业名称：</label> 
+						<input type="hidden" name="t322_Bean.SchMajorName" id="SchMajorName"/>
+						<input id="SchMajorID" type="text" name="t322_Bean.SchMajorID" 
+							 class='easyui-combobox' data-options="valueField:'schMajorID',textField:'schMajorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
+							 onSelect:function(){
+							 	document.getElementById('SchMajorName').value=$(this).combobox('getText') ;
+							 	document.getElementById('Name').value=$(this).combobox('getValue') ;
+							 }">
+						<span id="MajorNameInSchSpan"></span>
 					</div>
-				</td>	
-			</tr>
+				</td>
+		        <td class="empty"></td>
+		        <td>
+		        <div class = "fitem">
+		        <label>校内专业代码</label>
+		        <input id="Name" name="Name" readonly="true" style="color:grey"/>		        
+		        </div>
+		        </td>
 
 		<tr>
 			<td>
@@ -414,7 +420,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</td>
 			</tr>
 			<tr>
-			<td style="valign:left" colspan="3"><label>专业特色简述：</label>
+			<td style="valign:left" colspan="3"><label>专业培养目标：</label>
 					<textarea id="MajorPurpose" name="t322_Bean.MajorPurpose" style="resize:none" cols="50" rows="10"></textarea>
 					<span id="MajorPurposeSpan"></span>
 				</td>
@@ -446,11 +452,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="MajorLevelSpan"></span>
 					</div>
 				</td>
+				
+				
+				
+				
 					<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>类型：</label> 
 						<select class='easyui-combobox' id="Type" name="t322_Bean.Type" editable=false panelHeight="auto">
+						    <option value="" >无</option>
 							<option value="特色专业">特色专业</option>
 							<option value="品牌专业">品牌专业</option>
 							<option value="名牌专业">名牌专业</option>
@@ -458,6 +469,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<option value="重点建设专业">重点建设专业</option>
 							<option value="地方优势专业">地方优势专业</option>
 							<option value="其他">其他</option>
+							
 						</select>
 						<span id="TypeSpan"></span>
 					</div>
@@ -839,8 +851,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 		function validate(){
-			var SchMajorName =  $('#SchMajorName').val() ;
-			var SchMajorID =  $('#SchMajorID').val() ;
+			var SchMajorName =  $('#SchMajorID').combobox('getText') ;
 			var MajorFeature =  $('#MajorFeature').val() ;
 			var MajorPurpose =  $('#MajorPurpose').val() ;
 			var MajorName = $('#MajorID').combobox('getText') ;
@@ -884,7 +895,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(MajorName == null || MajorName.length==0 ){
 				$.messager.alert('提示',"专业名称不能为空") ;
 				return false;
+			}			
+			if(SchMajorName == null || SchMajorName.length==0 ){
+				$.messager.alert('提示',"校内专业名称不能为空") ;
+				return false;
 			}
+
 
 			if(MajorField == null ||MajorField.length == 0){
 				$.messager.alert('提示',"专业方向名称不能为空（没有请填无）");
@@ -892,15 +908,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 
 
-			if(SchMajorName == null || SchMajorName.length==0 ){
-				$.messager.alert('提示',"校内专业名称不能为空") ;
-				return false;
-			}
 
-			if(SchMajorID == null ||SchMajorID.length == 0){
-				$.messager.alert('提示',"校内专业代码不能为空");
-				return false;
-			}
 			
 
 			
@@ -933,66 +941,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$.messager.alert('提示',"招生状态为'当年停招'时，停止招生时间不能为空 ") ;
 				return false;
 			}
-
-
-
+			
+			if(MajorFeature == null || MajorFeature.length == 0){
+			$.messager.alert('提示',"专业特色简述不能为空");
+			return false;
+			}
 			if(MajorFeature !=null && MajorFeature.length > 1000){
-				$.messager.alert('提示',"专业特色简述字数不超过500") ;
+				$.messager.alert('提示',"专业特色简述字数不能超过1000") ;
 				return false;
 			}	
+			if(MajorPurpose==null || MajorPurpose.length == 0){
+			$.messager.alert('提示',"专业培养目标不能为空");
+			return false;
+			}
+			
 			if(MajorPurpose !=null && MajorPurpose.length > 1000){
-				$.messager.alert('提示',"专业培养目标简述字数不超过500") ;
+				$.messager.alert('提示',"专业培养目标简述字数不能超过1000") ;
 				return false;
 			}
 
-
+			if(MajorLevel==null ||MajorLevel.length == 0){
+			$.messager.alert('提示',"级别不能为空，请选其他");
+			return false;
+			}
 			var rs1= "通过";
 			var rs2= "未通过";
 			var rs3= "未参加评估";
 			if(AppvlResult ==rs1){
 				if(FirstAppvlTime == null || FirstAppvlTime.length == 0){
-					$.messager.alert('提示',"首次通过认证时间不能为空") ;
+					$.messager.alert('提示',"认证结果为通过，首次通过认证时间不能为空") ;
 					return false;
 				}
 				if(AppvlTime == null || AppvlTime.length == 0){
-					$.messager.alert('提示',"认证时间不能为空") ;
+					$.messager.alert('提示',"认证结果为通过，认证时间不能为空") ;
 					return false;
 				}
 				if(AppvlID == null || AppvlID.length == 0){
-					$.messager.alert('提示',"认证批文号不能为空") ;
+					$.messager.alert('提示',"认证结果为通过，认证批文号不能为空") ;
 					return false;
 				}
 				if(FromTime == null || FromTime.length == 0){
-					$.messager.alert('提示',"有限期起不能为空") ;
+					$.messager.alert('提示',"认证结果为通过，有限期起不能为空") ;
 					return false;
 				}
 				if(EndTime == null || EndTime.length == 0){
-					$.messager.alert('提示',"有限期止不能为空") ;
+					$.messager.alert('提示',"认证结果为通过，有限期止不能为空") ;
 					return false;
 				}
 				if(AppvlAuth == null || AppvlAuth.length == 0){
-					$.messager.alert('提示',"认证机构不能为空") ;
+					$.messager.alert('提示',"认证结果为通过，认证机构不能为空") ;
 					return false;
 				}
 				
 				
 			}
 			if(AppvlResult == rs2){
-				if(FirstAppvlTime == null || FirstAppvlTime.length == 0){
-					$.messager.alert('提示',"首次通过认证时间不能为空") ;
-					return false;
-				}
+
 				if(AppvlTime == null || AppvlTime.length == 0){
-					$.messager.alert('提示',"认证时间不能为空") ;
+					$.messager.alert('提示',"认证结果为不通过，认证时间不能为空") ;
 					return false;
 				}
 				if(AppvlID == null || AppvlID.length == 0){
-					$.messager.alert('提示',"认证批文号不能为空") ;
+					$.messager.alert('提示',"认证结果为不通过，认证批文号不能为空") ;
 					return false;
 				}
 
 				if(AppvlAuth == null || AppvlAuth.length == 0){
-					$.messager.alert('提示',"认证机构不能为空") ;
+					$.messager.alert('提示',"认证结果为不通过，认证机构不能为空") ;
 					return false;
 				}
 			}
@@ -1001,43 +1016,100 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$.messager.alert('提示',"必修课学时数不能为空") ;
 				return false;
 			}
+			if(isNaN(RequireCShour)){
+				$.messager.alert('提示',"必修课学时数必须为数字") ;
+				return false;
+			}
 			
 			if(OptionCSHour == null || OptionCSHour.length == 0){
 				$.messager.alert('提示',"选修课学时数不能为空") ;
 				return false;
 			}
+			
+			if(isNaN(OptionCSHour)){
+				$.messager.alert('提示',"选修课学时数必须为数字") ;
+				return false;
+			}
+			
 			if(InClassCSHour == null || InClassCSHour.length == 0){
 				$.messager.alert('提示',"课内教学学时数不能为空") ;
 				return false;
 			}
+			
+			if(isNaN(InClassCSHour)){
+				$.messager.alert('提示',"课内教学学时数必须为数字") ;
+				return false;
+			}
+			
 			if(ExpCSHour == null || ExpCSHour.length == 0){
 				$.messager.alert('提示',"实验教学学时数不能为空") ;
 				return false;
 			}
+			
+			if(isNaN(ExpCSHour)){
+				$.messager.alert('提示',"实验教学学时数必须为数字") ;
+				return false;
+			}
+			
 			if(RequireCredit == null || RequireCredit.length == 0){
 				$.messager.alert('提示',"必修课学分数不能为空") ;
+				return false;
+			}
+			
+			if(isNaN(RequireCredit)){
+				$.messager.alert('提示',"必修课学分数必须为数字") ;
 				return false;
 			}
 			if(OptionCredit == null || OptionCredit.length == 0){
 				$.messager.alert('提示',"选修课学分数不能为空") ;
 				return false;
 			}
+			
+			if(isNaN(OptionCredit)){
+				$.messager.alert('提示',"选修课学分数必须为数字") ;
+				return false;
+			}
+			
 			if(InClassCredit == null || InClassCredit.length == 0){
 				$.messager.alert('提示',"课内教学学分数不能为空") ;
 				return false;
 			}
+			
+			if(isNaN(InClassCredit)){
+				$.messager.alert('提示',"课内教学学分数必须为数字") ;
+				return false;
+			}
+			
 			if(ExpCredit == null || ExpCredit.length == 0){
 				$.messager.alert('提示',"实验教学学分数不能为空") ;
 				return false;
 			}
+			
+			if(isNaN(ExpCredit)){
+				$.messager.alert('提示',"实验教学学分数必须为数字") ;
+				return false;
+			}
+			
 			if(PraCredit == null || PraCredit.length == 0){
 				$.messager.alert('提示',"集中实践教学环节学分数不能为空") ;
 				return false;
 			}
+			
+			if(isNaN(PraCredit)){
+				$.messager.alert('提示',"集中实践教学环节学分数必须为数字") ;
+				return false;
+			}
+			
 			if(OutClassCredit == null || OutClassCredit.length == 0){
 				$.messager.alert('提示',"课外科技活动学分数不能为空") ;
 				return false;
 			}
+			
+			if(isNaN(OutClassCredit)){
+				$.messager.alert('提示',"课外科技活动学分数必须为数字") ;
+				return false;
+			}
+			
 			if(Note !=null && Note.length > 1000){
 				$.messager.alert('提示',"备注中文字数不超过500") ;
 				return false;
@@ -1199,6 +1271,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	  document.getElementById('exportForm').submit();
 	    }
 	    
+	    		function checkRate(input)  
+		{  
+		     var re = /^[1-9]+[0-9]*]*$/;		  
+		     if (!re.test(input))  
+		    {  
+		        return false;  
+		     }else{
+			     return true;
+			     }  
+		}
+	    
 	    </script>
 
 	<script type="text/javascript"> 
@@ -1263,6 +1346,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	select.appendChild(theOption);
     	}
 	</script>
+	
+	
+	
 
 </html>
 

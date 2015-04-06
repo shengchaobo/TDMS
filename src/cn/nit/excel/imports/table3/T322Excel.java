@@ -227,7 +227,7 @@ public class T322Excel {
 				    }else if(IsNewMajor1.equals("否")){
 				    	IsNewMajor=false;
 				    }else{
-				    	return  "第" + count + "行，是否新办专业必须为是或否 ";
+				    	return  "第" + count + "行，是否新办专业应填是或否 ";
 				    }
 				    
 				    String MajorFeature=cell[16].getContents().trim();
@@ -237,7 +237,7 @@ public class T322Excel {
 						return "第" + count + "行，专业特色不能为空且字数不能超过1000";
 					} 
 					
-					if(MajorPurpose == null || MajorPurpose.equals("")||MajorPurpose.length()>100){
+					if(MajorPurpose == null || MajorPurpose.equals("")||MajorPurpose.length()>1000){
 						return "第" + count + "行，专业培养目标不能为空且字数不能超过1000";
 					}
 				    
@@ -271,6 +271,8 @@ public class T322Excel {
 						}else{
 							flag=false;
 						}
+					}else{
+						return "第" + count + "行，级别不能为空，请填 其他";
 					}
 
 
@@ -291,7 +293,7 @@ public class T322Excel {
 					String Leader = cell[23].getContents().trim();
 					String TeaID=cell[24].getContents().trim();
 					
-					if(!((Leader == null || Leader.equals(""))&&(TeaID == null || TeaID.equals("")))){
+					if(!(Leader == null || Leader.equals(""))){
 						for(T411_Bean t411_Bean : t411_BeanList){
 							if(t411_Bean.getTeaId().equals(TeaID)){
 								if(t411_Bean.getTeaName().equals(Leader)){
@@ -309,6 +311,10 @@ public class T322Excel {
 						}else{
 							flag=false;
 						}
+					}else{
+						if(!(TeaID==null || TeaID.equals(""))){
+							return "第" + count + "行，建设负责人与教工号不对应" ;
+						}
 					}
 
 
@@ -317,7 +323,10 @@ public class T322Excel {
 					String CheckTime = cell[25].getContents().trim() ;
 					
 					if(!(CheckTime == null || CheckTime.equals(""))){
-						return "第" + count + "行，验收时间格式有误（格式如：2013-02）" ;
+					    if(!TimeUtil.judgeFormatYM(CheckTime)){
+					    	return "第" + count + "行，验收时间格式有误（格式如：2013-02）" ;
+						}
+						
 					}
 					
 				    String CheckAppvlID = cell[26].getContents().trim();
@@ -424,6 +433,11 @@ public class T322Excel {
 					    }
 
 				    }else if(AppvlResult.equals("未参加评估")){
+						if(!(FirstAppvlTime == null || FirstAppvlTime.equals(""))){
+						    if(!TimeUtil.judgeFormatYM(FirstAppvlTime)){
+								return "第" + count + "行，首次通过认证时间格式有误（格式如：2013-02）" ;
+							}
+						}
 //						if(FirstAppvlTime == null || FirstAppvlTime.equals("")){
 //							return "第" + count + "行，首次通过认证时间不能为空" ;
 //						}

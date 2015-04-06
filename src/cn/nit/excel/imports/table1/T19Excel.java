@@ -144,12 +144,12 @@ public class T19Excel {
 								flag = true;  
 								break;
 							}else{
-								return "第" + count + "行，获奖单位与单位编号不对应" ;
+								return "第" + count + "行，获奖单位与单位号不对应" ;
 							}
 						}
 					}
 					if(!flag){
-						return "第" + count + "行，没有与之相匹配的单位编号" ;
+						return "第" + count + "行，没有与之相匹配的单位号" ;
 					}else{
 						flag=false;
 					}

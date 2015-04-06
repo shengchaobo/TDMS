@@ -143,37 +143,13 @@ public class T733_Action {
 				conditions.append(" and Time like '" + this.queryYear + "%'");
 				cond = conditions.toString();
 		}
+
 		
-//		if(this.getSeqNum() == null && this.getStartTime() == null && this.getEndTime() == null
-//				&& this.getQueryYear()==null){			
-//			 Calendar now = Calendar.getInstance();  
-//			 this.setQueryYear(now.get(Calendar.YEAR)+"");
-//			 conditions.append(" and Time like '" + this.queryYear + "%'");
-//			 cond = conditions.toString();
-//		}else{			
-//			if(this.getSeqNum()!=null){
-//				conditions.append(" and SeqNumber=" + this.getSeqNum()) ;
-//			}
-//			
-//			if(this.getStartTime() != null){
-//				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)>=cast(CONVERT(DATE, '" 
-//						+ TimeUtil.changeFormat4(this.startTime) + "')as datetime)") ;
-//			}
-//			
-//			if(this.getEndTime() != null){
-//				conditions.append(" and cast(CONVERT(DATE, Time)as datetime)<=cast(CONVERT(DATE, '" 
-//						+ TimeUtil.changeFormat4(this.getEndTime()) + "')as datetime)") ;
-//			}
-//			if(this.getQueryYear() != null){
-//				conditions.append(" and Time like '" + this.queryYear + "%'");
-//		}else{
-//			 Calendar now = Calendar.getInstance();  
-//			 this.setQueryYear(now.get(Calendar.YEAR)+"");
-//			 conditions.append(" and Time like '" + this.queryYear + "%'");
-//		}
-//			cond = conditions.toString();
-//		}
-		String pages = t733_Sr.auditingData(cond, null, Integer.parseInt(page), Integer.parseInt(rows)) ;
+		//具体教学单位
+	    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
+		
+		String pages = t733_Sr.auditingData(cond, fillUnitID, Integer.parseInt(page), Integer.parseInt(rows)) ;
 		PrintWriter out = null ;
 		
 		try{
@@ -244,19 +220,24 @@ public class T733_Action {
 	}
 	
 	public InputStream getInputStream(){
+		
+		
+		//具体教学单位
+	    UserinfoBean bean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
+		String fillUnitID = bean.getUnitID();
 
 		InputStream inputStream = null ;
 		
 		UserinfoBean userBean = (UserinfoBean) request.getSession().getAttribute("userinfo") ;
 		String sheetName = null;
-		List<T733POJO> list = null;
+		List<T733_Bean> list = null;
 		
 		if("111".equals(userBean.getRoleID())){
 			String year = (String)request.getSession().getAttribute("allYear") ;
 			list = t733_Sr.totalList(year);
 			sheetName = "表7-3-3各单位开展教学研究活动情况";
 		}else{						
-			list = t733_Sr.totalList(this.getSelectYear());						
+			list = t733_Sr.totalList(this.getSelectYear(),fillUnitID);						
 			sheetName = this.excelName;
 		}
 		

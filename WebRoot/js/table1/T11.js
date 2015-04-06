@@ -202,7 +202,11 @@ $(function(){
 					    				if(json.mesg == 'fail'){
 					    					alert("保存失败");
 					    					flag = false;
-					    				}										
+					    				}
+					    				if(json.mesg == 'noauthority'){
+					    					alert("您只能修改本年数据！")
+					    					flag = false;
+					    				}
 								},
 				                error: function(XMLResponse) {
 										alert("保存失败");

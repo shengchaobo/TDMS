@@ -209,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<label>包含校内专业名称：</label> 
 						<input type="hidden" name="t321_Bean.MajorNameInSch" id="MajorNameInSch"/>
 						<input id="MajorID" type="text" name="t321_Bean.MajorID" 
-							 class='easyui-combobox' data-options="valueField:'majorNum',textField:'majorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
+							 class='easyui-combobox' data-options="valueField:'schMajorID',textField:'schMajorName',url:'pages/DiMajorTwo/loadDiMajorTwo',listHeight:'auto',editable:false,
 							 onSelect:function(){
 							 	document.getElementById('MajorNameInSch').value=$(this).combobox('getText') ;
 							 }">

@@ -234,11 +234,11 @@ public class T322Excel {
 				    String MajorPurpose=cell[17].getContents().trim();
 				    
 				    if(MajorFeature == null || MajorFeature.equals("")||MajorFeature.length()>1000){
-						return "第" + count + "行，专业特色不能为空且字数不能超过500";
+						return "第" + count + "行，专业特色不能为空且字数不能超过1000";
 					} 
 					
 					if(MajorPurpose == null || MajorPurpose.equals("")||MajorPurpose.length()>100){
-						return "第" + count + "行，专业培养目标不能为空且字符数不能超过500";
+						return "第" + count + "行，专业培养目标不能为空且字数不能超过1000";
 					}
 				    
 				    

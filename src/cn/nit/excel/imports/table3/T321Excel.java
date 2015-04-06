@@ -125,8 +125,8 @@ public class T321Excel {
 						}
 
 						for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
-							if(diMajorTwoBean.getMajorNum().equals(MajorID)){
-								if(diMajorTwoBean.getMajorName().equals(MajorNameInSch)){
+							if(diMajorTwoBean.getSchMajorID().equals(MajorID)){
+								if(diMajorTwoBean.getSchMajorName().equals(MajorNameInSch)){
 									flag = true ;
 									break ;
 								}else{
@@ -183,6 +183,7 @@ public class T321Excel {
 					t321_Bean.setUnitName(UnitName);
 					t321_Bean.setUnitID(UnitID);
 					t321_Bean.setTime(TimeUtil.changeDateY(selectYear));
+					t321_Bean.setCheckState(Constants.WAIT_CHECK);
 					list.add(t321_Bean);
 					System.out.println("数字");
 					System.out.println(count);
@@ -228,8 +229,8 @@ public class T321Excel {
 					}
 
 					for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
-						if(diMajorTwoBean.getMajorNum().equals(MajorID)){
-							if(diMajorTwoBean.getMajorName().equals(MajorNameInSch)){
+						if(diMajorTwoBean.getSchMajorID().equals(MajorID)){
+							if(diMajorTwoBean.getSchMajorName().equals(MajorNameInSch)){
 								flag = true ;
 								break ;
 							}else{
@@ -303,8 +304,8 @@ public class T321Excel {
 				}
 
 				for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
-					if(diMajorTwoBean.getMajorNum().equals(MajorID)){
-						if(diMajorTwoBean.getMajorName().equals(MajorNameInSch)){
+					if(diMajorTwoBean.getSchMajorID().equals(MajorID)){
+						if(diMajorTwoBean.getSchMajorName().equals(MajorNameInSch)){
 							flag = true ;
 							break ;
 						}else{
@@ -364,6 +365,7 @@ public class T321Excel {
 			t321_Bean.setUnitName(UnitName);
 			t321_Bean.setUnitID(UnitID);
 			t321_Bean.setTime(TimeUtil.changeDateY(selectYear));
+			t321_Bean.setCheckState(Constants.WAIT_CHECK);
 			list.add(t321_Bean);
 			System.out.println("数字");
 			System.out.println(count);

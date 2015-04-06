@@ -38,7 +38,6 @@ public class S31_Service {
 
 	public S31_Bean getYearInfo(String year){
 		boolean flag=false;
-		System.out.println("一定输出来2");
 		
 		T311_Service T311_services = new T311_Service();
 		T312_Service T312_services = new T312_Service();

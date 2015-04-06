@@ -182,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="dlg1" class="easyui-dialog" style="width:300px;height:150px;padding:10px 20px;" closed="true" data-options="modal:true"
 		buttons="#dlg1-buttons">
 		<form action='pages/T42/dataExport?excelName=<%=URLEncoder.encode("表4-2校领导基本信息（党院办）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data">
-			  <select class="easyui-combobox"  id="cbYearContrast" name="selectYear"  editable=false ></select>&nbsp;&nbsp;	
+			  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;	
 	   </form>	
     </div>
 
@@ -213,19 +213,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							data-options="valueField:'teaName',textField:'teaId',url:'pages/T411/loadT411',listHeight:'auto',editable:true,
 							onSelect:function(){
 							 	 document.getElementById('teaId').value=$(this).combobox('getText') ;
+							 	  document.getElementById('name1').value=$(this).combobox('getValue') ;
 							 }">
 				<span id="teaIdSpan"></span>
 				</div>
 				</td>
 				<td class="empty"></td>
-				<td><div class="fitem">
+				<td>
+				<div class="fitem">
+				<label>姓名：</label>
+				<input id="name1" name="Name" readonly="true" style="color:grey">
+				</div>
+				</td>
+
+			</tr>
+			<tr>
+			<td><div class="fitem">
 				<label>职务：</label> 
 				<input id="duty" type="text" name="T42_bean.duty"
 				class="easyui-validatebox" ><span id="dutySpan"></span>
 				</div>
 				</td>
-			</tr>
-			<tr>
+				<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>性别：</label> 
@@ -236,8 +245,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span id="genderSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
-				<td>
+				
+
+			</tr>
+			<tr>
+			<td>
 					<div class="fitem">
 						<label>出生日期：</label> 
 						<input class="easyui-datebox"  id="birthday" type="text" 
@@ -245,8 +257,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="birthdaySpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+			<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>最高学位：</label> 
@@ -255,7 +266,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="topDegreeSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
+				
+
+			</tr>
+			<tr>
 				<td>
 					<div class="fitem">
 						<label>学历：</label> 
@@ -264,8 +278,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="educationSpan"></span>
 					</div>
 				</td>
-			</tr>
-			<tr>
+			<td class="empty"></td>
 				<td>
 					<div class="fitem">
 						<label>入校时间：</label> 
@@ -274,8 +287,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="joinSchTimeSpan"></span>
 					</div>
 				</td>
-				<td class="empty"></td>
-				<td>
+				
+
+			</tr>
+			<tr>
+			<td>
 					<div class="fitem">
 						<label>专业技术职称：</label> 
 						<input id="majTechTitle" type="text" name="T42_bean.majTechTitle" class="easyui-validatebox" >
@@ -325,6 +341,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
     	var currentYear = new Date().getFullYear();
     	var select = document.getElementById("cbYearContrast");
+    	for (var i = 0; i <= 10; i++) {
+        var theOption = document.createElement("option");
+        	theOption.innerHTML = currentYear-i + "年";
+        	theOption.value = currentYear-i;
+        	select.appendChild(theOption);
+    	}
+    	
+    　　　　var select1 = document.getElementById("cbYearContrast1");
     	for (var i = 0; i <= 10; i++) {
         var theOption = document.createElement("option");
         	theOption.innerHTML = currentYear-i + "年";

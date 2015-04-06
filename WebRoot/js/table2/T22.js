@@ -66,7 +66,7 @@
 				        	 	"precision": 2
 				    		}
 				        } },
-				        { "name": "其中：独立使用", "group": "9.会堂", "editor": "numberbox", "value": "", "field": "hallNum" },
+				        { "name": "数量（个）", "group": "9.会堂", "editor": "numberbox", "value": "", "field": "hallNum" },
 				        { "name": "面积‌‌（平方米）", "group": "10.学生食堂", "value": "", "field": "stuCanteenArea","editor": {
 				    		"type":"numberbox",
 				    		"options":{

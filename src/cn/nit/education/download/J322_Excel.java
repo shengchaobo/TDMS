@@ -57,6 +57,10 @@ public class J322_Excel {
 		}
 	}
 	
+	public static void main (String args[]){
+		export_J322("E:","2015");
+	}
+	
 	
 
 

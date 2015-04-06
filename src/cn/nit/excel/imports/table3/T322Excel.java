@@ -234,120 +234,112 @@ public class T322Excel {
 				    String MajorPurpose=cell[17].getContents().trim();
 				    
 				    if(MajorFeature == null || MajorFeature.equals("")||MajorFeature.length()>1000){
-						return "第" + count + "行，专业特色不能为空且字数不能超过500";
+						return "第" + count + "行，专业特色不能为空且字数不能超过1000";
 					} 
 					
 					if(MajorPurpose == null || MajorPurpose.equals("")||MajorPurpose.length()>100){
-						return "第" + count + "行，专业培养目标不能为空且字符数不能超过500";
+						return "第" + count + "行，专业培养目标不能为空且字数不能超过1000";
 					}
 				    
 				    
 					String AppvlYear = cell[18].getContents().trim() ;
 					
-					if(AppvlYear == null || AppvlYear.equals("")){
-						return "第" + count + "行，批准建设年度不能为空" ;
+					if(!(AppvlYear == null || AppvlYear.equals(""))){
+					    if(!TimeUtil.judgeFormatYM(AppvlYear)){
+							return "第" + count + "行，批准建设年度格式有误（格式如：2013-02）" ;
+						}
 					}
 					
-				    if(!TimeUtil.judgeFormatYM(AppvlYear)){
-						return "第" + count + "行，批准建设年度格式有误（格式如：2013-02）" ;
-					}
+
 				    
 				    String BuildAppvlID = cell[19].getContents().trim();
 				    
-				    if(BuildAppvlID == null || BuildAppvlID.equals("")){
-				    	return "第" + count + "行，建设批文号不能为空" ;
-				    }
+
 
 				    String MajorLevel=cell[20].getContents().trim();
-					if(MajorLevel == null || MajorLevel.equals("")){
-						return "第" + count + "行，级别不能为空";
-					}
-					for(DiAwardLevelBean diAwardLevelBean : diAwardLevelList){
-						if(diAwardLevelBean.getAwardLevel().equals(MajorLevel)){
-							MajorLevel = diAwardLevelBean.getIndexId();
-								flag = true ;
-								break ;
-							}	
+					if(!(MajorLevel == null || MajorLevel.equals(""))){
+						for(DiAwardLevelBean diAwardLevelBean : diAwardLevelList){
+							if(diAwardLevelBean.getAwardLevel().equals(MajorLevel)){
+								MajorLevel = diAwardLevelBean.getIndexId();
+									flag = true ;
+									break ;
+								}	
+							}
+						if(flag==false){
+							return "第" + count + "行，所填级别有误" ;
+			
+						}else{
+							flag=false;
 						}
-					if(flag==false){
-						return "第" + count + "行，所填级别有误" ;
-		
-					}else{
-						flag=false;
 					}
+
+
 					
 					
 					
 					String Type=cell[21].getContents().trim();
-					if(!(Type.equals("特色专业")||Type.equals("品牌专业")||Type.equals("名牌专业")||Type.equals("示范专业")||Type.equals("重点建设专业")||Type.equals("地方优势专业"))){
+					if(!(Type == null || Type.equals(""))){
+					if(!(Type.equals("特色专业")||Type.equals("品牌专业")||Type.equals("名牌专业")||Type.equals("示范专业")||Type.equals("重点建设专业")||Type.equals("地方优势专业")||Type.equals("其他"))){
 						return "第" + count + "行，所填类型有误" ;
+					}
 					}
 					
 				    String Field = cell[22].getContents().trim();
 				    
-				    if(Field == null || Field.equals("")){
-				    	return "第" + count + "行，领域、方向不能为空" ;
-				    }
+
 
 					String Leader = cell[23].getContents().trim();
 					String TeaID=cell[24].getContents().trim();
 					
-					if(Leader == null || Leader.equals("")){
-						return "第" + count + "行，建设负责人不能为空";
-					}
-					
-					if(TeaID == null || TeaID.equals("")){
-						return "第" + count + "行，教工号不能为空";
+					if(!((Leader == null || Leader.equals(""))&&(TeaID == null || TeaID.equals("")))){
+						for(T411_Bean t411_Bean : t411_BeanList){
+							if(t411_Bean.getTeaId().equals(TeaID)){
+								if(t411_Bean.getTeaName().equals(Leader)){
+									flag = true ;
+									break ;
+								}else{
+									return "第" + count + "行，建设负责人与教工号不对应" ;
+									
+								}
+							}//if
+						}//for
+						
+						if(!flag){
+							return "第" + count + "行，没有与之相匹配的教工号" ;
+						}else{
+							flag=false;
+						}
 					}
 
-					for(T411_Bean t411_Bean : t411_BeanList){
-						if(t411_Bean.getTeaId().equals(TeaID)){
-							if(t411_Bean.getTeaName().equals(Leader)){
-								flag = true ;
-								break ;
-							}else{
-								return "第" + count + "行，建设负责人与教工号不对应" ;
-								
-							}
-						}//if
-					}//for
-					
-					if(!flag){
-						return "第" + count + "行，没有与之相匹配的教工号" ;
-					}else{
-						flag=false;
-					}
+
+
 					
 					String CheckTime = cell[25].getContents().trim() ;
 					
-					if(CheckTime == null || CheckTime.equals("")){
-						return "第" + count + "行，验收时间不能为空" ;
-					}
-					
-				    if(!TimeUtil.judgeFormatYM(CheckTime)){
+					if(!(CheckTime == null || CheckTime.equals(""))){
 						return "第" + count + "行，验收时间格式有误（格式如：2013-02）" ;
 					}
 					
 				    String CheckAppvlID = cell[26].getContents().trim();
 				    
-				    if(CheckAppvlID == null || CheckAppvlID.equals("")){
-				    	return "第" + count + "行，验收批文号不能为空" ;
-				    }
+//				    if(CheckAppvlID == null || CheckAppvlID.equals("")){
+//				    	return "第" + count + "行，验收批文号不能为空" ;
+//				    }
 
 				    Pattern pattern = Pattern.compile("([-\\+]?[0-9]([0-9]*)(\\.[0-9]+)?)|(^0$)"); 
 				    String SchExp1=cell[27].getContents().trim();
-				    if(SchExp1 == null || SchExp1.equals("")){
-				    	return "第" + count + "行，学校经费(万元)不能为空" ;
-				    }else if(!pattern.matcher(SchExp1).matches()){
-				    	return "第" + count + "行，学校经费(万元)应该填数字" ;
+				    if(!(SchExp1 == null || SchExp1.equals(""))){
+				    	if(!pattern.matcher(SchExp1).matches()){
+					    	return "第" + count + "行，学校经费(万元)应该填数字" ;
+					    }
 				    }
 				    double SchExp = Double.parseDouble(SchExp1);
 				    String EduMinistryExp1 = cell[28].getContents().trim();
-				    if(EduMinistryExp1 == null || EduMinistryExp1.equals("")){
-				    	return "第" + count + "行，教育部经费(万元)不能为空" ;
-				    }else if(!pattern.matcher(EduMinistryExp1).matches()){
-				    	return "第" + count + "行，教育部经费(万元)应该填数字" ;
-				    }
+				    if(!(EduMinistryExp1 == null || EduMinistryExp1.equals(""))){
+				    	if(!pattern.matcher(EduMinistryExp1).matches()){
+					    	return "第" + count + "行，教育部经费(万元)应该填数字" ;
+					    }
+				    } 
 				    double EduMinistryExp=Double.parseDouble(EduMinistryExp1);
 				    
 				
@@ -401,11 +393,13 @@ public class T322Excel {
 					    }
 
 				    }else if(AppvlResult.equals("未通过")){
-
-						
-					    if(!TimeUtil.judgeFormatYM(FirstAppvlTime)){
-							return "第" + count + "行，首次通过认证时间格式有误（格式如：2013-02）" ;
+						if(!(FirstAppvlTime == null || FirstAppvlTime.equals(""))){
+						    if(!TimeUtil.judgeFormatYM(FirstAppvlTime)){
+								return "第" + count + "行，首次通过认证时间格式有误（格式如：2013-02）" ;
+							}
 						}
+						
+
 						if(AppvlTime == null || AppvlTime.equals("")){
 							return "第" + count + "行，认证结果为未通过，认证时间不能为空" ;
 						}

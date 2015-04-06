@@ -369,7 +369,7 @@ public class T312_Action {
 		if("111".equals(userBean.getRoleID())){
 			String year = (String)getRequest().getSession().getAttribute("allYear") ;
 			list = docAndGraStaSer.totalList(year,Constants.PASS_CHECK);
-			sheetName = "表3-1-2博士点 、硕士点（研究生院）";
+			sheetName = "表3-1-2博士点/ 、硕士点（研究生院）";
 		}else{					
 			list = docAndGraStaSer.totalList(this.getSelectYear(),Constants.PASS_CHECK);					
 			sheetName = this.excelName;

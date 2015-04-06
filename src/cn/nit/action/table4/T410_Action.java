@@ -462,7 +462,7 @@ public class T410_Action {
 		if("111".equals(userBean.getRoleID())){
 			String year = (String)request.getSession().getAttribute("allYear") ;
 			bean = T410_services.totalList(year,Constants.PASS_CHECK);
-			sheetName = "表2-1占地与建筑面积（后勤处）";
+			sheetName = "表4-10教师科研情况（科研处）";
 		}else{
 			bean = T410_services.totalList(this.getSelectYear(),Constants.PASS_CHECK);
 			sheetName = this.excelName;

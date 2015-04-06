@@ -41,7 +41,7 @@ public class T321_Service {
 	public String auditingData(String conditions, String fillDept, int page, int rows){
 		
 	    int total = t321_DAO.totalAuditingData(conditions, fillDept) ;
-		List<T321POJO> list = t321_DAO.auditingData(conditions, fillDept, page, rows) ;
+		List<T321_Bean> list = t321_DAO.auditingData(conditions, fillDept, page, rows) ;
 		Pagition pages = new Pagition(total, list) ;
 //		System.out.println("total:"+total);
 //		System.out.println("list:"+list.size());

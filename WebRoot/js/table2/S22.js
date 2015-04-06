@@ -2,12 +2,12 @@
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
 				        { "name": "1.教学科研及辅助用房（平方米）", "group": "", "value": "",  "field": "sumTeaArea","editor": false},
-				        { "name": "其中：教室", "group": "", "value": "", "field": "classrmArea", "editor":  false},
-				        { "name": "图书馆", "value": "", "group": "", "field": "libArea", "editor":  false},
-				        { "name": "实验室、实习场所", "value": "", "group": "", "field": "labArea", "editor":  false },
-				        { "name": "专用科研用房", "group": "", "value": "", "field": "resArea", "editor": false },
-				        { "name": "体育馆", "group": "", "value": "", "field": "phyArea", "editor": false},
-				        { "name": "会堂", "group": "", "value": "", "field": "hallArea", "editor": false},
+				        { "name": "<font color=white>——</font>其中：教室", "group": "", "value": "", "field": "classrmArea", "editor":  false},
+				        { "name": "<font color=white>————</font>　图书馆", "value": "", "group": "", "field": "libArea", "editor":  false},
+				        { "name": "<font color=white>————</font>　实验室、实习场所", "value": "", "group": "", "field": "labArea", "editor":  false },
+				        { "name": "<font color=white>————</font>　专用科研用房", "group": "", "value": "", "field": "resArea", "editor": false },
+				        { "name": "<font color=white>————</font>　体育馆", "group": "", "value": "", "field": "phyArea", "editor": false},
+				        { "name": "<font color=white>————</font>　会堂", "group": "", "value": "", "field": "hallArea", "editor": false},
 				        { "name": "2.行政用房（平方米）", "group": "", "value": "", "field": "sumAdminArea", "editor": false} 
 				    ];
 				    							

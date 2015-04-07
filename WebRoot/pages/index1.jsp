@@ -36,6 +36,8 @@ a { text-decoration: none}
 a:link {color: #000000}
 a:hover {color: #FF0000}
 a:active {color: #0000FF}
+li {list-style-type: none;height: 24px;}
+ul,li {margin:0;padding:0;}
  </style>
   </head>
   
@@ -121,7 +123,7 @@ a:active {color: #0000FF}
 			<Form id="batchForm" enctype="multipart/form-data" method="post">
 				<label　style="width: 100px">请选择文件：</label> 
 				<input  type="file"  id="upload" name="uploadFile" size=25 style="height: 24px;"/>
-				<input type="button" value=" 提交 "  onclick="batchImport()" style="height: 24px;"s/>
+				<input type="button" value=" 提交 "  onclick="batchImport()" style="height: 24px;"/>
 			</Form>
 		</div>
 	</div>	
@@ -198,7 +200,7 @@ return jsonLength;
 
         var ul=document.getElementById("show"+i);             
         var obj=document.createElement("li");         
-        obj.innerHTML="<a href='downloadFileofMain?FileNum="+num+"&fileName="+txt+"&type_1="+i+"'>"+txt+"</a>&nbsp;&nbsp;&nbsp;&nbsp;<a title='删除' herf='javascript:void(0)' onclick='deleteFile("+i+","+num+")'><img src='images/delete.jpg' border='0'/></a>";           
+        obj.innerHTML="<a title='下载' href='downloadFileofMain?FileNum="+num+"&fileName="+txt+"&type_1="+i+"'>"+txt+"</a>&nbsp;&nbsp;&nbsp;&nbsp;<a title='删除' herf='javascript:void(0)' onclick='deleteFile("+i+","+num+")'><img src='images/delete.jpg' border='0'/></a>";           
         ul.appendChild(obj); 
  }
    

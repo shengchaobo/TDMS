@@ -1,7 +1,7 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "1.开设的职业生涯规划及创业教育指导课程数（个）", "group": "", "value": "",  "field": "courseNum","editor": "numberbox" },
+				        { "name": "1.开设的职业生涯规划及创业教育指导课程数（门）", "group": "", "value": "",  "field": "courseNum","editor": "numberbox" },
 				        { "name": "2.课程门次数（门次）", "group": "", "value": "",  "field": "courseTimes","editor": "numberbox" },
 				        { "name": "3.任课教师数（人）", "group": "", "value": "",  "field": "teaNum","editor": "numberbox" },
 				        { "name": "4.面向学生数（人）", "group": "", "value": "",  "field": "stuNum","editor": "numberbox" }

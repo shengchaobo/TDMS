@@ -1,7 +1,7 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-					        { "name": "1.学校教育经费收入总额（万元）", "group": "", "value": "",  "field": "sumIncome","editor": false },
+					        { "name": "收入总额", "group": "1.学校教育经费收入（万元）", "value": "",  "field": "sumIncome","editor": false },
 					        { "name": "收入总计", "group": "2.其中本科教育事业收入（万元）", "value": "", "field": "sumUndergraIncome", "editor":  false },
 					        { "name": "<font color=white>——</font>本科生生均拨款总额：总数", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "allocateFund", "editor":  false },
 					        { "name": "<font color=white>————————————</font>国家", "value": "", "group": "2.其中本科教育事业收入（万元）", "field": "nationFund", "editor":  {

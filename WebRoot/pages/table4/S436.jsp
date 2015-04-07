@@ -72,10 +72,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href='pages/T411/dataExport1?excelName=<%=URLEncoder.encode("S-4-3-6其他师资信息","UTF-8")%>&param=6'  class="easyui-linkbutton" iconCls="icon-download" plain="true" >数据导出</a> 
 		</div>
 		<form method="post"  id="searchForm"   style="float: right;height: 24px;"  >
-			<!-- 两个文体输入框，可以避免enter键自动刷新事件 -->
-			<input id="hiddenText" type="text"  style="display:none" />
-		 	教工号 :&nbsp;<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
-			<a href="javascript:void(0)" class="easyui-linkbutton"  iconCls="icon-search"  plain="true" onclick="reloadgrid()">查询</a>
+				<table id="test" width="280">
+					<tr>
+						<td>
+							教工号:
+						</td>
+						<td>
+							<input id="searchID"  name=" searchID"  class="easyui-box" style="height:24px" />
+						</td>
+						<td>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+								iconCls="icon-search" plain="true" onclick=	reloadgrid();>查询</a>
+						</td>
+					</tr>
+				</table>
 		</form>
 	</div>
 </body>

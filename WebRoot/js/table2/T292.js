@@ -1,7 +1,7 @@
 	$(function(){  
 				var selectYear = $("#cbYearContrast").combobox('getValue'); 
 				var rows = [
-				        { "name": "1.学校教育经费支出总额（万元）", "group": "", "value": "",  "field": "schTeaExpTotal","editor":  {
+				        { "name": "支出总额", "group": "1.学校教育经费支出（万元）", "value": "",  "field": "schTeaExpTotal","editor":  {
 				    		"type":"numberbox",
 				    		"options":{
 				        	 	"min":  0,

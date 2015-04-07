@@ -52,15 +52,24 @@ public class T733_Service {
 	
 	}
 	/**
-	 * 获取字典表的所有数据
+	 * 按年份按单位导出
 	 * @return
 	 *
 	 * @time: 2014-5-14/下午02:34:42
 	 */
-	public List<T733POJO> totalList(String year){	
-		return t733_DAO.totalList(year);
+	public List<T733_Bean> totalList(String year,String fillUnitID){	
+		return t733_DAO.totalList(year,fillUnitID);
 	}
 	
+	/**
+	 * 教育部导出
+	 * @return
+	 *
+	 * @time: 2014-5-14/下午02:34:42
+	 */
+	public List<T733_Bean> totalList(String year){	
+		return t733_DAO.totalList(year);
+	}
 	/**
 	 * 生成查条件
 	 * @param seqNum

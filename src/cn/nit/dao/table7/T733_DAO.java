@@ -144,20 +144,21 @@ public class T733_DAO {
 		 *
 		 * @time: 2014-5-14/下午02:34:42
 		 */
-		public List<T733POJO> totalList(String year){		
+		public List<T733_Bean> totalList(String year){		
             StringBuffer sql=new StringBuffer();			
-			sql.append("select  t.SeqNumber,t.UnitName,dbt.UnitID as UnitID,t.UnitID as UnitIDD,t.MeetingDate,t.MeetingMemberInfo,t.MeetingNum,t.MeetingTheme,t.MeetingResult,t.Time,t.Note");
+			sql.append("select  t.SeqNumber,t.UnitName,dbt.UnitID as UnitID," +
+					"t.MeetingDate,t.MeetingMemberInfo,t.MeetingNum,t.MeetingTheme,t.MeetingResult,t.Time,t.Note");
 			sql.append(" from " + tableName + " as t, DiDepartment  dbt");
 			sql.append(" where dbt.UnitID=t.UnitID and t.Time like '"+year+"%'");
 			Connection conn = DBConnection.instance.getConnection() ;
 			Statement st = null ;
 			ResultSet rs = null ;
-			List<T733POJO> list = null ;
+			List<T733_Bean> list = null ;
 			
 			try{
 				st = conn.createStatement() ;
 				rs = st.executeQuery(sql.toString()) ;
-				list = DAOUtil.getList(rs, T733POJO.class) ;
+				list = DAOUtil.getList(rs, T733_Bean.class) ;
 			}catch(Exception e){
 				e.printStackTrace() ;
 				return null ;
@@ -168,6 +169,8 @@ public class T733_DAO {
 			}
 			return list ;
 		}
+		
+		
 		 public boolean update(T733_Bean t733_B){
 			boolean flag=false;
 			
@@ -186,6 +189,38 @@ public class T733_DAO {
 			return flag;
 		}
 		 
+		 
+		 /**
+			 * 按年份和填写单位导出
+			 * @return
+			 *
+			 * @time: 2014-5-14/下午02:34:42
+			 */
+			public List<T733_Bean> totalList(String year,String fillUnitID){		
+	            StringBuffer sql=new StringBuffer();			
+				sql.append("select  t.SeqNumber,t.UnitName,dbt.UnitID as UnitID,t.MeetingDate,t.MeetingMemberInfo," +
+						"t.MeetingNum,t.MeetingTheme,t.MeetingResult,t.Time,t.Note,t.FillUnitID");
+				sql.append(" from " + tableName + " as t, DiDepartment  dbt");
+				sql.append(" where dbt.UnitID=t.UnitID and t.FillUnitID="+fillUnitID+" and t.Time like '"+year+"%'");
+				Connection conn = DBConnection.instance.getConnection() ;
+				Statement st = null ;
+				ResultSet rs = null ;
+				List<T733_Bean> list = null ;
+				
+				try{
+					st = conn.createStatement() ;
+					rs = st.executeQuery(sql.toString()) ;
+					list = DAOUtil.getList(rs, T733_Bean.class) ;
+				}catch(Exception e){
+					e.printStackTrace() ;
+					return null ;
+				}finally{
+					DBConnection.close(rs);
+					DBConnection.close(st);	
+					DBConnection.close(conn);
+				}
+				return list ;
+			}
 		 /**
 			 * 模板导入
 			 * @param diCourseCategories

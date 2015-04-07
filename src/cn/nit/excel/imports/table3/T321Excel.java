@@ -125,8 +125,8 @@ public class T321Excel {
 						}
 
 						for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
-							if(diMajorTwoBean.getMajorNum().equals(MajorID)){
-								if(diMajorTwoBean.getMajorName().equals(MajorNameInSch)){
+							if(diMajorTwoBean.getSchMajorID().equals(MajorID)){
+								if(diMajorTwoBean.getSchMajorName().equals(MajorNameInSch)){
 									flag = true ;
 									break ;
 								}else{
@@ -229,8 +229,8 @@ public class T321Excel {
 					}
 
 					for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
-						if(diMajorTwoBean.getMajorNum().equals(MajorID)){
-							if(diMajorTwoBean.getMajorName().equals(MajorNameInSch)){
+						if(diMajorTwoBean.getSchMajorID().equals(MajorID)){
+							if(diMajorTwoBean.getSchMajorName().equals(MajorNameInSch)){
 								flag = true ;
 								break ;
 							}else{
@@ -304,8 +304,8 @@ public class T321Excel {
 				}
 
 				for(DiMajorTwoBean diMajorTwoBean : diMajorTwoList){
-					if(diMajorTwoBean.getMajorNum().equals(MajorID)){
-						if(diMajorTwoBean.getMajorName().equals(MajorNameInSch)){
+					if(diMajorTwoBean.getSchMajorID().equals(MajorID)){
+						if(diMajorTwoBean.getSchMajorName().equals(MajorNameInSch)){
 							flag = true ;
 							break ;
 						}else{

@@ -162,7 +162,7 @@ public class T11_Action {
 	//保存
 	public void save(){
 		
-//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
+    	System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++") ;
 		HttpServletResponse response = ServletActionContext.getResponse();
 		int tag = 0;
 		boolean flag = false;
@@ -205,7 +205,8 @@ public class T11_Action {
 			//System.out.println(tempData);
 					
 			T11_Bean bean  = ToBeanUtil.toBean(tempData, T11_Bean.class);
-											
+					
+//			System.out.println("field:"+bean.getMajDept());
 			flag = t11Ser.save(bean,this.getSelectYear(),this.getFields());
 			if(flag){
 				//保存成功

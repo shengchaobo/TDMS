@@ -239,12 +239,10 @@ public class T11DAO {
 			if(list.size() != 0){
 				tempBean = list.get(0);
 				bean.setSeqNumber(tempBean.getSeqNumber());	
-				
-				
 				flag = DAOUtil.update(bean, tableName, key, fields, conn) ;
 				
 			}else{
-				flag = DAOUtil.insert(bean, tableName, key, conn) ;
+				flag = DAOUtil.insert(bean, tableName, field, conn) ;
 			}
 		}catch(Exception e){
 			e.printStackTrace() ;

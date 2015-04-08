@@ -4,7 +4,7 @@
 				        { "name": "总量（册）", "group": "1.纸质图书", "value": "",  "field": "paperBookNum","editor": "numberbox" },
 				        { "name": "数量（份）", "group": "2.纸质期刊", "value": "", "field": "paperJonalNum", "editor": "numberbox" },
 				        { "name": "种类（种）", "value": "", "group": "2.纸质期刊", "field": "paperJonalType", "editor": "numberbox" },
-				        { "name": "数量（种）", "value": "", "group": "3.电子图书", "field": "digBookType", "editor": "numberbox" },
+				        { "name": "数量（种）", "value": "", "group": "3.电子图书", "field": "digBookType", "editor": false },
 				        { "name": "<font color=white>——</font>其中：中文数量（种）", "group": "3.电子图书", "value": "", "field": "chiDigBookType", "editor": "numberbox" },
 				        { "name": "<font color=white>——</font>其中：外文数量（种）", "group": "3.电子图书", "editor": "numberbox", "value": "", "field": "forDigBookType" },
 				        { "name": "电子图书总量（GB）", "group": "3.电子图书", "value": "", "field": "digBookSize", "editor": "numberbox" },

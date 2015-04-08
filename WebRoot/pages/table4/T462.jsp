@@ -174,7 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 			</thead>
 	</table>
-	<div id="toolbar2" style="float: right;">
+	<div id="toolbar2">
 				<form action='pages/T461/dataExport?param=2&excelName=<%=URLEncoder.encode("表4-6-2教师所获荣誉-师德先进个人、研究与创作奖（宣传部）","UTF-8")%>'   method="post"  id="exportForm" enctype="multipart/form-data"  style="float: right;">
 					  <select class="easyui-combobox"  id="cbYearContrast1" name="selectYear"  editable=false ></select>&nbsp;&nbsp;
 						<a href='javascript:submitForm()'   style="font:12px;color: black;text-decoration:none;" >

@@ -36,6 +36,8 @@ a { text-decoration: none}
 a:link {color: #000000}
 a:hover {color: #FF0000}
 a:active {color: #0000FF}
+li {list-style-type: none;height: 24px;}
+ul,li {margin:0;padding:0;}
  </style>
   </head>
   
@@ -168,7 +170,7 @@ return jsonLength;
 
         var ul=document.getElementById("show"+i);             
         var obj=document.createElement("li");         
-        obj.innerHTML="<a href='downloadFileofMain?FileNum="+num+"&fileName="+txt+"&type_1="+i+"'>"+txt+"</a>";           
+        obj.innerHTML="<a title='下载' href='downloadFileofMain?FileNum="+num+"&fileName="+txt+"&type_1="+i+"'>"+txt+"</a>";           
         ul.appendChild(obj); 
  }
    

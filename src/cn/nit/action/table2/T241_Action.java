@@ -82,10 +82,7 @@ public class T241_Action {
 			flag = true;
 		}
 		
-		
 		PrintWriter out = null ;
-		
-		
 		
 		if(flag == false){
 			System.out.print("无该年数据!!!");

@@ -158,12 +158,12 @@ function Query() {
     	+" " + leftJoin1+fieldName1+" " +logicRelation1+" " +leftJoin11+paramValueTemp1+rightJoin1;
     }
     
-   	$.messager.confirm('确认数据查询语句', querySqlTemp, function(sure) {
-		if (sure) {			
+   	//$.messager.confirm('确认数据查询语句', querySqlTemp, function(sure) {
+	//	if (sure) {			
 			 //清空div
 			document.getElementById("divDatagrid").innerHTML ="";
 			//动态创建表
-			 $('#divDatagrid').html('<table id="totalTb"></table>');
+			$('#divDatagrid').html('<table id="totalTb"></table>');
 			 
 		    //通过ajax请求生成的新的datagrid的列名
 		    $.ajax({
@@ -598,8 +598,8 @@ function Query() {
                     });		        	 
 		         }
 		    });
-	    }
-   	});
+	   // }
+   	//});
 }
 
 

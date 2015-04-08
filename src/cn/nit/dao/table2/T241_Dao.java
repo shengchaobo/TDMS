@@ -81,21 +81,56 @@ public class T241_Dao {
 				
 				String tempfields = "";
 				if(tempBean.getCheckState() == Constants.WAIT_CHECK){
-					flag = DAOUtil.update(bean, tableName, keyfield, fields, conn) ;
+					tempfields = fields + ",DigBookType";
 				}
 				if(tempBean.getCheckState() == Constants.NOPASS_CHECK){
-					tempfields = fields + ",CheckState";
+					tempfields = fields + ",DigBookType,CheckState";
 					bean.setCheckState(Constants.WAIT_CHECK);
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(tempBean.getTime());
 					int year1 = cal.get(Calendar.YEAR); 
 					checkDao.delete("T241", year1 ) ;
-					flag = DAOUtil.update(bean, tableName, keyfield, tempfields, conn) ;
 				}
+				
+				int digBookType = tempBean.getDigBookType();
+				
+				if(bean.getChiDigBookType()!=null){
+					if(tempBean.getChiDigBookType()==null){
+						digBookType = digBookType + bean.getChiDigBookType();
+					}else{
+						digBookType = digBookType + bean.getChiDigBookType() - tempBean.getChiDigBookType();
+					}
+				}
+				
+				if(bean.getForDigBookType()!=null){
+					if(tempBean.getChiDigBookType()==null){
+						digBookType = digBookType + bean.getForDigBookType();
+					}else{
+						digBookType = digBookType + bean.getForDigBookType() - tempBean.getForDigBookType();
+					}
+				}
+				
+				bean.setDigBookType(digBookType);
+
+				
+				flag = DAOUtil.update(bean, tableName, keyfield, tempfields, conn) ;
+				
 			}else{
 				bean.setTime(TimeUtil.changeDateY(year));
 				bean.setCheckState(Constants.WAIT_CHECK);
-				String tempfields = fields + ",Time,CheckState";
+				
+				int digBookType = 0;
+
+				if(bean.getChiDigBookType()!=null){
+					digBookType = digBookType + bean.getChiDigBookType();
+				}
+				
+				if(bean.getForDigBookType()!=null){
+					digBookType = digBookType + bean.getForDigBookType();
+				}
+				bean.setDigBookType(digBookType);
+				
+				String tempfields = fields + ",DigBookType,Time,CheckState";
 				flag = DAOUtil.insert(bean, tableName, tempfields, conn) ;
 			}
 		}catch(Exception e){
